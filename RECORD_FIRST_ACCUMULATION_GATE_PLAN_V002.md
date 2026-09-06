@@ -155,7 +155,17 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   total/connector per-retained ratios `0.9999998198`/`0.9999999506` and these
   two single-environment resource observations authorize no convergence,
   limit, fit, scaling or complexity law, autonomous support, grid, continuum,
-  Ward, phase, graviton, or gravity claim.
+  Ward, phase, graviton, or gravity claim. The subsequent append-only
+  L4/L6/L8/L10/L12/L14 compilation passes target `18/18`, independent hostile
+  reconstruction `31/31`, and pinned hostile verification `48/48`. It
+  preserves the five prior rows and four comparators exactly as parsed data,
+  appends only the L14 row and L12-to-L14 comparator, and changes no physics.
+  Its L14 total/connector throughput per retained record is
+  `0.5212946879711271`/`0.16815441043467425`; the adjacent ratios are
+  `0.9999998198427575`/`0.9999999506387015`. These are finite raw records, not
+  monotonicity, a trend, convergence, a limit, exponent, fit, scaling law, or
+  continuum behavior. The residual rows remain raw unassigned terms rather
+  than defects or fit inputs.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

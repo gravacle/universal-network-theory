@@ -436,6 +436,24 @@ record, not a convergence, limit, fit, scaling or
 complexity law, autonomous-support selection, grid, continuum, Ward, phase,
 graviton, or gravity result.
 
+The append-only L4/L6/L8/L10/L12/L14 trajectory compilation now passes target
+`18/18`, independent hostile reconstruction `31/31`, and pinned hostile
+verification `48/48`. The audit required a bounded pre-promotion repair to the
+structured claim ceiling and parsed-data wording; no numerical row,
+comparator, formula, or theorem changed. It proves exact parsed-data
+preservation of all five prior rows and four prior adjacent comparators, then
+independently reconstructs the L14 row and L12-to-L14 comparator with no
+numerical discrepancy.
+
+At L14, total/connector throughput per retained record is
+`0.5212946879711271/0.16815441043467425`; the adjacent L12-to-L14 ratios are
+`0.9999998198427575/0.9999999506387015`. These are raw finite record values
+and one adjacent comparison only. The six residual rows remain raw unassigned
+record-ledger terms and are not called defects or used as fit inputs. No
+monotonicity, trend, convergence, limit, exponent, fit, scaling law,
+autonomous support, grid, continuum, Ward structure, phase, graviton, or
+gravity is promoted.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

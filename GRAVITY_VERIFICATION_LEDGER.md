@@ -1063,6 +1063,37 @@ observations. No convergence, limit, fit, exponent, scaling or complexity
 law, autonomous support, physical grid, continuum, Ward structure, phase,
 graviton, or gravity is promoted.
 
+### Connected L4/L6/L8/L10/L12/L14 raw trajectory — PASS, APPEND ONLY
+
+`DEVELOPMENT_R_CONNECTED_RECORD_TRAJECTORY_L4_L14_V001/` and
+`AUDIT_R_CONNECTED_RECORD_TRAJECTORY_L4_L14_V001/` pin the sealed L4--L12
+trajectory and the separately hostile-audited L14 target/audit, preserve the
+first five rows and four adjacent comparators exactly as parsed data, and
+append only one row and one comparator. The target passes `18/18`; an
+independent append reconstruction passes `31/31`; the pinned hostile verifier
+passes `48/48`.
+
+Before promotion, the hostile audit required the structured claim ceiling to
+withhold `TREND` and generic `PHASE`, and required “byte-for-byte as parsed
+data” to be corrected to “exactly as parsed data.” No numerical row,
+comparator, formula, or theorem changed. The reconstructed target result,
+including the L14 row and L12-to-L14 comparator, has no numerical discrepancy.
+
+At L14, total throughput per retained record is `0.5212946879711271`,
+connector throughput per retained record is `0.16815441043467425`, and maximum
+absolute connected-edge correlation is `0.03604917681151288`. The
+L12-to-L14 site/retained ratios are
+`1.587962962962963/1.587962962962858`; total/connector throughput ratios are
+`1.5879626768798294/1.5879628845789442`; their per-retained ratios are
+`0.9999998198427575/0.9999999506387015`.
+
+These are six finite raw rows and five finite adjacent comparisons. They do
+not establish monotonicity, trend, convergence, a limit, exponent, fit, or
+scaling law. All six residual rows remain raw unassigned numerical
+record-ledger terms, are not called defects, and are not used as fit inputs.
+No autonomous support, grid, continuum, Ward structure, phase, graviton, or
+gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
