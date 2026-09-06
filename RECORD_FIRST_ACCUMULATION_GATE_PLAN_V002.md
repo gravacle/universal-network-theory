@@ -78,7 +78,14 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   simultaneous BS09 exponential, with 96 edges owned once and finite CTP
   normalization `Z[0,0]=1`. The support and mission parameters remain
   conditional; this is existence of connected microscopic transport, not an
-  autonomous support or generic-phase claim.
+  autonomous support or generic-phase claim. The hostile-audited L6 successor
+  preserves that same uniform preparation and simultaneous-Hamiltonian rule on
+  18 connected twelve-site components. It covers 216 sites, 108 lineages and
+  324 owner-once edges; all 12 internal and 6 connector currents per component
+  are numerically active, expected retention is 54, and the finite CTP again
+  has one source per unique edge with `Z[0,0]=1`. Its refined raw residual and
+  L6/L4 ratios are numerical finite-record observations, not exact quadrature,
+  a fitted scaling law, autonomous support selection, or a phase claim.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

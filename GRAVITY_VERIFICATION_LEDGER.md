@@ -715,6 +715,46 @@ read remain conditional. Residuals remain unassigned rather than defects. No
 grid, continuum, Ward structure, critical law, mature macro dynamics,
 graviton, or gravity is promoted.
 
+### Autonomous connected L6 accumulation — PASS, CONDITIONAL SUPPORT
+
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L6_ACCUMULATION_V001/` and
+`AUDIT_R_AUTONOMOUS_CONNECTED_L6_ACCUMULATION_V001/` extend the same uniform
+F3-MDC preparation and simultaneous BS09 Hamiltonian from the connected L4
+witness to L6. Eighteen identical twelve-site components cover all 216 sites
+in `108+108` F3 layers. Each component consists of two six-cycles and six
+opposite-parity connector/seam edges, is degree three and BFS-connected, and
+owns 12 internal plus 6 connector edges once. The global census is 11,664
+possible F3 links, 324 selected edges, 108 source lineages, and expected
+retained total 54.
+
+At conditional `kappa=pi/2`, one simultaneous BS09 exponential activates all
+`12/12` internal and `6/6` connector supports per component. Refined current
+magnitudes are `0.0882107462` internally and `0.0836430325` on connectors.
+Raw absolute throughput is `1.5603871492` per component and
+`28.0869686859` globally; connector/seam throughput is `0.5018581948` per
+component and `9.0334475069` globally. Expected retained total is 54. The
+finite L6/L4 total-throughput ratio is `3.5293818600`, and its per-retained
+ratio is `1.0457427733`; neither is a fitted scaling law.
+
+The 4,096-state component calculation is matrix-free. Its order-10 Taylor
+evolution and Simpson current integral were refined from 1,024 to 2,048
+panels. The current refinement is `1.973e-12`; fine raw residuals are
+`4.740e-12` L1 and `4.073e-13` Linf per component, with global tiled L1 bound
+`8.532e-11`. These are unassigned numerical record-ledger residuals, not
+defects. One refinement pair is a convergence diagnostic, not exact
+quadrature. A distinct hostile matrix-free RK4(4096)+Simpson reconstruction
+agrees with all occupations and signed currents, retention, correlations,
+conserved quantities, residuals, and ratios. The target passes `20/20`; the
+hostile audit passes `32/32` and requires no correction.
+
+The finite owner-once CTP assigns one deformation source to each of the 324
+unique Hamiltonian edges and has `Z[0,0]=1`; it is not a 1PI action or Ward
+identity. This is a second finite connected-support accumulation record, not
+autonomous selection of that support or a generic connected phase. Support,
+`kappa`, separate `t` and `tau`, clock, content, source routing, and complete
+read remain conditional. No grid, continuum, Ward structure, critical law,
+mature macro dynamics, graviton, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

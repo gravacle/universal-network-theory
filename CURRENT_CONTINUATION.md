@@ -227,6 +227,32 @@ connected construction at the next finite size, retaining explicit support
 and source ownership. Do not infer a grid, continuum, Ward behavior, critical
 law, mature macro dynamics, or gravity.
 
+The connected L6 successor now passes hostile audit without correction.
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L6_ACCUMULATION_V001/` and its audit use
+18 connected components, each formed from two six-cycles and six
+opposite-parity connector/seam edges. They cover all 216 L6 sites in
+`108+108` F3 layers and own 324 selected edges once. The uniform F3-MDC
+head/tail source and one simultaneous BS09 exponential at conditional
+`kappa=pi/2` are unchanged; there is no component-dependent source, node
+stagger, or finite gate order.
+
+All 12 internal and 6 connector currents per component are active. Refined
+raw total throughput is `1.5603871492` per component and `28.0869686859`
+globally; connector throughput is `0.5018581948` per component and
+`9.0334475069` globally. Expected retained total is 54. The finite L6/L4
+total and per-retained throughput ratios are `3.5293818600` and
+`1.0457427733`. Fine numerical residuals are `4.740e-12` L1 and `4.073e-13`
+Linf per component, unassigned rather than called defects. The target passes
+`20/20`; a distinct matrix-free RK4 hostile reconstruction passes `32/32`.
+
+This remains conditional-support microscopic accumulation. Its refinement is
+not exact quadrature, its size comparison is not a fitted scaling law, and it
+does not select the support or a generic phase. Continue the same connected
+construction to the next feasible finite member while preserving the uniform
+source, owner-once edge census, explicit numerical controls, and independent
+hostile audit. Do not infer a grid, continuum, Ward behavior, critical law,
+mature macro dynamics, or gravity.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
