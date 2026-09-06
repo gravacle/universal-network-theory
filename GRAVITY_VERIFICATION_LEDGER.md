@@ -1432,6 +1432,77 @@ Gate R-C, and Gate A-P.
 No strictly monotone forward propagation delay, metric strain, gravitational
 time dilation, Shapiro delay, continuum behavior, or gravity is established.
 
+### Gate R-C L8 rail-wrap removal control — PASS, RING-MEDIATED FINITE CLASSIFICATION
+
+`DEVELOPMENT_R_GATE_C_L8_OPEN_LADDER_CONTROL_V001/` and
+`AUDIT_R_GATE_C_L8_OPEN_LADDER_CONTROL_V001/` pass. The target direct
+order-ten Taylor calculation replays `21/21`; the independent unitary
+fourth-order Suzuki--Yoshida reconstruction passes `67/67` with no material
+discrepancy and no execution above L8.
+
+The target initially failed closed at `20/21` because the pre-run topology
+assertion expected one longer path around nodes `1,2,3`; exact enumeration
+found two. Before hostile audit, only that census expectation and its prose
+were corrected, the failed candidate result was discarded, and the complete
+target was regenerated. No transport rule, measurement definition, or
+physics row was repaired after inspection.
+
+The Option-B modification removes exactly two periodic rail owner edges,
+`(7,0,rail_1)` and `(15,8,rail_2)`, from the sealed 24-owner prism. The other
+22 owner-once edges and all eight connectors remain. Nodes `0,7,8,15` have
+degree two; the other twelve retain degree three. The unique shortest
+probe-to-target path is `0 -> 1 -> 2 -> 3 -> 4`, length four. Two length-six
+paths remain after blocking nodes `1,2,3`:
+
+```text
+0 -> 9 -> 8  -> 7  -> 6  -> 5  -> 4
+0 -> 9 -> 10 -> 11 -> 12 -> 13 -> 4
+```
+
+Thus “open ladder” means exact removal of the two requested periodic rail
+wraps, not a unique route for every history.
+
+The authenticated parent, probe at node zero, adjacent background writes at
+nodes `1..N`, target node four, common phase, ensemble subtraction, first-
+positive-target-occupation-peak rule on `0<t<=2*pi`, and connector-current
+window `0<=t<=pi/2` match the sealed periodic packet.
+
+| N | target `tau_open` | target first peak `delta q4` | target marginal connector L1 | hostile `tau_open` |
+|---:|---:|---:|---:|---:|
+| 0 | `1.1974061137276009` | `0.0002462973237123699` | `0.5339977312906832` | `1.1974061136070784` |
+| 1 | `2.9482687345816307` | `0.11666068263543386` | `0.4087555596203229` | `2.9482687345235066` |
+| 2 | `3.0406393906456524` | `0.10676888201045551` | `0.3128688034406347` | `3.040639390594083` |
+| 3 | `3.096778890302728` | `0.10576720311412718` | `0.2783392390938487` | `3.096778890253325` |
+
+`tau_open` is strictly increasing. Independently,
+`tau_open(3)-tau_open(2)=0.05613949965924192 > 0`, so the sealed periodic
+`N=3 < N=2` inversion disappears. The marginal probe-accessible connector L1
+also decreases strictly across `N=0..3`. The maximum target-versus-hostile
+errors are `1.206e-10` for time, `7.247e-12` for peak occupation, `5.628e-12`
+across all 32 connector-vector components, and `8.256e-12` across all 88
+complete marginal-current components. Hostile complete-history and
+differential-ledger L1 remainders are at most `1.363e-10` and `7.229e-11`.
+
+Because the periodic and open packets differ by exactly the two rail-wrap
+owners, the predeclared bounded classification is: the arrival inversion is
+ring-mediated in this finite periodic-versus-open comparison, rather than an
+inversion intrinsic to the rail-wrap-removed support. This does not establish
+a general microscopic mechanism or exclude interference through the two
+retained longer paths.
+
+**Proved:** exact two-owner removal, open-support/path census, authenticated
+write ledgers, and owner-once continuity identities. **Adopted:** literal
+Option B, common phase, background subtraction, bounded windows, and first-
+positive-peak rule. **Conditional:** the all-blank parent, ensemble
+difference, and finite solvers. **Empirical:** the four open arrival and
+connector rows and the finite periodic/open comparison. **Open:** other
+boundary cuts, connector patterns, phases, windows, individual route/lineage,
+a physical metric or clock, macroscopic emergence, Gate R-C, and Gate A-P.
+
+This is solely a topological classification of discrete transport modes under
+owner-once conservation. No metric time dilation, Shapiro delay, macroscopic
+gravitational emergence, or gravity is asserted.
+
 ## Claim boundary
 
 No statement in this ledger derives a physical Ward identity,

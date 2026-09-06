@@ -76,6 +76,21 @@ all global bypass/interference nor identifies individual earlier routes. No
 monotone propagation delay, physical metric, time dilation, Shapiro delay, or
 gravity is established; Gate R-C and Gate A-P remain open.
 
+The literal Option-B rail-wrap removal control now passes target `21/21` and
+independent hostile audit `67/67`. Removing only owner edges `7 -> 0` and
+`15 -> 8` changes the periodic `N=3 < N=2` arrival inversion into strictly
+increasing open-support times: `1.1974061137276009`,
+`2.9482687345816307`, `3.0406393906456524`, and `3.096778890302728`.
+Independently, `tau_open(3)-tau_open(2)=0.05613949965924192 > 0`; all four
+times agree with target within `1.206e-10`. Marginal connector L1 also falls
+strictly `0.5339977312906832 -> 0.4087555596203229 ->
+0.3128688034406347 -> 0.2783392390938487`. This supports the bounded
+classification that the periodic inversion is ring-mediated in this exact
+two-edge comparison. The open support still has two length-six routes around
+nodes `1,2,3`, so unique route or individual lineage is not established. The
+result is a discrete topology classification, not a metric or emergence
+claim; Gate R-C and Gate A-P remain open.
+
 The first prepared L8 baseline passed after hostile repair: lineages
 `32 -> 256`, expected retained total `16 -> 128`, density `1/4`, absolute
 oriented seam throughput `16 -> 128`, and raw carrier record-ledger residuals
