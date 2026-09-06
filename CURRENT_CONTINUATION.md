@@ -339,8 +339,28 @@ observations.
 
 The exact finite compression is authorized for a refined connected L12 run
 under the same uniform source, supplied support, owner-once, numerical-
-refinement, and hostile-audit controls. Do not infer a grid, continuum, Ward
-behavior, critical law, mature macro dynamics, or gravity.
+refinement, and hostile-audit controls.
+
+That connected L12 run now passes hostile audit without correction. It covers
+1,728 sites in 72 connected components, 864 lineages, and 2,592 owner-once
+edges, with expected retained total 432. All 24 internal and 12 connector
+currents per component are active. Global total/connector throughput is
+`225.1993457748/72.6427088935`; the finite L12/L10 total/per-retained
+comparison is `1.7279838016/0.9999906259`.
+
+The bounded 512/1,024 target has fine residual `1.430e-10` L1 and
+`5.960e-12` Linf per component, raw and unassigned rather than called a
+defect. Its target suite passes `22/22`; an independent order-24 quotient and
+RK4 hostile reconstruction passes `38/38`. One target run took
+`321.367049417 s` and `2.23431396484375 GiB` RSS on the declared 48 GiB host.
+Only the finite basis is exact; evolution and quadrature remain numerical.
+The resource values are one host observation, not a complexity claim.
+
+This is another conditional finite record, not evidence of convergence,
+scaling, a limit, autonomous support, or a generic phase. Continue only with a
+further bounded finite member or a raw trajectory compilation under the same
+controls. Do not infer a grid, continuum, Ward behavior, critical law, mature
+macro dynamics, or gravity.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 

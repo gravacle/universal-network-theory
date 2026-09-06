@@ -933,6 +933,54 @@ group/orbit/quotient/current-reconstruction identities; dynamics and
 quadrature remain numerical. No autonomous support, grid, continuum, Ward
 structure, phase, graviton, or gravity is promoted.
 
+### Autonomous connected L12 accumulation — PASS, CONDITIONAL SUPPORT
+
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L12_ACCUMULATION_V001/` and
+`AUDIT_R_AUTONOMOUS_CONNECTED_L12_ACCUMULATION_V001/` apply the audited
+order-`2L` finite basis to the same uniform F3-MDC source and simultaneous
+BS09 Hamiltonian at L12. Seventy-two connected cubic twenty-four-site
+components cover all 1,728 sites in `864+864` F3 layers. Each owns 24 internal
+plus 12 connector edges once. The global census is 746,496 possible links,
+2,592 selected edges, 864 source lineages, and expected retained total 432.
+
+The exact order-24 group partitions 16,777,216 component words into 704,370
+orbits; the owner-once quotient has 12,582,508 nonzero entries, 201,320,128
+stored bytes, zero displayed Hermiticity mismatch, and two signed edge orbits.
+At conditional `kappa=pi/2`, all `24/24` internal and `12/12` connector
+supports per component are active. Refined current magnitudes are
+`0.0882850908` internally and `0.0840772094` on connectors. Raw absolute
+throughput is `3.1277686913` per component and `225.1993457748` globally;
+connector/seam throughput is `1.0089265124` per component and
+`72.6427088935` globally. Expected retained total is 432.
+
+Finite total/per-retained throughput comparisons are
+`28.2983363117/1.0480865301` against L4,
+`8.0179298910/1.0022412364` against L6,
+`3.3743462977/0.9998063104` against L8, and
+`1.7279838016/0.9999906259` against L10. These are raw finite comparators, not
+monotonicity, convergence, a limit, fitted scaling, or a continuum law.
+
+The bounded target uses a 512/1,024-panel Taylor-10/Simpson pair. Current
+refinement is `3.165e-11`; fine raw residuals are `1.430e-10` L1 and
+`5.960e-12` Linf per component, with global tiled L1 bound `1.030e-8`. The
+coarse/fine L1 ratio `16.906` is numerical Simpson-consistency evidence only.
+The larger residual remains a raw unassigned record-ledger term, not a defect.
+
+A hostile generator-BFS/destination-normalized quotient and independent
+RK4(1536)+Simpson evolution reproduce all occupations and 36 signed currents.
+Maximum target differences are `1.476e-10` and `3.998e-11`. The independent
+residual `7.575e-10` L1/`3.529e-11` Linf is retained as its own numerical
+diagnostic, not substituted for the target residual. The target passes
+`22/22`; hostile verification passes `38/38` with no correction.
+
+One target run on the declared 48 GiB host took `321.367049417 s` and used
+`2,399,076,352` bytes (`2.23431396484375 GiB`) maximum RSS. This is one host
+observation, not a complexity claim. Finite CTP assigns one source to each of
+the 2,592 unique edges and has `Z[0,0]=1`; it is not a 1PI action or Ward
+identity. Support, `kappa`, separate `t` and `tau`, clock, content, routing,
+and read remain conditional. No autonomous support, grid, continuum, Ward
+structure, phase, graviton, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

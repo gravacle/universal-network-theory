@@ -108,7 +108,13 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   audited order-`2L` prism-orbit subgroup is authorized as a second exact
   finite compression after reproducing every lower-size current and
   occupation. “Prism” is only a graph relabeling; it supplies no physical grid
-  or geometry. Its L12 screen is structural, not an evolved record.
+  or geometry. The subsequent hostile-audited L12 evolution covers 1,728 sites
+  in 72 connected components, owns 2,592 selected edges once, starts 864
+  lineages, and retains expectation 432. All 24 internal and 12 connector
+  currents per component are numerically active. Its coarser bounded
+  quadrature, raw residual, finite comparators, and resource use remain
+  explicitly classified; none is a continuum, phase, scaling, or complexity
+  law.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

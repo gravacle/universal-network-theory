@@ -1,0 +1,11 @@
+# Hostile audit — autonomous connected L12 accumulation
+
+The L12 packet passes without correction. An independent generator-BFS rebuilds the order-24 group and all 16,777,216 word assignments, producing 704,370 orbits with the sealed histogram. A destination-normalized quotient assembly, distinct from the target source-representative route, produces 12,582,508 entries, 201,320,128 array bytes, zero Hermiticity mismatch, and two consistent signed oriented-edge orbits.
+
+The component is a connected cubic two-C12 graph with 24 internal and 12 shifted connector edges. Seventy-two components give 1,728 sites in `864+864` layers, 746,496 possible links, 2,592 selected owner-once edges, 864 source lineages, and retained expectation 432.
+
+Independent RK4(1536)+Simpson evolution—non-Taylor and deliberately differently ordered—reconstructs all 36 signed currents. Maximum differences from the target are `1.476e-10` for occupations and `3.998e-11` for currents. Its global total/connector throughputs are `225.19934567263164` and `72.64270886040775`, retained expectation `431.99999999360557`, and all L12/L4/L6/L8/L10 ratios agree within the independent integration envelope. Direct continuity residuals are `7.575e-10` L1 and `3.529e-11` Linf per component; norm, energy, number-sector law, and connected correlation also pass. These independent residuals are numerical diagnostics, not target replacements or defects.
+
+The target's 512/1,024 Taylor-10/Simpson refinement has current difference `3.1648322851296484e-11`; its fine L1 residual is `1.430063845120344e-10` versus coarse `2.417646638441795e-9`, ratio `16.906`. This is Simpson-consistency evidence only. The larger residual is retained raw and unassigned; neither evolution nor quadrature is exact.
+
+The declared-48-GiB resource record (`321.367049417 s`, `2,399,076,352` bytes or `2.23431396484375 GiB`) is one host observation, not a complexity claim. Finite CTP has one source per 2,592 unique edges and `Z[0,0]=1`, not a 1PI action or Ward identity. Support, kappa, t/tau, clock, content, routing, and read remain conditional. No defect, grid, continuum, monotonicity, limit, scaling law, Ward, critical or generic phase, graviton, or gravity is promoted. No correction required.
