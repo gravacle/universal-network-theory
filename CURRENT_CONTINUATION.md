@@ -35,6 +35,14 @@ record-ledger residual appears, classify it as a possibly necessary active
 owner or collective term before judging it; do not call it a defect by
 default.
 
+The first Gate R-C interaction/retention stress now passes hostile audit at
+conditional scope. Across 128 disjoint native interaction blocks, expected
+retained total stays `128`, positional expectations redistribute `64/64 ->
+32/96`, per-block positional TV is `1/4`, oriented throughput is `32`, and
+all record-ledger residuals remain zero. Continue with the repeated-scale
+interaction trajectory and then connected (non-disjoint) accumulation stress;
+do not infer individual lineage transport, criticality, or continuum behavior.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

@@ -259,6 +259,23 @@ scope pass `31/31` before final result-status sealing.
 This closes only the first prepared Gate B-R baseline. Generic interacting
 accumulation and retention stress remain Gate R-C work.
 
+### Gate R-C — FIRST INTERACTION/RETENTION STRESS: PASS, CONDITIONAL
+
+`DEVELOPMENT_R_GATE_C_L8_INTERACTION_RETENTION_STRESS_V001/` and
+`AUDIT_R_GATE_C_L8_INTERACTION_RETENTION_STRESS_V001/` pass at conditional
+prepared-interaction scope. On 128 disjoint native two-record blocks, the raw
+pair distribution changes from `(1/4,1/4,1/4,1/4)` to
+`(1/4,1/2,0,1/4)`, with positional TV `1/4` per block. Expected local
+occupations redistribute from `(1/2,1/2)` to `(1/4,3/4)`.
+
+Total retained occupation remains `128`, retention fraction is `1`, absolute
+oriented interaction throughput is `32`, and all cell residuals remain zero.
+This is interaction-driven redistribution, not loss. Individual source-lineage
+motion, criticality, generic interacting accumulation, and continuum behavior
+are not claimed. Target verification passes `18/18`, independent
+reconstruction `17/17`, and audit custody/scope `22/22` before final
+result-status sealing.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
