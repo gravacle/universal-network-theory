@@ -28,7 +28,7 @@ def digest(path: Path) -> str:
 
 
 def count_bits(value: int) -> int:
-    return value.bit_count()
+    return bin(value).count("1")
 
 
 def prism_edges() -> list[tuple[int, int]]:
@@ -109,7 +109,20 @@ def run() -> dict[str, object]:
     target = json.loads(TARGET.read_text())
     hamiltonian = dense_hamiltonian()
     eigenvalues, eigenvectors = np.linalg.eigh(hamiltonian)
-    unitary = (eigenvectors * np.exp(-1j * KAPPA * eigenvalues)) @ eigenvectors.conj().T
+    phase = np.exp(-1j * KAPPA * eigenvalues)
+    unitary = np.einsum(
+        "ik,k,jk->ij",
+        eigenvectors,
+        phase,
+        eigenvectors.conj(),
+        optimize=False,
+    )
+    unitary_product = np.einsum(
+        "ki,kj->ij",
+        unitary.conj(),
+        unitary,
+        optimize=False,
+    )
     state = np.zeros((1 << DONORS, 1 << SITES), dtype=np.complex128)
     state[(1 << DONORS) - 1, 0] = 1.0
     rows = []
@@ -123,7 +136,7 @@ def run() -> dict[str, object]:
         q_admitted = retained_q(admitted)
         g_admitted = genesis_q(admitted)
         write = q_admitted - q_before
-        state = (unitary @ admitted.T).T
+        state = np.einsum("ij,dj->di", unitary, admitted, optimize=False)
         rows.append({
             "event": event,
             "allow_probability": allow,
@@ -145,7 +158,7 @@ def run() -> dict[str, object]:
     )
     checks = {
         "dense_hamiltonian_hermitian": float(np.max(np.abs(hamiltonian - hamiltonian.conj().T))) <= 1.0e-14,
-        "dense_transport_unitary": float(np.max(np.abs(unitary.conj().T @ unitary - np.eye(1 << SITES)))) <= 1.0e-12,
+        "dense_transport_unitary": float(np.max(np.abs(unitary_product - np.eye(1 << SITES)))) <= 1.0e-12,
         "target_classification_pass": target["classification"] == "PASS_L4_INTRINSIC_ADMISSION__COHERENT_UNWRITING_ELIMINATED_ON_DECLARED_TRACE",
         "target_checks_all_pass": all(bool(value) for value in target["checks"].values()),
         "independent_writes_nonnegative": min(float(row["W_n"]) for row in rows) >= -1.0e-12,
@@ -166,7 +179,7 @@ def run() -> dict[str, object]:
         "checks_total": len(checks),
         "maximum_target_independent_disagreement": maximum_disagreement,
         "dense_hermiticity_error": float(np.max(np.abs(hamiltonian - hamiltonian.conj().T))),
-        "dense_unitarity_error": float(np.max(np.abs(unitary.conj().T @ unitary - np.eye(1 << SITES)))),
+        "dense_unitarity_error": float(np.max(np.abs(unitary_product - np.eye(1 << SITES)))),
         "rows": rows,
         "target_sha256": digest(TARGET),
         "target_protocol_sha256": digest(TARGET_DIR / "PROTOCOL.md"),
