@@ -423,6 +423,37 @@ The raw residuals remain unassigned, not physical defects. No physical grid,
 generic retention law, criticality, continuum behavior, Ward structure,
 mature macro dynamics, or gravity is promoted.
 
+### Connected L8 preparation-pattern screen — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_L8_PREPARATION_PATTERN_SCREEN_V001/` and
+`AUDIT_R_CONNECTED_L8_PREPARATION_PATTERN_SCREEN_V001/` pass without repair.
+The support, forward schedule, depth three, source attachment, and complete
+read are held fixed while four onsite preparation labels are screened.
+
+The equal-pattern control has all 16 internal cycle supports active but zero
+of eight inter-cycle supports active; its net inter-cycle throughput is
+`7.22e-16`. Reversed and both one-cycle-only preparations activate all 24
+supports and all eight inter-cycle supports. Their inter-cycle throughputs
+are respectively `0.9477610039941`, `0.4179092011731279`, and
+`0.4179092011731274` per cluster. The two one-cycle-only results agree after
+the exact cycle-label swap with terminal-distribution TV `3.01e-16`.
+
+Across all patterns, full-distribution TV reaches `0.6574390434811216`,
+minimum state fidelity is `0.0937061883806159`, and maximum occupation L1
+distance is `2.959881706601889`. Expected L8 retained total stays `128`
+within `2.28e-13`; the raw residual envelope is `r_1=2.64e-14`,
+`r_infinity=3.61e-15` per cluster, beside norm and number-law controls below
+`2.11e-15` and `2.78e-16`.
+
+The target passes warning-free `16/16`, independent reconstruction `14/14`,
+and custody/result/scope verification `41/41` across 288 gate events. The
+audited conclusion is local: preparation asymmetry is necessary for active
+inter-cycle transport in this fixed symmetric circuit. No universal
+preparation theorem, preferred preparation, measure, or averaging rule is
+derived. Patterns remain raw selected-parent labels; residuals remain
+unassigned rather than physical defects. No grid, criticality, continuum,
+Ward structure, mature macro dynamics, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

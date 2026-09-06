@@ -101,6 +101,17 @@ currently derived. Routine record accumulation may keep schedule as a raw
 record label; any promotion to a schedule-independent or ensemble law needs
 an explicit theory-level decision or physical-parent derivation.
 
+The four-pattern onsite-preparation screen now also passes hostile audit
+without repair. The equal-pattern control leaves all eight inter-cycle
+supports inactive, while reversed and either one-cycle-only pattern activate
+all eight. Complete terminal distributions differ by as much as `0.65744`
+TV, and the two one-sided cases reduce to the same result under the exact
+cycle-label swap. Thus preparation pattern, like event schedule, remains an
+explicit raw record label. The result derives no preferred preparation or
+ensemble. Routine accumulation can continue with labeled histories, but any
+schedule- or preparation-independent law now requires a physical selection
+rule or an explicit theory-level ensemble decision.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
