@@ -1079,3 +1079,31 @@ from the physical parent. Passing those stages--not this finite accumulation
 screen--would be the basis for a bounded gravity-emergence claim. No grid,
 graviton, Ward axiom, continuum assumption, Gate B promotion, emergence, or
 gravity claim is authorized here.
+
+## Intrinsic admission parent L4 disposition — 2026-09-06
+
+The theory-level fresh-ingress decision has been resolved at its smallest
+finite ceiling. A uniform internal loaded/spent admission cell and a one-pass
+relational cursor replace the reused same-port pulse. The Hermitian local
+exchange acts only between `|R,B>` and `|S,x>`; occupied-target components are
+exactly null and accepted branches transfer content while depleting bandwidth
+and sealing lineage.
+
+The L4 trace returns
+
+```text
+PASS_L4_INTRINSIC_ADMISSION__COHERENT_UNWRITING_ELIMINATED_ON_DECLARED_TRACE
+```
+
+with four positive signed uptakes `0.500000000000`, `0.500000000000`,
+`0.485802571216`, and `0.447787020507`. Dynamically blocked weight reaches
+`0.104425958986`, yet its state-change norm is zero. Target checks pass
+`10/10`, dense independent checks pass `12/12`, and the final hostile verifier
+passes `50/50`; maximum cross-method disagreement is `8.438e-15`.
+
+This resolves only the finite coherent-unwriting mechanism. The cursor is
+still an adopted deterministic one-pass reduction. Before any L6+ execution,
+the next required record-first step is to preregister a scalable autonomous
+cursor/genesis parent with complete repeated lineage, resource scaling, and a
+bounded exact representation. The gravity segment remains downstream and
+unexecuted.

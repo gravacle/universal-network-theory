@@ -1861,3 +1861,61 @@ This is a bounded obstruction to repeated coherent pulses at one occupied
 port, not a generic no-go theorem for record accumulation. No grid, graviton,
 Ward axiom, continuum assumption, Gate B promotion, emergence, or gravity
 claim is introduced.
+
+## Intrinsic admission parent L4 trace — 2026-09-06
+
+The same-port obstruction is repaired on one strictly bounded relational
+trace by `DEVELOPMENT_R_INTRINSIC_ADMISSION_PARENT_L4_V001/`. The L4 prism has
+a uniform local admission cell at every vertex; the initial state selects a
+connected four-cell loaded genesis cluster. The physical generator
+
+```text
+K_rel(w,r) = |S,x><R,B| + |R,B><S,x|
+```
+
+transfers complete content from a loaded internal cell to a blank retained
+target. The accepted state simultaneously owns depleted bandwidth and sealed
+`(w,r)` lineage. `K_rel` is separately constructed; `ALLOW` remains a
+configuration predicate, `REQUIRE` an audit condition, and `SELECT` a
+trajectory proposition.
+
+The four one-pass admissions give
+
+| event | `Pr(ALLOW)` | blocked probability | `W_n` |
+|---:|---:|---:|---:|
+| 1 | `1.000000000000` | `0` | `0.500000000000` |
+| 2 | `1.000000000000` | `2.511e-30` | `0.500000000000` |
+| 3 | `0.971605142431` | `0.028394857569` | `0.485802571216` |
+| 4 | `0.895574041014` | `0.104425958986` | `0.447787020507` |
+
+Every blocked-component state-change norm is exactly zero and every fresh
+cell has zero reverse support before its one allowed use. The maximum
+admission content/bandwidth/lineage/owner residual is `4.441e-16`; complete
+content remains `3.9999999999999876`; maximum native transport node-ledger L1
+residual is `2.389e-10`; and maximum target/independent disagreement is
+`8.438e-15`.
+
+The target passes `10/10`, the dense independent reconstruction passes
+`12/12`, and the hash-pinned final verifier passes `50/50`. The separate
+read-only hostile audit additionally reconstructs the local six-state cell
+and confirms Hermiticity, unitarity, complete-content conservation, and exact
+null action on the occupied/inactive sectors.
+
+**Proved for the declared finite trace:** exact blocked-null admission,
+nonnegative signed uptake, and complete internal content, bandwidth, lineage,
+and owner-once accounting. **Adopted:** the uniform three-state cell,
+four-cell genesis initial condition, one-pass internal cursor, pulse, dwell,
+and finite trace. **Empirical/numerically certified:** the table and finite
+transported observables. **Open:** a scalable autonomous cursor/genesis
+parent, complete repeated lineage and resource scaling, an L4--L12 common
+sector, criticality, continuum/macroscopic closure, universal coupling,
+long-range response, metric/action dynamics, emergence, and gravity.
+
+**Certification gate:** the finite result is governing because
+`AUDIT_R_INTRINSIC_ADMISSION_PARENT_L4_V001/FINAL_HOSTILE_AUDIT.md` and
+`AUDIT_R_INTRINSIC_ADMISSION_PARENT_L4_V001/INDEPENDENT_HOSTILE_AUDIT.md`
+record the machine and independent hostile passes. It authorizes only drafting
+and preregistering the scalable relational accumulation protocol, not direct
+L6+ execution. No external reservoir, privileged boundary, absolute global
+clock, grid, graviton, Ward axiom, continuum assumption, emergence, or gravity
+claim is introduced.
