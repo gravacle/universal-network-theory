@@ -211,7 +211,7 @@ dichotomy. **Full statement and status: `THE_CLAIM_V001.md`.**
 | | obstruction | why it is out of reach |
 |---|---|---|
 | **X1** | the topology is a **lattice's**, not spacetime's | nothing in this construction makes it spacetime topology |
-| **X2** | it does **not respond to matter content** | **ROW WITHDRAWN by registered erratum `5c01e47`.** Requiring matter-response imports a classical measure as a criterion (**D-1**); `χ` is a parameter, not an observable. The live question is **G-6 (uniqueness)**, not backreaction |
+| **X2** | it does **not respond to matter content on the tested fixed complex** | **Record-level row withdrawn by registered erratum `5c01e47`; scope repaired 2026-09-06.** Requiring classical matter-response at that record level imports a criterion (**D-1**), and `χ` is a construction parameter there. `G-6` was the then-internal uniqueness question and later failed. The live collective/enlarged-parent questions are `H-1`/`C-77` and conditional `F-3`/`T-II.5`/`H-7`; no response or emergence result is implied. |
 | **X3** | **the outcome problem** — which unravelling is physical | the field's open problem; W-35 relocated it, did not solve it |
 | **X4** | **empirical contact: zero** | not one number in this program came from a measurement |
 

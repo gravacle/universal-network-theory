@@ -985,3 +985,28 @@ changes into the commit.
 The committed GL6BC stage inventory is
 `CHECKPOINT_2026-09-01_GL6BC_URM_STAGE_MANIFEST_V001.txt`.  Any transfer commit
 must use a new exact stage inventory and must not sweep unrelated changes.
+
+## Active 2026-09-06 algebraic-scaling continuation
+
+Before any new scaling row is interpreted, the early allow/require doctrine is
+being repaired in `DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/`.  The scoped
+rule is: internal dynamics on a frozen parent/fiber changes occupancy and not
+the definition of that fiber's permissions; a complete enlarged physical
+parent may own dynamical carrier variables and inter-fiber transitions.  The
+second statement is a conditional reopening, not a physical construction.
+
+The target becomes governing only after both the frozen mechanical screen and
+the independent semantic hostile report in
+`AUDIT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/` pass.  Historical register and record-
+formation files remain byte-identical.
+
+After that gate, the next numerical checkpoint is the separately frozen
+`rho=1/4` centerline calculation at `L=10,q=5` and `L=12,q=6`, using adaptive
+response-cyclic Krylov with the lowest five values retained for reporting.
+The sealed `L=4,6,8` rows are validation controls.  A failed `z=1`
+compatibility screen halts this algebraic-scaling route; a pass authorizes only
+a native operator-first algebra screen.  Boolean permission projectors remain
+null controls and cannot supply a spacetime algebra or anomaly.
+
+No grid, graviton, Ward axiom, continuum assumption, Gate B promotion,
+emergence, or gravity claim is authorized by this continuation.

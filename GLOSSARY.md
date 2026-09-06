@@ -61,7 +61,7 @@ Three columns of honesty:
 | **what the environment learns** | BORROWED | **Holevo information `χ`** — Holevo (1973) |
 | **the environment holds a copy** | **RENAMING** | **quantum Darwinism** — Zurek, Blume-Kohout, Riedel, Ollivier; the code-distance threshold via **Girard–Cheng–Cao Thm 4** |
 | **the arrow / of the past** | **RENAMING** | `I(S:B)` invariance under local unitaries. **Arithmetic** |
-| **allow / occupancy** typing (D-4) | **OURS** | our discipline: dynamics produces occupancies, never permissions |
+| **allow / require / select** typing (D-4, scoped 2026-09-06) | **OURS** | on a frozen parent/fiber, admissibility-preserving internal dynamics changes occupancy without redefining permissions; an enlarged parent may own dynamical carrier-fiber transitions, while `SELECT` remains a separate law |
 | **the bath** | BORROWED | Lindblad/GKSL (1976); **Davies generator** — Davies (1974); **mean-force Gibbs state** at strong coupling |
 
 ## THE COUNTING RESULTS

@@ -1687,3 +1687,41 @@ graviton, emergence, or gravity is asserted.
 
 No statement in this ledger derives a physical Ward identity,
 Einstein/Fierz--Pauli response, \(1/r\) exchange, gravity, \(C_R\), or \(G\).
+
+## Allow / require / select scope repair — 2026-09-06
+
+The target packet is
+`DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/`.  It reconciles the early
+`G-3`/`D-4` doctrine with the later sealed alpha
+`ALLOW/REQUIRE/SELECT` ladder.  Its formal result is bounded to a parent
+scope: admissibility-preserving internal dynamics on one frozen parent/fiber
+changes occupancy without redefining that parent's admitted space.  A complete
+enlarged parent may contain dynamical carrier variables and owned inter-fiber
+maps, so effective subsystem permissions may change while the enlarged
+parent's global admissible space remains fixed.
+
+The live status ledger therefore supersedes `G-3`'s all-level/no-`REQUIRE`
+clause, narrows `D-4`, conditionally reopens `F-3`, `T-II.5`, and `H-7`, and
+records `H-8`'s foreclosure concern as resolved.  `D-1`, fixed-complex `X-2`
+plus `T-21`, `G-4`, `F-2`, `F-7`, `A-GR4`, `C-77`, `H-1`, and every sealed
+Gate R-C numerical result retain their prior scope and evidentiary class.
+`A-GR3` retains the adopted shared-origin shape without depending on the
+superseded all-level premise.
+
+Historical `REGISTER_V001.md` and `RECORD_FORMATION_V001.md` bytes are not
+rewritten.  The dated erratum corrects the old ADM warrant: the Hamiltonian
+and momentum constraints restrict initial data, while the 3+1 Einstein system
+also contains evolution equations.  That correction imports no continuum or
+gravitational structure into the record parent.
+
+**Certification gate:** this section is governing only when
+`AUDIT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/INDEPENDENT_HOSTILE_AUDIT.md` records a
+semantic pass and the frozen hash-pinned verifier records a mechanical pass.
+Absent either pass, the integration remains an unpromoted working-tree target.
+
+**Proved:** the conditional fixed-parent type theorem, exact two-fiber witness,
+and predicate/projector/generator separation. **Adopted:** the typed vocabulary
+and dependency dispositions. **Corrected with external source:** the bounded
+ADM characterization. **Conditional/open:** a physical enlarged parent,
+state-dependent effective permissions in this program, native dynamical
+algebra, anomaly, continuum behavior, emergence, and gravity.
