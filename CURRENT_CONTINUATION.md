@@ -78,6 +78,18 @@ defect. Continue next with a bounded depth trajectory or a larger finite
 native-support component; do not interpret inherited tuple labels as a
 physical grid or infer continuum, critical, Ward, or gravity behavior.
 
+The bounded depth-zero-through-eight successor also passes hostile audit
+after one documented pre-audit tolerance repair. All 24 supports remain
+active at every positive depth. At depth eight, gate-event absolute traffic
+is `5.387857637651692` per cluster, cumulative net throughput is
+`5.102760095563551`, and inter-cycle net throughput is
+`2.0433764227644584`; the distinction retains reversals. Correlation peaks
+earlier and varies non-monotonically. The largest raw ledger residual is
+`4.53e-14` L1 per cluster, unassigned rather than called a defect. The next
+bounded record calculation should vary preparation phase/order or increase
+the native finite support component while preserving owner-once event
+custody; do not translate circuit depth into continuum time.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

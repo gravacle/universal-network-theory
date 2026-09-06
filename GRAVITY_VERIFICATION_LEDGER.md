@@ -364,6 +364,36 @@ equal a simultaneous continuum evolution. No individual post-mixing lineage,
 generic retention law, criticality, continuum, Ward structure, mature macro
 dynamics, or gravity is established.
 
+### Connected L8 circuit-depth trajectory — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_L8_CIRCUIT_DEPTH_TRAJECTORY_V001/` and
+`AUDIT_R_CONNECTED_L8_CIRCUIT_DEPTH_TRAJECTORY_V001/` pass after a documented
+pre-audit tolerance repair. The selected 16-record circuit is repeated from
+depth zero through eight. Every positive-depth checkpoint has all 24
+cumulative supports active, including all eight inter-cycle supports, and the
+eight-depth census contains 192 owner-once gate events.
+
+At depth eight, absolute gate-event traffic is `5.387857637651692` per
+cluster, cumulative net edge throughput is `5.102760095563551`, and
+cumulative net inter-cycle throughput is `2.0433764227644584`. Keeping event
+traffic separate from net support current retains transport reversals.
+Connected correlation is non-monotone and peaks in absolute value at
+`0.06592583672451707` at depth three.
+
+Expected L8 retained total remains `128` within `7.11e-13`. The raw
+per-cluster residual envelope is `r_1=4.53e-14` and
+`r_infinity=4.95e-15`; norm and record-number-law controls remain below
+`4.67e-15` and `6.39e-16`. The initial `5e-13` L8 drift bound failed and was
+repaired before audit to `1e-12`; the independent audit reproduces both the
+failure and passing replacement. This is numerical-tolerance provenance, not
+a physical term.
+
+The target passes warning-free `12/12`, independent reconstruction `16/16`,
+and full custody/result/scope verification `47/47`. Raw residuals remain
+unassigned pending owner classification, not physical defects. Circuit depth
+is not continuum time, and no scaling fit, criticality, Ward structure,
+mature macro dynamics, or gravity is claimed.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
