@@ -64,7 +64,11 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   conserve incidence, and FPSS selects only from a supplied orthogonal
   program. This exact non-selection does not reopen R-A or invalidate the
   conditional R-series records. Autonomous label-anchored support selection
-  remains open; coefficient and clock selection remain conditional.
+  remains open; coefficient and clock selection remain conditional. The
+  hostile-audited L4/L6/L8 `kappa=t tau/hbar` map adds 30 autonomous-BS09
+  finite rows on that declared support, reproduces the `pi/2` baseline, and
+  records nonmonotone finite recurrence without fitting an exponent, critical
+  point, continuum law, or coefficient/clock selection.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

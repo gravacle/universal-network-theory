@@ -157,6 +157,27 @@ keeping coefficient/clock selection and every generic phase claim open. Do
 not return to an arbitrary staggered gate schedule, ensemble averaging,
 continuum, Ward, or gravity.
 
+The authorized `kappa=t tau/hbar` successor now passes hostile audit without
+repair. `DEVELOPMENT_R_AUTONOMOUS_KAPPA_TRAJECTORY_V001/` and its audit cover
+L4/L6/L8 at ten `kappa` values, 30 rows total. Source lineages are
+`32/108/256` and expected retained totals are `16/54/128` in every row. The
+zero control has no current; every positive sampled point has nonzero raw
+throughput. The `pi/2` L4/L8 rows exactly reproduce the prior autonomous
+baseline, while later L8/L4 per-retained throughput ratios vary
+nonmonotonically, including `0.776923` at `pi/2`, `1.356300` at `3pi/4`, and
+`3.379229` at `3pi/2`. This is a finite recurrence record, not a fitted
+scaling or critical law.
+
+The target passes `15/15`, independent reconstruction `9/9`, and hostile
+verification `52/52`. All occupation/current vectors and the sign of
+`q(kappa)-q(0)+J_out-J_in=0` were independently checked. Raw target
+per-cycle residual maxima are `2.554e-15` L1 and `8.188e-16` Linf, unassigned
+rather than defects. The scan selects neither `t` nor `tau`; support, clock,
+content, and complete read remain conditional. Continue the next bounded
+finite-size accumulation rung on this same declared physical-parent slice;
+do not infer a grid, continuum, Ward behavior, mature macro dynamics, or
+gravity.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

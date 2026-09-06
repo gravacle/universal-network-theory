@@ -607,6 +607,38 @@ A-R. Autonomous label-anchored support selection remains open; coefficient
 and clock selection remain conditional. No grid, graph reward, defect,
 continuum, Ward structure, mature macro dynamics, or gravity is promoted.
 
+### Autonomous BS09 `kappa` trajectory — PASS, CONDITIONAL ACCUMULATION MAP
+
+`DEVELOPMENT_R_AUTONOMOUS_KAPPA_TRAJECTORY_V001/` and
+`AUDIT_R_AUTONOMOUS_KAPPA_TRAJECTORY_V001/` map the source-prepared
+simultaneous BS09 evolution at L4, L6, and L8 for ten declared values of
+`kappa=t tau/hbar` from zero through `2pi`. The uniform onsite term commutes
+with hopping and the recorded number-conserving observables, so these declared
+observables depend on `t` and `tau` only through `kappa`. This identity does
+not select either coefficient or the clock.
+
+The 30 rows retain respectively `32/108/256` source lineages and expected
+totals `16/54/128`. The zero-`kappa` control has zero integrated current. At
+every positive sampled `kappa`, raw absolute throughput is nonzero, and the
+`pi/2` L4/L8 rows reproduce the earlier audited physical-parent baseline
+exactly in the target computation. Raw L8/L4 per-retained throughput ratios
+vary from near one at early `kappa` to `0.776923` at `pi/2`, `1.356300` at
+`3pi/4`, and `3.379229` at `3pi/2`; this nonmonotone finite recurrence is not
+fit to a scaling law.
+
+The target passes warning-free `15/15`, independent reconstruction `9/9`,
+and hostile verification `52/52`. Every occupation and integrated-current
+vector was independently compared, including the continuity sign
+`q(kappa)-q(0)+J_out-J_in=0`. Target per-cycle raw residual maxima are
+`2.554e-15` L1 and `8.188e-16` Linf; independent floating-order maxima are
+`2.943e-15` and `8.744e-16`, within the declared controls.
+
+The support program, sampled `kappa`, separate `t` and `tau`, content sector,
+clock/source calibration, and complete read remain conditional. Residuals are
+unassigned record-ledger terms, not defects. No finite gate order, node
+stagger, coefficient selection, physical grid, continuum, Ward structure,
+critical law, mature macro dynamics, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
