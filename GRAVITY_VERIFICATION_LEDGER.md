@@ -755,6 +755,53 @@ autonomous selection of that support or a generic connected phase. Support,
 read remain conditional. No grid, continuum, Ward structure, critical law,
 mature macro dynamics, graviton, or gravity is promoted.
 
+### Autonomous connected L8 accumulation — PASS, CONDITIONAL SUPPORT
+
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L8_ACCUMULATION_V001/` and
+`AUDIT_R_AUTONOMOUS_CONNECTED_L8_ACCUMULATION_V001/` extend the same uniform
+F3-MDC preparation and simultaneous BS09 Hamiltonian to L8. Thirty-two
+identical sixteen-site components cover all 512 sites in `256+256` F3 layers.
+Each component contains two eight-cycles and eight opposite-parity
+connector/seam edges, is degree three and BFS-connected, and owns 16 internal
+plus 8 connector edges once. The global census is 65,536 possible F3 links,
+768 selected edges, 256 source lineages, and expected retained total 128.
+
+At conditional `kappa=pi/2`, all `16/16` internal and `8/8` connector supports
+per component are active. Refined current magnitudes are `0.0882983706`
+internally and `0.0841011442` on connectors. Raw absolute throughput is
+`2.0855830833` per component and `66.7386586644` globally; connector/seam
+throughput is `0.6728091539` per component and `21.5298929261` globally.
+Expected retained total is 128. Finite total/per-retained ratios are
+`8.3863165827/1.0482895728` against L4 and
+`2.3761431648/1.0024353977` against L6. They are comparator records, not a
+fitted scaling law.
+
+The 65,536-state component calculation is matrix-free. Order-10 Taylor
+evolution and Simpson current integration refined from 1,024 to 2,048 panels
+give current difference `1.976e-12`. Fine raw residuals are `6.321e-12` L1
+and `4.034e-13` Linf per component, with global tiled L1 bound `2.023e-10`.
+These remain unassigned numerical record-ledger residuals, not defects; one
+refinement pair is not exact quadrature. A distinct hostile matrix-free
+RK4(4096)+Simpson reconstruction agrees with all occupations and signed
+currents, retention, correlation, conservation, residuals, and size ratios.
+The target passes `21/21`; hostile verification passes `35/35` and requires
+no correction.
+
+One passing 1,024/2,048 run on the declared 48 GiB host took
+`55.522473084 s` and used `73,613,312` bytes (`70.203125 MiB`) maximum RSS.
+These are one-run host observations, not complexity claims. The documented
+pre-result Python 3.9 compatibility failure is author-recorded custody rather
+than independently reproduced evidence; it generated no result and supports
+no physics claim.
+
+The finite owner-once CTP assigns one deformation source to each of the 768
+unique Hamiltonian edges and has `Z[0,0]=1`; it is not a 1PI action or Ward
+identity. This is a third finite connected-support accumulation record, not
+autonomous selection of that support or a generic connected phase. Support,
+`kappa`, separate `t` and `tau`, clock, content, source routing, and complete
+read remain conditional. No grid, continuum, Ward structure, critical law,
+mature macro dynamics, graviton, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

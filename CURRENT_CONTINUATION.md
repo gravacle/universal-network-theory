@@ -253,6 +253,38 @@ source, owner-once edge census, explicit numerical controls, and independent
 hostile audit. Do not infer a grid, continuum, Ward behavior, critical law,
 mature macro dynamics, or gravity.
 
+The connected L8 successor now also passes hostile audit without correction.
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L8_ACCUMULATION_V001/` and its audit use
+32 connected components, each formed from two eight-cycles and eight
+opposite-parity connector/seam edges. They cover all 512 L8 sites in
+`256+256` F3 layers and own 768 selected edges once. The uniform F3-MDC
+head/tail source and one simultaneous BS09 exponential at conditional
+`kappa=pi/2` remain unchanged.
+
+All 16 internal and 8 connector currents per component are active. Refined
+raw total throughput is `2.0855830833` per component and `66.7386586644`
+globally; connector throughput is `0.6728091539` per component and
+`21.5298929261` globally. Expected retained total is 128. Total/per-retained
+comparisons are `8.3863165827/1.0482895728` against L4 and
+`2.3761431648/1.0024353977` against L6. Fine numerical residuals are
+`6.321e-12` L1 and `4.034e-13` Linf per component, unassigned rather than
+called defects.
+
+The 65,536-state matrix-free target passes `21/21`; a distinct RK4 hostile
+reconstruction passes `35/35`. One passing refinement pair took
+`55.522473084 s` and `70.203125 MiB` maximum RSS on the declared 48 GiB host;
+this is one run, not a complexity claim. The documented pre-result Python 3.9
+compatibility event generated no result and is custody history, not evidence.
+
+This remains conditional-support microscopic accumulation. It does not make
+the refinement exact, fit a scaling law, select the support, or establish a
+generic phase. The next finite rung may use an exact finite automorphism
+reduction only after that reduction is cross-checked against the full lower-
+size calculations; this is computational compression, not a continuum
+assumption. Preserve uniform source and owner-once custody. Do not infer a
+grid, continuum, Ward behavior, critical law, mature macro dynamics, or
+gravity.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

@@ -85,7 +85,13 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   are numerically active, expected retention is 54, and the finite CTP again
   has one source per unique edge with `Z[0,0]=1`. Its refined raw residual and
   L6/L4 ratios are numerical finite-record observations, not exact quadrature,
-  a fitted scaling law, autonomous support selection, or a phase claim.
+  a fitted scaling law, autonomous support selection, or a phase claim. The
+  hostile-audited L8 successor covers 512 sites in 32 connected sixteen-site
+  components with 768 owner-once edges and 256 lineages. All 16 internal and
+  8 connector currents per component are numerically active, expected
+  retention is 128, and its L8/L4/L6 comparisons remain finite records. Its
+  65,536-state component solve and resource footprint are host-bounded
+  numerical observations; they add no continuum, complexity, or phase law.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 
