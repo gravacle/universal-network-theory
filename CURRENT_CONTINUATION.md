@@ -68,6 +68,16 @@ The active successor connects pairs of rings into 16-record ladder circuits
 with every circuit transfer gate owned once. Continue to report raw record
 observables without fitting continuum or critical behavior.
 
+That paired-ring successor now passes hostile audit without repair. Sixteen
+finite connected clusters cover all 256 L8 heads; all 24 inherited supports
+per cluster are active, including all eight inter-cycle supports. Expected
+retained total stays `128`, gate-owned throughput is `2.6742223590371705` per
+cluster, and the raw ledger residual is `1.66e-14` L1 per cluster beside
+smaller norm and number-law controls. The residual remains unassigned, not a
+defect. Continue next with a bounded depth trajectory or a larger finite
+native-support component; do not interpret inherited tuple labels as a
+physical grid or infer continuum, critical, Ward, or gravity behavior.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

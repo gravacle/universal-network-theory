@@ -339,6 +339,31 @@ mature macro dynamics, or gravity. The next bounded accumulation stress may
 connect the separate eight-site rings while preserving gate-level owner
 custody.
 
+### Connected L8 paired-ring circuit — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_L8_LADDER_CIRCUIT_V001/` and its hostile audit
+`AUDIT_R_CONNECTED_L8_LADDER_CIRCUIT_V001/` pass without repair. Sixteen
+connected 16-record clusters partition all 256 retained L8 heads. Each
+cluster uses two inherited native-generator cycles and their eight inherited
+third-generator supports; the finite tuple labels are enumeration, not a
+physical grid.
+
+All 24 supports carry nonzero cumulative current after the reversed-stagger
+prepared circuit. Absolute gate-owned throughput is `2.6742223590371705` per
+cluster, maximum absolute connected edge correlation is
+`0.06592583672451707`, and expected L8 retained total remains `128` within
+`1.5e-14`. The raw per-cluster residual is `r_1=1.66e-14` and
+`r_infinity=2.95e-15`, beside norm and number-law controls below `4.5e-16`.
+It remains unassigned pending owner classification and is not called a
+physical defect or promoted to exact zero.
+
+The warning-free target passes `12/12`; the independent full 65,536-state
+reconstruction passes `18/18`; custody/result/scope passes `36/36`. The
+explicit ordered circuit is the selected finite parent and is not claimed to
+equal a simultaneous continuum evolution. No individual post-mixing lineage,
+generic retention law, criticality, continuum, Ward structure, mature macro
+dynamics, or gravity is established.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
