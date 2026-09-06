@@ -44,11 +44,22 @@ No M-series behavior is inferred from passing an R-series gate. In particular,
 record accumulation does not imply continuum behavior, a Ward identity,
 Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
 
+The hostile-audited localized authenticated-write protocol is authorized as a
+bounded Gate A-P prediagnostic, not as M-A closure. It inserts the existing
+`W_R=1/2` blank-target write at one finite support label, restores the same
+source-off connected parent, and retains complete differential current and
+occupation vectors beside finite support-distance bins. Direct L6/L8
+validation and per-size marked-source resource gates precede larger runs.
+Physical distance, global response owners, the lawful quotient, and every
+continuum/Ward claim remain open.
+
 ## Current status
 
 - R-A: `PASS_CONDITIONAL_F3_MDC`, from the audited single-history and active
   seam packets. The raw-source normalization remains adopted, not bare-F3
-  derived.
+  derived. Certification is frozen across the audited conditional connected
+  L4--L14 family, with exact owner/incidence statements kept separate from
+  numerical evolution residuals.
 - R-B: passed at the prepared density-controlled `L=4` versus `L=8` scope.
 - R-C: passed at conditional disjoint-interaction scope. The later
   node-staggered and finite-order connected circuits pass only as conditional

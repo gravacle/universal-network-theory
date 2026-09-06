@@ -454,6 +454,28 @@ monotonicity, trend, convergence, limit, exponent, fit, scaling law,
 autonomous support, grid, continuum, Ward structure, phase, graviton, or
 gravity is promoted.
 
+Gate A-R is now certified and frozen across the hostile-audited conditional
+connected L4--L14 family. The exact source-write ledger and owner-incidence
+telescoping remain distinguished from the controlled numerical L6--L14
+residuals. The freeze does not make those residuals exact zeros or bare-F3-
+derive the adopted source attachment.
+
+The bounded localized-write response protocol now passes target `20/20`,
+independent reconstruction `35/35`, and hostile verification `57/57` without
+correction. It applies the authenticated `W_R=1/2`, `Phi=pi/4` write to one
+baseline-blank even site on a terms-off slice, then turns the source off and
+restores the same owner-once connected Hamiltonian. It freezes complete
+`Delta q`, `Delta J`, source-inclusive differential-ledger, and finite
+support-distance profile records for L6/L8/L10/L12/L14.
+
+The unperturbed `~0.5213/~0.1682` values are an empirical finite-window
+reference only. A local insertion breaks the full invariant basis: exact
+marked-source dimensions rise from `2,176` at L6 to `134,250,496` at L14.
+Direct L6/L8 validation and a per-size resource screen are prerequisites;
+L14 may not be forced. The protocol contains no response datum and leaves
+Gate A-P, global response owners, physical distance, lawful quotient,
+continuum, Ward, phase, graviton, and gravity open.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

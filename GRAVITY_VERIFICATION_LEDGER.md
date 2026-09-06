@@ -211,6 +211,16 @@ The raw-source normalization remains an adopted F3-MDC attachment, not a
 bare-F3 derivation. That status rides every dependent result. Gate A-R closure
 does not promote a generic interacting state or complete macro parent.
 
+**Certification freeze through L14.** The hostile-audited connected
+L4/L6/L8/L10/L12/L14 family now carries the same owner-once support rule,
+complete finite read, common normalization, active internal/connector current
+record, and cellwise/global ledger controls at every size. Gate A-R is
+therefore certified and frozen across this conditional finite family through
+L14. Exact source-write balance and incidence telescoping remain distinct from
+the numerically evolved L6--L14 residuals; the latter are controlled raw terms,
+not exact zeros or defects. This freeze neither bare-F3-derives the source
+attachment nor closes Gate A-P.
+
 ### Gate B-R — MICROSCOPIC RECORD ACCUMULATION: AUTHORIZED
 
 The baseline `L=8` record-accumulation workflow is authorized. Its observables
@@ -1093,6 +1103,38 @@ scaling law. All six residual rows remain raw unassigned numerical
 record-ledger terms, are not called defects, and are not used as fit inputs.
 No autonomous support, grid, continuum, Ward structure, phase, graviton, or
 gravity is promoted.
+
+### Gate A-P localized authenticated-write protocol — PASS, PROTOCOL ONLY
+
+`DEVELOPMENT_R_GATE_AP_LOCALIZED_SOURCE_RESPONSE_PROTOCOL_V001/` and
+`AUDIT_R_GATE_AP_LOCALIZED_SOURCE_RESPONSE_PROTOCOL_V001/` define and
+independently reconstruct the minimal finite source-to-flow diagnostic. The
+target passes `20/20`, the independent reconstruction `35/35`, and the pinned
+hostile verifier `57/57`, with no correction required.
+
+At one canonical component, even site zero is blank in every sealed baseline.
+With connected transport off, the already audited F3-MDC insertion
+`r0=14441248/6075`, `Phi=pi/4` gives
+`(|B>-i|x>)/sqrt(2)`, `Delta Q=1/2`, `W_R=1/2`, and exact write-slice balance
+`1/2+0-1/2=0`. Source and writer then turn off and the original owner-once
+connected Hamiltonian is restored. The finite response record is
+`Delta J_e=J_e(perturbed)-J_e(baseline)` together with complete `Delta q`, and
+its full differential ledger is
+`Delta q_after+B Delta J-(1/2)e_source=r_num`.
+
+Radial bins use `r_e=min(d(source,u),d(source,v))` on the finite support graph
+and retain complete edge vectors beside every bin. They do not define physical
+distance or a grid. Localization breaks the full invariant source symmetry;
+the exact order-two marked-source stabilizer gives orbit dimensions
+`2,176/33,280/526,336/8,396,800/134,250,496` at L6/L8/L10/L12/L14. A marked-
+source or equivalent sector engine must match direct full-space L6/L8 and pass
+a separate resource screen at each larger size; L14 is not forced.
+
+The throughput values near `0.5213/0.1682` are the empirical finite-window
+reference, not an asymptotic or invariant theorem. This packet contains no
+localized response datum and does not close Gate A-P, global response owners,
+or a lawful quotient. No locality/scaling law, physical boundary reflection,
+continuum, Ward structure, phase, graviton, or gravity is promoted.
 
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
