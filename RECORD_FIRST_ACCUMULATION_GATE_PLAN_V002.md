@@ -116,9 +116,10 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   explicitly classified; none is a continuum, phase, scaling, or complexity
   law. The hostile-audited append-only L4/L6/L8/L10/L12 compilation preserves
   the first four records and adds the L12 row without a fit or extrapolation.
-  The same-slice L14 target passes `18/18`, and its hostile reconstruction
-  passes with the target unchanged. The exact order-28 group gives Burnside
-  numerator `269025400` and `9,608,050` word orbits; the conditional candidate
+  The same-slice L14 feasibility-screen target passes `18/18`, and its hostile
+  reconstruction passes with the target unchanged. The exact order-28 group
+  gives Burnside numerator `269025400` and `9,608,050` word orbits; the
+  conditional candidate
   layout gives at most `403,538,100` unaggregated transition slots and a listed
   raw numeric payload ceiling of `11,325,552,642` bytes
   (`10.5477428455 GiB`). This is only a necessary raw-payload capacity screen:
@@ -133,6 +134,28 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   only for a guarded numerical L14 trial with live resource controls, not an
   L14 result or any scaling/grid/continuum/Ward/phase/graviton/gravity
   promotion.
+  That guarded L14 target is now independently reconstructed. The target is
+  canonical `28/28`; custody records that its successful evolution emitted
+  `27/27` before connector-comparator positivity was appended arithmetically
+  from the sealed output and lower inputs. The independent
+  generator-BFS/aggregated-CSR/RK4 result passes `29/29`, and the pinned hostile
+  verifier passes `56/56`. It appends one conditional finite microscopic
+  record with 2,744 sites, 1,372 prepared lineages, 98 connected components,
+  4,116 owner-once edges, analytic retained census 686, and all 42 component
+  currents active. Target retained/total/connector values are
+  `685.9999999999512`/`357.6081559482`/`115.3539255582`; the separate
+  independent values are `685.9999999961508`/`357.6081558708757`/
+  `115.35392553294726`. Target and independent raw residuals are respectively
+  `1.772e-10`/`6.346e-12` and `4.045e-10`/`1.585e-11` L1/Linf per component;
+  they remain unassigned, are not substituted, and are not called defects.
+  On the declared 48 GiB environment, target and independent runtime/RSS
+  observations are respectively
+  `1528.396889875 s`/`6,118,227,968` bytes and
+  `1299.514401041 s`/`5,746,900,992` bytes. The adjacent L14/L12
+  total/connector per-retained ratios `0.9999998198`/`0.9999999506` and these
+  two single-environment resource observations authorize no convergence,
+  limit, fit, scaling or complexity law, autonomous support, grid, continuum,
+  Ward, phase, graviton, or gravity claim.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

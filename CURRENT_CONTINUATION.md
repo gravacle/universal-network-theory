@@ -368,9 +368,10 @@ throughputs per retained record are `0.5212947819` and `0.1681544187`; their
 adjacent L10-to-L12 ratios are `0.9999906259` and `0.9999924916`. They remain
 one finite comparison, not convergence or a limiting value.
 
-The next accumulation step presents a program-level axis choice. Continuing
-to L14 preserves the present conditional source/support/`kappa` slice but
-requires a new feasibility screen beyond the audited L12 in-memory result.
+At the L12 checkpoint, the next accumulation step presented a program-level
+axis choice. Continuing to L14 preserves the present conditional
+source/support/`kappa` slice but requires a new feasibility screen beyond the
+audited L12 in-memory result.
 Sector-streamed or out-of-core representations are candidate implementations,
 not proved necessities; an optimized in-memory route has not been excluded.
 Varying source density, content, support family, or `kappa` instead asks a
@@ -382,14 +383,16 @@ The same-slice L14 feasibility screen now passes target `18/18`; the
 independent hostile reconstruction passes with the target unchanged. The
 exact 28-element finite group has Burnside numerator `269025400` and therefore
 `9,608,050` binary-word orbits. A specified fixed-width candidate has a
-conservative unaggregated transition-slot ceiling of `403,538,100` and listed raw numeric
-payload ceiling `11,325,552,642` bytes = `10.5477428455 GiB`. These are exact
+conservative unaggregated transition-slot ceiling of `403,538,100` and a
+listed raw numeric payload ceiling `11,325,552,642` bytes =
+`10.5477428455 GiB`. These are exact
 finite structural and conditional byte-arithmetic results, not an actual
 quotient nonzero count, process-RSS ceiling, runtime estimate, or L14
 accumulation result. This is only a necessary raw-payload capacity screen; its
 pass status makes a guarded fixed-width implementation trial eligible, with
 live resource logging and an abort threshold below declared capacity;
-L14 evolution, currents, retained record, and residual remain open.
+L14 evolution, currents, retained record, and residual remained open at that
+feasibility-screen stage.
 No complexity or scaling law, autonomous support, grid, continuum, Ward
 structure, phase, graviton, or gravity is promoted.
 
@@ -401,8 +404,37 @@ within `6.25e-17`, without using incidence, continuity, the ledger residual,
 or Ward structure. The initial pre-result half-precision amplitude trial
 failed closed; explicit float64 promotion is verified, and no failed-trial
 value is promoted. The engine is authorized only for a guarded numerical L14
-implementation with live resource controls. No L14 record yet exists, and the
-no-scaling/grid/continuum/Ward/phase/graviton/gravity boundaries remain.
+implementation with live resource controls. At that engine-only stage, no L14
+record yet existed; the no-scaling/grid/continuum/Ward/phase/graviton/gravity
+boundaries remained in force.
+
+The guarded same-slice L14 record now passes a genuinely independent hostile
+numerical reconstruction. The canonical target is `28/28`; the successful
+evolution emitted `27/27` before a connector-comparator positivity check was
+appended arithmetically from that sealed output and sealed lower inputs. The
+independent generator-BFS/aggregated-CSR/RK4 result passes `29/29`, and the
+pinned hostile packet verifier passes `56/56`.
+
+L14 covers 2,744 sites, 1,372 prepared lineages, 98 connected components, and
+4,116 owner-once edges, retaining expectation `685.9999999999512`. All 28
+internal and 14 connector currents per component are active. Target global
+total/connector throughput is `357.6081559482/115.3539255582`; adjacent
+L14/L12 per-retained ratios are `0.9999998198/0.9999999506`. The target raw
+residual is `1.772e-10` L1 and `6.346e-12` Linf per component. The independent
+RK4 residual is separately `4.045e-10/1.585e-11`; it is not substituted for
+the target residual. Both remain raw and unassigned, not defects.
+
+The independent retained expectation is `685.9999999961508`, with global
+total/connector throughputs `357.6081558708757/115.35392553294726`; these
+reproduce rather than replace the target values.
+
+On the declared 48 GiB environment, the target run observed
+`1528.396889875 s` and `6,118,227,968` bytes maximum RSS; the independent run
+observed `1299.514401041 s` and `5,746,900,992` bytes. These are
+single-environment observations. This is one conditional finite microscopic
+record, not a convergence, limit, fit, scaling or
+complexity law, autonomous-support selection, grid, continuum, Ward, phase,
+graviton, or gravity result.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 

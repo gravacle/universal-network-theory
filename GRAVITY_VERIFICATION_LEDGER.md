@@ -1010,14 +1010,14 @@ raw numeric payload ceiling of `11,325,552,642` bytes = `10.5477428455 GiB`.
 The target passes `18/18`; hostile reconstruction passes with the target
 unchanged.
 
-This passes only a necessary raw-payload capacity screen for a guarded
-implementation trial. The transition ceiling is not an actual quotient
-nonzero count; the byte total excludes process overhead and temporary
-structures and is not an RSS bound; no L14 runtime is predicted. L14
+At the feasibility-screen stage, this passed only a necessary raw-payload
+capacity screen for a guarded implementation trial. The transition ceiling is
+not an actual quotient nonzero count; the byte total excludes process overhead and temporary
+structures and is not an RSS bound; no L14 runtime was predicted. L14
 construction, execution footprint, evolution, currents, retained record, and
-record-ledger residual remain open. No complexity or scaling law, autonomous
-support, grid, continuum, Ward structure, phase, graviton, or gravity is
-promoted.
+record-ledger residual remained open at that stage. No complexity or scaling
+law, autonomous support, grid, continuum, Ward structure, phase, graviton, or
+gravity is promoted.
 
 `DEVELOPMENT_R_CONNECTED_FIXED_WIDTH_ENGINE_V001/` then validates the guarded
 engine on all sealed L4/L6/L8/L10 records. Target `40/40` and a target-unchanged
@@ -1029,6 +1029,39 @@ The disclosed pre-result float16 amplitude attempt failed closed; explicit
 float64 promotion is verified, and no failed-trial value is promoted. This
 authorizes guarded numerical engine use only, not an L14 result, scaling law,
 grid, continuum, Ward structure, phase, graviton, or gravity.
+
+### Connected L14 microscopic accumulation — PASS, CONDITIONAL FINITE RECORD
+
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L14_ACCUMULATION_V001/` and
+`AUDIT_R_AUTONOMOUS_CONNECTED_L14_ACCUMULATION_V001/` close the guarded
+same-slice L14 numerical step. The canonical target passes `28/28`; custody
+records that the successful evolution emitted `27/27` before the
+connector-comparator positivity check was appended arithmetically from the
+sealed output and lower inputs. A separate generator-BFS, fixed-width
+aggregated-CSR, representative-diagonal classical-RK4 reconstruction passes
+`29/29`; the pinned hostile verifier passes `56/56` after preserving the prior
+fail-closed history.
+
+The finite record covers 2,744 sites, 1,372 prepared lineages, 98 connected
+components, and 4,116 selected owner-once edges. Retained expectation is
+`685.9999999999512`. All 28 internal and 14 connector currents per component
+are active. Global total and connector throughputs are `357.6081559482` and
+`115.3539255582`. The adjacent L14/L12 per-retained ratios are
+`0.9999998198` and `0.9999999506`, one finite comparison only.
+The separate hostile reconstruction gives retained expectation
+`685.9999999961508` and global total/connector throughputs
+`357.6081558708757`/`115.35392553294726`; it reproduces rather than replaces
+the target values.
+
+The target raw residual is `1.772e-10` L1 and `6.346e-12` Linf per component.
+The independent raw residual is separately `4.045e-10/1.585e-11` and is not
+substituted. Neither is called a defect. On the declared 48 GiB environment,
+target runtime/RSS
+`1528.396889875 s`/`6,118,227,968` bytes and independent runtime/RSS
+`1299.514401041 s`/`5,746,900,992` bytes are empirical single-environment
+observations. No convergence, limit, fit, exponent, scaling or complexity
+law, autonomous support, physical grid, continuum, Ward structure, phase,
+graviton, or gravity is promoted.
 
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
