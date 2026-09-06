@@ -90,6 +90,17 @@ bounded record calculation should vary preparation phase/order or increase
 the native finite support component while preserving owner-once event
 custody; do not translate circuit depth into continuum time.
 
+The three-order screen now passes hostile audit without repair. Forward,
+reverse, and interleaved schedules use the same owner-once supports and all
+conserve retained occupation, but their complete terminal record
+distributions differ by total variation up to `0.36653420105732926`; minimum
+state fidelity is `0.5157506266148363`. Therefore schedule is explicit
+selected-parent record data, not a disposable implementation detail. No
+preferred schedule, schedule measure, averaging rule, or selection law is
+currently derived. Routine record accumulation may keep schedule as a raw
+record label; any promotion to a schedule-independent or ensemble law needs
+an explicit theory-level decision or physical-parent derivation.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

@@ -394,6 +394,35 @@ unassigned pending owner classification, not physical defects. Circuit depth
 is not continuum time, and no scaling fit, criticality, Ward structure,
 mature macro dynamics, or gravity is claimed.
 
+### Connected L8 owner-once order screen — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_L8_CIRCUIT_ORDER_SCREEN_V001/` and
+`AUDIT_R_CONNECTED_L8_CIRCUIT_ORDER_SCREEN_V001/` pass without repair. At
+fixed preparation and depth three, forward, exact-reverse, and interleaved
+schedules each use the same 24 unique native supports exactly once per depth.
+All 24 cumulative currents, including all eight inter-cycle currents, remain
+active in every schedule, and every schedule closes the finite record ledger
+within the declared numerical controls.
+
+Nevertheless, schedule changes materially alter the accumulated terminal
+record. Pairwise full-distribution total variation reaches
+`0.36653420105732926`, minimum state fidelity is `0.5157506266148363`, and
+maximum occupation L1 distance is `0.49438317494441975`. Expected L8 retained
+total remains `128` within `2.14e-13`; the raw residual envelope is
+`r_1=2.30e-14`, `r_infinity=3.78e-15` per cluster, with norm and number-law
+controls below `1.12e-15` and `2.50e-16`.
+
+The target passes warning-free `14/14`, independent reconstruction `12/12`,
+and custody/result/scope verification `34/34` across 216 gate events. The
+proved numerical conclusion is limited: owner-once support and conservation
+do not select one accumulated distribution for noncommuting circuit events.
+Schedule must remain explicit selected-parent record data. No preferred
+order, schedule measure, averaging rule, or selection law is derived.
+
+The raw residuals remain unassigned, not physical defects. No physical grid,
+generic retention law, criticality, continuum behavior, Ward structure,
+mature macro dynamics, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
