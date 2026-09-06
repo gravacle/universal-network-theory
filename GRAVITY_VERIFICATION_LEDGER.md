@@ -168,6 +168,28 @@ retains undefined global owners, so the stationary global action remains
 `OWNER_INCOMPLETE` and physical descent and Ward residuals remain
 `UNDEFINED`.
 
+## Audited stationary G4 carrier sector — PASS, SECTOR-QUALIFIED
+
+`DEVELOPMENT_G_GATE_A_G4_STATIONARY_CARRIER_SEAM_SECTOR_V001/` and
+`AUDIT_G_GATE_A_G4_STATIONARY_CARRIER_SEAM_SECTOR_V001/` extend the active
+edge to all native carrier supports of the inherited periodic `G_4` family.
+The canonical positive-generator orientation has 64 cells and 192 distinct
+undirected supports, each owned once.  The exact incidence equation gives
+regional continuity, `16+16` paired supports across a transverse slab, and
+global periodic telescoping.  The audited current-`1/2` history embeds as a
+nonstationary solution of the same operator equation.
+
+A finite Gibbs member and the complete product-qutrit terminal instrument
+give a normalized stationary CTP generator for the carrier sector.  The
+independent reconstruction passes `81/81` and custody/scope passes `21/21`,
+with disposition `PASS_SECTOR_QUALIFIED`.
+
+The qualifier is mandatory: connector, seam/period, state, and measure are
+explicit only for the native carrier sector.  They are not completed global
+GK02 rows.  Physical state selection and all non-carrier owners remain open;
+the global action is still `OWNER_INCOMPLETE` and descent/Ward residuals are
+still `UNDEFINED`.
+
 ## Gate dispositions
 
 ### Gate A–UV — SINGLE-HISTORY WITNESS CLOSED; PLAN-LEVEL GATE OPEN
@@ -181,8 +203,9 @@ following remain required for plan-level closure:
 1. supply a physical law beyond bare F3 that uniquely fixes the screened
    raw-Jet-to-writer/source normalization; the adopted value alone does not
    close this plan-level requirement;
-2. extend the audited bounded nonzero seam history to the stationary global
-   family rather than treating one active edge as generic;
+2. join the now-global stationary carrier/seam sector to the non-carrier
+   support, matching, retained-field, constraint, boundary, and apparatus
+   sectors without treating sector completion as full-parent completion;
 3. replace every undefined category in the compiled global owner census by
    one common physical formula and then evaluate its residual; and
 4. show that no unowned term remains after state, measure, retained field,

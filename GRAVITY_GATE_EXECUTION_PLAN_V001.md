@@ -99,3 +99,10 @@ F3 seam current `1/2` with zero cellwise and global ledger residuals.  Its
 distinct hostile audit passes after repair.  The accompanying sixteen-category
 global census remains `OWNER_INCOMPLETE`; physical descent and Ward residuals
 remain undefined.
+
+The subsequent audited `G_4` stationary carrier-sector globalization has 192
+owner-once native transfer supports, exact incidence telescoping, and a finite
+stationary Gibbs CTP member with complete carrier read.  Its hostile verdict
+is `PASS_SECTOR_QUALIFIED`: these formulas instantiate only carrier-sector
+pieces of connector, seam/period, state, and measure.  They do not complete
+the full-parent rows, so Gate A remains fail-closed.
