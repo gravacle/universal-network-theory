@@ -639,6 +639,46 @@ unassigned record-ledger terms, not defects. No finite gate order, node
 stagger, coefficient selection, physical grid, continuum, Ward structure,
 critical law, mature macro dynamics, or gravity is promoted.
 
+### Autonomous BS09 L10 accumulation — PASS AFTER CUSTODY REPAIR
+
+`DEVELOPMENT_R_AUTONOMOUS_L10_ACCUMULATION_V001/` and
+`AUDIT_R_AUTONOMOUS_L10_ACCUMULATION_V001/` extend the same conditional
+support and ten-point `kappa` scan to 1,000 sites. The exact census is 500
+sites per F3 layer, 250,000 possible links, 100 disjoint ten-site cycles,
+1,000 selected cycle edges, 500 source lineages, and expected retained total
+250. Exact factorization uses one 1,024-dimensional cycle calculation rather
+than a fictitious global `2^1000` state.
+
+Translation by two makes `Delta q` alternate; reflection preserves the
+prepared history while reversing oriented current and removes uniform
+circulation. The owner-once continuity equation therefore fixes
+`J_i=-Delta q_i/2`. This reduction agrees with every directly integrated
+current in the 30 hostile-audited L4/L6/L8 rows within `5.829e-16` in the
+target and `6.107e-16` independently. All ten L10 supports are active at
+every positive sampled `kappa`; expected retained total stays 250.
+
+Raw L10 throughput totals include `61.480350` at `pi/2`, `174.997337` at
+`3pi/4`, and `96.311751` at `3pi/2`. The corresponding L10/L8 per-retained
+ratios are `0.999901`, `0.996452`, and `1.647847`. These are finite recurrence
+records, not a fit. Target per-cycle residual maxima are `1.763e-15` L1 and
+`3.470e-16` Linf; the independent maxima are `2.499e-15` and `5.829e-16`.
+The exact zero-`kappa` current is zero; displayed sub-threshold values are raw
+eigensolver roundoff, not physical current or a defect.
+
+The frozen 48 GiB run observation is `0.4769145 s` and `80.53125 MiB` maximum
+RSS. These are one-run environment observations, not universal complexity
+claims. The target passes warning-free `18/18`, independent reconstruction
+`6/6`, and hostile verification `34/34`. The audit first caught that degenerate
+eigenspaces prevent byte-identical raw floats; after repair, one raw canonical
+result is frozen and every field is recomputed with exact structural and
+`8e-12` floating agreement. Two consecutive replays preserve its hash.
+
+Support, sampled `kappa`, separate `t` and `tau`, clock, content, source
+routing, and complete read remain conditional. Connected-cycle accumulation
+under a physical parent and generic phase behavior remain open. No physical
+grid, continuum, Ward structure, critical law, mature macro dynamics, or
+gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

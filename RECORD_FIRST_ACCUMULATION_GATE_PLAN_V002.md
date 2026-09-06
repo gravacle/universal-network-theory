@@ -68,7 +68,12 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   hostile-audited L4/L6/L8 `kappa=t tau/hbar` map adds 30 autonomous-BS09
   finite rows on that declared support, reproduces the `pi/2` baseline, and
   records nonmonotone finite recurrence without fitting an exponent, critical
-  point, continuum law, or coefficient/clock selection.
+  point, continuum law, or coefficient/clock selection. The hostile-audited
+  L10 rung extends the same slice to 1,000 sites, 500 lineages and retained
+  expectation 250, with exact disjoint-cycle factorization and a
+  symmetry-reduced current ledger checked against all lower-size direct
+  currents. Its runtime/RSS are observations, and its finite recurrence is
+  not a phase or scaling promotion.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

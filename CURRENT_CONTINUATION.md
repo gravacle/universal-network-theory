@@ -178,6 +178,31 @@ finite-size accumulation rung on this same declared physical-parent slice;
 do not infer a grid, continuum, Ward behavior, mature macro dynamics, or
 gravity.
 
+The L10 accumulation rung now passes hostile audit after one pre-promotion
+custody repair. `DEVELOPMENT_R_AUTONOMOUS_L10_ACCUMULATION_V001/` and its
+audit cover 1,000 sites, 500 source lineages, 100 disjoint ten-site cycles,
+and retained expectation 250 at all ten prior `kappa` values. Period-two plus
+reflection symmetry fixes each integrated current as `J_i=-Delta q_i/2`; it
+matches every directly integrated lower-size current within `6.11e-16` and
+closes the L10 owner-once ledger. All ten supports per cycle are active at
+each positive sampled point.
+
+At `pi/2`, `3pi/4`, and `3pi/2`, L10 raw throughput totals are
+`61.480350`, `174.997337`, and `96.311751`, while L10/L8 per-retained ratios
+are `0.999901`, `0.996452`, and `1.647847`. Target residual maxima are
+`1.763e-15` L1 and `3.470e-16` Linf per cycle, unassigned rather than
+defects. The 48 GiB run observation is `0.4769145 s` and `80.53125 MiB` RSS.
+The target passes `18/18`, independent reconstruction `6/6`, and hostile
+verification `34/34`. Its repaired canonical replay tolerates last-bit
+eigensolver differences without overwriting the frozen raw result.
+
+This remains conditional-support microscopic accumulation; it selects no
+coefficient, clock, phase, or geometry. The next bounded physical-parent
+question is connected-cycle accumulation using only declared BS09 support
+and source routing. Any routing asymmetry must remain explicit conditional
+mission data with owner-once custody. Do not infer a grid, continuum, Ward
+behavior, critical law, mature macro dynamics, or gravity.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
