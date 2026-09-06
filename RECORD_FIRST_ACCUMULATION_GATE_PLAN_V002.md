@@ -126,6 +126,13 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   RSS, runtime, or an accumulation record. The slot ceiling is not an actual
   quotient nonzero count. No complexity or scaling law, autonomous support,
   grid, continuum, Ward structure, phase, graviton, or gravity is promoted.
+  The fixed-width engine subsequently passes target `40/40` on sealed
+  L4/L6/L8/L10 records and a target-unchanged hostile audit. Its finite
+  unaggregated action and signed current reduction are independently checked
+  against the L4 full space without continuity or Ward input. It is authorized
+  only for a guarded numerical L14 trial with live resource controls, not an
+  L14 result or any scaling/grid/continuum/Ward/phase/graviton/gravity
+  promotion.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

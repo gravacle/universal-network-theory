@@ -393,6 +393,17 @@ L14 evolution, currents, retained record, and residual remain open.
 No complexity or scaling law, autonomous support, grid, continuum, Ward
 structure, phase, graviton, or gravity is promoted.
 
+The fixed-width engine prerequisite now passes target `40/40`; its hostile
+audit passes with the target unchanged. A direct full-space L4 attack matches
+the unaggregated transition action within `2.48e-16` and all 12 reconstructed
+signed oriented L4 edge currents on the deterministic invariant audit state
+within `6.25e-17`, without using incidence, continuity, the ledger residual,
+or Ward structure. The initial pre-result half-precision amplitude trial
+failed closed; explicit float64 promotion is verified, and no failed-trial
+value is promoted. The engine is authorized only for a guarded numerical L14
+implementation with live resource controls. No L14 record yet exists, and the
+no-scaling/grid/continuum/Ward/phase/graviton/gravity boundaries remain.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
