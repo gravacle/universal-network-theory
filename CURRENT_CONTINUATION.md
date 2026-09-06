@@ -130,15 +130,32 @@ write plus native transfer conditionally selects blank tails and
 Hamiltonian exponential; it has a uniform onsite term and no finite gate
 order or node stagger. Conditional fixed-program cycles yield nonzero current
 on all supports at L4 and L8, retain totals `16/128`, and close raw ledgers
-near `1e-15`. The hostile verdict is
-`PASS_AFTER_REQUIRED_LEDGER_RECLASSIFICATION`; this continuation paragraph
-and the corresponding ledger correction satisfy that promotion condition.
+near `1e-15`. The final hostile verdict is
+`PASS__PROMOTION_CONDITION_SATISFIED`; this continuation paragraph, the
+ledger correction, and the governing accumulation-plan correction satisfy
+that promotion condition.
 
-The fixed incidence program, `t`, `tau`, content sector, and read remain
-conditional. Autonomous support/program selection, coefficient derivation,
-and generic phase selection are still open. Continue physical-parent work at
-that support/program selection boundary; do not return to an arbitrary
-staggered gate schedule, ensemble averaging, continuum, Ward, or gravity.
+The immediate support-selection successor also passes hostile audit without
+repair. `DEVELOPMENT_R_PHYSICAL_PARENT_SUPPORT_SELECTION_SCREEN_V001/` and
+its audit prove that BS06 can favor the degree-two class for
+`U_d>0, 0<Delta<2U_d` but cannot choose the labeled L4/L8 cycle cover. At
+zero raw flip an explicit right-label exchange gives a distinct equal-energy
+cover; with the flip active no exact incidence word is stationary and the
+finite incidence-only ground state is positive on every word. BS09, BS10,
+and BS11 conserve incidence. FPSS selects the word only conditionally through
+its supplied orthogonal program and then passively retains every support word.
+The target passes `29/29`, independent reconstruction `18/18`, and hostile
+verification `14/14`.
+
+This exact non-selection result does not reopen Gate A-R or invalidate the
+conditional record accumulation data. The fixed incidence program, `t`,
+`tau`, content sector, and read remain conditional; any label-distinguishing
+lineage/port anchoring is itself selector data requiring complete ownership.
+Continue routine Gate B-R accumulation by mapping the dimensionless
+`kappa=t tau/hbar` dependence on the same declared conditional support, while
+keeping coefficient/clock selection and every generic phase claim open. Do
+not return to an arbitrary staggered gate schedule, ensemble averaging,
+continuum, Ward, or gravity.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 

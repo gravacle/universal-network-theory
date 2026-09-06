@@ -59,7 +59,12 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   numerical controller-history maps, not an autonomous, continuum, or
   critical scaling law. The physical-parent successor conditionally derives
   the source-prepared head state and autonomous BS09 exponential on supplied
-  fixed cycle supports; support/program and coefficient selection remain open.
+  fixed cycle supports. The hostile-audited parent screen proves that BS06 can
+  favor degree two but cannot choose the labeled cycle cover, BS09/BS10/BS11
+  conserve incidence, and FPSS selects only from a supplied orthogonal
+  program. This exact non-selection does not reopen R-A or invalidate the
+  conditional R-series records. Autonomous label-anchored support selection
+  remains open; coefficient and clock selection remain conditional.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

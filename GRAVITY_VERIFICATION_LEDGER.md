@@ -559,9 +559,10 @@ norm, energy, number-law, preparation-vector, and uniform-onsite commutator
 controls pass.
 
 The target passes warning-free `16/16`, independent reconstruction `8/8`,
-and hostile verification `15/15`. Its audit verdict is
-`PASS_AFTER_REQUIRED_LEDGER_RECLASSIFICATION`; the required reclassification
-is the authoritative correction above and in `CURRENT_CONTINUATION.md`.
+and hostile verification `18/18`. Its final audit verdict is
+`PASS__PROMOTION_CONDITION_SATISFIED`; the required reclassification is the
+authoritative correction above and in `CURRENT_CONTINUATION.md` and the
+governing accumulation plan.
 
 This selects preparation and chronological evolution only conditionally on
 the adopted source attachment and declared physical Hamiltonian. The fixed
@@ -570,6 +571,41 @@ Autonomous support/program selection, coefficient derivation, and generic
 phase selection remain open. Residuals remain unassigned, not defects. No
 grid, continuum, Ward structure, mature macro dynamics, or gravity is
 promoted.
+
+### Physical-parent support-selection screen — PASS, EXACT NON-SELECTION
+
+`DEVELOPMENT_R_PHYSICAL_PARENT_SUPPORT_SELECTION_SCREEN_V001/` and
+`AUDIT_R_PHYSICAL_PARENT_SUPPORT_SELECTION_SCREEN_V001/` screen the supplied
+cycle incidence word against the unchanged BS06/BS09/BS10/BS11 and FPSS
+parent. Under the exact even/odd bipartite realization, L4 has `32+32` sites,
+`1024` possible F3 links, and a selected degree-two cover of `64` links in 16
+four-cycles. L8 has `256+256` sites, `65536` possible links, and a selected
+degree-two cover of `512` links in 64 eight-cycles.
+
+At zero raw incidence flip, `U_d>0` and `0<Delta<2U_d` make degree two the
+unique per-vertex classical minimum. They do not choose a labeled cover: an
+explicit right-layer exchange gives a distinct cover with identical degrees
+and BS06 diagonal energy (`64` at L4 and `512` at L8 for
+`Delta=U_d=1`). With the raw flip active, the finite incidence-only BS06
+ground state is unique, strictly positive on every word, and permutation
+invariant, not an exact cycle word. An exact `K_(3,3)` diagonalization
+corroborates this boundary with six classical ground words and positive
+transverse gap `0.06056937459032419`.
+
+BS09, BS10, and BS11 commute with every incidence occupation and cannot
+prepare the word. FPSS prepares and passively retains it only from a supplied
+orthogonal address/edge/source/controller/port program. The declared uniform
+right-source/blank-left carrier preparation does not break the explicit
+competitor symmetry; any label-distinguishing lineage or port map is itself
+additional conditional selector data requiring complete ownership.
+
+The target passes warning-free `29/29`; independent reconstruction passes
+`18/18`; hostile verification passes `14/14` with no repair required. The
+proved result is non-selection by the unchanged parent, not failure of the
+conditional microscopic accumulation records and not a reopening of Gate
+A-R. Autonomous label-anchored support selection remains open; coefficient
+and clock selection remain conditional. No grid, graph reward, defect,
+continuum, Ward structure, mature macro dynamics, or gravity is promoted.
 
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
