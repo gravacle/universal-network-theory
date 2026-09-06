@@ -53,6 +53,18 @@ validation and per-size marked-source resource gates precede larger runs.
 Physical distance, global response owners, the lawful quotient, and every
 continuum/Ward claim remain open.
 
+That bounded prediagnostic is now executed and hostile-audited through the
+largest eligible current representation. Direct full-space L6/L8 vectors are
+independently reproduced; the marked-source engine supplies refined
+L6/L8/L10/L12 rows and an independent audit supplies exact structural/raw-hop
+checks plus approximate complete-vector L10/L12 corroboration. The available
+finite profiles are empirically nonuniform and graph-locally concentrated,
+with radius-two aggregate L1 maximum and a decreasing farthest-shell share.
+This is not a locality or scaling law, and physical boundary reflection is
+undefined. The current L14 representation fails its pre-allocation guard, so
+no L14 response is inferred or required. The prediagnostic does not close
+M-A/Gate A-P.
+
 ## Current status
 
 - R-A: `PASS_CONDITIONAL_F3_MDC`, from the audited single-history and active
@@ -178,6 +190,11 @@ continuum/Ward claim remain open.
   continuum behavior. The residual rows remain raw unassigned terms rather
   than defects or fit inputs.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
+- Gate A-P finite localized-write prediagnostic: hostile-audited target rows
+  exist at L6/L8/L10/L12; L14 has a fail-closed resource disposition and no
+  response row. The exact terms-off half-write ledger and owner-incidence
+  telescoping are proved; evolved profiles are empirical and conditional on
+  the declared support/clock/read. Gate A-P remains open.
 - M-B and later: not authorized as macro-response claims.
 
 ## Fail-closed rules

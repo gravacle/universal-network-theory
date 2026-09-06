@@ -21,18 +21,24 @@ Ward, and mature macro-response diagnostics are post-accumulation targets.
 `GRAVITY_GATE_EXECUTION_PLAN_V001.md` is retained as historical M-series
 provenance, not the active accumulation schedule.
 
-Gate A-R is closed at conditional F3-MDC scope. Gate B-R `L=8` microscopic
-record accumulation is authorized and active. Its first prepared baseline
-passes after hostile repair: lineages `32 -> 256`, expected retained total
-`16 -> 128`, density `1/4`, absolute oriented seam throughput `16 -> 128`,
-and raw carrier record-ledger residuals `r_1=r_infinity=0` at both sizes.
-The 48 GiB execution used `0.07 s` wall time, `10.5625 MiB` maximum RSS, and
-zero swaps for the exact combinatorial verifier. Gate A-P remains open with the
-global macro parent `OWNER_INCOMPLETE`; no continuum or gravity claim follows.
+Gate A-R is closed and frozen at conditional F3-MDC scope across the audited
+connected L4--L14 family. Gate B-R microscopic accumulation is authorized and
+its current connected baseline trajectory is sealed through L14. The bounded
+localized-write prediagnostic is now hostile-audited through L12; L14 has no
+response row because the current representation fails its pre-allocation
+guard. Gate A-P remains open with the global macro parent `OWNER_INCOMPLETE`;
+no continuum or gravity claim follows.
 
-Continue Gate B-R with bounded interaction/retention stress. If a nonzero
-record-ledger residual appears, classify it as a possibly necessary active
-owner or collective term before judging it; do not call it a defect by
+The first prepared L8 baseline passed after hostile repair: lineages
+`32 -> 256`, expected retained total `16 -> 128`, density `1/4`, absolute
+oriented seam throughput `16 -> 128`, and raw carrier record-ledger residuals
+`r_1=r_infinity=0` at both sizes. That 48 GiB execution used `0.07 s` wall
+time, `10.5625 MiB` maximum RSS, and zero swaps for the exact combinatorial
+verifier.
+
+The subsequent Gate B-R interaction/retention sequence is recorded below. If
+a nonzero record-ledger residual appears, classify it as a possibly necessary
+active owner or collective term before judging it; do not call it a defect by
 default.
 
 The first Gate R-C interaction/retention stress now passes hostile audit at
@@ -475,6 +481,43 @@ Direct L6/L8 validation and a per-size resource screen are prerequisites;
 L14 may not be forced. The protocol contains no response datum and leaves
 Gate A-P, global response owners, physical distance, lawful quotient,
 continuum, Ward, phase, graviton, and gravity open.
+
+The localized-write execution now passes its independent hostile audits. The
+direct full-space L6/L8 target rows each pass `24/24`, their compiler `16/16`,
+the independent reconstruction `30/30`, and the hostile verifier `203/203`.
+The marked-source engine then passes `35/35` at L6/L8, `29/29` at L10/L12,
+and compiled target `23/23`; the separate hostile verifier passes `309/309`
+without target correction. It independently derives the normalized raw-hop
+coefficient from the complete L6 physical parent to `2.22e-16`, reconstructs
+the order-two stabilizer and owner-once edge action, retains exact direct
+L6/L8 parity, and gives separate approximate complete-vector MPS
+corroboration at L10/L12 within `1e-3`.
+
+Every available response history retains the inserted half-record within its
+numerical controls. The target differential-ledger L1 remainders at
+L6/L8/L10/L12 are `1.64e-12/1.62e-12/1.66e-12/2.64e-11`, raw and unassigned.
+Aggregate `sum |Delta J|` is
+`1.81397244/2.04535796/2.07958305/2.08305396`; total absolute-throughput
+change is `0.30875143/0.45094484/0.45342933/0.45344274`, while connector/seam
+absolute-throughput change is
+`-0.09115967/-0.09366810/-0.09376048/-0.09376608`.
+
+On finite graph-distance shells the response is nonuniform with oscillatory
+signed edges. Radius two has the largest aggregate L1 current response at all
+four available sizes; the farthest-shell share falls from `8.01e-2` at L6 to
+`2.52e-4` at L12 while the L10/L12 inner profiles are close. This is empirical
+graph-local concentration over L6--L12, not a locality/scaling theorem.
+Uniform spreading and far-shell enhancement are not observed. Physical
+boundary reflection remains undefined because no physical geometry map is
+present.
+
+The current unaggregated two-history representation is rejected before L14
+allocation: its conservative payload upper bound is `94.89795542508364 GiB`
+against a `40 GiB` process guard on the declared 48 GiB host. No L14 response
+value is present or extrapolated. A different independently validated
+representation would be required. Gate A-P, exact independent L10/L12 parity,
+the L14 response, global response owners, physical distance, lawful quotient,
+continuum, Ward, phase, graviton, and gravity remain open.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 

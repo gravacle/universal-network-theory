@@ -1136,6 +1136,99 @@ localized response datum and does not close Gate A-P, global response owners,
 or a lawful quotient. No locality/scaling law, physical boundary reflection,
 continuum, Ward structure, phase, graviton, or gravity is promoted.
 
+### Gate A-P localized authenticated-write response — PASS, FINITE L6--L12; L14 UNMEASURED
+
+`DEVELOPMENT_R_GATE_AP_LOCALIZED_WRITE_RESPONSE_L6_L8_V001/` and
+`AUDIT_R_GATE_AP_LOCALIZED_WRITE_RESPONSE_L6_L8_V001/` seal the direct
+full-space lower-size reference. Both target rows pass `24/24`, the target
+compiler `16/16`, independent reconstruction `30/30`, and the hostile
+verifier `203/203`. Complete baseline, perturbed, and differential occupation
+and oriented-current vectors agree within `3.04e-11`; the independent
+half-record and differential-ledger sign also agree. No target correction was
+required.
+
+`DEVELOPMENT_R_GATE_AP_MARKED_SOURCE_ENGINE_V001/` and
+`AUDIT_R_GATE_AP_MARKED_SOURCE_RESPONSE_L6_L12_WITH_L14_GUARD_V001/` extend
+the same finite intervention through every eligible size. Target rows pass
+`35/35` at L6/L8 and `29/29` at L10/L12; the compiled target passes `23/23`
+and the hostile verifier passes `309/309` without target correction. The
+target engine evolves baseline and perturbed histories together in the exact
+order-two marked-source quotient and reconstructs every physical site and
+owner-once signed edge.
+
+The hostile verifier independently generates the complete finite parent and
+source stabilizer, obtains the exact Burnside dimensions and signed edge
+orbits, and exhaustively projects every raw L6 physical hop into normalized
+orbit sums. The projected coefficient agrees with
+`-sqrt(|O_source|/|O_destination|)` to `2.22e-16` and the projected action is
+Hermitian to machine zero. This certifies the bounded raw-physical-hop to
+normalized marked-source quotient attachment used by this response engine;
+it does not newly bare-F3-derive the separately adopted F3-MDC source
+coefficient and is not a grid, graviton, or Ward axiom. L6/L8 retain exact
+complete-vector full-space parity. A separate cyclic-cut MPS formulation
+provides approximate complete-vector corroboration at L10/L12 within the
+declared `1e-3` ceiling; it is empirical corroboration, not exact parity.
+
+Finite target response summary:
+
+| L | `sum Delta q` | `sum abs Delta J` | total abs-throughput change | connector/seam abs-throughput change | differential remainder L1 |
+|---:|---:|---:|---:|---:|---:|
+| 6 | `0.5000000000000209` | `1.8139724403785449` | `0.3087514330085410` | `-0.0911596650839907` | `1.6356083154533962e-12` |
+| 8 | `0.5000000000000067` | `2.0453579555083740` | `0.4509448411799388` | `-0.0936681006640580` | `1.6174700467885827e-12` |
+| 10 | `0.4999999999999366` | `2.0795830494728930` | `0.4534293283019872` | `-0.0937604841798131` | `1.6613654896246999e-12` |
+| 12 | `0.5000000000006016` | `2.0830539606808600` | `0.4534427418502802` | `-0.0937660818593669` | `2.6354640692005660e-11` |
+
+The exact terms-off insertion remains
+`Delta Q_source + sum J_e - W_R = 1/2 + 0 - 1/2 = 0`. After transport is
+restored, the inserted phase can carry an instantaneous current; that does
+not alter the terms-off ledger. Every evolved target retains the half-record
+within its numerical controls, and every differential remainder above stays
+raw and unassigned rather than being called a defect or unnecessary term.
+
+Aggregate `sum |Delta J|` by finite edge graph radius is:
+
+| L | r=0 | r=1 | r=2 | r=3 | r=4 | r=5 | r=6 |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 6 | `0.5036822` | `0.4729591` | `0.6920286` | `0.1453026` | — | — | — |
+| 8 | `0.5045314` | `0.4844919` | `0.7561383` | `0.2519039` | `0.0482926` | — | — |
+| 10 | `0.5044128` | `0.4847904` | `0.7570424` | `0.2633948` | `0.0643634` | `0.00557936` | — |
+| 12 | `0.5044038` | `0.4847957` | `0.7570376` | `0.2634755` | `0.0655768` | `0.00723882` | `0.000525819` |
+
+Thus the available finite rows are nonuniform, with oscillatory signed edges,
+a radius-two aggregate L1 maximum, close L10/L12 inner profiles, and a
+farthest-shell share decreasing from `8.01e-2` to `2.52e-4`. The bounded
+empirical description is finite graph-local concentration with decreasing
+far-shell periodic-return contamination. Uniform spreading and far-shell
+enhancement are not observed. This is not a locality/scaling theorem, and
+physical boundary reflection is undefined without a physical geometry map.
+
+The L14 resource screen independently rejects the current unaggregated two-
+history representation before allocation: its target conservative numeric-
+payload upper bound is `101,895,903,752` bytes = `94.89795542508364 GiB`,
+above the `42,949,672,960`-byte (`40 GiB`) process guard on the declared 48
+GiB host. Its response row is null; no value is extrapolated. A different
+independently validated representation would be required.
+
+**Proved:** authenticated terms-off source-write ledger; owner-incidence
+telescoping; exact finite source stabilizer/Burnside counts/signed ownership;
+exhaustive L6 normalized raw-hop attachment; L14 pre-allocation rejection.
+
+**Adopted:** F3-MDC `alpha=r0` and canonical source label.
+
+**Conditional:** finite connected support, `kappa`, content, routing, complete
+read, and target/audit numerical representations.
+
+**Empirical:** exact direct L6/L8 parity, refined target L10/L12 response rows,
+approximate independent L10/L12 corroboration, and the available-window
+finite profile description.
+
+**Open:** exact independent L10/L12 parity; L14 response under a different
+validated representation; global response owners and lawful quotient;
+physical distance/boundary semantics; locality or scaling law; Gate A-P.
+
+No complete L6--L14 numerical response ladder, L14 response, grid, continuum
+behavior, Ward identity, phase, graviton, gravity, `C_R`, or `G` is claimed.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
