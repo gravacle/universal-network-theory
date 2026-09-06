@@ -1107,3 +1107,39 @@ the next required record-first step is to preregister a scalable autonomous
 cursor/genesis parent with complete repeated lineage, resource scaling, and a
 bounded exact representation. The gravity segment remains downstream and
 unexecuted.
+
+## Scalable relational accumulation checkpoint — 2026-09-06
+
+The complete fixed-content relational parent has now been executed and
+hostile-audited through L10. Seed histories at L4/L6/L8 pass `205/205`; the
+memory-repaired L10 target and independent Chebyshev--Krylov history pass the
+frozen V002 adjudicator `42/42` with maximum registered-observable difference
+`1.599e-14`.
+
+The finite accumulation-generated envelopes are:
+
+```text
+L4  [0,0.5625]
+L6  [0,0.458333333333]
+L8  [0,0.40625]
+L10 [0,0.375]
+common L4--L10 [0,0.375]
+```
+
+Every L10 write remains positive; minimum `W_n=0.404686199411`, blocking
+reaches `0.190627601178`, and all owner-once accounting and transport
+residuals are below `2.23e-14`. Target runtime is `2045.204 s` with
+`4,209,213,440 B` peak RSS, below the unchanged `4 GiB` limit by
+`85,753,856 B`.
+
+L12 is not authorized. The exact adjudication-time scratch reading is
+`63,078,301,696 B`, below the preregistered `64,424,509,440 B` requirement by
+`1,346,207,744 B`. The L4--L12 common sector and the complete interval Krylov
+screen therefore remain uncomputed.
+
+The current terminal state is a bounded resource checkpoint, not a physical
+rejection: finite L4--L10 relational accumulation is supported, while L12,
+`z=1`, criticality, continuum closure, the downstream gravity segment,
+emergence, and gravity remain open. The next action requires a separately
+frozen L12 representation/resource decision; no routine larger run is
+authorized from this checkpoint.

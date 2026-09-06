@@ -1919,3 +1919,68 @@ and preregistering the scalable relational accumulation protocol, not direct
 L6+ execution. No external reservoir, privileged boundary, absolute global
 clock, grid, graviton, Ward axiom, continuum assumption, emergence, or gravity
 claim is introduced.
+
+## Scalable relational accumulation L4--L10 checkpoint — 2026-09-06
+
+The scalable complete-parent extension is frozen in
+`DEVELOPMENT_R_SCALABLE_RELATIONAL_ACCUMULATION_V001/`. It retains every
+fixed-content basis state,
+
+```text
+D_L = binomial(3L,L),
+```
+
+and applies one owner-complete internal admission at each fresh genesis cell,
+with native prism transport between events. Target and independently reversed-
+layout histories pass at L4, L6, and L8 with a `205/205` hostile seed screen
+and maximum disagreement `8.846256505101735e-10`.
+
+The first frozen L10 target was numerically consistent with the blind result
+but exceeded its `4 GiB` RSS guard by `144,998,400 B`; that V001 result remains
+sealed fail-closed. One separately preregistered V002 implementation repair
+reduced only the target's per-batch Krylov storage from `1.4` to `1.0` billion
+bytes. Its L8 control is bit-identical to V001 and its pre-output hostile
+preflight passes `18/18`.
+
+The unique V002 L10 run and the frozen independent L10 run give:
+
+| quantity | target V002 | independent |
+|---|---:|---:|
+| wall seconds | `2045.204301958` | `1420.728120167` |
+| peak RSS bytes | `4209213440` | `3913236480` |
+| late `q` interval | `[0,7]` | `[0,7]` |
+| density envelope | `[0,0.375]` | `[0,0.375]` |
+
+The final hostile adjudicator passes `42/42`. Maximum target/blind observable
+and sector differences are `1.599e-14` and `2.859e-15`; maximum admission,
+transport-number, node-continuity, and norm errors are respectively
+`2.220e-14`, `1.243e-14`, `7.262e-15`, and `3.331e-15`. Every L10 write is
+positive, with minimum `0.404686199411`; dynamically blocked weight reaches
+`0.190627601178`. The finite common support is
+
+```text
+I_4 intersect I_6 intersect I_8 intersect I_10 = [0,0.375].
+```
+
+This broad interval is an accumulation-generated finite support, not a
+critical phase or an asymptotic limit. At adjudication, free scratch was
+`63,078,301,696 B`, short of the frozen `60 GiB` L12 prerequisite by
+`1,346,207,744 B`. L12 is therefore not authorized, and the interval spectral
+screen has not begun.
+
+**Certification gate:** the L4--L10 finite result is governing because
+`AUDIT_R_SCALABLE_RELATIONAL_ACCUMULATION_V001/INDEPENDENT_L10_V002_HOSTILE_AUDIT.md`
+records the separate hostile pass and
+`AUDIT_R_SCALABLE_RELATIONAL_ACCUMULATION_V001/L10_V002_HOSTILE_RESULT.json`
+records the hash-pinned `42/42` machine result. V001 remains preserved as a
+failed resource record.
+
+**Proved inputs:** owner-once conservation, exact blocked-null admission, and
+the exact finite basis identity. **Adopted:** genesis cluster, one-pass cursor,
+pulse/dwell, late-history window, sector mass rule, numerical controls, and
+resource guards. **Empirical/numerically certified:** finite L4--L10 histories
+and `[0,0.375]` common support. **Open/not computed:** L12, L4--L12 support,
+interval spectra, `z=1`, criticality, continuum/macroscopic closure, universal
+coupling, long-range interaction, metric/action dynamics, emergence, and
+gravity. No grid, graviton, Ward axiom, continuum assumption, or gravity claim
+is introduced.
