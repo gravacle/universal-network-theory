@@ -46,6 +46,22 @@ declared finite coherent protocol but does not establish a noncontact exchange
 potential, mutual binding, a metric, continuum behavior, or gravity. Gate A-P
 remains open.
 
+The first L8 accumulated-write transit/connector screen also passes hostile
+audit (`17/17` target and `59/59` independent checks). For a probe write at
+Rail-1 node zero, a target at node four, and adjacent background writes at
+nodes `1..N`, the background-subtracted connector L1 values for `N=0..3` are
+`0.5000000000039362`, `0.42815973374869076`,
+`0.36531361324457556`, and `0.3308471281165849`: strictly decreasing over
+the measured window. Raw background-plus-probe connector traffic instead
+increases, so this is marginal probe-capacity depletion, not total connector
+pinch-off. A formal linear zero at `N=8.620405864210246` exceeds the six-site
+finite capacity after reserving probe and target; `N_crit` is undefined.
+Operational first-arrival times are `1.222689868854405`,
+`1.3455677498194254`, `2.971600967337824`, and `2.86146468598496`, hence are
+not monotone. This finite ensemble-subtraction diagnostic does not establish
+individual carrier transit, a physical metric or clock, time dilation,
+Shapiro delay, or gravity. Gate R-C and Gate A-P remain open.
+
 The first prepared L8 baseline passed after hostile repair: lineages
 `32 -> 256`, expected retained total `16 -> 128`, density `1/4`, absolute
 oriented seam throughput `16 -> 128`, and raw carrier record-ledger residuals

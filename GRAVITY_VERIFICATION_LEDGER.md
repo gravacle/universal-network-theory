@@ -1308,6 +1308,78 @@ is not established. The all-blank parent, common phase, pair orientation,
 larger supports, physical distance, a noncontact potential, binding, and Gate
 A-P remain open. No grid, continuum, Ward, graviton, or gravity claim follows.
 
+### Gate R-C L8 accumulated-write transit/connector screen — PASS, FINITE CONDITIONAL SCOPE
+
+`DEVELOPMENT_R_GATE_C_L8_ACCUMULATION_LATENCY_V001/` and
+`AUDIT_R_GATE_C_L8_ACCUMULATION_LATENCY_V001/` pass. The target replays
+`17/17`; an independent norm-preserving fourth-order Suzuki--Yoshida
+reconstruction passes `59/59` without target repair. The target uses a direct
+tenth-order Taylor evolution. Both retain the complete reachable
+zero-through-four-particle sector of dimension `2517` inside the full
+`65536`-word L8 space.
+
+The finite support is the audited degree-three L8 prism: two eight-site rails,
+eight connectors, 16 sites, and 24 owner-once edges. From the conditional
+all-blank parent, put the authenticated probe write (`W_R=1/2`) at Rail-1
+node zero, reserve node four as target, and put `N=0,1,2,3` authenticated
+background writes at adjacent nodes `1..N`. The graph distance from probe to
+target is four. It is a support distance, not a physical metric.
+
+Because individual lineage is unavailable after hard-core mixing, the
+operational probe signal is the ensemble contrast
+`A_N(t)=q_4(background+probe)-q_4(background)`. Define `tau(N)` as its first
+positive local maximum above `1e-8` on `0<t<=2*pi`, with a three-point
+parabolic refinement. On the common connector window `0<=t<=pi/2`, define
+the marginal connector throughput as the L1 norm of the
+background-subtracted integrated connector-current vector. These definitions
+were fixed before evaluation.
+
+| N | adjacent background sites | target marginal connector L1 | raw background+probe connector L1 | target `tau(N)` | hostile `tau(N)` |
+|---:|---|---:|---:|---:|---:|
+| 0 | -- | `0.5000000000039362` | `0.5000000000039362` | `1.222689868854405` | `1.2226898687332437` |
+| 1 | `1` | `0.42815973374869076` | `0.928159733752627` | `1.3455677498194254` | `1.3455677496386216` |
+| 2 | `1,2` | `0.36531361324457556` | `1.2845278862007103` | `2.971600967337824` | `2.9716009673233863` |
+| 3 | `1,2,3` | `0.3308471281165849` | `1.6129719365543818` | `2.86146468598496` | `2.8614646859261184` |
+
+The marginal probe-accessible connector L1 decreases strictly over the four
+measured rows. Raw background-plus-probe connector traffic increases, so the
+finite observation is not total connector pinch-off. The declared linear
+finite-window diagnostic is
+
+```text
+J(N) = 0.4916258292033723 - 0.05703047361661693 N
+R^2 = 0.9778724186839928
+formal zero = 8.620405864210246
+```
+
+The formal zero exceeds the maximum six distinct background sites on this L8
+rail after reserving probe and target. It is outside the protocol's support,
+so it is not an admissible critical mass: `N_crit` is undefined and pinch-off
+is unmeasured.
+
+The operational arrival time increases through `N=2` but decreases at `N=3`.
+It therefore fails the requested monotonic-latency test. The audit agrees with
+all 32 connector components within `8.215e-12`, all 96 complete differential
+current components within `8.315e-12`, and `tau` within `1.809e-10`.
+Complete-history ledger L1 remainders are at most `1.311e-10`; differential
+probe-ledger remainders are at most `1.329e-10`; the hostile energy-drift
+control is at most `9.608e-12`. These are recorded numerical remainders, not
+classified defects.
+
+**Proved:** the owner-once finite topology census, authenticated write
+ledgers, and declared subtraction identities. **Adopted:** `alpha=r0`, the
+canonical cluster, bounded windows, L1 connector statistic, and first-peak
+rule. **Conditional:** the all-blank parent, common phase, finite solvers, and
+background subtraction. **Empirical:** the four throughput and arrival rows,
+strict marginal depletion on `N=0..3`, nonmonotone arrival, and the formal
+out-of-support zero. **Open:** other clusters, phases, windows, larger `N` or
+`L`, individual lineage, a physical metric or clock, pinch-off, `N_crit`,
+Gate R-C, and Gate A-P.
+
+Background subtraction is not an individual-lineage tag. No metric strain,
+gravitational time dilation, Shapiro delay, continuum behavior, or gravity is
+claimed.
+
 ## Claim boundary
 
 No statement in this ledger derives a physical Ward identity,
