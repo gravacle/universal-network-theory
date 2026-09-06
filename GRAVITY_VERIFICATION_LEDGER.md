@@ -454,6 +454,35 @@ derived. Patterns remain raw selected-parent labels; residuals remain
 unassigned rather than physical defects. No grid, criticality, continuum,
 Ward structure, mature macro dynamics, or gravity is promoted.
 
+### Connected native-component L4-L6-L8 trajectory — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_L4_L6_L8_TRAJECTORY_V001/` and
+`AUDIT_R_CONNECTED_L4_L6_L8_TRAJECTORY_V001/` pass without repair. The prior
+hostile-audited L4/L8 result is hash-pinned and an L6 row is independently
+inserted under the same reversed-preparation, forward-schedule, depth-three
+record labels. At L6, nine 12-record components partition 108 heads; all 18
+native supports per component, including all six inter-cycle supports, are
+active across 54 owner-once events.
+
+Per retained head, gate-event traffic is
+`0.1873029450 -> 0.1819357914 -> 0.1831009165`; net edge throughput is
+`0.1621539198 -> 0.1658328077 -> 0.1671388974`; and net inter-cycle
+throughput is `0.0608123878 -> 0.0585992499 -> 0.0592350627`. Thus event and
+inter-cycle traffic fall then rise, while net edge throughput rises in these
+three records. No smooth trend is imposed.
+
+Expected retained totals are `16 -> 54 -> 128` within numerical closure. The
+new L6 raw residual is `r_1=6.00e-15`, `r_infinity=1.17e-15` per component;
+its tiled L1 bound is `5.40e-14`, with norm and number-law errors below
+`1.23e-15` and `2.23e-16`. The target passes warning-free `15/15`, independent
+L6 reconstruction `6/6`, and custody/result/scope verification `17/17`.
+
+This is a three-size finite record trajectory, not an interpolation formula,
+exponent, convergence claim, generic law, or critical signal. Schedule and
+preparation remain explicit labels, residuals remain unassigned rather than
+physical defects, and no grid, continuum, Ward structure, mature macro
+dynamics, or gravity is promoted.
+
 ### Connected native-component L4-to-L8 trajectory — PASS, CONTROLLED NUMERICAL
 
 `DEVELOPMENT_R_CONNECTED_L4_L8_NATIVE_COMPONENT_TRAJECTORY_V001/` and

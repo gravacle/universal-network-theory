@@ -122,6 +122,14 @@ continuum limit. Further schedule- or preparation-independent promotion is
 not routine: it requires either a physical-parent selection derivation or a
 user-approved ensemble rule.
 
+The L6 interpolation between the hostile-audited connected L4/L8 rows also
+passes independent audit. Per-head event and inter-cycle traffic fall from L4
+to L6 and rise from L6 to L8, while net edge throughput rises across all
+three records. This mixed finite behavior is retained without a fitted curve,
+limit, or critical interpretation. The three-size labeled accumulation record
+is now complete; any promotion beyond labeled histories requires the physical
+selection or ensemble decision already identified above.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

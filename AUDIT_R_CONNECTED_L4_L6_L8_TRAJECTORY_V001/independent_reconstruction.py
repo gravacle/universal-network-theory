@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+import json,math,os
+from pathlib import Path
+os.environ.setdefault("VECLIB_MAXIMUM_THREADS","1");os.environ.setdefault("OPENBLAS_NUM_THREADS","1");os.environ.setdefault("OMP_NUM_THREADS","1")
+import numpy as np
+L=6;n=12;dim=4096;theta=math.pi/8;basis=np.arange(dim,dtype=np.uint32);bits=np.array([((basis>>i)&1).astype(float) for i in range(n)]);rings=tuple((r+i,r+(i+1)%L) for r in (0,L) for i in range(L));rungs=tuple((i,i+L) for i in range(L));edges=rings+rungs;c=math.cos(theta);s=1j*math.sin(theta);phase=np.exp(-.5j*theta*sum((1 if i%2==0 else -1)*(1 if i<L else -1)*bits[i] for i in range(n)));number=np.sum(bits,axis=0).astype(int);law0=np.array([math.comb(n,k)/dim for k in range(n+1)])
+occ=lambda x:np.einsum("im,m->i",bits,abs(x)**2,optimize=False);state=np.ones(dim,complex)/math.sqrt(dim);q0=occ(state);cum={e:0. for e in edges};traffic=0.;events=0;maxge=0.
+for _ in range(3):
+ state*=phase
+ for i,j in edges:
+  p=abs(state)**2;bi=float(np.dot(bits[i],p));bj=float(np.dot(bits[j],p));idx=basis[(bits[i]==1)&(bits[j]==0)];swp=idx^(1<<i)^(1<<j);a,b=state[idx].copy(),state[swp].copy();state[idx]=c*a+s*b;state[swp]=s*a+c*b;p=abs(state)**2;ai=float(np.dot(bits[i],p));aj=float(np.dot(bits[j],p));v=bi-ai;cum[(i,j)]+=v;traffic+=abs(v);events+=1;maxge=max(maxge,abs(aj-bj-v),abs(ai+aj-bi-bj))
+ state*=phase
+p=abs(state)**2;q=occ(state);div=np.zeros(n)
+for (i,j),v in cum.items():div[i]+=v;div[j]-=v
+res=q-q0+div;vals=np.array([cum[e] for e in edges]);rv=np.array([cum[e] for e in rungs]);law=np.array([p[number==k].sum() for k in range(n+1)]);corr=np.array([np.sum(p*bits[i]*bits[j])-q[i]*q[j] for i,j in edges]);clusters=9;heads=108;net=float(abs(vals).sum());rung=float(abs(rv).sum());ret=float(q.sum())
+row={"L":6,"cells":216,"prepared_source_lineages":108,"retained_heads":108,"sites_per_connected_component":12,"hilbert_dimension_per_component":4096,"connected_components":9,"owned_supports_per_component_per_depth":18,"owner_once_gate_events_per_component":events,"active_cumulative_supports_per_component":int(np.sum(abs(vals)>1e-12)),"active_cumulative_inter_cycle_supports_per_component":int(np.sum(abs(rv)>1e-12)),"expected_retained_per_component":ret,"expected_retained_total":9*ret,"gate_event_absolute_traffic_per_component":traffic,"gate_event_absolute_traffic_total":9*traffic,"gate_event_absolute_traffic_per_retained_head":9*traffic/108,"cumulative_net_edge_throughput_per_component":net,"cumulative_net_edge_throughput_total":9*net,"cumulative_net_edge_throughput_per_retained_head":9*net/108,"cumulative_net_inter_cycle_throughput_per_component":rung,"cumulative_net_inter_cycle_throughput_total":9*rung,"cumulative_net_inter_cycle_throughput_per_retained_head":9*rung/108,"max_abs_connected_edge_correlation":float(np.max(abs(corr))),"record_ledger_residual_l1_per_component":float(abs(res).sum()),"record_ledger_residual_linf_per_component":float(abs(res).max()),"record_ledger_residual_l1_tiled_bound":float(9*abs(res).sum()),"norm_error":float(abs(np.vdot(state,state).real-1)),"number_law_max_change":float(np.max(abs(law-law0))),"max_gate_ledger_error":maxge}
+assert len(edges)==18 and len(set(edges))==18 and len(rungs)==6 and events==54
+assert row["active_cumulative_supports_per_component"]==18 and row["active_cumulative_inter_cycle_supports_per_component"]==6
+assert abs(row["expected_retained_total"]-54)<3e-13 and row["record_ledger_residual_l1_per_component"]<3e-14 and row["norm_error"]<2e-14
+out={"schema":"AUDIT_R_CONNECTED_L4_L6_L8_TRAJECTORY_V001","disposition":"PASS_CONTROLLED_NUMERICAL_L6_INSERTION","L6":row,"partition":"9x12=108","selected_recipe":{"preparation_pattern":"reversed","gate_order":"forward","depth":3},"terminal_instrument":"COMPLETE_FAILURE_INCLUSIVE_PRODUCT_PVM","attachment":"INHERITED_ADOPTED_ALPHA_R0__NOT_BARE_F3_DERIVED","coordinate_status":"FINITE_ENUMERATION__NOT_PHYSICAL_GRID","claim_boundary":"NO_INTERPOLATION_EXPONENT_CONVERGENCE_CRITICAL_GENERIC_LAW_DEFECT_CONTINUUM_WARD_GRAVITY"};(Path(__file__).parent/"INDEPENDENT_RESULT.json").write_text(json.dumps(out,indent=2,sort_keys=True)+"\n");print("PASS_INDEPENDENT_L6__6/6")
