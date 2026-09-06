@@ -49,10 +49,12 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
 - R-A: `PASS_CONDITIONAL_F3_MDC`, from the audited single-history and active
   seam packets. The raw-source normalization remains adopted, not bare-F3
   derived.
-- R-B: authorized for routine calculation on the same explicitly declared
-  record parent. The first target is a density-controlled `L=4` versus `L=8`
-  tensor-product accumulation census with exact current/ledger accounting.
-- R-C/R-D: not yet reached.
+- R-B: passed at the prepared density-controlled `L=4` versus `L=8` scope.
+- R-C: passed at conditional disjoint-interaction scope and at controlled
+  numerical connected-ring scope.
+- R-D: passed for the prepared fixed-density `L=4 -> L=8` replication law.
+  The connected-ring time/coupling scan also passes as a bounded numerical
+  trajectory map; it is not a continuum or critical scaling law.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

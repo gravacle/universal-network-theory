@@ -314,6 +314,31 @@ and custody/result/scope `29/29` before final status sealing. Generic
 retention, individual lineage motion, criticality, continuum behavior, Ward
 structure, and gravity remain unclaimed.
 
+### Connected-ring time/coupling scan — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_RING_PARAMETER_SCAN_V001/` and
+`AUDIT_R_CONNECTED_RING_PARAMETER_SCAN_V001/` pass without repair. The 12
+points combine `delta=(0,1/2,1,2)` with three declared pulse times. Across
+the scan, staggered occupation amplitude reaches `0.5688670625126272`,
+absolute owned throughput reaches `1.1377341250252546` per ring, and absolute
+nearest-neighbor connected correlation reaches `0.06132656332408998`.
+
+The raw record-ledger residual envelope is `r_1=2.56e-15` and
+`r_infinity=5.56e-16` per ring. Retained-total, norm, energy, and number-law
+controls are all at or below `2.67e-15`. These residuals remain unassigned
+pending owner classification: they are neither promoted to exact zero nor
+called physical defects. The `delta=0` control retains half occupation and
+near-zero oriented throughput while still forming correlations, separating
+those record observables.
+
+The warning-as-error target passes `13/13`; independent reconstruction passes
+`108/108`; custody, all point-field comparisons, and scope pass `189/189`.
+The scan is non-monotone and no fit is promoted. It establishes neither a
+generic retention law nor criticality, continuum behavior, Ward structure,
+mature macro dynamics, or gravity. The next bounded accumulation stress may
+connect the separate eight-site rings while preserving gate-level owner
+custody.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

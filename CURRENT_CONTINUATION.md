@@ -59,6 +59,15 @@ interaction time/coupling or connecting the rings while retaining raw
 record-ledger and full-read custody. Do not promote this to generic retention,
 criticality, continuum behavior, or gravity.
 
+The bounded 12-point connected-ring time/coupling scan now also passes
+hostile audit without repair. It records non-monotone occupation, current,
+and correlation trajectories; its largest raw ledger residual is
+`2.56e-15` per ring beside controls no larger than `2.67e-15`. Those values
+remain unassigned pending owner classification and are not called defects.
+The active successor connects pairs of rings into 16-record ladder circuits
+with every circuit transfer gate owned once. Continue to report raw record
+observables without fitting continuum or critical behavior.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
