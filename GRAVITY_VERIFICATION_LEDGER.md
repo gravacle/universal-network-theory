@@ -1229,12 +1229,84 @@ physical distance/boundary semantics; locality or scaling law; Gate A-P.
 No complete L6--L14 numerical response ladder, L14 response, grid, continuum
 behavior, Ward identity, phase, graviton, gravity, `C_R`, or `G` is claimed.
 
+### Gate A-P single-source prism diagnostic — CLOSED, EMPIRICAL BOUNDED SCOPE
+
+The hostile-audited L6--L12 marked-source packet above closes the bounded
+single-source diagnostic on its actual degree-three prism topology (`2L`
+sites and `3L` owner-once edges). This is closure of that finite measurement,
+not closure of Gate A-P.
+
+The aggregate current deformation peaks on the bulk shell `r=2`. At L12 its
+shell L1 magnitude falls from `0.7570375735011285` at `r=2` to
+`0.0005258194763641394` at `r=6`, a factor
+`1439.7290468123826` (approximately `1,440`). The user-adopted empirical
+description is an exponentially screened local deformation over the audited
+finite window. “Exponentially screened” is a bounded profile description,
+not a proved exact exponential, asymptotic law, screening mass, or continuum
+limit.
+
+The standard zero-mode-subtracted cubic 3-torus Green kernel was screened only
+as an external comparator. It is not the physical support: the carrier radii
+are shortest-path edge shells on a degree-three prism, not displacements on a
+degree-six `L^3` cubic torus. Axis and periodic-Manhattan-shell comparators do
+not reproduce the normalized `r=2..5` profile, including finite axis-kernel
+sign mismatches. Thus 3D cubic-torus Green scaling is not observed. No grid or
+continuum premise is adopted by this negative screen.
+
+**Proved:** exact finite owner/radial partition and hostile reconstruction of
+the stored response rows. **Adopted:** the bounded empirical screening
+description. **Empirical:** the L6--L12 shell values and comparator mismatch.
+**Open:** any alternate microscopic law, larger-support behavior, physical
+distance, continuum/macroscopic response, and Gate A-P.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
 lawful 1PI/Schur quotient, `delta_dual`, and continuum Ward diagnostics now
 belong to Gate A-P and the later M-series. They remain `OWNER_INCOMPLETE` or
 `UNDEFINED`. They do not block Gate B-R microscopic accumulation.
+
+### Gate A-P L6 two-body connected response — PASS, FINITE CONDITIONAL SCOPE
+
+`DEVELOPMENT_R_GATE_AP_L6_TWO_BODY_CONNECTED_INTERACTION_V001/` and
+`AUDIT_R_GATE_AP_L6_TWO_BODY_CONNECTED_INTERACTION_V001/` pass. The target
+replays `25/25`; the independent full-4096-word hostile reconstruction passes
+`172/172` without target repair. It uses the all-blank conditional vacuum on
+the owner-once degree-three L6 prism, two commuting authenticated
+`W_1=W_2=1/2` writes with common phase, and canonical A-ring representatives
+at graph separations `d=1,2,3`.
+
+For every observable the connected record is exactly
+`Delta12 O=O11-O10-O01+O00`. The complete integrated owner-edge current is
+nonzero at all three separations:
+
+| d | target `sum abs Delta12 J` | target `max abs Delta12 J_e` | target connected-ledger L1 |
+|---:|---:|---:|---:|
+| 1 | `0.26695732547505335` | `0.04154319898895599` | `1.2611439670351388e-15` |
+| 2 | `0.8946409434809176` | `0.09319924937698945` | `1.3183898417423734e-15` |
+| 3 | `0.2936201703231855` | `0.04319870224705729` | `1.627170620466245e-15` |
+
+The hostile direct-propagation currents agree componentwise with the target
+within `5.243e-12`; its separate quadrature-controlled connected-ledger L1
+maximum is `1.293e-10`.
+
+For the complete owner-once hopping Hamiltonian, the conserved connected
+energy is a strict contact theorem under this common-phase write protocol:
+each directly adjacent written pair contributes `Delta12 E=-1/2`, while any
+nonedge—and therefore every graph separation `d>=2`—has `Delta12 E=0`.
+The target final values are `-0.4999999999999987`,
+`4.646608789771476e-16`, and `-4.296570458346049e-16`; the hostile
+reconstruction independently gives `-0.4999999999999998`, `0`, and
+`-9.645e-16`.
+
+Thus strict additive current superposition is rejected for this finite
+coherent protocol, but a nonzero connected routing current is not by itself
+an exchange potential. The energy data show one nearest-neighbor contact term
+and no noncontact attraction, so mutual attractive binding across `d=1,2,3`
+is not established. The all-blank parent, common phase, pair orientation,
+`kappa=pi/2`, and schedule remain conditional. Other pair orbits/phases,
+larger supports, physical distance, a noncontact potential, binding, and Gate
+A-P remain open. No grid, continuum, Ward, graviton, or gravity claim follows.
 
 ## Claim boundary
 

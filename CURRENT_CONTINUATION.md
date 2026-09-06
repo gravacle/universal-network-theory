@@ -1,6 +1,6 @@
 # Current continuation pointer
 
-**Date:** 2026-09-05
+**Date:** 2026-09-06
 
 **Authority:** this file identifies the current work program.  Dated
 `HANDOFF_*.md` files are provenance and are not authoritative unless this file
@@ -28,6 +28,23 @@ localized-write prediagnostic is now hostile-audited through L12; L14 has no
 response row because the current representation fails its pre-allocation
 guard. Gate A-P remains open with the global macro parent `OWNER_INCOMPLETE`;
 no continuum or gravity claim follows.
+
+The bounded single-source prism diagnostic is now closed at empirical scope:
+the L12 shell-L1 response falls by `1439.7290468123826` from its `r=2` peak
+to `r=6`, and the degree-three prism profile does not match the external
+degree-six cubic-torus Green comparators. “Exponentially screened” is an
+adopted finite-window description, not an exact exponential or continuum law.
+
+The first exact two-write Gate A-P response also passes hostile audit. On the
+conditional all-blank L6 prism, canonical pairs at `d=1,2,3` have nonzero
+complete connected current with L1 magnitudes
+`0.26695732547505335/0.8946409434809176/0.2936201703231855`. The conserved
+connected Hamiltonian energy is exactly contact-like: `-1/2` for an adjacent
+pair and zero for every nonedge (`d>=2`). Target/hostile verification passes
+`25/25` and `172/172`. This rejects strict current superposition for the
+declared finite coherent protocol but does not establish a noncontact exchange
+potential, mutual binding, a metric, continuum behavior, or gravity. Gate A-P
+remains open.
 
 The first prepared L8 baseline passed after hostile repair: lineages
 `32 -> 256`, expected retained total `16 -> 128`, density `1/4`, absolute
