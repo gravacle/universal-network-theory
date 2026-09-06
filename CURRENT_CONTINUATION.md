@@ -203,6 +203,30 @@ and source routing. Any routing asymmetry must remain explicit conditional
 mission data with owner-once custody. Do not infer a grid, continuum, Ward
 behavior, critical law, mature macro dynamics, or gravity.
 
+The smallest connected-cycle physical-parent witness also passes hostile
+audit without repair. `DEVELOPMENT_R_AUTONOMOUS_CONNECTED_CYCLE_ACCUMULATION_V001/`
+and its audit use eight connected components, each formed from two four-cycles
+and four opposite-parity connector/seam edges. The support covers all 64 L4
+sites and owns 96 edges once. It uses the ordinary uniform F3-MDC head/tail
+source pattern and one simultaneous BS09 exponential at `kappa=pi/2`; there
+is no extra source asymmetry, node stagger, or finite gate order.
+
+All eight internal and four connector supports per component are active.
+Raw connector throughput is `0.3315850787` per component and `2.6526806299`
+globally; total throughput is `7.9580418896`, retained expectation stays 16,
+and the direct owner-once residual is at most `2.110e-15` L1 and `6.662e-16`
+Linf per component. The finite CTP functional has one source per unique edge
+and `Z[0,0]=1`; it is bookkeeping, not 1PI or Ward structure. The target
+passes `18/18`, independent reconstruction `10/10`, and hostile verification
+`13/13`.
+
+This closes the existence of physically nonzero connector/seam transport on
+one conditional connected support. It does not derive that support or a
+generic connected phase. Continue by testing the same simultaneous-Hamiltonian
+connected construction at the next finite size, retaining explicit support
+and source ownership. Do not infer a grid, continuum, Ward behavior, critical
+law, mature macro dynamics, or gravity.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

@@ -679,6 +679,42 @@ under a physical parent and generic phase behavior remain open. No physical
 grid, continuum, Ward structure, critical law, mature macro dynamics, or
 gravity is promoted.
 
+### Autonomous connected-cycle accumulation — PASS, CONDITIONAL SUPPORT
+
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_CYCLE_ACCUMULATION_V001/` and
+`AUDIT_R_AUTONOMOUS_CONNECTED_CYCLE_ACCUMULATION_V001/` replace the disjoint
+L4 cycle support with eight identical connected eight-site components. Each
+component contains two four-cycles and four opposite-parity connector/seam
+edges, is degree three and BFS-connected, and owns eight internal plus four
+connector edges once. Globally the declared support covers 64 sites in
+`32+32` F3 layers with 96 unique active edges and 32 source lineages.
+
+The input remains the uniform audited F3-MDC preparation: every even tail is
+blank and every odd head is `(B+x)/sqrt(2)`. No component receives a different
+source rule. One simultaneous BS09 exponential at conditional `kappa=pi/2`
+activates all `8/8` internal and `4/4` connector supports per component. Each
+integrated current has magnitude `0.0828962696834657`. Raw absolute throughput
+is `0.9947552362015891` per component and `7.958041889612713` globally; the
+connector/seam contribution is `0.3315850787338629` per component and
+`2.652680629870903` globally. Expected retained total remains 16, and total
+throughput is `1.5711763704749737` times the disjoint L4 baseline.
+
+The finite owner-once CTP bookkeeping functional assigns one deformation
+source to each of the 96 unique Hamiltonian edges and obeys
+`Z[0,0]=Tr(rho)=1`. It is not a 1PI action or Ward identity. Direct integration
+of all twelve component currents closes
+`Delta q+B J=0`; raw per-component residual maxima are `2.110e-15` L1 and
+`6.662e-16` Linf. The target passes two canonical warning-free `18/18`
+replays, independent reconstruction `10/10`, and hostile verification
+`13/13`.
+
+This proves a finite connected-support accumulation witness, not autonomous
+selection of that support or a generic connected phase. Support,
+`kappa`, separate `t` and `tau`, clock, content, source routing, and complete
+read remain conditional. Residuals remain unassigned rather than defects. No
+grid, continuum, Ward structure, critical law, mature macro dynamics,
+graviton, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

@@ -73,7 +73,12 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   expectation 250, with exact disjoint-cycle factorization and a
   symmetry-reduced current ledger checked against all lower-size direct
   currents. Its runtime/RSS are observations, and its finite recurrence is
-  not a phase or scaling promotion.
+  not a phase or scaling promotion. The hostile-audited L4 connected-support
+  witness then activates every internal and connector/seam current under one
+  simultaneous BS09 exponential, with 96 edges owned once and finite CTP
+  normalization `Z[0,0]=1`. The support and mission parameters remain
+  conditional; this is existence of connected microscopic transport, not an
+  autonomous support or generic-phase claim.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 
