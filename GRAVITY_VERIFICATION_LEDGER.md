@@ -276,6 +276,44 @@ are not claimed. Target verification passes `18/18`, independent
 reconstruction `17/17`, and audit custody/scope `22/22` before final
 result-status sealing.
 
+### Gate R-D — REPEATED-SCALE INTERACTION TRAJECTORY: PASS, PREPARED SCOPE
+
+`DEVELOPMENT_R_GATE_D_REPEATED_SCALE_INTERACTION_TRAJECTORY_V001/` and
+`AUDIT_R_GATE_D_REPEATED_SCALE_INTERACTION_TRAJECTORY_V001/` pass. The exact
+`L=4 -> L=8` rows are `(cells,blocks,retained,throughput,low,high) =
+(64,16,16,4,4,12) -> (512,128,128,32,32,96)`, with record-ledger residuals
+zero at both sizes. Every nonzero raw quantity has ratio eight.
+
+The hostile audit accepts eight only as exact fixed-density disjoint-block
+volume replication. It is not a continuum, critical, or generic accumulation
+exponent. Target verification passes `25/25`, independent reconstruction
+`40/40`, and custody/scope `24/24` before final result-status sealing.
+
+The next calculation removes the disjoint-block restriction through connected
+native carrier rings.
+
+### Connected L8 carrier-ring stress — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_L8_RING_STRESS_V001/` and
+`AUDIT_R_CONNECTED_L8_RING_STRESS_V001/` pass at prepared numerical scope.
+Thirty-two connected eight-site rings cover all 256 retained L8 heads. Each
+site participates in two native transfer terms. The run produces alternating
+occupations approximately `0.3125888646/0.6874111354`, alternating integrated
+currents `+/-0.0937055677`, and nonzero nearest-neighbor connected occupation
+correlation `-0.0261331605`.
+
+Expected retained total remains `128` within `3e-14`; absolute oriented
+throughput is `23.988625329874075`; signed ring-current sum is
+`7.11e-15`. The ring residual is `r_1=1.59e-15`,
+`r_infinity=3.47e-16`, below preregistered tolerances and beside norm, energy,
+and number-law controls. These floating-point values are classified as
+controlled numerical evidence, not exact equalities or physical defects.
+
+The warning-free target passes `10/10`, independent reconstruction `24/24`,
+and custody/result/scope `29/29` before final status sealing. Generic
+retention, individual lineage motion, criticality, continuum behavior, Ward
+structure, and gravity remain unclaimed.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

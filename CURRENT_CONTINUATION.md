@@ -43,6 +43,22 @@ all record-ledger residuals remain zero. Continue with the repeated-scale
 interaction trajectory and then connected (non-disjoint) accumulation stress;
 do not infer individual lineage transport, criticality, or continuum behavior.
 
+The repeated `L=4 -> L=8` interaction trajectory also passes hostile audit at
+prepared fixed-density scope. Cells, interaction blocks, retained total,
+throughput, and both positional expectations each grow by exactly eight while
+record-ledger residuals remain zero. This is algebraic volume replication,
+not a continuum or critical exponent. The active successor is the connected
+eight-site carrier-ring stress covering all 256 L8 retained heads.
+
+That connected-ring successor now passes hostile audit as controlled
+numerical prepared-history evidence. Thirty-two eight-site rings preserve
+expected retained total `128` within `3e-14`, develop alternating occupations
+`0.31259/0.68741` and connected correlation `-0.02613`, and close the
+independently integrated current ledger near `1e-15`. Continue by varying
+interaction time/coupling or connecting the rings while retaining raw
+record-ledger and full-read custody. Do not promote this to generic retention,
+criticality, continuum behavior, or gravity.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
