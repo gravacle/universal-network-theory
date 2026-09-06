@@ -318,6 +318,16 @@ reconstruction passes `38/38`. One target run took `48.279534083 s` and
 `333.390625 MiB` maximum RSS on the declared 48 GiB host; this is not a
 complexity claim. This remains conditional-support microscopic accumulation,
 not exact evolution, a fitted law, autonomous support, or a generic phase.
+
+The hostile-audited L4/L6/L8/L10 trajectory compilation now freezes the raw
+four-size comparison without fitting it. Total throughput per retained record
+is `0.4973776181, 0.5201290497, 0.5213957708, 0.5212996686`; connector
+throughput per retained is
+`0.1657925394, 0.1672860649, 0.1682022885, 0.1681556813`. The target and
+hostile suites pass `33/33` and `30/30`. These are finite numerical records;
+their late-size proximity is not evidence of monotonicity, convergence, a
+limit, exponent, or continuum law.
+
 Continue to the next feasible finite member using the audited compression and
 the same record-level controls. Do not infer a grid, continuum, Ward behavior,
 critical law, mature macro dynamics, or gravity.

@@ -102,7 +102,9 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   and retains expectation 250. All 20 internal and 10 connector currents per
   component are numerically active. Its L10/L4/L6/L8 comparisons are finite
   numerical records, while its resource use is one host observation; neither
-  is a continuum, phase, or complexity law.
+  is a continuum, phase, or complexity law. The hostile-audited L4/L6/L8/L10
+  compilation freezes the raw connected trajectory and adjacent comparators
+  without a fit, extrapolation, monotonicity, or limit claim.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

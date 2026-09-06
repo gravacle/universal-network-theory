@@ -878,6 +878,33 @@ autonomous selection of that support or a generic connected phase. Support,
 read remain conditional. No grid, continuum, Ward structure, critical law,
 mature macro dynamics, graviton, or gravity is promoted.
 
+### Connected L4/L6/L8/L10 raw trajectory — PASS, NO FIT
+
+`DEVELOPMENT_R_CONNECTED_RECORD_TRAJECTORY_L4_L10_V001/` and
+`AUDIT_R_CONNECTED_RECORD_TRAJECTORY_L4_L10_V001/` pin and independently
+compile the four hostile-audited connected results. Sites/lineages/retained/
+owner-once edges are `64/32/16/96`, `216/108/54/324`,
+`512/256/128/768`, and `1000/500/250/1500`. All internal and connector
+supports are active at every enumerated size.
+
+Raw global total throughputs are `7.9580418896`, `28.0869686859`,
+`66.7386586644`, and `130.3249171478`; per retained record they are
+`0.4973776181`, `0.5201290497`, `0.5213957708`, and `0.5212996686`.
+Connector throughputs per retained record are `0.1657925394`,
+`0.1672860649`, `0.1682022885`, and `0.1681556813`. Adjacent per-retained
+total ratios are `1.0457427733`, `1.0024353977`, and `0.9998156828`; adjacent
+connector per-retained ratios are `1.0090084004`, `1.0054769866`, and
+`0.9997229100`.
+
+These are finite numerical observations. Their late-size proximity to one is
+not promoted to monotonicity, convergence, a limiting value, exponent, or
+scaling law. The compiled per-component residuals preserve each packet's raw
+numerical integration history and remain unassigned rather than called
+defects. The target passes `33/33`; the hostile verifier, including its
+independent compiler, passes `30/30` with no correction. No autonomous support, grid,
+continuum, Ward structure, critical or generic phase, graviton, or gravity is
+promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
