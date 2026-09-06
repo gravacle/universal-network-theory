@@ -114,7 +114,8 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   currents per component are numerically active. Its coarser bounded
   quadrature, raw residual, finite comparators, and resource use remain
   explicitly classified; none is a continuum, phase, scaling, or complexity
-  law.
+  law. The hostile-audited append-only L4/L6/L8/L10/L12 compilation preserves
+  the first four records and adds the L12 row without a fit or extrapolation.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

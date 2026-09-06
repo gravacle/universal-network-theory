@@ -362,6 +362,22 @@ further bounded finite member or a raw trajectory compilation under the same
 controls. Do not infer a grid, continuum, Ward behavior, critical law, mature
 macro dynamics, or gravity.
 
+The append-only L4/L6/L8/L10/L12 trajectory compilation now passes target
+`16/16` and hostile `20/20` without correction. The L12 total and connector
+throughputs per retained record are `0.5212947819` and `0.1681544187`; their
+adjacent L10-to-L12 ratios are `0.9999906259` and `0.9999924916`. They remain
+one finite comparison, not convergence or a limiting value.
+
+The next accumulation step presents a program-level axis choice. Continuing
+to L14 preserves the present conditional source/support/`kappa` slice but
+requires a new feasibility screen beyond the audited L12 in-memory result.
+Sector-streamed or out-of-core representations are candidate implementations,
+not proved necessities; an optimized in-memory route has not been excluded.
+Varying source density, content, support family, or `kappa` instead asks a
+different microscopic accumulation question. Neither branch is authorized by
+the near-unity comparator alone; no continuum or macro-response criterion
+selects between them.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,

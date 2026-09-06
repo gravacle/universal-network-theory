@@ -981,6 +981,24 @@ identity. Support, `kappa`, separate `t` and `tau`, clock, content, routing,
 and read remain conditional. No autonomous support, grid, continuum, Ward
 structure, phase, graviton, or gravity is promoted.
 
+### Connected L4/L6/L8/L10/L12 raw trajectory — PASS, APPEND ONLY
+
+`DEVELOPMENT_R_CONNECTED_RECORD_TRAJECTORY_L4_L12_V001/` and
+`AUDIT_R_CONNECTED_RECORD_TRAJECTORY_L4_L12_V001/` pin the sealed L4--L10
+trajectory and L12 result, preserve the prior four rows and three adjacent
+comparators, and append one row. At L12, total throughput per retained record
+is `0.5212947819`, connector throughput per retained is `0.1681544187`, and
+maximum absolute connected edge correlation is `0.0360485022`.
+
+The L10-to-L12 site ratio is `1.728`; raw total and connector throughput ratios
+are `1.7279838016` and `1.7279870255`. Their per-retained ratios are
+`0.9999906259` and `0.9999924916`. These are one finite adjacent comparison,
+not monotonicity, convergence, a limiting value, fit, exponent, or scaling
+law. The distinct L12 residual remains raw and unassigned rather than called a
+defect. The target passes `16/16`; hostile verification passes `20/20` with no
+correction. No autonomous support, grid, continuum, Ward structure, critical
+or generic phase, graviton, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,
