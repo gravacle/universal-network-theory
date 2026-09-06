@@ -454,6 +454,35 @@ derived. Patterns remain raw selected-parent labels; residuals remain
 unassigned rather than physical defects. No grid, criticality, continuum,
 Ward structure, mature macro dynamics, or gravity is promoted.
 
+### Connected native-component L4-to-L8 trajectory — PASS, CONTROLLED NUMERICAL
+
+`DEVELOPMENT_R_CONNECTED_L4_L8_NATIVE_COMPONENT_TRAJECTORY_V001/` and
+`AUDIT_R_CONNECTED_L4_L8_NATIVE_COMPONENT_TRAJECTORY_V001/` pass without
+repair. The same reversed-preparation, forward-schedule, depth-three labeled
+recipe is applied to native connected components at L4 and L8. Four
+eight-record L4 components partition 32 heads; sixteen 16-record L8
+components partition 256 heads. Every native support is active: 12 per L4
+component and 24 per L8 component, including all four and eight inter-cycle
+supports respectively.
+
+Expected retained total changes `16 -> 128`, ratio eight. The raw total
+gate-event, net edge, and net inter-cycle throughput ratios are instead
+`7.8205248293612035`, `8.245938064939383`, and `7.792499510125264`.
+Per retained head the corresponding ratios are `0.9775656036701504`,
+`1.0307422581174228`, and `0.974062438765658`. They are recorded without
+forcing factor eight or fitting an exponent or limit.
+
+The per-component raw ledger residuals remain below
+`3.72e-15/8.33e-16` L1/Linf at L4 and `1.66e-14/2.95e-15` at L8; tiled L1
+bounds are `1.49e-14` and `2.65e-13`. The target passes warning-free `14/14`,
+independent reconstruction `11/11`, and custody/result/scope verification
+`15/15`. The L8 row independently matches the earlier audited circuit.
+
+This is a controlled two-size connected record trajectory, not a generic
+scaling law. Schedule and preparation remain explicit labels, residuals are
+unassigned rather than physical defects, and no grid, criticality, continuum,
+Ward structure, mature macro dynamics, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

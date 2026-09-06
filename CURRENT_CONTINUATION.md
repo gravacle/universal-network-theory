@@ -112,6 +112,16 @@ ensemble. Routine accumulation can continue with labeled histories, but any
 schedule- or preparation-independent law now requires a physical selection
 rule or an explicit theory-level ensemble decision.
 
+The connected L4-to-L8 native-component trajectory now passes hostile audit
+without repair. Under the same explicit reversed-preparation, forward-order,
+depth-three labels, retained total changes `16 -> 128` exactly at census
+scope. Raw total event/net/inter-cycle throughput ratios are
+`7.8205/8.2459/7.7925`; per retained head they are
+`0.9776/1.0307/0.9741`. These are two-size records, not fitted exponents or a
+continuum limit. Further schedule- or preparation-independent promotion is
+not routine: it requires either a physical-parent selection derivation or a
+user-approved ensemble rule.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
