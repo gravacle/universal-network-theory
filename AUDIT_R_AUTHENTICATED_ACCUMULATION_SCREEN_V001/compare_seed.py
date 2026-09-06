@@ -14,7 +14,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 TARGET = ROOT / "DEVELOPMENT_R_AUTHENTICATED_ACCUMULATION_SCREEN_V001"
-FREEZE = HERE / "FROZEN_METHOD.json"
+FREEZE = HERE / "FROZEN_NUMERICAL_REPAIR.json"
 POST = HERE / "POST_OUTPUT_FREEZE.json"
 OUT = HERE / "HOSTILE_SEED_RESULT.json"
 SIZES = (4, 6, 8)
@@ -46,7 +46,7 @@ method_paths = {
     "compare_seed.py": HERE / "compare_seed.py",
 }
 for name, path in method_paths.items():
-    check(digest(path) == frozen["files"][name], f"method custody {name}")
+    check(digest(path) == frozen["current_files"][name], f"method custody {name}")
 
 target_aggregate_path = TARGET / "HISTORY_SEED_RESULT.json"
 blind_aggregate_path = HERE / "BLIND_SEED_RESULT.json"

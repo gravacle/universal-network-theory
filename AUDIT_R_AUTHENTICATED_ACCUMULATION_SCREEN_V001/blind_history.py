@@ -28,8 +28,8 @@ RAW = HERE / "RAW_HISTORY"
 OUT = HERE / "BLIND_SEED_RESULT.json"
 PHI = math.pi / 4.0
 KAPPA = math.pi / 2.0
-COARSE_STEPS = 256
-FINE_STEPS = 512
+COARSE_STEPS = 128
+FINE_STEPS = 256
 SIZES = (4, 6, 8)
 MASS = 0.99
 
@@ -101,12 +101,19 @@ class BlindCarrier:
     def derivative(self, vector: np.ndarray) -> np.ndarray:
         return -1j * self.h(vector)
 
-    def rk4(self, vector: np.ndarray, step: float) -> np.ndarray:
+    def rk4_base(self, vector: np.ndarray, step: float) -> np.ndarray:
         k1 = self.derivative(vector)
         k2 = self.derivative(vector + 0.5 * step * k1)
         k3 = self.derivative(vector + 0.5 * step * k2)
         k4 = self.derivative(vector + step * k3)
         return vector + (step / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
+
+    def rk4(self, vector: np.ndarray, step: float) -> np.ndarray:
+        """Fifth-order Richardson result from independent RK4 substeps."""
+        full = self.rk4_base(vector, step)
+        half = self.rk4_base(vector, step / 2.0)
+        half = self.rk4_base(half, step / 2.0)
+        return (16.0 * half - full) / 15.0
 
     def current(self, vector: np.ndarray) -> np.ndarray:
         answer = np.empty(len(self.pairs), dtype=float)
@@ -290,7 +297,7 @@ def worker(length: int, output: Path) -> None:
         "edges": 3 * length,
         "connectors": length,
         "source_site": 0,
-        "method": "INDEPENDENT_DISJOINT_PAIR_RK4_SIMPSON",
+        "method": "INDEPENDENT_DISJOINT_PAIR_RK4_RICHARDSON_SIMPSON",
         "coarse_steps": COARSE_STEPS,
         "fine_steps": FINE_STEPS,
         "fine_rows": fine["rows"],
