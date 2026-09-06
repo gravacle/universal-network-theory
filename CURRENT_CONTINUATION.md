@@ -120,6 +120,35 @@ theorem, and a physical-parent-selected interscale join remain open. This
 does not invalidate microscopic accumulation and establishes no grid,
 continuum/Ward behavior, graviton, emergence, or gravity.
 
+The subsequent record-first hydrodynamic criticality seed screen is complete
+and stops at L8. The frozen parent has one `N`-independent source-off
+Hamiltonian; `N` authenticated half-writes change the binomial carrier-sector
+weights, with mean density `N/(4L)`, rather than defining an `H(N)` spectrum.
+Complete fixed-sector target spectra at L4/L6/L8 pass `36/36`. A blind
+translation/momentum-block reconstruction passes `18/18`, and the final
+hash-pinned hostile comparison passes `256/256` over 18 rows, 90 numerical
+components, and 21 spectrum hashes. Its verdict is
+`PASS_HOSTILE_NO_CANDIDATE_L4_L8__STOP_NO_L10_L12`.
+
+For every tested size, the adopted total-rail `m=1` response-active gap rises
+strictly with sharp carrier density while the finite response-timescale
+statistic falls. No interior density is therefore a coincident gap minimum
+and timescale maximum; every seed set and their intersection are empty, with
+no unresolved row or threshold switch. At the shared quarter-density row,
+the separate size trend is `Delta_act=2.463075497,1.667371519,1.266065439`
+and `chi_tau=0.341638044,0.520382483,0.702672515` for L4/L6/L8. This is
+finite long-wavelength softening as `k_min` changes with size, not a
+density-localized critical threshold under the frozen rule; a critical-phase
+screen would be a new theory lane rather than a retrospective repair.
+
+Exact one-carrier zeros at L6 and the many forced even-sector mid-spectrum
+zeros were independently classified as commensurability/chiral controls, not
+critical roots. Per the predeclared gate, no L10/L12 calculation, spatial
+critical fit, predictive macro closure, mode-universality test, or two-cluster
+follow-up ran. No `rho_c` was found for this finite parent/channel. Criticality
+under another authenticated parent, a possible extended gapless phase, and
+all macroscopic/gravity questions remain open.
+
 The first prepared L8 baseline passed after hostile repair: lineages
 `32 -> 256`, expected retained total `16 -> 128`, density `1/4`, absolute
 oriented seam throughput `16 -> 128`, and raw carrier record-ledger residuals

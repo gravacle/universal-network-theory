@@ -1581,6 +1581,108 @@ records; it blocks this proposed exact composition shortcut. Gate R-C and
 Gate A-P remain open. No grid, continuum/Ward axiom, phase, graviton,
 emergence, or gravity is asserted.
 
+### Gate R-C hydrodynamic criticality seed screen — HOSTILE-AUDITED NO CANDIDATE; STOP AT L8
+
+`DEVELOPMENT_R_GATE_C_HYDRO_CRITICALITY_PRESCREEN_V001/`,
+`ADVERSARIAL_R_GATE_C_HYDRO_CRITICALITY_PROTOCOL_V001/`, and
+`AUDIT_R_GATE_C_HYDRO_CRITICALITY_PRESCREEN_V001/` implement the frozen
+record-first pre-screen. The protocol SHA-256 is
+`3da9e74b0dcc2d8b65ce98cfb42735864cf3d045e41655082baa7a7a295cb334`.
+The target passes `36/36`; the blind structural screen passes `26/26`; the
+blind numerical reconstruction passes `18/18`; and the final hash-pinned
+comparison passes `256/256`, with verdict
+`PASS_HOSTILE_NO_CANDIDATE_L4_L8__STOP_NO_L10_L12`.
+
+The frozen owner-once Hamiltonian is
+
+```text
+H_L = -sum_e T_e,       [H_L,Q]=0,
+```
+
+and contains no accumulated-write count `N`. For `N` distinct authenticated
+`pi/4` half-writes, the exact sector bookkeeping is
+
+```text
+p(q|N)=2^(-N) binomial(N,q),
+mean rho=N/(4L),
+var(rho)=N/(16 L^2).
+```
+
+Thus `N`, mean carrier density, and the sharp analytical sector density
+`rho_q=q/(2L)` are distinct. The sharp-sector projection and total-rail
+`m=1`, `k_min=2*pi/L` density response are adopted diagnostic choices, not an
+authenticated postselection or a new state-conditioned `H(N)`.
+
+The target retains all 21 complete fixed-`q` spectra through half filling for
+L4/L6/L8. The nonvacuum response-active rows are:
+
+| L | q range | `Delta_act` range as q increases | `chi_tau` range as q increases | seed rows |
+|---:|---:|---:|---:|---:|
+| 4 | `1..4` | `2.000000000 -> 2.988994832` | `0.395284708 -> 0.291628290` | none |
+| 6 | `1..6` | `1.000000000 -> 2.135581211` | `0.881917104 -> 0.405535110` | none |
+| 8 | `1..8` | `0.585786438 -> 1.647631702` | `1.584089449 -> 0.532236798` | none |
+
+At every size, `Delta_act` increases strictly across the eligible sharp-density
+rows and `chi_tau` decreases strictly. No interior row can be both a strict
+local gap minimum and a coincident response-timescale maximum. Every row is
+stable under `w_floor/10`, `w_floor`, and `10*w_floor`; all lowest-pole
+residue fractions lie between `0.3806` and `0.8536`, far above the frozen
+`1e-6` floor. The absence of a seed is therefore not caused by thresholding,
+an unresolved row, or vanishing response weight.
+
+At the shared sharp density `rho=1/4`, the size rows are:
+
+| L | q | `Delta_act` | `chi_tau` | `R_low` |
+|---:|---:|---:|---:|---:|
+| 4 | 2 | `2.463075497383` | `0.341638044263` | `0.428094707816` |
+| 6 | 3 | `1.667371519018` | `0.520382482559` | `0.632801772065` |
+| 8 | 4 | `1.266065438741` | `0.702672515155` | `0.732829820694` |
+
+This separate fixed-density trend shows finite softening of the declared
+longest-wavelength mode as `k_min` changes with L. It does not single out a
+density threshold. Under the frozen protocol it cannot be promoted
+retrospectively into `rho_c`; testing an extended gapless/critical phase would
+require a separately frozen theory lane.
+
+The exact one-carrier bands are
+`-2*cos(2*pi*m/L) +/- 1` and are independent of `N`. L6 has four exact
+one-carrier zeros from commensurate momentum. Separately, axial-sublattice
+imbalance forces at least `binomial(L,q/2)` exact mid-spectrum zeros in every
+even-`q` sector. The independent audit proves these as topology/chiral
+controls and excludes them from the response-active ground gap; neither is a
+critical-density root.
+
+The maximum target sector used `8,034,484,224` bytes (`7.48270 GiB`) RSS and
+`158.518 s`; the complete target used `320.462 s`. The blind
+translation/momentum-block method used about `725 MB` RSS and `46.288 s`,
+then reproduced its numerical core exactly. A V001 blind audit backend warning
+failed closed before result emission; the preserved V002 repair changed only
+the complex residual-evaluation backend. The final comparison covers 18
+nonvacuum rows, 90 core metrics, and all 21 spectrum hashes. Its largest
+target-versus-independent difference is `3.553e-14`.
+
+**Proved:** finite topology and owner census, bit-swap `Q` conservation,
+authenticated binomial density bookkeeping, particle-hole isomorphism,
+chiral anticommutation/forced-zero bound, one-carrier band identity, and the
+response-momentum selection rule. **Adopted:** sharp-sector projection,
+`m=1` total-rail channel, density cells, thresholds, and seed conjunction.
+**Conditional:** the connected prism parent, source placement/phase, clock,
+read, and numerical representations. **Empirical/numerically certified:**
+the finite many-body spectra, active gaps, response-timescale moments,
+residues, empty seed sets, and resource observations. **Open:** L10/L12 under
+a future separately authorized lane, an isolated `rho_c`, an extended
+gapless-phase hypothesis, spatial decay transition, predictive macroscopic
+closure, mode universality, two-cluster field, continuum behavior, emergence,
+and gravity.
+
+The frozen disposition is `NO_CANDIDATE_L4_L8__STOP_NO_L10_L12`. Because the
+first checkpoint produced no candidate interval, no L10/L12 calculation or
+macroscopic follow-up was authorized or run. This bounded null does not
+invalidate accumulation data and is not a proof that no critical behavior can
+occur under another authenticated parent or at larger accumulation state. No
+grid, thermodynamic/Kubo susceptibility, continuum/Ward axiom, phase,
+graviton, emergence, or gravity is asserted.
+
 ## Claim boundary
 
 No statement in this ledger derives a physical Ward identity,
