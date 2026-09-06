@@ -116,6 +116,16 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   explicitly classified; none is a continuum, phase, scaling, or complexity
   law. The hostile-audited append-only L4/L6/L8/L10/L12 compilation preserves
   the first four records and adds the L12 row without a fit or extrapolation.
+  The same-slice L14 target passes `18/18`, and its hostile reconstruction
+  passes with the target unchanged. The exact order-28 group gives Burnside
+  numerator `269025400` and `9,608,050` word orbits; the conditional candidate
+  layout gives at most `403,538,100` unaggregated transition slots and a listed
+  raw numeric payload ceiling of `11,325,552,642` bytes
+  (`10.5477428455 GiB`). This is only a necessary raw-payload capacity screen:
+  it makes a guarded engineering trial eligible, not L14 execution, process
+  RSS, runtime, or an accumulation record. The slot ceiling is not an actual
+  quotient nonzero count. No complexity or scaling law, autonomous support,
+  grid, continuum, Ward structure, phase, graviton, or gravity is promoted.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

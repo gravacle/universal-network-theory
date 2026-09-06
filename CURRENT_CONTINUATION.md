@@ -378,6 +378,21 @@ different microscopic accumulation question. Neither branch is authorized by
 the near-unity comparator alone; no continuum or macro-response criterion
 selects between them.
 
+The same-slice L14 feasibility screen now passes target `18/18`; the
+independent hostile reconstruction passes with the target unchanged. The
+exact 28-element finite group has Burnside numerator `269025400` and therefore
+`9,608,050` binary-word orbits. A specified fixed-width candidate has a
+conservative unaggregated transition-slot ceiling of `403,538,100` and listed raw numeric
+payload ceiling `11,325,552,642` bytes = `10.5477428455 GiB`. These are exact
+finite structural and conditional byte-arithmetic results, not an actual
+quotient nonzero count, process-RSS ceiling, runtime estimate, or L14
+accumulation result. This is only a necessary raw-payload capacity screen; its
+pass status makes a guarded fixed-width implementation trial eligible, with
+live resource logging and an abort threshold below declared capacity;
+L14 evolution, currents, retained record, and residual remain open.
+No complexity or scaling law, autonomous support, grid, continuum, Ward
+structure, phase, graviton, or gravity is promoted.
+
 ### Gate-A measurement checkpoint — 2026-09-05
 
 `RESULT_G_GL6FJ_M001_FULL_CU_C64_RESPONSE_V003/` is the authenticated,
