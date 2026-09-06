@@ -1,8 +1,9 @@
 # Gravity Formation Gate Execution Plan V001
 
-**Authority:** user-approved execution schedule, 2026-09-05.  When the
-program is asked “where are we in the plan?”, this is the plan meant unless a
-later file explicitly supersedes it.
+**Authority:** superseded for active scheduling by
+`RECORD_FIRST_ACCUMULATION_GATE_PLAN_V002.md` under the user-approved Gate
+A-R / Gate A-P split of 2026-09-05. Retained as the historical macro-response
+M-series plan and provenance for its formulas and estimates.
 
 The plan is a staged test of the adopted, falsifiable
 `F3-MATERIAL-DUAL-CLOSURE` working law.  A gate may advance only when its

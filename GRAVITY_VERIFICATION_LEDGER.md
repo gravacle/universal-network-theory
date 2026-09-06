@@ -1,7 +1,7 @@
 # Gravity verification ledger
 
 **Status:** active, fail-closed verification ledger  
-**Authority:** two-tier UV/IR verification structure, adopted 2026-09-05
+**Authority:** Gate A-R / Gate A-P split adopted by user, 2026-09-05
 
 ## Tier separation
 
@@ -16,7 +16,8 @@ target law is
 `Q` is authenticated retained lineage, `J` is an owned transported graph
 current, and `W` is an explicitly owned write/read/source contribution.
 On a periodic closed member, paired transported seam currents must telescope
-exactly.  Continuum-style Ward decay is a separate infrared question:
+exactly.  Continuum-style Ward decay is a separate post-accumulation infrared
+question, not a microscopic record-accumulation requirement:
 
 \[
 \widehat\delta(L)=
@@ -192,34 +193,78 @@ still `UNDEFINED`.
 
 ## Gate dispositions
 
-### Gate A–UV — SINGLE-HISTORY WITNESS CLOSED; PLAN-LEVEL GATE OPEN
+### Gate A-R — RECORD OWNERSHIP AND CONSERVATION: CLOSED
 
-The two-tier structure now has one independently audited, exact physical
-ledger witness.  This closes the **single-history** Gate-A UV requirement.
-The plan-level Gate A remains open because the witness is a controlled source
-attachment rather than the complete global F3-MDC owner compilation.  The
-following remain required for plan-level closure:
+Gate A-R is the prerequisite for microscopic accumulation. It is closed by
+the following exact record-level evidence:
 
-1. supply a physical law beyond bare F3 that uniquely fixes the screened
-   raw-Jet-to-writer/source normalization; the adopted value alone does not
-   close this plan-level requirement;
-2. join the now-global stationary carrier/seam sector to the non-carrier
-   support, matching, retained-field, constraint, boundary, and apparatus
-   sectors without treating sector completion as full-parent completion;
-3. replace every undefined category in the compiled global owner census by
-   one common physical formula and then evaluate its residual; and
-4. show that no unowned term remains after state, measure, retained field,
-   boundary, matching, constraint, and lawful quotient owners are included.
+1. the independently audited single-history ledger
+   `1/2 + 0 - 1/2 = 0`;
+2. the independently audited active physical seam current `1/2`, with exact
+   zero endpoint and global residuals;
+3. the sector-qualified `G_4` owner-once incidence theorem with 192 distinct
+   carrier supports and exact regional/periodic telescoping; and
+4. the same-parent join screen `28/28`, which distinguishes missing optional
+   macro-parent bindings from debts in the explicitly selected record parent.
 
-This is a discrete requirement.  It does not require
-\(\delta_{\rm dual}(4)=0\), a smooth manifold, or a continuum gauge quotient.
+The raw-source normalization remains an adopted F3-MDC attachment, not a
+bare-F3 derivation. That status rides every dependent result. Gate A-R closure
+does not promote a generic interacting state or complete macro parent.
 
-### Gate B–IR — DEFINED, NOT YET LAUNCH-AUTHORIZED
+### Gate B-R — MICROSCOPIC RECORD ACCUMULATION: AUTHORIZED
 
-The Gate-B observable and acceptance criterion are now formally fixed by
-\(\widehat\delta(L)\) above.  An \(L=8\) production run remains unauthorized
-until Gate A–UV has the required physical ledger; otherwise an apparent
-defect decay would have no physical normalization or ownership meaning.
+The baseline `L=8` record-accumulation workflow is authorized. Its observables
+are retained-lineage count and distribution, owned current throughput, and
+the cellwise/global discrete carrier-ledger residual under a common declared
+normalization. No continuum exponent, correlation length, Ward score, or
+gravity-shaped behavior is presumed.
+
+A nonzero residual at a later interacting accumulation state is not called a
+defect before classification. It may be a necessary source, boundary,
+collective, or newly active owner. It is an accounting failure only if it
+remains unowned after the complete selected-parent census.
+
+#### L=8 baseline — PASS at prepared accumulation scope
+
+`DEVELOPMENT_R_GATE_B_L8_DENSITY_CONTROLLED_ACCUMULATION_V001/` and its
+distinct hostile audit
+`AUDIT_R_GATE_B_L8_DENSITY_CONTROLLED_ACCUMULATION_V001/` pass after repair.
+The exact raw trajectory is:
+
+| record quantity | L=4 | L=8 |
+|---|---:|---:|
+| cells | 64 | 512 |
+| source lineages | 32 | 256 |
+| expected retained total | 16 | 128 |
+| retained density | 1/4 | 1/4 |
+| absolute oriented seam throughput | 16 | 128 |
+| net periodic boundary flux | 0 | 0 |
+| carrier residual `r_1` | 0 | 0 |
+| carrier residual `r_infinity` | 0 | 0 |
+| prepared variance | 8 | 64 |
+
+The retained total and lineage count rise by exactly eight under the
+eightfold cell-count increase. The zero residual is a result of this prepared
+factorized history, not an assumption about later interacting accumulation.
+A future nonzero residual remains unclassified until its necessary owner or
+collective origin is tested.
+
+On the 48 GiB environment, the exact combinatorial verifier ran in `0.07 s`
+wall (`0.02 s` user, `0.01 s` system), with maximum RSS `11,075,584` bytes
+(`10.5625 MiB`), peak memory footprint `7,110,968` bytes (`6.7815 MiB`), and
+zero swaps. This is not a dense `3^512` state evolution. Target verification
+passes `28/28`; independent reconstruction passes `28/28`; audit custody and
+scope pass `31/31` before final result-status sealing.
+
+This closes only the first prepared Gate B-R baseline. Generic interacting
+accumulation and retention stress remain Gate R-C work.
+
+### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
+
+The former plan-level global physical Hessian, support/recoil/Maxwell shell,
+lawful 1PI/Schur quotient, `delta_dual`, and continuum Ward diagnostics now
+belong to Gate A-P and the later M-series. They remain `OWNER_INCOMPLETE` or
+`UNDEFINED`. They do not block Gate B-R microscopic accumulation.
 
 ## Claim boundary
 

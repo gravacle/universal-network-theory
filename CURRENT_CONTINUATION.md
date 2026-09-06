@@ -13,14 +13,27 @@ for this checkpoint and records the completed L=4 verification commands.
 
 ## User-approved gate schedule
 
-The authoritative schedule for progress questions is
-[`GRAVITY_GATE_EXECUTION_PLAN_V001.md`](GRAVITY_GATE_EXECUTION_PLAN_V001.md).
-It names Gate A through Gate E, the two proof milestones, their effort
-estimates, and the explicit fail-closed transition conditions.  Use that
-schedule whenever asked “where are we in the plan?”  The current location is
-**Gate A: global owner-once action and audit**; the unaliased `m001` 300-ray
-flight and its separate result audit are complete, but no (L=8) accumulation
-run is authorized until Gate A is physically complete.
+The authoritative active schedule is
+[`RECORD_FIRST_ACCUMULATION_GATE_PLAN_V002.md`](RECORD_FIRST_ACCUMULATION_GATE_PLAN_V002.md).
+The user-approved Gate A-R / Gate A-P split makes exact record ownership and
+conservation the prerequisite for microscopic accumulation, while continuum,
+Ward, and mature macro-response diagnostics are post-accumulation targets.
+`GRAVITY_GATE_EXECUTION_PLAN_V001.md` is retained as historical M-series
+provenance, not the active accumulation schedule.
+
+Gate A-R is closed at conditional F3-MDC scope. Gate B-R `L=8` microscopic
+record accumulation is authorized and active. Its first prepared baseline
+passes after hostile repair: lineages `32 -> 256`, expected retained total
+`16 -> 128`, density `1/4`, absolute oriented seam throughput `16 -> 128`,
+and raw carrier record-ledger residuals `r_1=r_infinity=0` at both sizes.
+The 48 GiB execution used `0.07 s` wall time, `10.5625 MiB` maximum RSS, and
+zero swaps for the exact combinatorial verifier. Gate A-P remains open with the
+global macro parent `OWNER_INCOMPLETE`; no continuum or gravity claim follows.
+
+Continue Gate B-R with bounded interaction/retention stress. If a nonzero
+record-ledger residual appears, classify it as a possibly necessary active
+owner or collective term before judging it; do not call it a defect by
+default.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 
@@ -42,7 +55,8 @@ potential, gravity result, `C_R`, or `G` follows.  The global physical action
 remains owner-incomplete.  `DEVELOPMENT_G_GL6GK_F3_MDC_GLOBAL_OWNER_ONCE_DESCENT_V001/`
 now gives the exact conditional metric-representative identity that a
 completed F3-MDC owner compilation must instantiate; it is not bare-F3
-derivation.  Continue Gate A from that specific physical-owner gap.
+derivation.  Continue Gate A-P/M-series work from that physical-owner gap
+only when the post-accumulation macro-response program is active.
 
 The bounded continuation
 `DEVELOPMENT_G_GATE_A_F3_MDC_ACTIVE_SEAM_OWNER_ONCE_V001/`, with distinct
@@ -55,9 +69,11 @@ operator CTP generator is complete at its declared scope.
 
 The sixteen-owner global compilation remains a fail-closed census with
 stationary action `OWNER_INCOMPLETE` and physical descent/Ward residuals
-`UNDEFINED`.  Plan-level Gate A remains open.  Continue by replacing the
-undefined global owner categories with one common stationary physical parent;
-do not launch Gate B or claim Ward, Einstein response, or gravity.
+`UNDEFINED`.  Gate A-P remains open.  Continue A-P by replacing the undefined
+global owner categories with one common stationary physical parent.  This
+does not block authorized Gate B-R microscopic accumulation; it blocks only
+Gate B-P/M-series macro-response promotion.  Do not claim Ward, Einstein
+response, or gravity.
 
 The next audited sector packet is
 `DEVELOPMENT_G_GATE_A_G4_STATIONARY_CARRIER_SEAM_SECTOR_V001/`, with hostile
@@ -70,10 +86,13 @@ custody/scope passes `21/21`.
 
 This fills only carrier-sector instances of connector, seam/period, state,
 and measure.  It does not complete the corresponding full GK02 owners or
-select the physical stationary state.  Continue Gate A at the join from this
-sector to the still-undefined support/shared-midpoint, recoil, Maxwell,
-constraint/projector, retained-field, general apparatus/boundary, self/contact,
-and connected quotient owners.
+select the physical stationary state.  For later Gate A-P/M-series work,
+continue at the join from this sector to the still-undefined
+support/shared-midpoint, optional recoil branch, Maxwell,
+constraint/projector, retained-field, general apparatus/boundary,
+self/contact, and connected quotient owners.  These are not prerequisites
+for Gate B-R record accumulation unless the selected record parent activates
+them.
 
 ## Current route
 
