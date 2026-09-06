@@ -50,11 +50,16 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   seam packets. The raw-source normalization remains adopted, not bare-F3
   derived.
 - R-B: passed at the prepared density-controlled `L=4` versus `L=8` scope.
-- R-C: passed at conditional disjoint-interaction scope and at controlled
-  numerical connected-ring scope.
+- R-C: passed at conditional disjoint-interaction scope. The later
+  node-staggered and finite-order connected circuits pass only as conditional
+  programmed-control records; literal autonomous BS09 contains neither the
+  node-dependent stagger nor a finite gate order.
 - R-D: passed for the prepared fixed-density `L=4 -> L=8` replication law.
-  The connected-ring time/coupling scan also passes as a bounded numerical
-  trajectory map; it is not a continuum or critical scaling law.
+  Programmed connected-ring time/coupling and L4/L6/L8 records remain bounded
+  numerical controller-history maps, not an autonomous, continuum, or
+  critical scaling law. The physical-parent successor conditionally derives
+  the source-prepared head state and autonomous BS09 exponential on supplied
+  fixed cycle supports; support/program and coefficient selection remain open.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

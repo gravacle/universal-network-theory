@@ -50,8 +50,8 @@ record-ledger residuals remain zero. This is algebraic volume replication,
 not a continuum or critical exponent. The active successor is the connected
 eight-site carrier-ring stress covering all 256 L8 retained heads.
 
-That connected-ring successor now passes hostile audit as controlled
-numerical prepared-history evidence. Thirty-two eight-site rings preserve
+That connected-ring successor passes as conditional programmed-control
+evidence. Thirty-two eight-site rings preserve
 expected retained total `128` within `3e-14`, develop alternating occupations
 `0.31259/0.68741` and connected correlation `-0.02613`, and close the
 independently integrated current ledger near `1e-15`. Continue by varying
@@ -59,16 +59,15 @@ interaction time/coupling or connecting the rings while retaining raw
 record-ledger and full-read custody. Do not promote this to generic retention,
 criticality, continuum behavior, or gravity.
 
-The bounded 12-point connected-ring time/coupling scan now also passes
+The bounded 12-point connected-ring time/coupling scan also passes
 hostile audit without repair. It records non-monotone occupation, current,
 and correlation trajectories; its largest raw ledger residual is
 `2.56e-15` per ring beside controls no larger than `2.67e-15`. Those values
 remain unassigned pending owner classification and are not called defects.
-The active successor connects pairs of rings into 16-record ladder circuits
-with every circuit transfer gate owned once. Continue to report raw record
-observables without fitting continuum or critical behavior.
+Its nonzero-stagger members use a supplied node-dependent control absent from
+literal BS09; they are not autonomous physical-parent histories.
 
-That paired-ring successor now passes hostile audit without repair. Sixteen
+The paired-ring programmed circuit passes hostile audit without repair. Sixteen
 finite connected clusters cover all 256 L8 heads; all 24 inherited supports
 per cluster are active, including all eight inter-cycle supports. Expected
 retained total stays `128`, gate-owned throughput is `2.6742223590371705` per
@@ -78,7 +77,7 @@ defect. Continue next with a bounded depth trajectory or a larger finite
 native-support component; do not interpret inherited tuple labels as a
 physical grid or infer continuum, critical, Ward, or gravity behavior.
 
-The bounded depth-zero-through-eight successor also passes hostile audit
+The bounded programmed depth-zero-through-eight successor passes hostile audit
 after one documented pre-audit tolerance repair. All 24 supports remain
 active at every positive depth. At depth eight, gate-event absolute traffic
 is `5.387857637651692` per cluster, cumulative net throughput is
@@ -90,45 +89,56 @@ bounded record calculation should vary preparation phase/order or increase
 the native finite support component while preserving owner-once event
 custody; do not translate circuit depth into continuum time.
 
-The three-order screen now passes hostile audit without repair. Forward,
+The three-order controller screen passes hostile audit without repair. Forward,
 reverse, and interleaved schedules use the same owner-once supports and all
 conserve retained occupation, but their complete terminal record
 distributions differ by total variation up to `0.36653420105732926`; minimum
-state fidelity is `0.5157506266148363`. Therefore schedule is explicit
-selected-parent record data, not a disposable implementation detail. No
-preferred schedule, schedule measure, averaging rule, or selection law is
-currently derived. Routine record accumulation may keep schedule as a raw
-record label; any promotion to a schedule-independent or ensemble law needs
-an explicit theory-level decision or physical-parent derivation.
+state fidelity is `0.5157506266148363`. These are distinct conditional
+programmed controller histories. They do not create an order ambiguity in
+literal BS09: once its Hamiltonian is fixed, the physical parent selects its
+chronological exponential. No controller-history measure is derived.
 
-The four-pattern onsite-preparation screen now also passes hostile audit
+The four-pattern node-dependent onsite-program screen passes hostile audit
 without repair. The equal-pattern control leaves all eight inter-cycle
 supports inactive, while reversed and either one-cycle-only pattern activate
 all eight. Complete terminal distributions differ by as much as `0.65744`
 TV, and the two one-sided cases reduce to the same result under the exact
-cycle-label swap. Thus preparation pattern, like event schedule, remains an
-explicit raw record label. The result derives no preferred preparation or
-ensemble. Routine accumulation can continue with labeled histories, but any
-schedule- or preparation-independent law now requires a physical selection
-rule or an explicit theory-level ensemble decision.
+cycle-label swap. These patterns are controller labels, not alternative
+source preparations, and are absent from literal uniform-onsite BS09. The
+result derives no preferred program or ensemble.
 
-The connected L4-to-L8 native-component trajectory now passes hostile audit
-without repair. Under the same explicit reversed-preparation, forward-order,
+The connected L4-to-L8 programmed-control trajectory passes hostile audit
+without repair. Under the same explicit reversed onsite program, forward controller order,
 depth-three labels, retained total changes `16 -> 128` exactly at census
 scope. Raw total event/net/inter-cycle throughput ratios are
 `7.8205/8.2459/7.7925`; per retained head they are
 `0.9776/1.0307/0.9741`. These are two-size records, not fitted exponents or a
-continuum limit. Further schedule- or preparation-independent promotion is
-not routine: it requires either a physical-parent selection derivation or a
-user-approved ensemble rule.
+continuum limit. It is not an autonomous BS09 trajectory.
 
-The L6 interpolation between the hostile-audited connected L4/L8 rows also
+The L6 interpolation between those programmed L4/L8 rows also
 passes independent audit. Per-head event and inter-cycle traffic fall from L4
 to L6 and rise from L6 to L8, while net edge throughput rises across all
 three records. This mixed finite behavior is retained without a fitted curve,
 limit, or critical interpretation. The three-size labeled accumulation record
-is now complete; any promotion beyond labeled histories requires the physical
-selection or ensemble decision already identified above.
+is complete at programmed-control scope.
+
+The user selected physical-parent derivation rather than an ensemble rule.
+`DEVELOPMENT_R_PHYSICAL_PARENT_AUTONOMOUS_RING_SELECTION_V001/` and its
+hostile corrective audit now provide the governing successor. The F3-MDC
+write plus native transfer conditionally selects blank tails and
+`(B+x)/sqrt(2)` heads. With sources off, literal BS09 selects the autonomous
+Hamiltonian exponential; it has a uniform onsite term and no finite gate
+order or node stagger. Conditional fixed-program cycles yield nonzero current
+on all supports at L4 and L8, retain totals `16/128`, and close raw ledgers
+near `1e-15`. The hostile verdict is
+`PASS_AFTER_REQUIRED_LEDGER_RECLASSIFICATION`; this continuation paragraph
+and the corresponding ledger correction satisfy that promotion condition.
+
+The fixed incidence program, `t`, `tau`, content sector, and read remain
+conditional. Autonomous support/program selection, coefficient derivation,
+and generic phase selection are still open. Continue physical-parent work at
+that support/program selection boundary; do not return to an arbitrary
+staggered gate schedule, ensemble averaging, continuum, Ward, or gravity.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 

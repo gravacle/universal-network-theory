@@ -290,9 +290,19 @@ exponent. Target verification passes `25/25`, independent reconstruction
 `40/40`, and custody/scope `24/24` before final result-status sealing.
 
 The next calculation removes the disjoint-block restriction through connected
-native carrier rings.
+carrier-transfer rings.
 
-### Connected L8 carrier-ring stress — PASS, CONTROLLED NUMERICAL
+> **Authoritative physical-parent reclassification.** The hostile audit of
+> `DEVELOPMENT_R_PHYSICAL_PARENT_AUTONOMOUS_RING_SELECTION_V001/` found that
+> literal BS09 has a uniform onsite term and a simultaneous hopping sum. The
+> node-dependent stagger and finite transfer-gate orders used in the connected
+> packets below are absent from autonomous BS09. Their numerical results and
+> owner-once controller ledgers remain valid, but they are conditional
+> programmed-control records, not physical-parent-selected autonomous
+> histories. This paragraph supersedes any broader wording retained inside
+> their immutable, hash-audited packets.
+
+### Connected L8 carrier-ring stress — PASS, CONDITIONAL PROGRAMMED CONTROL
 
 `DEVELOPMENT_R_CONNECTED_L8_RING_STRESS_V001/` and
 `AUDIT_R_CONNECTED_L8_RING_STRESS_V001/` pass at prepared numerical scope.
@@ -301,6 +311,10 @@ site participates in two native transfer terms. The run produces alternating
 occupations approximately `0.3125888646/0.6874111354`, alternating integrated
 currents `+/-0.0937055677`, and nonzero nearest-neighbor connected occupation
 correlation `-0.0261331605`.
+
+Its node-dependent stagger is a supplied control term, not the uniform BS09
+onsite term. The simultaneous numerical Hamiltonian is therefore a
+conditional programmed Hamiltonian, not autonomous BS09 selection.
 
 Expected retained total remains `128` within `3e-14`; absolute oriented
 throughput is `23.988625329874075`; signed ring-current sum is
@@ -314,7 +328,7 @@ and custody/result/scope `29/29` before final status sealing. Generic
 retention, individual lineage motion, criticality, continuum behavior, Ward
 structure, and gravity remain unclaimed.
 
-### Connected-ring time/coupling scan — PASS, CONTROLLED NUMERICAL
+### Connected-ring time/coupling scan — PASS, CONDITIONAL PROGRAMMED CONTROL
 
 `DEVELOPMENT_R_CONNECTED_RING_PARAMETER_SCAN_V001/` and
 `AUDIT_R_CONNECTED_RING_PARAMETER_SCAN_V001/` pass without repair. The 12
@@ -339,7 +353,11 @@ mature macro dynamics, or gravity. The next bounded accumulation stress may
 connect the separate eight-site rings while preserving gate-level owner
 custody.
 
-### Connected L8 paired-ring circuit — PASS, CONTROLLED NUMERICAL
+Only the `delta=0` members omit the nonuniform onsite control. The remaining
+points are programmed-control records; the scan supplies no BS09 selection
+law.
+
+### Connected L8 paired-ring circuit — PASS, CONDITIONAL PROGRAMMED CONTROL
 
 `DEVELOPMENT_R_CONNECTED_L8_LADDER_CIRCUIT_V001/` and its hostile audit
 `AUDIT_R_CONNECTED_L8_LADDER_CIRCUIT_V001/` pass without repair. Sixteen
@@ -359,16 +377,16 @@ physical defect or promoted to exact zero.
 
 The warning-free target passes `12/12`; the independent full 65,536-state
 reconstruction passes `18/18`; custody/result/scope passes `36/36`. The
-explicit ordered circuit is the selected finite parent and is not claimed to
-equal a simultaneous continuum evolution. No individual post-mixing lineage,
+explicit ordered circuit is a declared finite programmed-controller history,
+not autonomous BS09 evolution. No individual post-mixing lineage,
 generic retention law, criticality, continuum, Ward structure, mature macro
 dynamics, or gravity is established.
 
-### Connected L8 circuit-depth trajectory — PASS, CONTROLLED NUMERICAL
+### Connected L8 circuit-depth trajectory — PASS, CONDITIONAL PROGRAMMED CONTROL
 
 `DEVELOPMENT_R_CONNECTED_L8_CIRCUIT_DEPTH_TRAJECTORY_V001/` and
 `AUDIT_R_CONNECTED_L8_CIRCUIT_DEPTH_TRAJECTORY_V001/` pass after a documented
-pre-audit tolerance repair. The selected 16-record circuit is repeated from
+pre-audit tolerance repair. The programmed 16-record circuit is repeated from
 depth zero through eight. Every positive-depth checkpoint has all 24
 cumulative supports active, including all eight inter-cycle supports, and the
 eight-depth census contains 192 owner-once gate events.
@@ -394,7 +412,7 @@ unassigned pending owner classification, not physical defects. Circuit depth
 is not continuum time, and no scaling fit, criticality, Ward structure,
 mature macro dynamics, or gravity is claimed.
 
-### Connected L8 owner-once order screen — PASS, CONTROLLED NUMERICAL
+### Connected L8 owner-once order screen — PASS, CONDITIONAL PROGRAMMED CONTROL
 
 `DEVELOPMENT_R_CONNECTED_L8_CIRCUIT_ORDER_SCREEN_V001/` and
 `AUDIT_R_CONNECTED_L8_CIRCUIT_ORDER_SCREEN_V001/` pass without repair. At
@@ -414,21 +432,24 @@ controls below `1.12e-15` and `2.50e-16`.
 
 The target passes warning-free `14/14`, independent reconstruction `12/12`,
 and custody/result/scope verification `34/34` across 216 gate events. The
-proved numerical conclusion is limited: owner-once support and conservation
-do not select one accumulated distribution for noncommuting circuit events.
-Schedule must remain explicit selected-parent record data. No preferred
-order, schedule measure, averaging rule, or selection law is derived.
+proved numerical conclusion is limited: distinct finite controller schedules
+on the same supports produce distinct programmed records. This is not an
+ambiguity of the autonomous BS09 parent, whose fixed Hamiltonian selects its
+chronological exponential. No preferred programmed order, schedule measure,
+averaging rule, or autonomous selection law is derived by this screen.
 
 The raw residuals remain unassigned, not physical defects. No physical grid,
 generic retention law, criticality, continuum behavior, Ward structure,
 mature macro dynamics, or gravity is promoted.
 
-### Connected L8 preparation-pattern screen — PASS, CONTROLLED NUMERICAL
+### Connected L8 onsite-program screen — PASS, CONDITIONAL PROGRAMMED CONTROL
 
 `DEVELOPMENT_R_CONNECTED_L8_PREPARATION_PATTERN_SCREEN_V001/` and
 `AUDIT_R_CONNECTED_L8_PREPARATION_PATTERN_SCREEN_V001/` pass without repair.
 The support, forward schedule, depth three, source attachment, and complete
-read are held fixed while four onsite preparation labels are screened.
+read are held fixed while four node-dependent onsite controller labels are
+screened. These are not alternative source preparations and are absent from
+literal uniform-onsite BS09.
 
 The equal-pattern control has all 16 internal cycle supports active but zero
 of eight inter-cycle supports active; its net inter-cycle throughput is
@@ -447,20 +468,21 @@ within `2.28e-13`; the raw residual envelope is `r_1=2.64e-14`,
 
 The target passes warning-free `16/16`, independent reconstruction `14/14`,
 and custody/result/scope verification `41/41` across 288 gate events. The
-audited conclusion is local: preparation asymmetry is necessary for active
-inter-cycle transport in this fixed symmetric circuit. No universal
-preparation theorem, preferred preparation, measure, or averaging rule is
-derived. Patterns remain raw selected-parent labels; residuals remain
+audited conclusion is local: onsite-program asymmetry is necessary for active
+inter-cycle transport in this fixed symmetric programmed circuit. No
+universal preparation theorem, preferred onsite program, measure, or
+averaging rule is derived. Patterns remain raw controller-history labels;
+residuals remain
 unassigned rather than physical defects. No grid, criticality, continuum,
 Ward structure, mature macro dynamics, or gravity is promoted.
 
-### Connected native-component L4-L6-L8 trajectory — PASS, CONTROLLED NUMERICAL
+### Connected L4-L6-L8 programmed trajectory — PASS, CONDITIONAL CONTROL
 
 `DEVELOPMENT_R_CONNECTED_L4_L6_L8_TRAJECTORY_V001/` and
 `AUDIT_R_CONNECTED_L4_L6_L8_TRAJECTORY_V001/` pass without repair. The prior
 hostile-audited L4/L8 result is hash-pinned and an L6 row is independently
-inserted under the same reversed-preparation, forward-schedule, depth-three
-record labels. At L6, nine 12-record components partition 108 heads; all 18
+inserted under the same reversed onsite program, forward controller schedule,
+and depth-three labels. At L6, nine 12-record components partition 108 heads; all 18
 native supports per component, including all six inter-cycle supports, are
 active across 54 owner-once events.
 
@@ -477,18 +499,19 @@ its tiled L1 bound is `5.40e-14`, with norm and number-law errors below
 `1.23e-15` and `2.23e-16`. The target passes warning-free `15/15`, independent
 L6 reconstruction `6/6`, and custody/result/scope verification `17/17`.
 
-This is a three-size finite record trajectory, not an interpolation formula,
+This is a three-size programmed-control record trajectory, not an autonomous
+BS09 trajectory and not an interpolation formula,
 exponent, convergence claim, generic law, or critical signal. Schedule and
-preparation remain explicit labels, residuals remain unassigned rather than
+onsite program remain explicit controller labels, residuals remain unassigned rather than
 physical defects, and no grid, continuum, Ward structure, mature macro
 dynamics, or gravity is promoted.
 
-### Connected native-component L4-to-L8 trajectory — PASS, CONTROLLED NUMERICAL
+### Connected L4-to-L8 programmed trajectory — PASS, CONDITIONAL CONTROL
 
 `DEVELOPMENT_R_CONNECTED_L4_L8_NATIVE_COMPONENT_TRAJECTORY_V001/` and
 `AUDIT_R_CONNECTED_L4_L8_NATIVE_COMPONENT_TRAJECTORY_V001/` pass without
-repair. The same reversed-preparation, forward-schedule, depth-three labeled
-recipe is applied to native connected components at L4 and L8. Four
+repair. The same reversed onsite program, forward controller schedule, and
+depth-three labeled recipe is applied to connected components at L4 and L8. Four
 eight-record L4 components partition 32 heads; sixteen 16-record L8
 components partition 256 heads. Every native support is active: 12 per L4
 component and 24 per L8 component, including all four and eight inter-cycle
@@ -507,10 +530,46 @@ bounds are `1.49e-14` and `2.65e-13`. The target passes warning-free `14/14`,
 independent reconstruction `11/11`, and custody/result/scope verification
 `15/15`. The L8 row independently matches the earlier audited circuit.
 
-This is a controlled two-size connected record trajectory, not a generic
-scaling law. Schedule and preparation remain explicit labels, residuals are
+This is a controlled two-size programmed record trajectory, not autonomous
+BS09 evolution or a generic scaling law. Schedule and onsite program remain
+explicit controller labels, residuals are
 unassigned rather than physical defects, and no grid, criticality, continuum,
 Ward structure, mature macro dynamics, or gravity is promoted.
+
+### Physical-parent autonomous ring selection — PASS AFTER RECLASSIFICATION
+
+`DEVELOPMENT_R_PHYSICAL_PARENT_AUTONOMOUS_RING_SELECTION_V001/` and
+`AUDIT_R_PHYSICAL_PARENT_AUTONOMOUS_RING_SELECTION_V001/` derive the first
+post-decision physical-parent trajectory. The adopted F3-MDC write at
+`Phi=pi/4` followed by native transfer at `theta=pi/2` cancels the pulse
+phases and selects a blank tail with `(B+x)/sqrt(2)` on each retained head.
+After source shutdown, fixed literal BS09 selects
+`U=exp(-i H_car tau/hbar)` (or the chronological exponential for declared
+time-dependent coefficients), not a finite gate order. The uniform onsite
+term commutes with the hopping generator and all recorded number-conserving
+observables; no node-dependent stagger is used.
+
+On conditional fixed-program first-generator cycles, all `4/4` L4 and `8/8`
+L8 supports carry nonzero alternating integrated currents. Expected retained
+totals remain `16` and `128`. Absolute throughput totals are
+`5.065021368165664` and `31.481053477075946`, giving raw ratio
+`6.215384139332278` and per-retained-record ratio `0.7769230174165348`.
+The per-cycle raw residuals are below `1.84e-15` L1 and `4.31e-16` Linf;
+norm, energy, number-law, preparation-vector, and uniform-onsite commutator
+controls pass.
+
+The target passes warning-free `16/16`, independent reconstruction `8/8`,
+and hostile verification `15/15`. Its audit verdict is
+`PASS_AFTER_REQUIRED_LEDGER_RECLASSIFICATION`; the required reclassification
+is the authoritative correction above and in `CURRENT_CONTINUATION.md`.
+
+This selects preparation and chronological evolution only conditionally on
+the adopted source attachment and declared physical Hamiltonian. The fixed
+support program, `t`, `tau`, content sector, and read remain conditional.
+Autonomous support/program selection, coefficient derivation, and generic
+phase selection remain open. Residuals remain unassigned, not defects. No
+grid, continuum, Ward structure, mature macro dynamics, or gravity is
+promoted.
 
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
