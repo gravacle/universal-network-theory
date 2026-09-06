@@ -1725,3 +1725,65 @@ and dependency dispositions. **Corrected with external source:** the bounded
 ADM characterization. **Conditional/open:** a physical enlarged parent,
 state-dependent effective permissions in this program, native dynamical
 algebra, anomaly, continuum behavior, emergence, and gravity.
+
+## Gate R-C rho=1/4 centerline checkpoint — 2026-09-06
+
+Following the hostile-audited allow/require scope repair sealed at
+`4b335b7ff527a3e468e0c69f56ae77814bb17e7d`, the separately frozen
+centerline packet `DEVELOPMENT_R_GATE_C_EXTENDED_PHASE_SCREEN_V001/` ran the
+two authorized new rows `L10,q5` and `L12,q6`.  Independent construction in
+`AUDIT_R_GATE_C_EXTENDED_CENTERLINE_V001/` had already reproduced the sealed
+`L4,q2`, `L6,q3`, and `L8,q4` controls before either new target row was opened.
+
+The new target/blind observables are:
+
+| L | q | target `Delta_act` | target `chi_tau` | target `R_low` | max core target/blind relative difference |
+|---:|---:|---:|---:|---:|---:|
+| 10 | 5 | `1.019169287247472` | `0.889356367000918` | `0.789153329928315` | `6.972e-15` |
+| 12 | 6 | `0.852266222143108` | `1.078465211986246` | `0.825147186276443` | `4.169e-15` |
+
+Both rows resolve within all frozen residual, Hermiticity, orthogonality,
+threshold, projection, matvec, memory, and wall guards.  A first hostile pass
+failed closed because the target serializer omitted the requested lowest-five
+Ritz telemetry.  The preserved reporting-only repair adds those fields,
+replays all five rows, and leaves every promoted observable and the
+classification unchanged.
+
+Over `L={4,6,8,10,12}`, the free gap exponent is
+`z=0.965001779728` and the response growth exponent is
+`y=1.046177707759`.  The `L={8,10,12}` relative ranges are `0.0096903`
+for `L Delta_act`, `0.0229300` for `chi_tau/L`, and `0.1179960` for
+`R_low`.  Those checks pass.  The strict preregistered model-comparison checks
+do not: fixed-`z=1` held-out relative SSE is `8.20230e-5`, versus
+`3.41384e-5` for free-gapless and `3.54379e-5` for positive-gap.  The exact
+frozen classification is therefore
+
+```text
+CENTERLINE_Z1_REJECTED_L4_L12
+HALT__DO_NOT_START_NATIVE_ALGEBRA
+```
+
+The rejection is bounded to the declared finite-window prerequisite.  It is
+not a proof that the thermodynamic exponent differs from one, and the slight
+held-out ordering does not prove a positive limiting gap.  Because the Unified
+Algebraic-Scaling Protocol made Step 2 conditional on passing Step 1, no native
+Poincare/Virasoro generator, algebra closure, or anomaly limit was computed.
+
+**Certification gate:** this section is governing only because
+`AUDIT_R_GATE_C_EXTENDED_CENTERLINE_V001/FINAL_REPORT.md` records the frozen
+`542/542` hostile pass and
+`AUDIT_R_GATE_C_EXTENDED_CENTERLINE_V001/FINAL_INDEPENDENT_HOSTILE_AUDIT.md`
+(SHA-256
+`ada03e51367ae353e1a7f4495047dec1cf63056d6999a2038e80d8ae8ce4aaec`)
+records a separate `165/165` direct reconstruction pass.  Both retain the
+mandated Step-1 route halt.  Absent either pass, the target remains failed
+closed at the reporting audit.
+
+**Proved inputs:** finite owner topology, exact charge conservation,
+translation symmetry, response-momentum selection, and the sealed L4/L6/L8
+controls. **Adopted:** sharp-sector `rho=1/4`, response channel, Krylov and fit
+tolerances, model families, and conjunctive decision rule. **Empirical:** the
+L10/L12 Ritz records and finite-window fit/classification after hostile pass.
+**Open/not computed:** exact or thermodynamic `z`, a critical phase or density,
+authenticated accumulation selection, native spacetime algebra, anomaly,
+continuum behavior, universal coupling, emergence, and gravity.

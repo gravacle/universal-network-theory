@@ -1010,3 +1010,21 @@ null controls and cannot supply a spacetime algebra or anomaly.
 
 No grid, graviton, Ward axiom, continuum assumption, Gate B promotion,
 emergence, or gravity claim is authorized by this continuation.
+
+### Centerline checkpoint disposition
+
+The authorized `L10,q5` and `L12,q6` target/blind wave is complete.  The five-
+size result is `CENTERLINE_Z1_REJECTED_L4_L12`: `z=0.965001779728` and
+`y=1.046177707759` pass the exponent windows, and the scaled tails are stable,
+but the fixed-`z=1` model fails both preregistered held-out comparison gates.
+An initial hostile reporting failure for omitted lowest-five Ritz telemetry was
+repaired without changing any promoted observable or the classification.
+The repaired record passes the frozen hostile screen `542/542`; a second
+independent direct reconstruction passes `165/165`.
+
+The dependent pipeline therefore halts before native-algebra Step 2.  No
+commutator/anomaly result exists.  Selecting another density, observable,
+scaling criterion, or physical generator is now a theory-level decision rather
+than routine continuation.  The larger record-accumulation and emergence
+program remains open; this stop applies only to the rejected algebraic-scaling
+route.
