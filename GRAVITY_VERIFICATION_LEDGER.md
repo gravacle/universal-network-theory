@@ -1787,3 +1787,77 @@ L10/L12 Ritz records and finite-window fit/classification after hostile pass.
 **Open/not computed:** exact or thermodynamic `z`, a critical phase or density,
 authenticated accumulation selection, native spacetime algebra, anomaly,
 continuum behavior, universal coupling, emergence, and gravity.
+
+## Authenticated accumulation same-port history — 2026-09-06
+
+The preregistered target is
+`DEVELOPMENT_R_AUTHENTICATED_ACCUMULATION_SCREEN_V001/`, frozen before target
+output at commit `af54315da9d97f8ba436946d7e97822411bbd655`. Its independent reconstruction
+and the one permitted bounded blind-method repair were frozen at commit
+`264b35e66a1a8667ac84a9580b18b8a537b704e5`. The declared chronology applies
+the authenticated `Phi=pi/4` source pulse repeatedly at one source port, with
+native transport between owner-once writes; density is an output of the
+history rather than an imposed sector label.
+
+At L4 the first three complete-space signed source terms are
+
+| event | `W_n` | disposition |
+|---:|---:|---|
+| 1 | `0.4999999999999999` | positive blank-target write |
+| 2 | `0.4999999999999997` | positive uptake |
+| 3 | `-0.2840663550582732` | coherent unwriting |
+
+Thus `W_3/W_1=-0.5681327101165464`. The conservative upper error bound on
+`W_3` is `-0.2840663550202991`, and the target, repaired blind trajectory, and
+complete 256-dimensional eigensystem adjudication agree within `1.899e-12` on
+the sign-certificate observable. The dense adjudicator passes `8/8` checks:
+zero Hermiticity error, maximum eigenpair residual `1.517e-14`, unitary error
+`2.220e-15`, and norm error `4.441e-16`.
+
+The repaired blind physical trajectory agrees with the target to less than
+`2.74e-9`, but its fine-history norm drift
+`1.3402301490827995e-10` remains above the frozen `1e-10` full-row guard. The
+blind full row therefore remains `UNRESOLVED_HISTORY_L`; no threshold or guard
+was relaxed. The independent dense method is fail-closed and adjudicates only
+the already preregistered sign Boolean; it cannot authorize a positive sector.
+
+The protocol requires its first three source terms to be positive before a
+depletion window or accumulation-generated sector can be defined. That
+prerequisite is false at L4. A common L4--L12 sector necessarily includes an
+admissible L4 sector, so the sealed disposition is
+
+```text
+NO_COMMON_ACCUMULATION_SECTOR_L4_L12
+HALT__DO_NOT_RUN_L6_L8_L10_L12_OR_SPECTRAL_INTERVAL_SWEEP
+```
+
+No L6, L8, L10, or L12 history and no spectral interval sweep was run. The
+final hostile verifier checks their absence and passes `49/49`, with verdict
+`PASS_HOSTILE_L4_NEGATIVE_WRITE_OBSTRUCTION__NO_COMMON_SECTOR__HALT`.
+
+**Certification gate:** this section is governing because
+`AUDIT_R_AUTHENTICATED_ACCUMULATION_SCREEN_V001/FINAL_HOSTILE_AUDIT.md`
+records the independent-method hostile pass and
+`AUDIT_R_AUTHENTICATED_ACCUMULATION_SCREEN_V001/FINAL_HOSTILE_RESULT.json`
+records the machine-verifier result. A separate read-only hostile review in
+`AUDIT_R_AUTHENTICATED_ACCUMULATION_SCREEN_V001/INDEPENDENT_HOSTILE_READ_ONLY_AUDIT.md`
+replays all `49/49` checks and reproduces `W_3` by a fresh complete 256-state
+order-36 series propagation within `1.33e-15` of the dense adjudication. The
+evidence therefore includes the target Taylor evolution, repaired blind
+RK4--Richardson evolution, complete dense L4 eigensystem construction, and
+the additional hostile series reconstruction.
+
+**Proved for the declared finite history:** the first-three-positive condition
+is false at L4, hence the common-sector prerequisite cannot be met.
+**Adopted:** the same-port chronology, pulse and dwell, capacity definition,
+and frozen thresholds. **Empirical/numerically certified:** the displayed
+source terms and finite numerical controls. **Open:** fresh-ingress or
+state-dependent admission with complete controller, rejected-lineage, and
+resource ownership; an emergent sector; critical density; exact `z=1`;
+continuum/macroscopic closure; universal coupling; long-range response;
+metric/action dynamics; emergence; and gravity.
+
+This is a bounded obstruction to repeated coherent pulses at one occupied
+port, not a generic no-go theorem for record accumulation. No grid, graviton,
+Ward axiom, continuum assumption, Gate B promotion, emergence, or gravity
+claim is introduced.

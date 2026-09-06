@@ -1028,3 +1028,54 @@ scaling criterion, or physical generator is now a theory-level decision rather
 than routine continuation.  The larger record-accumulation and emergence
 program remains open; this stop applies only to the rejected algebraic-scaling
 route.
+
+## Active authenticated-accumulation disposition — 2026-09-06
+
+The preregistered native-history replacement for the rejected top-down
+`rho=1/4` centerline has completed at its first fail-closed checkpoint. On L4,
+the declared same-port chronology gives
+
+```text
+W1 =  0.4999999999999999
+W2 =  0.4999999999999997
+W3 = -0.2840663550582732
+```
+
+The third application coherently unwrites retained amplitude. Its
+conservative numerical upper bound is `-0.2840663550202991`, and target,
+repaired blind, and complete dense-eigensystem constructions agree within
+`1.899e-12`. The sign adjudication passes `8/8`; the final hostile verifier
+passes `49/49`. A separate read-only hostile review passes and reproduces
+`W_3` by a fresh complete 256-state order-36 series propagation within
+`1.33e-15` of the dense adjudication.
+
+Because the frozen sector definition requires the first three writes to be
+positive, no admissible L4 accumulation sector exists for this history.
+Accordingly:
+
+```text
+NO_COMMON_ACCUMULATION_SECTOR_L4_L12
+HALT__DO_NOT_RUN_L6_L8_L10_L12_OR_SPECTRAL_INTERVAL_SWEEP
+```
+
+The repaired blind full row remains `UNRESOLVED_HISTORY_L` because its norm
+drift `1.3402301490827995e-10` is slightly above the frozen `1e-10` guard; no
+guard was relaxed. The independent complete-space sign certificate is
+fail-closed and cannot authorize a positive continuation. No larger history
+or spectral sweep was run.
+
+The next calculation is not routine larger-L compute. It requires a new
+theory-level physical parent/history: an owned fresh-ingress or state-dependent
+admission mechanism including the complete controller, rejected lineage, and
+resource costs. Only after that parent produces an authenticated emergent
+sector may the interval Krylov `z=1` screen be reopened.
+
+The gravity segment remains downstream and has not been executed. Its open
+dependent sequence is: native long-wavelength algebra and anomaly control;
+predictive macroscopic closure under composition; probe-independent universal
+coupling; non-contact long-range two-source response; and a controlled
+metric/effective-action limit with the complete Ward/contact ownership derived
+from the physical parent. Passing those stages--not this finite accumulation
+screen--would be the basis for a bounded gravity-emergence claim. No grid,
+graviton, Ward axiom, continuum assumption, Gate B promotion, emergence, or
+gravity claim is authorized here.
