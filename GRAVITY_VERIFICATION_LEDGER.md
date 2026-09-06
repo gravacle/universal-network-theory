@@ -1380,6 +1380,58 @@ Background subtraction is not an individual-lineage tag. No metric strain,
 gravitational time dilation, Shapiro delay, continuum behavior, or gravity is
 claimed.
 
+### Gate R-C L8 Option-A forward-edge arrival control — PASS, NONMONOTONE
+
+`DEVELOPMENT_R_GATE_C_L8_FORWARD_EDGE_ARRIVAL_V001/` and
+`AUDIT_R_GATE_C_L8_FORWARD_EDGE_ARRIVAL_V001/` pass. The target direct
+order-ten Taylor evolution replays `14/14`; an independent unitary
+fourth-order Suzuki--Yoshida reconstruction over three exact edge matchings
+passes `52/52` without target repair or execution above L8.
+
+This control retains the complete audited L8 prism, including both
+wrap-around rail edges. It implements Option A: select owner edge index three,
+the directed Rail-1 edge `3 -> 4`, and define
+`delta J_3->4(t)=J_3->4(background+probe)-J_3->4(background)`. Define
+`tau_fwd(N)` as the first positive local maximum of this instantaneous current
+contrast above `1e-8` on `0<t<=2*pi`, using the fixed three-point parabolic
+vertex. At the same refined time, record both the current peak and the
+background-subtracted node-four occupation.
+
+| N | target `tau_fwd` | target peak `delta J_3->4` | target `delta q4(tau_fwd)` | hostile `tau_fwd` |
+|---:|---:|---:|---:|---:|
+| 0 | `1.1689248234458889` | `0.0031013425486761587` | `0.0010580240013207285` | `1.1689248233321285` |
+| 1 | `1.3499576186052027` | `0.005486122455785261` | `0.0015577475582982453` | `1.349957618520621` |
+| 2 | `2.616413582186205` | `0.08678470625774941` | `0.06950833752147013` | `2.616413582161456` |
+| 3 | `2.465320822952501` | `0.044181800616906484` | `0.06064716752029006` | `2.4653208228722225` |
+
+The forward-edge arrival time is not strictly monotone. Independently,
+`tau_fwd(2)-tau_fwd(3)=0.1510927592892335`; the maximum hostile coarse/fine
+timing difference is `4.089e-6`, so the inversion is more than four orders of
+magnitude larger than that numerical control. Maximum target-versus-hostile
+errors are `1.138e-10` for time, `2.964e-12` for peak current, and
+`4.257e-12` for node-four occupation contrast. The hostile fine norm,
+retained-number, and energy controls are `1.837e-12`, `4.425e-12`, and
+`5.917e-12` respectively.
+
+The `N=3 < N=2` inversion therefore survives selection of the final directed
+inflow edge through the accumulated-write sector. It is not an artifact
+unique to the earlier node-four occupation peak or to final inflow over the
+opposite edge `5 -> 4`. Option A does not delete the wrap-around support,
+however, and the selected current cannot identify which earlier coherent
+route contributed. It therefore does not prove full bypass elimination.
+
+**Proved:** unchanged owner-once L8 topology, directed edge custody, and exact
+authenticated terms-off write ledgers. **Adopted:** Option A, common phase,
+background subtraction, bounded search window, and first-positive-peak rule.
+**Conditional:** the all-blank parent, ensemble difference, and finite
+solvers. **Empirical:** the four forward-edge times and amplitudes and the
+independently reproduced inversion. **Open:** Option B, other edges, clusters,
+phases and peak rules, individual route/lineage, a physical metric or clock,
+Gate R-C, and Gate A-P.
+
+No strictly monotone forward propagation delay, metric strain, gravitational
+time dilation, Shapiro delay, continuum behavior, or gravity is established.
+
 ## Claim boundary
 
 No statement in this ledger derives a physical Ward identity,

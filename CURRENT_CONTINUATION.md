@@ -62,6 +62,20 @@ not monotone. This finite ensemble-subtraction diagnostic does not establish
 individual carrier transit, a physical metric or clock, time dilation,
 Shapiro delay, or gravity. Gate R-C and Gate A-P remain open.
 
+The audited Option-A forward-edge control also leaves the inversion intact.
+Using the first positive peak of the background-subtracted instantaneous
+directed current on Rail-1 edge `3 -> 4`, target `tau_fwd` values are
+`1.1689248234458889`, `1.3499576186052027`, `2.616413582186205`, and
+`2.465320822952501` for `N=0..3`. Target/hostile checks pass `14/14` and
+`52/52`; independent times agree within `1.138e-10`. The decrease
+`tau_fwd(2)-tau_fwd(3)=0.1510927592892335` exceeds the hostile timing-
+refinement control by more than four orders of magnitude. Thus the inversion
+is not removed by selecting final inflow through the write-sector edge. The
+wrap-around support remains active, however, so Option A neither eliminates
+all global bypass/interference nor identifies individual earlier routes. No
+monotone propagation delay, physical metric, time dilation, Shapiro delay, or
+gravity is established; Gate R-C and Gate A-P remain open.
+
 The first prepared L8 baseline passed after hostile repair: lineages
 `32 -> 256`, expected retained total `16 -> 128`, density `1/4`, absolute
 oriented seam throughput `16 -> 128`, and raw carrier record-ledger residuals
