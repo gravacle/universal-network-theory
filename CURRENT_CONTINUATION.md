@@ -291,10 +291,36 @@ hostile suites pass `27/27` and `34/34`.
 Only the finite automorphism/orbit identities are exact. Time evolution and
 current integration remain numerical, and the method is computational
 compression rather than a physical symmetry or continuum assumption. It is
-now authorized for the connected L10 finite rung, contingent on the same
-uniform source, supplied-support, owner-once, refinement, and hostile-audit
-controls. Do not infer a grid, continuum, Ward behavior, critical law, mature
-macro dynamics, or gravity.
+authorized only under the same uniform-source, supplied-support, owner-once,
+refinement, and hostile-audit controls.
+
+The connected L10 finite rung now passes hostile audit without correction.
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L10_ACCUMULATION_V001/` and its audit use
+50 connected components, each formed from two ten-cycles and ten
+opposite-parity connector/seam edges. They cover all 1,000 L10 sites in
+`500+500` F3 layers and own 1,500 selected edges once. The uniform source and
+one simultaneous BS09 exponential at conditional `kappa=pi/2` remain
+unchanged.
+
+The exact finite basis reduces 1,048,576 words to 105,376 orbit states. All 20
+internal and 10 connector currents per component are active. Refined raw total
+throughput is `2.6064983430` per component and `130.3249171478` globally;
+connector throughput is `0.8407784065` per component and `42.0389203272`
+globally. Expected retained total is 250. Total/per-retained comparisons are
+`16.3765055469/1.0480963550` against L4,
+`4.6400492202/1.0022506316` against L6, and
+`1.9527650054/0.9998156828` against L8. Fine numerical residuals are
+`7.766e-12` L1 and `3.910e-13` Linf per component, unassigned rather than
+called defects.
+
+The target passes `24/24`; a distinct generator-BFS quotient and RK4 hostile
+reconstruction passes `38/38`. One target run took `48.279534083 s` and
+`333.390625 MiB` maximum RSS on the declared 48 GiB host; this is not a
+complexity claim. This remains conditional-support microscopic accumulation,
+not exact evolution, a fitted law, autonomous support, or a generic phase.
+Continue to the next feasible finite member using the audited compression and
+the same record-level controls. Do not infer a grid, continuum, Ward behavior,
+critical law, mature macro dynamics, or gravity.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 

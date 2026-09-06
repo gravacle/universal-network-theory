@@ -829,6 +829,55 @@ computational compression for a larger finite record. It selects no support
 or mission parameter and adds no interaction, physical grid, continuum,
 Ward structure, critical or generic phase, graviton, or gravity.
 
+### Autonomous connected L10 accumulation — PASS, CONDITIONAL SUPPORT
+
+`DEVELOPMENT_R_AUTONOMOUS_CONNECTED_L10_ACCUMULATION_V001/` and
+`AUDIT_R_AUTONOMOUS_CONNECTED_L10_ACCUMULATION_V001/` apply the validated
+finite-orbit basis to the same uniform F3-MDC preparation and simultaneous
+BS09 Hamiltonian at L10. Fifty identical twenty-site components cover all
+1,000 sites in `500+500` F3 layers. Each contains two ten-cycles and ten
+opposite-parity connector/seam edges, is degree three and BFS-connected, and
+owns 20 internal plus 10 connector edges once. The global census is 250,000
+possible F3 links, 1,500 selected edges, 500 source lineages, and expected
+retained total 250.
+
+The exact finite group partitions 1,048,576 component words into 105,376
+orbits with histogram `{1:4, 2:6, 5:1020, 10:104346}`. Its owner-once quotient
+has 1,570,516 nonzero entries and zero displayed Hermiticity mismatch. At
+conditional `kappa=pi/2`, all `20/20` internal and `10/10` connector supports
+per component are active. Refined current magnitudes are `0.0882859968`
+internally and `0.0840778407` on connectors. Raw absolute throughput is
+`2.6064983430` per component and `130.3249171478` globally; connector/seam
+throughput is `0.8407784065` per component and `42.0389203272` globally.
+Expected retained total is 250.
+
+Finite total/per-retained throughput comparisons are
+`16.3765055469/1.0480963550` against L4,
+`4.6400492202/1.0022506316` against L6, and
+`1.9527650054/0.9998156828` against L8. They are raw comparators, not a fitted
+scaling law. The 1,024/2,048-panel current refinement is `1.978e-12`; fine raw
+residuals are `7.766e-12` L1 and `3.910e-13` Linf per component, with global
+tiled L1 bound `3.883e-10`. They remain unassigned numerical record-ledger
+terms, not defects. Exactness applies to the finite orbit basis, not time
+evolution or quadrature.
+
+A hostile generator-BFS/destination-normalized quotient and independent
+RK4(4096)+Simpson evolution reproduce every occupation and all 30 signed
+currents. Maximum target differences are `1.90e-12` for occupations and
+`6.29e-13` for currents. The target passes `24/24`; hostile verification passes
+`38/38` and requires no correction. One passing target run on the declared
+48 GiB host took `48.279534083 s` and used `349,585,408` bytes
+(`333.390625 MiB`) maximum RSS. This is one host observation, not a complexity
+claim.
+
+The finite owner-once CTP assigns one deformation source to each of the 1,500
+unique Hamiltonian edges and has `Z[0,0]=1`; it is not a 1PI action or Ward
+identity. This is a fourth finite connected-support accumulation record, not
+autonomous selection of that support or a generic connected phase. Support,
+`kappa`, separate `t` and `tau`, clock, content, source routing, and complete
+read remain conditional. No grid, continuum, Ward structure, critical law,
+mature macro dynamics, graviton, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

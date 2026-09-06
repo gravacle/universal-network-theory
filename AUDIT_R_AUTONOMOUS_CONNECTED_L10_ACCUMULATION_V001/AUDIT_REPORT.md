@@ -1,0 +1,11 @@
+# Hostile audit — autonomous connected L10 accumulation
+
+An independent million-word reconstruction passes without correction. It generates the order-ten group from `T` and `S` using generator BFS, constructs all 105,376 word orbits without the target partition, and assembles the quotient from destination-representative incoming multiplicities rather than the target's source-representative route. The histogram is `{1:4, 2:6, 5:1020, 10:104346}`; the quotient has 1,570,516 entries and zero Hermiticity mismatch.
+
+The connected component is a cubic two-C10 graph with twenty internal and ten shifted connector edges. Fifty copies give 1,000 sites in `500+500` F3 layers, 250,000 possible links, 1,500 selected owner-once edges, 500 prepared lineages, and retained expectation 250.
+
+A genuinely distinct RK4(4096)+Simpson evolution derives the three signed edge orbits and reconstructs every one of the thirty oriented currents. Its maximum occupation and signed-current differences from the target are below `2.0e-12` and `6.3e-13`. Independent global total/connector throughputs are `130.32491714685816` and `42.03892032691742`; retained expectation is `249.99999999997868`. Independent total/per-retained ratios are `16.376505546793567/1.0480963549947881` against L4, `4.640049220138139/1.002250631549838` against L6, and `1.9527650054031802/0.9998156827664282` against L8. Continuity, norm, energy, number-sector law, and connected correlation pass their numerical envelopes.
+
+The target's Taylor-10 and 1,024/2,048-panel Simpson pair has current refinement `1.977737418279446e-12` and coarse/fine residual ratio `16.2530237611872`, a numerical convergence diagnostic rather than exactness. The finite group/orbit basis is exact; time evolution and current quadrature are not. Residuals remain unassigned numerical ledger terms, not defects.
+
+The declared-48-GiB run record (`48.279534083 s`, `349,585,408` bytes or `333.390625 MiB`) is internally consistent and explicitly one host observation, not a complexity claim. Finite CTP has one source per 1,500 unique edges and `Z[0,0]=1`; it is bookkeeping, not 1PI/Ward. Support, kappa, t/tau, clock, content, routing, and read remain conditional. No autonomous support, defect, grid, continuum, Ward, critical or generic phase, graviton, or gravity is promoted. No correction required.

@@ -96,7 +96,13 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   L4/L6/L8 occupation and signed current. Its exact content is limited to the
   finite automorphism action, orbit partition, quotient normalization, and
   current reconstruction; its evolution remains numerical. It is authorized
-  only as computational compression for the next finite record rung.
+  only as computational compression for the next finite record rung. The
+  hostile-audited connected L10 application covers 1,000 sites in 50
+  twenty-site components, owns 1,500 selected edges once, starts 500 lineages,
+  and retains expectation 250. All 20 internal and 10 connector currents per
+  component are numerically active. Its L10/L4/L6/L8 comparisons are finite
+  numerical records, while its resource use is one host observation; neither
+  is a continuum, phase, or complexity law.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 
