@@ -905,6 +905,34 @@ independent compiler, passes `30/30` with no correction. No autonomous support, 
 continuum, Ward structure, critical or generic phase, graviton, or gravity is
 promoted.
 
+### Order-2L prism-orbit compression — PASS, COMPUTATIONAL ONLY
+
+`DEVELOPMENT_R_CONNECTED_PRISM_ORBIT_REDUCTION_V001/` and
+`AUDIT_R_CONNECTED_PRISM_ORBIT_REDUCTION_V001/` validate a larger finite
+source-preserving subgroup. Under the combinatorial relabeling `x=i-a`, its
+`2L` permutations preserve the supplied two-cycle/connector support and the
+original source parity. “Prism” names only this finite graph isomorphism; it is
+not a physical grid or geometry, and subgroup maximality is not claimed.
+
+Complete orbit dimensions at L4/L6/L8/L10 are `55/430/4435/53764`, with
+quotient nonzero counts `184/3044/49076/786300`. Every quotient has zero
+displayed Hermiticity mismatch, and two signed edge orbits reconstruct every
+internal and connector current without imposing continuity. A distinct
+hostile generator-BFS/destination-normalized quotient and RK4 evolution
+reproduce all sealed occupations and currents; maximum hostile differences at
+L10 are `1.90e-12` and `6.30e-13`. The target passes `40/40`; hostile
+verification passes `26/26` with no correction.
+
+The independent structural-only L12 screen confirms
+`16,777,216 -> 704,370` word orbits, 12,582,508 quotient entries, and
+201,320,128 bytes (`191.993835449 MiB`) for the quotient arrays. It performs
+no L12 evolution. Target observations of `0.013946 s` per Hamiltonian action
+and `1,703,739,392` bytes peak RSS were not independently reproduced and are
+not complexity bounds or physics evidence. Exactness stops at finite
+group/orbit/quotient/current-reconstruction identities; dynamics and
+quadrature remain numerical. No autonomous support, grid, continuum, Ward
+structure, phase, graviton, or gravity is promoted.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

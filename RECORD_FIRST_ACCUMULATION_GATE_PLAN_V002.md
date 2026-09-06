@@ -104,7 +104,11 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   numerical records, while its resource use is one host observation; neither
   is a continuum, phase, or complexity law. The hostile-audited L4/L6/L8/L10
   compilation freezes the raw connected trajectory and adjacent comparators
-  without a fit, extrapolation, monotonicity, or limit claim.
+  without a fit, extrapolation, monotonicity, or limit claim. The independently
+  audited order-`2L` prism-orbit subgroup is authorized as a second exact
+  finite compression after reproducing every lower-size current and
+  occupation. “Prism” is only a graph relabeling; it supplies no physical grid
+  or geometry. Its L12 screen is structural, not an evolved record.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 

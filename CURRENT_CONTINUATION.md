@@ -328,9 +328,19 @@ hostile suites pass `33/33` and `30/30`. These are finite numerical records;
 their late-size proximity is not evidence of monotonicity, convergence, a
 limit, exponent, or continuum law.
 
-Continue to the next feasible finite member using the audited compression and
-the same record-level controls. Do not infer a grid, continuum, Ward behavior,
-critical law, mature macro dynamics, or gravity.
+The order-`2L` prism-orbit reduction now also passes hostile audit without
+correction. It reduces the sealed L4/L6/L8/L10 components to
+`55/430/4435/53764` orbit states and reconstructs all currents from two signed
+edge orbits. “Prism” is only a finite graph relabeling, not physical geometry.
+The independent audit confirms the L12 structural census
+`16,777,216 -> 704,370` with 12,582,508 quotient entries, but performs no L12
+evolution. Target action-time/RSS values remain unreplicated feasibility
+observations.
+
+The exact finite compression is authorized for a refined connected L12 run
+under the same uniform source, supplied support, owner-once, numerical-
+refinement, and hostile-audit controls. Do not infer a grid, continuum, Ward
+behavior, critical law, mature macro dynamics, or gravity.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 
