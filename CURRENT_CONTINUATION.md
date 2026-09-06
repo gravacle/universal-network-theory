@@ -91,6 +91,35 @@ nodes `1,2,3`, so unique route or individual lineage is not established. The
 result is a discrete topology classification, not a metric or emergence
 claim; Gate R-C and Gate A-P remain open.
 
+The user-authorized `L4 + L4 -> L8` composition-closure screen is now stopped
+at its mandatory theory-review boundary. The frozen six-remove/six-add owner
+surgery exactly reconstructs the canonical 24-owner L8 prism, but that
+interscale surgery is an adopted conditional join and is not autonomously
+selected by the frozen physical parent. For the fixed evolved pure history,
+the minimum coherent interface dimension is its Schmidt rank. L4 is
+numerically full at `D4=16`; at L8 the conservative cross-solver bound is
+`D8>=251` out of 256, full `D=256` reconstructs, and the exact minimum remains
+unresolved in `[251,256]`. Thus the certified finite-step growth is at least
+`251/16=15.6875`, or `98.046875%` of the full L8 half-space. This triggers
+the predeclared near-Hilbert/exponential-growth stop; it is not an asymptotic
+scaling theorem.
+
+The proposed smaller equal-time boundary record also fails closure. Its
+complete four-port density, total `Q`, six incident currents, and port
+correlations have exact real-linear rank `263` and nullity `65,273` in the L4
+block operator space. The adversarial packet constructs two positive
+trace-one roots with identical values for that entire record and zero initial
+seam current, yet different future joined readouts (site-four occupation
+difference `0.09171808224482285`, complete product-read TV one to numerical
+precision). Target, adversarial, and independent hostile replays pass; the
+hostile result is `21/21` with disposition
+`PASS_HOSTILE_AUDIT_OBSTRUCTION_STOP__EXACT_D8_UNRESOLVED`. No L6-to-L12 or
+other larger run was attempted. A bounded reusable authenticated boundary
+record has therefore not been found; exact `D8`, a process-record minimality
+theorem, and a physical-parent-selected interscale join remain open. This
+does not invalidate microscopic accumulation and establishes no grid,
+continuum/Ward behavior, graviton, emergence, or gravity.
+
 The first prepared L8 baseline passed after hostile repair: lineages
 `32 -> 256`, expected retained total `16 -> 128`, density `1/4`, absolute
 oriented seam throughput `16 -> 128`, and raw carrier record-ledger residuals

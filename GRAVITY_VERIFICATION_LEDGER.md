@@ -1503,6 +1503,84 @@ This is solely a topological classification of discrete transport modes under
 owner-once conservation. No metric time dilation, Shapiro delay, macroscopic
 gravitational emergence, or gravity is asserted.
 
+### Gate R-C L4 + L4 to L8 composition-closure screen — HOSTILE-AUDITED OBSTRUCTION; STOP
+
+`DEVELOPMENT_R_GATE_C_L4_L4_TO_L8_COMPOSITION_CLOSURE_V001/`,
+`ADVERSARIAL_R_GATE_C_L4_L4_TO_L8_BOUNDARY_RECORD_V001/`, and
+`AUDIT_R_GATE_C_L4_L4_TO_L8_COMPOSITION_CLOSURE_V001/` implement the frozen
+L4-and-L8-only protocol. The target replay passes, the explicit lower-order
+collision screen passes `19/19`, and the hash-pinned independent hostile audit
+passes `21/21` with verdict
+`PASS_HOSTILE_AUDIT_OBSTRUCTION_STOP__EXACT_D8_UNRESOLVED`. The frozen
+protocol SHA-256 is
+`e0245dc81edb15be8b5ece72ff196f19754976a41a5785941e3dba2428bdcbb4`.
+
+The exact six-remove/six-add owner surgery maps two relabeled periodic L4
+owner sets to the canonical 24-owner degree-three L8 prism. It changes no
+other owner. This surgery is an adopted conditional interscale join; the
+frozen physical parent does not autonomously select that composition.
+
+For reconstruction of the fixed evolved pure history, Schmidt rank is the
+minimum coherent interface channel count. It does not by itself define a
+reusable future-join process record. The finite results are:
+
+| quantity | L4 | L8 |
+|---|---:|---:|
+| half-space dimension | `16` | `256` |
+| conservative solver-stable channel bound | `D4=16` | `D8>=251` |
+| exact minimum disposition | `16`, well separated | unresolved in `[251,256]` |
+| full reconstruction dimension | `16` | `256` |
+| target full-SVD reconstruction Linf | `2.271e-16` | `7.633e-16` |
+
+The target's threshold rank `254` and independent threshold ranks
+`251/253/255/256` are numerical effective ranks, not exact-rank theorems, and
+are not forced into agreement. The conservative audited statement is
+
+```text
+D8 / D4 >= 251 / 16 = 15.6875
+D8 / 256 >= 251 / 256 = 0.98046875
+```
+
+The maximum possible finite-step ratio is 16. Requiring at least 251 of 256
+channels therefore satisfies the frozen escalation trigger for near-complete
+Hilbert-space growth. It is strong evidence of the obstruction at this single
+L4-to-L8 step, not a proved asymptotic exponential law.
+
+The smaller equal-time candidate does not close. For one L4 block, the
+Hermitian operator space has real dimension `65,536`. Complete four-port
+density contributes 256 real directions, total `Q` contributes one, and the
+six port-incident owner currents contribute six; port correlations are
+already fixed by the port density. The candidate-map rank is therefore
+exactly `263`, with nullity `65,273`. Two positive trace-one one-carrier roots
+have identical `Q`, four-port density, all six incident currents, port
+correlations, and zero initial new-seam currents, but their future joined
+readouts differ: the target collision has site-four occupation difference
+`0.09171808224482285` and complete product-read TV one to numerical
+precision. The hostile audit independently obtains a different collision
+with future-record Linf separation `0.17085904112241262`. These are lawful
+finite-block roots, not states claimed to be selected by the conditional
+uniform F3-MDC source.
+
+**Proved:** exact owner surgery; source factorization; Schmidt minimality for
+the fixed pure-state reconstruction; and the candidate-map rank/nullity and
+equality of the collision input record. **Adopted:** the F3-MDC normalization
+and the interscale owner surgery. **Conditional:** the selected support,
+source routing, `kappa=pi/2`, and complete read. **Empirical/numerically
+certified:** well-separated numerical `D4=16`, cross-solver-stable numerical
+`D8>=251`, `D=256` reconstruction within recorded floating-point error,
+future-read collision separation, evolved spectra, currents, correlations,
+and numerical ledger remainders. **Open:** exact `D8` in `[251,256]`, a
+bounded reusable authenticated process record, autonomous physical-parent
+selection of the join, and all larger-size behavior.
+
+The mandated disposition is
+`STOP_EXPONENTIAL_LOWER_BOUND__EXACT_D8_UNRESOLVED`. No L6-to-L12 run,
+truncation, compression ansatz, or unrelated machinery was attempted. This
+obstruction does not reopen Gate A-R or invalidate the sealed accumulation
+records; it blocks this proposed exact composition shortcut. Gate R-C and
+Gate A-P remain open. No grid, continuum/Ward axiom, phase, graviton,
+emergence, or gravity is asserted.
+
 ## Claim boundary
 
 No statement in this ledger derives a physical Ward identity,
