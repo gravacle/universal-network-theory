@@ -90,3 +90,12 @@ conditional metric-representative descent construction in
 exact condition to be instantiated, but it is not a derivation from bare F3.
 Therefore no \(L=8\) flight, flow exponent, or gravity claim is authorized
 yet.
+
+The audited bounded continuation
+`DEVELOPMENT_G_GATE_A_F3_MDC_ACTIVE_SEAM_OWNER_ONCE_V001/` now closes two
+narrow diagnostics without closing this gate: bare F3 does not identify the
+physical-port normalization, and an exact two-cell history transports native
+F3 seam current `1/2` with zero cellwise and global ledger residuals.  Its
+distinct hostile audit passes after repair.  The accompanying sixteen-category
+global census remains `OWNER_INCOMPLETE`; physical descent and Ward residuals
+remain undefined.

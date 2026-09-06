@@ -137,6 +137,37 @@ promotion.
 | Source write | `EXACT_UNITARY_WITNESS_WITH_DECLARED_ATTACHMENT` | `W_R` is the independently evaluated Heisenberg source integral. |
 | Source attachment | `CONDITIONAL_F3_MDC_MEMBER__NOT_BARE_F3_DERIVED` | The raw-Jet-to-writer map is explicit and audited, but not yet uniquely derived by the complete parent. |
 
+## Audited active multi-cell UV continuation — PASS AFTER REPAIR, BOUNDED
+
+`DEVELOPMENT_G_GATE_A_F3_MDC_ACTIVE_SEAM_OWNER_ONCE_V001/` and its distinct
+hostile audit `AUDIT_G_GATE_A_F3_MDC_ACTIVE_SEAM_OWNER_ONCE_V001/` continue
+the finite ledger on two adjacent cells of `G_4`.
+
+Bare F3 leaves the real physical-port coefficient free: unequal positive
+coefficients preserve the same Hermitian, content-covariant F3 operator
+algebra while producing unequal pulse areas.  Thus `alpha=r0` is not
+identifiable from bare F3.  It remains an adopted F3-MDC member.
+
+After the `Phi=pi/4` write, the native BS07--BS09 carrier Hamiltonian
+transports the occupied branch across one active seam, giving
+
+$$
+\mathcal J_{a\to b}={1\over2},\qquad
+(\mathcal R_a,\mathcal R_b)=(0,0),\qquad
+\mathcal R_{\rm global}=0.
+$$
+
+This is a Hamiltonian-owned transfer current, not an algebraic overlap
+cochain.  The repaired finite CTP generator includes branch propagators,
+the initial density operator, and complete terminal effects.  The hostile
+re-audit obtains equal-branch `Z=1`, reconstruction `10/10`, and custody/scope
+`17/17`, with verdict `PASS_AFTER_REPAIR`.
+
+The sixteen-category GK02 compilation is only a fail-closed census.  It
+retains undefined global owners, so the stationary global action remains
+`OWNER_INCOMPLETE` and physical descent and Ward residuals remain
+`UNDEFINED`.
+
 ## Gate dispositions
 
 ### Gate A–UV — SINGLE-HISTORY WITNESS CLOSED; PLAN-LEVEL GATE OPEN
@@ -147,11 +178,13 @@ The plan-level Gate A remains open because the witness is a controlled source
 attachment rather than the complete global F3-MDC owner compilation.  The
 following remain required for plan-level closure:
 
-1. derive rather than select the raw-Jet-to-writer/source attachment from the
-   complete F3 parent;
-2. test a nontrivial transported physical seam current on an active
-   multi-cell history, not only the exact zero-current terms-off witness;
-3. compile the full global owner-once action and classify its residual; and
+1. supply a physical law beyond bare F3 that uniquely fixes the screened
+   raw-Jet-to-writer/source normalization; the adopted value alone does not
+   close this plan-level requirement;
+2. extend the audited bounded nonzero seam history to the stationary global
+   family rather than treating one active edge as generic;
+3. replace every undefined category in the compiled global owner census by
+   one common physical formula and then evaluate its residual; and
 4. show that no unowned term remains after state, measure, retained field,
    boundary, matching, constraint, and lawful quotient owners are included.
 

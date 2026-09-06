@@ -44,6 +44,21 @@ now gives the exact conditional metric-representative identity that a
 completed F3-MDC owner compilation must instantiate; it is not bare-F3
 derivation.  Continue Gate A from that specific physical-owner gap.
 
+The bounded continuation
+`DEVELOPMENT_G_GATE_A_F3_MDC_ACTIVE_SEAM_OWNER_ONCE_V001/`, with distinct
+hostile audit `AUDIT_G_GATE_A_F3_MDC_ACTIVE_SEAM_OWNER_ONCE_V001/`, has
+disposition `PASS_AFTER_REPAIR`.  Bare-F3 source normalization is rigorously
+non-identifiable; the adopted F3-MDC attachment composes with the native
+carrier term to give transported seam current `1/2`; and both cell residuals
+and the periodic global residual vanish exactly.  The repaired finite-mission
+operator CTP generator is complete at its declared scope.
+
+The sixteen-owner global compilation remains a fail-closed census with
+stationary action `OWNER_INCOMPLETE` and physical descent/Ward residuals
+`UNDEFINED`.  Plan-level Gate A remains open.  Continue by replacing the
+undefined global owner categories with one common stationary physical parent;
+do not launch Gate B or claim Ward, Einstein response, or gravity.
+
 ## Current route
 
 The active Gravity Formation route is
