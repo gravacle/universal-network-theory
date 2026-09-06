@@ -278,12 +278,23 @@ compatibility event generated no result and is custody history, not evidence.
 
 This remains conditional-support microscopic accumulation. It does not make
 the refinement exact, fit a scaling law, select the support, or establish a
-generic phase. The next finite rung may use an exact finite automorphism
-reduction only after that reduction is cross-checked against the full lower-
-size calculations; this is computational compression, not a continuum
-assumption. Preserve uniform source and owner-once custody. Do not infer a
-grid, continuum, Ward behavior, critical law, mature macro dynamics, or
-gravity.
+generic phase.
+
+The exact finite-automorphism compression is now validated and hostile-audited
+without correction. `DEVELOPMENT_R_CONNECTED_FINITE_ORBIT_REDUCTION_V001/`
+and its audit independently enumerate the group, word orbits, quotient
+Hamiltonian, and three signed current orbits. Full component dimensions
+`256/4096/65536` reduce to `76/720/8356` at L4/L6/L8. The reduced results
+reproduce every sealed full-state occupation and signed current; target and
+hostile suites pass `27/27` and `34/34`.
+
+Only the finite automorphism/orbit identities are exact. Time evolution and
+current integration remain numerical, and the method is computational
+compression rather than a physical symmetry or continuum assumption. It is
+now authorized for the connected L10 finite rung, contingent on the same
+uniform source, supplied-support, owner-once, refinement, and hostile-audit
+controls. Do not infer a grid, continuum, Ward behavior, critical law, mature
+macro dynamics, or gravity.
 
 ### Gate-A measurement checkpoint — 2026-09-05
 

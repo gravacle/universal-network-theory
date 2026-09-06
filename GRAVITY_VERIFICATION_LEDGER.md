@@ -802,6 +802,33 @@ autonomous selection of that support or a generic connected phase. Support,
 read remain conditional. No grid, continuum, Ward structure, critical law,
 mature macro dynamics, graviton, or gravity is promoted.
 
+### Connected finite-orbit compression — PASS, COMPUTATIONAL ONLY
+
+`DEVELOPMENT_R_CONNECTED_FINITE_ORBIT_REDUCTION_V001/` and
+`AUDIT_R_CONNECTED_FINITE_ORBIT_REDUCTION_V001/` validate an exact finite
+automorphism basis for the supplied connected two-cycle supports. For even L,
+`T(a,i)=(a,i+2)` and `S(a,i)=(1-a,-i)` generate a faithful group of order L,
+obey `T^(L/2)=S^2=1` and `STS=T^-1`, and preserve both the owner-once support
+and uniform source parity. Complete word-orbit enumeration reduces component
+dimensions `256/4096/65536` to `76/720/8356` at L4/L6/L8.
+
+For normalized word orbits, the exact quotient entry is
+`(H_orb)_(b,a)=-n_ab sqrt(|O_a|/|O_b|)`. The target quotient is Hermitian with
+zero displayed mismatch. A distinct hostile generator-BFS construction sums
+every full-basis transition into the quotient and agrees with the formula to
+`8.89e-16`. Independently derived signed edge orbits reconstruct all currents.
+Against the sealed full-state records, hostile maximum occupation differences
+are `1.87e-13/5.33e-13/1.11e-12` and current differences are
+`4.52e-14/2.68e-13/4.23e-13` for L4/L6/L8. The target passes `27/27`; hostile
+verification passes `34/34` with no correction.
+
+Exactness stops at finite group, orbit, quotient, and current-reconstruction
+identities. Evolved states, current quadrature, residuals, correlations, and
+conservation tolerances remain numerical. This authorizes the basis only as
+computational compression for a larger finite record. It selects no support
+or mission parameter and adds no interaction, physical grid, continuum,
+Ward structure, critical or generic phase, graviton, or gravity.
+
 ### Gate A-P — CONTINUUM/MACROSCOPIC RESPONSE: POST-ACCUMULATION, OPEN
 
 The former plan-level global physical Hessian, support/recoil/Maxwell shell,

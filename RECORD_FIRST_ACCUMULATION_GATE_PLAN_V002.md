@@ -92,6 +92,11 @@ Einstein/Fierz--Pauli form, gravity, `C_R`, or `G`.
   retention is 128, and its L8/L4/L6 comparisons remain finite records. Its
   65,536-state component solve and resource footprint are host-bounded
   numerical observations; they add no continuum, complexity, or phase law.
+  The hostile-audited finite-orbit basis then reproduces every full-state
+  L4/L6/L8 occupation and signed current. Its exact content is limited to the
+  finite automorphism action, orbit partition, quotient normalization, and
+  current reconstruction; its evolution remains numerical. It is authorized
+  only as computational compression for the next finite record rung.
 - M-A: `OWNER_INCOMPLETE`; descent/Ward residuals undefined.
 - M-B and later: not authorized as macro-response claims.
 
