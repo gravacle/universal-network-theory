@@ -1143,3 +1143,27 @@ rejection: finite L4--L10 relational accumulation is supported, while L12,
 emergence, and gravity remain open. The next action requires a separately
 frozen L12 representation/resource decision; no routine larger run is
 authorized from this checkpoint.
+
+## L12 prefix-lineage representation checkpoint — 2026-09-06
+
+The former full-array L12 obstruction has been bypassed for the frozen
+one-pass history by an exact owner-once prefix block. After event prefix `n`,
+only the first `n` lineage bits can be spent, giving exact dimension
+`C(2L+n,n)`. Canonical masks are retained without quotienting; SHA-256 is
+custody only.
+
+At L12, the largest materialized state is `C(35,11)=417,225,900` amplitudes
+instead of the `1,251,677,700`-amplitude terminal array. Terminal last-bit
+children are streamed separately and exactly reconstruct amplitudes and all
+registered lineage-diagonal observables. Maximum adjacent-prefix storage is
+`8,773,664,640 B`.
+
+The frozen target, separate hostile construction, and final adjudicator pass
+`119429/119429`, `110624/110624`, and `40/40`. An independent read-only audit
+reports no correction. This certifies only the representation.
+
+The next routine gate is a separately frozen reduced-history engine and L10
+reconstruction benchmark. L12 history is not yet authorized. The runtime
+projections (`8,349.93 s` target and `5,800.39 s` hostile) remain planning
+estimates until that benchmark. L12 observables, the common sector, spectra,
+`z=1`, continuum/macroscopic closure, emergence, and gravity remain open.

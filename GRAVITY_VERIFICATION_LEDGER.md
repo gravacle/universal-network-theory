@@ -1984,3 +1984,55 @@ interval spectra, `z=1`, criticality, continuum/macroscopic closure, universal
 coupling, long-range interaction, metric/action dynamics, emergence, and
 gravity. No grid, graviton, Ward axiom, continuum assumption, or gravity claim
 is introduced.
+
+## Exact L12 prefix-lineage representation gate — 2026-09-06
+
+The theory-authorized representation revision is frozen in
+`DEVELOPMENT_R_L12_PREFIX_LINEAGE_BLOCK_REDUCTION_V001/`. It does not import
+the earlier autonomous connected-L12 orbit quotient. Instead, it derives an
+owner-once prefix-support block for the already frozen relational admission
+history.
+
+After `n` fresh events, only the first `n` canonical lineage bits can be
+spent. The exact reduced dimension is
+
+```text
+D(L,n) = sum_q C(n,q) C(2L,q) = C(2L+n,n).
+```
+
+The embedding pads future bits with zero and is injective. The full bitmask
+remains the lineage identity; its domain-separated SHA-256 is custody only
+and is not a quotient key. Transport preserves each prefix block and fresh
+admission intertwines consecutive blocks exactly. At the terminal event, the
+last-bit-zero and last-bit-one children are orthogonal lineage rows, so they
+may be routed in bounded streams and their lineage-diagonal registered
+observables added. The retained preterminal state and frozen operator supply
+an inverse recipe for every final amplitude.
+
+For L12 the former full terminal count `1,251,677,700` is not materialized.
+The largest continuing prefix has `417,225,900` amplitudes, exactly one third;
+the maximum simultaneous adjacent-prefix storage is `8,773,664,640 B`, and
+one resolution routes `2,453,288,291` amplitude entries. The target screen
+passes `119429/119429`, the separately ordered hostile reconstruction passes
+`110624/110624`, and the hash-pinned adjudicator passes `40/40`. Both terminal
+amplitude reconstructions are exact; the largest registered-observable
+additivity error is `1.110e-15`. The independent read-only hostile audit finds
+no correction.
+
+The representation gate therefore passes and supersedes the finite L12
+full-array obstruction. It does not prove polynomial asymptotic closure. Its
+runtime estimates (`8,349.93 s` target, `5,800.39 s` hostile) are adopted
+routed-volume projections, not measurements. The next authorized action is
+to freeze a reduced-history engine and reproduce the sealed L10 result and
+resource controls. L12 solver output remains prohibited until that benchmark
+passes.
+
+**Proved:** finite owner-once prefix support, injective lineage embedding,
+admission/transport intertwining, terminal reconstruction, and the integer
+L12 census. **Adopted:** hash domain, stream/cache limits, revised
+representation resource guards, and runtime projection. **Conditional:** the
+later L12 numerical history. **Empirical:** finite floating-point controls.
+**Open:** reduced L10 benchmark, L12 history, L4--L12 common sector, interval
+spectra, `z=1`, criticality, continuum/macroscopic closure, emergence, and
+gravity. No grid, graviton, Ward axiom, continuum assumption, lineage
+quotient, or gravity claim is introduced.
