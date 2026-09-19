@@ -1,0 +1,35 @@
+{
+  "schema": "L12_V003_STAGE5_REFUSAL_RECORD_V001",
+  "status": "PRESERVED_REFUSAL__NO_RETRY",
+  "observed_at": "2026-09-13T17:50:20-0500",
+  "source_continuation": "AUDIT_R_L12_NUMERICAL_REPAIR_V003_STAGE4R1/continue_stage4r1_to_stage6.py",
+  "exit_code": 2,
+  "stage": 5,
+  "exception_type": "frozen_sector_manifest_builder_v001_for_v003.ManifestRefusal",
+  "exception_message": "L12 V003 exact audit identity/result mismatch",
+  "trigger": {
+    "source": "DEVELOPMENT_R_L4_L12_SECTOR_MANIFEST_BRIDGE_V003/build_manifest_v003.py",
+    "line": 102,
+    "predicate": "audit.get('tolerance') != 1e-8",
+    "parsed_value": "Decimal('1E-8')",
+    "comparison_value": "float(1e-8)",
+    "comparison_result": false
+  },
+  "diagnosis": {
+    "all_other_identity_predicates_passed": true,
+    "all_four_numerical_bounds_valid_and_within_1e-8": true,
+    "classification": "STAGE5_NUMERIC_REPRESENTATION_INTERFACE_ERROR"
+  },
+  "authenticated_inputs": {
+    "stage4_exact_adjudication_sha256": "cf5fcd1b30793a57970cde8bf31008cfcb2a2b9337d94dbc2f18aef862e777c1",
+    "stage4_normalized_blind_history_sha256": "e95a40bb24a9d997c9ecf639799263cf14cdb5d52171e9c24fe7fbcedbfcc1cb",
+    "stage4r1_execution_record_sha256": "d6a19729482e29f686247c025e651357af5ff2515e4bd1d53c20e88edec94a23"
+  },
+  "outputs_after_refusal": {
+    "stage5_manifest_present": false,
+    "stage6_blind_run_present": false,
+    "stage6_target_run_present": false,
+    "stage6_result_present": false
+  },
+  "claim_boundary": "FORENSIC_STAGE5_REFUSAL_ONLY__NO_NUMERICAL_THRESHOLD_OR_PHYSICAL_FAILURE"
+}
