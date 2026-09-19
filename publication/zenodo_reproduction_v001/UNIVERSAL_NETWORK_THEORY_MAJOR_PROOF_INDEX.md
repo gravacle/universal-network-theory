@@ -57,7 +57,7 @@ Luttinger-liquid premise (LL-P).
 
 Universal Network Theory was architected and executed by one human directing a unified ensemble of frontier artificial intelligence (AI) models. The exact mathematical theorems, simulation code, and structural prose indexed in this repository were compiled through continuous, active integration with ChatGPT 5.6 Sol Ultra, Gemini Extended, Claude Opus 5 Ultra, and Grok 4.6.
 
-This repository is formally governed as an [Intelition Project](https://intelition.org/?utm_source=gemini)—a framework where artificial intelligence operates as an integrated structural partner. The foundational premise for this execution model was introduced in ['Intelition' changes everything: AI is no longer a tool you invoke](https://venturebeat.com/technology/intelition-changes-everything-ai-is-no-longer-a-tool-you-invoke?utm_source=gemini).
+This repository is formally governed as an [Intelition Project](https://intelition.org/)—a framework where artificial intelligence operates as an integrated structural partner. The foundational premise for this execution model was introduced in ['Intelition' changes everything: AI is no longer a tool you invoke](https://venturebeat.com/technology/intelition-changes-everything-ai-is-no-longer-a-tool-you-invoke).
 
 **Terminology and notation.** Record Formation Theory (RFT) is the theory of
 how records form. **ARGER** is its ordered record-formation process:
