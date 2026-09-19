@@ -1,0 +1,485 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  L14 targeted-scout infrastructure. Creates evidence storage, a least-purpose
+  EC2 role, security group, and two launch templates. It intentionally creates
+  no EC2 instances and no Auto Scaling group.
+
+Parameters:
+  ReviewedTemplateSha256:
+    Type: String
+    AllowedPattern: '^[a-f0-9]{64}$'
+    Description: SHA-256 of the exact locally reviewed template body
+  OperatorArn:
+    Type: String
+    AllowedPattern: '^arn:aws:iam::[0-9]{12}:user/[A-Za-z0-9+=,.@_/-]+$'
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+  SubnetId:
+    Type: AWS::EC2::Subnet::Id
+  AmiId:
+    Type: AWS::EC2::Image::Id
+    Description: Exact AMI ID authenticated by the final online readiness check
+  RunId:
+    Type: String
+    AllowedPattern: '^[A-Za-z0-9_.-]+$'
+  BootstrapKey:
+    Type: String
+    Default: source/bootstrap.sh
+  BootstrapSha256:
+    Type: String
+    AllowedPattern: '^[a-f0-9]{64}$'
+  SourceBundleKey:
+    Type: String
+    Default: source/l14-v003-source.tar.gz
+  SourceBundleSha256:
+    Type: String
+    AllowedPattern: '^[a-f0-9]{64}$'
+  TargetKernelRelativePath:
+    Type: String
+  TargetKernelSha256:
+    Type: String
+    AllowedPattern: '^[a-f0-9]{64}$'
+  HostileKernelRelativePath:
+    Type: String
+  HostileKernelSha256:
+    Type: String
+    AllowedPattern: '^[a-f0-9]{64}$'
+  WorkersPerBranch:
+    Type: Number
+    Default: 180
+    MinValue: 1
+    MaxValue: 192
+  CheckpointVolumeGiB:
+    Type: Number
+    Default: 750
+    MinValue: 700
+  ScratchVolumeGiB:
+    Type: Number
+    Default: 1000
+    MinValue: 750
+  ScratchVolumeIops:
+    Type: Number
+    Default: 80000
+    MinValue: 3000
+    MaxValue: 80000
+  ScratchVolumeThroughput:
+    Type: Number
+    Default: 2000
+    MinValue: 125
+    MaxValue: 2000
+  RuntimeAdvisoryMinutes:
+    Type: Number
+    Default: 835
+    MinValue: 1
+
+Resources:
+  EvidenceBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: AbortIncompleteMultipartUploads
+            Status: Enabled
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 2
+
+  EvidenceBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref EvidenceBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: s3:*
+            Resource:
+              - !GetAtt EvidenceBucket.Arn
+              - !Sub '${EvidenceBucket.Arn}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+
+  ScoutSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: L14 scout - no inbound access; use Systems Manager
+      VpcId: !Ref VpcId
+      SecurityGroupIngress: []
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Project
+          Value: L14-Scout
+        - Key: RunId
+          Value: !Ref RunId
+
+  ScoutRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      Policies:
+        - PolicyName: L14RunEvidenceAndCheckpointSnapshots
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: ListRunPrefix
+                Effect: Allow
+                Action:
+                  - s3:ListBucket
+                Resource: !GetAtt EvidenceBucket.Arn
+                Condition:
+                  StringLike:
+                    s3:prefix:
+                      - !Sub 'runs/${RunId}/*'
+                      - source/*
+              - Sid: ReadSourceAndRunRequests
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                Resource:
+                  - !Sub '${EvidenceBucket.Arn}/source/*'
+                  - !Sub '${EvidenceBucket.Arn}/runs/${RunId}/*'
+              - Sid: PublishRunEvidence
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                Resource:
+                  - !Sub '${EvidenceBucket.Arn}/runs/${RunId}/*'
+              - Sid: DescribeOwnedCompute
+                Effect: Allow
+                Action:
+                  - ec2:DescribeInstances
+                  - ec2:DescribeVolumes
+                  - ec2:DescribeSnapshots
+                  - ec2:DescribeTags
+                Resource: '*'
+              - Sid: SnapshotCheckpointVolume
+                Effect: Allow
+                Action:
+                  - ec2:CreateSnapshot
+                  - ec2:CreateTags
+                Resource: '*'
+
+  ScoutInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref ScoutRole
+
+  ScoutControlRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Ref OperatorArn
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: L14ScopedControl
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: ReadComputeState
+                Effect: Allow
+                Action:
+                  - ec2:Describe*
+                  - servicequotas:GetServiceQuota
+                  - cloudformation:DescribeStacks
+                  - cloudformation:DescribeStackResources
+                  - cloudformation:GetTemplate
+                  - budgets:ViewBudget
+                  - pricing:GetProducts
+                Resource: '*'
+              - Sid: LaunchOnlyApprovedTemplates
+                Effect: Allow
+                Action:
+                  - ec2:RunInstances
+                Resource: '*'
+                Condition:
+                  ArnEquals:
+                    ec2:LaunchTemplate:
+                      - !Sub 'arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:launch-template/${TargetLaunchTemplate}'
+                      - !Sub 'arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:launch-template/${HostileLaunchTemplate}'
+                  Bool:
+                    ec2:IsLaunchTemplateResource: 'true'
+                  StringEquals:
+                    ec2:Region: !Ref AWS::Region
+              - Sid: PassOnlyScoutComputeRole
+                Effect: Allow
+                Action:
+                  - iam:PassRole
+                Resource: !GetAtt ScoutRole.Arn
+                Condition:
+                  StringEquals:
+                    iam:PassedToService: ec2.amazonaws.com
+              - Sid: TagAtLaunch
+                Effect: Allow
+                Action:
+                  - ec2:CreateTags
+                Resource: '*'
+                Condition:
+                  StringEquals:
+                    ec2:CreateAction: RunInstances
+              - Sid: ControlOnlyThisRun
+                Effect: Allow
+                Action:
+                  - ec2:StartInstances
+                  - ec2:StopInstances
+                  - ec2:TerminateInstances
+                  - ec2:ModifyInstanceAttribute
+                Resource: !Sub 'arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:instance/*'
+                Condition:
+                  StringEquals:
+                    ec2:ResourceTag/Project: L14-Scout
+                    ec2:ResourceTag/RunId: !Ref RunId
+              - Sid: RunStorage
+                Effect: Allow
+                Action:
+                  - s3:ListBucket
+                Resource: !GetAtt EvidenceBucket.Arn
+              - Sid: RunObjects
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                Resource:
+                  - !Sub '${EvidenceBucket.Arn}/source/*'
+                  - !Sub '${EvidenceBucket.Arn}/runs/${RunId}/*'
+
+  TargetLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: !Sub 'l14-target-${RunId}'
+      LaunchTemplateData:
+        ImageId: !Ref AmiId
+        InstanceType: r8a.48xlarge
+        CpuOptions:
+          CoreCount: 192
+          ThreadsPerCore: 1
+        DisableApiTermination: true
+        InstanceInitiatedShutdownBehavior: stop
+        EbsOptimized: true
+        IamInstanceProfile:
+          Name: !Ref ScoutInstanceProfile
+        MetadataOptions:
+          HttpEndpoint: enabled
+          HttpTokens: required
+          InstanceMetadataTags: enabled
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !Ref ScoutSecurityGroup
+            SubnetId: !Ref SubnetId
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: 100
+              VolumeType: gp3
+          - DeviceName: /dev/sdf
+            Ebs:
+              DeleteOnTermination: false
+              Encrypted: true
+              Iops: 6000
+              Throughput: 500
+              VolumeSize: !Ref CheckpointVolumeGiB
+              VolumeType: gp3
+          - DeviceName: /dev/sdg
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              Iops: !Ref ScratchVolumeIops
+              Throughput: !Ref ScratchVolumeThroughput
+              VolumeSize: !Ref ScratchVolumeGiB
+              VolumeType: gp3
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub 'L14-${RunId}-target'
+              - Key: Project
+                Value: L14-Scout
+              - Key: RunId
+                Value: !Ref RunId
+              - Key: Branch
+                Value: target
+              - Key: AutoStop
+                Value: required
+          - ResourceType: volume
+            Tags:
+              - Key: Project
+                Value: L14-Scout
+              - Key: RunId
+                Value: !Ref RunId
+              - Key: Branch
+                Value: target
+              - Key: PreserveEvidence
+                Value: 'true'
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            set -euo pipefail
+            aws s3 cp 's3://${EvidenceBucket}/${BootstrapKey}' /usr/local/sbin/l14-bootstrap
+            echo '${BootstrapSha256}  /usr/local/sbin/l14-bootstrap' | sha256sum -c -
+            chmod 0755 /usr/local/sbin/l14-bootstrap
+            env \
+              L14_BRANCH='target' \
+              L14_BUCKET='${EvidenceBucket}' \
+              L14_PREFIX='runs/${RunId}' \
+              L14_RUN_ID='${RunId}' \
+              L14_SOURCE_BUNDLE_KEY='${SourceBundleKey}' \
+              L14_SOURCE_BUNDLE_SHA256='${SourceBundleSha256}' \
+              L14_KERNEL_RELATIVE_PATH='${TargetKernelRelativePath}' \
+              L14_KERNEL_SHA256='${TargetKernelSha256}' \
+              L14_WORKERS='${WorkersPerBranch}' \
+              L14_RUNTIME_ADVISORY_MINUTES='${RuntimeAdvisoryMinutes}' \
+              AWS_DEFAULT_REGION='${AWS::Region}' \
+              /usr/local/sbin/l14-bootstrap
+
+  HostileLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: !Sub 'l14-hostile-${RunId}'
+      LaunchTemplateData:
+        ImageId: !Ref AmiId
+        InstanceType: r8a.48xlarge
+        CpuOptions:
+          CoreCount: 192
+          ThreadsPerCore: 1
+        DisableApiTermination: true
+        InstanceInitiatedShutdownBehavior: stop
+        EbsOptimized: true
+        IamInstanceProfile:
+          Name: !Ref ScoutInstanceProfile
+        MetadataOptions:
+          HttpEndpoint: enabled
+          HttpTokens: required
+          InstanceMetadataTags: enabled
+        Monitoring:
+          Enabled: true
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeleteOnTermination: true
+            DeviceIndex: 0
+            Groups:
+              - !Ref ScoutSecurityGroup
+            SubnetId: !Ref SubnetId
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              VolumeSize: 100
+              VolumeType: gp3
+          - DeviceName: /dev/sdf
+            Ebs:
+              DeleteOnTermination: false
+              Encrypted: true
+              Iops: 6000
+              Throughput: 500
+              VolumeSize: !Ref CheckpointVolumeGiB
+              VolumeType: gp3
+          - DeviceName: /dev/sdg
+            Ebs:
+              DeleteOnTermination: true
+              Encrypted: true
+              Iops: !Ref ScratchVolumeIops
+              Throughput: !Ref ScratchVolumeThroughput
+              VolumeSize: !Ref ScratchVolumeGiB
+              VolumeType: gp3
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub 'L14-${RunId}-hostile'
+              - Key: Project
+                Value: L14-Scout
+              - Key: RunId
+                Value: !Ref RunId
+              - Key: Branch
+                Value: hostile
+              - Key: AutoStop
+                Value: required
+          - ResourceType: volume
+            Tags:
+              - Key: Project
+                Value: L14-Scout
+              - Key: RunId
+                Value: !Ref RunId
+              - Key: Branch
+                Value: hostile
+              - Key: PreserveEvidence
+                Value: 'true'
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            set -euo pipefail
+            aws s3 cp 's3://${EvidenceBucket}/${BootstrapKey}' /usr/local/sbin/l14-bootstrap
+            echo '${BootstrapSha256}  /usr/local/sbin/l14-bootstrap' | sha256sum -c -
+            chmod 0755 /usr/local/sbin/l14-bootstrap
+            env \
+              L14_BRANCH='hostile' \
+              L14_BUCKET='${EvidenceBucket}' \
+              L14_PREFIX='runs/${RunId}' \
+              L14_RUN_ID='${RunId}' \
+              L14_SOURCE_BUNDLE_KEY='${SourceBundleKey}' \
+              L14_SOURCE_BUNDLE_SHA256='${SourceBundleSha256}' \
+              L14_KERNEL_RELATIVE_PATH='${HostileKernelRelativePath}' \
+              L14_KERNEL_SHA256='${HostileKernelSha256}' \
+              L14_WORKERS='${WorkersPerBranch}' \
+              L14_RUNTIME_ADVISORY_MINUTES='${RuntimeAdvisoryMinutes}' \
+              AWS_DEFAULT_REGION='${AWS::Region}' \
+              /usr/local/sbin/l14-bootstrap
+
+Outputs:
+  ReviewedTemplateSha256:
+    Value: !Ref ReviewedTemplateSha256
+  EvidenceBucketName:
+    Value: !Ref EvidenceBucket
+  TargetLaunchTemplateId:
+    Value: !Ref TargetLaunchTemplate
+  HostileLaunchTemplateId:
+    Value: !Ref HostileLaunchTemplate
+  InstanceProfileName:
+    Value: !Ref ScoutInstanceProfile
+  ScoutControlRoleArn:
+    Value: !GetAtt ScoutControlRole.Arn
+  Statement:
+    Value: NO_INSTANCES_CREATED_BY_THIS_STACK
