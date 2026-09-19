@@ -1,0 +1,31 @@
+V012 DUAL-LAUNCH COORDINATOR / PRODUCTION LAUNCHER VERIFICATION
+
+Command:
+  PYTHONPYCACHEPREFIX=/tmp/wacf-pycache python3 -m unittest -v test_dual_launch_coordinator.py test_production_dual_l12_launcher.py
+
+Result:
+  Ran 25 tests
+  OK
+
+Bounded control census:
+  coordinator tests: 17/17
+  production-launcher tests: 8/8
+  exact topological orders: 8
+  public coordinator methods: 9
+  persistent owner-once READY/handshake/release/command/ACK/completion records: 10
+
+Custody and runtime controls:
+  retained no-follow parent and file descriptors: PASS
+  full file identity, link-count, mode, and SHA-256 revalidation: PASS
+  exact chunked reads and short-read refusal: PASS
+  file swap, parent swap, hardlink, and metadata-during-hash refusal: PASS
+  kernel PID/start-token identity and exact cleanup: PASS
+  monotonic thirty-hour deadline: PASS
+  immediate current-RSS, disk-floor, and filesystem-device refusal: PASS
+  sampled-current-RSS semantics separated from OS high-water: PASS
+  conservative mapped-cache certificate separated from virtual memory: PASS
+
+Operational boundary:
+  No process was launched. No gate, cache, workspace, history, physics output,
+  telemetry artifact, or final adjudication was created. The production
+  launcher was exercised only through bounded nonphysical unit interfaces.

@@ -1,0 +1,31 @@
+V012 AUTHORIZATION-STATE MODEL VERIFICATION
+
+Interpreter:
+Python 3.9.6
+
+Commands (run from the repository root):
+PYTHONPYCACHEPREFIX=/tmp/v012_authorization_model_pycache python3 -m py_compile AUDIT_PREPARATION_R_L12_AUTHORIZATION_STATE_MODEL_V001/authorization_model.py AUDIT_PREPARATION_R_L12_AUTHORIZATION_STATE_MODEL_V001/exhaustive_check.py
+python3 -B AUDIT_PREPARATION_R_L12_AUTHORIZATION_STATE_MODEL_V001/exhaustive_check.py
+
+Result:
+PASS
+
+Exhaustive coverage:
+- 262144 / 262144 PASS/PENDING states agreed with the independent closure oracle.
+- 26 legal states existed and all 26 were breadth-first reachable.
+- 262118 inconsistent states refused every one of 18 actions: 4718124 refusals.
+- Every action was attempted from every legal state: 468 attempts.
+- 33 transitions were allowed; 203 missing-predecessor and 232 duplicate transitions refused.
+- Every one of 22 direct edges refused PENDING, FAIL, and INVALID predecessor mutations.
+- Every one-cell FAIL/INVALID state refused every action: 648 refusals.
+- 12 malformed state/status/stage inputs refused.
+
+Required witnesses:
+- L4, L6, and L8 were each independently enabled immediately after base-gate audit.
+- L10 authorization was reached at witness position 9.
+- Dual L12 launch handshake was reached at witness position 15.
+- Final adjudication was reached at witness position 18.
+
+Scope:
+Abstract authorization ordering only. No target V012 import, physical compute,
+payload consumption, or authority-file creation/acceptance occurred.
