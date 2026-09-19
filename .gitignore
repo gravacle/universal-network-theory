@@ -5,3 +5,22 @@ __pycache__/
 .mypy_cache/
 tmp/
 review_packet_v1/
+
+# Preserved immutable numerical payloads and execution workspaces remain outside
+# Git. Their compact manifests, methods, outputs, and audit records stay eligible.
+**/CACHE_PAYLOADS*/
+**/WORKSPACES/
+
+# The hostile V004R4 engine prefixes the generated directory names with its
+# version identifier, so the basename-only rules above do not match them.
+**/V004R4_CACHE_PAYLOADS*/
+**/V004R4_WORKSPACES/
+
+# Rebuildable L14 distribution artifacts. Source, lockfiles, manifests, and
+# checksums remain eligible for version control. Keep this version-generic so
+# an execution repair cannot accidentally expose another packaged runtime or
+# generated source bundle merely by advancing V002 -> V003.
+DEVELOPMENT_R_L14_TARGETED_SCOUT_V*/runtime/python/*.tar.gz
+DEVELOPMENT_R_L14_TARGETED_SCOUT_V*/runtime/wheelhouse/*.whl
+DEVELOPMENT_R_L14_TARGETED_SCOUT_V*/L14*_SOURCE_BUNDLE_*.tar.gz
+DEVELOPMENT_R_L14_TARGETED_SCOUT_V*/L14_SOURCE_BUNDLE_*.tar.gz
