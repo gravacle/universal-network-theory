@@ -1,5 +1,14 @@
 # STATUS — WHERE ATOMS COME FROM
 
+> **SUPERSEDED STATUS SURFACE — 2026-09-16.** This frozen-format status page is
+> retained as historical provenance and must not be rendered as the current
+> project status. Use [`README.md`](README.md) and
+> [`PROOF_GUIDE.md`](PROOF_GUIDE.md), the adopted finite Gate in
+> [`ARGER_GATE_ADOPTION_2026-09-16.md`](ARGER_GATE_ADOPTION_2026-09-16.md),
+> and the terminal L14 disposition in
+> [`L14_RUN_DISPOSITION_2026-09-16.md`](L14_RUN_DISPOSITION_2026-09-16.md).
+> L14 is `INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`.
+
 > **THE THIRD TERM IS UNNAMED — see `THIRD_TERM_V001.md`. Every occurrence of "gravity" below means
 > Γ, the thing that satisfies R1–R3. No attribute of the classical field attaches to it.**
 

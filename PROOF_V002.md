@@ -1,13 +1,13 @@
-# PROOF — WHERE ATOMS COME FROM — V002 — 2026-08-20
+# PROOF — WHERE ATOMS COME FROM — V002 — reconciled 2026-09-15
 
 > **"We need a model to work on that represents the full project."** — the principal, 2026-08-20
 >
 > **"The model should be the overall representation of the proof."** — the principal, 2026-08-20
 
-This document is the narration of the **UNIVERSAL RECORD MODEL** — `model/project_model.py`, the URM.
-Every section below is one of the model's layers. Every claim is one model function, its validator
-gate, its grounding, and its ledger row. **There is no step outside the model.** A statement the URM
-does not carry is not in this proof.
+This generated document narrates the **UNIVERSAL RECORD MODEL** — `MODEL.md`,
+`model/project_model.py`, and the executable certificate modules. Every claim carries a model
+function or explicitly says `none`, a validator gate or explicitly says `none`, its grounding, and
+its ledger row. A narrated dependency is not promoted merely because it appears here.
 
 **`PROOF_V001.md` is not superseded as mathematics.** Its Theorems A–D stand unchanged; what this
 document changes is their siting. They are statements about the **DEF-A corner** — §4 — and they are
@@ -86,8 +86,11 @@ extension brought every later in-scope row through the same audit. `DEFINED`, `P
 resting on no `TWO-CARRIER` row opens its scope
 cell with `SINGLE-CARRIER —`**, and an unaudited row never lifts that requirement.
 
-**Of the 150 audited rows, 113 are `SINGLE-CARRIER`, 22 are `TWO-CARRIER`, 15 are
-`NOT-CARRIER-SHAPED`.** That is the program's state, printed rather than described.
+**Of the 157 retained audit verdicts, 116 are `SINGLE-CARRIER`, 22 are
+`TWO-CARRIER`, and 19 are `NOT-CARRIER-SHAPED`.** Those verdicts cover all 156
+rows currently in the audit's `FORMAL`/`PROVED`/`MEASURED` status scope; the
+extra retained verdict is C-72, which moved to `PARTIAL` after it was audited.
+That is the program's state, printed rather than described.
 
 ---
 
@@ -97,19 +100,22 @@ Each line runs from the repository root:
 
 ```bash
 python3 replicate/check_proof.py      # this document's own gate — expect GATE PASSED
-python3 model/validate_project.py     # base project + D-25 gates — expect 24 PASS, 0 FAIL
-python3 model/validate_geometry.py    # geometry layer, then project chain — expect 33 + 24 PASS
-python3 model/validate_urm.py         # four folded families, then both chains — expect 176 family / 233 full PASS
-./replicate/reproduce.sh              # re-runs every lane script against its sealed output
+python3 LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/verify_axiomatic_urft_closure.py
+python3 model/validate_gravity_formation_theory.py
+python3 model/validate_relational_accumulation.py
+python3 model/validate_urm.py         # aggregate comparison against the dated baseline
 ```
 
-**The fifth does not pass, and this document will not pretend otherwise.** The most recent completed
-run in the repository records **46 differing scripts against 267 identical**
-(`replicate/reproduce_full2.log`): thirteen nondeterministic scripts, unnormalised wall-clock lines,
-one script that aborts, and stale seals. A fresh full run is in flight. **The debt is `T-35`, `TODO`,
-and §8 states it.** The first four commands pass as written. The validator stack contains **24 base
-project/D-25 gates, 33 geometry gates, and 176 folded-family gates: 233 model gates in the full
-umbrella run**; the proof gate is separate.
+The first three scientific families above are focused gates. The AURFT verifier passes 74/74 after
+the manifest resolver was made lane-local-first, the Gravity Formation Theory validator passes, and
+the relational validator passes 177 checks. **The aggregate URM validator is not advertised as
+green.** Its dated pre-reconciliation baseline is `URM_VALIDATION_BASELINE_2026-09-15.md`: ARROW
+26/27, an absent zero-scientific-weight `lakeshore_vsm` adapter/check, and an absent synthetic-gamma
+fixture. A current run must be compared with that baseline so inherited failures are not mislabeled
+as relational regressions and a partial pass is not printed as an aggregate success.
+
+The broader clean-reproduction debt remains `T-35`; release reconciliation is `T-57`; publication
+and deposit remain blocked under `T-58` until the scientific and human release inputs are complete.
 
 `check_proof.py` **refuses** a block with a missing field, a row that is in neither the ledger nor the
 plan, a row that is `WITHDRAWN` or `FAILED`, a status or carrier mark that has gone stale against the
@@ -122,7 +128,7 @@ next heading; only R10's `D-1` scan reads the whole file. **Every section header
 §0 included, cites no ledger row and is enforced by nothing but that scan** — which is why the headers
 below carry no claim that is not also in a block. Closing that gap is the gate's own standing debt.
 
-**What this document does not have, stated up front.** Of the 83 claims below, **32 carry no validator gate** and **21 have no model function behind them**. **48 rest on no `TWO-CARRIER` row** and open their scope cell saying so. **10 cite a `PROVED` row.** The blocks without a gate are
+**What this document does not have, stated up front.** Of the 89 claims below, **36 carry no validator gate** and **21 have no model function behind them**. **55 rest on no `TWO-CARRIER` row** and open their scope cell saying so. **10 cite a `PROVED` row.** The blocks without a gate are
 narration over sealed lane output, and each one says so in its scope cell. Closing that gap — every
 claim in this proof gated by a check in `model/` — is the proof's own standing debt.
 
@@ -582,12 +588,12 @@ The four-row coupling ledger separates total system-bath correlation from inform
 
 ### P-ARR-3 — a system-local unitary can relocate the label but cannot erase the joint correlation
 
-Across 12 seeded system-only unitaries, I(S:B) changes by at most the sealed 3.686e-14 while chi about a fixed, unrotated label moves by 1.145e-01; rotating the state and record together restores covariance to below 1e-8. The copy is relocatable from inside but the joint correlation is not erasable by a unitary acting on the system alone.
+Across 12 seeded system-only unitaries, the current run bounds the change in I(S:B) by 1.643e-14, below the historical sealed transcript value 3.686e-14, while chi about a fixed, unrotated label moves by 1.145e-01; rotating the state and record together restores covariance to below 1e-8. The copy is relocatable from inside but the joint correlation is not erasable by a unitary acting on the system alone.
 
 | | |
 |---|---|
 | **model** | `ProjectModel.arrow_invariance` |
-| **gate** | `model/checks_arrow.py` :: `F-19 I(S:B) invariant under 12 system-only unitaries -- sealed anchor 3.686e-14 reproduced at print precision (the theorem's corroboration)` |
+| **gate** | `model/checks_arrow.py` :: `F-19 I(S:B) invariant under 12 system-only unitaries -- numerically zero under ZERO (historical sealed transcript: 3.686e-14)` |
 | **grounding** | LANE_F1_ARROW/f1b_invariance.txt parts (a)-(b), sealed; model/arrow.py arrow_invariance; model/checks_arrow.py F-19 invariance, covariance, and fixed-label control gates |
 | **rows** | `F-19` (FORMAL, SINGLE-CARRIER) |
 | **scope** | SINGLE-CARRIER — the numerical corroboration is on one toric-2x2 carrier. Invariance of mutual information under a system-local unitary is a borrowed exact identity; the finite seeded run checks the implementation and does not supply the theorem's warrant or absolute irreversibility under joint operations. |
@@ -971,17 +977,17 @@ mechanically. The corner role rows `A-EM`, `A-GR` and `A-AL` are `SINGLE-CARRIER
 appear here as **context only**, never load-bearing.
 
 
-### P-ROLES-1 — the three roles as one statement, every load-bearing clause on a two-carrier row
+### P-ROLES-1 — the three roles as one typed statement
 
-The roles layer states the program's account of what carries a record as one statement: EM supplies the complex and the record, Gamma supplies space, writer, protection and channel, and alpha sets the cost. Every load-bearing clause of that statement cites at least one row carrying the TWO-CARRIER mark of the sealed T-9 audit, and no load-bearing citation is WITHDRAWN, FAILED or RECLASSIFIED; the per-clause table is LANE_T15_ROLES/A_PR_RESTATED.md and the condition is checkable by grep against LANE_T9_AUDIT/T9_carrier_audit.tsv, where all seventeen load-bearing rows verify TWO-CARRIER and live. THE SEALED LANE'S CONDITION HAS SINCE MOVED UNDER IT IN ONE PLACE, AND THIS DOCUMENT IS THE REASON. The lane's own column header reads 'load-bearing (all TWO-CARRIER, live, non-PARTIAL)', and C-72 is no longer non-PARTIAL: the erratum this document's writing produced moved it to PARTIAL, blocked by T-50. Sixteen of the seventeen still meet the sealed condition in full. The seventeenth is C-72, load-bearing on the EM world clause alone, and that clause is carried here only in the form C-72 still holds — the accumulate-versus-screen discriminator and the closed-form floor beneath the occupancy ratio — never as the ratio law, which is not stated as a prediction anywhere in this layer. Exactly one cited row holds status PROVED, C-71, and it is the only such row in the program. The statement restates registered rows and carries their tiers unchanged — corner clauses are FORMAL results about DEF-A, world clauses are census-tier — and because it is a SUMMARY it is bound by a second rule as well: where a section above attaches a caveat to a result, this statement carries the caveat too or does not make the claim. Model coverage is a weaker fact and is stated plainly here. The pre-existing project/geometry gates cover C-71, C-72, C-75, C-78 and C-80; validate_formation covers F-20 and C-17. T-54 now adds exact family gates for C-86 and C-87 through ProjectModel.census/count_widths and ProjectModel.reachable_class/critical_kernel. Eight load-bearing rows remain outside that integrated coverage: G-10, G-11, C-41, O-35, C-66, O-2, F-11 and O-10. C-72's coverage is not the coverage it had: the literal occupancy-ratio check is gone, and the sealed T-50 hardened block now contributes eight S1–S6/B2/A2 checks, each structural check carrying a designated mutation with measured power 1.000. D-25 now fails closed on the bypasses it names inside the live model tree: every validator surface enters through URM.surface, exact carriers enter through URM.corner, an AST gate refuses RecordSurface bindings outside project_model.py, and countlaw rechecks provenance at consumption. Mutable metadata and callers outside the scanned tree remain explicit residuals; this is model hygiene, not authentication. ProjectModel.roles() returns three sentences that no validator check fires on, and they are not the statement above: the returned Gamma sentence omits the channel, and its TD-1/T-37 and TD-2/T-15 pointers name debts whose plan tasks are both DONE.
+The current roles statement separates two uses that earlier narration compressed. EM supplies the complex and the record. Gamma supplies space, writer, protection, and channel. Generic perturbation alpha prices a local cost in the stipulated DEF-A corner. Physical fine-structure alpha has a different theorem: for the declared finite active-EM record construction, ALLOW is the exact construction-scoped interval I_chi intersect ((-ln(1-delta))/(4*pi*B^2), infinity), reducing at delta=0 to every positive alpha in I_chi; for same-sector ACTVIS records satisfying SAI1--SAI8 after governing-domain ancestry and the domain alpha value are independently established, records REQUIRE inheritance of that domain's empirically anchored coupling and RG trajectory as constitutive identity, so changing alpha changes the governing domain; SELECTING the governing domain or numerical boundary value remains separate/open. The statement preserves each constituent result's evidence tier and declared premises; Gravity Formation remains separately typed.
 
 | | |
 |---|---|
 | **model** | `ProjectModel.roles` |
-| **gate** | `model/validate_project.py` :: `D-25 guard refuses undeclared world surface` |
-| **grounding** | LANE_T15_ROLES/A_PR_RESTATED.md (sealed T-15 lane, per-clause citation table, its 'all TWO-CARRIER, live, non-PARTIAL' column header and its verification record); LANE_T9_AUDIT/T9_carrier_audit.tsv (150 audited rows, verdict column); ledger/status_ledger.tsv, C-72's STATUS and BLOCKED_BY cells; ledger/plan.tsv, T-50; model/project_model.py, the roles() text and the D-25 PROVENANCE registry; model/validate_project.py (24 project/D-25 gates); model/validate_geometry.py (33 gates, including the eight sealed T-50 checks); model/validate_urm.py and checks_countlaw.py/checks_classes.py (C-86/C-87 fold-in); model/checks_d25.py (zero-offender AST scan) |
-| **rows** | `A-PR` (FORMAL, NOT-CARRIER-SHAPED) · `C-71` (PROVED, TWO-CARRIER) · `C-72` (PARTIAL, TWO-CARRIER) · `C-78` (FORMAL, TWO-CARRIER) · `C-80` (FORMAL, TWO-CARRIER) · `C-87` (FORMAL, TWO-CARRIER) · `C-86` (FORMAL, TWO-CARRIER) · `C-75` (FORMAL, TWO-CARRIER) · `D-25` (DEFINED, UNAUDITED) · `C-85` (FORMAL, NOT-CARRIER-SHAPED) · `T-50` (TODO, PLAN) · `T-54` (DOING, PLAN) |
-| **scope** | States what each role supplies and asserts nothing beyond the tiers of the rows it restates; the corner clauses are FORMAL results about the program's own stipulated corner and say nothing about the world by themselves (H-3). This section is a summary of sections 1 to 5 and no clause of it is stronger than the block it summarises; where the earlier block's caveat is load-bearing it is repeated in the sentence that needs it, not parked here. A-PR is marked NOT-CARRIER-SHAPED by the T-52 audit extension — a role-assembly row whose every computed number lives in a cited row; the two-carrier property is a property of its citations, all seventeen verified TWO-CARRIER in the sealed table. THE STANDING BREACH, recorded by that audit: C-72, load-bearing in the EM-world clause, moved to PARTIAL after T-15 landed, breaching the restatement's own live-non-PARTIAL gate; the breach is registered, its disposition is T-50's, and until T-50 lands the roles statement's EM-world clause rests on C-71 alone. C-72's status moved after the T-15 lane was sealed, so the lane's non-PARTIAL condition is verified as of its sealing and not as of today, and the sentence above states which of the seventeen rows fails it and which clause that touches; the carrier marks are unaffected, since a T-9 verdict records which structurally different surfaces a row was run on and not whether its registered prediction survives. The named gate fires on the D-25 refusal sentence only and establishes nothing about a surface's physics. Live model validators no longer bypass it; sealed legacy lanes and callers outside model/ remain outside the AST boundary, and mutable provenance is not authenticated. C-75's coverage is by the T-28 corner gates, named for the task and not for the row, so a reader grepping the validators for 'C-75' finds nothing. No validator check covers the roles statement or the two-carrier condition, and the two-carrier condition is settled by grep against the sealed audit, outside the model. ProjectModel.roles() is out of date against A-PR as described above; a registered erratum is owed, and until it lands this block narrates the ledger row and the sealed lane file. |
+| **gate** | none |
+| **grounding** | ledger/status_ledger.tsv rows A-PR and A-AL2; LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/ALTERNATIVE_RECORD_WORLD.md, THEOREM.md, RESULT.md, AUDIT.md, and the 41-check algebraic witness; model/alpha_role.py plus its 121-check focused validator; DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/FORMAL_SCOPE_THEOREM.md; the historical carrier table LANE_T15_ROLES/A_PR_RESTATED.md |
+| **rows** | `A-PR` (FORMAL, NOT-CARRIER-SHAPED) · `A-AL2` (FORMAL, NOT-CARRIER-SHAPED) · `C-71` (PROVED, TWO-CARRIER) · `C-78` (FORMAL, TWO-CARRIER) · `C-80` (FORMAL, TWO-CARRIER) · `C-87` (FORMAL, TWO-CARRIER) |
+| **scope** | A-PR is a summary row and its ingredients retain their own tiers and carrier marks. The latest T-9/T-52 extension classifies A-AL2 as a NOT-CARRIER-SHAPED conditional-theorem row; the historical T-15 two-carrier statement does not automatically transfer to that later addition. Gravity Formation is catalogued separately under G-G rather than treated as a fourth role in G-E. ProjectModel.roles carries the current prose, but no named validator check establishes the combined three-role statement as a whole. |
 
 ### P-ROLES-2 — em supplies the complex and the record
 
@@ -1007,21 +1013,21 @@ Capacity and protection are independent: a bouquet of k triangles has dim H_1 = 
 | **rows** | `G-11` (MEASURED, TWO-CARRIER) · `C-41` (FORMAL, TWO-CARRIER) · `O-35` (FORMAL, TWO-CARRIER) · `C-78` (FORMAL, TWO-CARRIER) · `C-80` (FORMAL, TWO-CARRIER) · `C-66` (FORMAL, TWO-CARRIER) · `C-75` (FORMAL, TWO-CARRIER) · `F-20` (FORMAL, TWO-CARRIER) · `C-17` (FORMAL, TWO-CARRIER) · `C-87` (FORMAL, TWO-CARRIER) · `G-5` (FORMAL, SINGLE-CARRIER) |
 | **scope** | The space and channel clauses are corner-tier FORMAL results about DEF-A and say nothing about the world by themselves (H-3). The writer clause carries BOTH tiers, as A-PR and the sealed T-15 table both mark it: C-78's eight configuration venues are corner-tier and its two record venues are world-tier, and the world venues are modelled — a hypercube whose weights are published activation energies and a hidden interaction grid — so neither is an instrument reading. C-41's quantifier over all D(G) is wider than the computation and the caveat travels: records are constructed on D(Z_2) and D(D_4) only, and clause (iv) is merely unobstructed on the other power-of-two carriers (P-CORNER-12). O-35 is cited for the minimal-torus D(S_3) parity failure it establishes; its own ITEM, 'NO NON-ABELIAN CARRIER WITH RECORDS HAS BEEN BUILT', is stale against its own sealed lane, which records D_4 as exactly that, and is owed an erratum. The two-region zero is scoped to the corner tier by the lane's own structural observation, does not preclude other venues, and is never a baseline (P-GEO-4). C-66's registered range is wider than the census table beneath it and an erratum is owed; the protection clause is world-tier census with C-75 as its corner limit form. G-11 is MEASURED, so capacity/protection independence is a sweep and not a theorem. C-87's registered EXACTLY THREE is not what this block carries; P-GEO-9 carries the same weaker reading. 'Gamma' names the third term by the function it performs and by nothing else — the program's registered candidate realisation is (H_1(Sigma), intersection pairing), which satisfies R1, R2 and R3 and is a CANDIDATE and not an identification (G-5) — and the debt sitting directly under that sentence is PF-11 (OPEN): the glossary mapping every program term to its standard name and owner is unwritten. No falloff exponent is asserted or required of the record level, and importing one would be the error (D-1). The corner role row A-GR is SINGLE-CARRIER (toric-2x2) by the audit and is context, never load-bearing. |
 
-### P-ROLES-4 — alpha sets the cost, and alpha names a generic coupling strength
+### P-ROLES-4 — generic perturbation alpha and physical domain alpha are distinct
 
-Alpha is a sum of local terms that splits the record space at order n*, the fewest available local terms whose product reaches the code space — and n* equals d only when the perturbation class is unrestricted (C-8): symmetry degeneracy splits at first order with slope = d on five codes, measured and not proved (O-2), and the formation threshold equals the destruction threshold at d, measured at d = 2 (F-11, cited here for its carrier mark and not as warrant — the register's D-10 classes its six-code verification as an instrument check with no branch on which it could have come out otherwise, and P-FORM-3 declines it on that ground); O-10's row still reads THE THRESHOLD=d SCALING IS UNTESTED, and only its EVIDENCE cell records the scaling as since proved for every stabiliser code and every coupling. In the world the cost appears as the barrier: each record's drop time t*_i = f0^-1 exp((B_i - dE_i)/kT)/(1 + exp(-dE_i/kT)) is set by its own barrier and bias with no fitted width anywhere in it, carrying one declared and underived assumption — a shared Kramers prefactor f0 for both wells — and the lane instrument agrees with the formula to 6.0e-15 relative on the two-well grid, with the count discrepancy 0 at all 1201 t_m points on both declared multi-record surfaces against a full eigendecomposition, a no-eigenmode decay-fit instrument and a 60-digit mpmath root. The positive control beside that zero is a DIFFERENT configuration and is not the staircase itself: the asymptotic candidate width B - kT ln(f0 t_m) misses by exactly 1 at 82 of those same points, and the lane's own declared D-15 control is the symmetric surface, where the staircase is flat at k = 8 with a single threshold exact to 1e-12. On the multi-pathway T-31 carrier, different again, the one-f0 closed form leaves 0.62 ln-unit residuals that exceed the local step gap, and it is that carrier at eps = 0.16, not the declared grids, whose staircase steps 2 -> 1 -> 0 (C-86). Alpha names a generic coupling strength — the magnitude of the local terms that do not respect the record's structure — and is NOT the fine structure constant; nothing in this corpus is dimensionful, and no conclusion depends on its value: over all 28 settings of the sealed sweep, spanning temperature beta, coupling lambda, bath size, time and five energy seeds, 28 are INVARIANT and 0 MOVED, while on the six-setting lambda arm alone chi[record] ran from 0.004158 at lambda = 0.05 to 0.979185 at lambda = 3.0 and chi[stabs] and chi[wt-1] stayed at machine zero, worst 4.4e-15 — the sensitivity control standing beside that zero in the sealed table (C-21, H-2). What alpha's value would set is the rate of formation, chi ~ lambda^(2n*), which is connected to no physical number. The T-54 fold-in now carries the k(t_m) portion through ProjectModel.census/count_widths and checks_countlaw.py. The n*, splitting-slope and formation-threshold portions remain in sealed lane machinery, so this assembled role block still names no single model function or gate; P-LAW-8 through P-LAW-10 carry the count-law functions and exact gates.
+The historical corner calculation uses alpha as a generic perturbation magnitude: local terms split the stipulated record space at order n*, with n* equal to d only for an unrestricted perturbation class. That remains a formal corner result. The physical-alpha theorem answers a different question. ALLOW is exact attainable-set membership across the declared finite active-EM record construction. REQUIRE is conditional same-sector inheritance for ACTVIS records satisfying SAI1--SAI8 after governing-domain ancestry and the domain alpha value are independently established. SELECT carries the separate open question of actualizing the governing domain or its numerical boundary value. The separate T-38 debt asks whether physical alpha enters a declared record barrier law; the governing-domain inheritance theorem remains established on its declared premises.
 
 | | |
 |---|---|
-| **model** | none |
+| **model** | `ProjectModel.roles` |
 | **gate** | none |
-| **grounding** | LANE_T14_ALPHA (sealed, three codes with n* computed); LANE_T10_PARAMS/t10_params.txt (sealed 28-setting sweep, 28 INVARIANT / 0 MOVED with the chi columns beside it); LANE_T47_A_WIDTH through LANE_T47_D_REGISTER (sealed count-law lanes; the candidate-width control at t47b_staircase.txt:49-50, the T-31 carrier and its 0.621 residual at :141-146, the two-well scope of 6.0e-15 at T47_D_REGISTER_V001.md:20-21) |
-| **rows** | `O-2` (FORMAL, TWO-CARRIER) · `F-11` (FORMAL, TWO-CARRIER) · `O-10` (FORMAL, TWO-CARRIER) · `C-86` (FORMAL, TWO-CARRIER) · `C-8` (FORMAL, SINGLE-CARRIER) · `C-21` (FORMAL, SINGLE-CARRIER) · `H-2` (DEFINED, UNAUDITED) · `A-AL` (FORMAL, SINGLE-CARRIER) · `T-54` (DOING, PLAN) |
-| **scope** | The corner results are FORMAL statements about DEF-A carriers (H-3). C-8's own qualifier is carried in the sentence: n* = d only for an unrestricted perturbation class. F-11 is cited for its mark only and not as warrant, on the D-10 ground P-FORM-3 states. O-10 is cited with its own flag kept: the ITEM reads UNTESTED and only the EVIDENCE supersedes it, so the favourable half is never reported alone. 'Alpha' is a vocabulary stipulation registered as such, not a measurement: no number in this program is the fine structure constant. C-21's registered range, 0.0042 to 0.99996, spans all 28 settings including the beta arm, where chi[record] reaches 0.999962; the lambda figures quoted here are the coupling arm alone and are the narrower reading. Whether alpha's VALUE enters record durability through E_b is open and appears below as a debt, not as a result. The drop-time law's shared-f0 assumption is declared in T-47 A's own D-24 audit and is not derived, and on the only multi-shell carrier in the corpus the closed form's residual exceeds the local step gap, so the step order there is carried by the record-mode instrument and not by the formula (P-LAW-8). No single model function or validator gate covers this assembled block. The drop-time/count-law portion is now URM-carried and gated in the LAWS layer; n*, the splitting slope and the formation threshold remain in sealed lane scripts outside the URM. The corner role row A-AL is SINGLE-CARRIER (toric-2x2) by the audit and is context, never load-bearing. |
+| **grounding** | LANE_T14_ALPHA; LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/THEOREM.md, RESULT.md, and AUDIT.md; DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/FORMAL_SCOPE_THEOREM.md; ledger/plan.tsv T-38 |
+| **rows** | `A-AL` (FORMAL, SINGLE-CARRIER) · `A-AL2` (FORMAL, NOT-CARRIER-SHAPED) · `T-38` (TODO, PLAN) |
+| **scope** | SINGLE-CARRIER — the corner alpha result is formal mathematics about a stipulated carrier. The physical-alpha result is conditional on the declared ACTVIS, SAI1--SAI8, independently established governing-domain ancestry, and empirical domain-anchor hypotheses. SELECT remains the separately typed open actualization law. |
 
 ### P-ROLES-5 — the corner role rows are single-carrier and appear as context only
 
-The three corner role rows are marked SINGLE-CARRIER by the sealed T-9 audit, each on toric-2x2: A-EM, A-GR and A-AL. The audit's refuter recorded why A-AL's claimed second carrier does not count — on toric-2x2 and Steane [[7,1,3]] n* = d, so the fitted exponents cannot discriminate the row's claim from eps^d, and the n* != d separation exists only on [[5,1,3]]. A-EM's evidence is the torus family and LANE_EM_EXTENT, and A-GR's theorems are all toric-family with the record-count lanes on the 2x2 and 2x3 torus alone. They therefore appear in the roles statement as context and never as a load-bearing citation; every load-bearing clause stands instead on a row the audit marked TWO-CARRIER. The audit's method — default SINGLE-CARRIER, an adversarial refuter required for every TWO-CARRIER claim — is stated once, in P-ROLES-9, and is not restated here. The ledger row that carries this requirement is PF-8 (OPEN) — every row re-run on at least two structurally different carriers — and T-9 is the plan task that ran the audit against it.
+The three corner role rows are marked SINGLE-CARRIER by the sealed T-9 audit, each on toric-2x2: A-EM, A-GR and A-AL. The audit's refuter recorded why A-AL's claimed second carrier does not count — on toric-2x2 and Steane [[7,1,3]] n* = d, so the fitted exponents cannot discriminate the row's claim from eps^d, and the n* != d separation exists only on [[5,1,3]]. A-EM's evidence is the torus family and LANE_EM_EXTENT, and A-GR's theorems are all toric-family with the record-count lanes on the 2x2 and 2x3 torus alone. They therefore appear in the roles statement only as context and cannot supply cross-carrier breadth to a clause. The sealed T-15 table's then-current load-bearing citations were marked TWO-CARRIER; later A-AL2 and GFT-1 additions are NOT-CARRIER-SHAPED and retain their own theorem premises and scope ceilings. The audit's method — default SINGLE-CARRIER, an adversarial refuter required for every TWO-CARRIER claim — is stated once, in P-ROLES-9, and is not restated here. The ledger row that carries this requirement is PF-8 (OPEN) — every row re-run on at least two structurally different carriers — and T-9 is the plan task that ran the audit against it.
 
 | | |
 |---|---|
@@ -1029,7 +1035,7 @@ The three corner role rows are marked SINGLE-CARRIER by the sealed T-9 audit, ea
 | **gate** | none |
 | **grounding** | LANE_T9_AUDIT/T9_carrier_audit.tsv (ID, verdict, carriers and evidence columns, including the A-AL refutation text); LANE_T9_AUDIT/METHOD.md; ledger/plan.tsv, T-9 with its ROW column naming PF-8 |
 | **rows** | `A-EM` (FORMAL, SINGLE-CARRIER) · `A-GR` (FORMAL, SINGLE-CARRIER) · `A-AL` (FORMAL, SINGLE-CARRIER) · `PF-8` (OPEN, UNAUDITED) · `T-9` (DONE, PLAN) |
-| **scope** | SINGLE-CARRIER — A-EM, A-GR and A-AL are each marked SINGLE-CARRIER by the T-9 audit, and PF-8 and T-9 are not in the audit at all. This is a statement about the ledger's carrier marks, not about physics: it does not say the three corner role rows are false, it says one carrier family supports them, so no step of the proof rests on them. The audit's methodology is P-ROLES-9's, and this block adds no second statement of it. PF-8 is OPEN and its denominator was corrected on 2026-08-20; the carrier discipline it registers is not discharged. |
+| **scope** | SINGLE-CARRIER — A-EM, A-GR and A-AL are each marked SINGLE-CARRIER by the T-9 audit, and PF-8 and T-9 are not in the audit at all. This is a statement about the ledger's carrier marks, not about physics: it does not say the three corner role rows are false; it says they do not establish cross-carrier breadth. P-ROLES-1 separately governs the later NOT-CARRIER-SHAPED A-AL2 and GFT-1 additions. The audit's methodology is P-ROLES-9's, and this block adds no second statement of it. PF-8 is OPEN and its denominator was corrected on 2026-08-20; the carrier discipline it registers is not discharged. |
 
 
 ---
@@ -1054,17 +1060,17 @@ The emergence claim's shape is the principal's and is registered: Gamma is the c
 | **rows** | `A-GR3` (DEFINED, UNAUDITED) · `A-GR4` (DEFINED, UNAUDITED) · `C-77` (CANDIDATE, UNAUDITED) · `O-58` (OPEN, UNAUDITED) · `C-91` (FORMAL, TWO-CARRIER) · `O-55` (OPEN, UNAUDITED) · `O-56` (OPEN, UNAUDITED) · `O-57` (OPEN, UNAUDITED) |
 | **scope** | C-91 carries the TWO-CARRIER mark by the T-52 audit extension; A-GR3, A-GR4, C-77, O-58, O-55, O-56 and O-57 are outside the audit's scope (none is FORMAL/PROVED/MEASURED) and carry no mark; C-77's status is CANDIDATE and the sealed T-15 lane rules it context-only, never load-bearing. A-GR3 and A-GR4 are DEFINED: a decision about the claim's shape, which cannot be true or false. O-55, O-56 and O-57 are OPEN and are stated as debts, in the weakest form each row supports. This block states debts and states no result — it does not say the conditions are unmeetable, it says three of four are not met and names three further open rows beside them. Classical gravity is never the test at the record level (D-1); nothing in this block is a comparison, and the comparison belongs to section 6, this document's one comparison section. C-91 is now represented by ProjectModel.writing_* methods and the 57-gate writing family, including the conserving/critical lazy-kernel identity and the honest nonconserving alternatives. That integration does not discharge the antecedent: the physical surface still does not select the conserving ensemble or derive its critical point (P-GEO-11). The full limits statement is T-17's, not this document's. |
 
-### P-ROLES-7 — alpha's value is not connected to the record laws
+### P-ROLES-7 — domain selection and alpha barrier dependence remain separate debts
 
-The route by which alpha's value could enter the record laws — through E_b, where every terrestrial barrier is an atomic-scale energy and the Arrhenius exponent E_b/kT of about 40-80 amplifies any alpha-dependence exponentially — is registered in the plan as task T-38 (TODO), with an executable derivation and an ownership audit still to run. The distinguishing audit has already priced what such a connection would be worth: the amplification logic is Shlyakhter's and Damour-Dyson's (Oklo, 1976), the rival literature's own bounds make any record-derived alpha bound uncompetitive, and every predicted retention shift is below 3e-4 in ln tau, so alpha survives only as the S-2 flash alpha-channel discrimination (C-84). H-2's closure is scoped to the vocabulary statement that alpha names a generic coupling at the corner, and closes nothing about the world. T-38 is a plan task, not a ledger row; the ledger row it carries is H-2, and the audit result is C-84.
+The physical-alpha theorem establishes the exact construction-scoped ALLOW interval and the conditional governing-domain alpha requirement on its declared premises. SELECT retains the separate open question of actualizing the governing domain or numerical boundary value. T-38 retains the narrower barrier-dependence question: whether and how the physical coupling enters E_b in a declared record law. The older distinguishing audit priced one proposed retention route and found its predicted shifts uncompetitive; ALLOW and REQUIRE retain their established theorem status.
 
 | | |
 |---|---|
 | **model** | none |
 | **gate** | none |
-| **grounding** | LANE_T39_A_ENUM through LANE_T39_C_RECORD (sealed distinguishing-statement audit, three rival advocates); LANE_T10_PARAMS (sealed 28-setting sweep); ledger/plan.tsv, T-38 with its DONE_WHEN and its ROW column |
-| **rows** | `T-38` (TODO, PLAN) · `H-2` (DEFINED, UNAUDITED) · `C-84` (DEFINED, UNAUDITED) |
-| **scope** | SINGLE-CARRIER — H-2, C-84 and T-38 are not in the T-9 audit and are unaudited. H-2 and C-84 are both DEFINED: a vocabulary stipulation and an adjudication among rival accounts, neither a computation. C-84 carries its own provenance caveat in its ITEM and it is repeated here rather than left in the ledger: the enumeration agent's API connection dropped mid-relay, the three advocates worked from that agent's sealed lane output, and the recorder's descriptive candidate ids were ruled canonical against LANE_T39_A_ENUM's sealed list. This states a missing connection and not a negative result: nothing here shows that alpha's value cannot enter the record laws. No model function and no validator gate cover any sentence of this block. T-17 is the proper home for the full limits statement. |
+| **grounding** | LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001; DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001; LANE_T39_A_ENUM through LANE_T39_C_RECORD; ledger/plan.tsv T-38 |
+| **rows** | `A-AL2` (FORMAL, NOT-CARRIER-SHAPED) · `C-84` (DEFINED, UNAUDITED) · `T-38` (TODO, PLAN) |
+| **scope** | SINGLE-CARRIER — this block states the open SELECT and barrier-map questions plus one scoped distinguishing audit. Same-sector inheritance remains the conditional governing-domain REQUIRE theorem carried by A-AL2. |
 
 ### P-ROLES-8 — two owed external checks: the count law's census data and s-1's literature check
 
@@ -1078,17 +1084,17 @@ k(t_m) is the program's falsifiable count law, and its ownership is PARTIAL by t
 | **rows** | `C-86` (FORMAL, TWO-CARRIER) · `C-84` (DEFINED, UNAUDITED) |
 | **scope** | C-86 carries the TWO-CARRIER mark (spin-chain; toric-2x2); C-84 is unaudited. Both statements concern what has not been run: neither says the count law or S-1 has failed against data. C-86 stays FORMAL until the external-data run, and the PROVED bar it must meet requires two structurally different real record surfaces — a bar exactly one row in this program currently meets, as P-ROLES-13 states. The count law is now URM-carried through ProjectModel.census/count_widths and the 40-gate countlaw family, while its external-data run remains owed. The gate named on this particular block still covers the separate S-1 window law; P-LAW-8 through P-LAW-10 name the count-law gates. The window law's boundary bound binds only at aggregate scales far above any census device — every terrestrial census device sits far below its crossover and certifies its full volume within lifetime (P-GEO-8) — so nothing here is a constraint on a real device. C-84's audit-provenance caveat is stated in P-ROLES-7 and applies to this citation of it too. |
 
-### P-ROLES-9 — 113 of 150 audited rows are single-carrier
+### P-ROLES-9 — 116 of 157 retained audit rows are single-carrier
 
-The T-9 audit, extended at T-52, covers all 150 rows in its present scope. It defaults a row to SINGLE-CARRIER and requires an adversarial refuter to confirm every TWO-CARRIER claim against the row's actual result on structurally different carriers; another size or parameter setting of the same model never counts as a second carrier. The live verdicts are SINGLE-CARRIER 113, TWO-CARRIER 22, NOT-CARRIER-SHAPED 15, coverage 150/150 with no duplicate IDs. Refuters demoted several claimed second carriers — C-88's 2-D lattice is a spot-check dimension discriminator and not a second venue for the screening and accumulation gates, which ran on the 3-D world venue; O-15's bath-size result lives on [[5,1,3]] alone — and C-69 and C-70 remain SINGLE-CARRIER (macrospin), C-70 because its six-mechanism table is six parameter sets of one two-state GKSL build. The marks are not uniformly negative: C-71, the program's one PROVED row, and C-72, now PARTIAL under T-50, are both TWO-CARRIER on NAND-floating-gate and macrospin-CoCrPt. C-72's mark did not move with its status because a carrier verdict records where a result was run, not whether its registered prediction survives. The ledger row that registers this discipline is PF-8 (OPEN); T-9 is the plan task that ran it.
+The append-only T-9/T-52 audit table contains 157 verdict rows: 116 SINGLE-CARRIER, 22 TWO-CARRIER, and 19 NOT-CARRIER-SHAPED, with no duplicate IDs. It covers all 156 current FORMAL, PROVED, and MEASURED ledger rows; the extra retained verdict is C-72, which was PROVED when audited and later moved to PARTIAL. The method defaults to SINGLE-CARRIER and requires an adversarial refuter for every TWO-CARRIER claim; another size, sector, parameter setting, or independent implementation of the same mathematical carrier never counts as a second carrier. The reconciliation therefore marks RA-1 through RA-3 SINGLE-CARRIER on one finite-relational-accumulation family, while H-8, URFT-1, A-AL2, and GFT-1 are NOT-CARRIER-SHAPED scope or conditional-theorem rows. C-71, the program's one PROVED row, and the retained C-72 verdict both remain TWO-CARRIER. A carrier verdict records where a result was run, not whether its registered prediction survives.
 
 | | |
 |---|---|
 | **model** | none |
 | **gate** | none |
-| **grounding** | LANE_T9_AUDIT/T9_carrier_audit.tsv (151 lines, 150 audited rows, verdict column, recounted 113/22/15 with zero duplicate IDs); LANE_T9_AUDIT/METHOD.md (the audit's declared scope and refuter rule); the T-52 extension entry (C-90, C-91 and A-PR appended); ledger/status_ledger.tsv (C-71 the single PROVED row; C-72 PARTIAL, BLOCKED_BY T-50); ledger/plan.tsv, T-50; REGISTER_V001.md, the T-9 and T-52 entries |
+| **grounding** | LANE_T9_AUDIT/T9_carrier_audit.tsv (158 lines, 157 retained verdict rows, recounted 116/22/19 with zero duplicate IDs); LANE_T9_AUDIT/METHOD.md; ledger/status_ledger.tsv (156 current in-scope rows; C-72 PARTIAL with its historical verdict retained); ledger/plan.tsv, T-52 and T-50 |
 | **rows** | `T-9` (DONE, PLAN) · `PF-8` (OPEN, UNAUDITED) · `C-71` (PROVED, TWO-CARRIER) · `C-72` (PARTIAL, TWO-CARRIER) · `T-50` (TODO, PLAN) |
-| **scope** | C-71 and C-72 are cited because the block reports their status and carrier mark, and both carry TWO-CARRIER; T-9 and T-50 are plan tasks and PF-8 is unaudited, so none is additional carrier evidence. The marks say what carriers support a row, not whether the row is true. UNAUDITED is the absence of a row from the carrier audit, not a verdict weaker than SINGLE-CARRIER. The original audit covered its then-current FORMAL, PROVED and MEASURED scope; the T-52 extension appended the three later in-scope rows A-PR, C-90 and C-91, so none of the current 150 audited rows sits outside the file. C-72 is the live reminder that a row audited while PROVED can later become PARTIAL and retain its carrier verdict. C-88 and C-89 remain inside the audit and SINGLE-CARRIER (macrospin-CoCrPt; DD4). |
+| **scope** | C-71 and C-72 are cited because the block reports their status and retained TWO-CARRIER marks; T-9 and T-50 are plan tasks and PF-8 is outside the audit, so none is additional carrier evidence. Marks say what carriers support a row, never whether the row is true. UNAUDITED means absent from the table and is not a weaker verdict. The current in-scope coverage is 156/156; C-72 is the historical extra row whose verdict remains after its status moved to PARTIAL. |
 
 ### P-ROLES-10 — the field side has no instrument and objectivity has no equivalent fragments
 
@@ -1141,7 +1147,87 @@ THE PROGRAM HAS EXACTLY ONE ROW AT STATUS PROVED. Until this document was writte
 
 ---
 
-## 9. THE LIMITS — what this program is and is not (T-17)
+## 9. CURRENT CONDITIONAL CLOSURES AND FINITE RELATIONAL EVIDENCE
+
+This section is the 2026-09-16 source-level reconciliation. It binds the foundational closure, the two typed layers of Gravity Formation Theory, the exact L4--L12 majority record block, the adopted finite ARGER Gate, the conditional same-model dynamical-z=1 theorem, and the terminal incomplete L14 disposition into the generated proof. The reconciliation does not convert a conditional theorem or finite computation into an empirical claim.
+
+
+### P-CURRENT-1 — Universal Coverage-U closes exactly inside the adopted U-DCL axiom system
+
+The AURFT packet proves Universal Coverage-U for every record in the adopted U-DCL physical axiom system and verifies the transitive dependency custody. Natural U-DCL validity is the adopted falsifiable physical axiom. The theorem's conclusion is Universal Coverage-U; outcome selection, Born probabilities, collapse, gravity, and numerical alpha remain separately typed.
+
+| | |
+|---|---|
+| **model** | none |
+| **gate** | `LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/verify_axiomatic_urft_closure.py` :: `U-DCL load bearing size=6` |
+| **grounding** | LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/THEOREM.md, RESULT.md, AUDIT.md, DEPENDENCY_LEDGER.sha256, and the 74/74 exact verifier |
+| **rows** | `URFT-1` (FORMAL, NOT-CARRIER-SHAPED) |
+| **scope** | SINGLE-CARRIER — this is an exact formal closure inside the adopted U-DCL physical axiom system. Its conclusion is Universal Coverage-U; outcome selection, probability, collapse, gravity, and numerical-alpha questions remain separately typed. |
+
+### P-CURRENT-2 — the record-first Gravity Formation Theory is an exact conditional closure
+
+Under the adopted RGRL and WTC-H1-H5 hypotheses, the record-first working theory closes the declared implication exactly. Its hostile audit and the hash-pinned V014 integration audit accept their frozen theorem and integration inputs within the stated ceilings. The focused Gravity Formation Theory validator passes on the current tree. The latest aggregate URM run exits 1 after 218.4 s, but all 176 T-54 family gates and every current scientific proof chain pass; the only failures are two auxiliary replay contracts whose pinned historical local files are absent and whose declared scientific/proof weight is zero. Empirical confirmation of RGRL, a deeper microscopic F3 derivation, a strict induced origin, and a parameter-free numerical G remain open. No graviton premise is needed by the implication; this does not forbid gravitons.
+
+| | |
+|---|---|
+| **model** | `gravity_formation_theory_certificate` |
+| **gate** | none |
+| **grounding** | GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.md; GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.AUDIT.md; the historical hash-pinned GRAVITY_FORMATION_THEORY_URM_V014_INTEGRATION_AUDIT.md; model/gravity_formation_theory.py; model/validate_gravity_formation_theory.py; URM_VALIDATION_CURRENT_2026-09-16.md |
+| **rows** | `GFT-1` (FORMAL, NOT-CARRIER-SHAPED) |
+| **scope** | SINGLE-CARRIER — the conclusion is conditional on adopted hypotheses and explicit finite/empirical ceilings. The historical V014 certificate authenticates its frozen snapshot, while the dated post-reconciliation validation record controls the current aggregate state; neither may be substituted for the other. It is not a claim that those hypotheses have all been established in nature or that numerical G has been derived. |
+
+### P-CURRENT-3 — exact L12 agreement and the strict common-lineage diagnostic
+
+The L12 Target and independent Hostile reconstructions agree on all 1156 declared comparisons. Strict common-lineage support is 0.11570852222694002 for Target and 0.11570852222694036 for Hostile. Under the same declared extraction, the finite progression is L08 0.0244800482, L10 0.0687369678, and L12 0.11570852222694002. It is a real, strictly increasing diagnostic and remains separately typed from the governing finite ARGER Gate mass.
+
+| | |
+|---|---|
+| **model** | `relational_accumulation_certificate` |
+| **gate** | none |
+| **grounding** | AUDIT_R_L12_NUMERICAL_REPAIR_V003/EXACT_ADJUDICATION_V003R1.json; DEVELOPMENT_R_L12_LINEAGE_RESOLVED_SUPPORT_V001/LINEAGE_RESOLVED_SUPPORT_REPORT_V001.json and extract_lower_bound_progression.py |
+| **rows** | `RA-1` (MEASURED, SINGLE-CARRIER) · `RA-3` (MEASURED, SINGLE-CARRIER) |
+| **scope** | SINGLE-CARRIER — l08 and L10 are deterministic diagnostics from the authenticated target cache, not new hostile reconstructions. That qualification describes the execution tier and does not question the rigor of the cache calculation. No fit or extrapolation is used. |
+
+### P-CURRENT-4 — the complete A009--A016 envelope is an exact bounded majority record block
+
+The exact structural theorem and its independent PASS audit establish bounded record membership for A009--A016 at L=4,6,8,10,12. Deduplicated block mass is respectively 0.7260206189754993, 0.5846615608350367, 0.7373965730354166, 0.6500987927669427, and 0.56956498393327842, strictly above 0.50 at every authenticated size. Direct finite spectral reconstruction reduces the 40 atom/size assignments to 13 unique sectors; all have positive visibility, with minimum R_low 0.4280947078156539 and minimum lowest-pole weight 0.5.
+
+| | |
+|---|---|
+| **model** | `relational_accumulation_certificate` |
+| **gate** | `model/validate_relational_accumulation.py` :: `ARGER Gate evidence premises pass` |
+| **grounding** | L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md; AUDIT_L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md; DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001; RA-5; RA-6 |
+| **rows** | `RA-5` (FORMAL, SINGLE-CARRIER) · `RA-6` (MEASURED, SINGLE-CARRIER) |
+| **scope** | SINGLE-CARRIER — the five authenticated sizes form the complete finite evidence domain for this ARGER Gate application. The construction through L=12 closes its declared evidence obligation. |
+
+### P-CURRENT-5 — the adopted ARGER Gate establishes finite GFT z=1 and the same-model LL-P theorem supplies conditional dynamical z=1
+
+UNT adopts the ARGER Gate as the single governing finite GFT z=1 criterion. It consumes exact bounded record membership, deduplicated mass above one half, and positive finite visibility across the complete finite record domain. ARGER remains the ALLOW -> REQUIRE -> GATE -> EM -> RECORD process; the record block is the proved evaluation domain, not an additional mechanism. A009--A016 passes the Gate at all five authenticated sizes. Separately, under the explicitly pinned same-model LL-P premise, the ladder has dynamical exponent z=1 throughout the record block's density interval and the declared probe sees the symmetric mode in the scaling limit.
+
+| | |
+|---|---|
+| **model** | `relational_accumulation_certificate` |
+| **gate** | `model/validate_relational_accumulation.py` :: `Authenticated record block passes the ARGER Gate` |
+| **grounding** | ARGER_GATE_ADOPTION_2026-09-16.md; UNIVERSAL_NETWORK_THEORY_ARCHITECTURE_V001.md; DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001/CONDITIONAL_Z1_BRIDGE_THEOREM.md and packet audits; RA-7; RA-8 |
+| **rows** | `RA-7` (FORMAL, SINGLE-CARRIER) · `RA-8` (FORMAL, NOT-CARRIER-SHAPED) |
+| **scope** | SINGLE-CARRIER — finite GFT z=1 is the completed adopted Gate result through L12. Conditional thermodynamic dynamical z=1 is a separately typed supplementary theorem under LL-P, not an unfinished requirement of the finite Gate. |
+
+### P-CURRENT-6 — L14 is terminally incomplete and contributes no scientific result
+
+The L14 attempt ended before either branch produced the authenticated final scientific output required by its protocol. Compact sanitized custody preserves partial Target and Hostile event history for accounting, but no L14 number, pass, or physics failure is inferred. The AWS execution/storage resources were released, and L14 is not a premise of the L4--L12 theorem or adopted ARGER Gate.
+
+| | |
+|---|---|
+| **model** | `relational_accumulation_certificate` |
+| **gate** | none |
+| **grounding** | L14_RUN_DISPOSITION_2026-09-16.md; RA-4; T-56 |
+| **rows** | `RA-4` (DEFINED, UNAUDITED) · `T-56` (DONE, PLAN) |
+| **scope** | SINGLE-CARRIER — the disposition is INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT. It is neither a physics pass nor a physics failure and supplies no value for extrapolation. |
+
+
+---
+
+## 10. THE LIMITS — what this program is and is not (T-17)
 
 This section is T-17's deliverable: the proof stating its own limits, in one place, each with its row. It repeats no §8 detail at length — where a debt is already a block above, this section points at it. Nothing here is softened: a limit stated plainly in the document that carries the results is the difference between a program and a pitch.
 
@@ -1196,13 +1282,13 @@ The Newton verdict is MATCHES AT MEMBER LEVEL and nothing stronger, and the unea
 
 ### P-LIM-5 — carrier breadth, measured: most of this program stands on one carrier
 
-The T-9 audit, extended at T-52 to every in-scope row, marks 113 rows SINGLE-CARRIER, 22 TWO-CARRIER, and 15 NOT-CARRIER-SHAPED. Both load-bearing world laws are TWO-CARRIER, and the roles statement cites only marked rows — but the corpus's breadth is what the numbers say, and the chain's head (C-90) is single-venue with its second venue named as owed work. Every block in this proof prints its own marks; the assembler's live front matter reports that 48 blocks rest on no TWO-CARRIER row and say so in their scope cells.
+The append-only T-9/T-52 table contains 157 retained verdicts: 116 SINGLE-CARRIER, 22 TWO-CARRIER, and 19 NOT-CARRIER-SHAPED. It covers all 156 rows currently within the audit's status scope; C-72 supplies the one retained historical verdict after moving to PARTIAL. The roles statement now preserves the marks of its ingredients instead of generalizing its historical T-15 two-carrier table to later scope and conditional-theorem additions. The corpus's breadth is therefore exactly what the table says, and the chain's head C-90 remains single-venue. Every proof block prints its own mechanically rendered marks; the current assembly reports 53 blocks resting on no TWO-CARRIER row.
 
 | | |
 |---|---|
 | **model** | none |
 | **gate** | none |
-| **grounding** | LANE_T9_AUDIT/T9_carrier_audit.tsv (150 audited rows); this document's own computed front-matter statistics |
+| **grounding** | LANE_T9_AUDIT/T9_carrier_audit.tsv (157 retained verdict rows; 156/156 current in-scope coverage); this document's own computed front-matter statistics |
 | **rows** | `C-90` (FORMAL, SINGLE-CARRIER) · `C-91` (FORMAL, TWO-CARRIER) · `A-PR` (FORMAL, NOT-CARRIER-SHAPED) |
 | **scope** | The marks say what carries a row, never whether it is true. The at-registration rule in LANE_T9_AUDIT/METHOD.md prevents this debt from re-accumulating. |
 

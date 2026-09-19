@@ -50,6 +50,8 @@ Three columns of honesty:
 | **plaquette** | BORROWED | lattice gauge theory |
 | **toric code** | BORROWED | **Kitaev (2003)** |
 | `Z₁ / B₁ / H₁` | BORROWED | cycles, boundaries, homology |
+| **historical alpha-type perturbation magnitude** | **RENAMING** | a generic strength parameter used in the earlier lattice calculation; it is not the physical fine-structure constant unless a separately proved host-sector map says so |
+| **physical fine-structure alpha** | BORROWED | the electromagnetic coupling of the actual visible compact-`U(1)` host. Record formation `ALLOW`s alpha-bearing sectors; an actual visible EM host `REQUIRE`s and same-sector records inherit its empirically anchored alpha trajectory; `SELECT` of that host/value remains separate. This is not a numerical derivation of alpha |
 
 ## FORMATION AND THE ARROW
 
@@ -61,8 +63,34 @@ Three columns of honesty:
 | **what the environment learns** | BORROWED | **Holevo information `χ`** — Holevo (1973) |
 | **the environment holds a copy** | **RENAMING** | **quantum Darwinism** — Zurek, Blume-Kohout, Riedel, Ollivier; the code-distance threshold via **Girard–Cheng–Cao Thm 4** |
 | **the arrow / of the past** | **RENAMING** | `I(S:B)` invariance under local unitaries. **Arithmetic** |
-| **allow / require / select** typing (D-4, scoped 2026-09-06) | **OURS** | on a frozen parent/fiber, admissibility-preserving internal dynamics changes occupancy without redefining permissions; an enlarged parent may own dynamical carrier-fiber transitions, while `SELECT` remains a separate law |
+| **allow / require / select** typing (D-4, scoped 2026-09-06) | **OURS** | `ALLOW` states which sectors or histories are admitted; `REQUIRE` is a conditional predicate inside a declared actual host; `SELECT` is a separate law, if one exists. A host-sector `REQUIRE` neither produces nor numerically derives the selected parameter |
 | **the bath** | BORROWED | Lindblad/GKSL (1976); **Davies generator** — Davies (1974); **mean-force Gibbs state** at strong coupling |
+
+## RELATIONAL ACCUMULATION
+
+| our term | mark | standard name / owner |
+|---|---|---|
+| **intrinsic admission** | **OURS** | the finite owner-once transition on an allowed loaded-cell/blank-target pair `(w,r)`, with depleted bandwidth and sealed lineage retained; its configuration predicate does not itself generate motion |
+| **lineage** | **RENAMING** | the retained ancestry/provenance coordinate. In the relational construction it is the spent-genesis subset `S`, preserved injectively rather than quotiented away |
+| **common-lineage support** | **OURS** | probability mass whose event-resolved history shares the declared q4→q5→q6 lineage intersection on one common measure; it is not the minimum of two unrelated terminal flows |
+| **lower-bound progression** | **OURS** | the finite sequence obtained by applying one declared common-lineage extraction at L08, L10, and L12. “Progression” reports the strictly increasing computed values; it does not assert a fit, monotone continuation law, asymptotic limit, or predicted L14 value |
+| **`pbar_q` measure** | **OURS** | the declared arithmetic mean of complete q-sector weights over the frozen late-event window; terminal component norms may not be added to it without an authenticated conversion law |
+| **density atom** | **RENAMING** | one half-open cell in the finite density partition, carrying an authenticated q label at every declared `L`; an atom is not a physical vertex |
+| **bounded extendible record block** | **OURS** | the complete A009--A016 finite object proved separately at `L=4,6,8,10,12`: selected ranks have actual bounded ancestry and the exact lower/bridge/completed-upper role. It is not one already-completed common lineage and supplies no inter-size state embedding |
+| **record-block mass** | **OURS** | the deduplicated stored `pbar_q` sum over the selected q sectors of one bounded record block. For A009--A016 the exact stored sums are `0.72602061897549930`, `0.58466156083503676`, `0.73739657303541659`, `0.65009879276694276`, and `0.56956498393327842` at L4, L6, L8, L10, and L12 respectively; all exceed `0.50` |
+| **finite probe visibility** | **OURS** | positive threshold-stable `R_low` for a declared finite `(L,q)` sector and observable. The A009--A016 assignments reduce to 13 unique rows spanning five independently constructed finite domains, with global minimum `R_low=0.4280947078156539` and minimum pole weight `0.5`; `L = 4` through `L = 8` use complete finite-sector diagonalization and `L = 10`/`L = 12` use independent Target/Blind reconstructions. These rows supply the authenticated visibility premise consumed by the ARGER Gate through `L = 12` |
+| **ARGER Gate** | **OURS** | the single governing finite Gate applied at ARGER's `GATE` step. A bounded topologically extendible record block with deduplicated authenticated mass greater than one half at every tested size and positive authenticated probe visibility across its complete finite block realizes the finite discrete GFT `z=1` phase. The block is the evidence domain evaluated by the Gate, not part of ARGER's identity; ARGER remains the full `ALLOW -> REQUIRE -> GATE -> EM -> RECORD` process. The Gate classifies the block, not each density atom, and consumes the pure native analyzer plus the exact theorem, independent audit, and adoption record. Numbered labels found inside sealed 2026-09-16 evidence are archival implementation identifiers for this same Gate, not distinct gates |
+| **finite discrete GFT `z=1`** | **OURS** | the finite/discrete Gravity Formation phase defined by the adopted ARGER Gate. `PASS_FINITE_DISCRETE_GFT_Z1_L4_L12` is established for A009--A016, and the authenticated construction through `L = 12` completes the declared finite classification. **Finite** identifies the authenticated theorem domain; this result neither requires nor invokes an `L -> infinity` limit. The label is not the standard thermodynamic dynamical exponent and does not by itself supply the separately typed infrared-response theorem or a numerical `G` |
+| **dynamical exponent `z=1`** | BORROWED | the thermodynamic scaling statement `omega(k)=v|k|+o(|k|)`. For the same ladder and density interval it is established conditionally under LL-P as a supplementary theorem, not as a missing step in the finite GFT Gate classification |
+| **LL-P** | BORROWED | the explicit same-model Luttinger-liquid premise for the clean periodic two-leg hard-core-boson ladder on `[7/48,13/48)`: one symmetric linear mode, finite positive velocity, stated `K_s` range, and a gapped antisymmetric sector. It supports a conditional physical dynamical-`z=1` theorem and is not needed to execute the finite ARGER Gate |
+| **candidate gate** | **OURS** | a bounded authorization condition for the next declared calculation. Passing it changes workflow state, not automatically theory status |
+| **Phase-2 reachability authorization** | **OURS** | a historical step in the now-closed L14 scout protocol: the planned Phase-1 merge would have tested whether passing mass plus unopened q8/q9 mass could still reach `0.50`. No merged Phase-2 decision was produced; this protocol is non-governing for the adopted finite ARGER Gate |
+| **final finite-scout gate** | **OURS** | a historical planned L14 post-Phase-3 decision that was never reached. It would have deduplicated passing q identities and tested conservative Target/Hostile mass against `0.50`; it produced no pass, rejection, or L14 value and is non-governing for the ARGER Gate |
+| **finite scale label `L`** | **RENAMING** | the even size and one-pass horizon of an independently constructed owner-once periodic-prism parent: `L` active genesis cells, `2L` carrier sites, `3L` transport edges, and `L` fresh admissions before revisit. `L` labels separate sizes within one finite model family, not proof levels, software versions, or stages of one growing run; it is not automatically a continuum coordinate or evidence that a limit exists |
+| **prefix depth `n`** | **OURS** | the number of addressed events in one finite history prefix; it is distinct from finite-domain size `L` and from sector rank `q` |
+| **sector rank `q`** | **OURS** | the common retained-carrier/spent-lineage rank, `q = |C| = |S|`, within one finite domain. A pair `(L,q)` identifies a sector row; the 13 visibility rows span five separately constructed domains rather than one `L = 12` system |
+| **earlier same-slice L14** | **OURS** | the finite raw connected-record trajectory at `L=14`; it is distinct from, and cannot supply the absent completed result of, the closed 2026 owner-once Target/Hostile scout protocol |
+| **`INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`** | **OURS** | the closed disposition of the paid L14 Target/Hostile scout: Target preserved rough events 1--13 of 14 and Hostile 1--12 of 14, but neither completed a branch result or final adjudication. The compact preservation is not resumable and supplies no L14 value, pass, or rejection |
 
 ## THE COUNTING RESULTS
 
@@ -88,7 +116,7 @@ Stripping every BORROWED and RENAMING row leaves this, and it is short:
 > **THE CLAIM "Γ IS WHERE GRAVITY COMES FROM" IS NOT ON THIS LIST, BECAUSE ITS SECOND HALF —
 > RECOVERING CLASSICAL GRAVITY FROM ACCUMULATED Γ — IS UNTOUCHED (T-20).**
 
-**Universal Record Model (URM)** — OURS (named by the principal, 2026-08-20). The formal, macroscopic
+**Universal Record Model (URM)** — OURS (named by the principal, 2026-08-20). The formal, public-facing
 title of the program's model for the general physics audience: one entry point (`model/project_model.py`
 and its layers) that takes any record surface — a magnetic grain, a floating gate, a molecule, a
 stabiliser carrier — and returns its record structure: clause verdicts under the amended definition,
@@ -97,3 +125,10 @@ certifiability), and the DEF-A corner. "Universal" is operational — one model,
 (T-33: six mechanisms at machine precision; D-25: every world-tier surface provenance-pinned) — and
 is a TITLE, not a claim: the abstract-language rules from the external review still govern what the
 URM is said to establish.
+
+**Universal Network Theory Closure Theorem (`UNT-CLOSURE-V001`)** — OURS. The
+type-preserving master composition theorem for the declared UNT working
+system. It composes universal RFT coverage, the domain alpha requirement, the
+finite GFT `z=1` Gate result, record-conditioned geometry, and the conditional
+macroscopic Einstein response while retaining each component's controlling
+premises and proof type.

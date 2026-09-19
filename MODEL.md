@@ -47,14 +47,43 @@ silently use them as the public path.
 | count law | `census`, `count_widths` | the surviving-record staircase and both durability widths |
 | classes | `coupling_venue`, `reachable_class`, `critical_kernel`, and related delegates | subcritical, critical, and supercritical coupling classes |
 | writing | `writing_kernel_verdict`, `writing_uniformity`, `writing_transport`, `writing_trail_*`, `writing_gap` | conservation, criticality, transport, and trail diagnostics |
-| physics-role status | `roles` | claim-scoped EM, gamma, Alpha-inheritance, and gravity status, including the exact first-record gamma-information seed, the SAI/AWAI actual-visible-sector theorem, the adopted off-shell/on-shell RGRL distinction, and the conditional record-front cone refinement; descriptive metadata, not a gravity solver |
+| physics-role status | `roles` | claim-scoped EM, gamma, Alpha-inheritance, and gravity status, including the exact first-record gamma-information seed, the SAI/AWAI governing-domain inheritance theorem, the adopted off-shell/on-shell RGRL distinction, and the conditional record-front cone refinement; descriptive metadata, not a gravity solver |
+| physical-alpha role | `alpha_role`, `alpha_role_certificate` | a zero-input, seven-artifact hash-pinned certificate for the domain alpha requirement: the declared active-EM packet has the exact construction-scoped `ALLOW` interval `I_chi intersect ((-ln(1-delta))/(4*pi*B^2), infinity)`; within a governing compact-`U(1)` domain satisfying `SAI1--SAI8`, the measured alpha and RG trajectory are constitutive `REQUIRE` data for every coefficient-preserving same-sector record. `SELECT` is the separately typed question of governing-domain selection. The ideal construction interval, its cavity-read contrast, and the GFT Gate remain distinct typed quantities. |
 | U-DCL working postulate | `udcl_postulate`, `udcl_postulate_certificate` | the checksum-pinned adoption decision, typed conditional theorem, and full transitive axiomatic closure `U-DCL -> universal Coverage-U`; zero caller inputs; natural validity, actualization, Born selection, A5, and gravity remain open |
 | formal historywise-gravity discriminant | `historywise_gravity_discriminant`, `historywise_gravity_discriminant_certificate` | a zero-input, custody-pinned finite-group nonselection/stabilizer theorem certificate; no gravity solver, outcome selector, physical GARH-D/Q decision, Born law, GR derivation, or empirical proof |
 | Gravity Formation Theory | `gravity_formation_theory`, `gravity_formation_theory_certificate` | a zero-input, hash-pinned certificate for the hostile-audited record-first working-theory closure under adopted RGRL and explicit WTC hypotheses; observable pair-memory curvature capacity and source reciprocity; the narrow bare flip/recoil Ward obstruction; earlier F3/Phase-A boundaries; and audited public searches. No graviton premise is required for the Einstein--Hilbert classification. Empirical RGRL confirmation, microscopic F3 derivation of RGRL-B, strict origin of the full Einstein--Hilbert coefficient, and a parameter-free numerical \(G\) remain open. |
 | microscopic gravity progress | `gravity_microscopic_progress`, `gravity_microscopic_progress_certificate` | an additive V008 zero-input checkpoint over the independently audited GL6T--GL6CS chain. In addition to the V007 finite response, F3 bulk, locked-sector, collar, identifiability, and reciprocal-lineage results, V008 pins the exact order-six record-dependent future writer; rank-six same-parent source/read/writer access; its global Fourier tensor chart and finite-component stationary response; complete pure-`T2` first-source custody through order six; normalized tensor matching and observable same-state moment tests; the direct cubic Ward classifier whose exact rank-eight Ward system leaves the unique Einstein/Fierz--Pauli ray; and the fixed-cell scale-separation theorem that identifies an `r^-8` contact or `r^-12` writer accumulation requirement. These are a controlled microscopic path, not yet the derivation of the physical F3 Ward identity, a selected bulk phase, calibrated spacetime, gravity, Einstein dynamics, or \(G\). GL6CP remains excluded because its hostile audit requires repair. V014 working-theory semantics are unchanged. |
+| finite relational accumulation | `relational_accumulation`, `relational_accumulation_certificate` | the V010 zero-input, hash-pinned checkpoint for intrinsic admission, exact L12 custody, the exact and independently audited A009--A016 bounded record block, its authenticated majority mass at L4--L12, and finite native probe visibility in all 13 selected sectors (complete finite-sector diagonalization at L4--L8 and independent Target/Blind reconstruction at L10/L12). The adopted governing finite ARGER Gate returns `PASS_FINITE_DISCRETE_GFT_Z1_L4_L12`; the authenticated construction through L12 completes the finite Gravity Formation `z=1` proof obligation. The finite record block is the evidence domain evaluated at `GATE`, not part of ARGER's identity as the full `ALLOW -> REQUIRE -> GATE -> EM -> RECORD` process. The current certificate also replays and exposes the rigorous L08/L10/L12 strict-common-lineage progression as a separately typed diagnostic that is not a Gate premise. Same-model dynamical `z=1` is a separate conditional physical theorem under LL-P and not an unfinished Gate requirement. L14 is closed as `INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`, with no L14 value, pass, or rejection. The separately typed infrared-response layer and numerical `G` retain their own stated premises. |
+| Universal Network Theory closure | `universal_network_theory`, `universal_network_theory_certificate` | the zero-input, theorem-pinned master composition of adopted-U-DCL Coverage-U, the domain alpha requirement, the authenticated finite ARGER `z=1` classification, conditional LL-P dynamical `z=1`, and the separately premised RGRL/WTC record-conditioned-geometry response. Component proof types remain explicit: the finite L4--L12 Gate result is microscopic, while RGRL plus `WTC-H1`--`WTC-H5` carry the conditional macroscopic response. |
 
-The field-instrument family is not listed: T-51 is still independently unverified and nothing from
-that lane is registered or folded into the URM.
+The T-51 field-side family is not exposed as a URM certificate. `C-92` records
+the identified instrument at status `DEFINED`, and `C-93` records the exact
+content-rigidity theorem at status `FORMAL`; the broader direct field readout
+remains independently unverified and is not folded into the URM.
+
+### Canonical program crosswalk (not a completed-proof table)
+
+The executable layers above cover all nine canonical program families without
+changing their ledger grades. Partial, open, and process rows are retained here
+for URM custody; the publication-facing Major Proof Index limits its proof
+table to completed results and explicitly conditional theorems:
+
+| claim | family | current status | URM representation |
+|---|---|---|---|
+| `G-A` | The Definition | `GROUNDED-NOT-EARNED` | `clauses` plus grounded carrier/decline surfaces |
+| `G-B` | Record Formation | `WORLD-CONTACT-PARTIAL` | formation, configuration, occupancy, and orientation methods; universal natural occupation remains open |
+| `G-C` | The Record Laws | `FORMAL-COMPLETE` | `lifetime`, `steady_value`, `census`, and `count_widths` |
+| `G-D` | Classical/continuum field-side recovery | `MEMBER-LEVEL-MATCH` | geometry, reachable-class, and writing methods; direct physical readout remains open |
+| `G-E` | The Three Roles | `FORMAL-PARTIAL` | `roles` assembled summary plus the separately executable `alpha_role_certificate`; no single validator establishes the combined role statement as a whole |
+| `G-F` | URM Integration and Reproduction | `IN-CONSTRUCTION` process status | this model, validators, certificates, generated proof, and release gates; it does not qualify the completed G-G/G-H scientific results |
+| `G-G` | Gravity Formation Theory | `FORMAL-COMPLETE` | certified finite GFT `z=1` classification under the ARGER Gate plus separately conditional record-first infrared certificate |
+| `G-H` | Finite Relational Accumulation | `FORMAL-COMPLETE` | `relational_accumulation_certificate` and its exact L4--L12 custody |
+| `G-I` | Foundational Record Closure | `FORMAL-COMPLETE` | `udcl_postulate_certificate` and conditional AURFT Coverage-U closure |
+
+This is an integration map, not a promotion mechanism. The source of status is
+`ledger/claims.tsv`; `PROOF_GUIDE.md` supplies the theorem/audit/check/ceiling
+catalogue, and `URM_VALIDATION_CURRENT_2026-09-16.md` records the current
+executable state.
 
 ## THE CORNER ENGINE
 
@@ -169,9 +198,9 @@ current closure status and directs exact custody/ceilings to
   holonomy. Because that routing is supplied, this is an intermediate witness,
   not the final same-world theorem. Its global same-sector ancestry and physical
   soldering remain open.
-- Alpha is not a standalone theory in the URM. `SAI/AWAI` is the empirically
-  anchored same-visible-\(U(1)\) inheritance theorem. Measurement anchors the
-  actual visible-parent coupling at a reference context \(\chi_0\). For every
+- Alpha is constitutive identity data of a governing domain. `SAI/AWAI` is the
+  measured governing-domain inheritance theorem. Measurement anchors the
+  domain coupling at a reference context \(\chi_0\). For every
   record independently established to satisfy `ACTVIS` and `SAI1--SAI8`,
   \[
     \operatorname{ACTVIS}(r,W_{\rm obs})
@@ -179,15 +208,23 @@ current closure status and directs exact custody/ceilings to
     \alpha_r(\chi)=
     {\cal T}_{\chi\leftarrow\chi_0}[\alpha_{\rm obs}(\chi_0)].
   \]
-  Therefore an `ACTVIS` record cannot possess a private record- or region-level
-  alpha; an aligned inequivalent value falsifies its same-sector assignment or
-  at least one SAI premise. Bare `REC`, `DCL_phys`, and URFT establish neither
-  `ACTVIS` nor compact \(U(1)\). Finite active-EM recordhood `ALLOW`s multiple
-  alphas across parent models; complete-universe numerical `REQUIRE` and any
-  parent `SELECT` law remain open. AWAI proves inheritance of the empirically
-  anchored value, not a parameter-free prediction of that parent value or a
-  derivation of gravity or \(G\). Exact custody and the 41/41 witness are in
-  `LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001`.
+  Therefore an aligned inequivalent value falsifies the record's same-sector
+  assignment or at least one SAI premise. `ALLOW`: the declared ideal active-EM packet
+  admits the exact construction-scoped interval
+  \(I_\chi\cap(-\ln(1-\delta)/(4\pi B^2),\infty)\), with every positive alpha in
+  \(I_\chi\) admitted at zero relevance floor. `REQUIRE`: conditional on
+  independently established ancestry to a governing compact-\(U(1)\) domain
+  satisfying `SAI1--SAI8`, every coefficient-preserving same-sector record
+  inherits that domain's measured alpha and RG trajectory; changing alpha
+  defines a different domain structure. `SELECT`: governing-domain selection
+  is a separately typed proposition.
+  `alpha_role_certificate()` is the executable zero-input, hash-pinned surface
+  for this exact split. The interval is scoped to the ideal finite-record
+  packet; its `0.50` cavity-read contrast and the GFT majority Gate are distinct
+  typed quantities. Its authoritative theorem/result/audit custody remains in
+  `LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001`, joined to the formal modal typing
+  and hostile audit in `DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001` and
+  `AUDIT_ALLOW_REQUIRE_SCOPE_REPAIR_V001`.
 - Classical gravity is not placed on the microscopic record surface; what is
   already present in its first qualified binary record is the nonzero
   gamma-information seed above. The active successor
@@ -1438,21 +1475,130 @@ orientation-average packet remains unpromoted because its hostile audit found
 an ill-defined quotient-moment criterion.  The direct Ward route does not
 depend on it.
 
+### V010 finite relational-accumulation checkpoint
+
+In this finite relational family, `L` is the even size and one-pass horizon of
+an independently constructed owner-once periodic-prism parent: `L` active
+cells, `2L` carrier sites, `3L` transport edges, and `L` fresh admissions
+before revisit. Event-prefix depth `n` and retained-carrier/spent-lineage rank
+`q` are separate coordinates. The 13 selected `(L,q)` rows below therefore
+span five independently constructed parents rather than one `L = 12` system.
+
+The relational route begins with intrinsic admission: for a loaded cell `w`
+and blank retained target `r`, the allowed `(w,r)` pair carries its depleted
+bandwidth and sealed lineage under owner-once accounting.  Exact prefix support
+then gives an injective embedding of the finite history rather than a lineage
+quotient.  The authenticated L12 target, hostile, and normalized-blind histories
+pass all `1156/1156` checks; their maximum history-observable, sector-weight,
+and terminal-amplitude differences are respectively
+`9.769962616701378e-15`, `8.326672684688674e-16`, and
+`7.946965413254846e-17`.
+
+The exact L4--L12 extendible record-envelope theorem and its independent audit
+classify the fixed density block `A009--A016`, with half-open density interval
+`[7/48,13/48)`, separately at each authenticated size. Deduplicating its charge
+sectors gives these exact stored `pbar_q` sums:
+
+| L | selected q sectors | stored block mass |
+|---:|:---|---:|
+| 4 | `1--2` | `0.7260206189754993` |
+| 6 | `2--3` | `0.5846615608350367` |
+| 8 | `2--4` | `0.7373965730354166` |
+| 10 | `3--5` | `0.6500987927669427` |
+| 12 | `4--6` | `0.56956498393327842` |
+
+Every mass is strictly above `0.50`. The 40 atom/size assignments reduce to
+13 unique `(L,q)` rows. Every selected sector has positive, threshold-stable
+finite probe visibility on the native evidence path: L4--L8 use complete
+finite-sector diagonalization, while L10/L12 use independently implemented
+Target and Blind reconstructions. The global observed minimum is
+`R_low = 0.4280947078156539 > 0`, and the minimum pole weight is `0.5`. These
+rows complete the authenticated finite-visibility premise through L12.
+
+The governing Gate is the single user-adopted ARGER Gate: a bounded
+topologically extendible record block whose deduplicated authenticated mass is
+strictly greater than one half at every tested size and whose complete finite
+block has positive authenticated probe visibility realizes the **finite
+discrete GFT `z=1` phase**. The authenticated A009--A016 block satisfies every
+predicate, so the executable decision is
+`PASS_FINITE_DISCRETE_GFT_Z1_L4_L12`, including
+`PASS_FINITE_DISCRETE_GFT_Z1` at L12.
+
+This finite standard classifies the complete record block, not each density
+atom independently. Its executable path consumes the pure native
+Hamiltonian/probe analyzer, the exact structural theorem and independent
+audit, and the adoption record. The strict completed-common-lineage progression
+is exposed separately as a finite diagnostic and is not an ARGER Gate premise.
+
+The phrase **finite discrete GFT `z=1`** names the completed Gate result and is
+distinct from the standard thermodynamic meaning of a dynamical exponent. For
+the same hard-core-boson ladder, dynamical `z=1` on `[7/48,13/48)` is a separate
+conditional physical theorem under the explicit same-model Luttinger-liquid
+premise `LL-P`. It is supplementary and is not an unfinished requirement of
+the finite ARGER Gate.
+
+The earlier conditional RGRL/WTC infrared-response theorem remains a separate
+Gravity Formation Theory layer and is unchanged by this finite Gate. The
+finite block classification neither imports that theorem as a premise nor
+replaces its own stated assumptions and claim boundary.
+
+For historical comparison, independently reconstructed strict completed-
+common-lineage q5 support is `0.11570852222694002` (Target) and
+`0.11570852222694036` (Hostile). Its conservative value remains below that
+separate diagnostic's `0.1334710633451512` threshold by
+`0.01776254111821117`; this separate measure does not govern the ARGER Gate.
+
+The same declared strict common-lineage extraction gives the following finite
+historical progression. L08 and L10 are deterministic diagnostics from the
+authenticated target cache; that tier describes the available cross-check and
+is not a reliability discount. This measure is not the governing block mass.
+
+| scale | strict common-lineage support | authority |
+|---|---:|---|
+| L08 | `0.0244800482` | authenticated-target-cache diagnostic |
+| L10 | `0.0687369678` | authenticated-target-cache diagnostic |
+| L12 target | `0.11570852222694002` | authenticated target reconstruction |
+| L12 hostile | `0.11570852222694036` | independent hostile reconstruction |
+| L12 conservative | `0.11570852222694002` | separate finite diagnostic |
+| L14 | `INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT` | no L14 value or scientific adjudication |
+
+The reported values are strictly increasing through L12 under the declared
+extraction and remain a separate historical diagnostic rather than a Gate
+premise.
+
+The paid L14 Target/Hostile scout is closed as
+`INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`. Target V003R6 preserved completed
+rough events 1--13 of 14 and Hostile V003R5 preserved 1--12 of 14; neither
+branch produced a final scientific result, merged decision, or L14 value. The
+compact archives omit live states, cache, scratch, and inflight work and are
+not resumable. The earlier L14 same-slice trajectory remains valid only at its
+own raw finite scope. None of this incomplete work passes or rejects L14, and
+it does not alter the governing finite `L = 4` through `L = 12` ARGER Gate result.
+
+The authenticated block passes the adopted Gate and establishes the
+finite/discrete Gravity Formation `z=1` phase through the completed `L = 12`
+construction. The separately
+typed infrared-response theorem, empirical tests, and numerical value of `G`
+retain their own stated premises.
+
 ## VALIDATION
 
 From the repository root:
 
 ```bash
-python3 model/validate_urm.py          # all four landed families, then geometry/project chain
+python3 model/validate_urm.py          # T-54 families plus all integrated scientific certificates/contracts
 python3 model/validate_project.py      # URM surface/delegate/D-25 gates
 python3 model/validate_geometry.py     # geometry gates, then project chain
 python3 model/validate_formation.py    # formation engine — 17 checks
 python3 model/validate_model.py        # corner existence engine — 12 checks
 python3 model/count_law.py             # exact corner count — 22 checks
-python3 model/validate_udcl_postulate.py  # 32 adoption/theorem custody and ceiling checks
+python3 model/validate_udcl_postulate.py  # 34 adoption/theorem custody and ceiling checks
+python3 model/validate_alpha_role.py  # 121 interval/ALLOW/REQUIRE/SELECT custody, scope, and refusal checks
 python3 model/validate_historywise_gravity_discriminant.py  # 84 formal-only checks
 python3 model/validate_gravity_formation_theory.py  # bounded zero-input custody/ceiling gate
-python3 model/validate_gravity_microscopic_progress.py  # 247 sealed-progress/ceiling checks
+python3 model/validate_gravity_microscopic_progress.py  # 249 sealed-progress/ceiling checks
+python3 model/validate_relational_accumulation.py  # governing Gate isolated from optional history; closed L14
+python3 model/validate_universal_network_theory.py  # master typed composition; no finite-to-Einstein promotion
 ```
 
 The family validator is the landing gate for new URM features. Its printed totals are computed by

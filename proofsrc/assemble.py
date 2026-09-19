@@ -21,7 +21,8 @@ SECTIONS = [
     ("6. COMPARISON — the one place Newton is named", "GEOMETRY", "ONLY:P-GEO-12"),
     ("7. THE THREE ROLES AS ONE STATEMENT", "ROLES_AND_DEBTS", "ONLY:P-ROLES-1,P-ROLES-2,P-ROLES-3,P-ROLES-4,P-ROLES-5"),
     ("8. STANDING DEBTS — what is not established", "ROLES_AND_DEBTS", "EXCEPT:P-ROLES-1,P-ROLES-2,P-ROLES-3,P-ROLES-4,P-ROLES-5"),
-    ("9. THE LIMITS — what this program is and is not (T-17)", "LIMITS", None),
+    ("9. CURRENT CONDITIONAL CLOSURES AND FINITE RELATIONAL EVIDENCE", "CURRENT_RECONCILIATION", None),
+    ("10. THE LIMITS — what this program is and is not (T-17)", "LIMITS", None),
 ]
 
 def frag(name):
@@ -30,10 +31,13 @@ def frag(name):
 
 def main():
     st, mk, pl = ledger(), marks(), plan()
+    reconciliation = json.load(open(os.path.join(S, "CURRENT_RECONCILIATION.json")))
+    overrides = reconciliation.get("overrides", {})
     parts = [frag("frontmatter.md")]
     for title, layer, sel in SECTIONS:
         data = json.load(open(os.path.join(S, layer + ".json")))
-        claims = data["claims"]
+        claims = [{**claim, **overrides.get(claim["id"], {})}
+                  for claim in data["claims"]]
         if sel and sel.startswith("ONLY:"):
             want = set(sel[5:].split(","));  claims = [c for c in claims if c["id"] in want]
         elif sel and sel.startswith("EXCEPT:"):

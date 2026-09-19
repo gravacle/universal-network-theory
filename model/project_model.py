@@ -32,9 +32,34 @@ Layers, each resting on registered rows:
   WRITING      conserving/critical writer kernels and the surface gap
                (C-91)                                                    -> .writing_*
   ROLES        the four role sentences, honestly scoped                  -> .roles
+  ALPHA ROLE   exact ALLOW/REQUIRE/SELECT typing for physical alpha       -> .alpha_role,
+                                                                             .alpha_role_certificate
   U-DCL        adopted working postulate plus exact conditional universal
                Coverage-U theorem; natural validity remains open          -> .udcl_postulate,
                                                                              .udcl_postulate_certificate
+  WORLD INPUT  source-custodied observations with no automatic verdict     -> .world_observation,
+                                                                             .world_observation_certificate
+  FORM INPUT   generic formation-data contract with zero proof promotion   -> .formation_input,
+                                                                             .formation_input_certificate
+  GAMMA FLOW   origin-neutral flow states and explicitly typed outputs     -> .gamma_flow,
+                                                                             .gamma_flow_certificate,
+                                                                             .gamma_flow_states,
+                                                                             .gamma_flow_proof_outputs
+  FRONTIER     missing-data and theory-state proof boundary                -> .proof_frontier,
+                                                                             .proof_frontier_certificate,
+                                                                             .proof_frontier_proof_states,
+                                                                             .proof_frontier_theory_states,
+                                                                             .proof_frontier_execution_frontier
+  H-GRAVITY    finite-group historywise nonselection discriminant          -> .historywise_gravity_discriminant,
+                                                                             .historywise_gravity_discriminant_certificate
+  GFT          conditional record-first working-theory closure             -> .gravity_formation_theory,
+                                                                             .gravity_formation_theory_certificate
+  MICRO-G      additive microscopic-gravity progress checkpoint            -> .gravity_microscopic_progress,
+                                                                             .gravity_microscopic_progress_certificate
+  RELATIONAL   adopted finite ARGER formation Gate; closed L14 seam       -> .relational_accumulation,
+                                                                             .relational_accumulation_certificate
+  UNT          top-level typed composition with all proof types retained   -> .universal_network_theory,
+                                                                             .universal_network_theory_certificate
 
 A RecordSurface is a physicist-supplied parameterization of a device or specimen in SI; it is
 not by itself real-world validation.  Actual measurements enter separately through
@@ -561,20 +586,26 @@ class ProjectModel:
                      "two-probe Lorentz holonomy. Because that routing is supplied, this is an "
                      "intermediate witness, not the final same-world theorem; global same-sector "
                      "ancestry and physical soldering remain open.",
-            "ALPHA": "Alpha is not a standalone theory in the URM; SAI/AWAI is the "
-                     "empirically anchored same-visible-U(1) inheritance theorem. Independent "
-                     "measurement anchors the actual visible-parent coupling at chi_0. For any "
+            "ALPHA": "Alpha is constitutive domain identity. SAI/AWAI establishes the domain "
+                     "alpha requirement. Independent measurement fixes alpha at chi_0 for the "
+                     "governing domain. For any "
                      "record r, ACTVIS(r,W_obs) together with SAI1--SAI8 implies "
                      "alpha_r(chi)=T_{chi<-chi_0}[alpha_obs(chi_0)]. ACTVIS independently "
-                     "establishes ancestry to the same visible photon eigenmode and parent action. "
+                     "establishes ancestry to the governing domain. "
                      "Thus an ACTVIS record cannot choose a private record- or region-level alpha; "
                      "an aligned inequivalent value falsifies its same-sector assignment or at "
                      "least one SAI premise. Bare REC, DCL_phys, and URFT establish neither "
-                     "ACTVIS nor compact U(1). Finite active-EM recordhood ALLOWS multiple alphas "
-                     "across parent models; complete-universe numerical REQUIRE and any parent "
-                     "SELECT law remain open. AWAI proves inheritance of the empirically anchored "
-                     "value, not a parameter-free prediction of that parent value or a derivation "
-                     "of gravity or G.",
+                     "ACTVIS nor governing-domain ancestry. ALLOW: the declared ideal packet admits "
+                     "the exact construction-scoped interval I_chi intersect "
+                     "((-ln(1-delta))/(4*pi*B^2), infinity), with every positive alpha in I_chi "
+                     "admitted at zero relevance floor. This is not a complete-universe interval, "
+                     "and its 0.50 cavity read contrast is not the GFT majority Gate. REQUIRE: "
+                     "every ACTVIS record in the governing domain inherits the domain-matched alpha "
+                     "trajectory; changing alpha defines a different domain structure. SELECT: "
+                     "governing-domain selection is a "
+                     "separate proposition and may not exist; complete-universe singleton REQUIRE "
+                     "also remains open. AWAI proves the domain alpha requirement and supplies "
+                     "neither gravity nor G.",
             "GRAVITY": "Classical gravity is not placed on the microscopic record surface; the first "
                        "qualified positive-margin binary record already carries the nonzero "
                        "gamma-information seed described above. In the declared "
@@ -941,6 +972,20 @@ class URM(ProjectModel):
         return list(URM.proof_frontier(manifest_path).available_execution_frontier)
 
     @staticmethod
+    def alpha_role():
+        """Expose the pinned physical-alpha ALLOW/REQUIRE/SELECT theorem."""
+        from alpha_role import alpha_role
+
+        return alpha_role()
+
+    @staticmethod
+    def alpha_role_certificate():
+        """Return exact allowance/inheritance status with selection left open."""
+        from alpha_role import alpha_role_certificate
+
+        return alpha_role_certificate()
+
+    @staticmethod
     def udcl_postulate():
         """Expose the pinned U-DCL postulate and transitive axiomatic closure only.
 
@@ -1006,11 +1051,49 @@ class URM(ProjectModel):
 
         return gravity_microscopic_progress_certificate()
 
+    @staticmethod
+    def relational_accumulation():
+        """Expose authenticated finite relational accumulation with the L14 seam closed."""
+        from relational_accumulation import relational_accumulation
+
+        return relational_accumulation()
+
+    @staticmethod
+    def relational_accumulation_certificate():
+        """Return the governing finite block certificate and closed L14 state."""
+        from relational_accumulation import relational_accumulation_certificate
+
+        return relational_accumulation_certificate()
+
+    @staticmethod
+    def universal_network_theory():
+        """Expose the pinned UNT master theorem as a typed composition only."""
+        from universal_network_theory import universal_network_theory
+
+        return universal_network_theory()
+
+    @staticmethod
+    def universal_network_theory_certificate():
+        """Return the zero-input UNT closure certificate with type ceilings intact."""
+        from universal_network_theory import universal_network_theory_certificate
+
+        return universal_network_theory_certificate()
+
     def roles(self):
         """Keep the historical role ledger, but replace its superseded gravity frontier."""
         roles = super().roles()
         roles["GRAVITY"] = (
-            "Gravity Formation Theory is closed as an exact record-first implication inside "
+            "The authenticated record block passes the finite ARGER Gate and establishes "
+            "PASS_FINITE_DISCRETE_GFT_Z1_L4_L12 for the complete A009--A016 block "
+            "from exact bounded membership, deduplicated authenticated mass above 0.50 "
+            "at every tested size, and positive finite visibility in all 13 (L,q) rows. "
+            "The authenticated construction through L12 completes the evidence "
+            "obligation for this Gate application. The conditional dynamical-z=1 theorem is supplementary, while "
+            "the RGRL/WTC infrared-response layer described next remains separately "
+            "typed. L14 is "
+            "INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT and is not a premise of the "
+            "L4--L12 Gate. Gravity Formation Theory is separately closed as an exact "
+            "record-first implication inside "
             "the explicit WTC-H1--H5 adopted-RGRL, memory-realization, same-metric response, "
             "Ward/constraint, and guarded endpoint premises; AURFT/U-DCL remains upstream "
             "program context rather than an extra theorem hypothesis. No graviton premise is required: the leading Einstein--Hilbert form is "

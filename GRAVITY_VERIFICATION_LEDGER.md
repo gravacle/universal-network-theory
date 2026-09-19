@@ -2036,3 +2036,342 @@ later L12 numerical history. **Empirical:** finite floating-point controls.
 spectra, `z=1`, criticality, continuum/macroscopic closure, emergence, and
 gravity. No grid, graviton, Ward axiom, continuum assumption, lineage
 quotient, or gravity claim is introduced.
+
+## Reduced-history execution control plane — STAGE 1 PASS, 2026-09-07
+
+The V012 reduced-history execution packet is certified through its final
+control-only authorization gate.  This certification is for record custody,
+cache identity, authorization ordering, and fail-closed execution control; it
+is not a physical history or a scaling result.
+
+The repaired immutable source/preflight anchors are:
+
+```text
+FREEZE                                      e18e5e06d1d8f23b65cc368e03262e459a0f066a65195081702debe273fe9269
+PREFLIGHT_MUTATION_LEDGER                   9fe600b2e9e8c78a3ae6a01b211b696c7b830ee462b5c22dd619f02f40cf3808
+PREFLIGHT_RESULT                            9d3b4436395d9d7a2f7f11d402342350eb70fd86a4bbf636b673946ccff04a2e
+production_obligation_validators.py         0c26c5eaed428f3a94fc598103234ae5ce65f7c3d7870112a4d11e25e0bc6a99
+A03 independent pre-payload audit           7e8f484091a17aed7362d3872d015cba78e38304466cceb89f2c82d6a5102cda
+A04 universal custody gate                  9eddea2ec6fe86036c10d02da95b1f8d8f493e132d810b19eee2cecc98b4be54
+A06 independent postbuild audit             6b1aba94f8cd58808a8d33d39bf8e4296dbf2cd5e298b30406a26a32e85e372e
+A07 base physical gate                      41e8cfa00fd504cb33c5ebde67eb5ae277acc4d54b5c327d51686dfc64e2d934
+A08 independent physical-gate audit         c98778297f006ce03afb1c2cabbb1b4db6f1dfcbac0c8625e9d120771fa75e24
+A09 control-only authorization              a36abb978f018939f46cc92091136e615103afe20167db02c07dc80cae222e9e
+```
+
+Two independent same-hash reviews pass the fixed obligation universe: 26
+artifacts, 33 positive forms, 36 mutation classes, 477 exact hostile
+assignments, 375 rules, 1,305 structural checks, 46 authenticated
+dependencies, and the exhaustive 262,144-state authorization model.  The
+postbuild audit passes `3,489/3,489` after reconstructing five manifests,
+1,100 immutable payload members, 873,210,476 logical bytes, and semantic cache
+identity at L4/L6/L8/L10/L12.  A08 passes `14/14`.  A09 authorizes exactly
+L4/L6/L8 and refuses L10/L12.
+
+The live A06 attempt exposed and then closed one existing fixed-scope defect:
+the generic record walker had treated the required integer counter
+`checks.no_physical_execution_paths=8` as Boolean because of its `no_` name.
+The repair exempts only direct positive-integer members of an already-validated
+`checks` map; non-check `no_*` values remain exact Booleans.  The full matrix
+and two new same-hash reviews passed after refreezing.  No artifact schema,
+obligation category, physics operator, or claim boundary was added.
+
+**Proved at this stage:** exact finite source/cache hash custody, owner-once
+immutable payload census, authorization reachability/refusal behavior, and the
+stated validator properties.  **Adopted:** the V012 resource ceilings,
+execution ordering, cache representation, and frozen numerical tolerances.
+**Empirical:** cache build runtime and RSS telemetry, including L12 at
+`65.871 s` and `1,619,542,016 B` peak RSS.  **Conditional:** later finite
+history agreement using these authorized inputs.  **Open/not computed:** the
+new target/hostile control histories, L10 promotion, L12 histories and hostile
+adjudication, the L4--L12 sector, interval spectra, `z=1`, algebraic closure,
+continuum/macroscopic response, emergence, and gravity.  No grid, graviton,
+Ward axiom, continuum assumption, or gravity claim is introduced.
+
+### Stage 1 certification reopened by first live control — FAIL CLOSED
+
+The first authorized L4 control completed numerical evolution but published no
+history: the exact native-JSON round-trip guard refused two tuple-valued method
+checkpoint fields and four `numpy.float64` owner-residual fields.  Exhaustive
+reconstruction found exactly those six type differences and no numerical,
+ledger, lineage, cache, or terminal-shard discrepancy.  The failed L4
+workspace is preserved and L6/L8 did not start.
+
+Because the consumer source and cache manifests are hash-bound, the prior
+A01--A09 certification remains an audited historical pass for its exact bytes
+but is not authority for a modified consumer.  The minimum fixed-field output
+projection and existing-history regression must be refrozen and independently
+re-certified before Stage 2 resumes.  This is an open implementation repair,
+not a physics result or a change to the claim boundary.
+
+## Reduced-history execution control plane — STAGE 1 RE-CERTIFIED, 2026-09-08
+
+The first live L4 control exposed six exact native-JSON projection type
+differences and therefore correctly reopened the prior byte-specific Stage 1
+certification.  The repaired consumer projects only the two sealed checkpoint
+tuples and the four L4 `numpy.float64` owner residuals to their canonical JSON
+types.  A second fixed-scope repair confines sanctioned future-stage null
+hashes to direct top-level history fields: A10 requires nine nulls, A14 three
+concrete plus six null hashes, and A24 nine concrete hashes.  Sixty nested
+same-name null injections now refuse.
+
+The governing regenerated anchors are:
+
+```text
+production-DAG adjudication                 8b8f1a73cc185a73dc78eab140144e56470b25f8fb9e723d71789d68d025bf5a
+production-DAG manifest                     376eb498be5f7826ac4cfb93a98af74ab689fa65cf256d15f67d7258108d61ea
+independent_final_auditor.py                 8562d9ca379d686edbffec44e89a872bcadca2e538d7a2cdfb83b927ad93d0e3
+FREEZE                                      886093f5e62f1b112c8c10b8c323b213c696971607f31878199e1efe3a277ce2
+PREFLIGHT_MUTATION_LEDGER                   5d5abccc20641a4d0be65d9b76e61147ed5be8292ac091e6028fde7cb53aef29
+PREFLIGHT_RESULT                            81b13642ee95a5defb2d0d1aa706c3d4482872630d8b022e4df9efa560fc5b8e
+production_obligation_validators.py         4f22ff63d2e04545db0dd51c5bad76605a61b256640473f26ff6783f67561f06
+A03 independent pre-payload audit           729fc11a5680342715986948135d920af36685b954b107e1ea2b5cd1640f3aa6
+A04 universal custody gate                  aeb28206abfc2d9a3381b4f9a0395690fc5032f1383c9e9157daf58bc6bd6fc3
+A06 independent postbuild audit             ce6b32ff5ab135796273f7aeb2edb926d13f0786c7bff45de376bbc9621d1891
+A07 base physical gate                      5196d0525cc59202ddbe18dee30d6d160cb465a212f6381b81fd3c8aa585e700
+A08 independent physical-gate audit         639a69a6895f0e7484f98e699aeace087f4798e2bd2a72fdd3de29f0acc02b40
+A09 control-only authorization              07f7df6f2a894a473be0ec5ff06aaa39f37084734df953436d8e0b8b8add7177
+```
+
+Two independent same-hash reviews pass the repaired source set.  The full
+stable replay passes the intercepted L4 record with zero round-trip
+differences, `1,305/1,305` structural checks, `33/33` positive forms,
+`477/477` mutations across 36 classes, 46 dependency checks, Track-C core
+`43/43`, launcher `25/25`, hostile controls `22/22`, and hostile self-tests
+`3/3`.  A03 passes `5,244,541/5,244,541` and A08 passes `14/14`.
+
+The first A05 rebuild used relative CLI output spellings; live `CacheContext`
+refused the resulting noncanonical manifest roots before A06.  That immutable
+set is preserved outside the canonical path.  The corrected absolute-root
+rebuild passes both independent audits and contains 1,100 payload files and
+873,210,476 bytes.  Its manifest hashes are:
+
+```text
+L4   a30f663a296ede78ba71ff1ca875cd7193afd43286fe756b706abe4a8f904930
+L6   ef44c69533fc6f16b06640e387ac49fcc37a4dd7837a8d24133cb3337b15b252
+L8   f44cc5103a0e5559f98e195c048e228e48bc03e30e8c2416fec0fec28b5aa5a2
+L10  acb4a99b4d7328592f026e9e2a05bc94bb6e0de2c5710572642621b9f828d095
+L12  539b7fa62d35060d0a736b8dcecd6805e8d4fc60d032d29e85b45002ccf179f8
+```
+
+Both final frozen-chain reviewers directly rehash and live-validate A01--A09.
+A09 authorizes exactly L4/L6/L8 and live L10/L12 attempts refuse.  The closing
+31-path census contains no A10+ history, hostile execution, output, workspace,
+release, telemetry, spectrum, or final-L12 artifact.  Stage 1 is therefore
+re-certified on these exact bytes and Stage 2 target controls may begin.
+
+**Proved at this stage:** the stated finite byte custody, exact authorization
+and refusal behavior, fixed-field projection boundary, and owner-once cache
+census.  **Adopted:** V012 resource ceilings, numerical tolerances, execution
+ordering, and cache representation.  **Empirical:** build runtime/RSS,
+including corrected L12 cache construction at `66.100549 s` and
+`1,630,814,208 B` peak RSS.  **Conditional:** target/hostile history agreement
+and subsequent sector construction.  **Open/not computed:** L10 promotion,
+L12 histories and adjudication, the L4--L12 sector, interval spectra, `z=1`,
+algebraic closure, continuum/macroscopic response, emergence, and gravity.
+No grid, graviton, Ward axiom, continuum assumption, Gate B claim, emergence,
+or gravity claim is introduced.
+
+## Reduced-history execution control plane — FINAL STAGE 1 RE-CERTIFICATION, 2026-09-08 11:35 CDT
+
+The A11--A16 interface repair and A06 independent-auditor custody repair are
+certified on one immutable A01--A09 chain.  Two independent final reviewers
+rehash and validate the same bytes.  The governing hashes are:
+
+```text
+A01  b3a4ba272c7ed36cb46416443179832e0ddf1c4ac053534369299f9ca019a903
+A02  daa16bc94d73766e40d398d77a973ebe113fe9ab2cfbc4ae9b73c86545db2c3f
+A03  ad5686920481060d9a6208c20367530f6081b1eb40b896fe39db592a19dab764
+A04  7828317a93d4a217f2b6bb4dd632bc0e031d3471925679308cb37469b517e7df
+A06  4b427c5fc59dd05d1a9900203db8f749761a4f9541f70c4a7529b7f2355bb06c
+A07  874efda75b2691893a76f32e19948dfb93d4c3310532a68b88ac383d30dd2235
+A08  b8614b44bfadaa629d5057d62be2381e7b76b82712ba806ccfc806fc5f74d0f4
+A09  1a1c0cd281e592c546cfde48325d79019c9a300289589071fd9d74c50091b64f
+A06 source freeze  b6e13e352e0d858c7ea70feb85c8e2fb6f0210434fad7335992fc038d0884f78
+```
+
+The five A05 manifest hashes are L4 `86d5ad86...`, L6 `db309260...`, L8
+`75489fab...`, L10 `0b403710...`, and L12 `f3d632fa...`.  Independent replay
+authenticates all 1,100 members and 873,210,476 bytes.  A06 passes
+`3,489/3,489`; A08 passes `14/14`; the closing absence census passes `31/31`.
+The exact authorization resolver admits L4/L6/L8 and refuses L10/L12 before
+their separately audited stage gate.  No physical output, workspace, history,
+release, telemetry, spectrum, or L12 result existed at closure.
+
+**Proved:** the stated finite A01--A09 byte custody, source/cache provenance,
+owner-once publication, cache reconstruction, and exact control authorization
+and refusal behavior.  **Adopted:** the V012 resource ceilings, tolerances,
+execution ordering, and cache representation.  **Empirical:** the finite
+cache-build and audit runtimes.  **Conditional:** target/hostile finite-history
+agreement and later sector construction.  **Open/not computed:** L10
+promotion, L12 histories/adjudication, the L4--L12 sector, interval spectrum,
+`z=1`, algebraic closure, continuum/macroscopic behavior, emergence, Gate B,
+and gravity.  No grid, graviton, Ward axiom, or continuum assumption is added.
+
+## Reduced-history exact cached controls — STAGE 2 PASS, 2026-09-09 02:29 CDT
+
+The frozen V007 replay completed in `9.76 s`, reconciling the already
+completed `852.434 s` target L10 history without recomputation.  The V007
+source, test, freeze, and result hashes are:
+
+```text
+replay_a01_a18_v007.py          fd8831f4692483a001f4a2b20a6321a10d929090504c227233075770f5e130ca
+test_replay_a01_a18_v007.py     710bfae3b8af3ea36001460612b58d4c98b90ffd3cd2f4309b1be5111c60d2d5
+REPLAY_SOURCE_FREEZE_V007.json  11e3c899ba69444a2f678e144947ad4b787ef7db75a4400a56d4b7704be9cba4
+REPLAY_CANDIDATE_RESULT_V007    01ce7d3550e05a9c808172be2b8a350957d5c7b0e2c711ac7d8cbbded94b7bb6
+```
+
+The terminal finite-control records are L10 history
+`422cd12235d59d44986daf2490e467677c86f7eb82da16f31c8403769cf9675d`,
+A15 `20261b35e21d626b61b69a8e29b8dee7c4521bd157aca787aff0fba4524e5ad2`,
+A16 `5b694804b9d0dfc7b1238ca2d8a3b4342849ffd7beaa9dc64d057633cc2d80a6`,
+A17 `ad9c4c30b6bc199000a5c3f50bde6711adab35cc4bbdcfa19787051bea9ca21e`,
+and A18
+`84a99de5d97373f8daeb2a1bcf1adcf04d2f0e0ee17dab13f58859d35bf141c5`.
+A18 passes `65/65`, has no failures, and remains one immutable single-link
+owner-once file.  Two independent post-publication audits pass the actual
+stack: Audit A passes `157/157`; Audit B authenticates all 25 logical products
+and their complete dependency DAG.
+
+**Proved:** the stated finite L4--L10 execution/control replay, owner-once byte
+custody, target/hostile L10 cross-projection, and exact audit results.
+**Adopted:** the frozen finite tolerances, resource limits, and execution
+ordering.  **Conditional:** later target/hostile L12 execution and
+adjudication.  **Open/not computed:** L12 histories, the L4--L12 sector,
+interval spectra, `z=1`, algebraic closure, continuum/macroscopic behavior,
+emergence, Gate B, and gravity.  No grid, graviton, Ward axiom, or continuum
+assumption is added.
+
+### Stage 3 entry framing checkpoint — FAIL CLOSED, 2026-09-09
+
+The first Stage 3 dry run refused before resource capture or publication
+because its compact-only stable JSON reader conflicts with two already
+authenticated stored-publication formats.  A18 is exact sorted indent-two
+publication JSON: `14,081 B`, raw SHA-256 `84a99de5...`; its compact semantic
+serialization would be `12,116 B`, SHA-256 `3ed6e7ab...`.  The target L12
+cache manifest is likewise exact indent-two publication JSON: `135,274 B`,
+raw SHA-256 `859e01f5...`; its compact semantic serialization would hash to
+`00f96298...`.  Both strict records and their raw owner-once hashes remain
+valid; this is a framing-contract obstruction, not a content, lineage,
+ledger, cache, history, or physics discrepancy.
+
+The minimum bounded repair is artifact/path/hash-specific serializer typing:
+retain exact indent-two publication bytes for A18 and the target manifest,
+retain compact canonical bytes for Stage 3 coordinator/wire and hostile
+records, and always use the authenticated raw-file digest as the
+authority-edge identity.  Generic whitespace admission is prohibited.  The
+final A26 reader must use the same typed rule because the current direct
+target/replay authority files are publication-form records.  No A20--A22
+record, workspace, output, telemetry, or worker was created; Stage 3 and L12
+remain locked pending freeze and hostile review of that control-only
+compatibility repair.
+
+## Relational L12 closure and L14 verification boundary — 2026-09-15
+
+### L12 exact numerical custody — CLOSED
+
+- Target/hostile adjudication: `1156/1156` comparisons pass.
+- Target strict common-lineage support: `0.11570852222694002`.
+- Hostile strict common-lineage support: `0.11570852222694036`.
+- Conservative governing value: `0.11570852222694002`.
+- Authority: `AUDIT_R_L12_NUMERICAL_REPAIR_V003/EXACT_ADJUDICATION_V003R1.json` and its
+  execution-custody record.
+
+This closes the earlier operational statement that no L12 numerical result existed. It does not
+erase the failed-start history; the obstruction and its bounded repairs remain part of custody.
+
+### Authenticated finite endpoint — REJECTED ON L4--L12
+
+The authenticated sector-manifest bridge and Stage-6R2 compatibility adjudication return
+`AUTHENTICATED_RELATIONAL_Z1_REJECTED_L4_L12`. The classification is exact for the declared finite
+test and no wider. It does not rule out `z=1` at L14 or later, prove a continuum statement, or decide
+the complete Gravity Formation Theory.
+
+### Lineage lower-bound diagnostic — ESTABLISHED, NO EXTRAPOLATION THEOREM
+
+The declared extractor returns L08 `0.0244800482`, L10 `0.0687369678`, and conservative L12
+`0.11570852222694002`. The sequence is strictly increasing. The first two values are deterministic
+diagnostics from the authenticated target cache; the L12 value is independently reconstructed by
+the hostile branch. No fit is used and no L14 value is inferred.
+
+### L14 — `PENDING_AUTHENTICATED_RESULT`
+
+The authoritative source family is `DEVELOPMENT_R_L14_TARGETED_SCOUT_V003`, with mixed-release,
+branch-specific provenance. Initial Target R5 and untouched Hostile R5 use
+`KERNEL_BINDINGS_RELEASE_V003R3.json` and `L14_SOURCE_BUNDLE_MANIFEST_V003R5.json`; the fresh Target
+R6 restart uses `KERNEL_BINDINGS_RELEASE_V003R6.json` and
+`L14_SOURCE_BUNDLE_MANIFEST_V003R6.json`.
+
+The initial Target R5 branch ended at q10 after numerical Krylov-capacity exhaustion produced a
+non-finite residual diagnostic that strict JSON correctly refused to publish. This is the
+`TARGET_Q10_NUMERICAL_CAPACITY_EXHAUSTION_EXPOSED_BY_STRICT_JSON__NOT_AWS_HARDWARE_FAILURE`
+obstruction reconstructed in `EXACT_KERNEL_AUDIT_V003R6.json`, not an L14 physical result. The R6
+audit preserves every physics predicate and tolerance while replacing the undersized target
+execution capacity. A fresh Target R6 restart was authorized and initiated from a new checkpoint
+root with the failed R5 evidence preserved and no checkpoint migration; Hostile R5 was untouched.
+
+This ledger records that durable chronology without asserting a transient running state. The seam
+has two decisions. The owner-once Phase-1 merge may first grant Phase-2 reachability authorization
+only after authenticating both branches and original numerical predicates, the literal q5 and
+physical q6-core witnesses, contiguous coverage of `[3/16,11/48)`, and the optimistic
+Phase-1-plus-unopened-q8/q9 upper bound. That authorization opens Phase 3 q8/q9; it is not the final
+threshold verdict. After authenticated Phase-3 evidence exists, the distinct final finite-scout
+gate retains the lower independently computed Target/Hostile mass for each actually passing sector,
+deduplicates q identity, and tests the resulting conservative mass against `>= 0.50`. The scientific
+row remains empty until both decisions and the final authenticated branch evidence exist. The full
+declared q-domain is load-bearing; it may not be shortened as an operational optimization. Runtime
+and cost notices cannot terminate or redefine the physics gate, and the final finite-scout decision
+is not an exact or asymptotic `z=1` emergence theorem.
+
+### Interpretation boundary
+
+The record-first Gravity Formation Theory closure remains a separate exact conditional implication
+under adopted RGRL and WTC-H1--H5. The finite relational ladder is a parallel microscopic test and
+not a hidden premise of that theorem. Only a pass of the separate final finite-scout gate would be a
+finite candidate and next-stage authorization; Phase-2 authorization alone only opens q8/q9. Neither
+decision is an exact or asymptotic `z=1` theorem. An obstruction or nonconvergence would not be
+mislabeled as a scientific rejection.
+
+## Governing L4--L12 block result and terminal L14 disposition — 2026-09-16
+
+This section supersedes the **governing interpretation** in the immediately
+preceding 2026-09-15 section while preserving that section as attempt history.
+
+### Exact majority record block — PROVED AND AUDITED
+
+`L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md` proves exact bounded
+record membership for the fixed `A009--A016` envelope at L4, L6, L8, L10, and
+L12. Its independent hostile audit passes. The deduplicated authenticated
+block masses are `0.7260206189754993`, `0.5846615608350367`,
+`0.7373965730354166`, `0.6500987927669427`, and
+`0.56956498393327842`, all strictly above `0.50`.
+
+### Complete finite visibility — CERTIFIED
+
+The pure Hamiltonian/probe path in
+`DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001` reduces the block to 13
+unique finite `(L,q)` sectors. Every sector has positive authenticated probe
+visibility. The minimum `R_low` is `0.4280947078156539`; the minimum
+lowest-pole weight is `0.5`; independent Target/Blind higher-size rows agree
+within the pinned numerical tolerance.
+
+### Finite GFT `z=1` — GOVERNING ARGER GATE PASS
+
+`ARGER_GATE_ADOPTION_2026-09-16.md` adopts exact bounded membership,
+deduplicated majority mass, and positive finite visibility across the complete
+finite domain as the governing UNT finite **ARGER Gate**. The sealed evidence
+tool retains `ARGER-GATE-1` only as its archival implementation identifier.
+`A009--A016` passes at all five authenticated sizes.
+
+The separately typed same-model LL-P theorem conditionally establishes the
+thermodynamic dynamical exponent `z=1` throughout the block's density
+interval. It is a supplementary physical theorem rather than an unfinished
+component of the finite ARGER Gate proof completed through L12.
+
+### L14 — `INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`
+
+The L14 attempt ended before authenticated final Target/Hostile outputs.
+Compact sanitized custody is preserved, but no L14 number, pass, or physics
+failure is inferred. `L14_RUN_DISPOSITION_2026-09-16.md` controls this terminal
+status and supersedes the former pending marker. L14 is not a premise of the
+L4--L12 theorem, the adopted finite ARGER Gate, or the conditional LL-P theorem.

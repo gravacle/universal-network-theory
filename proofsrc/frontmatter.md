@@ -1,13 +1,13 @@
-# PROOF — WHERE ATOMS COME FROM — V002 — 2026-08-20
+# PROOF — WHERE ATOMS COME FROM — V002 — reconciled 2026-09-15
 
 > **"We need a model to work on that represents the full project."** — the principal, 2026-08-20
 >
 > **"The model should be the overall representation of the proof."** — the principal, 2026-08-20
 
-This document is the narration of the **UNIVERSAL RECORD MODEL** — `model/project_model.py`, the URM.
-Every section below is one of the model's layers. Every claim is one model function, its validator
-gate, its grounding, and its ledger row. **There is no step outside the model.** A statement the URM
-does not carry is not in this proof.
+This generated document narrates the **UNIVERSAL RECORD MODEL** — `MODEL.md`,
+`model/project_model.py`, and the executable certificate modules. Every claim carries a model
+function or explicitly says `none`, a validator gate or explicitly says `none`, its grounding, and
+its ledger row. A narrated dependency is not promoted merely because it appears here.
 
 **`PROOF_V001.md` is not superseded as mathematics.** Its Theorems A–D stand unchanged; what this
 document changes is their siting. They are statements about the **DEF-A corner** — §4 — and they are
@@ -86,8 +86,11 @@ extension brought every later in-scope row through the same audit. `DEFINED`, `P
 resting on no `TWO-CARRIER` row opens its scope
 cell with `SINGLE-CARRIER —`**, and an unaudited row never lifts that requirement.
 
-**Of the 150 audited rows, 113 are `SINGLE-CARRIER`, 22 are `TWO-CARRIER`, 15 are
-`NOT-CARRIER-SHAPED`.** That is the program's state, printed rather than described.
+**Of the 157 retained audit verdicts, 116 are `SINGLE-CARRIER`, 22 are
+`TWO-CARRIER`, and 19 are `NOT-CARRIER-SHAPED`.** Those verdicts cover all 156
+rows currently in the audit's `FORMAL`/`PROVED`/`MEASURED` status scope; the
+extra retained verdict is C-72, which moved to `PARTIAL` after it was audited.
+That is the program's state, printed rather than described.
 
 ---
 
@@ -97,19 +100,22 @@ Each line runs from the repository root:
 
 ```bash
 python3 replicate/check_proof.py      # this document's own gate — expect GATE PASSED
-python3 model/validate_project.py     # base project + D-25 gates — expect 24 PASS, 0 FAIL
-python3 model/validate_geometry.py    # geometry layer, then project chain — expect 33 + 24 PASS
-python3 model/validate_urm.py         # four folded families, then both chains — expect 176 family / 233 full PASS
-./replicate/reproduce.sh              # re-runs every lane script against its sealed output
+python3 LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/verify_axiomatic_urft_closure.py
+python3 model/validate_gravity_formation_theory.py
+python3 model/validate_relational_accumulation.py
+python3 model/validate_urm.py         # aggregate comparison against the dated baseline
 ```
 
-**The fifth does not pass, and this document will not pretend otherwise.** The most recent completed
-run in the repository records **46 differing scripts against 267 identical**
-(`replicate/reproduce_full2.log`): thirteen nondeterministic scripts, unnormalised wall-clock lines,
-one script that aborts, and stale seals. A fresh full run is in flight. **The debt is `T-35`, `TODO`,
-and §8 states it.** The first four commands pass as written. The validator stack contains **24 base
-project/D-25 gates, 33 geometry gates, and 176 folded-family gates: 233 model gates in the full
-umbrella run**; the proof gate is separate.
+The first three scientific families above are focused gates. The AURFT verifier passes 74/74 after
+the manifest resolver was made lane-local-first, the Gravity Formation Theory validator passes, and
+the relational validator passes 177 checks. **The aggregate URM validator is not advertised as
+green.** Its dated pre-reconciliation baseline is `URM_VALIDATION_BASELINE_2026-09-15.md`: ARROW
+26/27, an absent zero-scientific-weight `lakeshore_vsm` adapter/check, and an absent synthetic-gamma
+fixture. A current run must be compared with that baseline so inherited failures are not mislabeled
+as relational regressions and a partial pass is not printed as an aggregate success.
+
+The broader clean-reproduction debt remains `T-35`; release reconciliation is `T-57`; publication
+and deposit remain blocked under `T-58` until the scientific and human release inputs are complete.
 
 `check_proof.py` **refuses** a block with a missing field, a row that is in neither the ledger nor the
 plan, a row that is `WITHDRAWN` or `FAILED`, a status or carrier mark that has gone stale against the

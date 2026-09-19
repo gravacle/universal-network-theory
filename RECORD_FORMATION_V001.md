@@ -1,5 +1,16 @@
 # THE RECORD FORMATION PROCESS — RFP
 
+> **HISTORICAL CHARTER — CURRENT POINTER (2026-09-16).** This document records
+> the point at which the program first isolated the natural record-formation
+> problem. Its present-tense inventory predates the later FORMATION layer and
+> must not be read as the current claim ledger. Use the FORMATION section of
+> [`PROOF_V002.md`](PROOF_V002.md), its canonical source
+> [`proofsrc/FORMATION.json`](proofsrc/FORMATION.json), and
+> [`PROOF_GUIDE.md`](PROOF_GUIDE.md) for current formal finite results,
+> world-contact status, and ceilings. The universal natural process that makes
+> an allowed carrier occupy one definite record remains open; the later
+> channel/copy/encoding results do not silently solve that selection problem.
+
 **The charter's word, chosen by the principal 2026-08-18 over "build", "closure" and "onset".**
 
 > *"find the process responsible for **record formation** and explain the roles of EM, gravity and

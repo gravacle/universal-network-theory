@@ -10865,3 +10865,200 @@ Before even a geometry selector runs, one coherent fresh rule, all builder/score
 the independent budget, verifier briefs, immutable pre-execution audit declaration, and design
 judge packet must be sealed and pushed. The historical exposed rows may inform a declared design;
 they may never score their own repair.
+
+## 2026-09-15 — exact L12 closure, finite relational continuation, and L14 seam
+
+**EXACT L12 CUSTODY.** The target and independent hostile L12 histories now agree on all
+`1156/1156` declared comparisons. The strict common-lineage support is
+`0.11570852222694002` on the target and `0.11570852222694036` on the hostile
+reconstruction; the target value is retained as the conservative governing finite diagnostic.
+The authority is `AUDIT_R_L12_NUMERICAL_REPAIR_V003/EXACT_ADJUDICATION_V003R1.json` together
+with its execution-custody record. This supersedes the September 9 statement that no L12
+numerical computation existed; the earlier obstruction remains preserved as history.
+
+**FINITE STAGE-6 DECISION.** The authenticated sector manifest and Stage-6R2 adjudication close
+the declared L4--L12 endpoint as `AUTHENTICATED_RELATIONAL_Z1_REJECTED_L4_L12`. The result is a
+finite-sector rejection, not a general no-go theorem for `z=1`, a continuum, emergence, or
+gravity. The record-flow and Stage-6R3 packets are supplemental diagnostics and do not override
+the governing Stage-6R2 gate.
+
+**COMMON-LINEAGE PROGRESSION.** Under the declared deterministic extraction, support is strictly
+increasing: L08 `0.0244800482`, L10 `0.0687369678`, and conservative L12
+`0.11570852222694002`. L08 and L10 are rigorous diagnostics from the authenticated target cache;
+L12 also has an independent hostile reconstruction. This difference is a gate classification,
+not doubt about the cache. No monotone-continuation, asymptotic-extrapolation, or L14-value theorem
+is claimed from three points.
+
+**L14 BOUNDARY.** The authoritative implementation is
+`DEVELOPMENT_R_L14_TARGETED_SCOUT_V003`, with source authority recorded per branch. Initial Target
+R5 and untouched Hostile R5 use `KERNEL_BINDINGS_RELEASE_V003R3.json` and
+`L14_SOURCE_BUNDLE_MANIFEST_V003R5.json`; the fresh Target R6 restart uses
+`KERNEL_BINDINGS_RELEASE_V003R6.json` and `L14_SOURCE_BUNDLE_MANIFEST_V003R6.json`. Target R5 ended
+at q10 when numerical Krylov-capacity exhaustion produced a non-finite residual diagnostic and
+strict JSON correctly refused publication. `EXACT_KERNEL_AUDIT_V003R6.json` classifies that event as
+a numerical-capacity obstruction surfaced by strict JSON, not AWS hardware failure or an L14
+physics result. A target-only R6 capacity repair preserved the physics contract, after which a fresh
+Target R6 restart was authorized and initiated from a new checkpoint root without checkpoint
+migration; failed R5 evidence was preserved and Hostile R5 was untouched. This is durable attempt
+history, not an assertion about process state at read time. The scientific value remains
+exactly `PENDING_AUTHENTICATED_RESULT`. The owner-once authenticated Phase-1 merge must first
+preserve the original numerical predicates and satisfy the q5, q6-core, contiguous-cell, and
+optimistic unopened-q8/q9 reachability conditions. A Phase-2 pass authorizes only Phase 3 q8/q9.
+L14 progression admission additionally requires authenticated Phase-3 target/hostile evidence and
+the distinct final finite-scout decision: lower independently computed branch mass per actually
+passing sector, deduplicated by q identity, must sum to at least `0.50`. The finite-scout gate is not
+an exact or asymptotic `z=1` emergence theorem. Until both decisions and the complete authenticated
+branch evidence exist, the pending marker cannot move. The declared q-domain remains whole; no
+q10--q14 truncation or denominator-changing shortcut is admitted. Runtime advisory limits are
+operational notices rather than scientific stop conditions.
+
+**URM AND RELEASE DISPOSITION.** Rows `URFT-1`, `A-AL2`, `GFT-1`, and `RA-1`--`RA-4` register the
+current foundational, alpha, conditional-gravity, and finite-relational state. Tasks `T-56`--`T-58`
+hold L14 closure, source reconciliation, and publication/deposit. The generated ledgers and proof
+are rebuilt from their sources. Git commit, push, release tag, and Zenodo deposit remain separately
+unauthorized; the preparation capsule keeps L14, aggregate validation, license, citation, and DOI
+inputs fail-closed.
+
+## 2026-09-16 — exact majority record block, governing block Gate, and L14 closure
+
+**STRUCTURAL THEOREM.** The fixed `A009--A016` envelope is now controlled by
+`L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md` and the independent
+`AUDIT_L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md` verdict `PASS`.
+At each authenticated size `L in {4,6,8,10,12}`, exact bounded record roles are
+proved and the deduplicated block mass exceeds one half. The masses are
+respectively `0.7260206189754993`, `0.5846615608350367`,
+`0.7373965730354166`, `0.6500987927669427`, and
+`0.56956498393327842`. This theorem is bounded to the five authenticated
+sizes; it does not silently assert an all-`L` continuation.
+
+**PURE FINITE VISIBILITY.** The proof path in
+`DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001` reads the Hamiltonian/probe
+rows directly and imports no legacy adjudication verdict. The 40 atom/size
+assignments reduce to 13 unique `(L,q)` sectors. Every sector has positive
+finite visibility; the minimum observed `R_low` is
+`0.4280947078156539`, the minimum lowest-pole weight is `0.5`, and the
+independent Target/Blind higher-size calculations agree within their pinned
+tolerance.
+
+**GOVERNING GATE ADOPTION.** By principal decision, recorded in
+`ARGER_GATE_ADOPTION_2026-09-16.md`, ARGER-GATE-1 is the governing UNT finite
+ARGER Gate. Exact bounded membership, deduplicated mass above `0.50`, and
+positive finite visibility across the complete finite record domain constitute
+the finite GFT `z=1` standard. The `A009--A016` domain passes. ARGER remains the
+record-formation process; the record block is the theorem's evaluation domain,
+not an additional mechanism.
+
+**DYNAMICAL-EXPONENT TYPE.** The same-model LL-P theorem separately supports
+dynamical exponent `z=1` throughout the declared density interval under its
+explicit physical premise. A premise-free repository-internal uniform all-`L`
+theorem remains a stronger open result. It is not a condition of the adopted
+finite Gate.
+
+**L14 TERMINAL DISPOSITION.** The L14 attempt ended before final authenticated
+Target/Hostile outputs. Compact sanitized event custody was retained, no L14
+number or physical verdict is inferred, and the disposition is
+`INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT` in
+`L14_RUN_DISPOSITION_2026-09-16.md`. This supersedes the former pending marker.
+L14 is neither a prerequisite nor an input to the L4--L12 block theorem or
+Gate. Task `T-56` is therefore complete as a clean attempt closure, not as a
+completed L14 computation.
+
+**URM AND RELEASE DISPOSITION.** Rows `RA-5`--`RA-8` register the theorem,
+finite visibility, adopted finite Gate, and conditional dynamical theorem;
+`RA-4` now carries the terminal L14 disposition. Task `T-57` continues the
+URM, proof-guide, generated-ledger, Git-preparation, and Zenodo reconciliation.
+No commit, push, tag, GitHub release, Zenodo deposit, or publication act is
+authorized by this register entry.
+
+## 2026-09-17 — completed-proof table and G-F process classification
+
+**PUBLICATION TABLE.** The Universal Network Theory Major Proof Index now
+reserves its principal proof table for exact theorems, exact conditional
+theorems with named premises, and authenticated finite results. Adopted
+definitions, broad partial research programs, superseded routes, incomplete
+attempts, and publication administration remain documented, but they are not
+presented as completed proof entries.
+
+**G-F CLASSIFICATION.** Canonical row `G-F` is renamed from `THE PROOF ITSELF`
+to `URM INTEGRATION AND REPRODUCTION`. Its `IN-CONSTRUCTION` label is retained
+as a process/release status for broader URM homing, whole-history external
+reproduction, and publication. It does not qualify or reopen the completed
+scientific status carried by `G-G` and `G-H`. The focused relational closure
+and preparation capsule pass locally; Git publication and Zenodo deposit remain
+separate human-authorized acts.
+
+**TABLE SCOPE REPAIR.** The publication proof tables and release claim map are
+limited to completed exact results, authenticated finite results, and exact
+conditional theorems with their premises stated. The former broad Record
+Formation table entry is narrowed to the completed L4 intrinsic-admission
+theorem: target `10/10`, independent reconstruction `12/12`, and final
+hash-pinned hostile verifier `50/50`. The unfinished T-50 family is not cited
+as though it were a completed independent check. Definition rows, partial
+families, microscopic-progress interfaces, failed attempts, and release
+administration are kept in program-status prose or canonical ledgers rather
+than presented as proof-table entries.
+
+**HISTORY.** No sealed theorem, dated audit, historical handoff, or prior
+register entry is rewritten by this classification repair.
+
+## 2026-09-18 — L14 publication prominence correction
+
+**PUBLICATION FRAMING.** L14 is removed from the Major Proof Index header,
+opening conclusion, proof route, release summary, and other headline
+positions. Because the attempted extension produced no authenticated result
+and supplies no proof premise, the publication-facing Index and READMEs retain
+only one subordinate historical note. The dated terminal-disposition artifact
+and chronological Git custody remain unchanged.
+
+## 2026-09-18 — single ARGER Gate terminology and finite-size notation
+
+**SINGLE GATE.** Current theory, URM, and publication prose now names **the
+ARGER Gate** or `GATE`. The former `ARGER-GATE-1` wording was a versioned
+implementation identifier, not evidence of a numbered family of gates. ARGER
+remains the complete record-formation process `ALLOW -> REQUIRE -> GATE -> EM
+-> RECORD`; `GATE` is its one classification stage. The scientific result is
+that the authenticated `A009--A016` record block passes that Gate and thereby
+receives the finite GFT `z=1` classification. The criterion, its evidence
+domain, and its resulting classification are no longer conflated in the
+publication layer.
+
+**FINITE-SIZE NOTATION.** Publication-facing documents now define `L` before
+using the finite ladder. In the relational family, `L` is the even size and
+one-pass horizon of an independently constructed owner-once periodic-prism
+parent: `L` active genesis cells, `2L` carrier sites, `3L` transport edges, and
+`L` fresh admissions before revisit. Event-prefix depth `n` and retained-
+carrier/spent-lineage rank `q` are distinct. The 13 selected `(L,q)` visibility
+rows span five independently constructed parents; they are not 13 sectors in
+one `L = 12` system.
+
+**PROVENANCE.** Sealed 2026-09-16 theorem, audit, evidence, and executable
+artifacts retain their original bytes and archival machine identifiers. Those
+identifiers refer to this same single Gate and do not create additional theory
+objects. Generated current proof and status surfaces were rebuilt from their
+corrected sources.
+
+## 2026-09-19 — Universal Network Theory closure composition
+
+**MASTER THEOREM.** `UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md` now
+states the exact type-preserving composition of the completed Record Formation
+Theory and Gravity Formation Theory results. It introduces no additional
+physical axiom. Universal RFT coverage, the governing-domain alpha requirement, the
+finite GFT `z=1` Gate classification, record-conditioned geometry, and the
+conditional macroscopic Einstein response retain their controlling domains,
+premises, and proof types.
+
+**PUBLICATION AND URM.** The Major Proof Index, release navigation, claim map,
+and URM integration now expose the master theorem as the controlling UNT
+composition. The finite `A009--A016` result remains the microscopic Gate
+theorem; RGRL and `WTC-H1` through `WTC-H5` remain the separately typed basis
+of the conditional macroscopic response theorem.
+
+**CITATION AUDIT.** The publication bibliography now contains only sources
+actively invoked as a load-bearing premise, technical or empirical anchor, or
+specific boundary comparison for a completed result. Passive background
+citations were removed and the retained references were renumbered
+contiguously.
+
+**PROVENANCE.** Dated, sealed, audited, and evidentiary artifacts retain their
+original bytes. This entry changes current navigation, composition, and
+publication custody only.

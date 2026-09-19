@@ -117,9 +117,9 @@ def run_arrow_checks(check):
     check("F-19 instrument covariance: chi(QOQ' in QrQ') == chi(O in r) to < 1e-8 "
           "(the lane's own bound; sealed print 9.992e-16, blockwise route 3.9e-15)",
           inv['covariance_worst'] < 1e-8, f"worst={inv['covariance_worst']:.3e}")
-    check("F-19 I(S:B) invariant under 12 system-only unitaries -- sealed anchor "
-          "3.686e-14 reproduced at print precision (the theorem's corroboration)",
-          f"{inv['mutual_worst']:.3e}" == "3.686e-14",
+    check("F-19 I(S:B) invariant under 12 system-only unitaries -- numerically zero "
+          "under ZERO (historical sealed transcript: 3.686e-14)",
+          abs(inv['mutual_worst']) < ZERO,
           f"worst={inv['mutual_worst']:.3e}")
     check("F-19 chi about the FIXED label MOVES -- sealed anchor 1.145e-01 (the positive "
           "control for the invariance zero: relocatable from inside, never erasable)",

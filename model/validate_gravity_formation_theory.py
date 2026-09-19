@@ -980,9 +980,17 @@ def main() -> int:
     assert "row-bound remainder" in gravity_role and "bounded public search" in gravity_role
     assert "101,628-sample mechanical archive" in gravity_role
     alpha_role = URM().roles()["ALPHA"]
-    assert "Alpha is not a standalone theory" in alpha_role
+    assert "Alpha is constitutive domain identity" in alpha_role
+    assert "SAI/AWAI establishes the domain alpha requirement" in alpha_role
     assert "ACTVIS(r,W_obs) together with SAI1--SAI8 implies" in alpha_role
     assert "cannot choose a private record- or region-level alpha" in alpha_role
+    assert "ALLOW: the declared ideal packet admits" in alpha_role
+    assert "exact construction-scoped interval I_chi intersect" in alpha_role
+    assert "0.50 cavity read contrast is not the GFT majority Gate" in alpha_role
+    assert "every ACTVIS record in the governing domain" in alpha_role
+    assert "changing alpha defines a different domain structure" in alpha_role
+    assert "SELECT: governing-domain selection is a separate proposition" in alpha_role
+    assert "AWAI proves the domain alpha requirement" in alpha_role
 
     with tempfile.TemporaryDirectory(prefix="wac-gft-tamper-") as temporary:
         copied_root = Path(temporary)

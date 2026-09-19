@@ -563,34 +563,49 @@ def _root_path(relative: str) -> Path:
     return path
 
 
-def _declared_target(declaring_relative: str, target_relative: str) -> tuple[str, Path]:
-    """Resolve both repository-rooted and packet-local historical hash rows."""
+def _declared_target(
+    declaring_relative: str,
+    target_relative: str,
+    expected_sha256: str,
+) -> tuple[str, Path]:
+    """Resolve a historical hash row by its declared digest.
+
+    Some older packet manifests use bare names such as ``README.md`` while the
+    repository also has a file with that name at its root.  Existence alone is
+    therefore not a discriminator.  Accept exactly one distinct root-relative
+    or packet-local candidate whose bytes match the row's declared digest.
+    """
     target_posix = PurePosixPath(target_relative)
     if target_posix.is_absolute():
         _refuse(f"absolute hash target in {declaring_relative}: {target_relative}")
-    root_candidate = None
+    candidates: dict[Path, tuple[str, Path]] = {}
     if ".." not in target_posix.parts:
         root_candidate = _root_path(target_relative)
+        candidates[root_candidate.resolve(strict=False)] = (
+            target_relative,
+            root_candidate,
+        )
     parent = PurePosixPath(declaring_relative).parent
     local_relative = posixpath.normpath(str(parent / target_posix))
     if local_relative == "." or local_relative.startswith("../"):
         _refuse(f"hash target escapes repository in {declaring_relative}: {target_relative}")
     local_candidate = _root_path(local_relative)
-    root_exists = bool(
-        root_candidate is not None
-        and (root_candidate.exists() or root_candidate.is_symlink())
+    candidates[local_candidate.resolve(strict=False)] = (
+        local_relative,
+        local_candidate,
     )
-    local_exists = local_candidate.exists() or local_candidate.is_symlink()
-    if root_candidate is not None and root_candidate != local_candidate and root_exists and local_exists:
+
+    matches = []
+    for canonical_relative, candidate in candidates.values():
+        if candidate.is_file() and not candidate.is_symlink():
+            if _sha256(candidate) == expected_sha256:
+                matches.append((canonical_relative, candidate))
+    if len(matches) != 1:
         _refuse(
-            f"ambiguous root-versus-packet-local hash target in {declaring_relative}: "
-            f"{target_relative}"
+            f"hash target must match exactly one root-or-packet-local candidate in "
+            f"{declaring_relative}: {target_relative}; matches={len(matches)}"
         )
-    if local_exists and not root_exists:
-        return local_relative, local_candidate
-    if root_candidate is None:
-        return local_relative, local_candidate
-    return target_relative, root_candidate
+    return matches[0]
 
 
 def _verify_hash_list(
@@ -614,9 +629,11 @@ def _verify_hash_list(
         if target_relative in rows:
             _refuse(f"duplicate hash target in {relative}: {target_relative}")
         rows.add(target_relative)
-        canonical_relative, target = _declared_target(relative, target_relative)
-        if _sha256(target) != expected:
-            _refuse(f"hash mismatch for {target_relative} declared by {relative}")
+        canonical_relative, target = _declared_target(
+            relative,
+            target_relative,
+            expected,
+        )
         count += 1
         same_packet = (
             PurePosixPath(canonical_relative).parent

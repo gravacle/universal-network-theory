@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Thirty-two bounded custody, claim-ceiling, and URM checks for U-DCL."""
+"""Thirty-four bounded custody, claim-ceiling, and URM checks for U-DCL."""
 
 from __future__ import annotations
 
@@ -77,11 +77,53 @@ def main() -> int:
         and udp.AXIOMATIC_MANIFEST_SHA256
         == digest(AXIOMATIC_LANE / "MANIFEST.sha256")
     )  # 4
+    alpha_manifest = ROOT / "LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001" / "MANIFEST.sha256"
+    alpha_readme_digest = next(
+        line.split(maxsplit=1)[0]
+        for line in alpha_manifest.read_text(encoding="utf-8").splitlines()
+        if line.endswith("  README.md")
+    )
+    check(
+        udp._resolve_declared_manifest_item(
+            ROOT,
+            alpha_manifest,
+            "README.md",
+            alpha_readme_digest,
+        )
+        == alpha_manifest.parent / "README.md"
+    )  # 5
+    with tempfile.TemporaryDirectory(prefix="wac-udcl-resolver-") as temporary:
+        resolver_root = Path(temporary)
+        resolver_lane = resolver_root / "LANE"
+        resolver_lane.mkdir()
+        resolver_manifest = resolver_lane / "MANIFEST.sha256"
+        resolver_manifest.write_text("placeholder\n", encoding="utf-8")
+        payload = b"same bytes\n"
+        expected = hashlib.sha256(payload).hexdigest()
+        (resolver_root / "README.md").write_bytes(payload)
+        (resolver_lane / "README.md").write_bytes(payload)
+        multiple_refused = refused(
+            lambda: udp._resolve_declared_manifest_item(
+                resolver_root,
+                resolver_manifest,
+                "README.md",
+                expected,
+            )
+        )
+        zero_refused = refused(
+            lambda: udp._resolve_declared_manifest_item(
+                resolver_root,
+                resolver_manifest,
+                "README.md",
+                "0" * 64,
+            )
+        )
+    check(multiple_refused and zero_refused)  # 6
     check(
         set(udp._ARTIFACT_SHA256) | {"MANIFEST.sha256"} == {p.name for p in LANE.iterdir()}
         and set(udp._AXIOMATIC_ARTIFACT_SHA256) | {"MANIFEST.sha256"}
         == {p.name for p in AXIOMATIC_LANE.iterdir()}
-    )  # 5
+    )  # 7
 
     custody = udp._verify_custody(ROOT)
     check(
@@ -95,11 +137,11 @@ def main() -> int:
         and custody.axiomatic_audit_sha256 == digest(AXIOMATIC_LANE / "AUDIT.md")
         and custody.axiomatic_verification_sha256
         == digest(AXIOMATIC_LANE / "VERIFICATION.txt")
-    )  # 6
+    )  # 8
     check(
         len(custody.fresh_verifier_stdout_sha256) == 64
         and len(custody.fresh_axiomatic_verifier_stdout_sha256) == 64
-    )  # 7
+    )  # 9
 
     result = udp.udcl_postulate()
     check(isinstance(result, udp.UDCLPostulate))  # 8
@@ -246,8 +288,8 @@ def main() -> int:
     with mock.patch.object(udp.subprocess, "run", return_value=bad_result):
         check(refused(udp.udcl_postulate))  # 32
 
-    assert checks == 32
-    print("UDCL_POSTULATE_URM_CHECKS: 32/32 PASS — NATURAL VALIDITY OPEN")
+    assert checks == 34
+    print("UDCL_POSTULATE_URM_CHECKS: 34/34 PASS — NATURAL VALIDITY OPEN")
     return 0
 
 

@@ -13,12 +13,26 @@ only when every family gate, the declared gate counts, geometry/project validati
 all four independent data/frontier contracts, the zero-input U-DCL adoption/theorem
 certificate, the zero-input historywise-gravity formal discriminant, the bounded
 Gravity Formation Theory custody/ceiling gate, and the additive sealed microscopic-
-progress checkpoint pass.  The U-DCL gateway certifies a
+progress checkpoint pass, and the finite relational-accumulation custody/status
+gate pass, and the physical-alpha ALLOW/REQUIRE/SELECT custody gate passes.  The
+final Universal Network Theory gate pins the master theorem and checks the exact
+typed composition of U-DCL coverage, the governing-domain alpha requirement, finite ARGER
+classification, conditional dynamical z=1, and conditional RGRL/WTC response.
+It does not promote the finite L4--L12 result into a direct Einstein-equation
+derivation.
+The alpha gateway certifies a non-singleton finite construction interval and the
+conditional governing-domain alpha requirement for every ACTVIS record after domain
+ancestry and the domain value are independently established; domain/value selection,
+parameter-free 1/137, and every gravity claim remain open.  The U-DCL gateway certifies a
 program postulate and conditional theorem, not natural validity; the GFT gateway
 certifies the adopted working-theory closure and off-shell/on-shell response
 clarification, not empirical RGRL confirmation.  The microscopic checkpoint preserves
 the V014 meaning and does not promote a quasi-local envelope or finite-mission
 collar to gravity or G.
+The relational checkpoint certifies the adopted finite/discrete ARGER Gate
+Gravity Formation z=1 result at L4--L12, keeps exact/asymptotic dynamical z=1
+separately typed, and records L14 as
+INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT.
 
 Use --no-chain to run only the four T-54 family blocks.
 """
@@ -92,6 +106,9 @@ udcl_postulate_ok = True
 historywise_gravity_ok = True
 gravity_formation_theory_ok = True
 gravity_microscopic_progress_ok = True
+relational_accumulation_ok = True
+alpha_role_ok = True
+universal_network_theory_ok = True
 if "--no-chain" not in sys.argv:
     print()
     print("CHAIN: validate_geometry.py (which chains the 24-gate project/D-25 validator)")
@@ -225,6 +242,58 @@ if "--no-chain" not in sys.argv:
         "  CHAIN validate_gravity_microscopic_progress.py: "
         + ("PASS" if gravity_microscopic_progress_ok else "FAIL")
     )
+    print()
+    print(
+        "CHAIN: validate_relational_accumulation.py "
+        "(adopted finite ARGER Gate; optional history separate; "
+        "L14 closed incomplete)"
+    )
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [sys.executable, os.path.join(HERE, "validate_relational_accumulation.py")],
+        cwd=HERE,
+    )
+    relational_accumulation_ok = result.returncode == 0
+    print("-" * 78)
+    print(
+        "  CHAIN validate_relational_accumulation.py: "
+        + ("PASS" if relational_accumulation_ok else "FAIL")
+    )
+    print()
+    print(
+        "CHAIN: validate_alpha_role.py "
+        "(construction ALLOW exact; governing-domain REQUIRE conditional; SELECT open)"
+    )
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [sys.executable, os.path.join(HERE, "validate_alpha_role.py")],
+        cwd=HERE,
+    )
+    alpha_role_ok = result.returncode == 0
+    print("-" * 78)
+    print(
+        "  CHAIN validate_alpha_role.py: "
+        + ("PASS" if alpha_role_ok else "FAIL")
+    )
+    print()
+    print(
+        "CHAIN: validate_universal_network_theory.py "
+        "(master typed composition; finite ARGER and conditional RGRL/WTC remain separate)"
+    )
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [sys.executable, os.path.join(HERE, "validate_universal_network_theory.py")],
+        cwd=HERE,
+    )
+    universal_network_theory_ok = result.returncode == 0
+    print("-" * 78)
+    print(
+        "  CHAIN validate_universal_network_theory.py: "
+        + ("PASS" if universal_network_theory_ok else "FAIL")
+    )
 
 print("=" * 78)
 overall = (
@@ -239,6 +308,9 @@ overall = (
     and historywise_gravity_ok
     and gravity_formation_theory_ok
     and gravity_microscopic_progress_ok
+    and relational_accumulation_ok
+    and alpha_role_ok
+    and universal_network_theory_ok
 )
 print(f"  URM OVERALL: {'PASS' if overall else 'FAIL'} "
       f"(families {n_pass}/{n_pass + n_fail}, "
@@ -255,6 +327,11 @@ print(f"  URM OVERALL: {'PASS' if overall else 'FAIL'} "
          f"Gravity Formation Theory "
          f"{'ok' if gravity_formation_theory_ok else 'FAILED'}, "
          f"microscopic progress "
-         f"{'ok' if gravity_microscopic_progress_ok else 'FAILED'}")
+         f"{'ok' if gravity_microscopic_progress_ok else 'FAILED'}, "
+         f"relational accumulation "
+         f"{'ok' if relational_accumulation_ok else 'FAILED'}, "
+         f"alpha role {'ok' if alpha_role_ok else 'FAILED'}, "
+         f"Universal Network Theory closure "
+         f"{'ok' if universal_network_theory_ok else 'FAILED'}")
       + f"; {time.time() - t0:.1f} s)")
 sys.exit(0 if overall else 1)

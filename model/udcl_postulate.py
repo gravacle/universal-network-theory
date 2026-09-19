@@ -14,8 +14,10 @@ import hashlib
 import os
 from pathlib import Path, PurePosixPath
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 from types import MappingProxyType
 from typing import Any, Mapping, NoReturn
 
@@ -131,6 +133,69 @@ def _strict_text(path: Path, label: str) -> str:
     if "\r" in text or "\x00" in text:
         _refuse(f"{label} contains forbidden carriage-return or NUL bytes")
     return text
+
+
+def _declared_root_path(root: Path, relative: str, label: str) -> Path:
+    """Return one safe repository-relative custody path without following escapes."""
+    posix = PurePosixPath(relative)
+    if posix.is_absolute() or ".." in posix.parts or not posix.parts:
+        _refuse(f"{label} contains an absolute or escaping path: {relative}")
+    candidate = root.joinpath(*posix.parts)
+    try:
+        candidate.resolve(strict=False).relative_to(root.resolve())
+    except (OSError, ValueError):
+        _refuse(f"{label} escapes the repository: {relative}")
+    return candidate
+
+
+def _resolve_declared_manifest_item(
+    root: Path,
+    manifest: Path,
+    relative: str,
+    expected_sha256: str,
+) -> Path:
+    """Select exactly one digest-matching root or packet-local manifest target.
+
+    Historical manifests contain both repository-rooted paths and packet-local
+    bare names.  A root file with the same bare name must not shadow the packet
+    artifact.  The row's declared digest is the discriminator; zero or multiple
+    distinct matches are refused.
+    """
+    if not re.fullmatch(r"[0-9a-f]{64}", expected_sha256):
+        _refuse("manifest item has a malformed SHA-256 digest")
+    target = PurePosixPath(relative)
+    if target.is_absolute() or not target.parts:
+        _refuse(f"manifest item contains an absolute or empty path: {relative}")
+
+    root_resolved = root.resolve()
+    raw_candidates = []
+    if ".." not in target.parts:
+        raw_candidates.append(root.joinpath(*target.parts))
+    raw_candidates.append(manifest.parent.joinpath(*target.parts))
+
+    candidates: dict[Path, Path] = {}
+    for raw_candidate in raw_candidates:
+        try:
+            resolved = raw_candidate.resolve(strict=False)
+            resolved.relative_to(root_resolved)
+        except (OSError, ValueError):
+            _refuse(f"manifest item escapes the repository: {relative}")
+        candidates[resolved] = raw_candidate
+
+    matches = []
+    for resolved, raw_candidate in candidates.items():
+        if (
+            raw_candidate.is_file()
+            and not raw_candidate.is_symlink()
+            and _sha256_file(raw_candidate) == expected_sha256
+        ):
+            matches.append(resolved)
+    if len(matches) != 1:
+        _refuse(
+            "manifest item must match exactly one root-or-packet-local candidate: "
+            f"{relative}; matches={len(matches)}"
+        )
+    return matches[0]
 
 
 def _parse_manifest(text: str) -> dict[str, str]:
@@ -295,21 +360,120 @@ def _run_fresh_verifier(lane_root: Path, expected_stdout: str) -> str:
     return _sha256_bytes(result.stdout.encode("utf-8"))
 
 
+def _copy_custody_file(source: Path, root: Path, stage_root: Path) -> None:
+    """Copy one authenticated repository file to the same staged relative path."""
+    try:
+        relative = source.resolve(strict=True).relative_to(root.resolve())
+    except (OSError, ValueError):
+        _refuse(f"axiomatic verifier staging source escapes repository: {source}")
+    destination = stage_root / relative
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        shutil.copy2(source, destination)
+    except OSError as exc:
+        _refuse(f"axiomatic verifier staging failed for {relative}: {exc}")
+
+
+def _stage_axiomatic_verifier_root(
+    root: Path,
+    lane_root: Path,
+    stage_root: Path,
+) -> Path:
+    """Stage the sealed verifier with digest-selected dependency targets.
+
+    The sealed verifier predates a repository-root ``README.md`` and resolves
+    bare manifest names by existence.  Staging only the uniquely digest-matched
+    targets lets those unchanged sealed bytes execute with their original
+    packet-local meaning, without rewriting any sealed artifact or manifest.
+    """
+    root = root.resolve()
+    try:
+        lane_relative = lane_root.resolve(strict=True).relative_to(root)
+    except (OSError, ValueError):
+        _refuse("axiomatic verifier lane escapes the repository")
+    staged_lane = stage_root / lane_relative
+    try:
+        shutil.copytree(lane_root, staged_lane)
+    except OSError as exc:
+        _refuse(f"axiomatic verifier lane staging failed: {exc}")
+
+    dependency_path = lane_root / "DEPENDENCIES.sha256"
+    dependency_rows: dict[str, str] = {}
+    for line in _strict_text(
+        dependency_path,
+        "axiomatic verifier dependency ledger",
+    ).splitlines():
+        match = _MANIFEST_LINE.fullmatch(line)
+        if match is None:
+            _refuse("axiomatic verifier dependency ledger has a malformed row")
+        expected, relative = match.groups()
+        if relative in dependency_rows:
+            _refuse("axiomatic verifier dependency ledger has a duplicate row")
+        dependency_rows[relative] = expected
+        source = _declared_root_path(root, relative, "axiomatic dependency ledger")
+        if (
+            not source.is_file()
+            or source.is_symlink()
+            or _sha256_file(source) != expected
+        ):
+            _refuse(f"axiomatic dependency custody mismatch: {relative}")
+        _copy_custody_file(source, root, stage_root)
+
+    for relative in sorted(
+        item for item in dependency_rows if item.endswith("MANIFEST.sha256")
+    ):
+        manifest = _declared_root_path(root, relative, "axiomatic dependency ledger")
+        seen: set[str] = set()
+        for line in _strict_text(
+            manifest,
+            f"axiomatic dependency manifest {relative}",
+        ).splitlines():
+            match = _MANIFEST_LINE.fullmatch(line)
+            if match is None:
+                _refuse(f"axiomatic dependency manifest has a malformed row: {relative}")
+            expected, item_relative = match.groups()
+            if item_relative in seen:
+                _refuse(f"axiomatic dependency manifest has a duplicate row: {relative}")
+            seen.add(item_relative)
+            source = _resolve_declared_manifest_item(
+                root,
+                manifest,
+                item_relative,
+                expected,
+            )
+            _copy_custody_file(source, root, stage_root)
+        if not seen:
+            _refuse(f"axiomatic dependency manifest is empty: {relative}")
+    return staged_lane
+
+
 def _run_fresh_axiomatic_verifier(lane_root: Path, expected_stdout: str) -> str:
     environment = dict(os.environ)
     environment["PYTHONDONTWRITEBYTECODE"] = "1"
     environment["PYTHONPYCACHEPREFIX"] = "/private/tmp/wac-axiomatic-urft-pycache"
     try:
-        result = subprocess.run(
-            [sys.executable, "-I", "-B", str(lane_root / "verify_axiomatic_urft_closure.py")],
-            cwd=lane_root.parent,
-            env=environment,
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=30,
-            check=False,
-        )
+        with tempfile.TemporaryDirectory(prefix="wac-axiomatic-urft-") as temporary:
+            stage_root = Path(temporary)
+            staged_lane = _stage_axiomatic_verifier_root(
+                lane_root.parent,
+                lane_root,
+                stage_root,
+            )
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-I",
+                    "-B",
+                    str(staged_lane / "verify_axiomatic_urft_closure.py"),
+                ],
+                cwd=stage_root,
+                env=environment,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=30,
+                check=False,
+            )
     except (OSError, UnicodeError, subprocess.SubprocessError) as exc:
         _refuse(f"fresh axiomatic verifier execution failed: {exc}")
     if result.returncode != 0:

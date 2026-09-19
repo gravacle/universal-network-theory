@@ -3,8 +3,12 @@
 
 from __future__ import annotations
 
+import hashlib
 import inspect
+from pathlib import Path
+import tempfile
 from types import MappingProxyType
+from unittest import mock
 
 import gravity_formation_theory as gft
 import gravity_microscopic_progress as gmp
@@ -59,6 +63,50 @@ def main() -> int:
     check(isinstance(certificate["controlled_evidence"], MappingProxyType))
     check(isinstance(certificate["custody"]["packets"], tuple))
     check(refused(lambda: gmp._root_path("../outside")))
+    resolver_lane = (
+        "LANE_CROSS_RFT_GRA_GL6AZ_RECORD_AUTHENTICATED_"
+        "PRETHERMAL_MISSION_IDENTIFIABILITY_V001"
+    )
+    resolver_manifest_relative = f"{resolver_lane}/MANIFEST.sha256"
+    resolver_manifest = gmp._root_path(resolver_manifest_relative)
+    resolver_readme_digest = next(
+        line.split(maxsplit=1)[0]
+        for line in resolver_manifest.read_text(encoding="utf-8").splitlines()
+        if line.endswith("  README.md")
+    )
+    resolved_relative, resolved_path = gmp._declared_target(
+        resolver_manifest_relative,
+        "README.md",
+        resolver_readme_digest,
+    )
+    check(
+        resolved_relative == f"{resolver_lane}/README.md"
+        and resolved_path == gmp._root_path(resolved_relative)
+    )
+    with tempfile.TemporaryDirectory(prefix="wac-gmp-resolver-") as temporary:
+        resolver_root = Path(temporary)
+        packet = resolver_root / "LANE"
+        packet.mkdir()
+        payload = b"same bytes\n"
+        expected_digest = hashlib.sha256(payload).hexdigest()
+        (resolver_root / "README.md").write_bytes(payload)
+        (packet / "README.md").write_bytes(payload)
+        with mock.patch.object(gmp, "_REPOSITORY_ROOT", resolver_root):
+            multiple_refused = refused(
+                lambda: gmp._declared_target(
+                    "LANE/MANIFEST.sha256",
+                    "README.md",
+                    expected_digest,
+                )
+            )
+            zero_refused = refused(
+                lambda: gmp._declared_target(
+                    "LANE/MANIFEST.sha256",
+                    "README.md",
+                    "0" * 64,
+                )
+            )
+    check(multiple_refused and zero_refused)
     check(refused(lambda: gmp._verify_seal(gmp._PACKETS[-1].author_dir, "0" * 64, "0" * 64)))
     check(type_error(lambda: mutate(certificate, "schema", "changed")))
     check(type_error(lambda: mutate(certificate["exact_results"], "gravity", True)))
@@ -662,7 +710,7 @@ def main() -> int:
     check(delegated["ceilings"]["gravity_derived_here"] is False)
     check(delegated["ceilings"]["G_calculated_here"] is False)
 
-    expected = 247
+    expected = 249
     check(passed + 1 == expected)
     print(f"GRAVITY MICROSCOPIC PROGRESS: {passed}/{expected} PASS")
     return 0

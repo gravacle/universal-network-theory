@@ -93,8 +93,9 @@ def render():
     for v in vocab:
         L.append('| `%s` | %s |' % (v[0], v[1]))
     L += ['', '---', '',
-          '> **A record is a bit the world cannot lose locally. EM provides the carrier, alpha sets',
-          '> what it costs, and the topology of space is what makes the bit exist, writable, and safe.**', '']
+          '> **A record is a bit the world cannot lose locally. EM provides the carrier; Gamma',
+          '> supplies space, writer, protection, and channel. Generic perturbation alpha prices a',
+          '> local cost; physical alpha follows the separate ALLOW / REQUIRE / SELECT typing.**', '']
 
     txt = '\n'.join(L)
     with open(OUT, 'w') as f:
