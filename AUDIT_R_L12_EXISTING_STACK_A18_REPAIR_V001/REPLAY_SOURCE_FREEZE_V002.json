@@ -1,0 +1,49 @@
+{
+  "schema": "V012_A01_A18_REPLAY_SOURCE_FREEZE_V002",
+  "classification": "FROZEN_POST_RETIREMENT_RESTART_CANDIDATE_AWAITING_TWO_INDEPENDENT_SAME_HASH_REVIEWS",
+  "created_at": "2026-09-08T23:12:41-0500",
+  "source_sha256": {
+    "replay_a01_a18_v002.py": "aea072cdc4786f45c0dfb00b098dfacef5289b48fd48382fc19652516162c18b",
+    "test_replay_a01_a18_v002.py": "d0f2790ef83c2b4c0cac9a1793f8575bf2a171bda27c422ace59b6108ef24765"
+  },
+  "authenticated_predecessors": {
+    "replay_a01_a18.py": "31a772f788a33eca05655d2c4e1e2b5edf236dce6873f7ffba61e67476d9571c",
+    "REPLAY_SOURCE_FREEZE_V001.json": "16e1eed7a4447fa5ea2d398c9f0846cf055771adb6714eac677301b1d9160f44",
+    "independent_final_auditor.py": "99677ffabeedc6db84047bd3637fd292e137d66c2de02eef66633ed789a92f2f",
+    "derived_independent_final_auditor_m25_v002.py": "279b97755ab0bccd8c16cf98b0a52f37b323057a48c3ade23a914f6a4e5bfdc7",
+    "completed_retirement_receipt": "5c8d714973bb2ac22b50643e8f84de042e7a41e282f8f3d25c7d32e64c10fbf0"
+  },
+  "preserved_completed_boundary": {
+    "A01_FREEZE_AND_SOURCE_PACKET": "a6997822fd2daa2be0079e67d81833f1eac69fe01c6ff0b9188560f2c1234395",
+    "A02_NONPHYSICAL_PREFLIGHT": "73ab3c2778f11b3d768bf818865fac120210b8c5417a1aa0bb19edc874bda57c",
+    "A27_MUTATION_LEDGER": "c8a8b23261d3376d69e2175512ae946ba3cdde96a464ac4ae33cb06010c4bf90"
+  },
+  "bounded_repair": {
+    "root_cause": "FROZEN_INDEPENDENT_A27_EXPECTED_HOOK_TABLE_OMITS_M25_IMPORT_TARGET_VALIDATOR",
+    "affected_case_ordinals": [26, 42, 192, 259, 298, 339, 445, 473],
+    "other_case_expectations_equal": 469,
+    "independent_source_transform": "EXACT_ONE_OCCURRENCE_IMPORT_NEUTRAL_M25_HOOK_INSERTION",
+    "canonical_a27_projected_or_changed": false,
+    "target_sink": "authenticated_validate_preflight.validate_mutation_ledger",
+    "independent_sink": "derived_independent_final_auditor_m25_v002.validate_mutation_ledger",
+    "both_sinks_receive_identical_original_a27_bytes": true,
+    "live_a02_a27_restart_reconciles_without_publisher": true
+  },
+  "tests": {
+    "focused_v002_checks_passed": 10,
+    "focused_v002_checks_total": 10,
+    "command": "PYTHONPYCACHEPREFIX=/private/tmp/replay-v002-freeze-standalone python3 -B -m unittest AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/test_replay_a01_a18_v002.py",
+    "predecessor_v001_pre_retirement_checks": "60/60_PASS_AND_TWO_INDEPENDENT_SAME_HASH_REVIEWS",
+    "combined_single_interpreter_post_retirement_suite": "NOT_APPLICABLE__V001_TESTS_REQUIRE_PRE_RETIREMENT_CANONICAL_PATHS_AND_MODULE_ALIAS_REFUSAL_IS_INTENTIONAL"
+  },
+  "execution_state": {
+    "canonical_retirement_executed": true,
+    "canonical_a01_a02_a27_completed": true,
+    "canonical_a03_a18_completed": false,
+    "cache_or_history_executed_after_retirement": false,
+    "a18_published": false,
+    "l12_executed": false
+  },
+  "next_required_gate": "TWO_INDEPENDENT_SAME_HASH_HOSTILE_REVIEWS_BEFORE_CANONICAL_REPLAY_RESTART",
+  "claim_boundary": "A27_REPLAY_VALIDATOR_ROUTING_REPAIR_ONLY__NO_CACHE_HISTORY_A18_L12_SPECTRUM_CONTINUUM_OR_GRAVITY_RESULT"
+}

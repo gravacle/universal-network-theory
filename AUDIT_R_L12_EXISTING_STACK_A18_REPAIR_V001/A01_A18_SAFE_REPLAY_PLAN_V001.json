@@ -1,0 +1,156 @@
+{
+  "schema": "V012_EXISTING_STACK_A01_A18_SAFE_REPLAY_PLAN_V001",
+  "classification": "NON_PROMOTING_REPLAY_PLAN_ONLY",
+  "repair_anchor": {
+    "changed_path": "DEVELOPMENT_R_L12_TARGET_STORAGE_CACHE_V012/production_obligation_validators.py",
+    "pre_repair_sha256": "c1ba0881fa15348705161410a6d10d69f686ffef19cd0a5a7d0192c34db58314",
+    "post_repair_sha256": "b6409bfca1c0ee468671a37d5aac41c80c67f8027265ce4c0261b861509ad691",
+    "changed_path_count_in_preserved_existing_stack": 1,
+    "a18_schema_change": false,
+    "a18_physics_change": false,
+    "a18_cross_role_custody": "Each branch has nine unique binding paths and nine unique binding SHA-256 values; target and hostile sets are disjoint; cached-L10 and history SHA-256 values are pairwise distinct across roles."
+  },
+  "current_preservation": {
+    "mechanism": "immutable descriptor-authenticated inventory plus exact pre-repair validator byte copy",
+    "manifest_path": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/EXISTING_STACK_OBSTRUCTION_CUSTODY_V001.json",
+    "manifest_sha256": "79a590e2964580932d8954270d7133d7f5fffb09a38853d3c603d6627172d837",
+    "inventoried_file_count": 3023,
+    "inventoried_total_bytes": 2947070516,
+    "target_inventory_sha256": "65d10fc15e9a4ff9073f0b73181d969965ffaa4725289d2e554bf85ef89bf7cb",
+    "hostile_inventory_sha256": "99cc7c19967a6ef3c31a7af42c25b8bf69a67211d7665a0bf1f4bfa587fa1d91",
+    "post_repair_verification": "PASS_EXACTLY_ONE_AUTHORIZED_PATH_CHANGED",
+    "pre_repair_validator_copy_path": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/production_obligation_validators.V012_PRE_A18_REPAIR.py",
+    "pre_repair_validator_copy_sha256": "c1ba0881fa15348705161410a6d10d69f686ffef19cd0a5a7d0192c34db58314",
+    "limitation": "The inventory proves the old bytes and the one-path hash blast but does not by itself clear occupied canonical owner-once destinations for republication."
+  },
+  "mandatory_pre_replay_gate": {
+    "action": "Independently audit, then explicitly authorize and execute, the implemented no-clobber same-filesystem retirement transaction before any canonical replay.",
+    "requirements": [
+      "Rename, never delete or copy, every stale derived A01-A16 target artifact and every hostile stage-2 artifact that the fresh A01 freeze requires absent.",
+      "Authenticate path, inode, size, mode, link count, and SHA-256 before and after each rename.",
+      "Use an empty versioned obstruction-custody destination and refuse partial completion, replacement, cross-filesystem movement, links, or unregistered paths.",
+      "Fsync moved files and both source and destination parent directories, then publish an exact retirement manifest once.",
+      "Do not move frozen source files; the old validator bytes are already held separately and all unchanged sources remain in place."
+    ],
+    "why_required": "The production publishers are owner-once and the fresh A01 freeze requires downstream target and hostile stage-2 products to be absent.",
+    "estimated_wall_hours": {
+      "minimum": 0.5,
+      "maximum": 1.5,
+      "basis": "engineering estimate; no retirement transaction has yet been executed"
+    },
+    "implementation": {
+      "source": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/retire_canonical_stack.py",
+      "source_sha256": "12346650d8649c4d1c093d8416a7a809d26dd3c20bd57de2fdd3b1f04ad97747",
+      "test_sha256": "56aa18d1c0432cd21e19382e4556d4006571c75de8ac17a2402046ca56fb4bff",
+      "census_sha256": "613f4805931b148bdd8c11d953ccf9ffb4caf959343560fd80d51ff0809158c2",
+      "synthetic_tests": "10/10",
+      "atomic_no_replace": "macOS renameatx_np with RENAME_EXCL; destination races refuse without replacement",
+      "retained_identity": "device, inode, size, mode, link count, and SHA-256 retained and compared across forward and recovery renames",
+      "moved_payload_fsync": "every moved regular file recursively fsynced before both source and destination parents",
+      "canonical_dry_run": "PASS_EXACT_RETIREMENT_DRY_RUN_NO_MUTATION",
+      "canonical_retirement_executed": false
+    }
+  },
+  "target_replay": [
+    {
+      "order": 1,
+      "artifacts": ["A01_FREEZE_AND_SOURCE_PACKET"],
+      "operation": "Republish the V012 freeze with the repaired production-obligation-validator SHA-256 and unchanged source/dependency census.",
+      "promotion_allowed": false
+    },
+    {
+      "order": 2,
+      "artifacts": ["A02_NONPHYSICAL_PREFLIGHT"],
+      "operation": "Run the exact production mutation preflight against empty canonical downstream destinations and publish a new preflight result and mutation ledger.",
+      "known_test_anchor": "477/477 mutation assignments and 33/33 positive fixtures passed in the non-publishing self-test execution."
+    },
+    {
+      "order": 3,
+      "artifacts": ["A03_PREPAYLOAD_AUDIT", "A04_UNIVERSAL_CUSTODY_GATE"],
+      "operation": "Run an independent prepayload hostile audit on the new hashes, then publish the universal custody gate only after that audit passes."
+    },
+    {
+      "order": 4,
+      "artifacts": ["A05_FIVE_CACHE_SET"],
+      "operation": "Build fresh L=4,6,8,10,12 target caches. Do not reuse the old manifests because their lineage binds the old freeze hash."
+    },
+    {
+      "order": 5,
+      "artifacts": ["A06_POSTBUILD_AUDIT", "A07_BASE_PHYSICAL_GATE", "A08_PHYSICAL_GATE_AUDIT", "A09_CONTROL_AUTHORIZATION"],
+      "operation": "Independently audit all five new cache payloads, publish the base physical gate, independently audit it, and publish control-only authorization."
+    },
+    {
+      "order": 6,
+      "artifacts": ["A10_CONTROL_HISTORIES", "A11_CONTROL_STAGE_GATE", "A12_CONTROL_STAGE_AUDIT"],
+      "operation": "Execute fresh L=4,6,8 histories, compare to the sealed controls, publish the control-stage gate, and independently audit it."
+    },
+    {
+      "order": 7,
+      "artifacts": ["A13_L10_AUTHORIZATION", "A14_L10_HISTORY", "A15_L10_STAGE_GATE", "A16_L10_STAGE_AUDIT"],
+      "operation": "Publish L10-only authorization, execute a fresh L10 history, compare to the sealed L10 control, publish the L10 stage gate, and independently audit it."
+    }
+  ],
+  "a17_a18_replay": [
+    {
+      "order": 8,
+      "artifacts": ["A17_HOSTILE_L12_ELIGIBILITY"],
+      "operation": "After A16 passes, restore the byte-identical hostile V004R4 stage-2 custody set to its exact canonical paths by the inverse audited rename transaction, then independently revalidate the complete nine-source A17 projection. Regenerate the hostile branch only if that exact restoration fails validation.",
+      "claim_boundary": "Restoration does not promote A17; A17 remains an independently validated prerequisite."
+    },
+    {
+      "order": 9,
+      "artifacts": ["A18_L10_CROSS_GATE"],
+      "operation": "Construct the old canonical-path A18 record from the newly certified target A16 projection and the independently revalidated hostile A17 projection; validate it with the repaired target sink and an independent hostile sink; publish once only if both accept identical bytes.",
+      "claim_boundary": "A18 publication certifies only exact target/hostile L10 cross-benchmark compatibility. It does not authorize L12, Gate A-P, a continuum claim, or gravity."
+    }
+  ],
+  "known_executable_commands": [
+    "python3 -B DEVELOPMENT_R_L12_TARGET_STORAGE_CACHE_V012/validate_preflight.py",
+    "python3 -B DEVELOPMENT_R_L12_TARGET_STORAGE_CACHE_V012/build_target_cache.py --length {4|6|8|10|12} --output <exact-empty-cache-root>",
+    "python3 -B AUDIT_R_L12_TARGET_STORAGE_CACHE_V012/independent_postbuild_auditor.py --publish",
+    "python3 -B DEVELOPMENT_R_L12_TARGET_STORAGE_CACHE_V012/consume_target_cache.py execute --length {4|6|8|10} --cache-root <exact-cache-root> --cache-manifest-sha256 <authenticated-sha256> --output <exact-empty-history-path> --workspace <exact-empty-workspace>"
+  ],
+  "automation_gap": {
+    "status": "RETIREMENT_COORDINATOR_IMPLEMENTED__A01_A18_REPUBLICATION_ORCHESTRATION_OPEN",
+    "detail": "The exact retirement phase now has a restart-safe dry-run/execute/recovery coordinator. The repository still lacks one audited command that republishes every A01-A18 gate/audit in dependency order after retirement.",
+    "shortest_fix": "Add the bounded republication portion that calls only the existing validators/publishers without changing any record schema, admission criterion, physics, or solver.",
+    "estimated_wall_hours": {
+      "minimum": 0.5,
+      "maximum": 1.5,
+      "basis": "engineering estimate; coordinator implementation and independent test not yet performed"
+    }
+  },
+  "measured_runtime_anchors_seconds": {
+    "full_477_assignment_mutation_engine": 26.2,
+    "L4_history": 0.6087693329999999,
+    "L6_history": 2.429864416,
+    "L8_history": 18.372774542,
+    "L10_history": 840.8786660420001
+  },
+  "estimated_replay_wall_hours_after_independent_repair_acceptance": {
+    "retirement_and_replay_coordinator": [1.0, 3.0],
+    "A01_A09_including_five_fresh_caches_and_independent_audits": [0.5, 2.0],
+    "A10_A16_controls_L10_and_independent_audits": [0.75, 2.0],
+    "A17_restore_or_regenerate_and_A18_dual_sink_publication": [0.5, 1.5],
+    "total_shortest_wall_hours": [2.75, 8.5],
+    "additional_repair_cycle_if_hostile_review_finds_a_new_issue": [2.0, 6.0],
+    "basis": "Measured mutation/control/L10 anchors plus engineering bounds for owner-once retirement, cache reconstruction, publishers, and independent reviews; not a guarantee."
+  },
+  "current_execution_state": {
+    "canonical_owner_once_artifact_deleted_or_overwritten": false,
+    "canonical_owner_once_artifact_retired": false,
+    "physical_history_launched_after_repair": false,
+    "a17_promoted_after_repair": false,
+    "a18_published": false,
+    "independent_hostile_repair_review": "PENDING",
+    "stage1_boundary": "NOT_YET_SEALED"
+  },
+  "halt_conditions": [
+    "Independent hostile review rejects the repaired validator or its exact hash blast.",
+    "The retirement transaction cannot prove complete byte and inode custody without clobber or partial state.",
+    "Any fresh A01-A18 artifact fails its production validator or independent sink.",
+    "Any control history differs from its sealed deterministic reference outside frozen tolerances.",
+    "A17 cannot be restored or regenerated without a schema, criterion, physics, or solver change."
+  ],
+  "claim_boundary": "SAFE_REPLAY_AND_REPUBLICATION_PLAN_ONLY__NO_STAGE1_CERTIFICATION_A18_PROMOTION_L12_EXECUTION_SPECTRAL_CONTINUUM_OR_GRAVITY_RESULT"
+}

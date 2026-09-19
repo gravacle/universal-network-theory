@@ -1,0 +1,35 @@
+{
+  "schema": "L12_V003_STAGE4_REFUSAL_RECORD_V001",
+  "status": "PRESERVED_REFUSAL__NO_RETRY",
+  "observed_at": "2026-09-13T17:31:00-0500",
+  "command": "PYTHONDONTWRITEBYTECODE=1 python3 audited-386ee2c/DEVELOPMENT_R_L12_PROCESS_PARALLEL_SUCCESSOR_V003/continue_to_stage6.py",
+  "exit_code": 2,
+  "stage": 4,
+  "exception_type": "frozen_l12_stage4_v001_for_v003.FailClosed",
+  "exception_message": "schema adapter is not add-only",
+  "trigger": {
+    "source": "AUDIT_R_L12_PREFIX_HISTORY_ENGINE_V001/adjudicate_l12_v001.py",
+    "line": 689,
+    "predicate": "dimension not in hostile and manifest_adapter not in hostile"
+  },
+  "diagnosis": {
+    "frozen_v003_projection_retained_dimension": true,
+    "frozen_v003_projection_also_created_full_dimension": true,
+    "manifest_adapter_present": false,
+    "comparison_failures_before_schema_gate": [],
+    "classification": "STAGE4_SCHEMA_PROJECTION_IMPLEMENTATION_ERROR"
+  },
+  "authenticated_inputs": {
+    "target_history_sha256": "079499e7b989e1ba45b1c397882c8638106be149ccb994058a3703b235736764",
+    "hostile_history_sha256": "cbac18fd5033f83e4eadbfb16b46c89584455987e0b75fa6a33a33821246851c",
+    "target_branch_complete_sha256": "5596c412696b3036e788033ca00e3f21d884e91a0a8b594500cac5e73dd65dcf",
+    "hostile_branch_complete_sha256": "526c3cedcefbee537259e975c90792e0d7e91ca2b422a4afb663cfad2af8c20e"
+  },
+  "outputs_after_refusal": {
+    "normalized_blind_history_present": false,
+    "exact_adjudication_present": false,
+    "stage5_manifest_present": false,
+    "stage6_result_present": false
+  },
+  "claim_boundary": "FORENSIC_STAGE4_REFUSAL_ONLY__NO_NUMERICAL_OR_PHYSICAL_FAILURE"
+}

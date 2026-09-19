@@ -1,0 +1,86 @@
+{
+  "schema": "L12_PROCESS_PARALLEL_SUCCESSOR_SOURCE_MANIFEST_V001",
+  "L": 12,
+  "purpose": "Immutable source census for the authorized process-parallel L12 execution packet",
+  "files": [
+    {
+      "path": "METHOD.md",
+      "sha256": "8295f6d3af05cfd0e20da6b5725f95913d24e31c597b494f9bc71de0a02504ce"
+    },
+    {
+      "path": "RELAUNCH_ALLOCATION_V001.json",
+      "sha256": "891af3060cc5472c28e89721ccfdd53133e9023f46110fa7c70ca10ea294b1eb"
+    },
+    {
+      "path": "FULL_L12_LAUNCH_AUTHORIZATION_V001.json",
+      "sha256": "2e09c92b6aa7f8c318efeeaf8aee4a826932fd016630bef29e4b547dfdb20c89"
+    },
+    {
+      "path": "__init__.py",
+      "sha256": "816e08a191108f209ce7a8902fa051add0b8b842083b589aaead5fe47d77547b"
+    },
+    {
+      "path": "execution_integration.py",
+      "sha256": "15410a19352690bc8f26b66e9562fc9ef9f51d6162ca0889cc3a6b4ada5b85a6"
+    },
+    {
+      "path": "hostile_parallel.py",
+      "sha256": "5d49d820dacfc39bc80d596555e36da0f7065fb4778cc63a0f61df316806030f"
+    },
+    {
+      "path": "launch_config.py",
+      "sha256": "1a824ccc09d71d1c79feb8f777a771b6f30113b16ba4bc83784d6ae388aba7b4"
+    },
+    {
+      "path": "launch_full_l12.py",
+      "sha256": "bdd0833b3db79bc6a1ffdeb591e1c03993eb8e4a1388d01b6218be0a7496b937"
+    },
+    {
+      "path": "parallel_runtime.py",
+      "sha256": "8575911e8efa97b29416d8d56f584beca7c173165d57070280409751262e8812"
+    },
+    {
+      "path": "print_l12_plan.py",
+      "sha256": "3bb17a39f41d74c5e4068308b7d8c27b00b8d33aafff377e7a171ec886d3bcb3"
+    },
+    {
+      "path": "run_l12_branch.py",
+      "sha256": "e7981f68e87881742a3211cf206ea1dbb9d29306d9cc07333e59410a7dacbb58"
+    },
+    {
+      "path": "target_parallel.py",
+      "sha256": "496027b0a0f7d5c88fbb36e211226beb6f9c12461994c6035ac91751d31f2613"
+    },
+    {
+      "path": "test_parallel_successor.py",
+      "sha256": "1dd8dd2dd8ae6e392049b971388034c3865db8e99d74ae191846a572c394ff0f"
+    }
+  ],
+  "static_l12_plan": {
+    "combined": {
+      "charge_sectors": 1000,
+      "estimated_solver_cell_steps": 706547027808,
+      "row_windows": 6076,
+      "total_tasks": 6384
+    },
+    "hostile": {
+      "charge_sectors": 512,
+      "estimated_solver_cell_steps": 431778739216,
+      "row_windows": 1516,
+      "total_tasks": 1670,
+      "workers": 7
+    },
+    "target": {
+      "charge_sectors": 488,
+      "estimated_solver_cell_steps": 274768288592,
+      "row_windows": 4560,
+      "total_tasks": 4714,
+      "workers": 7
+    }
+  },
+  "verification": {
+    "command": "python3 -W ignore::ResourceWarning test_parallel_successor.py",
+    "result": "7 tests passed",
+    "scope": "L4 serial/process equivalence, exact seven-worker branch topology, 96-hour policy propagation, non-overwriting path allocation, exact L12 denominator, parent ETA, authenticated successor branch and launcher boundary"
+  }
+}

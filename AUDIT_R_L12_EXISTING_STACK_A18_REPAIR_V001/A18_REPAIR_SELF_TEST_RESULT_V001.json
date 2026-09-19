@@ -1,0 +1,99 @@
+{
+  "schema": "V012_EXISTING_STACK_A18_REPAIR_SELF_TEST_RESULT_V001",
+  "classification": "PASS_BOUNDED_A18_ROLE_CONTRACT_REPAIR_SELF_TEST",
+  "custody": {
+    "manifest_path": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/EXISTING_STACK_OBSTRUCTION_CUSTODY_V001.json",
+    "manifest_sha256": "79a590e2964580932d8954270d7133d7f5fffb09a38853d3c603d6627172d837",
+    "file_count": 3023,
+    "total_bytes": 2947070516,
+    "target_inventory_sha256": "65d10fc15e9a4ff9073f0b73181d969965ffaa4725289d2e554bf85ef89bf7cb",
+    "hostile_inventory_sha256": "99cc7c19967a6ef3c31a7af42c25b8bf69a67211d7665a0bf1f4bfa587fa1d91",
+    "post_repair_verification": "PASS_EXACTLY_ONE_AUTHORIZED_PATH_CHANGED"
+  },
+  "validator_change": {
+    "path": "DEVELOPMENT_R_L12_TARGET_STORAGE_CACHE_V012/production_obligation_validators.py",
+    "pre_repair_bytes": 134749,
+    "pre_repair_sha256": "c1ba0881fa15348705161410a6d10d69f686ffef19cd0a5a7d0192c34db58314",
+    "post_repair_bytes": 139839,
+    "post_repair_sha256": "b6409bfca1c0ee468671a37d5aac41c80c67f8027265ce4c0261b861509ad691",
+    "line_diff": {
+      "additions": 120,
+      "deletions": 2
+    },
+    "scope": [
+      "A18 positive fixture uses the exact target and hostile projection, branch, and nested binding keysets",
+      "A18 live validation recognizes roles only at target.branch.role and hostile.branch.role",
+      "A18 projection-level role keys are forbidden by exact key census",
+      "A18 target and hostile history hashes remain required to be distinct",
+      "A18 target and hostile nine-binding branch path sets are required to be disjoint",
+      "A18 target and hostile nine-binding branch SHA-256 sets are required to be disjoint",
+      "Each A18 branch is required to contain nine unique binding paths",
+      "Each A18 branch is required to contain nine unique binding SHA-256 values",
+      "A18 target and hostile cached-L10 gate SHA-256 values are required to be distinct"
+    ]
+  },
+  "focused_suite": {
+    "test_file": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/test_a18_existing_stack_repair.py",
+    "test_file_sha256": "056b5b377d1f28ad9308b6d2a01560f961999e89e3238752c9aa06c6797a6a2d",
+    "tests_passed": 15,
+    "tests_total": 15,
+    "direct_a18_mutation_assignments_passed": 18,
+    "direct_a18_mutation_assignments_total": 18,
+    "additional_cross_role_alias_cases_passed": 3,
+    "additional_cross_role_alias_cases_total": 3,
+    "additional_intra_branch_alias_cases_passed": 4,
+    "additional_intra_branch_alias_cases_total": 4
+  },
+  "full_obligation_mutation_suite": {
+    "classification": "PASS_EXECUTED_PREREGISTERED_MUTATION_ASSIGNMENTS",
+    "artifacts": 26,
+    "positive_fixtures": 33,
+    "mutation_classes": 36,
+    "mutation_assignments_passed": 477,
+    "mutation_assignments_total": 477,
+    "ledger_sha256_by_encoding": {
+      "production_validate_preflight_indented_utf8": "91684a8d20bbfbdc7ea9a5abf5682038bf51150e5d81cee022aaadbfa7ced593",
+      "diagnostic_obligation_validator_compact_ascii": "0b0ca8e62f479e5a56e51ab45c133f05c77381d1b6bde76b34e20f980cc27f2c"
+    },
+    "on_disk_freeze_sha256": "b3a4ba272c7ed36cb46416443179832e0ddf1c4ac053534369299f9ca019a903",
+    "in_memory_validator_source_binding_sha256": "b6409bfca1c0ee468671a37d5aac41c80c67f8027265ce4c0261b861509ad691",
+    "authoritative_ledger_hash_encoding": "validate_preflight.canonical_json_bytes__the_indented_UTF8_encoder_used_by_validate_preflight.main_for_publication",
+    "encoding_adjudication": "The superseded 335f/c0ac discrepancy was two different encoders applied to one ledger object, not a record difference. This receipt names and hashes both encodings.",
+    "reproduction_harness_path": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/reproduce_mutation_ledger.py",
+    "reproduction_harness_sha256": "222aa346ce4b2a6b56951380e75fc3bfc7bd417fbe0a1ca1dc9b9ad3111a8e15",
+    "python_hash_seed_cross_check": "PASS_IDENTICAL_LEDGER_AND_PER_ARTIFACT_GROUP_DIGESTS_AT_PYTHONHASHSEED_0_AND_1",
+    "execution_boundary": "CWD_REPOSITORY__PYTHON_MINUS_B__VALIDATE_PREFLIGHT_IMPORTED_BY_FILE_SPEC__ON_DISK_FREEZE_LOADED_IN_MEMORY__ONLY_FREEZE_FILES_PRODUCTION_OBLIGATION_VALIDATORS_SHA256_CHANGED_TO_CANDIDATE__ONLY_RUNTIME_HOOK_PROTECTED_CANONICAL_ARTIFACTS_RETURNED_EMPTY_TUPLE_DURING_EXECUTE_OBLIGATION_MUTATIONS_AND_WAS_RESTORED_FINALLY__ALL_VALIDATORS_BUILDERS_FIXTURES_MUTATIONS_AND_CUSTODY_CHECKS_INTACT__NO_PUBLICATION"
+  },
+  "full_structural_obligation_suite": {
+    "classification": "PASS_PREREGISTERED_AUDIT_OBLIGATION_SPEC",
+    "structural_checks_passed": 1305,
+    "structural_checks_total": 1305,
+    "matrix_sha256": "49a1a5901249c0476ebd775d60b9342436e4391a2a97b9c08f1082247b719e77",
+    "validator_sha256": "476224a7ba126ca9d21f3a6fb253dcced9b2ce7ef8a06fd419fb673c2e5611d6"
+  },
+  "retirement_coordinator": {
+    "classification": "PASS_SYNTHETIC_RESTART_ATOMIC_NO_REPLACE_IDENTITY_FSYNC_AND_CANONICAL_DRY_RUN",
+    "source_path": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/retire_canonical_stack.py",
+    "source_sha256": "12346650d8649c4d1c093d8416a7a809d26dd3c20bd57de2fdd3b1f04ad97747",
+    "test_path": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/test_retire_canonical_stack.py",
+    "test_sha256": "56aa18d1c0432cd21e19382e4556d4006571c75de8ac17a2402046ca56fb4bff",
+    "tests_passed": 10,
+    "tests_total": 10,
+    "atomic_no_replace": "PASS_NATIVE_MACOS_RENAMEATX_NP_RENAME_EXCL_DESTINATION_RACE_REFUSAL",
+    "retained_identity": "PASS_DEVICE_INODE_SIZE_MODE_LINK_COUNT_AND_SHA256_PRESERVED_ACROSS_FORWARD_AND_RECOVERY_RENAMES",
+    "moved_payload_fsync": "PASS_EVERY_MOVED_FILE_RECURSIVELY_FSYNCED_WITH_SOURCE_AND_DESTINATION_PARENTS",
+    "census_path": "AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/RETIREMENT_CENSUS_V001.json",
+    "census_sha256": "613f4805931b148bdd8c11d953ccf9ffb4caf959343560fd80d51ff0809158c2",
+    "top_level_entries": 24,
+    "source_files": 2061,
+    "source_total_bytes": 2072174668,
+    "required_absent_paths": 17,
+    "canonical_dry_run": "PASS_EXACT_RETIREMENT_DRY_RUN_NO_MUTATION",
+    "canonical_retirement_executed": false
+  },
+  "canonical_owner_once_artifact_deleted_or_overwritten": false,
+  "physical_history_launched": false,
+  "a18_published": false,
+  "independent_hostile_review_status": "REQUIRED_BEFORE_PROMOTION",
+  "claim_boundary": "A18_SCHEMA_AND_ROLE_CONTRACT_REPAIR_SELF_TEST_ONLY__NO_RECERTIFICATION_A18_PROMOTION_L12_LAUNCH_SPECTRUM_CONTINUUM_OR_GRAVITY_RESULT"
+}

@@ -1,0 +1,13 @@
+--- AUDIT_R_L12_PREFIX_HISTORY_ENGINE_V001/consume_cache_v004r4.py
++++ DEVELOPMENT_R_L12_HOSTILE_POSITIVE_INTEGER_REPAIR_V001/consume_cache_v004r4.py
+@@ -662,6 +662,10 @@ def canonical_json_bytes(record: object) -> bytes:
+         raise Refusal("history is not finite canonical JSON") from error
+ 
+ 
++def positive_integer(value: object) -> bool:
++    return type(value) is int and value > 0
++
++
+ def _lower_sha256(value: object, label: str) -> str:
+     if not sha256_text(value):
+         raise Refusal(f"{label} is not a lowercase SHA-256")

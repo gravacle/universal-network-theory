@@ -1,0 +1,70 @@
+{
+  "schema": "V012_A01_A18_REPLAY_SOURCE_FREEZE_V004",
+  "classification": "FROZEN_TRANSACTION_BOUNDARY_RECHECK_CANDIDATE_AWAITING_TWO_INDEPENDENT_SAME_HASH_REVIEWS",
+  "created_at": "2026-09-09T00:10:18-0500",
+  "source_sha256": {
+    "replay_a01_a18_v004.py": "b4aef8f37e3937a2d9e89170b3326dbebc9f83f18ca8561378e9456e8c74ffa8",
+    "test_replay_a01_a18_v004.py": "46a367e50cd9aee86a397cc3f1ccda410d26493e0e2e3e1b0c50e25eaa76a67a"
+  },
+  "authenticated_v003_packet": {
+    "replay_a01_a18_v003.py": "7b7d548ba6a01c379986c71291ba3bc28e3da30cd3f92ae150029a88aaac0f8b",
+    "test_replay_a01_a18_v003.py": "d2de9ab3a31d205f38dfbc25e4c4977a8e86c90f5a27f72eb46a791a7775fc07",
+    "FAILED_CACHE_OBSTRUCTION_CENSUS_V003.json": "2f14a2380991efcc46ea139b7271be16acc1392f3b1c2fa186d20954b98394b5",
+    "REPLAY_SOURCE_FREEZE_V003.json": "b94afc1a41ff2e637d6e1d9ffcf2495786fc0022d80615bee5c59eb93cb50880",
+    "REPLAY_CANDIDATE_RESULT_V003.json": "500711e99807ac5eb80647690329fcb6f7f56981c65f480cf14bc66125a4759f"
+  },
+  "preserved_v003_contract": {
+    "failed_cache_file_count_including_manifests": 1105,
+    "failed_cache_total_bytes_including_manifests": 873578206,
+    "failed_cache_payload_file_count": 1100,
+    "failed_cache_payload_bytes": 873210476,
+    "failed_cache_manifest_count": 5,
+    "preserved_restart_record_count": 5,
+    "required_absence_count": 12,
+    "absolute_publisher_value_token_change_count": 17,
+    "predicted_custody_receipt_sha256": "c38fa0ac4c18f11b3fd9ec171c5b909e0c6ab4c1647cd52bf68b0ae9147e854f"
+  },
+  "v004_boundary_repair": {
+    "publisher_or_payload_change": false,
+    "general_lock_added": false,
+    "continuous_noncooperative_writer_exclusion_claimed": false,
+    "explicit_transaction_boundaries": [
+      "IMMEDIATELY_BEFORE_RENAME",
+      "IMMEDIATELY_AFTER_RENAME_BEFORE_FSYNC_OR_RECEIPT",
+      "IMMEDIATELY_BEFORE_RECEIPT",
+      "IMMEDIATELY_AFTER_RECEIPT_BEFORE_V002"
+    ],
+    "each_boundary_authenticates": "EXACT_A01_A02_A03_A04_A27_HASHES_AND_ALL_12_ABSENCES",
+    "final_pre_v002_reauthentication": true,
+    "completed_custody_later_restart_policy": "DEFER_DISTINCT_REBUILT_OUTPUTS_TO_EXISTING_V001_RECONCILIATION"
+  },
+  "hostile_race_results": {
+    "a06_created_inside_rename_exclusive": "REFUSED_AT_POST_RENAME_BOUNDARY",
+    "rename_race_reported_pass": false,
+    "rename_race_reached_v002": false,
+    "rename_race_preserved_state": "SOURCE_ABSENT_EXACT_TARGET_AND_INTENT_PRESENT_RECEIPT_ABSENT",
+    "a06_created_inside_receipt_publication": "REFUSED_AT_POST_RECEIPT_BOUNDARY",
+    "receipt_race_reported_pass": false,
+    "receipt_race_reached_v002": false,
+    "receipt_race_preserved_state": "SOURCE_ABSENT_EXACT_TARGET_INTENT_AND_RECEIPT_PRESENT",
+    "ordinary_preexisting_a06": "REFUSED_WITHOUT_MOVE"
+  },
+  "tests": {
+    "focused_v004_checks_passed": 9,
+    "focused_v004_checks_total": 9,
+    "focused_command": "PYTHONPYCACHEPREFIX=/private/tmp/replay-v004-tests-pyc python3 -B -m unittest AUDIT_R_L12_EXISTING_STACK_A18_REPAIR_V001/test_replay_a01_a18_v004.py",
+    "combined_v003_v004_checks_passed": 21,
+    "combined_v003_v004_checks_total": 21,
+    "root_same_hash_review": "PASS"
+  },
+  "execution_state": {
+    "canonical_v004_custody_executed": false,
+    "canonical_v004_replay_executed": false,
+    "cache_rebuild_after_v004_started": false,
+    "physical_history_started": false,
+    "a18_published": false,
+    "l12_executed": false
+  },
+  "next_required_gate": "TWO_INDEPENDENT_SAME_HASH_HOSTILE_REVIEWS_BEFORE_CANONICAL_V004_EXECUTION",
+  "claim_boundary": "ABSENCES_AUTHENTICATED_AT_EXPLICIT_PRE_RENAME_POST_RENAME_PRE_RECEIPT_POST_RECEIPT_AND_PRE_V002_BOUNDARIES_ONLY__NO_CONTINUOUS_EXTERNAL_WRITER_EXCLUSION_PAYLOAD_PHYSICS_HISTORY_A18_L12_SPECTRUM_CONTINUUM_OR_GRAVITY_RESULT"
+}
