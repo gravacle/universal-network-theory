@@ -321,8 +321,6 @@ def _load_release_values(manifest: dict, values_path: Path | None) -> dict[str, 
         date.fromisoformat(result["RELEASE_DATE"])
     except ValueError as exc:
         raise CapsuleError("RELEASE_DATE is not a real ISO calendar date") from exc
-    if result["ZENODO_DOI"].casefold() == result["ZENODO_CONCEPT_DOI"].casefold():
-        raise CapsuleError("version-specific and concept Zenodo DOIs must differ")
     return result
 
 

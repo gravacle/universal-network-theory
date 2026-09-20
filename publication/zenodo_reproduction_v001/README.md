@@ -163,7 +163,9 @@ The Zenodo record is titled **Universal Network Theory** and classified as
 **Publication → Preprint**. The title “Universal Network Theory Major Proof
 Index” belongs to the internal navigation document, not to the theory itself.
 That PDF is the primary publication file and default preview; the deterministic
-ZIP and external checksum file are supplementary reproduction materials.
+ZIP is the supplementary reproduction object. Its internal `SHA256SUMS` and
+`CAPSULE_BUILD.json` records provide the capsule integrity manifest, so no
+separate checksum file is uploaded to Zenodo.
 The Zenodo description is the Major Proof Index's substantive opening, beginning
 with its first UNT paragraph and ending after the Execution Architecture section,
 immediately before **Terminology and notation**. Its words remain identical; the

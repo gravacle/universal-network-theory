@@ -143,9 +143,10 @@ complete chronological research record, including superseded routes and
 development history. Zenodo preserves the bounded publication and reproduction
 surface for version `1.0.0`.
 
-The release tag is `v1.0.0`. The exact commit, version-specific DOI, concept
-DOI, and actual publication date are injected into the final deterministic
-archive from the release values file.
+The release tag is `v1.0.0`. The exact commit, version-specific DOI, and actual
+publication date are injected into the final deterministic archive from the
+release values file. Zenodo manages the record's version family and exposes its
+concept DOI after publication.
 
 ## Licensing
 

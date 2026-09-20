@@ -27,7 +27,6 @@ PLACEHOLDERS = [
     "RELEASE_DATE",
     "RELEASE_VERSION",
     "SOFTWARE_LICENSE_SPDX",
-    "ZENODO_CONCEPT_DOI",
     "ZENODO_DOI",
 ]
 
@@ -38,7 +37,6 @@ PATTERNS = {
     "RELEASE_DATE": r"[0-9]{4}-[0-9]{2}-[0-9]{2}",
     "RELEASE_VERSION": r"[A-Za-z0-9][A-Za-z0-9._+-]{0,79}",
     "SOFTWARE_LICENSE_SPDX": r"Apache-2\.0",
-    "ZENODO_CONCEPT_DOI": r"10\.[0-9]{4,9}/[-._;()/:A-Za-z0-9]+",
     "ZENODO_DOI": r"10\.[0-9]{4,9}/[-._;()/:A-Za-z0-9]+",
 }
 
@@ -49,7 +47,6 @@ VALUES = {
     "RELEASE_DATE": "2026-09-15",
     "RELEASE_VERSION": "v1.0.0",
     "SOFTWARE_LICENSE_SPDX": "Apache-2.0",
-    "ZENODO_CONCEPT_DOI": "10.5281/zenodo.1234567",
     "ZENODO_DOI": "10.5281/zenodo.1234568",
 }
 
@@ -252,6 +249,18 @@ class CapsuleBuilderTests(unittest.TestCase):
         ):
             self.plan(release=True)
 
+    def test_version_doi_must_match_doi_syntax(self) -> None:
+        values = dict(VALUES)
+        values["ZENODO_DOI"] = "zenodo-not-a-doi"
+        self.values_path.write_text(json.dumps(values), encoding="utf-8")
+        (self.root / "input.txt").write_text("safe\n", encoding="utf-8")
+        self.manifest([{"source": "input.txt", "archive": "input.txt"}])
+        with self.assertRaisesRegex(
+            capsule.CapsuleError,
+            "release value ZENODO_DOI does not match",
+        ):
+            self.plan(release=True)
+
     def test_real_user_home_path_fails_after_preparation(self) -> None:
         source = self.root / "private.txt"
         private_path = "/Users/" + "researcher/private/cache"
@@ -268,15 +277,6 @@ class CapsuleBuilderTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(capsule.CapsuleError, "private path leak"):
             capsule._scan_prepared_private_paths([dynamic])
-
-    def test_version_and_concept_dois_must_differ(self) -> None:
-        (self.root / "input.txt").write_text("safe\n", encoding="utf-8")
-        self.manifest([{"source": "input.txt", "archive": "input.txt"}])
-        values = dict(VALUES)
-        values["ZENODO_CONCEPT_DOI"] = values["ZENODO_DOI"]
-        self.values_path.write_text(json.dumps(values), encoding="utf-8")
-        with self.assertRaisesRegex(capsule.CapsuleError, "DOIs must differ"):
-            self.plan(release=True)
 
     def test_release_template_is_resolved(self) -> None:
         commit_token = "@" * 2 + "GIT_COMMIT" + "@" * 2

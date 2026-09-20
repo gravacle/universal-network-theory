@@ -1,6 +1,10 @@
 # Universal Network Theory Major Proof Index
 
-**Document version:** V001 preparation
+**Document version:** V001 release
+
+**Release:** v1.0.0
+
+**DOI:** [10.5281/zenodo.22859377](https://doi.org/10.5281/zenodo.22859377)
 
 **Prepared:** 2026-09-19
 
