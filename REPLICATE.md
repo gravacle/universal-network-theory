@@ -3,7 +3,7 @@
 **Everything here is re-runnable. Nothing asks you to take a number on trust.**
 
 ```bash
-git clone https://github.com/gravacle/where-atoms-come-from && cd where-atoms-come-from
+git clone https://github.com/gravacle/universal-network-theory && cd universal-network-theory
 ./replicate/reproduce.sh --seals     # fast: verify every SHA-256 manifest
 ./replicate/reproduce.sh             # full: re-run every script, diff against sealed output
 ```

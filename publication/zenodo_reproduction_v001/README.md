@@ -1,4 +1,4 @@
-# Where Atoms Come From: finite relational reproduction capsule (`L = 4` through `L = 12`)
+# Universal Network Theory: finite relational reproduction capsule (`L = 4` through `L = 12`)
 
 This directory prepares a curated, deterministic Zenodo capsule. It does not
 publish, create a DOI, push Git, or run paid cloud computation.

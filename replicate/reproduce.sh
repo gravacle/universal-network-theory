@@ -6,12 +6,13 @@
 # Exits non-zero if any seal fails or any script's output differs from its sealed .txt.
 set -uo pipefail
 # ROOT must NOT be derived from $BASH_SOURCE: a snapshot copy in /tmp resolved it to "/" and the
-# whole run silently found nothing. Set WAC_ROOT to override; otherwise use the script's location
-# only when it actually looks like the repo.
-ROOT="${WAC_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+# whole run silently found nothing. Set UNT_ROOT to override; WAC_ROOT remains a compatibility
+# alias for existing automation. Otherwise use the script's location only when it actually looks
+# like the repo.
+ROOT="${UNT_ROOT:-${WAC_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}}"
 if [ ! -f "$ROOT/CORE_FRAMEWORK_V001.md" ]; then
-  echo "not a where-atoms-come-from checkout: $ROOT"
-  echo "run from the repo, or set WAC_ROOT=/path/to/where-atoms-come-from"
+  echo "not a universal-network-theory checkout: $ROOT"
+  echo "run from the repo, or set UNT_ROOT=/path/to/universal-network-theory"
   exit 2
 fi
 cd "$ROOT"
