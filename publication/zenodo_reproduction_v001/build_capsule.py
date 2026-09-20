@@ -292,17 +292,6 @@ def _read_stable_file(path: Path, before: os.stat_result, source: str) -> bytes:
     return data
 
 
-def _orcid_checksum_valid(value: str) -> bool:
-    digits = value.replace("-", "")
-    total = 0
-    for character in digits[:15]:
-        total = (total + int(character)) * 2
-    remainder = total % 11
-    result = (12 - remainder) % 11
-    expected = "X" if result == 10 else str(result)
-    return digits[-1] == expected
-
-
 def _load_release_values(manifest: dict, values_path: Path | None) -> dict[str, str]:
     if values_path is None:
         raise CapsuleError("release mode requires --values")
@@ -332,8 +321,6 @@ def _load_release_values(manifest: dict, values_path: Path | None) -> dict[str, 
         date.fromisoformat(result["RELEASE_DATE"])
     except ValueError as exc:
         raise CapsuleError("RELEASE_DATE is not a real ISO calendar date") from exc
-    if not _orcid_checksum_valid(result["AUTHOR_ORCID"]):
-        raise CapsuleError("AUTHOR_ORCID checksum is invalid")
     if result["ZENODO_DOI"].casefold() == result["ZENODO_CONCEPT_DOI"].casefold():
         raise CapsuleError("version-specific and concept Zenodo DOIs must differ")
     return result

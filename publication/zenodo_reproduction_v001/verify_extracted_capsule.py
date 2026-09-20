@@ -17,9 +17,11 @@ import re
 import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
+from xml.etree import ElementTree
+import zipfile
 
 
-LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+LINK_LABEL_RE = re.compile(r"!?\[[^\]\n]*\]\(")
 NAVIGATION_DOCUMENTS = (
     "README.md",
     "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md",
@@ -36,6 +38,23 @@ UNT_MAJOR_PROOF_DOCX = "UNIVERSAL_NETWORK_THEORY_MAJOR_PROOF_INDEX.docx"
 UNT_CLOSURE_THEOREM = "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md"
 UNT_CLOSURE_DOCX = "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.docx"
 URM_CURRENT_REPORT = "urm/URM_VALIDATION_CURRENT_2026-09-16.md"
+ZENODO_ABSTRACT_START = "Universal Network Theory (UNT) fundamentally redefines"
+ZENODO_ABSTRACT_END = "\n**Terminology and notation.**"
+ZENODO_ABSTRACT_LINKS = (
+    (
+        "[Intelition Project](https://intelition.org/)",
+        "Intelition Project",
+        "https://intelition.org/",
+    ),
+    (
+        "['Intelition' changes everything: AI is no longer a tool you invoke]"
+        "(https://venturebeat.com/technology/"
+        "intelition-changes-everything-ai-is-no-longer-a-tool-you-invoke)",
+        "'Intelition' changes everything: AI is no longer a tool you invoke",
+        "https://venturebeat.com/technology/"
+        "intelition-changes-everything-ai-is-no-longer-a-tool-you-invoke",
+    ),
+)
 CORE_PROOF_HASHES = {
     "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md": (
         "efc31a92968a30788e64a43395b712942abd9f531c3b77014736bc89b9330308"
@@ -116,6 +135,11 @@ URM_EXACT_VALIDATORS = (
         "validate_relational_accumulation.py",
         "RELATIONAL_ACCUMULATION_GATE: PASS (176 checks)",
     ),
+)
+LICENSE_FILES = (
+    "LICENSE.txt",
+    "LICENSES/Apache-2.0.txt",
+    "LICENSES/CC-BY-4.0.txt",
 )
 
 
@@ -245,6 +269,54 @@ def _inside(root: Path, candidate: Path) -> bool:
     return True
 
 
+def _markdown_link_targets(text: str):
+    """Yield Markdown link destinations, including balanced URL parentheses."""
+
+    position = 0
+    while True:
+        match = LINK_LABEL_RE.search(text, position)
+        if match is None:
+            return
+        target_start = match.end()
+        cursor = target_start
+        depth = 1
+        while cursor < len(text):
+            character = text[cursor]
+            if character == "\\" and cursor + 1 < len(text):
+                cursor += 2
+                continue
+            if character == "(":
+                depth += 1
+            elif character == ")":
+                depth -= 1
+                if depth == 0:
+                    yield text[target_start:cursor]
+                    position = cursor + 1
+                    break
+            cursor += 1
+        else:
+            return
+
+
+def _docx_hyperlink_targets(path: Path) -> set[str]:
+    """Read all hyperlink relationship targets from a Word document."""
+
+    relationship_path = "word/_rels/document.xml.rels"
+    try:
+        with zipfile.ZipFile(path) as archive:
+            relationships = ElementTree.fromstring(archive.read(relationship_path))
+    except (KeyError, OSError, zipfile.BadZipFile, ElementTree.ParseError) as exc:
+        raise ExtractedCapsuleError(
+            f"cannot inspect Word hyperlink relationships: {path.name}: {exc}"
+        ) from exc
+    return {
+        relationship.attrib["Target"]
+        for relationship in relationships
+        if relationship.attrib.get("Type", "").endswith("/hyperlink")
+        and "Target" in relationship.attrib
+    }
+
+
 def verify_navigation(root: Path) -> int:
     checked = 0
     for archive_path in NAVIGATION_DOCUMENTS:
@@ -252,7 +324,7 @@ def verify_navigation(root: Path) -> int:
         if not document.is_file():
             raise ExtractedCapsuleError(f"navigation document absent: {archive_path}")
         text = document.read_text(encoding="utf-8")
-        for raw_target in LINK_RE.findall(text):
+        for raw_target in _markdown_link_targets(text):
             target = raw_target.strip().split(maxsplit=1)[0].strip("<>")
             parsed = urlsplit(target)
             if parsed.scheme or parsed.netloc or not parsed.path:
@@ -306,6 +378,15 @@ def verify_unt_major_proof_index_and_current_status(root: Path) -> tuple[int, in
                 f"Universal Network Theory {label} DOCX is not a valid "
                 "non-empty Office Open XML publication artifact"
             )
+    index_text = index_path.read_text(encoding="utf-8")
+    markdown_targets = set(_markdown_link_targets(index_text))
+    word_targets = _docx_hyperlink_targets(docx_path)
+    missing_word_targets = sorted(markdown_targets - word_targets)
+    if missing_word_targets:
+        raise ExtractedCapsuleError(
+            "Major Proof Index Word hyperlinks differ from Markdown: "
+            f"{missing_word_targets}"
+        )
     theorem = theorem_path.read_text(encoding="utf-8")
     required_theorem_markers = (
         "**Theorem ID:** `UNT-CLOSURE-V001`",
@@ -636,6 +717,97 @@ def verify_urm_validator_closure(root: Path) -> tuple[int, int, int]:
     return count, total, passed
 
 
+def verify_release_licensing(root: Path) -> tuple[int, int]:
+    """Verify the file-scoped dual-license declaration and complete texts."""
+
+    for relative in LICENSE_FILES:
+        if not (root / relative).is_file():
+            raise ExtractedCapsuleError(f"release license file is absent: {relative}")
+
+    notice = (root / "LICENSE.txt").read_text(encoding="utf-8")
+    apache = (root / "LICENSES/Apache-2.0.txt").read_text(encoding="utf-8")
+    content = (root / "LICENSES/CC-BY-4.0.txt").read_text(encoding="utf-8")
+    cff = (root / "CITATION.cff").read_text(encoding="utf-8")
+    metadata = _load_json(root / "zenodo_metadata.json")
+    build = _load_json(root / "CAPSULE_BUILD.json")
+    index = (root / UNT_MAJOR_PROOF_INDEX).read_text(encoding="utf-8")
+    abstract_start = index.find(ZENODO_ABSTRACT_START)
+    abstract_end = index.find(ZENODO_ABSTRACT_END, abstract_start)
+    if abstract_start < 0 or abstract_end < 0:
+        raise ExtractedCapsuleError(
+            "Major Proof Index no longer has the declared Zenodo abstract boundary"
+        )
+    expected_description = index[abstract_start:abstract_end].rstrip()
+    for markdown_link, _label, _url in ZENODO_ABSTRACT_LINKS:
+        if markdown_link not in expected_description:
+            raise ExtractedCapsuleError(
+                "Major Proof Index no longer contains a declared Zenodo abstract link"
+            )
+    expected_description_links = [
+        {"text": label, "url": url}
+        for _markdown_link, label, url in ZENODO_ABSTRACT_LINKS
+    ]
+
+    creators = metadata.get("creators")
+    if (
+        "https://orcid.org/0009-0009-2874-0768" not in cff
+        or not isinstance(creators, list)
+        or not creators
+        or not isinstance(creators[0], dict)
+        or creators[0].get("name") != "Mulconrey, Brian"
+        or creators[0].get("orcid") != "0009-0009-2874-0768"
+    ):
+        raise ExtractedCapsuleError("release authorship or ORCID changed")
+
+    notice_markers = (
+        "SPDX: Apache-2.0",
+        "SPDX: CC-BY-4.0",
+        "Third-party components",
+    )
+    if any(marker not in notice for marker in notice_markers):
+        raise ExtractedCapsuleError("release licensing notice changed")
+    if "Apache License\n                           Version 2.0" not in apache:
+        raise ExtractedCapsuleError("Apache-2.0 license text changed")
+    if "Creative Commons Attribution 4.0 International Public License" not in content:
+        raise ExtractedCapsuleError("CC-BY-4.0 license text changed")
+    licenses = metadata.get("licenses")
+    expected_ids = (
+        ["Apache-2.0", "CC-BY-4.0"]
+        if build.get("release_mode") is True
+        else ["@@SOFTWARE_LICENSE_SPDX@@", "@@CONTENT_LICENSE_SPDX@@"]
+    )
+    if (
+        metadata.get("_purpose")
+        != "Human-readable checklist for a manual Zenodo deposit; not a direct API payload."
+        or metadata.get("title") != "Universal Network Theory"
+        or metadata.get("upload_type") != "publication"
+        or metadata.get("publication_type") != "preprint"
+        or metadata.get("description") != expected_description
+        or metadata.get("description_links") != expected_description_links
+        or not isinstance(licenses, list)
+        or [item.get("id") for item in licenses if isinstance(item, dict)]
+        != expected_ids
+        or "license" in metadata
+    ):
+        raise ExtractedCapsuleError("Zenodo publication checklist changed")
+    if build.get("release_mode") is True:
+        if (
+            'license: "Apache-2.0"' not in cff
+            or "Software is licensed under Apache-2.0" not in cff
+            or "licensed under CC-BY-4.0" not in cff
+            or 'preferred-citation:\n  type: article\n  title: "Universal Network Theory"'
+            not in cff
+            or "  status: preprint" not in cff
+        ):
+            raise ExtractedCapsuleError("CITATION.cff license declaration changed")
+    elif (
+        'license: "@@SOFTWARE_LICENSE_SPDX@@"' not in cff
+        or "@@CONTENT_LICENSE_SPDX@@" not in cff
+    ):
+        raise ExtractedCapsuleError("prepublication CITATION.cff license template changed")
+    return len(LICENSE_FILES), len(licenses)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -657,6 +829,7 @@ def main() -> int:
     proof_members, proof_portable, proof_inventory = (
         verify_proof_packet_layout_closure(root)
     )
+    license_files, zenodo_rights = verify_release_licensing(root)
     print(lower_ladder_stdout, end="")
     print(
         "EXTRACTED_CAPSULE_OK "
@@ -673,6 +846,7 @@ def main() -> int:
         f"proof_packet_members={proof_members} "
         f"proof_portable_gates={proof_portable} "
         f"proof_inventory_only={proof_inventory} "
+        f"license_files={license_files} zenodo_rights={zenodo_rights} "
         f"strict_lineage_l12={lineage_l12}"
     )
     return 0

@@ -142,15 +142,35 @@ envelopes, and builds a deterministic archive only when explicitly asked.
 
 Preparation may proceed without final publication metadata. A release build
 still requires human-supplied values for the immutable Git tag and commit,
-version, release date, ORCID, SPDX license, and Zenodo version/concept DOIs.
+version, release date, and Zenodo DOI metadata. Brian Mulconrey's validated
+ORCID and the approved Apache-2.0 software and CC-BY-4.0 research-content
+licenses are pinned directly in the release metadata.
+`RELEASE_DATE` is the actual calendar date on which the Zenodo record is
+published. It is distinct from the preparation date retained in the Major
+Proof Index as document provenance.
 It also requires the declared URM reconciliation result, clean-reproduction
-record, L02 canonical-selection record, release notes, and license file.
+record, L02 canonical-selection record, and release notes. The release includes
+the root licensing notice and both complete license texts. Zenodo must list both
+licenses for the mixed-license upload.
 
 Use `release_values.example.json` only as a schema example. Do not publish an
 archive containing its placeholders.
 
 The full Git repository remains the chronological research record. This
 capsule is the smaller proof-guided reproduction surface.
+
+The Zenodo record is titled **Universal Network Theory** and classified as
+**Publication → Preprint**. The title “Universal Network Theory Major Proof
+Index” belongs to the internal navigation document, not to the theory itself.
+That PDF is the primary publication file and default preview; the deterministic
+ZIP and external checksum file are supplementary reproduction materials.
+The Zenodo description is the Major Proof Index's substantive opening, beginning
+with its first UNT paragraph and ending after the Execution Architecture section,
+immediately before **Terminology and notation**. Its words remain identical; the
+two link labels and destinations are pinned separately in the manual-deposit
+checklist so they can be entered with Zenodo's rich-text link control and checked
+in the record preview. The extracted-capsule verifier requires the description
+and both link targets to remain synchronized with the index.
 
 ### Link and custody boundary
 

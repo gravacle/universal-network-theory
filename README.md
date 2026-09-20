@@ -127,6 +127,14 @@ authorized merely by this README.
 The root `README.rst` is retained as a historical pre-adoption snapshot. This
 `README.md` is the current release-facing status surface.
 
+## Licensing
+
+Original project software is licensed under Apache-2.0. Original theory
+documents, proof narratives, tables, metadata, research data, and evidence
+artifacts are licensed under CC-BY-4.0. See [LICENSE.txt](LICENSE.txt) for the
+scope rule and the complete texts under [LICENSES](LICENSES/). Third-party
+materials retain their original terms.
+
 > **Historical note.** An attempted L14 extension ended before an authenticated
 > result and contributes no evidence or premise to the completed L4--L12 proof.
 > Its disposition remains available in the chronological Git record.

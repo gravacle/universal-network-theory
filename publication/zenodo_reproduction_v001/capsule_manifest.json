@@ -46,22 +46,22 @@
     ".yaml"
   ],
   "release_placeholders": [
-    "AUTHOR_ORCID",
     "GIT_COMMIT",
     "GIT_TAG",
-    "LICENSE_SPDX",
+    "CONTENT_LICENSE_SPDX",
     "RELEASE_DATE",
     "RELEASE_VERSION",
+    "SOFTWARE_LICENSE_SPDX",
     "ZENODO_CONCEPT_DOI",
     "ZENODO_DOI"
   ],
   "release_value_patterns": {
-    "AUTHOR_ORCID": "[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]",
     "GIT_COMMIT": "[0-9a-f]{40}",
     "GIT_TAG": "[A-Za-z0-9][A-Za-z0-9._/-]{0,127}",
-    "LICENSE_SPDX": "[A-Za-z0-9][A-Za-z0-9.()+-]{0,79}",
+    "CONTENT_LICENSE_SPDX": "CC-BY-4\\.0",
     "RELEASE_DATE": "[0-9]{4}-[0-9]{2}-[0-9]{2}",
     "RELEASE_VERSION": "[A-Za-z0-9][A-Za-z0-9._+-]{0,79}",
+    "SOFTWARE_LICENSE_SPDX": "Apache-2\\.0",
     "ZENODO_CONCEPT_DOI": "10\\.[0-9]{4,9}/[-._;()/:A-Za-z0-9]+",
     "ZENODO_DOI": "10\\.[0-9]{4,9}/[-._;()/:A-Za-z0-9]+"
   },
@@ -1270,10 +1270,19 @@
       "release_required": true
     },
     {
-      "source": "publication/zenodo_reproduction_v001/release_inputs/LICENSE.txt",
+      "source": "LICENSE.txt",
       "archive": "LICENSE.txt",
-      "required": false,
-      "release_required": true
+      "required": true
+    },
+    {
+      "source": "LICENSES/Apache-2.0.txt",
+      "archive": "LICENSES/Apache-2.0.txt",
+      "required": true
+    },
+    {
+      "source": "LICENSES/CC-BY-4.0.txt",
+      "archive": "LICENSES/CC-BY-4.0.txt",
+      "required": true
     }
   ]
 }

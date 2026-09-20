@@ -21,34 +21,34 @@ except ImportError:  # Supports execution after extraction under tools/.
 
 
 PLACEHOLDERS = [
-    "AUTHOR_ORCID",
     "GIT_COMMIT",
     "GIT_TAG",
-    "LICENSE_SPDX",
+    "CONTENT_LICENSE_SPDX",
     "RELEASE_DATE",
     "RELEASE_VERSION",
+    "SOFTWARE_LICENSE_SPDX",
     "ZENODO_CONCEPT_DOI",
     "ZENODO_DOI",
 ]
 
 PATTERNS = {
-    "AUTHOR_ORCID": r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]",
     "GIT_COMMIT": r"[0-9a-f]{40}",
     "GIT_TAG": r"[A-Za-z0-9][A-Za-z0-9._/-]{0,127}",
-    "LICENSE_SPDX": r"[A-Za-z0-9][A-Za-z0-9.()+-]{0,79}",
+    "CONTENT_LICENSE_SPDX": r"CC-BY-4\.0",
     "RELEASE_DATE": r"[0-9]{4}-[0-9]{2}-[0-9]{2}",
     "RELEASE_VERSION": r"[A-Za-z0-9][A-Za-z0-9._+-]{0,79}",
+    "SOFTWARE_LICENSE_SPDX": r"Apache-2\.0",
     "ZENODO_CONCEPT_DOI": r"10\.[0-9]{4,9}/[-._;()/:A-Za-z0-9]+",
     "ZENODO_DOI": r"10\.[0-9]{4,9}/[-._;()/:A-Za-z0-9]+",
 }
 
 VALUES = {
-    "AUTHOR_ORCID": "0000-0002-1825-0097",
     "GIT_COMMIT": "a" * 40,
     "GIT_TAG": "reproduction-v1.0.0",
-    "LICENSE_SPDX": "MIT",
+    "CONTENT_LICENSE_SPDX": "CC-BY-4.0",
     "RELEASE_DATE": "2026-09-15",
     "RELEASE_VERSION": "v1.0.0",
+    "SOFTWARE_LICENSE_SPDX": "Apache-2.0",
     "ZENODO_CONCEPT_DOI": "10.5281/zenodo.1234567",
     "ZENODO_DOI": "10.5281/zenodo.1234568",
 }
@@ -238,6 +238,18 @@ class CapsuleBuilderTests(unittest.TestCase):
         (self.root / "input.txt").write_text("RELEASE-BLOCKER:TEST\n", encoding="utf-8")
         self.manifest([{"source": "input.txt", "archive": "input.txt"}])
         with self.assertRaisesRegex(capsule.CapsuleError, "release blocker marker"):
+            self.plan(release=True)
+
+    def test_approved_dual_license_ids_are_fixed(self) -> None:
+        values = dict(VALUES)
+        values["SOFTWARE_LICENSE_SPDX"] = "MIT"
+        self.values_path.write_text(json.dumps(values), encoding="utf-8")
+        (self.root / "input.txt").write_text("licensed\n", encoding="utf-8")
+        self.manifest([{"source": "input.txt", "archive": "input.txt"}])
+        with self.assertRaisesRegex(
+            capsule.CapsuleError,
+            "release value SOFTWARE_LICENSE_SPDX does not match",
+        ):
             self.plan(release=True)
 
     def test_real_user_home_path_fails_after_preparation(self) -> None:

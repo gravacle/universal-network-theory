@@ -569,7 +569,8 @@ dynamical exponent `z=1` conditionally as a supplementary result.
 
 Git contains the complete chronological research record: source code, theorem
 development, authenticated evidence, audits, corrections, superseded routes,
-and release history.
+and release history. The public repository is
+[gravacle/universal-network-theory](https://github.com/gravacle/universal-network-theory).
 
 Zenodo contains the deterministic proof and reproduction packet for the
 released claims: controlling theorem and audit documents, bounded evidence,

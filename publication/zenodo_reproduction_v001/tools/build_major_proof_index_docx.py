@@ -240,7 +240,10 @@ def add_run(paragraph, text: str, *, bold=False, italic=False, code=False, size=
 
 
 TOKEN_PATTERNS = [
-    ("link", re.compile(r"\[([^\]]+)\]\(([^)]+)\)")),
+    # Permit a balanced parenthesized component inside a URL.  DOI targets such
+    # as ``10.1016/S0003-4916(02)00018-0`` otherwise stop at ``(02`` and produce
+    # a corrupt Word/PDF hyperlink.
+    ("link", re.compile(r"\[([^\]]+)\]\(((?:[^()]|\([^()]*\))*)\)")),
     ("code", re.compile(r"`([^`]+)`")),
     ("bold", re.compile(r"\*\*(.+?)\*\*")),
     ("italic", re.compile(r"(?<!\*)\*([^*]+)\*(?!\*)")),
