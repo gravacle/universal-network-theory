@@ -1,0 +1,113 @@
+{
+  "schema_version": "CLEAN_REPRODUCTION_RESULT_V001",
+  "status": "PASS__CLEAN_EXTRACTED_CAPSULE_VERIFICATION",
+  "recorded_at_utc": "2026-09-20T14:05:57Z",
+  "release_candidate_commit": "6ec3104ba9945ff43054ab7bd9703b9401179b3a",
+  "scope": {
+    "verified_object": "clean extraction of the deterministic Zenodo preparation capsule",
+    "fresh_git_checkout_rebuild_claimed": false,
+    "repository_code_imported_during_extracted_verification": false,
+    "source_archive_hash_policy": "The final archive SHA-256 is an external release gate and is intentionally not embedded in this record, avoiding archive self-reference.",
+    "preparation_boundary": "The custody workspace supplied the explicitly allowlisted source inputs. Verification ran from a newly created empty directory populated only by extraction of the preparation capsule.",
+    "bulk_input_boundary": "The Git tree intentionally excludes generated cache and workspace arrays. The capsule embeds the minimal L08/L10 binary inputs and public manifest projections required for its declared reproduction surface."
+  },
+  "environment": {
+    "operating_system": "macOS 26.4",
+    "architecture": "arm64",
+    "python_implementation": "CPython",
+    "python_version": "3.12.14",
+    "python_executable_sha256": "5ccd02f7849086e9314db5778ba9085c10a7dd3879c949626f2cf838294c7325",
+    "numpy_version": "2.3.5",
+    "pythonpath": "unset",
+    "python_dont_write_bytecode": "1",
+    "working_directory": "extracted capsule root",
+    "network_required": false,
+    "cloud_execution_required": false
+  },
+  "preparation_candidate": {
+    "manifest_files": 345,
+    "manifest_source_bytes": 332832588,
+    "release_inputs_pending_before_this_record": [
+      "publication/zenodo_reproduction_v001/release_inputs/CLEAN_REPRODUCTION_RESULT.json"
+    ],
+    "custody_build_exit_code": 0,
+    "custody_archive_verification_exit_code": 0,
+    "clean_extraction_exit_code": 0
+  },
+  "commands": [
+    {
+      "name": "extracted_capsule_verifier",
+      "command": "env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -B tools/verify_extracted_capsule.py .",
+      "working_directory": ".",
+      "duration_seconds": 12.92,
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "stdout_bytes": 526,
+      "stdout_sha256": "a7b605d5e614497b2d908752b959c6a844714aa525849c19c33505ae111f61ab",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "last_nonempty_output_line": "EXTRACTED_CAPSULE_OK internal_links=90 core_proof_hashes=15 completed_proof_results=8 urm_status_markers=7 arger_l12_block_mass=0.56956498393327842 arger_minimum_visibility=0.4280947078156539 arger_gate=ADOPTED_FINITE_BLOCK_Z1 urm_closure_files=68 urm_closure_bytes=163810488 urm_exact_validators=1 alpha_algebraic_checks=41 lower_ladder_members=34 proof_packet_members=58 proof_portable_gates=3 proof_inventory_only=1 license_files=3 zenodo_rights=2 strict_lineage_l12=0.11570852222694002",
+      "result": "PASS"
+    },
+    {
+      "name": "urm_validator_dependency_closure_tests",
+      "command": "env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -B tests/test_urm_validator_dependency_closure.py",
+      "working_directory": ".",
+      "duration_seconds": 0.14,
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 122,
+      "stderr_sha256": "f75f1e38a1c5ab610be510e992a5b4a6c6b64cf27f643e31bbf7dcb7aba422d8",
+      "tests_run": 11,
+      "tests_skipped_by_declared_environment_classification": 3,
+      "last_nonempty_output_line": "OK (skipped=3)",
+      "result": "PASS"
+    },
+    {
+      "name": "proof_packet_layout_closure_tests",
+      "command": "env -u PYTHONPATH PYTHONDONTWRITEBYTECODE=1 python3 -B tests/test_proof_packet_layout_closure.py",
+      "working_directory": ".",
+      "duration_seconds": 0.80,
+      "expected_exit_code": 0,
+      "exit_code": 0,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 121,
+      "stderr_sha256": "10ff18d13208fd35b4a59515e4f0e62045fb4a2f89fb46ef9c191db52d836473",
+      "tests_run": 10,
+      "tests_skipped_by_declared_environment_classification": 1,
+      "last_nonempty_output_line": "OK (skipped=1)",
+      "result": "PASS"
+    }
+  ],
+  "verification_summary": {
+    "internal_links": 90,
+    "core_proof_hashes": 15,
+    "completed_proof_results": 8,
+    "urm_status_markers": 7,
+    "arger_l12_block_mass": "0.56956498393327842",
+    "arger_minimum_visibility": "0.4280947078156539",
+    "arger_gate": "ADOPTED_FINITE_BLOCK_Z1",
+    "urm_closure_files": 68,
+    "urm_closure_bytes": 163810488,
+    "urm_exact_validators": 1,
+    "alpha_algebraic_checks": 41,
+    "lower_ladder_members": 34,
+    "proof_packet_members": 58,
+    "proof_portable_gates": 3,
+    "proof_inventory_only": 1,
+    "license_files": 3,
+    "zenodo_rights": 2,
+    "strict_lineage_l08": "0.0244800482",
+    "strict_lineage_l10": "0.0687369678",
+    "strict_lineage_l12": "0.11570852222694002"
+  },
+  "comparison_policy": {
+    "outer_capsule_checks": "exact paths, exact byte hashes, exact counts, exact status markers, and exact serialized result values",
+    "scientific_validator_checks": "executed exactly as packaged; comparison rules remain pinned in the included validator sources",
+    "external_archive_gate": "the final ZIP SHA-256 is compared outside the ZIP and outside this embedded result record"
+  },
+  "release_disposition": "PASS"
+}
