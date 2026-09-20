@@ -424,7 +424,7 @@ def verify_unt_major_proof_index_and_current_status(root: Path) -> tuple[int, in
         "**Git-only**",
         "Target route and the separately implemented",
         "`1156` declared",
-        "repository-exact relational dependency closure contains 68 files",
+        "authenticated relational dependency closure contains 68 files",
         "complete audited workspace is approximately 59 GB",
         "reconstruction set contains 86 files",
         "full T-51/C-93 design",

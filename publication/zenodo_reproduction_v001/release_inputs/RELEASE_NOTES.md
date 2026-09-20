@@ -117,7 +117,9 @@ timings, exit codes, and output hashes for the release-candidate validation run.
 
 The Zenodo capsule contains the controlling theorem and audit documents,
 bounded evidence, executable validators, manifests, checksums, metadata, and
-the Git identity that anchors full custody. From an extracted capsule root, run:
+the canonical released source. The originating Git identity records historical
+provenance; the capsule manifests and checksums anchor release custody. From an
+extracted capsule root, run:
 
 ```sh
 python3 -B tools/verify_extracted_capsule.py .
@@ -132,18 +134,21 @@ The complete audited computational workspace is approximately 59 GB. The
 approximately 13.49-GB generated `L = 12` reconstruction input set is not
 duplicated in the compact Zenodo archive. The archive carries the method,
 authenticated results, and cryptographic custody required by its declared
-checks; the repository documents the full reconstruction procedure.
+checks. The historical Git record documents the excluded bulk reconstruction
+workflow; that workflow is not part of the canonical capsule-executable
+surface.
 
 ## Repository and release identity
 
-The public repository is
+The public historical repository is
 [gravacle/universal-network-theory](https://github.com/gravacle/universal-network-theory),
 renamed from `where-atoms-come-from` before this release. Git preserves the
 complete chronological research record, including superseded routes and
-development history. Zenodo preserves the bounded publication and reproduction
-surface for version `1.0.0`.
+development history. The Zenodo ZIP is the canonical versioned source for the
+released code and bounded proof-reproduction surface for version `1.0.0`.
 
-The release tag is `v1.0.0`. The exact commit, version-specific DOI, and actual
+The release tag is `v1.0.0`. The originating commit is retained solely as
+historical provenance. That identity, the version-specific DOI, and the actual
 publication date are injected into the final deterministic archive from the
 release values file. Zenodo manages the record's version family and exposes its
 concept DOI after publication.

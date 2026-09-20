@@ -59,9 +59,9 @@ Luttinger-liquid premise (LL-P).
 
 **Execution Architecture: An Intelition Project**
 
-Universal Network Theory was architected and executed by one human directing a unified ensemble of frontier artificial intelligence (AI) models. The exact mathematical theorems, simulation code, and structural prose indexed in this repository were compiled through continuous, active integration with ChatGPT 5.6 Sol Ultra, Gemini Extended, Claude Opus 5 Ultra, and Grok 4.6.
+Universal Network Theory was architected and executed by one human directing a unified ensemble of frontier artificial intelligence (AI) models. The exact mathematical theorems, simulation code, and structural prose indexed in this deposited release were compiled through continuous, active integration with ChatGPT 5.6 Sol Ultra, Gemini Extended, Claude Opus 5 Ultra, and Grok 4.6.
 
-This repository is formally governed as an [Intelition Project](https://intelition.org/)—a framework where artificial intelligence operates as an integrated structural partner. The foundational premise for this execution model was introduced in ['Intelition' changes everything: AI is no longer a tool you invoke](https://venturebeat.com/technology/intelition-changes-everything-ai-is-no-longer-a-tool-you-invoke).
+This project is formally governed as an [Intelition Project](https://intelition.org/)—a framework where artificial intelligence operates as an integrated structural partner. The foundational premise for this execution model was introduced in ['Intelition' changes everything: AI is no longer a tool you invoke](https://venturebeat.com/technology/intelition-changes-everything-ai-is-no-longer-a-tool-you-invoke).
 
 **Terminology and notation.** Record Formation Theory (RFT) is the theory of
 how records form. **ARGER** is its ordered record-formation process:
@@ -113,8 +113,8 @@ its source-role table distinguishes a load-bearing external premise from a
 comparison or scope boundary.
 
 Clickable local links use their paths inside the extracted Zenodo capsule.
-Git-only paths are printed explicitly and marked `Git-only`; resolve those
-against the immutable release commit. The archive manifest, not this prose,
+Paths marked `Git-only` are historical development or provenance references,
+not sources for the released code. The archive manifest, not this prose,
 controls which commands are archive-local.
 
 **Reconciliation notice.** [`MODEL.md`](urm/MODEL.md), the source ledgers, and the
@@ -197,8 +197,9 @@ For a compact review, read these in order:
     [`STATUS_LEDGER_V001.md`](urm/STATUS_LEDGER_V001.md), plus
     [`FIELD_INSTRUMENT_V001.md`](proof_catalogue/FIELD_INSTRUMENT_V001.md) — the exact
     field-side components and the active direct-readout boundary. The full T-51/C-93 design,
-    executable, `22/22` output, and critique lane reside in Git at the pinned
-    release commit.
+    executable, `22/22` output, and critique lane remain in the historical Git
+    record at the originating commit; they are not part of the canonical
+    capsule-executable surface.
 13. [`ALPHA_PROGRAM_PROVENANCE_2026-09-15.md`](alpha/ALPHA_PROGRAM_PROVENANCE_2026-09-15.md)
    for the alpha result and its historical route.
 14. The finite relational-accumulation chain in section 7 below.
@@ -212,7 +213,7 @@ repository:
 
 ```text
 claim -> governing theorem/result -> verification or hostile audit
-      -> executable validator -> status/claim ceiling -> immutable Git identity
+      -> executable validator -> status/claim ceiling -> capsule integrity record
 ```
 
 ## 3. Completed proofs and certified results
@@ -238,12 +239,12 @@ states whose release custody is reported in section 11.
 
 | Program result | Proof classification | Controlling entry point | Verification or audit record |
 |---|---|---|---|
-| **Universal Network Theory closure:** the completed RFT and GFT results compose into one type-preserving working-theory theorem without changing any component premise or status. | Exact master composition theorem inside the declared UNT working system | [`UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md`](UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md) | `model/validate_universal_network_theory.py` (Git-only) and `URM.universal_network_theory_certificate()` |
+| **Universal Network Theory closure:** the completed RFT and GFT results compose into one type-preserving working-theory theorem without changing any component premise or status. | Exact master composition theorem inside the declared UNT working system | [`UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md`](UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md) | `model/validate_universal_network_theory.py` (historical Git reference) and `URM.universal_network_theory_certificate()` |
 | **RFT bounded result — `L = 4` intrinsic-admission theorem:** for the declared finite `L = 4` one-pass domain and trace, occupied-target admission components are exact null transitions; all four signed retained uptakes are nonnegative; and content, admission bandwidth, lineage, and owner-once transport accounting close within the declared numerical guards. | Exact authenticated finite theorem at its declared `L = 4` scope | [`DEVELOPMENT_R_INTRINSIC_ADMISSION_PARENT_L4_V001/RESULT.md`](proof/L04/target/RESULT.md) | [`AUDIT_R_INTRINSIC_ADMISSION_PARENT_L4_V001/FINAL_HOSTILE_AUDIT.md`](proof/L04/hostile/FINAL_HOSTILE_AUDIT.md): target `10/10`, independent reconstruction `12/12`, final hash-pinned hostile verifier `50/50` |
-| **The Record Laws:** lifetime and steady value are read from the record's own dynamical mode, while the surviving-record law `k(t_m)` counts modes that remain within the carrier-derived durability width at measurement time. | Exact formal theorem family within the declared model | Claims `C-69`, `C-70`, and `C-86` in [`STATUS_LEDGER_V001.md`](urm/STATUS_LEDGER_V001.md), `model/count_law.py` (Git-only), and the T-47 width/staircase packets | `model/checks_countlaw.py` (Git-only), T-47 independent verifiers, and direct time-evolution/eigendecomposition checks |
+| **The Record Laws:** lifetime and steady value are read from the record's own dynamical mode, while the surviving-record law `k(t_m)` counts modes that remain within the carrier-derived durability width at measurement time. | Exact formal theorem family within the declared model | Claims `C-69`, `C-70`, and `C-86` in [`STATUS_LEDGER_V001.md`](urm/STATUS_LEDGER_V001.md), historical `model/count_law.py`, and the T-47 width/staircase packets | Historical `model/checks_countlaw.py`, T-47 independent verifiers, and direct time-evolution/eigendecomposition checks |
 | AURFT closes universal Coverage-U formation inside the adopted U-DCL physical axiom system. | Exact theorem conditional on the explicitly adopted U-DCL postulate | [`URFT_UDCL_ADOPTION_V001.md`](proof_catalogue/URFT_UDCL_ADOPTION_V001.md), [`LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/THEOREM.md`](proof_catalogue/LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/THEOREM.md) | [`LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/AUDIT.md`](proof_catalogue/LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/AUDIT.md), `URM.udcl_postulate_certificate()` |
 | Within a governing compact-`U(1)` domain satisfying the eight Same-Sector Alpha Inheritance (SAI) premises, `SAI1` through `SAI8`, alpha is constitutive identity data. The active-EM construction has an exact `ALLOW` interval; the domain imposes its one alpha and RG trajectory as a same-sector `REQUIRE`. | Exact construction-scoped interval and exact conditional inheritance theorem | [`LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/ALTERNATIVE_RECORD_WORLD.md`](alpha/LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/ALTERNATIVE_RECORD_WORLD.md), [`LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/THEOREM.md`](alpha/LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/THEOREM.md), [`DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/FORMAL_SCOPE_THEOREM.md`](alpha/DEVELOPMENT_ALLOW_REQUIRE_SCOPE_REPAIR_V001/FORMAL_SCOPE_THEOREM.md) | The lane-specific [algebraic verifier](alpha/LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/verify_alpha_sector_inheritance.py) and [hostile review](alpha/LANE_RFT_ALPHA_SECTOR_INHERITANCE_V001/AUDIT.md); both are internal project checks |
-| Gravity Formation Theory gives an exact working-theory implication from qualified record formation through retained causal lineage and relational geometry to the leading Einstein response. | Exact conditional theorem inside adopted RGRL and explicit WTC-H1--H5 premises | [`GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.md`](gravity/GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.md) | Its [internal hostile audit](gravity/GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.AUDIT.md) and the current `model/validate_gravity_formation_theory.py` check (Git-only) |
+| Gravity Formation Theory gives an exact working-theory implication from qualified record formation through retained causal lineage and relational geometry to the leading Einstein response. | Exact conditional theorem inside adopted RGRL and explicit WTC-H1--H5 premises | [`GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.md`](gravity/GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.md) | Its [internal hostile audit](gravity/GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.AUDIT.md) and the historical `model/validate_gravity_formation_theory.py` check |
 | Intrinsic admission and scalable relational accumulation provide a common finite method beginning at `L = 4` and continuing through `L = 10`. | Numerically certified and hostile-audited finite results | [`DEVELOPMENT_R_INTRINSIC_ADMISSION_PARENT_L4_V001/`](proof/L04/target/RESULT.md), [`DEVELOPMENT_R_SCALABLE_RELATIONAL_ACCUMULATION_V001/`](proof/L04_L10/target/L10_V002_RESULT.md) | [`AUDIT_R_INTRINSIC_ADMISSION_PARENT_L4_V001/`](proof/L04/hostile/FINAL_HOSTILE_AUDIT.md), [`AUDIT_R_SCALABLE_RELATIONAL_ACCUMULATION_V001/`](proof/L04_L10/hostile/INDEPENDENT_L10_V002_HOSTILE_AUDIT.md) |
 | Exact prefix-lineage representation made the `L = 12` calculation tractable without changing the physics definition. | Exact representation theorem followed by a separately authenticated numerical result | [`DEVELOPMENT_R_L12_PREFIX_LINEAGE_BLOCK_REDUCTION_V001/`](proof/L12/target/THEOREM.md), [`AUDIT_R_L12_NUMERICAL_REPAIR_V003/EXACT_ADJUDICATION_V003R1.json`](proof/L12/final/EXACT_ADJUDICATION_V003R1.json) | Prefix-lineage hostile audit plus the final 1156/1156 adjudication |
 | The fixed `A009--A016` envelope is an exact bounded record block whose deduplicated mass is above `0.50` at every authenticated size `L = 4`, `L = 6`, `L = 8`, `L = 10`, and `L = 12`. | Exact structural theorem plus authenticated finite arithmetic | [`L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md`](L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md) | [`AUDIT_L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md`](AUDIT_L4_L12_EXTENDIBLE_RECORD_BLOCK_THEOREM_2026-09-16.md) |
@@ -291,8 +292,9 @@ The closure proves that implication exactly *inside* adopted RGRL and WTC-H1
 through WTC-H5. AURFT/U-DCL supplies upstream program context. The internal
 hostile/self-consistency review accepted the composition's dependency,
 normalization, type, and scope. The
-executable URM surface is `model/gravity_formation_theory.py` (Git-only),
-checked by `model/validate_gravity_formation_theory.py` (Git-only).
+historical URM surface is `model/gravity_formation_theory.py`, checked by
+`model/validate_gravity_formation_theory.py`; these paths are not part of the
+canonical capsule-executable surface.
 
 The load-bearing scope is:
 
@@ -332,15 +334,16 @@ custody, and active research interfaces. The table above identifies its
 proof-bearing surfaces. For every record, the exact alpha value is strictly
 REQUIRED.
 
-The repository-exact relational dependency closure contains 68 files and
+The authenticated relational dependency closure contains 68 files and
 `164000842` bytes. The release-specific executable surface replaces only its
 two path-bearing L08/L10 cache manifests and the manifest-authentication module
 with authenticated public projections, retains the byte-exact original model
 source beside the adapter, and has a public census of 68 files and `163810488`
-bytes. It produces `RELATIONAL_ACCUMULATION_GATE: PASS (176 checks)`. The Alpha
-URM integration validator passes `122/122` in Git. Its complete
-aggregate-runner dependency resides in Git. The archive runs the portable
-alpha scope gate and self-contained algebraic witness. The release
+bytes. It produces `RELATIONAL_ACCUMULATION_GATE: PASS (176 checks)`. The
+historical Alpha URM integration run passed `122/122`. Its complete
+aggregate-runner dependency is retained only in the development history and is
+not part of the canonical released executable surface. The archive runs the
+portable alpha scope gate and self-contained algebraic witness. The release
 authenticates the specific finite evidence required by the ARGER Gate.
 
 ## 6. The Alpha Requirement
@@ -377,10 +380,10 @@ authenticated record-block mass.
 The historical and Git provenance is catalogued in
 [`ALPHA_PROGRAM_PROVENANCE_2026-09-15.md`](alpha/ALPHA_PROGRAM_PROVENANCE_2026-09-15.md).
 The canonical theorem and later scope repair are linked in the catalogue
-above. The zero-input URM surface `model/alpha_role.py` (Git-only) authenticates
+above. The historical zero-input URM surface `model/alpha_role.py` authenticates
 seven governing theorem, audit, and witness artifacts and exposes the fixed
 interval and quantifiers. Its strict validator `model/validate_alpha_role.py`
-(Git-only) passes `122/122` hash, analytic-scope, algebraic-witness, mutation,
+passes `122/122` hash, analytic-scope, algebraic-witness, mutation,
 refusal, immutability, and URM-delegation checks.
 
 ## 7. The finite relational route
@@ -491,9 +494,6 @@ PYTHONDONTWRITEBYTECODE=1 python3 \
   reproduction/lower_ladder_original_layout/DEVELOPMENT_R_L12_LINEAGE_RESOLVED_SUPPORT_V001/extract_lower_bound_progression.py
 ```
 
-From the source repository root, run the same script at
-`DEVELOPMENT_R_L12_LINEAGE_RESOLVED_SUPPORT_V001/extract_lower_bound_progression.py`.
-
 Expected output:
 
 ```text
@@ -510,8 +510,9 @@ reproduced both values and generated a report byte-identical to the sealed
 report. The complete audited workspace is approximately 59 GB; the minimum
 runnable `L = 12` reconstruction set contains 86 files and 13,485,786,130
 bytes (12.559617 GiB). The compact packet preserves the method, result, and
-cryptographic custody. The full reconstruction executes from the audited
-repository workspace.
+cryptographic custody. A full reconstruction requires the separately rebuilt
+audited workspace described by the deposited method; it is outside the compact
+capsule-executable surface.
 
 ### 7.3 The governing finite ARGER Gate
 
@@ -571,15 +572,17 @@ dynamical exponent `z=1` conditionally as a supplementary result.
 
 ## 8. Repository and Archive Boundaries
 
-Git contains the complete chronological research record: source code, theorem
-development, authenticated evidence, audits, corrections, superseded routes,
-and release history. The public repository is
+Git contains the complete chronological development history: historical code,
+theorem development, authenticated evidence, audits, corrections, superseded
+routes, and release history. It is a provenance reference, not the authoritative
+source for the released version. The public historical repository is
 [gravacle/universal-network-theory](https://github.com/gravacle/universal-network-theory).
 
-Zenodo contains the deterministic proof and reproduction packet for the
-released claims: controlling theorem and audit documents, bounded evidence,
-executable validators, manifests, checksums, metadata, and the immutable Git
-identity that anchors full custody.
+Zenodo contains the authoritative, deterministic source for the released code
+and proof-reproduction packet: controlling theorem and audit documents, bounded
+evidence, executable validators, manifests, checksums, and metadata. The
+originating Git identity is recorded only to identify the historical provenance
+of the curated release.
 
 ## 9. Executable checks
 
@@ -821,7 +824,7 @@ synchronization is complete locally. Final release actions are:
 
 - a final post-reconciliation consistency freeze;
 - the clean extracted-capsule reproduction record;
-- exact release commit and immutable tag;
+- originating Git commit and tag recorded as historical provenance;
 - license, author and Open Researcher and Contributor ID (ORCID), version,
   date, and digital object identifier (DOI) metadata; and
 - final review of the explicit capsule allowlist.
@@ -829,15 +832,16 @@ synchronization is complete locally. Final release actions are:
 Release custody and scientific proof status are independent classifications.
 **capsule executable** means the archive carries the exact command, data, and dependency closure;
 **capsule documentary** means the theorem and audit are included for review;
-and **Git-only** means execution is bound to the immutable repository release.
+and **Git-only** means a historical development or provenance reference outside
+the canonical released executable surface.
 
 | Completed result | Release custody | Reproduction boundary |
 |---|---|---|
-| Universal Network Theory closure | Capsule documentary / Git-only validation | The archive carries the master theorem in Markdown and Word plus its typed component map. The focused certificate validator is bound to the immutable repository release; component execution follows each row below. |
+| Universal Network Theory closure | Capsule documentary / historical validation reference | The archive carries the master theorem in Markdown and Word plus its typed component map. The historical aggregate certificate validator is not part of the released executable surface; component execution follows each row below. |
 | L4 intrinsic-admission theorem | Capsule executable | Target result, independent reconstruction, and final hash-pinned hostile verifier are carried in the focused archive. |
-| The Record Laws | Capsule documentary / Git-only execution | The proof statements and status are included; the full count-law dependency stack remains Git-bound. |
-| Alpha `ALLOW`/`REQUIRE` theorems | Mixed | Scope-repair and algebraic witnesses are capsule executable; the wider theorem family is documentary or Git-only. |
+| The Record Laws | Capsule documentary / historical execution record | The proof statements and status are included; the omitted count-law dependency stack is retained only in the development history. |
+| Alpha `ALLOW`/`REQUIRE` theorems | Mixed | Scope-repair and algebraic witnesses are capsule executable; the wider theorem family is documentary or retained only in the development history. |
 | Finite GFT `z=1` classification under the ARGER Gate | Capsule executable | Exact block theorem, finite evidence, and Gate validator are carried in the focused archive. |
-| Conditional infrared response | Capsule documentary / Git-only execution | Governing theorem and its internal hostile/self-consistency review are included; the broader validator stack remains repository-bound. |
+| Conditional infrared response | Capsule documentary / historical execution record | Governing theorem and its internal hostile/self-consistency review are included; the broader validator stack is outside the canonical released executable surface. |
 | Finite relational accumulation | Capsule executable for the governing block result; mixed for the secondary strict-lineage diagnostic | The archive carries the exact `L = 4` through `L = 12` theorem/audit, block-mass and visibility evidence, and bounded validators. It reproduces the `L = 8` and `L = 10` strict-lineage values and authenticates the full-workflow `L = 12` result and custody. The 13.49-GB minimum `L = 12` reconstruction inputs remain in the approximately 59-GB audited workspace. |
-| Foundational record closure | Capsule documentary / Git-only execution | U-DCL adoption and the conditional AURFT theorem/audit are included. The aggregate verifier remains Git-bound. |
+| Foundational record closure | Capsule documentary / historical execution record | U-DCL adoption and the conditional AURFT theorem/audit are included. The omitted aggregate verifier is retained only in the development history. |

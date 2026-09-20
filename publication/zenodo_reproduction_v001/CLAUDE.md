@@ -6,8 +6,10 @@ This is a deterministic review and reproduction packet for the completed
 finite Universal Network Theory proof surface through `L = 12`. Review the
 packet as evidence. Do not redesign the theory or rewrite provenance records.
 
-This archive is a **prepublication preparation packet**, not a Zenodo deposit.
-`CAPSULE_BUILD.json` records that status as `draft_not_for_publication: true`.
+`CAPSULE_BUILD.json` records whether the extracted archive is a draft or the
+published release. A publishable Zenodo capsule has
+`draft_not_for_publication: false`; an archive marked `true` is preparation
+material and must not be published.
 
 ## Start here
 
@@ -94,10 +96,10 @@ Under the adopted single ARGER Gate, these premises establish the finite GFT
   trajectory are constitutive for every coefficient-preserving same-sector
   record.
 - The incomplete `L = 14` attempt supplies no premise or result.
-- **Git-only** means an item is documentary in this packet and its execution
-  path is defined by the immutable repository release. It does not imply that
-  large generated caches or workspaces are committed to Git; named generated
-  inputs must be rebuilt by the documented construction path when required.
+- **Git-only** marks a historical development or provenance reference that is
+  not part of the canonical released executable surface. Git does not supply
+  the released code. Named generated inputs must be rebuilt by the documented
+  construction path when required.
 
 ## Review boundaries
 

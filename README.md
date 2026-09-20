@@ -1,11 +1,17 @@
 # Universal Network Theory
 
-This repository is the working scientific record for **Universal Network
-Theory (UNT)**, its Record Formation Theory and Gravity Formation Theory
-branches, and the **Universal Record Model (URM)** executable custody surface.
-It preserves proofs, executable certificates, numerical calculations,
-independent or hostile audits, failed routes, repairs, and the append-only
-history needed to distinguish those categories.
+This Git repository is the chronological development and provenance record for
+**Universal Network Theory (UNT)**, its Record Formation Theory and Gravity
+Formation Theory branches, and the **Universal Record Model (URM)**. It is not
+the canonical source for versioned releases. The canonical released code and
+proof-reproduction object is the ZIP deposited in the version-specific Zenodo
+record. Version `v1.0.0` has the reserved DOI
+[`10.5281/zenodo.22859377`](https://doi.org/10.5281/zenodo.22859377); the DOI
+will begin resolving when Zenodo publication registers the deposit.
+
+This historical record preserves proofs, executable certificates, numerical
+calculations, independent or hostile audits, failed routes, repairs, and the
+append-only chronology needed to distinguish those categories.
 
 ## Current result
 
@@ -113,19 +119,20 @@ contains the same consolidated guide for review and publication workflows.
 ## Reproduction and release status
 
 The full Git history preserves the scientific journey. The bounded Zenodo
-packet under `publication/zenodo_reproduction_v001/` is intended to carry the
-curated proof path, exact source, compact authenticated evidence, claim map,
-and cryptographic manifest without bulk/full raw caches, transient cloud state,
-or credentials. Only compact, allowlisted authenticated L08/L10 reproduction
-slices and finite-sector evidence are retained.
+packet under `publication/zenodo_reproduction_v001/` carries the canonical
+versioned code and proof-reproduction source, curated proof path, compact
+authenticated evidence, claim map, and cryptographic manifest without bulk raw
+caches, transient cloud state, or credentials. Only compact, allowlisted
+authenticated L08/L10 reproduction slices and finite-sector evidence are
+retained.
 
-This checkout contains substantial work beyond the currently published GitHub
-`main` branch. It is release-preparation material, not yet a tagged or deposited
-scientific release. No commit, push, tag, Zenodo publication, or DOI deposit is
-authorized merely by this README.
+The `v1.0.0` release candidate is prepared locally. Its originating Git commit
+and tag identify historical provenance only; Zenodo publication establishes the
+versioned scientific release. No push, tag movement, Zenodo publication, or DOI
+deposit is authorized merely by this README.
 
 The root `README.rst` is retained as a historical pre-adoption snapshot. This
-`README.md` is the current release-facing status surface.
+`README.md` is the current landing page for the chronological Git record.
 
 ## Licensing
 
