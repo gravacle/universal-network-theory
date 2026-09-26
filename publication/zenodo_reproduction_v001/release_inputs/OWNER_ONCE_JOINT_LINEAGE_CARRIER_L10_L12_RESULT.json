@@ -1,0 +1,75 @@
+{
+  "schema_version": "OWNER_ONCE_JOINT_LINEAGE_CARRIER_L10_L12_RELEASE_RECOGNITION_V001",
+  "status": "RECOGNIZED_FINITE_NUMERICAL_RESULT__PROCEDURAL_TIMING_DEVIATION_DISCLOSED",
+  "result_scope": "FINITE_OWNER_ONCE_TERMINAL_LINEAGE_CARRIER_ASSOCIATION_AT_L10_AND_L12",
+  "evidence": {
+    "target": {
+      "archive_path": "evidence/owner_once_joint_lineage_carrier/target/TARGET_HELDOUT_WITNESS_RESULT_V001.json",
+      "repository_path": "DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_HELDOUT_TARGET_V001/PHYSICAL_OUTPUTS/TARGET_HELDOUT_WITNESS_RESULT_V001.json",
+      "sha256": "804b3dda5ebed693ceee26afdedc754602b02a3e8eb7482539f64016d2b54b4b",
+      "internal_numerical_and_control_conditions_passed": true
+    },
+    "hostile": {
+      "archive_path": "evidence/owner_once_joint_lineage_carrier/hostile/HOSTILE_HELDOUT_WITNESS_RESULT_V001.json",
+      "repository_path": "AUDIT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_HELDOUT_V001/PHYSICAL_OUTPUTS/HOSTILE_HELDOUT_WITNESS_RESULT_V001.json",
+      "sha256": "7e1d1c68dfc50fade4acbe3d39ef04b22394872832ce0475847a1098cfc045f9",
+      "internal_numerical_and_control_conditions_passed": true,
+      "declared_independence": {
+        "target_arrays_read": false,
+        "target_code_imported": false,
+        "target_matrices_read": false,
+        "target_result_values_read": false
+      }
+    }
+  },
+  "numerical_result": {
+    "per_size": [
+      {
+        "L": 10,
+        "target_D_L": -0.0003118488593728413,
+        "hostile_D_L": -0.00031184885937283205,
+        "absolute_target_hostile_difference": 9.269928574751063e-18,
+        "tau_L": 1e-09,
+        "target_two_sided_ratio": 311848.8593728413,
+        "sector_capacity_bound_B_L": 0.22714282661304128,
+        "target_eta_L_D_over_B": -0.0013729196912042685,
+        "absolute_target_capacity_percentage": 0.13729196912042685
+      },
+      {
+        "L": 12,
+        "target_D_L": -3.236588485223031e-05,
+        "hostile_D_L": -3.2365884852249583e-05,
+        "absolute_target_hostile_difference": 1.927169361592984e-17,
+        "tau_L": 1e-09,
+        "target_two_sided_ratio": 32365.88485223031,
+        "sector_capacity_bound_B_L": 0.23119534505251413,
+        "target_eta_L_D_over_B": -0.0001399936700493631,
+        "absolute_target_capacity_percentage": 0.01399936700493631
+      }
+    ],
+    "T_10_12": 32365.88485223031,
+    "two_sided_numerical_diagnostic": "PASS__T_10_12_GT_1",
+    "interpretation": "The preregistered centered lineage--carrier conditional-covariance witness is nonzero and numerically resolved at both finite held-out sizes. The independently implemented exact finite reconstruction branches agree to less than 2e-17 in D_L. The frozen sector-capacity normalization gives |eta_10| = 0.0013729196912042685 (about 0.137% of capacity) and |eta_12| = 0.0001399936700493631 (about 0.0140%); this scale report is not an additional pass/fail condition."
+  },
+  "procedural_timing_deviation": {
+    "selected_schedule": "CONCURRENT_TARGET_AND_HOSTILE",
+    "frozen_maximum_release_skew_seconds": 60,
+    "observed_release_skew_seconds": 10748,
+    "target_launch_utc": "2026-09-23T14:45:33Z",
+    "hostile_launch_utc": "2026-09-23T17:44:41Z",
+    "hostile_atomic_output_utc": "2026-09-25T04:36:49Z",
+    "target_atomic_output_utc": "2026-09-25T16:13:29Z",
+    "strict_preregistered_protocol_label_claimed": false,
+    "contamination_assessment": "Neither final value existed when either branch launched. The target branch was already executing before the hostile launch, and the hostile atomic result was not opened before the target branch completed. The missed release-skew guard is disclosed as a procedural timing deviation; it does not alter the deterministic numerical agreement."
+  },
+  "secondary_signed_persistence": {
+    "freeze_archive_path": "evidence/owner_once_joint_lineage_carrier/secondary/BLINDED_SECONDARY_ANALYSIS_FREEZE.md",
+    "interpretation_addendum_archive_path": "evidence/owner_once_joint_lineage_carrier/secondary/PRE_UNBLINDING_INTERPRETATION_AND_SCALE_ADDENDUM.md",
+    "signed_floor_f": 0.001963064475535806,
+    "conservative_D_lower_L10": -0.00031184985937284134,
+    "conservative_D_lower_L12": -3.2366884852249586e-05,
+    "verdict": "FAIL__SIGNED_NO_DECLINE_FLOOR",
+    "interpretation": "The witness reverses sign after L8 and its magnitude declines substantially by L12. The result therefore does not support a positive non-declining witness through L12 or an all-L limit."
+  },
+  "claim_boundary": "ROBUST_NONZERO_FINITE_ASSOCIATION_THROUGH_L12__NO_PRISTINE_STRICT_PROTOCOL_PASS__NO_POSITIVE_PERSISTENCE__NO_ALL_L_GATE_RGRL_WTC_ALPHA_GEOMETRY_OR_GRAVITY_PROMOTION"
+}

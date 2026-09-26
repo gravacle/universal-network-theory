@@ -107,3 +107,45 @@ withdrawn claims: `THE_ROAD_V001.md` (10 so far, kept so they are not re-made).
 
 > **A record is a bit the world cannot lose locally. EM provides the carrier, alpha sets what it
 > costs, and the topology of space is what makes the bit exist, writable, and safe.**
+
+---
+
+## 2026-09-25 live-result addendum
+
+This frozen-format page remains superseded as a general status surface, but
+the append-only record now includes `RA-9`: independent exact Target and
+Hostile implementations reproduce a nonzero two-sided owner-once
+lineage--carrier association at L10 and L12,
+`D_10 = -0.00031184885937284` and
+`D_12 = -0.00003236588485224`, with
+`T_10:12 = 32365.88485223031` and all branch-internal controls passing.
+
+The separately frozen signed positive no-decline test fails: both held-out
+values fall below `f = D_8 = 0.001963064475535806`, reverse sign, and decrease
+in magnitude. A disclosed `10,748 s` release skew exceeded a legacy `60 s`
+anti-contamination rule, so no pristine strict-protocol label is used. The
+deviation does not negate the deterministic agreement: neither final value
+existed at launch, the branches were isolated, and no cross-branch value was
+opened before Target completion. No all-L, Gate, dynamical-`z=1`, RGRL/WTC,
+alpha, geometry, or gravity promotion follows.
+
+Row `RA-10` now records the controlled-null follow-up on the authenticated L8
+state. For the prospectively frozen unweighted formation-order path,
+Ollivier--Ricci curvature and terminal spent-lineage concentration give
+`rho=0.1543033499620919` and exact `p_plus=0.3619047619047619`; neither the
+positive nor opposite-sign association criterion passes. This is a null for
+that one schedule-derived graph at the registered sensitivity. It does not
+rule out richer prospectively earned lineage graphs and supplies no emergent
+space, geometry, spacetime curvature, or gravity.
+
+Row `RA-11` records the independently validated L4 mechanism test. The frozen
+same-sector product comparator begins with the same complete separate lineage
+and carrier marginals as the retained joint state. After both receive the same
+event-zero lineage-reading revisit and carrier transport, the independent
+post-transport carrier trace distance is `0.14761185701903007` at
+`tau=1e-10`, while the transport-sensitive occupation-profile RMS is
+`0.006009875541368592`. The independent no-`@` route emits zero warnings and
+agrees with the target registered observables within
+`1.1102230246251565e-16`. This establishes one finite L4 mechanism only, not
+its persistence with size or any curvature, geometry, RGRL/WTC, alpha, or
+gravity result.

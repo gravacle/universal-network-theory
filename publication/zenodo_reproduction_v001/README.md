@@ -16,8 +16,9 @@ owner-once periodic-prism domain: `L` active cells, `2L` carrier sites, `3L`
 transport edges, and `L` fresh admissions before revisit. Values such as
 `L = 8`, `L = 10`, and `L = 12` are therefore successively larger members of
 one finite model family, not proof levels, software versions, or stages of one
-growing run. ARGER is the ordered record-formation process; `GATE` is its
-single Gate stage.
+growing run. ARGER is UNT's ordered dependency sequence for the formation roles
+of whichever actual physical record is supplied by parent dynamics; `GATE` is
+its single Gate stage.
 
 ## What this capsule establishes
 
@@ -46,6 +47,9 @@ deduplicated mass greater than one half, and positive finite visibility imply
 the UNT finite GFT `z=1` classification. All three premises are met at every
 authenticated size from `L = 4` through `L = 12`.
 
+The conditional macroscopic response is carried separately by adopted RGRL and
+`WTC-H1--H5`; the finite Gate pass does not establish those premises.
+
 A separately sealed theorem gives physical dynamical exponent `z=1` on its
 declared density interval conditional on the pinned LL-P premise. That theorem
 is a supplementary physical result, not an unfinished component of the finite
@@ -59,12 +63,58 @@ satisfying `SAI1--SAI8`, every coefficient-preserving same-sector record
 inherits that domain's measured alpha and RG trajectory as `REQUIRE` data.
 `SELECT` is the separately typed question of governing-domain selection.
 
+The capsule also recognizes the completed owner-once joint lineage--carrier
+witness calculation at `L = 10` and `L = 12`. Independently implemented exact
+finite reconstruction branches produced:
+
+| L | Target `D_L` | Hostile `D_L` | capacity bound `B_L` | Target `eta_L = D_L/B_L` |
+|---:|---:|---:|---:|---:|
+| 10 | `-0.0003118488593728413` | `-0.00031184885937283205` | `0.22714282661304128` | `-0.0013729196912042685` |
+| 12 | `-0.00003236588485223031` | `-0.000032365884852249583` | `0.23119534505251413` | `-0.0001399936700493631` |
+
+The raw two-sided diagnostic is `T_10:12 = 32365.88485223031`, establishing a
+numerically resolved nonzero finite association through `L = 12`. The frozen
+capacity normalization gives magnitudes of about `0.137%` of sector capacity
+at `L = 10` and `0.0140%` at `L = 12`; this scale report is not an additional
+pass/fail condition. The frozen
+concurrent schedule required releases within 60 seconds, but the observed
+launch skew was 10,748 seconds. This timing condition was a procedural
+scheduling and custody guard; because it was missed, the release does not call
+the result a pristine strict-protocol held-out pass. It discloses the deviation
+while preserving the deterministic agreement. The separately frozen signed
+no-decline floor fails: the witness changes sign after `L = 8` and its magnitude
+declines substantially by `L = 12`. No all-`L`, Gate, RGRL/WTC, alpha, geometry,
+or gravity conclusion is promoted from this result. See the
+[compact recognition record](evidence/owner_once_joint_lineage_carrier/OWNER_ONCE_JOINT_LINEAGE_CARRIER_L10_L12_RESULT.json).
+
+Two further bounded record diagnostics are recognized without promotion beyond
+their executed domains:
+
+- **L8 lineage-order Ollivier--Ricci controlled null.** On the frozen lineage
+  formation-order path, the Ollivier--Ricci statistic is
+  `rho = 0.1543033499620919` with exact
+  one-sided `p_plus = 0.3619047619047619`. The classification is
+  `NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8`. This is a
+  controlled null on one schedule-derived path, not spacetime curvature and
+  not evidence for geometry or gravity. The extracted verifier authenticates
+  the compact recognition record and the sealed result, freeze, protocol, and
+  manifest, but the capsule excludes the bulk raw L8 replay arrays.
+- **L4 autonomous lineage-sensitive continuation.** At one fixed L4
+  checkpoint, the independently reconstructed lineage-sensitive revisit gives
+  `Delta_C = 0.14761185701903007` and occupation-profile
+  `RMS = 0.006009875541368592`, with zero captured warnings and maximum
+  Target/audit difference `1.1102230246251565e-16`. This establishes one
+  finite mechanism at L4 only; it does not establish scaling, curvature,
+  geometry, RGRL/WTC, alpha, or gravity. The extracted verifier authenticates
+  the compact recognition record, Target result, freeze and protocol, and
+  independent warning-audited result.
+
 Start with:
 
 - [Claude Code review guide](CLAUDE.md) -- the read-only operating contract,
   verification entry point, governing terminology, and review boundaries for
   an automated code-and-evidence review
-- [Universal Network Theory Closure Theorem](UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md) -- the exact type-preserving master composition of the completed RFT and GFT results
+- [Universal Network Theory Closure Theorem](UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md) -- the exact type-preserving master composition of the bounded and conditional RFT and GFT results
 - [Word edition of the UNT Closure Theorem](UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.docx) -- the publication-ready theorem document
 - [Universal Network Theory Major Proof Index](UNIVERSAL_NETWORK_THEORY_MAJOR_PROOF_INDEX.md) -- the consolidated guide to completed proofs and certified results, their premises, dependency order, external citations, separately documented program boundaries, reproduction, and capsule-versus-Git custody
 - [Word edition of the Major Proof Index](UNIVERSAL_NETWORK_THEORY_MAJOR_PROOF_INDEX.docx) -- the same consolidated guide in publication-ready `.docx` form
@@ -96,8 +146,13 @@ record theorem, internal hostile audit, and sealed z1 packet, reruns the native 
 reconstruction, verifies the L08/L10 cache extraction, authenticates the
 full-workflow L12 strict-lineage result and custody, authenticates the proof-packet layouts,
 executes the portable alpha scope gate and algebraic witness/DAG regression,
-and runs the focused relational URM validator against an authenticated public
-projection of its exact repository dependency closure. The only projected
+authenticates the two independent owner-once joint lineage--carrier raw results
+and their disclosed timing and signed-persistence dispositions, authenticates
+the compact and sealed L8 lineage-order controlled-null records without the
+excluded bulk replay arrays, authenticates the compact, Target,
+freeze/protocol, and independent-audit L4 continuation records, and runs the
+focused relational URM validator against an authenticated public projection of
+its exact repository dependency closure. The only projected
 positions are the two path-neutral L08/L10 cache manifests and the adapter
 that authenticates them back to their raw source-manifest hashes; the archive
 also retains and authenticates the byte-exact relational model source. The

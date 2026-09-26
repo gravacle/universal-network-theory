@@ -1,0 +1,54 @@
+Owner-once joint lineage--carrier witness reconciliation V001
+All commands run from audited-386ee2c with PYTHONWARNINGS promoted to errors.
+
+1. Compile
+
+PYTHONPYCACHEPREFIX=/private/tmp/joint-reconcile-pycache python3 -W error -m py_compile \
+  DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_RECONCILIATION_V001/reconcile_joint_witness.py \
+  DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_RECONCILIATION_V001/test_reconcile_joint_witness.py
+
+Result: PASS
+
+2. Reconciliation test suite
+
+python3 -W error -B \
+  DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_RECONCILIATION_V001/test_reconcile_joint_witness.py
+
+Ran 12 tests in 0.194s
+OK
+
+Coverage includes the real sealed packet, exact classification, required
+sizes/values, every required target-hostile terminal comparison, pinned input
+authentication, deterministic JSON, classification boundaries, condition
+tampering, nonfinite JSON, manifest tampering, path safety, forbidden runtime
+metadata, and the L10/L12 held-out boundary.
+
+3. Pinned target synthetic suite
+
+From DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_V001:
+
+python3 -W error -B -m unittest -v test_target_joint_witness.py
+
+Ran 9 tests in 0.032s
+OK
+
+4. Pinned hostile source-freeze suite
+
+From AUDIT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_V001:
+
+python3 -W error -B test_source_freeze.py
+
+Ran 10 tests in 0.012s
+OK
+
+5. Deterministic final generation
+
+python3 -W error -B \
+  DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_RECONCILIATION_V001/reconcile_joint_witness.py
+
+Result:
+RESOLVED_OWNER_ONCE_JOINT_LINEAGE_CARRIER_WITNESS_L4_L8
+
+Two independently generated final JSON byte streams were identical.
+Both temporary reruns and the packet result had SHA-256:
+2ce9852ef40d16d50b7a6553d0173e041c9cfdcc59925819f900f21f8a684f14

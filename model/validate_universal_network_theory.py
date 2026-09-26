@@ -199,7 +199,11 @@ def main() -> int:
     theorem_text = unt._load_theorem()
     check("The finite Gate classification and the infrared response theorem are independent" in
           theorem_text)
-    check("through its explicit continuum premises" in theorem_text)
+    check(all(marker in theorem_text for marker in (
+        "Coverage-U for whichever admissible actual record is supplied by the parent",
+        "every `ACTVIS` record in that typed governing domain.",
+        "No implication from a finite ARGER Gate pass to satisfaction of RGRL or",
+    )))
     check("under `WTC-H1` through `WTC-H5`" in theorem_text)
 
     check(tuple(inspect.signature(URM.universal_network_theory).parameters) == ())
@@ -251,8 +255,8 @@ def main() -> int:
             check(refused(unt._load_theorem))
 
             marker_removed = theorem_text.replace(
-                "through its explicit continuum premises",
-                "through unstated premises",
+                "No implication from a finite ARGER Gate pass to satisfaction of RGRL or",
+                "A finite ARGER Gate pass establishes RGRL and WTC",
             )
             copied.write_text(marker_removed, encoding="utf-8")
             replacement_sha256 = hashlib.sha256(copied.read_bytes()).hexdigest()

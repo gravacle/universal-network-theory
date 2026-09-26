@@ -8,6 +8,9 @@ The controlling composition theorem is the
 
 The master index now contains the capsule reading order, exact L4--L12 theorem,
 authenticated mass and visibility evidence, ARGER Gate, conditional
-dynamical-`z=1` theorem, alpha result, strict-lineage diagnostic, L14
-disposition, external citations, reproduction commands, and claim ceilings.
+dynamical-`z=1` theorem, alpha result, strict-lineage diagnostic, the finite
+owner-once joint lineage--carrier result and its disclosed timing deviation,
+the L8 lineage-order Ollivier--Ricci controlled null, the L4 autonomous
+lineage-sensitive continuation, L14 disposition, external citations,
+reproduction commands, and claim ceilings.
 The capsule manifest controls which cited artifacts are locally executable.

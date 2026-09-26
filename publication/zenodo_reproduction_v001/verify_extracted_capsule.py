@@ -38,7 +38,7 @@ UNT_MAJOR_PROOF_DOCX = "UNIVERSAL_NETWORK_THEORY_MAJOR_PROOF_INDEX.docx"
 UNT_CLOSURE_THEOREM = "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md"
 UNT_CLOSURE_DOCX = "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.docx"
 URM_CURRENT_REPORT = "urm/URM_VALIDATION_CURRENT_2026-09-16.md"
-ZENODO_ABSTRACT_START = "Universal Network Theory (UNT) fundamentally redefines"
+ZENODO_ABSTRACT_START = "Universal Network Theory (UNT) investigates"
 ZENODO_ABSTRACT_END = "\n**Terminology and notation.**"
 ZENODO_ABSTRACT_LINKS = (
     (
@@ -57,7 +57,7 @@ ZENODO_ABSTRACT_LINKS = (
 )
 CORE_PROOF_HASHES = {
     "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md": (
-        "efc31a92968a30788e64a43395b712942abd9f531c3b77014736bc89b9330308"
+        "39cd16d9dfb38b0335ffae45339ec6491da5806d86c98f3cc4cb9db69824bd75"
     ),
     "ARGER_GATE_ADOPTION_2026-09-16.md": (
         "d58da69f67cef53f54582fc4006c106df55b0456733f970f18162f3401dad1e0"
@@ -106,6 +106,100 @@ LINEAGE_DIAGNOSTIC = "evidence/STRICT_COMMON_LINEAGE_PROGRESSION_V001.json"
 LINEAGE_DIAGNOSTIC_SHA256 = (
     "7076440b3c36eae95df8a276ce9494d5c8e0d82715e00e9f790b961278d2e35a"
 )
+OWNER_ONCE_JOINT_RESULT = (
+    "evidence/owner_once_joint_lineage_carrier/"
+    "OWNER_ONCE_JOINT_LINEAGE_CARRIER_L10_L12_RESULT.json"
+)
+OWNER_ONCE_JOINT_TARGET = (
+    "evidence/owner_once_joint_lineage_carrier/target/"
+    "TARGET_HELDOUT_WITNESS_RESULT_V001.json"
+)
+OWNER_ONCE_JOINT_HOSTILE = (
+    "evidence/owner_once_joint_lineage_carrier/hostile/"
+    "HOSTILE_HELDOUT_WITNESS_RESULT_V001.json"
+)
+OWNER_ONCE_JOINT_HASHES = {
+    OWNER_ONCE_JOINT_RESULT: (
+        "72c990670b1d1e85aa1ce332456a691991fc75cfe757d842e4abc67db6ce0edf"
+    ),
+    "evidence/owner_once_joint_lineage_carrier/PROTOCOL.md": (
+        "8250e17405067deabbfe7dc4ff00864d26bef66cabfeef628f9f6df63829d9a7"
+    ),
+    "evidence/owner_once_joint_lineage_carrier/INPUT_AND_RESOURCE_GATE.json": (
+        "2f38a50e530476e1f33647b49afc95d118738efb1ed53b6ba96335888a44432c"
+    ),
+    OWNER_ONCE_JOINT_TARGET: (
+        "804b3dda5ebed693ceee26afdedc754602b02a3e8eb7482539f64016d2b54b4b"
+    ),
+    OWNER_ONCE_JOINT_HOSTILE: (
+        "7e1d1c68dfc50fade4acbe3d39ef04b22394872832ce0475847a1098cfc045f9"
+    ),
+    (
+        "evidence/owner_once_joint_lineage_carrier/secondary/"
+        "BLINDED_SECONDARY_ANALYSIS_FREEZE.md"
+    ): "2e6134297e959b35df1dcd9d28b314c12996ccf5762634738318f023382a7943",
+    (
+        "evidence/owner_once_joint_lineage_carrier/secondary/"
+        "PRE_UNBLINDING_INTERPRETATION_AND_SCALE_ADDENDUM.md"
+    ): "a5cdda7bd6988a57cc5cdbe31c7099c37f32dddbcfcd4ac834942e37f65871de",
+}
+L8_LINEAGE_ORDER_RESULT = (
+    "evidence/l8_lineage_order_ollivier_ricci/"
+    "L8_LINEAGE_ORDER_OLLIVIER_RICCI_RESULT.json"
+)
+L8_LINEAGE_ORDER_RAW_RESULT = (
+    "evidence/l8_lineage_order_ollivier_ricci/RESULT.json"
+)
+L8_LINEAGE_ORDER_HASHES = {
+    L8_LINEAGE_ORDER_RESULT: (
+        "fc2a87d3bfda43474fbd6abaf05abb1e0e663693075c9f2627dab4a9c11e3401"
+    ),
+    L8_LINEAGE_ORDER_RAW_RESULT: (
+        "102e302e9e8f17c612b4461842237212d6b51814b7d27ba18d2112e57106d7a6"
+    ),
+    "evidence/l8_lineage_order_ollivier_ricci/FREEZE.json": (
+        "9ceac93c5571c021e7fe5c3a197b4d4c7f1cec13fecc07d7ed96589bcf7efece"
+    ),
+    "evidence/l8_lineage_order_ollivier_ricci/PROTOCOL.md": (
+        "c4ec1f745db6f1f7a8919d3246ace21e94fd3ab3f7219c60de56063151c7434a"
+    ),
+    "evidence/l8_lineage_order_ollivier_ricci/MANIFEST.sha256": (
+        "c0d99f8781f2c1be20ebafcb289116d63534caee0fcce22f8ca26e8538313a2b"
+    ),
+}
+L4_LINEAGE_CONTINUATION_RESULT = (
+    "evidence/l4_autonomous_lineage_sensitive_continuation/"
+    "L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT.json"
+)
+L4_LINEAGE_CONTINUATION_TARGET = (
+    "evidence/l4_autonomous_lineage_sensitive_continuation/target/"
+    "L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT_V001.json"
+)
+L4_LINEAGE_CONTINUATION_AUDIT = (
+    "evidence/l4_autonomous_lineage_sensitive_continuation/audit/"
+    "INDEPENDENT_RESULT.json"
+)
+L4_LINEAGE_CONTINUATION_HASHES = {
+    L4_LINEAGE_CONTINUATION_RESULT: (
+        "4ee575d447e143aea6da0f5698f949a5dd3581f670f6196b1242b7488d43d898"
+    ),
+    L4_LINEAGE_CONTINUATION_TARGET: (
+        "ad134b528761c4e865df35678097dab4fb56297c5237a910ca482bac77c0c0dc"
+    ),
+    "evidence/l4_autonomous_lineage_sensitive_continuation/FREEZE.json": (
+        "606a72692b17b86bd9ad65d9201a861e298cef09e07fadac7d983c34a10b6b28"
+    ),
+    "evidence/l4_autonomous_lineage_sensitive_continuation/PROTOCOL.md": (
+        "eabe5b1a3e012e00151de24415654bd0b60a473a2e3b39fa395c1f5ec0753a29"
+    ),
+    L4_LINEAGE_CONTINUATION_AUDIT: (
+        "86316a114201046f87789884c207ebe4d21356d0405475327e7bce455dd0352e"
+    ),
+    (
+        "evidence/l4_autonomous_lineage_sensitive_continuation/audit/"
+        "MANIFEST.sha256"
+    ): "f0244e08f09a2b7073f489b6b89d43c917dc7c718cacb0e3891b719c60af2c10",
+}
 LOWER_LADDER_STDOUT = "L08: 0.0244800482\nL10: 0.0687369678\n"
 PROOF_PACKET_CLOSURE_SPEC = "inventory/PROOF_PACKET_LAYOUT_CLOSURE_SPEC.json"
 PROOF_PACKET_CLOSURE_VERIFIER = "tools/proof_packet_layout_closure.py"
@@ -129,7 +223,7 @@ PROOF_PACKET_INVENTORY_ONLY = "l04_l10_streamed_preflight_inventory_v001"
 URM_CLOSURE_SPEC = "inventory/URM_VALIDATOR_DEPENDENCY_CLOSURE.json"
 URM_CLOSURE_VERIFIER = "tools/verify_urm_validator_dependency_closure.py"
 URM_PUBLIC_FILE_COUNT = 68
-URM_PUBLIC_BYTE_COUNT = 163810488
+URM_PUBLIC_BYTE_COUNT = 163813617
 URM_EXACT_VALIDATORS = (
     (
         "validate_relational_accumulation.py",
@@ -411,6 +505,15 @@ def verify_unt_major_proof_index_and_current_status(root: Path) -> tuple[int, in
         "finite_gravity_formation": "| Finite Gravity Formation |",
         "infrared_response": "| Conditional infrared response |",
         "finite_relational_accumulation": "| Finite relational accumulation |",
+        "finite_joint_lineage_carrier_association": (
+            "| Finite joint lineage--carrier association |"
+        ),
+        "l8_lineage_order_ollivier_ricci_controlled_null": (
+            "| L8 formation-order Ollivier--Ricci controlled null |"
+        ),
+        "l4_autonomous_lineage_sensitive_continuation": (
+            "| L4 autonomous lineage-sensitive continuation |"
+        ),
         "foundational_record_closure": "| Foundational record closure |",
     }
     missing_results = [
@@ -655,6 +758,320 @@ def verify_lineage_diagnostic(root: Path) -> str:
     return expected_values["L12_conservative"]
 
 
+def verify_owner_once_joint_lineage_carrier(root: Path) -> str:
+    """Authenticate the recognized finite L10/L12 joint-witness result."""
+
+    for relative, expected in OWNER_ONCE_JOINT_HASHES.items():
+        _require_file_hash(root / relative, expected, relative)
+
+    recognition = _load_json(root / OWNER_ONCE_JOINT_RESULT)
+    target = _load_json(root / OWNER_ONCE_JOINT_TARGET)
+    hostile = _load_json(root / OWNER_ONCE_JOINT_HOSTILE)
+
+    expected_rows = [
+        {
+            "L": 10,
+            "target_D_L": -0.0003118488593728413,
+            "hostile_D_L": -0.00031184885937283205,
+            "absolute_target_hostile_difference": 9.269928574751063e-18,
+            "tau_L": 1e-09,
+            "target_two_sided_ratio": 311848.8593728413,
+            "sector_capacity_bound_B_L": 0.22714282661304128,
+            "target_eta_L_D_over_B": -0.0013729196912042685,
+            "absolute_target_capacity_percentage": 0.13729196912042685,
+        },
+        {
+            "L": 12,
+            "target_D_L": -3.236588485223031e-05,
+            "hostile_D_L": -3.2365884852249583e-05,
+            "absolute_target_hostile_difference": 1.927169361592984e-17,
+            "tau_L": 1e-09,
+            "target_two_sided_ratio": 32365.88485223031,
+            "sector_capacity_bound_B_L": 0.23119534505251413,
+            "target_eta_L_D_over_B": -0.0001399936700493631,
+            "absolute_target_capacity_percentage": 0.01399936700493631,
+        },
+    ]
+    numerical = recognition.get("numerical_result", {})
+    timing = recognition.get("procedural_timing_deviation", {})
+    persistence = recognition.get("secondary_signed_persistence", {})
+    if (
+        recognition.get("schema_version")
+        != "OWNER_ONCE_JOINT_LINEAGE_CARRIER_L10_L12_RELEASE_RECOGNITION_V001"
+        or recognition.get("status")
+        != (
+            "RECOGNIZED_FINITE_NUMERICAL_RESULT__"
+            "PROCEDURAL_TIMING_DEVIATION_DISCLOSED"
+        )
+        or numerical.get("per_size") != expected_rows
+        or numerical.get("T_10_12") != 32365.88485223031
+        or numerical.get("two_sided_numerical_diagnostic")
+        != "PASS__T_10_12_GT_1"
+        or timing.get("frozen_maximum_release_skew_seconds") != 60
+        or timing.get("observed_release_skew_seconds") != 10748
+        or timing.get("strict_preregistered_protocol_label_claimed") is not False
+        or persistence.get("signed_floor_f") != 0.001963064475535806
+        or persistence.get("verdict") != "FAIL__SIGNED_NO_DECLINE_FLOOR"
+        or recognition.get("claim_boundary")
+        != (
+            "ROBUST_NONZERO_FINITE_ASSOCIATION_THROUGH_L12__"
+            "NO_PRISTINE_STRICT_PROTOCOL_PASS__NO_POSITIVE_PERSISTENCE__"
+            "NO_ALL_L_GATE_RGRL_WTC_ALPHA_GEOMETRY_OR_GRAVITY_PROMOTION"
+        )
+    ):
+        raise ExtractedCapsuleError(
+            "owner-once joint lineage--carrier release recognition changed"
+        )
+
+    target_lengths = target.get("lengths", {})
+    hostile_rows = {
+        row.get("L"): row
+        for row in hostile.get("results", [])
+        if isinstance(row, dict)
+    }
+    if (
+        target.get("schema") != "OWNER_ONCE_HELDOUT_TARGET_JOINT_WITNESS_RAW_V001"
+        or target.get("status") != "SEALED_TARGET_L10_L12_RAW_COMPLETE"
+        or target.get("all_target_internal_numerical_and_control_conditions_passed")
+        is not True
+        or hostile.get("schema")
+        != "OWNER_ONCE_HELDOUT_HOSTILE_JOINT_WITNESS_RAW_V001"
+        or hostile.get("disposition")
+        != "HOSTILE_HELDOUT_L10_L12_COMPLETE__RECONCILIATION_REQUIRED"
+        or hostile.get("independence")
+        != {
+            "target_arrays_read": False,
+            "target_code_imported": False,
+            "target_matrices_read": False,
+            "target_result_values_read": False,
+        }
+        or set(target_lengths) != {"10", "12"}
+        or set(hostile_rows) != {10, 12}
+    ):
+        raise ExtractedCapsuleError(
+            "owner-once joint lineage--carrier branch custody changed"
+        )
+
+    for expected in expected_rows:
+        length = expected["L"]
+        target_row = target_lengths[str(length)]
+        hostile_row = hostile_rows[length]
+        target_d = target_row.get("fine", {}).get("registered", {}).get("D")
+        hostile_d = hostile_row.get("fine", {}).get("D_L")
+        if (
+            target_d != expected["target_D_L"]
+            or hostile_d != expected["hostile_D_L"]
+            or abs(target_d - hostile_d)
+            != expected["absolute_target_hostile_difference"]
+            or target_row.get("target_internal_numerics", {}).get(
+                "all_target_internal_conditions_passed"
+            )
+            is not True
+            or hostile_row.get("internal_conditions_pass") is not True
+        ):
+            raise ExtractedCapsuleError(
+                f"owner-once joint lineage--carrier L{length} value changed"
+            )
+
+    return "32365.88485223031"
+
+
+def verify_l8_lineage_order_ollivier_ricci(root: Path) -> tuple[str, str]:
+    """Authenticate the bounded L8 formation-order controlled-null result."""
+
+    for relative, expected in L8_LINEAGE_ORDER_HASHES.items():
+        _require_file_hash(root / relative, expected, relative)
+
+    recognition = _load_json(root / L8_LINEAGE_ORDER_RESULT)
+    raw = _load_json(root / L8_LINEAGE_ORDER_RAW_RESULT)
+    expected_statistic = {
+        "rho_observed": 0.1543033499620919,
+        "p_plus": 0.3619047619047619,
+        "permutations": 40320,
+        "passed_positive_prediction": False,
+    }
+    expected_boundary = (
+        "CONTROLLED_NULL_ON_FROZEN_L8_FORMATION_ORDER_PATH_ONLY__"
+        "NOT_SPACETIME_CURVATURE__NO_GEOMETRY_OR_GRAVITY_PROMOTION"
+    )
+    evidence = recognition.get("evidence", {})
+    reproduction = recognition.get("reproduction_boundary", {})
+    if (
+        recognition.get("schema_version")
+        != "L8_LINEAGE_ORDER_OLLIVIER_RICCI_RELEASE_RECOGNITION_V001"
+        or recognition.get("status") != "RECOGNIZED_CONTROLLED_NULL_RESULT"
+        or recognition.get("classification")
+        != "NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8"
+        or recognition.get("scope") != "FROZEN_L8_FORMATION_ORDER_PATH_ONLY"
+        or recognition.get("statistic") != expected_statistic
+        or evidence.get("result_archive_path") != L8_LINEAGE_ORDER_RAW_RESULT
+        or evidence.get("result_sha256")
+        != L8_LINEAGE_ORDER_HASHES[L8_LINEAGE_ORDER_RAW_RESULT]
+        or evidence.get("freeze_sha256")
+        != L8_LINEAGE_ORDER_HASHES[
+            "evidence/l8_lineage_order_ollivier_ricci/FREEZE.json"
+        ]
+        or evidence.get("protocol_sha256")
+        != L8_LINEAGE_ORDER_HASHES[
+            "evidence/l8_lineage_order_ollivier_ricci/PROTOCOL.md"
+        ]
+        or reproduction.get("sealed_result_authenticated") is not True
+        or reproduction.get("bulk_raw_L8_replay_arrays_included") is not False
+        or recognition.get("claim_boundary") != expected_boundary
+    ):
+        raise ExtractedCapsuleError(
+            "L8 lineage-order Ollivier--Ricci release recognition changed"
+        )
+
+    raw_statistic = raw.get("statistic", {})
+    source_hashes = raw.get("controls", {}).get("source_hashes", {})
+    if (
+        raw.get("schema") != "L8_LINEAGE_ORDER_OLLIVIER_RICCI_RESULT_V001"
+        or raw.get("classification")
+        != "NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8"
+        or raw.get("graph_ceiling")
+        != (
+            "FINITE_SCHEDULE_DERIVED_DIAGNOSTIC__"
+            "NOT_SPACETIME_CURVATURE_OR_GRAVITY"
+        )
+        or raw.get("passed_positive_prediction") is not False
+        or raw_statistic
+        != {
+            "minus_count": 26496,
+            "p_minus": 0.6571428571428571,
+            "p_plus": 0.3619047619047619,
+            "permutations": 40320,
+            "plus_count": 14592,
+            "rho_observed": 0.1543033499620919,
+        }
+        or source_hashes.get(
+            "DEVELOPMENT_R_L8_LINEAGE_ORDER_OLLIVIER_RICCI_V001/FREEZE.json"
+        )
+        != evidence.get("freeze_sha256")
+        or source_hashes.get(
+            "DEVELOPMENT_R_L8_LINEAGE_ORDER_OLLIVIER_RICCI_V001/PROTOCOL.md"
+        )
+        != evidence.get("protocol_sha256")
+    ):
+        raise ExtractedCapsuleError(
+            "L8 lineage-order Ollivier--Ricci controlled-null result changed"
+        )
+
+    return "0.1543033499620919", "0.3619047619047619"
+
+
+def verify_l4_autonomous_lineage_sensitive_continuation(
+    root: Path,
+) -> tuple[str, str]:
+    """Authenticate the fixed-L4 target and independent continuation audit."""
+
+    for relative, expected in L4_LINEAGE_CONTINUATION_HASHES.items():
+        _require_file_hash(root / relative, expected, relative)
+
+    recognition = _load_json(root / L4_LINEAGE_CONTINUATION_RESULT)
+    target = _load_json(root / L4_LINEAGE_CONTINUATION_TARGET)
+    audit = _load_json(root / L4_LINEAGE_CONTINUATION_AUDIT)
+    evidence = recognition.get("evidence", {})
+    result = recognition.get("independent_audit_result", {})
+    expected_boundary = (
+        "L4_SINGLE_REVISIT_LINEAGE_SENSITIVE_CARRIER_MECHANISM_ONLY__"
+        "NO_SCALING_CURVATURE_GEOMETRY_RGRL_WTC_ALPHA_OR_GRAVITY"
+    )
+    if (
+        recognition.get("schema_version")
+        != (
+            "L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_"
+            "RELEASE_RECOGNITION_V001"
+        )
+        or recognition.get("status")
+        != "RECOGNIZED_TARGET_AND_INDEPENDENT_AUDIT_RESULT"
+        or recognition.get("classification")
+        != "RESOLVED_L4_LINEAGE_SENSITIVE_CARRIER_CONTINUATION"
+        or recognition.get("scope")
+        != "ONE_FIXED_L4_AUTONOMOUS_REVISIT_MECHANISM"
+        or evidence.get("target_archive_path") != L4_LINEAGE_CONTINUATION_TARGET
+        or evidence.get("target_sha256")
+        != L4_LINEAGE_CONTINUATION_HASHES[L4_LINEAGE_CONTINUATION_TARGET]
+        or evidence.get("audit_archive_path") != L4_LINEAGE_CONTINUATION_AUDIT
+        or evidence.get("audit_sha256")
+        != L4_LINEAGE_CONTINUATION_HASHES[L4_LINEAGE_CONTINUATION_AUDIT]
+        or evidence.get("freeze_sha256")
+        != L4_LINEAGE_CONTINUATION_HASHES[
+            "evidence/l4_autonomous_lineage_sensitive_continuation/FREEZE.json"
+        ]
+        or evidence.get("protocol_sha256")
+        != L4_LINEAGE_CONTINUATION_HASHES[
+            "evidence/l4_autonomous_lineage_sensitive_continuation/PROTOCOL.md"
+        ]
+        or result
+        != {
+            "Delta_C": 0.14761185701903007,
+            "occupation_rms": 0.006009875541368592,
+            "maximum_target_audit_difference": 1.1102230246251565e-16,
+            "captured_warning_count": 0,
+            "passed": True,
+        }
+        or recognition.get("claim_boundary") != expected_boundary
+    ):
+        raise ExtractedCapsuleError(
+            "L4 autonomous lineage-sensitive continuation recognition changed"
+        )
+
+    target_after_transport = target.get("fine", {}).get("after_transport", {})
+    if (
+        target.get("schema")
+        != "L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT_V001"
+        or target.get("classification")
+        != "RESOLVED_L4_LINEAGE_SENSITIVE_CARRIER_CONTINUATION"
+        or target.get("claim_boundary")
+        != (
+            "L4_SINGLE_REVISIT_MECHANISM_ONLY__"
+            "NO_SCALING_CURVATURE_GEOMETRY_OR_GRAVITY"
+        )
+        or target.get("controls", {}).get("passed") is not True
+        or target_after_transport.get("carrier_trace_distance")
+        != 0.14761185701902999
+        or target_after_transport.get("occupation_rms")
+        != 0.0060098755413685945
+    ):
+        raise ExtractedCapsuleError(
+            "L4 autonomous lineage-sensitive target result changed"
+        )
+
+    audit_after_transport = audit.get("fine", {}).get("after_transport", {})
+    audit_controls = audit.get("controls", {})
+    warning_audit = audit.get("warning_audit", {})
+    independence = audit.get("independence", {})
+    if (
+        audit.get("schema")
+        != (
+            "INDEPENDENT_L4_AUTONOMOUS_LINEAGE_SENSITIVE_"
+            "CONTINUATION_VALIDATION_V001"
+        )
+        or audit.get("disposition")
+        != "PASS_INDEPENDENT_L4_LINEAGE_SENSITIVE_CONTINUATION_VALIDATION"
+        or audit.get("classification")
+        != "RESOLVED_L4_LINEAGE_SENSITIVE_CARRIER_CONTINUATION"
+        or audit.get("passed") is not True
+        or audit.get("claim_boundary") != expected_boundary
+        or audit_after_transport.get("carrier_trace_distance")
+        != 0.14761185701903007
+        or audit_after_transport.get("occupation_rms")
+        != 0.006009875541368592
+        or audit_controls.get("target_registered_observable_max_abs_difference")
+        != 1.1102230246251565e-16
+        or warning_audit.get("captured_warnings") != []
+        or warning_audit.get("accepted_on_faith") is not False
+        or independence.get("imports_historical_parent") is not False
+        or independence.get("imports_target_implementation") is not False
+    ):
+        raise ExtractedCapsuleError(
+            "independent L4 autonomous lineage-sensitive continuation audit changed"
+        )
+
+    return "0.14761185701903007", "0.006009875541368592"
+
+
 def verify_urm_validator_closure(root: Path) -> tuple[int, int, int]:
     """Verify exact dependency bytes and run the focused relational validator.
 
@@ -824,6 +1241,13 @@ def main() -> int:
     core_hashes, block_mass, minimum_visibility = verify_core_proof_path(root)
     alpha_checks = verify_alpha_witness(root)
     lineage_l12 = verify_lineage_diagnostic(root)
+    owner_once_joint_t = verify_owner_once_joint_lineage_carrier(root)
+    l8_curvature_rho, l8_curvature_p_plus = (
+        verify_l8_lineage_order_ollivier_ricci(root)
+    )
+    l4_lineage_delta, l4_lineage_occupation_rms = (
+        verify_l4_autonomous_lineage_sensitive_continuation(root)
+    )
     urm_files, urm_bytes, urm_validators = verify_urm_validator_closure(root)
     lower_ladder_members, lower_ladder_stdout = verify_lower_ladder_reproduction(root)
     proof_members, proof_portable, proof_inventory = (
@@ -847,7 +1271,14 @@ def main() -> int:
         f"proof_portable_gates={proof_portable} "
         f"proof_inventory_only={proof_inventory} "
         f"license_files={license_files} zenodo_rights={zenodo_rights} "
-        f"strict_lineage_l12={lineage_l12}"
+        f"strict_lineage_l12={lineage_l12} "
+        f"owner_once_joint_T_10_12={owner_once_joint_t} "
+        "owner_once_signed_persistence=FAIL "
+        "l8_lineage_order_curvature=NO_RESOLVED "
+        f"l8_lineage_order_rho={l8_curvature_rho} "
+        f"l8_lineage_order_p_plus={l8_curvature_p_plus} "
+        f"l4_lineage_sensitive_delta={l4_lineage_delta} "
+        f"l4_lineage_sensitive_occupation_rms={l4_lineage_occupation_rms}"
     )
     return 0
 

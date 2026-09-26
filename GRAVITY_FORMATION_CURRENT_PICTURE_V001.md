@@ -1286,6 +1286,111 @@ The labels “exact” and “proved” in this document always inherit the doma
 premises of the cited lane. They do not turn a conditional bridge into evidence
 that nature realizes its antecedent.
 
+## Finite joint lineage--carrier evidence through L12
+
+The owner-once relational construction now has one more exact finite fact.
+Independent Target and Hostile implementations reproduce the frozen centered
+lineage--carrier witness at the common displayed precision:
+
+```text
+D_10 = -0.00031184885937284
+D_12 = -0.00003236588485224
+T_10:12 = 32365.88485223031.
+```
+
+All branch-internal numerical and null controls pass. This is evidence that
+the finite terminal state retains a nonzero two-sided association between
+lineage and carrier occupancy through L12; it is stronger than reading the
+unconditional carrier marginal alone. It is not evidence that future dynamics
+reads lineage, that lineage causes back-reaction, or that the association has a
+nonzero thermodynamic limit.
+
+The same result has to be read on its normalized scale, not only against
+numerical error. The frozen capacity values give
+`eta_10=D_10/B_10=-0.0013729196912042685` for
+`B_10=0.22714282661304128` (about `0.137%`) and
+`eta_12=D_12/B_12=-0.0001399936700493631` for
+`B_12=0.23119534505251413` (about `0.0140%`). Thus it is a highly resolved but
+small finite effect whose normalized magnitude drops sharply from L10 to L12.
+
+The separately frozen signed positive no-decline prediction fails. Its floor
+was `f = D_8 = 0.001963064475535806`; the held-out values reverse sign and
+decline in magnitude. The result therefore does not supply the scale-stable
+positive lineage persistence that a gravity-origin argument would need.
+
+The historical execution freeze also requested Target and Hostile release
+within `60 s`; actual skew was `10,748 s`. That condition was an operational
+anti-contamination proxy rather than a physical premise. The deviation is
+disclosed and the result is not labeled a pristine strict-protocol held-out
+pass. It does not provide evidence of numerical or value contamination:
+Target was fixed and running before Hostile launch, neither final value existed
+at either launch, and the Hostile value remained unopened by the interpreting
+workflow until Target finished. Future protocols should directly enforce
+source freeze, branch isolation, atomic publication, and a recorded unblinding
+barrier instead of elevating arbitrary launch simultaneity into a scientific
+condition.
+
+This finding changes none of the gravity ceilings below. It does not establish
+the ARGER Gate, dynamical `z=1`, RGRL, the WTC hypotheses, record curvature,
+metric response, Einstein--Hilbert dynamics, numerical `G`, `Lambda`, or
+alpha. It is a finite microscopic association result and a falsified stronger
+persistence prediction, both of which the theory must retain.
+
+## Controlled-null L8 formation-order curvature test
+
+The first prospectively frozen graph-native follow-up used only the already
+completed L8 state. The graph was fixed without consulting record density: the
+event labels `0,...,7` connected by the unweighted transitive reduction of the
+first owner-once formation order. With Ollivier--Ricci idleness `1/2`, the
+incident-edge-mean node curvature was compared to terminal spent-lineage
+concentration and scored against every one of the `8!` label permutations.
+
+The result is
+
+```text
+rho = 0.1543033499620919
+p_plus = 0.3619047619047619
+```
+
+so neither the preregistered positive association nor the opposite-sign
+association is resolved. The path's nonzero curvature is concentrated at its
+chronological endpoints; the measured record concentration does not align
+with it strongly enough to pass the frozen effect and exact-null thresholds.
+
+This is informative precisely because it can fail: the most conservative
+chronology-native graph does not provide the missing record-curvature bridge.
+But its ceiling is equally important. The null is for this unweighted
+formation-order path at L8. It does not rule out a richer lineage relation
+derived prospectively from the unchanged parent dynamics, and it does not
+promote the schedule path to emergent space, spacetime Ricci curvature,
+geometry, or gravity.
+
+## Fixed L4 lineage-sensitive continuation
+
+A separate prospectively frozen test now asks whether the retained joint
+lineage--carrier information can change what the carrier does next. At the
+authenticated L4 terminal checkpoint, the actual arm and its same-sector
+quantum-product comparator have equal complete carrier and lineage marginals
+and equal sharp-sector weights. Both receive the same event-zero
+lineage-reading revisit and common carrier transport.
+
+The target post-transport carrier trace distance is
+`Delta_C=0.14761185701902999`; an independently written no-`@` contraction
+route gives `0.14761185701903007`, with `tau=1e-10`,
+`T_dyn=1476118570.1903007`, zero captured warnings, and maximum registered
+target/independent disagreement `1.1102230246251565e-16`. Common transport
+preserves trace distance and is therefore a control. The fixed occupation
+profile is transport-sensitive and reaches RMS `0.006009875541368592`.
+
+For this one frozen L4 schedule, retained joint lineage information therefore
+changes the later carrier state in a way the separate marginals do not
+determine. This is the finite mechanism that the static association alone did
+not establish. It is not yet evidence that the mechanism persists with size,
+and it defines no curvature or geometry. It changes neither the ARGER Gate nor
+the conditional RGRL/WTC closure and supplies no alpha, Einstein, gravity, or
+numerical-`G` result. Live custody is `RA-11`, `P-CURRENT-9`, and the separate
+non-load-bearing `owner_once_autonomous_continuation_certificate`.
+
 ## Foundational impact of URFT and alpha
 
 Together, URFT and the alpha-inheritance theorem provide missing connective

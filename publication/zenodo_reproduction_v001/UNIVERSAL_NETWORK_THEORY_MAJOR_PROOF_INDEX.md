@@ -1,80 +1,124 @@
 # Universal Network Theory Major Proof Index
 
-**Document version:** V001 release
+**Document version:** V002 release
 
-**Release:** v1.0.0
+**Release:** v1.0.2
 
-**DOI:** [10.5281/zenodo.22859377](https://doi.org/10.5281/zenodo.22859377)
+**Concept DOI:** [10.5281/zenodo.22859376](https://doi.org/10.5281/zenodo.22859376)
 
-**Prepared:** 2026-09-19
+**Prepared:** 2026-09-22
 
-Universal Network Theory (UNT) fundamentally redefines the structure of physical
-reality, resolving the historic incompatibility between quantum mechanics and
-general relativity by eliminating the spacetime continuum entirely. Space and
-time are no longer treated as a smooth, pre-existing background, nor is quantum
-measurement treated as a probabilistic wave collapse triggered by an observer.
-Instead, UNT establishes that the universe is a discrete, computable topological
-framework. Physical reality is built entirely from immutable structural records,
-and gravity emerges not as a fundamental force across a void, but as the exact
-macroscopic thermodynamic response of the network processing those transactions.
+Universal Network Theory (UNT) investigates whether discrete causal records can
+provide the microscopic structure from which gravity arises. Its main finite
+result concerns five independently constructed domains at `L = 4`, `6`, `8`,
+`10`, and `12`. In each domain, the `A009--A016` record envelope has exact bounded
+membership, deduplicated probability mass greater than `0.50`, and positive
+probe visibility in every selected `(L, q)` sector. At `L = 12`, the authenticated
+mass is `0.56956498393327842`. Across all 13 sectors, the minimum measured
+visibility is `R_low = 0.4280947078156539`.
 
-By structurally unifying quantum-scale record formation and macroscopic gravity,
-the declared working theory establishes four definitive physical conclusions:
+Record Formation Theory (RFT) characterizes discrete causal record structures
+and, inside the adopted Universal Directed-Composition Law (U-DCL), proves
+Coverage-U for whichever admissible actual record is supplied by the parent
+physical dynamics. UNT orders the relevant record-formation dependencies as
+ALLOW, REQUIRE, GATE, ELECTROMAGNETISM, and RECORD. Under the adopted
+project-native finite ARGER Gate, a finite domain passes when its membership is
+exact, its deduplicated mass exceeds `0.50`, and every selected sector has
+positive visibility. The computed domains satisfy all three conditions at every
+evaluated size and therefore receive the finite Gravity Formation Theory
+`z = 1` classification.
 
-**The Microscopic Mechanism:** Discrete causal records are constructed through
-the ordered sequence `ALLOW -> REQUIRE -> GATE -> ELECTROMAGNETISM -> RECORD`.
+This finite classification is distinct from the conventional dynamical exponent.
+In a separate analytic result, the same Hamiltonian has the dynamical exponent
+`z_dyn = 1` across the stated density interval under the named Luttinger-liquid
+premise.
 
-**The Alpha Requirement:** The sequence strictly enforces the measured
-fine-structure constant (α) and its scaling trajectory for every record.
+The alpha results establish an exact ALLOW interval and a conditional inheritance
+theorem. When a record's ancestry to the governing compact `U(1)` domain has been
+independently established and `SAI1` through `SAI8` hold, the record inherits
+that domain's measured fine-structure constant, alpha, and its
+renormalization-group trajectory. Alpha therefore functions as a constitutive
+property of the `ACTVIS` records belonging to that domain. The theorem does not
+calculate the numerical value of alpha from generic recordhood.
 
-**The Structural Foundation of Gravity:** By evaluating this finite microscopic
-domain and establishing its dynamical exponent, Gravity Formation Theory proves
-this discrete network supplies the exact microscopic foundation required for
-gravity.
+A separate owner-once calculation tests whether the finite terminal state
+contains joint lineage--carrier information beyond the unconditional carrier
+marginal. Independently implemented exact finite Target and Hostile branches
+agree at `L = 10` and `L = 12`: respectively,
+`D_10 = -0.0003118488593728413` and
+`D_12 = -0.00003236588485223031` on the Target route, with branch differences
+below `2e-17`. The raw two-sided diagnostic is
+`T_10:12 = 32365.88485223031`, establishing a numerically resolved nonzero
+finite association through `L = 12`. The frozen sector-capacity normalization
+gives witness magnitudes of about `0.137%` of capacity at `L = 10` and `0.0140%`
+at `L = 12`; this is an effect-scale report, not another pass/fail condition. A
+frozen concurrent-release scheduling
+condition required no more than 60 seconds of skew, while the observed launch
+skew was 10,748 seconds, so this release discloses the
+procedural deviation and does not call the result a pristine strict-protocol
+held-out pass. The separately frozen signed no-decline criterion fails because
+the witness reverses sign after `L = 8` and its magnitude declines sharply.
+This finite result does not establish persistence at all sizes or promote any
+Gate, alpha, geometry, or gravity claim.
 
-**The Macroscopic Derivation:** From this discrete foundation, and under stated
-continuum premises, the exact conditional macroscopic gravitational response is
-mathematically derived.
+Two further bounded diagnostics sharpen what the record data do and do not
+show. On the frozen `L = 8` lineage formation-order path, the
+Ollivier--Ricci statistic is `rho = 0.1543033499620919` with exact one-sided
+`p_plus = 0.3619047619047619` over all `40320` permutations. The recognized
+classification is
+`NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8`: a controlled null
+for one schedule-derived path, not spacetime curvature and not a geometry or
+gravity result.
 
-Thus, gravity is proved to be the self-consistent macroscopic response of
-record-conditioned geometry, built entirely from auditable quantum premises.
+At one fixed `L = 4` checkpoint, the autonomous lineage-sensitive continuation
+does produce a resolved carrier response. The independent audit obtains
+`Delta_C = 0.14761185701903007` and occupation-profile
+`RMS = 0.006009875541368592`, with no captured warnings and maximum
+Target/audit difference `1.1102230246251565e-16`. This establishes the
+lineage-sensitive continuation mechanism for that one finite checkpoint and
+frozen revisit rule. It does not by itself establish scaling, curvature,
+geometry, RGRL/WTC, alpha, or gravity.
 
-**The Proof Ledger**
+The macroscopic gravity result is also conditional. Under the adopted
+Record-Geometry Realization Law and the five stated response hypotheses,
+qualified retained record lineage realizes a four-dimensional record-conditioned
+geometry. The leading infrared response of that geometry is the Einstein-Hilbert
+response, with its coefficient calibrated to the observed Newton constant.
 
-This index serves as the authoritative structural ledger for that unification.
-It exposes the exact mathematical theorems, the numerically authenticated
-computational evidence, and the immutable cryptographic custody required to
-execute a hostile independent audit of the theory.
+The finite classification, the Luttinger-liquid result, and the macroscopic
+gravity theorem are distinct results with different premises. The macroscopic
+theorem is inferred neither from extrapolating the finite calculations through
+`L = 12` to an infinite system nor from the finite ARGER Gate classification.
+It follows conditionally from the adopted Record-Geometry Realization Law and
+the five working-theory-closure hypotheses.
 
-The principal release conclusion is finite and precise. The authenticated
-`A009--A016` domain has exact bounded record membership at `L=4`, `L=6`, `L=8`,
-`L=10`, and `L=12`; its deduplicated mass exceeds `0.50` at every authenticated
-size; and all 13 unique selected `(L,q)` rows have strictly positive finite probe
-visibility. Under the adopted, project-native finite ARGER Gate, those facts
-establish the finite Gravity Formation Theory `z=1` classification. Here, finite
-identifies the exact authenticated theorem domain and the complete declared
-classification. A separate analytic theorem conditionally establishes the
-standard thermodynamic dynamical exponent `z=1` under its named same-model
-Luttinger-liquid premise (LL-P).
+The deposited release includes the governing theorems, authenticated numerical
+evidence, executable validators, premise and scope ledgers, and cryptographic
+manifests. These materials allow independent examination of the finite results,
+their supporting calculations, and the assumptions used in the conditional
+gravity theorem.
 
 **Execution Architecture: An Intelition Project**
 
-Universal Network Theory was architected and executed by one human directing a unified ensemble of frontier artificial intelligence (AI) models. The exact mathematical theorems, simulation code, and structural prose indexed in this deposited release were compiled through continuous, active integration with ChatGPT 5.6 Sol Ultra, Gemini Extended, Claude Opus 5 Ultra, and Grok 4.6.
+Universal Network Theory was architected and executed by one human directing a unified ensemble of frontier artificial intelligence (AI) models. The exact mathematical theorems, simulation code, and structural prose indexed in this deposited release were compiled through continuous, active integration with ChatGPT 5.6 Sol, Gemini Extended, Claude Opus 5, and Grok 4.6.
 
 This project is formally governed as an [Intelition Project](https://intelition.org/)—a framework where artificial intelligence operates as an integrated structural partner. The foundational premise for this execution model was introduced in ['Intelition' changes everything: AI is no longer a tool you invoke](https://venturebeat.com/technology/intelition-changes-everything-ai-is-no-longer-a-tool-you-invoke).
 
-**Terminology and notation.** Record Formation Theory (RFT) is the theory of
-how records form. **ARGER** is its ordered record-formation process:
-`ALLOW -> REQUIRE -> GATE -> ELECTROMAGNETISM (EM) -> RECORD`. **GATE** is the single Gate stage
-inside that process. Gravity Formation Theory (GFT) states what follows when
-an eligible record structure satisfies the Gate.
+**Terminology and notation.** Record Formation Theory (RFT) characterizes
+discrete causal record structures and proves their declared coverage properties
+inside its adopted axiom system. **ARGER** is UNT's ordered record-formation
+dependency sequence:
+`ALLOW -> REQUIRE -> GATE -> ELECTROMAGNETISM (EM) -> RECORD`. **GATE** is the
+single Gate stage inside that sequence. Gravity Formation Theory (GFT) contains
+the adopted finite Gate classification and the separately premised conditional
+macroscopic-response theorem.
 
-In the finite relational family, `L` defines the even size and structural
-topological limit of a local network volume: `L` active cells, `2L` carrier
-sites, `3L` transport edges, and `L` fresh admissions before revisit. The
-symbol `n` measures the depth of the executed event sequence, while `q` tracks
-the specific sector of retained causal lineage. The 13 selected `(L,q)` rows
-span five separately constructed finite domains.
+In the finite relational family, `L` is the even finite parent size and one-pass
+horizon: `L` active cells, `2L` carrier sites, `3L` transport edges, and `L`
+fresh admissions before revisit. The symbol `n` measures the depth of the
+executed event sequence, while `q` tracks the specific sector of retained causal
+lineage. The 13 selected `(L,q)` rows span five separately constructed finite
+domains.
 
 Notation and identifiers depend strictly on their domain. `C-<number>` and
 `T-<number>` denote canonical Claims and verification Tasks within the project
@@ -203,6 +247,17 @@ For a compact review, read these in order:
 13. [`ALPHA_PROGRAM_PROVENANCE_2026-09-15.md`](alpha/ALPHA_PROGRAM_PROVENANCE_2026-09-15.md)
    for the alpha result and its historical route.
 14. The finite relational-accumulation chain in section 7 below.
+15. The owner-once joint lineage--carrier result in section 7.3 and its
+    [compact recognition record](evidence/owner_once_joint_lineage_carrier/OWNER_ONCE_JOINT_LINEAGE_CARRIER_L10_L12_RESULT.json)
+    — the finite nonzero association, disclosed release-skew deviation, and
+    failed signed no-decline criterion.
+16. The `L = 8` formation-order Ollivier--Ricci controlled null in section 7.4
+    and its [compact recognition record](evidence/l8_lineage_order_ollivier_ricci/L8_LINEAGE_ORDER_OLLIVIER_RICCI_RESULT.json)
+    — the exact permutation result and its path-only curvature ceiling.
+17. The `L = 4` autonomous lineage-sensitive continuation in section 7.5 and
+    its [compact recognition record](evidence/l4_autonomous_lineage_sensitive_continuation/L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT.json)
+    — the Target result, independent reconstruction, and single-checkpoint
+    mechanism ceiling.
 
 [`PROOF_V002.md`](proof_catalogue/PROOF_V002.md) and the generated ledgers
 provide detailed claim-to-model narration. The later controlling theorem,
@@ -227,10 +282,13 @@ administration are documented separately.
 | Universal Network Theory closure | RFT coverage, the domain alpha requirement, finite GFT `z=1`, record-conditioned geometry, and the conditional Einstein response form one type-preserving master theorem. | Exact proof by composition inside the declared working system; each component retains its own stated premises and proof type | `UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md` and `universal_network_theory_certificate` |
 | RFT bounded result — `L = 4` intrinsic admission | For the declared finite `L = 4` one-pass domain and trace, occupied-target admission components are exact null transitions, all four signed retained uptakes are nonnegative, and content, bandwidth, lineage, and owner-once transport accounting close within the declared guards. | Exact finite theorem with authenticated target, separate reconstruction, and hostile checks | `L = 4` intrinsic-admission result and final hostile audit |
 | The Record Laws | Lifetime, steady value, and surviving-record count follow from the declared record dynamics and carrier-derived durability width. | Exact formal theorem family within the declared model | Lifetime, steady-value, census, and count-width surfaces |
-| Alpha `ALLOW`/`REQUIRE` | The active-EM construction has the proved `ALLOW` interval, and the established domain imposes its alpha and renormalization-group (RG) trajectory as same-sector `REQUIRE` data. | Exact construction theorem plus exact conditional inheritance theorem | `alpha_role_certificate` and the alpha theorem/audit family |
+| Alpha `ALLOW`/`REQUIRE` | The active-EM construction has the proved `ALLOW` interval. For an `ACTVIS` record with independently established governing compact-`U(1)` ancestry satisfying `SAI1`--`SAI8`, the domain imposes its alpha and renormalization-group (RG) trajectory as same-sector `REQUIRE` data. | Exact construction theorem plus exact conditional inheritance theorem | `alpha_role_certificate` and the alpha theorem/audit family |
 | Finite Gravity Formation | Exact bounded membership, authenticated majority mass, and authenticated positive visibility across the complete `L = 4` through `L = 12` domain satisfy the adopted ARGER Gate and establish the finite GFT `z=1` classification. | Exact bounded-membership theorem, authenticated finite evidence, and adopted Gate classification | Finite ARGER Gate certificate |
-| Conditional infrared response | Qualified record formation implies the declared leading Einstein response under the adopted Record--Geometry Realization Law (RGRL) and the five working-theory-closure hypotheses (`WTC-H1` through `WTC-H5`). | Exact conditional theorem | Gravity Formation certificate |
+| Conditional infrared response | Under the adopted Record--Geometry Realization Law (RGRL) and the five working-theory-closure hypotheses (`WTC-H1` through `WTC-H5`), qualified retained record lineage has the declared leading Einstein response. | Exact conditional theorem | Gravity Formation certificate |
 | Finite relational accumulation | The exact `L = 12` agreement, exact `L = 4` through `L = 12` majority block, and positive visibility across all 13 selected `(L,q)` rows supply the exact and certified premises consumed by the ARGER Gate. | Exact and numerically authenticated finite result | `relational_accumulation_certificate` |
+| Finite joint lineage--carrier association | Independently implemented Target and Hostile branches agree on a nonzero centered conditional-covariance witness at `L = 10` and `L = 12`; the raw two-sided diagnostic is `T_10:12 = 32365.88485223031`. | Authenticated finite numerical association with a disclosed release-timing deviation; the signed no-decline criterion fails | Owner-once joint-witness raw outputs and compact recognition record |
+| L8 formation-order Ollivier--Ricci controlled null | On the frozen `L = 8` formation-order path, `rho = 0.1543033499620919` and exact one-sided `p_plus = 0.3619047619047619` over `40320` permutations give no resolved positive curvature--record association. | Authenticated controlled-null finite diagnostic on one schedule-derived path | Sealed L8 result, freeze, protocol, and compact recognition record; bulk replay arrays excluded |
+| L4 autonomous lineage-sensitive continuation | At one fixed `L = 4` checkpoint, removing the joint lineage--carrier association while preserving sector marginals changes the subsequent carrier continuation: independent `Delta_C = 0.14761185701903007` and occupation RMS `0.006009875541368592`. | Authenticated finite mechanism result with independent warning-audited reconstruction | Target result, independent audit result, and compact recognition record |
 | Foundational record closure | Universal Coverage-U follows inside the adopted U-DCL physical axiom system. | Exact conditional theorem | `udcl_postulate_certificate` and AURFT theorem/audit |
 
 The wider canonical program map remains in [`ledger/claims.tsv`](urm/ledger/claims.tsv)
@@ -251,6 +309,9 @@ states whose release custody is reported in section 11.
 | The complete record block has strictly positive authenticated probe visibility in all 13 unique `(L,q)` sectors; the minimum observed `R_low` is `0.4280947078156539` and the minimum lowest-pole weight is `0.5`. | Numerically certified finite block evidence | [`DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001/README.md`](DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001/README.md) | Hash-pinned read-only extractor, separately implemented Target/Blind L10--L12 reconstruction, and the packet's internal hostile audits |
 | UNT applies its finite `z=1` ARGER Gate to exact bounded domain membership, majority mass, and positive finite probe visibility across the complete domain. | Completed Gate classification from proved and certified premises under the explicitly adopted ARGER Gate definition | [`ARGER_GATE_ADOPTION_2026-09-16.md`](ARGER_GATE_ADOPTION_2026-09-16.md) | Exact theorem/audit and pure Hamiltonian/probe packet |
 | Under the explicitly pinned same-model Luttinger-liquid premise (LL-P), the exact ladder Hamiltonian has dynamical exponent `z=1` throughout the full density interval represented by the block. | Exact conditional physical theorem | [Conditional same-model dynamical-`z=1` theorem](DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001/CONDITIONAL_Z1_BRIDGE_THEOREM.md) | Primary, premise, internal-route, sum-rule, and final-boundary reviews in the same packet |
+| The owner-once terminal state has a nonzero centered joint lineage--carrier conditional-covariance witness at exact finite sizes `L = 10` and `L = 12`; Target and Hostile values agree within `2e-17`. | Authenticated finite numerical result with disclosed procedural timing deviation | [Compact recognition record](evidence/owner_once_joint_lineage_carrier/OWNER_ONCE_JOINT_LINEAGE_CARRIER_L10_L12_RESULT.json) | [Target raw result](evidence/owner_once_joint_lineage_carrier/target/TARGET_HELDOUT_WITNESS_RESULT_V001.json), [Hostile raw result](evidence/owner_once_joint_lineage_carrier/hostile/HOSTILE_HELDOUT_WITNESS_RESULT_V001.json), and extracted-capsule authentication; signed persistence fails and no strict-protocol label is claimed |
+| On the frozen `L = 8` lineage formation-order path, Ollivier--Ricci curvature has no resolved positive association with record concentration. | Authenticated controlled-null finite diagnostic on one schedule-derived path | [Compact recognition record](evidence/l8_lineage_order_ollivier_ricci/L8_LINEAGE_ORDER_OLLIVIER_RICCI_RESULT.json) | [Sealed result](evidence/l8_lineage_order_ollivier_ricci/RESULT.json), freeze, protocol, and extracted-capsule authentication; this is not spacetime curvature or a geometry/gravity result |
+| At one fixed `L = 4` checkpoint, the frozen autonomous revisit rule converts a lineage intervention into a resolved subsequent carrier difference. | Authenticated finite mechanism result at one fixed checkpoint | [Compact recognition record](evidence/l4_autonomous_lineage_sensitive_continuation/L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT.json) | [Target result](evidence/l4_autonomous_lineage_sensitive_continuation/target/L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT_V001.json), [independent audit result](evidence/l4_autonomous_lineage_sensitive_continuation/audit/INDEPENDENT_RESULT.json), and extracted-capsule authentication; no scaling or gravity claim follows |
 
 ## 4. Gravity Formation Theory
 
@@ -259,7 +320,8 @@ The controlling UNT composition is
 It joins the completed RFT and GFT results while preserving their independently
 declared domains, premises, and proof types.
 
-The controlled working-theory sequence is:
+The separately premised infrared-response theorem has the following conditional
+sequence under RGRL and `WTC-H1` through `WTC-H5`:
 
 ```text
 qualified record formation
@@ -274,10 +336,9 @@ layers. The **formation layer** applies the finite ARGER Gate at the single
 `GATE` step. Exact bounded record membership, majority block mass, and positive
 finite probe visibility across the authenticated `L = 4` through `L = 12`
 domain establish the finite GFT `z=1` classification. The L4--L12 proof is a
-strictly microscopic finite-record calculation that establishes the
-foundation for macroscopic implications. The **infrared response layer**
-derives the declared continuum metric response under its additional named
-physical premises.
+strictly microscopic finite-record calculation. The **infrared response layer**
+derives the declared continuum metric response under its own additional named
+physical premises; the finite classification does not establish those premises.
 
 The authoritative infrared-response theorem is
 [`GFT-RF-WORKING-CLOSURE-V001`](gravity/GRAVITY_RECORD_FIRST_WORKING_THEORY_CLOSURE_V001.md),
@@ -331,14 +392,15 @@ zero-input interfaces:
 
 The URM also carries definitions, descriptive role metadata, historical
 custody, and active research interfaces. The table above identifies its
-proof-bearing surfaces. For every record, the exact alpha value is strictly
-REQUIRED.
+proof-bearing surfaces. For every `ACTVIS` record with independently established
+ancestry to the governing compact-`U(1)` domain and satisfying `SAI1`--`SAI8`,
+that domain's aligned alpha and RG trajectory are strictly `REQUIRE` data.
 
 The authenticated relational dependency closure contains 68 files and
-`164000842` bytes. The release-specific executable surface replaces only its
+`164003971` bytes. The release-specific executable surface replaces only its
 two path-bearing L08/L10 cache manifests and the manifest-authentication module
 with authenticated public projections, retains the byte-exact original model
-source beside the adapter, and has a public census of 68 files and `163810488`
+source beside the adapter, and has a public census of 68 files and `163813617`
 bytes. It produces `RELATIONAL_ACCUMULATION_GATE: PASS (176 checks)`. The
 historical Alpha URM integration run passed `122/122`. Its complete
 aggregate-runner dependency is retained only in the development history and is
@@ -359,8 +421,9 @@ separates `ALLOW` and `REQUIRE`:
 - **`REQUIRE`:** conditional on independently established ancestry to a
   governing domain satisfying SAI1--SAI8, every coefficient-preserving
   same-sector record inherits that domain's aligned base coupling and RG
-  trajectory. This measured value acts as the governing structural metric: a
-  different alpha defines a different domain structure. Separately, the
+  trajectory. The measured value is the governing base coupling for that
+  domain; an inequivalent aligned alpha cannot be assigned independently to an
+  SAI-scoped same-domain record. Separately, the
   nominated active-EM cavity write loses its
   photon-record contrast at `alpha = 0`.
 
@@ -371,7 +434,8 @@ realized-domain statement the exact quantifier
 ACTVIS(r,W) => REQUIRE_W^sameU1(r, alpha_W(chi)).
 ```
 
-For the domain, `alpha_W = alpha_obs`. The exact
+For the empirically anchored actual visible domain at `chi0`,
+`alpha_W(chi0) = alpha_obs(chi0)`. The exact
 construction interval and same-sector inheritance theorem establish `ALLOW`
 and `REQUIRE` for the declared finite-record packet. The cavity `0.50`
 quantity is a read contrast; the ARGER majority quantity is the separately
@@ -514,7 +578,133 @@ cryptographic custody. A full reconstruction requires the separately rebuilt
 audited workspace described by the deposited method; it is outside the compact
 capsule-executable surface.
 
-### 7.3 The governing finite ARGER Gate
+### 7.3 Owner-once joint lineage--carrier witness
+
+The owner-once joint witness asks a different question from the strict
+common-lineage support and complete block mass. At the terminal checkpoint
+after the final first-pass transport and before revisit, it measures the
+site-averaged, charge-sector-centered conditional covariance between the
+lineage register and carrier occupation. Its sector-matched sham preserves the
+separate within-sector lineage and carrier marginals while removing their joint
+association.
+
+The exact finite Target and independently implemented Hostile branches report:
+
+| L | Target `D_L` | Hostile `D_L` | absolute difference | Target ratio `abs(D_L)/tau_L` |
+|---:|---:|---:|---:|---:|
+| 10 | `-0.0003118488593728413` | `-0.00031184885937283205` | `9.269928574751063e-18` | `311848.8593728413` |
+| 12 | `-0.00003236588485223031` | `-0.000032365884852249583` | `1.927169361592984e-17` | `32365.88485223031` |
+
+The frozen scale rule gives:
+
+| L | sector-capacity bound `B_L` | Target `eta_L = D_L/B_L` | absolute capacity percentage |
+|---:|---:|---:|---:|
+| 10 | `0.22714282661304128` | `-0.0013729196912042685` | about `0.137%` |
+| 12 | `0.23119534505251413` | `-0.0001399936700493631` | about `0.0140%` |
+
+This normalization distinguishes numerical resolution from effect size; it is
+not an additional pass/fail condition.
+
+All branch-internal numerical and control conditions pass. The frozen tolerance
+is `tau_L = 1e-9` at both sizes, so the raw two-sided diagnostic is
+`T_10:12 = 32365.88485223031 > 1`. The numerical evidence therefore supports a
+nonzero finite lineage--carrier association through `L = 12` under this
+observable.
+
+The execution also has a disclosed procedural deviation. The selected
+concurrent schedule required a maximum 60-second branch-release skew. The
+Target branch launched at `2026-09-23T14:45:33Z` and the Hostile branch at
+`2026-09-23T17:44:41Z`, a 10,748-second skew. The Hostile atomic output appeared
+at `2026-09-25T04:36:49Z`; the Target atomic output appeared at
+`2026-09-25T16:13:29Z`. Neither final value existed at either branch launch,
+Target was already executing before Hostile launched, and the Hostile output
+was not opened before Target completed. The release therefore recognizes the
+deterministic numerical agreement while declining the pristine
+strict-preregistered-protocol label.
+
+The separately frozen signed no-decline prediction does not pass. It required
+both conservative held-out values to remain at or above
+`f = D_8 = 0.001963064475535806`. Instead, the held-out witness changes sign,
+and its magnitude falls from about `3.12e-4` at `L = 10` to about `3.24e-5` at
+`L = 12`. Thus the result establishes neither a positive persistent witness nor
+an all-`L` limit. It does not promote the ARGER Gate, the separately conditional
+`z_dyn = 1` theorem, RGRL/WTC response, alpha, geometry, or gravity.
+
+The capsule carries the
+[compact recognition record](evidence/owner_once_joint_lineage_carrier/OWNER_ONCE_JOINT_LINEAGE_CARRIER_L10_L12_RESULT.json),
+the [Target raw result](evidence/owner_once_joint_lineage_carrier/target/TARGET_HELDOUT_WITNESS_RESULT_V001.json),
+the [Hostile raw result](evidence/owner_once_joint_lineage_carrier/hostile/HOSTILE_HELDOUT_WITNESS_RESULT_V001.json),
+the frozen execution protocol, and the pre-unblinding signed-persistence
+records. The extracted-capsule verifier authenticates their exact hashes and
+values. Recomputing the multi-hour branches from bulk arrays is outside the
+compact capsule-executable surface.
+
+### 7.4 L8 formation-order Ollivier--Ricci controlled null
+
+The frozen `L = 8` diagnostic constructs one weighted lineage graph from the
+formation order in the stored schedule and evaluates Ollivier--Ricci curvature
+on its path edges. Its preregistered positive prediction asks whether edge
+curvature is positively associated with record concentration on that one
+schedule-derived path. The exact result is:
+
+| quantity | value |
+|---|---:|
+| observed Spearman statistic `rho` | `0.1543033499620919` |
+| exact one-sided `p_plus` | `0.3619047619047619` |
+| exact permutations | `40320` |
+| positive prediction | `false` |
+
+The recognized classification is
+`NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8`. This is an
+informative controlled null: the frozen graph observable did not resolve the
+predicted positive association. It does not convert a null into a positive
+claim and does not erase other record results. The graph is a
+formation-order diagnostic, not a spacetime geometry; its Ollivier--Ricci
+values are not spacetime curvature and supply no geometry or gravity
+promotion.
+
+The capsule carries the
+[compact recognition record](evidence/l8_lineage_order_ollivier_ricci/L8_LINEAGE_ORDER_OLLIVIER_RICCI_RESULT.json),
+the [sealed result](evidence/l8_lineage_order_ollivier_ricci/RESULT.json), the
+freeze, protocol, and checksum manifest. The extracted-capsule verifier
+authenticates those exact records. The bulk raw `L = 8` replay arrays remain
+outside the compact release; the capsule therefore authenticates this
+completed result rather than rerunning its bulk construction.
+
+### 7.5 L4 autonomous lineage-sensitive continuation
+
+The autonomous continuation asks whether lineage affects what happens next,
+rather than merely remaining correlated with the carrier state at a terminal
+checkpoint. At one fixed `L = 4` checkpoint, the frozen intervention replaces
+each sector's joint lineage--carrier state by its sector-matched product state,
+preserving the sector weights and separate marginals, and then applies the
+same frozen lineage-sensitive revisit and transport rule to both states.
+
+The independently implemented audit reports:
+
+| quantity | independent-audit value |
+|---|---:|
+| carrier trace-distance response `Delta_C` | `0.14761185701903007` |
+| occupation-profile RMS difference | `0.006009875541368592` |
+| captured warnings | `0` |
+| maximum Target/audit observable difference | `1.1102230246251565e-16` |
+
+These values establish a resolved lineage-sensitive carrier continuation for
+this one frozen `L = 4` mechanism. This is the mechanism result the finite
+experiment directly supports: removing joint lineage information while
+holding the declared marginals fixed changes the subsequent carrier
+continuation. No additional threshold is imposed on that completed result.
+
+Its ceiling is equally explicit. One `L = 4` continuation establishes neither
+size scaling nor a curvature law. It does not establish spacetime geometry,
+RGRL/WTC, alpha, or gravity. The capsule carries the
+[compact recognition record](evidence/l4_autonomous_lineage_sensitive_continuation/L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT.json),
+[Target result](evidence/l4_autonomous_lineage_sensitive_continuation/target/L4_AUTONOMOUS_LINEAGE_SENSITIVE_CONTINUATION_RESULT_V001.json),
+[independent audit result](evidence/l4_autonomous_lineage_sensitive_continuation/audit/INDEPENDENT_RESULT.json),
+freeze, protocol, and audit checksum manifest. The extracted-capsule verifier
+authenticates their exact hashes and values.
+
+### 7.6 The governing finite ARGER Gate
 
 The governing Gate evaluates the declared record block as one indivisible
 typed classification object while retaining every constituent sector in the
@@ -653,6 +843,9 @@ conditional response form has been established.
 | Record-conditioned geometry | Causal-order reconstruction of conformal and spacetime structure invoked by the RGRL structural theorem | [33], [34] |
 | Conditional macroscopic response | Four-dimensional local metric-response classification and the observed-`G` calibration applied after the response form is fixed | [35], [38] |
 | Finite relational accumulation | Repository-native finite Gate; the finite spectral analysis uses standard nonnegative-matrix and eigenvalue bounds, and the conditional dynamical theorem uses the two same-model ladder studies | [12]--[14], [36], [37] |
+| Finite joint lineage--carrier association | Repository-native finite numerical result; no external premise is used to obtain the two branch values | — |
+| L8 formation-order Ollivier--Ricci controlled null | Repository-native finite diagnostic; Ollivier--Ricci curvature is used as a named graph observable, not imported as a spacetime-curvature premise | — |
+| L4 autonomous lineage-sensitive continuation | Repository-native finite mechanism result with independent reconstruction; no external premise is used to obtain the Target or audit values | — |
 | Foundational record closure | Conditional on the explicitly adopted repository U-DCL axiom | — |
 | Universal Network Theory closure | Exact composition of the listed repository results; no additional external premise | — |
 
@@ -816,18 +1009,13 @@ papers and the JEDEC retention standard in references [17]--[19].
 
 ## 11. Release and citation state
 
-The scientific proof package is reconciled and ready for review. The GitHub
-update and Zenodo deposit await publication. **URM Integration and
-Reproduction** tracks release custody. Publication follows the final
-human-authenticated reconciliation. URM, generated-ledger, and ARGER Gate
-synchronization is complete locally. Final release actions are:
-
-- a final post-reconciliation consistency freeze;
-- the clean extracted-capsule reproduction record;
-- originating Git commit and tag recorded as historical provenance;
-- license, author and Open Researcher and Contributor ID (ORCID), version,
-  date, and digital object identifier (DOI) metadata; and
-- final review of the explicit capsule allowlist.
+The scientific proof package is reconciled as the `v1.0.2` publication source
+identified at the beginning of this index. Its concept DOI is
+`10.5281/zenodo.22859376`. Version-specific publication date and DOI, originating
+Git commit and tag, licenses, author and Open Researcher and Contributor ID
+(ORCID), and the explicit capsule allowlist are release-custody metadata. The
+generated release values and Zenodo record, rather than this local source tree,
+control their final published values.
 
 Release custody and scientific proof status are independent classifications.
 **capsule executable** means the archive carries the exact command, data, and dependency closure;
@@ -844,4 +1032,7 @@ the canonical released executable surface.
 | Finite GFT `z=1` classification under the ARGER Gate | Capsule executable | Exact block theorem, finite evidence, and Gate validator are carried in the focused archive. |
 | Conditional infrared response | Capsule documentary / historical execution record | Governing theorem and its internal hostile/self-consistency review are included; the broader validator stack is outside the canonical released executable surface. |
 | Finite relational accumulation | Capsule executable for the governing block result; mixed for the secondary strict-lineage diagnostic | The archive carries the exact `L = 4` through `L = 12` theorem/audit, block-mass and visibility evidence, and bounded validators. It reproduces the `L = 8` and `L = 10` strict-lineage values and authenticates the full-workflow `L = 12` result and custody. The 13.49-GB minimum `L = 12` reconstruction inputs remain in the approximately 59-GB audited workspace. |
+| Finite joint lineage--carrier association | Capsule authentication / repository computation | The archive carries both raw branch outputs, the frozen protocol and secondary-analysis records, and a compact recognition record. It authenticates exact values, branch agreement, the 10,748-second procedural release-skew deviation, and failure of the signed no-decline criterion. Bulk branch-reconstruction arrays are not duplicated. |
+| L8 formation-order Ollivier--Ricci controlled null | Capsule authentication / repository computation | The archive carries the compact recognition record, sealed result, freeze, protocol, and checksum manifest. It authenticates `rho`, exact `p_plus`, permutation count, and the controlled-null classification. Bulk raw `L = 8` replay arrays are excluded, and no spacetime-curvature or geometry claim is made. |
+| L4 autonomous lineage-sensitive continuation | Capsule authentication / independently audited repository computation | The archive carries the compact recognition record, Target result, freeze, protocol, independent audit result, and audit checksum manifest. It authenticates the resolved carrier response and Target/audit agreement for one fixed `L = 4` mechanism; it makes no scaling or gravity claim. |
 | Foundational record closure | Capsule documentary / historical execution record | U-DCL adoption and the conditional AURFT theorem/audit are included. The omitted aggregate verifier is retained only in the development history. |

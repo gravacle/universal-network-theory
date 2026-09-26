@@ -10,14 +10,19 @@ Status: `CANONICAL_TERMINOLOGY__ARGER_GATE_ADOPTED__PROOF_LEVELS_EXPLICIT`
 through two distinct but joined mechanisms:
 
 1. **Record Formation Theory (RFT)** is the microscopic construction. It
-   defines and builds discrete causal record structures, their admissible
-   transitions, retained ancestry, and finite observability.
+   characterizes discrete causal record structures, their admissible
+   transitions, retained ancestry, and finite observability. Its exact Axiomatic
+   Universal Record Formation Theory (AURFT) theorem proves Coverage-U for
+   independently fixed actual records inside the adopted Universal
+   Directed-Composition Law (U-DCL); the parent physical dynamics supplies the
+   admissible actual record to which that theorem applies.
 2. **Gravity Formation Theory (GFT)** is UNT's gravity-formation and response
    mechanism. Its finite formation layer asks when a qualified discrete record
-   structure satisfies the declared physical Gate for the emergence of
-   gravity. Its separately typed response layer states the macroscopic
-   gravitational consequences that flow from a Gate-qualified structure
-   through the theory's explicit physical premises.
+   structure satisfies the adopted project-native finite ARGER Gate. Its
+   separately typed response layer states the conditional macroscopic
+   gravitational response under the adopted Record--Geometry Realization Law
+   (RGRL) and working-theory-closure hypotheses `WTC-H1` through `WTC-H5`.
+   Passing the finite Gate does not establish those additional premises.
 
 In the finite relational family, `L` is the even size and one-pass horizon of
 an independently constructed owner-once periodic-prism domain: `L` active
@@ -25,11 +30,10 @@ cells, `2L` carrier sites, `3L` transport edges, and `L` fresh admissions
 before revisit. It is distinct from event-prefix depth `n` and sector rank
 `q`. The authenticated `L = 4` through `L = 12` result is a finite small-system
 theorem and computation; it is not itself a macroscopic construction. Its
-macroscopic significance is downstream: it supplies the proved finite
-antecedent of GFT, whose separately typed response theorem carries that result
-into the emergence-and-response conclusion under its stated premises. Thus GFT concerns
-the macroscopic emergence of gravity without relabeling the finite proof
-object as macroscopic.
+macroscopic significance is that it supplies GFT's authenticated microscopic
+classification. The conditional response theorem is a separate result under
+its own explicit premises. GFT contains both layers without turning either
+one into proof of the other's premises.
 
 The **Universal Record Model (URM)** is the executable integration and custody
 surface for UNT. It is not a third theory and does not create scientific
@@ -42,9 +46,9 @@ architecture document controls terminology and layer ownership; the closure
 theorem controls the exact type-preserving composition of the completed RFT
 and GFT results.
 
-## 2. The ARGER record-formation process
+## 2. The ARGER record-formation sequence
 
-ARGER is the central typed process by which records form:
+ARGER is UNT's central ordered record-formation dependency sequence:
 
 ```text
 ALLOW -> REQUIRE -> GATE -> EM -> RECORD
@@ -59,14 +63,15 @@ The repeated `R` is intentional: **REQUIRE** is the physical narrowing step;
 | `ALLOW` | topological capacity | identifies the admissible finite record configurations and continuation actions without selecting one realized physical sector |
 | `REQUIRE` | physical narrowing | imposes the independently warranted conditions needed for the realized sector or observable; it must not be inferred from generic recordhood alone |
 | `GATE` | phase classifier | applies one declared, versioned physical criterion to the complete mathematical object that the criterion purports to classify |
-| `EM` | physical binding/readout | supplies the declared finite observable and, when a visible compact-`U(1)` host has independently been established, its host-matched coupling data |
+| `EM` | physical binding/readout | supplies the declared finite observable and, when a governing compact-`U(1)` domain has independently been established, its domain-matched coupling data |
 | `RECORD` | retained causal ancestry | is the lineage-bearing, auditable causal structure on which the previous stages act |
 
-ARGER is both a record-formation process and a dependency order; neither role
-licenses moving evidence between types. In
-particular, `ALLOW` does not imply `REQUIRE`; positive visibility does not by
-itself select a numerical coupling; and the URM does not turn a Gate
-declaration into a proved physical law.
+ARGER organizes the record-formation roles and their dependency order; that
+organization does not license moving evidence between types. In particular,
+`ALLOW` does not imply `REQUIRE`; positive visibility does not by itself select
+a numerical coupling; and the URM does not turn a Gate declaration into a
+proved physical law. The parent physical dynamics supplies the admissible actual
+record to which AURFT's coverage theorem applies.
 
 In the present finite application, exact bounded membership and majority mass
 establish the complete record block as the mathematical evaluation domain.
@@ -144,6 +149,39 @@ This proves finite probe visibility for every constituent sector of the
 record envelope and supplies the visibility input to the adopted finite ARGER
 Gate. It does not by itself prove an asymptotic dynamical exponent.
 
+### 4.1 Separately typed joint lineage--carrier evidence
+
+The owner-once engine also carries a different exact observable: a centered
+within-sector covariance between the retained lineage register and carrier
+occupancy after the first-pass schedule. Independent Target and Hostile
+implementations reproduce
+
+```text
+D_10 = -0.00031184885937284
+D_12 = -0.00003236588485224
+T_10:12 = 32365.88485223031.
+```
+
+This is finite evidence of nonzero **two-sided** lineage--carrier association
+through `L = 12`. It is not the strict common-lineage-support diagnostic,
+record-block mass, or finite spectral visibility, and it is not an ARGER Gate
+premise.
+
+The stronger signed positive no-decline criterion froze
+`f = D_8 = 0.001963064475535806` before unblinding and fails: the held-out
+witness reverses sign and decreases in magnitude. Therefore the result may not
+be described as positive scale-stable persistence or an all-`L` law.
+
+A `10,748 s` branch-release skew exceeded a legacy `60 s`
+anti-contamination rule. Current documentation discloses that operational
+deviation and withholds the narrow pristine strict-protocol label. It does not
+discard the deterministic independent agreement: neither final value existed
+at launch, and cross-branch value access remained closed until Target
+completion. The deviation and the scientific result are typed separately.
+
+Nothing in this witness establishes conditional dynamical `z=1`, RGRL/WTC,
+alpha, record curvature, spacetime geometry, Einstein response, or gravity.
+
 ## 5. The adopted finite ARGER Gate
 
 The project adoption decision is recorded in
@@ -181,7 +219,7 @@ Two `z=1` statements remain deliberately separate:
 
 ## 6. Alpha in ARGER
 
-For Alpha's role inside Record Formation, alpha is constitutive identity data
+For alpha's role inside Record Formation, alpha is constitutive identity data
 of a governing domain.
 
 - `ALLOW`: for the declared finite active-EM construction the exact admitted
@@ -192,7 +230,9 @@ of a governing domain.
 - `REQUIRE`: conditional on independently established ancestry to a governing
   compact-`U(1)` domain satisfying `SAI1--SAI8`, every coefficient-preserving
   same-sector record inherits that domain's measured alpha and RG trajectory.
-  A different alpha defines a different domain structure.
+  The measured alpha is that domain's aligned base coupling; an inequivalent
+  aligned alpha cannot be assigned independently to an SAI-scoped same-domain
+  record.
 - `SELECT`: governing-domain selection is a separately typed theorem class.
 
 The interval is scoped to the declared ideal finite-record construction. Its

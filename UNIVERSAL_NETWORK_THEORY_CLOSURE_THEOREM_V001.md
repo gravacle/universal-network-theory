@@ -14,20 +14,24 @@ result, or adopted physical classification.
 
 ## 1. Universal Network Theory
 
-Universal Network Theory (UNT) structurally unifies quantum-scale record
-formation and macroscopic gravity within a single computable topological
-framework. Record Formation Theory (RFT) constructs discrete causal records
-through the ordered process
+Universal Network Theory (UNT) places quantum-scale record formation and
+macroscopic gravity within a single computable topological framework. Record
+Formation Theory (RFT) characterizes discrete causal record structures and,
+inside the adopted Universal Directed-Composition Law (U-DCL), proves
+Coverage-U for whichever admissible actual record is supplied by the parent
+physical dynamics. UNT orders the relevant record-formation dependencies as
 
 ```text
 ALLOW -> REQUIRE -> GATE -> ELECTROMAGNETISM -> RECORD.
 ```
 
-Gravity Formation Theory (GFT) evaluates the qualified finite record domain at
-the Gate and states the gravitational consequences. The finite Gate
-classification is a microscopic result. Its macroscopic consequences are carried by the
-separately premised record-conditioned-geometry and gravitational-response
-theorems.
+Gravity Formation Theory (GFT) contains two independently typed results. Its
+finite layer evaluates the qualified finite record domain under the adopted
+project-native ARGER Gate; that classification is microscopic. Its separately
+premised record-conditioned-geometry and gravitational-response theorems state
+the conditional macroscopic response under the Record--Geometry Realization Law
+(RGRL) and the working-theory-closure hypotheses `WTC-H1` through `WTC-H5`.
+The finite Gate pass does not establish those additional premises.
 
 The Universal Record Model (URM) is the executable integration and custody
 surface for these results. The theorem, evidence, and audit artifacts named
@@ -110,7 +114,7 @@ ACTVIS(r,W_obs)
 ```
 
 Alpha and its renormalization-group trajectory are therefore constitutive
-identity data for every record in that typed governing domain.
+identity data for every `ACTVIS` record in that typed governing domain.
 
 ### 3.3 Exact finite record envelope
 
@@ -248,6 +252,9 @@ classification. RGRL and `WTC-H1` through `WTC-H5` carry the separately typed
 record-conditioned-geometry response theorem. This preserves each result's
 declared premises and proof status.
 
+No implication from a finite ARGER Gate pass to satisfaction of RGRL or
+`WTC-H1` through `WTC-H5` is claimed.
+
 | UNT component | Controlling result | Proof status |
 |---|---|---|
 | Universal RFT coverage | [AURFT Closure Theorem](LANE_RFT_AXIOMATIC_URFT_CLOSURE_V001/THEOREM.md) | Exact theorem inside adopted U-DCL |
@@ -286,6 +293,7 @@ typed composition. RFT proves universal record-formation coverage inside its
 adopted physical axiom system and, for records with independently established
 governing-domain ancestry under the same-sector inheritance premises, fixes
 alpha as the constitutive identity of the governing domain. GFT proves the
-finite `z=1` Gate classification from the complete authenticated microscopic domain and,
-through its explicit continuum premises, derives the macroscopic reciprocal
-Einstein response of record-conditioned geometry.
+finite `z=1` Gate classification from the complete authenticated microscopic
+domain. Separately, under adopted RGRL and `WTC-H1` through `WTC-H5`, GFT
+derives the conditional macroscopic reciprocal Einstein response of
+record-conditioned geometry.

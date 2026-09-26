@@ -58,6 +58,12 @@ Layers, each resting on registered rows:
                                                                              .gravity_microscopic_progress_certificate
   RELATIONAL   adopted finite ARGER formation Gate; closed L14 seam       -> .relational_accumulation,
                                                                              .relational_accumulation_certificate
+  JOINT WITNESS independently reproduced finite L10/L12 association;       -> .owner_once_joint_witness,
+               signed persistence failure; non-load-bearing diagnostic       .owner_once_joint_witness_certificate
+  CURVATURE NULL frozen L8 formation-order Ollivier--Ricci test;           -> .lineage_order_curvature,
+               no resolved association; non-load-bearing diagnostic          .lineage_order_curvature_certificate
+  L4 CONTINUE  independently reproduced fixed revisit continuation;        -> .owner_once_autonomous_continuation,
+               finite mechanism only; non-load-bearing diagnostic             .owner_once_autonomous_continuation_certificate
   UNT          top-level typed composition with all proof types retained   -> .universal_network_theory,
                                                                              .universal_network_theory_certificate
 
@@ -1064,6 +1070,67 @@ class URM(ProjectModel):
         from relational_accumulation import relational_accumulation_certificate
 
         return relational_accumulation_certificate()
+
+    @staticmethod
+    def owner_once_joint_witness():
+        """Expose the recognized finite L10/L12 association as a separate diagnostic.
+
+        The diagnostic records the disclosed launch-skew deviation and the failed
+        signed persistence prediction.  It is deliberately non-load-bearing for the
+        finite Gate, dynamical z=1, RGRL/WTC, alpha, geometry, and gravity surfaces.
+        """
+        from owner_once_joint_witness import owner_once_joint_witness
+
+        return owner_once_joint_witness()
+
+    @staticmethod
+    def owner_once_joint_witness_certificate():
+        """Return the hash-pinned diagnostic certificate without promoting its result."""
+        from owner_once_joint_witness import owner_once_joint_witness_certificate
+
+        return owner_once_joint_witness_certificate()
+
+    @staticmethod
+    def lineage_order_curvature():
+        """Expose the frozen L8 formation-order curvature null as a diagnostic.
+
+        The schedule-derived path shows no resolved record-concentration
+        association at the registered sensitivity.  The result is deliberately
+        non-load-bearing and is not emergent space, geometry, or gravity.
+        """
+        from lineage_order_curvature import lineage_order_curvature
+
+        return lineage_order_curvature()
+
+    @staticmethod
+    def lineage_order_curvature_certificate():
+        """Return the hash-pinned controlled-null certificate."""
+        from lineage_order_curvature import lineage_order_curvature_certificate
+
+        return lineage_order_curvature_certificate()
+
+    @staticmethod
+    def owner_once_autonomous_continuation():
+        """Expose the independently reproduced fixed L4 revisit mechanism.
+
+        The result compares a joint lineage--carrier checkpoint with its
+        same-sector product comparator under one common, fixed continuation.
+        It is non-load-bearing and supplies no size, curvature, or gravity claim.
+        """
+        from owner_once_autonomous_continuation import (
+            owner_once_autonomous_continuation,
+        )
+
+        return owner_once_autonomous_continuation()
+
+    @staticmethod
+    def owner_once_autonomous_continuation_certificate():
+        """Return the hash-pinned finite-mechanism certificate."""
+        from owner_once_autonomous_continuation import (
+            owner_once_autonomous_continuation_certificate,
+        )
+
+        return owner_once_autonomous_continuation_certificate()
 
     @staticmethod
     def universal_network_theory():

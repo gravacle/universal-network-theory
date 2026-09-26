@@ -517,7 +517,7 @@ class ActualCapsuleIntegrationTests(unittest.TestCase):
         )
         urm_spec = json.loads(urm_spec_path.read_text(encoding="utf-8"))
         self.assertEqual(urm_spec["closure_entry_count"], 68)
-        self.assertEqual(urm_spec["closure_total_bytes"], 164000842)
+        self.assertEqual(urm_spec["closure_total_bytes"], 164003971)
         self.assertEqual(
             [row["id"] for row in urm_spec["validators"]],
             ["relational_accumulation"],
@@ -607,7 +607,7 @@ class ActualCapsuleIntegrationTests(unittest.TestCase):
             )
             self.assertIn("EXTRACTED_CAPSULE_OK", completed.stdout)
             self.assertIn("core_proof_hashes=15", completed.stdout)
-            self.assertIn("completed_proof_results=8", completed.stdout)
+            self.assertIn("completed_proof_results=11", completed.stdout)
             self.assertIn("urm_status_markers=7", completed.stdout)
             self.assertIn(
                 "arger_l12_block_mass=0.56956498393327842", completed.stdout
@@ -621,11 +621,28 @@ class ActualCapsuleIntegrationTests(unittest.TestCase):
             self.assertIn("proof_portable_gates=3", completed.stdout)
             self.assertIn("proof_inventory_only=1", completed.stdout)
             self.assertIn("urm_closure_files=68", completed.stdout)
-            self.assertIn("urm_closure_bytes=163810488", completed.stdout)
+            self.assertIn("urm_closure_bytes=163813617", completed.stdout)
             self.assertIn("urm_exact_validators=1", completed.stdout)
             self.assertIn("alpha_algebraic_checks=41", completed.stdout)
             self.assertIn(
                 "strict_lineage_l12=0.11570852222694002", completed.stdout
+            )
+            self.assertIn(
+                "l8_lineage_order_curvature=NO_RESOLVED", completed.stdout
+            )
+            self.assertIn(
+                "l8_lineage_order_rho=0.1543033499620919", completed.stdout
+            )
+            self.assertIn(
+                "l8_lineage_order_p_plus=0.3619047619047619", completed.stdout
+            )
+            self.assertIn(
+                "l4_lineage_sensitive_delta=0.14761185701903007",
+                completed.stdout,
+            )
+            self.assertIn(
+                "l4_lineage_sensitive_occupation_rms=0.006009875541368592",
+                completed.stdout,
             )
             self.assertEqual(
                 [line for line in completed.stdout.splitlines() if line.startswith("L")],

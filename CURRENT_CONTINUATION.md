@@ -1412,3 +1412,102 @@ Git preparation retains the complete scientific journey through exact path
 allowlists; the Zenodo packet is the narrower deterministic reproduction and
 proof-index surface. Neither has been committed, pushed, tagged, published, or
 deposited by this preparation work.
+
+## Owner-once joint lineage--carrier witness through L12 — 2026-09-25
+
+The exact Target and independent Hostile branches have both completed. Their
+fine witness values agree at the displayed precision:
+
+| scale | reproduced `D_L` |
+|---:|---:|
+| L10 | `-0.00031184885937284` |
+| L12 | `-0.00003236588485224` |
+
+All branch-internal numerical, marginal, sham, shuffle, and row/column controls
+pass. The conservative numerical diagnostic is
+`T_10:12 = 32365.88485223031`. This recognizes exact finite computational
+evidence of a nonzero two-sided lineage--carrier association through L12.
+
+The stronger signed persistence prediction does not survive. Before the Target
+value was opened, the secondary analysis froze the floor at
+`f = D_8 = 0.001963064475535806` and required a positive no-decline result at
+both held-out sizes. The observed values reverse sign and decline sharply in
+magnitude, so that criterion fails decisively. Do not report this as
+scale-stable positive persistence, a narrow miss, an all-L result, or evidence
+for a thermodynamic limit.
+
+The branches were released `10,748 s` apart rather than within the legacy
+`60 s` administrative window. Disclose that deviation and do not use the
+“pristine strict-protocol held-out pass” label. The chronology nevertheless
+supports the scientific use of the outputs: Target was already fixed and
+running before Hostile launch; neither final value existed at either launch;
+the final Hostile output appeared only on September 24 and the final Target
+output on September 25; and the Hostile value remained unopened by the
+interpreting workflow until Target completion. The deviation supplies no
+mechanism by which one deterministic result could have been fitted to the
+other.
+
+The live policy correction is to freeze and enforce source independence and
+value-access custody directly. Arbitrary launch simultaneity is not itself a
+physics condition. Preserve the old freeze unchanged, but future protocols
+should require isolated branches, pre-release source/parameter hashes, atomic
+publication, and an explicit unblinding barrier instead of treating a short
+launch-skew proxy as scientifically dispositive.
+
+This evidence is separate from the strict common-lineage-support series and
+from the finite ARGER Gate. It promotes neither Gate `z=1`, conditional
+dynamical `z=1`, RGRL/WTC response, alpha, record curvature, geometry, nor
+gravity. The independently frozen L4 dynamical revisit/transport response
+test described below subsequently completed and is recorded separately; it
+does not retroactively change this finite static-witness boundary.
+
+## L8 formation-order curvature controlled null — 2026-09-25
+
+The cheap read-only follow-up on the completed L8 state is finished. Its graph
+was frozen independently of record concentration as the unweighted transitive
+reduction of the first owner-once formation order, `0--1--...--7`. With lazy
+Ollivier--Ricci idleness `1/2` and incident-edge-mean node curvature, the
+terminal spent-lineage observable gives
+
+```text
+rho = 0.1543033499620919
+p_plus = 14592 / 40320 = 0.3619047619047619
+```
+
+The registered positive criterion fails, and the registered opposite-sign
+criterion fails. Record the disposition exactly as
+`NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8`. This is a
+controlled null on one schedule-derived path, not a null for every possible
+lineage graph. A richer graph remains testable only if its vertices, edges,
+weights, and metric are earned prospectively from unchanged dynamics without
+reusing the record-concentration response. The current test supplies no
+emergent space, geometry, spacetime curvature, or gravity.
+
+Live custody is row `RA-10`, proof block `P-CURRENT-8`, and the separate
+non-load-bearing `lineage_order_curvature_certificate`. That controlled null
+did not prejudge the separately frozen autonomous L4 continuation.
+
+## L4 autonomous lineage-sensitive continuation — independently reproduced
+
+The separate fixed-mechanism test is now complete. At the authenticated L4
+terminal checkpoint, the retained joint state and same-sector quantum-product
+comparator agree in their complete separate carrier and lineage marginals and
+their sharp-sector weights. Both arms then receive the same frozen event-zero
+lineage-reading revisit and the same autonomous carrier transport.
+
+The target post-transport carrier trace distance is
+`Delta_C=0.14761185701902999`; the independent contraction path gives
+`0.14761185701903007`, with `tau=1e-10`,
+`T_dyn=1476118570.1903007`, zero captured warnings, initial carrier-marginal
+residual `6.938893903907228e-18`, and maximum registered
+target/independent difference `1.1102230246251565e-16`. The trace distance is
+unchanged by common carrier-only transport, which is a control rather than
+additional evidence. The fixed occupation profile is transport-sensitive and
+reaches RMS `0.006009875541368592`.
+
+Record this as one finite L4 lineage-sensitive carrier mechanism. It does not
+establish the behavior at another size, persistence, scaling, curvature,
+emergent geometry, a continuum, RGRL/WTC response, alpha, Einstein dynamics,
+gravity, or numerical `G`. Live custody is row `RA-11`, proof block
+`P-CURRENT-9`, and the separate non-load-bearing
+`owner_once_autonomous_continuation_certificate`.

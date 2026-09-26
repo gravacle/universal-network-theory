@@ -37,7 +37,7 @@ DISPOSITION = (
 )
 
 THEOREM_PATH = "UNIVERSAL_NETWORK_THEORY_CLOSURE_THEOREM_V001.md"
-THEOREM_SHA256 = "efc31a92968a30788e64a43395b712942abd9f531c3b77014736bc89b9330308"
+THEOREM_SHA256 = "39cd16d9dfb38b0335ffae45339ec6491da5806d86c98f3cc4cb9db69824bd75"
 
 _REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
 _WTC_PREMISES = (
@@ -51,11 +51,17 @@ _THEOREM_MARKERS = (
     "# Universal Network Theory Closure Theorem",
     f"**Theorem ID:** `{THEOREM_ID}`",
     DISPOSITION,
+    "Coverage-U for whichever admissible actual record is supplied by the parent\n"
+    "physical dynamics.",
+    "every `ACTVIS` record in that typed governing domain.",
     "The finite Gate classification and the conditional thermodynamic exponent are\n"
     "two complete, separately typed results.",
     "The finite Gate classification and the infrared response theorem are independent\n"
     "completed layers of GFT.",
-    "through its explicit continuum premises",
+    "No implication from a finite ARGER Gate pass to satisfaction of RGRL or\n"
+    "`WTC-H1` through `WTC-H5` is claimed.",
+    "Separately, under adopted RGRL and `WTC-H1` through `WTC-H5`, GFT\n"
+    "derives the conditional macroscopic reciprocal Einstein response",
 )
 
 
@@ -132,6 +138,12 @@ def _verify_components() -> tuple[
         udcl_certificate["scientific_status"]["nature_obeys_UDCL"]
         == "NOT_ESTABLISHED_BY_THIS_CERTIFICATE",
         "U-DCL natural-validity ceiling changed",
+    )
+    _expect(
+        udcl_certificate["nonconsequences"]["objective_actualization"] is False
+        and udcl_certificate["nonconsequences"]["outcome_selection_or_forcing"]
+        is False,
+        "RFT/U-DCL was promoted to outcome actualization or selection",
     )
 
     _expect(alpha_certificate["schema"] == alpha.SCHEMA, "alpha schema changed")

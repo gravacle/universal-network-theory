@@ -20,7 +20,7 @@ material and must not be published.
 5. For each claim: governing theorem -> listed supporting check or audit ->
    executable validator, when its closure is included -> stated claim boundary
 
-`PUBLICATION_CLAIM_MAP.tsv` contains **15 claim records plus one header row**.
+`PUBLICATION_CLAIM_MAP.tsv` contains **18 claim records plus one header row**.
 Its `supporting_check_or_audit` column does not, by itself, assert independent
 authorship or an independent implementation. Treat a check as independent only
 when the cited artifact states and substantiates that relationship. Otherwise
@@ -78,6 +78,25 @@ Under the adopted single ARGER Gate, these premises establish the finite GFT
   `0.0244800482 -> 0.0687369678 -> 0.1157085222` is supported in the capsule by
   `evidence/STRICT_COMMON_LINEAGE_PROGRESSION_V001.json`. It is a secondary
   diagnostic, not the Gate mass and not a Gate premise.
+- The owner-once joint lineage--carrier result is another distinct finite
+  diagnostic. Target and independently implemented Hostile branches agree on
+  nonzero `D_L` values at `L = 10` and `L = 12`; the capsule authenticates both
+  raw outputs. The concurrent launch skew was 10,748 seconds rather than the
+  frozen 60-second maximum, so no pristine strict-protocol held-out-pass label
+  is claimed. The signed no-decline criterion also fails by sign reversal and
+  magnitude decline. Do not promote this result to an all-`L`, Gate, alpha,
+  geometry, or gravity claim.
+- The L8 formation-order Ollivier--Ricci result is a controlled null on one
+  schedule-derived lineage path:
+  `NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8`. The extracted
+  verifier authenticates the compact recognition record and the sealed result,
+  freeze, protocol, and manifest. The bulk raw L8 replay arrays are excluded.
+  This is not spacetime curvature and supplies no geometry or gravity result.
+- The autonomous lineage-sensitive continuation establishes one finite
+  carrier-response mechanism at one fixed L4 checkpoint. The extracted
+  verifier authenticates the compact recognition record, Target result, freeze
+  and protocol, and independent warning-audited result. It supplies no size
+  scaling, curvature, geometry, RGRL/WTC, alpha, or gravity result.
 - The capsule reruns the `L = 8` and `L = 10` strict-lineage extraction. The
   `L = 12` Target/Hostile values are authenticated outputs of the full
   repository workflow, not estimates or unexecuted constants. A 2026-09-18

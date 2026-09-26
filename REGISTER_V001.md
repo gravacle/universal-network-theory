@@ -11062,3 +11062,137 @@ contiguously.
 **PROVENANCE.** Dated, sealed, audited, and evidentiary artifacts retain their
 original bytes. This entry changes current navigation, composition, and
 publication custody only.
+
+## 2026-09-25 — L10/L12 owner-once joint lineage--carrier witness recognized
+
+**FINITE COMPUTATIONAL RESULT.** The exact Target and independently
+implemented Hostile branches reproduce the same held-out values at the common
+reported precision:
+
+```text
+L10  D_L = -0.00031184885937284
+L12  D_L = -0.00003236588485224
+T_10:12 = 32365.88485223031
+```
+
+Every branch-internal numerical and null control passes. The agreement is
+valid finite computational evidence of a nonzero **two-sided** owner-once
+lineage--carrier association through `L = 12`. It does not establish that the
+association keeps one sign, stays above a positive floor, or survives at all
+larger sizes.
+
+The live recognition authority is
+`DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_HELDOUT_RECOGNITION_V001`:
+its independent reconciliation validator passes `50/50`, its mutation and
+determinism tests pass `8/8`, and its machine-readable result carries the same
+three-way disposition used here.
+
+**FROZEN SECONDARY CRITERION.** The post-computation, pre-unblinding secondary
+freeze set the signed no-decline floor to
+`f = D_8 = 0.001963064475535806`. Both held-out values are negative and their
+magnitudes are below the floor. The signed positive no-decline criterion
+therefore fails decisively; this is neither a narrow miss nor evidence for a
+positive scale-stable limit. The result instead shows a sign reversal and a
+substantial magnitude decline across the held-out sizes. It does not by itself
+choose among decay, oscillation, or another finite-size mechanism.
+
+**DISCLOSED PROCEDURAL DEVIATION.** Target release preceded Hostile release by
+`10,748 s`, exceeding the frozen legacy `60 s` concurrent-release rule. The
+result is therefore not called a pristine strict-protocol held-out pass. The
+timing deviation is not a failure of the equations, numerical controls, or
+independent agreement. Target was launched on September 23 at `07:45:33` and
+Hostile at `10:44:41`; Hostile did not publish its final output until September
+24 at `21:36:49`, and Target did not publish its final output until September
+25 at `09:13:29`. Neither final value existed when either branch was launched,
+Target was already deterministically running before Hostile began, and the
+Hostile value remained unopened by the interpreting workflow until Target
+finished. No value-contamination path is evidenced.
+
+**LIVE PROTOCOL POLICY — NOT A RETROACTIVE FREEZE CHANGE.** The `60 s` rule was
+introduced as a conservative anti-contamination and blinding safeguard: close
+launch times make it harder to adapt one branch after learning the other's
+value. It is not a scientific premise, an equation of the model, or a
+numerical acceptance condition, and arbitrary simultaneity is not the property
+the experiment actually needs. Future protocols should directly gate the
+scientific safeguards: source and parameter freeze before release, branch
+isolation, prohibition on cross-branch value access, atomic final publication,
+and a recorded unblinding barrier. A wall-clock launch-skew limit should be
+used only when it has a separately stated operational purpose. The historical
+freeze remains unchanged.
+
+**TYPE BOUNDARY.** This result changes no sealed theorem or historical
+artifact. It is not a premise of the finite ARGER Gate and does not promote
+finite Gate `z=1`, conditional dynamical `z=1`, RGRL/WTC response, alpha,
+record curvature, geometry, spacetime, or gravity. It supplies one new exact
+finite computational fact and one falsified stronger persistence prediction.
+
+## 2026-09-25 — L8 formation-order Ollivier--Ricci test returns controlled null
+
+**FROZEN QUESTION.** Before opening any curvature or association output, the
+analysis fixed the L8 graph as the unweighted path `0--1--...--7`, the
+transitive reduction of the first owner-once formation order with direction
+forgotten for metric transport. It fixed Ollivier--Ricci idleness `1/2`,
+incident-edge-mean node curvature, terminal spent-lineage concentration,
+Spearman correlation, every one of the `8!` record-label permutations, and
+the positive criterion `rho >= 0.5` with `p_plus <= 0.05`.
+
+**RESULT.** The authenticated read-only reconstruction returns
+
+```text
+rho = 0.1543033499620919
+p_plus = 14592 / 40320 = 0.3619047619047619
+p_minus = 26496 / 40320 = 0.6571428571428571
+```
+
+Neither registered direction passes. The exact disposition is
+`NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8`. The null is a
+valid measured outcome and is retained unchanged; it is not converted into a
+validator failure.
+
+**SCOPE.** This result rejects a resolved association only on the frozen
+unweighted formation-order path at L8. It does not rule out richer lineage
+graphs whose native relation is earned prospectively from unchanged dynamics
+without reusing the record-concentration response. The path is a finite
+chronology diagnostic, not emergent space. No geometry, spacetime Ricci
+curvature, RGRL/WTC response, Einstein dynamics, gravity, or numerical `G`
+follows.
+
+**LIVE INTEGRATION.** Row `RA-10`, generated proof block `P-CURRENT-8`, and
+the non-load-bearing hash-pinned `lineage_order_curvature_certificate` expose
+the controlled null without changing the ARGER Gate or any sealed historical
+theorem. The autonomous lineage-sensitive continuation is a separate test and
+is not adjudicated by this result.
+
+## 2026-09-25 — L4 autonomous lineage-sensitive continuation recognized
+
+**FROZEN TEST.** At the authenticated L4 terminal checkpoint, the test formed
+the symmetrically sharp-sector-dephased retained joint state and a same-sector
+quantum-product comparator preserving the complete separate lineage and
+carrier marginals and each sector weight. Both arms received the same fixed
+event-zero lineage-reading revisit and the same carrier transport. The primary
+observable was the post-transport carrier trace distance.
+
+**INDEPENDENT RESULT.** The target returns
+`Delta_C=0.14761185701902999`; an independently written implementation that
+imports neither the target continuation nor the historical parent returns
+`0.14761185701903007`. With `tau=1e-10`, the independent statistic is
+`T_dyn=1476118570.1903007`. The initial carrier-marginal residual is
+`6.938893903907228e-18`, the maximum registered target/independent difference
+is `1.1102230246251565e-16`, and the independent no-`@` contraction route
+captures zero warnings. The original target warning stream is therefore not a
+premise of acceptance.
+
+**CONTROL AND DIAGNOSTIC.** Trace distance is invariant under the common
+carrier-only transport, so that invariance is a control rather than separate
+evidence. The fixed occupation profile is transport-sensitive: it is at
+roundoff immediately after admission and reaches RMS
+`0.006009875541368592` after transport.
+
+**DISPOSITION AND CEILING.** Register
+`RESOLVED_L4_LINEAGE_SENSITIVE_CARRIER_CONTINUATION` for this one fixed L4
+mechanism. It establishes neither a second size nor persistence, scaling,
+curvature, emergent geometry, a continuum, RGRL/WTC response, alpha, Einstein
+dynamics, gravity, or numerical `G`. Row `RA-11`, generated proof block
+`P-CURRENT-9`, and the non-load-bearing hash-pinned
+`owner_once_autonomous_continuation_certificate` carry the live result without
+changing the finite ARGER Gate or any sealed historical theorem.

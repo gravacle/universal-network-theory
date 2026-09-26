@@ -14,7 +14,11 @@ all four independent data/frontier contracts, the zero-input U-DCL adoption/theo
 certificate, the zero-input historywise-gravity formal discriminant, the bounded
 Gravity Formation Theory custody/ceiling gate, and the additive sealed microscopic-
 progress checkpoint pass, and the finite relational-accumulation custody/status
-gate pass, and the physical-alpha ALLOW/REQUIRE/SELECT custody gate passes.  The
+gate pass, the separately reported owner-once L10/L12 witness diagnostic
+authenticates, and the physical-alpha ALLOW/REQUIRE/SELECT custody gate passes. A
+failed signed-persistence prediction is a valid diagnostic outcome and does not
+fail the URM; the validator checks that it is reported exactly and grants it no
+Gate, RGRL/WTC, alpha, geometry, or gravity weight. The
 final Universal Network Theory gate pins the master theorem and checks the exact
 typed composition of U-DCL coverage, the governing-domain alpha requirement, finite ARGER
 classification, conditional dynamical z=1, and conditional RGRL/WTC response.
@@ -107,6 +111,9 @@ historywise_gravity_ok = True
 gravity_formation_theory_ok = True
 gravity_microscopic_progress_ok = True
 relational_accumulation_ok = True
+owner_once_joint_witness_ok = True
+lineage_order_curvature_ok = True
+owner_once_autonomous_continuation_ok = True
 alpha_role_ok = True
 universal_network_theory_ok = True
 if "--no-chain" not in sys.argv:
@@ -262,6 +269,60 @@ if "--no-chain" not in sys.argv:
     )
     print()
     print(
+        "CHAIN: validate_owner_once_joint_witness.py "
+        "(finite L10/L12 association diagnostic; signed persistence failure; non-load-bearing)"
+    )
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [sys.executable, os.path.join(HERE, "validate_owner_once_joint_witness.py")],
+        cwd=HERE,
+    )
+    owner_once_joint_witness_ok = result.returncode == 0
+    print("-" * 78)
+    print(
+        "  CHAIN validate_owner_once_joint_witness.py: "
+        + ("PASS" if owner_once_joint_witness_ok else "FAIL")
+    )
+    print()
+    print(
+        "CHAIN: validate_lineage_order_curvature.py "
+        "(frozen L8 formation-order Ollivier--Ricci controlled null; non-load-bearing)"
+    )
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [sys.executable, os.path.join(HERE, "validate_lineage_order_curvature.py")],
+        cwd=HERE,
+    )
+    lineage_order_curvature_ok = result.returncode == 0
+    print("-" * 78)
+    print(
+        "  CHAIN validate_lineage_order_curvature.py: "
+        + ("PASS" if lineage_order_curvature_ok else "FAIL")
+    )
+    print()
+    print(
+        "CHAIN: validate_owner_once_autonomous_continuation.py "
+        "(independently reproduced fixed L4 revisit mechanism; non-load-bearing)"
+    )
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [
+            sys.executable,
+            os.path.join(HERE, "validate_owner_once_autonomous_continuation.py"),
+        ],
+        cwd=HERE,
+    )
+    owner_once_autonomous_continuation_ok = result.returncode == 0
+    print("-" * 78)
+    print(
+        "  CHAIN validate_owner_once_autonomous_continuation.py: "
+        + ("PASS" if owner_once_autonomous_continuation_ok else "FAIL")
+    )
+    print()
+    print(
         "CHAIN: validate_alpha_role.py "
         "(construction ALLOW exact; governing-domain REQUIRE conditional; SELECT open)"
     )
@@ -309,6 +370,9 @@ overall = (
     and gravity_formation_theory_ok
     and gravity_microscopic_progress_ok
     and relational_accumulation_ok
+    and owner_once_joint_witness_ok
+    and lineage_order_curvature_ok
+    and owner_once_autonomous_continuation_ok
     and alpha_role_ok
     and universal_network_theory_ok
 )
@@ -330,6 +394,12 @@ print(f"  URM OVERALL: {'PASS' if overall else 'FAIL'} "
          f"{'ok' if gravity_microscopic_progress_ok else 'FAILED'}, "
          f"relational accumulation "
          f"{'ok' if relational_accumulation_ok else 'FAILED'}, "
+         f"owner-once joint witness diagnostic "
+         f"{'ok' if owner_once_joint_witness_ok else 'FAILED'}, "
+         f"lineage-order curvature diagnostic "
+         f"{'ok' if lineage_order_curvature_ok else 'FAILED'}, "
+         f"L4 autonomous continuation diagnostic "
+         f"{'ok' if owner_once_autonomous_continuation_ok else 'FAILED'}, "
          f"alpha role {'ok' if alpha_role_ok else 'FAILED'}, "
          f"Universal Network Theory closure "
          f"{'ok' if universal_network_theory_ok else 'FAILED'}")

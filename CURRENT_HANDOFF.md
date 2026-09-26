@@ -1,6 +1,6 @@
 # Current handoff
 
-> **CURRENT RELEASE-PREPARATION HANDOFF — 2026-09-16.** Resume from
+> **CURRENT RELEASE-PREPARATION HANDOFF — updated 2026-09-25.** Resume from
 > [`README.md`](README.md), [`PROOF_GUIDE.md`](PROOF_GUIDE.md), and
 > [`MODEL.md`](MODEL.md), with the governing finite Gate in
 > [`ARGER_GATE_ADOPTION_2026-09-16.md`](ARGER_GATE_ADOPTION_2026-09-16.md)
@@ -8,7 +8,7 @@
 > [`L14_RUN_DISPOSITION_2026-09-16.md`](L14_RUN_DISPOSITION_2026-09-16.md).
 > L14 is `INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`, not pending.
 
-**Date:** 2026-09-16
+**Date:** 2026-09-25
 
 **Repository:** `https://github.com/gravacle/where-atoms-come-from`
 
@@ -29,6 +29,44 @@ is intentionally uncommitted and must be curated through explicit allowlists. Do
 - The declared lower-bound diagnostic is L08 `0.0244800482`, L10 `0.0687369678`, L12
   `0.11570852222694002`; it is strictly increasing but supplies no extrapolation theorem.
 - L14 is `INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`.
+- The separate owner-once joint lineage--carrier witness is independently
+  reproduced at L10 and L12: `D_10 = -0.00031184885937284`,
+  `D_12 = -0.00003236588485224`, with diagnostic
+  `T_10:12 = 32365.88485223031` and all branch-internal controls passing.
+- That result establishes finite nonzero **two-sided** association through
+  L12. It fails the separately frozen signed positive no-decline criterion
+  `f = D_8 = 0.001963064475535806`: the sign reverses and the magnitude falls.
+- The live recognition packet is
+  `DEVELOPMENT_R_OWNER_ONCE_JOINT_LINEAGE_CARRIER_HELDOUT_RECOGNITION_V001`;
+  its reconciliation validator passes `50/50` and packet tests pass `8/8`.
+- A disclosed `10,748 s` release skew exceeded the legacy `60 s` concurrency
+  rule. This prevents the narrow “pristine strict-protocol held-out pass”
+  label but does not invalidate the isolated deterministic agreement. Neither
+  final value existed at branch launch, and the hostile result remained
+  unopened by the interpreting workflow until Target completed.
+- The prospectively frozen L8 formation-order-path Ollivier--Ricci test is a
+  controlled null: `rho=0.1543033499620919` and exact
+  `p_plus=0.3619047619047619`, so no curvature--record-concentration
+  association is resolved at the registered sensitivity. This applies only to
+  the unweighted schedule-derived path. It does not rule out richer
+  prospectively earned lineage graphs and supplies no geometry or gravity.
+- The fixed L4 autonomous continuation is independently reproduced. Starting
+  from equal separate carrier and lineage marginals, the retained joint arm
+  and same-sector product comparator produce post-continuation carrier trace
+  distance `0.14761185701903007` on the independent path, with
+  `T_dyn=1476118570.1903007`, occupation-profile RMS
+  `0.006009875541368592`, zero warnings, and target/independent maximum
+  difference `1.1102230246251565e-16`. This establishes one L4 mechanism only.
+
+## Live protocol policy
+
+The old `60 s` release limit was an anti-contamination/blinding proxy, not a
+scientific condition. Preserve the historical freeze unchanged, but do not
+repeat that design by default. Future independent calculations should gate the
+properties actually required: pre-release source/parameter freeze, isolated
+execution, no cross-branch value access, atomic final outputs, and a recorded
+unblinding barrier. Simultaneous launch is optional unless a future protocol
+states a concrete operational reason for it.
 
 ## L14 attempt history and terminal boundary
 
@@ -62,7 +100,11 @@ historical method custody only.
 2. `MODEL.md` and `model/project_model.py` expose the reconciled URM surfaces.
    The physical-alpha interval/`ALLOW`/`REQUIRE`/`SELECT` certificate passes `122/122`,
    the relational ARGER Gate certificate passes `176/176`, and the project
-   model passes `24/24`.
+   model passes `24/24`. The L8 formation-order curvature null has its own
+   non-load-bearing hash-pinned certificate and focused validator. The L4
+   autonomous continuation likewise has a separate hash-pinned,
+   non-load-bearing certificate and focused validator; it is not a new Gate or
+   gravity premise.
 3. `URM_VALIDATION_CURRENT_2026-09-16.md` records the aggregate state: every
    scientific chain passes; only two historical zero-weight replay contracts
    remain unavailable, and no replacement fixtures were invented.

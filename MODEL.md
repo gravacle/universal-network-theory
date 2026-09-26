@@ -54,6 +54,9 @@ silently use them as the public path.
 | Gravity Formation Theory | `gravity_formation_theory`, `gravity_formation_theory_certificate` | a zero-input, hash-pinned certificate for the hostile-audited record-first working-theory closure under adopted RGRL and explicit WTC hypotheses; observable pair-memory curvature capacity and source reciprocity; the narrow bare flip/recoil Ward obstruction; earlier F3/Phase-A boundaries; and audited public searches. No graviton premise is required for the Einstein--Hilbert classification. Empirical RGRL confirmation, microscopic F3 derivation of RGRL-B, strict origin of the full Einstein--Hilbert coefficient, and a parameter-free numerical \(G\) remain open. |
 | microscopic gravity progress | `gravity_microscopic_progress`, `gravity_microscopic_progress_certificate` | an additive V008 zero-input checkpoint over the independently audited GL6T--GL6CS chain. In addition to the V007 finite response, F3 bulk, locked-sector, collar, identifiability, and reciprocal-lineage results, V008 pins the exact order-six record-dependent future writer; rank-six same-parent source/read/writer access; its global Fourier tensor chart and finite-component stationary response; complete pure-`T2` first-source custody through order six; normalized tensor matching and observable same-state moment tests; the direct cubic Ward classifier whose exact rank-eight Ward system leaves the unique Einstein/Fierz--Pauli ray; and the fixed-cell scale-separation theorem that identifies an `r^-8` contact or `r^-12` writer accumulation requirement. These are a controlled microscopic path, not yet the derivation of the physical F3 Ward identity, a selected bulk phase, calibrated spacetime, gravity, Einstein dynamics, or \(G\). GL6CP remains excluded because its hostile audit requires repair. V014 working-theory semantics are unchanged. |
 | finite relational accumulation | `relational_accumulation`, `relational_accumulation_certificate` | the V010 zero-input, hash-pinned checkpoint for intrinsic admission, exact L12 custody, the exact and independently audited A009--A016 bounded record block, its authenticated majority mass at L4--L12, and finite native probe visibility in all 13 selected sectors (complete finite-sector diagonalization at L4--L8 and independent Target/Blind reconstruction at L10/L12). The adopted governing finite ARGER Gate returns `PASS_FINITE_DISCRETE_GFT_Z1_L4_L12`; the authenticated construction through L12 completes the finite Gravity Formation `z=1` proof obligation. The finite record block is the evidence domain evaluated at `GATE`, not part of ARGER's identity as the full `ALLOW -> REQUIRE -> GATE -> EM -> RECORD` process. The current certificate also replays and exposes the rigorous L08/L10/L12 strict-common-lineage progression as a separately typed diagnostic that is not a Gate premise. Same-model dynamical `z=1` is a separate conditional physical theorem under LL-P and not an unfinished Gate requirement. L14 is closed as `INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT`, with no L14 value, pass, or rejection. The separately typed infrared-response layer and numerical `G` retain their own stated premises. |
+| owner-once joint lineage--carrier witness | `owner_once_joint_witness`, `owner_once_joint_witness_certificate` | a separate zero-input, non-load-bearing evidence certificate for the independently reproduced finite L10/L12 two-sided association, the disclosed `10,748 s` versus `60 s` release-skew deviation, and the failed signed positive no-decline criterion. It is not an input to the ARGER Gate or any other scientific certificate and makes no all-L, dynamical-`z=1`, RGRL/WTC, alpha, geometry, or gravity promotion. |
+| L8 formation-order curvature diagnostic | `lineage_order_curvature`, `lineage_order_curvature_certificate` | a separate zero-input, non-load-bearing certificate for the prospectively frozen formation-order-path Ollivier--Ricci test. It records the controlled null `rho=0.1543033499620919`, `p_plus=0.3619047619047619`: no resolved record-concentration association at the registered sensitivity. The result applies only to that unweighted schedule-derived path, does not rule out richer prospectively earned lineage graphs, and supplies no emergent-space, geometry, spacetime-curvature, or gravity claim. |
+| L4 autonomous lineage-sensitive continuation | `owner_once_autonomous_continuation`, `owner_once_autonomous_continuation_certificate` | a separate zero-input, non-load-bearing certificate for one independently reproduced fixed L4 revisit mechanism. Starting from equal separate lineage/carrier marginals, the retained joint association produces post-continuation carrier trace distance `0.14761185701903007` on the independent path. Common-transport trace-distance invariance is a control; the occupation-profile RMS `0.006009875541368592` is transport-sensitive. No other-L, persistence, scaling, curvature, geometry, RGRL/WTC, alpha, or gravity claim follows. |
 | Universal Network Theory closure | `universal_network_theory`, `universal_network_theory_certificate` | the zero-input, theorem-pinned master composition of adopted-U-DCL Coverage-U, the domain alpha requirement, the authenticated finite ARGER `z=1` classification, conditional LL-P dynamical `z=1`, and the separately premised RGRL/WTC record-conditioned-geometry response. Component proof types remain explicit: the finite L4--L12 Gate result is microscopic, while RGRL plus `WTC-H1`--`WTC-H5` carry the conditional macroscopic response. |
 
 The T-51 field-side family is not exposed as a URM certificate. `C-92` records
@@ -77,7 +80,7 @@ table to completed results and explicitly conditional theorems:
 | `G-E` | The Three Roles | `FORMAL-PARTIAL` | `roles` assembled summary plus the separately executable `alpha_role_certificate`; no single validator establishes the combined role statement as a whole |
 | `G-F` | URM Integration and Reproduction | `IN-CONSTRUCTION` process status | this model, validators, certificates, generated proof, and release gates; it does not qualify the completed G-G/G-H scientific results |
 | `G-G` | Gravity Formation Theory | `FORMAL-COMPLETE` | certified finite GFT `z=1` classification under the ARGER Gate plus separately conditional record-first infrared certificate |
-| `G-H` | Finite Relational Accumulation | `FORMAL-COMPLETE` | `relational_accumulation_certificate` and its exact L4--L12 custody |
+| `G-H` | Finite Relational Accumulation | `FORMAL-COMPLETE` | `relational_accumulation_certificate` and its exact L4--L12 custody, plus separate non-load-bearing `owner_once_joint_witness_certificate`, `lineage_order_curvature_certificate`, and `owner_once_autonomous_continuation_certificate` diagnostics for `RA-9` through `RA-11` |
 | `G-I` | Foundational Record Closure | `FORMAL-COMPLETE` | `udcl_postulate_certificate` and conditional AURFT Coverage-U closure |
 
 This is an integration map, not a promotion mechanism. The source of status is
@@ -1581,6 +1584,112 @@ construction. The separately
 typed infrared-response theorem, empirical tests, and numerical value of `G`
 retain their own stated premises.
 
+### V011 joint lineage--carrier witness checkpoint
+
+A separate exact observable now tests whether the retained spent-genesis
+lineage register and the carrier occupancy retain joint association after the
+owner-once first-pass schedule. This is not the strict common-lineage-support
+observable above and is not an input to the ARGER Gate.
+
+Independent Target and Hostile implementations agree at the shown common
+precision:
+
+| L | `D_L` |
+|---:|---:|
+| 10 | `-0.00031184885937284` |
+| 12 | `-0.00003236588485224` |
+
+All branch-internal numerical and null controls pass, and the conservative
+two-sided diagnostic is `T_10:12 = 32365.88485223031`. The model record may
+therefore state that this finite owner-once family has a reproducible nonzero
+two-sided lineage--carrier association through L12.
+
+Numerical resolution is not the same as physical effect size. Against the
+frozen sector-capacity scales, `B_10 = 0.22714282661304128` gives
+`eta_10 = D_10/B_10 = -0.0013729196912042685` (about `0.137%`), while
+`B_12 = 0.23119534505251413` gives
+`eta_12 = D_12/B_12 = -0.0001399936700493631` (about `0.0140%`). Thus the
+association is very well resolved numerically while small on its declared
+normalized scale and shrinking sharply between these two finite sizes.
+
+The stronger signed positive persistence prediction is false on these sizes.
+The pre-unblinding secondary rule fixed
+`f = D_8 = 0.001963064475535806`; the L10/L12 witness reverses sign and its
+magnitude declines. No positive no-decline or scale-stable limit is earned.
+
+The legacy execution protocol also requested releases within `60 s`; actual
+release skew was `10,748 s`. That operational anti-contamination deviation is
+disclosed and prevents a pristine strict-protocol label. It does not alter the
+deterministic outputs or their independent agreement: both sources were fixed,
+neither final value existed at launch, and value access remained blinded until
+Target completion. Future protocols should enforce source independence and
+the unblinding barrier directly rather than treat launch simultaneity as a
+scientific condition.
+
+The zero-input `owner_once_joint_witness()` and
+`owner_once_joint_witness_certificate()` surfaces, with focused validator
+`model/validate_owner_once_joint_witness.py` (`50/50` focused checks), expose this result as a separate
+non-load-bearing URM evidence certificate. They do not make it a dependency of
+the existing scientific certificates. Ledger row `RA-9` and generated proof
+block `P-CURRENT-7` carry its live claim boundary. The result supplies no
+all-L or thermodynamic theorem and changes neither finite Gate `z=1`,
+conditional dynamical `z=1`, RGRL/WTC response, alpha, record curvature,
+geometry, nor gravity.
+
+## L8 formation-order Ollivier--Ricci controlled null
+
+The prospectively frozen L8 postprocess asks a deliberately narrow question.
+It fixes the event-label path `0--1--...--7` from the first owner-once
+formation order, uses lazy Ollivier--Ricci idleness `1/2`, summarizes each
+node by the mean curvature of its incident edges, and correlates that quantity
+with terminal spent-lineage concentration. Exhaustively permuting all `8!`
+record labels supplies the controlled null.
+
+The observed result is
+
+```text
+rho = 0.1543033499620919
+p_plus = 14592 / 40320 = 0.3619047619047619
+classification = NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8
+```
+
+The registered positive condition (`rho >= 0.5` and `p_plus <= 0.05`) fails,
+and the opposite-sign condition also fails. This is a valid measured null, not
+a validator failure. It rejects only a resolved association on the frozen
+unweighted formation-order path at L8. It does not reject richer native
+lineage relations whose graph is earned prospectively without reusing record
+concentration, and it supplies no emergent spatial metric, continuum geometry,
+spacetime Ricci curvature, RGRL/WTC response, or gravity.
+
+The zero-input `lineage_order_curvature()` and
+`lineage_order_curvature_certificate()` surfaces authenticate the result as a
+separate non-load-bearing URM certificate. Ledger row `RA-10` and generated
+proof block `P-CURRENT-8` carry the same boundary.
+
+## L4 autonomous lineage-sensitive continuation
+
+The frozen L4 test begins from the terminal first-pass checkpoint and forms
+two symmetrically sector-dephased arms: the retained joint lineage--carrier
+state and a same-sector quantum-product comparator with the same complete
+lineage marginal, carrier marginal, and sector weights. Both receive the same
+event-zero revisit pulse and the same autonomous carrier transport.
+
+The target post-transport carrier trace distance is
+`Delta_C = 0.14761185701902999`; the independently written no-`@` contraction
+route returns `0.14761185701903007`, with `tau = 1e-10`,
+`T_dyn = 1476118570.1903007`, zero captured warnings, initial carrier-marginal
+residual `6.938893903907228e-18`, and maximum registered target/independent
+difference `1.1102230246251565e-16`. Trace distance is invariant under the
+common carrier transport and is therefore a control. The fixed occupation
+profile is transport-sensitive and reaches RMS `0.006009875541368592`.
+
+The zero-input `owner_once_autonomous_continuation()` and
+`owner_once_autonomous_continuation_certificate()` surfaces hash-pin this as a
+separate non-load-bearing finite-mechanism result. Ledger row `RA-11` and
+generated proof block `P-CURRENT-9` carry its ceiling. The result says nothing
+about any other size, persistence, scaling, curvature, geometry, continuum
+response, RGRL/WTC, alpha, Einstein dynamics, gravity, or numerical `G`.
+
 ## VALIDATION
 
 From the repository root:
@@ -1598,6 +1707,9 @@ python3 model/validate_historywise_gravity_discriminant.py  # 84 formal-only che
 python3 model/validate_gravity_formation_theory.py  # bounded zero-input custody/ceiling gate
 python3 model/validate_gravity_microscopic_progress.py  # 249 sealed-progress/ceiling checks
 python3 model/validate_relational_accumulation.py  # governing Gate isolated from optional history; closed L14
+python3 model/validate_owner_once_joint_witness.py  # non-load-bearing L10/L12 evidence and scope/refusal checks
+python3 model/validate_lineage_order_curvature.py  # non-load-bearing L8 formation-order controlled null
+python3 model/validate_owner_once_autonomous_continuation.py  # non-load-bearing fixed L4 mechanism
 python3 model/validate_universal_network_theory.py  # master typed composition; no finite-to-Einstein promotion
 ```
 

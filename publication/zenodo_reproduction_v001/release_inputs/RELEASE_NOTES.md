@@ -1,27 +1,30 @@
-# Universal Network Theory 1.0.0
+# Universal Network Theory 1.0.2
 
-This is the initial public release of Universal Network Theory (UNT). It
-publishes the governing theorem and proof index, the synchronized Universal
-Record Model (URM), the finite relational evidence through `L = 12`, the
-adopted ARGER Gate result, and a deterministic reproduction capsule. The
-version-specific DOI and publication date are supplied through the final
-release metadata.
+This release corrects and synchronizes the public summary of Universal Network
+Theory (UNT) across the Major Proof Index, Zenodo description metadata, and
+reproduction capsule. It retains the governing theorem, synchronized Universal
+Record Model (URM), finite relational evidence through `L = 12`, adopted ARGER
+Gate result, and deterministic reproduction capsule without changing their
+mathematical or numerical results. The version-specific DOI and publication
+date are supplied through the final release metadata.
 
 ## Principal results
 
 ### Universal Network Theory closure
 
-The Universal Network Theory Closure Theorem composes the completed Record
-Formation Theory and Gravity Formation Theory results while preserving their
-declared domains, premises, and proof types. The release validator reports:
+The Universal Network Theory Closure Theorem composes the bounded and
+conditional Record Formation Theory and Gravity Formation Theory results while
+preserving their declared domains, premises, and proof types. The release
+validator reports:
 
 ```text
 UNIVERSAL_NETWORK_THEORY_CLOSURE_GATE: PASS (89 checks)
 ```
 
-The resulting working theory identifies discrete record formation as the
-microscopic construction and gravity as the record-conditioned response of the
-resulting geometry.
+The resulting working theory characterizes discrete causal record structures
+inside adopted U-DCL; the admissible actual record is supplied by parent
+physical dynamics. Gravity is the separately premised, record-conditioned
+response of the resulting geometry.
 
 ### Record Formation Theory and the alpha requirement
 
@@ -32,13 +35,12 @@ ALLOW -> REQUIRE -> GATE -> ELECTROMAGNETISM -> RECORD
 ```
 
 The alpha theorem distinguishes the exact construction-scoped ALLOW interval
-from the governing-domain REQUIRE result. The URM states the physical rule
-directly: for every record, the exact alpha value is strictly REQUIRED. The
-sealed inheritance theorem certifies this result for every
-coefficient-preserving same-sector record with independently established
-governing-domain ancestry satisfying `ACTVIS` and `SAI1--SAI8`; that record
-inherits the domain's alpha value and renormalization-group trajectory as
-constitutive REQUIRE data. The release validator reports:
+from the governing-domain REQUIRE result. The sealed inheritance theorem
+certifies this result for every `ACTVIS` record in the independently established
+governing compact-`U(1)` domain. Under the same-sector inheritance premises
+`SAI1--SAI8`, that record inherits the domain's alpha value and
+renormalization-group trajectory as constitutive REQUIRE data. The release
+validator reports:
 
 ```text
 ALPHA_ROLE: PASS (122 checks)
@@ -77,6 +79,62 @@ The release also preserves the strict common-lineage diagnostic:
 This diagnostic is a distinct measure from the complete block mass used by the
 ARGER Gate.
 
+### Owner-once joint lineage--carrier witness
+
+The completed Target and independently implemented Hostile branches agree on
+the centered joint lineage--carrier witness at both held-out finite sizes:
+
+| L | Target `D_L` | Hostile `D_L` | absolute difference | `B_L` | Target `eta_L=D_L/B_L` |
+|---:|---:|---:|---:|---:|---:|
+| 10 | `-0.0003118488593728413` | `-0.00031184885937283205` | `9.269928574751063e-18` | `0.22714282661304128` | `-0.0013729196912042685` |
+| 12 | `-0.00003236588485223031` | `-0.000032365884852249583` | `1.927169361592984e-17` | `0.23119534505251413` | `-0.0001399936700493631` |
+
+Both branch-internal numerical and control suites pass. With the frozen
+`tau_L = 1e-9` floor, the raw two-sided diagnostic is
+`T_10:12 = 32365.88485223031`. This establishes a robust nonzero finite
+lineage--carrier association through `L = 12` under the declared observable.
+The frozen capacity normalization places the magnitudes at about `0.137%` of
+sector capacity for `L = 10` and `0.0140%` for `L = 12`. This reports the
+effect scale and is not an additional pass/fail condition.
+
+One procedural deviation is explicit. The frozen concurrent schedule required
+the two branch releases to occur within 60 seconds; the observed launch skew
+was 10,748 seconds. Neither final value existed at either branch launch, the
+Target branch was already running before the Hostile launch, and the Hostile
+atomic output was not opened before Target completed. The numerical agreement
+is therefore recognized, but the release does not use the pristine
+strict-protocol held-out-pass label.
+
+The separately frozen signed persistence criterion fails. Its floor was
+`f = D_8 = 0.001963064475535806`; both held-out values reverse sign, and the
+magnitude falls sharply by `L = 12`. This is a failure of the positive
+no-decline prediction, not a failure of the two-sided nonzero finite-association
+result. It supplies no all-`L`, Gate, RGRL/WTC, alpha, geometry, or gravity
+promotion.
+
+### L8 lineage-order Ollivier--Ricci controlled null
+
+The frozen L8 formation-order path gives `rho = 0.1543033499620919` and exact
+one-sided `p_plus = 0.3619047619047619` over `40320` permutations. It therefore
+receives the classification
+`NO_RESOLVED_LINEAGE_ORDER_CURVATURE_RECORD_ASSOCIATION_L8`. This is a
+controlled null for one schedule-derived lineage graph. It is not spacetime
+curvature and does not promote geometry or gravity. The compact release
+record is included, and the extracted verifier authenticates it together with
+the sealed result, freeze, protocol, and manifest; the bulk raw L8 replay
+arrays are explicitly excluded.
+
+### L4 autonomous lineage-sensitive continuation
+
+For one fixed L4 checkpoint and frozen autonomous revisit mechanism, the
+independent reconstruction reports `Delta_C = 0.14761185701903007` and
+occupation-profile `RMS = 0.006009875541368592`. It captures zero warnings and
+agrees with the Target observables to at most `1.1102230246251565e-16`. This
+establishes a lineage-sensitive carrier-response mechanism at L4 only. It does
+not establish size scaling, curvature, geometry, RGRL/WTC, alpha, or gravity.
+The extracted verifier authenticates the compact recognition record, Target
+result, freeze and protocol, and independent warning-audited result.
+
 ### Conditional dynamical and gravitational-response theorems
 
 A separately sealed theorem establishes dynamical exponent `z=1` across the
@@ -84,7 +142,8 @@ declared density interval under the named same-model Luttinger-liquid premise.
 The record-first Gravity Formation theorem derives the declared infrared
 gravitational response under the Record-Geometry Realization Law (`RGRL`) and
 working-theory-closure hypotheses (`WTC-H1--H5`). These results retain their
-conditional proof type in the UNT composition.
+conditional proof type in the UNT composition. The finite ARGER Gate pass does
+not establish or discharge the RGRL/WTC premises.
 
 ## Universal Record Model
 
@@ -127,8 +186,12 @@ python3 -B tools/verify_extracted_capsule.py .
 
 The verifier authenticates the proof packet, reruns the finite ARGER evidence
 reconstruction, recomputes the `L = 8` and `L = 10` strict-lineage values,
-authenticates the full-workflow `L = 12` results, executes the portable alpha
-checks, and validates the focused URM dependency closure.
+authenticates the full-workflow `L = 12` results, authenticates the two
+owner-once joint-witness branch outputs and their bounded interpretation,
+authenticates the compact and sealed L8 lineage-order controlled-null records
+without the excluded bulk replay arrays, authenticates the compact, Target,
+freeze/protocol, and independent-audit L4 continuation records, executes the
+portable alpha checks, and validates the focused URM dependency closure.
 
 The complete audited computational workspace is approximately 59 GB. The
 approximately 13.49-GB generated `L = 12` reconstruction input set is not
@@ -145,9 +208,9 @@ The public historical repository is
 renamed from `where-atoms-come-from` before this release. Git preserves the
 complete chronological research record, including superseded routes and
 development history. The Zenodo ZIP is the canonical versioned source for the
-released code and bounded proof-reproduction surface for version `1.0.0`.
+released code and bounded proof-reproduction surface for version `1.0.2`.
 
-The release tag is `v1.0.0`. The originating commit is retained solely as
+The release tag is `v1.0.2`. The originating commit is retained solely as
 historical provenance. That identity, the version-specific DOI, and the actual
 publication date are injected into the final deterministic archive from the
 release values file. Zenodo manages the record's version family and exposes its
