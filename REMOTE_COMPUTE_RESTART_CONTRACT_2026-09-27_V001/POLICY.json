@@ -1,0 +1,62 @@
+{
+  "schema": "UNT_SSH_REMOTE_COMPUTE_POLICY_V001",
+  "date": "2026-09-27",
+  "status": "NO_REMOTE_EXECUTION_AUTHORIZED",
+  "transport": {
+    "kind": "ssh",
+    "destination": null,
+    "remote_scratch": null,
+    "host_key_fingerprint": null,
+    "input_direction": "local_to_remote_once",
+    "output_direction": "remote_to_local_separate_return_root",
+    "whole_repository_sync_allowed": false,
+    "bidirectional_sync_allowed": false,
+    "delete_or_overwrite_existing_workspace_allowed": false
+  },
+  "source": {
+    "authenticated_base_git_head": "f5973628fa25c8cc0e2812142e6d8516d0b5d28d",
+    "fresh_detached_remote_checkout_required": true,
+    "run_specific_allowlist_required": true,
+    "sha256_manifest_required": true,
+    "manifest_digest_out_of_band_required": true,
+    "symlinks_and_path_traversal_allowed": false,
+    "untracked_73_gib_custody_sync_allowed": false,
+    "portable_runner_verified": false,
+    "dependency_lock_sha256": null
+  },
+  "execution": {
+    "remote_authorized_lengths": [],
+    "L6_status": "LOCKED",
+    "L8_status": "LOCKED",
+    "max_workers_initial": 1,
+    "memory_cap_bytes": null,
+    "host_usable_memory_bytes": null,
+    "measured_peak_rss_bytes": null,
+    "required_memory_headroom_factor": 1.5,
+    "disk_cap_bytes": null,
+    "estimated_checkpoint_output_bytes": null,
+    "estimated_wall_seconds": null,
+    "power_window_watts": null,
+    "resource_gate_passed": false,
+    "independent_audit_gate_passed": false,
+    "restart_gate_passed": false
+  },
+  "restart": {
+    "unit": "one deterministic L/event/resolution/q_out/branch sector",
+    "run_identity_required": true,
+    "immutable_result_receipt_per_unit_required": true,
+    "append_only_journal_required": true,
+    "explicit_resume_required": true,
+    "signal_during_last_unit_must_stop_without_final": true,
+    "recompute_final_from_authenticated_units_required": true,
+    "orphan_temporary_file_policy": "ignore_without_promotion",
+    "unreceipted_or_mismatched_result_policy": "V002_unjournaled_result_only_may_replay_exact_scientific_match_before_receipt_and_recovery_journal;otherwise_fail_closed_new_attempt_root"
+  },
+  "return": {
+    "separate_local_root_required": true,
+    "exact_output_manifest_required": true,
+    "verify_run_identity_journal_receipts_complete_and_final_required": true,
+    "independent_scientific_reconciliation_required": true,
+    "publication_or_deposit_authorized": false
+  }
+}
