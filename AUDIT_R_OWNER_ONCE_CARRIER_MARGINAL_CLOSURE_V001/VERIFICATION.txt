@@ -1,0 +1,32 @@
+Verification date: 2026-09-22
+
+Command:
+PYTHONWARNINGS=error PYTHONHASHSEED=0 python3 -B AUDIT_R_OWNER_ONCE_CARRIER_MARGINAL_CLOSURE_V001/hostile_carrier_closure.py --output /tmp/owner-once-hostile-a.json
+
+Output:
+PASS_EXACT_OWNER_ONCE_CARRIER_MARGINAL_CLOSURE__FINITE_ACCUMULATION_SCOPE_ONLY
+L=4 disagreement=2.220e-16 control=4.203e-13 fresh=0.000e+00
+L=6 disagreement=2.220e-16 control=5.950e-12 fresh=0.000e+00
+
+Determinism commands:
+PYTHONWARNINGS=error PYTHONHASHSEED=8675309 python3 -B AUDIT_R_OWNER_ONCE_CARRIER_MARGINAL_CLOSURE_V001/hostile_carrier_closure.py --output /tmp/owner-once-hostile-b.json
+cmp /tmp/owner-once-hostile-a.json /tmp/owner-once-hostile-b.json
+cmp /tmp/owner-once-hostile-a.json AUDIT_R_OWNER_ONCE_CARRIER_MARGINAL_CLOSURE_V001/HOSTILE_RESULT.json
+
+Determinism result:
+PASS -- both cmp commands exited 0 with no output.
+
+Test command:
+PYTHONWARNINGS=error python3 -B AUDIT_R_OWNER_ONCE_CARRIER_MARGINAL_CLOSURE_V001/test_hostile_carrier_closure.py
+
+Test output:
+test_closed_ladder_negative_control_is_detected ... ok
+test_explicit_l4_trace_distance_is_present ... ok
+test_frozen_mandatory_controls_pass ... ok
+test_hostile_source_does_not_name_or_import_target_verifier ... ok
+test_kraus_channel_preserves_trace ... ok
+test_output_is_finite_relative_and_canonically_serializable ... ok
+
+Ran 6 tests in 4.275s
+
+OK
