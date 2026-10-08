@@ -1,0 +1,21 @@
+# Fixed-geometry TOTAL-rate finite refresh, held V002
+
+Root alone may bind and execute this caller after a naturally closed mechanical solution passes all six original authoritative1e-10 rows. A failed solution leaves every binding held. This refresh changes genuine TOTAL temporal rates; it does not change spatial h or earn coupled geometry, stationarity, geodesic, or new43 acceptance.
+
+The immutable4c6312 minimal packet selects four original STATE archives, sixteen closed15744 PHASE_NORMAL_ROW archives, original BASIS, and closed15744 READOUT:22 archives,6,125,552,770 original bytes; only223,055,712 selected decoded bytes. The lazy column stream decodes about55,277,480 input bytes per column; transient adjacent columns and fresh science buffers add to that figure. No total-process RAM estimate is implied. Original files may need iCloud recall; no old producer is invoked.
+
+STATE0 owner94049 has a preserved CLOSED_ERROR ancestor; its earned STATE is covered by the successful97585 recovery proof. STATE1-3 owner97585 and phase/ordinary copies owner15744 remain distinct. The future selected22 proof authenticates exact ordered refs/owners/archive+COMMIT bytes/schema and ties to the real closed baseline/phase/join proofs; it does not admit unused original inputs.
+
+The caller selects all31 raw225 s/c arrays, material5, genuine u/z/gauge firstjets, hdot, h_first, lowered E0, intrinsic Q/V and both Lie branches. candidate_raw_Lie_beta_h is raw225 KADM authority. candidate_contact_Lie_beta_h remains a diagnostic; neither is reconstructed from KADM. PHASE_NORMAL_ROW supplies updated phi and exact copied ordinary Hamiltonian scalars plus new phase action for all four value rows. Phase/ordinary R/Z/t ports are source-exact zero, not an old compact-chi tangent. Sheet weak words are added once; weights enter through original collectors.
+
+The packed403340 admitted correction is unpacked with original masks, lifted by original E/F, and added point-first to authentic current TOTAL u_t/z_t and all six symmetric physical hdot entries. N/beta, all their genuine firstjets, spatial covectors/metric and updated phase remain fixed. No nodal baseline is invented; nodal-add-then-lift bit equality is not asserted.
+
+Selected225 firstjet and primitive123 current routines compute NEW jets/features/momenta; all16 FN247 normal ports and CMC are fresh per section. No FY geometry, inverse/cofactor/chart rebuild, EOS/log/current producer, ordinary label/source action or old normal action is replayed. Four collector controls are derived from its actual(value,delta)x(normal,CMC) inventory at original2e-11; zero supplied direction is value-evaluation machinery, not a fresh configuration Jacobian.
+
+Existing13 IO and single-decode recheck definitions, shared repaired arithmetic namespace/P aliases, B/GC/C/ALPHA/ELL, compact aliases and original forward/scatter maps are explicit. Original baseline/phase/join RESULT JSONs are not parsed; their hash identities are inherited through actual root seal proofs and receipts. A new correction RESULT has a32MiB limit before a reviewed bounded projection is required. Selected arrays are freshly hashed before decoding; final full closure checks remain.
+
+Increment, baseline-input, jets, features, momenta, each row, each column and readout are sealed before clearing working captures or the next stage. Planned91 roles:INPUT1,RATE_INCREMENT1,BASELINE_COLUMN_INPUT4,RATE_STATE_INPUT4,RATE_STATE_FIRST_JETS4,RATE_STATE_FEATURES4,RATE_STATE_MOMENTA4,RATE_STATE_NORMAL_TEST64,RATE_STATE_COLUMN4,READOUT1. Four controls and failed partials remain. Existing receipts are preserved and linked by ERROR_RECEIPT after a later closure failure.
+
+Future source/result/receipt/proof tuples and selected22 proof areNone; caller/helper guards prevent execution. Fresh finite canonical six-row certification, normal/CMC acceptance, stationarity feedback, coupled geometry, exact geodesics and new43 remain external/false. Original files and failed histories stay protected.
+
+Protected V002 adds only authentication of the weak67 source already declared by reviewed139 SOURCE_PINS; no additional numerical body is selected. All14 containing functions and three class methods are AST-identical to V001. Namespace/protocol bindings alone also change.

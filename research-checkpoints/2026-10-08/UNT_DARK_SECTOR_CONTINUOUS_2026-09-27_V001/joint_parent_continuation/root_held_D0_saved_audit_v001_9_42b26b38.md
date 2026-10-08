@@ -1,0 +1,9 @@
+# Guarded saved-only D0 packet audit V001
+
+AUTHOR_DRAFT=True. Root alone may execute after the parent naturally CLOSED and exact RESULT/receipt pins are bound. The current root38115 execution source/protocol are authenticated in the guarded source; RESULT and receipt remain None. Definitions/AST/compile only by the author; no numerical function or saved payload evaluated.
+
+Admit the complete parent terminal input/output map once per unique path and exact33 controls/eight pairs. Read every committed schema/metadata/finite array and recompute each raw control from its unchanged original envelope,TOL2e-11 and floor1e-30. Keep all physical qualification flags False and original signed fields untouched.
+
+New independent saved identities use only stored current primal Pi/PiU/connection/chart, actual momenta and signed directional Pi/PiU/connection/chart arrays: full99 native chain, six native-metric chain, EH tensor products at formal intercept, intercept and twelve-gauge product sums, registered gauge-value recombinations, exact current phi_i=0 phase charge/mechanical/lapse/phi_tt coefficients. The saved L2 metric rate and saved Lie-rate operand are retained; no rate, configuration, features, derivatives, operators, Gram, inverse, solve, eigenproblem or evolution is replayed. Ordinary pdot and physical phase acceleration remain unselected.
+
+Prospective audit75 saved identities comprise33 original gates, ten new contraction identities per four columns and two exact saved weak E-minus-D0p load differences. Stream one column at a time; ancestry authenticates every original seed. Recheck admitted bytes once before exclusive sealed audit/result/receipt publication. A refusal preserves its actual identity/terminal/context/traceback without modifying any producer/output or historical failure. No physical metric, force evolution, CMC, history, exterior or velocity qualification follows from this audit.

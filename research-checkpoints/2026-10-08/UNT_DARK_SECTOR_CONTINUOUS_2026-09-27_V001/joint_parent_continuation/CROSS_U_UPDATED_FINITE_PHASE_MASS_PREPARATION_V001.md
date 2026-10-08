@@ -1,0 +1,9 @@
+# Updated finite phase mass preparation V001
+
+HELD root-owned bounded preparation in the existing artifact framework. The completed finite phase13764 source/result/receipt/natural proof, six exact role seals, source input ancestry and strict EOS/H qualification are mandatory. Guard remains held until full root and distinct peer reviews; use a new exclusive released stem. No live scientific payload is read.
+
+Only saved updated literal H/p/u, inherited temporal delta_H/delta_p and H operation envelope are copied from all four closed finite-phase columns. The original scalar R/dv/hats must match bitwise the completed finite input basis. Original weak phase target, current, epsilon, nonlinear/scatter remainder and residual identity words are bitcopied, never rescattered or refitted. The physical constant helper evaluates only the unchanged universal constants from the original fixed registry; it performs no EOS value/current calculation.
+
+Call the unchanged reviewed113 prepare_candidate_phase_mass exactly once on these NEW current-state operands. It computes only the new3870-coordinate diagonal using the original scalar basis and literal H that already includes Nmu once. The pre-update12939 H/diagonal are never supplied. Concatenated p must equal the completed finite point-current words bitwise. Original strict0<u<eps, H positivity and lower minus2e-11 envelope and diagonal positivity are retained.
+
+Six roles: CURRENT, four PHASE_COLUMN copies, PREPARATION. No new EOS/log/root/current, normal/CMC, mass action, old producer or solve. Copied116 temporal directions are explicitly inherited evidence, never borrowed as geometry/compact-chi tangents. No linear/finite charge admission, whole constraint solution or physical adoption follows preparation. All nine physical flags false. No Goal/scheduler/loop/framework replacement. Failure preserves completed roles and remaining operands through original exclusive ERROR_RAW/ERROR/RECEIPT.

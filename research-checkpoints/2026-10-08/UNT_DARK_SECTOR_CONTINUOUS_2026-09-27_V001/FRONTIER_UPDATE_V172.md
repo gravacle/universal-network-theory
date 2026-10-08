@@ -1,0 +1,31 @@
+# Frontier V172: established record interaction; gravity-source test next
+
+2026-10-05 21:29 UTC. Ordinary mode on this Mac. Continues V171; later continuation entries govern live execution.
+
+## What we have established
+
+In the tested native network, records actually form and persist. Removing the endpoint records while preserving the initial matter/edge state changes subsequent moving-body response. Both nonzero record loadings strengthen the complete vacuum-matched finite binding, with all direct/exclusion interactions retained; constant record storage energy cancels in that comparison. Actual formed preparations also have greater support on the bound spectral subspace than their endpoint-reset controls. The latter full saved-state result passed an independent audit of104 preparations, four ages and both source-present channels. This is a concrete records-to-interaction-to-binding chain.
+
+We have now completed the next force screen, all144 combinations of three holding strengths, sixteen positions and three record loadings. A separate saved-data diagnostic checks all energies, force/source vertices, contacts, body localization, complete references and artifact custody:36001 checks /8803981 scalar-metadata assertions PASS, maximum7.27596e-12. It uses authenticated saved matrices and states, not repeated eigensystems or preparation histories.
+
+The screen measures interaction with declared translated holding sources on a fixed radius-one proper chart. It contains both attractive and repulsive trap-translation torques: across126 non-cusp cases, B points toward A's trap in90 and away in36; nonzero loading changes magnitudes without reversing those component signs. Binding changes also have both signs once the bodies are held in different configurations. The three positive connected energies occur at the strongest coincident traps. Actual body locations can differ greatly from trap centers, especially with weak holding. All signs and configurations remain in the result. This establishes a quantitatively checked clamped interaction, not a universal gravitational distance law.
+
+The original force producer remains ARITHMETIC_FAILED:9147/9150 controls passed, with three failed reconstruction identities at strong coincident wells. Their roughly1.27e-8 energy gaps make response curvature sensitive. The saved diagnostic keeps these three curvatures refused and identifies four further bordered-versus-spectral comparisons as unqualified. Of432 sector comparisons,425 have numerical consistency; that is not a directed physical error certificate. NEW exchange-even trial states for all nine coincident cells restore parity readouts while preserving the original states and the genuine odd excited response. Scalar Decimal closure does not repair physical curvature accuracy. No tolerance or failed result was changed.
+
+## What is next, and why
+
+The next calculation applies one prospectively selected complete local energy-source rule to the already formed states. Its physical charging class is Crel[N]=directsum_v C5v/Nv, with the existing faithful neutral return code and midpoint connector/current/hop/flip rules. The complete all-midpoint allocation remains the control with the same absolute storage and self energies. This is one disclosed localization candidate, frozen before its response outcomes.
+
+The candidate has an exact useful clock result: each of the six held nonendpoint joint record/return clock generators scales with its local N_v, giving coordinate frequency N_v times the declared proper frequency. The control adds a nonlocal occupied-link correction. Endpoints keep intrinsic environment changes and all null/zero-amplitude controls. This is same-action source algebra under the declared physical dictionary, not observational gravity confirmation.
+
+The frozen localized-lapse protocol has all four full reviews and18 resident byte anchors. The NEW driver is being authored to use all1664 saved formed-state frames,4160 ordered time-pair rows, four retained/reset and source/reference channels, and all nine energy-source kernels. It keeps the exact zero direct second contacts of this particular capacitance class, absolute source work, correlations and energy/time conversion. It owns a conditional modeled-network response: reset/content apparatus are clamped external references with all existing work retained, while their unowned proper stress localization is not invented.
+
+After that calculation, the response must join the complete same-action gravitational constraint reduction. The energy-source block alone is only one contribution. Other retained fields, contacts, source stresses and the adopted common motion/clock/light metric must enter the same constrained kernel, with one already calibrated G. This supplies the scientific route to an environmental gravitational correction. The same physical law and absolute reference must then generate cosmic evolution and be tested jointly with galaxies; no fitted volume-energy function or record-mass halo supplies that bridge.
+
+## Program disposition
+
+All eleven Stage3 duties remain OPEN: galaxies, lensing, expansion, structure/growth, mergers, BBN/recombination, CMB perturbations/observations, separate thermal origin, fair joint comparison, independent synthesis and qualified URM integration. Earlier mixing failures, inverse refusals, failed attempts and dirty canonical changes remain preserved. WTC/RGRL conditional ordinary-gravity closure stays adopted without a new RF3 prerequisite. No superiority or completion claim.
+
+Force diagnostic session92619 closed naturally exit0,6.752335s. No numerical worker is live at this checkpoint; root owns the next launch after driver review, input seals, exclusive outputs and fresh process verification. Three analytic/source review agents remain active. No Goal, heartbeat, scheduler or automatic resumption.
+
+Force diagnostic raw fcc6e8fa48a5d9c6c6b48cb16ebaa8c0010927c9875b0c59b9fb9fabcae48802; report818a7355bdc16d52387f60a4401a34e8c4b4d836d25c2a51f9ee3a170a009771; receiptee5c29e4a1a8e5b485c127dd16a9307dfa6025ee5e03c256b77f0a8a83a95aa8. Source d888e14f4333972a86d644430778c7b08b9c37af9ab166a3bcfdef25b00e2190. Localized-lapse protocol84a212a3da0fe97b1391dde1a8f6dd50db98a958f0e6ae8c676ef78bf2bfe70b.

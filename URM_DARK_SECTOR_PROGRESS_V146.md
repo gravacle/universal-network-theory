@@ -1,0 +1,7 @@
+# URM dark sector progress V146
+
+2026-10-06 UTC. Development only. FrontierV227/ledgerV168 and newer primary continuation log govern. Conditional joint1590SNe+13BAO comparison passes259/259 controls and independent saved review: fixed UNT chi2=1416.698101–1416.700516 versus matched-radiation common-Omega_m comparator1416.182661, signed gap .51544–.51785. One fewer fitted shape parameter in this run is encouraging; total historical calibrations/state/budgets, exposed data and conditional cross-survey covariance/ruler assumptions remain counted. No superiority is promoted.
+
+Direct-P galaxy V005 has40 accepted updates in each first two cases but residuals .08675/.10115, still unconverged. Original-H failed directions have actual scaled action norms3.26–3.96e-6, establishing conditioning evidence without a null/stability certificate. First-case-only fixed-psi native-elimination V006 is guarded/unlaunched; live V005 third case, V004 current/unstarted cases and original18459 retain their owners. No live changes or duplication.
+
+The finite Gauss/TEM constructor is accepted analytically with explicit geometry/units/paths/preparation premises; its bounded kernel/transfer/source test is next. Inflation, thermal origin and physical early distributions remain open. All eleven Stage3 lanes and successful same-law measured galaxy/expansion objective remain open. Canonical seven tracked modifications are preserved, no integration certified. Old Goal/heartbeat paused; ordinary execution only, no automatic resumption.

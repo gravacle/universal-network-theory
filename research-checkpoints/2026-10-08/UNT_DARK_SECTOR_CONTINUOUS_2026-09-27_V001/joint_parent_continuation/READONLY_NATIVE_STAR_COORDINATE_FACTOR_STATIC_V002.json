@@ -1,0 +1,33 @@
+{
+  "authoring_guard_retained": true,
+  "changed_definitions": [
+    "native_metric_star_spectral",
+    "native_metric_star_forward"
+  ],
+  "compile_only": true,
+  "exact_retained_definitions": [
+    "native_metric_star_pair",
+    "native_metric_star_round",
+    "native_metric_star_mm",
+    "native_metric_star_masks",
+    "copy_saved_native_star",
+    "native_metric_star_local_factors",
+    "assemble_new_metric_star_couplings",
+    "factor_native_metric_star",
+    "native_metric_star_adjoint",
+    "fresh_correlated_native_metric_star_control"
+  ],
+  "file": "author_fragment_native_metric_star_preconditioner_v002.py",
+  "fix": "Q=E V |lambda|^-1/2 V^T uses original auxiliary coordinate columns; QQ^T unchanged and physical-mask compression now preserves active rank. Forward masks inputs, adjoint reverses same masks.",
+  "fresh_witness_detail": "Raw diag(2,1,4) balances to diag(2,1,1), actual sorted balanced eigenvalues (1,1,2), so returned spectral_order(1,2,4) refers to raw rather than actual balanced eigensystem. Degenerate tie rotation can allow the old masked spectral-column factor to pass this witness accidentally.",
+  "lines": 192,
+  "new_definitions": [
+    "fresh_native_star_inactive_coordinate_control"
+  ],
+  "physical_masks": "Native axis all components inactive and sheet Z inactive; metric axis all inactive and sheet cross3/4 inactive, matching original E/F independent spaces.",
+  "prior_provisional_review_qualification": "The preserved174 provisional review did not catch the physical-mask/eigenvector-column issue. It must not serve as masked-factor release approval.",
+  "scientific_functions_payloads_or_numerical_witness_evaluated": false,
+  "sha256": "4ea0f73398b50ff6a974e6ca2c8354eaa348328b227b72104c12bbac4118a466",
+  "status": "COORDINATE_FACTOR_STATIC_PASS_WITH_FRESH_WITNESS_DETAIL",
+  "suggested_witness": "Raw diag(2,1,6), RHS(2,0,12)->solution(1,0,2) balances to diag(2,1,1.5), with distinct sorted (1,1.5,2); old column mask must lose an active direction."
+}

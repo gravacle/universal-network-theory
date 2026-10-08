@@ -1,0 +1,12 @@
+# Saved35734 arithmetic-tail recovery V001
+
+The containing source is held. Root alone releases into an exclusive namespace after a complete source review and fresh process absence; original files and failed/orphan records remain untouched.
+The authenticated ff21178b admission binds all30 original successful roles and80 passed control descriptors, a397 selected-survivor bytes, and the independently reviewed frozen240 tail. It does not claim all original inputs were audited.
+Only immutable original CACHE_COLUMN1–3 fields hydrate, including both-word phase stages and original mechanical state. COLUMN0 stays an inherited reference. Registered constants copy the authenticated closed19724 metadata; no225/116/EOS/log/current/control producer is invoked.
+The survivor reader rechecks readonly orphan size/full SHA, then selected member CRC/SHA and NPY dtype/shape/order before runtime decoding. The damaged1170th member and absent tail are excluded; no original COMMIT is fabricated.
+The resumed arithmetic starts after the saved first quotient. The one previously unrecorded directional matrix-product temporary and all unrecorded suffix operations are NEW recovery calculations; original lost-port bitwise equality is not claimed.
+Twenty original ports and80 controls remain inherited. One lost port suffix and43 unstarted ports complete the64-port table. Three auxiliary roles seal selected118 words, resumed division, and raw mechanical tail before the next consumer.
+Forty-four NEW GAUGE_TEST roles retain completed contacts and supplied directions; three COLUMN roles retain complete coefficient inventories. A compact metadata-only PREPARATION references those four complete columns and64 tests, avoiding duplicated coefficient arrays.
+Current RECORDS has51 roles:3 auxiliary plus48 science. Logical science78 is30 inherited plus48 new. Original30 stay outside RECORDS so unchanged strict IO/recheck applies only to the new namespace. NEW controls=0; original80 descriptors are preserved verbatim.
+Both-word supplied direction/context/error custody survive scratch clearing. The same exclusive IO publication, SHA/schema/finite checks, fsync, immutable COMMITs, and separate ERROR_RECEIPT after any prior receipt apply.
+Registered mechanical and literal phase gauge coefficients are measured only. Full E/F/scalar scatter, normal test transpose, Cstar/adjoints and feedback remain external; no Cstar=-Rv, Schwarz, uniform inverse, canonical restoration or physical qualification follows.

@@ -1,0 +1,5 @@
+# URM dark sector progress V147
+
+2026-10-06 UTC. Development only. FrontierV228/ledgerV169/newer primary log govern. First same-law original galaxy solution converges residual1.54e-9 in6gravity updates, but provisional43-row velocity chi2=1395.927 remains unacceptable; space/quadrature/modes/exterior/readout/metric/stability required. V007 recovers other two closed source cases; V008 corrected quadrature test pending.
+
+Conditional same-data joint late comparison remains within.52chi2 of comparator with one fewer fitted shape parameter in this run; complete historical state/calibration/budgets/exposure and early physical qualification remain. Finite-Gauss22539 arithmetic controls pass but held-word birth releases negative in all declared fixtures: source/field/auxiliary energy must fund birth consistently. No energy offset or physical preparation selected. WholeS_cross sourced FLRW finite-slice test authoring; no spectrum/thermal/inflation/CMB qualification. All11 lanes OPEN. Seven canonical changes preserved; no integration/superiority certification. Old Goal/heartbeat paused; ordinary execution only.

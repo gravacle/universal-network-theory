@@ -1,0 +1,11 @@
+# Selective point-chunk recovery and outward numerical enclosure V002
+
+HELD definitions only, root numerical owner. CLOSED14122 preserved all12 point directions and first H/B/E/D chunk before its strict numerical envelope check refused912 H components by1–3 ulps. No moment or factor arithmetic began. All3 original post-Pi2e-11 contacts passed. Original error/result absence remains unchanged.
+
+The first chunk is restored from24 selected sealed words (real/pairs/gaps/raw envelopes), never reconstructed by rerunning action147 or96. Old source/result/receipt/closure proof and the same4 mechanical caches/basis provenance are authenticated. Source, readout, pairing, directed crossblocks and primary gaps remain exact copies. Each future119 chunk invokes the existing reviewed133 once.
+
+The new numerical enclosure retains the original uncancelled bound and an upward nextafter bound on |hi|+|lo|. gamma2048=2048u/(1-2048u) pads the short nonnegative source contractions; a pair magnitude exceeding that declared positive-flow enclosure is refused. Exact-zero raw bounds require both words zero; no floors. Raw bound, pair upper, padding and resulting enclosure are saved separately. Only preconditioner coefficient bounds change; real matrices and original2e-11 tolerance do not. This does not restore the previously failed10655 componentwise guarantee or qualify a weak/global/physical inverse.
+
+New controller performs119 raw chunks1428 actions and restores12 old actions. First restoration is1 sealed role instead of14 old producer roles. Including120 moment patches and3870 factors gives5661 new roles and15837 new controls;3 old post-Pi controls are inherited separately. Original all-grid consumer198 is unchanged. Later failures must be recovered from earned partials rather than repeat computations.
+
+Custody correction: pair-magnitude and padded-flow operands are stacked and kept together before either individual finite check or the rounding-dominance refusal. Individual operands, resulting bound and increment are also retained. Formulas, zero-support refusal, original matrices and tolerance are unchanged. There are two top-level definitions and one nested closure.

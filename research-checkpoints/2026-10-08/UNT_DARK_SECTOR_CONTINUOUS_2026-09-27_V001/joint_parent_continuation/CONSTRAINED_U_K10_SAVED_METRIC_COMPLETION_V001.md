@@ -1,0 +1,17 @@
+# Prospective saved k10 metric completion V001
+
+Root alone executes `constrained_u_k10_saved_metric_completion_v001.py --root-owned` after full static source/protocol reviews, actual byte seals and fresh ownership checks. This is bounded standard-library scalar arithmetic, not a state, matrix, hierarchy, kernel or trajectory solver. No producer/helper import or invocation occurs; the live full k=.01 coefficient producer is untouched.
+
+The completed prior scalar RESULT c8e6b26f229332a3371b46e1a2d8ba80bbaed1ca5fa64689f8c674260ca0dc47 supplies its already saved76 coefficients for both FINE/START families and80/120 precisions. All prior coefficient strings are copied unchanged; no earlier recurrence is recomputed. Its source/protocol/report/receipt and original input bindings are authenticated. The exact metric parent is `CONSTRAINED_U_K10_REGULAR_METRIC_COMPLETION_V001.md`, SHA e5d638570320830f5edbdc7390af23819a930474733e6441c70f0536a2752d5f; its actual resident pin table is authenticated without importing any source.
+
+The previous coefficient dictionaries omit the calibrated parameters needed for the newly derived absolute-pressure h4 forcing. Root explicitly authorized reading only actual fixed eps,d0,OA,OR,rG from the already immutable f708 MANIFEST1def78cc. Lift their binary values with Decimal.from_float; do not infer them from a rounded qinf, choose an ideal nominal rG, recalibrate or recompute prior coefficients. Nrm and B are new scalar background inputs to h4 and the raw-pressure contact.
+
+Evaluate the proof's sequential p5/p6/Pi/G0/G2 recurrence, Phi3/v5/N5/Psi3/J5, then h4(log a) and degree-one polynomial Phi4/v6/N6/Psi4. The operators D+6 and D²+13D+42+8Rnu/5 are applied by exact degree-one coefficient formulas; no derivative, matrix inverse or arbitrary log datum is fitted. Save every new scalar/polynomial coefficient, all signed80/120 differences and original parent coefficients.
+
+Independently assemble term lists for Vdot, curvature, shear, Fnu2 and photon/polarization equations, plus J5 and the selected metric equation. Save constant/log coefficient residuals, their absolute displayed-term sums and descriptive normalized values. These are coefficient diagnostics with no numerical or physical success threshold. A vanishing-row normalization is retained, not repaired or used as a physical gate.
+
+The phase pressure source is retained to constant and linear-a order: delta_p_phi=cs*w*(Gamma_phi-3hV), c3=1/(Nrm*d0*qinf), so p0=-3c3*w3*hr*v2 and p1=-3c3*w3*hr*(v3+h1*v2). Save independent comparisons with the same absolute OA/rG pressure contact. Full proper trace, nonlinear stress, higher density/native contacts and angular history remain unqualified.
+
+At each prior saved initial a, evaluate only the completed Phi/Psi/V/Fgamma2/G0/G2/Fnu2 scalar polynomials and partial Fnu3 through a5. Compare with the old saved scalar fields and old truncated polynomial predictions, all four frequency arms/both families/both precisions. These sixteen comparisons construct no replacement state. Higher angular/native/current jets and the complete finite normal/shear/trace/momentum/history certificate are still missing; the original five false flags and missing-contact metadata are retained verbatim.
+
+Exclusive immutable RESULT/REPORT/RECEIPT bind source, all actual inputs, root PID and UTC times. Rehash every consumed input and source before/after publication. No checkpoint, worker duplication, seed adoption, physical-origin claim, temperature, fitted EOS or changed failure disposition is introduced.

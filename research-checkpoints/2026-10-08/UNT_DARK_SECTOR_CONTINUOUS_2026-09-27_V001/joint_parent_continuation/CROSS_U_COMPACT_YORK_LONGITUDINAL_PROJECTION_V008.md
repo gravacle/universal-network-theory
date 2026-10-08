@@ -1,0 +1,14 @@
+# Explicit bounded fine York recurrence continuation V008
+AUTHOR_DRAFT=True; AUTHORING_IN_PROGRESS=False; numerical execution is root-owned after FULL root and distinct peer review.
+The authentic naturally CLOSED76118 V007 result remains ORIGINAL_YORK_ROWS_NOT_ADMITTED after512 steps; mandatory saved80329 proof is fba4af99b57959a4e136b21b6738c03a8f185a7ec0898822192af9ad9f8bd0b8.
+Only R raw failed (1.8350944136220451e-9 versus unchanged1e-10); the five other original component gates passed. This motivates one deliberately bounded additional64-step experiment, without assuming convergence.
+The containing caller copies only authenticated cached system/coarse fields and exact final recurrence words before any new calculation. No original INPUT/B/Gram/factor/fixture or forward action is recomputed.
+Paired nodes, original action/residual/envelope, recursive residual, next z/rz/rho/p513 and previous p512/A p512/envelope are carried. No recursive replacement, initial preconditioner call, old first-action hook, restart or automatic extension is allowed.
+The 169-line kernel changes only optional continuation initialization; the signed PCG update body, weighted-L-first energy association and physical11135 action are retained exactly. The cached2730 coarse factor remains a numerical preconditioner only.
+The next actual direction receives a NEW action; its energy and successive-direction adjoint contact use the carried p512/A p512/envelope. Every node update retains both compression words, recursive drift and fresh original residual certificates.
+A NEW three-dimensional dyadic coupled witness compares uninterrupted6 with split1+5 steps using the same generic loop, requires exact high/low final nodes and residuals, and checks an independent known solution with Gershgorin lower1/4. No earlier fixture is replayed.
+There are four new witness controls and one actual energy/adjoint/update construction control. The original four V007 controls and eight checkpoint refs are retained separately as authenticated metadata.
+The actual additional cap is64; snapshots are16/32/64 new steps; total physical-loop step budget is at most576. No subsequent extension is authorized by this packet.
+Original three-component raw/scaled1e-10 gates own admission; recursive convergence is descriptive. Conditional compact weak TT readout occurs only if all six original gates pass, and has its own unchanged gate.
+Records are INPUT/FIXTURE/SOLUTION plus up to three ITERATION snapshots and conditional PROJECTION. Numeric merged publication operands are normalized with np.asarray.copy; completed original data and all errors remain immutable, with separate ERROR_RECEIPT after an earned receipt.
+RHS, maps, basis, masks, stored primitive bridge, exterior ports, physical law and source/history are unchanged. No continuum/physical TT, finite configuration, whole constraint, metric, evolution or galaxy-velocity qualification is promoted.

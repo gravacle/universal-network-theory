@@ -1,0 +1,79 @@
+{
+  "status": "SOURCE_ONLY_COUPLED_YORK_INITIAL_CMC_HANDOFF",
+  "reviewer": "readonly_science_review",
+  "created_utc": "2026-10-07T15:34:36.051651+00:00",
+  "sources": {
+    "CROSS_U_FINITE_CANONICAL_YORK_CANDIDATE_SPECIFICATION_V001.md": "3466ddc47d5d64fe049b55ae79a74fe795064db5e4703a5aaf5e00295c4e612c",
+    "author_fragment_finite_york_geometry_target_v001.py": "12fe8b5ac355fd2f94e2fdaa37244aedabe6fa1212b796ddd2f6411002555e70",
+    "author_fragment_finite_candidate_native_EH_normal_v003.py": "5c608d018a06b0f2b7e3947c9d37baa249317036c1a3f5f067815b51bf8a7499",
+    "author_fragment_combined_initial_weak_CMC_contact_v001.py": "2f06b048844769c0c511e99dc87873a994a6b869f1c6a9593d8521fd2970ab69",
+    "cross_u_paired_current_primitive_momentum_readout_v002.py": "b147761642485d1bdce9b0fb831ed5f5f2a1aa458182908766ffcb17b1e80c19",
+    "cross_u_canonical_nodal_metric_rate_dd_coordinates_v001.py": "5d4bdfeaa5da8f09c95f805a5c41b17909d77e1f3feb01271a496a9b989d0d18",
+    "cross_u_paired_current_normal_constraints_v002.py": "a4c33e69147ca1b848d647e7946c6eaad9081bc9fd389015f1cdcd9132b89b40"
+  },
+  "scope": "Sealed source/notes only; no active recovery metadata, numerical payload, NumPy, provider, arithmetic operator or fixture evaluation.",
+  "dimensions": {
+    "chi": 3740,
+    "W": 11135,
+    "W_components": [
+      3740,
+      3655,
+      3740
+    ],
+    "total_canonical_t": 3870,
+    "five_fields": 18745,
+    "normal_rows": 14875,
+    "initial_CMC_rows": 3870,
+    "mechanical_rates": 403340,
+    "native_rates": 380292,
+    "metric_rates": 23048,
+    "phase_rates_and_charge_rows": 3870,
+    "full_unknowns_and_rows": 425955,
+    "boundary": "chi and W conditional outer/top restriction removes 130 scalar coordinates; WZ additionally excludes 85 interior-sheet values; t and phase keep all 3870. This is not physical matching or rank proof."
+  },
+  "exact_rows": [
+    "r_mech=p_mech(Q,V)\u2212[P_native_prior, scatter_F(Pi_York(z))], z=(chi,W,t). Nominal old TOTAL P is comparison metadata, not simultaneously a fixed canonical target when Pi_York varies.",
+    "r_phi=q_literal(Q,w)\u2212Q_literal_prior, with the original full weak charge profile fixed. A fixed global I0 alone is insufficient.",
+    "R=\u2212actual native\u2212actual EH\u2212actual phase+once-counted fixed-canonical ordinary, on all four normal tests; separate temporal primary coefficients remain recorded.",
+    "Theta=S*{mu(KGamma_trace\u22123 Hbar)} using the original scalar tests and dv/R once. Hbar is fixed EPS5."
+  ],
+  "jvp": {
+    "canonical": "A deltaV + K deltaz = epsilon_mech, A=D_V p_mech; K=D_z p_mech\u2212[0,scatter_F D_z Pi_York]; epsilon=P_target\u2212p_current.",
+    "phase": "Mphi deltaw + Kphi deltaz = epsilon_phi, Mphi=D_w q_literal and Kphi=D_z q_literal. Direct mechanical/phase temporal cross blocks are zero at fixed configuration.",
+    "normal": "R_V deltaV + R_w deltaw + R_z deltaz = \u2212R. Direct z reaction is chi; W/t enter through the canonical rate response. Ordinary has configuration reaction and no temporal rate response.",
+    "CMC": "deltaTheta=S*{delta mu(KGamma_trace\u22123Hbar)+mu[delta I:KGamma+I:delta KGamma]}, delta KGamma=N deltaGamma^0_ij because deltaN=0. Phase temporal contact is exactly zero directly, but phase/configuration/normal coupling remains.",
+    "reduced_normal": "[R_z\u2212R_V A^-1 K\u2212R_w Mphi^-1 Kphi]deltaz=\u2212R\u2212R_V A^-1 epsilon_mech\u2212R_w Mphi^-1 epsilon_phi.",
+    "reduced_CMC": "[Theta_z\u2212Theta_V A^-1 K]deltaz=\u2212Theta\u2212Theta_V A^-1 epsilon_mech. Neither inverse nor reduced rank is presumed."
+  },
+  "York_target": [
+    "Current declared chart fixes reference Btilde, its full small cross entries, target-raising reference inverse, owned mu_ref and C_ref. Candidate geometry dependence enters lambda^-1 transport and actual h/I trace projection; it does not silently turn the saved reference operator into B(h). A genuinely candidate-dependent longitudinal operator would require its complete geometry derivative and a new declared chart.",
+    "T=lambda^-1(T_owned+C_ref+Btilde deltaW), tau=tau0+mu_ref deltat, alpha=(tau\u2212h:T)/(h:I), Pi=T+I alpha.",
+    "deltaT=\u22124 delta rho T+lambda^-1 Btilde deltaW; deltaPi=deltaT+deltaI alpha+I[(delta tau\u2212deltah:T\u2212h:deltaT\u2212alpha delta(h:I))/(h:I)]. delta tau=mu_ref delta t; no delta mu*t term belongs to this fixed-reference coordinate.",
+    "Actual h:Pi trace and its JVP must match tau with all construction defects retained. Both offdiagonal entries enter canonical six-slot targets; canonical scatter is original separate F/weight/hat adjoint.",
+    "C_ref and the isotropic correction can change divergence. The auxiliary old weak-TT certificate remains reference data, never acceptance of the corrected target."
+  ],
+  "CMC_trace_distinction": [
+    "Total tau is not KGamma. In exact physical inverse algebra, source EH tensor gives h:Pi_EH=\u2212mu KGamma_trace/C; total trace includes native metric momentum. Thus no t-only K or local native-elimination identity may replace the global coupled Legendre action. Serialized inverse/symmetry/contact defects stay explicit.",
+    "For conformal chi, delta mu=6 delta rho mu. Retain delta mu times the current CMC gap even if some earlier weak row passed; retain KGamma/KADM and differentiated gaps.",
+    "Independent hdot=F k is retained in all six entries. Conformal intrinsic configuration does not impose hdot=4 rhodot h. Fixed lower E0 and genuine gauge/covector/time jets define the connection representative."
+  ],
+  "interfaces": {
+    "geometry_target": "finite_york_geometry_target(reference,rho,rho_gradient,W_jet,t,direction,keep,label) -> target/delta_target and h/I/mu/spatialjets with reference anchor and trace defects.",
+    "new_candidate_contact": "finite_candidate_raw_action_adapter then finite_candidate_configuration_contact on fresh candidate operands; existing raw primals/paired jets are reused only after candidate authentication.",
+    "shared_temporal": "Forthcoming prepare/candidate_shared_temporal_action must use original E/F directions for mechanical action and fresh116 H with scalar S action; H already has canonical-density units, so no extra N or mu multiplier before dv/R scatter.",
+    "normal_CMC": "finite_candidate_native_EH_normal + candidate_phase_normal_stress + fixed ordinary, then finite_candidate_global_normal_CMC; geometry/current-target JVP is separate from fixed-configuration rate application."
+  },
+  "null_and_rank_limits": [
+    "Conformal Killing directions are possible kernels of a longitudinal map in principle; conditional outer/top/sheet restrictions exclude standard global rigid examples but do not prove discrete or coupled full rank. Keep all cross entries and test any claimed null with actual paired action/adjoint.",
+    "Phase constant-value shift is a field gauge, but instantaneous phi is fixed and the unknown here is its temporal rate; it is not automatically a mass-matrix null. Fresh positive H plus the scalar FE Gram can establish an implementation mass property, not the entire reduced system.",
+    "Fixed lapse/shift removes those coordinates from the preparation unknowns. Noether normal constraints do not by themselves exhibit left-null rows of the reduced E/F temporal Hessian. The frozen operator or older star surrogate cannot certify candidate rank."
+  ],
+  "minimum_new_tests": [
+    "Same fresh candidate: a mixed E/F/phase direction must exercise all mechanical blocks and exact zero direct mechanical/phase temporal cross; paired action/dual-functional contacts use unchanged masks/weights.",
+    "Nonzero rho/W/t and a nonzero owned inverse/TF/C_ref defect: verify actual-trace target JVP, both cross slots, and geometry-versus-target subtraction rather than freezing TOTAL P.",
+    "Mixed configuration+rate direction with a deliberately nonzero current CMC gap: independently verify measure+trace terms, Gamma/ADM contacts, and phase direct-CMC zero.",
+    "Whole-grid canonical/phase/normal/CMC polynomial-transpose controls plus complete literal charge/domain/positive-H margins are required before implementation qualification. Physical residual gates must be independently declared; a passing construction envelope is not a zero-constraint test.",
+    "Mechanical momenta are affine in rates at fixed configuration, but finite normal reactions include rate-squared increments; phase current and finite geometry/EOS require full fresh evaluation after a trial. No accepted finite state follows from the current JVP."
+  ],
+  "physical_admission": false
+}

@@ -1,0 +1,9 @@
+# Actual all-grid selective point-envelope recovery V004
+
+HELD root owner. Parent V002 naturallyclosed exit1 before first moment arithmetic;12 first-chunk pointactions and3 post-Pi controls earned. The successor uses the unchanged194 all-grid scientific assembly, reviewed pending-point/enclosure wrapper and original133/198 bodies. All4 closed mechanical caches remain required. Pending source/error/receipt/proof bindings are futureNone until root release; no numerical author execution.
+
+Original128cap,120chunks,3870nodes,2e-11,unscaled factors, coefficient403340 masks and directed rounding/alias conventions are unchanged. Restore first H/B/E/D pair/readout/gap/raw envelopes by assignment; compute a declared outward numerical bound once. Do only119 NEW raw chunks/1428 NEW pointactions. Copy old3 post-Pi contacts as inherited evidence, never recalculate. This restores1 sealed role instead of14 original roles, so5661 new roles and15837 NEW controls. Root authenticates every record/COMMIT; partials are saved on error. No physics/source gains or threshold changes.
+
+The numerical preconditioner still requires new full-node application/transpose and original weak67/117 six-gate acceptance. Original10655 componentwise application remains failed. No finite metric, phase/normal/CMC/evolution/exterior/galaxy qualification inferred. USE_SAVED_CARRY is false; this source cannot pretend to restore a later partial factor/moment run. An earned later unit needs an explicit selective successor.
+
+The recovery wrapper V002 keeps both completed enclosure operands before its unchanged rounding-dominance assertion; no arithmetic/census/API policy changes. Definition selection correctly expects two top-level definitions, including the factory with its inner wrapped-provider closure. The old three-definition expectation was caught before numerical launch.

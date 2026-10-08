@@ -1,0 +1,5 @@
+# URM dark-sector progress V139
+
+2026-10-06 UTC. Development evidence only; frontierV220/ledgerV161 govern. Canonical dirty files unchanged. Actual S_cross disk is now implemented; V00116cases closed atlinear600cap with completeprotectedpartialwork, not physicalfailure. V002root42904 now recovers the exactunfinisheddirections/acceptedstates with identicalphysics/finalcriterion; original18459coefficientsremainlive. Exactvariational/numericalcontrols pass, but no qualifiedobservedstationaryforce yet.
+
+Currentcross/dual zero-modebackgroundequivalence and cross's own retained-current retarded ceiling are independentlyderived. Explicit adiabaticcurrent/U/Einsteinmomentum+worldtubecompatibility gives constructivephysical nexttest, not automaticFLRWmatching of the weakdisk. Completehorizon/sharedEPS/latephoton evidence retainspreviousscope. All11lanesOPEN; no superiority/DMDEabsoluteabsence/primordialthermalinflationcompletion. Next actualnonlinearwidercases, convergence/physicaldomain/source/Hessianchecks, refinement and matchedcurrent. Allfailedpartialsealedstates and sevencanonicaldirtyfiles preserved; ordinarymode/oldGoalheartbeatpaused/noautomaticresumption.

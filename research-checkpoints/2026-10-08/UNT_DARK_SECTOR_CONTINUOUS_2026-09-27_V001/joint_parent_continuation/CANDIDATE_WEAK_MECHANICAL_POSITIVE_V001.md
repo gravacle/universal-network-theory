@@ -1,0 +1,11 @@
+# Same-candidate full mechanical action construction envelope
+
+HELD source-only unsigned companion to temporal147 and original weak67; root alone may execute a containing successor. This is the full-action construction envelope, separately from the nodal represented-factor envelope. No current, coefficient, geometry, EOS, old action or old fixture producer is called.
+
+The bound follows the literal original fixed-configuration rate contractions, each mode and connection sum in its declared order. Raw stored coefficient magnitudes and both supplied input words are retained. The cached paired N*A and gamma-squared denominator remain distinct from ideal chart identities. The denominator lower is directed down; nonpositive/unresolved or nonfinite denominators refuse.
+
+Each nonnegative scalar elementary add/product/division receives 128 machine-epsilon relative padding then nextafter toward positive infinity. Sequential reductions apply this per addition, rather than padding a collapsed long sum. This exceeds the finite normalized elementary DD operations' local roundoff budget; the installed exact-exponent product must still refuse any lost restoration or unresolved domain. Active underflow receives a directed representable upper; exact source zero remains zero. No reference floor or changed construction tolerance is introduced. Overflow refuses. This is a numerical operation envelope, not a uniform physical coefficient/inverse proof.
+
+Value lift uses the original rounded factor64 (including cylindrical R powers); scatter uses original F64 contraction, separately rounded weight64 and hat64, and actual native/metric axis fold and sheet masks. Each resulting elementary unsigned contraction and node accumulation rounds outward. Off-diagonal physical rates use no extra factor; EH symmetric density retains its source multiplicity two.
+
+All four authenticated same-candidate caches and identical R/dv/hats are mandatory. Completed partial positive stages remain captured. Original paired full weak action and six raw/scaled 1e-10 rows own solve acceptance; residual-update construction remains 2e-11. No self-adjointness, global inverse, forward error, finite geometry or physical/galaxy acceptance is claimed.

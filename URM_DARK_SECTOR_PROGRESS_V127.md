@@ -1,0 +1,7 @@
+# URM dark-sector provisional progress V127
+
+2026-10-06T08:44:37.152789+00:00. Provisional research update only; no canonical MODEL/REGISTER/status-ledger adoption. V126 and its all-eleven-OPEN status remain inherited. FrontierV208/ledgerV149 govern the current checkpoint; root16044 and18459 remain active in ordinary mode with oldGoal/heartbeat paused.
+
+The accepted one-parent microscopic result remains3348PASS from one conserved native/field/interaction bank. New exact carrier-number ground curvature is positive, while the literal whole finite-cell ground energy fails the existing P(X) narrow chemical-band shape under any single positive fixed-volume energy/charge conversion. Prepared total energies remain affine; no state substitution, new EOS, energy zero or epsilon change. Derived phase-only allocation or a controlled collective limit remains the physical matching task. Leading aligned dust-observable degeneracy is distinct from mathematical rank and microscopic current identification.
+
+Horizon TIME and MODES each meet all60 unchanged refinement criteria on sealed completed checkpoints; SOURCE/START/fullclosure remain. Original wrong-sign diagnostic failure flags are preserved and do not become global qualification. Native physical flags, failed28cosmic/stationary18 screens and all missing observational comparisons remain. Both live sources/states/owners are untouched; exact next actions and artifact seals are in FrontierV208 and the existing continuation log. No automatic resumption is asserted.

@@ -1,0 +1,49 @@
+{
+  "status": "FULL_STATIC_MATH_API_PASS_WITH_CUSTODY_FIX_REQUIRED",
+  "source": {
+    "file": "model_metric_si_circle_controls_v001.py",
+    "sha256": "8cd28ee7a33fb5772e75d5f1bbcf564770047f2db161d35859d2364e37a2d0c1",
+    "lines": 80,
+    "top_level_definitions": 3,
+    "nested_definitions": 1,
+    "guard": true
+  },
+  "controls_reviewed": [
+    "Exact dyadic metric+jets under authentic length/time pullback",
+    "Exact arbitrary affine derivative-index pullback",
+    "Native SI frequency/frequency derivative/physical normal velocity/nonaffinity/geodesic acceleration and orientation",
+    "Exact Q1 interior node/open-cell association",
+    "Exact outer LEFT contact with RIGHT refusal"
+  ],
+  "review": [
+    "The expected full matrix/jet entries and dynamic ordered vector are independently correct. The acceleration scale L0/cp squared applies to the two meridional metre components; the axial component uses (L0/cp) squared.",
+    "Exactly seven resident definitions are AST-selected. All their dependency functions and np/math/EPS are supplied, decorators retained. Only definitions from dynamic61/helper114 are loaded; source-native/primitive pins are metadata only.",
+    "Seven source/spec pins were verified. Driver and loaded source syntax were inspected, driver compiled only. All analytic scope/false physical and no fake43 flags are explicit."
+  ],
+  "findings": [
+    {
+      "severity": "release_blocker_custody_only",
+      "lines": [
+        50,
+        51,
+        53,
+        57,
+        59,
+        60,
+        64,
+        67,
+        70,
+        71
+      ],
+      "description": "Current case operands are appended only after helper return; a helper refusal loses supplied current g/dg/J or mesh/radius input from ERROR, and completed dynamic event is gated before capture.",
+      "minimal_repair": "Append a case dictionary with supplied operands before each helper invocation, then attach completed results immediately before later calls or gates. Preserve current source and keep mathematical/control equations unchanged."
+    }
+  ],
+  "verification_scope": {
+    "text_AST_hash_compile_only": true,
+    "numerical_function_or_payload_evaluated": false,
+    "NumPy_imported": false,
+    "controls_run": false,
+    "source_modified": false
+  }
+}

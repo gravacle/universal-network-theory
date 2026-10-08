@@ -1,0 +1,17 @@
+# Frontier update V246
+
+2026-10-06T23:04:43.443476+00:00. Ordinary continuation on this Mac; V245 and all earlier evidence preserved. The central measured galaxy-and-expansion prediction remains open. Latest continuation entries govern execution.
+
+Rotating material flow is mandatory. Final physical velocities use exact geodesics of the calculated full metric. Activity is undefined outside0.3–15.1kpc;15.1 is a coverage end, not a galaxy edge or FLRW junction. Outer baryons,43 observations and the128kpc domain remain intact.
+
+Completed sinceV245: original23-ring photon-band recovery6PASS, properq4 mixed contacts15EXACTPASS, full-metric geodesic/rotating-material component37PASS, and rotational FLRW66-field RHS/moving-port/work component24PASS/fivepairs. Each has full root and distinct saved audits. Axial RESULT2f4ea0c9133bb8d48331796b93ba3c2ec78c7605eb47cb074514d0131ae2066a; receipt9bb0491266c017b9939948641d2ebd40d5ac67e2842b198ff1e6c602a1596de3; actualroot10695 CLOSED0. These are component/input calculations, not an evolved physical galaxy or observation closure.
+
+Actual macroclock normalization is available: Q0/Hstar=100, H313=eta h,Q313=100eta q,Qdot313=-3H313cs²Q313. The protected56-line registration binds the exact sharedEPS5 row and current inventory. EPS5 passes18/18 necessary stationary-span comparisons; older narrower-EPS failures do not transfer. Primitive graph clock/volume/preparation/inertia matching remains separate. All four sigma=.1,1,10,100 are retained.
+
+New protected analytical closures: independent rotating material109, same-state normalization107, rotational exterior95, full nonlinear nativeU/mode/phase113, and inclusive count/pressure65. The latter derives pressure from the complete normal/map/work reactions and distinguishes full net chemical work from a positive charging/creation component; no volume-energy function or EOS was invented. Native driving uses its own acceleration, not an added observed v²/R source.
+
+ACTIVE actual next calculation: test the UNTRUNCATED native and projected-U weak equations on the already recovered four stationary galaxy trials. Native authors a guarded small meter; observer checks constrained directions; reader binds saved FINALs. Compact meridionalU and azimuthal-mode probes retain connection/projector/normal reaction compensation/nonlinear quartic. Unknown exterior/standalone reactions stayNone; limited probes cannot certify a full Galerkin solution. Root execution follows full reviews and fresh ownership. No new physical history, gain, wall, EPS or velocity is selected.
+
+The original failed oddMINRES attempts were already recovered by CLOSED band88234 with22controls/four original residuals2.34–3.55e−12. Their exact geodesic correction88951 was only3.7217e−5km/s; no second recovery is launched. Current measured galaxy retains30/43 quoted-error exceedances despite about75percent source-score improvement. SameEPS5 expansion/early78PASS remain conditional. Eight structure/history gates and eight radiation conservation gates remain failed; native inflation/thermal origin/CMB superiority are not earned.
+
+All elevenStage3 obligations remain OPEN. Original18459/session88165 remainsLIVE/owned/untouched; latestPS only this scientificworker, no new completedcase beyondAUTH observed. New numerical producers are CLOSED. No Goal/heartbeat/scheduler, automatic resumption, app/system changes, installations, remotejob, publication, spending or superiority/completion claim. Seven canonicalURM files remain protected.

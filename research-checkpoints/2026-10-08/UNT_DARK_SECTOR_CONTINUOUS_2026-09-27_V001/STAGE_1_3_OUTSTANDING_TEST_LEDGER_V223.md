@@ -1,0 +1,19 @@
+# Outstanding dark program tests V223
+
+2026-10-07T16:40:45.249702+00:00. FrontierV280 retains the original finite0 failure/STATE0; this ledger and later continuation supersede its pending arithmetic/recovery next action. All eleven obligations OPEN.
+
+| Obligation | Remaining evidence |
+|---|---|
+| Galaxies | NEW43 nonconverged diagnostic completed:12/43 within quoted1sigma,RMS9.78113,outer+16.52492. Accepted finite canonical/current/four-normal/CMC metric solve and corrected43 still pending. Ordinary39/raw-native53/phaseEOS17/phase-normal3 and later48/7/20 composition/sheet controls are checked instruments. Actual finite0 STATE0 is earned, strict phase domain/Hessian positive; original first normal stopped on arithmetic range. Six exact-product controls passed; root97585 V005 recovery is live and has saved 26 new normal tests without replaying earned STATE0. Candidate phase/shared canonical blocks passed full independent static review; three new manufactured phase-interface controls passed exactly. Two NEW same-candidate temporal contacts on four CLOSED section0 points earned all eight independent E/F polynomial-transpose controls (max3.60213e-20 vs2e-11); combined native+metric reciprocity gap7.17942e-19 of uncancelled envelope. All six physical metric rates retained, primary-chart gaps preserved. This is a component measurement, not a full-grid inverse/rank or finite metric solution. Actual recovered whole-grid residual assembly and coupled spatial-metric solve remain pending. |
+| Lensing | Actual accepted metric, null bundles and observations. |
+| Expansion | Conditional EPS1e-5 retained; same-law physical galaxy and expansion prediction. |
+| Structure/growth | Eight failed gates retained; qualified evolution and observations. |
+| Mergers | Conserved transient/history predictions and observations. |
+| BBN/recombination | Conditional14/78 retained; physical/thermal preparation,lithium. |
+| CMB perturbations/observations | Original18459 live/protected; physical spectrum/transport/TT-TE-EE. |
+| Separate network thermal origin | Coherent exchange retained; irreversible origin. |
+| Fair joint comparison | Covariance/systematics and components/functions/parameters/initial-state accounting. |
+| Independent synthesis | Closed43 arithmetic review, exact-product controls and manufactured phase-interface checks and independent actual temporal-component saved-word/seal review complete; actual finite constraint interpretation and physical/observational synthesis pending. |
+| Qualified URM integration | Development reports only; seven canonical dirty files preserved. |
+
+Exact next: preserve live root97585/session84446 recovery and original cosmology18459/session88165. Read only metadata while they live. After natural V005 closure, authenticate all success/error/source/COMMIT seals and recover any earned partial before a rerun. Use actual current/target epsilon, four normal rows and initial CMC to prepare same-candidate mechanical126 and literal phase113 blocks, fresh phase mass/positive margins and geometry-dependent York128 target JVP. Then perform new mixed action/adjoint controls and the coupled canonical/charge/constraint response with original tolerances/inputs; recompute all43 after an accepted spatial metric. Preserve original94049 failure and all partials. No new source gains, offsets or history fits. Ordinary mode; no Goal/heartbeat/scheduler/autoresume.

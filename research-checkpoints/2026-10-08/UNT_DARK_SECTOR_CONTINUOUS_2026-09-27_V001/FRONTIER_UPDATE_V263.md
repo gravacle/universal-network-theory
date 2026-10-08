@@ -1,0 +1,17 @@
+# Frontier update V263
+
+2026-10-07T06:53:46.916095+00:00. Continues V262 and the latest continuation log. Ordinary mode on this Mac.
+
+**The central galaxy-and-expansion prediction remains unresolved.** Existing NGC 3198 comparison: 13 of 43 points lie within their individual quoted errors; 30 lie outside. No replacement evolved physical metric or rotation curve has been produced. The finish line remains one physically justified, normalized native UNT law predicting galaxies and cosmic expansion together. All eleven Stage 3 obligations remain open.
+
+**A real numerical milestone is retained.** Coupled rate solve 47969 passed the original native/metric/actual-target equations and owned weak expansion trace at the unchanged 1e-10 threshold. Paired values and spatial derivatives are saved and independently verified. The same 403340 real coefficients are encoded in two words; no physical law, source, history, target or tolerance changed.
+
+**The next bridge test finished with a measured discrepancy.** Recovered worker 50104 naturally closed at 06:49:26.779080 UTC; all 18 new consistency controls passed and seven immutable pairs were saved. Completed first-column derivatives were recovered from the failed V001 attempt; no replay of that completed prefix. Reconstructed native original-affine residual ratios are 3.12976e-7 raw and 1.16539e-5 after the original scaling, exceeding 1e-10. Relative to the much larger total native target they are 2.29483e-12 and 1.28021e-16; metric original and target ratios pass. These normalizations answer different questions. The small-row mismatch remains disclosed and cannot be erased by resetting the affine offset. It does not establish a new observational failure or a successful physical model. All physical qualification flags remain false.
+
+Independent saved-only checker 50596 closed successfully at 06:52:46.412894 UTC: 18 controls, seven committed pairs and 12 saved identities; maximum identity error 5.54676e-17. It confirms the mismatch without feature, finite-element operator or solve replay. Failed V001 and all earlier attempts remain preserved.
+
+**Active work: full gravitational constraints and diagnosis of the representation gap.** The new calculation consumes the saved paired primitives, complete rotational terms and action-derived momenta. It measures full lapse/shift constraints and keeps the finite Legendre stationarity remainder; its status is conditional until the primitive bridge is admitted. Sources, UV/IR profiles, histories and offsets remain unchanged. Then consistent declared preparation and exterior, metric evolution, and emitter/photon/detector forward predictions must precede comparison with galaxies and cosmic expansion. Full Stage 3 lensing, growth, mergers, early universe, CMB, separate thermal origin and fair joint validation remain required.
+
+Original worker 18459 was freshly verified live at 23h30m36, 95.8% CPU and remains protected. Workers 50104 and 50596 naturally closed. Root owns new execution; concurrent agents author and review. No Goal, heartbeat, scheduler or automatic resumption. Seven canonical URM artifacts remain unedited.
+
+Evidence: [primitive readout](joint_parent_continuation/CROSS_U_PAIRED_CURRENT_PRIMITIVE_MOMENTUM_READOUT_V002_RESULT.json), [closure receipt](joint_parent_continuation/CROSS_U_PAIRED_CURRENT_PRIMITIVE_MOMENTUM_READOUT_V002_RECEIPT.json), [independent saved check](joint_parent_continuation/READONLY_PAIRED_PRIMITIVE_CLOSURE_V002_RESULT.json).

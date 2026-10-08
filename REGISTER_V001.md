@@ -11196,3 +11196,25 @@ dynamics, gravity, or numerical `G`. Row `RA-11`, generated proof block
 `P-CURRENT-9`, and the non-load-bearing hash-pinned
 `owner_once_autonomous_continuation_certificate` carry the live result without
 changing the finite ARGER Gate or any sealed historical theorem.
+
+## 2026-09-30 — Shared dark-sector candidate development interface
+
+At the user's request, URM now exposes the separately typed
+`dark_sector_candidate()` and `dark_sector_candidate_certificate()` surfaces.
+They pin the shared-model candidate V001 and outstanding-test ledger V008
+in the paired local research directory. Row `DS-1` records `CANDIDATE` status;
+all eleven scientific lanes remain open. This is checkpoint integration, not
+a completed physical solver, an observational result or a new theorem.
+
+The API is zero-input and recursively immutable, rechecks custody on every
+call, and refuses missing, altered or noncanonical checkpoint sources.
+Synthetic mutation/refusal controls carry zero scientific weight. The
+aggregate URM chain includes a separately labelled focused candidate gate;
+`--no-chain` retains its historical four-family meaning. Existing canonical
+theorem composition and sealed publication/release bytes are unchanged.
+
+The next scientific priority is one specified physical coupling and autonomous
+formation law with complete energy/work accounting. The density hypothesis
+must survive the uniform mode/contact-amplitude cancellation restriction;
+it cannot be supplied merely by increasing identical retained mode counts.
+No predictive advantage or superfluity of dark components is asserted.

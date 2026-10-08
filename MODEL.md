@@ -1690,6 +1690,30 @@ generated proof block `P-CURRENT-9` carry its ceiling. The result says nothing
 about any other size, persistence, scaling, curvature, geometry, continuum
 response, RGRL/WTC, alpha, Einstein dynamics, gravity, or numerical `G`.
 
+## Shared dark-sector research candidate
+
+The additive zero-input `URM.dark_sector_candidate()` and
+`URM.dark_sector_candidate_certificate()` register the 2026-09-30 shared-model
+development specification. Ledger row `DS-1` is `CANDIDATE`, not a new proved
+claim. The physical source/clock/volume map, formation of the required state,
+and shared energy/force/volume/creation-work closure remain unresolved. All
+eleven Stage 1–3 lanes remain open, including the distinct CMB perturbation
+and network thermal-origin obligations.
+
+The interface returns an immutable, hash-pinned checkpoint and refuses missing,
+altered or noncanonical source artifacts. It does not accept fitted parameters,
+run a physical solver, establish empirical superiority, or assert that dark
+components are superfluous. Its custody pins cover two checkpoint documents,
+not a transitive verification of every antecedent they cite. Scope and refusal
+controls carry no new observational evidence.
+
+This is a local-development interface to the paired research directory
+`../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/`, not a self-contained release
+capsule. Relocating this checkout without those exact sources causes refusal.
+The existing UNT theorem composition, canonical nine-family claim grades,
+and sealed publication artifacts are unchanged. A later physical solver or
+qualified result must receive its own explicit version, review and tests.
+
 ## VALIDATION
 
 From the repository root:
@@ -1711,6 +1735,7 @@ python3 model/validate_owner_once_joint_witness.py  # non-load-bearing L10/L12 e
 python3 model/validate_lineage_order_curvature.py  # non-load-bearing L8 formation-order controlled null
 python3 model/validate_owner_once_autonomous_continuation.py  # non-load-bearing fixed L4 mechanism
 python3 model/validate_universal_network_theory.py  # master typed composition; no finite-to-Einstein promotion
+python3 model/validate_dark_sector_candidate.py  # local candidate custody/scope; no physical or empirical pass
 ```
 
 The family validator is the landing gate for new URM features. Its printed totals are computed by

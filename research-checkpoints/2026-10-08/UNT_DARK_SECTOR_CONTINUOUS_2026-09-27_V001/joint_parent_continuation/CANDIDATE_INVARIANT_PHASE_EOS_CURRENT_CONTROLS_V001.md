@@ -1,0 +1,13 @@
+# Held NEW candidate invariant phase EOS/current controls
+
+Root alone may execute after full static and peer review and a guard/protocol-pin release. This source performs three new synthetic analytic cases and two strict invariant-domain refusal requests; it invokes no prior fixture, physical field, source inventory, operator or solver.
+
+The provider is an exact AST-selected subset of the pinned paired arithmetic, finite geometry and first-jet dual helpers. Only the new invariant EOS/current core is called. The synthetic controls disclose eps=1, X0=A0=1 and relative coefficient 1; they do not register or replace physical EPS=1e-5, budgets or clock scales. A future physical caller must use the authenticated registered-constants builder.
+
+Independent Decimal references use 100 significant digits and the closed X=5/4 identities n=1-ln(2), P=(ln(16/7)-9/16)/n-1, PX=45/(14n), PXX=1726/(49n), PXXX=154880/(343n). They do not invoke the EOS implementation. The supplied binary64 n and the independent mathematical n remain distinguishable in saved operands. Each actual scalar is read as Decimal.from_float(high)+Decimal.from_float(low); both words and full reference strings are retained.
+
+Cases are rest-clock differentiation; the intentionally unphysical projector-transpose discriminator; and simultaneous inverse/phase/projector/measure contacts. Five independently specified construction groups per case cover clock, EOS, current/density/Hessian, literal-versus-registered/reduced gaps and product-rule directions. Two additional controls require u=0 and u>eps to refuse at the declared invariant-domain gate before elementary logs. Total census: 17 controls and five new case NPZ records.
+
+Every comparison keeps the original 2e-11 component construction tolerance. Envelopes are independent positive analytic operation sums before cancellation. Where the analytic operation envelope is exactly zero, an exactly zero paired scalar is required; no denominator floor is introduced. These controls test new synthetic arithmetic and library-log accuracy at the specified inputs, not a forward inverse bound or physical domain admission.
+
+Inputs are captured before the core call. Elementary log terms, ratio defects, complete value/direction/chain outputs and reference contacts remain in each immutable case record; references and control descriptors precede gates. Refusals preserve supplied/clock operands, and unexpected failure preserves all available raw words plus the last paired-arithmetic operands. Result/error publication is exclusive and all source pins are rechecked after successful work. Physical, weak-charge, canonical, normal/CMC and finite-candidate adoption remain false.

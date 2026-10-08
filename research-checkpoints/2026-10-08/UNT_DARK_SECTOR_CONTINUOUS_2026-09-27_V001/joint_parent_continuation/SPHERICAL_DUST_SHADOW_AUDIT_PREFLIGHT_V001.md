@@ -1,0 +1,13 @@
+# Independent source preflight: spherical dust shadow V001
+
+Accepted for the explicitly declared root-run method/residual census, not as a finite-R solution. Read the complete reduction, protocol and worker without importing or executing them. Bound SHA256 identities:
+
+- `SPHERICAL_SAME_STATE_RELEASE_REDUCTION_V001.md`: `aa992240b67686ec4c600e0069ef8a4b231c254e2c4ae49409ae7f1675f5d1a9`.
+- `SPHERICAL_DUST_SHADOW_PROTOCOL_V001.md`: `f9e524dd6ad3e27db811f0dba5a0568e9deb71ffa5a1c43205497a7ecab77977`.
+- `spherical_dust_shadow_v001.py`: `ba928eafe25c870ea872027389ecff1a45425f6f3ea613562e65d67bd9c853ed`.
+
+The conserved label rho0=S beta R I/c², internal energy, pressure and exact Newtonian sound coefficient cN²=(omega/R)cI²c² follow from the stated action reduction. Their energy/inertia defects remain explicit. The polynomial seed is mass-normalized, center mu=1155/128, and the worker independently integrates its normalization algebraically. The moving shell force, mu derivatives, determinant J=f²(f+z f_z), density reconstruction and outward pressure-residual sign agree. The source is not fixed, and no outer wall or fitted halo is inserted into the shadow generator.
+
+The positive zero-source action bracket and quadratures, period derivative/sound formula, stable dE/dW, saved state anchors, RK4/DOPRI coefficients, same-flow current ratios, finite-worldtube excess masses and damped forcing accumulations check. Full source selection keeps the two inherited method states and exactly collapses only duplicate disk-thickness labels. Old late-time radiation omission is disclosed rather than silently changing the background. Every evaluated stage's map-domain failure and unfinished method state is retained. The producer is stdout-only with authenticated ancestors and no subprocess or file writes.
+
+The accumulated shadow force, free-kernel displacement, sampled extrema and characteristic travel are diagnostics only. They do not supply a force/Lipschitz bound on a tube containing the actual finite-pressure trajectory, a continuous-time crossing certificate, a physical acoustic-domain proof, or an observed lens. Equation (9)'s gravitational Lipschitz coefficient now has the appropriate physical-displacement normalization. A dust-only Jacobian cannot establish the missing finite-pressure estimate. The explicit `finite_R_trajectory_qualified=false` is scientifically necessary and must survive a numerically successful run. The old R=128/8192 states remain method controls, not newly inferred successful cosmological states. No mathematical blocker found; no worker or quadrature was run during this review.

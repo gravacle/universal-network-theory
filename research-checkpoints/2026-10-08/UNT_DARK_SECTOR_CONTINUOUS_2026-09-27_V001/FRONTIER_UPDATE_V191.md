@@ -1,0 +1,24 @@
+# Frontier V191: connected nuclear, atomic, acoustic and survey predictions complete
+
+2026-10-06T04:32:12.357786+00:00. Ordinary work ACTIVE. Root cosmic worker PID418/session36221 remains live; last journal evidence MODES step1536. All11Stage3 obligations remain OPEN. Old Goal/heartbeat paused. No automatic resumption is created.
+
+The same provisional .99GN constrained-U law now has a connected fixed-parameter chain: genuine light elements39/39, BBN-linked helium recombination12/12, acoustic/drag/distance22/22 and the existing13-point correlated DESI distance prediction5/5 numerical controls. These are completed calculations, with root authentication and preserved ancestry; original failed/unexecuted attempts remain. No new parameter/ruler/energy function was fitted.
+
+The primary acoustic estimate gives zstar1089.1895202031667, sound ruler146.7174739995888Mpc, photon distance14094.038236577888Mpc and100theta1.040989612322867. Predicted drag ruler149.56212602752916..149.56808542599936Mpc; Htoday67.76195632935898 from the same .99 background. Compressedtheta and the baryon/D-H calibration were already development-exposed; proximity is consistency, not a new holdout or CMB spectrum likelihood. The formal a<1e-8 sound-tail contribution.002689819Mpc is bounded within the adopted radiation extrapolation, not a complete early-plasma uncertainty bound.
+
+Using that predicted ruler with the sealed13 DESI DR2 means/fullcovariance gives chi-square10.451365468208843..10.462733051411664 with no added fit. Covariance, independent96/48Gauss and2048Simpson distance controls, and direct-versus-quadratic score all pass. The min/max is only over the physical low-z drag uncertainty interval; no unrestricted fitted ruler. This resembles the prior distinct-law10.42score and earns no superiority, p-value or whole best-fit standard-model comparison. The survey's template/derived-distance assumptions and all adopted model/state freedoms remain counted.
+
+Root full early photon/polarization/neutrino/phase/mode calculation continues its seven trials, four inertias and527 prospective controls. The BASE trajectory is complete; remaining refinement trajectories are still active, so no final gravitational result is promoted. All512-step complete states are committed and resumable. A prospective saved-state source-conservation reader186/25 has fullroot/author/observer method review; final parent pins await natural closure. It will expose signed phase, polarization, ordinary-radiation/shear contributions and metric/source/normal consistency, retaining every original numerical failure and domain head.
+
+The66-line shared clustering-budget note04574291aa7fa464456ec5bbae1ff590a6addaa21cf18889503298b89a506f96 passed fullroot/author/bothpeer math review. Exact w/b=(OA*d0/OB)qbar is fixed; conditional equal phase/baryon comoving contrast with negligible radiation/polarization yields force/lens roughly6.32GN. That is an analytical reference, not an actual evolved or observed galaxy result. Actual finite pressure, drag and multiplier transfer determine its departure. A galaxy-scale continuation requires a controlled physical seed/radiation/current solution; no static galaxy is silently made this cosmological Cauchy state.
+
+Separate native thermal-origin work has recovered the completed648-row calorimeter/effective-port data and56,324 saved checks. They are not rerun. A distinct literal gap-aggregated energy-selective port is being authored to test finite-g autonomous native release and reverse/correlated transfer, with zero-actuator-work commutation and every pair/gap retained. It is an explicitly adopted port and does not itself establish thermality, photons, cosmic preparation or inflation. The main shared-law gravitational work remains active.
+
+| New completed artifact relative to J | SHA256 |
+|---|---|
+| CONSTRAINED_U_CLOCK_GRADIENT_BBN_ACOUSTIC_READOUT_V001_RESULT.json | 844d085f18ab85589793858d24fb4a3333741175c6a7d5b41792d83b331ee403 |
+| CONSTRAINED_U_CLOCK_GRADIENT_BBN_ACOUSTIC_READOUT_V001_RECEIPT.json | e0dab9c7d3e335001908ed10f43972b4f6b97658061490087720a3ffcb2d16d7 |
+| CONSTRAINED_U_CLOCK_GRADIENT_BBN_DESI_BAO_V002_RESULT.json | 12743287b22d4dc96ff21b9134f5d8d04db9081c41bd55bd6aabec1f6fdb4979 |
+| CONSTRAINED_U_CLOCK_GRADIENT_BBN_DESI_BAO_V002_RECEIPT.json | 9c489ec4ca988b95d067151639dda84aa7f3de689fafd7c44017a7f55e8e0644 |
+
+Exact next action: continue owned worker418 through all7 trials and natural closure, authenticate results/527 dispositions/111 CPpairs, then finalize/execute the already reviewed source-conservation readout. In parallel complete/review the bounded native selective-port source and controlled galaxy-scale initial-state derivation. No canonicalURM adoption. All seven preexisting tracked modifications remained at04:30; no stage/reset/commit/publication.

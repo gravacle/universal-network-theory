@@ -1,0 +1,11 @@
+# Generic isolation controls qualified; physical integration remains open
+
+2026-09-30. Additive research companion to FRONTIER_UPDATE_V091 and ledgerV032. No sealed candidate/progress API, historical capsule, release or adoption claim is changed.
+
+The fixed generic root packet passed24cases and844independent Fraction checks, consuming13133primitive units in one bounded child. It preserved interval-history uncertainty and known roots, handled a non-globally-monotone residual, and retained partial work for the13intentional rejection controls. Expected rejection is not a root certificate. No earlier calculation was replayed and no criteria changed after outcomes.
+
+Run SHA b0422af72440f7f5e99a0d4c13660d4ac1436c0bf57a8581e1fc35e97619f735. Full independent source preflight and saved-result review passed/root-read; saved review SHA015d2ebcb17739407ed2396ecd2be263a518fe3d5f03b6e25c41c74f0a080757. This is a finite generic implementation check, not physical charge/step qualification, a recombination history or a cosmological success.
+
+The physical interval rate evaluator remains source-reviewed and unexecuted. The32-literal capture was separately frozen, compiled and executed once, with all32 representation identities passing and an independent saved review accepted. Capture run SHA83d6028df88227ae397172629fd16c68ebf8561a9df2f7e4886e98b1e58d6899; review SHAb59d9f4ae0ca7d2006f50a5cb6f2640faf921fe53fcd45547c13acf362a6578d. No physical rate or evaluator binder was called. Exact-real algebra on represented constants remains distinct from C's rounded intermediate sequence. Literal records enforce their metadata identities; coefficient/rate records may enter later controls only as live outputs of their authenticated builder, not reconstructed evidence.
+
+All eleven program lanes remain open. The shared native source/clock/volume/formation law is still unclosed. Physical expression/step and initial-layer checks, topH coverage, full thermal/C2 convergence, lensing/growth/mergers, both distinct CMB lanes and independently reviewed final observational synthesis remain. No claim that DM/DE are nonexistent, observationally superfluous, or outperformed has been earned by this numerical dependency.

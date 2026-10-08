@@ -1,0 +1,15 @@
+# Frontier V190: BBN-linked recombination complete; shared cosmic response running
+
+2026-10-06T04:23:35.867662+00:00. Ordinary continuation ACTIVE on this Mac. Root owns the numerical worker PID418/session36221; three agents perform analysis and source review. Old Goal and heartbeat remain paused. All eleven Stage3 obligations remain OPEN.
+
+The NEW shared-action nuclear pair39/39 and its predicted YPCMB=.24445561896834236 now feed a newly calculated default/half recombination pair. The BBN-linked atomic calculation naturally closed12/12 in1.815871875s. Max paired xe difference1.38944e-6 and Tm1.77033e-7; no added fit, input replacement or old-output alias. Root authenticated all272 current/ancestral inputs and every output/checkpoint/receipt. The old fixture and all failed/unexecuted drafts remain.
+
+Root has launched the full photon, polarization, neutrino, baryon, physical phase and kinetic-mode evolution from a=1e-7 through today at k=.01/Mpc. Seven prospective trials retain four inertia arms and527 numerical controls. Every512 steps saves full resumable states. V004 source a4e78b6467b0ba5884c8da2081ff580378b4afb839a90cec548fcf30a389fa07 and protocol8d7f33f6b336488e92ed6b516dd196a66f7ee2929bda5a72e7a258fe34ac9cd5 passed full inherited science, narrow serialization and allroot/author/peer reviews,34direct/303actualseals; fresh04:23:07ownershipps empty beforelaunch. InitialCP0 committed; no final result exists yet.
+
+V003 naturally failed before any Radau step because a NumPy Boolean could not be JSON encoded. Its manifest, OWNER journal, partial uncommittedCP0 and timestamped failure remain byte-exact/frozen. V004 changes only two builtin Boolean conversions and encoding before exclusive file creation, plus namespace/provenance. All equations, numeric values, trial budget and527 criteria are unchanged; no failed state is used as a solution. V001/V002 remain frozen/unexecuted.
+
+Next actual independent small calculation is the same-action BBN-helium acoustic/drag/distance readout, four table/quadrature arms and22 prospective controls, pending final source reviews. It uses the new atomic tables and does not invoke another BBN/HYREC producer or refit the ruler. The actual cosmic source will then be decomposed into signed ordinary, phase and polarization contributions with independent conservation checks; a favorable incoming-mode amplitude is not selected.
+
+V189 abundance comparison, V188 finite local coefficient below unity and all prior failures/physical refusals stand. The derived local zero-incoming branch alone does not explain galaxy enhancement. A primordial one-k source history is not yet a galaxy assembly history, C_l likelihood, merger, native thermal origin or superiority result. Full observed joint comparison and independent synthesis remain required.
+
+Atomic result8edf04b504f89b0e378823c2b5eda6547138361bb5ad13f6858bd0e34ce5be20; receipt867911256634977adc8a50cdcc9b3b2e2e7aabaed6435de25c8be80acb6253fd. Latest continuation log records exact ownership and failed-attempt inventory. Active-run checkpoint, not completion or a stop; no automatic resumption is implied.

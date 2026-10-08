@@ -1,0 +1,275 @@
+{
+  "status": "SOURCE_ONLY_EPS_METADATA_AND_CIRCULAR_LABEL_ORIGIN_CLARIFIED",
+  "created_utc": "2026-10-08T11:16:31.422400+00:00",
+  "author": "observer_cosmography",
+  "prior_peer": {
+    "file": "OBSERVER_ORDINARY_ROTATING_SHEET_OBSERVATIONAL_INPUT_FOCUSED_SOURCE_PEER_V001.json",
+    "sha256": "7f7a7505b7be0ba392015ed5005bb2a8deef7971013f18ece9ea47e0e2ffa715"
+  },
+  "critical_clarification": "Inherited compact fixed.eps=1e-6 does not establish an EPS1e-6 origin for source_samples v0. The admitted EXP24 even-state source identity, explicit Model ep argument, and copied psi tie identify the source circular-label branch as EPS1e-5. Do not label those saved v0/p_phi values EPS1e-6 merely from inherited fixed metadata.",
+  "findings": [
+    {
+      "claim": "Circular source v0 is model-derived from the saved EXP24 EPS1e-5 even state.",
+      "evidence": "Stellar V002 line346 calls Model(r,z,32,1e-5,fixed,profiles); odd parent_binding lines69-73 checks CONVERGED EXP24 and si.eps==1e-5; main421-423 ties psi to final_state[0,:,0]. circular_sheet229-235 computes u=x*B*slopes[i], v=sqrt(u/(1-u)), gamma=1/sqrt(1-v*v), rho=x*exp(-ph), and serializes those values. The local v is a dimensionless model circular speed, not the observed Vcirc/Verr columns."
+    },
+    {
+      "claim": "The active odd/compact/full-metric scalar law also uses explicit EPS1e-5.",
+      "evidence": "Odd.__init__260, compact clock221, and fullmetric pressure345 set ep=1e-5. Thus the inherited fixed.eps1e-6 is not their operative ep selector. This audit does not establish every historical input under one EPS."
+    },
+    {
+      "claim": "Shared EPS1e-5 and inherited EPS1e-6 metadata are joined explicitly; previously saved circular samples are retained.",
+      "evidence": "Compact V001464 reads inherited_fixed and466 loads unchanged old CIRCULAR_SOURCE samples; compact V002 reuses those exact saved V001 input families. Fullmetric262-270 copies fixed_parent, sets eps=1e-5, requires inherited_fixed.eps==1e-6, and requires equality of every other fixed field. This is an explicit source-state/calibration association, not a proof that one new equilibrium was generated entirely under a single EPS."
+    },
+    {
+      "claim": "p_phi is converted from the held model-derived angular branch in the later full metric.",
+      "evidence": "fullmetric466 uses Omega0=exp(samples[:,2])*samples[:,4]/samples[:,6], k=(1,0,0,Omega0), and D=-k g k. Frechet125/132 then forms J=g_phi,a k^a and momentum=J/sqrt(D), preserving that branch. It does not copy observed43 velocities into p_phi. It also does not re-solve the held source worldline to a fresh equilibrium in each later full or changed metric."
+    },
+    {
+      "claim": "A specified matter Cauchy state is distinct from a self-consistent equilibrium/predictive calibration claim.",
+      "evidence": "Held mass/canonical angular labels can define a specified input state for action/residual evaluation if their authentic lineage and domains hold. That permission alone cannot certify finite constraints, matter equilibrium, blind source selection or calibration independence. The active EPS1e-5 source-label origin removes the specific inference of an EPS1e-6 circular-label origin; it does not erase the inherited metadata distinction or the later held-worldline qualification."
+    },
+    {
+      "claim": "Earlier EPS eligibility was exposed to observed velocity-based lapse data.",
+      "evidence": "Stationary lapse screen takes v,e from observed row values[2:4], creates nominal/lower/upper speed arms and inclination deprojection, integrates v^2/c^2 over logR, and compares spans with .5*log1p(EPS). Shared-EPS main58-63 reads those 18 spans, and77-79 compares them to charged_width=.5*log1p(ep/(1+(1+ep)*bg.s)) for each candidate ep."
+    },
+    {
+      "claim": "This exposure is neither a direct current source leak nor evidence of a blind calibration.",
+      "evidence": "The identified velocity screen is a conditional stationary-band necessity/eligibility diagnostic and explicitly keeps galaxy_solution_qualified and observational_confidence_qualified false. Its existence defeats an assertion that EPS eligibility was completely unexposed to galaxy velocity information. It does not, by itself, prove observed Vcirc/Verr were ingested by the traced source annulus/p_phi constructors, prove a velocity fit of EPS/calibrations, or establish why all historical constants/source arms were chosen. Present43 should be described as conditionally derived from the traced prepared source branch, with historical exposure disclosed."
+    }
+  ],
+  "fresh_source_pins_and_exact_fragments": [
+    {
+      "file": "cross_u_ngc3198_sparc_stellar_footprint_v002.py",
+      "sha256": "95c86130b9a348da58f2c3442b51460bdc980998b4395114a4ba3ad69ebd4ac0",
+      "bytes": 43021,
+      "fragments": [
+        {
+          "first_line": 345,
+          "last_line": 346,
+          "text": "        oldprofiles=core.density.profiles(False,False);star,_=footprint(photometry,PRIMARY);profiles=dict(oldprofiles,stars=star)\n        model=core.Model(r,z,32,1e-5,fixed,profiles);model.fgmres_fixed=fixed"
+        }
+      ]
+    },
+    {
+      "file": "cross_u_ngc3198_conditional_odd_sector_v001.py",
+      "sha256": "508c379f4bd287435b406567f772fb14efdb7142ca17b18ef0d3e4e74736b394",
+      "bytes": 40077,
+      "fragments": [
+        {
+          "first_line": 69,
+          "last_line": 73,
+          "text": "    assert r['status']=='CLOSED' and r['owner']['pid']==76996 and c['status']=='CONVERGED' and c['numerical_residual']<=1e-8\n    assert c['identity']['case']=='E1em05_SPARC_EXP24_HI0_H20_CONTROL_RECOVERY_V002'\n    si=c['identity']['source_identity'];assert si['eps']==1e-5 and si['source_id']=='EXP24' and si['native_modes']==32\n    assert si['M_to_L']==.5 and si['Rd_kpc']==3.14 and si['anchor']==[24.03,.28] and si['grid_shape']==[65,87,45]\n    assert si['hi_tail'] is False and si['h2_tail'] is False and si['law_changes']==[]"
+        },
+        {
+          "first_line": 229,
+          "last_line": 232,
+          "text": "            ph=B*(psi[i]+(x-lo)*slopes[i]);u=x*B*slopes[i]\n            assert np.all(np.isfinite(u)) and np.all((u>=0)&(u<.5))\n            v=np.sqrt(u/(1-u));gamma=1/np.sqrt(1-v*v);rho=x*np.exp(-ph)\n            weight=factor*(h-l)/2*weights*x*sig;odd=B*weight*rho*gamma*v"
+        },
+        {
+          "first_line": 235,
+          "last_line": 235,
+          "text": "            samples.append(np.stack([x,sig,ph,u,v,gamma,rho,weight,odd],axis=1))"
+        },
+        {
+          "first_line": 260,
+          "last_line": 264,
+          "text": "        ep=1e-5;norm=1/ep-math.log1p(1/ep);target=.5*ep*norm*fixed['d0'];s=target\n        for _ in range(12):\n            q=math.sqrt(1+ep*s/(1+s));dq=ep/(2*q*(1+s)**2);s-=(s*q-target)/(q+s*dq)\n        self.qbar=math.sqrt(1+ep*s/(1+s));self.Qbar=fixed['Q0_over_Hstar']*eta*self.qbar\n        u0=ep*s/(1+s);u=u0+(1+u0)*np.expm1(-2*B*x[0]);RAW['held_nodal_q2_minus1']=u"
+        },
+        {
+          "first_line": 421,
+          "last_line": 423,
+          "text": "            for name in ('final_state','final_rhs','final_residual','final_pre','final_midplane_psi','final_cell_slopes'):data[name]=z[name].copy()\n        r=np.array(binding['metadata']['identity']['r_kpc']);z=np.array(binding['metadata']['identity']['z_kpc']);x=data['final_state'];psi=data['final_midplane_psi'];RAW.update(data);RAW['r_kpc']=r;RAW['z_kpc']=z\n        assert x.shape==(65,87,45) and np.array_equal(psi,x[0,:,0]) and np.array_equal(data['final_cell_slopes'],np.diff(psi)/np.diff(r))"
+        },
+        {
+          "first_line": 428,
+          "last_line": 429,
+          "text": "        RAW={};profiles,photo=source_profiles();load,source=load_source(r,psi,profiles,data['final_rhs'])\n        source_cp=checkpoint('CIRCULAR_SOURCE',dict(RAW),dict(kind='predicted_circular_source_entire_support',source=source,controls=list(CHECKS),uses_observed_velocity=False))"
+        }
+      ]
+    },
+    {
+      "file": "cross_u_saved_even_spatial_metric_compact_residual_v001.py",
+      "sha256": "04ab886efca5b2a8f97997b2b7e8768d142aac38240a63cb6eba4f14ab3b730e",
+      "bytes": 40525,
+      "fragments": [
+        {
+          "first_line": 221,
+          "last_line": 221,
+          "text": "    ep=1e-5;norm=1/ep-math.log1p(1/ep);A=1.5*fixed['OA']/fixed['rG'];target=.5*ep*norm*fixed['d0'];s0=target"
+        },
+        {
+          "first_line": 464,
+          "last_line": 468,
+          "text": "        fixed=selected_json(rec['commit_file'],{('metadata','parent','source_identity','inherited_fixed')})[('metadata','parent','source_identity','inherited_fixed')]\n        assert fixed['rG']==.98/.99 and fixed['Q0_over_Hstar']==100\n        sr=old_pair(ORIGINAL+'_00001_CIRCULAR_SOURCE.npz','predicted_circular_source_entire_support');source=load_arrays(sr,('source_samples16','source_samples32'))\n        assert source['source_samples16'].shape[1]==source['source_samples32'].shape[1]==9\n        checkpoint('INPUT',dict(even,**source),dict(kind='unchanged_saved_even_fields_and_fixed_coordinate_worldline_quadrature',original_input=rec['file'],original_input_sha256=rec['sha256'],source_record=sr['file'],source_record_sha256=sr['sha256'],fixed=fixed,copied_original_controls=parent['copied_parent_controls'],copied_band_controls=parent['controls'],copied_original_failures=parent['copied_parent_cases']))"
+        }
+      ]
+    },
+    {
+      "file": "cross_u_saved_even_spatial_metric_compact_residual_v002.py",
+      "sha256": "c12a1ec51c8a589d49b6a09cff0467a9a6fa63a2970bc4ffe6fcf26f64e29119",
+      "bytes": 45488,
+      "fragments": [
+        {
+          "first_line": 501,
+          "last_line": 510,
+          "text": "        rec,raw_rec=failed_records;loaded=load_arrays(rec,('r_kpc','z_kpc','final_state','xi','weights','source_samples16','source_samples32'))\n        even={k:loaded[k] for k in ('r_kpc','z_kpc','final_state','xi','weights')};source={k:loaded[k] for k in ('source_samples16','source_samples32')}\n        assert even['r_kpc'].shape==(87,) and even['z_kpc'].shape==(45,) and even['final_state'].shape==(65,87,45)\n        assert np.all(np.diff(even['r_kpc'])>0) and np.all(np.diff(even['z_kpc'])>0) and even['r_kpc'][0]==even['z_kpc'][0]==0 and even['r_kpc'][-1]==even['z_kpc'][-1]==128\n        fixed=rec['metadata']['fixed'];assert fixed['rG']==.98/.99 and fixed['Q0_over_Hstar']==100\n        assert source['source_samples16'].shape[1]==source['source_samples32'].shape[1]==9\n        assert rec['metadata']['copied_original_controls']==parent['copied_parent_controls'] and rec['metadata']['copied_band_controls']==parent['controls'] and rec['metadata']['copied_original_failures']==parent['copied_parent_cases']\n        checkpoint('INPUT',dict(even,**source),dict(kind='exact_saved_V001_input_reuse',source_record=rec['file'],source_record_sha256=rec['sha256'],failed_fixture_record=raw_rec['file'],failed_fixture_sha256=raw_rec['sha256'],fixed=fixed,copied_original_controls=rec['metadata']['copied_original_controls'],copied_band_controls=rec['metadata']['copied_band_controls'],copied_original_failures=rec['metadata']['copied_original_failures'],failed_parent_status='CLOSED_ERROR',physical_changes=[]))\n        RAW.clear();fixtures(fixed,raw_rec)\n        for case in parent['cases']:cases.append(arm(case,even,source['source_samples16'],fixed))"
+        }
+      ]
+    },
+    {
+      "file": "cross_u_saved_full_metric_native_source_residual_v001.py",
+      "sha256": "23ff7ab909e60f4cd5ab96e12ea7cc1bc64e07821ebb11dd5cec28a9a02f5d68",
+      "bytes": 58054,
+      "fragments": [
+        {
+          "first_line": 262,
+          "last_line": 264,
+          "text": " shared=json.loads(path('CONSTRAINED_U_SHARED_EPS_NGC_PANTHEON_V001_RESULT.json').read_text());fixed=dict(shared['manifest']['fixed_parent']);fixed['eps']=1e-5\n cp=json.loads(path('CONSTRAINED_U_SHARED_EPS_NGC_PANTHEON_V001_EPS_1em05_CP.json').read_text());assert cp==next(v for v in shared['rows'] if v['eps']==1e-5)\n assert fixed['eps']==1e-5 and fixed['Q0_over_Hstar']==100 and abs(KB-(2-C))<1e-16"
+        },
+        {
+          "first_line": 269,
+          "last_line": 271,
+          "text": " inherited_fixed=cm['metadata']['fixed'];assert inherited_fixed['eps']==1e-6\n assert {k:v for k,v in inherited_fixed.items() if k!='eps'}=={k:v for k,v in fixed.items() if k!='eps'}\n assert cm['metadata']['physical_changes']==[] and all(v is False for v in cm['metadata']['qualification'].values())"
+        },
+        {
+          "first_line": 345,
+          "last_line": 345,
+          "text": " X2=-covdot(s['hi'],s['phi'],s['phi']);eta=fixed['Hunit']/LIGHT;Q0=100*eta;ep=1e-5;norm=1/ep-math.log1p(1/ep);s0=.5*ep*norm*fixed['d0'];target=s0"
+        },
+        {
+          "first_line": 466,
+          "last_line": 468,
+          "text": " g,hi,dg,Ga,n,rho=metric(R,ph,gr,beta,bg);Omega0=np.exp(samples[:,2])*samples[:,4]/samples[:,6];k=np.zeros((len(R),4));k[:,0]=1;k[:,3]=Omega0\n D=-np.einsum('pa,pab,pb->p',k,g,k);RAW.update(source_held_Omega0=Omega0,source_metric=g,source_metric_jet=dg,source_k=k,source_D=D)\n assert np.all(np.isfinite(D)) and np.all(D>0),'Held ordinary worldline is not timelike; no clipping.'"
+        }
+      ]
+    },
+    {
+      "file": "cross_u_saved_rotating_sheet_frechet_v001.py",
+      "sha256": "ab56dd280d6317699fe38e7b5499d1e25b214197b1d3d1db8a598ad271dc72da",
+      "bytes": 21699,
+      "fragments": [
+        {
+          "first_line": 125,
+          "last_line": 126,
+          "text": " J=np.einsum('pa,pa->p',g[:,3,:],k);Jr=np.einsum('pa,pa->p',dg[:,1,3,:],k);Ji=np.einsum('ipa,pa->ip',q[:,:,3,:],k)\n RAW.update(current_J=J,current_dR_J=Jr,current_delta_J=Ji)"
+        },
+        {
+          "first_line": 132,
+          "last_line": 133,
+          "text": " momentum=J/sd;pi=Ji/sd[None,:]-J[None,:]*Di/(2*D[None,:]**1.5);pO=g[:,3,3]/sd-J*DO/(2*D**1.5)\n RAW.update(current_p_phi=momentum,current_delta_p_phi=pi,current_p_phi_Omega=pO)"
+        }
+      ]
+    },
+    {
+      "file": "ngc3198_stationary_lapse_span_v001.py",
+      "sha256": "d41437a0abeb0dd3bf5119fe34090b1a281b649bb70393e4287bb97dfa463791",
+      "bytes": 17097,
+      "fragments": [
+        {
+          "first_line": 97,
+          "last_line": 97,
+          "text": "    band = .5*math.log1p(EPS)"
+        },
+        {
+          "first_line": 100,
+          "last_line": 111,
+          "text": "        factor = math.sin(math.radians(73))/math.sin(math.radians(inclination))\n        for speed_arm in SPEED_ARMS:\n            speeds, signed_lower = [], []\n            for row in rows:\n                v, e = row['values'][2:4]\n                signed_lower.append((v-e)*factor)\n                base_speed = v if speed_arm == 'nominal' else max(0.,v-e) if speed_arm == 'lower' else v+e\n                speeds.append(base_speed*factor)\n            panels = []\n            for index,(dx,u,v) in enumerate(zip(widths,speeds,speeds[1:])):\n                linear = dx*(u*u+u*v+v*v)/(3*CP_KMS**2)\n                trapezoid = dx*(u*u+v*v)/(2*CP_KMS**2)"
+        },
+        {
+          "first_line": 120,
+          "last_line": 125,
+          "text": "            spans = [math.fsum(p[k] for p in panels) for k in ('linear_v_span','linear_v2_span')]\n            arms.append(dict(inclination_deg=inclination,speed_arm=speed_arm,deprojection_factor=factor,\n                speeds_kms=speeds,raw_signed_lower_kms=signed_lower,panels=panels,\n                schemes=[dict(name=name,span=s,span_over_width=s/band,\n                    conditional_stationary_band_compatible=bool(s < band),eps_required=math.expm1(2*s))\n                    for name,s in zip(('linear_v_logr','linear_v2_logr'),spans)]))"
+        },
+        {
+          "first_line": 137,
+          "last_line": 139,
+          "text": "    return dict(rows=rows,arms=arms,controls=controls,width=band,eps=EPS,cp_kms=CP_KMS,\n        observational_confidence_qualified=False,galaxy_solution_qualified=False,\n        model_wide_exclusion_qualified=False,physical_parameter_changed=False)"
+        }
+      ]
+    },
+    {
+      "file": "constrained_u_shared_eps_ngc_pantheon_v001.py",
+      "sha256": "03809b3c3798563725450bb4b7cf8c91654525ad874b6bc38e85da7c8cd22c52",
+      "bytes": 13125,
+      "fragments": [
+        {
+          "first_line": 58,
+          "last_line": 63,
+          "text": " ngc=json.loads((BASE/'NGC3198_STATIONARY_LAPSE_SPAN_V001_RESULT.json').read_text())\n nr=json.loads((BASE/'NGC3198_STATIONARY_LAPSE_SPAN_V001_RECEIPT.json').read_text());assert nr['result_sha256']==PINS['NGC3198_STATIONARY_LAPSE_SPAN_V001_RESULT.json']\n assert ngc['arithmetic_qualified'] and not ngc['readout']['galaxy_solution_qualified']\n fixed=parent['manifest']['fixed'];assert fixed['eps']==EPS[0] and fixed['rG']==.98/.99\n spans=[dict(inclination=a['inclination_deg'],speed_arm=a['speed_arm'],scheme=t['name'],span=t['span']) for a in ngc['readout']['arms'] for t in a['schemes']];assert len(spans)==18\n assert all(not t['conditional_stationary_band_compatible'] for a in ngc['readout']['arms'] for t in a['schemes'])"
+        },
+        {
+          "first_line": 77,
+          "last_line": 79,
+          "text": " for ep in EPS:\n  f=dict(fixed,eps=ep);bg=scalar_bg(f);width=.5*math.log1p(ep/(1+(1+ep)*bg['s']))\n  armrows=[dict(a,charged_width=width,span_over_width=a['span']/width,signed_width_minus_span=width-a['span'],compatible=bool(a['span']<width)) for a in spans]"
+        }
+      ]
+    }
+  ],
+  "small_commit_metadata_only_evidence": [
+    {
+      "file": "CROSS_U_SAVED_EVEN_SPATIAL_METRIC_COMPACT_RESIDUAL_V001_00000_INPUT.npz.COMMIT.json",
+      "sha256": "1bf46540c6a9184f82fb423d5a97c759f76f83b69f53a807b8d764f553f3a3e9",
+      "bytes": 8840,
+      "archive_file": "CROSS_U_SAVED_EVEN_SPATIAL_METRIC_COMPACT_RESIDUAL_V001_00000_INPUT.npz",
+      "archive_sha256_recorded_only": "4097b59ce0422453d94191b688a96e45acad5edb79b6cb0c68d11b0ae394aacc",
+      "metadata_selected": {
+        "kind": "unchanged_saved_even_fields_and_fixed_coordinate_worldline_quadrature",
+        "fixed": {
+          "Hunit": 67.49711988577813,
+          "OA": 0.7,
+          "OB": 0.04659233656879551,
+          "OR": 8.996751426107524e-05,
+          "Q0_over_Hstar": 100.0,
+          "d0": 0.35857141419482286,
+          "eps": 1e-06,
+          "rG": 0.98989898989899
+        },
+        "source_record": "CROSS_U_NGC3198_CONDITIONAL_ODD_SECTOR_V001_00001_CIRCULAR_SOURCE.npz",
+        "source_record_sha256": "bc9eebbc8badd07dc6142ede20fa64be153897ea70a51fe6cf1a54b26ccaddc2"
+      },
+      "archive_bytes_not_read": true
+    },
+    {
+      "file": "CROSS_U_SAVED_EVEN_SPATIAL_METRIC_COMPACT_RESIDUAL_V002_00000_INPUT.npz.COMMIT.json",
+      "sha256": "3447c04a5cf43b94bba719ec1b9ca16c247dd4bdc815d356608540fa4681ed51",
+      "bytes": 8884,
+      "archive_file": "CROSS_U_SAVED_EVEN_SPATIAL_METRIC_COMPACT_RESIDUAL_V002_00000_INPUT.npz",
+      "archive_sha256_recorded_only": "487f71346cc001caa6177fcdb4867c8d61be1b784fdfad786eb9f8eda2df0187",
+      "metadata_selected": {
+        "kind": "exact_saved_V001_input_reuse",
+        "fixed": {
+          "Hunit": 67.49711988577813,
+          "OA": 0.7,
+          "OB": 0.04659233656879551,
+          "OR": 8.996751426107524e-05,
+          "Q0_over_Hstar": 100.0,
+          "d0": 0.35857141419482286,
+          "eps": 1e-06,
+          "rG": 0.98989898989899
+        },
+        "source_record": "CROSS_U_SAVED_EVEN_SPATIAL_METRIC_COMPACT_RESIDUAL_V001_00000_INPUT.npz",
+        "source_record_sha256": "4097b59ce0422453d94191b688a96e45acad5edb79b6cb0c68d11b0ae394aacc"
+      },
+      "archive_bytes_not_read": true
+    }
+  ],
+  "limits": {
+    "npz_bytes_read": false,
+    "scientific_arrays_decoded": false,
+    "project_bodies_evaluated": false,
+    "numeric_error_inferred": false,
+    "residual_shift_predicted": false,
+    "historical_calibration_independence_proved": false,
+    "all_historical_input_bytes_authenticated": false,
+    "physical_admission": false,
+    "source_parameters_modified": false,
+    "original_records_modified": false
+  },
+  "not_read_or_recalled_this_review": [
+    "Stellar FINAL COMMIT (19.8MB dataless)",
+    "Odd INPUT COMMIT (88.9MB dataless)",
+    "Odd CIRCULAR_SOURCE COMMIT (88.9MB dataless)",
+    "Full metric INPUT COMMIT (dataless)",
+    "Any NPZ or observed data payload"
+  ]
+}

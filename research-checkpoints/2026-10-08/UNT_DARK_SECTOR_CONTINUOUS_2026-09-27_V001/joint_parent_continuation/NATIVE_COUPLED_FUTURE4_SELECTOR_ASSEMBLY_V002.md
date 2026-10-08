@@ -1,0 +1,11 @@
+# HELD four-component selector assembly
+
+Root alone may bind FUTURE_CLOSURES and clear AUTHOR_DRAFT after each producer naturally closes and its complete root byte/header proof is verified. This definitions-only standard-library helper consumes already authenticated result/receipt/proof/selected COMMIT dictionaries; it reads no files or archives and executes no scientific algebra.
+
+The preserved closed-nine V003 assembly is input, not a runtime-qualified map. Returned overlays validate source statuses, successful role membership, receipts, exact metadata schema and source-owned names for Cg74/44, Rv2050/0, config494/1440 and the variable-cap80 NEW-eL refiner. Rv uses completed_refresh_*; its copied current_normal_value has all four test jets. Config uses current-only three-jet coefficients with independent envelopes and full prepared York/reference cache; sheet remains a distinct inherited original packet.
+
+NEW refiner SOLUTION owns total lambda/action/residual/scores; WARM_REFERENCE_CONTEXT owns fresh source norms, while RHS stays in inherited89302 WARMSTART_CONTEXT under914bb3b8. Final candidate argument and source-RHS word comparisons, zero-source handling, same-state/phase transfer and all33 mandatory link families remain root runtime prerequisites. A NOT_ADMITTED closure cannot supply feedback, even if custody succeeds.
+
+No output of this helper has the coupled runtime selected-map status. It leaves word comparisons, phase transfer, sheet and total-lambda runtime certification unresolved; preserves original scientific owners and full NODAL provenance wrapper; invents no signed/unsigned bound, physical adoption, global inverse, DD linearity or Cstar=-Rv identity. The existing original147/87/290 whole-correction and94→138→158 finite authorities remain external.
+
+V002 additionally selects full source-cached York h/ih/T/kappa/trace_part/inverse_lam plus fixed L_maps/target_raising_inverse/mu_owned, and emits explicit fresh point-TOTAL/gauge/E0 endpoints for future root word links. It does not reconstruct FY, fabricate a nodal TOTAL baseline or mark their comparisons verified. Original sheet schema addendum1c40 retains owner97585 and4832 fixed positions with zero sheet radiation.

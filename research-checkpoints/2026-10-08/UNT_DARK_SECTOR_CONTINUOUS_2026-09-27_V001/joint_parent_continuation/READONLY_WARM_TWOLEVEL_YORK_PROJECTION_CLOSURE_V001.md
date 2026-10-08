@@ -1,0 +1,7 @@
+# Saved-only warm two-level York closure V001
+AUTHOR_DRAFT: True; actual source/protocol/owner/result/receipt pins remainNone. Definitions only; root binds and releases after natural V005 closure and full static reviews.
+Authenticate exclusive new records/COMMIT/schema/custody and all physicalFalse. Parent70321/71003 proof02562b78 is reference only; no old control triplet or equation is reevaluated.
+Check all253 immutable V004 INPUT fields exactly, eleven latest70321 SOLUTION fields under continued_final_solution_, and eight earned coarse plan/factor fields under continued_coarse_. Compare schema/word bytes; no coarse Gram, matrix product, factorization, triangle application or old feature/operator evaluation.
+Verify the one new control0 stored triplet with unchanged2e-11/floor1e-30, exact old_hi+old_lo+delta=new_hi+new_lo+q via math.fsum, and stored original RHS/action/residual plus update-contact arithmetic using the producer's uncancelled saved envelope.
+Recompute only saved vector norms for original three raw/scaled1e-10 scores and the global diagnostic. Preserve nonadmission separately from arithmetic PASS. Check snapshots, roles, seed/scales, parent references and finite physicalFalse; optional projection reads only its stored weak ratios/flags, without a new contraction.
+No L/action/map/FE/scatter/fixture/MINRES/projection replay, new physical source, exterior or state adoption. Author does not read numerical payload or live outputs. Root alone executes this bounded saved-arithmetic checker.

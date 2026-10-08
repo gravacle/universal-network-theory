@@ -1,0 +1,62 @@
+{
+  "status": "FULL_RETAINED_PLUS_NARROW_STATIC_PASS",
+  "reviewer": "native_deformation_review",
+  "source": "UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/author_fragment_native_metric_star_preconditioner_v003.py",
+  "source_sha256": "60b81485398aff4f4b6a37e3c0bacffab923e8911faf42bf155b87eba4598217",
+  "lines": 192,
+  "ancestor_hashes": {
+    "author_fragment_native_metric_star_preconditioner_v001.py": "1bd9f663483f4b0683ba0ff09ade5509ae49c9fe71116ff470f43e8ffde00845",
+    "author_fragment_native_metric_star_preconditioner_v002.py": "4ea0f73398b50ff6a974e6ca2c8354eaa348328b227b72104c12bbac4118a466"
+  },
+  "ancestors_preserved_readonly": true,
+  "review_scope": "Full174 and192 hand/math/type review, exact V003 witness delta, AST comparison and compile-only",
+  "coordinate_factor": "F=Sigma^-1 Q abs(Lambda)^-1/2 Q^T; right Q^T preserves original auxiliary coordinates and retains F F^T",
+  "projected_map": "Forward and adjoint consistently apply original inactive component masks before and after the coordinate factors",
+  "retained_native_star_algebra": "Signed D inverse, residual C=Gu-sum L^T Gz, signed S=T-sum Gz^T D^-1 Gz, total<=9 coupled block, saved physical-scale pullback; absolute eigenspectrum changes only numerical congruence",
+  "v003_ast_delta": {
+    "exact_retained_definitions": 12,
+    "only_changed_definition": "fresh_native_star_inactive_coordinate_control"
+  },
+  "fresh_inactive_witness_hand_proof": {
+    "raw_diagonal": [
+      2,
+      1,
+      6
+    ],
+    "balance": [
+      1,
+      1,
+      2
+    ],
+    "balanced_diagonal": [
+      2,
+      1,
+      1.5
+    ],
+    "balanced_sorted_spectrum": [
+      1,
+      1.5,
+      2
+    ],
+    "inactive_physical_coordinate": 1,
+    "rhs": [
+      2,
+      0,
+      12
+    ],
+    "expected_masked_inverse": [
+      1,
+      0,
+      2
+    ],
+    "old_bug_exposed": "The sorted spectral-column factor maps auxiliary physical masks to reordered eigenvectors, dropping the active third response. Coordinate factor preserves the inactive block."
+  },
+  "fresh_full32_witness": "Independent dyadic source gives C=I/2 and S=diag(1,1,1,-2,3,-4); known physical-scale absolute inverse hand verified",
+  "no_clipping_jitter_or_gate_change": true,
+  "no_global_inverse_rank_coercivity_or_physical_claim": true,
+  "caller_not_yet_reviewed": true,
+  "execution_or_release_performed": false,
+  "payloads_read": false,
+  "numpy_imported": false,
+  "scientific_functions_evaluated": false
+}

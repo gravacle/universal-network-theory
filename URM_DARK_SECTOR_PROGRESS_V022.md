@@ -1,0 +1,11 @@
+# Curvature attribution and selected linear thermal refinement
+
+2026-09-30 local / 2026-10-01 UTC. Additive companion to [frontier V103](../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/FRONTIER_UPDATE_V103.md) and [ledger V044](../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/STAGE_1_3_OUTSTANDING_TEST_LEDGER_V044.md), following [V021](URM_DARK_SECTOR_PROGRESS_V021.md). Fixed cutoff: curvature result/review accepted and linear-grid experiment selected; sources remain under preflight, without a new build, reference, collection or audit result.
+
+The current two-unit, one-location saved diagnostic finds identical inputs and zero imported-curvature difference. Recorded downstream reconstruction is +441.2444148422184, normalization +1.1368683772161603e-13 and closure -5.684341886080802e-14. Result SHA: `be1d804f54a377151654b2c306e187b7b01c326e0283a20d51f6826729defde3`; independent custody/interpretation review SHA: `ab3ef768e4d3c4d39b7fe54653da4ae90e1171bfab11f73eb23fea03fe3e2f81`. No numerical reproduction or physical nonsmoothness claim follows.
+
+The required residual +441.2444148422185 still exceeds 257.1532707120595. Existing scope remains eight passing units and five passing pairs out of six, not thermal qualification. Root selection `8bfbcd1c11e8fad44b9a2060bd3e740e48f159cb6deb5bbdf08d9ba8c5aab03d` chooses linear sampling 40,000→80,000 across 50–4000 only; unchanged remaining settings imply a prospective 93,333 native nodes.
+
+Next are completed source review/selection, freeze/build and prospective auditor seal, six new references/collections, then the unchanged saved audit and independent review. Two actual old coarse units/reports are reused; six new units and all six pairs are evaluated. No success is predicted. Continue through root-owned work; [SESSION](../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/SESSION_CONTINUATION_2026-09-29.md) records later activity.
+
+All eleven lanes remain OPEN. Thermal and perturbation gates remain; native source/state/volume/formation and observations remain distinct obligations. Fixed APIs, manifests, registries, proof types, historical failures and sealed releases are untouched. This companion claims no physical promotion, Stage3 completion, DM/DE absence, superfluity or superiority.

@@ -1,0 +1,47 @@
+# Carrier, link and photon current matching for one parent V001
+
+2026-10-06 UTC. Root-requested static continuation of the user's unified-origin hypothesis. No Hamiltonian, vector, source, coefficient, temperature, spectral response, helper or numerical function is evaluated. The existing 266-line carrier-phase candidate remains unchanged, including its resident0644 mode. This note supplies an exact constructive chart and conditional matching equations; it adopts no new phase, EOS, density share or physical normalization.
+
+## 1. One inclusive action and the actual charge
+
+Use ONE joint native/Maxwell/support state and Berry kinetic term, the complete registered native action/constraints, and H_total=Eunit H_N+H_gamma[Z]+H_support+H_other,owned with Z=I+kappa chi n_e>0. In the homogeneous projector fixture H_gamma=H_gamma,0+n_e W_kappa; its absolute vacuum and interaction storage stay. Adding a second thermal Gamma action or the same ordinary photon inventory would double-count it.
+For the displayed held H=E_N+H_gamma, d<E_N>/dt=(i/hbar)<[H_gamma,E_N]>, d<H_gamma>/dt=−d<E_N>/dt. Other owned fields add their literal commutator AND moving/support/metric/source powers; the complete law is d<H_total>/dt=<partial_t H_total>. Hilbert transfer cancels only with ALL reaction/material/ordinary contacts. The closed partition result binds actual native debit, photon gain and initial interaction storage without a new trajectory or thermal interpretation.
+The literal native64 matrix is H_qr=Ud sum_v(d_v−d*)^2+epsilon_psi I+4epsilon_r qr I+sum_e[(Delta−2lambda_R qr)n_e−(Omega/2)X_e−t n_e T_e+lambda_J n_e(p_u+p_v)], with edgesK2,2, p_v=|v><v|, sum p_v=I and qr=0,1 a HELD uniform record label. All constants and ONE Eunit remain. Incidence n_e is not conserved because of X_e.
+BS09 hopping, BS10 copying from the carrier, BS11 feedback and incidence–Maxwell coupling conserve N_c=sum_v q_v^psi in the owned bulk. Any resource-changing port contributes its actual commutator. Held records with copying/noncommuting ports OFF instead obey [H_total,q_v^r]=0 individually; their local twists have EXACT zero transport stiffness, even after adding Z(n_e) photons. The count/record resource is a distinct charge, not automatically macroscopic I0.
+The existing growth alternative has C_res=n_hat+Q_records: an actual F2 donor port obeys [n_hat,T]=T, [Q_records,T]=−T and [C_res,T]=0, converting one occupied record into one proper pair. Active copying gives C_res_dot=(g_phys/hbar)<sum_v p_v i(b_v−b_v^dagger)> plus actual port/source terms. This is a GLOBAL resource identity. The owned material-normal note's projected Euler vertex/material pullback, registration and newborn support are needed for a physical local current; a global count-volume binding alone does not supply it. C_res, carrier N_c and the calibrated phase charge are distinct possible matching routes, not interchangeable budgets.
+
+## 2. Exact carrier phase includes photons and conditional memory
+
+For the actual PURE one-carrier joint state, wherever P_v>0 write Psi=sum_v sqrt(P_v) exp(−i theta_v)|v>|chi_v>, with normalized chi_v containing links, records, photons and support. Define a_v=i<chi_v|chi_v_dot>, E_v=<chi_v|H_v|chi_v> and c_e=<chi_v|n_e|chi_u> for e:u→v. In the following physical-time action E_v and t denote proper energies AFTER the ONE Eunit conversion; hbar is physical. Then
+L=hbar sum_v P_v(theta_v_dot+a_v)−E, E=sum_v P_v E_v−2t sum_e sqrt(P_u P_v) Re[exp(i(theta_v−theta_u))c_e]. This is the original action in exact coordinates, not a product-state or mean-link approximation. At P_v=0 use the original vector/chart; a mixed-state decomposition is not a newly measured phase.
+The EXACT oriented number current is J_(u→v)=(it/hbar)<n_e(A_e−A_e^dagger)>=−(2t/hbar)sqrt(P_u P_v) Im[exp(i(theta_v−theta_u))c_e], A_e=|v><u|. Thus P_v_dot=sum_u J_(u→v) with literal port/moving-chart contacts, and sum_v P_v=N_c=1 on this sector; the common phase is redundant at fixed total number.
+Under theta_v→theta_v+lambda_v and chi_v→exp(i lambda_v)chi_v, a_v→a_v−lambda_v_dot and c_e→exp[i(lambda_u−lambda_v)]c_e. Therefore theta_dot+a and theta_v−theta_u+arg c_e are invariant; arg c_e is undefined if c_e=0. Conditional Berry curvature and source/metric derivatives remain.
+For ONE global normalization phi=alpha theta, the canonical charge is (hbar/alpha)P_v and the temporal invariant is phi_dot+alpha a_v. The spatial invariant is phi_v−phi_u+alpha arg c_e. Alpha has the required physical units; it is not varied by gap/cell or selected from a saved effect. A registered many-carrier continuum could identify n_phi=(hbar/alpha)N_c/V and mu_carrier=(hbar/alpha)X, but this is a CONDITIONAL physical dictionary, not an equality to the calibrated I0 already earned.
+The existing exact projection retains Sigma(z)=L_Q^dagger(z−QHQ)^−1 L_Q and the causal conditional-state memory. Photons enlarge that complement; gapless poles can obstruct a local derivative expansion. Replacing chi_v by a fixed aligned state, dropping a_v, or using only H_P does not derive P(X). Its ordinary-gradient phase requires an actual controlled connection/memory/source reduction, not a phase-coordinate relabeling.
+
+## 3. Match the existing pressure law, rather than invent one
+
+For the OWNED pressure function set Nrm=1/epsilon−ln(1+1/epsilon), q(s)=sqrt[1+epsilon s/(1+s)], X=Q0 q(s), P=A{[ln(1+s)−s/(1+s)]/Nrm−1} and n=P_X=2A q(s)s/(Q0 epsilon Nrm), s>=0. The necessary inverse Legendre target is e_req(n)=nX(n)−P(X(n)), with e_req(0)=A, e_req'=X and e_req''=X_n>0. This is a required charge/absolute-energy/compressibility match to an existing law, not a new E(V) or evidence that H_N derives it.
+One global Eunit/proper-volume/charge/source map must reproduce that energy, current and complete Hilbert stress on a declared domain. Finite one-per-node carrier/record capacity does not realize the target's whole n→infinity branch at fixed proper cell volume; an actual collective/growth limit or finite physical matching domain is needed. Fixed N_c and V∝a^3 can supply n_phi∝a^−3, but this scaling alone gives neither EOS nor thermal emergence.
+At the retained parameters H_qr=H_0+qr(4I−sum_e n_e). Its natural continuous EXTERNAL-qr ground energy is an infimum of affine functions and hence concave; identifying that parameter itself with n would conflict with the strictly convex target. Actual qr only0/1 does not measure curvature. Charge-constrained energy/Legendre minimization is a different operation and can be convex. This rejects one shortcut, not the carrier collective route or a native EOS.
+
+## 4. One current cannot be counted as two independent budgets
+
+If the SAME primitive carrier current is registered both as baryon current and as FULL macroscopic phase current, their conserved charges cannot be independently assigned again. In the owned normalized weak-FLRW rows J_phi=n_phi v_phi−M^2 C sigma_vector, S_bphi=Gamma_b−Gamma_phi=delta_b−d obeys S_bphi_dot=−k_phys^2(u_b−V)+Cbar Q k_phys sigma/w, Cbar=C/2 and w=rho_phi+P. At k_phys!=0 full-current locking requires S_bphi=0 AND u_b−V=Cbar Q sigma/(w k_phys), not simply u_b=V.
+Preservation adds gW/r_b−c_s^2 Gamma_phi=[Cbar Q/(w k_phys)](sigma_dot+4h sigma) for the owned cold/Thomson fixture. The factor4h follows Q/w=1/n_phi, n_phi∝a^−3 and k_phys∝a^−1. No general action identity enforces this tangent; the full reaction must be solved. Locking baryons to the BARE phase velocity additionally requires sigma=0. These are necessary current conditions, not a new Cauchy solution.
+A common origin may instead develop distinct physically registered species/subcurrents through actual repartition and different advection/Euler forces. That is compatible with inclusive conservation but must be derived from the same operators/state; no fitted fraction or Q(T) is supplied. The existing independently calibrated baryon, radiation and phase inventories cannot simply be summed with, removed from or identified twice with the same carrier bank. This note establishes the exact surviving phase/current route, not a local P(X), thermal transition, baryon origin, observed galaxy, BBN or inflation result.
+
+## Exact inputs, checked before and after exclusive creation
+
+| Input relative to J | SHA256 |
+|---|---|
+| ../recovered_sources/BS_MICRO_ACTION.md | 00eba581b90fb9f0b25e3fad1362b055049824897433ba06e356ab9b1f6c76ec |
+| NATIVE_COLLECTIVE_CARRIER_PHASE_CANDIDATE_V001.md | f3dad63532285add3f890b0c15e9fad4c4968226904e66cf43e6e110966eb6fa |
+| native_thermal_packet_v001.py | 380e736479e7dd9a670a10a06410bb27a6e4aff44e8c23f9fe52f03a7a4ff837 |
+| NATIVE_INCIDENCE_MAXWELL_PAIR_SOURCE_V002.md | 7e5cf9d3651de4471b52c9a3769f23cdd5457726c8354ff42ecee3c2a4034c7b |
+| LOCAL_RECORD_FEEDBACK_NATIVE_MATERIAL_NORMAL_CURRENT_SOURCE_V001.md | 4ddf27182ec7f24ea60c2a72b24ff3b04ead5929bd30878a1a2c8a97a67b52dd |
+| LOCAL_RECORD_FEEDBACK_REPEATED_COUNT_NORMAL_ACTION_V001.md | 6bd168b1c6f427b228afc4d73fecd0e237baf59f586955473def2d8779a3291b |
+| INVARIANT_CLOCK_GRADIENT_SHARED_ACTION_BUDGET_DOMAIN_AND_NORMAL_V003.md | e08b7166892ec59c863539d59b8d4b89c654081776d8870239ecc2c382572da0 |
+| constrained_u_clock_gradient_early_transfer_v005.py | bfee912d66cbfd91b9d80630c15cbe1cf32c4c905f0d736c4491113f01d84b20 |
+| NATIVE_UNIFIED_BANK_PHOTON_ENERGY_PARTITION_V001_RESULT.json | acb37caa04aec898a83eb2daa03fd7ddbef7de2b790429c2f7f60d24f9ab446b |
+| NATIVE_UNIFIED_BANK_PHOTON_ENERGY_PARTITION_V001_RECEIPT.json | cd8ed0e3ca1eae30cbdb94c8c525b154d60d4124e20305548cc8a2dd4fac6c83 |

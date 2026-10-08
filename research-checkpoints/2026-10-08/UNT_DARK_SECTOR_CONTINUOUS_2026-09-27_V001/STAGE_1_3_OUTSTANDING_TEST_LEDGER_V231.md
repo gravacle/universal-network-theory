@@ -1,0 +1,27 @@
+# Outstanding dark program tests V231
+
+2026-10-07T18:55:36.827922+00:00 — current saved evidence supersedes older next actions. All eleven obligations remain open.
+
+| Obligation | Current evidence and missing result |
+|---|---|
+| Galaxies | Full finite0 recovery73new+3inheritedroles naturallyclosed;12assemblychecksPASS. Actual same-state normal/current/CMC measurements saved. Candidate phase H/diagonal positive over15136points/3870nodes; actualphase response nowrunning. Freshnodal812syntheticchecksPASS. Accepted coupled finite spatialmetric and corrected43 pending. Current43diagnostic12/43within1sigma,RMS9.78113km/s,outer+16.52492km/s. |
+| Lensing | Accepted metric/null bundles and observational comparison pending. |
+| Expansion | EPS1e-5 conditional background retained; quantitatively accepted same-law galaxy+expansion required. |
+| Structure/growth | Eight failed gates preserved; qualified evolution and measured growth pending. |
+| Mergers | Conserved transient/history predictions and observations pending. |
+| BBN/recombination | Conditional14/78 retained; physical/thermal preparation and lithium pending. |
+| CMB perturbations/observations | Original18459live/protected; physical spectrum/transport/TT-TE-EE pending. |
+| Separate network thermal origin | Coherent/reversible exchange retained; irreversible origin pending. |
+| Fair joint comparison | Covariance/systematics, component/function/parameter/initial-state accounting and accepted predictions pending. |
+| Independent synthesis | Original43arithmetic and actualcircumference/lapse audits, exactproduct and savedlocalchecks retained. Mainclosed12checks and positivephaseprep saved; acceptedphysical/observational synthesis pending. |
+| Qualified URM integration | Development reports only; seven canonical dirtyfiles preserved. |
+
+Main success proof47ea566a binds97585 naturalexit0/result ea3c3235/receipt9e26a9c7;12controls max7.1316686e-18. Absolute target L2(native,metric,phase)=(1.356187e-14,2.028473e-14,4.618212e-15); four normal rows=(1.870934e-13,2.902922e-14,1.832426e-13,1.988404e-16),CMC4.931951e-18. These unit-dependent norms do not themselves establish original-relative or physical admission. Valid local139 normwise factor checks remain distinct from failed10655 componentwise apply. All failures/partial/sealed inputs preserved.
+
+
+### Completed phase preparation, fresh nodal controls and active response — 2026-10-07T18:55:36.827922+00:00
+Corrected phase preparation12939/session32004 naturallyCLOSEDexit0. Source282d9e90/result1cf7b8bdf828c35c5ad0dc01b7e43a55009b9e452c2f84d60680903109fc034f/receipt653d4125b64d9e5bc61500d82cd26efb2e218adb9bf1c87f698ff418fd7087f8. All input/6success/COMMIT seals authenticated; ROOT_NATURAL_CLOSED_PHASE_MASS_PREPARATION_SUCCESS_SEALS_V001.json SHAc2d89473ed501fd84edfe56566b5b4d58309e25921941a493860923f3c3e041c. All15136 actual H points have strict/resolved-positive margins and all3870 independent diagonal entries positive. Copied completed EOS/current words unchanged; only NEW diagonal prepared. Audit saved this proof after all assertions, then its final print had a relative-path helper error; recovered final proof hash by absolute path without any scientific replay.
+Fresh nodal controls13075/session36847 naturallyCLOSEDexit0: source63ebfcdd/resultde3c6d09de9cce24e0e7ed2bc5c34ccbde91db9d016e50a4856f04664aaff58c/receipt36cb69706cddce9046593be060288d133aeb112871356ac573ddc4ef2820505c/rootproof10b299180ba2e796c91105125706dff909a44e137155cc728b0d4794f65fa7d1. All812controlsPASS,max7.979727989493313e-17 at unchanged2e-11;19sealedroles. Independent alias/rounded-Fhat, signed unequal-mode moment/factor, sheet6/2, exact/nonexact power-of-two scale and interrupted/resumed carry instruments tested. Manufactured zero/unexamined prefixes disclosed; this is not actual3870-node/global factor admission. Original10655 component application remainsFAIL.
+Actual phase response143 V003 nowrunning rootowner {"owner": "root", "pid": 13255, "source_sha256": "b073857f74aeba09191c4ac931aa2b84a426555faa5d06f1ae07081d9887a9db", "started": "2026-10-07T18:54:34.867771+00:00"} session85957. Sourceb073857f74aeba09191c4ac931aa2b84a426555faa5d06f1ae07081d9887a9db; released onlyguard/STEM+actualclosedprepbindings, six function ASTs identical. Original160cap/1cycle/raw+scaled1e-10 unchanged; target-current RHS, original literal charge and bothwords retained. Rootreleaseb3096002; response completion/finite charge stillunearned.
+Mechanical corrected146/15 FULLrootread complete, distinctreaderpending; nextbind/runexclusiveV004mainterminalproof. Full-grid containing194/17+IO21 FULLrootf1366910 andpeer a3b5dfc0PASS; newpoint96/133 andnodal198sourcesready, allfuturerealcachepinsheld. Observerdraftsactualfinitephase116containingcaller, readersourcefull-nodeapplyaftermechanicalreview. No new spatialmetricaccepted;43remains12/43,RMS9.78113,outer+16.52492. Original cosmology18459/session88165live/protected; main97585closed; failedzero-role12027/12209preserved.
+Exactnext: authenticateresponse85957naturalclosure/seals/originalratios; ifadmittedapplyfullpairedφ0increment andfresh116all4phasecolumns/currentwithoutbaselineinventing. Inparallelcompletecorrectedmechanicalcachethennewallgridpoint/moment/factorprep, representednodalapply/transpose/weak67checksandoriginalright-only117gates. Coupledcanonical/York/charge/four-normal/CMC+finite spatialmetric/evolutionstillrequired; recompute43 onlyafteracceptedchangedmetric. NoGoal/heartbeat/scheduler/autoresume.

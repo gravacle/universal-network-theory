@@ -1,0 +1,87 @@
+{
+  "status": "SOURCE_FORWARD_ORIGINAL_SIX_SCORE_ORDERING_VERIFIED",
+  "created": "2026-10-08T02:06:00.662422+00:00",
+  "scope": "Root-reported60363 j20 scores; no live payload or numerical action read",
+  "score_source": {
+    "file": "author_fragment_initial_york_trace_target_response_v001.py",
+    "sha256": "71fda02b76e03c5ac4fe917f0514a3f13e60ec15b9aad21610045fbe40fe71e1",
+    "line": 7
+  },
+  "continuation_source": {
+    "file": "saved_prefix_hybrid_mechanical_continuation_v004.py",
+    "sha256": "1855ebdb010a7f2e381ab541bca727be761c8b93883860cc0f2a1da3f50a0d73",
+    "score_wrapper_line": 201
+  },
+  "closed_context_COMMIT": {
+    "file": "SAVED_ORIGINAL_MECHANICAL_GMRES17_SCALAR_STATE_RECONSTRUCTION_V005_00000_CONTEXT.npz.COMMIT.json",
+    "sha256": "6631822caa88d2d70c13773baa06547ac56cf95912f1ad5e8b4257e225a7768f",
+    "owner": {
+      "owner": "root",
+      "pid": 56861,
+      "source_sha256": "5cfadcb0ad5c3991ee4b2a8a601c5b531921354e717533ec5a7eab0fd18a8342",
+      "started": "2026-10-08T01:19:03.785718+00:00"
+    }
+  },
+  "groups": [
+    {
+      "row": 0,
+      "name": "native_original_affine",
+      "residual_field": "native",
+      "reference": "copied_anchor_input_original_reference_original_rhs unpacked native field",
+      "scale": "copied_anchor_input_original_reference_native_scale"
+    },
+    {
+      "row": 1,
+      "name": "native_original_canonical",
+      "residual_field": "same native field",
+      "reference": "copied_anchor_input_original_reference_current_Pn",
+      "scale": "same original native scale"
+    },
+    {
+      "row": 2,
+      "name": "metric_NEW_target",
+      "residual_field": "metric",
+      "reference": "copied_anchor_canonical_NEW_reference_anchor_target_minus_current_epsilon_metric_hi + lo",
+      "scale": "copied_anchor_input_original_reference_metric_scale"
+    }
+  ],
+  "columns": [
+    "||r_field||2 / ||fixed_reference||2",
+    "||r_field / fixed_scale||2 / ||fixed_reference / fixed_scale||2"
+  ],
+  "root_reported_scores": [
+    [
+      8.825e-13,
+      1.787e-11
+    ],
+    [
+      6.47e-18,
+      1.96e-22
+    ],
+    [
+      3.6978e-07,
+      1.21547e-06
+    ]
+  ],
+  "threshold": 1e-10,
+  "interpretation": "Both raw/scaled native-affine and native-canonical rows pass. Both metric NEW-target rows fail. No packed forward score is present.",
+  "conditioning": "Rows0 and1 share exactly the same residual and scale, so their unequal ratios arise solely from different fixed native reference denominators. Third row has a different residual field and prepared-target reference and cannot be compared to either native score as a packed norm.",
+  "rounded_given_score_denominator_ratio_examples": {
+    "canonical_over_affine_raw_approx": 136400.0,
+    "canonical_over_affine_scaled_approx": 91200000000.0
+  },
+  "score_assembly_bug_found": false,
+  "label_confusion": "native/metric/packed is the separate original53 ADJOINT source-score ordering, not original forward71fda six-row ordering.",
+  "zero_reference": "Original trace helper uses score0 for exact zero readout and1 for refused zero-reference case; containing wrapper additionally checks both original words for that zero-reference field. No denominator floor or tolerance modification.",
+  "fixed_reference_schema_checked": [
+    "copied_anchor_input_original_reference_native_scale",
+    "copied_anchor_input_original_reference_metric_scale"
+  ],
+  "original_references_or_scales_changed": false,
+  "source_only": true,
+  "scientific_function_execution": false,
+  "array_decoding": false,
+  "heavy_calculation": false,
+  "live_worker_modified": false,
+  "physical_adoption": false
+}

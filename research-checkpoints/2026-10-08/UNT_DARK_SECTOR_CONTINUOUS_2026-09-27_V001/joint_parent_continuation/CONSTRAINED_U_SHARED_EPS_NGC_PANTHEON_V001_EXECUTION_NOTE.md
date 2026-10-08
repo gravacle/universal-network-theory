@@ -1,0 +1,5 @@
+# Shared epsilon execution/recovery note V001
+
+2026-10-06 UTC, before execution. This short prototype has no automatic or command-line resume implementation. Any interruption leaves its exclusive manifest and completed family checkpoints intact; root must inspect and recover those exact saved outputs before considering unfinished numerical work. No existing prefix is overwritten or silently rerun. This is a bounded seconds-scale covariance/profile calculation, not a long trajectory or scheduler.
+
+All21 direct input bytes are authenticated; the14 old covariance transport files are writable legacy files, so their protection is byte authentication before/after the calculation rather than an all-input0444 assertion. Current driver is frozen before execution. Its 31 numerical controls have no observational pass gate. The unexecuted111-line author draft remains protected at SHA256 bd5b8672bca52c023dc088d656d77628ba9c0d1e2ffd92962420086eaa8f263c; final guards add finite/exact data shape/index checks and the complete31-control census without changing scientific values or criteria.

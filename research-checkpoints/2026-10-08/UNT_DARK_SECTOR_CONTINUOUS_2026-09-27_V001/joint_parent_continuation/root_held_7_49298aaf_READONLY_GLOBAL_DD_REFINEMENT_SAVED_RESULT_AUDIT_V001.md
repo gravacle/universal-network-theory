@@ -1,0 +1,7 @@
+# Saved-only global DD refinement witness audit V001
+AUTHOR_DRAFT: true; actual45073 naturally CLOSED/NONADMITTED terminal is bound. Root alone releases the execution guard after final retained+narrow review.
+Authenticate only the current parent's CLOSED receipt input/output maps and committed pairs, owner/source/protocol,10+cycles controls, inherited3×160 cap, namespace completeness and unchanged false physical qualifications. No older full-map traversal.
+Read saved words/coefficients only for finite/schema/custody counts and direct arithmetic identities: four100-digit selected gates, frozen RHS/restart readout defects, node-update/shift/correction-RHS defects, original and actual-target residual norms, weak trace and actual affine momentum readouts.
+For norms use stored residual word pairs; compare their reconstruction against target/offset/action with uncancelled scales. Do not rebuild EFT, FE interpolation/scatter, operators, curvature/features, solver recurrence or evolution. A small residual is not its own identity denominator.
+Verify admitted versus nonadmitted status and RATE_JETS presence from stored original/actual-target/weak-trace criteria at1e-10. Preserve committed partials and failed outcomes; no physical state, source/history, exterior or new rate is adopted by this auditor.
+Tie every stored residual to the same frozen RHS/action, and final solution node/action/residual words exactly to the last completed saved witness; no recomputation of the operator.

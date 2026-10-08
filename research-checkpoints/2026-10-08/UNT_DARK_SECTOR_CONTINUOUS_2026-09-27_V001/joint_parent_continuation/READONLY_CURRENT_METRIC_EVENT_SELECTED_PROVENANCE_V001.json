@@ -1,0 +1,245 @@
+{
+  "baseline": {
+    "fields": [
+      "R_kpc",
+      "observed_velocity_kms",
+      "quoted_error_kms",
+      "Q1_predicted_velocity_kms"
+    ],
+    "file": "NGC3198_FINE_Q3_43_POINT_SAVED_RECAP_V001.json",
+    "rows": 43,
+    "sha256": "ea6e41a879bab1ed43fa556031ad96ae3535779707af62d30eff061b191fc024",
+    "underlying_sparc_dat_sha256": "17b774ad11e7dd745a067073b76f1909d4de32fa87616df12b64da3f225cf953"
+  },
+  "configuration_chain": {
+    "cauchy24903_column0": {
+      "file": "CROSS_U_WHOLE_SLICE_CAUCHY_DATA_V002_00007_COLUMN.npz",
+      "sha256": "4bb27bb455e2e5ef78b73a05d63d28811c102f45e406635257ef6f534ca9e3bf"
+    },
+    "current_system0": {
+      "file": "CROSS_U_CANONICAL_NODAL_METRIC_RATE_SOLVE_V001_00002_COLUMN.npz",
+      "sha256": "73aff50b0fa3a01ffbe59bdabeeec34eda7f6be9f1da00609829379dd2b5e79d"
+    },
+    "force36387": {
+      "file": "CROSS_U_WEAK_CANONICAL_SPATIAL_EULER_LOADS_V003_00003_COLUMN.npz",
+      "sha256": "0c70b6e4e8b0280bea0e31d3dc7ddf7f10085f166a335421ea606ec11ef2810e"
+    },
+    "pilot50104_column0": "CROSS_U_PAIRED_CURRENT_PRIMITIVE_MOMENTUM_READOUT_V002_00002_COLUMN.npz",
+    "pilot_old_force_exact": true,
+    "saved_pilot_gauge_comparison_schema": {
+      "chart_N": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          3784
+        ]
+      },
+      "chart_beta": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          3784,
+          3
+        ]
+      },
+      "config_R": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          3784
+        ]
+      },
+      "config_Z_coordinate": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          3784
+        ]
+      },
+      "seed_owned_coordinate_Ndot": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          3784
+        ]
+      },
+      "seed_owned_coordinate_betadot": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          3784,
+          3
+        ]
+      }
+    }
+  },
+  "sampler_provisional": {
+    "compile_only": true,
+    "definitions": [
+      "diagnostic_event_pair_keep",
+      "diagnostic_current_metric_event"
+    ],
+    "disposition": "provisional arithmetic/shape agreement; two source/custody deltas sent author",
+    "file": "author_fragment_nonconverged_current_metric_event_sampler_v001.py",
+    "findings": [
+      "Source binary64 B/Q1 association differs if B applied to nodes first; use literal association or preserve explicit gap",
+      "Corner rate/Fhat/contribution capture labels need corner-specific names to preserve completed operands"
+    ],
+    "sha256": "4d7c2dae6adf04687c0f50c9ec16edda92698454b0a6c5545d05a3f3b726edd6"
+  },
+  "scope": {
+    "JSON_source_AST_only": true,
+    "canonical_shared_log_edited": false,
+    "nonconverged_response_adopted": false,
+    "physical_admission": false,
+    "sampler_executed": false,
+    "scientific_functions_evaluated": false,
+    "scientific_payloads_read": false
+  },
+  "selected_schemas": {
+    "24903": {
+      "final_state": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          65,
+          87,
+          45
+        ]
+      },
+      "r_kpc": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          87
+        ]
+      },
+      "sigma1_physical_beta_chi": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          2,
+          87,
+          45
+        ]
+      },
+      "z_kpc": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          45
+        ]
+      }
+    },
+    "47969": {
+      "metric_nodal_rate_hi": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          6,
+          87,
+          45
+        ]
+      },
+      "metric_nodal_rate_lo": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          6,
+          87,
+          45
+        ]
+      }
+    },
+    "83768": {
+      "final_paired_response_hi": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          403340
+        ]
+      },
+      "final_paired_response_lo": {
+        "dtype": "float64",
+        "finite": true,
+        "shape": [
+          403340
+        ]
+      }
+    }
+  },
+  "source_contract": {
+    "F_on_coefficients": [
+      "a+R^2*b",
+      "f",
+      "R^2*a",
+      "R*d",
+      "R^3*c",
+      "R^2*e"
+    ],
+    "configuration": "N=exp(Phi), beta=(0,0,beta_phi), h=diag(exp(-2Phi),exp(-2Phi),(R/N)^2)",
+    "current_rate": "absolute paired current47969 plus FULL final response83768; no extra owned-H term",
+    "gauge_time": "stationary primitive seed plus owned K lift at fixed lapse/shift: analytic event Ndot=betadot=0; serialized Gamma-derived Gauss gauge words retain comparison gaps",
+    "independent_metric_mask": "axis i=0 inactive; coefficient d,e at Z index0 inactive; lift axis from i=1",
+    "physical_metric_rate_order": [
+      "RR",
+      "ZZ",
+      "phiphi",
+      "RZ",
+      "Rphi",
+      "Zphi"
+    ],
+    "response_metric_offset": 380292,
+    "response_metric_size": 23048,
+    "sheet": "one-sided half-plane reflection applies parity to all metric/derivative indices",
+    "source_interpolation": "Cauchy trial_point interpolates raw final_state then multiplies Phi/R/Z jets by B"
+  },
+  "status": "SELECTED_CURRENT_METRIC_EVENT_PROVENANCE_STATIC_PASS",
+  "terminal_selected": {
+    "24903": {
+      "receipt": "CROSS_U_WHOLE_SLICE_CAUCHY_DATA_V002_RECEIPT.json",
+      "receipt_sha256": "88f07cad6b1db07d2e10ee4f9c77a3da9aa08fa0416a0d57632dd8c50660c4a9",
+      "record": {
+        "commit": "CROSS_U_WHOLE_SLICE_CAUCHY_DATA_V002_00000_INPUT.npz.COMMIT.json",
+        "commit_sha256": "6c0812bcf14a981d47769506c971dd8546f59fff05eb62d0ae6cc7db09fabdd6",
+        "npz": "CROSS_U_WHOLE_SLICE_CAUCHY_DATA_V002_00000_INPUT.npz",
+        "sha256": "23c637579e815b275708d1c4449120197a0aa18ca2bb4b2099f349ea9ed18c53"
+      },
+      "result": "CROSS_U_WHOLE_SLICE_CAUCHY_DATA_V002_RESULT.json",
+      "result_sha256": "af0365e378a46c727108c7df57f527994a22b7428d72b1f67c6f1bbac93667ed",
+      "source": "cross_u_whole_slice_cauchy_data_v002.py",
+      "source_sha256": "6d5a994584d1967965c72e9b0568e67c14610078832c9b40f4cbd04336b19df7",
+      "status": "CONDITIONAL_WHOLE_SLICE_CAUCHY_INVENTORY_PASS"
+    },
+    "47969": {
+      "receipt": "CROSS_U_CANONICAL_NODAL_METRIC_RATE_DD_COORDINATES_V001_RECEIPT.json",
+      "receipt_sha256": "a11e491baa8950d8dbedf5a0470aea1604cc0366e008fed8fc6154fd649f123d",
+      "record": {
+        "commit": "CROSS_U_CANONICAL_NODAL_METRIC_RATE_DD_COORDINATES_V001_00007_SOLUTION.npz.COMMIT.json",
+        "commit_sha256": "23c4bb400bfe7237d8e40d9ac62e4da9e6db9720e27c59eeb44347515afeb00a",
+        "npz": "CROSS_U_CANONICAL_NODAL_METRIC_RATE_DD_COORDINATES_V001_00007_SOLUTION.npz",
+        "sha256": "f7c161d5ef1c895f513ee73dbb2ed71534d0afda7261d9c5bb78bcff3e546ad0"
+      },
+      "result": "CROSS_U_CANONICAL_NODAL_METRIC_RATE_DD_COORDINATES_V001_RESULT.json",
+      "result_sha256": "6979db89e7612ddda54e9b4cadaa565263b99d02c2eca24324a695e0fc92a2bc",
+      "source": "cross_u_canonical_nodal_metric_rate_dd_coordinates_v001.py",
+      "source_sha256": "5d4bdfeaa5da8f09c95f805a5c41b17909d77e1f3feb01271a496a9b989d0d18",
+      "status": "CURRENT_CANONICAL_AND_WEAK_CMC_COMPATIBLE"
+    },
+    "83768": {
+      "receipt": "CROSS_U_NATIVE_METRIC_STAR_PAIRED_TRACE_GMRES_V002_RECEIPT.json",
+      "receipt_sha256": "bc9546a41af95ed6612284709899cacd88167b1bf876da8b49575f3dff9c5c7f",
+      "record": {
+        "commit": "CROSS_U_NATIVE_METRIC_STAR_PAIRED_TRACE_GMRES_V002_00006_RESPONSE.npz.COMMIT.json",
+        "commit_sha256": "16a768f97945be776e463747a58302c2e7bf66a0d1dbd2f0573082551e13145a",
+        "npz": "CROSS_U_NATIVE_METRIC_STAR_PAIRED_TRACE_GMRES_V002_00006_RESPONSE.npz",
+        "sha256": "cda497b86ee736408658cc72f754bee677774fd46c9460e116e2d9a957479d61"
+      },
+      "result": "CROSS_U_NATIVE_METRIC_STAR_PAIRED_TRACE_GMRES_V002_RESULT.json",
+      "result_sha256": "131981ac294b722c8d50ec82bafdb643fb5425a734d2f33b868245deffe822f8",
+      "source": "cross_u_native_metric_star_paired_trace_gmres_v002.py",
+      "source_sha256": "091a6d1303bf8c75160a0472af6e88688b89be4e6ba6b770310b280125350871",
+      "status": "STAR_GMRES_LITERAL_TRACE_RESPONSE_NOT_ADMITTED"
+    }
+  }
+}

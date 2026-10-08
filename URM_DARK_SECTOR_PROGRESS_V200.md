@@ -1,0 +1,13 @@
+# URM dark sector progress V200
+
+Saved 2026-10-08T12:05:22.343083+00:00. Development evidence only. Current scientific authority is joint-parent frontier V311 and outstanding-test ledger V266; later authenticated checkpoints supersede this snapshot. The existing candidate and historical V077/V018 progress APIs retain their original pins and scope.
+
+The genuine changed-metric 43-point comparison is pending. At12:03:40UTC the existing configuration worker had saved54/120 coefficient chunks and162/360 component responses, with one of four column indexes complete and no terminal result or error. It owns the entire live transaction. Original initial-state worker18459 remains protected. Neither calculation is restarted or duplicated by this Git update.
+
+Completed preparation includes the native normal-response120, admitted native-adjoint100, gauge64 persistence with an explicitly unobserved original exit, authentic source/byte/word custody, the unchanged-geometry general43 baseline, source-owned finite201V005 handoff, and the guarded genuinely changed43 receiver/report formatter. The ordinary momentum source is model-derived rather than copied from the observed43 velocity table; earlier EPS calibration screening used measured velocities and remains disclosed. The saved circular-label source explicitly uses EPS1e-5 despite an inherited dictionary labelled1e-6.
+
+The existing general baseline has13 points inside and30 outside their quoted absolute km/s errors, RMS9.849457km/s, and outer residual+16.302296km/s. It is an unqualified diagnostic of the unchanged metric, not the requested corrected physical prediction. The old12/31 recap and failed attempts remain preserved as historical evidence.
+
+Exact next: natural closure of the120 configuration transaction; authenticate494 records and1440 original controls; select132 consumer records including four prepared mechanical inputs; verify28 new configuration word links; assemble the actual13-group input map; execute one bounded cap40 coupled425955 correction and the fresh finite201V005 trial; then generate the genuine changed43 old/new report with explicit qualification flags alongside the remaining physical acceptance checks.
+
+All eleven Stage3 obligations and the central normalized shared galaxy-and-expansion law remain OPEN. This snapshot establishes no superiority, DM/DE nonexistence, completed inflation alternative or qualified URM integration. The focused candidate/progress custody checks passed64/64 and99/99 without rerunning scientific producers;39 ledger hashes also match. GitHub is a chronological research checkpoint, not a new canonical release or Zenodo deposit. Bulk numerical artifacts, failed/raw states and live partial outputs remain preserved in the sole project root.

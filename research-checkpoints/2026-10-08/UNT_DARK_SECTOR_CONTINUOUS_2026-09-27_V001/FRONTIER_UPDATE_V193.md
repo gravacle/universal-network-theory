@@ -1,0 +1,22 @@
+# Frontier V193: same-law supernova comparison and radiation kernels complete
+
+2026-10-06T04:55:29.767853+00:00. Ordinary work ACTIVE. Root cosmic PID418/session36221 remainsLIVE in the last THIN trajectory; BASE/TIME/MODES/HIERARCHY/START/ATOMIC are complete. All527 final dispositions remain pending natural closure. Old Goal/heartbeat paused; no automaticresumption.
+
+The NEW same .99GN constrained-U+BBN fixed background now has a full1590-row Pantheon+ distance-shape comparison. All52 numerical controls (5,065,108 scalar entries) PASS in1.207310s; primary fullcovariance score1406.3968897516272, profiled common magnitude offset23.804961435632414. No physical parameter was fitted. The mathematical same-inventory eps→0 dust+constant ablation scores1406.3968956568135; signed difference−5.9051863e-6 is an observational near-tie. Distances therefore do not separate these shapes. A usual common magnitude offset absorbs the absolute distance unit; this does not independently measure H0 or absolute SN brightness. All1701 inputrows/111excludedindices/1590selectedcovariance rows/117repeated-CID measurements and allthree numerical arms are preserved. Ancestor D/H+compressed-angle calibration and historical Pantheon-derived context are exposed development data, not blindholdout or full optimizedLCDM/joint evidence.
+
+Root full360source/64protocol math review, author/independentpeer review,15direct327actualseals/5literalhelpers/currentbackground/AST/0444/unusedprefixpreflightPASS. Fresh04:50:54pssoleowned418; rootPID3537/session15770 launched04:51 and closed04:51:01exit0. Root independent final source/input/output/manifest/closedjournal/twoCPpairs/full52dispositions authenticationPASS. V001 authoring attempt remains unexecuted/frozen.
+
+NEW exact low-radiation polynomial-panel buildingblocks also complete: all10744 arithmetic controls PASS in1.860754s,1728finite-opacity kernels/108Besselderivatives/66Siandprimitive readouts,10completeCPpairs. The independently coded angular-complex-moment and Bessel-panel routes agree; maximum mixed independentcoarse discrepancy1.043e-14, primitive discrepancy3.7748e-15. Fullsource258/protocol39/author/root/bothpeer/4pins/AST/0444/unusednamespacePASS; fresh04:52:13pssole418, rootPID3709/session70175 naturalexit0 at04:52:18. Root final completecustody/all10744dispositionsPASS. This qualifies mathematical kernels, not an actual coupled galaxy/metric history.
+
+The prospective galaxyseed noteV002119lines preserves allV001proof and clarifies physical-second thermal derivatives versus tau coefficients. The genuinely coupled photon/neutrino/baryon/native/metric Volterra worker is being authored for a first bounded k10/Mpc horizon-entry interval. Actual initial thermal/charge/pair-opacity and gas/Compton-lag contacts are being recovered and bounded. Small e± energy alone does not establish negligible pair NUMBER; the existing BBN low-T energy cutoff is retained as an approximation, not an exactopacity theorem. No favorable source/mode/seed is selected.
+
+FrontierV192 retains the complete new native selective-port243648rows/3,422,481PASS controls and genuine native detector release with negligible switching work. FrontierV191 retains39BBN/12BBNlinkedrecombination/22acoustic/5DESI. The preliminary completed finer cosmic k.01 force/lens~6.33GN remains awaiting final527qualification; allfour1%sampled-amplitude headsFALSE preserved. All11Stage3 obligations OPEN; no canonicalURM adoption.
+
+| Completed artifact relative to J | SHA256 |
+|---|---|
+| CONSTRAINED_U_CLOCK_GRADIENT_BBN_PANTHEON_PROFILE_V002_RESULT.json | 8ccfba9bbded7faf0c2c3eb6250fb49f7d7f2951dbd71fc305f42cb81a3cd67b |
+| CONSTRAINED_U_CLOCK_GRADIENT_BBN_PANTHEON_PROFILE_V002_RECEIPT.json | 4ea9d4615ee248ffd0143cf862348bbc3648d080ac5e6d8cde3ba1dabdca2e3b |
+| CONSTRAINED_U_RETARDED_RADIATION_KERNEL_CONTROLS_V001_RESULT.json | b541b0a5e3f2ea1827f166907f96e9b76bf2d2ad4c6366c3a0efbf15a7661530 |
+| CONSTRAINED_U_RETARDED_RADIATION_KERNEL_CONTROLS_V001_RECEIPT.json | 9e845b9a18035b4b199ac0f3a6153b4123f1816c353bdec0e0ef7fdaddaf19dc |
+
+Exact next action: complete owned cosmic418 naturally, authenticate111CPpairs/all527dispositions and finish the final-pin savedsource audit; continue the reviewed exact-kernel/coupledgalaxy continuation with actual thermalstart bounds. No repeat of completedBBN/HYREC/SNe/DESI/kernel/nativeport calculations. Ordinary active scientific work continues.

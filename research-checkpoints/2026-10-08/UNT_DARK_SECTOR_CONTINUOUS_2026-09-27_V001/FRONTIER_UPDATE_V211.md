@@ -1,0 +1,26 @@
+# Frontier V211: finite-start clock defect isolated
+
+2026-10-06T09:37:09.783695+00:00. Ordinary mode. Root16044/session24176 horizon and18459/session88165 full regular coefficients remain live and unchanged. START1792/2176 last delivered; no terminal. Full18459 remains AUTH-only, with no first coefficient case. Old Goal/heartbeat remain paused. All eleven Stage3 obligations remain OPEN.
+
+The horizon's first common-frame clock-density discrepancy is a prepared-state defect within its existing coupled equations. Backgrounds are bit-identical and the readout is directly w*Gamma_phase. The finite seed resets matter–phase and photon–neutrino relative entropies to zero even though regular forced terms begin at a4. Exact source-led coefficients are S_bphi4=Rstar*q0^4/(144*hr^4)>0 and S_gamma_nu4=−A*q0^4/(135*hr^4)<0; native reaction first contributes at entropy a6. Starting at ai therefore produces c4*(a4−ai4), omitting the regular startup term. All four frequency arms show the predicted signed differences. Saved-value residuals are0.0421482% and0.0793352%; prediction-denominator residuals are0.0421304% and0.0792723%. No fitted coefficient or physical threshold was added.
+
+Root29928 saved scalar reader completed09:35:22.537126→09:35:22.821781UTCexit0. FULL root/native/observer136-line source and18-line prospective protocol review, nine actual protected pins plus source, AST compile-only, unused outputs andfreshps09:34only16044/18459 precededlaunch. Readonly delivery timing and remaining full saved reviews are recorded separately. Four exact START1664/FINE2048 first common frames retain every signed term and scalar-rounding discrepancy. RESULT944fac273b5536c5578a3316044aa231196f2a09cd29895f50fa4ac7d5b7dba7; REPORTc8f218584cfe95518d9f2877d2e540fdc6da1155d63aaa860aa0b317281493c2; RECEIPTfc0530b5d4e68bfdb263fb0ad86ea80d8e20d2369cce574b27fac758c06f508c. Sourcebdd5dcbc6d735dcfaaded623ca069f8a89339e9306e1d843316302b41390bccd; protocolcdda7ff38c1b64707b868f6928dd62f57679c6d6984c50c33bf4ce9907ba1d43. No trajectory or producer function was executed by this reader.
+
+The exact normal constraint attributes the saved phase difference as follows, START minus FINE:
+
+| Contribution | Delta Gamma_phase |
+|---|---:|
+| Matter–phase relative entropy | −2.125654904e−11 |
+| Relative momentum | −1.143896797e−11 |
+| Photon–neutrino relative entropy | −4.176800567e−12 |
+| Metric | −1.209031959e−14 |
+| Baryon–photon relative entropy | −6.028023816e−18 |
+| Saved phase difference | −3.688441392e−11 |
+
+The retained reconstruction gap is9.12765537e−25; normal and native terms remain explicit in RESULT. This is an attribution within the constraint, not an independently proved microscopic cause. Known missing entropy explains the leading relative portion; the remaining common shift is chiefly relative momentum. A normal-compatible entropy insertion can be derived exactly but would not supply the missing regular velocity/clock history, so it has not been adopted as a repaired seed.
+
+The57-line frozen diagnosis37a55233 and5-line preserving percentage addendum43c11750 are jointly accepted by root/native/observer; readonly static math accepted with the same narrow denominator correction. The original note had labeled saved-value percentages as prediction percentages; the addendum corrects that wording without changing any numerical value, source or state. START1664 payload8153f119a00e212f91cdab61a849dc4d390b0265f41167aefe87b9abd1d0b726, commitc6f1ac9d7f17bee00165ba988b49c3ab56af3f6ae78656368aada5ff9ea94ac1, retains unchanged START1408 prefix. All25 common frames througha4.16179145e−7 give56/60 partial passes; all four clock-density failures retain first-frame maximum7.56140358e−4 versus2e−4. Original wrong-minus/trace failures remain; no full706 qualification.
+
+The independent microscopic6345 test remains substantive: connected chi supplies leading photon population and reverses all18tau2 meanfield number-rate signs. It does not prove every fluid representation physically wrong. A controlled reduced fluid can retain exchange, connected sources and memory. This macroscopic chart already couples metric, clock current, velocities and native reaction; it lacks a derived early inclusive native-Maxwell transition and an action-owned mapping from the microscopic joint state to its physical currents/stress/seed. No such causal identification or final-barrier claim is made. The formal a0 fixture is post-annihilation, not literal physical birth.
+
+Exact next action: derive source-led common R/V/relative-current and radiation/shear finite-start coefficients at the actual k10 fixture, with matter and opacity terms, then evaluate a small bounded coefficient arithmetic check after review. Do not copy the live k.01 full-coefficient packet or introduce a phase-only shift. Finish both unchanged live calculations and preserve all failures. Subsequently test a separately frozen consistent prepared state if its complete constraints and regular-history terms are earned. The one-parent physical action/charge/volume/stress/thermal matching and all observed same-action Stage3 tests still remain. No new trajectory queued, no automatic resumption or background agent work implied; active ordinary work continues.

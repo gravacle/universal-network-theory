@@ -39,6 +39,10 @@ separately typed, and records L14 as
 INCOMPLETE_PRESERVED_NO_SCIENTIFIC_RESULT.
 
 Use --no-chain to run only the four T-54 family blocks.
+The additive dark-sector candidate gate authenticates local development
+checkpoint custody and explicit open obligations, not physical validation.
+The separate V077/V018 progress gate authenticates direct saved evidence and
+summary scope; it replays no scientific checks and leaves all eleven lanes open.
 """
 import os
 import subprocess
@@ -116,6 +120,8 @@ lineage_order_curvature_ok = True
 owner_once_autonomous_continuation_ok = True
 alpha_role_ok = True
 universal_network_theory_ok = True
+dark_sector_candidate_ok = True
+dark_sector_progress_ok = True
 if "--no-chain" not in sys.argv:
     print()
     print("CHAIN: validate_geometry.py (which chains the 24-gate project/D-25 validator)")
@@ -356,6 +362,32 @@ if "--no-chain" not in sys.argv:
         + ("PASS" if universal_network_theory_ok else "FAIL")
     )
 
+    print()
+    print("CHAIN: validate_dark_sector_candidate.py (candidate custody/scope; zero new scientific validation)")
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [sys.executable, os.path.join(HERE, "validate_dark_sector_candidate.py")],
+        cwd=HERE,
+    )
+    dark_sector_candidate_ok = result.returncode == 0
+    print("-" * 78)
+    print("  CHAIN validate_dark_sector_candidate.py: "
+          + ("PASS" if dark_sector_candidate_ok else "FAIL"))
+
+    print()
+    print("CHAIN: validate_dark_sector_progress.py (recorded evidence custody/scope; no science replay)")
+    print("-" * 78)
+    sys.stdout.flush()
+    result = subprocess.run(
+        [sys.executable, os.path.join(HERE, "validate_dark_sector_progress.py")],
+        cwd=HERE,
+    )
+    dark_sector_progress_ok = result.returncode == 0
+    print("-" * 78)
+    print("  CHAIN validate_dark_sector_progress.py: "
+          + ("PASS" if dark_sector_progress_ok else "FAIL"))
+
 print("=" * 78)
 overall = (
     n_fail == 0
@@ -375,6 +407,8 @@ overall = (
     and owner_once_autonomous_continuation_ok
     and alpha_role_ok
     and universal_network_theory_ok
+    and dark_sector_candidate_ok
+    and dark_sector_progress_ok
 )
 print(f"  URM OVERALL: {'PASS' if overall else 'FAIL'} "
       f"(families {n_pass}/{n_pass + n_fail}, "
@@ -402,6 +436,10 @@ print(f"  URM OVERALL: {'PASS' if overall else 'FAIL'} "
          f"{'ok' if owner_once_autonomous_continuation_ok else 'FAILED'}, "
          f"alpha role {'ok' if alpha_role_ok else 'FAILED'}, "
          f"Universal Network Theory closure "
-         f"{'ok' if universal_network_theory_ok else 'FAILED'}")
+         f"{'ok' if universal_network_theory_ok else 'FAILED'}, "
+         f"dark-sector candidate custody "
+         f"{'ok' if dark_sector_candidate_ok else 'FAILED'}, "
+         f"dark-sector recorded progress custody "
+         f"{'ok' if dark_sector_progress_ok else 'FAILED'}")
       + f"; {time.time() - t0:.1f} s)")
 sys.exit(0 if overall else 1)

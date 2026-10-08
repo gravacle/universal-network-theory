@@ -1,0 +1,7 @@
+# Frozen galaxy correction sign demand V001
+
+Prospective root-only readout, AUTHOR_DRAFT=True. Use the exact closed78729 FINE_Q3 galaxy rows and frozen23-row activity audit. No equation solve, Hamiltonian/state/trajectory rerun, interpolation, fit, force conversion or source adoption.
+
+At each of43 radii keep both original Q1 readings and their literal SIGNED saved v2; do not square an undefined velocity or replace a negative force by zero. The quoted observed speed interval is [max(0,vobs-error),vobs+error]. Squaring its endpoints and subtracting each saved signed model v2 gives the required additional delta-v-squared interval. A positive demand requires both lower endpoints positive; a negative demand requires both upper endpoints negative; retain every other row as no common sign. Retain the intersection [max lower,min upper] and flag an empty intersection independently. This is a quoted-error diagnostic, not a full observational likelihood or a new gravity law.
+
+Keep every original velocity/error/readout row, all23 star-formation proxy rows, signs, clipping and coverage. Coverage is only0.3–15.1kpc and no extrapolation is made. Test solely the logical possibility of a universally nonnegative local added orbital contribution; a full nonlocal signed retarded stress remains a distinct hypothesis. Schema/finite, exact input seals, closed parent and unchanged final state/commit are hard refusals. Exclusive owner, result/receipt and partial-error preservation use a new nonconflicting namespace; no scheduler or automatic rerun.

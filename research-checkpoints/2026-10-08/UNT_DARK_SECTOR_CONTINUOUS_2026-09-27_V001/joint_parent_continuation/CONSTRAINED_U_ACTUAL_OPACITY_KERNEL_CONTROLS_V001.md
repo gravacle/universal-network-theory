@@ -1,0 +1,29 @@
+# Actual-background optical-depth kernel controls V001
+
+Prospective 2026-10-06 UTC. Root alone executes this bounded numerical-control packet after full static review. Author/peers perform no import, quadrature, inversion, benchmark or trajectory. The existing live horizon V003 and cosmic V005 remain untouched. This packet never reads their states, unfinished outputs or source forcing.
+
+The actual physical background/composition is exactly the fixed V004 manifest, including .99 GN bare normalization and the accepted BBN-helium HYREC HALF table. The definition-only loader uses the authenticated scalar background/Thermal and the horizon's already reviewed Bessel/constant-opacity panel definitions, without any old main or calibration initializer. The new pure helper module has no main or top-level numerical initialization. Its vectorized background implements the same five-Newton fixed P-law; scalar equivalence is explicitly tested.
+
+Let x=log a, eta be conformal LENGTH in Mpc, tau be Hstar proper time and q=k c/(a Hstar). Gamma_eta=g_tau k/q. Reverse optical depth is t=int_x^xr(g_tau/h)dx, with d eta/dx=q/(k h). Collision integrals use exp(-t)dt and metric integrals exp(-t)dt/Gamma_eta. Affine source fractions are the ACTUAL backward conformal distance divided by the actual panel width. No arithmetic-mean opacity is substituted into propagation, collision or its Jacobian.
+
+The optical inverse solves for the positive small backward span delta=xr-x, with derivative +(g/h)(xr-delta). The integration Jacobian is delta before subtracting large log coordinates, avoiding the loss of an opaque boundary layer to cancellation. Sixteen safeguarded Newton/bisection iterations have a returned actual residual. Reaching a fixed arithmetic tolerance only freezes that coordinate iteration; the final residual, positive measure and full source-coordinate controls remain mandatory. No state, physical parameter or residual threshold is selected from an outcome.
+
+Map integrals use fixed Gauss16 and independently Gauss32. Optical quadrature uses Gauss16 on panels of optical width at most8; the independent source weights use Gauss32 and its independently reconstructed Gauss32 map. All five l=0..4 and derivatives0..2, and both affine endpoint moments, are retained. Their relative numerical comparison uses uncancelled positive metric/collision mass, without dividing by an accidentally vanishing oscillatory coefficient.
+
+Reverse optical depth is truncated only above48. For this declared fully ionized interval Gamma_eta is proportional to a^-2 and its endpoint is its minimum, giving collision tail <=exp(-48), metric tail <=exp(-48)/Gamma_eta(xr). These are kernel-mass bounds. The actual-opacity trajectory successor must multiply them by its actual source envelopes, retain historical visibility, and independently test physical endpoint derivative/Einstein residuals; this packet is not a propagated-state error or a trajectory qualification.
+
+Exactly1275 prospective controls:51 scalar/vector comparisons (17 actual epochs, three coordinate rates);216 actual map/quadrature checks (36 panels, six controls);108 independently manufactured pure-radiation depth/conformal/inverse checks (36 panels, three controls);900 constant-opacity limits (five depths, three phase widths, five multipoles, three derivatives, two affine powers and two measures). Scalar/vector tolerance2e-12; every other control2e-11. All pass flags and failures remain serialized. No gate depends on physical growth, force, lensing, a selected inertia or a convenient sign.
+
+The36 actual panels span both fixed starts3e-8/2e-8 to af1e-6, source strides1/2, step counts512/1024/2048 and start/middle/end positions. They use the same physical background and actual charge/helium. Pure-radiation OA=OB=0 is ONLY an analytic manufactured coordinate oracle: h=hr/a^2, t=g0/hr*(1/a-1/ar), a(t)=ar/(1+hr*ar*t/g0), eta_back=q0*ar/(k*hr)*u/(1+u). It neither changes nor endorses the physical worker's inventory. Constant-opacity controls use the separately authenticated old panel implementation at depths1e-8,1,48,1e3,1e6 and phase widths.001,.5,4; they test measure/collision conventions without claiming a constant physical opacity.
+
+Exclusive nonresumable prefix CONSTRAINED_U_ACTUAL_OPACITY_KERNEL_CONTROLS_V001. Four immutable stages SCALAR/PHYSICAL/RADIATION/CONSTANT each publish canonical finite JSON payload and COMMIT, with their exact manifest, ordered gate prefix and accumulated row schema. MANIFEST and root source/manifest/PID journal have exact six-event natural closure. RESULT/REPORT/RECEIPT preserve every disposition, input/output hash and four complete stage pairs. Existing prefixes refuse before error mutation. JSON is recursively converted and preencoded before exclusive open; no timeout, kill, overwrite, live checkpoint access or automatic rerun. Entry/post-stage/pre/post-publication source/input/output rehash is mandatory. Runtime is bounded and expected seconds, without an author benchmark.
+
+Direct frozen inputs relative to this directory; the full manifest input map is additionally rehashed, with only its pinned /usr/bin/clang read exception:
+
+| Input | SHA256 |
+|---|---|
+| actual_opacity_retarded_radiation_kernel_v001.py | b43b9def6b0eeaafd12f5f947b8dd77cdf02ab60838951f799fb0bc043bc9721 |
+| constrained_u_galaxy_horizon_volterra_v003.py | 06823e14186e3dec4a20b13206ceb3b5fd4824e166f09c2a856083e276b5b273 |
+| CONSTRAINED_U_GALAXY_HORIZON_VOLTERRA_V003.md | f3ec83a84bee7291b73a02ba73d48a793ab0ec7a081baa34a963ab5e5f27fc7d |
+| constrained_u_clock_gradient_early_transfer_v004.py | a4e78b6467b0ba5884c8da2081ff580378b4afb839a90cec548fcf30a389fa07 |
+| CONSTRAINED_U_CLOCK_GRADIENT_EARLY_TRANSFER_V004_MANIFEST.json | 3a62d2b2636ebc66273ac162ee333233c98ec30949d55265a17a6d79cca43ce8 |

@@ -1,0 +1,27 @@
+# Stage 1 through 3 outstanding test ledger V039
+
+2026-09-30. Additive companion to FRONTIER_UPDATE_V098, prepared for root review. The fixed snapshot is cases 0–5, parts 0–7: **48 of 187 chunks, 49152 accepted updates and 49158 rows**. Later execution is recorded in `SESSION_CONTINUATION_2026-09-29.md` and actual receipts; this ledger is not a live-worker inventory. Root alone owns numerical execution. All eleven lanes remain OPEN.
+
+| ID | Lane | Status and remaining obligation |
+|---|---|---|
+| native_source_clock_volume | Source, clock, volume, formation | OPEN. Existing work, pressure and empty-state constraints remain. Shared physical source dictionary, preparation/formation, clock/ruler/volume and universal calibration remain unclosed. Recombination engineering supplies none of these missing laws. |
+| shared_spatial_gravity_state | Spatial gravity/state | OPEN. Two prescribed runs and 141446 checks retained. Physical density mapping, formed dense/sparse states, metric and spatial convergence remain. |
+| galaxy_observations_comparison | Galaxies | OPEN. Curves and 72 in-sample halo benchmarks retained. Same-model unused predictions, fair parameter/nuisance accounting and covariance remain. |
+| expansion_acoustic_ruler | Expansion/ruler | OPEN. FULL 125/335, next 125; the 68-case snapshot has no qualified ruler. Shared absolute stress, early tail and observations remain. |
+| observed_lensing | Lensing | OPEN. Same metric/exterior, distances and observed statistic/covariance remain beyond potential controls. |
+| growth_structure_stability | Growth/stability | OPEN. Growth 105/335, next 105. Same-state perturbations, donor transfer, convergence and RSD/shear remain. |
+| merger_morphology_transport | Mergers | OPEN. Post-crossing dynamics, self-gravity and gas/galaxy/lensing morphology remain. |
+| bbn_recombination | BBN/recombination | OPEN. All six overlap tracks have 8192 accepted updates in this snapshot; original domains remain unfinished. New reviewed conditional secant/DeltaS accounting identifies fast-state compatibility and slow-error obligations but computes no physical bound or adopted kinetic completion. Continue exact checkpoints; preparation, fast-HeIII/rate validity, continuous defect and model errors remain. |
+| cmb_perturbations_observations | CMB perturbations/observations | OPEN. Pair source packet is reviewed and conditionally accepted, not executed. All 187 chunks plus actual complete receipt are required before analysis. Original thermal/C2 failures, eight full acquisitions/six pair gates, later handoffs, top-H coverage and TT/TE/EE/lensing obligations remain. |
+| network_cmb_thermal_origin | Separate network thermal origin | OPEN. Photon accounting, spectrum, FIRAS/T(z), mixing/thermometry, angular/polarization and shared expansion remain. Actuator work is not microwave radiation. |
+| independent_joint_synthesis | Joint synthesis | OPEN. Detailed saved physical audit remains scoped to history0 half part0. New pair packet and kinetic note have source-only independent reviews. Same-validator custody is not independent physical replication. Same-state observational synthesis and independently reviewed final conclusions remain. |
+
+The 48 receipts report successful status/process/custody. Stored counts are 3387642 source calls, 67752840 required callback checks with zero failures, and 10162926 separate raw diagnostics with 5102 retained failures. These repeated callback checks are not independent physical tests. No raw failure is relabeled a pass. V001/V002 owner failures, V003 child-free control adoption, original binary/H arrays, inputs and criteria remain unchanged; V098 carries the compact new receipt identities.
+
+Pair packet adoption `a6745c80e71ec49cc8764b228362df1ec7e2f89b4fe3422032507593348b1729` binds combined source review `9fe844acbbf0e12288f327b9bc84be88d84809c79c82a88df4417189d6ffd60e`. Complete-history authentication reuses original saved validators. The owner does not independently rescan every local pair/extremum. No pair freeze or numerical comparison is part of this snapshot.
+
+Kinetic note `79ec04e6cfcb0eff7d9ed50edd0907aff38185d134ed9692d5116164221be98f` and independent review `5afd0c6dc11276ccf3e2e052f180bfca7b59ae7bc2bc950bcba9324237cef49b` retain incompatible Saha forcing, positive secant damping and slow coupling conditionally. A compatible off-manifold completion, verified tube, initial fast uncertainty, physical error and reduced numerical defect remain required for a bound. The note neither changes the C model nor adds an exact-global-C2 execution prerequisite.
+
+Exact next: inspect the latest live intent/receipt, then continue only the next unattempted original chunk from its authenticated two-state checkpoint. Root selected parts 8–10 after this fixed snapshot; consult current evidence before acting. No BE restart, control replay, shortened domain, hidden retry or tolerance change. Eventual all-187 completion precedes actual V003 `complete`, new pair freeze, independent first-shard audit, all 63 owned shards and aggregate.
+
+Trajectory occurrence is not physical qualification. All physical/thermal, branch/root/step/error, integrated-defect, global-C2, full-from-zmax, new-atomic-history, propagation and Stage3 qualification flags remain false. No sealed URM/API/release change, DM/DE absence, observational superfluity, superiority or program completion is established.

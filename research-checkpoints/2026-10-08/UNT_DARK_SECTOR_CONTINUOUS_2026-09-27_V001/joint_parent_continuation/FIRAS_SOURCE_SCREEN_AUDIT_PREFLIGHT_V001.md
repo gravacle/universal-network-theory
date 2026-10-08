@@ -1,0 +1,20 @@
+# Independent FIRAS residual-space source preflight
+
+Accepted after full source/protocol/metadata read and independent primary-source comparison; no producer import, fit, covariance factorization or numerical screen was run.
+
+- Source `firas_source_screen_v001.py`: `20d28a7f801f62d7cb5901a4a7e4006f0c8c6407e1265846fe997d5995897f0b`.
+- Protocol `FIRAS_SOURCE_SCREEN_PROTOCOL_V001.md`: `d6469e25a8568b79a7c755cb9ea926b319990fa9f0e9d660b70d03563103c049`.
+- Primary metadata: `ee9cb861d351cc1b642074b9a68fea82df83630f33e0a6dfda8dcc4949cc1f67`.
+- Owned raw product: `df793c3dca09ebfa7dbc5aa0ec1951daa8884431bc30eff28a710d7516cf50fa`.
+
+The 43 lag coefficients agree with [Fixsen et al., section3.3](https://arxiv.org/html/astro-ph/9605054#S3.SS3), including signs and index ordering. Its Table4 matches the owned residual, uncertainty and pole-template columns. Section6.1 identifies the fitted roughly9K modified blackbody used for these residuals; the pole template is a different foreground option. The [NASA description](https://lambda.gsfc.nasa.gov/product/cobe/firas_monopole_spect.html) confirms that column2 is reconstructed, not an independent data vector. The code correctly uses residuals only, with the complete supplied statistical frequency covariance. Missing nonlinear foreground/calibration information prevents treating this as the full experiment likelihood.
+
+Frequency conversion to Hz and Planck intensity per Hz in kJy/sr are correct, with no spurious wavenumber Jacobian. The stable derivative yields G=T dB/dT; chemical-potential, y, grey-exchange and pure-emission signs/factors check. The moment tests are analytical source identities, not evidence of a native emission spectrum. Both reference temperatures, all three nuisance spans and all six bath ratios remain separate exposed choices; none is selected by the observed fit.
+
+Cholesky whitening, scaled SVD least squares, coefficient covariance rescaling, QR residualization and projected profile amplitude/chi2 agree algebraically. Independent normal-equation, row-reversal, synthetic-recovery and tangent-derivative checks are appropriate; their failure must stay visible rather than repair a covariance or relax a tolerance. The exact Planck-tangent and equal-temperature grey rows are unidentifiable, giving 12 null-strength rows across the six nuisance choices, not finite limits or predicted blackbodies.
+
+For the quadratic profile, imposing epsilon>=0 shifts the optimum to max(0,hat). The implemented radius squared=max(-hat,0)^2+DeltaChi2 sigma^2 is exactly the profile interval around that constrained optimum. The separate [0,1] intersection is appropriate only for the declared fixed-temperature grey mixture. Signed best fits and energy/number factors are retained. These nominal Gaussian ranges do not include every instrument/foreground systematic, prove coverage, date photon creation, or bound all network mechanisms.
+
+The sole prefreeze correction requested here was metadata: 43 minus the new design rank is now explicitly `nominal_design_degrees_of_freedom`, not claimed sampling DOF after an incompletely reconstructed prior temperature/nonlinear-dust subtraction. No model, data, tolerance or scoring formula changed. A prior subtraction exactly within the profiled span cancels in the projected statistic; subtraction outside that span need not. The three alternatives expose sensitivity but cannot be called an exhaustive systematic envelope.
+
+The immutable source/config/data freeze, expected six-baseline/ninety-source census, typed finite JSON and retained exception/check rows are present. The worker has no file writes, subprocess, network call or ancestor-producer execution; NumPy/thread limits are declared. Its stdout status, not exit0 alone, must be checked because a retained scientific exception is serialized. COMPLETE means numerical completion only. A nonzero source bound from this screen does not establish a cosmological origin, and a tangent null does not establish a successful network mechanism.

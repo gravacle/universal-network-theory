@@ -1,0 +1,8 @@
+# Owned FLRW ordinary reference benchmark V001
+
+AUTHOR_DRAFT=False. Definitions only; root release after full review. No evaluation by the author.
+Actual normal51682 RESULT/RECEIPT and its earned91 saved proof bind the selected INPUT, BASIS and LOADS. No normal, feature, operator, source, quadrature or solve helper is called.
+At the owned a=1 reference, eta=Hunit/c, ordinary energy in the registered M²C normal/action-density units is3eta²(OB+OR)/(C rG), and bare EH plus absolute phase=(2eta²rho-3eta²h²)/C. The exact registered binary input rG=.98989898989899 represents the .98/.99 coupling conversion of the preserved old physical budget; it is no extra native stress. This normalization is distinct from the modal GC=3pi/8 constant.
+New exact one-dimensional Q1 integrals give the homogeneous halfspace/per-unit-azimuth volume. The registered lapse restriction combines radial node0 into1, zeros the outer radial and top vertical nodes, and retains the sheet. Two fresh arithmetic controls test the reference budget and analytic volume partition at unchanged2e-11; neither tests constraint zero.
+The saved lapse words are copied exactly. Their difference from the NEGATIVE homogeneous shortfall, ratios and largest-row point are descriptive comparisons. No budget is appended or subtracted into the original state, no physical local cosmic labels/junction are supplied, and no force/velocity accuracy is inferred.
+One immutable BENCHMARK NPZ/COMMIT plus RESULT/RECEIPT retain operands, controls and all false qualifications; partial operands use ERROR_RAW on a natural failure. No original file is changed.

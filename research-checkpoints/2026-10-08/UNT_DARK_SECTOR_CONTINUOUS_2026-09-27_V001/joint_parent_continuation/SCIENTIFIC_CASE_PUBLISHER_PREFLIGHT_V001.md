@@ -1,0 +1,11 @@
+# Scientific-result publisher: independent preflight
+
+Accepted source: `run_scientific_case_v001.py`, SHA256 `f4cf2cea4d4d42688616ee671f66b5717a0fb554f1ea4972783d9cc1b00071b8`.
+
+The complete source and both pinned producer output schemas were read without executing the controller or any producer. The one requested correction is present: the output's integer case index must equal the requested destination index, using the proper HYREC versus growth schema. A missing or mismatched index becomes a separate attempted-execution receipt.
+
+The controller allows only two pinned producers, their exact frozen manifests and case indices 0–334 in the exact project directory. Publication paths are internally constructed, constrained to the project, checked for symlinks and existing ancestors, and checked for existing receipts **before** producer execution. It does not edit scientific source, frozen inputs or an existing output. Captured successful/qualified-failure scientific stdout is published byte-for-byte, after validating its freeze identity, canonical payload digest, status schema and case association. Execution/output-validation exceptions retain captured stdout and traceback under a new uniquely named attempt file.
+
+Publication uses a unique generated same-directory temporary, file flush/fsync, atomic no-overwrite hard link and directory fsync. Concurrent creation of the final name fails rather than replacing it. Cleanup unlinks only that exact generated redundant temporary after the durable final link; a publication failure can leave its pending file for inspection. If a final link already exists after a later fsync/cleanup/reporting failure, inspect its bytes before retrying: do not assume the science must rerun. The controller is designed for the root's single-producer workflow, not as a multi-process scientific scheduler or an adversarial-filesystem security boundary.
+
+The changed self-process memory/timing context is controller overhead, not a scientific-method change. Process diagnostics on stderr remain external to captured stdout; the pinned HYREC producer independently embeds its subprocess diagnostics. Existing-case refusal and a new-case publication are appropriate root-owned operational checks. No numerical or publication test was run by this reviewer.

@@ -1133,6 +1133,34 @@ class URM(ProjectModel):
         return owner_once_autonomous_continuation_certificate()
 
     @staticmethod
+    def dark_sector_candidate():
+        """Expose the local research candidate, not a qualified dark-sector solver."""
+        from dark_sector_candidate import dark_sector_candidate
+
+        return dark_sector_candidate()
+
+    @staticmethod
+    def dark_sector_candidate_certificate():
+        """Authenticate the scoped checkpoint with all eleven science lanes open."""
+        from dark_sector_candidate import dark_sector_candidate_certificate
+
+        return dark_sector_candidate_certificate()
+
+    @staticmethod
+    def dark_sector_progress():
+        """Expose V077/V018 recorded progress, without replacing the old candidate."""
+        from dark_sector_progress import dark_sector_progress
+
+        return dark_sector_progress()
+
+    @staticmethod
+    def dark_sector_progress_certificate():
+        """Authenticate saved evidence summaries; no scientific checks are rerun."""
+        from dark_sector_progress import dark_sector_progress_certificate
+
+        return dark_sector_progress_certificate()
+
+    @staticmethod
     def universal_network_theory():
         """Expose the pinned UNT master theorem as a typed composition only."""
         from universal_network_theory import universal_network_theory

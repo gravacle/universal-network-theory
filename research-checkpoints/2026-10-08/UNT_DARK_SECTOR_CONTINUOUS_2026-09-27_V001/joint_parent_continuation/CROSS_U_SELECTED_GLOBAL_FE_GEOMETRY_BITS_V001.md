@@ -1,0 +1,7 @@
+# Selected global FE geometry bits V001
+
+1. ROOT-only guarded component reads the immutable original BASIS R,dv,hats,cell selectors and the CLOSED owner43274 DD INPUT capsule, with its independent reader43547 PASS. Original39611 nonadmission is retained; no candidate rates, D/L/B, action, solver or features are evaluated.
+2. At the same32 contacts it constructs original array R²/R³, R²hat native factors, metric Fhat, dv/R, four hats and the row scatter hat. All5248 binary64 entries are published as actual/reference hexadecimal words, values, shapes and equality bits. No scalar factor is substituted into the vectorized array calculation.
+3. One exact-bit control yields GEOMETRY_BITS_MATCH or GEOMETRY_BITS_DIFFER; either result closes naturally and remains a geometry experiment only. A differing case requires a separately reviewed actual-array precision oracle before claiming old100-digit selected-row agreement. There is no tolerance, truncation or quiet operator alignment.
+4. Four successful JSON publications are OWNER_START,COMPARISONS,RESULT,RECEIPT. Complete prior points and current field comparisons are retained on refusal; source/protocol/selected inputs and every output are rechecked. No old NPZ fields beyond the five BASIS arrays or full ancestral hash traversal are performed.
+5. Every state/operator/physics qualification remainsFalse. No new geometry coefficient, source, momentum target, rate, history, gauge, exterior or iteration cap is selected. Future normal input remainsNone.

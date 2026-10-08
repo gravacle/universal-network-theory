@@ -1,0 +1,11 @@
+# Retained thermal progress with one remaining resolution failure
+
+2026-09-30 local / 2026-10-01 UTC. Additive companion to [frontier V102](../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/FRONTIER_UPDATE_V102.md) and [ledger V043](../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/STAGE_1_3_OUTSTANDING_TEST_LEDGER_V043.md), following [V020](URM_DARK_SECTOR_PROGRESS_V020.md). Fixed cutoff: new references/acquisitions and the saved thermal audit closed, with independent result review complete; the next saved diagnosis is still being authored.
+
+All eight unit audits and five of six pairs pass. Both atomic-step comparisons now pass, but history-0 resolution D2_K fails at probe 726, z = 1625.773896926712: +441.2444148422185 against 257.1532707120595, ratio 1.7158810137643168. This is one required failure among 5,503,855 checks, not a statistical waiver. Current child result SHA: `6148b65ea26a2fd027019e78fab800e1e0b04d176027bd4f008defab69200010`.
+
+The [independent saved-result review](../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/class_candidate_v001/CLASS_RETAINED_THERMAL_SAVED_AUDIT_RESULT_INDEPENDENT_V001.md), SHA `ac23e7783bd72aa153fb58a7c74dfe28733a433d0abe9e85c7991b5b31cb0499`, authenticates custody/census and recorded outcomes, without repeating thermal mathematics or physical evolution. Exit 1 reflects the numerical failure; monitor/custody checks are clean.
+
+Thermal qualification and the proposed k=0.001 perturbation execution remain gated. Next is a bounded saved-curvature diagnostic for two current units at the one failure location, after source review; no outcome or cause is assumed. Root remains the sole numerical owner. Consult [SESSION](../UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/SESSION_CONTINUATION_2026-09-29.md) for later progress.
+
+All eleven lanes remain OPEN. Native formation/source/clock/volume closure, physical errors and observations remain distinct obligations. Earlier failures, fixed API snapshots, manifests, theorem/registry classifications and sealed releases are unchanged. This companion does not retarget an API or claim thermal/CMB success, physical promotion, Stage3 completion, DM/DE absence, superfluity or superiority.

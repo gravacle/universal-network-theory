@@ -1,0 +1,113 @@
+{
+  "binary64_model": {
+    "absolute_subnormal_allowance": "eta=2^-1075; a real bound represented exactly as a rational, never rounded to binary64 zero.",
+    "addition_recurrence": "Given centers x,y and radii ex,ey, b=ex+ey; e_add=b+u*(|x+y|+b)+eta. For subtraction replace y by -y. Negation and copies are exact.",
+    "contraction_order_robustness": "For a sum of n products of d exact operands, using each term once with binary64 multiplication/addition in any binary summation tree, at most d*n meaningful roundings is a conservative normal-range count. FMA is covered by this looser envelope. It does not cover arbitrary algebraic rewrites, omitted/duplicated terms, non-IEEE modes, or compiler transformations lacking this operation-graph association.",
+    "division_recurrence": "Require |y|>ey. q=x/y; b=(ex+|q|*ey)/(|y|-ey); e_div=b+u*(|q|+b)+eta. Division by 2 is exact only when its result is representable without underflow rounding; otherwise include the eta recurrence.",
+    "gamma": "gamma_k=k*u/(1-k*u), k*u<1. The simple gamma formulas below additionally require normal-range intermediates (or exact zero); otherwise use the additive-eta recurrences, not the gamma-only bound.",
+    "independent_reference_option": "A tiny software round-to-nearest oracle implemented with integer/Fraction bit arithmetic can certify a specified operation graph and its range without trusting host float arithmetic. To cover unknown summation order, use the conservative operand envelope or an interval hull over permitted trees; never assume one selected tree matches c_einsum.",
+    "interval_centers_and_radii": "All operands are exact saved dyadics. Centers and nonnegative radii are exact rationals. Bounds are computed from inputs/operation counts before comparing observed defects; no fitted multiplier, observed-defect allowance, or tolerance floor.",
+    "multiplication_recurrence": "b=|x|*ey+|y|*ex+ex*ey; e_mul=b+u*(|x*y|+b)+eta.",
+    "one_rounding_theorem": "For correctly rounded round-to-nearest binary64 with gradual underflow and finite result, |RN(x)-x| <= u*|x|+eta. Exact overflow/domain boundaries must be checked; flush-to-zero is not covered.",
+    "unit_roundoff": "u=2^-53"
+  },
+  "closed_diagnostic": {
+    "file": "ROOT_DIRECT43_EXACT_DYADIC_COMPATIBILITY_GAUGE_DEFECTS_V001.json",
+    "scope": "43 exact saved-word identities. Observed stage defects are deliberately not used as independent forward-error allowances.",
+    "sha256": "9cc04123499c2d9009559fb12f34e99413bbb4ac5fda1ddc900f8e971cf0c17d"
+  },
+  "connection_recovery_budget": {
+    "branch_error_normal_range": "eGamma(C)[l,a,m] <= gamma_10*G(C)[l,a,m]: two array add/subtract operations, at most eight roundings for a four-term two-factor dot, and exact division by 2. If division/subnormal prerequisites fail, use the explicit operation recurrences.",
+    "compatibility_term": "Bcompat[a,m,n]=(1/2)*sum_l (|R[n,l]|*(U(Cs)+U(Co))[l,a,m]+|R[m,l]|*(U(Cs)+U(Co))[l,a,n]). This comes from the exact source identity, independently of \u0393/recovery stage errors.",
+    "exact_branch_center": "Gamma(C)[l,a,m]=(1/2)*sum_k I[l,k]*(C[a,m,k]+C[m,a,k]-C[k,a,m]).",
+    "four_term_recovery": "A[a,m,n]=sum_l Gexact[l,a,m]*g[l,n]. Independent eA <= sum_l |g[l,n]|*eG[l,a,m] + gamma_8*sum_l |g[l,n]|*(G[l,a,m]+eG[l,a,m]) in the normal-range model.",
+    "independent_stage_tests": "Compare exact saved seed/owned \u0393 defects with their independently computed eGamma, saved \u0393-sum defect with its one-add radius, and saved recovery defect with the local dot/symmetrization radius. Also compare the total phi jet with B_Dphi. A failure rejects this model without projecting any word to zero.",
+    "index_convention": "C[a,m,n] is symmetric in m,n; I[l,k] and g[m,n] are exact saved raw words. a=3 is phi. Compute seed and owned branches separately and preserve their original addition.",
+    "phi_bound": "When Cs[phi,:,:]=Co[phi,:,:]=0 exactly, B_Dphi=Bcompat[phi]+eD[phi] encloses the reconstructed nonzero phi jet under the declared model. Keep raw inverse compatibility distinct from floating forward error.",
+    "raw_inverse_compatibility": "M[n,l]=sum_k g[k,n]*I[k,l]; R=M-Id. These are exact rational saved-word products, not a floating norm and not an observed arithmetic-defect allowance.",
+    "saved_branch_addition": "eG=es+eo+u*(Gs+Go+es+eo)+eta is an independent radius for saved seedGamma+ownedGamma versus exact Gamma(Cs)+Gamma(Co). G=Gs+Go is its ideal amplitude bound. This sum has no cancellation credited.",
+    "symmetrized_recovery": "eD[a,m,n] <= eA[a,m,n]+eA[a,n,m]+u*(Aamp[a,m,n]+Aamp[a,n,m]+eA[a,m,n]+eA[a,n,m])+eta, where Aamp=sum_l |g[l,n]|*G[l,a,m].",
+    "uncancelled_source_amplitude": "U(C)[k,a,m]=|C[a,m,k]|+|C[m,a,k]|+|C[k,a,m]|; G(C)[l,a,m]=(1/2)*sum_k |I[l,k]|*U(C)[k,a,m]."
+  },
+  "installed_runtime_evidence": {
+    "build_metadata": "Installed __config__.py records clang15.0.0, Darwin aarch64 little-endian, Accelerate dependency; compiler argument fields are empty and do not certify FP modes, fusion/reassociation or linked libm accuracy.",
+    "distribution_version": "2.3.5, read via importlib.metadata without importing NumPy.",
+    "local_source_sha256": {
+      "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/__config__.py": "ae91af2ea14c5e2e6c24433263cf43bdec95f2db7042c6bee594dc60de1d7622",
+      "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/_core/einsumfunc.py": "85e15e0a210a8e2faa7d593ccc06756f96ca9be31430bcc2113310ef2c870617"
+    },
+    "python_einsum_dispatch": "einsum defaults optimize=False; the inspected Python wrapper dispatches directly to c_einsum. An Accelerate BLAS inference does not determine this contraction order.",
+    "upstream_primary_sources": [
+      {
+        "finding": "Scalar product accumulation and SIMD multiply-add specializations exist. This supports an order-independent basic-operation envelope, not exact installed tree/byte identity.",
+        "url": "https://github.com/numpy/numpy/blob/v2.3.5/numpy/_core/src/multiarray/einsum_sumprod.c.src"
+      },
+      {
+        "finding": "Floating power has a scalar exponent2 multiplication fast path and general pow fallthrough for exponent3. Upstream source supplies no installed-libm correct-rounding guarantee.",
+        "url": "https://github.com/numpy/numpy/blob/v2.3.5/numpy/_core/src/umath/loops_umath_fp.dispatch.c.src"
+      }
+    ],
+    "wheel_level_unverified": [
+      "selected c_einsum kernel and summation tree for these strides",
+      "compiler flags and generated-machine-code rounding semantics",
+      "FP control state including round-to-nearest and gradual underflow",
+      "installed pow/sqrt/exp implementation error contracts",
+      "bit identity of installed compiled wheel to inspected upstream source"
+    ]
+  },
+  "inverse_and_gauge_forward_budget": {
+    "cheapest_pow_safe_option": "Compare the saved final lapse/shift jet outputs directly with exact polynomial source references and fixed operand-only error envelopes computed by the specified software-RN graph. This provides a finite-input data-error certificate if passed, independently of the original pow implementation. It is a post-check against an a priori model budget, not a universal theorem that the original implementation obeys that model or proof that the defect arose solely from rounding.",
+    "conditional_cube_allowance": "If a separately justified cube error allowance ep3 is supplied, B_Nphi <= (1+u)*(|N|^3+ep3)*B_Jphi00/2 in the normal-range model. A software two-multiplication reference has ep3<=gamma_2*|N|^3, but this cannot be asserted as the original pow guarantee.",
+    "conditional_shift_allowance": "With independently justified ep2 for N**2 and the left-associative two ordinary products, B_beta_phi_i <= (1+u)*((1+gamma_2)*2*|N|*B_Nphi*|I0i|+(1+u)*(|N|^2+ep2)*B_Jphi0i), plus explicit eta terms if needed.",
+    "gauge_source_order": "N_phi=(N**3)*J_phi00/2. beta_phi_i=((2*N)*N_phi)*I0i+(N**2)*J_phi0i. Preserve this association; no extra lapse/measure or TIME zero assumption.",
+    "inverse_jet_operation_count": "-einsum(I,Dhat,I) has 16 three-factor terms per output. gamma_48*sum_jk |I_ij*Dhat_jk*I_kl| is a conservative local normal-range contraction error; exact negation adds none. B_Jphi=(1+gamma_48)*|I|*B_Dphi*|I| is an operand-only total enclosure.",
+    "normalization": "The saved source N=1/sqrt(-I00) can be compared to an independently certified reciprocal-square-root interval using exact square inequalities/software-RN sqrt and reciprocal; check -I00>0 and include inverse uncertainty for a true-g inverse interpretation. Upstream exp and full unrounded metric uncertainty remain outside the saved-input law.",
+    "power_gap": "The original N**3 expression is not source-proved to be two multiplications. Upstream NumPy2.3.5 floating power fast paths include exponent2, but exponent3 reaches general pow. No correct-rounding/ULP bound for the installed Darwin libm cube has been verified."
+  },
+  "inverse_conditioning": {
+    "condition_upper": "kappa_infinity(g) <= ||g||_infinity*||I||_infinity/(1-r). This is a saved-input conditioning bound, not a global PDE inverse certificate.",
+    "entrywise_bound": "Delta <= |I|*((Id-|R|)^-1-Id), valid when |||R|||_infinity<1. The small positive inverse may be formed exactly rationally, or replaced by the scalar row-sum bound.",
+    "exact_test": "R=g*I-Id, r=||R||_infinity computed by exact rational row sums. Require r<1, with an actual positive rational margin; a descriptive residual or collapsed floating norm is insufficient.",
+    "general_inverse_jet_error": "Against exact -g^-1*C_a*g^-1, use |I|*B_Da*|I| + Delta*|C_a|*|I| + (|I|+Delta)*|C_a|*Delta plus the independent contraction error. For phi C_phi=0, the two Delta*C terms vanish algebraically, while B_Dphi and the actual words remain nonzero.",
+    "scoped_independent_countercheck": "native_deformation_review independently checked this Neumann/residual orientation algebra source-only; no numeric residual or r<1 admission was evaluated.",
+    "theorem": "g^-1=I*(Id+R)^-1; ||g^-1||_infinity <= ||I||_infinity/(1-r); ||g^-1-I||_infinity <= ||I||_infinity*r/(1-r). This proves invertibility of exact represented g under the test, not proximity to an unrounded empirical/continuum metric."
+  },
+  "main_conclusion": "An operand-only error budget plus exact-rational comparison of the saved captures is a cheap finite-input certification route. The existing diagnostic alone cannot distinguish rounding from an arbitrary stage defect. Installed source metadata does not establish a universal compiled-kernel/pow rounding theorem. A successful independent-budget comparison would bound data error for these 43 inputs and show consistency with the declared model; it cannot uniquely prove the causal origin of a defect.",
+  "prepared_at": "2026-10-08T08:01:44.427206+00:00",
+  "qualification": {
+    "compiled_original_rounding_model_verified": false,
+    "geodesic_accuracy_budget_supplied": false,
+    "independent_budget_numerically_evaluated": false,
+    "inverse_conditioning_admitted": false,
+    "original132_exact_zero_guard_promoted": false,
+    "physical_or_velocity_adoption": false,
+    "raw_phi_words_projected_to_zero": false
+  },
+  "read_scope": {
+    "closed_diagnostic_JSON_metadata_read": true,
+    "floating_or_rational_scientific_calculation": false,
+    "live_output_read": false,
+    "numeric_NPZ_or_array_decode": false,
+    "numpy_import": false,
+    "original_bytes_mutated": false,
+    "original_source_read_only": true,
+    "source_kernel_or_worker_invoked": false
+  },
+  "scope": "Source-only finite-input certification design and algebraic conditional bounds. No numerical execution or new source/equation/fit. Closed diagnostic remains an exact observed-defect identity with its original false qualifications.",
+  "smallest_next_certified_execution": [
+    "Use the authenticated 43 reference-event selections and the existing exact-rational diagnostic parser. Read only the same tiny raw operands needed for these kernels; preserve original archives and both words. No original producer, action, current, \u0393 or metric body invocation.",
+    "Compute exact rational source amplitudes, independent branch/contraction/elementary-operation budgets and range checks. Fix budgets before reading/using the measured errors. Test saved stages against them, and compute exact gI residual row-sum conditioning margins.",
+    "Where compiled power/order prerequisites remain unknown, make the certificate explicitly finite-input output-enclosure against the specified software reference, with those assumptions false; do not silently upgrade it to a universal implementation theorem.",
+    "Carry both baseline hdot components separately through the original D43 Fhat sampler and original paired addition order. For future correction43, extend the same exact-reference/error comparison to its source rounded Fhat, P.a_mul64/P.a_matvec/P.a_add and conformal132 elementary functions. No nodal-total equivalence or Gauss interpolation.",
+    "A future geodesic consumer must accept explicit g/dg uncertainty intervals and certify determinant/lapse, discriminant-root separation, denominator, timelike and observer margins. Original132 exact-zero admission stays unsatisfied for the saved raw packet. No uncertainty-aware consumer or physical/velocity gate is supplied here."
+  ],
+  "source_pins": {
+    "OBSERVER_DIRECT43_AXISYMMETRY_DEFECT_SOURCE_CONTRACT_V001.json": "f1188bac9e9bdbba57aacc4007be8b20ee79ed72f2d319524fe6de25302c0aba",
+    "author_fragment_direct43_owned_baseline_field_law_v004.py": "99ea2904f4b699764f0e186b9cb7d05db691bb5dc91a5019ee7199bb850ce7b1",
+    "author_fragment_direct_TOTAL43_finite_event_v001.py": "9458f530b2d15beb9138d806749a42ef1192df9215292a3b39280b63d7f50e59",
+    "author_fragment_finite_conformal_circle_event_v001.py": "b607fcf3346d83e012771e75d9b658cef9ad51aeac4de09ad0a69bb3d75489b1",
+    "cross_u_whole_slice_cauchy_data_v002.py": "6d5a994584d1967965c72e9b0568e67c14610078832c9b40f4cbd04336b19df7",
+    "cross_u_whole_slice_q1_adm_residual_v001.py": "c66c86c06d16c22209b95bde8e18a9bba4d336674da5389c777408534d205e8a"
+  },
+  "status": "SOURCE_DERIVED_INDEPENDENT_DIRECT43_FORWARD_ERROR_AND_INVERSE_COMPATIBILITY_ROUTE_HELD"
+}

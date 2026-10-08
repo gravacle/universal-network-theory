@@ -116,6 +116,21 @@ contains the same consolidated guide for review and publication workflows.
 8. [Conditional same-model dynamical z=1 theorem](DEVELOPMENT_R_L12_Z1_LUTTINGER_CROSSCHECK_V001/CONDITIONAL_Z1_BRIDGE_THEOREM.md)
 9. [URM model](MODEL.md) and [glossary](GLOSSARY.md)
 
+## Dark-sector research continuation
+
+The [8 October 2026 research checkpoint](research-checkpoints/2026-10-08/README.md)
+preserves current methods, completed evidence, historical failed routes and the
+guarded path to a genuinely changed 43-point galaxy comparison. The configuration
+calculation is in progress. All eleven Stage 3 obligations remain open, including
+the shared galaxy-and-expansion prediction, lensing, growth, mergers, early-universe
+constraints and the two distinct CMB tests. The checkpoint does not establish
+empirical superiority or the absence of dark components.
+
+The additive URM candidate and historical progress interfaces authenticate saved
+evidence in the documented paired project layout. They do not execute a physical
+solver or change the existing theorem classifications. See
+[URM dark-sector progress V200](URM_DARK_SECTOR_PROGRESS_V200.md).
+
 ## Reproduction and release status
 
 The full Git history preserves the scientific journey. The bounded Zenodo

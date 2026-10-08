@@ -1,0 +1,12 @@
+HELD fresh total-rate original-six saved-word reader V001
+Root binds FINITE_SOURCE/RESULT/RECEIPT/CLOSURE_PROOF only after observed natural exit0 and authenticated success seals; all future entries and execution guards remain held here.
+The only scientific inputs decoded at authorized root execution are selected members of NEW139 READOUT, closed21562 anchor INPUT and CANONICAL. Source/result/receipt/proof, owner, successful role membership, actual COMMIT schema and archive bytes are authenticated first.
+NEW139 current native[33,3,87,45]/metric[6,87,45] must share the anchor's four exact original STATE transactions, updated13764 phase transaction, original canonical target refs and unchanged spatial geometry. No source/target refit.
+Residual is original anchor target minus NEW139 current using original paired subtraction and 403340 packing/masks. Both words and the norm-only collapse defects are retained.
+Select unchanged anchor_scores and trace_target_reference_scores. Native denominators are original affine RHS(native slice) and original current_Pn; metric denominator is ORIGINAL anchor target-minus-old-current epsilon, never the new residual. Scaled norms divide by the original positive coordinate scales.
+All six raw/scaled gates retain1e-10. Exact zero-reference residual requires both original residual words zero via unchanged anchor override; descriptive zero-reference scores are not fabricated relative denominators.
+Publish six measured descriptors and explicit admitted/not-admitted status. A failed score remains failed and does not erase the completed measurement; nonfinite/arithmetic/schema/admission errors refuse and preserve partials.
+Two new roles INPUT/CERTIFICATE, six derived named descriptors. Original owner/seals/targets/references, paired residuals, norm readouts/references/thresholds and zero flags retained. Inherited records are refs outside current RECORDS.
+Original IO13 exclusive publication/error custody and single-decode recheck; six pinned sources, selected definitions only. No action, EOS, normal/CMC, scatter, solver or producer-body invocation.
+Passing these finite current rows does not admit normal/CMC, stationarity, exterior, evolution or new43/physical galaxy prediction. All physical qualifications remainFalse.
+Authoring uses source/closed JSON/COMMIT schema and compile-only inspection: no scientific arrays decoded or numerical functions invoked.

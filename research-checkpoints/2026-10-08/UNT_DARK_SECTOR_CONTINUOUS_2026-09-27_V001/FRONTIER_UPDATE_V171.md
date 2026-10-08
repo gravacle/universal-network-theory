@@ -1,0 +1,24 @@
+# Frontier V171: formed records strengthen interaction and populate bound states
+
+2026-10-05 21:04 UTC. Ordinary mode on this Mac. Continues V170; later continuation entries govern execution ownership.
+
+## What is established
+
+The tested native model now has an accepted records-to-interaction chain: records actually form and persist, transferring endpoint records changes moving-body response, and both nonzero endpoint loadings strengthen the vacuum-matched finite two-body binding. The exact record-dependent interaction and memory law keep the full empty/occupied components and preparation/source contacts. The constant AR·record-count storage energy cancels in the matched binding comparison; the incremental effect is interaction feedback.
+
+The actual-formed-preparation connection is now independently accepted. All104 preparations and four stored forward ages were tested. Each nonzero formation case has12 positive postzero-age retained-minus-reset bound-subspace weight increments, no negatives, and a zero initial-age control. All52 blank-record preparations agree exactly. At formation age32 the passive AR=1/8 case has retained weight0.5166836741 versus reset0.5160951999, increment0.0005884741713. The other passive AR=7/40 and1/4 increments are0.0004895592659 and0.0003478862923; the AR0 algebra control is0.0007296452693. Every loading has16 below-threshold modes, none unresolved under the predeclared1e-9 numerical band. This establishes actual preparation support on the finite binding subspace. Conserved weight after copy-off is not capture or a distance-force measurement.
+
+Producer PID64811/session79235 closed naturally exit0,104.988863s,6989 controls PASS. Independent saved-state audit session41943 closed naturally exit0,25.440240s:44392 checks /166010032 scalar-and-metadata assertions PASS, maximum1.88738e-15. All210 checkpoints/214events, q/apparatus mode probabilities, complete initial marginal and both one-carrier NOT_DEFINED references/work are preserved. No old evolution or eigensystem was repeated.
+
+The separate exploratory trace/coordination response is accepted by a full peer-reviewed authored check from independent original scalar block moments:20datasets/1024 paired replicas,69799 assertions PASS. V001 failed its float nonlinear covariance comparison and remains sealed. Decimal50 recovery V002 passes the original3e-11 criterion, maximum2.61217e-11. All inverse refusals and beta8 mixing failures remain; this is source-coordinate response, not qualified physical stiffness. No tolerance, result or qualification was changed.
+
+## The next concrete test
+
+Test an induced force by translating complete holding sources on a declared fixed proper chart. This avoids guessing a junction-dilation derivative. The finite conditional source family is prospectively fixed before outcomes: regular radius-one C8 coordinates, bounded translated cosine wells, A-center0, all16 canonical B-center angles, strengths{t0,5t0,20t0}={0.1,0.5,2}. Retain all record loading classes, complete0/1/2-body energy references, source force and direct second contacts, and actual localization so trap centers are not called body positions. Radius and holding-source profile/strength are explicit development assumptions; physical calibration remains open. Native authors the protocol, readonly the numerical source, observer peerreviews; root alone launches after complete review/pins/exclusive outputs/fresh ownership. No numerical worker is live at this checkpoint.
+
+The force is the derivative of the same connected complete energy with respect to the owned source position. It is a finite interaction test; physical gravity requires the normalized common massive/clock/light response and same law's environmental and cosmic predictions. Adopted WTC/RGRL supplies the conditional ordinary-gravity architecture without requiring new microscopic RF3 completion. Neither graph distance alone nor a favorable volume function closes the remaining shared-law bridge.
+
+All eleven Stage3 duties remain OPEN: galaxies, lensing, expansion, structure/growth, mergers, BBN/recombination, CMB perturbations/observations, separate thermal origin, fair joint comparison, independent synthesis and qualified URM integration. Previous failures, partial outputs and dirty canonical files remain unchanged. No superiority or completion is claimed; no Goal, heartbeat, scheduler or automatic resumption.
+
+Spectral rawca1841c6f9cb9d5ae4ea9049e0a19d2919b610872c3cd39f273af659c2802edb; receipt2ccabf17a7099c3dae6870e451d873af5362b2e1e87a19b2edc5ce3622a659bd. Independent audit raw76ed763086a028ddca20221844e9d67370189dead1f5e76f66f4bc80f7cbfd5f; receipt37cbfd000ece015a32fc1b1a77065760b853e8d3ef673cb85fa8c3ec0ccb1c77.
+Trace V002 audit rawec03a8a680ebbde86a5c5d5899a309258bc4faefa8ecd57f9dbf4cbc04329cc9; report91ceb1166c6689d913940b3f80ac602d405a7d778c0f2b514b7bc729db63a15a.
