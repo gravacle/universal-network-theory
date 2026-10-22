@@ -1,0 +1,331 @@
+{
+ "blocked": [],
+ "blockers": [
+  {
+   "class": "OTHER_ROOT_ITEM",
+   "code": "SENSITIVITY_DECIDING_III_REQUIRED",
+   "detail": "D=3.9810717055349722 != 4.04 is a B4-1 sensitivity case: needs the per-D tail-OFF deciding-(iii) pair runs, their checker evidence, a distinct review registered in REGISTERED_DISTINCT_REVIEW_SHA256 (policy successor) and an A68-reviewed comparator successor (COMPARATOR_A68_REVIEWED=False); config tail_readiness.sensitivity_deciding_iii is null",
+   "evidence": [
+    "SENSITIVITY_DECIDING_III_REQUIRED"
+   ],
+   "layer": "orchestrator.prelaunch_check"
+  },
+  {
+   "class": "OTHER_ROOT_ITEM",
+   "code": "CERTIFICATE_POLICY_PENDING",
+   "detail": "per-point certificate admission needs root-registered certificate_registry, certificate_policy_review and a non-empty approved_certificate_producers (config tail_readiness: null/null/[]); typed blocker POINT_CERTIFICATE_SCIENTIFIC_APPROVAL_PENDING (TYPED_BLOCKERS_CX2V006R9)",
+   "evidence": [
+    "CERTIFICATE_POLICY_PENDING: certificate_registry,certificate_policy_review,approved_certificate_producers"
+   ],
+   "layer": "orchestrator.certificate_check(prelaunch)"
+  },
+  {
+   "class": "OTHER_ROOT_ITEM",
+   "code": "PENDING_UV_TAIL_CERTIFICATE",
+   "detail": "numerics.uv_tail eps_certificate and lo_certificate are the template sentinel. For a calibration point the fill source is the per-point certificate registry (Mapper.build fills slots from it, core L249-259), pending root approval (POINT_CERTIFICATE_SCIENTIFIC_APPROVAL_PENDING). For an anchor-point run root MAY instead rule the V007 seal A70 slots apply (check_deciding does not constrain slots, r9 review N-1); that ruling would make this a V007_ADOPTION_PIN.",
+   "evidence": [
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.eps_certificate",
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.lo_certificate"
+   ],
+   "layer": "driver.cmd_dry_run (run mode BLOCKED until filled)"
+  }
+ ],
+ "driver": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+  "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+ },
+ "driver_key": "r5",
+ "family": "SENS_DISTANCE",
+ "fence": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/tools/fence_c4v002.py",
+  "sha256": "18510e3ae2a8fb84536059dff86057e2ef2eee23c05bf1fc419056cf41656762"
+ },
+ "launches_performed": 0,
+ "layers": {
+  "driver_dry_run": {
+   "binding_blockers": [],
+   "call_spec_sha256_in_report": "e020397cbf7b5d54de9cba0f98adf4d5a18a5944bcae3d02f18a69dec7ecd760",
+   "classes_beyond_expected": [
+    "PENDING_UV_TAIL_CERTIFICATE"
+   ],
+   "driver_sha256_in_report": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "executed_stages": 0,
+   "exit": 0,
+   "normalized_numerics_sha256": "bdc17dfac0f1007146c644c5aa7b7a703eecf791483187afb9213821835ee5d7",
+   "pin_problems": [],
+   "plan": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/SENS_DISTANCE_LOWER__r5/DRY_R5/DRYRUN_PLAN.txt",
+    "sha256": "e8577dcbd7990defa6cd982518ed17a933e86187ce69f635d10ac5e6f22297bd"
+   },
+   "plan_checks": {
+    "manifest_stage_follows_route_a": true,
+    "route_a_solver_is_uvtail": true,
+    "route_a_tail_argv": true,
+    "route_a_worker_in_RO1_armed_set": true,
+    "route_a_worker_is_RO1_uvtail": true,
+    "stage_body_uvt_successor_and_argv": true,
+    "stage_fs_columns_00_uvt_successor_and_argv": true,
+    "stage_fs_columns_01_uvt_successor_and_argv": true,
+    "stage_fs_feedback_gal_c2v005_script_no_tail_argv": true,
+    "stage_fs_rotation_uvt_successor_and_argv": true,
+    "stage_le1_columns_not_planned_in_simulate": true,
+    "stage_offset_uvt_successor_and_argv": true,
+    "stage_reference_uvt_successor_and_argv": true,
+    "stage_rfs_columns_not_planned_in_simulate": true,
+    "uv_tail_source_rule_recorded": true
+   },
+   "plan_checks_all_true": true,
+   "refusal_classes": [
+    "PENDING_UV_TAIL_CERTIFICATE",
+    "PRODUCED_BY_THIS_CALL"
+   ],
+   "refusals_beyond_pending_inputs": [
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.eps_certificate",
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.lo_certificate"
+   ],
+   "report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/SENS_DISTANCE_LOWER__r5/DRY_R5/DRYRUN_REPORT.json",
+    "sha256": "785152a0d486d7418c96f0404aa42745ec4ee026908a8d0bb6fe1bab25a247f7"
+   },
+   "report_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/SENS_DISTANCE_LOWER__r5/DRY_R5",
+   "route_a_worker": [
+    "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+   ],
+   "scipy_imports": [],
+   "stage_admission_refused": [],
+   "stages_planned": 11,
+   "unexplained_refusals": [],
+   "uv_tail": {
+    "admissibility": "production",
+    "domain_empty_all_stages": false,
+    "kept_regions": {
+     "body": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v003": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "offset": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "reference": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "route_a": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     }
+    },
+    "nodes_ext_context": null,
+    "outer": {
+     "K_big_inverse_kpc": 128.0,
+     "shape": "cylinder"
+    },
+    "pending_certificates": [
+     "eps_certificate",
+     "lo_certificate"
+    ],
+    "refusal_classes_beyond_pending": [
+     "PENDING_UV_TAIL_CERTIFICATE"
+    ],
+    "route_a_worker": [
+     "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+    ],
+    "source_rule": "continuum_v001",
+    "tail_stage_scripts": {
+     "body": "4b0f28fa0539c4ebb2413b91dddc4f93cc74f147000dccb2926177e1da16a42a",
+     "fs_columns_00": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_columns_01": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_rotation": "139643c01d3be53e34df8ececccea69d4a2a7377486498c4d1035e5cb4433242",
+     "offset": "693686352af3020734530b5e896364e58037926c659c23d3e514c88cb5cccbe6",
+     "reference": "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642",
+     "route_a_tail_manifest": "44b31a8b8a91bf7ff67426a1def0b441f4e6d6dc69d00474892883f68ca93b33"
+    }
+   },
+   "wall_s": 1.0651800632476807
+  },
+  "fill_probe_dry_run": {
+   "binding_blockers": [],
+   "call_spec_sha256_in_report": "267753d74e2302cb9c66ce6a72de508d1f99bdf421c3e422bc89b685f8fe7ce2",
+   "classes_beyond_expected": [],
+   "driver_sha256_in_report": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "executed_stages": 0,
+   "exit": 0,
+   "normalized_numerics_sha256": "a9516fc99a77400a49cb58c9ee00104266f740650a03ab17d5524f4523887471",
+   "pin_problems": [],
+   "plan": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/SENS_DISTANCE_LOWER__r5/FILL_PROBE_DRY_R5/DRYRUN_PLAN.txt",
+    "sha256": "6bb2e441303dc5d0e35a006435efd70e13fb55caa9ae468ea1738e5ee1934b97"
+   },
+   "plan_checks": {
+    "manifest_stage_follows_route_a": true,
+    "route_a_solver_is_uvtail": true,
+    "route_a_tail_argv": true,
+    "route_a_worker_in_RO1_armed_set": true,
+    "route_a_worker_is_RO1_uvtail": true,
+    "stage_body_uvt_successor_and_argv": true,
+    "stage_fs_columns_00_uvt_successor_and_argv": true,
+    "stage_fs_columns_01_uvt_successor_and_argv": true,
+    "stage_fs_feedback_gal_c2v005_script_no_tail_argv": true,
+    "stage_fs_rotation_uvt_successor_and_argv": true,
+    "stage_le1_columns_not_planned_in_simulate": true,
+    "stage_offset_uvt_successor_and_argv": true,
+    "stage_reference_uvt_successor_and_argv": true,
+    "stage_rfs_columns_not_planned_in_simulate": true,
+    "uv_tail_source_rule_recorded": true
+   },
+   "plan_checks_all_true": true,
+   "refusal_classes": [
+    "PRODUCED_BY_THIS_CALL"
+   ],
+   "refusals_beyond_pending_inputs": [],
+   "report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/SENS_DISTANCE_LOWER__r5/FILL_PROBE_DRY_R5/DRYRUN_REPORT.json",
+    "sha256": "423bf7d81369b6852f6e053b3cb4792f7bcad77b5c75f7c0ebd348329510350c"
+   },
+   "report_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/SENS_DISTANCE_LOWER__r5/FILL_PROBE_DRY_R5",
+   "route_a_worker": [
+    "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+   ],
+   "scipy_imports": [],
+   "spec": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/SENS_DISTANCE_LOWER__r5/FILL_PROBE_SPEC.json",
+    "sha256": "267753d74e2302cb9c66ce6a72de508d1f99bdf421c3e422bc89b685f8fe7ce2"
+   },
+   "stage_admission_refused": [],
+   "stages_planned": 11,
+   "unexplained_refusals": [],
+   "uv_tail": {
+    "admissibility": "production",
+    "domain_empty_all_stages": false,
+    "kept_regions": {
+     "body": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v003": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "offset": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "reference": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "route_a": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     }
+    },
+    "nodes_ext_context": null,
+    "outer": {
+     "K_big_inverse_kpc": 128.0,
+     "shape": "cylinder"
+    },
+    "pending_certificates": [],
+    "refusal_classes_beyond_pending": [],
+    "route_a_worker": [
+     "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+    ],
+    "source_rule": "continuum_v001",
+    "tail_stage_scripts": {
+     "body": "4b0f28fa0539c4ebb2413b91dddc4f93cc74f147000dccb2926177e1da16a42a",
+     "fs_columns_00": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_columns_01": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_rotation": "139643c01d3be53e34df8ececccea69d4a2a7377486498c4d1035e5cb4433242",
+     "offset": "693686352af3020734530b5e896364e58037926c659c23d3e514c88cb5cccbe6",
+     "reference": "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642",
+     "route_a_tail_manifest": "44b31a8b8a91bf7ff67426a1def0b441f4e6d6dc69d00474892883f68ca93b33"
+    }
+   },
+   "wall_s": 0.9865572452545166,
+   "zero_blockers": true
+  },
+  "orchestrator_v006r9": {
+   "certificate_check_prelaunch": {
+    "blockers": [
+     "CERTIFICATE_POLICY_PENDING: certificate_registry,certificate_policy_review,approved_certificate_producers"
+    ],
+    "ok": false
+   },
+   "certificate_point_key": "a863b917b5775584afed12985b5f1c0e81d1376238835ff3719417f7b2f189ab",
+   "context": {
+    "base_spec_sha256": "f8785f129beb302295422bdcf159068581378dd4a3ca33ff1a03b13aa9395d56",
+    "cache_id": "878d612a46e57f196322b52db0f7f4dc5b4e2529617abeff282ab4c682810c50",
+    "gates_ok": false
+   },
+   "prelaunch_check": "OrchestratorError: SENSITIVITY_DECIDING_III_REQUIRED: ['SENSITIVITY_DECIDING_III_REQUIRED']",
+   "sensitivity_gate": {
+    "distance_hex": "0x1.fd93c1f526ddfp+1",
+    "distance_mpc": 3.9810717055349722,
+    "evidence": null,
+    "ok": false,
+    "reasons": [
+     "SENSITIVITY_DECIDING_III_REQUIRED"
+    ],
+    "status": "UNAVAILABLE"
+   },
+   "validate_block": "PASS"
+  }
+ },
+ "name": "SENS_DISTANCE_LOWER",
+ "opens_outside_folder_n": 287,
+ "run_tree_opens_not_runs_ext": [
+  "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json"
+ ],
+ "runs_ext_opens": [],
+ "schema": "C4_0587_DRYPLAN_RECORD_V001",
+ "seconds": 2.6531641483306885,
+ "spec": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/specs_v001/specs/SENS_DISTANCE_LOWER.json",
+  "sha256": "e020397cbf7b5d54de9cba0f98adf4d5a18a5944bcae3d02f18a69dec7ecd760",
+  "sha256_expected": "e020397cbf7b5d54de9cba0f98adf4d5a18a5944bcae3d02f18a69dec7ecd760"
+ },
+ "target_word_opens": [],
+ "tool": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/tools/dryplan_one_c4v001.py",
+  "sha256": "a68a04a6ec34322ef3abf4c790c6b69045ab13363729b582bfabf8805f3f5626"
+ },
+ "utc_end": "2026-10-18T18:49:43Z",
+ "utc_start": "2026-10-18T18:49:41Z",
+ "verdict": "PLANNED"
+}

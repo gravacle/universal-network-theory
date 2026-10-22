@@ -1,0 +1,412 @@
+--- calibration_freeze_c2_v003/final/prediction_freeze_c2v003.py	2026-10-17 09:33:18.728132979 -0500
++++ calibration_freeze_c2_v003a/prediction_freeze_c2v003a.py	2026-10-17 09:58:25.213630429 -0500
+@@ -1,5 +1,17 @@
+-"""prediction_freeze_c2v003 -- Module 2 v003 (Claude2 lane), superseding prediction_freeze_c2v002
+-(sha256 613f3438...ec85314b) and prediction_freeze_c3v001 (sha256 ed6b5a3e...09200).
++"""prediction_freeze_c2v003a -- Module 2 v003a (Claude2 lane), superseding prediction_freeze_c2v003
++(sha256 f670d14b...5e8028), itself superseding prediction_freeze_c2v002 (sha256 613f3438...ec85314b) and
++prediction_freeze_c3v001 (sha256 ed6b5a3e...09200).
++
++v003a changes (CHECK_V001 X1; line map in DELTA_V003_V003A.md):
++  * X1/P34-14: select_representative_points re-derives every admission rectangle from the DDO154 region
++    file BYTES (path and sha256 named by the run output; sha verified before parsing) and re-classifies every
++    admitted point against those rectangles; the rectangles carried in the run dict are never used.
++  * X1/P34-16: the calibration record pin is MANDATORY in write_freeze_manifest and in the verifier. Both
++    recompute the record's exploration fingerprint from its recorded run content, require it to equal the
++    record's stored fingerprint and the selection's (the run's) fingerprint, re-derive the rectangles from
++    the pinned region file bytes, and re-classify every member (and every admitted point of the record)
++    against them using the recorded DDO154 predictions.
++  * X1/S8: a missing or empty hull_box is refused, not skipped.
+ 
+ NGC3198 43-query prediction freeze packager and post-freeze scorer.
+ 
+@@ -82,15 +94,21 @@
+ 
+ SCHEMA = 'FREEZE_MANIFEST_C2V003'
+ REGISTRATION_SCHEMA = 'FREEZE_REGISTRATION_C2V003'
+-MODULE_NAME = 'prediction_freeze_c2v003'
++MODULE_NAME = 'prediction_freeze_c2v003a'
+ # D3/A4: the program's target-free NGC3198 query manifest
+ # (UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json)
+ PROGRAM_QUERY_MANIFEST_SHA256 = 'a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494'
+ QM_ROLE_PROGRAM = 'PROGRAM_PIN'
+ QM_ROLE_SYNTHETIC = 'SYNTHETIC_FIXTURE'
+ QUERY_MANIFEST_ROLES = (QM_ROLE_PROGRAM, QM_ROLE_SYNTHETIC)
+-CALIBRATION_RECORD_SCHEMA = 'CALIBRATION_RUN_RECORD_C2V003'   # written by calibration_region_engine_c2v003
++CALIBRATION_RECORD_SCHEMA = 'CALIBRATION_RUN_RECORD_C2V003'   # written by calibration_region_engine_c2v003(a)
+ FINGERPRINT_SCHEMA = 'EXPLORATION_FINGERPRINT_C2V003'
++# X1 (v003a): the DDO154 region file layout, mirrored from the engine's load_observation_region so the
++# admission rectangles are re-derived here from the file bytes
++REGION_EXPECTED_ROWS = 12
++REGION_ROW_NUMERIC_FIELDS = ('reference_radius_kpc', 'observed_speed_km_s', 'quoted_random_sigma_km_s',
++                             'conditional_random_acceptance_low_km_s', 'conditional_random_acceptance_high_km_s')
++REGION_TOP_FIELDS = ('statistical_choice', 'distance_summary', 'forward_coordinates')
+ SELECTION_RULE = ('members = for each identified direction (ascending index) the admitted points attaining the '
+                   'minimum then the maximum projection (ties -> lowest log_index), then the anchor (the engine '
+                   'primary anchor, an admitted entry), then the admitted point nearest the centroid of all '
+@@ -968,20 +986,71 @@
+     return None
+ 
+ 
++def _region_from_bytes(path, expected_sha256):
++    """X1 (v003a): re-derive the DDO154 admission rectangles from the region file BYTES.
++
++    Returns ({'path', 'sha256', 'row_ids', 'rectangles'}, None) or (None, reason). The sha256 of the bytes must
++    equal expected_sha256 before anything is parsed. Validation mirrors the engine's load_observation_region:
++    exactly REGION_EXPECTED_ROWS rows, unique non-empty str ids, every row field finite, sigma > 0,
++    low < observed < high, and the top-level fields present. Only ids and [low, high] are returned."""
++    if not _is_hex64(expected_sha256):
++        return None, 'expected region sha256 is not 64-hex'
++    raw, real, err = _read_regular(path, True)
++    if raw is None:
++        return None, err
++    actual = _sha256_hex(raw)
++    if actual != expected_sha256.lower():
++        return None, ('region file %r bytes hash to %s, not %s; not parsed'
++                      % (path, actual, expected_sha256.lower()))
++    doc, perr = _parse_json_bytes(raw)
++    if doc is None:
++        return None, 'region file: %s' % perr
++    if not isinstance(doc, dict) or not isinstance(doc.get('rows'), list):
++        return None, 'region file top level must be an object with a rows list'
++    rows = doc['rows']
++    if len(rows) != REGION_EXPECTED_ROWS:
++        return None, 'region file has %d rows, expected exactly %d' % (len(rows), REGION_EXPECTED_ROWS)
++    for key in REGION_TOP_FIELDS:
++        if key not in doc:
++            return None, 'region file misses the top-level field %r' % key
++    row_ids, rect = [], {}
++    for k, row in enumerate(rows):
++        if not isinstance(row, dict):
++            return None, 'region rows[%d] is not an object' % k
++        rid = row.get('id')
++        if not isinstance(rid, str) or not rid or rid in rect:
++            return None, 'region rows[%d].id must be a unique non-empty str' % k
++        for field in REGION_ROW_NUMERIC_FIELDS:
++            if not _is_real(row.get(field)):
++                return None, 'region rows[%d] (%s): %s missing or not finite' % (k, rid, field)
++        lo = float(row['conditional_random_acceptance_low_km_s'])
++        hi = float(row['conditional_random_acceptance_high_km_s'])
++        if not float(row['quoted_random_sigma_km_s']) > 0 or \
++                not (lo < float(row['observed_speed_km_s']) < hi):
++            return None, 'region rows[%d] (%s): sigma > 0 or low < observed < high violated' % (k, rid)
++        row_ids.append(rid)
++        rect[rid] = [lo, hi]
++    return {'path': real, 'sha256': actual, 'row_ids': row_ids, 'rectangles': rect}, None
++
++
+ def _region_of(exploration):
+-    """The engine's hash-verified region dict when the caller passed a run_calibration_region output."""
++    """(region, None) with the rectangles re-derived from the region file BYTES when the caller passed a
++    run_calibration_region output; (None, None) when the exploration carries no ok region (layout B: the
++    writer then refuses); (None, reason) when an ok region is named but its bytes do not re-derive.
++
++    X1 (v003a): only region.path and region.sha256 are taken from the run dict; its rectangles and row_ids are
++    never used."""
+     reg = exploration.get('region') if isinstance(exploration, dict) else None
+-    if not isinstance(reg, dict) or reg.get('ok') is not True or not _is_hex64(reg.get('sha256')):
+-        return None
+-    ids = reg.get('row_ids')
+-    rect = reg.get('rectangles')
+-    if not isinstance(ids, list) or not ids or not isinstance(rect, dict):
+-        return None
+-    for rid in ids:
+-        r = rect.get(rid) if isinstance(rid, str) else None
+-        if not isinstance(r, (list, tuple)) or len(r) != 2 or not _is_real(r[0]) or not _is_real(r[1]):
+-            return None
+-    return reg
++    if not isinstance(reg, dict) or reg.get('ok') is not True:
++        return None, None
++    if not _is_hex64(reg.get('sha256')) or not isinstance(reg.get('path'), str) or not reg.get('path'):
++        return None, ('REFUSED (P34-14/X1): exploration.region must name the region file path and sha256 '
++                      '(pass the run_calibration_region output)')
++    region, why = _region_from_bytes(reg['path'], reg['sha256'])
++    if region is None:
++        return None, ('REFUSED (P34-14/X1): the admission rectangles could not be re-derived from the region '
++                      'file bytes: %s' % why)
++    return region, None
+ 
+ 
+ def _fingerprint(admitted_lu, region_sha):
+@@ -1003,9 +1072,11 @@
+     exploration.anchor only when it is admitted; when the caller passes the run_calibration_region output
+     (layout A) every admitted point is re-classified against the region's closed rectangles
+     (admission_reverified) and the region sha256 and the exploration fingerprint are recorded (P34-16).
++    v003a (X1): those closed rectangles are re-derived from the region file BYTES (exploration.region.path,
++    sha256 verified against exploration.region.sha256 before parsing); the run dict's rectangles are never used.
+     D2: the rule's inputs (interior_count, anchor log_index, every admitted projection) and its output
+     (selected_points) are frozen in admitted_region so the verifier can recompute the member set.
+-    S8: a hull_box that is malformed or inconsistent with right_vectors refuses.
++    S8: a hull_box that is malformed, inconsistent with right_vectors, missing or empty (v003a) refuses.
+     D10: right_vectors must be a COMPLETE orthonormal basis of the varying engine u space and
+     identified + near_null must partition it; otherwise the call refuses (NULL_SPACE_NOT_COMPLETE).
+     D7: the admitted set is labelled INNER_SAMPLE; region_possibly_truncated is set when the
+@@ -1087,7 +1158,10 @@
+         reasons.append('exploration.admitted_points must be a non-empty list (status %s); an empty or '
+                        'unproven region is not a prediction freeze' % (_safe_repr(status),))
+         return out
+-    region = _region_of(exploration)
++    region, region_err = _region_of(exploration)   # X1: rectangles from the region file bytes, never the run dict
++    if region_err is not None:
++        reasons.append(region_err)
++        return out
+     engine_set = set(S['engine_names'])
+     admitted = []
+     seen_log = set()
+@@ -1153,26 +1227,26 @@
+         return out
+ 
+     # S8: hull_box must be well formed and consistent with right_vectors, or the call refuses.
++    # X1 (v003a): a missing or empty hull_box is refused, not skipped.
+     hull_box = ex.get('hull_box')
+-    hull_keys = None
+-    if isinstance(hull_box, dict) and hull_box:
+-        hull_keys = {}
+-        for k, box in hull_box.items():
+-            try:
+-                kk = int(k) if (not isinstance(k, bool) and (_is_int(k) or isinstance(k, str))) else None
+-            except (TypeError, ValueError, OverflowError):
+-                kk = None
+-            if kk is None or kk in hull_keys or not isinstance(box, dict) or not _is_real(box.get('min')) or \
+-                    not _is_real(box.get('max')):
+-                reasons.append('REFUSED (S8): hull_box entry %s is malformed' % _safe_repr(k))
+-                return out
+-            hull_keys[kk] = (float(box['min']), float(box['max']))
+-        if set(hull_keys) != set(identified):
+-            reasons.append('REFUSED (S8): hull_box directions %s differ from the identified directions %s'
+-                           % (sorted(hull_keys), identified))
++    if not isinstance(hull_box, dict) or not hull_box:
++        reasons.append('REFUSED (S8/X1): hull_box must be a non-empty dict keyed by identified direction '
++                       '(missing or empty hull_box refused, got %s)' % _safe_repr(hull_box)[:80])
++        return out
++    hull_keys = {}
++    for k, box in hull_box.items():
++        try:
++            kk = int(k) if (not isinstance(k, bool) and (_is_int(k) or isinstance(k, str))) else None
++        except (TypeError, ValueError, OverflowError):
++            kk = None
++        if kk is None or kk in hull_keys or not isinstance(box, dict) or not _is_real(box.get('min')) or \
++                not _is_real(box.get('max')):
++            reasons.append('REFUSED (S8): hull_box entry %s is malformed' % _safe_repr(k))
+             return out
+-    elif hull_box is not None and not isinstance(hull_box, dict):
+-        reasons.append('REFUSED (S8): hull_box must be a dict keyed by identified direction')
++        hull_keys[kk] = (float(box['min']), float(box['max']))
++    if set(hull_keys) != set(identified):
++        reasons.append('REFUSED (S8): hull_box directions %s differ from the identified directions %s'
++                       % (sorted(hull_keys), identified))
+         return out
+ 
+     prange = {}
+@@ -2239,7 +2313,8 @@
+ 
+ def _validate_input_bindings(ib, ar, ids, pins, reasons):
+     """D3/S12 + P34-14/P34-16: the query manifest and the DDO154 region are bound and pinned in input_files;
+-    a calibration record, if bound, is pinned and carries the exploration fingerprint (no I/O here)."""
++    a calibration record is bound (mandatory in v003a), pinned and carries the exploration fingerprint (no I/O
++    here; the record content is re-checked from its bytes by _check_calibration_record)."""
+     if not isinstance(ib, dict) or set(ib) != INPUT_BINDING_KEYS:
+         reasons.append('input_bindings keys differ from %s' % sorted(INPUT_BINDING_KEYS))
+         return
+@@ -2266,12 +2341,96 @@
+         reasons.append('the DDO154 observation-region file (sha %s) is not pinned in input_files'
+                        % reg['sha256'])
+     cr = ib['calibration_record']
+-    if cr is not None:
+-        if not isinstance(cr, dict) or set(cr) != {'path', 'sha256', 'exploration_fingerprint'} or \
+-                cr['exploration_fingerprint'] != ar['calibration_fingerprint'] or \
+-                (cr['path'], cr['sha256']) not in inputs:
+-            reasons.append('input_bindings.calibration_record must be a pinned input whose exploration_fingerprint '
+-                           'equals admitted_region.calibration_fingerprint (P34-16)')
++    # X1 (v003a): the calibration record binding is mandatory
++    if not isinstance(cr, dict) or set(cr) != {'path', 'sha256', 'exploration_fingerprint'} or \
++            not _is_hex64(cr['exploration_fingerprint']) or \
++            cr['exploration_fingerprint'] != ar['calibration_fingerprint'] or \
++            (cr['path'], cr['sha256']) not in inputs:
++        reasons.append('input_bindings.calibration_record is mandatory (X1) and must be a pinned input whose '
++                       'exploration_fingerprint equals admitted_region.calibration_fingerprint (P34-16)')
++
++
++def _check_calibration_record(cdoc, expected_fp, region_sha, region_path, members, reasons):
++    """X1 (v003a): content check of the pinned calibration record and re-classification of every member.
++
++    cdoc: the parsed record; expected_fp: the selection's exploration fingerprint (recomputed from the run's
++    admitted points by select_representative_points); region_sha / region_path: the pinned DDO154 region file;
++    members: [(log_index, u)] of every member.
++      1. schema and self-hash (record_sha256 over the canonical body);
++      2. the exploration fingerprint is RECOMPUTED from the recorded run content (run.exploration.admitted_points,
++         run.region.sha256); it must equal the record's stored exploration_fingerprint and expected_fp;
++      3. the admission rectangles are re-derived from the pinned region file BYTES (sha verified);
++      4. every admitted point of the record -- hence every member -- is re-classified against those rectangles
++         from its recorded DDO154 prediction, and every member (log_index, u) must be a recorded admitted point.
++    Appends reasons; returns True when all hold. Never reads the rectangles of any dict."""
++    n0 = len(reasons)
++    if not isinstance(cdoc, dict) or cdoc.get('schema') != CALIBRATION_RECORD_SCHEMA or \
++            not isinstance(cdoc.get('record_sha256'), str):
++        reasons.append('REFUSED (P34-16): the pinned calibration record is not a %s document'
++                       % CALIBRATION_RECORD_SCHEMA)
++        return False
++    body = {k: v for k, v in cdoc.items() if k != 'record_sha256'}
++    try:
++        self_hash = _sha256_hex(_canonical_bytes(body))
++    except (ValueError, TypeError, RecursionError) as exc:
++        reasons.append('REFUSED (P34-16): the pinned calibration record is not canonically serialisable: %s'
++                       % type(exc).__name__)
++        return False
++    if self_hash != cdoc['record_sha256']:
++        reasons.append('REFUSED (P34-16): the pinned calibration record fails its self-hash (record_sha256)')
++        return False
++    run = cdoc.get('run')
++    ex = run.get('exploration') if isinstance(run, dict) else None
++    ap = ex.get('admitted_points') if isinstance(ex, dict) else None
++    rreg = run.get('region') if isinstance(run, dict) else None
++    rsha = rreg.get('sha256') if isinstance(rreg, dict) else None
++    if not isinstance(ap, list) or not ap or not _is_hex64(rsha):
++        reasons.append('REFUSED (P34-16/X1): the pinned calibration record carries no admitted points or no '
++                       'region sha256 in its run content')
++        return False
++    by_li, lu = {}, []
++    for i, p in enumerate(ap):
++        if not isinstance(p, dict) or not _is_int(p.get('log_index')) or not isinstance(p.get('u'), list) or \
++                not all(_is_real(x) for x in p['u']) or int(p['log_index']) in by_li:
++            reasons.append('REFUSED (P34-16/X1): the pinned calibration record admitted_points[%d] is malformed' % i)
++            return False
++        by_li[int(p['log_index'])] = p
++        lu.append((int(p['log_index']), p['u']))
++    fp = _fingerprint(lu, rsha)
++    if fp != cdoc.get('exploration_fingerprint'):
++        reasons.append('REFUSED (P34-16/X1): the pinned calibration record stores exploration_fingerprint %s but '
++                       'its run content recomputes to %s' % (_safe_repr(cdoc.get('exploration_fingerprint')), fp))
++    if fp != expected_fp:
++        reasons.append('REFUSED (P34-16/X1): the pinned calibration record recomputes to exploration_fingerprint '
++                       '%s, not the run\'s (selection\'s) %s' % (fp, _safe_repr(expected_fp)))
++    if rsha.lower() != region_sha or cdoc.get('region_sha256') != rsha:
++        reasons.append('REFUSED (P34-16/X1): the pinned calibration record region sha256 %s differs from the pinned '
++                       'DDO154 region file %s' % (_safe_repr(cdoc.get('region_sha256')), region_sha))
++    if len(reasons) > n0:
++        return False
++    region, why = _region_from_bytes(region_path, region_sha)
++    if region is None:
++        reasons.append('REFUSED (P34-14/X1): the admission rectangles could not be re-derived from the pinned region '
++                       'file bytes: %s' % why)
++        return False
++    bad = []
++    for li in sorted(by_li):
++        why = _reclassify_admitted(by_li[li], region)
++        if why is not None:
++            bad.append('log_index %d: %s' % (li, why))
++    for li, u in members:
++        p = by_li.get(int(li)) if _is_int(li) else None
++        if p is None:
++            bad.append('member log_index %s is not an admitted point of the pinned calibration record'
++                       % _safe_repr(li))
++        elif not isinstance(u, (list, tuple)) or not all(_is_real(x) for x in u) or \
++                [float(x) for x in p['u']] != [float(x) for x in u]:
++            bad.append('member log_index %d: u differs from the recorded admitted point' % int(li))
++    if bad:
++        reasons.append('REFUSED (P34-14/X1): %d member/admitted point(s) fail the re-classification against the '
++                       'rectangles re-derived from the pinned region file bytes: %s' % (len(bad), bad[:5]))
++        return False
++    return True
+ 
+ 
+ def _member_order(members):
+@@ -2331,6 +2490,12 @@
+         COMPUTATIONAL_TRIAL_BOX_NOT_EMPIRICAL_BOUNDS;
+       * P34-16: an input file that is a calibration record (schema CALIBRATION_RUN_RECORD_C2V003) is bound
+         and must carry the selection's exploration fingerprint.
++    v003a (X1):
++      * the calibration record pin is MANDATORY (exactly one record in input_files);
++      * the record's exploration fingerprint is recomputed from its run content and must equal both its stored
++        value and the selection's (the run's) fingerprint;
++      * the admission rectangles are re-derived from the pinned region file BYTES and every member (and every
++        admitted point of the record) is re-classified against them from the recorded DDO154 predictions.
+     After the manifest, writes registration_path (D8) recording the manifest FILE sha256; that
+     value must be logged before any target access and passed to score_after_freeze.
+     """
+@@ -2467,11 +2632,12 @@
+         reasons.append('REFUSED (D3/A4): input_files must include the bound query manifest %s (sha256 %s)'
+                        % (qm_real, qm_sha))
+     region_sha = ar['observation_region_sha256'].lower()
+-    if not any(p['sha256'] == region_sha for p in input_pins):
++    region_pins = [p for p in input_pins if p['sha256'] == region_sha]
++    if not region_pins:
+         reasons.append('REFUSED (D3): input_files must include the DDO154 observation-region file the selection '
+                        'was re-verified against (sha256 %s)' % region_sha)
+-    # P34-16: bind a pinned calibration record by its exploration fingerprint
+-    cal_binding = None
++    # P34-16 / X1 (v003a): the calibration record pin is MANDATORY
++    rec_pins = []
+     for p in input_pins:
+         raw, _real, _err = _read_regular(p['path'], True)
+         if raw is None or _sha256_hex(raw) != p['sha256'] or CALIBRATION_RECORD_SCHEMA.encode('ascii') not in raw:
+@@ -2479,19 +2645,24 @@
+         doc, _perr = _parse_json_bytes(raw)
+         if not isinstance(doc, dict) or doc.get('schema') != CALIBRATION_RECORD_SCHEMA:
+             continue
+-        if cal_binding is not None:
+-            reasons.append('REFUSED (P34-16): more than one calibration record pinned')
+-            break
+-        if doc.get('exploration_fingerprint') != ar.get('calibration_fingerprint'):
+-            reasons.append('REFUSED (P34-16): the pinned calibration record %s has exploration_fingerprint %s, '
+-                           'not the selection\'s %s' % (p['path'], _safe_repr(doc.get('exploration_fingerprint')),
+-                                                       ar.get('calibration_fingerprint')))
+-            break
+-        cal_binding = {'path': p['path'], 'sha256': p['sha256'],
+-                       'exploration_fingerprint': doc.get('exploration_fingerprint')}
++        rec_pins.append((p, doc))
++    if not rec_pins:
++        reasons.append('REFUSED (P34-16/X1): input_files must include the calibration record of this run '
++                       '(calibration_region_engine write_calibration_record output); the record pin is mandatory')
++    elif len(rec_pins) > 1:
++        reasons.append('REFUSED (P34-16): more than one calibration record pinned')
+     if reasons:
+         return out
+-    out['calibration_record_bound'] = cal_binding is not None
++    rec_pin, rec_doc = rec_pins[0]
++    member_lu = [(p['log_index'], p['u']) for p in selection['points']]
++    for ev in alternative_evaluations.values():
++        member_lu.extend((m.get('log_index'), m.get('u')) for m in ev['members'])
++    if not _check_calibration_record(rec_doc, ar.get('calibration_fingerprint'), region_sha, region_pins[0]['path'],
++                                     member_lu, reasons):
++        return out
++    cal_binding = {'path': rec_pin['path'], 'sha256': rec_pin['sha256'],
++                   'exploration_fingerprint': rec_doc.get('exploration_fingerprint')}
++    out['calibration_record_bound'] = True
+     input_bindings = {
+         'query_manifest': {'path': qm_real, 'sha256': qm_sha, 'role': qm_role,
+                            'is_program_pin': qm_sha == PROGRAM_QUERY_MANIFEST_SHA256,
+@@ -2642,16 +2813,24 @@
+                        % (qb['path'], qm.get('reasons')))
+         return None
+     out['query_manifest_role'] = qb['role']
+-    # P34-16: a bound calibration record must still carry the frozen exploration fingerprint
++    # P34-16 / X1 (v003a): the bound calibration record (mandatory; the structure check refuses None) is re-read
++    # from its bytes, its fingerprint is recomputed from its run content, the rectangles are re-derived from the
++    # pinned region file bytes and every member is re-classified against them
+     cb = doc['input_bindings']['calibration_record']
+-    if cb is not None:
+-        craw, _cr, cerr = _read_regular(cb['path'], True)
+-        cdoc = _parse_json_bytes(craw)[0] if craw is not None else None
+-        if not isinstance(cdoc, dict) or cdoc.get('schema') != CALIBRATION_RECORD_SCHEMA or \
+-                cdoc.get('exploration_fingerprint') != doc['admitted_region']['calibration_fingerprint']:
+-            reasons.append('bound calibration record %s does not carry the frozen exploration fingerprint%s'
+-                           % (cb['path'], '' if cerr is None else ' (%s)' % cerr))
+-            return None
++    craw, _cr, cerr = _read_regular(cb['path'], True)
++    cdoc = _parse_json_bytes(craw)[0] if craw is not None else None
++    if craw is None or _sha256_hex(craw) != cb['sha256'] or not isinstance(cdoc, dict):
++        reasons.append('bound calibration record %s unreadable or changed since pinning%s'
++                       % (cb['path'], '' if cerr is None else ' (%s)' % cerr))
++        return None
++    region_sha = doc['input_bindings']['observation_region']['sha256']
++    region_path = next(p['path'] for p in doc['pins']['input_files'] if p['sha256'] == region_sha)
++    members = [(m['log_index'], m['u']) for m in doc['members']]
++    for a in doc['alternative_results'].values():
++        members.extend((m['log_index'], m['u']) for m in a['members'])
++    if not _check_calibration_record(cdoc, doc['admitted_region']['calibration_fingerprint'], region_sha,
++                                     region_path, members, reasons):
++        return None
+     return doc
+ 
+ 

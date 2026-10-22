@@ -1,0 +1,209 @@
+{
+ "schema": "CLAUDE2_SOURCE_CROSSWALK_CORRECTION_V001",
+ "task": "0346 (within 0345)",
+ "corrects": {
+  "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/source_crosswalk_0341/SOURCE_CROSSWALK_V001.json",
+  "sha256": "691483835e9d5201957a2b7183deaa1e8d994efeaa2644c3374d8e59f2450c72",
+  "unchanged": true
+ },
+ "rule": "A conversion statement is split into (a) what a primary source states, (b) the numeric value and where it actually comes from (SECONDARY / PROGRAM-DECLARED), (c) primary-verification state. Carry rules (included, do not reapply) are unchanged.",
+ "corrections": [
+  {
+   "id": "C1",
+   "crosswalk_pointer": "/sources/S1_LEROY_T7/helium_conversion_state/HI",
+   "was": "x1.36 already included (ReadMe Note 2); do not reapply",
+   "now": {
+    "helium_included": {
+     "state": "PRIMARY-STATED",
+     "evidence": {
+      "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/leroy2008_ReadMe.html",
+      "sha256": "cbd9a431c5ef4d9ae1bcda8bc141210bd03360a4d2b0ea5d8dd40e9079763c48",
+      "line_method": "tags removed (re.sub <[^>]+> -> \"\"), html.unescape, splitlines; 1-based",
+      "lines": "171 (SigmaHI carries note 2), 185 \"Note (2): Including helium.\""
+     }
+    },
+    "numeric_factor_1.36": {
+     "state": "SECONDARY; PRIMARY VERIFICATION OPEN",
+     "evidence": [
+      {
+       "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/GALAXY_INPUT_READINESS.md",
+       "sha256": "6e23d981e7bf0450a1e51169d29a9d54b6f2d1e4fd014432255988e018e0ec6c",
+       "class": "SECONDARY local note",
+       "lines": "75 \"Gas densities already include helium 1.36.\""
+      },
+      {
+       "file": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+       "sha256": "a8126eb6175f68629cc9e925bcadbced8b153659d8a3b1eed96e0f6985f64053",
+       "class": "program freeze (inherits the secondary note)",
+       "pointer": "/choices/helium/provenance"
+      }
+     ],
+     "deciding_input": "Leroy et al. 2008 paper text (arXiv:0810.2556), not local"
+    },
+    "carry_rule": "helium included; do not reapply (unchanged)"
+   }
+  },
+  {
+   "id": "C2",
+   "crosswalk_pointer": "/sources/S1_LEROY_T7/helium_conversion_state/H2",
+   "was": "X_CO 2e20, CO(2-1)/(1-0) 0.8, helium included (P53 /choices)",
+   "now": {
+    "helium_included": {
+     "state": "PRIMARY-STATED",
+     "evidence": {
+      "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/leroy2008_ReadMe.html",
+      "sha256": "cbd9a431c5ef4d9ae1bcda8bc141210bd03360a4d2b0ea5d8dd40e9079763c48",
+      "line_method": "tags removed (re.sub <[^>]+> -> \"\"), html.unescape, splitlines; 1-based",
+      "lines": "173 (SigmaH2 carries note 2), 185"
+     }
+    },
+    "numeric_helium_factor": {
+     "state": "SECONDARY; PRIMARY VERIFICATION OPEN",
+     "evidence": [
+      {
+       "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/GALAXY_INPUT_READINESS.md",
+       "sha256": "6e23d981e7bf0450a1e51169d29a9d54b6f2d1e4fd014432255988e018e0ec6c",
+       "class": "SECONDARY local note",
+       "lines": "75"
+      }
+     ]
+    },
+    "X_CO_and_line_ratio": {
+     "state": "SECONDARY (P53 status INHERITED_REPORTED_ASSUMPTION); PRIMARY VERIFICATION OPEN; not stated in the ReadMe",
+     "evidence": [
+      {
+       "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/GALAXY_INPUT_READINESS.md",
+       "sha256": "6e23d981e7bf0450a1e51169d29a9d54b6f2d1e4fd014432255988e018e0ec6c",
+       "class": "SECONDARY local note",
+       "lines": "75-76"
+      },
+      {
+       "file": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+       "sha256": "a8126eb6175f68629cc9e925bcadbced8b153659d8a3b1eed96e0f6985f64053",
+       "class": "program freeze (inherits the secondary note)",
+       "pointer": "/choices/CO_conversion"
+      }
+     ],
+     "deciding_input": "Leroy 2008 paper text"
+    },
+    "carry_rule": "conversion already applied; do not reapply"
+   }
+  },
+  {
+   "id": "C3",
+   "crosswalk_pointer": "/sources/S1_LEROY_T7/helium_conversion_state/stars",
+   "was": "M/L 0.5 (K band) via I3.6 = 0.55 I_K, i.e. Sigma = 280 cos(i) I3.6 (Leroy Appendix C, as quoted in PHOTOMETRIC_SOURCE_COMPARISON.md lines 12-16); already applied",
+   "now": {
+    "conversion_values": {
+     "state": "SECONDARY; PRIMARY VERIFICATION OPEN; the ReadMe says only \"Surface density of stars\"",
+     "evidence": [
+      {
+       "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/PHOTOMETRIC_SOURCE_COMPARISON.md",
+       "sha256": "07250eff09e09d69a1943f7f55aa1f2102de8c42b2a202b5cbb230c6c4c0b3d2",
+       "class": "SECONDARY program audit quoting primary papers",
+       "lines": "12-16"
+      },
+      {
+       "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/GALAXY_INPUT_READINESS.md",
+       "sha256": "6e23d981e7bf0450a1e51169d29a9d54b6f2d1e4fd014432255988e018e0ec6c",
+       "class": "SECONDARY local note",
+       "lines": "77-78"
+      },
+      {
+       "file": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+       "sha256": "a8126eb6175f68629cc9e925bcadbced8b153659d8a3b1eed96e0f6985f64053",
+       "class": "program freeze (inherits the secondary note)",
+       "pointer": "/choices/stellar_ML"
+      }
+     ],
+     "deciding_input": "Leroy 2008 Appendix C, not local"
+    },
+    "carry_rule": "already applied; do not reapply"
+   }
+  },
+  {
+   "id": "C4",
+   "crosswalk_pointer": "/sources/S1_LEROY_T7/geometry",
+   "was": "Leroy table4 i 72, PA 215, D 13.8 Mpc (values via P53 freeze /choices; table4 not opened)",
+   "now": {
+    "values": {
+     "state": "SECONDARY (P53 freeze from the secondary note lines 72-74); PRIMARY VERIFICATION OPEN",
+     "evidence": [
+      {
+       "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/GALAXY_INPUT_READINESS.md",
+       "sha256": "6e23d981e7bf0450a1e51169d29a9d54b6f2d1e4fd014432255988e018e0ec6c",
+       "class": "SECONDARY local note",
+       "lines": "72-74"
+      },
+      {
+       "file": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+       "sha256": "a8126eb6175f68629cc9e925bcadbced8b153659d8a3b1eed96e0f6985f64053",
+       "class": "program freeze (inherits the secondary note)",
+       "pointer": "/choices/{distance,inclination,position_angle}"
+      }
+     ],
+     "deciding_input": "byte-limited read of Leroy table4 geometry columns (table4 also holds vflat/lflat, so the read must be limited), or the paper"
+    }
+   }
+  },
+  {
+   "id": "C5",
+   "crosswalk_pointer": "/sources/S2_HALOGAS_C1/helium_conversion_state",
+   "was": "map already in HI atoms cm^-2 (HISTORY 21-cm conversion; BUNIT card stale); 1.25e20 cm^-2 per Msun/pc^2; ... x1.36 applied once only in separately labelled effective_HI_plus_He_* fields",
+   "now": {
+    "column_density_conversion": {
+     "state": "PRIMARY (FITS HISTORY of the released map, per the 0339 header audit and SOURCE_PIXEL_REVIEW.md lines 53-58)"
+    },
+    "1.25e20_per_Msun_pc2": {
+     "state": "PROGRAM-DECLARED CONVENTION (SOURCE_PIXEL_REVIEW.md lines 56-57 \"declared conventional\"); not a HALOGAS value"
+    },
+    "helium_factor_1.36_in_S2": {
+     "state": "PROGRAM-DECLARED (PLANAR_SOURCE_RESULTS.json /settings/helium_factor); numeric provenance as C1 (SECONDARY, primary verification OPEN)"
+    }
+   }
+  },
+  {
+   "id": "C6",
+   "crosswalk_pointer": "/sources/S2_HALOGAS_C1/geometry",
+   "was": "orthographic parallel-ray fixed plane, i 72, PA 215 (orientation_source Leroy table4), centre de Blok et al. 2008 Table 2",
+   "now": {
+    "orientation_values": {
+     "state": "PROGRAM-DECLARED working plane; values SECONDARY as C4; PRIMARY VERIFICATION OPEN"
+    },
+    "centre": {
+     "state": "CITED in /settings/center_source; primary table not verified locally by Claude; OPEN"
+    }
+   }
+  },
+  {
+   "id": "C7",
+   "crosswalk_pointer": "/sources/S3_SPARC_SFB/helium_conversion_state",
+   "was": "M_sun,3.6 = 3.24; IRAC zero point; C3.6 = 703.80 Lsun/pc^2 per MJy/sr per PHOTOMETRIC_SOURCE_COMPARISON.md lines 22-35",
+   "now": {
+    "values": {
+     "state": "SECONDARY (program audit quoting the SPARC paper and the IRAC handbook; C3.6 computed there); PRIMARY VERIFICATION OPEN",
+     "evidence": [
+      {
+       "file": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/PHOTOMETRIC_SOURCE_COMPARISON.md",
+       "sha256": "07250eff09e09d69a1943f7f55aa1f2102de8c42b2a202b5cbb230c6c4c0b3d2",
+       "class": "SECONDARY program audit quoting primary papers",
+       "lines": "22-35"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "C8",
+   "crosswalk_pointer": "/sources/S5_BEGEMAN_C2/note",
+   "was": "paper helium 1.4 (do not stack with 1.36)",
+   "now": {
+    "values": {
+     "state": "SECONDARY (0339 inventory; Begeman PDF hash-only, not read); PRIMARY VERIFICATION OPEN"
+    }
+   }
+  }
+ ],
+ "line_number_note": "With the stripping method in line_method, table7 lines are: e_SigmaHI 172, e_Sigma* 176, Note (2) 185, Note (3) 186. The 0337 addendum cited 171/175/185 for the same items (a different tag-stripping); the cited text is unchanged.",
+ "unchanged": "Geometry remains quarantined; no historical or secondary value repairs the failed SPARC layout (0344). No source selected."
+}

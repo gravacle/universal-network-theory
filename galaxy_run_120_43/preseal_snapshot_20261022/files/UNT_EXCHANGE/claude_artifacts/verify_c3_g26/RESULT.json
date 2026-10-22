@@ -1,0 +1,76 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0813 item 5 / 0826 item 4d: G26 freeze script cx2v001 (cross-family)",
+ "reviewer_lane": "Claude3",
+ "utc": "2026-10-21T12:36:11Z",
+ "object": {
+  "source": "claude_artifacts/g26_freeze_script_cx2/g26_freeze_cx2v001.py",
+  "sha256": "663d4c2b19a90490c4b1ad9f0902d485146dccdcef4f84f595520dff92b96bea",
+  "readme_sha256": "a2ea15c1...",
+  "builder_return": "FROM_CODEX2/0563"
+ },
+ "verdict": "PASS",
+ "blocking": 0,
+ "findings": [
+  {
+   "id": "N1",
+   "class": "NOTE (re-runnability of evidence)",
+   "label": "TESTED",
+   "title": "The functional suite depends on a saved synthetic state in another session's /private/tmp scratch",
+   "evidence": "test_g26_cx2v001.py L27-30: OLD = /private/tmp/claude-501/-Users-bgm-MB-Work/04dac55c-.../scratchpad/c2v004_dryrun_final (DRYRUN_CALIBRATION_RECORD.json, DRYRUN_SYNTHETIC_REGION_NOT_DDO154.json). It exists today (mtime 10-19), but macOS clears /private/tmp on reboot, after which the 47-check evidence cannot be re-run.",
+   "fix": "Copy those saved synthetic fixture files into the G26 folder (or a pinned fixtures folder), pin their shas in REVIEW_EVIDENCE, and point OLD there in a test successor. No change to the G26 source."
+  },
+  {
+   "id": "N2",
+   "class": "NOTE (dependency)",
+   "label": "FORMAL",
+   "title": "G26 pins c2v007 builder 799fb2d0 (L23), which is still under review (0826 item 4c)",
+   "evidence": "README: a changed adopted dependency needs a separately named G26 successor. If 4c changes c2v007, G26 must be rebuilt and re-verified."
+  },
+  {
+   "id": "N3",
+   "class": "NOTE (disclosed lineage)",
+   "label": "FORMAL",
+   "title": "The FORBIDDEN set is inherited from v003g/P46 plus four target-row names (A205 item 10)",
+   "evidence": "README FORBIDDEN-set lineage; it is reuse, not independent blinding evidence, as the builder states."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "47/47 functional checks pass when run from the pinned folder with WORK in my scratch; the object folder is unchanged (no new files)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "13/13 restoring mutants killed (negative witnesses with control refusals: BUILDER_PIN_MISMATCH, G26_ALLOW_INCOMPLETE_NOT_REDERIVED, G26_PASS_K_BYTES_DIFFER and others)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Wrong-record guards: external NO_NEW_DISCREPANCY head is required (L184; G034 appended-ledger refusal); PASS_K byte equality, not JSON equivalence (L274; G035); allow_incomplete re-derived from c2v007 DN5 with no operator override (L239-240; M11)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "No launch: no subprocess/Popen/os.system in the source (docstring L3); the tests' audit fence rejects subprocesses",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Single read: bootstrap and full writer read each input once (G033); the builder is executed from one guarded buffer with a byte pin (L53-77)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Pins: builder 799fb2d0 and freeze module 48a1e48a constants (L23-24) match bytes; expected production identities spec e2a7650e, notes 56ac5c64, slots d3859b42 appear in the source and agree with FREEZE_EXPECTED_INPUTS_C2V004 (54997f94)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Production freeze behaviour on real PASS_K, spec and slots",
+   "result": "NOT_CHECKED",
+   "note": "root-only, after the seal/reading gates and the G28 ledger-root decision"
+  }
+ ],
+ "reads_not_done": "No production spec, slots, notes or ledger; no NGC3198-named file; no run trees. The synthetic saved state was read only by the builder's tests."
+}

@@ -1,0 +1,110 @@
+{
+  "dispatch": 780,
+  "reviewer": "Codex1",
+  "status": "FAIL",
+  "blocking_count": 1,
+  "utc": "2026-10-20T16:42:42.666558+00:00",
+  "blocking_items": [
+    {
+      "id": "CX1-S4RA1-01",
+      "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/apply_h3_fields_c2v004.py",
+      "function": "block_derived",
+      "problem": "pin_problem hashes one read; block_derived parses a second read. If the second read differs only at a permitted slot, apply accepts the unhashed value and reports the original source pin and block_derived_equals_block_source_numerics=true. This fails dispatch 0780 check 2 and A218 derived-from-pinned-bytes requirement.",
+      "reproduction": "Own in-memory Path.read_bytes substitution; shipped BLOCK_SOURCE_PIN unchanged. First read is actual FILLED de6d7d77 bytes; second differs only in eps_certificate. Accepted=true, unhashed_block_written=true, report_claim=true. Actual source bytes remain unchanged.",
+      "root_note_disposition": "A220 N1 report-to-digest and downstream \u00a75 checks can detect a bad result later, but do not make this tool refuse or prove its output came from the verified buffer. The published adversarial T10 treats this demonstrated defect as INFO; 24/24 therefore does not close it.",
+      "requested_fix": "Read the block source once, hash that buffer against the exact pin, parse that same buffer, and derive from it. Add a refusal/provenance regression for a read-changing fixture; publish an immutable successor."
+    }
+  ],
+  "TESTED": [
+    "All eight dispatch file hashes verified from bytes before and after checks.",
+    "Source delta: only new block constants/helpers and additions to apply/main; no removed top-level objects. Flag absent preserves c2v003 bytes and report on all 29 suite inputs.",
+    "Own-scratch suite 41/41, embedded regressions 90/90 and 77/77, mutations 10/10 caught, audit no denials.",
+    "Published adversarial checker rerun in own scratch: 24/24; fresh synthetic V007 documents with real policy show unchanged block rejected and derived block accepted; six slot leaves only.",
+    "Nine HEADLINE spec hashes reproduce 0778 and are invariant; all 31 registry numerics identities match slot-stripped block; seed key 968c915bece706ea unchanged in dry native chain.",
+    "Registry seed spec sha reproduced as 6e6a4de1dfbdbba99d1a44383fb5af6bca5260c68f13b983d09eccd4456fd5f5 under both blocks. 6944e210 is a point key, not a spec hash.",
+    "Independent read-changing fixture reproduces blocking pin-to-payload gap without modifying any production file."
+  ],
+  "stricter_choices": {
+    "exact_path_pin": "Accept: binds the commissioned FILLED artifact and rejects aliases; bytes alone at another path intentionally not sufficient.",
+    "block_source_field_equality": "Accept when field is present; prevents config provenance contradicting the derivation pin. Missing/null field is allowed by implementation and still requires later complete-config policy validation.",
+    "stray_sha_flag_refusal": "Accept: prevents an unpaired flag from being silently interpreted as a positional argument."
+  },
+  "notes": [
+    "Base spec and cache IDs change; apply before evidence assembly/adoption derivation. Final W1 wrapper id remains a final-config check.",
+    "No-flag compatibility and passing tests do not override the single explicit binding defect.",
+    "No science, production seal, protected run output, or target velocity access."
+  ],
+  "UNTESTED": [
+    "Final verdict-bound W1/H1 config, real r5 prelaunch on the FILLED base, production binder/launch, final W1 cache id."
+  ],
+  "objects": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/apply_h3_fields_c2v004.py",
+      "sha256": "b3e8b7d3e8f3996399b1a18d5b281c71e92769f119deea42cda497a66d722434"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/tests/test_apply_h3_fields_c2v004.py",
+      "sha256": "bbf862f7709dd8fd800fb6336905facdecadbc482aff267bf97db87d998171d9"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/tests/mutation_check_c2v004.py",
+      "sha256": "3d8639a1c02e8a34c4a2822091d7e940f7aab28f3a8a1206edc10ae021441215"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/DIFF_apply_h3_fields_c2v003__c2v004.diff",
+      "sha256": "7bf83bce38da5e3a7a647eaf6b845d5f19c5583c89040be2050a797701041a58"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/ERRATA_S4RA1_C2V001.md",
+      "sha256": "64be32f96ee46952cd5ade8854795c42da24bd5636b0143b05285f208c7323d5"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/ERRATA_S4RA1_C2V002.md",
+      "sha256": "83078bb5eac25e4154fdae65298a634833fb7963db2b130d51e73d469303276c"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/CACHE_ID_RESTATEMENT_S4RA1_C2V001.md",
+      "sha256": "3e83ab74feebe48d7674f30160550aaf4815f39c40318a2c0306083041bbccee"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/HASHES_APPLY_FIELDS_C2V004.txt",
+      "sha256": "2bb798b9e1927e14724bc683726e4b155bc39eda20b29dd958ef99b4bd6ce7e1"
+    }
+  ],
+  "evidence": {
+    "suite": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/test_runs/RUN_20261020T163833Z_89214/TEST_RESULTS.json",
+      "sha256": "960b55a684d1a19ee382201f0a40127ae983f1b1a1393c94579e248e671ff42d"
+    },
+    "regressions": [
+      {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/test_runs/RUN_20261020T163833Z_89214/C_suite_cert_c2v004/RUN_20261020T163837Z_89235/TEST_RESULTS.json",
+        "sha256": "a381e9193346d556c1bdf04ffe7480518bd67baaf65fde6bb196e8fc1f648dd3"
+      },
+      {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/test_runs/RUN_20261020T163833Z_89214/C_suite_cert_c2v003/RUN_20261020T164006Z_89720/TEST_RESULTS.json",
+        "sha256": "fd12cd6fa31b07d95c3b6bb89861edb7200d4d00ac6994508edd210ebecefe8c"
+      }
+    ],
+    "mutation": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/mutation_runs/RUN_20261020T164121Z_90134/MUTATION_RESULTS.json",
+      "sha256": "532cb49e1f7dcc6397588059bb7d0028c31658e4a0f9914177eff8bb7ae29904"
+    },
+    "adversarial_rerun": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/adversarial/RUN_20261020T163912Z_89490/VERIFY_RESULTS.json",
+      "sha256": "bb81a902ff0e96f4e7b62aa22ff16fc1a2d13f5cbfc83a08b2be212206a5a150"
+    },
+    "adversarial_script": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/adv_verify_s4ra1.py",
+      "sha256": "1f7ca83d0a7a00f183a4b73659695ad3b25262579c47a7399d9b3c7aebe6576c"
+    },
+    "independent_script": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/check_pinned_read_cx1.py",
+      "sha256": "2b4471194f928709b6dbddc0377c60a982c24d25fd63b8159f116f16aea79722"
+    },
+    "independent_result": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/PINNED_READ_RESULT_CX1.json",
+      "sha256": "b80ee4ae952825968e553a3e058c98dbdcd48091d25d403ee9a970b0f791b641"
+    }
+  }
+}

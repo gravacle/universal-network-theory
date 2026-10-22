@@ -1,0 +1,82 @@
+{
+ "schema": "DDO154_CALIBRATION_FREEZE_COMPATIBILITY_PROBE_C2V004",
+ "question": "can prediction_freeze_c2v003a consume a calibration with the DDO154 distance fixed (A13)?",
+ "pins": {
+  "engine": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003a/calibration_region_engine_c2v003a.py",
+   "sha256": "193841fa1f1d078f7fc981fdba78cf3d736b50ee17e019f0cf94aae94e3a63a6"
+  },
+  "freeze": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003a/prediction_freeze_c2v003a.py",
+   "sha256": "5ee3e5dce72c77870903ce378e146fb86f7288ab2a403deb39796e348ee0f9b8"
+  },
+  "coordinate_spec": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/DDO154_CALIBRATION_COORDINATE_SPEC_V001.json",
+   "sha256": "fdeb5eb9b69b302c3b7eca21ed772184da56e26224fa4f8b08c8a2b0534106f8"
+  },
+  "addendum": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v004/COORDINATE_SPEC_ADDENDUM_V004.json",
+   "sha256": "ca7be1d601918ecb3d54163b927f7af80a1f6f3c6b69da8cc4a4a3474d01e0a0"
+  },
+  "orchestrator": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v004/calibration_orchestrator_c2v004.py",
+   "sha256": "753605afa12e3883e846b9c387da71edf0782bea0afb80ad04807d9d44551ffa"
+  },
+  "script": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v004/evidence/probe_freeze_compatibility_c2v004.py",
+   "sha256": "2377b9aaec2398d65961832ebfc4cf904f80f9a563064509411e017265778074"
+  },
+  "synthetic_region": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v004/evidence/probe_freeze_compatibility_c2v004.out.SYNTHETIC_REGION_NOT_DDO154_R1.json",
+   "sha256": "f621ea3f32b0ef5ff07f3388f6dccfe1ae3e058cfa49abbebad16aed2a96a7ab"
+  }
+ },
+ "engine_runs": {
+  "4d": {
+   "status": "COMPLETE",
+   "varying": [
+    "common_scale_s",
+    "gamma_over_Eref",
+    "ell_F_m",
+    "distance_Mpc"
+   ],
+   "n_admitted": 34
+  },
+  "3d": {
+   "status": "COMPLETE",
+   "varying": [
+    "common_scale_s",
+    "gamma_over_Eref",
+    "ell_F_m"
+   ],
+   "n_admitted": 34
+  }
+ },
+ "cases": {
+  "P0_4d_engine_v001_freeze_list": {
+   "ok": true,
+   "reasons": []
+  },
+  "P1_3d_engine_v001_freeze_list": {
+   "ok": false,
+   "reasons": [
+    "identifiability.varying_names ['common_scale_s', 'gamma_over_Eref', 'ell_F_m'] differ from the spec varying engine coordinates ['common_scale_s', 'gamma_over_Eref', 'ell_F_m', 'distance_Mpc']"
+   ]
+  },
+  "P2_3d_engine_freeze_list_without_distance": {
+   "ok": false,
+   "reasons": [
+    "admitted_points[0].theta_natural keys ['Eref_base_J', 'Gamma_poly', 'ML_3p6', 'common_scale_s', 'distance_Mpc', 'ell_F_m', 'entropy_K_factor', 'gamma_over_Eref', 'helium_factor', 'native_C_identity', 'native_Delta', 'native_E_I', 'native_E_R', 'native_E_S', 'native_Ud', 'native_beta', 'native_dstar', 'native_e_I', 'native_e_R', 'native_epsilon', 'native_epsilon_c', 'native_epsilon_r', 'native_g', 'native_h', 'native_kappa', 'native_lambda_J', 'native_lambda_R', 'native_t', 'native_theta'] differ from the engine coordinates ['Eref_base_J', 'Gamma_poly', 'ML_3p6', 'common_scale_s', 'ell_F_m', 'entropy_K_factor', 'gamma_over_Eref', 'helium_factor', 'native_C_identity', 'native_Delta', 'native_E_I', 'native_E_R', 'native_E_S', 'native_Ud', 'native_beta', 'native_dstar', 'native_e_I', 'native_e_R', 'native_epsilon', 'native_epsilon_c', 'native_epsilon_r', 'native_g', 'native_h', 'native_kappa', 'native_lambda_J', 'native_lambda_R', 'native_t', 'native_theta']",
+    "admitted_points[1].theta_natural keys ['Eref_base_J', 'Gamma_poly', 'ML_3p6', 'common_scale_s', 'distance_Mpc', 'ell_F_m', 'entropy_K_factor', 'gamma_over_Eref', 'helium_factor', 'native_C_identity', 'native_Delta', 'native_E_I', 'native_E_R', 'native_E_S', 'native_Ud', 'native_beta', 'native_dstar', 'native_e_I', 'native_e_R', 'native_epsilon', 'native_epsilon_c', 'native_epsilon_r', 'native_g', 'native_h', 'native_kappa', 'native_lambda_J', 'native_lambda_R', 'native_t', 'native_theta'] differ from the engine coordinates ['Eref_base_J', 'Gamma_poly', 'ML_3p6', 'common_scale_s', 'ell_F_m', 'entropy_K_factor', 'gamma_over_Eref', 'helium_factor', 'native_C_identity', 'native_Delta', 'native_E_I', 'native_E_R', 'native_E_S', 'native_Ud', 'native_beta', 'native_dstar', 'native_e_I', 'native_e_R', 'native_epsilon', 'native_epsilon_c', 'native_epsilon_r', 'native_g', 'native_h', 'native_kappa', 'native_lambda_J', 'native_lambda_R', 'native_t', 'native_theta']",
+    "admitted_points[2].theta_natural keys ['Eref_base_J', 'Gamma_poly', 'ML_3p6', 'common_scale_s', 'distance_Mpc', 'ell_F_m', 'entropy_K_factor', 'gamma_over_Eref', 'helium_factor', 'native_C_identity', 'native_Delta', 'native_E_I', 'native_E_R', 'native_E_S', 'native_Ud', 'native_beta', 'native_dstar', 'native_e_I', 'native_e_R', 'native_epsilon', 'native_epsilon_c', 'native_epsilon_r', 'native_g', 'native_h', 'native_kappa', 'native_lambda_J', 'native_lambda_R', 'native_t', 'native_theta'] differ from the engine coordinates ['Eref_base_J', 'Gamma_poly', 'ML_3p6', 'common_scale_s', 'ell_F_m', 'entropy_K_factor', 'gamma_over_Eref', 'helium_factor', 'native_C_identity', 'native_Delta', 'native_E_I', 'native_E_R', 'native_E_S', 'native_Ud', 'native_beta', 'native_dstar', 'native_e_I', 'native_e_R', 'native_epsilon', 'native_epsilon_c', 'native_epsilon_r', 'native_g', 'native_h', 'native_kappa', 'native_lambda_J', 'native_lambda_R', 'native_t', 'native_theta']"
+   ]
+  }
+ },
+ "P3_freeze_list_with_distance_role_fixed": {
+  "ok": false,
+  "reasons": [
+   "coordinates[3] (distance_Mpc) ddo154_nuisance coordinates must have role nuisance"
+  ]
+ },
+ "verdict": "TESTED-NEGATIVE: prediction_freeze_c2v003a cannot consume the A13 fixed-distance calibration (positive control passes)"
+}

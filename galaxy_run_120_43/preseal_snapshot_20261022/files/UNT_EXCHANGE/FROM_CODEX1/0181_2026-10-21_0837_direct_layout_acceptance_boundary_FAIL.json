@@ -1,0 +1,43 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "0837 direct-layout source audit; importer remains uninstalled and not review-ready",
+  "utc": "2026-10-21T13:01:52.005517+00:00",
+  "tested": [
+    "Static source inspection: guard014 requires outdir, receipt, monitor_log and receipt launch sidecar to be distinct and nonnested (lines397\u2013404).",
+    "Acceptance handoff004 accept_call resolves call_dir then reads call_dir/out (lines337\u2013343); current custody002 similarly assumes local spec/receipt/out layout."
+  ],
+  "untested": [
+    "Direct-layout acceptance production and validation",
+    "Integrated external waiting, cache reuse, runtime/environment/envelope/register authentication",
+    "Whole-engine replay"
+  ],
+  "finding": "A consumer-only path alias is insufficient: acceptance production also assumes campaign layout. Use an explicit layout binding across producer and consumers, preserving actual spec, receipt and result paths. Do not fabricate wave directories or silently reinterpret an existing acceptance record.",
+  "blocking": [
+    "I1 entry/executor/cache/wait integration remains incomplete",
+    "I2 direct-layout acceptance producer and consumer binding remains incomplete",
+    "I3 authenticated runtime/environment/envelope/speculative register remains incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_guard_c2v014.py",
+      "sha256": "6efdca016416a919b25a1e23d46a415b75fe2b5e60145ba098f864730975165d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_launcher_c2v015.py",
+      "sha256": "cd987edd097323999847208d7b5fdfd93dadecb8a10beb6feaf91a0c53b68e0b"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/acceptance_handoff_c2v004.py",
+      "sha256": "5ff464cc866d3e69ef83ab7542701b211afaae29d7be14e69b10fb09f16692d8"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/custody_guard_cx1v002.py",
+      "sha256": "e9f7e4b523b6597d9fce7bf32575e2ce77cc7b67458594f6b7ac4b33c7f5a728"
+    }
+  ],
+  "next": "Design an explicit producer/consumer layout contract before wiring admission; retain existing artifacts unchanged.",
+  "inbox_seen": 837,
+  "outbox": 181,
+  "no_live_processes": true
+}

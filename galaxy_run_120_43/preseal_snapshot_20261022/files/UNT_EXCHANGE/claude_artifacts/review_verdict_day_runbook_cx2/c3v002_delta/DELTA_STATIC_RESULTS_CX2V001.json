@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "name": "v1_runbook_unchanged",
+      "pass": true
+    },
+    {
+      "name": "v1_xref_unchanged",
+      "pass": true
+    },
+    {
+      "name": "exactly_one_code_row_added",
+      "pass": true
+    },
+    {
+      "name": "only_addition_P0_J12_strict",
+      "pass": true
+    },
+    {
+      "name": "all_old_rows_text_kind_reference_and_order_unchanged",
+      "pass": true
+    },
+    {
+      "name": "all_four_source_path_and_pin_records_unchanged",
+      "pass": true
+    },
+    {
+      "name": "generator_1_parses_as_python_without_execution",
+      "pass": true
+    },
+    {
+      "name": "xref_1_binds_actual_runbook",
+      "pass": true
+    },
+    {
+      "name": "generator_2_parses_as_python_without_execution",
+      "pass": true
+    },
+    {
+      "name": "xref_2_binds_actual_runbook",
+      "pass": true
+    },
+    {
+      "name": "P0_strict_precedes_source",
+      "pass": true
+    },
+    {
+      "name": "every_nonzero_including_exit4_explicit_STOP",
+      "pass": true
+    }
+  ],
+  "date_u": "Wed Oct 21 16:16:58 UTC 2026",
+  "pass": true,
+  "pins": {
+    "generator_1": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_runbook_c3/build_runbook_c3v001.py",
+      "sha256": "9f018e3b20917a7c777ff901ee70aba87de682aaba2bf6bbc30913c44088d5ff"
+    },
+    "generator_2": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_runbook_c3/build_runbook_c3v002.py",
+      "sha256": "39d25274245a2b9a8010e85d20a251828f4fc273ba94ec89892848a3bf217945"
+    },
+    "runbook_1": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_runbook_c3/RUNBOOK_EXEC_C3V001.md",
+      "sha256": "553a0e2c7b1f023c22f68877fc233cf1de5eae2faec70ad81f206d93e6efd170"
+    },
+    "runbook_2": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_runbook_c3/RUNBOOK_EXEC_C3V002.md",
+      "sha256": "3a1487488969e156bc8540c1d3d147d5e3c38f44a09b13e5c32070f1d524696f"
+    },
+    "xref_1": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_runbook_c3/XREF_C3V001.json",
+      "sha256": "aca0ada17bd513dbdbe64268e7901af931552c0fb67a4ba2d93542ef204f0643"
+    },
+    "xref_2": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_runbook_c3/XREF_C3V002.json",
+      "sha256": "59a415e5ee625a65f78fe53b1add5020c7a03c6373902e3b621e0ddd0184cd3b"
+    }
+  },
+  "prose_and_code_diff_before_reindexed_xref": "--- C3V001\n\n+++ C3V002\n\n@@ -1,4 +1,4 @@\n\n-# RUNBOOK_EXEC_C3V001 \u2014 consolidated verdict-day executable runbook\n-\n-Claude3, for Claude2 (root). Root 0850 item 2 (V006 A290); executed by root under A292 (\"lean, one block per call\"). Generated 2026-10-21T15:32:26Z (`date -u`) by `build_runbook_c3v001.py`, which copies every command line verbatim from the sources below and records each line's source in \u00a7X. This runbook authorizes nothing: every scientific launch stays root's (sheet L3, L184).\n+# RUNBOOK_EXEC_C3V002 \u2014 consolidated verdict-day executable runbook\n+\n+Claude3, for Claude2 (root). Root 0850 item 2 (V006 A290); executed by root under A292 (\"lean, one block per call\"). Generated 2026-10-21T16:15:01Z (`date -u`) by `build_runbook_c3v001.py`, which copies every command line verbatim from the sources below and records each line's source in \u00a7X. This runbook authorizes nothing: every scientific launch stays root's (sheet L3, L184).\n \n@@ -16,2 +16,3 @@\n\n \n+- **Fail-fast (C3V002, Codex2 0580 F-STOP-1).** P0 starts with `set -euo pipefail` (J:L12). The first failing command stops the whole call, and no later command can mask it. Any non-zero exit is a STOP, including the kit's exit 4 flag: review it before continuing.\n - **One block per call.** Each call is P0 followed by one block's code, pasted together into one `/bin/bash` invocation (S:L13). Shell variables do not persist between calls. A block re-derives what it needs from files with the same source lines (kind REDERIVED in \u00a7X), or takes a PASTE value.\n@@ -55,3 +56,3 @@\n\n | `S4T_R3_RECEIPT` | B1 | receipt path from the registered R3 launch record, not R2; outdir ends KMAX_V007_P128_S4T_MS128_CX1_RUN_V011_CX3V001_R3 | S:L36 |\n-| `UNT_ROOT_ADMISSION_SHA256` | B3a, B3b, B3c, B4 | from the independent root publication; producer_guard_cx1v008 has no path override | S:L32 |\n+| `UNT_ROOT_ADMISSION_SHA256` | B3a, B3b, B3c, B4 | B3a: from the independent root publication; producer_guard_cx1v008 has no path override; B3b, B3c: as in B3a; B4: as in B3a (only the \u00a73 producers are known to read it; harmless if the comparator does not) | S:L32 |\n | `CASE_RUN` | B3a | the registered run of this case (R3 for S4T) | S:L61 |\n@@ -61,3 +62,3 @@\n\n | `CASES` | B4 | the B2 cases manifest path | S:L55 |\n-| `VERDICT_DIR` | B4, B5a, B5b, B6 | a new, unused folder for the comparison report | S:L13 (all new paths must be unused) |\n+| `VERDICT_DIR` | B4, B5a, B5b, B6 | B4: a new, unused folder for the comparison report; B5a, B5b, B6: the B4 folder | S:L13 (all new paths must be unused) |\n | `VERDICT_RULING` | B6 | root's ruling argument for the fill | S:L114 |\n@@ -70,5 +71,5 @@\n\n | `DRIVER_SHA` | B7H | its full sha256 | S:L132 |\n-| `FILLED_SPEC` | B7H, B7X | one FINAL spec from B8b | S:L126 |\n+| `FILLED_SPEC` | B7H, B7X | B7H: one FINAL spec from B8b; B7X: the seed serial spec, or the seed twin spec | S:L126 |\n | `FILLED_SPEC_SHA` | B7H, B7X | its sha256 from bytes | S:L132 |\n-| `NEW_DRY_REPORT_DIR` | B7H, B7X | a new path; the driver creates its report folder | S:L126; J:L44 |\n+| `NEW_DRY_REPORT_DIR` | B7H, B7X | B7H: a new path; the driver creates its report folder; B7X: a new path | S:L126; J:L44 |\n | `ADMISSION_CANDIDATE` | B9a | the admission candidate path | S:L151 |\n@@ -85,3 +86,3 @@\n\n | `ROOT_FIELDS_SHA` | B7S1 | its byte sha256 | J:L50 |\n-| `STEP2_LAST_RECEIPT` | B7S3, B7S4, B11.1, B11.2, B11.3, B11.4, B11.5 | the actual last step-2 receipt (see gap G3) | S:L176; J:L130 |\n+| `STEP2_LAST_RECEIPT` | B7S3, B7S4, B11.1, B11.2, B11.3, B11.4, B11.5 | B7S3: the actual last step-2 receipt (see gap G3); B7S4: as in B7S3; B11.1, B11.2, B11.3, B11.4, B11.5: the actual last step-2 receipt | S:L176; J:L130 |\n | `PIN_NAME` | B7X | S0_SEED_SERIAL for the serial spec, or S0_SEED_CW8_TWIN for the twin (kit L357) | S:L124 |\n@@ -114,2 +115,8 @@\n\n \n+## 0.7 Changes from C3V001 (`553a0e2c`)\n+\n+- **F-STOP-1 (Codex2 0580, blocking): fixed.** P0 now starts with `set -euo pipefail` (J:L12). In C3V001, B9b's caps check could return 0 after a binder refusal, and B4 could hide a comparator failure.\n+- **SHOULD_FIX:** B7S4's DRY_WORK sentence now covers the J DRYs only, and the PASTE register gives each block's own description for `FILLED_SPEC` and the other shared names.\n+- Nothing else changes: every command line, source and kind is as in C3V001, plus the one P0 line.\n+\n ## P0. Common preamble \u2014 the start of every call\n@@ -117,2 +124,3 @@\n\n ```bash\n+set -euo pipefail\n source \"/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/VERDICT_DAY_VARS_C2V001.sh\"\n@@ -687,3 +695,3 @@\n\n \n-**Expected:** no `--launch` means DRY. A J DRY before seed M-15 reports the record pending, which is allowed only in DRY. Each must pass the handoff, fill and dry-verdict checks, show the same registered SPEC SHA, zero science stages and the planned caps and paths. Save and hash each resulting plan, fill-check and dry-verdict file from the printed DRY_WORK location (J:L121).\n+**Expected:** no `--launch` means DRY. A J DRY before seed M-15 reports the record pending, which is allowed only in DRY. Each must pass the handoff, fill and dry-verdict checks, show the same registered SPEC SHA, zero science stages and the planned caps and paths. Save and hash each resulting plan, fill-check and dry-verdict file from each J DRY's printed DRY_WORK location (J:L121). The seed and twin DRY outputs are whatever their own commands report.\n ",
+  "schema": "RUNBOOK_C3V002_DELTA_CX2V001",
+  "scope": "TESTED text/byte/AST comparisons only; runtime UNTESTED; no source code executed"
+}

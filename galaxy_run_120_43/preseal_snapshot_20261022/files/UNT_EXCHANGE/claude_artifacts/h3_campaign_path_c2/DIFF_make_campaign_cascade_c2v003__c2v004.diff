@@ -1,0 +1,44 @@
+--- make_campaign_cascade_c2v003.py
++++ make_campaign_cascade_c2v004.py
+@@ -1,3 +1,8 @@
++# Claude2 h3_campaign_path_c2 (root V006 A188, A191 B2, A192): deterministic generator of the CAMPAIGN adoption cascade, c2v004.
++# c2v004 against make_campaign_cascade_c2v003 (d7e6d77a), and nothing else (V006 A192 item 3, verifier B1): W4 the wrapper
++# source is calibration_orchestrator_q5b1_ledger_c2v004.py (c2v003 plus the B1 latest-pass rule; its core pin line is q5b1's,
++# so W1 is unchanged); E4 the entry template is h3_campaign_entry_c2v004 (it pins that source); the result names this
++# generator.  Policy and core outputs are c2v003's, byte for byte, for every SUB and tuple.  Text below is c2v003's.
+ # Claude2 h3_campaign_path_c2 (root V006 A188, A191 B2, A192): deterministic generator of the CAMPAIGN adoption cascade, c2v003.
+ # c2v003 against make_campaign_cascade_c2v002 (bbb9d656), and nothing else (V006 A192 items 2-3, "built with the ledger"):
+ #  W3  the wrapper source is calibration_orchestrator_q5b1_ledger_c2v003.py (the q5b1 wrapper 7a6af535 plus the R-C8
+@@ -25,18 +30,18 @@
+ #  M1  main(argv) / build(...) are callable in process (regenerate_h3_c2v001.py); the CLI is v002's plus --publish-root.
+ # Regression: with SUB = v006r10_c4, no tuple and the default publish root the four outputs are byte-identical to the
+ # published policy 93d9c0ac, core dc895f8a, q5b1 wrapper 7a6af535 and the entry template itself.
+-# usage: python3 -I -B make_campaign_cascade_c2v003.py OUTDIR SUB (--dry-run | --write) [--publish-root DIR] [--policy-only]
++# usage: python3 -I -B make_campaign_cascade_c2v004.py OUTDIR SUB (--dry-run | --write) [--publish-root DIR] [--policy-only]
+ #        [--seal-tuple C P A SCHEMA V]
+ import ast, hashlib, json, os, re, sys
+ 
+ CX2 = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2'
+ R7 = (CX2 + '/v006r7/adoption_policy_cx2v006r7.py', '7c726fa2ad3f3e0fbcfcf36353901f970cde1eff3f76321327e5a8a5fbc29b1d')
+ CORE9 = (CX2 + '/v006r9/calibration_core_cx2v006r9.py', 'a595c5c0929fc0a8313bcdff3b79241f1e3ba8f77dc3749adc06b2a982b43605')
+-WRAPQ = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'calibration_orchestrator_q5b1_ledger_c2v003.py'),
+-         '5ea1780a1008b5158ca4e431bafc9f6597d7adcefd682423abb3bbbca81d6c2c')     # W3
++WRAPQ = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'calibration_orchestrator_q5b1_ledger_c2v004.py'),
++         '7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229')     # W4
+ CORE10_SHA = 'dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6'     # the core q5b1 L27 pins
+-ENTRY_T = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h3_campaign_entry_c2v003.py'),
+-           '5710e1fa457956087ac6a3e7e4484d51c30f3729b49788ea95c6f3d0a963f983')     # E3
++ENTRY_T = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h3_campaign_entry_c2v004.py'),
++           'cbdf0d49b8bfa09bccf8ba1ebfb518f8c00b663c2564db7c3a02c8b7a86e116d')     # E4
+ CTRL = '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2'
+ SEALED_COMPARE = CTRL + '/V007_SEAL_ASSEMBLY/kmax_tail_compare_c2v007_r14_cx1v001_SEALED_V007.py'
+ SEALED_PREREG = CTRL + '/V007_SEAL_ASSEMBLY/KMAX_TAIL_PREREG_V007_SEALED.json'
+@@ -231,7 +236,7 @@
+             refuse('expected --seal-tuple C P A SCHEMA V')
+         seal_tuple = tuple(rest[1:6])
+     files, outputs, lit_sha = build(sub, policy_only=policy_only, seal_tuple=seal_tuple, publish_root=publish_root)
+-    res = {'generator': 'make_campaign_cascade_c2v003', 'mode': mode, 'sub': sub, 'policy_only': policy_only,
++    res = {'generator': 'make_campaign_cascade_c2v004', 'mode': mode, 'sub': sub, 'policy_only': policy_only,
+            'seal_tuple': seal_tuple, 'publish_root': publish_root, 'outdir': os.path.join(out, sub),
+            'inputs': {'policy_r7': R7[1], 'core_r9': CORE9[1], 'wrapper_source': WRAPQ[1], 'entry_template': ENTRY_T[1]},
+            'outputs': outputs, 'resolve_source_literal_sha256_utf8': lit_sha}

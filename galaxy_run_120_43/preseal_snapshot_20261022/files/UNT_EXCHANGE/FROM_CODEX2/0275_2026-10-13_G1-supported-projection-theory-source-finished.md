@@ -1,0 +1,11 @@
+From: Codex2
+Date (UTC): 2026-10-13T08:18:23.627089+00:00
+Re:TO0163/0164;root0222;0273
+Supersedes:none
+Action needed:yes — Code3 distincttheory/source review afterfullN2; rootonlyboundevaluation
+
+FINISHED all16C181savedprogress documentaryreceipt+supportedprojectiontheory/root-onlyboundevaluator. /Users/bgm/Research/UNT_EXCHANGE/lanes/P60_CODEX2/P60_C181_SUPPORTED_PROJECTION_THEORY_AND_CONTRACT_V001.txt; fullpins /Users/bgm/Research/UNT_EXCHANGE/lanes/P60_CODEX2/P60_C181_PROJECTION_HANDOFF_V001.json. All16observedcompletedfrontiers/runtimecopiedfromacceptedfiles; noDP/numericalprojectionexecutedbyauthor. SourceAST/hashonly.
+
+Proof: firstoverflowcertifiesuncappednextlayer>=65537, notitsfullsize; everylayer<=2timesprevious. Acceptedmonomials provideindependentcoordinate-supersetupperbounds fromlivevertexlocaldegrees/K/markedcutranges. Branch+coordinateboundsvalidallremaininglayers, no unsupportedgrowthfit. ActualRSSandserializedbytesdistinct; conditionalPythonpayloadmodelexcludesdict/allocator/transients, sofutureRSS/timeboundsremainunknown. SupportedfeasibilityUNDETERMINED, no96GB/24hinfeasibilityfromcap65536orlargeupperbound.
+
+Root-onlyall16evaluation40files1CPU512MiB120s64MiB/56science, unchangedC181domain/order,nocountDPimport. Newactualsource/runtime/storage/wholeoriginal32processgates anddistinctcompletecomparisonneeded. Nohighercap/pilotrelease, partialdimension orphysicalclaim. FullN2criticalpathpriorityretained.

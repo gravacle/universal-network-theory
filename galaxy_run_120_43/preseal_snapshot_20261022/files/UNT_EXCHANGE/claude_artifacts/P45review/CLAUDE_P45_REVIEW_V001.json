@@ -1,0 +1,44 @@
+{
+ "schema": "CLAUDE_CROSS_LINEAGE_FORMAL_REVIEW_V001",
+ "reviewer": "Claude",
+ "author": "Codex2",
+ "task": "P-45",
+ "packet": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P45_CODEX2/PACKET_MANIFEST_V001.json",
+ "manifest_sha256": "ce75ef76fc9af1bdb5b69eedb8c2af030ab81dd8c861582073632d66240a38dd",
+ "claim_reviewed": "Uniform old-parent q4 ice manifold, 4-regular, girth>=6, uniform Record bit, V=-h sum X_e: the order-h^6 diagonal of H_eff is one constant on every ice configuration (RK/flippability coefficient exactly 0). Through h^6, H_ice,b = c_b(h) I - K_b R + O(h^8), K_b = h^6 T(x_b)/(2Ud)^5, so any photon velocity ratio is T(x1)/T(x0).",
+ "status": "PASS_FORMAL_AT_STATED_SCOPE",
+ "verified": [
+  "Flip energy D(S)=sum_{e in S}(2Ud+alpha*sigma_e)+2Ud*sum_{adjacent e,f in S} sigma_e sigma_f re-derived from sum_v(sum_{e~v} sigma_e)^2.",
+  "Cluster energies by two methods (Feshbach/Brillouin-Wigner series and RS recursion) agree exactly on 168 clusters; single edge e2=-1/D, e4=1/D^3, e6=-2/D^5 (= claimed w1(s)); disconnected supports have connected weight exactly 0 at every order, folds included; odd orders 0.",
+  "Per-vertex scalar at Ud=1, x=0: c2/N=-1, c4/N=-7/12 (P42 calibration), c6/N=-893/540=-1.653703704 (general -893/(540 Ud^5)).",
+  "Two independent Claude codes give identical exact c6/N at nonzero alpha: x=1/8 (alpha=+-1/4) c6/N=-584223680005892145152/315618003222506159175=-1.85104675; x=1/10 (alpha=1/5) c6/N=-2254632127717201515625/1268934038379014382144=-1.776792220. All c_k even in alpha; Ud scaling c2~1/Ud, c4~1/Ud^3, c6~1/Ud^5.",
+  "Whole-graph checks with no cluster decomposition: PG(2,3) incidence graph (26 v, 52 e, girth 6, 234 hexagons, 183,384 ice configurations; flippable counts 32-52): exact RS on one representative of each of 24 (flippable, cycle-structure) classes gives E2=-26, E4=-91/6, E6=-11609/270=26*(-893/540) at x=0 and E6=-29310217660323619703125/634467019189507191072=26*c6/N at x=1/10. Separate brute force on PG(2,3) (12 states), diamond primitive L=3 (8 states), diamond conventional L=2 (6 states), flippable counts 14-46, several flux sectors, alpha in {0,+-1/4,-3/10}: h^2,h^4,h^6 diagonals identical across states.",
+  "Support census is configuration independent: PG(2,3) edges 26/26, pairs ++/+-/-- 26/104/26, stars 52/52, paths 26/104/104/104/104/26; diamond primitive L=3 54/54, 54/216/54, 108/108, 54/216/216/216/216/54 (18 paths per vertex in both).",
+  "Non-perturbative Lanczos on the <=3-flip space, Richardson at h=0.004/0.008/0.016: -42.988, -42.978 vs exact -42.9963 (x=0); -46.187, -46.205 vs -46.1966 (x=0.1).",
+  "Positive controls detect configuration dependence when triangles exist: octahedron E6 -167/20 vs -2119/270 (E2,E4 equal); C10(1,2) E6 takes -251/18, -15331/1080, -7801/540 (E2=-10, E4=-35/6 constant).",
+  "Ring amplitude: T(0)=252 from 720 orderings; T(1/10)=837604000000/3169966833 (T(1/10)/T(0)=1.048536332); T(1/8)=89792708608/330812181 (ratio 1.077107473); T even in x; identical on 82 flippable hexagons in real graphs; 64-state hexagon-cube ED split/(2K)=0.98989, 0.99748, 0.99937 at h=0.08, 0.04, 0.02.",
+  "Scheme independence at h^6: a <=3-edge support has no other ice state in its flip cube, so each sector is 1x1 and Bloch, des Cloizeaux and Schrieffer-Wolff diagonals equal the RS series; lower-order H_eff is scalar so commutator differences vanish. Ring term has no folded/internal-P pieces.",
+  "Domain: minimum denominator over all <=3-edge supports and hexagon intermediates is 2Ud-|alpha|, so |x|<1 is the correct window.",
+  "Beyond the claim: h^8 diagonal exactly constant on PG(2,3) over 5 states: c8/N=-209966173/27216000 (alpha=0) and -34997649256500062976526162035921649664/4499231884054230863848534577935959375 (alpha=1/4). Float RS on the <=5-flip space (dim 2,893,164) at flippable counts 32/38/41/52: E8=-200.584968327, E10=-1201.987906367 at x=0 (26*c8/N exact = -200.5849683275, agreement ~4e-12); cross-configuration spread at orders 2/4/6/8/10 = 0 / 1.07e-14 / 1.99e-13 / 7.67e-13 / 5.46e-12 (x=0) and 0 / 3.6e-15 / 7.1e-14 / 5.1e-13 / 6.8e-13 (x=0.1). Forest-support argument: diagonal scalar through h^10; first possible configuration-dependent (RK) diagonal term is h^12.",
+  "Spot checks outside the core claim: clock adjacent-word d2 matches brute force (128/5355); diagonal after one Record flip scalar through h^6; D0 fixture poles 5.479203, 10, 13, 17.520797 (written = blank - 3), selected residue Z=0.5251892 on both branches (= (129+25*sqrt145)/(68*sqrt145))."
+ ],
+ "problems": [
+  "No error in the theorem at its stated scope.",
+  "Velocity-ratio corollary is leading order only (packet writes '+O(h^8)' and 'formal in h' but names neither correction). At h^8: (a) an 8-ring term on graphs with elementary 8-cycles (diamond: 3 per vertex, 750 at primitive L=5, ~8% flippable in random ice states), K8=h^8 T8/(2Ud)^7 with T8(0)=3432, T8/T6=13.619 at x=0 and 14.044 at x=1/8; (b) dressed hexagon, in-cube part -6.29(h/2Ud)^2 at x=0 and -6.85(h/2Ud)^2 at x=1/8. So v1/v0=tau*[1+O((h/2Ud)^2)] with endpoint-dependent coefficients estimated O(0.5-1). Section E's I2(1)/I2(0)=eta_K*eta_E/tau^2 inherits this; against P43's 1/100 margin tau is decisive only if (h/2Ud)^2 << 1e-2. The correction is off-diagonal, not an RK potential.",
+  "Hypothesis is broader than needed for the diagonal part: the h^6 diagonal statement needs only 4-regularity, girth>=4 and uniform alpha; girth>=6 is needed only for the hexagon to be the leading off-diagonal term.",
+  "Proof step 1 ('nonconstant terms at other orders are not excluded') can be sharpened: scalar through h^10 (h^8 exact, h^10 float plus forest argument).",
+  "Proof step 2 (convention independence) is correct but compressed; it should state that the formalisms differ by commutators with lower-order pieces, all of which are scalar.",
+  "Finite-torus scope on diamond: primitive L=2 has girth 4 (theorem does not apply; a 4-ring enters at h^4); primitive L=3 has 162 six-cycles = 108 local hexagons + 54 winding six-cycles, which belong to R and change flux sector; primitive L>=4 and conventional L=2 are clean.",
+  "Photon existence for pure R is not derived (packet says so); for the stoquastic sign at V=0 on diamond it is supported only by published QMC, not by this packet.",
+  "Custody: uniform_sixth_order_clusters_v001.py (sha256 31184c9a...) calls int.bit_count (Python>=3.10); /usr/bin/python3 here is 3.9.6 and raises AttributeError. Root runtime 3.12.14 (P30) is unaffected.",
+  "Predicted control target (source read only, not executed): held_method_controls scalar_per_vertex[6] = -893/540 at (Ud=1, alpha=0)."
+ ],
+ "required_corrections": [],
+ "required_before_downstream_quantitative_use": [
+  "Label v1/v0=T(x1)/T(x0) and Section E's tau as leading order in h; name the 8-ring term and dressed-hexagon correction at h^8; any P43 density comparison at margin 1/100 must carry a bound on the endpoint-dependent O((h/2Ud)^2) remainder or compute the h^8 operator."
+ ],
+ "check_agreement": "Two independent Claude checks with separate code; no numerical disagreement. Overlaps verified exactly by the synthesizer: c6/N at alpha=+-1/4 identical exact rational from both codes; h^8 per-vertex exact (check 2) times 26 equals check 1's float E8 to ~4e-12; c2,c4,c6 at x=0 and T(0)=252 identical. Apparent difference on girth (check 1: girth>=4 suffices for the diagonal; check 2: theorem does not apply at girth 4) is not a conflict: the diagonal statement survives at girth 4 but the operator form c-K6 R6 does not. Reporting slip in check 1 corrected here: its spread list had four numbers for five orders; actual values are in verified item 12.",
+ "lineage_note": "All checks are Claude lineage (cross-lineage relative to the Codex2 author); same-lineage checks may share blind spots. Codex root separately recorded PASS_SCOPED_ANALYTIC_SOURCE (ROOT_DISTINCT_FORMAL_SOURCE_REVIEW_V001.json).",
+ "scope": "FORMAL, uncertified. Formal in h, exact rational in alpha, through h^6 for the operator (diagonal scalar through h^10), old-parent uniform Q0 vacuum on 4-regular girth>=6 graphs, |x|<1. Does not establish a photon phase of R, full Born-join factorization (V_full/K), same-reference matter curvature, a finite-h clock line, or any certified error. P43 DENSITY and BASELINE labels remain UNDETERMINED. Not reviewed beyond spot checks: clock h2 line structure, D0 counterexample, P43 handoff labels.",
+ "artifacts": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/P45review/ (p45_clusters_independent.py, p45_graph_check.py, p45_supplement.py, p45_higher_order_float.py, brute_rs.py, run_brute.py, cluster_and_ring.py, run_order8.py, ring8.py, ed_hexagon.py, sensitivity_control.py, flippable8.py and outputs; attack.md). No Codex code imported or executed."
+}

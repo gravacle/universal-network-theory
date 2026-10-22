@@ -1,0 +1,48 @@
+--- s1_launch_root_c2v001.py
++++ s1_launch_root_c2v002.py
+@@ -1,13 +1,16 @@
+-"""S1 root launch path (s1_path_c2, c2v001). Root only.
++"""S1 root launch path (s1_successors_c2, c2v002). Root only.
+ 
+-Loads s1_path_lib_c2v001.py from this folder by its sha256 and refuses on any mismatch. Order, all fail closed:
+-  1. S1 checks: registration in force (its sha in the pinned V006 bytes), launch config, POST_S1 one-call plan on
+-     guard011/launcher012, driver r5, tail ON, spec = the filled spec, template replay byte-equal;
+-  2. the four 0620 controls through guard011 (spec_structure + allowlist, adoption, validate with native preflight),
+-     before any process (guard011's fence refuses process creation);
+-  3. machine gate v003: hold_check, then Gate.decide for the S1 head after the warm-up; A133's root memory rule;
+-  4. --launch only: the exclusive pre-launch record, then launcher012 (which re-validates and detaches its worker).
+-The published admission is read from UNT_STEP4_ADMISSION_PATH / UNT_STEP4_ADMISSION_SHA256 (as launcher012).
++Loads s1_path_lib_c2v002.py from this folder by its sha256 and refuses on any mismatch. Order, all fail closed:
++  1. S1 checks: registration C2V002 (67b4bd78) named on root's V006 entry line at the constant V006 path, launch config
++     (campaign state; with ACTIVE, root's campaign-window attestation), POST_S1 one-call plan on guard012/launcher013,
++     driver r5, tail ON, spec = the filled spec, template replay byte-equal;
++  2. the four 0620 controls through guard012 (spec_structure + allowlist, adoption, validate with native preflight; for
++     an overlap admission guard012 also runs its live gate), before any process;
++  3. machine gate v003: hold_check, then Gate.decide for the S1 head after the warm-up; the r5 route-A snapshot check;
++     A133's root memory rule; memory_pressure free >= 25 % (evaluated at hand-off);
++  4. --launch only: the exclusive pre-launch record, then launcher013 (which re-validates and detaches its worker), then
++     the exclusive outcome record <record>.outcome.json.
++The published admission is read from UNT_STEP4_ADMISSION_PATH / UNT_STEP4_ADMISSION_SHA256 (as launcher013).
+ Default mode is dry: nothing is launched. --launch also needs --confirm <plan sha256> and --record PATH.
+   --plan P@S --registration P@S --v6 P@S --launch-config P@S [--record PATH] [--launch --confirm SHA]
+ Exit 0: admitted (dry) or launched; 3: refused (the code and stage are printed).
+@@ -21,8 +24,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB = HERE / 's1_path_lib_c2v001.py'
+-LIB_SHA = 'b461ac36f9f9124cc74992a469f74ed2b0d39de63fd6a551b7e0b73f4cd027bb'
++LIB = HERE / 's1_path_lib_c2v002.py'
++LIB_SHA = 'e3ca4d80fee093456117a6fe3401861c8166f5015c9ad99e7b04feae7410bc1c'
+ 
+ 
+ def lib():
+@@ -30,7 +33,7 @@
+     if hashlib.sha256(raw).hexdigest() != LIB_SHA:
+         print(json.dumps({'refused': 'LIB_BYTES_CHANGED'}))
+         raise SystemExit(3)
+-    m = types.ModuleType('s1_path_lib_c2v001')
++    m = types.ModuleType('s1_path_lib_c2v002')
+     m.__file__ = str(LIB)
+     exec(compile(raw, str(LIB), 'exec'), m.__dict__)
+     return m

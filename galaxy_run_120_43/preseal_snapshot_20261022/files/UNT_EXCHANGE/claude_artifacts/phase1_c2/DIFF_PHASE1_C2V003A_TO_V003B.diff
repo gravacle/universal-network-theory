@@ -1,0 +1,48 @@
+--- phase1_c2v003a.py	2026-10-19 12:07:37
++++ phase1_c2v003b.py	2026-10-19 12:55:48
+@@ -1,4 +1,16 @@
+-"""phase1_c2v003a -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
++"""phase1_c2v003b -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
++phase1_c2v003a (385b287c).  It closes the values-unbound gap found by the v003a verifier (probe values_unbound_attack.py):
++AT-0b's --values file was not bound to the values file the L1 was banded from, so an AT-0b run on another Phase-1 values
++file (one whose u_A result_pin matches the members file) could carry at1 on an L1 of different values.  Changes against
++v003a, and only these:
++  V1  at0b records values_sha256 (the sha of the --values bytes it read, lowercase hex) beside members_sha256.
++  V2  at1 refuses VALUES (no out-dir) unless AT-0b's values_sha256 equals the L1's values_sha256 (both lowercased).  The
++      check runs right after the A149 item 2 members check; an AT-0b without values_sha256 (v003a or older) is refused
++      by the same check.
++  CUSTODY at1 accepts only an L1 whose module is this MODULE ('phase1_c2v003b').
++
++v003a header (unchanged behaviour; 'v003a' below reads as this module):
++phase1_c2v003a -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
+ phase1_c2v003 (149ed4cb) under ruling A149 items 1-4 (V006 addendum), which close the gaps both root verifiers found in
+ v003.  Changes against v003, and only these:
+   A149.1  member_eps catches OverflowError (an int entry beyond the float range, e.g. 10**400): that pair is flagged
+@@ -84,7 +96,7 @@
+ import sys
+ from pathlib import Path
+ 
+-MODULE = 'phase1_c2v003a'
++MODULE = 'phase1_c2v003b'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'
+ ORCH_PIN = (ART + 'calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py',
+             'c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d')
+@@ -1041,6 +1053,7 @@
+     res = {'schema': 'PHASE1_AT0B_C2V001', 'module': MODULE, 'outcome': 'PASS' if not fails else 'AGREEMENT_DEFECT',
+            'failures': fails, 'phase2_record_sha256': a.phase2_record_sha256, 'snapshot_sha256': a.snapshot_sha256,
+            'members_sha256': a.members_sha256.lower()}   # A149 item 2: the sha of the members bytes read above
++    res['values_sha256'] = a.values_sha256.lower()   # v003b V1: the sha of the Phase-1 values bytes read above
+     out.create()
+     out.write('AT0B_C2V001.json', res)
+     return ('OK' if not fails else 'AGREEMENT_DEFECT'), {'failures': fails, 'out_dir': out.dir, 'files': out.files}
+@@ -1252,6 +1265,10 @@
+     if at0[1].get('members_sha256') != a.members_sha256.lower():   # A149 item 2: the members file AT-0b read
+         raise Refused('MEMBERS', '--members sha256 %s is not the members_sha256 %r recorded by AT-0b (A149 item 2)'
+                       % (a.members_sha256.lower(), at0[1].get('members_sha256')))
++    v0b, vl1 = at0[1].get('values_sha256'), l1.get('values_sha256')
++    if not (isinstance(v0b, str) and isinstance(vl1, str) and v0b.lower() == vl1.lower()):   # v003b V2
++        raise Refused('VALUES', 'AT-0b values_sha256 %r is not the L1 values_sha256 %r (v003b: AT-0b must read the '
++                      'Phase-1 values file the L1 was banded from)' % (v0b, vl1))
+     mv = members_values(mvals, run2)
+     check_member_eps(mv, len(mvals['query_ids']))   # A144 R3 input contract (at1 only; at0b is not affected)
+     if [r['id'] for r in l1['rows']] != list(mvals['query_ids']):

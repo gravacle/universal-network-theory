@@ -1,0 +1,108 @@
+{
+  "utc": "2026-10-19T00:06:40.162692+00:00",
+  "status": "TESTED",
+  "scope": "Exact c_slot_registry AST; all pin, fence, registry and gate-code dependencies replaced by inert in-memory doubles. No paths from exclusion constants opened. Tests only exclusion control flow; native scientific/registry validity UNTESTED. Script bash -n only, never executed.",
+  "source": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v013.py",
+    "sha256": "ad581a06854ad5ce0e337624860cdf07c04181fccb066f71e79128f1d9b05200"
+  },
+  "script": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v012.sh",
+    "sha256": "cb41f72c378ace12ba1d71fa3b9dc0964282e6f5c0e40a1a22c9be284da701d6",
+    "bash_n_exit": 0
+  },
+  "passed": 8,
+  "total": 8,
+  "checks": [
+    {
+      "name": "exact named exclusions pass despite registry errors",
+      "pass": true,
+      "actual_accept": true,
+      "expected_accept": true,
+      "detail": {
+        "c04": {
+          "registry": {
+            "path": "registry",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "compare": {
+            "path": "compare",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          "records_registry_admitted_with_the_gate_pass_verdict": [
+            "certificates.OTHER",
+            "identity_comparator"
+          ],
+          "excluded_by_A107": {
+            "certificates.EPS_NGC": {
+              "gate": "EPS_NGC",
+              "sha256": "1d5eef1b602d2489ba8c0e652156555bbd2bfddf083931c7c4c82fa0a1e0c13d",
+              "registry_codes_reported_only": [
+                "INERT_REGISTRY_FAILURE"
+              ]
+            },
+            "certificates.I1T_NGC": {
+              "gate": "I1T_NGC",
+              "sha256": "3ae7981a0c022d50a153a0857b10660661fedfd5adedcba3b805802b4a1809b6",
+              "registry_codes_reported_only": [
+                "INERT_REGISTRY_FAILURE"
+              ]
+            }
+          },
+          "other_gate_records_slotted": [],
+          "fence_refused": 0,
+          "scope": "registry admission (record sha, producer, comparator, tokens) plus the gate PASS verdict; not evaluate_gate"
+        }
+      }
+    },
+    {
+      "name": "missing exclusion",
+      "pass": true,
+      "actual_accept": false,
+      "expected_accept": false,
+      "detail": "C04_EXCLUSIONS_NOT_EXACTLY_THE_A107_LIST ['certificates.EPS_NGC'] (A107: exactly certificates.EPS_NGC and certificates.I1T_NGC, each by its path and sha; no third slot)"
+    },
+    {
+      "name": "third exclusion",
+      "pass": true,
+      "actual_accept": false,
+      "expected_accept": false,
+      "detail": "C04_EXCLUSIONS_NOT_EXACTLY_THE_A107_LIST ['certificates.EPS_NGC', 'certificates.I1T_NGC', 'certificates.OTHER'] (A107: exactly certificates.EPS_NGC and certificates.I1T_NGC, each by its path and sha; no third slot)"
+    },
+    {
+      "name": "duplicate exclusion",
+      "pass": true,
+      "actual_accept": false,
+      "expected_accept": false,
+      "detail": "C04_EXCLUSION_REPEATED certificates.EPS_NGC"
+    },
+    {
+      "name": "wrong excluded pin",
+      "pass": true,
+      "actual_accept": false,
+      "expected_accept": false,
+      "detail": "C04_EXCLUDED_SLOT_PIN_DIFFERS certificates.EPS_NGC: the slot holds {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_ngc_k32/gates/EPS_CERT_NGC91_V001.json', 'sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}, A107 excludes ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_ngc_k32/gates/EPS_CERT_NGC91_V001.json', '1d5eef1b602d2489ba8c0e652156555bbd2bfddf083931c7c4c82fa0a1e0c13d')"
+    },
+    {
+      "name": "absent excluded slot",
+      "pass": true,
+      "actual_accept": false,
+      "expected_accept": false,
+      "detail": "C04_EXCLUDED_SLOT_ABSENT ['certificates.EPS_NGC'] (A107 names slots this slot file does not hold)"
+    },
+    {
+      "name": "unexcluded failure",
+      "pass": true,
+      "actual_accept": false,
+      "expected_accept": false,
+      "detail": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"certificates.OTHER\": [\"FAIL\"]}"
+    },
+    {
+      "name": "same gate elsewhere not excluded",
+      "pass": true,
+      "actual_accept": false,
+      "expected_accept": false,
+      "detail": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"extra\": [\"FAIL\"]}"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v014.sh	2026-10-18 19:20:37
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/ROOT_SEAL_STEPS_DRYRUN_A.sh	2026-10-18 19:21:33
+@@ -157,7 +157,7 @@
+ FENCE="$C3/tools/fence_c3sa_c3v003.py";                 FENCE_SHA="9c62ad4902c895f0aeeba3a78976b5944146ee0de153989dbc79470528dd2863"
+ RUNNER="$C3/tools/run_pinned_c3sa_c3v003.py";          RUNNER_SHA="2b040e94a2b74eae981485288471376b86be0784a0a50b59093312c4fd87bf73"
+ DRAFT="$C3/SLOT_VALUES_DRAFT.json";                     DRAFT_SHA="c93691f5d1931beef8abb656ced3446c99d0adf286d4b5de0c709ecb570284ba"
+-MANIFEST_GATES="$C3/MANIFEST_GATES_ONLY_DRAFT_C3SA.json"; MANIFEST_GATES_SHA="e5967bb9901fda39703553c5c02b4d11a580ef8456f6c0b7d315ee4c750f09da"
++MANIFEST_GATES="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/fixtures/MANIFEST_GATES_ONLY_STANDIN.json"; MANIFEST_GATES_SHA="44ad5b099ef80e33627e8180b8f29cb2df1eee7666d963c73d549e9803cfc7c9"
+ # P11 / C-02 (A106.2): THE text of record = prereg r6 exactly as Claude4's SELECTED_R6_C4V001.json (00:16Z) stores it in its role
+ # files.text_of_record (role-qualified, verified from bytes in step 0); one pin for steps 0, 2, 4, 4a and 10.
+ PREREG_TOR="$A/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json"; PREREG_TOR_SHA="d28c95f56321f566b444c3e0bfbbe0ecdac564cbc03a8583ecd5f8d0ae40c0a9"
+@@ -174,7 +174,7 @@
+ OPEN_V005="$CTRL/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md"
+ V005_FINAL_SHA="c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1"; V005_FINAL_BYTES=143081   # A106.3 / 0643 A: FINAL (A106 is its last entry)
+ DRIVER="$A/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py"; DRIVER_SHA="b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+-BINDER="$PKT/bind_sealed_launch_plan_cx1v001.py";      BINDER_SHA="f3e4e2beeb8f1cb151892fd903b889c471cea58fea1b67c72552137d037575ca"
++BINDER="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_pkt/bind_sealed_launch_plan_cx1v001.py";      BINDER_SHA="f3e4e2beeb8f1cb151892fd903b889c471cea58fea1b67c72552137d037575ca"
+ TEMPLATE="$PKT/P128/LAUNCH_PLAN_V011_CX3V001.json";    TEMPLATE_SHA="1b406591784ab4647e4aaf2686d9b3d18a259fadb435391439d2ff75df22ad3c"
+ BUILD="$PKT/BUILD_V007.md";                             BUILD_SHA="94bc05a5db1e6350b246c22e850ae62d95cd05ce21cdf5b329e3edded588a0de"
+ ALLOWLIST="$PKT/ALLOWLIST_DRAFT_V006_CX3V001.txt";      ALLOWLIST_SHA="18300b52fdef500defacae06e4b98564534cd37661874ae7e2aa92d5c9f5fc47"
+@@ -187,10 +187,10 @@
+ IDREC_B0P="$A/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001/B0prime_RERUN_R5_C2V007.json"; IDREC_B0P_SHA="e33af53d1df36d858ed887bc4ed24fae77fe606d88ab26e2a77d9e5481d09258"
+ B0_RECORD="$A/seal_records_c4/build/records/B0_R5_RECORD_C4V001.json"; B0_RECORD_SHA="c2cec35b1821a9868816405c8442ad20c831c0b4cbb599016593959f5b450c1b"
+ # seal tools: v001 PLACEHOLDERS (P1). A successor script pins v003 here and its exact dispositions flag.
+-SEAL_TOOLS_STATUS="PENDING_V003__V001_PLACEHOLDERS"
+-V003_SELECTED="PENDING_V003_SELECTED_FILE"; V003_SELECTED_SHA="PENDING_V003_SELECTED_FILE_SHA"   # 0643 C: it must name every T_* path and sha
++SEAL_TOOLS_STATUS="DRYRUN__V001_PLACEHOLDERS"
++V003_SELECTED="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/fixtures/V003_SELECTED_DRYRUN_FIXTURE.json"; V003_SELECTED_SHA="ad1ced7f9ba2a02ae75d6bff257100661201b2de869e0e41ed932581c238370a"   # DRY RUN (S21): labelled fixture   # 0643 C: it must name every T_* path and sha
+ # dispositions: tools 1, 3 and 4 take --dispositions D --dispositions-sha H (Claude4 0105; v003 dev CLI); v001 placeholders cannot (P1)
+-SEAL_INPUTS_DIR="$CTRL/V007_SEAL_ASSEMBLY_INPUTS"        # root writes the dispositions JSON here at assembly
++SEAL_INPUTS_DIR="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_ctrl/V007_SEAL_ASSEMBLY_INPUTS"        # root writes the dispositions JSON here at assembly
+ TD="$A/v007_final_prereg_c4/seal_tools"
+ T_COMMON="$TD/seal_common_c4v001.py";          T_COMMON_SHA="43d8f8eb610106c61be197defba59cff7f357bb31c70ca9c9136a44b5d267c25"
+ T1="$TD/check_frozen_addendum_c4v001.py";      T1_SHA="c4ebbb5bf69bb8b9c2ea82046c3553897a246cefc417f2d8bc556b10c62381e2"
+@@ -213,17 +213,17 @@
+ # ---------------------------------------------------------------------------------------------------- OUTPUTS (substitutable)
+ ATTEMPT="${UNT_SEAL_ATTEMPT:-1}"
+ case "$ATTEMPT" in 1) SFX="";; [2-9]) SFX="_ATTEMPT_$ATTEMPT";; *) echo "UNT_SEAL_ATTEMPT must be 1-9" >&2; false;; esac
+-FROZEN="$CTRL/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM_FROZEN.md"
+-SEAL_DIR="$CTRL/V007_SEAL_ASSEMBLY$SFX"
+-BOUND_PLAN="$PKT/P128/LAUNCH_PLAN_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.json"
+-BOUND_COMMAND="$PKT/P128/LAUNCH_COMMAND_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.txt"
+-CONFIG="$PKT/ROOT_SEAL_ADMISSION_V001.json"
+-OUTPUT_ROOT_TO_CREATE="$INTERNAL_OUTPUT_ROOT"   # RP-S1 (A105.2): step 3 creates exactly this directory, new and empty
+-DRAFT_PATHS_MUST_MATCH=1              # attempt 1: the output paths above equal the draft's documented paths
+-EXPECT_CONFIG_IS_GUARD_CONFIG=True    # the config is the guard's own CONFIG path
+-OUTPUT_ROOT_IS_TEMPLATE_ROOT=1        # the root created is the template's output root (step 0 checks that the two strings are equal)
+-STEP8_MODE=root                       # step 8 reads the three identity-run trees (root only), fenced against the C5H run
+-STEP8_STANDIN=""
++FROZEN="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_ctrl/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM_FROZEN.md"
++SEAL_DIR="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_ctrl/V007_SEAL_ASSEMBLY$SFX"
++BOUND_PLAN="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_pkt/P128/LAUNCH_PLAN_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.json"
++BOUND_COMMAND="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_pkt/P128/LAUNCH_COMMAND_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.txt"
++CONFIG="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_pkt/ROOT_SEAL_ADMISSION_V001.json"
++OUTPUT_ROOT_TO_CREATE="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/passA/scratch_internal/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007"   # RP-S1 (A105.2): step 3 creates exactly this directory, new and empty
++DRAFT_PATHS_MUST_MATCH=0              # attempt 1: the output paths above equal the draft's documented paths
++EXPECT_CONFIG_IS_GUARD_CONFIG=False    # the config is the guard's own CONFIG path
++OUTPUT_ROOT_IS_TEMPLATE_ROOT=0        # the root created is the template's output root (step 0 checks that the two strings are equal)
++STEP8_MODE=dryrun                       # step 8 reads the three identity-run trees (root only), fenced against the C5H run
++STEP8_STANDIN="/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T002133Z/fixtures/C5H_STANDIN_REGISTERED_DIR"
+ # =================================================================================================================================
+ LOGS="$SEAL_DIR/logs"
+ DRIVER_BUILD_RECORD="$SEAL_DIR/DRIVER_BUILD_RECORD_R5_V007_SEAL.json"
+@@ -375,7 +375,7 @@
+         --dispositions "$UNT_SEAL_DISPOSITIONS_PATH" --dispositions-sha "$UNT_SEAL_DISPOSITIONS_SHA256" --table-bytes "$TABLE_BYTES" \
+         --table-bytes-sha "$TABLE_BYTES_SHA"
+   COVERED_NAMES="$(jf "$LOGS/STEP_02_DISPOSITIONS.json" covered_later_names_for_v001_placeholders_only)"
+-  COV_ARGS=(--dispositions "$UNT_SEAL_DISPOSITIONS_PATH" --dispositions-sha "$UNT_SEAL_DISPOSITIONS_SHA256")   # SA-CX1-B3: one pinned file, tools 1, 3, 4
++  COV_ARGS=(--covered-later "$COVERED_NAMES")   # DRY RUN: v001 placeholders take bare names only; the root script passes the pinned dispositions file
+   H pin --pin "$PREREG_TOR=$PREREG_TOR_SHA" --pin "$FROZEN=$FROZEN_SHA" --pin "$T1=$T1_SHA" --pin "$T_COMMON=$T_COMMON_SHA" \
+         --pin "$RUNNER=$RUNNER_SHA" --pin "$UNT_SEAL_DISPOSITIONS_PATH=$UNT_SEAL_DISPOSITIONS_SHA256" 2> "$LOGS/STEP_02_INPUTS.json"
+   "${T1_RUN[@]}" --prereg "$PREREG_TOR" --frozen "$FROZEN" --expect-frozen-sha "$FROZEN_SHA" "${COV_ARGS[@]}" > "$LOGS/STEP_02_TOOL1.json"
+@@ -517,18 +517,12 @@
+ 
+ # ============================================================== STEP 9 (B6b): --validity-only --case C5H (THE ONLY STEP THAT READS C5H)
+ step9_validity_c5h() {
+-  STEP=9; echo "STEP 9 sealed compare --validity-only --case C5H, booleans only, stdout to file (SEAL_CHECKLIST_R5 L29 B6; r5 srr[1]; A47 I3)"
++  STEP=9; echo "STEP 9 STUBBED (dry run): the sealed compare is NOT executed; no C5H path is opened, stat'ed or resolved"
+   v005_still_frozen 9
+-  run_h STEP_09_MANIFEST make-c5h-manifest --sealed-compare "$SEALED_COMPARE" --sealed-compare-sha "$SC_SHA" --c5h-dir "$UNT_SEAL_C5H_RUN_DIR" \
+-        --b0-record "$B0_RECORD=$B0_RECORD_SHA" --out "$C5H_MANIFEST"
+-  local msha; msha="$(jf "$LOGS/STEP_09_MANIFEST.json" manifest_c5h.sha256)"
+-  run_h STEP_09_MANIFEST_CHECK check-manifest --sealed-compare "$SEALED_COMPARE" --sealed-compare-sha "$SC_SHA" --manifest "$C5H_MANIFEST" \
+-        --manifest-sha "$msha" --mode c5h
+-  H pin --pin "$SEALED_COMPARE=$SC_SHA" --pin "$SEALED_PREREG=$SP_SHA" --pin "$C5H_MANIFEST=$msha" --pin "$RUNNER=$RUNNER_SHA" 2> "$LOGS/STEP_09_INPUTS.json"
+-  "${PYX[@]}" "$RUNNER" --main "$SEALED_COMPARE=$SC_SHA" --call main -- --prereg "$SEALED_PREREG" --manifest "$C5H_MANIFEST" \
+-        --outdir "$VALIDITY_OUTDIR" --validity-only --case C5H \
+-        > "$VALIDITY_STDOUT" 2> "$LOGS/STEP_09_VALIDITY_ONLY.stderr.txt"
+-  echo "  PASS  E_SEAL1_VALIDITY_ONLY_C5H.stdout.txt captured (not echoed)"
++  cat > "$VALIDITY_STDOUT" <<'STUBEOF'
++{"schema": "DRY_RUN_FIXTURE_NOT_A_COMPARE_OUTPUT", "fixture": "STUB for ROOT_SEAL_STEPS step 9 (Claude3 0626 dry run): --validity-only --case C5H was NOT run", "cases": {"C5H": {"valid": false, "codes": ["DRY_RUN_STUB_NOT_EXECUTED"]}}, "no_row_value_shown": true}
++STUBEOF
++  echo "  STUB  E_SEAL1_VALIDITY_ONLY_C5H.stdout.txt = booleans fixture"
+   run_h STEP_09_ROW_SCAN row-value-scan --path "$VALIDITY_STDOUT"
+   VS_SHA="$(jf "$LOGS/STEP_09_ROW_SCAN.json" e_seal1.sha256)"
+ }

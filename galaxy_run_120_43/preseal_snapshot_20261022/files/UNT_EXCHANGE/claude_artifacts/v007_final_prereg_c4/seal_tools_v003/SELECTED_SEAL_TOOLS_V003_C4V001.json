@@ -1,0 +1,103 @@
+{
+ "basis": {
+  "codex1_provisional": "Codex1 0093: provisional PASS on the dev snapshot (T1 36/36, T3/builder 46/46).",
+  "compatibility": "Tool 1 on prereg r6 (SELECTED_R6_C4V001 7200acd9) with --addendum-at-text-of-record = r6 addendum_read (c01b3c51) and a FROZEN-named copy of V005: PASS with no dispositions file and with an entries:[] file (Claude4 0113).",
+  "documented_limits_not_reachable_for_r6": "R-01: tool 1 compares only entry sections, so frozen-copy bytes outside them (near-miss headings, preamble) are not compared; for the r6 seal root passes --expect-frozen-sha c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1 at B1 (A106.3 requires frozen == c01b3c51), which refuses any such change, and tools 3/4 bind the frozen sha through the slot. R-02 (a one-character changed_text passes), R-03 (prereg_revision may pin the text of record or another byte form of the prereg) and R-04 (a reason of only invisible characters passes): the r6 seal needs no dispositions rows (L u CH is empty), so none is reachable. These four go to a seal tools v004 after the V007 seal; the fix stage was stopped before it wrote anything (no v003 r2 exists).",
+  "notes": "R-05 simulated TOCTOU races fail closed downstream (sealed compare V007_PREREG_SHA256; tool 2 frozen-to-open tie); R-06 a lone-surrogate reason refuses untyped (INTERNAL_EXCEPTION) in tool 4; R-07 README L36/L238 and build note B-N1 call v003-on-r6 UNTESTED, which is stale: the refuter TESTED it (I1-I17, J1-J2).",
+  "own_refuter": "REFUTE: 0 BLOCKING, 4 SHOULD_FIX, 3 NOTE (seal_tools_v003_refute; REFUTE_RESULT_C4R001.json and REFUTER_PROBES_C4R001.json pinned below). No bypass reaches the r6 seal path: with prereg r6 d28c95f5, its read copy c01b3c51 and a frozen copy equal to c01b3c51, tools 1, 3 and 4, the admission check and the real guard v008 pass, and every specified refusal refuses (TESTED, probes I1-I17, J1-J2).",
+  "own_tests": "tests/run_20261019T000810Z: 352/352 under fence_c4v002; mutation: 78/78 final mutants killed (MUTATION_C4V003.json).",
+  "scope": "v002 r2 plus D-05 (0633 + 0640 PV-D05-1 + C-01: every cited entry compared against the prereg-pinned addendum at the text of record; byte-pinned dispositions JSON; tool 4 carries content, raw text and pin), B8 (guard v008 L32/L33/L39/L40 mirrored), the README parse_int correction, the W7-S1 admission-config MUST_FAIL cases and an r13 fixture; nothing else.",
+  "script_requirement": "The seal script passes --expect-frozen-sha c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1 to every direct tool 1 run, and fills the frozen_addendum slot sha with the same value (tools 3 and 4 then enforce it).",
+  "selection": "Seal tools v003 are the seal tools of record for the V007 seal (dispatches 0633, 0634, 0640; scope option (b), A106.2; 0643, 0644). Root runs tools 1-5 from these exact bytes, in the README_SEAL_TOOLS_V003 order, with python3 -I -B.",
+  "tool_1_cli_for_r6": "check_frozen_addendum_c4v003.py --prereg <sealed r6> --frozen <CLAUDE2>/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM_FROZEN.md --addendum-at-text-of-record <r6>/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md [--dispositions D --dispositions-sha H]; tools 3 and 4 take the same flags (README section B)."
+ },
+ "files": {
+  "codex1_0112": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0112_2026-10-18_v003_published_delta_ready_selection_pending.md",
+   "sha256": "ffe14ad38b5c34e945ec93418d73cb0076e78b1ba7661984d0d8014f4d2a0608"
+  },
+  "delta_v002r2_to_v003": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/DELTA_V002R2_TO_V003.md",
+   "sha256": "b9c0bea2cfe17d9317fc1ee130e4a8704ab89b0c48d2b772c9ae7b6bbefb3e57"
+  },
+  "dispatch_0633": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0633_2026-10-18_claude4_seal_tools_v003_D05.md",
+   "sha256": "3b3e0d4a8be56e6a3a49d6aca3cb9e0c40f752481a96344e8ca7d0c7a3edb83b"
+  },
+  "dispatch_0634": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0634_2026-10-18_claude4_v003_add_B8.md",
+   "sha256": "eda276080429e2bceba2925bf8485f8b8a73069b56aba5931e6f8cca99f489da"
+  },
+  "dispatch_0640": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0640_2026-10-18_claude4_claude3_D05_rule_and_contract.md",
+   "sha256": "03b4ff4987fd3a82a3a46692a7ab75beddd9d78788373863ea3b2dcd3db91138"
+  },
+  "dispatch_0644": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0644_2026-10-18_claude3_claude4_codex1_A107.md",
+   "sha256": "d652679b706295a41c80d4dea15433e8779250949af6c621cb3c3caeb73a1556"
+  },
+  "hashes_v003": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/HASHES_SEAL_TOOLS_C4V003.txt",
+   "sha256": "1f968116845fe896872be48d390332f4761aeb87a3f3f69b1de8f40c06fd0e26"
+  },
+  "mutation_record": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/MUTATION_C4V003.json",
+   "sha256": "3795b86601a9182dc1e0ffd280bbb61bcb97168d9ddb192f797e760d80e3f6be"
+  },
+  "own_refuter_probes": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe/run_20261019T003722Z/REFUTER_PROBES_C4R001.json",
+   "sha256": "fe0ff1d38133235ca0be6b9c26dbd5213584e361e0614e2278055560fcef22ae"
+  },
+  "own_refuter_result": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/REFUTE_RESULT_C4R001.json",
+   "sha256": "4ff78b0cf63b5a935612d2ad3b4f0466d4381e3ff5f232f37da7038e8a64ad8d"
+  },
+  "readme": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/README_SEAL_TOOLS_V003.md",
+   "sha256": "8601211723b352a9498fa4cb8d3dc4b64d30b7451c400c89230e5d13cd909ea0"
+  },
+  "review_fence": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/tools/fence_c4v002.py",
+   "sha256": "c993d34c185d785d77c443a00033e8efeea10cd02f1a547a99af458c0f698eb5"
+  },
+  "review_fence_runner": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/tools/run_fenced_c4st2.py",
+   "sha256": "fe904509c7d2d6300042589aaa02d839e82b436680d293b65c5c7d4cf69f6d25"
+  },
+  "seal_common": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/seal_common_c4v003.py",
+   "sha256": "101a3aeb9846a21c35993e8e7e4b50a8f1206ed4202b131afd12d7e496c5ab21"
+  },
+  "selected_r6": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/SELECTED_R6_C4V001.json",
+   "sha256": "7200acd996755730573ad72d876ff632b8ef59bf86f2b0cf176ae3fceb4403b0"
+  },
+  "tests": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/tests/test_seal_tools_c4v003.py",
+   "sha256": "67dd8a0085436639ef85650ca966b6b9ae045cc9413f01fc943b7003f142099a"
+  },
+  "tool_1_check_frozen_addendum": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_frozen_addendum_c4v003.py",
+   "sha256": "a56f8d793750151920b1b47e77b46aebbfadea71fe77730f360beb02af788fb4"
+  },
+  "tool_2_check_sealed_compare": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_sealed_compare_c4v003.py",
+   "sha256": "c2c5dfc5ddba1e44ff82811a38d4c05b0a669f2294b229efe3437623d596f9f1"
+  },
+  "tool_3_check_slot_fill": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_slot_fill_c4v003.py",
+   "sha256": "316973a1abf5aa2151dc1a517733d970ce1004313395d05fe590f82ed439b0af"
+  },
+  "tool_4_build_seal_record": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/build_seal_record_c4v003.py",
+   "sha256": "de0ceb15ebfb95e04227730bd2785eb46af8cb5980012de91de98f34ea226b96"
+  },
+  "tool_5_print_driver_build_record": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/print_driver_build_record_c4v003.py",
+   "sha256": "e5bedffe3c91650d5dba7fbd1ed5476e228158679d8959dfea0e2eff436ebdea"
+  }
+ },
+ "schema": "UNT_V007_SELECTED_SEAL_TOOLS_C4V001",
+ "selected_by": "Claude4",
+ "utc": "2026-10-19T00:51:45Z"
+}

@@ -1,0 +1,1642 @@
+{
+ "applies_check": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_prep_c2_0470/calibration_spec_check/CHECK_V001.md",
+  "sha256": "c7bd9613702cfc025dfbdd10c3114afbc4575137516cc0be870fd5af059c728a",
+  "verdict": "PASS_WITH_CORRECTIONS"
+ },
+ "author": "Claude2-lane subagent, claude_artifacts/calibration_orchestrator_c2 (build_coordinate_spec_c2v001.py)",
+ "bounds_semantics": "COMPUTATIONAL_TRIAL_BOX_NOT_EMPIRICAL_BOUNDS",
+ "box_justification": {
+  "common_scale_s": {
+   "box": [
+    0.050770861340343656,
+    0.20308344536137463
+   ],
+   "centre": "anchor s",
+   "evidence": "obs/pred v^2 at the evaluated anchor across the 12 DDO154 rows spans [0.8643, 1.4344]; a pure common rescale (fixed-source response proportional to 1/s) would need s in anchor x [0.697, 1.157], which the x[0.5, 2] box contains with margin. Computational only.",
+   "factor3_point": "the factor-3 call (s = 0.3332538300367979, gamma_over_Eref = 6.025537890010642e-17) lies OUTSIDE this box along s (s/s_anchor = 3.282). It is recorded as an evaluated invalid point, not used to set any edge.",
+   "transform": "log"
+  },
+  "distance_Mpc": {
+   "box": [
+    3.9810717055349722,
+    4.111497211045223
+   ],
+   "evidence": "the region file distance_summary reported conditional 68% interval exactly (modulus 28.03 [28.00, 28.07]); ddo154_distance_box with modulus_half_width_multiple 1.0; bound by the engine (_check_distance_binding ok). Trial 4.04 Mpc = registered route-B geometry = the anchor. Not hard support (COMPUTATIONAL_BOX_FROM_REPORTED_CONDITIONAL_68_DISTANCE_SUMMARY_NOT_HARD_PHYSICAL_SUPPORT).",
+   "transform": "log"
+  },
+  "ell_F_m": {
+   "box": [
+    4.952512518293644e+19,
+    1.9810050073174576e+20
+   ],
+   "evidence": "no ell_F response has been evaluated (UNTESTED; deciding test: BR-A Jacobian column 2). Box x[0.5, 2] keeps the sampled primitive covector span between ~1.04 and ~4.16 reciprocal-lattice periods per axis at the anchor numerics (72 nodes, cube, kmax 2/kpc; review row 7). D13: re-derive if root supplies other numerics after the convergence verdict.",
+   "transform": "log"
+  },
+  "gamma_over_Eref": {
+   "box": [
+    2.0085126300035468e-17,
+    2.008512630003547e-15
+   ],
+   "edges": "the factor-1 and factor-100 seed-scan values (both evaluated, both rule-pass); anchor (factor 10) sits exactly at the log-centre (ratios 10.0 / 10.0)",
+   "evidence": "A2 seed scan (route-A G2 kernel, rule c2v001): factors 1, 3, 10, 30, 100, 300, 1000 all rule-pass (96/96 radial nodes inward, positive two-sided margin at the failure column) along the seed curve s(factor); full chain: factor 10 VALID (the anchor), factor 3 INVALID (driver c2v001 FAILED, reasons [\"KeyError: 70\"]: rfs column 70 failed and gave no bracket source; c2v003+ reports this as FAILED_AT_STAGE).",
+   "factor3_treatment": "an EVALUATED INVALID POINT (gamma_over_Eref 6.025537890010642e-17 inside this box, at s outside the s box), NOT a box edge by fiat. Invalid evaluations inside the box are expected near it; the engine treats them as non-admitted and the orchestrator flags every side whose first non-admitted evaluation is invalid as VALIDITY_LIMITED (D6).",
+   "scope_caution": "the scan is a route-A kernel diagnostic along the seed curve (s varies with the factor); the rectangle box pairs every gamma_over_Eref with every s in its box. Full-chain validity off the seed curve is UNTESTED; the engine evaluates it.",
+   "transform": "log"
+  }
+ },
+ "builder": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/build_coordinate_spec_c2v001.py",
+  "sha256": "220e459b0e4a4b789521d07be5d8a7f7d7da09c6d6e6395a1543c85e69c6010d"
+ },
+ "call_spec_mapping": {
+  "asserted_equal_to_template": {
+   "physical.Eref_J": "Eref_base_J",
+   "physical.entropy_K_factor": "entropy_K_factor",
+   "physical.inclination_deg": "ddo154_forward_constants.inclination_deg"
+  },
+  "bound_not_passed": {
+   "ML_3p6, helium_factor, Gamma_poly": "not driver inputs: embedded in the pinned route-B source preparation; asserted at their trial values on every call (PC-5: not exposed by driver v003c)",
+   "native_*": "not driver inputs: carried by the coefficient pin 2e3a36d8 (A2 pooled grid built from the cycle and admission captures); literals verified equal to both provenance trial dicts"
+  },
+  "declared_changed_paths": [
+   "label",
+   "physical.common_scale_s",
+   "physical.gamma",
+   "physical.ell_F_m",
+   "physical.distance_Mpc",
+   "numerics (only when root supplies non-default numerics)"
+  ],
+  "label": "\"DDO154 calibration orchestrator c2v001 theta <key16>; template <sha8>\" (non-physical, declared changed field)",
+  "mapping_id": "C2V001_PHYS4_GAMMA_EQ_GE_TIMES_EREF",
+  "numerics": "replaced as a whole by the numerics block root supplies after the convergence verdict; default = the template (anchor) numerics. Any numerics other than the template's disables the anchor alias and changes the cache id (no cross-numerics reuse).",
+  "set_from_theta": {
+   "physical.common_scale_s": "common_scale_s",
+   "physical.distance_Mpc": "distance_Mpc",
+   "physical.ell_F_m": "ell_F_m",
+   "physical.gamma": "gamma_over_Eref * Eref_base_J"
+  },
+  "template": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/specs/CALL_A2_ANCHOR_F10_C2V001.json",
+   "schema": "UNT_GALAXY_M0_FORWARD_CALL_C2V001",
+   "sha256": "a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b"
+  },
+  "units_note": "gamma_over_Eref is gamma (seed numerical_inputs.gamma units) per J of Eref_base_J; the driver forms Eref_eff = s*Eref_J and gamma_eff = s*gamma, so gamma_eff/Eref_eff = gamma_over_Eref."
+ },
+ "checker_corrections_applied": [
+  {
+   "id": "D1",
+   "resolution": "\"never pinned\" withdrawn. The engine moves only along identified directions; admitted points keep the anchor projection on near-null directions. Entry rule: every near-null direction is displaced to both box ends at the reference member by evaluate_sensitivity (null_direction_rule box_ends, D6) and reported as the BOX_LIMITED sensitivity band; the headline is labelled conditional on the anchor projection along near-null directions. DDO154 admission of the displaced points is not established (counted)."
+  },
+  {
+   "id": "D2",
+   "resolution": "driver v003c F1 separates ROUTE_A_NO_FIXED_POINT (model outcome) from BLOCKED ROUTE_A_ITERATION_NOT_4 (still a tooling limit; PC-9 open). Both are cached as INVALID evaluations with the driver status kept as failure_class, never retried; sides they stop are flagged VALIDITY_LIMITED."
+  },
+  {
+   "id": "D3",
+   "resolution": "disk line: ~6.1 GB per call (anchor receipt final_output_bytes 6081118006). The orchestrator never deletes; it halts with DISK_GUARD before a wave whose output cap sum exceeds free disk minus a reserve. The retention rule is a root precondition."
+  },
+  {
+   "id": "D4",
+   "resolution": "replaced by the v003 engine S3 absolute+relative rule (engine_parameter_rationale)"
+  },
+  {
+   "id": "D5",
+   "resolution": "every run is recorded (write_calibration_record, P34-16). NO_ADMITTED_POINT_FOUND = REPAIR_FAILED, emptiness UNTESTED (the engine already runs the coarse global design before declaring it). BUDGET_EXHAUSTED -> rerun with a larger budget: the theta-keyed cache replays every evaluated point with zero new calls (cache id excludes the budget and the boxes)."
+  },
+  {
+   "id": "D6",
+   "resolution": "the orchestrator summary lists VALIDITY_LIMITED sides (boundary cause INVALID_EVALUATION*) for the freeze notes"
+  },
+  {
+   "id": "D7",
+   "resolution": "EDGE_LIMITED: the summary names every coordinate on which an admitted point sits on a box face or a march reached a box edge. Declared widening: rerun with that coordinate's log-box doubled about the anchor (distance: modulus half-width multiple 2), both regions reported, cache reused; never silent."
+  },
+  {
+   "id": "D8",
+   "resolution": "tier-2 branches are not carried; alternatives enter the freeze through the freeze module's alternatives field (state/source), evaluated on the same points"
+  },
+  {
+   "id": "D9",
+   "resolution": "UNTESTED: A2 coefficient sensitivity (per-chain grids) -- listed with deciding test"
+  },
+  {
+   "id": "D10",
+   "resolution": "numerics are root's after the convergence verdict; route-A truncation counted"
+  },
+  {
+   "id": "D11",
+   "resolution": "cost wording: every call reruns the whole chain (~1.9 h); no 1/s shortcut used"
+  },
+  {
+   "id": "D12",
+   "resolution": "PC-4 rule replaced: gamma_over_Eref edges are the evaluated factor-1 / factor-100 seed-scan points under A2; no edge moved by fiat"
+  },
+  {
+   "id": "D13",
+   "resolution": "ell_F rationale stated for the anchor numerics; re-derive if numerics change"
+  },
+  {
+   "id": "D14",
+   "resolution": "CA-25 reworded: natives and b are fixed at one point, not explored"
+  },
+  {
+   "id": "D15",
+   "resolution": "wording: no NGC3198 target file read; no NGC3198 value used"
+  },
+  {
+   "id": "D16",
+   "resolution": "every input of this spec is verified from bytes by the builder (inputs_pinned)"
+  },
+  {
+   "id": "D17",
+   "resolution": "no validation toy in this spec; the orchestrator test labels its toy as synthetic"
+  },
+  {
+   "id": "D18",
+   "resolution": "s box rationale recomputed from the A2 anchor rows (box_justification)"
+  },
+  {
+   "id": "D19",
+   "resolution": "tier-2 coverage not claimed; untested list carries the items"
+  },
+  {
+   "id": "D20",
+   "resolution": "native provenance named and verified (fixed.native_provenance)"
+  },
+  {
+   "id": "D21",
+   "resolution": "freeze-stage NGC3198 evaluations not budgeted here (NGC lane)"
+  }
+ ],
+ "coordinate_order_note": "freeze format (11 keys). Varying engine order = free coordinates then the DDO154 distance nuisance, as listed. Shared fixed coordinates are held at trial_value in every DDO154 call and are passed to the NGC3198 forward; their boxes are FIXED_PLACEHOLDER_BOX_NEVER_VARIED (they bracket the declared discrete alternatives).",
+ "coordinates": [
+  {
+   "kind": "other",
+   "lower": 0.050770861340343656,
+   "name": "common_scale_s",
+   "reference_value": null,
+   "role": "free",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "log",
+   "trial_value": 0.10154172268068731,
+   "units": "dimensionless",
+   "upper": 0.20308344536137463
+  },
+  {
+   "kind": "other",
+   "lower": 2.0085126300035468e-17,
+   "name": "gamma_over_Eref",
+   "reference_value": null,
+   "role": "free",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "log",
+   "trial_value": 2.008512630003547e-16,
+   "units": "gamma per J of Eref_base_J",
+   "upper": 2.008512630003547e-15
+  },
+  {
+   "kind": "other",
+   "lower": 4.952512518293644e+19,
+   "name": "ell_F_m",
+   "reference_value": null,
+   "role": "free",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "log",
+   "trial_value": 9.905025036587288e+19,
+   "units": "m",
+   "upper": 1.9810050073174576e+20
+  },
+  {
+   "kind": "distance",
+   "lower": 3.9810717055349722,
+   "name": "distance_Mpc",
+   "reference_value": 4.04,
+   "role": "nuisance",
+   "scope": "ddo154_nuisance",
+   "sensitivity": null,
+   "transform": "log",
+   "trial_value": 4.04,
+   "units": "Mpc",
+   "upper": 4.111497211045223
+  },
+  {
+   "kind": "other",
+   "lower": 7.321459796004819e+57,
+   "name": "Eref_base_J",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 1.4642919592009638e+58,
+   "units": "J",
+   "upper": 2.9285839184019276e+58
+  },
+  {
+   "kind": "other",
+   "lower": 0.5289256198347108,
+   "name": "entropy_K_factor",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.5289256198347108,
+   "units": "dimensionless (K / K(sigma0=11 km/s, Gamma))",
+   "upper": 1.6198347107438016
+  },
+  {
+   "kind": "other",
+   "lower": 0.4,
+   "name": "ML_3p6",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.5,
+   "units": "solar M/L at 3.6 micron",
+   "upper": 0.6
+  },
+  {
+   "kind": "other",
+   "lower": 1.33,
+   "name": "helium_factor",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 1.36,
+   "units": "dimensionless (total gas / HI)",
+   "upper": 1.36
+  },
+  {
+   "kind": "other",
+   "lower": 1.4,
+   "name": "Gamma_poly",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 1.6666666666666667,
+   "units": "dimensionless (polytropic index)",
+   "upper": 1.6666666666666667
+  },
+  {
+   "kind": "other",
+   "lower": 0.0,
+   "name": "native_Ud",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 1.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 2.0
+  },
+  {
+   "kind": "other",
+   "lower": 1.0,
+   "name": "native_dstar",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 2.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 3.0
+  },
+  {
+   "kind": "other",
+   "lower": 0.0,
+   "name": "native_Delta",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 1.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 2.0
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_lambda_J",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_lambda_R",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.7,
+   "name": "native_epsilon_c",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.3,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.3
+  },
+  {
+   "kind": "other",
+   "lower": -0.7,
+   "name": "native_epsilon_r",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.3,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.3
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_E_R",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_E_S",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_E_I",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_e_R",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_e_I",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -1.0,
+   "name": "native_C_identity",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.0
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_h",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_t",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_g",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_kappa",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -0.9,
+   "name": "native_epsilon",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "kind": "other",
+   "lower": -1.0,
+   "name": "native_theta",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 0.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.0
+  },
+  {
+   "kind": "other",
+   "lower": 0.0,
+   "name": "native_beta",
+   "reference_value": null,
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": null,
+   "transform": "linear",
+   "trial_value": 1.0,
+   "units": "dimensionless (sampler beta)",
+   "upper": 2.0
+  }
+ ],
+ "counted_assumptions": [
+  {
+   "id": "CA-01",
+   "source": "ROOT_DECISIONS_A1_A2:43",
+   "statement": "Stationary circular streaming and m=0 equilibrium (A1-state); counted, not supplied by CI:75."
+  },
+  {
+   "id": "CA-02",
+   "source": "ROOT_DECISIONS_A1_A2:44; FR review row 33",
+   "statement": "Kernel unmodified; only its m=0 projection drives the state; m>=1 residual stored (A1-response)."
+  },
+  {
+   "id": "CA-03",
+   "source": "ROOT_DECISIONS_A1_A2:45; FR review row 20",
+   "statement": "Disk axis = chart z, no orientation law (A1-orientation); tilt family UNTESTED."
+  },
+  {
+   "id": "CA-04",
+   "source": "ROOT_DECISIONS_A1_A2:46-49; FR review row 35",
+   "statement": "m>=1 gas response NOT assumed small; evaluated linear response folded 19.26% of the mass; UNTESTED with artifact-free forcing (D3)."
+  },
+  {
+   "id": "CA-05",
+   "source": "ROOT_DECISIONS_A1_A2:50-52; FR-MD:164-168; FR review row 30",
+   "statement": "m=4/m=8 are numerical; truncation/k_max convergence settled BEFORE calibration (cube->sphere moves inner m0 force by up to 18.8%; no in-domain plateau rows 01-03)."
+  },
+  {
+   "id": "CA-06",
+   "source": "ROOT_DECISIONS_A1_A2:18-32",
+   "statement": "Response coefficients = A2 4-chain pooled grid 2e3a36d8, PROVISIONAL, failed mixing, no error bars; V004-vs-pooled is sensitivity."
+  },
+  {
+   "id": "CA-07",
+   "source": "FR review row 15",
+   "statement": "Native anisotropy may be failed-mixing error, not physics (UNTESTED)."
+  },
+  {
+   "id": "CA-08",
+   "source": "DDO154_CALIBRATION_OBSERVATION_REGION_V001:109-111",
+   "statement": "Observation rectangles are Bonferroni z=2.865 conditional on unbiased Gaussian marginals with the quoted sigmas; not a posterior."
+  },
+  {
+   "id": "CA-09",
+   "source": "DDO154_CALIBRATION_OBSERVATION_REGION_V001:113",
+   "statement": "Systematics (source, distance, inclination, pressure, estimator transfer) are common nuisances; no per-row bias."
+  },
+  {
+   "id": "CA-10",
+   "source": "DDO154_CALIBRATION_OBSERVATION_REGION_V001:116-120; calibration input:1158",
+   "statement": "Distance enters only through the reported conditional 68% summary; not a likelihood; zero-point/extinction systematics retained."
+  },
+  {
+   "id": "CA-11",
+   "source": "DDO154_CALIBRATION_OBSERVATION_REGION_V001:123; calibration input:1142",
+   "statement": "Radius map r_model=r_cat*(D/4.04); source angular geometry at 4.3 Mpc scaled once."
+  },
+  {
+   "id": "CA-12",
+   "source": "DDO154_CALIBRATION_OBSERVATION_REGION_V001:124; calibration input:141",
+   "statement": "Velocities compared to the published deprojected circular-speed estimate; sin(i) not re-applied; varied i is forward-projected through the adopted estimator."
+  },
+  {
+   "id": "CA-13",
+   "source": "LIVE:37; FR-MD:90",
+   "statement": "sin66/sin64 fixed-plane observation map and cos66/cos64 stellar re-facing under a semimajor-radius assumption."
+  },
+  {
+   "id": "CA-14",
+   "source": "calibration input:1147-1149",
+   "statement": "Inclination 64 deg with 3 deg quoted mean error is a catalogue summary, not Gaussian/hard bounds, and not independent of the calibration kinematics."
+  },
+  {
+   "id": "CA-15",
+   "source": "binding V003:24-25; LIVE:47",
+   "statement": "Common positive b=beta_native*Ud shared by DDO154 and NGC3198; per-galaxy b is a separate sensitivity that cannot inherit a target constraint."
+  },
+  {
+   "id": "CA-16",
+   "source": "binding V003:28; LIVE:67",
+   "statement": "Stellar radial: face-on intensity nodes, M/L3.6 0.5 reference with 0.4/0.6 alternatives, constant core and exponential outer tail are model assumptions."
+  },
+  {
+   "id": "CA-17",
+   "source": "binding V003:29-30",
+   "statement": "Stellar vertical sech^2 with h_star=Rd/7.3; 5.1/9.5 and flagged photometry are source sensitivities."
+  },
+  {
+   "id": "CA-18",
+   "source": "binding V003:72-82",
+   "statement": "HI finite-support polytrope P=K rho^Gamma, Gamma 5/3 (1.4 alt), sigma0 11 km/s (8,14 sensitivity) is a preparation assumption, not a measurement."
+  },
+  {
+   "id": "CA-19",
+   "source": "binding V003:83,134",
+   "statement": "N-only/Nrot vertical gas shape is a leading approximation requiring stationary axisymmetric circular flow."
+  },
+  {
+   "id": "CA-20",
+   "source": "binding V003:84; calibration input:1141",
+   "statement": "Helium included once (1.36 in source packet; SPARC 1.33 is an alternative); neither is an empirical distribution."
+  },
+  {
+   "id": "CA-21",
+   "source": "binding V003:99-104",
+   "statement": "Leading rest-energy source; stress and kinetic corrections are separate columns; no quantitative bound."
+  },
+  {
+   "id": "CA-22",
+   "source": "binding V003:89,91",
+   "statement": "Missing/masked HI, exterior mass and DDO154 H2 set to zero extra only in the restricted reference; no empirical bound."
+  },
+  {
+   "id": "CA-23",
+   "source": "binding V003:129-131",
+   "statement": "Observed-mass registration dM=Sigma_ref R dR dphi with full-metric column quadrature."
+  },
+  {
+   "id": "CA-24",
+   "source": "FR-MD:116; LIVE:47",
+   "statement": "HI-weighted mean of R*Omega per column is the row observable of route B (counted estimator approximation; exact compiled-row weighting undocumented)."
+  },
+  {
+   "id": "CA-25",
+   "source": "LIVE:53; FR-MD:160",
+   "statement": "The 11 native ratios and b are fixed at the A2 sampler point (one point, not explored); 12 observations do not generically identify 15 coordinates."
+  },
+  {
+   "id": "CA-26",
+   "source": "LIVE:51",
+   "statement": "Gamma_total = gamma*I_R + Gamma_native + Gamma_b with zero extra vacuum term; net gamma independently calibrated."
+  },
+  {
+   "id": "CA-27",
+   "source": "LIVE:80",
+   "statement": "Proper-time V002 is provisional and counted."
+  },
+  {
+   "id": "CA-28",
+   "source": "LIVE:29,41",
+   "statement": "Positive-cardinal spatial response closure is a counted finite-registration approximation with no infinite-volume tail bound."
+  },
+  {
+   "id": "CA-29",
+   "source": "FR-MD:73; FR review row 19",
+   "statement": "Isolated zero-perturbation boundary, no tide or exterior source; stars fixed analytic rings."
+  },
+  {
+   "id": "CA-30",
+   "source": "this spec; seed V002:88",
+   "statement": "Box edges for s and gamma_over_Eref are justified from A2-coefficient evidence (factor scan, anchor rows); route-A kernel diagnostics along the seed curve do not establish full-chain validity off it."
+  },
+  {
+   "id": "CA-31",
+   "source": "driver v003b/v003c; this spec",
+   "statement": "DDO154 inclination fixed at 66 deg (registered gas plane); not explored."
+  },
+  {
+   "id": "CA-32",
+   "source": "this spec trial_point",
+   "statement": "Anchor reuse: the c2v001 anchor result stands for the c2v003c seed evaluation (plan identity)."
+  }
+ ],
+ "created_utc": "2026-10-17T16:55:18Z",
+ "ddo154_forward_constants": {
+  "inclination_deg": {
+   "catalogue_summary": "64 +/- 3 deg (calibration input:1147-1149); the draft box [61, 67] is NOT explored",
+   "deciding_work": "reviewed gas re-extraction stage at i (extract_source.py with inclination_deg = i, profile composition, reducer V002), then derive_geometry; until then UNTESTED.",
+   "evidence": "driver v003b/v003c normalize_spec refuses inclination != 66 (BLOCKED_GAS_REDEPROJECTION: the gas annuli are extracted in the 66 deg plane; INTERFACE_V003B_DELTA.md section 4).",
+   "status": "COUNTED_ASSUMPTION_FIXED (CA-31)",
+   "units": "deg",
+   "value": 66.0,
+   "why_not_a_coordinate": "prediction_freeze_c2v003a admits DDO154-scoped coordinates only as role nuisance; the inclination is not varied, so it is a constant of the DDO154 call-spec template (physical.inclination_deg = 66.0), asserted on every call."
+  }
+ },
+ "decides_nothing_physical": true,
+ "discrete_alternatives": {
+  "alternative_notes": {
+   "ML_3p6_0.4": "NOT_EVALUATED_BEFORE_FREEZE: not exposed by driver v003c (PC-5); deciding work: a reviewed driver extension",
+   "ML_3p6_0.6": "NOT_EVALUATED_BEFORE_FREEZE: not exposed by driver v003c (PC-5); deciding work: a reviewed driver extension",
+   "ORIGINAL_K": "MARKED FOR EVALUATION BEFORE FREEZE: exposed by the driver (physical.entropy_K_factor) and by the NGC3198 lane (N4). The freeze writer refuses unless its evaluation on the selected points is supplied (D9). If the budget does not allow it, root changes its status to NOT_EVALUATED_BEFORE_FREEZE in a recorded decision before step 5; never silently."
+  },
+  "freeze_alternatives_declaration": {
+   "declared": [
+    {
+     "description": "route-B BR-A state (K factor 64/121, M/L 0.5, He 1.36, Gamma 5/3) at the A2 factor-10 calibration",
+     "kind": "state",
+     "name": "BR_A_F10_PRIMARY",
+     "status": "EVALUATED_BEFORE_FREEZE"
+    },
+    {
+     "description": "entropy_K_factor 1.0 (binding reference sigma0 11 km/s) instead of 64/121, evaluated on the NGC3198 side at the same selected points (ROOT_DECISIONS_NGC3198 N4); DDO154 admission at K = 1 is not re-established (counted)",
+     "kind": "state",
+     "name": "ORIGINAL_K",
+     "status": "EVALUATED_BEFORE_FREEZE"
+    },
+    {
+     "description": "stellar M/L3.6 = 0.4 (population-model alternative, binding V003:28)",
+     "kind": "source",
+     "name": "ML_3p6_0.4",
+     "status": "NOT_EVALUATED_BEFORE_FREEZE"
+    },
+    {
+     "description": "stellar M/L3.6 = 0.6 (population-model alternative, binding V003:28)",
+     "kind": "source",
+     "name": "ML_3p6_0.6",
+     "status": "NOT_EVALUATED_BEFORE_FREEZE"
+    }
+   ],
+   "primary": "BR_A_F10_PRIMARY"
+  },
+  "not_carried_here": "helium 1.33, Gamma 1.4, h* 5.1/9.5, photometry variant: draft tier-2 items; not exposed by driver v003c; UNTESTED, listed in untested_with_deciding_tests"
+ },
+ "engine": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_engine_freeze_v003b_v003d/calibration_region_engine_c2v003b.py",
+  "sha256": "6ec8b2d0085a9460bbf481852ea5e0f64dac09af3c8a6c6fea2bf126057c3bc3"
+ },
+ "engine_coordinates": [
+  {
+   "lower": 0.050770861340343656,
+   "name": "common_scale_s",
+   "role": "free",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "log",
+   "trial_value": 0.10154172268068731,
+   "units": "dimensionless",
+   "upper": 0.20308344536137463
+  },
+  {
+   "lower": 2.0085126300035468e-17,
+   "name": "gamma_over_Eref",
+   "role": "free",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "log",
+   "trial_value": 2.008512630003547e-16,
+   "units": "gamma per J of Eref_base_J",
+   "upper": 2.008512630003547e-15
+  },
+  {
+   "lower": 4.952512518293644e+19,
+   "name": "ell_F_m",
+   "role": "free",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "log",
+   "trial_value": 9.905025036587288e+19,
+   "units": "m",
+   "upper": 1.9810050073174576e+20
+  },
+  {
+   "lower": 3.9810717055349722,
+   "name": "distance_Mpc",
+   "role": "nuisance",
+   "scope": "DDO154",
+   "sensitivity": "NONE",
+   "transform": "log",
+   "trial_value": 4.04,
+   "units": "Mpc",
+   "upper": 4.111497211045223
+  },
+  {
+   "lower": 7.321459796004819e+57,
+   "name": "Eref_base_J",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 1.4642919592009638e+58,
+   "units": "J",
+   "upper": 2.9285839184019276e+58
+  },
+  {
+   "lower": 0.5289256198347108,
+   "name": "entropy_K_factor",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.5289256198347108,
+   "units": "dimensionless (K / K(sigma0=11 km/s, Gamma))",
+   "upper": 1.6198347107438016
+  },
+  {
+   "lower": 0.4,
+   "name": "ML_3p6",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.5,
+   "units": "solar M/L at 3.6 micron",
+   "upper": 0.6
+  },
+  {
+   "lower": 1.33,
+   "name": "helium_factor",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 1.36,
+   "units": "dimensionless (total gas / HI)",
+   "upper": 1.36
+  },
+  {
+   "lower": 1.4,
+   "name": "Gamma_poly",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 1.6666666666666667,
+   "units": "dimensionless (polytropic index)",
+   "upper": 1.6666666666666667
+  },
+  {
+   "lower": 0.0,
+   "name": "native_Ud",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 1.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 2.0
+  },
+  {
+   "lower": 1.0,
+   "name": "native_dstar",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 2.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 3.0
+  },
+  {
+   "lower": 0.0,
+   "name": "native_Delta",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 1.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 2.0
+  },
+  {
+   "lower": -0.9,
+   "name": "native_lambda_J",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_lambda_R",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.7,
+   "name": "native_epsilon_c",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.3,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.3
+  },
+  {
+   "lower": -0.7,
+   "name": "native_epsilon_r",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.3,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.3
+  },
+  {
+   "lower": -0.9,
+   "name": "native_E_R",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_E_S",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_E_I",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_e_R",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_e_I",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -1.0,
+   "name": "native_C_identity",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.0
+  },
+  {
+   "lower": -0.9,
+   "name": "native_h",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_t",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_g",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_kappa",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -0.9,
+   "name": "native_epsilon",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.1,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.1
+  },
+  {
+   "lower": -1.0,
+   "name": "native_theta",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 0.0,
+   "units": "dimensionless (sampler literal; energy ratios in units of Ud)",
+   "upper": 1.0
+  },
+  {
+   "lower": 0.0,
+   "name": "native_beta",
+   "role": "fixed",
+   "scope": "shared",
+   "sensitivity": "NONE",
+   "transform": "linear",
+   "trial_value": 1.0,
+   "units": "dimensionless (sampler beta)",
+   "upper": 2.0
+  }
+ ],
+ "engine_parameter_rationale": {
+  "budget": "120 = 20 batches of 6. Core stages for 4 varying coordinates: seed (alias, 0 calls) + 8 Jacobian (+ halvings) + <= 3 repair + <= 2 m 10-call march sides + 24 designs; the remainder goes to the iterated rounds. A run that exhausts the budget during the rounds stays COMPLETE with budget_exhausted / hull_convergence_not_verified (v002 engine note item 2). Disk: ~6.1 GB per call (anchor receipt) -> 120 calls ~730 GB > free disk: the D3 retention rule is a root precondition; the orchestrator halts (DISK_GUARD) rather than run out of disk.",
+  "hull_growth_tol": "0.02 >= march_step * 2^-bisection_steps = 0.00625 (v002 engine note: below the bisection resolution the rounds chase bisection noise)",
+  "identification": "engine S3 rule: identified iff s_i >= max(null_tolerance, 1e-6, eps) * s_max OR s_i >= z = 2.865 (per unit u). Replaces draft DI-4 (D4: DI-4 cannot be implemented inside run_calibration_region); the FD noise floor (PC-7) stays UNTESTED.",
+  "max_march_rounds": "2 (root's call; the budget, not the rounds, is expected to bind)",
+  "rel_step": "u-units; 0.05 gives ln steps 0.069 (s), 0.230 (gamma_over_Eref), 0.069 (ell_F), 0.0016 (D)",
+  "side_bound_calls": 10,
+  "wave_capacity": "a wave runs at most floor(12 / column_workers) calls at once (campaign: max_concurrent x column_workers <= 12). Anchor numerics have column_workers 2: 6 calls per batch, 12 single-thread processes. budget 120, design_count 12 and global_design_count 12 are multiples of both 6 and 12, so every batch is full whether column_workers is 1 or 2."
+ },
+ "engine_parameters": {
+  "bisection_steps": 3,
+  "budget": 120,
+  "ddo154_distance": {
+   "modulus_half_width_multiple": 1.0,
+   "name": "distance_Mpc"
+  },
+  "design_count": 12,
+  "global_design_count": 12,
+  "hull_growth_tol": 0.02,
+  "march_step": 0.05,
+  "max_halvings": 2,
+  "max_march_rounds": 2,
+  "max_repair_step": 0.25,
+  "min_step": 0.005,
+  "null_tolerance": 0.001,
+  "rel_step": 0.05,
+  "repair_iterations": 3,
+  "rng_seed": 0,
+  "u_seed": null
+ },
+ "evaluated_evidence": {
+  "anchor_full_chain": {
+   "admitted": false,
+   "outside_rows": [
+    "DDO154_SPARC12_06",
+    "DDO154_SPARC12_08",
+    "DDO154_SPARC12_09",
+    "DDO154_SPARC12_11"
+   ],
+   "result_sha256": "bcd2f64ec6c858a51718b2badb85b9e35121b6a3575227a4c9e4b8b5c673836e",
+   "status": "COMPLETED",
+   "valid": true
+  },
+  "factor3_full_chain": {
+   "classification": "EVALUATED_INVALID_POINT (not a box edge)",
+   "elapsed_seconds": 4019.391059583053,
+   "reasons": [
+    "KeyError: 70"
+   ],
+   "receipt": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F3_RUN_V001.receipt.json",
+    "sha256": "5c3c7171349d30c74d162c389bc709cdac3fbe8803aa3cc8e16e53cc4bc908af"
+   },
+   "result": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F3_RUN_V001/result.json",
+    "sha256": "529f395475ffc26f05d29501746ca70b8f811832144a6eb8b305772a2627e729"
+   },
+   "status": "FAILED",
+   "valid": false
+  },
+  "seed_scan": {
+   "candidates": [
+    {
+     "factor": 1.0,
+     "failure_column_two_sided_margin": 1.2540171410528618e-10,
+     "gamma_over_Eref": 2.0085126300035468e-17,
+     "radial_inward": 96,
+     "rule_pass": true,
+     "scale_s": 0.9583148263572233
+    },
+    {
+     "factor": 3.0,
+     "failure_column_two_sided_margin": 3.736180182344284e-09,
+     "gamma_over_Eref": 6.025537890010642e-17,
+     "radial_inward": 96,
+     "rule_pass": true,
+     "scale_s": 0.3332538300367979
+    },
+    {
+     "factor": 10.0,
+     "failure_column_two_sided_margin": 6.498548695676885e-09,
+     "gamma_over_Eref": 2.008512630003547e-16,
+     "radial_inward": 96,
+     "rule_pass": true,
+     "scale_s": 0.10154172268068731
+    },
+    {
+     "factor": 30.0,
+     "failure_column_two_sided_margin": 7.504444080004938e-09,
+     "gamma_over_Eref": 6.025537890010642e-16,
+     "radial_inward": 96,
+     "rule_pass": true,
+     "scale_s": 0.034003266641648676
+    },
+    {
+     "factor": 100.0,
+     "failure_column_two_sided_margin": 7.886514423648858e-09,
+     "gamma_over_Eref": 2.008512630003547e-15,
+     "radial_inward": 96,
+     "rule_pass": true,
+     "scale_s": 0.010217773161650852
+    },
+    {
+     "factor": 300.0,
+     "failure_column_two_sided_margin": 8.001033344917948e-09,
+     "gamma_over_Eref": 6.02553789001064e-15,
+     "radial_inward": 96,
+     "rule_pass": true,
+     "scale_s": 0.003407547119209432
+    },
+    {
+     "factor": 1000.0,
+     "failure_column_two_sided_margin": 8.042286596875319e-09,
+     "gamma_over_Eref": 2.0085126300035473e-14,
+     "radial_inward": 96,
+     "rule_pass": true,
+     "scale_s": 0.0010224359131057194
+    }
+   ],
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_SEED_SCAN_G2_RUN_V001/result.json",
+   "sha256": "951580e26aea5a0b4d0d2d73da7b1730effaac9444f385908e1ee4bb9778677d"
+  }
+ },
+ "fixed": {
+  "native_provenance": {
+   "admission": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_L4_ADMISSION_RESIDENCE_RUN_V001/result.json",
+    "sha256": "3c82d2be7993669cab01430e0eea34eeb603985a8533fc72ed804f93ddb88d19"
+   },
+   "beta": 1.0,
+   "coefficients": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/CRITICAL_PATH_EVALUATION_2026-10-17_V001/sampler_eval/CANDIDATE_4CHAIN_POOLED_GRID_V001.npz",
+    "sha256": "2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7"
+   },
+   "cycle": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_L4_CURRENT_GRAPH_CYCLE_RUN_V001/result.json",
+    "sha256": "6377a9bc71b05d9fb288e9260e83b4237daf1c487f30bd59d6a168e0894aea8f"
+   },
+   "identical_in_both": true,
+   "pc6_status": "literals verified from bytes here (D20 provenance named); the per-call assertion is done by the orchestrator mapper (fixed coordinates at trial)",
+   "trial_dict": {
+    "C_identity": 0.0,
+    "Delta": 1.0,
+    "E_I": 0.1,
+    "E_R": 0.1,
+    "E_S": 0.1,
+    "Ud": 1.0,
+    "dstar": 2.0,
+    "e_I": 0.1,
+    "e_R": 0.1,
+    "epsilon": 0.1,
+    "epsilon_c": 0.3,
+    "epsilon_r": 0.3,
+    "g": 0.1,
+    "h": 0.1,
+    "kappa": 0.1,
+    "lambda_J": 0.1,
+    "lambda_R": 0.1,
+    "t": 0.1,
+    "theta": 0.0
+   }
+  },
+  "statement": "fixed = inclination 66 deg (counted, template constant), every native coordinate at the A2 point, M/L3.6 0.5, helium 1.36, Gamma 5/3, entropy K factor 64/121, Eref_base_J at the anchor."
+ },
+ "freeze": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003a/prediction_freeze_c2v003a.py",
+  "sha256": "5ee3e5dce72c77870903ce378e146fb86f7288ab2a403deb39796e348ee0f9b8"
+ },
+ "inputs_pinned": {
+  "a2_coefficients": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/CRITICAL_PATH_EVALUATION_2026-10-17_V001/sampler_eval/CANDIDATE_4CHAIN_POOLED_GRID_V001.npz",
+   "sha256": "2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7"
+  },
+  "admission_run_result": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_L4_ADMISSION_RESIDENCE_RUN_V001/result.json",
+   "sha256": "3c82d2be7993669cab01430e0eea34eeb603985a8533fc72ed804f93ddb88d19"
+  },
+  "anchor_receipt": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001.receipt.json",
+   "sha256": "f8bc976a2b8084b4da1b7e846e3ce3997871c3689449e4a6c04788bc16b4acce"
+  },
+  "anchor_result": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json",
+   "sha256": "bcd2f64ec6c858a51718b2badb85b9e35121b6a3575227a4c9e4b8b5c673836e"
+  },
+  "anchor_spec": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/specs/CALL_A2_ANCHOR_F10_C2V001.json",
+   "sha256": "a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b"
+  },
+  "campaign_c2v001": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/campaign_c2v001.py",
+   "sha256": "71274ceb15e57786ee8f575fd74b48e848193467156f0adcebbe7ee415e44597"
+  },
+  "cycle_run_result": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_L4_CURRENT_GRAPH_CYCLE_RUN_V001/result.json",
+   "sha256": "6377a9bc71b05d9fb288e9260e83b4237daf1c487f30bd59d6a168e0894aea8f"
+  },
+  "delta_v003_v003a": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003a/DELTA_V003_V003A.md",
+   "sha256": "881286532338d2543eb28d9fc849429a817975d89c3f238522afc836805341d3"
+  },
+  "draft_spec": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_prep_c2_0470/calibration_spec/DDO154_CALIBRATION_COORDINATE_SPEC_DRAFT_C2V001.json",
+   "sha256": "a7709bd2a9ace5dc34ae31cb75b07f570ff39fcbbd99c6f4bbaa367eed620d54"
+  },
+  "draft_spec_check": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_prep_c2_0470/calibration_spec_check/CHECK_V001.md",
+   "sha256": "c7bd9613702cfc025dfbdd10c3114afbc4575137516cc0be870fd5af059c728a"
+  },
+  "driver_v001_anchor": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/galaxy_m0_forward_c2v001.py",
+   "sha256": "75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22"
+  },
+  "driver_v003b": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/galaxy_m0_forward_c2v003b.py",
+   "sha256": "7ce59e05f39e0517fd7c1d89a6c31b116b96662ee475fec88f47ae76ab1184f1"
+  },
+  "driver_v003b_interface": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/INTERFACE_V003B_DELTA.md",
+   "sha256": "e45d8bd41887eff3bf55dfa212a84963294e94c4c123773ca5af3ed196ded159"
+  },
+  "driver_v003c": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/absorb_c2_0473/driver_f/galaxy_m0_forward_c2v003c.py",
+   "sha256": "ed326130e89654a377615e46a077764cf3ad39e0bf07bc9d0606225bc69fbdf2"
+  },
+  "driver_v003c_check": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/absorb_c2_0473/driver_f/CHECK_V001.md",
+   "sha256": "1e31055c449e635ed3c90b3394cf112e177914911fe340f238d248722b2ab4bb"
+  },
+  "engine_c2v003a": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003a/calibration_region_engine_c2v003a.py",
+   "sha256": "193841fa1f1d078f7fc981fdba78cf3d736b50ee17e019f0cf94aae94e3a63a6"
+  },
+  "engine_note_v002": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v002/ENGINE_DELTA_NOTES.md",
+   "sha256": "f96b83a4ecc6f4089a5024c54fefc65ca9f37844261afa6a51279f4976a766fe"
+  },
+  "f3_receipt": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F3_RUN_V001.receipt.json",
+   "sha256": "5c3c7171349d30c74d162c389bc709cdac3fbe8803aa3cc8e16e53cc4bc908af"
+  },
+  "f3_result": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F3_RUN_V001/result.json",
+   "sha256": "529f395475ffc26f05d29501746ca70b8f811832144a6eb8b305772a2627e729"
+  },
+  "freeze_c2v003a": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003a/prediction_freeze_c2v003a.py",
+   "sha256": "5ee3e5dce72c77870903ce378e146fb86f7288ab2a403deb39796e348ee0f9b8"
+  },
+  "monitor_c2v001": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+   "sha256": "ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107"
+  },
+  "observation_region": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+   "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+  },
+  "root_call_order_v003": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003/final/ROOT_CALL_ORDER.md",
+   "sha256": "ab5d467e6fa409e46e2f5eb99172416139f837206f6c5fd8a626d5cbff57837b"
+  },
+  "root_decisions_a1_a2": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_A1_A2_2026-10-17_V001.md",
+   "sha256": "c8bf13d3beb5d833c308936b54c993deb684aa8949e79d7692d5e8eded740e36"
+  },
+  "root_decisions_ngc": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V001.md",
+   "sha256": "06cae881fe075b421e0fd0b7664ba389876228011ab4baec73df4e216c42a905"
+  },
+  "seed_scan_result": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_SEED_SCAN_G2_RUN_V001/result.json",
+   "sha256": "951580e26aea5a0b4d0d2d73da7b1730effaac9444f385908e1ee4bb9778677d"
+  }
+ },
+ "ngc3198_access": "NONE",
+ "ngc3198_nuisance_slots": {
+  "placeholder_for_engine_coordinate_derivation": [
+   {
+    "kind": "distance",
+    "lower": 12.0,
+    "name": "ngc3198_distance_Mpc",
+    "reference_value": 13.8,
+    "role": "nuisance",
+    "scope": "ngc3198_nuisance",
+    "sensitivity": {
+     "mode": "box_ends"
+    },
+    "transform": "log",
+    "trial_value": 13.8,
+    "units": "Mpc",
+    "upper": 15.6
+   },
+   {
+    "kind": "inclination",
+    "lower": 60.0,
+    "name": "ngc3198_inclination_deg",
+    "reference_value": null,
+    "role": "nuisance",
+    "scope": "ngc3198_nuisance",
+    "sensitivity": {
+     "mode": "box_ends"
+    },
+    "transform": "linear",
+    "trial_value": 70.0,
+    "units": "deg",
+    "upper": 80.0
+   }
+  ],
+  "placeholder_statement": "PLACEHOLDER VALUES, NOT NGC3198 INFORMATION. They exist only so make_freeze_coordinate_spec can emit engine_coordinates; engine coordinates exclude NGC slots (verified: two different placeholder sets give byte-identical engine coordinates). The real slots replace them at freeze; the orchestrator re-checks that engine_coordinates are unchanged.",
+  "required": "exactly one ngc3198_nuisance distance slot (units Mpc, reference_value 13.8, sensitivity) and one inclination slot (units deg, sensitivity); prediction_freeze_c2v003a D10",
+  "status": "TO_BE_DECLARED_BY_THE_NGC3198_LANE_BEFORE_FREEZE"
+ },
+ "ngc3198_rule": "NGC3198 is never used in calibration: no NGC3198 target file is read by this spec, its builder, the orchestrator or any calibration call, and no NGC3198 value is used; no box, alternative, engine parameter or freeze choice depends on NGC3198 information. NGC3198 target velocities are opened only by score_after_freeze after verify_freeze_manifest passes (ROOT_CALL_ORDER 8).",
+ "observation_region": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+  "row_ids": [
+   "DDO154_SPARC12_01",
+   "DDO154_SPARC12_02",
+   "DDO154_SPARC12_03",
+   "DDO154_SPARC12_04",
+   "DDO154_SPARC12_05",
+   "DDO154_SPARC12_06",
+   "DDO154_SPARC12_07",
+   "DDO154_SPARC12_08",
+   "DDO154_SPARC12_09",
+   "DDO154_SPARC12_10",
+   "DDO154_SPARC12_11",
+   "DDO154_SPARC12_12"
+  ],
+  "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+ },
+ "pin_update_v002": {
+  "cache_id": "unchanged: the c2v004/c2v005 cache id formula hashes the template, base spec, driver, taxonomy, contraction test, row ids, engine names, inclination, coordinate mode, varying names and the canonical engine coordinates; neither the engine file sha256 nor the coordinate spec sha256 enters it",
+  "change": "only coordinate_spec.engine: calibration_region_engine_c2v003a (193841fa) -> calibration_region_engine_c2v003b (Claude4 0475 R1 SF-2: exactly-zero scaled-Jacobian columns cleaned in identifiability_report). Every other key is V001 byte-for-byte, including inputs_pinned (the builder inputs of V001), schema, status and the freeze pin (prediction_freeze_c2v003a, used by the orchestrator only to derive the V001 engine coordinates).",
+  "supersedes": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/DDO154_CALIBRATION_COORDINATE_SPEC_V001.json",
+   "sha256": "fdeb5eb9b69b302c3b7eca21ed772184da56e26224fa4f8b08c8a2b0534106f8"
+  }
+ },
+ "preconditions_before_freeze": [
+  {
+   "id": "PC-1",
+   "item": "P-88 kmax/truncation verdict; root supplies the numerics block",
+   "status": "OPEN"
+  },
+  {
+   "id": "PC-5",
+   "item": "distance exposed (v003b/c); inclination and M/L, He, Gamma not",
+   "status": "PARTIAL"
+  },
+  {
+   "id": "PC-7",
+   "item": "FD noise floor (repeat call at the anchor; outside the cache)",
+   "status": "OPEN"
+  },
+  {
+   "id": "PC-9",
+   "item": "route-A iteration != 4 still BLOCKED (cached invalid, flagged)",
+   "status": "OPEN"
+  },
+  {
+   "id": "D3",
+   "item": "disk retention rule (root)",
+   "status": "OPEN"
+  },
+  {
+   "id": "NGC-slots",
+   "item": "NGC3198 distance and inclination slots (NGC lane)",
+   "status": "OPEN"
+  },
+  {
+   "id": "REVIEW",
+   "item": "independent check of this spec and the orchestrator",
+   "status": "OPEN"
+  }
+ ],
+ "schema": "DDO154_CALIBRATION_COORDINATE_SPEC_C2V001",
+ "status": "PROPOSED_FINAL_FOR_FREEZE_BY_CLAUDE2_NOT_FROZEN",
+ "supersedes": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_prep_c2_0470/calibration_spec/DDO154_CALIBRATION_COORDINATE_SPEC_DRAFT_C2V001.json",
+  "sha256": "a7709bd2a9ace5dc34ae31cb75b07f570ff39fcbbd99c6f4bbaa367eed620d54"
+ },
+ "trial_point": {
+  "anchor_admitted_on_ddo154_rectangles": false,
+  "anchor_alias_rtol": 1e-14,
+  "anchor_outside_rows": [
+   "DDO154_SPARC12_06",
+   "DDO154_SPARC12_08",
+   "DDO154_SPARC12_09",
+   "DDO154_SPARC12_11"
+  ],
+  "anchor_receipt": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001.receipt.json",
+   "receipt_sha256_self": "887246a9919b8ab86f2b2f44db946cafdd473e71c7f9319e0c3fbb9903ee9244",
+   "sha256": "f8bc976a2b8084b4da1b7e846e3ce3997871c3689449e4a6c04788bc16b4acce"
+  },
+  "anchor_result": {
+   "driver_sha256": "75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22",
+   "elapsed_seconds": 6724.602931709029,
+   "final_output_bytes": 6081118006,
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json",
+   "peak_rss_bytes": 1449558016,
+   "sha256": "bcd2f64ec6c858a51718b2badb85b9e35121b6a3575227a4c9e4b8b5c673836e",
+   "status": "COMPLETED",
+   "valid": true
+  },
+  "anchor_spec": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/specs/CALL_A2_ANCHOR_F10_C2V001.json",
+   "sha256": "a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b"
+  },
+  "driver_equivalence_assumption": {
+   "id": "ANCHOR_REUSE_DRIVER_EQUIVALENCE",
+   "statement": "the anchor result was computed by driver c2v001 (75b0c08a); calibration calls use c2v003c (ed326130). At the registered geometry (4.04 Mpc, 66 deg) v003b plans, writes and pins nothing v003 does not (INTERFACE_V003B_DELTA section 3: t04 dry-run reports identical apart from driver_sha256; t05 run-mode requests byte-identical), v003 reproduction plans equal v001's (INTERFACE_V003_DELTA section 1), and v003c touches no numerics (CHECK_V001 of driver_f). The anchor route A converged at iteration 4 (v001 refuses otherwise).",
+   "status": "COUNTED (plan-level identity; a bitwise rerun of the anchor under v003c is UNTESTED, deciding test: one v003c call at the anchor spec, ~1.9 h)"
+  },
+  "engine_seed_relative_deviation_from_anchor": {
+   "Eref_J": 0.0,
+   "common_scale_s": 2.733415869150689e-16,
+   "distance_Mpc": 0.0,
+   "ell_F_m": 2.4811648541241346e-15,
+   "gamma": 3.3673429687819474e-15
+  },
+  "engine_seed_theta": {
+   "Eref_base_J": 1.4642919592009638e+58,
+   "Gamma_poly": 1.6666666666666667,
+   "ML_3p6": 0.5,
+   "common_scale_s": 0.10154172268068734,
+   "distance_Mpc": 4.04,
+   "ell_F_m": 9.905025036587313e+19,
+   "entropy_K_factor": 0.5289256198347108,
+   "gamma_over_Eref": 2.0085126300035536e-16,
+   "helium_factor": 1.36,
+   "native_C_identity": 0.0,
+   "native_Delta": 1.0,
+   "native_E_I": 0.1,
+   "native_E_R": 0.1,
+   "native_E_S": 0.1,
+   "native_Ud": 1.0,
+   "native_beta": 1.0,
+   "native_dstar": 2.0,
+   "native_e_I": 0.1,
+   "native_e_R": 0.1,
+   "native_epsilon": 0.1,
+   "native_epsilon_c": 0.3,
+   "native_epsilon_r": 0.3,
+   "native_g": 0.1,
+   "native_h": 0.1,
+   "native_kappa": 0.1,
+   "native_lambda_J": 0.1,
+   "native_lambda_R": 0.1,
+   "native_t": 0.1,
+   "native_theta": 0.0
+  },
+  "engine_trial_u": [
+   0.5000000000000001,
+   0.5000000000000008,
+   0.5000000000000026,
+   0.4558117936146375
+  ],
+  "name": "A2_ANCHOR_F10",
+  "reuse": "the anchor run is reused as the engine seed evaluation (no rerun) through an ANCHOR ALIAS cache entry: the engine requests the seed at to_natural(trial_u), which differs from the anchor values by log/exp rounding only; the alias is accepted iff every mapped physical field agrees within ANCHOR_ALIAS_RTOL, all non-physical fields except label agree exactly, and the numerics in use equal the anchor numerics.",
+  "statement": "trial at the factor-10 anchor (seed-scan factor 10, s = 0.10154172268068731)"
+ },
+ "units": {
+  "Eref_base_J": "J",
+  "Gamma_poly": "dimensionless (polytropic index)",
+  "ML_3p6": "solar M/L at 3.6 micron",
+  "common_scale_s": "dimensionless",
+  "distance_Mpc": "Mpc",
+  "ell_F_m": "m",
+  "entropy_K_factor": "dimensionless (K / K(sigma0=11 km/s, Gamma))",
+  "gamma_over_Eref": "gamma per J of Eref_base_J",
+  "helium_factor": "dimensionless (total gas / HI)",
+  "native_C_identity": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_Delta": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_E_I": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_E_R": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_E_S": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_Ud": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_beta": "dimensionless (sampler beta)",
+  "native_dstar": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_e_I": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_e_R": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_epsilon": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_epsilon_c": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_epsilon_r": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_g": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_h": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_kappa": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_lambda_J": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_lambda_R": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_t": "dimensionless (sampler literal; energy ratios in units of Ud)",
+  "native_theta": "dimensionless (sampler literal; energy ratios in units of Ud)"
+ },
+ "untested_with_deciding_tests": [
+  {
+   "claim": "ell_F response of the 12 rows",
+   "deciding_test": "Jacobian column ell_F_m (W1/W2)",
+   "status": "UNTESTED"
+  },
+  {
+   "claim": "full-chain validity off the seed curve",
+   "deciding_test": "Jacobian and repair calls",
+   "status": "UNTESTED"
+  },
+  {
+   "claim": "inclination != 66",
+   "deciding_test": "gas re-extraction stage",
+   "status": "UNTESTED"
+  },
+  {
+   "claim": "v003c bitwise reproduction of the anchor",
+   "deciding_test": "one v003c call at the anchor spec",
+   "status": "UNTESTED"
+  },
+  {
+   "claim": "A2 coefficient sensitivity",
+   "deciding_test": "per-chain grids at the reference member",
+   "status": "UNTESTED"
+  },
+  {
+   "claim": "M/L, He, Gamma, h*, photometry alternatives",
+   "deciding_test": "driver extension (PC-5)",
+   "status": "UNTESTED"
+  },
+  {
+   "claim": "converged truncation",
+   "deciding_test": "P-88",
+   "status": "UNTESTED"
+  },
+  {
+   "claim": "tilt family",
+   "deciding_test": "disk axis along each Cbar principal axis and [111]",
+   "status": "UNTESTED"
+  }
+ ],
+ "validation": {
+  "anchor_alias_max_abs_relative_deviation": 3.3673429687819474e-15,
+  "distance_binding_ok": true,
+  "engine_coordinates_independent_of_ngc_placeholders": true,
+  "engine_make_coordinate_spec_ok": true,
+  "freeze_alternatives_declaration_accepted": true,
+  "freeze_make_freeze_coordinate_spec_ok": true,
+  "gamma_over_Eref_times_Eref_reproduces_anchor_gamma_bitwise": true,
+  "n_coordinates": 29,
+  "n_varying": 4
+ },
+ "varying_order": [
+  "common_scale_s",
+  "gamma_over_Eref",
+  "ell_F_m",
+  "distance_Mpc"
+ ]
+}

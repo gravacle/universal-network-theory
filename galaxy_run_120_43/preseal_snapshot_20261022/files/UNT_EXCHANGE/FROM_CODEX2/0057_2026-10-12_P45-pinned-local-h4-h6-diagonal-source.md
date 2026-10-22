@@ -1,0 +1,13 @@
+From: Codex2
+Re: P45 explicit missing pinned-carrier h4/h6 diagonal compiler
+
+Source/theory packet posted for DISTINCT review:
+/Users/bgm/Research/UNT_EXCHANGE/lanes/P45_CODEX2/PINNED_DIAGONAL_H6_PACKET_MANIFEST_V001.json
+SHA7b5a695b4053c70adb68a7f902c13e7c7020eca0386e8f21f8a32e347e82d76a
+Activepinned_carrier_diagonal_h6_v002.py; V001preservedinactive beforecontrol-data, successoradds fournonzeroexacttwolevelpowercontrols.
+
+Implements acceptedanalytic recurrence withfull4x4properresolvents,reducedempty-incidenceR0,allh2/h4/h6folds andsamevacuumsubtraction. Complete31rootedsignclasses represent4/18/88connected1/2/3edge supports atanchor. Formal pinned t0 diagonal configuration-independence throughh6 is claimed only foruniformq/simple4regulargirth>=6ice underinvertibilityconditions; offdiagonalanchor-ringoperator remainsnontrivial.
+
+Bothrationalparentfixtures,74connected-support controls/382carrier+382vacuumcubes/966properresolvents/8088recurrencerows; fournonzeroclosed-formh2/h4/h6powercontrols, null/remote/disconnected controls, parenth2match and14actualmalformedcontrols frozen. Proposed600s2GiBRSS2GiBoutput,minfree4GiB; separateheldwrapper/rootrelease mandatory afterdistinctreview. No sourceimport/evaluation orunreviewedsavedoutputs consumed; AST/hashonly.
+
+Not a mobileband/fullBorn/finitehclock/photon orquantitative1%P43claim. Missingmixedorders/globalstate andhighercorrectionbounds remainexplicit. P46runner0055, Q0h0source0053 andP30prospect0054 arealreadyinreviewqueue.

@@ -1,0 +1,78 @@
+{
+ "a226": {
+  "extra_open_events_not_in_snapshot": [],
+  "n_open_events": 45,
+  "n_os_open": 45,
+  "open_event_counts": [
+   1
+  ],
+  "os_open_counts": [
+   1
+  ],
+  "sets_equal_open_vs_snapshot": true,
+  "sets_equal_osopen_vs_snapshot": true,
+  "snapshot_counts": 45
+ },
+ "eq": {
+  "final_byte_mismatches": [],
+  "honest_pending_refused_by_check_mapper_pending": [],
+  "n_cases": 120,
+  "note_int_for_float_bytes_differ_from_mapper": true,
+  "note_int_for_float_pending_accepted": "ACCEPTED",
+  "route": "actual imported core dc895f8a + parent c75a889f Mapper classes; ledger Mapper class from 7c9b4248 bytes",
+  "variants": [
+   "plain",
+   "int_fields",
+   "slots_prefilled"
+  ]
+ },
+ "fc": {
+  "bridge_manifest_for_other_request": "REFUSED Refusal: DIRECT_CERT_MANIFEST_BINDING",
+  "duplicate_certificate_across_points": "REFUSED Refusal: BUNDLE_IDENTITY_OR_SLOTS",
+  "duplicate_record_entry": "REFUSED Refusal: RECORD_LIST_MISMATCH: key",
+  "forged_ok_verification_with_genesis_key": "REFUSED Refusal: DUPLICATE_OR_GENESIS_KEY",
+  "hardlinked_request_alias": "ACCEPTED",
+  "row_31_record": "REFUSED Refusal: RECORD_LIST_MISMATCH: row",
+  "stale_certificate_pin": "REFUSED Refusal: BUNDLE_IDENTITY_OR_SLOTS",
+  "symlink_to_runs_component_target": "REFUSED Refusal: PROTECTED_PATH_REFUSED",
+  "symlinked_request_valid_target": "ACCEPTED",
+  "unnormalized_alias_path": "REFUSED Refusal: ABSOLUTE_NORMALIZED_PATH_REQUIRED",
+  "unpinned_seventh_producer": "REFUSED Refusal: FROZEN_SIX_APPROVED_PRODUCERS_REQUIRED",
+  "wrong_bundle_other_point": "REFUSED Refusal: BUNDLE_IDENTITY_OR_SLOTS",
+  "wrong_slot_eps_lo_swapped": "REFUSED Refusal: BUNDLE_IDENTITY_OR_SLOTS",
+  "wrong_wave_list_vs_records": "REFUSED Refusal: WAVE_MISMATCH"
+ },
+ "mutants": {
+  "M1_genesis_key_check": {
+   "baseline": "REFUSED Refusal: DUPLICATE_OR_GENESIS_KEY",
+   "killed": true,
+   "mutant": "ACCEPTED"
+  },
+  "M2_wave_binding": {
+   "baseline": "REFUSED Refusal: WAVE_MISMATCH",
+   "killed": true,
+   "mutant": "ACCEPTED"
+  },
+  "M3_C1_names_genesis": {
+   "baseline": "REFUSED Refusal: C1_GENESIS_MISMATCH",
+   "killed": true,
+   "mutant": "ACCEPTED"
+  },
+  "M4_snapshot_pin_sha": {
+   "baseline": "REFUSED Refusal: INPUT_SHA_MISMATCH: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verify_c3_direct_lookup_unit2/fixtures_helper/cx3_controls_run3/DIRECT_LOOKUP_TESTS_CX3V00",
+   "killed": true,
+   "mutant": "ACCEPTED"
+  },
+  "M5_per_point_verify_gate": {
+   "baseline": "REFUSED Refusal: VERIFY_POINT_REFUSED",
+   "killed": false,
+   "mutant": "REFUSED Refusal: VERIFY_POINT_REFUSED"
+  },
+  "M6_bridge_published_spec_bytes": {
+   "baseline": "REFUSED Refusal: INPUT_SHA_MISMATCH: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verify_c3_direct_lookup_unit2/fixtures_helper/p3/fc/WRONG_SPEC_BYTES.json",
+   "killed": false,
+   "mutant": "REFUSED TypeError: object.__new__(DirectNonGenesisContext) is not safe, use DirectNonGenesisContext.__new__()"
+  }
+ }
+}
+

@@ -1,0 +1,217 @@
+{
+ "schema": "DDO154_CALIBRATION_FAILURE_TAXONOMY_V001",
+ "author": "Claude2 lane, calibration_orchestrator_c2/v002 builder (2026-10-17)",
+ "purpose": "Classify every terminal outcome of one forward call of driver c2v006 into exactly one class. The orchestrator c2v002 loads THIS file (pinned by sha256 in its config) and evaluates the ordered rules on (driver status, driver reasons, route-A attempt end-record outcome and the stage records of the call directory); never on status alone. The first matching rule wins; anything unmatched is the default class INFRA.",
+ "driver": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_f10_c2/route_b_v006/galaxy_m0_forward_c2v006.py",
+  "sha256": "c53997b4e6fcd6107bb7a564ee251271942fe1dbe9a365f4d9b6ebbb4d0c9e69"
+ },
+ "cited_files": {
+  "DRV": "galaxy_m0_forward_c2v006.py c53997b4 (route_b_v006)",
+  "W": "helpers/recovered_packet_audit/ddo_composite_stable_cached_root_worker_v002.py c4cb6826 (route-A worker)",
+  "SOL": "resumable_coupled_gas_0422/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_c2v001.py 44d9c23c (route-A solver)",
+  "CK": "resumable_coupled_gas_0422/coupled_gas_checkpoint_c2v003.py 069b3935 (route-A checkpoint, attempt end records)",
+  "HI": "helpers/recovered_packet_audit/hi_two_sided_free_boundary_v003.py b176c7a6 (route-A HI column solve)",
+  "COL": "helpers/coefficient_method/owned_fixed_K_free_surface_column_v001.py 54e56f7b (fs/rfs/le column solve)",
+  "STG_COL1": "route_b_v006/stages/ddo_fixed_K_free_surface_root_v001_gal_c2v004.py (fs columns)",
+  "STG_COL3": "route_b_v006/stages/ddo_fixed_K_free_surface_root_v003_gal_c2v004.py (rfs columns)",
+  "STG_COL5": "route_b_v006/stages/ddo_fixed_K_free_surface_root_v005_gal_c2v004.py (le columns)",
+  "STG_ROT1": "route_b_v006/stages/ddo_free_surface_rotation_root_v001_gal_c2v004.py (fs rotation)",
+  "STG_ROT5": "route_b_v006/stages/ddo_free_surface_rotation_root_v005_gal_c2v004.py (le rotation)",
+  "STG_CM": "route_b_v006/stages/ddo12_lower_entropy_column_mean_root_v004_gal_c2v004.py (column mean)",
+  "STG_REF": "route_b_v006/stages/ddo_homotopy_reference_root_worker_v001_gal_c2v004.py (reference)",
+  "STG_BODY": "route_b_v006/stages/ddo_saved_root_body_array_root_v002_gal_c2v004.py (body)",
+  "MON": "galaxy_m0_forward_c2_0466/root_monitor_c2v001.py ba031c23",
+  "CAMP": "galaxy_m0_forward_c2_0466/campaign_c2v001.py 71274ceb"
+ },
+ "classes": {
+  "VALID": "COMPLETED with 12 finite rows: cached, final.",
+  "MODEL_INVALID": "The forward at theta ran its declared procedure to a recorded physical refusal. Cached as an invalid evaluation, final, never relaunched.",
+  "NUMERICS_LIMITED": "A declared-numerics limitation: the physics answer at theta is not established (root outside a declared bracket, search limit, budget, float resolution). NOT cached; the orchestrator HALTS for a root resolve (invalid | retry | retry_with_recovery). Never retried automatically.",
+  "INFRA": "Everything else (exceptions, ENOSPC, custody/pin/identity mismatch, nonzero exit without a recognized reason, monitor caps, missing receipt, inconsistent records). NOT cached; HALT for a root resolve."
+ },
+ "default": {
+  "class": "INFRA",
+  "code_format": "UNRECOGNIZED:<status>:<first reason, 120 chars>",
+  "rule": "any (status, reason, route-A outcome) combination not matched by a rule below, including any status not emitted by c2v006"
+ },
+ "orchestrator_level_checks_before_rules": {
+  "class": "INFRA",
+  "items": [
+   "campaign record status not in OK/FAILED/RESUMED_OK/RESUMED_FAILED (DIR_EXISTS_UNVERIFIED: CAMP L126-127; NOT_STARTED: CAMP L176)",
+   "no RECEIPT.json, receipt self-hash/spec/driver pin does not verify (MON L203-224)",
+   "monitor status STOPPED_WALL_CAP | STOPPED_RSS_CAP | STOPPED_OUTPUT_CAP (MON L162-170, L197)",
+   "no result.json (driver exit 2 'REFUSED: outdir exists', DRV L2189-2191; or killed before writing)",
+   "result.json bytes differ from the receipt pin; result not bound to the spec or driver sha; receipt driver_status != result status (UNREADABLE_FINISH / RESULT_HASH_MISMATCH: MON L177-189)",
+   "evidence files of the call directory unreadable"
+  ]
+ },
+ "terminal_statuses_of_c2v006": [
+  {"status": "COMPLETED", "where": "DRV L2263 (result['valid'] True, L2246)", "exit": "0 (DRV L2293)"},
+  {"status": "COMPLETED_INVALID", "where": "DRV L2263", "exit": "0", "reasons": [
+   "'no final pass' DRV L2227-2228",
+   "'final pass column failures or nonpositive rotation' DRV L2246-2248",
+   "'final column mean did not return 12 rows: <column_mean record>' DRV L2249-2250"]},
+  {"status": "REFUSED", "where": "DRV L2264-2266 (any Refusal)", "exit": "3", "reasons": [
+   "normalize_spec DRV L602-774 (incl. 'UNSUPPORTED geometry ... registered distance 4.04' L626-630)",
+   "per_call_seed DRV L777-812 ('base seed pin mismatch' L785)",
+   "verify_pin DRV L327-334; exec_verified DRV L337-346",
+   "execute_chain Refusals DRV L1541, L1554, L1576, L1639, L1664, L1690, L1694",
+   "load_galaxy_config DRV L1140-1178; ddo_driver_literal_check DRV L1194-1217; producer_pin DRV L1388-1393"]},
+  {"status": "BLOCKED", "where": "DRV L2267-2269 (any Blocked)", "exit": "3", "reasons": [
+   "'checkpoint identity self-hash mismatch' DRV L919",
+   "'checkpoint caller seed ... is not this call seed ...' DRV L933",
+   "'checkpoint <Eref_J|ell_F_m|gamma> differs from call' DRV L937",
+   "'checkpoint coefficient grid differs from call coefficient grid' DRV L941",
+   "'ROUTE_A_NOT_CONVERGED_AT_REPORTED_ITERATION_<k>' DRV L947",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: unexpected checkpoint entry' DRV L1307",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: iterations ... are not contiguous from 0' DRV L1310",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: iteration <k> lacks START or COMPLETED' DRV L1315 (route-A FAILED_SOURCE_PREPARATION at iteration k leaves START without COMPLETED)",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: records of iteration <k> not bound ...' DRV L1320",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: converged [..] of present [..]; exactly the last must be converged' DRV L1324 (route-A ITERATION_BUDGET_EXHAUSTED: all max_iterations iterations completed, none converged)",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: no attempts directory' DRV L1327",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: attempt_end of another identity' DRV L1332",
+   "'ROUTE_A_ITERATION_AMBIGUOUS: <n> attempt_end records report CONVERGED_FINITE_FIXED_POINT (exactly one required)' DRV L1336",
+   "binding blockers DRV L2215-2218; 'REMAINING_REFUSALS: ...' DRV L2219-2222 (empty for DDO154, DRV L2838-2841)",
+   "refuse() DRV L1500-1504 (NGC3198 only)"]},
+  {"status": "FAILED_AT_STAGE", "where": "DRV L2270-2272 (any StageFailed)", "exit": "3", "reasons": [
+   "'stage(s) exited nonzero: [<names>]' DRV L907 (any child stage exit != 0; the stage writes <outdir>/failure.json: STG_COL1 L231, STG_COL3 L242, STG_COL5 L243, STG_ROT1 L262, STG_ROT5 L279, STG_REF L287-288, STG_BODY L265-266, feedback v002 L246, feedback v004 L265; route A writes attempt_000/failure.json W L110-114)",
+   "'MASK_NOT_FIRED: ...' DRV L430-448 (non-cube truncation only)",
+   "'column file pin mismatch <path>' DRV L965",
+   "'duplicate column <i>' DRV L968",
+   "'<tag> column(s) [..] failed; no bracket source' DRV L982-986 (reachable for tag rfs, DRV L1916; fs and le<p> column failures are caught first by the rotation stage, STG_ROT1 L217 / STG_ROT5 L232)"]},
+  {"status": "FAILED", "where": "DRV L2273-2277 (catch-all except Exception: OSError incl. ENOSPC, PermissionError, KeyError, code bugs)", "exit": "3"}
+ ],
+ "route_a_attempt_end_outcomes": {
+  "source": "CK L582-596: attempts/<token>.end.json {kind attempt_end, identity_sha256, outcome}; written on every RETURNED solver outcome (SOL L104-109); NOT written when the worker raises (W L110-114 writes attempt_000/failure.json and exits nonzero)",
+  "outcomes": {
+   "CONVERGED_FINITE_FIXED_POINT": "SOL L210-214 (residual <= bound at iteration k; any k: c2v006 reads k by the strict rule DRV L1291-1338, no literal 4)",
+   "FAILED_SOURCE_PREPARATION": "SOL L159-179 (a ValueError inside one HI column solve, iteration k, column c; failure record CK L587-593 iteration_<k>/FAILURE.<token>.json)",
+   "ITERATION_BUDGET_EXHAUSTED": "SOL L216-218 (max_iterations iterations completed, none converged; max_iterations = seed numerical_inputs.max_iterations, 8 in the DDO154 base seed and unchanged by per_call_seed DRV L777-812)"
+  }
+ },
+ "token_sets": {
+  "COLUMN_NUMERICS_TOKENS": {
+   "source": "COL (owned_fixed_K_free_surface_column_v001.py 54e56f7b); the message of each column failure (STG_COL1 L228, STG_COL3 L239, STG_COL5 L240) is str(ValueError) and starts with the token",
+   "tokens": {
+    "MASS_ENTHALPY_NOT_BRACKETED": {"line": "COL L58", "text_says": "supply a resolved compact-support bracket", "root_specified": true},
+    "NO_TWO_SAMPLED_FREE_SURFACES": {"line": "COL L36", "text_says": "numerical search limit is not an edge (non-existence NOT proven)", "root_specified": true},
+    "POTENTIAL_CALL_BUDGET": {"line": "COL L20", "text_says": "budget", "root_specified": false},
+    "SEARCH_FLOAT_RESOLUTION": {"line": "COL L32", "text_says": "float resolution", "root_specified": false},
+    "ROOT_FLOAT_RESOLUTION": {"line": "COL L40", "text_says": "float resolution", "root_specified": false},
+    "ROOT_ITERATION_BUDGET": {"line": "COL L43", "text_says": "budget", "root_specified": false},
+    "SAMPLED_INTERIOR_HOLE": {"line": "COL L50", "text_says": "refine search, no disconnected clipping", "root_specified": false},
+    "MASS_FLOAT_RESOLUTION": {"line": "COL L62", "text_says": "float resolution", "root_specified": false},
+    "MASS_ITERATION_BUDGET": {"line": "COL L67", "text_says": "budget", "root_specified": false}
+   }
+  },
+  "HI_NUMERICS_TOKENS": {
+   "source": "HI (hi_two_sided_free_boundary_v003.py b176c7a6) fail() L47-49, message f'{reason}; radius_m=...'; also SOL L148 (metric reality guard inside the column callback); used by route A (FAILED_SOURCE_PREPARATION failure message) and the reference stage per-radius failures (STG_REF L279-282)",
+   "tokens": {
+    "FREE_BOUNDARY_METRIC_CALL_BUDGET_EXHAUSTED": {"line": "HI L55", "text_says": "budget", "root_specified": false},
+    "SEARCH_FLOAT_RESOLUTION_LIMIT": {"line": "HI L81", "text_says": "float resolution", "root_specified": false},
+    "FREE_BOUNDARY_NOT_BRACKETED": {"line": "HI L89", "text_says": "numerical limit is not a gas edge", "root_specified": false},
+    "ROOT_FLOAT_RESOLUTION_LIMIT": {"line": "HI L94", "text_says": "float resolution", "root_specified": false},
+    "ROOT_LAPSE_RESIDUAL_NOT_RESOLVED": {"line": "HI L100", "text_says": "refine tolerances/budget", "root_specified": false},
+    "INTERIOR_LAYER_CROSSING": {"line": "HI L114", "text_says": "first-root search underresolved", "root_specified": false},
+    "NONREAL_PHYSICAL_METRIC": {"line": "SOL L148", "text_says": "no unconditional real projection (reality tolerance exceeded)", "root_specified": false}
+   }
+  },
+  "ROUTE_A_WORKER_NONFINITE_MESSAGES": {
+   "source": "SOL ValueErrors raised OUTSIDE the per-column try (they leave the worker: W L110-114, exit 1, no end record)",
+   "messages": {
+    "Nonfinite gas source": {"line": "SOL L191", "root_specified": false},
+    "Nonfinite coupling residual": {"line": "SOL L197", "root_specified": false},
+    "Nonfinite source convergence bound": {"line": "SOL L199", "root_specified": false}
+   }
+  }
+ },
+ "rules": [
+  {"id": "R01", "statuses": ["COMPLETED"], "condition": "valid_true_rows_finite", "class": "VALID", "code": "VALID",
+   "judgment_call": false,
+   "cites": ["DRV L2235-2246 (final_rows_check L2661-2681: 12 finite rows)", "DRV L2263", "DRV L1291-1338 + L1686-1708: the converged route-A iteration k is read by the strict rule; k = 3, 4, 5, ... are all accepted (no ITERATION_NOT_4 lock)"]},
+  {"id": "R02", "statuses": ["COMPLETED"], "condition": "always", "class": "INFRA", "code": "COMPLETED_WITHOUT_VALID_ROWS",
+   "judgment_call": false, "cites": ["DRV L2263 sets COMPLETED only when valid; anything else is an inconsistent record"]},
+  {"id": "R10", "statuses": ["BLOCKED", "FAILED_AT_STAGE"], "condition": "route_a_end_iteration_budget_exhausted", "class": "MODEL_INVALID",
+   "code": "ROUTE_A_NO_FIXED_POINT_WITHIN_MAX_ITERATIONS",
+   "judgment_call": true,
+   "judgment_note": "Classified MODEL_INVALID as the dispatch instructs (route-A NO fixed point within the declared max_iterations, read from the attempt end-record outcome). Flagged for root: max_iterations (8) and relaxation (0.5) are declared numerics controls of the seed, so a slowly converging fixed point beyond iteration 7 is indistinguishable from no fixed point.",
+   "evidence_required": "exactly one attempts/*.end.json of this checkpoint identity with outcome ITERATION_BUDGET_EXHAUSTED; iterations 0..max_iterations-1 each with COMPLETED.json converged=false",
+   "cites": ["SOL L216-218", "CK L594-596", "W L106-109 (exit 0)", "DRV L1323-1324 (BLOCKED ROUTE_A_ITERATION_AMBIGUOUS converged [] of present [...])"]},
+  {"id": "R11", "statuses": ["BLOCKED", "FAILED_AT_STAGE"], "condition": "route_a_end_failed_source_preparation_numerics_tokens", "class": "NUMERICS_LIMITED",
+   "code": "ROUTE_A_FAILED_SOURCE_PREPARATION:<token>",
+   "judgment_call": true,
+   "judgment_note": "The failed HI column solve message carries a numerical-limit token (HI_NUMERICS_TOKENS); the free boundary is not shown to be absent. NONREAL_PHYSICAL_METRIC is included as a reality-tolerance limit (judgment).",
+   "evidence_required": "exactly one end record with outcome FAILED_SOURCE_PREPARATION; every token found in iteration_*/FAILURE.*.json is in HI_NUMERICS_TOKENS",
+   "cites": ["SOL L159-179", "CK L587-593", "DRV L1315 (BLOCKED iteration k lacks START or COMPLETED)"]},
+  {"id": "R12", "statuses": ["BLOCKED", "FAILED_AT_STAGE"], "condition": "route_a_iteration_cap_without_outcome_record", "class": "NUMERICS_LIMITED",
+   "code": "ROUTE_A_ITERATION_CAP_WITHOUT_OUTCOME_RECORD",
+   "judgment_call": false,
+   "judgment_note": "root-specified in the dispatch",
+   "evidence_required": "no end record; iterations 0..max_iterations-1 all COMPLETED, none converged",
+   "cites": ["SOL L216-218 (the end record is written by _finish; its absence with a full iteration chain means the record write failed, CK L597-598 reports finish_errors)"]},
+  {"id": "R13", "statuses": ["FAILED_AT_STAGE"], "condition": "route_a_worker_raised_nonfinite", "class": "NUMERICS_LIMITED",
+   "code": "ROUTE_A_WORKER_NONFINITE:<message>",
+   "judgment_call": true,
+   "judgment_note": "Non-finite arithmetic in the coupling update: the physics answer is not established; could also be a code defect.",
+   "evidence_required": "failed stages == [route_a]; attempt_000/failure.json message in ROUTE_A_WORKER_NONFINITE_MESSAGES; no end record",
+   "cites": ["SOL L191, L197, L199", "W L110-114", "DRV L907"]},
+  {"id": "R14", "statuses": ["BLOCKED", "FAILED_AT_STAGE"], "condition": "route_a_end_not_converged_other", "class": "INFRA",
+   "code": "ROUTE_A_END_OUTCOME_UNRECOGNIZED:<outcome>",
+   "judgment_call": false,
+   "cites": ["documented default: an end record whose outcome or failure token is not covered above halts for root"]},
+  {"id": "R20", "statuses": ["FAILED_AT_STAGE"], "condition": "rotation_missing_columns_numerics_tokens", "class": "NUMERICS_LIMITED",
+   "code": "COLUMN_FAILED:<pass:token>",
+   "judgment_call": "per token: false for MASS_ENTHALPY_NOT_BRACKETED and NO_TWO_SAMPLED_FREE_SURFACES (root-specified), true for the other COLUMN_NUMERICS_TOKENS",
+   "evidence_required": "failed stages == [<pass>_rotation]; its failure.json message 'Missing complete72 successful columns'; every failed column of that pass (columns/finish.json failures) carries a COLUMN_NUMERICS_TOKENS token",
+   "cites": ["STG_COL1 L227-229, STG_COL5 L239-241 (column failure recorded, stage exits 0)", "STG_ROT1 L217, STG_ROT5 L232 (rotation refuses an incomplete column set, exits nonzero)", "DRV L907", "COL L36, L58 (+ the other tokens)"]},
+  {"id": "R21", "statuses": ["FAILED_AT_STAGE"], "condition": "bracket_source_missing_numerics_tokens", "class": "NUMERICS_LIMITED",
+   "code": "COLUMN_FAILED:<tag:token>",
+   "judgment_call": "per token, as R20",
+   "evidence_required": "reason '<tag> column(s) [..] failed; no bracket source'; every failed column of <tag> carries a COLUMN_NUMERICS_TOKENS token",
+   "cites": ["DRV L982-986, L1886, L1916", "STG_COL3 L238-239"]},
+  {"id": "R22", "statuses": ["FAILED_AT_STAGE"], "condition": "body_reference_roster_numerics_tokens", "class": "NUMERICS_LIMITED",
+   "code": "REFERENCE_RADIUS_FAILED:<token>",
+   "judgment_call": true,
+   "evidence_required": "failed stages == [body]; body failure 'Full exact saved 72-radius roster required'; every reference per-radius failure carries a HI_NUMERICS_TOKENS token",
+   "cites": ["STG_REF L270-282 (per-radius failures recorded, exit 0)", "STG_BODY L234 (body refuses an incomplete roster)"]},
+  {"id": "R30", "statuses": ["COMPLETED_INVALID"], "condition": "final_pass_nonpositive_rotation", "class": "MODEL_INVALID",
+   "code": "FINAL_PASS_NONPOSITIVE_ROTATION_SQUARE",
+   "judgment_call": false,
+   "judgment_note": "root-listed 'column-mean Omega<=0 refusal': the final rotation stage reports positive_rotation_square=false and the column mean refuses ('Complete positive lagged preparation required', STG_CM L194)",
+   "evidence_required": "result.passes[-1].rotation_positive is false",
+   "cites": ["STG_ROT5 L273-277 (finish positive_rotation_square)", "DRV L1938, L2246-2248", "STG_CM L194, L227"]},
+  {"id": "R31", "statuses": ["COMPLETED_INVALID"], "condition": "final_column_mean_invalid_rotation", "class": "MODEL_INVALID",
+   "code": "FINAL_COLUMN_MEAN_INVALID_FINITE_POSITIVE_ROTATION",
+   "judgment_call": true,
+   "judgment_note": "STG_CM L204 raises the same message for Omega<=0 (physical refusal) and for any non-finite rotation array (numerics); the message does not separate them.",
+   "evidence_required": "final column mean status FAILED_NO_PREPARATION_OUTPUT with failure message starting 'Invalid finite positive rotation'",
+   "cites": ["STG_CM L204, L227", "DRV L1964-1976, L2249-2250"]},
+  {"id": "R32", "statuses": ["COMPLETED_INVALID"], "condition": "final_pass_column_failures_numerics_tokens", "class": "NUMERICS_LIMITED",
+   "code": "COLUMN_FAILED:<final:token>",
+   "judgment_call": "per token, as R20",
+   "note": "not reachable in c2v006 for DDO154 (the le rotation refuses an incomplete column set first, STG_ROT5 L232); listed for completeness",
+   "cites": ["DRV L1942-1947, L2246-2248"]},
+  {"id": "R40", "statuses": ["BLOCKED"], "condition": "always", "class": "INFRA", "code": "BLOCKED:<reason>",
+   "judgment_call": false,
+   "cites": ["custody blocks DRV L919, L933, L937, L941, L947", "ROUTE_A_ITERATION_AMBIGUOUS without a classifying end record DRV L1307-1336", "binding blockers DRV L2215-2218", "REMAINING_REFUSALS DRV L2219-2222"]},
+  {"id": "R41", "statuses": ["FAILED_AT_STAGE"], "condition": "always", "class": "INFRA", "code": "FAILED_AT_STAGE:<reason>",
+   "judgment_call": false,
+   "cites": ["DRV L907 with an unrecognized stage failure", "MASK_NOT_FIRED DRV L430-448", "column file pin mismatch DRV L965", "duplicate column DRV L968"]},
+  {"id": "R42", "statuses": ["COMPLETED_INVALID"], "condition": "always", "class": "INFRA", "code": "COMPLETED_INVALID:<reason>",
+   "judgment_call": false,
+   "cites": ["'no final pass' DRV L2227-2228", "column mean failures other than R31 (custody/identity mismatches STG_CM L190-203, L205-215; adapter refusals)"]},
+  {"id": "R43", "statuses": ["REFUSED"], "condition": "always", "class": "INFRA", "code": "REFUSED:<reason>",
+   "judgment_call": false,
+   "cites": ["DRV L2264-2266; every spec the orchestrator launches has passed the pinned driver's own normalize_spec before launch, so a run-time REFUSED is a pin/file/custody problem"]},
+  {"id": "R44", "statuses": ["FAILED"], "condition": "always", "class": "INFRA", "code": "FAILED:<reason>",
+   "judgment_call": false,
+   "cites": ["DRV L2273-2277 catch-all (OSError incl. [Errno 28] ENOSPC, PermissionError, KeyError, code bugs)"]}
+ ],
+ "not_in_c2v006_vocabulary": {
+  "ROUTE_A_NO_FIXED_POINT": "c2v003c status (DIFF_V003B_V003C RD1 F1); c2v006 never emits it -> default INFRA if ever seen",
+  "ROUTE_A_ITERATION_NOT_4": "c2v003c BLOCKED reason; c2v006 has no iteration-4 lock -> default INFRA if ever seen",
+  "ROUTE_A_RESULT_UNREADABLE / ROUTE_A_RESULT_INCONSISTENT / ROUTE_A_BACKGROUND_MISMATCH / RELATIVE_PATH_IN_REQUEST": "c2v003c only (F1/F2/F4); c2v006 lacks them (Claude4 0030 alert); A7 closes F1-F3 at the call level in the orchestrator"
+ },
+ "judgment_calls_for_root": ["R10", "R11", "R13", "R20 (tokens other than MASS_ENTHALPY_NOT_BRACKETED / NO_TWO_SAMPLED_FREE_SURFACES)", "R21 (same)", "R22", "R31", "R32 (same as R20)"]
+}

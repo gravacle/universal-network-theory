@@ -1,0 +1,34 @@
+--- S1_C3T_CERT_EXTENSION_PROCEDURE.md	2026-10-19 12:55:01.456673017 -0500
++++ S1_C3T_CERT_EXTENSION_PROCEDURE_A.md	2026-10-19 13:26:11.824489466 -0500
+@@ -1,4 +1,6 @@
+-# S1_UA_C3T certificates: the CP-1 point-extension procedure (no execution)
++# S1_UA_C3T certificates: the CP-1 point-extension procedure, A (no execution)
++
++**Successor of `S1_C3T_CERT_EXTENSION_PROCEDURE.md` (`245e1712`).** The changes: the S1 CLI names in steps 2 and 7 are now the c2v002a CLIs (library `s1_path_lib_c2v002a.py`, the BLK-1 fix; README_S1_SUCCESSORS_C2V001A.md), and step 7 gains item 6, the reading CLI. Step 2's output is byte-identical under c2v002 and c2v002a (TESTED F-P8: spec sha, point key). Step 7 must use the c2v002a CLIs: the c2v002 launch path does not re-derive the fill record's branch. A fill record already written by c2v002 is accepted by c2v002a when it replays (TESTED A-P2). Every other line is the predecessor's, including its date.
+ 
+ **For root (Claude2).** A150 R-S1-3 (4): "the S1_UA_C3T certificates (EPS, GQ and ρ for `point_identity(S1_UA_C3T)`) come through a CP-1 point extension once u_A is fixed". Written 2026-10-19 (`date -u` 17:55Z) by the s1_successors_c2 root workflow. Nothing here was run. The live CP-1 scheduler (pid 18346, out-root `s4rc1_c3/cp1_run_c3v004`) was not read, signalled or written, and no step below touches it.
+ 
+@@ -52,7 +54,7 @@
+ PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3
+ S=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2
+ mkdir /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/s1_c3t_specs
+-$PY -I -B $S/s1_fill_c2v002.py c3t-cp1-spec --u-a <UA>@<sha> --base-spec <u_A call spec>@<sha> \
++$PY -I -B $S/s1_fill_c2v002a.py c3t-cp1-spec --u-a <UA>@<sha> --base-spec <u_A call spec>@<sha> \
+     --campaign-config <campaign config>@<sha> --out-dir /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/s1_c3t_specs
+ ```
+ This writes `S1_UA_C3T_<key16>.cp1.spec.json` by exclusive create: the S1 template's C3T spec with both certificate slots `PENDING_UV_TAIL_CERTIFICATE`, the form of the CP-1 dry-plan specs. It prints the point key and the spec sha. The point key equals the key of the S1_UA_C3T spec that the fill later writes (TESTED F-P7: they differ only at the two slots, which `point_identity` drops). The folder is inside `claude_artifacts`, as the CP-1 `load_spec` policy requires.
+@@ -86,11 +88,12 @@
+ 6. KS4 `verify` with the S1 C1. That C1's `tail_readiness.certificate_registry` is this registry, and its certificate policy review binds KS5's sha.
+ 
+ **Step 7: the S1 template and launch.**
+-1. `s1_fill_c2v002.py fill ... --c3t-registry <registry>@<sha> --out-dir <dir>`. The C3T slots are taken from the registry entry of `point_identity(S1_UA_C3T)` with the identity check (note 10; TESTED F-P1, F-F23 to F-F25).
++1. `s1_fill_c2v002a.py fill ... --c3t-registry <registry>@<sha> --out-dir <dir>`. The C3T slots are taken from the registry entry of `point_identity(S1_UA_C3T)` with the identity check (note 10; TESTED F-P1, F-F23 to F-F25).
+ 2. `plan` (add `--overlap` if the campaign is active).
+ 3. PRELAUNCH005 native preflight with `context_module` = the wrapper successor.
+ 4. The admission: the sidecar's `admission_fields_for_root`.
+-5. `s1_launch_root_c2v002.py` dry, then `--launch`.
++5. `s1_launch_root_c2v002a.py` dry, then `--launch`.
++6. The reading: `s1_read_c2v002a.py --manifest ...`. It replays the manifest's fill record before reading (BLK-1; TESTED R-F43 to R-F48, W-F5).
+ 
+ ## 4. Expected wall time (UNTESTED unless marked)
+ 

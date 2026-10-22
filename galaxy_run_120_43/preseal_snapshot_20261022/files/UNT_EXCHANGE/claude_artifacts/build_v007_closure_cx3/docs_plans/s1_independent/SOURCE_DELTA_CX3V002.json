@@ -1,0 +1,75 @@
+{
+  "date_u": "Sun Oct 18 20:40:43 UTC 2026",
+  "status": "TESTED_PASS",
+  "passed": 6,
+  "checks": [
+    {
+      "name": "postseal_records_cx1v006.py changed AST top-level nodes only",
+      "pass": true,
+      "nodes": [
+        "loads",
+        "main"
+      ]
+    },
+    {
+      "name": "postseal_records_cx1v006.py parser adds only finite_float hook and local finite check",
+      "pass": true
+    },
+    {
+      "name": "postseal_records_cx1v006.py exact publication-only main AST delta",
+      "pass": true
+    },
+    {
+      "name": "srb_rot_record_cx1v008.py changed AST top-level nodes only",
+      "pass": true,
+      "nodes": [
+        "Import",
+        "main"
+      ]
+    },
+    {
+      "name": "srb_rot_record_cx1v008.py sole dependency import follows successor",
+      "pass": true
+    },
+    {
+      "name": "srb_rot_record_cx1v008.py exact publication-only main AST delta",
+      "pass": true
+    }
+  ],
+  "deltas": [
+    {
+      "old": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/postseal_records_cx1v006.py",
+        "sha256": "9fbdb0ca24153436b7c807778f140b7998fc0c0b5d18f4372d65a20a0e11cc59"
+      },
+      "new": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/postseal_records_cx1v006_cx3v001.py",
+        "sha256": "4024d82a8ec59ba339f00214066798ea905d1234466d29db2e8bb5e5869de366"
+      },
+      "diff": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/build_v007_closure_cx3/docs_plans/s1_independent/postseal_records_cx1v006_cx3v001.py.diff.txt",
+        "sha256": "288fefd3e753d4db269a5bc9fe63bbf59ee4df2b675aae721bf6dc6b418435fd"
+      }
+    },
+    {
+      "old": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/srb_rot_record_cx1v008.py",
+        "sha256": "500f8b6a27cff6157246cdaca1373ad7340003263578331d30cbdf7cebc0e4f4"
+      },
+      "new": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/srb_rot_record_cx1v008_cx3v001.py",
+        "sha256": "2757847a0a2c6da7ab83dc5b203cbfd8c2291da57e430d4ce0cff99ceb4628cc"
+      },
+      "diff": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/build_v007_closure_cx3/docs_plans/s1_independent/srb_rot_record_cx1v008_cx3v001.py.diff.txt",
+        "sha256": "2b88ffce0a1006edde0fee2b3b46d6691eeb141c01b1e636c25ebe6cb480029f"
+      }
+    }
+  ],
+  "scope": "Exact AST source-delta audit; runtime semantics outside independently executed parser/publication slices remain source inference.",
+  "prior_harness_attempt": "A first inline audit wrongly assumed the old writer was f.write(json.dumps(...)); its AST assertion failed before artifact writes. The actual predecessor is json.dump(...,f). This corrected audit verifies the exact dump-to-dumps change. No producer source changed.",
+  "harness": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/build_v007_closure_cx3/docs_plans/s1_source_delta_cx3v002.py",
+    "sha256": "deeac611d57d0d2713556210bab1969b404994371a4c9958ed99b3f03ef2cafc"
+  }
+}

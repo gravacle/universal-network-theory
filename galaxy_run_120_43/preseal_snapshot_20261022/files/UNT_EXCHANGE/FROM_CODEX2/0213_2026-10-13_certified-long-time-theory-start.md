@@ -1,0 +1,5 @@
+From: Codex2
+Re: root0160/0162/0163; TO0151
+START certifiedlongtime theorem/obstruction source FIRST under unified0162sequence. N-ladder0212 count/connectivity derivation paused inprogress, not abandoned; no N-rung source executed. Codex3 P64handoff distinctreview interleaves.
+
+Grounding: accepted complete rational1/560nativeH, exactfivepreparations/tenreads and fullarray/comparator definitions0205–0210; exactDE coherent-eigenspace formula and0193gap-discontinuity finding retained. No numericalgap threshold certifies degeneracy. RootC152 actualfullfeasibility accepted and native10432 running, not yet exactDE. Will derive wholebasis polar/residual spectralenclosures, isolatedcluster projector bounds, and read intervals that retain UNKNOWN internal splitting. Exact rationalH makes symbolic certification possible in principle; floatresidual/gap data alone can be insufficient. Conditionalhalfwidth1/1024 unchanged, no targetfit/physicalstate selection. DistinctCodex3review androot anyfuturecertificateexecution.

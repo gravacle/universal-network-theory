@@ -1,0 +1,402 @@
+{
+ "schema": "UNT_KMAX_EXT_LAUNCH_C2EXT_V002",
+ "status": "NOT_LAUNCHED (root launches)",
+ "supersedes": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/LAUNCH_EXT_V001.json",
+  "sha256": "a869567e284923ba5f1fd7276216e5aec3e6ebde0f1460bae4c86fb5e68070b6",
+  "why": "CHECK_V001 M1: route-A budget 32, output caps C5 96 GiB / C6 128 GiB, wall caps for 32 iterations; prereg V006 R1"
+ },
+ "preconditions": [
+  "SEAL_RECORD_V006_R1 exists pinning KMAX_MATRIX_PREREG_V006_R1.json 807fc5bfcb24ee779137746db3536f41dd97c16bd5f367f79ad5a1b8c3ec067c and kmax_compare_ext_c2v006_r1.py a78167468f372d0291c9cd8a6339e2432e5e5234989057e78496b3fe51794622 (seal preconditions: v006_r1/SEAL_READY_V006_R1.json)",
+  "REVIEW_V009_PREP_V009_V001.json present at extension_c5c6/check/ (a review distinct from this lane; V006 R1 binding_inputs.v009_admissibility: results are inadmissible at comparison time without it)",
+  "no C5/C6 outdir or receipt exists (the driver and the monitor also refuse an existing outdir / receipt)"
+ ],
+ "outdir_location": "External1 real path /Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext (CLAUDE2/runs_ext is a symlink to it; the real path is used so that every lexical path the driver writes equals the resolved path the route-A worker records).  Free at R1 build: see disk_free_bytes.",
+ "disk_free_bytes": {
+  "External1": 3997943713792
+ },
+ "pins": {
+  "python": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "monitor": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+   "sha256": "ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107"
+  },
+  "driver_v009": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py",
+   "sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6"
+  },
+  "prereg_v006_r1": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/prereg/KMAX_MATRIX_PREREG_V006_R1.json",
+   "sha256": "807fc5bfcb24ee779137746db3536f41dd97c16bd5f367f79ad5a1b8c3ec067c"
+  },
+  "compare_v006_r1": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/prereg/kmax_compare_ext_c2v006_r1.py",
+   "sha256": "a78167468f372d0291c9cd8a6339e2432e5e5234989057e78496b3fe51794622"
+  },
+  "estimates": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/ESTIMATES_V001.json",
+   "sha256": "a51d62810550aa0664e5b324962075c2593663e141ff49c8d868f937c9e0a33f"
+  }
+ },
+ "cap_rules": {
+  "wall": "wall_cap_s = 3600 * ceil(1.5 * (route_A(32) + route_B_proportional) / 3600), route_A(n) = measured iteration-0 prepare (analysis/prep_smoke, standalone) + n * G4 mean iteration * (n^3 ratio to G4) [/ 3.03 for N8] + G4 post * (n^3 ratio); route_B_proportional = ESTIMATES_V001 estimates.G*.route_b_s_proportional (the larger route-B model)",
+  "output": "CHECK_V001 M1: C5 96 GiB, C6 128 GiB (N8 and N1 write the same arrays)",
+  "rss": "unchanged from LAUNCH_EXT_V001 (24/32 GiB N8, 8/12 GiB N1)"
+ },
+ "output_model_at_32_iterations": {
+  "measured_G4_route_A_bytes": 11572753195,
+  "measured_G4_route_A_iterations": 7,
+  "source": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C4_V005_RUN_V001/stages/01_route_a",
+  "model": "route-A bytes ~ iterations (checkpoint blobs, attempt arrays and node diagnostics are per iteration) x n^3 ratio; route-B bytes = ESTIMATES output_bytes_GiB_estimate - route-A(G4 measured) x n^3 ratio; worst case = converged at the last iteration (a route A that exhausts the budget stops the call before route B)"
+ },
+ "calls": {
+  "C5_N8": {
+   "case": "C5",
+   "grid": "G5",
+   "route_a_column_workers": 8,
+   "route_a_max_iterations": 32,
+   "spec": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N8_M32_C2V009.json",
+    "sha256": "09ff5a96c02b0428f121138f5ebc23072333c743506a93774af9f496d7fc51e8"
+   },
+   "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001",
+   "outdir_via_symlink": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001",
+   "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001.receipt.json",
+   "caps": {
+    "rss_cap_bytes": 25769803776,
+    "rss_cap_GiB": 24.0,
+    "wall_cap_s": 50400,
+    "wall_cap_h": 14.0,
+    "output_cap_bytes": 103079215104,
+    "output_cap_GiB": 96.0,
+    "poll_s": 2.0
+   },
+   "estimates": {
+    "route_a_s_at_7_16_32_iterations": [
+     4293,
+     6875,
+     11465
+    ],
+    "route_b_s_linear_proportional": [
+     16318,
+     20057
+    ],
+    "call_s_upper_at_32": 31522,
+    "wall_cap_over_upper_at_32": 1.599,
+    "peak_rss_GiB_route_a_route_b": [
+     [
+      15.18,
+      15.41
+     ],
+     [
+      3.99,
+      3.84
+     ]
+    ],
+    "rss_cap_over_max_modelled_peak": 1.557,
+    "output_GiB_at_32_iterations_worst_case": 79.8,
+    "output_cap_over_estimate": 1.203,
+    "measured_iteration0_prepare_s_standalone": 648.6,
+    "scope": "models of ESTIMATES_V001 (measured under machine load 10-14); UNTESTED at G5/G6 until the calls run"
+   },
+   "command": [
+    "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-I",
+    "-B",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+    "--driver",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py",
+    "--driver-sha256",
+    "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+    "--spec",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N8_M32_C2V009.json",
+    "--outdir",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001",
+    "--receipt",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001.receipt.json",
+    "--wall-cap-s",
+    "50400",
+    "--rss-cap-bytes",
+    "25769803776",
+    "--output-cap-bytes",
+    "103079215104",
+    "--poll-s",
+    "2.0"
+   ],
+   "command_shell": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py --driver-sha256 999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6 --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N8_M32_C2V009.json --outdir '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001' --receipt '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001.receipt.json' --wall-cap-s 50400 --rss-cap-bytes 25769803776 --output-cap-bytes 103079215104 --poll-s 2.0"
+  },
+  "C6_N8": {
+   "case": "C6",
+   "grid": "G6",
+   "route_a_column_workers": 8,
+   "route_a_max_iterations": 32,
+   "spec": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N8_M32_C2V009.json",
+    "sha256": "8f28f5b6ce2b48fa417fb3248267d568604fbcd1c149df54222ec7bb398007fd"
+   },
+   "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001",
+   "outdir_via_symlink": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001",
+   "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001.receipt.json",
+   "caps": {
+    "rss_cap_bytes": 34359738368,
+    "rss_cap_GiB": 32.0,
+    "wall_cap_s": 68400,
+    "wall_cap_h": 19.0,
+    "output_cap_bytes": 137438953472,
+    "output_cap_GiB": 128.0,
+    "poll_s": 2.0
+   },
+   "estimates": {
+    "route_a_s_at_7_16_32_iterations": [
+     5910,
+     9451,
+     15748
+    ],
+    "route_b_s_linear_proportional": [
+     19104,
+     27513
+    ],
+    "call_s_upper_at_32": 43261,
+    "wall_cap_over_upper_at_32": 1.581,
+    "peak_rss_GiB_route_a_route_b": [
+     [
+      20.82,
+      21.35
+     ],
+     [
+      5.48,
+      5.14
+     ]
+    ],
+    "rss_cap_over_max_modelled_peak": 1.499,
+    "output_GiB_at_32_iterations_worst_case": 109.5,
+    "output_cap_over_estimate": 1.169,
+    "measured_iteration0_prepare_s_standalone": 910.3,
+    "scope": "models of ESTIMATES_V001 (measured under machine load 10-14); UNTESTED at G5/G6 until the calls run"
+   },
+   "command": [
+    "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-I",
+    "-B",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+    "--driver",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py",
+    "--driver-sha256",
+    "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+    "--spec",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N8_M32_C2V009.json",
+    "--outdir",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001",
+    "--receipt",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001.receipt.json",
+    "--wall-cap-s",
+    "68400",
+    "--rss-cap-bytes",
+    "34359738368",
+    "--output-cap-bytes",
+    "137438953472",
+    "--poll-s",
+    "2.0"
+   ],
+   "command_shell": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py --driver-sha256 999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6 --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N8_M32_C2V009.json --outdir '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001' --receipt '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001.receipt.json' --wall-cap-s 68400 --rss-cap-bytes 34359738368 --output-cap-bytes 137438953472 --poll-s 2.0"
+  },
+  "C5_N1": {
+   "case": "C5",
+   "grid": "G5",
+   "route_a_column_workers": 1,
+   "route_a_max_iterations": 32,
+   "spec": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N1_M32_C2V009.json",
+    "sha256": "16774734d607bc0f21e931cf8e5c987598610d8a98c8fea58553cf1c645d8abf"
+   },
+   "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001",
+   "outdir_via_symlink": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001",
+   "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001.receipt.json",
+   "caps": {
+    "rss_cap_bytes": 8589934592,
+    "rss_cap_GiB": 8.0,
+    "wall_cap_s": 75600,
+    "wall_cap_h": 21.0,
+    "output_cap_bytes": 103079215104,
+    "output_cap_GiB": 96.0,
+    "poll_s": 2.0
+   },
+   "estimates": {
+    "route_a_s_at_7_16_32_iterations": [
+     8370,
+     16193,
+     30100
+    ],
+    "route_b_s_linear_proportional": [
+     16318,
+     20057
+    ],
+    "call_s_upper_at_32": 50157,
+    "wall_cap_over_upper_at_32": 1.507,
+    "peak_rss_GiB_route_a_route_b": [
+     [
+      3.92,
+      4.15
+     ],
+     [
+      3.99,
+      3.84
+     ]
+    ],
+    "rss_cap_over_max_modelled_peak": 1.928,
+    "output_GiB_at_32_iterations_worst_case": 79.8,
+    "output_cap_over_estimate": 1.203,
+    "measured_iteration0_prepare_s_standalone": 648.6,
+    "scope": "models of ESTIMATES_V001 (measured under machine load 10-14); UNTESTED at G5/G6 until the calls run"
+   },
+   "command": [
+    "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-I",
+    "-B",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+    "--driver",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py",
+    "--driver-sha256",
+    "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+    "--spec",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N1_M32_C2V009.json",
+    "--outdir",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001",
+    "--receipt",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001.receipt.json",
+    "--wall-cap-s",
+    "75600",
+    "--rss-cap-bytes",
+    "8589934592",
+    "--output-cap-bytes",
+    "103079215104",
+    "--poll-s",
+    "2.0"
+   ],
+   "command_shell": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py --driver-sha256 999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6 --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N1_M32_C2V009.json --outdir '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001' --receipt '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001.receipt.json' --wall-cap-s 75600 --rss-cap-bytes 8589934592 --output-cap-bytes 103079215104 --poll-s 2.0"
+  },
+  "C6_N1": {
+   "case": "C6",
+   "grid": "G6",
+   "route_a_column_workers": 1,
+   "route_a_max_iterations": 32,
+   "spec": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N1_M32_C2V009.json",
+    "sha256": "d222348ba310ee0ec0a2dbc3203a13a4c2f2550b7eb69155f5e87e14c5336d8b"
+   },
+   "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001",
+   "outdir_via_symlink": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001",
+   "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001.receipt.json",
+   "caps": {
+    "rss_cap_bytes": 12884901888,
+    "rss_cap_GiB": 12.0,
+    "wall_cap_s": 104400,
+    "wall_cap_h": 29.0,
+    "output_cap_bytes": 137438953472,
+    "output_cap_GiB": 128.0,
+    "poll_s": 2.0
+   },
+   "estimates": {
+    "route_a_s_at_7_16_32_iterations": [
+     11502,
+     22233,
+     41311
+    ],
+    "route_b_s_linear_proportional": [
+     19104,
+     27513
+    ],
+    "call_s_upper_at_32": 68824,
+    "wall_cap_over_upper_at_32": 1.517,
+    "peak_rss_GiB_route_a_route_b": [
+     [
+      5.38,
+      5.9
+     ],
+     [
+      5.48,
+      5.14
+     ]
+    ],
+    "rss_cap_over_max_modelled_peak": 2.034,
+    "output_GiB_at_32_iterations_worst_case": 109.5,
+    "output_cap_over_estimate": 1.169,
+    "measured_iteration0_prepare_s_standalone": 910.3,
+    "scope": "models of ESTIMATES_V001 (measured under machine load 10-14); UNTESTED at G5/G6 until the calls run"
+   },
+   "command": [
+    "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-I",
+    "-B",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+    "--driver",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py",
+    "--driver-sha256",
+    "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+    "--spec",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N1_M32_C2V009.json",
+    "--outdir",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001",
+    "--receipt",
+    "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001.receipt.json",
+    "--wall-cap-s",
+    "104400",
+    "--rss-cap-bytes",
+    "12884901888",
+    "--output-cap-bytes",
+    "137438953472",
+    "--poll-s",
+    "2.0"
+   ],
+   "command_shell": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py --driver-sha256 999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6 --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N1_M32_C2V009.json --outdir '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001' --receipt '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001.receipt.json' --wall-cap-s 104400 --rss-cap-bytes 12884901888 --output-cap-bytes 137438953472 --poll-s 2.0"
+  }
+ },
+ "primary": [
+  "C5_N8",
+  "C6_N8"
+ ],
+ "alternates": [
+  "C5_N1",
+  "C6_N1"
+ ],
+ "sequencing": {
+  "order": [
+   "C5_N8",
+   "C6_N8"
+  ],
+  "rule": "start C5_N8; start C6_N8 when C5 leaves route A, i.e. when the C5 outdir progress.jsonl records \"stage\": \"route_a\", \"event\": \"finished\" (driver event of stage route_a) or the C5 receipt exists (the call ended), whichever is first.  C6 never overlaps C5 route A (at most 8 route-A workers + parent + the C5 route-B stages at once).",
+  "alternates": "an N1 alternate is used only in place of its N8 primary (same rule, same order)",
+  "C6_start_gate_shell": "until grep -qF '\"stage\": \"route_a\", \"event\": \"finished\"' '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001/progress.jsonl' 2>/dev/null || [ -e '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001.receipt.json' ]; do sleep 60; done",
+  "C6_start_gate_shell_if_C5_N1": "until grep -qF '\"stage\": \"route_a\", \"event\": \"finished\"' '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001/progress.jsonl' 2>/dev/null || [ -e '/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001.receipt.json' ]; do sleep 60; done"
+ },
+ "superseded_not_to_launch": [
+  "extension_c5c6/specs/CALL_KMAX_C{5,6}R3_A2F10_EXT_{N8,N1}_M16_C2V009.json (max_iterations 16; replaced by v006_r1/specs/*_M32_*)",
+  "extension_c5c6/specs/CALL_KMAX_C{5,6}R3_A2F10_EXT_{N8,N1}_C2V009.json (max_iterations 12)",
+  "extension_c5c6/LAUNCH_EXT_V001.json / .commands.txt"
+ ],
+ "comparison_after_runs": {
+  "cases_file_content": {
+   "C4": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C4R3_D7R3_RUN_V001/result.json",
+   "C5": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001/result.json",
+   "C6": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001/result.json",
+   "C3": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R3_D7R3_RUN_V001/result.json",
+   "C2": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R3_D7R3_RUN_V001/result.json",
+   "R": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_RR3_D7R3_RUN_V001/result.json"
+  },
+  "cases_note": "if an N1 alternate ran, its result.json replaces the N8 path of that case",
+  "command": [
+   "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+   "-I",
+   "-B",
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/prereg/kmax_compare_ext_c2v006_r1.py",
+   "--prereg",
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/prereg/KMAX_MATRIX_PREREG_V006_R1.json",
+   "--cases",
+   "<CASES_EXT.json with cases_file_content>",
+   "--outdir",
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/verdict_ext/COMPARE_EXT_R1_V001",
+   "--bracket-recovery",
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r3/KMAX_D7_RECOVERY_R3.json"
+  ]
+ }
+}

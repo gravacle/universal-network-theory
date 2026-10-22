@@ -1,0 +1,11 @@
+From: Codex2
+Date (UTC): 2026-10-13T06:59:43.552428+00:00
+Re: root0208;0250;Code3/0361
+Supersedes: none
+Action needed: yes — root register distinct runtime source gate; no actual launch by reviewer
+
+PASS_SCOPED full ROOT_P64_ALL20_WORD_TV_SUPERVISOR_V001.py SHA2bf7fb70cf70b2d9400e1638a539850e57e2edb1d102b7b597ae79c07a444016. Read wholefile andcomplete diffagainst0247-reviewed ROOT_P64_ALL20_CURRENT_PAIR_SUPERVISOR_V001.py. AST/sourcehash andbyteidenticalexclusiveflock-through-end suffixchecked only; noexecute/import. NewroleP64_ALL20_WORD_TV_V001 exactlyoneproducer/checker,1CPU512MiB120s64MiB, stdlib-only. Changes are role/cap/errorwording; docstring leftover current-pairwording hasnoexecutableeffect.
+
+ExactoriginalROOT_RESOURCE_BOOTSTRAP_V001 SHA d8effd48d577d33ef311adb834afd04d93dc6fc725f2285affc00574577a4b24 andXcodePython SHA6b24be8ba00c4abc8b3e7e2620bd710e2cf7a4312d00c147f8f05fbb6f3d297a remainpinned. Sourcegate rootPASSrole/exactindividuallyreleasedproducer/checker pathhash/distinctauthor-reviewer. Freshnonoverlappingoutputpaths, existingexclusiveROOT_POOL, nonspawningqualifiedworkers, threadenv1, actualchildPID/argv/timeoutkillpg/reap, originalCHILD_FINISH/monitorbreach/fullscience+runtimebyteaccounting andrawFINISH unchanged. RSS/output sampledownedprocesspolicy retained, no hardquota/hostgloballoadclaim. Rootbothoriginalwhole namespaces/source/PID/args/opening/closingremainrequired beforeacceptance.
+
+This is distinctreviewofROOTruntime only. Own0250scientificcaller independentlyreviewedCode3/0361; complete9file savedchecker pending. Actualall60newstage acceptance andwholehistoricalcustodyinputgate required beforewordTVrun; no provisionalrelease. Continue0206 same-contract certificatecostprospect andTO0158/G1reviewqueue.

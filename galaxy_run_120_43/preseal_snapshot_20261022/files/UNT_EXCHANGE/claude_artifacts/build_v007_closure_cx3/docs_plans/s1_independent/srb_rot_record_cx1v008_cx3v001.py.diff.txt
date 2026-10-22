@@ -1,0 +1,20 @@
+--- srb_rot_record_cx1v008.py
++++ srb_rot_record_cx1v008_cx3v001.py
+@@ -9,7 +9,7 @@
+ G.admission(__file__)
+ import hashlib,importlib.util,io,json,math,bisect,zipfile,ast,struct
+ import numpy as np
+-import postseal_records_cx1v006 as C
++import postseal_records_cx1v006_cx3v001 as C
+ RECON=Path(__file__).parent.parent/'calib_tail_readiness_cx2/certificates_per_point/reconstruction_cx2v003.py'
+ RECON_SHA='b8471197027bd2f0511966713656893860dfb22cba18e8d799ed2cc89b7c3a50'
+ 
+@@ -110,6 +110,7 @@
+   if C.pin(ref['path'])['sha256']!=ref['sha256']:raise ValueError('INPUT_CHANGED')
+  for path,digest in list(C.SNAPSHOTS.items()):
+   if C.pin(path)['sha256']!=digest:raise ValueError('INPUT_CHANGED_DURING_SRB')
++ serialized=json.dumps(G.stamp(rec,__file__),indent=1,allow_nan=False)
+  G.check_run_path(out,allow_registered=False)
+- with open(out,'x') as f:json.dump(G.stamp(rec,__file__),f,indent=1,allow_nan=False)
++ with open(out,'x') as f:f.write(serialized)
+ if __name__=='__main__':main()

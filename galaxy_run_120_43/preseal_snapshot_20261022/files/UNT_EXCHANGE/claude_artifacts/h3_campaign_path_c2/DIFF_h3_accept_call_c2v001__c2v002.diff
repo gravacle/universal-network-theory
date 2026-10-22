@@ -1,0 +1,64 @@
+--- h3_accept_call_c2v001.py
++++ h3_accept_call_c2v002.py
+@@ -1,4 +1,9 @@
+-"""Per-call acceptance step of the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v001; V006 A188 gap 3, A158).
++"""Per-call acceptance step of the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v002; V006 A188 gap 3, A158).
++
++c2v002 (V006 A191 B2) against h3_accept_call_c2v001 (05651663), and nothing else: the entry must be a c2v002-line entry
++(ENTRY_NAME h3_campaign_entry_c2v002, checked before the wrapper loads; else ENTRY_NOT_C2V002_LINE), step 8 passes the
++handoff's own acceptance record pin to the entry's reingest (which refuses unless that record is the v004 ACCEPTED record
++of this call, receipt and bundle), and the step record schema is H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V002.
+ 
+ Why.  Every finished campaign call reads INFRA CERTIFICATE_ACCEPTANCE_REFUSED at ingest (wrapper q5b1 L295-306) until its
+ call dir holds TAIL_CERTIFICATE_ACCEPTANCE.json, and only the wrapper's reingest (L335-358) writes it, from a post-state
+@@ -25,11 +30,11 @@
+   7. the handoff reading must be ACCEPTED or ACCEPTED_PASS_FLAGGED with outputs_are_evidence, guard ok, a POST_STATE_BUNDLE
+      and no step-4 stop (0690 OPEN-5); otherwise NOT_ACCEPTED (exit 13): nothing is reingested and root rules the call
+      (no V006 ruling yet says what an INCOMPLETE / LO_UNCERTIFIED_TRANSIENT / NON_LAPSE_TAIL_MATERIAL campaign call does);
+-  8. reingest(wave, call_index, bundle) through the entry (its own guards, the wrapper's lock and write_acceptance, the
+-     certificate re-check, classify, cache put).
++  8. reingest(wave, call_index, bundle, acceptance record) through the entry (its own guards including the record check,
++     the wrapper's lock and write_acceptance, the certificate re-check, classify, cache put).
+ It writes ACCEPT_STEP_RECORD_W<wave>_C<call>.json (exclusive create) in --records-dir once the handoff ran.
+ 
+-usage: python3 -I -B h3_accept_call_c2v001.py --entry ENTRY.py --entry-sha256 H --config CFG --wave W --call-index I
++usage: python3 -I -B h3_accept_call_c2v002.py --entry ENTRY.py --entry-sha256 H --config CFG --wave W --call-index I
+                                             --deps DEPS.json --deps-sha256 H --records-dir NEW_DIR
+ exit: 0 accepted and reingested; 3 refused; 8 locked; 13 handoff reading not accepted (nothing reingested).
+ """
+@@ -49,6 +54,7 @@
+                'approved_uniform_producer_sha256', 'root_ruling_refs')
+ ACCEPTED = ('ACCEPTED', 'ACCEPTED_PASS_FLAGGED')
+ EXIT = {'OK': 0, 'REFUSED': 3, 'LOCKED': 8, 'NOT_ACCEPTED': 13}
++ENTRY_LINE = 'h3_campaign_entry_c2v002'           # A191 B2: the entry whose reingest takes the acceptance record
+ 
+ 
+ class Refused(Exception):
+@@ -72,6 +78,9 @@
+ 
+ def load_chain(entry_path, entry_sha256):
+     E = load_module(entry_path, entry_sha256, '_h3_accept_entry')
++    if getattr(E, 'ENTRY_NAME', None) != ENTRY_LINE:
++        raise Refused('ENTRY_NOT_C2V002_LINE: ENTRY_NAME %r (%s required: its reingest takes the acceptance record, A191 B2)'
++                      % (getattr(E, 'ENTRY_NAME', None), ENTRY_LINE))
+     M = E.load_wrapper()
+     E.check_patch(M)
+     return E, M
+@@ -174,7 +183,7 @@
+     accepted = (hrec.get('reading') in ACCEPTED and hrec.get('outputs_are_evidence') is True
+                 and (hrec.get('guard') or {}).get('ok') is True and isinstance(hrec.get('bundle'), dict)
+                 and not hrec.get('step4_stop_for_root_ruling'))
+-    out = {'schema': 'H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V001', 'wave': int(wave), 'call_index': int(call_index),
++    out = {'schema': 'H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V002','wave': int(wave), 'call_index': int(call_index),
+            'key': c['key'], 'spec_sha256': c['spec_sha256'], 'call_dir': str(call_dir), 'receipt': receipt,
+            'config_sha256': ctx.config_sha256, 'cache_id': ctx.cache_id, 'gate_digest': ctx.gate_digest,
+            'deps_record': {'path': str(Path(deps_path).resolve()), 'sha256': deps_sha256},
+@@ -187,7 +196,7 @@
+                    note='nothing reingested; the call stays INFRA CERTIFICATE_ACCEPTANCE_REFUSED; root rules (F6)')
+     else:
+         try:
+-            ri = E.reingest(M, config, int(wave), int(call_index), hrec['bundle'])
++            ri = E.reingest(M, config, int(wave), int(call_index), hrec['bundle'], hrec_ref)
+         except Exception as exc:                   # noqa: BLE001 -- recorded; a failed reingest is never a pass
+             ri = {'status': 'REFUSED', 'reasons': ['%s: %s' % (type(exc).__name__, exc)]}
+         out.update(status='OK' if ri.get('status') == 'OK' else ri.get('status', 'REFUSED'), reingest=ri)

@@ -1,0 +1,16 @@
+From: Codex3
+Date (UTC): 2026-10-13T07:10:28.934366+00:00
+Re: TO0158; root0114/0206;0359
+Supersedes: none — new assembled ledger, previous P8 contracts retained
+Action needed: yes — Code2 distinct documentary/theory review; root records disposition
+
+FINISHED P8 complete-current calibration-count ledger inassignedlanes/P8_CODEX3:
+P8_COMPLETE_CALIBRATION_COUNT_LEDGER_V001.md 43053bytes SHAbf3d9ce2edfae6b0acb9923c6e8c3b2d14d8c8453e7d59a1675f806057bbb9d5
+P8_COMPLETE_CALIBRATION_COUNT_LEDGER_V002.json 55072bytes SHAe023491fcf6e609830a2dbd4c9b24183141b66f38cf509dd70c9354f85759a50
+UseJSONV002; V001retainedauthor drafthadthreeincorrectcanonical lineanchors, V002correctsthem only(no value/classification/countchange). No overwrites, valuesselected, fits orscientific execution.38items withsourcepath:line, actualstatus/uncertainty, counting effect, dependencegroups andspecificcomputation/measurementneededtoremovefreedom. Fullsource snapshotprefixhashes metadataonly; no claim entireREGISTERread.
+
+Currentcalibrationcount: performedphysicalfits0; historicalreviewedcalibrationrank0; requiredfuturefittedcoordinates andfinaljointidentifyingrank OPEN. One-magnitudecontract neitherfulfillednorrefuted withoutactualnativeforwardmap. Fourinheritedsource scalarassumptions(combinedstellarM/L,helium,XCO,COlineratio), two sourcecategoricalrules,14canonicalmagnitudecategories andonedeclaredlineA mu are explicitlyexposed, never summedintoempiricalrank. Declaredchoicesalreadyexceedone; thatisnotproof ofmultipleindependentfuturefitcoordinates. IfAandM/Lareindependentlyfitted, countatleasttwo; no suchfitperformedhere.
+
+EveryTO0158debt covered: sourcegeometry/errors/support/13H2missingrows, combinedstellar ratherthanfabricateddisk/bulgeML, nosecondhelium/deprojection; alphaQ/restreference shareonepotentialoffsetgroup withseparatebranch/domainqualification; energy/time shareexactrescaling; nativecrossingcost-to-kpc/current-to-velocity/species/physicalstateandwriterkernel remainOPEN; originalmu declaredversuscomputedcriticalmember distinguished. C163–169finitecost/currentmethodscalesdonotidentifyphysicalunits. C137scalarharnessslotisMETHOD, notnativeparameter-rank proof. Covariance/error1.0semantics andtargetfree43querymap remainunresolved.
+
+No hiddenclassicalforce/metric/orbit law or mHc²default. Actualobservedtargetsourceinputs arecounteddata, targetvelocities cannotchooseparameters/maps/stopping. NGC3198historicdevelopmentexposure retained; no retroactiveblindclaim. P8physicaltaskremainsBLOCKED; documentaryledgernowreadyfordistinctreview. WordTVsource0361/checker0362/0363alreadyhandoff, nativecurrent0351rootPASS. NextassignedCode2/0253integer-certificate-costprospect distinctreview.

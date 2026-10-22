@@ -1,0 +1,249 @@
+{
+ "schema": "C2_ROOTVERIFY_VALUES_WRITER_V004_V001",
+ "date_u": "Tue Oct 20 15:10:17 UTC 2026",
+ "verifier": "Claude2 lineage, root independent verifier",
+ "object": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2/values_writer_c2v004_cx2v002.py",
+  "sha256": "26319ecbfaf944c80c5df91a0c592899727e6ff9f5177404ebc49309bd906f0e"
+ },
+ "predecessor": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_c2/values_writer_c2v003a.py",
+  "sha256": "965ed282467dc0a1e57aab5fe0758e8a1c8fb1a343888961798993fcd44e1989"
+ },
+ "handoff_of_record": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_acceptance_c2/ngc_acceptance_handoff_c2v005.py",
+  "sha256": "7077ad9337d48b444bb724b3d0dca531e615bbb09656fa00ba453bacf2e634b1"
+ },
+ "codex2_report": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX2/0536_2026-10-20_A205_part4_values_writer_v004_finished.md",
+  "sha256": "f5ba9394bd9e3ef03bf4524a15a1014eaa5e863cebc9187c354d151f2146d046"
+ },
+ "verdict": "PASS_WITH_NOTES",
+ "blocking": [],
+ "checks": {
+  "1_hashes": "TESTED: all 18 HASHES_V004_CX2V001 lines OK from bytes; HASHES file b80a70b3 = 0536; README inputs, loaded code and superseded candidates all match from bytes",
+  "2_ast": "TESTED: 29 top-level defs each side, same order; 27 AST-identical; changed exactly check_acceptance, values_point. Module statements changed: docstring, MODULE, ACCEPTANCE_SCHEMAS, ACCEPTANCE_HANDOFFS, MEMBER_ACCEPTANCE_PRODUCERS, PRODUCER_GAP, W3_RULE; NGC_ACCEPTANCE_ROUTE value unchanged. Root diff body == published DIFF_V003A_TO_V004_CX2V002 body. cx2v001->cx2v002: docstring L1, MODULE L58, W3_RULE L112-113 only",
+  "2_a159_line_by_line": {
+   "schema_sha_pin": "L86, L87, L93 = handoff L108 RECORD_SCHEMA (AST from bytes) and handoff sha 7077ad93 from bytes (A211)",
+   "route": "L92 = handoff L112 ROUTE; enforced by exact equality L651-652 for every supplied record, both phases",
+   "phase1_gate": "L679-681: Phase-1 valid[q] also needs acc present and counts_for_member_valid (ACCEPTED or LO_UNCERTIFIED_TRANSIENT); Phase-2 rows keep W-3; member_valid L689-690",
+   "O1": "L90 == handoff L114 MEMBER_LO_OK; L661; ACCEPTED_PASS_FLAGGED counts false (P6, P7)",
+   "O3": "call_outputs L459-467 applied False, AST-identical to v003a; printed at L526/L569; M02 killed",
+   "DDO_refused": "L646-647 with ACCEPTANCE_SCHEMAS = (C2V005,); S1, S6 and Codex2 DDO_schema refuse",
+   "A152": "ROOT_RULING L77-78 sha 5aee4cc0 == live V006 A152 section bytes, recomputed by root"
+  },
+  "3_reruns": {
+   "gate_run_1_c2/RESULT_GATE_TESTS_CX2V001.json": {
+    "n": 67,
+    "passed": 67
+   },
+   "gate_run_2_guarded_c2/RESULT_GATE_TESTS_CX2V001.json": {
+    "n": 67,
+    "passed": 67
+   },
+   "harness_copy_c2/port_run_1_c2/RESULTS_PORTED_SUITE_CX2V001.json": {
+    "n": 166,
+    "passed": 166
+   },
+   "harness_copy_c2/port_run_2_c2/RESULTS_PORTED_SUITE_CX2V001.json": {
+    "n": 166,
+    "passed": 166
+   },
+   "port_run_3_guarded_c2/RESULTS_PORTED_SUITE_CX2V001.json": {
+    "n": 166,
+    "passed": 166
+   },
+   "port_readme_literal_c2/RESULTS_PORTED_SUITE_CX2V001.json": {
+    "n": 2,
+    "passed": 1
+   },
+   "mutations_c2/RESULT_MUTATIONS_CX2V001.json": {
+    "n": 9,
+    "passed": 9
+   },
+   "adversarial_run_1_c2/RESULT_ADVERSARIAL_C2.json": {
+    "n": 85,
+    "passed": 85
+   },
+   "adversarial_run_2_c2/RESULT_ADVERSARIAL_C2.json": {
+    "n": 85,
+    "passed": 85
+   },
+   "own_mutants_c2/RESULT_OWN_MUTANTS_C2.json": {
+    "n": null,
+    "passed": null
+   }
+  },
+  "4_adversarial": "TESTED: 85/85 twice; own mutants: root suite kills 6/6, Codex2 gate suite kills 2/6 (MA3, MA4)",
+  "4_own_mutants": [
+   {
+    "name": "MA1_handoff_sha_prefix_only",
+    "codex2_gate_killed": false,
+    "root_adversarial_killed": true
+   },
+   {
+    "name": "MA2_route_substring",
+    "codex2_gate_killed": false,
+    "root_adversarial_killed": true
+   },
+   {
+    "name": "MA3_gate_applied_to_phase2_rows",
+    "codex2_gate_killed": true,
+    "root_adversarial_killed": true
+   },
+   {
+    "name": "MA4_phase1_gate_only_excludes_incomplete",
+    "codex2_gate_killed": true,
+    "root_adversarial_killed": true
+   },
+   {
+    "name": "MA5_binding_by_result_sha_only",
+    "codex2_gate_killed": false,
+    "root_adversarial_killed": true
+   },
+   {
+    "name": "MA6_schema_case_insensitive",
+    "codex2_gate_killed": false,
+    "root_adversarial_killed": true
+   }
+  ],
+  "5_data": {
+   "guard_logs": {
+    "OPEN_LOG_gate_run_2_c2.json": {
+     "refused": [
+      {
+       "kind": "RESEARCH_NON_PY_READ",
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2/__pycache__/values_writer_c2v004_cx2v002.cpython-312.pyc"
+      }
+     ],
+     "other_reads_outside_runtime": [],
+     "writes_outside_work": [],
+     "allowed_data_reads": [],
+     "research_listings_outside_work": []
+    },
+    "OPEN_LOG_port_run_3_c2.json": {
+     "refused": [
+      {
+       "kind": "RESEARCH_NON_PY_READ",
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/__pycache__/calibration_orchestrator_c2v005.cpython-312.pyc"
+      }
+     ],
+     "other_reads_outside_runtime": [],
+     "writes_outside_work": [],
+     "allowed_data_reads": [
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2/AUTHORIZED_RULINGS_CX2V001.json"
+     ],
+     "research_listings_outside_work": []
+    },
+    "OPEN_LOG_adversarial_run_1_c2.json": {
+     "refused": [
+      {
+       "kind": "RESEARCH_NON_PY_READ",
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2/__pycache__/values_writer_c2v004_cx2v002.cpython-312.pyc"
+      }
+     ],
+     "other_reads_outside_runtime": [],
+     "writes_outside_work": [],
+     "allowed_data_reads": [],
+     "research_listings_outside_work": []
+    }
+   },
+   "reading": "TESTED parent-process: no NGC3198-named, ~/.codex or V007 open; the only non-.py research read is the authorized A152 snapshot; the only refusal is the absent __pycache__ .pyc probe; every write stays in work. Child CLIs: static, synthetic MANIFEST/ROOT_RULING substituted (port L1052-1055) or ROOT_RULING None (port L590-593). Writer real-data entry points MANIFEST L96-98 (check_manifest L628) and V006 (check_root_ruling L232) are replaced by fixtures in every suite"
+  }
+ },
+ "notes": [
+  "N1 reproducibility: the README command fails when NEW_DIRECTORY is outside values_writer_cx2: run_guarded_port_cx2v001.py L15-19 admits non-.py research reads only under its own folder, so the suite read-back of its own fixtures is refused (port_readme_literal_c2: SUITE CRASH, 1/2). Byte-identical copies of wrapper, port and snapshot in harness_copy_c2 reproduce 166/166 twice. Fix in a successor wrapper: admit reads under --work.",
+  "N2 test coverage: the Codex2 gate suite does not kill MA1 (sha prefix), MA2 (route substring), MA5 (result path dropped from the binding), MA6 (schema normalisation). The shipped code uses exact equality (L646, L649, L651, L653) and the root adversarial suite kills all four.",
+  "N3 comments/dead code: L88-89 still labels ACCEPTANCE_READINGS as the DDO handoff c2v004 list; the NGC c2v005 READINGS (L113) are a strict subset, and DDO-only readings on an NGC record are admitted and count false (O4). L659 g5 is always true after L646/L649, so the PRODUCER_GAP branches L662/L693 are unreachable. Behaviour-neutral.",
+  "N4 early-refusal records: handoff _accept sets rec[result] only at L605; a record refused earlier (L589-600) has no result key, and the writer then refuses the whole assembly with ACCEPTANCE_NOT_OF_THIS_CALL (L653, test B2) instead of reading invalid rows. This fails closed. Root procedure: pass acceptance=None for that point (Phase-1 rows invalid; member basis NO_ACCEPTANCE_RECORD) or rerun acceptance.",
+  "N5 trust boundary: eligibility comes from reading only; member_lo_ok and blockers are not cross-checked (O1, O2) and the handoff path is not read (O3, sha only). Identity rests on root acceptance-record pin (read_pinned L149-158) plus the handoff sha field, as in A152 W-3 and A159 O-1.",
+  "N6 the mutation script runs the port mutants without the guard wrapper (mutation L25). The guarded port run shows the parent reads only six pinned .py files plus the snapshot."
+ ],
+ "untested": "real-call assembly and a real handoff c2v005 record on a real call; deciding test: root first accepted real-call assembly through its authorized gates",
+ "files": [
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/guard_open_log_c2.py",
+   "sha256": "1f56ebd52f7441474cf64770151b294eb05164aac0c4bfa623af93f6028d7546"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/adversarial_values_writer_c2.py",
+   "sha256": "9b7e67387862a0032124781111b728834bf127f7ee3986523b1f22c4b182520d"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/mutation_adversarial_c2.py",
+   "sha256": "7f98d7262a1cef4c36417a9f14592d4efff8822f90d1b1052021327cb1639979"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/harness_copy_c2/run_guarded_port_cx2v001.py",
+   "sha256": "14d533b8d5d7b646d637e9ac9f9f04846569b74463d1f6b5d1e5979d0b7ef5e5"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/harness_copy_c2/test_values_writer_c2v004_cx2v001.py",
+   "sha256": "5f09c69303cef21836818f543e342f39b61ba4261f5c67f25ff9fb9cabb5fca5"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/harness_copy_c2/AUTHORIZED_RULINGS_CX2V001.json",
+   "sha256": "db21ee29abfc92e61191833072db931b57fa61f735a98efff62ca6e01754f273"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/gate_run_1_c2/RESULT_GATE_TESTS_CX2V001.json",
+   "sha256": "60b12b9b841d7b7bbfadca5e7222ed5e2ec0e57262eb9defa0de3f6d1f923346"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/gate_run_2_guarded_c2/RESULT_GATE_TESTS_CX2V001.json",
+   "sha256": "716608081467922f77f1de01aa9761789e2b51cb40ab0771ce738d6541e85315"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/harness_copy_c2/port_run_1_c2/RESULTS_PORTED_SUITE_CX2V001.json",
+   "sha256": "9ca924e4ae070ae3a9ec5a7a44f13f02f71814f912e6a0036afb256c093c77e1"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/harness_copy_c2/port_run_1_c2/DEPENDENCY_READ_LOG_CX2V001.json",
+   "sha256": "4466d126da7b01e0b25db0d888bbcb5e79d645f3c2f7fe02edcc12478af95827"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/harness_copy_c2/port_run_2_c2/RESULTS_PORTED_SUITE_CX2V001.json",
+   "sha256": "b2e916763d513f1c423ebfba644db9094a3895289e6202d817c87a348fd96fcd"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/harness_copy_c2/port_run_2_c2/DEPENDENCY_READ_LOG_CX2V001.json",
+   "sha256": "4466d126da7b01e0b25db0d888bbcb5e79d645f3c2f7fe02edcc12478af95827"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/port_run_3_guarded_c2/RESULTS_PORTED_SUITE_CX2V001.json",
+   "sha256": "f3675c965b45d93ddf10f131efc6770971884a504f8b9be4a83f1a0783b88d9b"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/port_readme_literal_c2/RESULTS_PORTED_SUITE_CX2V001.json",
+   "sha256": "10737c02423842c64c08193430a2c798ab3476d1ca3c387f5fdcae2898474b57"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/mutations_c2/RESULT_MUTATIONS_CX2V001.json",
+   "sha256": "b5e9cf9a5404cb71b82ac04f6ce6bdac2b875dd4c375140337a8134e4742ee36"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/adversarial_run_1_c2/RESULT_ADVERSARIAL_C2.json",
+   "sha256": "18eb09152c840d1df917bdc09b69b308eed38b1ef0cdcc23f53d720c13665bf7"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/adversarial_run_2_c2/RESULT_ADVERSARIAL_C2.json",
+   "sha256": "914d131754919e869211f2f4986070ce835ea2a4e2cf4f86d1d9857692dcd18b"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/own_mutants_c2/RESULT_OWN_MUTANTS_C2.json",
+   "sha256": "820975c93f2cc978e68ff9583013751e9d011ca08fff2a4da9727d6aa1b7e22f"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/OPEN_LOG_gate_run_2_c2.json",
+   "sha256": "5407a1827f94ea4d180493aabdc2f269ae2168ce793b07204ffce2feaf0229d9"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/OPEN_LOG_port_run_3_c2.json",
+   "sha256": "3c97281ab6626b6632d3021f3716ec71fef3cf85db5eb6bdab8b43325d318ebe"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2_rootverify_c2/OPEN_LOG_adversarial_run_1_c2.json",
+   "sha256": "11e26a593bbf8353dd05e5a53c07add1283431088e46c41dcb3decc083925d13"
+  }
+ ]
+}

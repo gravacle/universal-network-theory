@@ -1,0 +1,165 @@
+{
+  "schema": "CX1_IMPORTER_POLICY_DRAFT_V001",
+  "status": "NOT_INSTALLABLE_REVIEW_DRAFT",
+  "scientific_launch_authority": false,
+  "components": {
+    "register_two_stage_cx1v001.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/register_two_stage_cx1v001.py",
+      "sha256": "ebfde7c92bba29198197cd6d63868686e7bd9661f3fbdbd85cd0a2ef7fb2ce4e"
+    },
+    "registered_runtime_cx1v002.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/registered_runtime_cx1v002.py",
+      "sha256": "533f29ba2cc425076bb118fb7cebea2a8f112816675fbc524932f469e33885d0"
+    },
+    "runtime_distribution_capture_cx1v003.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_capture_cx1v003.py",
+      "sha256": "5959d782883824e1943bd94d9f921643069cb79c5e02dcb0dfcafce4ade28f40"
+    },
+    "runtime_distribution_record_cx1v003.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_record_cx1v003.py",
+      "sha256": "6b2401b7b640186cbdd1598971efe3499386a5c1592a56a4e2f88fa5a9358e32"
+    },
+    "runtime_distribution_bytes_cx1v003.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_bytes_cx1v003.py",
+      "sha256": "3af50366d51e0913e3580a78df26fb0e228a00574d44af7410b1c9acf418d000"
+    },
+    "runtime_distribution_owned_bytes_cx1v003.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_owned_bytes_cx1v003.py",
+      "sha256": "ebc90499108f4246e8b7a90ce313827e008dcf614c57df160f2f0817aa0a9eb2"
+    },
+    "runtime_distribution_discovery_cx1v004.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_discovery_cx1v004.py",
+      "sha256": "d34dc513c2b58ec4717e6e4c4f0ba27814c2b5b74e4fcaf3819ae125850970bb"
+    },
+    "envelope_observation_adapter_cx1v002.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/envelope_observation_adapter_cx1v002.py",
+      "sha256": "9ecc42e7f666056462de52baf80cd15d4ee1d3347bb49a9b8007c4bfe21ec375"
+    },
+    "envelope_observation_guard_cx1v001.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/envelope_observation_guard_cx1v001.py",
+      "sha256": "5be51d47306b497f271a5be34509786a1442419833aa51e4398e63dc207c40d7"
+    },
+    "phase_invalidation_cx1v001.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/phase_invalidation_cx1v001.py",
+      "sha256": "9b7013aed659373ba201b57dbe3ecec6456707167d5ec43f3ba686b95d170c8a"
+    },
+    "cache_verify_scope_cx1v003.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_verify_scope_cx1v003.py",
+      "sha256": "95c7811ed89d5a1e33a5a88130fb688b9a9778670d675a102d832dd2166daf00"
+    },
+    "cache_phase_forward_cx1v001.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_phase_forward_cx1v001.py",
+      "sha256": "68c81ef6b86b4675e74cf8b211412794fddc72d4bd709c6ed2ad9eb1dbd456d3"
+    },
+    "executor_hook_cx1v004.py": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/executor_hook_cx1v004.py",
+      "sha256": "d70fa4dad9f944e6218d8da4817d581c05c25760a6b2f038655b08ee678a6f11"
+    }
+  },
+  "register": {
+    "require_both": true,
+    "register_schema": "SPECULATIVE_REGISTER_L2_V001",
+    "binding_schema": "SPECULATIVE_REGISTER_BINDING_L2_V001",
+    "rows": [
+      28,
+      29,
+      30,
+      31,
+      300,
+      301,
+      302
+    ],
+    "binding_fields": [
+      "register_sha256",
+      "config_sha256",
+      "cache_id",
+      "gate_digest"
+    ],
+    "trusted_pins_source": "Separate root-authenticated binding supplied to entry; never candidate-controlled",
+    "early_invalid": "retain registered original; never auto-ingest"
+  },
+  "runtime": {
+    "rule": [
+      "0845",
+      "0847"
+    ],
+    "capture_schema": "CX1_RUNTIME_DISTRIBUTIONS_V001",
+    "compare": [
+      "interpreter binary sha256",
+      "driver sha256",
+      "monitor sha256",
+      "distribution versions and sorted-relative-file-byte digests",
+      "import-to-distribution associations",
+      "normalized thread environment",
+      "macOS build"
+    ],
+    "exclude_from_package_equality": [
+      "__pycache__"
+    ],
+    "record_unlisted_files": true,
+    "scientific_modules": "Driver exec_verified lines577-586 and SCRIPTS pin table under0845",
+    "require_root_launch_association": true,
+    "deputy_ruling": "D001",
+    "record_prefix_files": {
+      "resolution": "normpath relative to site-packages RECORD base",
+      "boundary": "realpath(sys.prefix)",
+      "requires": "regular lstat file; no symlink in path; missing or outside prefix refuses",
+      "namespace": "prefix:<relative>",
+      "equality": "included",
+      "traversal": "explicit RECORD files only; never enumerate prefix"
+    }
+  },
+  "envelope": {
+    "phase": "L2_DIRECT",
+    "tool_sha256": "9d531381615f7b68f2f33bfc19f0aa2bcfe97a4e6f5c0e93187ea8eb35ce8d9a",
+    "start": "before seven-call launch",
+    "end": "after last import/discard",
+    "coverage": [
+      "driver",
+      "monitor",
+      "seven specs",
+      "launcher",
+      "guard",
+      "binder",
+      "DBP",
+      "register",
+      "runtime captures",
+      "importer policy",
+      "importer entry"
+    ],
+    "deputy_ruling": "D002",
+    "admission": "Root-bound START compared with fresh read-only same-pinset observation using pinned tool code; observation never END and no phase-folder writes",
+    "final_owner": "Claude2 root, one END after last import/discard",
+    "final_failure": {
+      "triggers": [
+        "INVALIDATE",
+        "exit 3",
+        "refusal"
+      ],
+      "all_phase_imports": "INVALIDATED_BY_ENVELOPE",
+      "further_use": "refuse",
+      "already_consumed_campaign": "freeze",
+      "remedy": "root only, ROOT_ESCALATION required"
+    },
+    "phase_identity": "Root binding must bind phase to exact START and pinset pins, not candidate fields; durable event ingestion not yet implemented"
+  },
+  "unresolved": [
+    "Authenticated root binding and launch association, independent of candidate evidence",
+    "Complete durable phase event ingestion, freshness/completeness and all consumer freeze enforcement",
+    "Acceptance producer and lifecycle/observer integration",
+    "Separate installer/entry with full dependency pins, distinct review and root adoption"
+  ],
+  "revision": "CX1V002",
+  "supersedes_draft": "IMPORTER_POLICY_DRAFT_CX1V001.json",
+  "cache_enforcement": {
+    "required_hooks": [
+      "cache_verify_scope_cx1v003.py",
+      "cache_phase_forward_cx1v001.py"
+    ],
+    "reason": "Actual forward path does not call _verify_impl; both hooks required",
+    "check_timing": "fresh phase-use check before and after original verifier/forward while parent lock remains held",
+    "historical_entries": "not rewritten; invalidation projected over phase admissions",
+    "installation": "UNINSTALLED"
+  },
+  "validation_scope": "Component and actual cache-method inert tests only; not a complete importer or production readiness verdict"
+}

@@ -1,0 +1,401 @@
+--- test_s1_path_c2v002.py	2026-10-19 12:50:47.685280497 -0500
++++ test_s1_path_c2v002a.py	2026-10-19 13:26:11.824173970 -0500
+@@ -1,9 +1,15 @@
+-"""Synthetic tests for the S1 path c2v002 (MUST_PASS / MUST_FAIL). Target-free; launches nothing.
++"""Synthetic tests for the S1 path c2v002a (MUST_PASS / MUST_FAIL). Target-free; launches nothing.
+ 
+-  python3 -I -B test_s1_path_c2v002.py --run-dir <a new directory>
++  python3 -I -B test_s1_path_c2v002a.py --run-dir <a new directory>
+ 
+-Ports the 87 c2v001 tests (ids kept; a test whose expected outcome the c2v002 fixes change is ported to the new
+-expectation and says so) and adds MUST_FAIL tests for B1-B3, notes 1, 2, 4-13 and the verifier's E2-E7 probes.
++Ports all 135 c2v002 tests with ids and expected codes unchanged (the c2v002 suite ported the 87 c2v001 tests and added
++MUST_FAIL tests for B1-B3, notes 1, 2, 4-13 and the verifier's E2-E7 probes); R-P1 also requires fill_record_replayed,
++and L-F15's refusal (same code and stage) now comes from the replay, with the case as detail. It adds the BLK-1
++tests: an edited fill record
++(branch, theta_key, physical_u_A, every other consumed field, a log-only u_A point, a swapped spec) refused at read
++time, by guard_replay, by guard012's own validate and by the launch path; the read CLI refusing it; the BLK-1 defect
++reproduced on the predecessor's bytes (so the MUST_FAIL inputs are not vacuous); format compatibility with c2v002.
++The predecessor library s1_path_lib_c2v002.py (e3ca4d80) is loaded read-only, by path and sha, for B-P1, A-P2, F-P8.
+ 
+ Every fixture is synthetic and is written inside --run-dir (created here; it must not exist). Read-only inputs are the
+ pinned registered files the library names (P5, CB, coordinate spec, CORE, ORC, q5b1 and its loaded modules, guard012,
+@@ -34,7 +40,9 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB_PATH = HERE / 's1_path_lib_c2v002.py'
++LIB_PATH = HERE / 's1_path_lib_c2v002a.py'
++PRED_LIB = {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/s1_path_lib_c2v002.py',
++            'sha256': 'e3ca4d80fee093456117a6fe3401861c8166f5015c9ad99e7b04feae7410bc1c'}
+ CFG_PIN = {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v003/RUN_CONFIG_DDO154_CX2V006R9_S45_C2V003.json',
+            'sha256': 'd9241676c3b7b32bd3067a55bdfb7821ebc33a68adbdc011ab4e4c58b6e50a4d'}
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts'
+@@ -62,7 +70,7 @@
+ 
+ def load_lib():
+     raw = LIB_PATH.read_bytes()
+-    m = types.ModuleType('s1_path_lib_c2v002')
++    m = types.ModuleType('s1_path_lib_c2v002a')
+     m.__file__ = str(LIB_PATH)
+     exec(compile(raw, str(LIB_PATH), 'exec'), m.__dict__)
+     return m, hashlib.sha256(raw).hexdigest()
+@@ -134,7 +142,7 @@
+ 
+ 
+ def syn_v6(extra_lines=(), with_registration=True, with_producer=True, tag='v6'):
+-    lines = ['# synthetic V006 for the S1 path c2v002 tests', '', '## A150: synthetic entry', '']
++    lines = ['# synthetic V006 for the S1 path c2v002a tests', '', '## A150: synthetic entry', '']
+     if with_registration:
+         lines.append('**Registration in force:** `claude_artifacts/s1_path_c2/S1_REGISTRATION_DRAFT_C2V002.md`, sha256 `%s`.'
+                      % L.REGISTRATION_SHA)
+@@ -362,11 +370,12 @@
+ 
+ def make_admitted_plan(fx, tag, case, *, policy='ok', v007=None, status='ROOT_AUTHORIZED', core_priority=None,
+                        drop_driver=False, prelaunch_tamper=False, force_plan=None, batch=None, overlap=False,
+-                       context='successor', fill_tag='off'):
+-    """spec -> native prelaunch record (real guard012) -> plan (lib.make_plan) -> admission (synthetic root bytes)."""
++                       context='successor', fill_tag='off', fill_override=None):
++    """spec -> native prelaunch record (real guard012) -> plan (lib.make_plan) -> admission (synthetic root bytes).
++    fill_override (c2v002a, BLK-1 tests): a fill-record pin used in place of fill_tag's (plan s1 block and s1_overlap)."""
+     fx.n_adm += 1
+     d = mkdir(fx.g / ('adm_%03d_%s' % (fx.n_adm, tag)))
+-    fill = fx.fill[fill_tag]
++    fill = fx.fill[fill_tag] if fill_override is None else {'rec': L.pinned_json(fill_override), 'pin': fill_override}
+     spec_ref = fill['rec']['cases'][case]['spec']
+     pol = fx.policy[policy]
+     ctx = fx.context[context]
+@@ -1348,7 +1357,8 @@
+           and all(out['rows'][i]['delta4_bitwise_equal'] for i in ids)
+           and out['tests']['TH2_K3_K4']['noise']['decidable'] is True and out['tests']['TH2_K3_K4PRIME']['status'] == 'PASS'
+           and 'UNTESTED at every other point' in out['label'] and out['compare'] == L.const_pin('COMPARE_R14')
+-          and all((out['validity'][c]['ro1'] or {}).get('worker_kind') == 'parallel' for c in L.RUNS))
++          and all((out['validity'][c]['ro1'] or {}).get('worker_kind') == 'parallel' for c in L.RUNS)
++          and out.get('fill_record_replayed') is True)                  # c2v002a: the fill record was replayed (BLK-1)
+     return ok, {'code': out['code'], 'Dhat': out['statistic']['Dhat_S1'], 'effect': out['step5_effect']}
+ 
+ 
+@@ -1877,14 +1887,14 @@
+     m = wjson(fresh('cli_manifest') / 'manifest_no_u_a.json',
+               {'schema': L.SCHEMA_MANIFEST, 'registration': FX.reg, 'v6': real, 'u_A_status': 'NO_U_A:SYNTHETIC_CLI_TEST',
+                'runs': {}})
+-    rc, so, se = _cli('s1_read_c2v002.py', ['--manifest', _p(m)])
++    rc, so, se = _cli('s1_read_c2v002a.py', ['--manifest', _p(m)])
+     o = json.loads(so) if so.strip().startswith('{') else {}
+     return rc == 0 and o.get('code') == 'NOT_RUN', {'rc': rc, 'code': o.get('code'), 'stderr': se[-300:]}
+ 
+ 
+ @test('W-P2', 'MUST_PASS')
+ def t_cli_dry_plan():
+-    rc, so, se = _cli('s1_fill_c2v002.py', ['dry-plan', '--u-a', _p(FX.ua['off']), '--base-spec', _p(FX.base['off']),
++    rc, so, se = _cli('s1_fill_c2v002a.py', ['dry-plan', '--u-a', _p(FX.ua['off']), '--base-spec', _p(FX.base['off']),
+                                             '--campaign-config', _p(CFG_PIN), '--c3t-registry', _p(FX.registry['off'])])
+     o = json.loads(so) if so.strip().startswith('{') else {}
+     return rc == 0 and o.get('dry') is True and o.get('blockers') == [], {'rc': rc, 'stderr': se[-300:]}
+@@ -1894,7 +1904,7 @@
+ def t_cli_launch_pending():
+     adm = make_admitted_plan(FX, 'cli', L.S1_C4T)
+     real = L.pin_of(REAL_V6_PATH)
+-    rc, so, se = _cli('s1_launch_root_c2v002.py', ['--plan', _p(adm['plan']), '--registration', _p(FX.reg), '--v6', _p(real),
++    rc, so, se = _cli('s1_launch_root_c2v002a.py', ['--plan', _p(adm['plan']), '--registration', _p(FX.reg), '--v6', _p(real),
+                                                    '--launch-config', _p(FX.lcfg['INACTIVE'])])
+     o = json.loads(so)
+     return rc == 3 and o['refusal']['code'] == 'PUBLISHED_STEP4_ADMISSION_PENDING' and o['trace'][-1] == 'control_C2_admission_load', \
+@@ -1904,10 +1914,10 @@
+ @test('W-F2', 'MUST_FAIL')
+ def t_cli_lib_changed():
+     d = mkdir(RUN / 'cli_tamper')
+-    for f in ('s1_read_c2v002.py',):
++    for f in ('s1_read_c2v002a.py',):
+         wbytes(d / f, (HERE / f).read_bytes())
+-    wbytes(d / 's1_path_lib_c2v002.py', LIB_PATH.read_bytes() + b'\n# tampered\n')
+-    r = subprocess.run([PY, '-I', '-B', str(d / 's1_read_c2v002.py'), '--manifest', '/x@y'], capture_output=True, text=True, timeout=120)
++    wbytes(d / 's1_path_lib_c2v002a.py', LIB_PATH.read_bytes() + b'\n# tampered\n')
++    r = subprocess.run([PY, '-I', '-B', str(d / 's1_read_c2v002a.py'), '--manifest', '/x@y'], capture_output=True, text=True, timeout=120)
+     return r.returncode == 3 and 'LIB_BYTES_CHANGED' in r.stdout, {'rc': r.returncode, 'stdout': r.stdout[-200:]}
+ 
+ 
+@@ -1917,7 +1927,7 @@
+     d = fresh('cli_int')
+     rec = {k: v for k, v in FX.fill['off']['rec'].items() if k not in ('cases', 'record')}
+     fpin = wjson(d / 'FILL_RECORD_NO_CASES.json', rec)
+-    rc, so, se = _cli('s1_fill_c2v002.py', ['plan', '--fill-record', _p(fpin), '--case', 'S1_UA_C4T', '--dry'])
++    rc, so, se = _cli('s1_fill_c2v002a.py', ['plan', '--fill-record', _p(fpin), '--case', 'S1_UA_C4T', '--dry'])
+     o = json.loads(so) if so.strip().startswith('{') else {}
+     return rc == 3 and o.get('refused') == 'INTERNAL_ERROR' and o.get('stage') == 'plan', {'rc': rc, 'out': so[-300:]}
+ 
+@@ -1928,11 +1938,264 @@
+     real = L.pin_of(REAL_V6_PATH)
+     runs = triple(FX)
+     m = manifest(FX, runs, v6=real)
+-    rc, so, se = _cli('s1_read_c2v002.py', ['--manifest', _p(m)])
++    rc, so, se = _cli('s1_read_c2v002a.py', ['--manifest', _p(m)])
+     o = json.loads(so) if so.strip().startswith('{') else {}
+     return rc == 3 and o.get('refused') == 'ATTESTATION_PRODUCER_NOT_ALLOWLISTED', {'rc': rc, 'out': so[-300:]}
+ 
+ 
++# ================================================================================================ BLK-1 tests (c2v002a)
++def forged_fill(tag, mutate, fill_tag='seed'):
++    """fill_tag's written fill record (its bytes, parsed) with one edit, written by exclusive create in a fresh folder."""
++    doc = json.loads(L.read_bytes(FX.fill[fill_tag]['pin']['path']))
++    mutate(doc)
++    return wjson(fresh('forged_' + tag) / ('S1_FILL_RECORD_%s.json' % tag), doc)
++
++
++def manifest_with_fill(fx, runs, fill_pin, fill_tag='seed', **kw):
++    """manifest(...) for fill_tag, then the same manifest with only fill_record replaced by fill_pin."""
++    doc = L.pinned_json(manifest(fx, runs, fill_tag=fill_tag, **kw))
++    doc['fill_record'] = fill_pin
++    fx.n_run += 1
++    return wjson(fx.r / ('manifest_forged_fill_%03d.json' % fx.n_run), doc)
++
++
++def set_branch_off(d):
++    d['branch']['branch'] = 'OFF_ANCHOR'
++
++
++def logonly_ua(tag):
++    """A u_A point file for the seed theta pinned to the OFF snapshot: the seed is in that record's engine log (index 0)
++    but is not its primary anchor, so B2 does not bind it."""
++    return _ua_variant(tag, FX.seed, snapshot=FX.snap['off'])
++
++
++def phys_ulp_forge(d):
++    v = math.nextafter(d['physical_u_A']['common_scale_s']['value'], math.inf)
++    d['physical_u_A']['common_scale_s'] = {'value': v, 'hex': L.fhex(v)}
++
++
++def ulp_triple():
++    """The off triple computed one ulp above u_A in common_scale_s (all three runs; spec shas genuine)."""
++    tw = {'phys_tweak': 'common_scale_s'}
++    return triple(FX, k3=dict(tw), k4=dict(tw), k4p=dict(tw))
++
++
++def load_pred():
++    """The predecessor library c2v002 (e3ca4d80) from its verified bytes, with the same V6_PATH test seam."""
++    raw = L.verify_pin(PRED_LIB, 'PRED_LIB')
++    m = types.ModuleType('s1_path_lib_c2v002_predecessor')
++    m.__file__ = PRED_LIB['path']
++    exec(compile(raw, PRED_LIB['path'], 'exec'), m.__dict__)
++    m.V6_PATH = FX.v6['path']
++    return m
++
++
++@test('R-F43', 'MUST_FAIL')
++def t_blk1_branch_edited_read():
++    """BLK-1 (a), the verifier's probe_adv2: a genuine AT_ANCHOR (seed) triple reads PASS_AT_ADOPTION_POINT; the same runs
++    with a fill record whose only edit is branch.branch = OFF_ANCHOR are refused at read time, since the branch is
++    re-derived from the u_A theta bits; nothing is written. (c2v002 reads them PASS: B-P1.)"""
++    runs = triple(FX, fill_tag='seed')
++    g = read(FX, manifest(FX, runs, fill_tag='seed'))
++    forged = forged_fill('branch_off_read', set_branch_off)
++    w = fresh('blk1_branch_out')
++    ok, det = expect_refusal(lambda: read(FX, manifest_with_fill(FX, runs, forged), write=str(w)), 'FILL_RECORD_BRANCH_NOT_REPLAYED')
++    return ok and g['code'] == 'PASS_AT_ADOPTION_POINT' and os.listdir(w) == [], {'genuine': g['code'], 'forged': det}
++
++
++@test('R-F44', 'MUST_FAIL')
++def t_blk1_logonly_ua_read():
++    """BLK-1 (b): a fill record whose u_A_point names a log-only point (the seed theta in the OFF snapshot) is refused at
++    read time with B2's code, exactly as guard_replay refuses it; nothing is written. (c2v002 read it
++    PASS_AT_ADOPTION_POINT: B-P1.)"""
++    runs = triple(FX, fill_tag='seed')
++    ua = logonly_ua('blk1_logonly_read')
++    forged = forged_fill('ua_logonly_read', lambda d: d.__setitem__('u_A_point', ua))
++    w = fresh('blk1_ua_out')
++    a = expect_refusal(lambda: read(FX, manifest_with_fill(FX, runs, forged), write=str(w)), 'PHASE1_PRIMARY_ANCHOR_NOT_U_A')
++    b = expect_refusal(lambda: L.guard_replay(forged), 'PHASE1_PRIMARY_ANCHOR_NOT_U_A')
++    return a[0] and b[0] and os.listdir(w) == [], [a[1], b[1]]
++
++
++@test('R-F45', 'MUST_FAIL')
++def t_blk1_physical_edited_read():
++    """BLK-1: physical_u_A is re-derived. Three runs one ulp above u_A (common_scale_s) read INVALID (SV3) against the
++    genuine record; a record whose physical_u_A was edited to those bits is refused at read time. (c2v002 reads the
++    edited one PASS: B-P1.)"""
++    runs = ulp_triple()
++    g = read(FX, manifest(FX, runs, fill_tag='off'))
++    forged = forged_fill('phys_ulp_read', phys_ulp_forge, fill_tag='off')
++    ok, det = expect_refusal(lambda: read(FX, manifest_with_fill(FX, runs, forged, fill_tag='off')),
++                             'FILL_RECORD_PHYSICAL_U_A_NOT_REPLAYED')
++    sv3 = all('SV3_PHYSICAL_NOT_U_A_BITS:common_scale_s' in g['validity'][c]['codes'] for c in L.RUNS)
++    return ok and g['code'] == 'INVALID' and sv3, {'genuine': g['code'], 'forged': det}
++
++
++@test('R-F46', 'MUST_FAIL')
++def t_blk1_theta_key_edited_read():
++    """BLK-1: theta_key is recomputed from the u_A theta bits at read time (it names the reading file)."""
++    runs = triple(FX)
++    forged = forged_fill('theta_key_read', lambda d: d.__setitem__('theta_key', 'f' * 64), fill_tag='off')
++    return expect_refusal(lambda: read(FX, manifest_with_fill(FX, runs, forged, fill_tag='off')), 'FILL_RECORD_THETA_KEY')
++
++
++@test('R-F47', 'MUST_FAIL')
++def t_blk1_every_consumed_field():
++    """BLK-1: each other consumed fill-record field, edited alone, is refused at read time with its named code
++    (bitwise: one ulp in a branch float is enough)."""
++    def ulp_branch(d):
++        d['branch']['max_abs_over_half_width'] = math.nextafter(d['branch']['max_abs_over_half_width'], math.inf)
++
++    def case_set(case, f, v):
++        return lambda d: d['cases'][case].__setitem__(f, v)
++
++    def extra_case(d):
++        d['cases']['S1_UA_C5T'] = copy.deepcopy(d['cases'][L.S1_C4T])
++    subs = [
++        ('branch_ulp', ulp_branch, 'FILL_RECORD_BRANCH_NOT_REPLAYED'),
++        ('branch_seed_bits', lambda d: d['branch'].__setitem__('seed_bits_equal', True), 'FILL_RECORD_BRANCH_NOT_REPLAYED'),
++        ('branch_missing', lambda d: d.pop('branch'), 'FILL_RECORD_BRANCH_NOT_REPLAYED'),
++        ('theta_hex', lambda d: d['theta']['ell_F_m'].__setitem__('hex', '0x1.0p+0'), 'FILL_RECORD_THETA_NOT_REPLAYED'),
++        ('base_point_key', lambda d: d.__setitem__('base_point_key', '0' * 64), 'FILL_RECORD_BASE_POINT_KEY_NOT_REPLAYED'),
++        ('static_pins', lambda d: d['static_pins']['P5'].__setitem__('sha256', '0' * 64), 'FILL_RECORD_STATIC_PINS_NOT_REPLAYED'),
++        ('c4t_label', case_set(L.S1_C4T, 'label', 'edited label'), 'FILL_RECORD_CASE_FIELD_NOT_REPLAYED'),
++        ('c3t_point_key', case_set(L.S1_C3T, 'point_key', '0' * 64), 'FILL_RECORD_CASE_FIELD_NOT_REPLAYED'),
++        ('c3t_k', case_set(L.S1_C3T, 'k', 4), 'FILL_RECORD_CASE_FIELD_NOT_REPLAYED'),
++        ('c4t_cb_case', case_set(L.S1_C4T, 'cb_case', 'C3T'), 'FILL_RECORD_CASE_FIELD_NOT_REPLAYED'),
++        ('c3t_changed_paths', case_set(L.S1_C3T, 'changed_paths', ['label']), 'FILL_RECORD_CASE_FIELD_NOT_REPLAYED'),
++        ('c4t_sha256', case_set(L.S1_C4T, 'sha256', '0' * 64), 'FILL_RECORD_CASE_FIELD_NOT_REPLAYED'),
++        ('extra_case', extra_case, 'FILL_RECORD_CASES_NOT_REPLAYED'),
++    ]
++    runs = triple(FX)
++    res = {}
++    for tag, mut, code in subs:
++        forged = forged_fill('field_' + tag, mut, fill_tag='off')
++        res[tag] = expect_refusal(lambda: read(FX, manifest_with_fill(FX, runs, forged, fill_tag='off')), code)
++    return all(v[0] for v in res.values()), {k: v[1][:90] for k, v in res.items()}
++
++
++@test('R-F48', 'MUST_FAIL')
++def t_blk1_spec_pin_swapped_read():
++    """BLK-1: the reader takes the S1 spec pins from the fill record (SV0 / SV3); a record whose C3T spec pin names an
++    edited spec (another eps certificate) is refused at read time (the spec bytes are replayed)."""
++    s = L.strict_json(L.verify_pin(FX.fill['off']['rec']['cases'][L.S1_C3T]['spec']))
++    s['numerics']['uv_tail']['eps_certificate'] = FX.certs['c4t_eps']
++    alt = L.write_exclusive(str(fresh('blk1_spec_alt') / 'c3t_other_cert.spec.json'), L.spec_bytes(s))
++    forged = forged_fill('spec_swap_read', lambda d: d['cases'][L.S1_C3T].__setitem__('spec', alt), fill_tag='off')
++    runs = triple(FX)
++    return expect_refusal(lambda: read(FX, manifest_with_fill(FX, runs, forged, fill_tag='off')), 'S1_TEMPLATE_REPLAY_MISMATCH')
++
++
++@test('A-F2', 'MUST_FAIL')
++def t_blk1_guard_replay_branch():
++    """BLK-1 (3): guard_replay (guard012's S1_REPLAY_API) refuses the edited-branch record (c2v002 accepted it)."""
++    forged = forged_fill('branch_replay', set_branch_off)
++    return expect_refusal(lambda: L.guard_replay(forged), 'FILL_RECORD_BRANCH_NOT_REPLAYED')
++
++
++@test('A-F3', 'MUST_FAIL')
++def t_blk1_guard012_validate():
++    """BLK-1 (3) through guard012's own code: validate (the launcher's pre-start check; no native preflight here) of an
++    overlap admission whose replay module is this library and whose fill record has an edited branch refuses
++    S1_OVERLAP_REPLAY_REFUSED with this library's code as detail."""
++    forged = forged_fill('branch_g12', set_branch_off)
++    adm = make_admitted_plan(FX, 'blk1_g12', L.S1_C4T, overlap=True, fill_tag='seed', fill_override=forged)
++    try:
++        FX.G.validate(adm['plan'], L.PINS['LAUNCHER'][0], check_outputs=True, execute_native=False,
++                      config_ref=adm['admission'], disk_batch=False)
++        return False, 'guard012 validate accepted the edited-branch record'
++    except FX.G.Refusal as exc:
++        a = list(exc.args)
++        return a[:2] == ['S1_OVERLAP_REPLAY_REFUSED', 'FILL_RECORD_BRANCH_NOT_REPLAYED'], a
++
++
++@test('L-F36', 'MUST_FAIL')
++def t_blk1_launch_branch():
++    """BLK-1 (3) on the launch path: an INACTIVE C4T plan and an overlap C3T plan whose fill record has an edited branch
++    are refused at S1_CHECKS (before guard012, the gate and any process; nothing probed or spawned)."""
++    forged = forged_fill('branch_launch', set_branch_off)
++    adm = make_admitted_plan(FX, 'blk1_l', L.S1_C4T, fill_tag='seed', fill_override=forged)
++    out, probes, box = do_launch(FX, adm)
++    a = _refused(out, 'FILL_RECORD_BRANCH_NOT_REPLAYED', None, probes, 0, box)
++    adm2 = make_admitted_plan(FX, 'blk1_lo', L.S1_C3T, overlap=True, fill_tag='seed', fill_override=forged)
++    out2, probes2, box2 = do_launch(FX, adm2, lcfg=FX.lcfg['ACTIVE'])
++    b = _refused(out2, 'FILL_RECORD_BRANCH_NOT_REPLAYED', None, probes2, 0, box2)
++    ok = a[0] and b[0] and out['refusal']['stage'] == 'S1_CHECKS' and out2['refusal']['stage'] == 'S1_CHECKS'
++    return ok, [a[1]['refusal'], b[1]['refusal']]
++
++
++@test('W-F5', 'MUST_FAIL')
++def t_blk1_cli_read_branch():
++    """BLK-1 through the real read CLI (library loaded by sha, unpatched; real V006): the edited-branch manifest exits 3
++    with the replay code (before any attestation is read)."""
++    real = L.pin_of(REAL_V6_PATH)
++    runs = triple(FX, fill_tag='seed')
++    forged = forged_fill('branch_cli', set_branch_off)
++    m = manifest_with_fill(FX, runs, forged, v6=real)
++    rc, so, se = _cli('s1_read_c2v002a.py', ['--manifest', _p(m)])
++    o = json.loads(so) if so.strip().startswith('{') else {}
++    return rc == 3 and o.get('refused') == 'FILL_RECORD_BRANCH_NOT_REPLAYED', {'rc': rc, 'out': so[-300:], 'stderr': se[-200:]}
++
++
++@test('B-P1', 'MUST_PASS')
++def t_blk1_reproduced_on_predecessor():
++    """BLK-1 reproduced on the predecessor's bytes (c2v002 e3ca4d80 by path and sha; same test seam), so the R-F43, R-F44
++    and R-F45 inputs reach the defect: c2v002 reads the edited-branch manifest PASS (genuine PASS_AT_ADOPTION_POINT),
++    the log-only-u_A manifest PASS_AT_ADOPTION_POINT while its own guard_replay refuses that record, and the
++    physical_u_A-edited manifest over the one-ulp-off runs PASS (genuine INVALID). c2v002a refuses all three."""
++    P = load_pred()
++    runs = triple(FX, fill_tag='seed')
++    out = {'genuine_seed': P.read_reading(manifest(FX, runs, fill_tag='seed'))['code']}
++    out['branch_edited'] = P.read_reading(manifest_with_fill(FX, runs, forged_fill('pred_branch', set_branch_off)))['code']
++    ua = logonly_ua('pred_logonly')
++    f2 = forged_fill('pred_ua', lambda d: d.__setitem__('u_A_point', ua))
++    out['ua_logonly'] = P.read_reading(manifest_with_fill(FX, runs, f2))['code']
++    try:
++        P.guard_replay(f2)
++        out['ua_logonly_guard_replay'] = 'ACCEPTED'
++    except P.Refusal as exc:
++        out['ua_logonly_guard_replay'] = exc.code
++    r3 = ulp_triple()
++    out['ulp_genuine'] = P.read_reading(manifest(FX, r3, fill_tag='off'))['code']
++    f3 = forged_fill('pred_phys', phys_ulp_forge, fill_tag='off')
++    out['ulp_physical_edited'] = P.read_reading(manifest_with_fill(FX, r3, f3, fill_tag='off'))['code']
++    want = {'genuine_seed': 'PASS_AT_ADOPTION_POINT', 'branch_edited': 'PASS', 'ua_logonly': 'PASS_AT_ADOPTION_POINT',
++            'ua_logonly_guard_replay': 'PHASE1_PRIMARY_ANCHOR_NOT_U_A', 'ulp_genuine': 'INVALID', 'ulp_physical_edited': 'PASS'}
++    return out == want, out
++
++
++@test('A-P2', 'MUST_PASS')
++def t_pred_fill_record_replays():
++    """Format unchanged: a fill record written by the predecessor c2v002 replays under c2v002a (guard_replay), and differs
++    from c2v002a's own record for the same inputs only at module, module_sha256 and the spec-file paths."""
++    P = load_pred()
++    d = fresh('pred_fill')
++    prec = P.fill(FX.ua['off'], FX.base['off'], CFG_PIN, c3t_registry=FX.registry['off'], out_dir=str(d))
++    rep = L.guard_replay(prec['record'])
++
++    def strip(r):
++        r = copy.deepcopy(r)
++        for k in ('module', 'module_sha256', 'record'):
++            r.pop(k, None)
++        for c in L.S1_CASES:
++            r['cases'][c]['spec'] = r['cases'][c]['spec']['sha256']
++        return r
++    same = L.canonical(strip(prec)) == L.canonical(strip(FX.fill['off']['rec']))
++    ok = (same and prec['module'] == 's1_path_lib_c2v002' and FX.fill['off']['rec']['module'] == 's1_path_lib_c2v002a'
++          and all(L.sha256_bytes(rep['cases'][c]['bytes']) == FX.fill['off']['rec']['cases'][c]['sha256'] for c in L.S1_CASES))
++    return ok, {'same_except_module_and_paths': same, 'pred_module_sha256': (prec.get('module_sha256') or '')[:16]}
++
++
++@test('F-P8', 'MUST_PASS')
++def t_cp1_spec_same_as_predecessor():
++    """The procedure's step 2 output (c3t-cp1-spec) is byte-identical under c2v002 and c2v002a (dry; spec sha, point key)."""
++    P = load_pred()
++    a = P.write_c3t_cp1_spec(FX.ua['off'], FX.base['off'], CFG_PIN, dry=True)
++    b = L.write_c3t_cp1_spec(FX.ua['off'], FX.base['off'], CFG_PIN, dry=True)
++    keys = ('sha256', 'point_key', 'theta_key', 'successor_validate_spec_block', 'k')
++    return all(a[k] == b[k] for k in keys), {k: (str(b[k])[:16], a[k] == b[k]) for k in keys}
++
++
+ # ================================================================================================ main
+ def main():
+     global L, RUN, FX, REAL_V6_PATH
+@@ -1963,7 +2226,7 @@
+     npass = sum(1 for r in RESULTS if r['result'] == 'PASS')
+     files = {f: hashlib.sha256((HERE / f).read_bytes()).hexdigest() for f in sorted(os.listdir(HERE))
+              if f.endswith('.py') and (HERE / f).is_file()}
+-    summary = {'schema': 'UNT_S1_PATH_TEST_RESULTS_C2V002', 'started_utc': started,
++    summary = {'schema': 'UNT_S1_PATH_TEST_RESULTS_C2V002A', 'started_utc': started,
+                'finished_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'seconds': round(time.time() - t0, 1),
+                'python': sys.version.split()[0], 'interpreter': sys.executable, 'lib_sha256': lib_sha, 'files_sha256': files,
+                'real_v6_sha256_at_test': L.sha256_bytes(L.read_bytes(REAL_V6_PATH)),

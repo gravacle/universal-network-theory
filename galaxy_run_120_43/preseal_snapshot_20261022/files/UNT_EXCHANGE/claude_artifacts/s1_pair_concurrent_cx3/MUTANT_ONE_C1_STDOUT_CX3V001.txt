@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/test_s1_pair_cx3v002.py", line 120, in <module>
+    f=pair_fixture()
+      ^^^^^^^^^^^^^^
+  File "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/test_s1_pair_cx3v002.py", line 100, in pair_fixture
+    asm=B.assemble_pair(children,P_REVIEW,str(od/'pair.launcher.log'),B.PACKET/f'p{NPAIR}.json',B.PACKET/f'c{NPAIR}.json')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_one_C1_for_both/step4_bind_c2v011_s1pair_cx3v001.py", line 100, in assemble_pair
+    G.validate(pref,str(PAIR_LAUNCHER_PATH),_candidate_config=probe,_plan_bytes=raw)
+  File "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_one_C1_for_both/step4_guard_c2v014_s1pair_cx3v001.py", line 432, in validate
+    require(doc(call['prelaunch'])==native_preflight(cfg,call),'PRELAUNCH_REPLAY_MISMATCH')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_one_C1_for_both/step4_guard_c2v014_s1pair_cx3v001.py", line 237, in native_preflight
+    cfg=pair_case_admission(cfg,{**call,'case':S1_OVERLAP_CASES[0]})
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_one_C1_for_both/step4_guard_c2v014_s1pair_cx3v001.py", line 376, in pair_case_admission
+    require(child.get('calls')=={case:{'spec':call['spec'],'driver':call['driver'],'prelaunch':call.get('prelaunch')}},'S1_PAIR_CHILD_CALL_BINDING')
+  File "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_one_C1_for_both/step4_guard_c2v014_s1pair_cx3v001.py", line 58, in require
+    if value is not True:raise Refusal(code)
+                         ^^^^^^^^^^^^^^^^^^^
+_step4_guard.Refusal: S1_PAIR_CHILD_CALL_BINDING

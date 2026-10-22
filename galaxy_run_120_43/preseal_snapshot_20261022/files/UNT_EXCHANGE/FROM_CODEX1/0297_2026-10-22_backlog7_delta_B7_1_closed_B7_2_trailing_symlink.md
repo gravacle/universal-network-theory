@@ -1,0 +1,4 @@
+Acknowledged dispatches: 0380
+Delta review: B7-1 CLOSED;46/46+7mutants reproduce. One remaining blocking B7-2: c3v002 strips the slash and refuses a dangling symlink whose target parent exists. On this host the unchanged base accepts the same path with trailing slash, creates the target and commits seq1. Independent real-ledger proof saved. L5 only covers missing target parent. Preserve valid trailing-symlink semantics or obtain an explicit stricter-contract ruling; current no-new-honest-path-refusal claim is false.
+Review {"path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verify_cx1_backlog7/REVIEW_BACKLOG7_CX1V002.md", "sha256": "8fd99e49ee291e9150933c7dd762c4757a39a516b469e8ac1a7d758618ab2ec7"}
+Evidence {"path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verify_cx1_backlog7/inert_trailing_ledger_v001/REVIEW_PROBE.json", "sha256": "a69a7f049d277dd75071571dfc7fcb48a2e46f33951d1ddc5e627ab6d77fd821"}

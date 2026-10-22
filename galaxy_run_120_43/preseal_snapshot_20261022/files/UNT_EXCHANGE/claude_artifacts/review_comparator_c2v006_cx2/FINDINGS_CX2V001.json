@@ -1,0 +1,58 @@
+{
+  "A73_deferred_presence": {
+    "N3_firmlink_NFD_containment": "ABSENT_IN_INHERITED_FILL_TESTED",
+    "N6_receipt_status_each_verdict": "PARTIAL_SOURCE_REVIEW: verdict present, receipt status absent",
+    "SF1_full_RO1_keys": "ABSENT_TESTED",
+    "SF2_derived_triples": "ABSENT_TESTED",
+    "SF3_selected_driver_table": "ABSENT_TESTED"
+  },
+  "date_u": "Sun Oct 18 16:21:52 UTC 2026",
+  "findings": [
+    {
+      "id": "CX2-V6-B1",
+      "impact": "Malformed NPY and NPZ member headers return whole-gate PASS",
+      "owner": "STRICT_PARSE / NO_LAST_WINS",
+      "repair": "Validate dict-literal AST pairs for duplicates before constructing header mapping",
+      "severity": "BLOCKING",
+      "status": "TESTED",
+      "title": "NPY header duplicate keys collapse before validation"
+    },
+    {
+      "id": "CX2-V6-B2",
+      "impact": "Changed synthetic result string returns whole-gate PASS",
+      "owner": "NORM_INJECTIVE",
+      "repair": "Closed token derivation/label grammar and post-construction injectivity guard",
+      "severity": "BLOCKING",
+      "status": "TESTED",
+      "title": "Distinct token pairs collide after label joining"
+    },
+    {
+      "id": "CX2-V6-B3",
+      "impact": "Changed synthetic ledger value hidden; ATTEMPT_LEDGER/INVENTORY/COVERAGE all pass",
+      "owner": "NO_LAST_WINS / ATTEMPT_LEDGER / INVENTORY",
+      "repair": "Full path match and duplicate grouped-key refusal before inventory removal",
+      "severity": "BLOCKING",
+      "status": "TESTED",
+      "title": "Newline filename aliases overwrite attempt-ledger entries"
+    },
+    {
+      "id": "CX2-V6-S1",
+      "repair": "Reject every repeated declared triple, even equal",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED",
+      "title": "Repeated identical token triples deduplicated silently"
+    },
+    {
+      "counts": "19 structural and17 invocation negatives per driver;72 total weak assertions",
+      "current_results": "All current saved reports independently confirmed to fail correct owner",
+      "id": "CX2-V6-S2",
+      "repair": "Assert owning check and preserve clean positive/negative controls",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED_SOURCE_AND_REPORT_AUDIT",
+      "title": "Some supplied selftest wrappers assert any FAIL rather than owning check"
+    }
+  ],
+  "scope": "Source and synthetic fixtures only; production incidence and scientific identity UNTESTED",
+  "source_sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48",
+  "verdict": "FAIL"
+}

@@ -1,0 +1,1269 @@
+--- test_step4_guard_c2v013.py
++++ test_step4_guard_c2v014.py
+@@ -1,22 +1,31 @@
+-"""Synthetic MUST_PASS / MUST_FAIL tests for step4_guard_c2v013.py and step4_launcher_c2v014.py (s1_successors_c2).
++"""Synthetic MUST_PASS / MUST_FAIL tests for step4_guard_c2v014.py and step4_launcher_c2v015.py (s1_successors_c2).
+ 
+-  python3 -I -B test_step4_guard_c2v013.py --run-dir <a new directory>
++  python3 -I -B test_step4_guard_c2v014.py --run-dir <a new directory>
+ 
+-Port of test_step4_guard_c2v012.py (a652e1d3) for V006 A166. Target-free; launches nothing. guard013, guard012 and
+-guard011 are executed from their bytes (guard012/guard011 sha-pinned); every admission is synthetic (synthetic seal,
+-verdict, prereg, adoption policy, context and direct-context modules, a synthetic S1 replay module). Machine gate
+-v003 is loaded (pinned) only to drive guard012 in the comparison tests (synthetic probe and clock); guard013 has no
+-gate. launcher014 / launcher013 are executed as modules (their import loads their guard; main() is never called).
+-Per A166 the synthetic POST_S1 caps carry rss_cap_bytes = physical RAM (137438953472 B).
++Port of test_step4_guard_c2v013.py (30324d80) for V006 A172 (the step-4 packet A166 set). Target-free; launches
++nothing; starts no process. guard014 and guard013 (sha-pinned) are executed from their bytes, guard011 (sha-pinned)
++only for G14-F23; every admission is synthetic (synthetic seal, verdict, prereg, adoption policy, context and
++direct-context modules, a synthetic S1 replay module). No machine gate is loaded. launcher015 / launcher014 are
++executed as modules (their import loads their guard; main() is never called). The launcher worker loop is driven by a
++synthetic harness: G.validate and G.disk_admission are stubbed (the real disk check stats /Volumes/External1), the lock
++is a scratch file, subprocess and time are shims (taskpolicy, caffeinate and the monitor are recorded, never run), and
++an audit hook records and BLOCKS every real process creation, so nothing is executed; a real /usr/bin/memory_pressure
++request is the blocked event that makes memory "unreadable" in L15-P3.
++Rules: guard013 runs on the C2V004 POST_S1 route_a_admission (memory fields present); guard014 on the same rule with
++the three memory fields dropped (= DIRECT_BATCH_PARAMS_S45_C2V004B). Caps: C2V004B POST_S1 (RSS = RAM, A166).
+ Results: <run-dir>/TEST_RESULTS.json and <run-dir>/TEST_LOG.txt (exclusive create).
+ """
+ import argparse
+ import ast
++import contextlib
+ import copy
+ import difflib
+ import hashlib
++import io
+ import json
+ import os
++import signal
++import subprocess
+ import sys
+ import time
+ import traceback
+@@ -30,26 +39,28 @@
+ G11_SHA = 'eb97e303b968dc941e2059ada813be95340662253c327a7b9a9634bb8a2c8033'
+ L12_PATH = ART + '/step4_launch_packet_cx1/impl/step4_launcher_c2v012.py'
+ L12_SHA = '59c00707ea8f3dc42fb2349bd806d42758119354954f878299d56bd21933f2a9'
+-G12_PATH = SUCC + '/step4_guard_c2v012.py'
+-G12_SHA = 'f4656fecc863acf1df1d440f7eb44295dd1a43a8aa4955c18f8e50f57862eeb0'
+-L13_PATH = SUCC + '/step4_launcher_c2v013.py'
+-L13_SHA = '620a44da8c68af5175195653da5eaa4d3e4025b2c8029ea841def2332ebb1c58'
+-G13_PATH = str(HERE / 'step4_guard_c2v013.py')
+-L14_PATH = str(HERE / 'step4_launcher_c2v014.py')
++G13_PATH = SUCC + '/step4_guard_c2v013.py'
++G13_SHA = '593bebb6958f947488c0566f91d2355d8653f72401fb764c417a3f9998d8b4e1'
++L14_PATH = SUCC + '/step4_launcher_c2v014.py'
++L14_SHA = '5d6af4a7024c6563be2ab99f519e32363bcdbc3397c1f852e86ab81109e4d12f'
++G14_PATH = str(HERE / 'step4_guard_c2v014.py')
++L15_PATH = str(HERE / 'step4_launcher_c2v015.py')
+ MONITOR = (ART + '/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py', 'ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107')
+ DRIVER = (ART + '/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py', 'b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6')
+ CORE = (ART + '/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py', 'dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6')
+-GATE = (ART + '/sched_s45_c2/v003/machine_gate_s45_c2v003.py', '736a3438b0a3af41eb8d7b2c764f25ff0f9e18942320a4542a9893b6b419f811')
+ CFG = (ART + '/sched_s45_c2/v003/RUN_CONFIG_DDO154_CX2V006R9_S45_C2V003.json', 'd9241676c3b7b32bd3067a55bdfb7821ebc33a68adbdc011ab4e4c58b6e50a4d')
+-DBP = (ART + '/sched_s45_c2/v003/DIRECT_BATCH_PARAMS_S45_C2V003A.json', '4adc296bcb0ddcd154ec0dcea820908ac525d1d39ce00d633eecc4d0c95f87e7')
++DBP4 = (ART + '/sched_s45_c2/v004/DIRECT_BATCH_PARAMS_S45_C2V004.json', '7c3ceae51a702722fce543c60c726c67a80226d2b5d77cbb398da6e09b5a8455')
++DBP4B = (ART + '/sched_s45_c2/v004b/DIRECT_BATCH_PARAMS_S45_C2V004B.json', 'e239d21e8f29e4711ec20c28c335bc25340fb8780253ceb1e57f037624e99205')
+ P5 = (ART + '/kmax_prereg_v005_c2/KMAX_MATRIX_PREREG_V005.json', 'dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174')
++GATE_V003 = ART + '/sched_s45_c2/v003/machine_gate_s45_c2v003.py'      # path only: must never be opened here
+ RAM_BYTES = 137438953472          # V006 A166: per-call RSS cap = physical RAM
++MEM_FIELDS = ('minimum_free_percent', 'source', 'first_case_memory_exemption')
++BLAS_KEYS = ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS')
+ 
+ RUN = None
+ RESULTS, LOG, TESTS = [], [], []
+-G11 = G12 = G13 = GM = None
++G11 = G13 = G14 = None
+ FX = None
+-AUDIT = {'on': False, 'events': [], 'installed': False}
+ 
+ 
+ def sha(b):
+@@ -106,6 +117,42 @@
+     return str(exc.args[0]) if getattr(exc, 'args', None) else type(exc).__name__
+ 
+ 
++# ================================================================================================ audit hook
++class Blocked(RuntimeError):
++    pass
++
++
++PROC_EVENTS = ('subprocess.Popen', 'os.posix_spawn', 'os.exec', 'os.system', 'os.fork', 'os.forkpty', 'os.spawn')
++AUDIT = {'on': False, 'events': [], 'installed': False}
++
++
++def _hook(event, args):
++    if not AUDIT['on']:
++        return
++    if event == 'open':
++        AUDIT['events'].append(('open', os.fsdecode(args[0]) if isinstance(args[0], (str, bytes, os.PathLike)) else repr(args[0])))
++    elif event in PROC_EVENTS:
++        AUDIT['events'].append((event, repr(args[0])[:200] if args else '', repr(args[1])[:300] if len(args) > 1 else ''))
++        raise Blocked('process creation blocked by the test audit hook: %s %r' % (event, args[1] if len(args) > 1 else args))
++
++
++def audited(fn):
++    if not AUDIT['installed']:
++        sys.addaudithook(_hook)
++        AUDIT['installed'] = True
++    AUDIT['events'] = []
++    AUDIT['on'] = True
++    try:
++        r = fn()
++    finally:
++        AUDIT['on'] = False
++    return r, list(AUDIT['events'])
++
++
++def proc_events(ev):
++    return [e for e in ev if e[0] != 'open']
++
++
+ # ================================================================================================ synthetic modules
+ CONTEXT_SRC = '''import ast, hashlib
+ CORE_PATH = %r
+@@ -119,7 +166,7 @@
+ class Error(Exception):
+     pass
+ _ns = {'Error': Error}
+-exec(compile(ast.Module(body=_keep, type_ignores=[]), '<g13-test-core-validate_block>', 'exec'), _ns)
++exec(compile(ast.Module(body=_keep, type_ignores=[]), '<g14-test-core-validate_block>', 'exec'), _ns)
+ validate_block = _ns['validate_block']
+ O = object()
+ '''
+@@ -212,7 +259,7 @@
+     v['addendum'] = wx(g / 'addendum_dummy.md', b'synthetic frozen addendum\n')
+     v['case_block'] = wx(g / 'case_block_dummy.json', b'{"synthetic": true}\n')
+     v['prereg'] = wj(g / 'prereg.json', {'binding_inputs': {'case_block': v['case_block']}})
+-    v['seal'] = wj(g / 'seal.json', {'sealed_by': G13.AUTHORITY, 'prereg': v['prereg'], 'compare': v['compare'],
++    v['seal'] = wj(g / 'seal.json', {'sealed_by': G14.AUTHORITY, 'prereg': v['prereg'], 'compare': v['compare'],
+                                      'driver': {'sha256': DRIVER[1]}, 'frozen_addendum': v['addendum']})
+     vd = {'schema': 'SYN_VERDICT_SCHEMA', 'test_mode': False, 'decision': {'tests_read': True, 'outcome': 'ADOPT_TAIL'},
+           'script_sha256': v['compare']['sha256'], 'prereg': v['prereg'], 'case_block': v['case_block']}
+@@ -237,10 +284,14 @@
+     fx.out_root = fx.root / 'out'
+     os.mkdir(fx.out_root)
+     fx.n = 0
+-    dbp = json.loads(rb_pinned(*DBP))['batches']
+-    # A166: the RSS-at-RAM form is the first-run form; wall and output caps are DBP POST_S1's, unchanged.
+-    fx.caps = dict(dbp['POST_S1']['caps_per_case']['ROOT_NAMES_AT_REGISTRATION_K4'], rss_cap_bytes=RAM_BYTES)
+-    fx.rule = dict(dbp['POST_S1']['route_a_admission'], max_active=1)
++    d4 = json.loads(rb_pinned(*DBP4))['batches']
++    d4b = json.loads(rb_pinned(*DBP4B))['batches']
++    fx.caps = dict(d4b['POST_S1']['caps_per_case']['ROOT_NAMES_AT_REGISTRATION_K4'])
++    assert fx.caps['rss_cap_bytes'] == RAM_BYTES
++    fx.rule13 = dict(d4['POST_S1']['route_a_admission'], max_active=1)            # memory fields present (guard013 form)
++    fx.rule14 = dict(d4b['POST_S1']['route_a_admission'], max_active=1)           # C2V004B form (guard014)
++    assert fx.rule14 == {k: v for k, v in fx.rule13.items() if k not in MEM_FIELDS}
++    fx.d4b = d4b
+     return fx
+ 
+ 
+@@ -261,14 +312,19 @@
+ 
+ def admitted(G, gpath, lpath, *, case='S1_UA_C4T', spec=None, batch='POST_S1', core=None, s1_overlap='default',
+              fill=None, replay=None, status='ROOT_AUTHORIZED', n_calls=1, mutate_plan=None, mutate_adm=None,
+-             prelaunch_tamper=False, extra_sources=()):
+-    """spec -> native prelaunch record (the guard under test) -> plan -> admission (synthetic root bytes)."""
++             prelaunch_tamper=False, extra_sources=(), rule=None, rule_fn=None):
++    """spec -> native prelaunch record (the guard under test) -> plan -> admission (synthetic root bytes).
++    rule: the route_a_admission for plan and admission (default: guard013 and older the memory form, guard014 the
++    C2V004B form); rule_fn edits a copy of it, applied to both."""
+     FX.n += 1
+     d = FX.root / ('adm_%03d' % FX.n)
+     os.mkdir(d)
+     spec = spec or FX.spec_c4t
+     fill = fill or FX.fill
+     replay = replay or FX.replay
++    rule = copy.deepcopy(rule if rule is not None else (FX.rule14 if G is G14 else FX.rule13))
++    if rule_fn:
++        rule_fn(rule)
+     calls = []
+     srcs = sources(gpath, lpath, (replay,) + tuple(extra_sources))
+     partial = {'schema': 'UNT_STEP4_ADMISSION_CX1V001', 'authority': G.AUTHORITY, 'status': 'ROOT_AUTHORIZED',
+@@ -290,7 +346,7 @@
+     os.mkdir(str(FX.out_root / d.name))
+     plan = {'schema': 'UNT_STEP4_LAUNCH_PLAN_CX1V001', 'binding_status': 'ROOT_BOUND', 'batch': batch,
+             'launcher': {'path': lpath, 'sha256': sha(rb(lpath))}, 'guard': {'path': gpath, 'sha256': sha(rb(gpath))},
+-            'monitor': pinj(MONITOR), 'route_a_admission': FX.rule,
++            'monitor': pinj(MONITOR), 'route_a_admission': copy.deepcopy(rule),
+             'launcher_log': str(FX.out_root / d.name / 'batch.launcher.log'), 'calls': calls,
+             's1': {'fill_record': fill}}
+     if mutate_plan:
+@@ -299,7 +355,7 @@
+     review = wj(d / 'source_review.json', {'schema': 'UNT_STEP4_SOURCE_REVIEW_CX1V001', 'status': 'TESTED', 'verdict': 'PASS',
+                                            'approved_sources': srcs, 'blocking_findings': [],
+                                            'reviewer': 'SYNTHETIC_TEST_REVIEWER'})
+-    adm = dict(partial, status=status, plan=plan_ref, source_review=review, route_a_admission=FX.rule,
++    adm = dict(partial, status=status, plan=plan_ref, source_review=review, route_a_admission=copy.deepcopy(rule),
+                core_priority=core or CORE_OVERLAP, case_order=[c['case'] for c in calls],
+                caps={c['case']: {kk: c[kk] for kk in ('wall_cap_s', 'rss_cap_bytes', 'output_cap_bytes')} for c in calls},
+                calls={c['case']: {'spec': c['spec'], 'driver': c['driver'], 'prelaunch': c['prelaunch']} for c in calls})
+@@ -314,7 +370,7 @@
+ 
+ 
+ def for_guard(G):
+-    return {id(G11): (G11_PATH, L12_PATH), id(G12): (G12_PATH, L13_PATH), id(G13): (G13_PATH, L14_PATH)}[id(G)]
++    return {id(G11): (G11_PATH, L12_PATH), id(G13): (G13_PATH, L14_PATH), id(G14): (G14_PATH, L15_PATH)}[id(G)]
+ 
+ 
+ def adm_for(G, **kw):
+@@ -322,54 +378,13 @@
+     return admitted(G, gp, lp, **kw)
+ 
+ 
+-# ---------------------------------------------------------------------------------------------- gate fakes (guard012 only)
+-class Clock:
+-    def __init__(self):
+-        self.t = 1000.0
+-
+-    def __call__(self):
+-        return self.t
+-
+-    def sleep(self, s):
+-        self.t += float(s)
+-
+-
+-def snap(runs=(), ok=True, swap=1.0, pool_free=100.0):
+-    return {'ok': ok, 'reasons': [] if ok else ['ps: synthetic probe failure'], 'runs': list(runs), 'swap_gb': swap,
+-            'vm': None, 'pool_free_gb': pool_free, 'procs_cpu': {}, 'footprint_source': 'top'}
+-
+-
+-def tree(pid, fp, outdir, driver=DRIVER[1], spec=None, nproc=11, age=5000.0):
+-    return {'monitor_pid': pid, 'age_s': age, 'outdir': outdir, 'members': [pid + 1], 'nproc': nproc,
+-            'cpu_s': {pid + 1: 10.0}, 'rss_bytes': 1, 'driver_sha256': driver, 'spec': spec, 'footprint_gb': fp}
+-
+-
+-def make_gate(snapshot, params=None):
+-    clock = Clock()
+-    calls = {'n': 0}
+-
+-    def probe():
+-        calls['n'] += 1
+-        return copy.deepcopy(snapshot)
+-    return GM.Gate(params=params, probe_fn=probe, clock=clock), clock, calls
+-
+-
+-def admitting_snapshot():
+-    return snap([tree(600, 9.0, str(FX.root / 'campaign_route_a'))])
+-
+-
+-def run_validate(G, a, *, snapshot=None, gate_params=None, check_outputs=True, gate_obj=None):
+-    """guard013 and guard011 take no gate; guard012 gets the synthetic gate (admitting unless a snapshot is given)."""
+-    kw, calls = {}, {'n': None}
+-    if G is G12:
+-        gate, clock, calls = make_gate(snapshot if snapshot is not None else admitting_snapshot(), gate_params)
+-        kw = {'_overlap_gate': gate_obj if gate_obj is not None else gate, '_overlap_sleep': clock.sleep}
++def run_validate(G, a, *, check_outputs=True):
+     try:
+         G.validate(a['plan'], a['plan_doc']['launcher']['path'], check_outputs=check_outputs,
+-                   execute_native=True, config_ref=a['admission'], disk_batch=False, **kw)
+-        return 'PASS', calls['n']
++                   execute_native=True, config_ref=a['admission'], disk_batch=False)
++        return 'PASS'
+     except Exception as exc:
+-        return code_of(exc), calls['n']
++        return code_of(exc)
+ 
+ 
+ def tmpdir(tag):
+@@ -379,114 +394,77 @@
+     return d
+ 
+ 
+-def twin_snapshot():
+-    ngc = GM.PARAMS['ngc_driver_sha256']
+-    tw = wj(tmpdir('twin') / 'spec.json', {'numerics': {'route_a': {'column_workers': 8}}})
+-    return snap([tree(500, 30.0, str(FX.root / 'twin_out'), driver=ngc, spec=tw['path'])])
+-
+-
+-class BoomGate:
+-    def __init__(self):
+-        self.P = dict(GM.PARAMS)
+-
+-    def hold_check(self):
+-        raise RuntimeError('synthetic gate failure')
+-
+-
+-# ================================================================================================ guard013 tests
+-# The declared guard012 -> guard013 edits. Applied to guard012's pinned bytes they must give guard013's bytes exactly.
+-DOC12 = '''c2v012 = guard011 (eb97e303) with one change (A150 R-S1-3 (1)): the L333 core-priority clause. A POST_S1 batch
+-of one S1_UA_C3T / S1_UA_C4T call, its spec verified by the S1 fill-record replay, may be admitted with the
+-campaign active iff machine gate v003 hold_check and decide admit the S1 head from a live snapshot, A133's root
+-memory rule holds on that snapshot, and the snapshot shows no other r5 tree in route A beyond the gate's
+-allowance. The live gate is evaluated at every validation before the call starts. Every other batch is
+-unchanged: campaign_inactive true is still required, with guard011's code and refusal.
++# ================================================================================================ guard014 tests
++# The declared guard013 -> guard014 edits. Applied to guard013's pinned bytes they must give guard014's bytes exactly.
++DOC13 = '''c2v013 = guard012 (f4656fec) with one change (V006 A166, the principal's direction to stop micromanaging the
++Mac's resources): the S1 overlap's live memory admission is removed. A POST_S1 batch of one S1_UA_C3T / S1_UA_C4T
++call, tail ON on r5, its spec verified by the S1 fill-record replay (guard012's core_priority_admission, unchanged),
++may be admitted with the campaign active with no memory condition: no machine gate v003 hold_check / decide, no
++r5 route-A allowance, no A133 rule. Every other batch is unchanged: campaign_inactive true is still required,
++with guard011's code and refusal.
+ '''
+-REMOVED_NAMES = {'GATE_PIN', 'A133_LIMIT_GB', 'A133_S1_TERM_GB', 'A133_CAMPAIGN_RESERVE_GB', 's1_overlap_started',
+-                 'load_gate', 's1_overlap_live', '_overlap_gate', '_overlap_sleep', 'hold_check', 'decide', 'runs_view',
+-                 'class_from_spec_bytes', 'warmup_s', 'route_a_cap', 'footprint_gb', 'time'}
++G13_RULE_LINES = ("    require(rule.get('minimum_free_percent')==25 and rule.get('poll_seconds')==60 and rule.get('source')=='/usr/bin/memory_pressure' and rule.get('ramp')=='previous_first_completed_route_a_iteration','RAMP_RULE_REQUIRED')\n"
++                  "    require(rule.get('first_case_memory_exemption') is False,'FIRST_MEMORY_BYPASS_REFUSED')\n")
++G14_RULE_LINES = ("    require(rule.get('poll_seconds')==60 and rule.get('ramp')=='previous_first_completed_route_a_iteration','RAMP_RULE_REQUIRED')\n"
++                  "    require(not MEMORY_ADMISSION_FIELDS&set(rule),'MEMORY_ADMISSION_FIELD_REFUSED')\n")
++G13_ANCHOR = "# c2v013 (V006 A166): GATE_PIN, the A133 constants, s1_overlap_started, load_gate and s1_overlap_live are removed.\n"
++G14_CONST = ("# c2v014 (V006 A172): the route-A rule's memory fields. guard013 L372-373 required them; guard014 refuses them.\n"
++             "MEMORY_ADMISSION_FIELDS=frozenset({'minimum_free_percent','source','first_case_memory_exemption'})\n")
+ 
+ 
+-def forward_guard013(t12):
++def forward_guard014(t13, t14):
+     def once(s, old, new):
+         assert s.count(old) == 1, old[:60]
+         return s.replace(old, new, 1)
+-    s = t12
+-    a = s.index(DOC12)
+-    b = s.index('"""', a)
+-    assert b == a + len(DOC12)
+-    doc13 = rb(G13_PATH).decode()
+-    a13 = doc13.index('\nc2v013 = guard012 (f4656fec)') + 1
+-    s = s[:a] + doc13[a13:doc13.index('"""', a13)] + s[b:]          # docstring paragraph: replaced (text compared below)
+-    s = once(s, ', sys, time, types, threading\n', ', sys, types, threading\n')
+-    a = s.index("GATE_PIN={'path':")
+-    b = s.index('def core_priority_admission(plan,cfg):')
+-    s = s[:a] + ('# c2v013 (V006 A166): GATE_PIN, the A133 constants, s1_overlap_started, load_gate and s1_overlap_live'
+-                 ' are removed.\n\n') + s[b:]
+-    a = s.index('def s1_overlap_started(call):\n')
+-    b = s.index('def validate(plan_ref,producer')
+-    s = s[:a] + s[b:]
+-    s = once(s, ',disk_batch=True,_overlap_gate=None,_overlap_sleep=None):', ',disk_batch=True):')
+-    s = once(s, '    overlap=core_priority_admission(plan,cfg)\n', '    core_priority_admission(plan,cfg)\n')
+-    s = once(s, '    if overlap is not None and not s1_overlap_started(overlap):'
+-                's1_overlap_live(overlap,gate=_overlap_gate,sleep=_overlap_sleep)\n', '')
++    s = t13
++    a = s.index(DOC13)
++    a14 = t14.index('\nc2v014 = guard013 (593bebb6)') + 1
++    s = s[:a] + t14[a14:t14.index('"""', a14)] + s[a + len(DOC13):]      # docstring paragraph: replaced (checked below)
++    s = once(s, G13_ANCHOR, G13_ANCHOR + G14_CONST)
++    s = once(s, G13_RULE_LINES, G14_RULE_LINES)
+     return s
+ 
+ 
+-def identifiers(text):
+-    out = set()
+-    for n in ast.walk(ast.parse(text)):
+-        if isinstance(n, ast.Name):
+-            out.add(n.id)
+-        elif isinstance(n, (ast.FunctionDef, ast.ClassDef)):
+-            out.add(n.name)
+-        elif isinstance(n, ast.Attribute):
+-            out.add(n.attr)
+-        elif isinstance(n, ast.arg):
+-            out.add(n.arg)
+-        elif isinstance(n, ast.alias):
+-            out.add(n.name)
+-        elif isinstance(n, ast.Constant) and isinstance(n.value, str) and n.value.isidentifier():
+-            out.add(n.value)
+-    return out
+-
+-
+-@test('G13-P0', 'MUST_PASS')
++@test('G14-P0', 'MUST_PASS')
+ def t_diff_scope():
+-    """guard013 == the declared edits applied to guard012 (f4656fec); none of the removed names survives."""
+-    t12 = rb_pinned(G12_PATH, G12_SHA).decode()
+-    t13 = rb(G13_PATH).decode()
+-    fwd = forward_guard013(t12)
+-    left = sorted(REMOVED_NAMES & identifiers(t13))
+-    gone = sorted(REMOVED_NAMES - identifiers(t12))       # every listed name existed in guard012 (no vacuous check)
+-    doc_ok = ('no memory condition' in t13.split('"""')[1] and 'campaign_inactive true is still required' in t13.split('"""')[1])
+-    return fwd == t13 and not left and not gone and doc_ok, {'forward_sha': sha(fwd.encode()), 'guard013': sha(t13.encode()),
+-                                                             'removed_names_left': left, 'names_absent_in_g12': gone}
+-
+-
+-@test('G13-P1', 'MUST_PASS')
+-def t_overlap_admits():
+-    """The S1 overlap (campaign active) is admitted with no gate, no snapshot and RSS cap = RAM."""
+-    a = adm_for(G13)
+-    got, _ = run_validate(G13, a)
++    """guard014 == the declared edits applied to guard013 (593bebb6): the doc paragraph, the memory-field constant and
++    the two rule lines; every other line is byte-identical. Top-level definitions other than validate are AST-identical."""
++    t13 = rb_pinned(G13_PATH, G13_SHA).decode()
++    t14 = rb(G14_PATH).decode()
++    fwd = forward_guard014(t13, t14)
++    doc = t14.split('"""')[1]
++    doc_ok = ('MEMORY_ADMISSION_FIELD_REFUSED' in doc and 'core_priority_admission' in doc and 'V006 A172' in doc)
++    a13 = {n.name: ast.dump(n) for n in ast.parse(t13).body if isinstance(n, (ast.FunctionDef, ast.ClassDef))}
++    a14 = {n.name: ast.dump(n) for n in ast.parse(t14).body if isinstance(n, (ast.FunctionDef, ast.ClassDef))}
++    changed = sorted(k for k in set(a13) | set(a14) if a13.get(k) != a14.get(k))
++    return fwd == t14 and doc_ok and changed == ['validate'], {'forward_sha': sha(fwd.encode()), 'guard014': sha(t14.encode()),
++                                                               'defs_changed': changed}
++
++
++@test('G14-P1', 'MUST_PASS')
++def t_overlap_admits_no_memory_fields():
++    """A route_a_admission with no memory fields (C2V004B form) is admitted: the S1 overlap (campaign active), RSS = RAM."""
++    a = adm_for(G14)
++    got = run_validate(G14, a)
++    rule = a['plan_doc']['route_a_admission']
+     rss = a['plan_doc']['calls'][0]['rss_cap_bytes']
+-    return got == 'PASS' and rss == RAM_BYTES and a['adm_doc']['caps']['S1_UA_C4T']['rss_cap_bytes'] == RAM_BYTES, \
+-        {'got': got, 'rss_cap_bytes': rss}
++    return got == 'PASS' and not set(rule) & set(MEM_FIELDS) and rss == RAM_BYTES, {'got': got, 'rule': rule, 'rss': rss}
+ 
+ 
+-@test('G13-P2', 'MUST_PASS')
++@test('G14-P2', 'MUST_PASS')
+ def t_inactive_unchanged():
+-    a = adm_for(G13, core=CORE_INACTIVE, s1_overlap=None)
+-    got, _ = run_validate(G13, a)
++    a = adm_for(G14, core=CORE_INACTIVE, s1_overlap=None)
++    got = run_validate(G14, a)
+     return got == 'PASS', {'got': got}
+ 
+ 
+-@test('G13-P3', 'MUST_PASS')
+-def t_differential_guard011():
+-    """Every admission that is not the overlap form gets the same outcome from guard011 and guard013."""
+-    variants = {
++def _nonmemory_variants():
++    return {
++        'overlap_post_s1': dict(),
+         'inactive_post_s1': dict(core=CORE_INACTIVE, s1_overlap=None),
+         'inactive_headline': dict(core=CORE_INACTIVE, s1_overlap=None, batch='HEADLINE', case='C4T_HEAD', spec=FX.spec_head),
++        'inactive_headline_two_calls_max3': dict(core=CORE_INACTIVE, s1_overlap=None, batch='HEADLINE', case='C4T_HEAD',
++                                                 spec=FX.spec_head, n_calls=2, rule_fn=lambda r: r.__setitem__('max_active', 3)),
+         'inactive_with_ignored_overlap_block': dict(core=CORE_INACTIVE),
+         'overlap_flag_headline_batch': dict(core=CORE_OVERLAP, batch='HEADLINE', case='C4T_HEAD', spec=FX.spec_head),
+         'step2_active': dict(core=dict(CORE_INACTIVE, step2_route_a_inactive=False)),
+@@ -495,58 +473,72 @@
+         'status_draft': dict(core=CORE_INACTIVE, status='ROOT_DRAFT'),
+         'prelaunch_tamper': dict(core=CORE_INACTIVE, prelaunch_tamper=True),
+         'caps_mismatch': dict(core=CORE_INACTIVE, mutate_adm=lambda adm: adm['caps']['S1_UA_C4T'].__setitem__('wall_cap_s', 1)),
++        'rss_cap_mismatch': dict(mutate_adm=lambda adm: adm['caps']['S1_UA_C4T'].__setitem__('rss_cap_bytes', 1)),
+         'two_calls_inactive': dict(core=CORE_INACTIVE, s1_overlap=None, n_calls=2),
+-        'ramp_rule_changed': dict(core=CORE_INACTIVE, s1_overlap=None,
+-                                  mutate_plan=lambda p: p.__setitem__('route_a_admission', dict(p['route_a_admission'], minimum_free_percent=0)),
+-                                  mutate_adm=lambda adm: adm.__setitem__('route_a_admission', dict(adm['route_a_admission'], minimum_free_percent=0))),
++        'max_active_0': dict(rule_fn=lambda r: r.__setitem__('max_active', 0)),
++        'max_active_7': dict(rule_fn=lambda r: r.__setitem__('max_active', 7)),
++        'max_active_str': dict(rule_fn=lambda r: r.__setitem__('max_active', '1')),
++        'max_active_missing': dict(rule_fn=lambda r: r.pop('max_active')),
++        'poll_30': dict(rule_fn=lambda r: r.__setitem__('poll_seconds', 30)),
++        'poll_missing': dict(rule_fn=lambda r: r.pop('poll_seconds')),
++        'ramp_other': dict(rule_fn=lambda r: r.__setitem__('ramp', 'none')),
++        'ramp_missing': dict(rule_fn=lambda r: r.pop('ramp')),
++        'root_rule_differs': dict(mutate_adm=lambda adm: adm['route_a_admission'].__setitem__('max_active', 2)),
++        'extra_nonmemory_key_both': dict(rule_fn=lambda r: r.__setitem__('note', 'x')),
++        'extra_nonmemory_key_plan_only': dict(mutate_plan=lambda p: p['route_a_admission'].__setitem__('note', 'x')),
++        'rule_missing_both': dict(mutate_plan=lambda p: p.pop('route_a_admission'),
++                                  mutate_adm=lambda adm: adm.pop('route_a_admission')),
+     }
++
++
++@test('G14-P3', 'MUST_PASS')
++def t_differential_guard013():
++    """Non-memory behaviour is guard013's: on every non-memory variant (custody, batch, caps, status, and the non-memory
++    rule fields max_active / poll_seconds / ramp / root equality / extra keys) guard013 on the memory form and guard014
++    on the C2V004B form give the same outcome."""
+     out, ok = {}, True
+-    for name, kw in variants.items():
+-        r11, _ = run_validate(G11, adm_for(G11, **kw))
+-        r13, _ = run_validate(G13, adm_for(G13, **kw))
+-        out[name] = [r11, r13]
+-        ok = ok and r11 == r13
+-    return ok, out
++    for name, kw in _nonmemory_variants().items():
++        r13 = run_validate(G13, adm_for(G13, **kw))
++        r14 = run_validate(G14, adm_for(G14, **kw))
++        out[name] = [r13, r14]
++        ok = ok and r13 == r14
++    refusals = sum(1 for v in out.values() if v[0] != 'PASS')
++    return ok and refusals >= 15, dict(out, n_refusing_variants=refusals)
+ 
+ 
+-@test('G13-P4', 'MUST_PASS')
++@test('G14-P4', 'MUST_PASS')
+ def t_revalidation_after_start():
+     """The worker's re-validation (check_outputs=False) while the S1 call runs still admits."""
+-    a = adm_for(G13)
++    a = adm_for(G14)
+     c = a['plan_doc']['calls'][0]
+     with open(c['monitor_log'], 'xb') as f:
+         f.write(b'started\n')
+-    got, _ = run_validate(G13, a, check_outputs=False)
++    got = run_validate(G14, a, check_outputs=False)
+     return got == 'PASS', {'got': got}
+ 
+ 
+-@test('G13-P5', 'MUST_PASS')
++@test('G14-P5', 'MUST_PASS')
+ def t_memory_conditions_removed():
+-    """Each memory refusal guard012 gives the S1 overlap (gate v003, route-A allowance, A133) is gone in guard013:
+-    guard012 refuses with the listed code and guard013 admits the same custody form."""
+-    params_a133 = {'knee_static_gb': 200.0, 'hard_static_gb': 250.0}
++    """Each memory refusal guard013 gives (L372 RAMP_RULE_REQUIRED on the free / source terms, L373
++    FIRST_MEMORY_BYPASS_REFUSED) is gone: guard013 refuses with the listed code and guard014 admits the rule with no
++    memory field, for the same custody form."""
++    def drop(*ks):
++        return lambda r: [r.pop(k) for k in ks]
+     variants = {
+-        'gate_refused': (dict(snapshot=snap([tree(600, 30.0, str(FX.root / 'campaign_big'))])), 'S1_OVERLAP_GATE_REFUSED'),
+-        'twin_hold': (dict(snapshot=twin_snapshot()), 'S1_OVERLAP_GATE_TWIN_HOLD'),
+-        'probe_failed': (dict(snapshot=snap(ok=False)), 'S1_OVERLAP_GATE_PROBE_FAILED'),
+-        'two_r5_route_a': (dict(snapshot=snap([tree(600, 3.0, str(FX.root / 'r5_a'), nproc=2),
+-                                               tree(700, 3.0, str(FX.root / 'r5_b'), nproc=2)])),
+-                           'S1_OVERLAP_R5_ROUTE_A_BEYOND_GATE_ALLOWANCE'),
+-        'unknown_driver_route_a': (dict(snapshot=snap([tree(600, 3.0, str(FX.root / 'r5_a2'), nproc=2),
+-                                                       tree(700, 3.0, str(FX.root / 'unk_b'), driver=None, nproc=2)])),
+-                                   'S1_OVERLAP_R5_ROUTE_A_BEYOND_GATE_ALLOWANCE'),
+-        'a133_footprint_unknown': (dict(snapshot=snap([tree(600, None, str(FX.root / 'r5_unknown_fp'), nproc=2)])),
+-                                   'S1_OVERLAP_A133_FOOTPRINT_UNKNOWN'),
+-        'a133_rule': (dict(snapshot=snap([tree(600, 50.0, str(FX.root / 'r5_50gb'), nproc=2)], pool_free=500.0),
+-                           gate_params=params_a133), 'S1_OVERLAP_A133_MEMORY_RULE'),
+-        'gate_error': (dict(gate_obj=BoomGate()), 'S1_OVERLAP_GATE_ERROR'),
++        'fields_absent': (dict(rule=FX.rule14), 'RAMP_RULE_REQUIRED'),
++        'free_24': (dict(rule_fn=lambda r: r.__setitem__('minimum_free_percent', 24)), 'RAMP_RULE_REQUIRED'),
++        'free_absent': (dict(rule_fn=drop('minimum_free_percent')), 'RAMP_RULE_REQUIRED'),
++        'source_other': (dict(rule_fn=lambda r: r.__setitem__('source', '/usr/bin/vm_stat')), 'RAMP_RULE_REQUIRED'),
++        'source_absent': (dict(rule_fn=drop('source')), 'RAMP_RULE_REQUIRED'),
++        'exemption_true': (dict(rule_fn=lambda r: r.__setitem__('first_case_memory_exemption', True)), 'FIRST_MEMORY_BYPASS_REFUSED'),
++        'exemption_absent': (dict(rule_fn=drop('first_case_memory_exemption')), 'FIRST_MEMORY_BYPASS_REFUSED'),
+     }
+     out, ok = {}, True
+-    for name, (gkw, want12) in variants.items():
+-        r12, _ = run_validate(G12, adm_for(G12), **gkw)
+-        r13, _ = run_validate(G13, adm_for(G13))
+-        out[name] = [r12, r13]
+-        ok = ok and r12 == want12 and r13 == 'PASS'
++    for name, (kw13, want13) in variants.items():
++        r13 = run_validate(G13, adm_for(G13, **kw13))
++        r14 = run_validate(G14, adm_for(G14))
++        out[name] = [r13, r14]
++        ok = ok and r13 == want13 and r14 == 'PASS'
+     return ok, out
+ 
+ 
+@@ -574,204 +566,594 @@
+     }
+ 
+ 
+-@test('G13-P6', 'MUST_PASS')
+-def t_custody_agrees_guard012():
+-    """With guard012's gate admitting, guard012 and guard013 give the same outcome on every S1 overlap custody variant:
+-    the change is the memory admission only."""
++@test('G14-P6', 'MUST_PASS')
++def t_custody_agrees_guard013():
++    """guard013 and guard014 give the same outcome on every S1 overlap custody variant (core_priority_admission is
++    guard013's, unchanged): the change is the route-A rule's memory fields only."""
+     out, ok = {}, True
+     for name, (kw, want) in _custody_variants().items():
+-        r12, _ = run_validate(G12, adm_for(G12, **kw))
+-        r13, _ = run_validate(G13, adm_for(G13, **kw))
+-        out[name] = [r12, r13]
+-        ok = ok and r12 == r13 == want
++        r13 = run_validate(G13, adm_for(G13, **kw))
++        r14 = run_validate(G14, adm_for(G14, **kw))
++        out[name] = [r13, r14]
++        ok = ok and r13 == r14 == want
+     return ok, out
+ 
+ 
+-def _hook(event, args):
+-    if AUDIT['on'] and event in ('open', 'subprocess.Popen', 'os.posix_spawn', 'os.fork', 'os.forkpty', 'os.exec', 'os.system'):
+-        AUDIT['events'].append((event, str(args[0]) if args else ''))
+-
+-
+-def audited(fn):
+-    if not AUDIT['installed']:
+-        sys.addaudithook(_hook)
+-        AUDIT['installed'] = True
+-    AUDIT['events'] = []
+-    AUDIT['on'] = True
+-    try:
+-        r = fn()
+-    finally:
+-        AUDIT['on'] = False
+-    return r, list(AUDIT['events'])
+-
+-
+-@test('G13-P7', 'MUST_PASS')
++@test('G14-P7', 'MUST_PASS')
+ def t_no_gate_read_no_process():
+-    """guard013's overlap validation opens no gate source and starts no process; guard012's (control) opens the gate."""
+-    a13 = adm_for(G13)
+-    a12 = adm_for(G12)
+-    (r13, _), ev13 = audited(lambda: run_validate(G13, a13))
+-    (r12, _), ev12 = audited(lambda: run_validate(G12, a12))
+-    g13_gate = [e for e in ev13 if e[0] == 'open' and e[1] == GATE[0]]
+-    g13_proc = [e for e in ev13 if e[0] != 'open']
+-    g12_gate = [e for e in ev12 if e[0] == 'open' and e[1] == GATE[0]]
+-    ok = r13 == 'PASS' and r12 == 'PASS' and not g13_gate and not g13_proc and len(g12_gate) >= 1
+-    return ok, {'g13': r13, 'g12': r12, 'g13_gate_opens': len(g13_gate), 'g13_process_events': g13_proc,
+-                'g12_gate_opens_control': len(g12_gate)}
++    """guard014's validation (overlap and inactive) opens no gate source and starts no process (the audit hook blocks
++    and records any); the hook is live (it records the plan and admission opens)."""
++    a1, a2 = adm_for(G14), adm_for(G14, core=CORE_INACTIVE, s1_overlap=None)
++    (r1, r2), ev = audited(lambda: (run_validate(G14, a1), run_validate(G14, a2)))
++    gate = [e for e in ev if e[0] == 'open' and e[1] == GATE_V003]
++    procs = proc_events(ev)
++    live = any(e[0] == 'open' and e[1] == a1['plan']['path'] for e in ev)
++    ok = r1 == r2 == 'PASS' and not gate and not procs and live
++    return ok, {'overlap': r1, 'inactive': r2, 'gate_opens': len(gate), 'process_events': procs, 'hook_live': live,
++                'n_open_events': sum(1 for e in ev if e[0] == 'open')}
++
++
++@test('G14-P8', 'MUST_PASS')
++def t_headline_no_memory_fields():
++    """A non-S1 batch (HEADLINE, campaign attested inactive, 2 calls, max_active 3) with the no-memory rule is admitted."""
++    a = adm_for(G14, core=CORE_INACTIVE, s1_overlap=None, batch='HEADLINE', case='C4T_HEAD', spec=FX.spec_head, n_calls=2,
++                rule_fn=lambda r: r.__setitem__('max_active', 3))
++    got = run_validate(G14, a)
++    return got == 'PASS', {'got': got, 'rule': a['plan_doc']['route_a_admission']}
++
++
++@test('G14-P9', 'MUST_PASS')
++def t_dbp_c2v004b_rules():
++    """Every batch rule of DIRECT_BATCH_PARAMS_S45_C2V004B is exactly guard014's bound fields and is admitted by guard014
++    (on a synthetic inactive HEADLINE plan carrying it); guard013 refuses each (RAMP_RULE_REQUIRED), so C2V004B is a
++    guard014-only parameter set. DIII max_active 4 (its call count), every rss_cap_bytes = RAM."""
++    out, ok = {}, True
++    for b, bd in sorted(FX.d4b.items()):
++        rule = bd['route_a_admission']
++        r14 = run_validate(G14, adm_for(G14, core=CORE_INACTIVE, s1_overlap=None, batch='HEADLINE', case='C4T_HEAD',
++                                        spec=FX.spec_head, rule=rule))
++        r13 = run_validate(G13, adm_for(G13, core=CORE_INACTIVE, s1_overlap=None, batch='HEADLINE', case='C4T_HEAD',
++                                        spec=FX.spec_head, rule=rule))
++        rss = sorted({c['rss_cap_bytes'] for c in bd['caps_per_case'].values()})
++        out[b] = {'keys': sorted(rule), 'max_active': rule['max_active'], 'guard014': r14, 'guard013': r13, 'rss': rss}
++        ok = ok and sorted(rule) == ['max_active', 'poll_seconds', 'ramp'] and r14 == 'PASS' and r13 == 'RAMP_RULE_REQUIRED' \
++            and rss == [RAM_BYTES]
++    ok = ok and FX.d4b['DIII']['route_a_admission']['max_active'] == 4 == FX.d4b['DIII']['n_calls']
++    return ok, out
+ 
+ 
+ def _ff(code, **kw):
+-    a = adm_for(G13, **kw)
+-    got, _ = run_validate(G13, a)
++    a = adm_for(G14, **kw)
++    got = run_validate(G14, a)
+     return got == code, {'got': got, 'want': code}
+ 
+ 
+-@test('G13-F1', 'MUST_FAIL')
++@test('G14-F1', 'MUST_FAIL')
+ def t_overlap_headline():
+     return _ff('CORE_PRIORITY_ATTESTATION_REQUIRED', batch='HEADLINE', case='C4T_HEAD', spec=FX.spec_head)
+ 
+ 
+-@test('G13-F2', 'MUST_FAIL')
++@test('G14-F2', 'MUST_FAIL')
+ def t_overlap_non_s1_case():
+     return _ff('S1_OVERLAP_S1_CASE_REQUIRED', case='C4T')
+ 
+ 
+-@test('G13-F3', 'MUST_FAIL')
++@test('G14-F3', 'MUST_FAIL')
+ def t_overlap_two_calls():
+     return _ff('S1_OVERLAP_ONE_CALL_REQUIRED', n_calls=2)
+ 
+ 
+-@test('G13-F4', 'MUST_FAIL')
++@test('G14-F4', 'MUST_FAIL')
+ def t_overlap_replay_mismatch():
+     return _ff('S1_OVERLAP_REPLAY_MISMATCH', fill=FX.fill_tamper)
+ 
+ 
+-@test('G13-F5', 'MUST_FAIL')
++@test('G14-F5', 'MUST_FAIL')
+ def t_overlap_replay_not_allowlisted():
+     kw, want = _custody_variants()['replay_not_allowlisted']
+     return _ff(want, **kw)
+ 
+ 
+-@test('G13-F6', 'MUST_FAIL')
++@test('G14-F6', 'MUST_FAIL')
+ def t_overlap_replay_api():
+     return _ff('S1_OVERLAP_REPLAY_API', replay=FX.replay_bad_api)
+ 
+ 
+-@test('G13-F7', 'MUST_FAIL')
++@test('G14-F7', 'MUST_FAIL')
+ def t_overlap_fill_binding():
+     return _ff('S1_OVERLAP_FILL_RECORD_BINDING', mutate_plan=lambda p: p['s1'].__setitem__('fill_record', FX.fill_other))
+ 
+ 
+-@test('G13-F15', 'MUST_FAIL')
++@test('G14-F15', 'MUST_FAIL')
+ def t_overlap_step2_active():
+     return _ff('CORE_PRIORITY_ATTESTATION_REQUIRED', core=dict(CORE_OVERLAP, step2_route_a_inactive=False))
+ 
+ 
+-@test('G13-F16', 'MUST_FAIL')
++@test('G14-F16', 'MUST_FAIL')
+ def t_overlap_block_missing():
+     return _ff('S1_OVERLAP_ADMISSION_REQUIRED', s1_overlap=None)
+ 
+ 
+-@test('G13-F17', 'MUST_FAIL')
++@test('G14-F17', 'MUST_FAIL')
+ def t_overlap_block_schema():
+     return _ff('S1_OVERLAP_ADMISSION_SCHEMA', s1_overlap={'schema': 'X', 'replay_module': FX.replay, 'fill_record': FX.fill})
+ 
+ 
+-@test('G13-F19', 'MUST_FAIL')
++@test('G14-F19', 'MUST_FAIL')
+ def t_overlap_spec_not_filled():
+     return _ff('S1_OVERLAP_SPEC_NOT_FILLED_SPEC', case='S1_UA_C3T')
+ 
+ 
+-@test('G13-F20', 'MUST_FAIL')
++@test('G14-F20', 'MUST_FAIL')
+ def t_overlap_replay_refused():
+     return _ff('S1_OVERLAP_REPLAY_REFUSED', fill=FX.fill_refuse)
+ 
+ 
+-@test('G13-F21', 'MUST_FAIL')
++@test('G14-F21', 'MUST_FAIL')
+ def t_overlap_tail_off():
+     return _ff('S1_OVERLAP_TAIL_ON_R5_REQUIRED', mutate_plan=lambda p: p['calls'][0].__setitem__('tail_on', False))
+ 
+ 
+-@test('G13-F22', 'MUST_FAIL')
++@test('G14-F22', 'MUST_FAIL')
+ def t_guard_identity():
+-    """A plan naming guard012 is refused by guard013 (LAUNCHER_GUARD_IDENTITY)."""
+-    a = adm_for(G13, extra_sources=({'path': G12_PATH, 'sha256': G12_SHA},),
+-                mutate_plan=lambda p: p.__setitem__('guard', {'path': G12_PATH, 'sha256': G12_SHA}))
+-    got, _ = run_validate(G13, a)
++    """A plan naming guard013 is refused by guard014 (LAUNCHER_GUARD_IDENTITY)."""
++    a = adm_for(G14, extra_sources=({'path': G13_PATH, 'sha256': G13_SHA},),
++                mutate_plan=lambda p: p.__setitem__('guard', {'path': G13_PATH, 'sha256': G13_SHA}))
++    got = run_validate(G14, a)
+     return got == 'LAUNCHER_GUARD_IDENTITY', {'got': got}
+ 
+ 
+-@test('G13-F23', 'MUST_FAIL')
++@test('G14-F23', 'MUST_FAIL')
+ def t_guard011_refuses_overlap():
+-    """The same overlap admission under guard011 is refused at L333."""
+-    got, _ = run_validate(G11, adm_for(G11))
++    """The same overlap admission under guard011 is refused at L333 (unchanged since guard012)."""
++    got = run_validate(G11, adm_for(G11))
+     return got == 'CORE_PRIORITY_ATTESTATION_REQUIRED', {'got': got}
+ 
+ 
+-@test('G13-F24', 'MUST_FAIL')
+-def t_guard012_refuses_guard013_plan():
+-    """A plan naming guard013 with launcher013 is refused by guard012, the guard launcher013 loads: the memory-free
+-    overlap needs the guard013 / launcher014 pair."""
+-    a = admitted(G12, G12_PATH, L13_PATH, extra_sources=({'path': G13_PATH, 'sha256': sha(rb(G13_PATH))},),
+-                 mutate_plan=lambda p: p.__setitem__('guard', {'path': G13_PATH, 'sha256': sha(rb(G13_PATH))}))
+-    got, _ = run_validate(G12, a)
++@test('G14-F24', 'MUST_FAIL')
++def t_guard013_refuses_guard014_plan():
++    """A plan naming guard014 with launcher014 is refused by guard013, the guard launcher014 loads: the memory-free rule
++    needs the guard014 / launcher015 pair."""
++    a = admitted(G13, G13_PATH, L14_PATH, extra_sources=({'path': G14_PATH, 'sha256': sha(rb(G14_PATH))},),
++                 mutate_plan=lambda p: p.__setitem__('guard', {'path': G14_PATH, 'sha256': sha(rb(G14_PATH))}))
++    got = run_validate(G13, a)
+     return got == 'LAUNCHER_GUARD_IDENTITY', {'got': got}
+ 
+ 
+-# ================================================================================================ launcher014 tests
+-LCOM13 = ["# c2v013 = launcher012 (59c00707) with two constants changed only: the guard is guard012 (A150 R-S1-3 (1)), and the",
+-          "# machine lock stays launcher012's own file (absolute path), so every step-4 batch still shares one lock."]
++@test('G14-F25', 'MUST_FAIL')
++def t_plan_with_free_25_refused():
++    """Design (V006 A172 'as guard014 requires'): a plan whose route_a_admission still carries the C2V004 memory fields
++    (free 25, source memory_pressure, exemption false; plan and root copy equal) is REFUSED by guard014 with
++    MEMORY_ADMISSION_FIELD_REFUSED, and so is each memory field alone; guard013 admits the full C2V004 form (control: the
++    fixture is otherwise admissible)."""
++    full = run_validate(G14, adm_for(G14, rule=FX.rule13))
++    ctl = run_validate(G13, adm_for(G13, rule=FX.rule13))
++    single = {}
++    for k in MEM_FIELDS:
++        single[k] = run_validate(G14, adm_for(G14, rule=dict(FX.rule14, **{k: FX.rule13[k]})))
++    ok = full == 'MEMORY_ADMISSION_FIELD_REFUSED' and ctl == 'PASS' and all(v == 'MEMORY_ADMISSION_FIELD_REFUSED' for v in single.values())
++    return ok, {'guard014_full_c2v004_rule': full, 'guard013_control': ctl, 'single_field': single}
++
++
++# ================================================================================================ launcher015 tests
++L14_HEADER = ["# c2v014 = launcher013 (620a44da) with the two guard constants changed only: the guard is guard013 (V006 A166). The",
++              "# machine lock (launcher012's file, absolute path) and the memory_pressure ramp (all batches) are launcher013's, unchanged."]
++L15_HEADER = ["# c2v015 = launcher014 (5d6af4a7) with its memory terms removed (V006 A172): no memory_free / memory_pressure read, no",
++              "# free term in decision or in the admission log, no nice >= 10 requirement; the guard is guard014. The machine lock,",
++              "# max_active, the first-iteration ramp, single-thread BLAS, normal QoS, caffeinate and drain-on-failure are launcher014's."]
++L14_REMOVED_BODY = [
++    "import argparse, fcntl, hashlib, json, os, re, signal, subprocess, sys, time, types",
++    "GUARD_PATH=HERE/'step4_guard_c2v013.py'",
++    "GUARD_SHA256='%s'" % G13_SHA,
++    "def memory_free():",
++    "    try:",
++    "        s=subprocess.check_output(['/usr/bin/memory_pressure'],text=True,stderr=subprocess.STDOUT,timeout=10)",
++    "        m=re.findall(r'^System-wide memory free percentage:\\s*(\\d+)%\\s*$',s,re.M)",
++    "        return int(m[0]) if len(m)==1 and 0<=int(m[0])<=100 else None",
++    "    except Exception:return None",
++    "def decision(*,active_route_a,free,previous_iteration,first,max_active):",
++    "    return type(active_route_a) is int and 0<=active_route_a<max_active and type(free) is int and 25<=free<=100 and (first or previous_iteration is True)",
++    "    G.require(os.getpriority(os.PRIO_PROCESS,0)>=10,'NICE_10_REQUIRED')",
++    "                    free=memory_free()",
++    "                    go=decision(active_route_a=count,free=free,previous_iteration=prev_ok,first=previous is None,max_active=plan['route_a_admission']['max_active'])",
++    "                    print(json.dumps({'event':'step4_admission_decision','case':pending[0]['case'],'free_percent':free,'active_route_a':count,'previous_first_iteration':prev_ok,'admitted':go}),flush=True)",
++]
++L15_ADDED_BODY = [
++    "import argparse, fcntl, hashlib, json, os, signal, subprocess, sys, time, types",
++    "GUARD_PATH=HERE/'step4_guard_c2v014.py'",
++    "GUARD_SHA256='@G14@'",
++    "def decision(*,active_route_a,previous_iteration,first,max_active):",
++    "    return type(active_route_a) is int and 0<=active_route_a<max_active and (first or previous_iteration is True)",
++    "                    go=decision(active_route_a=count,previous_iteration=prev_ok,first=previous is None,max_active=plan['route_a_admission']['max_active'])",
++    "                    print(json.dumps({'event':'step4_admission_decision','case':pending[0]['case'],'active_route_a':count,'previous_first_iteration':prev_ok,'admitted':go}),flush=True)",
++]
+ 
+ 
+-@test('L14-P1', 'MUST_PASS')
++@test('L15-P1', 'MUST_PASS')
+ def t_launcher_diff_scope():
+-    t14 = rb(L14_PATH).decode().splitlines(keepends=True)
+-    t13 = rb_pinned(L13_PATH, L13_SHA).decode().splitlines(keepends=True)
+-    diff = [ln for ln in difflib.unified_diff(t13, t14, n=0) if ln[:1] in '+-' and not ln.startswith(('+++', '---'))]
++    """launcher014 -> launcher015 removes exactly memory_free, its call, the free term (decision and log), the nice >= 10
++    line and the now-unused re import, re-pins the guard to guard014 and replaces the header comment; nothing else.
++    runtime_settings keeps single-thread BLAS; normal_qos, acquire_lock, monitor_argv, systemic, main are AST-identical."""
++    t15 = rb(L15_PATH).decode()
++    t14 = rb_pinned(L14_PATH, L14_SHA).decode()
++    diff = [ln for ln in difflib.unified_diff(t14.splitlines(keepends=True), t15.splitlines(keepends=True), n=0)
++            if ln[:1] in '+-' and not ln.startswith(('+++', '---'))]
+     removed = sorted(ln[1:].rstrip('\n') for ln in diff if ln.startswith('-'))
+     added = sorted(ln[1:].rstrip('\n') for ln in diff if ln.startswith('+'))
+-    want_removed = sorted(LCOM13 + ["GUARD_PATH=HERE/'step4_guard_c2v012.py'", "GUARD_SHA256='%s'" % G12_SHA])
+-    ok = (removed == want_removed and len(added) == 4
+-          and "GUARD_PATH=HERE/'step4_guard_c2v013.py'" in added
+-          and "GUARD_SHA256='%s'" % sha(rb(G13_PATH)) in added
+-          and sum(1 for x in added if x.startswith('# ')) == 2
+-          and sum(1 for x in added if x.startswith('# c2v014 = launcher013 (620a44da)')) == 1)
+-    return ok, {'removed': removed, 'added': added}
+-
+-
+-@test('L14-P2', 'MUST_PASS')
+-def t_launcher_loads_guard013():
+-    m14 = load_bytes_module(L14_PATH, sha(rb(L14_PATH)), '_t_launcher014')
+-    m13 = load_bytes_module(L13_PATH, L13_SHA, '_t_launcher013')
+-    l12_lock = Path(L12_PATH).resolve().parent.parent / 'STEP4_MACHINE_LOCK_V001'
+-    grid = [dict(active_route_a=a, free=f, previous_iteration=p, first=fi, max_active=mx)
+-            for a in (0, 1, 2) for f in (None, 0, 24, 25, 100) for p in (None, False, True) for fi in (False, True) for mx in (1, 2)]
+-    same_ramp = all(m14.decision(**g) == m13.decision(**g) for g in grid)
+-    ok = (m14.G.__file__ == G13_PATH and sha(m14.GUARD_BYTES) == sha(rb(G13_PATH))
+-          and hasattr(m14.G, 'core_priority_admission') and not hasattr(m14.G, 's1_overlap_live')
+-          and not hasattr(m14.G, 'GATE_PIN') and str(m14.LOCK) == str(l12_lock) == str(m13.LOCK)
+-          and m14.PYTHON == m13.PYTHON and same_ramp)
+-    return ok, {'guard': m14.G.__file__, 'lock': str(m14.LOCK), 'ramp_equal_launcher013': same_ramp, 'grid': len(grid)}
++    want_removed = sorted(L14_HEADER + L14_REMOVED_BODY)
++    want_added = sorted(L15_HEADER + [x.replace('@G14@', sha(rb(G14_PATH))) for x in L15_ADDED_BODY])
++    d14 = {n.name: ast.dump(n) for n in ast.parse(t14).body if isinstance(n, ast.FunctionDef)}
++    d15 = {n.name: ast.dump(n) for n in ast.parse(t15).body if isinstance(n, ast.FunctionDef)}
++    same = sorted(k for k in d15 if d14.get(k) == d15[k])
++    changed = sorted(k for k in set(d14) | set(d15) if d14.get(k) != d15.get(k))
++    names15 = {n.id for n in ast.walk(ast.parse(t15)) if isinstance(n, ast.Name)} | \
++              {n.attr for n in ast.walk(ast.parse(t15)) if isinstance(n, ast.Attribute)}
++    ok = (removed == want_removed and added == want_added and changed == ['decision', 'memory_free', 'runtime_settings', 'worker']
++          and {'normal_qos', 'acquire_lock', 'monitor_argv', 'systemic', 'main', 'read_progress', 'first_iteration',
++               'route_a_finished'} <= set(same)
++          and 'memory_pressure' not in t15.split('\n', 4)[4] and 'getpriority' not in names15 and 'memory_free' not in names15
++          and 'nice' not in t15.split('\n', 4)[4] and "'SINGLE_THREAD_BLAS_REQUIRED'" in t15)
++    return ok, {'removed_n': len(removed), 'added_n': len(added), 'defs_changed': changed,
++                'removed_ok': removed == want_removed, 'added_ok': added == want_added}
++
++
++@test('L15-P2', 'MUST_PASS')
++def t_launcher_loads_guard014():
++    """launcher015 loads guard014 by its sha; the lock and interpreter are launcher014's; decision equals launcher014's
++    at every admitted free reading (25..100) on the full grid, so only the free term is gone."""
++    m15 = load_bytes_module(L15_PATH, sha(rb(L15_PATH)), '_t_launcher015')
++    m14 = load_bytes_module(L14_PATH, L14_SHA, '_t_launcher014')
++    grid = [dict(active_route_a=a, previous_iteration=p, first=fi, max_active=mx)
++            for a in (0, 1, 2, 3, '1', None) for p in (None, False, True) for fi in (False, True) for mx in (1, 2, 3)]
++    same = all(m15.decision(**g) == m14.decision(free=f, **g) for g in grid for f in range(25, 101))
++    blocked14 = all(m14.decision(free=f, **g) is False for g in grid for f in (None, 0, 24, 101, '80'))
++    ok = (m15.G.__file__ == G14_PATH and sha(m15.GUARD_BYTES) == sha(rb(G14_PATH))
++          and hasattr(m15.G, 'MEMORY_ADMISSION_FIELDS') and hasattr(m15.G, 'core_priority_admission')
++          and not hasattr(m15, 'memory_free') and str(m15.LOCK) == str(m14.LOCK) and m15.PYTHON == m14.PYTHON
++          and m15.BLAS == m14.BLAS and same and blocked14)
++    return ok, {'guard': m15.G.__file__, 'lock': str(m15.LOCK), 'decision_equal_at_free_25_100': same, 'grid': len(grid),
++                'launcher014_false_when_free_unknown_or_low': blocked14}
+ 
+ 
+-@test('L14-F1', 'MUST_FAIL')
++@test('L15-F1', 'MUST_FAIL')
+ def t_launcher_tampered_guard():
+-    d = tmpdir('l14_tamper')
+-    wx(d / 'step4_launcher_c2v014.py', rb(L14_PATH))
+-    wx(d / 'step4_guard_c2v013.py', rb(G13_PATH) + b'\n# tampered\n')
++    d = tmpdir('l15_tamper')
++    wx(d / 'step4_launcher_c2v015.py', rb(L15_PATH))
++    wx(d / 'step4_guard_c2v014.py', rb(G14_PATH) + b'\n# tampered\n')
+     try:
+-        raw = rb(str(d / 'step4_launcher_c2v014.py'))
+-        m = types.ModuleType('_t_l14_tampered')
+-        m.__file__ = str(d / 'step4_launcher_c2v014.py')
++        raw = rb(str(d / 'step4_launcher_c2v015.py'))
++        m = types.ModuleType('_t_l15_tampered')
++        m.__file__ = str(d / 'step4_launcher_c2v015.py')
+         exec(compile(raw, m.__file__, 'exec'), m.__dict__)
+         return False, 'loaded'
+     except PermissionError as exc:
+         return str(exc) == 'GUARD_BOOTSTRAP_HASH_MISMATCH', str(exc)
+ 
+ 
++def os_proxy(prio, calls):
++    px = types.ModuleType('_t_os_proxy')
++    px.__dict__.update(os.__dict__)
++
++    def getpriority(*a):
++        calls.append(a)
++        return prio
++    px.getpriority = getpriority
++    return px
++
++
++@test('L15-P6', 'MUST_PASS')
++def t_runtime_settings():
++    """runtime_settings drops only the nice requirement: with a synthetic priority 0 (an os proxy; the real priority is
++    neither read nor changed) launcher015 passes with single-thread BLAS, never reads the priority, and refuses without
++    BLAS (SINGLE_THREAD_BLAS_REQUIRED); launcher014 refuses NICE_10_REQUIRED at priority 0 and passes at 10."""
++    m15 = load_bytes_module(L15_PATH, sha(rb(L15_PATH)), '_t_l15_rs')
++    m14 = load_bytes_module(L14_PATH, L14_SHA, '_t_l14_rs')
++    saved = {k: os.environ.get(k) for k in BLAS_KEYS}
++    out, c15, c14 = {}, [], []
++
++    def rs(m):
++        try:
++            m.runtime_settings()
++            return 'PASS'
++        except Exception as exc:
++            return code_of(exc)
++    try:
++        for k in BLAS_KEYS:
++            os.environ[k] = '1'
++        m15.os, m14.os = os_proxy(0, c15), os_proxy(0, c14)
++        out['l15_prio0_blas'] = rs(m15)
++        out['l14_prio0_blas'] = rs(m14)
++        m14.os = os_proxy(10, c14)
++        out['l14_prio10_blas'] = rs(m14)
++        os.environ.pop('OMP_NUM_THREADS')
++        out['l15_prio0_no_blas'] = rs(m15)
++        out['l14_prio10_no_blas'] = rs(m14)
++    finally:
++        for k, v in saved.items():
++            if v is None:
++                os.environ.pop(k, None)
++            else:
++                os.environ[k] = v
++    ok = (out == {'l15_prio0_blas': 'PASS', 'l14_prio0_blas': 'NICE_10_REQUIRED', 'l14_prio10_blas': 'PASS',
++                  'l15_prio0_no_blas': 'SINGLE_THREAD_BLAS_REQUIRED', 'l14_prio10_no_blas': 'SINGLE_THREAD_BLAS_REQUIRED'}
++          and c15 == [] and len(c14) == 3)
++    return ok, dict(out, launcher015_priority_reads=len(c15), launcher014_priority_reads=len(c14))
++
++
++# ---------------------------------------------------------------------------------------------- the worker harness
++class HarnessStop(Exception):
++    pass
++
++
++class FakeProc:
++    def __init__(self, fn):
++        self.fn = fn
++
++    def poll(self):
++        return self.fn()
++
++
++class World:
++    """One synthetic batch: plan, calls, the monitor processes' state, and a step script run at each launcher sleep."""
++    def __init__(self, tag, n_calls, max_active, script, mem_text=None, stop_after=None, disk_refuse=None,
++                 revoke_at=None):
++        self.dir = tmpdir('w_' + tag)
++        os.mkdir(self.dir / 'out')
++        self.calls = []
++        for k in range(n_calls):
++            od = str(self.dir / 'out' / ('call_%d' % k))
++            self.calls.append({'case': 'CASE_%d' % k, 'outdir': od, 'receipt': od + '.receipt.json',
++                               'monitor_log': od + '.monitor.log', 'driver': {'path': DRIVER[0], 'sha256': DRIVER[1]},
++                               'spec': {'path': str(self.dir / ('spec_%d.json' % k)), 'sha256': '0' * 64},
++                               'wall_cap_s': 100800, 'rss_cap_bytes': RAM_BYTES, 'output_cap_bytes': 85899345920})
++        self.by_outdir = {c['outdir']: c['case'] for c in self.calls}
++        self.case = {c['case']: c for c in self.calls}
++        self.plan = {'launcher_log': str(self.dir / 'out' / 'batch.launcher.log'), 'calls': self.calls,
++                     'monitor': {'path': MONITOR[0], 'sha256': MONITOR[1]},
++                     'route_a_admission': {'max_active': max_active, 'poll_seconds': 60,
++                                           'ramp': 'previous_first_completed_route_a_iteration'}}
++        wx(self.plan['launcher_log'], b'')
++        self.script, self.mem_text, self.stop_after = script, mem_text, stop_after
++        self.disk_refuse, self.revoke_at = disk_refuse, revoke_at
++        self.rc, self.started, self.requests, self.sleeps = {}, [], [], []
++        self.n_validate, self.step, self.forced = 0, 0, False
++        self.refusal = None
++
++    # ---- stubs
++    def fake_validate(self, plan_ref, producer, **kw):
++        self.n_validate += 1
++        if self.revoke_at is not None and self.n_validate >= self.revoke_at:
++            raise self.refusal('SYNTHETIC_ADMISSION_REVOKED')
++        return self.plan, {}
++
++    def fake_disk(self, plan, call=None):
++        if call is not None and self.disk_refuse is not None and call['case'] == self.disk_refuse:
++            raise self.refusal('DISK_START_BOUND')
++        return {'free_bytes': 1, 'required_bytes': 0, 'volume': 'SYNTHETIC'}
++
++    def on_sleep(self, s):
++        self.sleeps.append(s)
++        self.step += 1
++        if self.stop_after is not None and self.step == self.stop_after:
++            raise HarnessStop('synthetic stop after %d polls' % self.step)
++        fn = self.script.get(self.step)
++        if fn:
++            fn(self)
++        if self.step > 40 and not self.forced:          # safety net: end every started monitor
++            self.forced = True
++            for c in self.started:
++                if self.rc.get(c) is None:
++                    self.rc[c] = 0
++
++    # ---- monitor-side effects (each file written once, by exclusive create)
++    def it1(self, case):
++        od = Path(self.case[case]['outdir']) / 'stages/01_route_a/attempt_000'
++        os.makedirs(od)
++        wx(od / 'progress.jsonl', b'{"stage": "iteration_completed", "iteration": 0}\n')
++
++    def ra_done(self, case):
++        wx(Path(self.case[case]['outdir']) / 'progress.jsonl', b'{"stage": "route_a", "event": "finished"}\n')
++
++    def finish(self, case, status='FINISHED', rc=0):
++        wj(self.case[case]['receipt'], {'status': status, 'exit_code': rc})
++        self.rc[case] = rc
++
++
++def make_shim(world):
++    sh = types.ModuleType('_t_subprocess_shim')
++    for k in ('DEVNULL', 'PIPE', 'STDOUT', 'CalledProcessError', 'TimeoutExpired', 'CompletedProcess'):
++        setattr(sh, k, getattr(subprocess, k))
++
++    def Popen(argv, **kw):
++        world.requests.append(list(argv))
++        if list(argv[:3]) == ['/usr/bin/caffeinate', '-i', '-w']:
++            return FakeProc(lambda: None)
++        if list(argv[:2]) == ['/usr/bin/caffeinate', '-i'] and '--outdir' in argv:
++            od = argv[argv.index('--outdir') + 1]
++            case = world.by_outdir[od]
++            os.mkdir(od)                                  # the monitor creates its outdir
++            world.started.append(case)
++            return FakeProc(lambda c=case: world.rc.get(c))
++        return subprocess.Popen(argv, **kw)              # anything else: real, so the audit hook blocks and records it
++
++    def run(argv, **kw):
++        world.requests.append(list(argv))
++        if list(argv[:2]) == ['/usr/sbin/taskpolicy', '-B']:
++            return subprocess.CompletedProcess(argv, 0, b'', b'')
++        return subprocess.run(argv, **kw)
++
++    def check_output(argv, **kw):
++        world.requests.append(list(argv))
++        if list(argv) == ['/usr/bin/memory_pressure'] and world.mem_text is not None:
++            return world.mem_text                       # readable: synthetic text, nothing executed
++        return subprocess.check_output(argv, **kw)       # real request: the audit hook blocks it (unreadable)
++    sh.Popen, sh.run, sh.check_output = Popen, run, check_output
++    return sh
++
++
++def run_worker(which, world, *, nice_proxy=False):
++    path, want = (L15_PATH, sha(rb(L15_PATH))) if which == 'L15' else (L14_PATH, L14_SHA)
++    m = load_bytes_module(path, want, '_t_worker_' + which)
++    world.refusal = m.G.Refusal
++    m.LOCK = world.dir / 'STEP4_MACHINE_LOCK_SYNTHETIC'
++    m.subprocess = make_shim(world)
++    m.time = types.SimpleNamespace(sleep=world.on_sleep)
++    m.G.validate = world.fake_validate
++    m.G.disk_admission = world.fake_disk
++    if nice_proxy:                                     # launcher014 only: its nice >= 10 check reads a synthetic 10
++        m.os = os_proxy(10, [])
++    saved = {k: os.environ.get(k) for k in BLAS_KEYS}
++    buf = io.StringIO()
++    for k in BLAS_KEYS:
++        os.environ[k] = '1'
++    try:
++        def go():
++            with contextlib.redirect_stdout(buf):
++                return m.worker({'path': str(world.dir / 'plan.synthetic.json'), 'sha256': '0' * 64})
++        rc, ev = audited(go)
++    finally:
++        for k, v in saved.items():
++            if v is None:
++                os.environ.pop(k, None)
++            else:
++                os.environ[k] = v
++    lines = [json.loads(x) for x in buf.getvalue().splitlines() if x.startswith('{')]
++    return {'rc': rc, 'decisions': [x for x in lines if x.get('event') == 'step4_admission_decision'],
++            'finished': [x for x in lines if x.get('event') == 'step4_finished'], 'started': list(world.started),
++            'requests': world.requests, 'audit_process_events': proc_events(ev), 'n_validate': world.n_validate,
++            'sleeps': len(world.sleeps), 'forced': world.forced, 'wdir': str(world.dir)}
++
++
++def normalized(r):
++    """The run with free_percent and memory_pressure requests dropped and the world folder replaced by <W>."""
++    return {'rc': r['rc'], 'started': r['started'], 'finished': r['finished'], 'n_validate': r['n_validate'],
++            'sleeps': r['sleeps'], 'forced': r['forced'],
++            'decisions': [{k: v for k, v in d.items() if k != 'free_percent'} for d in r['decisions']],
++            'requests': [[str(a).replace(r['wdir'], '<W>') for a in x] for x in r['requests']
++                         if x != ['/usr/bin/memory_pressure']]}
++
++
++def S(*fns):
++    def f(w):
++        for fn in fns:
++            fn(w)
++    return f
++
++
++def scenarios():
++    """name -> (World kwargs, script). Each script step runs at that launcher sleep (one per 60-s poll)."""
++    return {
++        'ramp_two_calls': (dict(n_calls=2, max_active=2), {
++            2: lambda w: w.it1('CASE_0'),
++            3: S(lambda w: w.ra_done('CASE_0'), lambda w: w.it1('CASE_1'), lambda w: w.ra_done('CASE_1'),
++                 lambda w: w.finish('CASE_0'), lambda w: w.finish('CASE_1'))}),
++        'max_active_cap': (dict(n_calls=3, max_active=1), {
++            1: lambda w: w.it1('CASE_0'),
++            2: lambda w: w.ra_done('CASE_0'),
++            3: S(lambda w: w.it1('CASE_1'), lambda w: w.ra_done('CASE_1'), lambda w: w.finish('CASE_0')),
++            4: S(lambda w: w.it1('CASE_2'), lambda w: w.ra_done('CASE_2'), lambda w: w.finish('CASE_1'),
++                 lambda w: w.finish('CASE_2'))}),
++        'predecessor_ended_before_first_iteration': (dict(n_calls=2, max_active=2), {
++            1: lambda w: w.finish('CASE_0')}),
++        'systemic_receipt': (dict(n_calls=2, max_active=2), {
++            1: S(lambda w: w.it1('CASE_0'), lambda w: w.finish('CASE_0', status='STOPPED_RSS_CAP', rc=1))}),
++        'disk_start_bound': (dict(n_calls=2, max_active=2, disk_refuse='CASE_1'), {
++            1: lambda w: w.it1('CASE_0'),
++            3: S(lambda w: w.ra_done('CASE_0'), lambda w: w.finish('CASE_0'))}),
++        'admission_revoked': (dict(n_calls=2, max_active=2, revoke_at=5), {
++            1: lambda w: w.it1('CASE_0'),
++            3: S(lambda w: w.ra_done('CASE_0'), lambda w: w.finish('CASE_0'))}),
++        'signal_drain': (dict(n_calls=2, max_active=2), {
++            1: lambda w: signal.getsignal(signal.SIGTERM)(signal.SIGTERM, None),
++            3: S(lambda w: w.it1('CASE_0'), lambda w: w.ra_done('CASE_0'), lambda w: w.finish('CASE_0'))}),
++        'scientific_failure_retained': (dict(n_calls=2, max_active=2), {
++            1: lambda w: w.it1('CASE_0'),
++            2: S(lambda w: w.ra_done('CASE_0'), lambda w: w.finish('CASE_0', status='FAILED', rc=1)),
++            3: S(lambda w: w.it1('CASE_1'), lambda w: w.ra_done('CASE_1'), lambda w: w.finish('CASE_1'))}),
++    }
++
++
++def run_scenario(which, name, **extra):
++    kw, script = scenarios()[name]
++    w = World('%s_%s' % (which, name), script=script, **dict(kw, **extra))
++    return run_worker(which, w, nice_proxy=(which == 'L14'))
++
++
++@test('L15-P3', 'MUST_PASS')
++def t_memory_pressure_unreadable():
++    """launcher015 starts the first call with memory_pressure unreadable (the shim passes any /usr/bin/memory_pressure
++    request to the real subprocess, where the audit hook blocks it): no memory request is made and the audit hook records
++    no process creation at all. Control: launcher014 under the same condition requests memory_pressure at every poll
++    (each blocked by the hook, so it is never executed), reads None and starts nothing."""
++    script = {1: S(lambda w: w.it1('CASE_0'), lambda w: w.ra_done('CASE_0'), lambda w: w.finish('CASE_0'))}
++    r15 = run_worker('L15', World('l15_memx', 1, 1, script, mem_text=None))
++    r14 = run_worker('L14', World('l14_memx', 1, 1, script, mem_text=None, stop_after=3), nice_proxy=True)
++    mp15 = [x for x in r15['requests'] if x and x[0] == '/usr/bin/memory_pressure']
++    mp14 = [x for x in r14['requests'] if x and x[0] == '/usr/bin/memory_pressure']
++    hooked14 = [e for e in r14['audit_process_events'] if 'memory_pressure' in e[1] + e[2]]
++    ok = (r15['rc'] == 0 and r15['started'] == ['CASE_0'] and r15['decisions'][0]['admitted'] is True and not mp15
++          and r15['audit_process_events'] == [] and 'free_percent' not in r15['decisions'][0]
++          and r14['started'] == [] and len(mp14) >= 2 and len(hooked14) == len(mp14)
++          and all(d['admitted'] is False and d['free_percent'] is None for d in r14['decisions']))
++    return ok, {'l15': {'rc': r15['rc'], 'started': r15['started'], 'memory_requests': len(mp15),
++                        'audit_process_events': r15['audit_process_events'], 'first_decision': r15['decisions'][0]},
++                'l14_control': {'rc': r14['rc'], 'started': r14['started'], 'memory_requests': len(mp14),
++                                'blocked_by_hook': len(hooked14), 'decisions': r14['decisions']}}
++
++
++@test('L15-P4', 'MUST_PASS')
++def t_ramp_waits():
++    """The first-iteration ramp stays: the second call is not admitted until the first call's first route-A iteration
++    is logged (decision admitted False with previous_first_iteration False), then starts at the next poll."""
++    r = run_scenario('L15', 'ramp_two_calls')
++    d = [(x['case'], x['previous_first_iteration'], x['admitted']) for x in r['decisions']]
++    ok = (r['rc'] == 0 and r['started'] == ['CASE_0', 'CASE_1'] and ('CASE_1', False, False) in d
++          and d.index(('CASE_1', False, False)) < d.index(('CASE_1', True, True)) and r['audit_process_events'] == [])
++    return ok, {'decisions': d, 'started': r['started'], 'rc': r['rc']}
++
++
++@test('L15-P5', 'MUST_PASS')
++def t_nonmemory_identical():
++    """Non-memory behaviour is launcher014's: on every scenario (ramp, max_active cap, predecessor ended, systemic
++    receipt, disk start bound, admission revoked, signal drain, retained scientific failure) launcher014 (memory readable
++    at 80 %, nice check satisfied) and launcher015 give the same exit code, starts, admission decisions (free_percent
++    aside), finish record, process requests (memory_pressure aside), validations and polls. Neither creates a real process."""
++    out, ok = {}, True
++    for name in scenarios():
++        r14 = run_scenario('L14', name, mem_text='System-wide memory free percentage: 80%\n')
++        r15 = run_scenario('L15', name)
++        n14, n15 = normalized(r14), normalized(r15)
++        same = n14 == n15 and not r14['audit_process_events'] and not r15['audit_process_events'] and not r15['forced']
++        out[name] = {'same': same, 'rc': r15['rc'], 'started': r15['started'],
++                     'failures': [(f['reason'], f['case']) for f in (r15['finished'][0]['failures'] if r15['finished'] else [])]}
++        ok = ok and same
++    return ok, out
++
++
++@test('L15-F2', 'MUST_FAIL')
++def t_predecessor_ended_fail_fast():
++    """launcher015 still fails fast when the predecessor ends before its first route-A iteration: the worker drains with
++    PREDECESSOR_ENDED_BEFORE_FIRST_ITERATION, the second call never starts, exit 1."""
++    r = run_scenario('L15', 'predecessor_ended_before_first_iteration')
++    f = r['finished'][0]['failures'] if r['finished'] else []
++    ok = (r['rc'] == 1 and r['started'] == ['CASE_0']
++          and any('PREDECESSOR_ENDED_BEFORE_FIRST_ITERATION' in (x.get('detail') or '') for x in f))
++    return ok, {'rc': r['rc'], 'started': r['started'], 'failures': f}
++
++
++@test('L15-F3', 'MUST_FAIL')
++def t_max_active_binds():
++    """max_active stays: with max_active 1 the second call waits while the first is in route A even after its first
++    iteration (admitted False, active_route_a 1), and starts once route A has finished."""
++    r = run_scenario('L15', 'max_active_cap')
++    d = [(x['case'], x['active_route_a'], x['previous_first_iteration'], x['admitted']) for x in r['decisions']]
++    ok = r['rc'] == 0 and ('CASE_1', 1, True, False) in d and r['started'] == ['CASE_0', 'CASE_1', 'CASE_2']
++    return ok, {'decisions': d, 'started': r['started']}
++
++
+ # ================================================================================================ main
+ def main():
+-    global RUN, FX, G11, G12, G13, GM
++    global RUN, FX, G11, G13, G14
+     ap = argparse.ArgumentParser()
+     ap.add_argument('--run-dir', required=True)
+     a = ap.parse_args()
+@@ -780,9 +1162,8 @@
+     t0 = time.time()
+     started = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+     G11 = load_bytes_module(G11_PATH, G11_SHA, '_t_guard011')
+-    G12 = load_bytes_module(G12_PATH, G12_SHA, '_t_guard012')
+-    G13 = load_bytes_module(G13_PATH, sha(rb(G13_PATH)), '_t_guard013')
+-    GM = load_bytes_module(GATE[0], GATE[1], '_t_gate_v003')
++    G13 = load_bytes_module(G13_PATH, G13_SHA, '_t_guard013')
++    G14 = load_bytes_module(G14_PATH, sha(rb(G14_PATH)), '_t_guard014')
+     try:
+         FX = build_fixtures()
+         fx_ok = True
+@@ -798,10 +1179,10 @@
+             record(fn._tid, fn._kind, bool(ok), det)
+     n = len(RESULTS)
+     npass = sum(1 for r in RESULTS if r['result'] == 'PASS')
+-    summary = {'schema': 'UNT_STEP4_GUARD013_TEST_RESULTS_C2V001', 'started_utc': started,
++    summary = {'schema': 'UNT_STEP4_GUARD014_TEST_RESULTS_C2V001', 'started_utc': started,
+                'finished_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'seconds': round(time.time() - t0, 1),
+                'python': sys.version.split()[0], 'interpreter': sys.executable,
+-               'files_sha256': {p: sha(rb(p)) for p in (G13_PATH, L14_PATH, str(Path(__file__).resolve()))},
++               'files_sha256': {p: sha(rb(p)) for p in (G14_PATH, L15_PATH, str(Path(__file__).resolve()), DBP4B[0])},
+                'fixtures_ok': fx_ok, 'n_tests': n, 'n_pass': npass,
+                'by_kind': {k: {'n': sum(1 for r in RESULTS if r['kind'] == k),
+                                'pass': sum(1 for r in RESULTS if r['kind'] == k and r['result'] == 'PASS')}

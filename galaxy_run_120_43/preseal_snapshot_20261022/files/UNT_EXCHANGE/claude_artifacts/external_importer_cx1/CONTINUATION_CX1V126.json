@@ -1,0 +1,40 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "component_status": "PASS",
+  "scope": "Pinned final-envelope output protocol source audit only",
+  "tested": [
+    "Tool SHA verified",
+    "AST-extracted schema/exit constants"
+  ],
+  "constants": {
+    "SCHEMA_MANIFEST": "UNT_PINNED_INPUT_ENVELOPE_MANIFEST_C2V003",
+    "SCHEMA_COMPARE": "UNT_PINNED_INPUT_ENVELOPE_COMPARE_C2V003"
+  },
+  "findings": [
+    "Successful compare report binds exact START/END file SHA plus body SHA, phase and pin_set; OK exit0, INVALIDATE exit3.",
+    "Refusal exits2 through stderr JSON and may have no compare report. Missing report cannot mean PASS; trusted refusal evidence needs its own binding.",
+    "Future final ingestion must authenticate caller-supplied root pins, enforce start/end labels and compare saved manifests using pinned semantics. It must not manufacture or rerun production END.",
+    "Journal hash chain alone cannot authenticate root finality or detect removal of an unanchored suffix. A trusted head/checkpoint is still required."
+  ],
+  "untested": [
+    "Final-event checker and authenticated journal integration",
+    "Actual root END or compare report",
+    "Failure-driven consumer freeze"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/pinned_input_envelope_c2v003/pinned_input_envelope_c2v003.py",
+      "sha256": "9d531381615f7b68f2f33bfc19f0aa2bcfe97a4e6f5c0e93187ea8eb35ce8d9a"
+    }
+  ],
+  "utc": "2026-10-21T16:03:40.480072+00:00",
+  "prior": "CONTINUATION_CX1V125.json",
+  "inbox_seen": 851,
+  "outbox": 237,
+  "report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0237_2026-10-21_final_envelope_protocol_source_audit_PASS_FAIL.json",
+    "sha256": "6b81057caad7c4dbaf7b020f8cc024e37ec518707ac790da9426564157a2c8d5"
+  },
+  "next": "Sourceaudit envelope tool: compare signedreport schema/start/end file+body pins/phase/pinset, OKexit0 INVALIDATEexit3; Refusalexit2stderrJSON mayno report. Need read-only saved-manifest/report checker with caller-authenticatedroot pins; no productionENDexecution. Could reuse pinned adapter comparecore but normalize END/OBSERVATION diagnostics carefully. Journalstillunanchoredtail and rootauth missing; add trustedhead before cachephase use. FAIL3; priorV125pinsverified."
+}

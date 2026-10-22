@@ -1,0 +1,125 @@
+{
+ "schema": "CLAUDE2_SPARC_TABLE1_SCHEMA_PROVENANCE_EVIDENCE_V001",
+ "task": "0345-B",
+ "author": "CLAUDE2 helper 0345-B (read-only); packaged by CLAUDE2 main lane",
+ "full_report": "PROVENANCE_REPORT_0345B_V001.md",
+ "target": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt",
+  "sha256": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243",
+  "bytes": 28259
+ },
+ "provenance": {
+  "distributor_copy": {
+   "path": ".../joint_parent_continuation/sparc_official_sample_2026-10-06_v001.mrt",
+   "sidecar_sha256": "bacfd875aa818b3e74712009da6e18b36e4941bebe4e2c576358aa5620512a88",
+   "url": "https://astroweb.case.edu/SPARC/SPARC_Lelli2016c.mrt",
+   "retrieved_utc": "2026-10-06T17:22:50.189319+00:00",
+   "recorded_sha256": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243",
+   "recorded_bytes": 28259
+  },
+  "target_vs_distributor": "BYTE-IDENTICAL (same sha256); the target copy (mtime 2026-09-28) has no own retrieval record in allowed files (R4)",
+  "distributor_page": "index 2026-10-06 (ee7e3eab...) links it as \"Galaxy Sample: Table1.mrt\"; no format or byte-layout statement",
+  "cds_counterpart": "only the CDS ReadMe J/AJ/152/157 (457f61cd...; \"From electronic version of the journal\") is local; NO table1.dat copy (searched by name, size, hash and git)",
+  "other_copies": "exactly two working-tree copies with this sha; one git blob only in codex turn-diff checkpoints"
+ },
+ "serialization": {
+  "in_file_header": "self-consistent abutting layout tiling bytes 1-113 (19 fields, widths = formats); no Lrecl stated; data rows contradict it",
+  "cds_readme": "blank-separated re-serialization (Lrecl 130); rows match through e_Dist, contradict f_Dist/i/e_i positions",
+  "H_plus_1": "each MRT field preceded by one blank (T 13-14, D 16-21, e_D 23-27, f_D 29-30, Inc 32-35, e_Inc 37-40, blank 41; implied record 131): fits both target rows; NO local documentation; INFERENCE",
+  "program_record": "SPARC_EFFECTIVE_TRANSFER_V001_PREPARSE_FAILURE.json (2026-10-04) already recorded \"whitespace-expanded data rows that do not obey its displayed byte-column offsets\" and switched to whitespace splitting: the mismatch is observed, not explained"
+ },
+ "prefix_token_contract": {
+  "rows": "DDO154 line 104, NGC3198 line 152 (bytes 1-41 only)",
+  "masks": {
+   "ruler": "12345678901234567890123456789012345678901",
+   "DDO154": "_____AAA999_99___9.99__9.99__9_99.9__9.9_",
+   "NGC3198": "____AAA9999__9__99.99__9.99__9_99.9__9.9_"
+  },
+  "observed": [
+   "exactly 7 whitespace tokens in bytes 1-41 for both rows",
+   "byte 41 blank: 7th token complete (ends at 40)",
+   "token shapes conform to Galaxy, I, F.2, F.2, I, F.1, F.1",
+   "no internal blank in the two names",
+   "all H+1 separator bytes (12,15,22,28,31,36,41) blank"
+  ],
+  "same_author_anchor": "NGC3198 token 3 is float-equal to the root manifest reference distance text (from MassModels; value not displayed); the as-written header D slice is not a valid F6.2. No equivalent anchor for DDO154.",
+  "proof_requirements": [
+   {
+    "item": "field order Galaxy,T,D,e_D,f_D,Inc,e_Inc",
+    "status": "PROVENANCE-BACKED (header) and corroborated (CDS)"
+   },
+   {
+    "item": "8th field starts after byte 41",
+    "status": "NOT PROVENANCE-BACKED (header puts L at 35-41, CDS at 41-47; only undocumented H+1 puts it at 42)"
+   },
+   {
+    "item": "at least one blank between fields; no internal blanks in values",
+    "status": "NOT PROVENANCE-BACKED (header says abutting); observed for both targets"
+   },
+   {
+    "item": "none of the seven fields blank",
+    "status": "OBSERVED ONLY"
+   },
+   {
+    "item": "token 7 complete (byte 41 blank)",
+    "status": "OBSERVED"
+   },
+   {
+    "item": "shape conformance",
+    "status": "formats provenance-backed; conformance observed; D/e_D share a shape so order relies on item 1"
+   },
+   {
+    "item": "bytes are the distributor bytes",
+    "status": "PROVENANCE-BACKED (sidecar sha)"
+   }
+  ],
+  "verdict": "A whitespace-token contract on bytes 1-41 is OBSERVED to isolate the seven fields with a complete final token for both target rows, but provenance does NOT justify the boundaries. No layout is declared authoritative; V001 stays quarantined and V002 stays inert."
+ },
+ "remaining_evidence": [
+  {
+   "id": "R1",
+   "need": "AAS/IOP electronic Table 1 of AJ 152, 157 (the source the CDS History names): its byte-by-byte header and data positions for fields 1-7, or byte identity with the SPARC-site file",
+   "why": "not local; needs network"
+  },
+  {
+   "id": "R2",
+   "need": "CDS J/AJ/152/157 table1.dat: allows a boolean token-to-field equality test for the two rows against CDS positions 1-39",
+   "why": "only the ReadMe is local"
+  },
+  {
+   "id": "R3",
+   "need": "distributor/author statement that SPARC_Lelli2016c.mrt is blank-delimited or that its header byte ranges are nominal/wrong",
+   "why": "saved index page has none"
+  },
+  {
+   "id": "R4",
+   "need": "the 2026-09-28 retrieval record of the target copy",
+   "why": "likely in files the helper may not open by name; affects only that copy's URL/time, not its bytes"
+  },
+  {
+   "id": "R5",
+   "need": "observational census by a permitted lane: separator bytes 12,15,22,28,31,36,41 blank and 7 conforming tokens in all 175 rows, plus row-length census (H+1 131 / header 113 / CDS 130)",
+   "why": "generalization only; still not provenance; row lengths excluded by instruction"
+  },
+  {
+   "id": "R6",
+   "need": "MassModels MRT header vs its own data offsets (same distributor)",
+   "why": "would touch MassModels data-row bytes; not read"
+  }
+ ],
+ "incidental_exposure": [
+  "an initial unfiltered grep over the DDO154 directory read files with forbidden names; its 34 KB result file was NOT opened; the 2 KB preview showed prose lines from FIELD_V002_RESULTS_REVIEW.md:97 and ROTATION_COMPARISON_PREFLIGHT_REVIEW.md:11 (no numbers) and INDEPENDENT_HEADER_REVIEW.md:45 (THINGS DDO154 centre and distance)",
+  "SOURCE_FROZEN.json (allowed) shows DDO154 distance/inclination/PA/centre settings: seen, not reproduced or adopted",
+  "PREPARSE_FAILURE.json quotes two short slices of the non-target CamB row: seen, not reproduced",
+  "a Rotmod-named SOURCE.json sidecar (metadata only) and 4 prose lines of a FIELD_-named review were read",
+  "no velocity values or validation outcomes were inspected"
+ ],
+ "constraints": {
+  "read_only": true,
+  "network": false,
+  "project_scripts_run": false,
+  "data_row_bytes": "1-11 compared for row location; 1-41 of the two target rows only",
+  "forbidden_name_breaches": "2 incidental by name plus one unfiltered grep (recorded above)",
+  "values_reported": "masks and spans only"
+ }
+}

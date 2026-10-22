@@ -1,0 +1,164 @@
+--- /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/admission_integration/owned_current_cycle_committed_capture_durability_v001.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/worm_move_c2_0467/owned_worm_committed_capture_durability_v002.py
+@@ -1,27 +1,119 @@
+-"""Observer-only committed blocks; no RNG/transition changes. NOT a resume state.
+-Wrap existing measurement functions to stage their actual returned rows, then
+-publish only after existing sweep progress confirms atomic measurement commit.
++"""Observer-only committed blocks V002 (worm-loop pilot); no RNG/transition changes. NOT a resume state.
++
++Delta over owned_current_cycle_committed_capture_durability_v001.py
++(5cb29e780fd956d1247de6047a097087da82f43b31cfaa57f661ff255076c0da, unchanged and not edited):
++1. Every durable row additionally carries, computed from the SAME path object the existing
++   _measure receives (pure observer: no RNG, no state, no channel enumeration, no budget hook):
++   - the reference-dwell canonical key (operator V003 seven ints, path['segments'][0]['key']) as
++     exact little-endian bytes: reference_key_bytes [7, W] uint8 (W = widest field in the block,
++     zero padded), reference_key_nbytes [7] int64, and reference_key_sha256 [32] uint8 =
++     sha256(','.join(lowercase hex of the seven ints)) (hex: no int-to-decimal digit limit).  decode: int.from_bytes(bytes[f,:n[f]], 'little');
++   - the Birth census and defect content from the public labels (state_labels) of every dwell:
++     reference_active_slots, reference_U = sum over present vertices (d_v - dstar)^2 with d_v the
++     occupied degree, reference_degree_histogram [5] (d = 0..4), reference_occupied_edges,
++     reference_present_vertices, and imaginary-time means over [0, beta) of active slots and U:
++     time_mean_active_slots, time_mean_U.
++2. The commit tuple is {'measure', 'allk', 'raw', 'reference'}; the reference entry is staged by
++   the same wrapped measure call, so it belongs to exactly the committed measurement.
++3. Counter lookup and block-json label: prepared['worm_binding']['counters'] -> 'worm_counters'.
+ At most 16 committed rows remain memory-only; finalization flushes that prefix.
+ """
++import hashlib
++import math
+ import os
+ import json
+ from pathlib import Path
+ import numpy as np
+ 
++MODULE_VERSION = 'durability_v002_worm'
++KEY_FIELDS = ('slots', 'edgeset', 'inc', 'p', 'q', 's', 'donors')
++REFERENCE_FIELDS = ('reference_active_slots', 'reference_U', 'reference_degree_histogram',
++                    'reference_occupied_edges', 'reference_present_vertices',
++                    'time_mean_active_slots', 'time_mean_U')
++
++
++def key_text_sha256(key):
++    return hashlib.sha256(','.join(format(int(v), 'x') for v in key).encode('ascii')).digest()
++
++
++def encode_keys(keys):
++    """Exact fixed-width little-endian packing of a list of seven-int keys."""
++    nbytes = np.array([[max(1, (int(v).bit_length() + 7) // 8) for v in k] for k in keys], dtype=np.int64)
++    width = int(nbytes.max()) if len(keys) else 1
++    out = np.zeros((len(keys), 7, width), dtype=np.uint8)
++    for r, k in enumerate(keys):
++        for f, v in enumerate(k):
++            b = int(v).to_bytes(int(nbytes[r, f]), 'little')
++            out[r, f, :len(b)] = np.frombuffer(b, dtype=np.uint8)
++    sha = np.array([np.frombuffer(key_text_sha256(k), dtype=np.uint8) for k in keys], dtype=np.uint8)
++    return out, nbytes, sha.reshape(len(keys), 32)
++
++
++def decode_keys(key_bytes, nbytes):
++    return [tuple(int.from_bytes(bytes(key_bytes[r, f, :int(nbytes[r, f])]), 'little') for f in range(7))
++            for r in range(key_bytes.shape[0])]
++
++
++def census(labels, dstar):
++    """(active slots, U, degree histogram, occupied edges, present vertices) of one labelled dwell."""
++    deg = {}
++    for e in labels['edges']:
++        for v in e:
++            deg.setdefault(v, 0)
++    occupied = tuple(labels['occupied'])
++    for a, b in occupied:
++        if a not in deg or b not in deg:
++            raise ValueError('Occupied edge outside the labelled graph')
++        deg[a] += 1
++        deg[b] += 1
++    hist = [0] * 5
++    for d in deg.values():
++        if d > 4:
++            raise ValueError('Occupied degree above four')
++        hist[d] += 1
++    U = float(sum((d - dstar) ** 2 for d in deg.values()))
++    return len(tuple(labels['slots'])), U, hist, len(occupied), len(deg)
++
++
+ class DurableCapture:
+- def __init__(self, *, directory, sampler, statistics, prepared, clean, pins):
++ def __init__(self, *, directory, sampler, statistics, prepared, clean, pins, state_labels, dstar):
++  if not callable(state_labels) or isinstance(dstar, bool) or not isinstance(dstar, (int, float)):
++   raise ValueError('Public state_labels and explicit numeric dstar required')
+   self.directory=Path(directory);self.directory.mkdir(exist_ok=False)
+   self.base=sampler._BASE;self.statistics=statistics;self.prepared=prepared;self.clean=clean
++  self.state_labels=state_labels;self.dstar=float(dstar)
+   self.pending={};self.rows=[];self.sequence=0;self.last_ids={};self.metadata=None
+   self.original_measure=self.base._measure;self.original_allk=self.base._measure_allk
+   self.original_capture=statistics.capture;self.original_progress=prepared['arguments']['progress_sink']
+   self.write_json(self.directory/'identity.json',{'source_pins':pins,'capture_request':prepared['reweighting_capture_record'],
++   'durability_module_version':MODULE_VERSION,'dstar':self.dstar,
++   'reference_key_encoding':'reference_key_bytes[7,W] uint8 little-endian, reference_key_nbytes[7]; decode int.from_bytes(b[f,:n[f]],"little"); fields '+','.join(KEY_FIELDS)+'; reference_key_sha256 = sha256(comma-joined lowercase hex ints, no 0x)',
++   'census_definitions':'d_v occupied degree of present vertex v from state_labels; U = sum_v (d_v-dstar)^2; active slots = len(labels slots); time means over [0,beta) weighted by dwell durations',
+    'scope':'Committed raw measurements only; non-resumable, no mixing/error or physical acceptance. At most16 rows between durable blocks.'})
+  def write_json(self,path,value):
+   with path.open('x') as f:
+    json.dump(self.clean(value),f,allow_nan=False);f.write('\n');f.flush();os.fsync(f.fileno())
++ def reference(self,run,path):
++  segs=path['segments'];times=list(path['times']);beta=float(run['beta'])
++  key=segs[0]['key']
++  if not isinstance(key,tuple) or len(key)!=7 or any(type(v) is not int or v<0 for v in key):
++   raise ValueError('Reference dwell key is not a seven-int canonical key')
++  ends=[0.]+times+[beta]
++  if len(ends)!=len(segs)+1:raise ValueError('Malformed path in durable observer')
++  slots_t=[];U_t=[];first=None
++  for i,seg in enumerate(segs):
++   lab=dict(self.state_labels(context=run['context'],state=seg['state']))
++   c=census(lab,self.dstar)
++   if first is None:first=c
++   dt=ends[i+1]-ends[i];slots_t.append(dt*c[0]);U_t.append(dt*c[1])
++  return {'reference_key_ints':tuple(int(v) for v in key),
++   'reference_active_slots':np.int64(first[0]),'reference_U':np.float64(first[1]),
++   'reference_degree_histogram':np.array(first[2],dtype=np.int64),
++   'reference_occupied_edges':np.int64(first[3]),'reference_present_vertices':np.int64(first[4]),
++   'time_mean_active_slots':np.float64(math.fsum(slots_t)/beta),'time_mean_U':np.float64(math.fsum(U_t)/beta)}
+  def measure(self,run,path):
+-  v=self.original_measure(run,path);self.pending['measure']=tuple(np.array(x,copy=True) for x in v);return v
++  v=self.original_measure(run,path);self.pending['measure']=tuple(np.array(x,copy=True) for x in v)
++  self.pending['reference']=self.reference(run,path);return v
+  def allk(self,run,path):
+   v=self.original_allk(run,path);self.pending['allk']=tuple(np.array(x,copy=True) for x in v);return v
+  def capture(self,**kw):
+@@ -33,17 +125,22 @@
+   if record['event']=='sweep' and record['measurements_committed']:
+    c=int(record['chain']);n=int(record['measurements_committed']);previous=self.last_ids.get(c,0)
+    if n!=previous:
+-    if n!=previous+1 or set(self.pending)!={'measure','allk','raw'}:raise ValueError('Durable observer commit tuple mismatch')
++    if n!=previous+1 or set(self.pending)!={'measure','allk','raw','reference'}:raise ValueError('Durable observer commit tuple mismatch')
+     s,t,r,k=self.pending['measure'];a,b,g=self.pending['allk']
+-    self.rows.append(dict(chain_id=c,measurement_id=n-1,score=s,contact=t,reads=r,events=k,
+-      score_cells=a,allk_contacts=b,background=g,features=self.pending['raw']))
++    row=dict(chain_id=c,measurement_id=n-1,score=s,contact=t,reads=r,events=k,
++      score_cells=a,allk_contacts=b,background=g,features=self.pending['raw'])
++    row.update(self.pending['reference'])
++    self.rows.append(row)
+     self.pending={};self.last_ids[c]=n
+     if len(self.rows)>=16:self.flush(record)
+   self.original_progress(record=record)
+  def flush(self,record=None):
+   if not self.rows:return
+   stem='block_%06d'%self.sequence;tmp=self.directory/(stem+'.npz.tmp');final=self.directory/(stem+'.npz')
+-  arrays={k:np.stack([r[k] for r in self.rows]) for k in self.rows[0]}
++  arrays={k:np.stack([r[k] for r in self.rows]) for k in self.rows[0] if k!='reference_key_ints'}
++  kb,kn,ks=encode_keys([r['reference_key_ints'] for r in self.rows])
++  if decode_keys(kb,kn)!=[r['reference_key_ints'] for r in self.rows]:raise ValueError('Reference key encoding not exact')
++  arrays.update(reference_key_bytes=kb,reference_key_nbytes=kn,reference_key_sha256=ks)
+   with tmp.open('xb') as f:np.savez(f,**arrays);f.flush();os.fsync(f.fileno())
+   os.replace(tmp,final)
+   self.write_json(self.directory/(stem+'.json'),{'array_file':final.name,'rows':len(self.rows),
+@@ -51,7 +148,8 @@
+    'last_id':[self.rows[-1]['chain_id'],self.rows[-1]['measurement_id']],
+    'progress':record,'runtime_counters':dict(self.prepared['counters']),
+    'mixture_counters':dict(self.prepared['mixture_counters']),
+-   'current_cycle_counters':dict(self.prepared['current_cycle_binding']['counters']),
++   'worm_counters':dict(self.prepared['worm_binding']['counters']),
++   'durability_module_version':MODULE_VERSION,
+    'scope':'Atomic committed measurement prefix, not resumable chain or assessed sample.'})
+   fd=os.open(self.directory,os.O_RDONLY)
+   try:os.fsync(fd)

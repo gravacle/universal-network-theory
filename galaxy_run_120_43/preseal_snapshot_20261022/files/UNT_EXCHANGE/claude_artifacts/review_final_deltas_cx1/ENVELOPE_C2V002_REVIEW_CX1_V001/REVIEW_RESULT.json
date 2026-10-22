@@ -1,0 +1,61 @@
+{
+  "dispatch": "0787",
+  "verdict": "FAIL",
+  "blocking_count": 1,
+  "blocking_items": [
+    {
+      "id": "CX1-ENV-01",
+      "blocking": true,
+      "requirement": "0787 check 1: one guarded read per file per snapshot; A226 item 1 single-read rule.",
+      "finding": "snapshot groups by realpath, not descriptor (dev, ino). Two hard-link paths to one regular file each call read_once, read the same inode twice, and return exit 0. OneRead.get has the same realpath-only cache for collect.",
+      "reproduction": "OWN_CHECKS.json and own_checks_cx1.py: synthetic input.txt and alias.txt have equal dev/ino; each bytes_read=6; snapshot exit=0. No production input was mutated.",
+      "scope": "A contract violation, not demonstrated acceptance of unhashed bytes. Both observations are hashed correctly; no scientific result is implicated.",
+      "requested_fix": "Use file identity to share a single content-read result across aliases, while retaining each path resolution and checking descriptor identity safely; alternatively refuse duplicate inode aliases before a second content read. Add hard-link regressions for snapshot and collect, with independent content-read counts. Publish an immutable successor."
+    }
+  ],
+  "TESTED": [
+    "All six dispatch hashes verified before and after.",
+    "82/82 published suite rerun, zero failures; 45/45 mutations killed with passing baseline.",
+    "Independent inert hard-link alias test reproduces CX1-ENV-01.",
+    "Independent synthetic NGC3198/result-name collect guard: zero payload opens; missing-file snapshot returns exit 3.",
+    "Source review: each individual read_once hashes/counts its own chunks and uses descriptor metadata; collect parses that buffer. D1-D7 mechanics reviewed against A228.",
+    "D1 exclusion matches realpath and inode; D2 default 0/reason for depth; D3 scope and recorded exclusions; D4 xattr/ctime classification; D5 parse/cap refusal; D6 both compare shas; D7 encoding refusal.",
+    "Compare checks byte/size/mtime/inode, mismatches, missing status and resolution changes; invalidation exit 3 and explicit refusals exit 2."
+  ],
+  "choices_assessment": [
+    "Inode exclusion, exact-spelling scope, non-container scope refusal, depth reason, exclusion reasons, over-cap followed-document refusal and descriptor xattr-name reads are consistent with or conservatively implement the rulings.",
+    "Optional snapshot pins-sha256 is accepted only with documented root procedure always supplying it. Root must enforce C1 /tail_readiness scope and correct phase sources; tool does not infer C1 identity.",
+    "D4 is implemented as ruled. Endpoint snapshots do not prove continuous immutability: a transient modification restored before END, with mtime restored and changed xattr names, can be classified as explained metadata. This is a policy limitation, not an additional implementation blocker.",
+    "N6 parent-folder race remains disclosed; no additional real snapshot was taken."
+  ],
+  "UNTESTED": [
+    "Real depth-0 collect (optional; not run in this review).",
+    "Any real snapshot, gate-file hashing, production phase execution or real phase invalidation."
+  ],
+  "pins": {
+    "pinned_input_envelope_c2v002.py": "0fac239ad7e5573084bfa494e55a344f40ab4deaa3469d5d54671ca5b457598c",
+    "tests/test_pinned_input_envelope_c2v002.py": "d0494cafcf15698aec985e7d56bcedcd4dfbe279b37677a04b007851b1945dff",
+    "tests/mutation_check_c2v002.py": "59e20a66b1b4c24595bb5ac82c29ab71856f34c49f413b08e929c9210ccdd6a2",
+    "README_PINNED_INPUT_ENVELOPE_C2V002.md": "bcf34ecb4b64793cdcfc14dd45ba5ad469593949fafbb82736ae3c2c73c26b8b",
+    "README_ERRATA_C2V002_E1.md": "048ad43ec7231caaabaf2b32d4139248aeb49e94d16e832c02cb091746cc6faa",
+    "HASHES_PINNED_INPUT_ENVELOPE_C2V002.txt": "b097061b2669a5b97537951f94473ac2e94de59de3bc30fb5c08fdfb5a406d96"
+  },
+  "evidence": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V002_REVIEW_CX1_V001/OWN_CHECKS.json",
+      "sha256": "f72ad73bc1a4964ff096133a80c35f81f9db3f9943400d1d684016e01442c42b"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V002_REVIEW_CX1_V001/own_checks_cx1.py",
+      "sha256": "349e48f515c6d94a052708cb622ce86fb81c1058a3033a4c52d8538169993449"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V002_REVIEW_CX1_V001/test_runs/RUN_20261020T193124Z_60282/TEST_RESULTS.json",
+      "sha256": "8eee87d4bb5be95a660d8842134f0a93279529936a56eefb7dc6cd1d64df21f0"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V002_REVIEW_CX1_V001/mutation_runs/RUN_20261020T193127Z_60323/MUTATION_RESULTS.json",
+      "sha256": "47aa5b2017f9de1c67be8d210c69b0d5c20ddcb2b708bb12f914f2241ea20c39"
+    }
+  ]
+}

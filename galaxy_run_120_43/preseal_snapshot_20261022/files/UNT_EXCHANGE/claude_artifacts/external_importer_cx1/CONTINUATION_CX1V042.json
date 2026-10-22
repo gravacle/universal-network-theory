@@ -1,0 +1,61 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Real pinned b1 guard + synthetic proofs. No wrapper/physics admission claim.",
+  "utc": "2026-10-21T13:48:59.101006+00:00",
+  "tested": [
+    "actual parent WAVE verifier passes inert evidence and real receipt/finish binding",
+    "actual wrapper forward certificate path returns validated inert entry",
+    "entry self hash",
+    "receipt hash",
+    "evidence set",
+    "taxonomy rederivation",
+    "forward rederivation"
+  ],
+  "finding": "Do not attach external_cache_guard directly as check_cached_certificate: it expects a complete key-bearing entry, whereas wrapper pre-put deliberately passes a partial entry. The adapter must derive the key from theta when absent, validate any supplied key, retain the original certificate check and restore the explicit original-spec resolver on every exit. Scope snapshot reads to validation; parent put writes must remain outside ReadOnlyScope.",
+  "untested": [
+    "Production mapper/taxonomy",
+    "Full cache open/put lifecycle",
+    "Authenticated importer installation",
+    "Actual production context and authentication, wait/acceptance producer integration"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_combined_cache_verifier_cx1v001.py",
+      "sha256": "a5b948f2270c7ba4f1ed887f898e131e4ab0a224e6511aea5c06d09b54420a81"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_valid_admission_cx1v003.py",
+      "sha256": "7fbf4fbd05eb6da1c80cefb888e9981c5b2c0f0b40f816ebef931616967ff39d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_verify_scope_cx1v001.py",
+      "sha256": "cb0607b437a7529de39caf5c81780eb47973bad749049a43a98b94f307139cf4"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_certificate_adapter_cx1v002.py",
+      "sha256": "30b4881885e959253a58a495d1bae46056860c998ee8c5dc2ab353715929b51c"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/real_guard_20261021T134841839287/COMBINED_CACHE_TEST_REPORT.json",
+      "sha256": "a9a5dbac9baba5a07961230da89fc49e9dacc17f9ae69a16d54f050120889cc1"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 188,
+  "no_live_processes": true,
+  "next": "Combined actual parent _verify_impl and wrapper Cache._verify_impl/forward now pass 7 inert checks under shared snapshot adapter. Synthetic mapper/taxonomy, empty row_ids/speeds remain explicit. No actual cache open/put or production installer. Selected cache_certificate_adapter v002, cache_verify_scope v001. Three overall blockers remain."
+}

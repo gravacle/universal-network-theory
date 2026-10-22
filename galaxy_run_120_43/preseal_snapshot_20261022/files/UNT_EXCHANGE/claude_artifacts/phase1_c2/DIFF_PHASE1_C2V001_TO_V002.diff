@@ -1,0 +1,390 @@
+--- phase1_c2v001.py	2026-10-19 06:14:56.596900881 -0500
++++ phase1_c2v002.py	2026-10-19 08:14:24.946367037 -0500
+@@ -1,4 +1,13 @@
+-"""phase1_c2v001 -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build).
++"""phase1_c2v002 -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
++phase1_c2v001 (34eaef36) under ruling A137 (V006 addendum) and Claude3 0191.  Two changes only:
++  L5   B_P1 = the forward calls before the first call whose orchestrator Probe family is NOT in PREFIX_FAMILIES
++       (seed, jacobian, repair, gd_pre).  Every v001 'march0' dependency now reads "the first non-prefix-family wave"
++       (prefix detection, the replay stop, the NOT_READY rule, the snapshot's recorded wave, PREFIX_MISMATCH and
++       AT-0a).  When that family IS march0 the behaviour and the output bytes are v001's (snapshot form 'march0_wave');
++       otherwise the snapshot records 'first_non_prefix_wave' and 'boundary_call' (e.g. a corner anchor whose round-0
++       march sides all close at a box face, so the first non-prefix family is 'design').
++  N-B  AT-1's e_q is the member-displacement bound sum_k 2 eps_k |Delta_m,k| / h_k (A137; erratum E_A133_1),
++       reported per (member, row); the v001 band-optimum reading is removed.
+ 
+ Text of record: CLAUDE2/A133_TWO_PHASE_PROTOCOL_V001.md (cd92ef91), sections 1, 4 and 5; ruling A133 in
+ ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md.  Pinned sources are imported from their exact bytes
+@@ -7,12 +16,13 @@
+ 
+ Commands (every check runs before the exclusive new output directory is created; nothing is ever overwritten; the
+ campaign work dir is only read):
+-  snapshot  B_P1 = the engine evaluations before the first call whose orchestrator Probe family is 'march0', from a
+-            cache-only replay of the committed prefix (waves below the first march0 wave, each with WAVE_RESULT.json;
+-            the march0 WAVE_PLAN must exist).  The replay at budget B_P1 runs twice and must be byte-equal, under
+-            check_runtime.  The BUDGET_EXHAUSTED run goes through write_calibration_record into a NEW Phase-1 registry.
+-            u_A = the engine's primary_anchor, checked equal to v003g's anchor.  Engine terminal statuses and m_id = 0
+-            are reported (exit 20) with no record and no NGC call.
++  snapshot  B_P1 = the engine evaluations before the first call whose orchestrator Probe family is outside
++            PREFIX_FAMILIES ('march0' in every campaign that marches), from a cache-only replay of the committed
++            prefix (waves below the first non-prefix-family wave, each with WAVE_RESULT.json; that wave's WAVE_PLAN
++            must exist and plan the boundary call's family).  The replay at budget B_P1 runs twice and must be
++            byte-equal, under check_runtime.  The BUDGET_EXHAUSTED run goes through write_calibration_record into a NEW
++            Phase-1 registry.  u_A = the engine's primary_anchor, checked equal to v003g's anchor.  Engine terminal
++            statuses and m_id = 0 are reported (exit 20) with no record and no NGC call.
+   handoff   RI45-01 except COMPLETE: native verifier, v003g reclassification, the double replay re-derived, plan and
+             admission provenance, post-state acceptance, point-scoped certificates; then the target-free export of every
+             admitted point and one RI45-10 10-field handoff per v003g member.
+@@ -35,7 +45,7 @@
+ import sys
+ from pathlib import Path
+ 
+-MODULE = 'phase1_c2v001'
++MODULE = 'phase1_c2v002'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'
+ ORCH_PIN = (ART + 'calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py',
+             'c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d')
+@@ -57,6 +67,12 @@
+                                   'PHASE1_HANDOFF_ROOT_FIELDS_C2V001')
+ S_EXPORT, S_HANDOFF = 'UNT_STEP4_TARGET_FREE_ADMITTED_EXPORT_CX3V001', 'UNT_STEP5_ADMITTED_POINT_HANDOFF_CX3V001'
+ EXIT = {'OK': 0, 'REFUSED': 3, 'NOT_READY': 4, 'AGREEMENT_DEFECT': 10, 'PHASE1_TERMINAL': 20}
++B_P1_RULE = ('A137 L5: B_P1 = forward calls before the first call whose orchestrator Probe family is not in '
++             '(seed, jacobian, repair, gd_pre)')
++E_Q_READING = ('A137 N-B (erratum E_A133_1): e_q = sum_k 2 eps_k |Delta_m,k| / h_k at member m own displacement '
++               'Delta_m = u_m - u_A (engine u); h_k = |du_k| of F_k (fdplan); eps_k = the row eps_q of L1 (the largest '
++               'certificate eps over u_A and the three F points, so eps_k >= max(eps(u_A), eps(F_k))); a row without '
++               'eps reads FD_NOISE_NOT_BOUNDED (e_q = 0, flagged)')
+ 
+ 
+ class Refused(Exception):
+@@ -66,11 +82,34 @@
+ 
+ 
+ class _Stop(BaseException):
+-    """Leaves the engine like the orchestrator's _ProbeStop: the engine's guards catch Exception only."""
++    """Leaves the engine like the orchestrator's _ProbeStop: the engine's guards catch Exception only.  A boundary stop
++    (the first call outside PREFIX_FAMILIES) also carries that call's Probe family and the engine stage it ran in."""
+ 
+-    def __init__(self, code, index):
++    def __init__(self, code, index, family=None, stage=None):
+         BaseException.__init__(self, code)
+-        self.code, self.index = code, index
++        self.code, self.index, self.family, self.stage = code, index, family, stage
++
++
++class StopAt(tuple):
++    """(code, log index) exactly as v001 reported a replay stop, plus .family and .stage for a boundary stop."""
++
++    def __new__(cls, code, index, family=None, stage=None):
++        t = tuple.__new__(cls, (code, index))
++        t.family, t.stage = family, stage
++        return t
++
++
++def non_prefix_families(families):
++    """The plan families (lists whose first element is the Probe family name) outside PREFIX_FAMILIES (A137 L5)."""
++    return [list(f) for f in families or [] if list(f)[0] not in PREFIX_FAMILIES]
++
++
++def explore_stage(probe, f):
++    """The engine's own exploration stage (out['stage_reached'] of _explore_impl) at the call in frame f."""
++    x = f
++    while x is not None and x.f_code is not probe.code_explore:
++        x = x.f_back
++    return (x.f_locals.get('out') or {}).get('stage_reached') if x is not None else None
+ 
+ 
+ # ------------------------------------------------------------------------------------------------ bytes and pins
+@@ -204,13 +243,15 @@
+                                       'result_sha256': sha_bytes(rp.read_bytes()) if rp.is_file() else None}
+         return out
+ 
+-    def prefix(self, require_march0=True):
+-        """(march0 wave or None, waves, key -> entry): cache entries of committed waves (WAVE_RESULT.json present)
+-        below the first march0 wave (all committed waves when there is none and require_march0 is False)."""
++    def prefix(self, require_boundary=True):
++        """(first non-prefix-family wave or None, waves, key -> entry): cache entries of committed waves
++        (WAVE_RESULT.json present) below the first wave whose plan holds a family outside PREFIX_FAMILIES (A137 L5;
++        the march0 wave in every campaign that marches); all committed waves when there is none and require_boundary
++        is False."""
+         ctx, waves = self.ctx, self.waves()
+-        m0 = sorted(w for w, x in waves.items() if ['march0'] in [list(f) for f in x['plan'].get('families') or []])
+-        if not m0 and require_march0:
+-            raise Refused('NOT_READY', 'no committed WAVE_PLAN with family march0')
++        m0 = sorted(w for w, x in waves.items() if non_prefix_families(x['plan'].get('families')))
++        if not m0 and require_boundary:
++            raise Refused('NOT_READY', 'no committed WAVE_PLAN with a family outside %s' % (PREFIX_FAMILIES,))
+         w0 = m0[0] if m0 else None
+         top = w0 if w0 is not None else max(waves, default=0) + 1
+         for w in sorted(waves):
+@@ -231,7 +272,9 @@
+         return w0, waves, entries
+ 
+     def replay(self, entries, budget):
+-        """The unmodified engine, forward = cache-only lookup in `entries` (any miss or a non-prefix family stops)."""
++        """The unmodified engine, forward = cache-only lookup in `entries`.  The first call whose family is outside
++        PREFIX_FAMILIES stops it as the boundary (A137 L5; 'MARCH0' when that family is march0, as in v001); a miss
++        stops it too."""
+         O, probe, calls = self.O, self.probe, []
+ 
+         def fwd(theta):
+@@ -242,11 +285,11 @@
+             if idx != len(calls):
+                 raise _Stop('LOG_INDEX_NOT_CALL_COUNT', idx)
+             if fam == 'march0':
+-                raise _Stop('MARCH0', idx)
++                raise _Stop('MARCH0', idx, list(c['family']), 'march')
+             if fam not in ('seed', 'jacobian') and c['m_id'] == 0:
+                 raise _Stop('NO_IDENTIFIED_DIRECTION', idx)
+             if fam not in PREFIX_FAMILIES:
+-                raise _Stop('FAMILY_%s_BEFORE_MARCH0' % fam, idx)
++                raise _Stop('FIRST_NON_PREFIX_%s' % fam, idx, list(c['family']), explore_stage(probe, f))
+             key = O.theta_key(theta)
+             e = entries.get(key)
+             if e is None:
+@@ -258,25 +301,28 @@
+         try:
+             return self.E.run_calibration_region(forward=fwd, **kw), calls, None
+         except _Stop as s:
+-            return None, calls, (s.code, s.index)
++            return None, calls, StopAt(s.code, s.index, s.family, s.stage)
+ 
+     def b_p1(self, entries):
+-        """Pass 1 at the registered budget: ('B_P1', n, calls) | ('TERMINAL', status, calls)."""
++        """Pass 1 at the registered budget: ('B_P1', n, calls, boundary) | ('TERMINAL', status, calls, None), with
++        boundary = {family, stage_reached} of the first call outside PREFIX_FAMILIES (A137 L5)."""
+         run, calls, stop = self.replay(entries, self.ctx.params['budget'])
+         if stop is None:
+             if run['status'] in TERMINAL:
+-                return 'TERMINAL', run['status'], calls
++                return 'TERMINAL', run['status'], calls, None
+             if run['status'] == 'COMPLETE' and not (run.get('identifiability') or {}).get('identified'):
+-                return 'TERMINAL', 'NO_IDENTIFIED_DIRECTION', calls
+-            raise Refused('REPLAY_UNEXPECTED', 'replay ended %s with no march0 call' % run['status'])
+-        if stop[0] == 'MARCH0':
+-            return 'B_P1', stop[1], calls
++                return 'TERMINAL', 'NO_IDENTIFIED_DIRECTION', calls, None
++            raise Refused('REPLAY_UNEXPECTED', 'replay ended %s with no call outside %s' % (run['status'],
++                                                                                           PREFIX_FAMILIES))
++        if stop.family is not None:
++            return 'B_P1', stop[1], calls, {'family': list(stop.family), 'stage_reached': stop.stage}
+         if stop[0] == 'NO_IDENTIFIED_DIRECTION':
+-            return 'TERMINAL', 'NO_IDENTIFIED_DIRECTION', calls
++            return 'TERMINAL', 'NO_IDENTIFIED_DIRECTION', calls, None
+         raise Refused('NOT_READY' if stop[0] == 'PREFIX_MISS' else 'REPLAY_STOPPED', '%s at log index %s' % stop)
+ 
+-    def snapshot_run(self, entries, b):
+-        """The run at budget B_P1, twice, byte-equal and valid (refuses B_P1 +/- 1)."""
++    def snapshot_run(self, entries, b, stage='march'):
++        """The run at budget B_P1, twice, byte-equal and valid (refuses B_P1 +/- 1); `stage` is the engine stage of
++        the first non-prefix-family call ('march' for march0, as in v001)."""
+         r1, c1, s1 = self.replay(entries, b)
+         r2, _c2, s2 = self.replay(entries, b)
+         if s1 or s2:
+@@ -284,7 +330,7 @@
+         b1, b2 = self.E._canonical_bytes(r1), self.E._canonical_bytes(r2)
+         if b1 != b2:
+             raise Refused('REPLAY_NONDETERMINISTIC', 'the two replays at budget %d differ' % b)
+-        check_snapshot_run(r1, b)
++        check_snapshot_run(r1, b, stage)
+         return r1, c1, sha_bytes(b1)
+ 
+     def runtime(self):
+@@ -302,7 +348,7 @@
+         return [(m['key'], m['theta']) for m in self.orch._dedup(pr['misses'])]
+ 
+ 
+-def check_snapshot_run(run, b):
++def check_snapshot_run(run, b, stage='march'):
+     ex = run.get('exploration') or {}
+     pa = ex.get('primary_anchor')
+     bad = []
+@@ -310,8 +356,10 @@
+         bad.append('status %r/%r is not BUDGET_EXHAUSTED' % (run.get('status'), ex.get('status')))
+     if len(run.get('evaluation_log') or []) != b:
+         bad.append('log length %d != B_P1 %d' % (len(run.get('evaluation_log') or []), b))
+-    if ex.get('stage_reached') != 'march':
+-        bad.append('budget exhausted at stage %r, not at the first march call' % ex.get('stage_reached'))
++    if ex.get('stage_reached') != stage:
++        bad.append('budget exhausted at stage %r, not at the first march call' % ex.get('stage_reached')
++                   if stage == 'march' else 'budget exhausted at stage %r, not at the stage %r of the first '
++                   'non-prefix-family call' % (ex.get('stage_reached'), stage))
+     if not isinstance(pa, dict) or not isinstance(pa.get('log_index'), int) or not 0 <= pa['log_index'] < b:
+         bad.append('no primary_anchor inside the prefix')
+     if not (run.get('identifiability') or {}).get('identified'):
+@@ -353,20 +401,30 @@
+ def cmd_snapshot(a):
+     cp = Campaign(a.config, a.config_sha256)
+     out = Out(a.out_dir, [cp.work_dir])
+-    w0, waves, entries = cp.prefix(require_march0=False)
+-    kind, val, calls1 = cp.b_p1(entries)
++    w0, waves, entries = cp.prefix(require_boundary=False)
++    kind, val, calls1, bnd = cp.b_p1(entries)
++    fams0 = [list(f) for f in waves[w0]['plan'].get('families') or []] if w0 is not None else []
+     if kind == 'B_P1' and w0 is None:
+-        raise Refused('NOT_READY', 'B_P1 = %d is reached but the march0 WAVE_PLAN is not written yet' % val)
++        raise Refused('NOT_READY', 'B_P1 = %d is reached but the march0 WAVE_PLAN is not written yet' % val
++                      if bnd['family'] == ['march0'] else 'B_P1 = %d is reached but the first non-prefix-family '
++                      'WAVE_PLAN (%s) is not written yet' % (val, bnd['family']))
++    if kind == 'B_P1' and bnd['family'] not in fams0:
++        raise Refused('PREFIX_MISMATCH', 'the first non-prefix-family wave %d plans %s, not the replay boundary '
++                      'family %s' % (w0, fams0, bnd['family']))
+     cp.runtime()
+     used = sorted(w for w in waves if w0 is None or w < w0)
++    m0form = w0 is not None and ((bnd['family'] == ['march0']) if kind == 'B_P1' else (['march0'] in fams0))
+     base = {'schema': S_SNAP, 'module': MODULE, 'tool_sha256': pin_of(__file__)['sha256'],
+             'pins': {'orchestrator': ORCH_PIN[1], 'engine': ENGINE_PIN[1], 'freeze_v003g': FREEZE_PIN[1],
+                      'config': {'path': a.config, 'sha256': a.config_sha256}},
+             'cache_id': cp.ctx.cache_id, 'gate_digest': cp.ctx.gate_digest, 'runtime_check': 'PASS',
+-            'march0_wave': {'wave': w0, 'plan_sha256': waves[w0]['plan_sha256']} if w0 is not None else None,
++            'march0_wave': {'wave': w0, 'plan_sha256': waves[w0]['plan_sha256']} if m0form else None,
+             'prefix_waves': [{'wave': w, 'plan_sha256': waves[w]['plan_sha256'],
+                               'result_sha256': waves[w]['result_sha256']} for w in used],
+             'final_summary_present': (cp.ctx.work_dir / 'FINAL_SUMMARY.json').is_file()}
++    if w0 is not None and not m0form:   # A137 L5: the recorded wave when the first non-prefix family is not march0
++        base.update(first_non_prefix_wave={'wave': w0, 'plan_sha256': waves[w0]['plan_sha256'], 'families': fams0},
++                    b_p1_rule=B_P1_RULE)
+     if kind == 'TERMINAL':
+         out.create()
+         out.write('SNAPSHOT_C2V001.json', dict(base, phase1_status=val, ngc_calls=0, b_p1=None,
+@@ -374,7 +432,9 @@
+                                                  'no NGC call; v003g refuses m_id = 0 (freeze L1326)'))
+         return 'PHASE1_TERMINAL', {'phase1_status': val, 'out_dir': out.dir}
+     b = val
+-    run, calls, run_sha = cp.snapshot_run(entries, b)
++    run, calls, run_sha = cp.snapshot_run(entries, b, bnd['stage_reached'])
++    if not m0form:
++        base['boundary_call'] = {'log_index': b, 'family': bnd['family'], 'stage_reached': bnd['stage_reached']}
+     if [c['key'] for c in calls] != [c['key'] for c in calls1]:
+         raise Refused('REPLAY_PREFIX_MISMATCH', 'the budget-B_P1 replay requested other thetas than pass 1')
+     sel = v003g_members(cp.ctx, run, 0)
+@@ -401,6 +461,22 @@
+     return 'OK', {'b_p1': b, 'u_A_log_index': pa['log_index'], 'out_dir': out.dir, 'files': out.files}
+ 
+ 
++def recorded_boundary(doc):
++    """The snapshot's recorded first non-prefix-family wave and boundary call (A137 L5): the v001 form 'march0_wave'
++    when that family is march0, otherwise 'first_non_prefix_wave' with 'boundary_call'."""
++    if doc.get('march0_wave') is not None:
++        if 'first_non_prefix_wave' in doc or 'boundary_call' in doc:
++            raise Refused('SNAPSHOT', 'both the march0 form and the first-non-prefix-family form are present')
++        return {'wave': doc['march0_wave']['wave'], 'plan_sha256': doc['march0_wave']['plan_sha256'],
++                'family': ['march0'], 'stage_reached': 'march'}
++    w, c = doc.get('first_non_prefix_wave'), doc.get('boundary_call')
++    if not isinstance(w, dict) or not isinstance(c, dict) or c.get('log_index') != doc.get('b_p1') or \
++            c.get('family') == ['march0'] or c.get('family') not in (w.get('families') or []):
++        raise Refused('SNAPSHOT', 'no consistent recorded first non-prefix-family wave and boundary call')
++    return {'wave': w['wave'], 'plan_sha256': w['plan_sha256'], 'family': c['family'],
++            'stage_reached': c['stage_reached']}
++
++
+ def load_snapshot(snap_dir, snap_sha):
+     E = mod('E')
+     doc = read_json_pinned(os.path.join(snap_dir, 'SNAPSHOT_C2V001.json'), snap_sha, 'snapshot')
+@@ -415,7 +491,7 @@
+         raise Refused('RECORD_UNVERIFIED', v.get('reasons'))
+     if canon_sha(E, run) != doc['replay']['run_canonical_sha256']:
+         raise Refused('RECORD_NOT_SNAPSHOT', 'record run is not the snapshot replay')
+-    check_snapshot_run(run, doc['b_p1'])
++    check_snapshot_run(run, doc['b_p1'], recorded_boundary(doc)['stage_reached'])
+     pa = run['exploration']['primary_anchor']
+     if pa['log_index'] != doc['u_A']['log_index'] or fhex(pa['u']) != doc['u_A']['u_hex']:
+         raise Refused('ANCHOR_MISMATCH', 'record primary_anchor is not the snapshot u_A')
+@@ -494,10 +570,13 @@
+     doc, rec, run = load_snapshot(a.snapshot, a.snapshot_sha256)
+     cp = Campaign(a.config, a.config_sha256)
+     out = Out(a.out_dir, [cp.work_dir])
++    rb = recorded_boundary(doc)
+     w0, waves, entries = cp.prefix()
+-    if w0 != doc['march0_wave']['wave'] or waves[w0]['plan_sha256'] != doc['march0_wave']['plan_sha256']:
+-        raise Refused('PREFIX_MISMATCH', 'march0 wave plan changed since the snapshot')
+-    run2, _c, rsha = cp.snapshot_run(entries, doc['b_p1'])
++    if w0 != rb['wave'] or waves[w0]['plan_sha256'] != rb['plan_sha256']:
++        raise Refused('PREFIX_MISMATCH', 'march0 wave plan changed since the snapshot' if rb['family'] == ['march0']
++                      else 'the first non-prefix-family wave or its plan changed since the snapshot (now wave %s, '
++                      'recorded %s)' % (w0, rb['wave']))
++    run2, _c, rsha = cp.snapshot_run(entries, doc['b_p1'], rb['stage_reached'])
+     if rsha != canon_sha(E, run):
+         raise Refused('REPLAY_MISMATCH', 'the double replay does not reproduce the recorded run')
+     cp.runtime()
+@@ -772,26 +851,33 @@
+     cp = Campaign(a.config, a.config_sha256)
+     out = Out(a.out_dir, [cp.work_dir])
+     s0 = read_json_pinned(a.s0, a.s0_sha256, 'S0')
++    rb = recorded_boundary(doc)
++    m0 = rb['family'] == ['march0']
+     fails = []
+     try:
+         w0, waves, entries = cp.prefix()
+-        kind, b, _c = cp.b_p1(entries)
++        kind, b, _c, bnd = cp.b_p1(entries)
+         if (kind, b) != ('B_P1', doc['b_p1']):
+             fails.append('B_P1 %s %s != snapshot %s' % (kind, b, doc['b_p1']))
++        elif bnd['family'] != rb['family']:
++            fails.append('first non-prefix family %s != snapshot %s' % (bnd['family'], rb['family']))
+         else:
+-            _r, _c2, rsha = cp.snapshot_run(entries, b)
++            _r, _c2, rsha = cp.snapshot_run(entries, b, rb['stage_reached'])
+             if rsha != doc['replay']['run_canonical_sha256']:
+                 fails.append('replay run differs from the snapshot record')
+         for e in run['evaluation_log']:
+             ce = entries.get(cp.O.theta_key(e['theta_natural']))
+             if ce is None or ce['theta'] != {k: float(v) for k, v in e['theta_natural'].items()}:
+                 fails.append('log %d theta is not a prefix cache entry' % e['index'])
+-        if w0 != doc['march0_wave']['wave'] or waves[w0]['plan_sha256'] != doc['march0_wave']['plan_sha256']:
+-            fails.append('march0 wave plan differs from the snapshot')
++        if w0 != rb['wave'] or waves[w0]['plan_sha256'] != rb['plan_sha256']:
++            fails.append('march0 wave plan differs from the snapshot' if m0 else
++                         'first non-prefix-family wave plan differs from the snapshot (now wave %s, recorded %s)'
++                         % (w0, rb['wave']))
+         nxt = cp.next_requested(entries)
+         plan = [(c['key'], c['theta']) for c in waves[w0]['plan']['calls']]
+         if nxt != plan:
+-            fails.append('next requested thetas (%d) differ from the committed march0 plan (%d)' % (len(nxt), len(plan)))
++            fails.append('next requested thetas (%d) differ from the committed %s plan (%d)'
++                         % (len(nxt), 'march0' if m0 else 'first non-prefix-family', len(plan)))
+     except Refused as exc:
+         fails.append('prefix: %s' % exc)
+     log = run['evaluation_log']
+@@ -874,7 +960,7 @@
+     r = float(L['P']['max_repair_step']) / math.sqrt(m)
+     VN = L['V'][L['N']] if L['N'] else np.zeros((0, len(L['uA'])))
+     rows1 = {x['id']: x for x in l1['rows']}
+-    fails, resid, widths = [], [], {}
++    fails, resid, widths, eqs = [], [], {}, []
+     untested = sorted(q for q, x in rows1.items() if x.get('status') != 'AVAILABLE' or x.get('a_q') == 'NOT_AVAILABLE')
+     for li, p in sorted(mv.items()):
+         u = np.array([pt for pt in run2['exploration']['admitted_points'] if pt['log_index'] == li][0]['u'])
+@@ -893,10 +979,12 @@
+                 continue
+             K = np.array(b1['K_q'])
+             shift = float(K @ (VN.T @ n)) if len(n) else 0.0
+-            e = 0.0
+-            if isinstance(b1.get('fd_noise'), dict):
++            e, eq = 0.0, 'FD_NOISE_NOT_BOUNDED'
++            if isinstance(b1.get('fd_noise'), dict):   # A137 N-B: member-displacement bound at m's own Delta_m
+                 h = np.array([abs(f) for f in l1['fd_du']])
+-                e = max(b1['fd_noise']['lo'], b1['fd_noise']['hi']) + float(np.sum(2 * b1['eps_q'] * np.abs(VN.T @ n) / h))
++                eps_k = np.full(len(h), float(b1['eps_q']))
++                e = eq = float(np.sum(2.0 * eps_k * np.abs(d) / h))
++            eqs.append({'log_index': li, 'id': qid, 'e_q': eq})
+             aq = b1['a_q']
+             lo, hi = b1['lo'] - aq - e + shift, b1['hi'] + aq + e + shift
+             resid.append({'log_index': li, 'id': qid, 'ngc_linearity_residual': g - b1['g_A'] - float(K @ d)})
+@@ -921,7 +1009,7 @@
+         res_ = float(L['P']['march_step']) * 2.0 ** -3
+         proj.append({'direction': k, 'phase2_range': [min(pr), max(pr)], 'linear_region': [lo, hi], 'lp_status': st,
+                      'resolution_u': res_, 'beyond_linear_region': bool(min(pr) < lo - res_ or max(pr) > hi + res_)})
+-    return fails, {'rows_not_tested_phase1_not_available': untested,
++    return fails, {'rows_not_tested_phase1_not_available': untested, 'e_q_per_member_row': eqs,
+                    'rows_fd_noise_not_bounded': sorted(q for q, x in rows1.items() if x.get('fd_noise') == 'FD_NOISE_NOT_BOUNDED'),
+                    'ngc_linearity_residuals': resid, 'envelope_vs_band_width': env,
+                    'max_ddo_linearity_deviation_over_tau': lin_dev, 'identified_projection_vs_linear_region': proj}
+@@ -953,6 +1041,7 @@
+         at0[1].get('phase2_record_sha256') == a.phase2_record_sha256
+     outcome = 'AGREEMENT_DEFECT' if not at0_ok else ('COVERED' if not fails else 'SUPERSEDED')
+     res = {'schema': 'PHASE1_AT1_C2V001', 'module': MODULE, 'outcome': outcome, 'at0': [x.get('outcome') for x in at0],
++           'e_q_reading': E_Q_READING,
+            'failing': fails, 'non_discriminating_rows': [r['id'] for r in l1['rows'] if r.get('non_discriminating')],
+            'reported': rep, 'record_of_result': 'Phase 2 in every outcome',
+            'not_computed_here': 'headlines, E3 lines, pattern classifications and tier changes come from the sealed r3a '

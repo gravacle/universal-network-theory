@@ -1,0 +1,143 @@
+{
+ "transcript_dir": "/Users/bgm/.claude-lane4/projects/-Users-bgm-Research-UNT-EXCHANGE/d3eba6e0-d470-48a9-b17d-717c88261d09/subagents/workflows/wf_3529f300-97b",
+ "base": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4",
+ "n_agents": 2,
+ "n_bash": 89,
+ "n_flagged": 15,
+ "flags": [
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "FORBIDDEN_WORD: [Vv]obs",
+    "FORBIDDEN_WORD: rotmod"
+   ],
+   "cmd": "D=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py; ls -la \"$D\"; shasum -a 256 \"$D\"; wc -l \"$D\"; grep -n -i -E \"def derive_geometry|GEOMETRY_PINS|def uvt_static_pins|rotmod|sparc|vobs|massmodels|ngc3198|^import|^from|read_bytes|open\\(|np.load|loadtxt|genfromtxt\" \"$D\" | head -80"
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_"
+   ],
+   "cmd": "D=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py; grep -n -E \"^UVT_LIB|^UVT_MONITOR_PINS|^RO1_ROUTE_A|^def uvt_active|^UVT_|^def verify_pin|^def exec_verified|^RO1|^UVT\" \"$D\""
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "CP_LN_MKDIR_OUTSIDE: /PARTIAL.md",
+    "CP_LN_MKDIR_OUTSIDE: /tools/fence_c4v003.py",
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_"
+   ],
+   "cmd": "B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; set -o noclobber; cp -n /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/ri45_06/build/tools/fence_c4v003.py \"$B/tools/fence_c4v003.py\" && shasum -a 256 \"$B/tools/fence_c4v003.py\" && printf '%s\\n' \"- $(date -u +%Y-%m-%dT%H:%M:%SZ) read + sha-verified from bytes: policy draft 961baaf2, A134 rulings 56774ba7 (Q8 L149-170), adapter v003 4de70486, base r5 381b3eaa, producer a1dcdea8, custody 6810b7c3 + certs2/certs_common (import-time reads only module files), runner c3v002 884bb89e, common fa48b1a1, template 98502e6b, checklist d4ed0502, fence c4v003 175b995b, st3 83da95ec, vf1 78fb2cf1, EPS_CERT_V006 598c8fa3. KEY FINDING: custody derive_details -> driver uvt_static_pins -> UVT_MONITOR_PINS a2f10_result = CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json (forbidden to this builder) => tests must stub derive_details (real identity, SYNTHETIC custody); real derive_details never run here. cp -n fence_c4v003 -> tools/ (175b995b).\" >> \"$B/PARTIAL.md\" && tail -1 \"$B/PARTIAL.md\""
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; set -o noclobber; T=$(date -u +%Y%m%dT%H%M%SZ); OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B \"$B/tools/run_fenced_c4ep1.py\" \"$B/tests/test_eps_review_instance_c4v001.py\" > \"$B/work/dev_${T}_stdout.txt\" 2> \"$B/work/dev_${T}_stderr.txt\"; echo \"exit=$?\"; echo \"T=$T\"; tail -c 3000 \"$B/work/dev_${T}_stdout.txt\"; echo; echo ---- STDERR; head -c 4000 \"$B/work/dev_${T}_stderr.txt\""
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; set -o noclobber; T=$(date -u +%Y%m%dT%H%M%SZ); OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B \"$B/tools/run_fenced_c4ep1.py\" \"$B/tests/test_eps_review_instance_c4v001.py\" > \"$B/work/dev_${T}_stdout.txt\" 2> \"$B/work/dev_${T}_stderr.txt\"; echo \"exit=$?\"; echo \"T=$T\"; cat \"$B/work/dev_${T}_stdout.txt\"; echo; echo ---- STDERR summary keys; F=\"$B/work/dev_${T}_stderr.txt\"; grep -o '\"refusal_trials\": [^]]*]]' \"$F\"; grep -o '\"policy_probes_pass\": [0-9]*, \"policy_probes_of\": [0-9]*' \"$F\"; grep -o '\"fence_blocked_after_trials\": [^]]*]' \"$F\"; grep -o '\"guard_refused_after_trials\": [^]]*]' \"$F\"; grep -o '\"runtime_opens_counted\": [0-9]*, \"nonexistent_pycache_prefix_lookups_counted\": [0-9]*' \"$F\"; echo ---- opened; grep -o '\"opened_outside_build\": \\[.*\\], \"listed_outside_build\"' \"$F\" | grep -o '\"path\": \"[^\"]*\"' | sed 's#/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts#ART#' | sort; echo ---- listed; grep -o '\"listed_outside_build\": \\[.*\\]' \"$F\" | grep -o '\"path\": \"[^\"]*\"'; head -c 600 \"$F\" | grep -v EP1_SUMMARY"
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; set -o noclobber; T=$(date -u +%Y%m%dT%H%M%SZ); OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B \"$B/tools/run_fenced_c4ep1.py\" \"$B/tests/test_eps_review_instance_c4v001.py\" > \"$B/work/dev_${T}_stdout.txt\" 2> \"$B/work/dev_${T}_stderr.txt\"; echo \"exit=$?\"; echo \"T=$T\"; cat \"$B/work/dev_${T}_stdout.txt\"; echo; F=\"$B/work/dev_${T}_stderr.txt\"; grep -o '\"policy_probes_pass\": [0-9]*, \"policy_probes_of\": [0-9]*' \"$F\"; grep -o '\"fence_blocked_after_trials\": [^]]*]' \"$F\"; grep -o '\"guard_refused_after_trials\": [^]]*]' \"$F\"; grep -o '\"refusal_trials\": \\[\\[[^E]*\"policy' \"$F\"; grep -c . \"$F\"; R=$(ls -d \"$B\"/work/run_${T}); grep -n -E '\"id\": \"F5[234]|\"id\": \"M2[23]' \"$R/TEST_RESULTS_DEV.json\""
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; set -o noclobber; T=$(date -u +%Y%m%dT%H%M%SZ); OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B \"$B/tools/run_fenced_c4ep1.py\" \"$B/tests/test_eps_review_instance_c4v001.py\" > \"$B/work/dev_${T}_stdout.txt\" 2> \"$B/work/dev_${T}_stderr.txt\"; echo \"exit=$?\"; echo \"T=$T\"; cat \"$B/work/dev_${T}_stdout.txt\"; echo; F=\"$B/work/dev_${T}_stderr.txt\"; grep -o '\"fence_blocked_after_trials\": [^]]*]' \"$F\"; grep -o '\"guard_refused_after_trials\": [^]]*]' \"$F\"; R=\"$B/work/run_${T}\"; grep -n -A12 -E '\"id\": \"F5[56]' \"$R/TEST_RESULTS_DEV.json\" | grep -E '\"id\"|\"item\"|\"reason\"|\"ok\"'; ls -la \"$B/tools\" \"$B/tests\""
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; set -o noclobber; date -u +%Y-%m-%dT%H:%M:%SZ; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B \"$B/tools/run_fenced_c4ep1.py\" \"$B/tests/test_eps_review_instance_c4v001.py\" --final > \"$B/out/TEST_RUN_STDOUT_C4V001.txt\" 2> \"$B/out/TEST_RUN_FENCE_SUMMARY_C4V001.txt\"; echo \"exit=$?\"; date -u +%Y-%m-%dT%H:%M:%SZ; cat \"$B/out/TEST_RUN_STDOUT_C4V001.txt\"; echo; F=\"$B/out/TEST_RUN_FENCE_SUMMARY_C4V001.txt\"; grep -o '\"refusal_trials\": \\[\\[[^E]*\"policy_probes_of\": [0-9]*' \"$F\"; grep -o '\"fence_blocked_after_trials\": [^]]*]' \"$F\"; grep -o '\"guard_refused_after_trials\": [^]]*]' \"$F\"; grep -o '\"runtime_opens_counted\": [0-9]*, \"nonexistent_pycache_prefix_lookups_counted\": [0-9]*' \"$F\"; grep -o '\"exit_code\": [0-9]*' \"$F\"; ls -la \"$B/out\"; shasum -a 256 \"$B/out/\"*"
+  },
+  {
+   "agent": "agent-a486dfb7ce76f5a49.jsonl",
+   "label": "build",
+   "why": [
+    "CP_LN_MKDIR_OUTSIDE: /out/cli_probe_no_instance",
+    "PY_UNFENCED: PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+   ],
+   "cmd": "B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; set -o noclobber; RUN=\"$B/work/run_20261019T120624Z\"; mkdir \"$B/out/cli_probe_no_instance\" && PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b $PY -I -B \"$B/tools/run_fenced_c4ep1.py\" \"$B/tools/eps_review_instance_c4v001.py\" --point-dir \"$RUN/cp1_pass/P01_8ad6ca4e867854da_TAIL_REANCHOR_a1\" --out-root \"$RUN/cp1_pass\" --point-key 8ad6ca4e867854dad71f56a97fda66f7d7b295473092a0bec84a4aca968635f8 --policy /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/draft/EPS_POLICY_REVIEW_C4V001_DRAFT.md --policy-sha256 961baaf27e31842b315bceeae09d013e3af6e6b2fa81ecb4b15242298df2c987 --output-dir \"$B/out/cli_probe_no_instance\" > \"$B/out/CLI_PROBE_DRAFT_POLICY_STDOUT_C4V001.txt\" 2> \"$B/out/CLI_PROBE_DRAFT_POLICY_FENCE_C4V001.txt\"; echo \"exit=$?\"; cat \"$B/out/CLI_PROBE_DRAFT_POLICY_STDOUT_C4V001.txt\"; OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b $PY -I -B \"$B/tools/run_fenced_c4ep1.py\" \"$B/tools/eps_review_instance_c4v001.py\" > \"$B/out/CLI_PROBE_NO_ARGS_STDOUT_C4V001.txt\" 2> \"$B/out/CLI_PROBE_NO_ARGS_FENCE_C4V001.txt\"; echo \"exit=$?\"; cat \"$B/out/CLI_PROBE_NO_ARGS_STDOUT_C4V001.txt\"; echo \"---- output dir listing (must be empty):\"; ls -A \"$B/out/cli_probe"
+  },
+  {
+   "agent": "agent-a7cb9cf294270c805.jsonl",
+   "label": "verify",
+   "why": [
+    "CP_LN_MKDIR_OUTSIDE: /out",
+    "CP_LN_MKDIR_OUTSIDE: /tests",
+    "CP_LN_MKDIR_OUTSIDE: /tests/test_eps_review_instance_c4v001.py",
+    "CP_LN_MKDIR_OUTSIDE: /tests/test_eps_review_instance_c4v001_rerun.py",
+    "CP_LN_MKDIR_OUTSIDE: /tools",
+    "CP_LN_MKDIR_OUTSIDE: /tools/eps_review_instance_c4v001.py",
+    "CP_LN_MKDIR_OUTSIDE: /tools/fence_c4v003.py",
+    "CP_LN_MKDIR_OUTSIDE: /tools/run_fenced_c4ep1.py",
+    "CP_LN_MKDIR_OUTSIDE: /tools/run_fenced_c4vv1.py",
+    "CP_LN_MKDIR_OUTSIDE: /work"
+   ],
+   "cmd": "set -o noclobber; V=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/verify_c4v001; B=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/build_c4v001; mkdir $V/tools $V/tests $V/work $V/out && cp -n $B/tools/fence_c4v003.py $V/tools/fence_c4v003.py && cp -n $B/tools/eps_review_instance_c4v001.py $V/tools/eps_review_instance_c4v001.py && cp -n $B/tools/run_fenced_c4ep1.py $V/tools/run_fenced_c4vv1.py && cp -n $B/tests/test_eps_review_instance_c4v001.py $V/tests/test_eps_review_instance_c4v001_rerun.py && shasum -a 256 $V/tools/* $V/tests/*"
+  },
+  {
+   "agent": "agent-a7cb9cf294270c805.jsonl",
+   "label": "verify",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "set -o noclobber; V=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/verify_c4v001; TS=$(date -u +%Y%m%dT%H%M%SZ); echo \"start $TS\"; cd $V && OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B $V/tools/run_fenced_c4vv1.py $V/tests/test_eps_review_instance_c4v001_rerun.py > $V/work/rerun_${TS}_stdout.txt 2> $V/work/rerun_${TS}_stderr.txt; echo \"exit $?\"; date -u +%Y-%m-%dT%H:%M:%SZ; cat $V/work/rerun_${TS}_stdout.txt; wc -c $V/work/rerun_${TS}_stderr.txt"
+  },
+  {
+   "agent": "agent-a7cb9cf294270c805.jsonl",
+   "label": "verify",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "set -o noclobber; V=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/verify_c4v001; TS=$(date -u +%Y%m%dT%H%M%SZ); echo \"start $TS\"; cd $V && OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B $V/tools/run_fenced_c4vv1.py $V/tests/verify_mutations_c4v001.py > $V/work/verify_${TS}_stdout.txt 2> $V/work/verify_${TS}_stderr.txt; echo \"exit $?\"; date -u +%Y-%m-%dT%H:%M:%SZ; cat $V/work/verify_${TS}_stdout.txt; tail -c 3000 $V/work/verify_${TS}_stderr.txt | head -c 2500"
+  },
+  {
+   "agent": "agent-a7cb9cf294270c805.jsonl",
+   "label": "verify",
+   "why": [
+    "CP_LN_MKDIR_OUTSIDE: /work/cli_probe_$TS",
+    "CP_LN_MKDIR_OUTSIDE: /work/cli_probe_$TS/inst"
+   ],
+   "cmd": "set -o noclobber; V=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/verify_c4v001; J=$V/work/vrun_20261019T123724Z/VERIFY_RESULTS_C4V001.json; TP=$(jq -r '.test_policy.path' $J); TPS=$(jq -r '.test_policy.sha256' $J); echo \"$TP $TPS\"; shasum -a 256 \"$TP\"; TS=$(date -u +%Y%m%dT%H%M%SZ); mkdir $V/work/cli_probe_$TS $V/work/cli_probe_$TS/inst && echo $TS; R=$V/work/vrun_20261019T123724Z/mf/A01_c000_edge_record/cp1_synth; ls $R"
+  },
+  {
+   "agent": "agent-a7cb9cf294270c805.jsonl",
+   "label": "verify",
+   "why": [
+    "PY_UNFENCED: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/p"
+   ],
+   "cmd": "set -o noclobber; V=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/verify_c4v001; P=$V/work/cli_probe_20261019T123806Z; TP=$V/work/vrun_20261019T123724Z/policy/EPS_POLICY_REVIEW_C4V001_VERIFY_TEST_NAMES_SCRIPT.md; TPS=9b8b423d2f9e545b9634ecd44398aa736cec50d6657f2e4c25729179264d3d4b; R=$V/work/vrun_20261019T123724Z/mf/A01_c000_edge_record/cp1_synth; K=64dc775b80425f8a890e4b23aa985922b19bfe9512456ebf51b0207b4e2eba80; cd $V && OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 taskpolicy -b /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B $V/tools/run_fenced_c4vv1.py $V/tools/eps_review_instance_c4v001.py --point-dir $R/P02_64dc775b80425f8a_HEADLINE_CORNER_000_a1 --out-root $R --point-key $K --policy $TP --policy-sha256 $TPS --output-dir $P/inst > $P/CLI_REAL_CUSTODY_stdout.txt 2> $P/CLI_REAL_CUSTODY_stderr.txt; echo \"exit $?\"; cat $P/CLI_REAL_CUSTODY_stdout.txt; ls -la $P/inst; grep -o '\"guard_refused_after_trials\": \\[[^]]*\\]\\]*' $P/CLI_REAL_CUSTODY_stderr.txt | cut -c1-600; grep -o '\"fence_blocked_after_trials\": \\[[^]]*\\]' $P/CLI_REAL_CUSTODY_stderr.txt"
+  },
+  {
+   "agent": "agent-a7cb9cf294270c805.jsonl",
+   "label": "verify",
+   "why": [
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_"
+   ],
+   "cmd": "set -o noclobber; V=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_policy_review_c4/verify_c4v001; TS=$(date -u +%Y-%m-%dT%H:%M:%SZ); printf -- '- %s task 2b: own harness tests/verify_mutations_c4v001.py run work/vrun_20261019T123724Z: 57/57 (MUST_FAIL 46 new, MUST_PASS 2, DOCUMENTED_ACCEPT 6, SETUP 2, TABLE 1); P4 x20: script reason == adapter v003 blocker on the same record (19) / adapter raises AttributeError (V16); ID/P1/P6/P7/DISTINCT x26: script refuses, adapter alone READY (runner adapt_point also refuses the P1 pair); every MUST_FAIL left the watched folders byte-identical; VV1 trials 7/7 probes 34/34, nothing refused after trials\\n- %s real-CLI probe work/cli_probe_20261019T123806Z: real derive_details reached the forward driver open, refused by the vv1 guard -> exit 3 P2 DERIVE_DETAILS_FAILED, nothing written (confirms the real custody path is untested here)\\n' \"$TS\" \"$TS\" >> $V/PARTIAL.md; F=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py; shasum -a 256 $F; wc -l $F; grep -n \"^def derive_geometry\\|^def uvt_static_pins\\|^GEOMETRY_PINS\\|^UVT_MONITOR_PINS\\|^def _geometry\\|^def load_\\|^def profile\" $F | head -20"
+  }
+ ]
+}

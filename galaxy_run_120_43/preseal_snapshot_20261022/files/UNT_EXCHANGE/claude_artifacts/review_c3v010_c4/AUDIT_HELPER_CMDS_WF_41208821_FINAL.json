@@ -1,0 +1,246 @@
+{
+ "transcript_dir": "/Users/bgm/.claude-lane4/projects/-Users-bgm-Research-UNT-EXCHANGE/d3eba6e0-d470-48a9-b17d-717c88261d09/subagents/workflows/wf_41208821-50c",
+ "base": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4",
+ "n_agents": 5,
+ "n_bash": 374,
+ "n_flagged": 27,
+ "flags": [
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "T=$(date -u +%Y-%m-%dT%H:%M:%SZ); printf -- '- %s read V006 addendum A107-A121 (21655 B) and root dispatches 0657-0665 (shas from bytes: 0659 365b1926, 0661 24b4ada5, 0662 17e6e258, 0663 8b051899, 0664 b6fc8a7d, 0665 cb0d28ef = SELECTED root_messages_read; 0657 4f5690e2, 0658 239a1e93, 0660 a0e30924 not in root_messages_read).\\n' \"$T\" >> /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/PARTIAL.md; grep -n \"def \\|add_parser\\|C5H_REGISTERED\\|c5h\" /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v019.py | head -150"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "grep -n \"C5H_REGISTERED_RUN_DIRS\\|^MANIFEST_SCHEMA\\|^RUNS_EXT\\|^CTRL\\|^C2_RUNS\\|^EXT_ROOT\\|^RUNS_ROOT\" /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r14/kmax_tail_compare_c2v007_r14_cx1v001.py | head -40"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "F=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r14/kmax_tail_compare_c2v007_r14_cx1v001.py; grep -n \"validity_only\\|validity-only\\|def main\\|def run_validity\\|args.case\\|'C5H'\\|\\\"C5H\\\"\" \"$F\" | head -80"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: C5H",
+    "FORBIDDEN_WORD: runs_ext"
+   ],
+   "cmd": "T=$(date -u +%Y-%m-%dT%H:%M:%SZ); printf -- '- %s step-9 P8 path read as TEXT: helper c3v019 c_make_c5h_manifest L1020-1033 + c_check_manifest c5h L1007-1014 are string compares against _module_strings(sealed compare).C5H_REGISTERED_RUN_DIRS; r14 L256-258 defines the tuple (CTRL+/runs_ext/+NAME, /Volumes/External1/... literal + NAME); r14 main validity-only sealed mode L5778-5803 -> read_all/read_run (L1821) reads cases.C5H as given, no path-policy; c5h_interlock/_registered_run_identities only in test-mode full mode (L5738). No C5H path touched.\\n' \"$T\" >> /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/PARTIAL.md; jq . /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passA/SUBSTITUTIONS_A.json"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: runs_ext"
+   ],
+   "cmd": "T=$(date -u +%Y-%m-%dT%H:%M:%SZ); printf -- '- %s helper c3v019 read as text: path_policy L211 (abs /Users/ literal + nofollow_walk from /, a symlink component refuses), c_gates_only ROOT mode L1057-1077 nofollow_walk(identity run dir, allow_run_trees=True) -> a symlinked ancestor (e.g. $CTRL/runs_ext, a link per 0664) would REFUSE; dry runs never ran ROOT mode (S10/S13/S14). Checking identity-record run.path spellings as TEXT next.\\n' \"$T\" >> /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/PARTIAL.md; R=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001; for f in B1_R5_C2V007.json B1_OFF_R5_C2V007.json B0prime_RERUN_R5_C2V007.json; do echo \"== $f\"; shasum -a 256 \"$R/$f\" | cut -c1-64; jq -c '{run_path: .run.path, gate: .gate, status: .status}' \"$R/$f\"; done; echo \"== manifest draft\"; shasum -a 256 /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/MANIFEST_GATES_ONLY_DRAFT_C3SA.json | cut -c1-64; jq -c '{schema, identity_runs, gates_keys: (.gates|keys), cases, rpair}' /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/MANIFEST_GATES_ONLY_DRAFT_C3SA.json"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "T=$(date -u +%Y-%m-%dT%H:%M:%SZ); printf -- '- %s guard v008 CONFIG = resolve(dir(__file__))/ROOT_SEAL_ADMISSION_V001.json (= script CONFIG if no symlink); r6 seal_slots.frozen_addendum.path_to_be = script FROZEN (D-10); fence c3sa_c3v003 ROOT-mode selftest simulated by reading: not-refused set equals helper expectation (6 probes). Checking r14 gates-only for C5H stat calls.\\n' \"$T\" >> /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/PARTIAL.md; F=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r14/kmax_tail_compare_c2v007_r14_cx1v001.py; grep -n \"_registered_run_identities()\\|c5h_path_hit(\\|registered_identity_code()\\|c5h_interlock(\\|samefile\" \"$F\" | head -40"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: C5H",
+    "FORBIDDEN_WORD: UNT_INTERNAL_RUNS"
+   ],
+   "cmd": "T=$(date -u +%Y-%m-%dT%H:%M:%SZ); printf -- '- %s helper output-root L1311-1383 read: an existing real parent UNT_INTERNAL_RUNS is accepted (pst not None -> root must be absent; free measured at parent); runner c3v003 read: --call main -> main(list(prog)); step-9 CLI flags match sub() definitions (check-manifest identity-record optional). r14 C5H stat/interlock callers only in test-mode full mode (L1830, L1851, L2108, L5739, L5745). Writing fenced check script next.\\n' \"$T\" >> /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/PARTIAL.md; ls /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2; ls -la /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r13 | head -30"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "T=$(date -u +%Y-%m-%dT%H:%M:%SZ); printf -- '- %s RAN fenced check_script_c3v026_c4v002.py: FENCE selftest 8/8, probes 15/15, blocked_after_selftest []; out CHECK_SCRIPT_C3V026_C4V002.json d3bc16a8...; 48 path/sha pins checked, 0 mismatch, 0 symlink components; 1 problem: MANIFEST_GATES does not name registered pre-seal B0_N3, B0_RO1. Skipped protected: P8 C5H dir (string), INTERNAL_OUTPUT_ROOT.\\n' \"$T\" >> /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/PARTIAL.md; O=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/CHECK_SCRIPT_C3V026_C4V002.json; shasum -a 256 $O; jq -c '.script, .selected, .pins_summary' $O; jq -c '.pins[] | [.name, .match, (.bytes_sha // \"\")[0:8], .nofollow]' $O"
+  },
+  {
+   "agent": "agent-a5eddc0c4166b7917.jsonl",
+   "label": "lens:script",
+   "why": [
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_",
+    "FORBIDDEN_WORD: --validity-only",
+    "FORBIDDEN_WORD: C5H",
+    "FORBIDDEN_WORD: UNT_INTERNAL_RUNS",
+    "FORBIDDEN_WORD: runs_ext",
+    "PY_UNFENCED: there were no python -c or heredoc probes."
+   ],
+   "cmd": "set -C; T=$(date -u +%Y-%m-%dT%H:%M:%SZ); F=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/LENS_SCRIPT.md; { printf '# LENS_SCRIPT: Claude4 delta of SELECTED c3v010, lens SCRIPT (ROOT_SEAL_STEPS_c3v026.sh read as TEXT, never run)\\n\\nHelper of UNT lane Claude4. Scope A115 (2026-10-19). Lens started 2026-10-19T06:23:00Z; this report written %s (`date -u`).\\n' \"$T\"; cat <<'LENS_SCRIPT_EOF_C4'\n\n## Objects (sha256 from bytes, this lens)\n- SELECTED_SEAL_PRESTAGE_C3SA_c3v010.json `1f62deb4abe3375a02a63a1b803e2aa4c49a4b2ad997d399a618869ef240e161` (listed in HASHES_C3SA_c3v009.txt `479b57b3914291dba903d0c027f5fa1ca47e9702d66e36ad649e6c4fb9add8d2`).\n- ROOT_SEAL_STEPS_c3v026.sh `b43cc38be5f19c473167d8d57211c54d336d09d58fcfd66f5ca8187ad033c464` (88509 bytes, 824 lines; equals SELECTED selected_tuple.script).\n- Predecessors: c3v025 `22746e2182cbf948cc234c61d12a812473b864607b0a6f45f3e21ab961fd24a0`, c3v020 `36058df84bb2088970be442bc64445a4c6939b45df3e9cb3294cedef62c65ac0`.\n- README_SEAL_ASSEMBLY_C3_c3v010.md `a43c36a717932fda1a72bba74f1879a039731b6a175f0d733835f4d9cd3aa22f` (= SELECTED evidence.readme). Slot draft c3v007 `184ff5cbc01eb2683ace5cee8fbee1e82b38d7d6ac152726713501c1ddc83729`. Helper c3v019 `91b15dc688a2c28e1b5362d9568a80f92431938eb5e2807367b2327a37290cbf`, runner `2b040e94a2b74eae981485288471376b86be0784a0a50b59093312c4fd87bf73`, fence `9c62ad4902c895f0aeeba3a78976b5944146ee0de153989dbc79470528dd2863`.\n\n## Verdict: BLOCKING_FINDINGS (1 blocking, 7 NOT"
+  },
+  {
+   "agent": "agent-a92ea46bd2a15a15f.jsonl",
+   "label": "refute:script:SCRIPT-B1",
+   "why": [
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_",
+    "FORBIDDEN_WORD: UNT_INTERNAL_RUNS",
+    "FORBIDDEN_WORD: runs_ext"
+   ],
+   "cmd": "D=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/refute_SCRIPT-B1; T=$(date -u +%Y-%m-%dT%H:%M:%SZ); S=$(shasum -a 256 \"$D/REFUTE_SCRIPT-B1_check_c4v001.py\" | cut -d' ' -f1); printf -- '- %s wrote REFUTE_SCRIPT-B1_check_c4v001.py %s (ast/text only; reads named files incl. root rehearsal GATES_ONLY and sealed E-SEAL1 stdout under CLAUDE2, none under runs_ext/UVT_/UNT_INTERNAL_RUNS); running it fenced next.\\n' \"$T\" \"$S\" >> \"$D/REFUTE_SCRIPT-B1_PARTIAL.md\"; tail -1 \"$D/REFUTE_SCRIPT-B1_PARTIAL.md\""
+  },
+  {
+   "agent": "agent-a92ea46bd2a15a15f.jsonl",
+   "label": "refute:script:SCRIPT-B1",
+   "why": [
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_",
+    "FORBIDDEN_WORD: C5H",
+    "FORBIDDEN_WORD: UNT_INTERNAL_RUNS",
+    "FORBIDDEN_WORD: runs_ext",
+    "PY_UNFENCED: - **No other Python.** There was no python -c, no heredoc Python and no system python."
+   ],
+   "cmd": "set -C; cat > /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/script/refute_SCRIPT-B1/REFUTE_SCRIPT-B1_REPORT.md <<'EOF'\n# REFUTE_SCRIPT-B1: adversarial refutation of lens SCRIPT finding SCRIPT-B1 (Claude4 delta of SELECTED c3v010)\n\nHelper of UNT lane Claude4. Scope A115. Started 2026-10-19T06:56:19Z; report written 2026-10-19T07:12Z (`date -u`).\nFolder: `review_c3v010_c4/script/refute_SCRIPT-B1/` (only `REFUTE_SCRIPT-B1_*` files; the lens's files were not touched).\n\n## Verdict: NOT REFUTED. Final class (b); it is also reachable under (a). BLOCKING for c3v010 as selected.\n\nIf root had run SELECTED c3v010 (script c3v026) with the selected env block on the real inputs, the seal would have completed. Its E-SEAL1 would then have carried B0_RO1 and B0_N3 as MISSING, although their registered pre-seal records exist and read PASS. Nothing in c3v026 refuses that.\n\nEvery link of the claim is now checked from bytes (TESTED), including the one the lens left FORMAL (that the real ROOT-mode step 8 gives the same MISSING).\n\n**Status after the brief was written:**\n- Root upheld the finding as **A123** (06:42Z, V006 addendum, now `0e4d70ef`): \"BLOCKING, class (b), and class (a)\".\n- Root ruled the fix (0667, `92a1aa78`) and **sealed with SELECTED c3v011 / script c3v027 `239a51c3`** at 07:00Z (0669, `9a704b22`).\n- c3v010 was therefore never sealed. The finding is moot operationally, but it is correct, and it is the cause of c3v011.\n\n## The claim, link by link (all from bytes"
+  },
+  {
+   "agent": "agent-a94288b7896779ad8.jsonl",
+   "label": "refute:slots_record:SR-1",
+   "why": [
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_",
+    "FORBIDDEN_WORD: runs_ext"
+   ],
+   "cmd": "F=\"/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/CURRENT_INSTRUCTIONS.md\"; grep -n -i 'helper\\|subagent\\|A115\\|blocking\\|refut\\|NGC3198 target\\|observed\\|runs_ext\\|UVT_\\|INTERNAL_RUNS\\|seal' \"$F\" | head -60"
+  },
+  {
+   "agent": "agent-a98876ba8de5de223.jsonl",
+   "label": "lens:slots_record",
+   "why": [
+    "CP_LN_MKDIR_OUTSIDE: /out",
+    "CP_LN_MKDIR_OUTSIDE: /scripts"
+   ],
+   "cmd": "D=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/slots_record; mkdir \"$D/scripts\" \"$D/out\" && ls -la \"$D\""
+  },
+  {
+   "agent": "agent-a98876ba8de5de223.jsonl",
+   "label": "lens:slots_record",
+   "why": [
+    "FORBIDDEN_WORD: UNT_INTERNAL_RUNS",
+    "FORBIDDEN_WORD: [Vv]obs",
+    "FORBIDDEN_WORD: rotmod",
+    "FORBIDDEN_WORD: runs_ext"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3 && H=HASHES_C3SA_c3v009.txt; grep -E '^[0-9a-f]{64}  dry_run_20261019T060546Z/' $H | grep -viE 'ngc3198|uvt_|rotmod|sparc|vobs|massmodels|kmax_a2f10_c5h_run_v001|runs_ext|UNT_INTERNAL_RUNS' > /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/d3eba6e0-d470-48a9-b17d-717c88261d09/scratchpad/dry_lines.txt; wc -l < /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/d3eba6e0-d470-48a9-b17d-717c88261d09/scratchpad/dry_lines.txt; grep -cE '^[0-9a-f]{64}  dry_run_20261019T060546Z/' $H; grep -E '^[0-9a-f]{64}  dry_run_20261019T060546Z/' $H | grep -iE 'ngc3198|uvt_|rotmod|sparc|vobs|massmodels|kmax_a2f10_c5h_run_v001|runs_ext|UNT_INTERNAL_RUNS' | sed 's/^[0-9a-f]*  //' ; shasum -a 256 -c /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/d3eba6e0-d470-48a9-b17d-717c88261d09/scratchpad/dry_lines.txt | grep -v ': OK$'; echo \"(non-OK above, if any)\"; grep -E '^[0-9a-f]{64}  (c3v010_prestage/SLOT_VALUES_DRAFT_c3v00[4-7]\\.json|SLOT_VALUES_DRAFT_c3v00[23]\\.json|MANIFEST_GATES_ONLY_DRAFT_C3SA\\.json|SELECTED_SEAL_PRESTAGE_C3SA_c3v01?[09]\\.json|ROOT_SEAL_STEPS_c3v02[056]\\.sh|README_SEAL_ASSEMBLY_C3_c3v010\\.md)$' $H | shasum -a 256 -c -"
+  },
+  {
+   "agent": "agent-a98876ba8de5de223.jsonl",
+   "label": "lens:slots_record",
+   "why": [
+    "FORBIDDEN_WORD: (?<![a-z_])UVT_",
+    "FORBIDDEN_WORD: C5H",
+    "FORBIDDEN_WORD: UNT_INTERNAL_RUNS",
+    "FORBIDDEN_WORD: runs_ext"
+   ],
+   "cmd": "set -C; cat > /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/slots_record/LENS_SLOTS_RECORD.md <<'EOF'\n# LENS SLOTS_RECORD: what root's seal run seals (Claude4 delta of Claude3's SELECTED c3v010, A115 scope)\n\nHelper of UNT lane Claude4, lens SLOTS_RECORD. Work 2026-10-19T06:23Z to about 06:58Z (`date -u`; the PARTIAL.md log in this folder has the stamps).\nEvery Python step ran through the fence (`tools/run_fenced_c4st2.py` fe904509, `tools/fence_c4v002.py` c993d34c). In all three runs the fence summary read selftest 8/8, probes 15/15 and blocked_after_selftest [].\nNothing was launched: no seal or dry-run script, no driver, solver or monitor, no tool 4 build, and no tools 1, 2, 3 or 5 run (tool 3's run() loads the compare, so it was never called).\nNo protected path was opened or listed: the NGC3198 target data, runs_ext, the C5H run, `UVT_*` trees and UNT_INTERNAL_RUNS were all left alone.\n\n## Verdict: BLOCKING_FINDINGS. 1 blocking (SR-1, class (b)) and 6 notes\n\nEvery slot value and every pin in the dry-run SEAL_RECORDs checks out from bytes as the object of record. No superseded object is pinned anywhere in them. The manual disclosures are V006 byte for byte, the I4 handling (A114, A117, A121) is correct, and the pin graph has no cycle. The one blocking finding is a stale step-8 input: the record carries the wrong gate verdicts for two pre-seal NO_RUN gates.\n\n## Objects (sha256 from bytes, this session)\n| object | path (short) | sha256 |\n|---|---|---|\n| SE"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step1: env block extracted to ENV_BLOCK_FROM_SELECTED.txt (13 exports + 1 comment); 5 path/sha pairs match bytes via shasum (r14 f3f9ba7e, SELECTED_R14 6b650ece, P5 6a3fa535, key map 72a21888, P7 86c89730); C5H path protected, string-only.\\n' {} >> PARTIAL.md; grep -n 'UNT_SEAL_' /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v026.sh | wc -l"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step2: RUN_A/RUN_B stdout read: steps 0-13 + summary, ALL STEPS PASS, step 9 STUBBED (2 STUB lines each); diff c3v026 vs DRYRUN_A = exactly S01-S18 hunks (L258,L288,L314,L345-355,L374-375,L550,L698-712); A vs B = pass paths + S23 (L545).\\n' {} >> PARTIAL.md; grep -n 'C5H_REGISTERED_RUN_DIRS' /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r14/kmax_tail_compare_c2v007_r14_cx1v001.py | cut -c1-400"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step2/4: helper c3v019 91b15dc6 read as text (pin/path_policy L211-260; check-manifest L977; make-c5h-manifest L1020: P8 is a pure string membership in the sealed compare C5H_REGISTERED_RUN_DIRS, no path_policy; gates-only L1036).\\n' {} >> PARTIAL.md; shasum -a 256 /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/MANIFEST_GATES_ONLY_DRAFT_C3SA.json /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001/B1_R5_C2V007.json /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001/B1_OFF_R5_C2V007.json /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001/B0prime_RERUN_R5_C2V007.json; jq '.run.path' /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001/B1_R5_C2V007.json /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001/B1_OFF_R5_C2V007.json /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/records/R5_V001/B0prime_RERUN_R5_C2V007.json"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "grep -n \"_registered_run_identities\\|registered_identity_code\\|def main\\|gates_only\\|gates-only\\|C5H_REGISTERED_RUN_DIRS\\|def run_gates\\|validity_only\" /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r14/kmax_tail_compare_c2v007_r14_cx1v001.py | cut -c1-220 | head -80"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step2/4: r14 main() read: registered_identity_code/c5h_interlock/interlock_side_paths only in test-mode full mode (L5738-5752; L1830,L1851,L2101-2108,L2137,L2146); sealed --gates-only (step 8) never stats C5H_REGISTERED_RUN_DIRS, so S14 is defence in depth only. Identity records run.path = External1 spellings = real manifest identity_runs (jq).\\n' {} >> PARTIAL.md; grep -n \"path_to_be\\|allow.open.copy\\|allow_open_copy\\|D-10\\|D10\" /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/check_frozen_addendum_c4v003.py | cut -c1-240 | head -40"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step2: pass A scratch logs listed: no STEP_09_MANIFEST*/STEP_09_INPUTS/STEP_09_VALIDITY_ONLY.stderr and no MANIFEST_VALIDITY_C5H_V007.json (step 9 not executed); STEP_09_ROW_SCAN on the stub only.\\n' {} >> PARTIAL.md; jq -r 'keys[]' /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passA/scratch_ctrl/V007_SEAL_ASSEMBLY/SEAL_RECORD_V007.json; echo '----'; jq -c 'paths(type==\"object\" and has(\"path\") and has(\"sha256\")) as $p | [($p|map(tostring)|join(\".\")), (getpath($p).path), (getpath($p).sha256[0:16])]' /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passA/scratch_ctrl/V007_SEAL_ASSEMBLY/SEAL_RECORD_V007.json 2>/dev/null | cut -c1-260 | head -80"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "D=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z; for f in $D/passA/RUN_A.sh $D/passB/RUN_B.sh $D/passA/ROOT_SEAL_STEPS_DRYRUN_A.sh $D/passB/ROOT_SEAL_STEPS_DRYRUN_B.sh; do printf '%s: ' \"$(basename $f)\"; grep -c 'fixtures/' \"$f\"; grep -n 'fixtures/' \"$f\" | cut -c1-200; done; shasum -a 256 $D/fixtures/*.json; ls -la $D/fixtures/C5H_STANDIN_REGISTERED_DIR"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step2: README c3v010 a43c36a7 read in full (env block L51-66; dry run L109-118 \"No stand-in\" = RUN files only; NOTE L163-165 on P8). Setup c3v019 893de27a grep: fixtures created then sed-replaced by real paths in RUN files; only MANIFEST_GATES_ONLY_STANDIN (S10) and C5H_STANDIN_REGISTERED_DIR (S14) referenced by DRYRUN scripts.\\n' {} >> PARTIAL.md; grep -n \"^def read_all\\|^def read_run\\|^def load_manifest\\|^def read_gates\\|^def case_validity\\|^def _side_json\\|^def read_numerics_only\\|^C5H = \\|^CTRL = \\|^ART = \\|^MANIFEST_SCHEMA\" /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r14/kmax_tail_compare_c2v007_r14_cx1v001.py | cut -c1-200"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: UNT_INTERNAL_RUNS"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step3: suite result shapes read (jq); RP-S1 R-14 ran the REAL output-root literal in check mode (floor 0, parent absent, 402.31 GiB at /Users/bgm/Research) and R-0b covers parent-exists; watchdog T7 says UNT_INTERNAL_RUNS absent at 06:11Z.\\n' {} >> PARTIAL.md; for f in /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r14/kmax_tail_compare_c2v007_r14_cx1v001.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v019.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/run_pinned_c3sa_c3v003.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/seal_common_c4v003.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/check_frozen_addendum_c4v003.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/check_sealed_compare_c4v003.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/check_slot_fill_c4v003.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/build_seal_record_c4v004.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/print_driver_build_record_c4v003.py /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/bind_sealed"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s run2 (v002): fence 8/8, blocked_after_selftest []; 133/133 checks ok; output ENV_DRYRUN_CHECKS_C4V002.json.\\n' {} >> PARTIAL.md; jq -c '.facts | {diffA: .diff_prod_vs_dryrunA, diffB: .diff_dryrunA_vs_dryrunB, scA: .sealed_compare_A_vs_r14_changed, reg: .r14_C5H_REGISTERED_RUN_DIRS, schema: .r14_MANIFEST_SCHEMA, c5h_lines: .UNT_SEAL_C5H_RUN_DIR_code_lines, snap: .production_outputs_absent_snapshot, standin_words_A: .dryrun_A_standin_word_count_stdout_stderr, standin_words_B: .dryrun_B_standin_word_count_stdout_stderr}' ENV_DRYRUN_CHECKS_C4V002.json"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step1/4: supersession listing: r14 folder has SELECTED_R14_CX1V002 as latest, no r15; one key map V007; one cascade CX3V001; one dispositions file in V007_SEAL_ASSEMBLY_INPUTS (+ I4_RUN_SHEET_ROOT.md 97baee0d: N1 starts after the seal). Bash replica step0_env_replica_c4v001.sh (my own code; constants sed-extracted from script text): T0 PASS on production SEAL_INPUTS_DIR; 8 negative controls fail as expected (N1 = dry-run scratch P5 path fails the production L434 rule).\\n' {} >> PARTIAL.md; grep -n 'UNT_SEAL_C5H_RUN_DIR\\|STAND-IN' /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060249Z/passA/RUN_A.sh | cut -c1-260"
+  },
+  {
+   "agent": "agent-aa477a9f394d663d7.jsonl",
+   "label": "lens:env_dryrun",
+   "why": [
+    "FORBIDDEN_WORD: C5H"
+   ],
+   "cmd": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_c3v010_c4/env_dryrun && date -u +%Y-%m-%dT%H:%M:%SZ | xargs -I{} printf -- '- %s step4: refutation pass done (root-mode fence selftest expectation worked through FORMAL; r14 sealed gates/validity modes never stat the C5H dirs). Writing LENS_ENV_DRYRUN.md.\\n' {} >> PARTIAL.md; jq -c '.facts.pairs | to_entries[] | {k: .key, bytes: .value.bytes, sha: .value.sha_bytes[0:16], walk: .value.nofollow_walk.ok}' ENV_DRYRUN_CHECKS_C4V002.json; date -u +%Y-%m-%dT%H:%M:%SZ"
+  }
+ ]
+}

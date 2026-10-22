@@ -1,0 +1,1442 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/../gates_v005/run_identity_compare_c2v005.py	2026-10-18 10:16:48.397104146 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/run_identity_compare_c2v006.py	2026-10-18 11:00:00.493741919 -0500
+@@ -1,53 +1,53 @@
+-"""Run-output identity comparator for the V007 identity gates, c2v005 (Claude2 tail_scheme_impl_c2/gates_v005).
+-c2v005 = successor of gates_v004/run_identity_compare_c2v004.py (e3d153b6) for root V005 addendum A68 (check of c2v004:
+-gates_v004/check/CHECK.md B1, B2, S1-S3, N2 is the fill tool's) and A59 (Z2 replace-mode tokens, successor custody as a gate
+-check), A67 N1 (identity runs carry the pinned driver sha).  Nothing of c2v004 is relaxed.  Changes:
+-  --driver r4|r5 (required).  The pinned driver of the NEW run (r4 b9ae92d5, r5 b5cc62af; from bytes).  Its tables drive
+-     AUTO_CUSTODY, SCRIPT_CUSTODY, RO1, RO1_CUSTODY, RA_PINSET and the tail-argv expectations.  r4 and r5 differ only in the
+-     pin tables (r4/r5 diff: lines 294-380 only), so every cited code line is the same in both.
+-  B1 STAGE_SET + INVENTORY by real path.  Every entry under stages/ must be a real directory named NN_<name> with a unique name
+-     and a unique number on its side; otherwise STAGE_SET fails and the offending directories keep their RAW relative paths in
+-     the inventory (so they are reference-only / new-only and fail INVENTORY too, and nothing is silently overwritten).  The
+-     stage order (by number) must equal the reference's after removing the gate's declared extra stage (Z2: exactly one
+-     route_a_tail_manifest, immediately after route_a; driver L2919-2941).  Renumbering alone is not a difference (stage
+-     numbers are a counter, driver L1786-1791).  Any symlink in either tree fails INVENTORY.
+-  B2 RESULT = the full result.json, normalized and strict (H5), with ONLY the declared custody items of DECLARED below
+-     (each a declared rule: MASK, NEW_ONLY with an exact value, PAIR of exact values; each application is reported).
+-     stage_records are tied to the run's own request.json files (STAGE_RECORDS) and compared across runs there.
+-  S1 a tail flag occurring more often than the driver emits it fails (REQUEST).
+-  S2 REQUEST: the new argv must equal the reference argv with exactly the driver's tail block inserted once, contiguous,
+-     on exactly the stage kinds where the driver emits it (r4/r5 uvt_argv L2949-2962; route A L2845, L2847-2850), and no tail
+-     flag anywhere else.  The block's values are built from the new run's own files (paths and shas from bytes) and the driver
+-     constants; the Z2 result.json uv_tail record (raw, masked in the comparison by the registered c2v002 semantics) is
+-     cross-checked against those bytes (UV_TAIL_RECORD).  The route_a_tail_manifest request is checked against the driver's
+-     margv (MANIFEST_STAGE, L2930-2934, script = the driver's AUX_UVT manifest_writer).
+-  S3 every file present on both sides is content-compared (FILES_* checks): inputs/*, top-level start/finish/progress, every
+-     route-A attempt file (result.json, finish.json, start.json, progress, node_diagnostics, arrays incl. .npy), checkpoint.lock,
+-     every stage file.  Only stdout.txt / stderr.txt are skipped; COVERAGE fails if any other both-side file is not compared.
+-     Pin dictionaries (PIN_DICTS) may differ only by the declared new-only pins (exact values); a reference-only pin fails.
+-  A59 TOKENS_POLICY (Z2): the declared token set must be replace-mode: no declared NEW side is a driver SCRIPTS[kind] base
+-     (path, sha or basename) of a UVT kind, and every SCRIPTS_UVT[kind] path and sha is a declared NEW side.  Tail-OFF gates:
+-     no declared NEW side is a SCRIPTS_UVT successor.  SCRIPT_CUSTODY (raw, untokenized): every new stage request runs the
+-     driver's planned (script, sha) for its gate and kind, hashed from bytes.
+-  A67 N1 NEW_DRIVER_PIN: new start.json driver/driver_sha256 and result.json driver_sha256 = the selected driver pin.
+-  Attempt-ledger tokens (time-pid-random, checkpoint module c2v003) are paired by sorted order and tokenized <ATTEMPT_TOKEN_i>.
+-Unchanged from c2v004: gates and their semantics (Z2 tail ON + RO1 ARMED + RO1_CUSTODY; Z2_OFF_RO1 declared tail-off records
+-D1-D3 + RA_PINSET + RO1; Z2_OFF; B0P_RERUN RO1 UNARMED), masking, the hexmap (npz -> content digest, a run JSON file's sha ->
+-<JSONFILE:path>), RECORD_DROP, the restricted AST table reader, strict JSON, AUTO_CUSTODY.
++"""Run-output identity comparator for the V007 identity gates, c2v006 (Claude2 tail_scheme_impl_c2/gates_v006).
++c2v006 = successor of gates_v005/run_identity_compare_c2v005.py (6f656c68) for root V005 addendum A69/A70 (Codex2 0436/0438
++cross-lineage review of c2v005: review_comparator_c2v005_cx2/REVIEW.md 9317cd0d) and A71 (no last-wins anywhere).  Every
++c2v004 / c2v005 check is kept unchanged in meaning (nothing is relaxed).  Changes:
++  CX2-V5-B1 NORM_INJECTIVE.  Normalization must be injective on each side.  Side.norm rejects, at every object level, two raw
++     keys that normalize to the same key (the check FAILs naming both raw keys and the object path; the normalized value becomes
++     a COLLIDED sentinel that never compares equal; never last-wins).  Also FAIL: a raw key or string that already contains a
++     normalizer output text (<RUN>, <JSONFILE:, <RA_PAYLOAD:, <RA_IDENTITY_SHA, NPZ:, NPZ_INVALID:, or any token label in use),
++     two distinct 64-hex values mapped to one hexmap token (NPZ content tokens excepted: content equivalence is declared), and
++     a token raw string paired with two different counterparts or a token label used for two pairs.  A sha that names several
++     files maps to the sorted join of all their tokens (not last-wins).  The run root is replaced only when the next character
++     is not [A-Za-z0-9_-] (a longer sibling name such as RUN_V0012 is not the run; RUN.receipt.json still normalizes).
++  CX2-V5-S2 STRICT_PARSE.  Every JSON file and JSONL line is parsed with object_pairs_hook: a duplicate member FAILs naming the
++     key and both values.  Non-UTF-8 or unparseable JSON FAILs.  The parsed value of a defective file is an UNPARSEABLE sentinel
++     that never compares equal.  The checkpoint IDENTITY.json is read from the same bytes with the checkpoint module's own
++     canonical-form rule (c2v003 _read) and cm.decode (which itself refuses duplicate record keys).
++  CX2-V5-S3 STRICT_PARSE.  NPZ archives are opened from their bytes with zipfile; every central-directory member is listed:
++     a duplicate member name, a member that is not NAME.npy, or two members with one logical key FAIL (naming both); every
++     member is read by its own ZipInfo (never by name, which is last-wins in zipfile).
++  CX2-V5-S1 + CX2-V5-N1 ARRAY_POLICY (declared): the identity of an array (a .npy file, or one .npz member) is the tuple
++     (header descr exactly as written, dtype.str, itemsize, structured fields as (name, offset, format, shape) in order,
++     shape, fortran_order from the header, sha256 of the logical C-order value bytes, sha256 of any trailing bytes).
++     STORAGE ORDER IS PART OF IDENTITY for .npy AND .npz alike (c2v004 H2 compared it for .npy; it is not relaxed and is
++     extended to .npz members).  Compression and member order inside an .npz are not part of identity.
++  CX2-V5-S4 TREE_STABLE + single read.  Each run file is read once into memory; its sha256 and its parsed content come from
++     those same bytes (JSON / NPZ / NPY parsed values and shas are cached; JSONL and raw files are hashed from the bytes that
++     are compared).  The checkpoint module and the drivers are executed / AST-read from the same bytes that were hashed.  At the
++     end every recorded file is re-hashed: any change between the read and the end FAILs TREE_STABLE.
++  A71 NO_LAST_WINS: every list-to-mapping site has a guard: argv flags read by name (a repeated flag reads as DUPLICATE and
++     FAILs), stage_records names, normalized pin keys (static pins, declared route-A pins), canonical inventory paths, driver
++     table dict literals (AST).
++  Own hardening: decoded numpy arrays keep dtype and shape in the normalized form (NDV), tuples stay tuples; a comparator
++     exception writes a FAIL report (COMPARATOR_EXCEPTION) instead of crashing.
+ INERT on import; reads two completed run directories and pinned code (read-only); writes ONE report (exclusive create).
+ 
+-  python3 -I -B run_identity_compare_c2v005.py --gate GATE --driver r4|r5 --reference REF_RUN --new NEW_RUN --tokens T.json --out R.json
++  python3 -I -B run_identity_compare_c2v006.py --gate GATE --driver r4|r5 --reference REF_RUN --new NEW_RUN --tokens T.json --out R.json
+ """
+ import argparse
+ import ast
+ import copy
+ import hashlib
+-import importlib.util
++import io
+ import json
+ import os
+ import re
+ import struct
++import sys
++import traceback
+ import types
++import zipfile
+ from pathlib import Path
+ 
+ CKPT = ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/resumable_coupled_gas_0422/coupled_gas_checkpoint_c2v003.py',
+@@ -59,6 +59,7 @@
+            'b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6'),
+ }
+ DRIVER = [None, None]  # set by main() from --driver
++DRIVER_RAW = [None, None]  # [verified driver bytes (one read), the path they were read from]
+ REFERENCE_DRIVERS = {
+     '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/driver_v008_c2/galaxy_m0_forward_c2v008.py':
+         'f8e4770106abb83df5e658e91edc5593198fe87f0600ee5d1946f22415902f28',
+@@ -88,6 +89,11 @@
+ STAGE_RECORD_EXTRA = {'elapsed_seconds', 'executed', 'exit_code', 'request_path', 'request_sha256', 'stage_dir'}
+ NAME_KIND = {'route_a': 'route_a', 'route_a_tail_manifest': 'route_a_tail_manifest', 'reference': 'reference', 'body': 'body',
+              'offset': 'offset'}
++NORMALIZER_MARKERS = ('<RUN>', '<JSONFILE:', '<RA_PAYLOAD:', '<RA_IDENTITY_SHA', 'NPZ:', 'NPZ_INVALID:', '<COLLIDED', '<UNPARSEABLE')
++ARRAY_POLICY = ('ARRAY_IDENTITY_C2V006: an array (a .npy file or one .npz member) is identical iff (header descr as written, dtype.str, '
++                'itemsize, structured fields (name, offset, format, shape) in order, shape, header fortran_order, sha256 of the logical '
++                'C-order value bytes, sha256 of trailing bytes) are equal.  Storage order (fortran_order) IS part of identity for .npy '
++                'and .npz alike.  NPZ compression and member order are not.  allow_pickle is False (object arrays are unparseable).')
+ # H1: declared new-only files per gate (canonical relative paths), with their source.
+ DECLARED_NEW_ONLY = {
+     'Z2': [
+@@ -110,6 +116,11 @@
+     'Z2': (('PARALLEL_C2V001', 'UVTAIL_RO1_PARALLEL_C2V001'), ('REVIEWED_SERIAL', 'UVTAIL_RO1_SERIAL_C2V001')),
+     'Z2_OFF_RO1': (('PARALLEL_C2V001', 'TAIL_OFF_RO1_PARALLEL_C2V010R4'), ('REVIEWED_SERIAL', 'TAIL_OFF_RO1_SERIAL_C2V010R4')),
+ }
++LAST_WINS = []  # A71 guard hits (reset by main)
++
++
++def sha_b(b):
++    return hashlib.sha256(b).hexdigest()
+ 
+ 
+ def sha_file(p):
+@@ -121,24 +132,277 @@
+ 
+ 
+ def file_ok(path, sha):
++    """Hash-only custody of a code file outside the runs (its content is not used)."""
+     return isinstance(path, str) and isinstance(sha, str) and Path(path).is_file() and sha_file(path) == sha
+ 
+ 
++# ---------------------------------------------------------------- sentinels (never equal to anything)
++class Unparseable(dict):
++    def __init__(self, why):
++        super().__init__()
++        self.why = why
++
++    def __repr__(self):
++        return '<UNPARSEABLE %s>' % self.why[:120]
++    __str__ = __repr__
++
++
++class Collided:
++    def __init__(self, raw_keys):
++        self.raw_keys = raw_keys
++
++    def __repr__(self):
++        return '<COLLIDED %s>' % (self.raw_keys,)
++    __str__ = __repr__
++
++
++class Dup:
++    def __init__(self, flag, values):
++        self.flag, self.values = flag, values
++
++    def __repr__(self):
++        return '<DUPLICATE_ARGV %s %s>' % (self.flag, self.values)
++    __str__ = __repr__
++
++
++class NDV:
++    """A decoded numpy array / scalar in normalized form: dtype and shape kept (own hardening)."""
++    def __init__(self, dtype_str, shape, values):
++        self.dtype_str, self.shape, self.values = dtype_str, shape, values
++
++    def __repr__(self):
++        return 'NDV(%s,%s,%s)' % (self.dtype_str, self.shape, str(self.values)[:80])
++    __str__ = __repr__
++
++
++# ---------------------------------------------------------------- strict JSON (CX2-V5-S2)
++class DuplicateKey(ValueError):
++    pass
++
++
++def _pairs(pairs):
++    d = {}
++    for k, v in pairs:
++        if k in d:
++            raise DuplicateKey('DUPLICATE_JSON_KEY %r: first %s, second %s' % (k, _show(d[k]), _show(v)))
++        d[k] = v
++    return d
++
++
++def jloads(b):
++    return json.loads(b.decode('utf-8') if isinstance(b, (bytes, bytearray)) else b, object_pairs_hook=_pairs)
++
++
++# ---------------------------------------------------------------- arrays (CX2-V5-S1, S3, N1)
++def _npy_header(b):
++    import numpy as np
++    fp = io.BytesIO(b)
++    major, minor = np.lib.format.read_magic(fp)
++    if (major, minor) == (1, 0):
++        hl = struct.unpack('<H', fp.read(2))[0]
++        enc = 'latin1'
++    elif (major, minor) in ((2, 0), (3, 0)):
++        hl = struct.unpack('<I', fp.read(4))[0]
++        enc = 'latin1' if major == 2 else 'utf8'
++    else:
++        raise ValueError('NPY_VERSION %s.%s' % (major, minor))
++    hdr = fp.read(hl)
++    if len(hdr) != hl:
++        raise ValueError('NPY_HEADER_TRUNCATED')
++    d = ast.literal_eval(hdr.decode(enc))
++    if not isinstance(d, dict) or sorted(d) != ['descr', 'fortran_order', 'shape']:
++        raise ValueError('NPY_HEADER_KEYS %r' % (sorted(d) if isinstance(d, dict) else type(d).__name__))
++    return d
++
++
++def npy_identity_bytes(b):
++    """ARRAY_POLICY identity of one .npy payload (bytes)."""
++    import numpy as np
++    d = _npy_header(b)
++    fp = io.BytesIO(b)
++    a = np.lib.format.read_array(fp, allow_pickle=False)
++    rest = b[fp.tell():]
++    dt = a.dtype
++    fields = None
++    if dt.names is not None:
++        fields = [[n, int(dt.fields[n][1]), dt.fields[n][0].str, list(dt.fields[n][0].shape)] for n in dt.names]
++    return {'descr': repr(d['descr']), 'dtype_str': dt.str, 'itemsize': int(dt.itemsize), 'fields': fields,
++            'shape': [int(x) for x in d['shape']], 'fortran_order': bool(d['fortran_order']),
++            'values_sha256': sha_b(np.ascontiguousarray(a).tobytes()), 'trailing_sha256': sha_b(rest) if rest else None}
++
++
++def npz_identity_bytes(b):
++    """{logical key: identity} of an .npz payload; raises ValueError on duplicate / non-.npy members (named)."""
++    z = zipfile.ZipFile(io.BytesIO(b))
++    infos = z.infolist()
++    seen, keys, out, probs = {}, {}, {}, []
++    for i, info in enumerate(infos):
++        n = info.filename
++        if n in seen:
++            probs.append('DUPLICATE_NPZ_MEMBER %r (central-directory entries %d and %d)' % (n, seen[n], i))
++            continue
++        seen[n] = i
++        if not n.endswith('.npy') or n.endswith('/'):
++            probs.append('NPZ_MEMBER_NOT_NPY %r (entry %d)' % (n, i))
++            continue
++        k = n[:-4]
++        if k in keys:
++            probs.append('DUPLICATE_NPZ_LOGICAL_KEY %r (members %r and %r)' % (k, keys[k], n))
++            continue
++        keys[k] = n
++        out[k] = npy_identity_bytes(z.read(info))
++    if probs:
++        raise ValueError('; '.join(probs))
++    return out
++
++
++def npz_digest(members):
++    return sha_b(json.dumps(sorted(members.items()), sort_keys=True).encode())
++
++
++# ---------------------------------------------------------------- one-read file store (CX2-V5-S4)
++class Store:
++    """Every run file is read once; its sha and parsed value come from the same bytes.  JSON / NPZ / NPY values are cached.
++    A file read again (JSONL / raw compare / scan) is checked against the first sha; verify() re-hashes everything at the end."""
++
++    def __init__(self, root, tag):
++        self.root, self.tag = Path(root), tag
++        self.sha, self.unstable, self.problems = {}, [], []
++        self._json, self._arr, self._raw = {}, {}, {}
++
++    def _record(self, p, h):
++        k = str(p)
++        if k in self.sha and self.sha[k] != h:
++            self.unstable.append({'side': self.tag, 'file': k, 'first_sha256': self.sha[k], 'later_sha256': h})
++        self.sha.setdefault(k, h)
++
++    def rel(self, p):
++        try:
++            return str(Path(p).relative_to(self.root))
++        except ValueError:
++            return str(p)
++
++    def read(self, p):
++        with open(p, 'rb') as f:
++            b = f.read()
++        self._record(p, sha_b(b))
++        return b
++
++    def raw(self, p):
++        k = str(p)
++        return self._raw[k] if k in self._raw else self.read(p)
++
++    def sha_of(self, p):
++        k = str(p)
++        if k in self.sha:
++            return self.sha[k]
++        h = sha_file(p)
++        self._record(p, h)
++        return h
++
++    def json(self, p):
++        k = str(p)
++        if k not in self._json:
++            b = self.read(p)
++            if '/checkpoint/' in k:  # small checkpoint records: the raw bytes are kept for cm_read (same single read)
++                self._raw[k] = b
++            try:
++                self._json[k] = jloads(b)
++            except (ValueError, UnicodeDecodeError) as e:
++                self.problems.append({'side': self.tag, 'file': self.rel(p), 'error': '%s: %s' % (type(e).__name__, str(e)[:300])})
++                self._json[k] = Unparseable('%s %s' % (self.rel(p), e))
++        return self._json[k]
++
++    def jsonl(self, p):
++        out = []
++        for i, line in enumerate(self.read(p).split(b'\n')):
++            if not line.strip():
++                continue
++            try:
++                out.append(jloads(line))
++            except (ValueError, UnicodeDecodeError) as e:
++                self.problems.append({'side': self.tag, 'file': self.rel(p), 'line': i + 1, 'error': '%s: %s' % (type(e).__name__, str(e)[:300])})
++                out.append(Unparseable('%s:%d %s' % (self.rel(p), i + 1, e)))
++        return out
++
++    def array(self, p):
++        """('npz', {key: identity}) / ('npy', identity); ('invalid', why) on a parse problem (recorded)."""
++        k = str(p)
++        if k not in self._arr:
++            b = self.read(p)
++            try:
++                self._arr[k] = ('npz', npz_identity_bytes(b)) if k.endswith('.npz') else ('npy', npy_identity_bytes(b))
++            except Exception as e:  # zipfile.BadZipFile, ValueError, OSError from numpy parsing
++                self.problems.append({'side': self.tag, 'file': self.rel(p), 'error': '%s: %s' % (type(e).__name__, str(e)[:300])})
++                self._arr[k] = ('invalid', '%s %s' % (type(e).__name__, str(e)[:200]))
++        return self._arr[k]
++
++    def scan(self, p, needle):
++        """Byte scan (stray uv_tail in JSONL) hashed from the scanned bytes."""
++        h, hit, tail = hashlib.sha256(), False, b''
++        with open(p, 'rb') as f:
++            for b in iter(lambda: f.read(1 << 22), b''):
++                h.update(b)
++                if not hit and needle in tail + b:
++                    hit = True
++                tail = b[-16:]
++        self._record(p, h.hexdigest())
++        return hit
++
++    def verify(self):
++        bad = []
++        for k, h in sorted(self.sha.items()):
++            try:
++                now = sha_file(k)
++            except OSError as e:
++                now = 'UNREADABLE %s' % type(e).__name__
++            if now != h:
++                bad.append({'side': self.tag, 'file': k, 'read_sha256': h, 'end_sha256': now})
++        return bad
++
++
++def cm_read(cm, store, path, kind):
++    """The checkpoint module's _read (c2v003 L208-220) applied to the store's single read of the file."""
++    raw = store.raw(path)
++    try:
++        body = json.loads(raw.decode('ascii'), object_pairs_hook=_pairs)
++    except (UnicodeDecodeError, ValueError) as e:
++        raise cm.CheckpointError('UNREADABLE_RECORD %s %s' % (type(e).__name__, path)) from None
++    if type(body) is not dict or body.get('format') != cm.FORMAT or body.get('kind') != kind:
++        raise cm.CheckpointError('WRONG_RECORD_KIND ' + str(path))
++    claimed = body.pop('payload_sha256', None)
++    if claimed != cm._sha(cm._canonical(body)):
++        raise cm.CheckpointError('RECORD_INTEGRITY_FAILURE ' + str(path))
++    body['payload_sha256'] = claimed
++    if raw != cm._canonical(body) + b'\n':
++        raise cm.CheckpointError('NONCANONICAL_RECORD ' + str(path))
++    return body
++
++
+ def load_cm():
+-    if sha_file(CKPT[0]) != CKPT[1]:
++    """CX2-V5-S4: hash and execute the checkpoint module from one read of its bytes."""
++    raw = Path(CKPT[0]).read_bytes()
++    if sha_b(raw) != CKPT[1]:
+         raise SystemExit('checkpoint module pin')
+-    s = importlib.util.spec_from_file_location('ckpt_cmp_c2v005', CKPT[0])
+-    m = importlib.util.module_from_spec(s)
+-    s.loader.exec_module(m)
++    m = types.ModuleType('ckpt_cmp_c2v006')
++    m.__file__ = CKPT[0]
++    exec(compile(raw, CKPT[0], 'exec'), m.__dict__)
+     return m
+ 
+ 
+-def load_driver():
+-    """The selected pinned driver, executed from the verified bytes (module body: constants and defs only), as c2v004."""
+-    raw = Path(DRIVER[0]).read_bytes()
+-    if hashlib.sha256(raw).hexdigest() != DRIVER[1]:
++def driver_raw():
++    """The selected driver's bytes, read once per selection and verified against the pin (CX2-V5-S4)."""
++    if DRIVER_RAW[0] is None or DRIVER_RAW[1] != DRIVER[0]:
++        DRIVER_RAW[0], DRIVER_RAW[1] = Path(DRIVER[0]).read_bytes(), DRIVER[0]
++    if sha_b(DRIVER_RAW[0]) != DRIVER[1]:
+         raise SystemExit('driver pin')
+-    m = types.ModuleType('v010_cmp_c2v005')
++    return DRIVER_RAW[0]
++
++
++def load_driver():
++    """The selected pinned driver, executed from the verified bytes (module body: constants and defs only)."""
++    raw = driver_raw()
++    m = types.ModuleType('v010_cmp_c2v006')
+     m.__file__ = DRIVER[0]
+     exec(compile(raw, DRIVER[0], 'exec'), m.__dict__)
+     return m
+@@ -168,7 +432,14 @@
+     if isinstance(node, ast.Dict):
+         if any(k is None for k in node.keys):
+             raise _Unsafe('dict splat')
+-        return {_ev(k, env): _ev(v, env) for k, v in zip(node.keys, node.values)}
++        out = {}
++        for k, v in zip(node.keys, node.values):
++            kk = _ev(k, env)
++            if kk in out:  # A71: a duplicate key in a driver dict literal is never resolved last-wins here
++                LAST_WINS.append({'where': 'driver table dict literal', 'line': k.lineno, 'key': str(kk)})
++                raise _Unsafe('duplicate dict key %r' % (kk,))
++            out[kk] = _ev(v, env)
++        return out
+     if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == 'Path' and not node.keywords \
+             and len(node.args) == 1:
+         v = _ev(node.args[0], env)
+@@ -180,8 +451,12 @@
+     raise _Unsafe(type(node).__name__)
+ 
+ 
+-def driver_tables(path):
+-    tree = ast.parse(Path(path).read_text())
++def driver_tables(raw, path=None):
++    """Tables from the given (already verified) source bytes; the comparator never re-reads a hashed file.  A bare path
++    (external harnesses, c2v005 call form) is read once here."""
++    if path is None and isinstance(raw, (str, Path)) and not isinstance(raw, bytes) and Path(raw).is_file():
++        path, raw = str(raw), Path(raw).read_bytes()
++    tree = ast.parse(raw.decode('utf-8') if isinstance(raw, bytes) else raw, filename=str(path or '<driver>'))
+     env = {}
+     for st in tree.body:
+         if isinstance(st, ast.Assign) and len(st.targets) == 1 and isinstance(st.targets[0], ast.Name):
+@@ -199,14 +474,18 @@
+ 
+ # ---------------------------------------------------------------- strict JSON equality (H5)
+ def seq(a, b):
++    if isinstance(a, (Unparseable, Collided, Dup)) or isinstance(b, (Unparseable, Collided, Dup)):
++        return False
+     if type(a) is not type(b):
+         return False
+     if isinstance(a, float):
+         return struct.pack('<d', a) == struct.pack('<d', b)
+     if isinstance(a, dict):
+         return a.keys() == b.keys() and all(seq(a[k], b[k]) for k in a)
+-    if isinstance(a, list):
++    if isinstance(a, (list, tuple)):
+         return len(a) == len(b) and all(seq(x, y) for x, y in zip(a, b))
++    if isinstance(a, NDV):
++        return a.dtype_str == b.dtype_str and a.shape == b.shape and seq(a.values, b.values)
+     return a == b
+ 
+ 
+@@ -218,13 +497,13 @@
+     out = [] if out is None else out
+     if len(out) >= limit:
+         return out
+-    if isinstance(a, dict) and isinstance(b, dict):
++    if isinstance(a, dict) and isinstance(b, dict) and not isinstance(a, Unparseable) and not isinstance(b, Unparseable):
+         for k in sorted(set(a) | set(b)):
+             if k not in a or k not in b:
+                 out.append((path + '/' + k, 'ONLY_' + ('NEW' if k in b else 'REF')))
+             else:
+                 diffs(a[k], b[k], path + '/' + k, out, limit)
+-    elif isinstance(a, list) and isinstance(b, list) and len(a) == len(b):
++    elif isinstance(a, (list, tuple)) and type(a) is type(b) and len(a) == len(b):
+         for i, (x, y) in enumerate(zip(a, b)):
+             diffs(x, y, '%s[%d]' % (path, i), out, limit)
+     elif not seq(a, b):
+@@ -232,29 +511,34 @@
+     return out
+ 
+ 
+-def npz_members(p):
+-    import numpy as np
+-    with np.load(p, allow_pickle=False) as f:
+-        return {k: (f[k].dtype.str, tuple(f[k].shape), hashlib.sha256(np.ascontiguousarray(f[k]).tobytes()).hexdigest()) for k in f.files}
+-
+-
+-def npy_member(p):
+-    import numpy as np
+-    a = np.load(p, allow_pickle=False)
+-    return (a.dtype.str, tuple(a.shape), bool(a.flags.f_contiguous and not a.flags.c_contiguous),
+-            hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest())
+-
+-
+-def content_digest(p):
+-    return hashlib.sha256(json.dumps(sorted(npz_members(p).items())).encode()).hexdigest()
+-
+-
+-def read_json(p):
+-    return json.loads(Path(p).read_text())
+-
+-
+-def argv_map(argv):
+-    return dict(zip(argv[::2], argv[1::2]))
++def argv_map(argv, where=''):
++    """A71: flag -> value; a flag given more than once reads as a Dup sentinel when it is read (and is recorded)."""
++    return StrictArgv(argv, where)
++
++
++class StrictArgv:
++    def __init__(self, argv, where):
++        self.where, self.m = where, {}
++        for k, v in zip(argv[::2], argv[1::2]):
++            self.m.setdefault(k, []).append(v)
++
++    def get(self, k, default=None):
++        v = self.m.get(k)
++        if v is None:
++            return default
++        if len(v) > 1:
++            LAST_WINS.append({'where': 'argv %s' % self.where, 'flag': k, 'values': [str(x)[:120] for x in v]})
++            return Dup(k, v)
++        return v[0]
++
++    def __contains__(self, k):
++        return k in self.m
++
++    def __getitem__(self, k):
++        v = self.get(k)
++        if v is None:
++            raise KeyError(k)
++        return v
+ 
+ 
+ # ---------------------------------------------------------------- B1: the run tree by real path
+@@ -302,6 +586,14 @@
+                 self.order.append(name)
+                 self.dir2name[e] = name
+                 self.stages[name] = sd / e
++        self.inv, self.inv_collisions = {}, []
++        for r in self.files:  # A71: the canonical inventory never keeps one of two colliding raw paths
++            c = self.canon(r)
++            if c in self.inv:
++                self.inv_collisions.append({'canonical': c, 'raw_paths': [str(self.inv[c].relative_to(self.run)), r]})
++                LAST_WINS.append({'where': 'inventory canonical path', 'canonical': c, 'raw_paths': [str(self.inv[c].relative_to(self.run)), r]})
++                continue
++            self.inv[c] = self.run / r
+ 
+     def canon(self, rel):
+         parts = rel.split('/')
+@@ -310,58 +602,114 @@
+         return rel
+ 
+     def inventory(self):
+-        return {self.canon(r): self.run / r for r in self.files}
++        return dict(self.inv)
+ 
+ 
+ class Side:
+-    def __init__(self, run, tokens):
+-        self.run = Path(run)
++    def __init__(self, tree, store, tokens, markers):
++        self.run = tree.run
++        self.store = store
+         self.tokens = sorted(tokens, key=lambda t: -len(t[0]))
+-        self.hexmap = {}
+-        for p in self.run.rglob('*'):
+-            if p.is_symlink():
+-                continue
+-            if p.is_file() and p.suffix == '.npz':
+-                self.hexmap[sha_file(p)] = 'NPZ:' + content_digest(p)
+-            elif p.is_file() and p.suffix == '.json':
+-                self.hexmap[sha_file(p)] = '<JSONFILE:%s>' % re.sub(r'^stages/\d\d_', 'stages/NN_', str(p.relative_to(self.run)))
+-        for p in self.run.glob('stages/*_route_a/checkpoint/**/*.json'):
+-            try:
+-                body = json.loads(p.read_text())
+-            except ValueError:
++        self.markers = tuple(markers)
++        self.collisions = []
++        self.fired = {}
++        self.run_re = re.compile(re.escape(str(self.run)) + r'(?=/|$|[^A-Za-z0-9_\-])')  # boundary: not a longer sibling name
++        cand = {}  # sha -> set of tokens (CX2-V5-B1: never last-wins; joined)
++        for rel in tree.files:
++            p = self.run / rel
++            if rel.endswith('.npz'):
++                kind, v = store.array(p)
++                tok = 'NPZ:' + npz_digest(v) if kind == 'npz' else 'NPZ_INVALID:' + store.sha_of(p)
++                cand.setdefault(store.sha_of(p), set()).add(tok)
++            elif rel.endswith('.json'):
++                store.json(p)
++                cand.setdefault(store.sha_of(p), set()).add('<JSONFILE:%s>' % re.sub(r'^stages/\d\d_', 'stages/NN_', rel))
++            elif rel.endswith('.npy') and not re.match(r'^stages/\d\d_route_a/checkpoint/blobs/', rel):
++                store.array(p)  # checkpoint blobs are compared by their raw bytes (RA_BLOBS), never parsed
++        for rel in tree.files:
++            if not re.match(r'^stages/\d\d_route_a/checkpoint/.*\.json$', rel):
+                 continue
+-            rel = re.sub(r'^stages/\d\d_', 'stages/NN_', str(p.relative_to(self.run)))
+-            if isinstance(body, dict):
++            body = store.json(self.run / rel)
++            r2 = re.sub(r'^stages/\d\d_', 'stages/NN_', rel)
++            if isinstance(body, dict) and not isinstance(body, Unparseable):
+                 if HEX.fullmatch(str(body.get('payload_sha256', ''))):
+-                    self.hexmap[body['payload_sha256']] = '<RA_PAYLOAD:%s>' % rel
++                    cand.setdefault(body['payload_sha256'], set()).add('<RA_PAYLOAD:%s>' % r2)
+                 if HEX.fullmatch(str(body.get('identity_sha256', ''))):
+-                    self.hexmap[body['identity_sha256']] = '<RA_IDENTITY_SHA>'
+-        self.fired = {}
+-
+-    def s(self, v):
++                    cand.setdefault(body['identity_sha256'], set()).add('<RA_IDENTITY_SHA>')
++        self.hexmap = {h: '|'.join(sorted(v)) for h, v in cand.items()}
++        self.hex_multi = {h: sorted(v) for h, v in cand.items() if len(v) > 1}
++        inv = {}
++        for h, t in self.hexmap.items():
++            inv.setdefault(t, []).append(h)
++        for t, hs in sorted(inv.items()):
++            if len(hs) > 1 and not t.startswith('NPZ:'):
++                self.collisions.append({'kind': 'HEXMAP_MANY_TO_ONE', 'token': t, 'distinct_sha256': sorted(hs)[:6], 'n': len(hs)})
++
++    def s(self, v, at=''):
++        if '<' in v or 'NPZ' in v:
++            hit = [m for m in self.markers if m in v]
++            if hit:
++                self.collisions.append({'kind': 'RAW_TEXT_CONTAINS_NORMALIZER_TOKEN', 'at': at, 'markers': hit[:6], 'raw': v[:200]})
+         for a, tok in self.tokens:
+             if a in v:
+                 self.fired[tok] = self.fired.get(tok, 0) + v.count(a)
+                 v = v.replace(a, tok)
+         if str(self.run) in v:
+-            v = v.replace(str(self.run), '<RUN>')
++            v = self.run_re.sub('<RUN>', v)
+         v = re.sub(r'<RUN>/stages/\d\d_', '<RUN>/stages/NN_', v)
+         return HEX.sub(lambda m: self.hexmap.get(m.group(0), m.group(0)), v)
+ 
+-    def norm(self, o, drop=()):
+-        if hasattr(o, 'tolist') and not isinstance(o, (str, bytes)):
+-            o = o.tolist()
++    def norm(self, o, drop=(), at=''):
++        if isinstance(o, (Unparseable, Collided, Dup)):
++            return o
++        if hasattr(o, 'tolist') and hasattr(o, 'dtype') and not isinstance(o, (str, bytes)):
++            shp = list(o.shape) if getattr(o, 'ndim', 0) or type(o).__name__ == 'ndarray' else None
++            return NDV(o.dtype.str, shp, self.norm(o.tolist(), drop, at))
+         if isinstance(o, tuple):
+-            o = list(o)
++            return tuple(self.norm(x, drop, '%s[%d]' % (at, i)) for i, x in enumerate(o))
+         if isinstance(o, dict):
+-            return {self.s(k): self.norm(x, drop) for k, x in o.items() if k not in MASK_KEYS and k not in drop}
++            out, src = {}, {}
++            for k, x in o.items():
++                if k in MASK_KEYS or k in drop:
++                    continue
++                nk = self.s(k, at + '/<key>') if isinstance(k, str) else k
++                if nk in out:  # CX2-V5-B1: two raw keys normalize to one key -> FAIL naming both; never last-wins
++                    self.collisions.append({'kind': 'KEY_COLLISION', 'at': at, 'normalized_key': str(nk)[:200],
++                                            'raw_keys': [str(src[nk])[:200], str(k)[:200]]})
++                    out[nk] = Collided([src[nk], k])
++                    continue
++                src[nk] = k
++                out[nk] = self.norm(x, drop, at + '/' + str(nk))
++            return out
+         if isinstance(o, list):
+-            return [self.norm(x, drop) for x in o]
++            return [self.norm(x, drop, '%s[%d]' % (at, i)) for i, x in enumerate(o)]
+         if isinstance(o, str):
+-            return self.s(o)
++            return self.s(o, at)
+         return o
+ 
+ 
++def build_tokens(tok_all):
++    """CX2-V5-B1 / A71: the ref<->new token relation must be one-to-one; a pair with several labels gets the sorted join."""
++    bad, r2n, n2r, labels, lab2pair = [], {}, {}, {}, {}
++    for r, n, t in tok_all:
++        r2n.setdefault(r, set()).add(n)
++        n2r.setdefault(n, set()).add(r)
++        labels.setdefault((r, n), set()).add(t)
++        lab2pair.setdefault(t, set()).add((r, n))
++    for r, ns in sorted(r2n.items()):
++        if len(ns) > 1:
++            bad.append({'kind': 'TOKEN_REFERENCE_RAW_PAIRED_TWICE', 'reference_raw': r[:200], 'new_raws': sorted(x[:200] for x in ns)})
++    for n, rs in sorted(n2r.items()):
++        if len(rs) > 1:
++            bad.append({'kind': 'TOKEN_NEW_RAW_PAIRED_TWICE', 'new_raw': n[:200], 'reference_raws': sorted(x[:200] for x in rs)})
++    for t, ps in sorted(lab2pair.items()):
++        if len(ps) > 1:
++            bad.append({'kind': 'TOKEN_LABEL_USED_FOR_TWO_PAIRS', 'label': t, 'pairs': sorted([a[:120], b[:120]] for a, b in ps)})
++    pairs = [(r, n, '|'.join(sorted(ls))) for (r, n), ls in sorted(labels.items())]
++    joined = {'|'.join(sorted(ls)): sorted(ls) for ls in labels.values() if len(ls) > 1}
++    return pairs, bad, joined
++
++
+ # ---------------------------------------------------------------- declared rules (B2)
+ def _get(o, path):
+     for k in path:
+@@ -438,7 +786,7 @@
+                     del b[k][key]
+             else:
+                 strict_pins(a[k], b[k], path + '/' + k, allowed_new, notes, violations)
+-    elif isinstance(a, list) and isinstance(b, list) and len(a) == len(b):
++    elif isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)) and len(a) == len(b):
+         for i, (x, y) in enumerate(zip(a, b)):
+             strict_pins(x, y, '%s[%d]' % (path, i), allowed_new, notes, violations)
+ 
+@@ -477,27 +825,29 @@
+ 
+ 
+ def workers_of(req):
+-    v = argv_map(req.get('argv') or []).get('--column-workers', '1')
++    v = argv_map(req.get('argv') or [], 'route_a --column-workers').get('--column-workers', '1')
+     try:
+         return int(v)
+     except (TypeError, ValueError):
+         return -1
+ 
+ 
+-def auto_custody(gate, ref, new, sr, sn, new_t, uvt_kinds):
++def auto_custody(gate, ref, new, sr, sn, new_t, uvt_kinds, SR, SN):
+     rep = {'reference_driver': None, 'pairs': [], 'inadmissible': []}
+-    st_r, st_n = read_json(ref / 'start.json'), read_json(new / 'start.json')
++    st_r, st_n = SR.json(ref / 'start.json'), SN.json(new / 'start.json')
+     rdrv, rsha = st_r.get('driver'), st_r.get('driver_sha256')
+     ref_t, rd_ok = {}, False
+-    if isinstance(rdrv, str) and REFERENCE_DRIVERS.get(rdrv) == rsha and Path(rdrv).is_file() and sha_file(rdrv) == rsha:
+-        ref_t, rd_ok = driver_tables(rdrv), True
++    if isinstance(rdrv, str) and REFERENCE_DRIVERS.get(rdrv) == rsha and Path(rdrv).is_file():
++        raw = Path(rdrv).read_bytes()  # CX2-V5-S4: tables from the bytes that were hashed
++        if sha_b(raw) == rsha:
++            ref_t, rd_ok = driver_tables(raw, rdrv), True
+     rep['reference_driver'] = {'path': rdrv, 'sha256': rsha, 'declared_and_verified_from_bytes': rd_ok, 'tables': sorted(ref_t)}
+     admitted = []
+     for name in sorted(set(sr) & set(sn)):
+         qr, qn = sr[name] / 'request.json', sn[name] / 'request.json'
+         if not (qr.is_file() and qn.is_file()):
+             continue
+-        a, b = read_json(qr), read_json(qn)
++        a, b = SR.json(qr), SN.json(qn)
+         if not (a.get('script') == b.get('script') and a.get('script_sha256') == b.get('script_sha256')):
+             ka, kb = stage_kind(name, a), stage_kind(name, b)
+             kind = ka if ka == kb else None
+@@ -516,9 +866,14 @@
+             else:
+                 rep['inadmissible'].append(row)
+         if name == 'route_a':
+-            ma, mb = argv_map(a.get('argv') or []), argv_map(b.get('argv') or [])
++            ma, mb = argv_map(a.get('argv') or [], 'reference route_a'), argv_map(b.get('argv') or [], 'new route_a')
+             gr, gn = (ma.get('--solver'), ma.get('--solver-sha256')), (mb.get('--solver'), mb.get('--solver-sha256'))
+-            if gr != gn:
++            if any(isinstance(x, Dup) for x in gr + gn):
++                row = {'stage': name, 'what': 'solver', 'reference': [str(x) for x in gr], 'new': [str(x) for x in gn],
++                       'admitted': False, 'why': 'DUPLICATE_ARGV'}
++                rep['pairs'].append(row)
++                rep['inadmissible'].append(row)
++            elif gr != gn:
+                 exp_r, exp_n = expected_solver(gate, workers_of(b), ref_t, new_t) if rd_ok else (None, None)
+                 ok = (rd_ok and exp_r is not None and exp_n is not None and tuple(gr) == tuple(exp_r) and tuple(gn) == tuple(exp_n)
+                       and file_ok(*exp_n))
+@@ -533,7 +888,7 @@
+                     rep['inadmissible'].append(row)
+     nd = (st_n.get('driver'), st_n.get('driver_sha256'))
+     if (rdrv, rsha) != nd:
+-        ok = rd_ok and list(nd) == DRIVER and sha_file(DRIVER[0]) == DRIVER[1]
++        ok = rd_ok and list(nd) == DRIVER and sha_b(driver_raw()) == DRIVER[1]
+         row = {'what': 'driver', 'reference': [rdrv, rsha], 'new': list(nd), 'expected_new': list(DRIVER), 'admitted': ok}
+         rep['pairs'].append(row)
+         if ok:
+@@ -609,10 +964,6 @@
+     return c
+ 
+ 
+-def _sha_or(p):
+-    return sha_file(p) if Path(p).is_file() else 'MISSING_FILE(%s)' % p
+-
+-
+ def source_rotation_stage(name):
+     """driver L3168 (rfs: fs_rot), L3172/L3276 (le p: le(p-1) rotation; le1: fs_rot)."""
+     if name.startswith('rfs_columns'):
+@@ -624,8 +975,10 @@
+     return None
+ 
+ 
+-def expected_tail_blocks(gate, drv, new, sn, rec):
++def expected_tail_blocks(gate, drv, new, sn, rec, SN):
+     """Raw expected tail argv per new stage name ('*' for every other stage = []), plus the UV_TAIL_RECORD cross-check."""
++    def sha_or(p):
++        return SN.sha_of(p) if Path(p).is_file() else 'MISSING_FILE(%s)' % p
+     blocks, rc = {}, None
+     if gate == 'Z2':
+         req = new / 'inputs/uv_tail_route_a_request.json'
+@@ -634,7 +987,7 @@
+         man = (man_dir / 'manifest/ROUTE_A_TAIL_MANIFEST.json') if man_dir is not None else None
+         ra = sn.get('route_a')
+         if ra is not None:
+-            blocks['route_a'] = ['--uv-tail-config', str(req), '--uv-tail-config-sha256', _sha_or(req),
++            blocks['route_a'] = ['--uv-tail-config', str(req), '--uv-tail-config-sha256', sha_or(req),
+                                  '--eps-certificate', TEST_ONLY, '--eps-certificate-sha256', TEST_ONLY,
+                                  '--lo-certificate', TEST_ONLY, '--lo-certificate-sha256', TEST_ONLY,
+                                  '--uv-tail-sidecar-directory', str(ra / 'uv_tail_sidecar')]
+@@ -643,9 +996,9 @@
+         if isinstance(rec, dict):
+             rc.update({
+                 'enabled_true': rec.get('enabled') is True,
+-                'config_is_inputs_file_from_bytes': (rec.get('config') or {}).get('path') == str(cfg) and (rec.get('config') or {}).get('sha256') == _sha_or(cfg),
+-                'request_is_inputs_file_from_bytes': (rec.get('request') or {}).get('path') == str(req) and (rec.get('request') or {}).get('sha256') == _sha_or(req),
+-                'manifest_is_stage_file_from_bytes': man is not None and (rec.get('manifest') or {}).get('path') == str(man) and (rec.get('manifest') or {}).get('sha256') == _sha_or(man),
++                'config_is_inputs_file_from_bytes': (rec.get('config') or {}).get('path') == str(cfg) and (rec.get('config') or {}).get('sha256') == sha_or(cfg),
++                'request_is_inputs_file_from_bytes': (rec.get('request') or {}).get('path') == str(req) and (rec.get('request') or {}).get('sha256') == sha_or(req),
++                'manifest_is_stage_file_from_bytes': man is not None and (rec.get('manifest') or {}).get('path') == str(man) and (rec.get('manifest') or {}).get('sha256') == sha_or(man),
+                 'admissibility_test_only': rec.get('admissibility') == 'test_only',
+                 'test_only_flag': rec.get('test_only_flag') == ['--uv-tail-admit-test-only'],
+                 'certificates_test_only': rec.get('certificates') == {'eps_certificate': [TEST_ONLY, TEST_ONLY], 'lo_certificate': [TEST_ONLY, TEST_ONLY]},
+@@ -655,14 +1008,14 @@
+         for name, d in sn.items():
+             if name in ('route_a', 'route_a_tail_manifest') or not (d / 'request.json').is_file():
+                 continue
+-            kind = stage_kind(name, read_json(d / 'request.json'))
++            kind = stage_kind(name, SN.json(d / 'request.json'))
+             if kind not in drv.UVT_TAIL_KINDS:
+                 continue
+             bk = drv.UVT_BINDING_KIND[kind]
+-            b = ['--uv-tail-config', str(cfg), '--uv-tail-config-sha256', _sha_or(cfg), '--uv-tail-admit-test-only']
++            b = ['--uv-tail-config', str(cfg), '--uv-tail-config-sha256', sha_or(cfg), '--uv-tail-admit-test-only']
+             if bk in ('reference', 'body', 'offset'):
+                 b += ['--route-a-tail-manifest', str(man) if man else 'MISSING_MANIFEST_STAGE',
+-                      '--route-a-tail-manifest-sha256', _sha_or(man) if man else 'MISSING_MANIFEST_STAGE']
++                      '--route-a-tail-manifest-sha256', sha_or(man) if man else 'MISSING_MANIFEST_STAGE']
+             if bk not in ('reference', 'body') and trunc is not None:
+                 b += ['--uv-tail-truncation', trunc]
+             if bk in ('rfs_columns', 'le_columns', 'le_rotation'):
+@@ -673,7 +1026,7 @@
+         ra = sn.get('route_a')
+         if ra is not None:
+             off = new / 'inputs' / OFF_REQUEST_NAME
+-            E = hashlib.sha256(off_request_bytes(drv)).hexdigest()
++            E = sha_b(off_request_bytes(drv))
+             blocks['route_a'] = ['--uv-tail-config', str(off), '--uv-tail-config-sha256', E, '--eps-certificate', TEST_ONLY,
+                                  '--eps-certificate-sha256', TEST_ONLY, '--lo-certificate', TEST_ONLY, '--lo-certificate-sha256', TEST_ONLY,
+                                  '--uv-tail-sidecar-directory', str(ra / 'uv_tail_sidecar')]
+@@ -682,7 +1035,7 @@
+ 
+ def _is_json(s):
+     try:
+-        json.loads(s)
++        jloads(s)
+         return True
+     except ValueError:
+         return False
+@@ -726,8 +1079,8 @@
+                 bad.append((name, 'request.json present on one side only'))
+             continue
+         n += 1
+-        a, b = R.norm(read_json(qr)), N.norm(read_json(qn))
+-        block = N.norm(blocks.get(name, []))
++        a, b = R.norm(R.store.json(qr), at='stages/%s/request.json' % name), N.norm(N.store.json(qn), at='stages/%s/request.json' % name)
++        block = N.norm(blocks.get(name, []), at='<driver tail block %s>' % name)
+         ra, rb = a.get('argv') or [], b.get('argv') or []
+         why = check_argv(name, ra, rb, block, suffix=(name == 'route_a'))
+         if why:
+@@ -745,62 +1098,67 @@
+     return not bad, {'requests_compared': n, 'differing': bad[:16], 'tail_blocks_inserted': inserted}
+ 
+ 
+-def check_manifest_stage(gate, drv, new, sn, R_dummy=None):
++def check_manifest_stage(gate, drv, new, sn, SN):
+     """Z2: the route_a_tail_manifest request is the driver's (L2930-2934, L1821): script = AUX_UVT manifest_writer (from bytes)."""
+     d = sn.get('route_a_tail_manifest')
+     ra = sn.get('route_a')
+     if d is None or not (d / 'request.json').is_file():
+         return False, {'reason': 'no route_a_tail_manifest request'}
+-    q = read_json(d / 'request.json')
++    q = SN.json(d / 'request.json')
+     mw = drv.AUX_UVT['manifest_writer']
+     det = {'script': q.get('script') == str(mw[0]) and q.get('script_sha256') == mw[1] and file_ok(str(mw[0]), mw[1]),
+            'kind_and_name': q.get('kind') == 'route_a_tail_manifest' and q.get('name') == 'route_a_tail_manifest'}
+     exp = None
+     if ra is not None and (ra / 'request.json').is_file():
+-        am = argv_map(read_json(ra / 'request.json').get('argv') or [])
++        am = argv_map(SN.json(ra / 'request.json').get('argv') or [], 'new route_a (manifest expectation)')
+         req = new / 'inputs/uv_tail_route_a_request.json'
+         exp = ['--seed', am.get('--seed'), '--seed-sha256', am.get('--seed-sha256'), '--attempt-directory', am.get('--outdir'),
+                '--checkpoint-directory', am.get('--checkpoint-directory'), '--checkpoint-module', str(drv.AUX['checkpoint_module'][0]),
+                '--checkpoint-module-sha256', drv.AUX['checkpoint_module'][1], '--uv-tail-request', str(req),
+-               '--uv-tail-request-sha256', _sha_or(req), '--outdir', str(d / 'manifest')]
++               '--uv-tail-request-sha256', SN.sha_of(req) if req.is_file() else 'MISSING_FILE', '--outdir', str(d / 'manifest')]
++        if any(isinstance(x, Dup) for x in exp):
++            exp = None
+     det['argv'] = exp is not None and q.get('argv') == exp
+     if not det['argv']:
+-        det['argv_found'], det['argv_expected'] = q.get('argv'), exp
++        det['argv_found'], det['argv_expected'] = q.get('argv'), (None if exp is None else [str(x) for x in exp])
+     return all(v is True for k, v in det.items() if k in ('script', 'kind_and_name', 'argv')), det
+ 
+ 
+ # ---------------------------------------------------------------- tail-off declared records (c2v004 unchanged)
+-def route_a_facts(run, stages):
++def route_a_facts(run, stages, S):
+     d = stages.get('route_a')
+     if d is None or not (d / 'request.json').is_file():
+         return None
+-    req = read_json(d / 'request.json')
+-    atts = sorted(x.name for x in d.glob('attempt_*') if x.is_dir())
++    req = S.json(d / 'request.json')
++    atts = sorted(x.name for x in d.glob('attempt_*') if x.is_dir() and not x.is_symlink())
+     st = d / 'attempt_000' / 'start.json'
+-    return {'dir': d, 'request': req, 'argv': argv_map(req.get('argv') or []), 'attempts': atts,
+-            'start': read_json(st) if st.is_file() else None}
++    return {'dir': d, 'request': req, 'argv': argv_map(req.get('argv') or [], '%s route_a' % S.tag), 'attempts': atts,
++            'start': S.json(st) if st.is_file() else None}
+ 
+ 
+-def check_declared_off(drv, new_run, fn, cn_raw):
++def check_declared_off(drv, new_run, fn, cn_raw, SN):
+     raw = off_request_bytes(drv)
+-    E = hashlib.sha256(raw).hexdigest()
++    E = sha_b(raw)
+     d1 = new_run / 'inputs' / OFF_REQUEST_NAME
+     det = {'expected_request_sha256': E}
+-    det['D1_request_file'] = d1.is_file() and sha_file(d1) == E and json.loads(d1.read_text()) == drv.ro1_off_request()
++    det['D1_request_file'] = d1.is_file() and SN.sha_of(d1) == E and seq(SN.json(d1), jloads(raw)) and SN.json(d1) == drv.ro1_off_request()
+     if fn is None:
+         det['route_a'] = 'NO_COMPUTED_ROUTE_A'
+         return False, det, None, set(), E
+     side = fn['dir'] / 'uv_tail_sidecar'
+     rec = {'request': {'path': str(d1.resolve()), 'sha256': E}, 'enabled': False, 'sidecar_directory': str(side.resolve())}
+     am = fn['argv']
+-    det['argv_flags'] = (am.get('--uv-tail-config') is not None and str(Path(am['--uv-tail-config']).resolve()) == str(d1.resolve())
+-                         and am.get('--uv-tail-config-sha256') == E
+-                         and all(am.get(k) == drv.UVT_TEST_ONLY for k in ('--eps-certificate', '--eps-certificate-sha256', '--lo-certificate', '--lo-certificate-sha256'))
+-                         and am.get('--uv-tail-sidecar-directory') is not None and str(Path(am['--uv-tail-sidecar-directory']).resolve()) == str(side.resolve()))
++    g = {k: am.get(k) for k in ('--uv-tail-config', '--uv-tail-config-sha256', '--eps-certificate', '--eps-certificate-sha256',
++                                '--lo-certificate', '--lo-certificate-sha256', '--uv-tail-sidecar-directory')}
++    det['argv_flags'] = (not any(isinstance(v, Dup) for v in g.values())
++                         and g['--uv-tail-config'] is not None and str(Path(g['--uv-tail-config']).resolve()) == str(d1.resolve())
++                         and g['--uv-tail-config-sha256'] == E
++                         and all(g[k] == drv.UVT_TEST_ONLY for k in ('--eps-certificate', '--eps-certificate-sha256', '--lo-certificate', '--lo-certificate-sha256'))
++                         and g['--uv-tail-sidecar-directory'] is not None and str(Path(g['--uv-tail-sidecar-directory']).resolve()) == str(side.resolve()))
+     det['attempts'] = fn['attempts']
+     det['single_attempt'] = fn['attempts'] == ['attempt_000']
+     st = fn['start'] or {}
+-    det['D2_start_json_record'] = st.get('uv_tail') == rec
++    det['D2_start_json_record'] = seq(st.get('uv_tail'), rec)
+     caller_rec = ((cn_raw or {}).get('numerical_controls') or {}).get('uv_tail', '<ABSENT>')
+     det['D3_observed'] = 'ABSENT' if caller_rec == '<ABSENT>' else ('DECLARED_RECORD' if caller_rec == rec else 'OTHER')
+     det['D3_caller_record'] = det['D3_observed'] in ('ABSENT', 'DECLARED_RECORD')
+@@ -815,7 +1173,7 @@
+     return ok, det, rec, expected, E
+ 
+ 
+-def stray_uv_tail(run):
++def stray_uv_tail(tree, S):
+     out = []
+ 
+     def walk(o, where):
+@@ -827,24 +1185,17 @@
+         elif isinstance(o, list):
+             for i, x in enumerate(o):
+                 walk(x, '%s[%d]' % (where, i))
+-    run = Path(run)
+-    for p in sorted(run.rglob('*.json')):
+-        if '/checkpoint/' in str(p) or p.is_symlink():
+-            continue
+-        try:
+-            walk(json.loads(p.read_text()), str(p.relative_to(run)))
+-        except ValueError:
+-            continue
+-    for p in sorted(run.rglob('*.jsonl')):
+-        hit, tail = False, b''
+-        with open(p, 'rb') as f:
+-            for b in iter(lambda: f.read(1 << 22), b''):
+-                if b'"uv_tail' in tail + b:
+-                    hit = True
+-                    break
+-                tail = b[-16:]
+-        if hit:
+-            out.append({'at': str(p.relative_to(run)) + ':JSONL_TEXT', 'enabled': None})
++    run = tree.run
++    for rel in tree.files:
++        if rel.endswith('.json') and '/checkpoint/' not in '/' + rel:
++            o = S.json(run / rel)
++            if isinstance(o, Unparseable):
++                out.append({'at': rel + ':UNPARSEABLE', 'enabled': None})
++                continue
++            walk(o, rel)
++    for rel in tree.files:
++        if rel.endswith('.jsonl') and S.scan(run / rel, b'"uv_tail'):
++            out.append({'at': rel + ':JSONL_TEXT', 'enabled': None})
+     return out
+ 
+ 
+@@ -900,9 +1251,17 @@
+     ro1_off_pins L966-975 / AUX_UVT controller, UVT_LIB) and the route-A tail request input."""
+     if gate not in ('Z2', 'Z2_OFF_RO1'):
+         return {}
+-    exp = {N.s(str(Path(p).resolve())): N.s(s) for p, s in (drv.AUX_UVT['controller'], drv.UVT_LIB['lib'], drv.UVT_LIB['roster'], drv.UVT_LIB['provider'])}
++    exp = {}
+     req = new / 'inputs' / ('uv_tail_route_a_request.json' if gate == 'Z2' else OFF_REQUEST_NAME)
+-    exp[N.s(str(req.resolve()))] = N.s(_sha_or(req))
++    items = [(p, s) for p, s in (drv.AUX_UVT['controller'], drv.UVT_LIB['lib'], drv.UVT_LIB['roster'], drv.UVT_LIB['provider'])]
++    items.append((req, N.store.sha_of(req) if req.is_file() else 'MISSING_FILE(%s)' % req))
++    for p, s in items:
++        k = N.s(str(Path(p).resolve()), '<declared route-A pin key>')
++        if k in exp:  # A71
++            LAST_WINS.append({'where': 'declared route-A new-only pins', 'normalized_key': k})
++            exp[k] = Collided([str(p)])
++            continue
++        exp[k] = N.s(s, '<declared route-A pin value>')
+     return exp
+ 
+ 
+@@ -912,13 +1271,13 @@
+ 
+     def ok(key_norm, val_norm):
+         raw = rev.get(key_norm)
+-        return raw is not None and file_ok(raw[0], raw[1])
++        return isinstance(raw, tuple) and file_ok(raw[0], raw[1])
+     return ok, rev
+ 
+ 
+-def compare_json_file(rel, p, q, R, N, rules, pin_allow, _unused=None):
+-    x = R.norm(read_json(p))
+-    y = N.norm(read_json(q))
++def compare_json_file(rel, p, q, R, N, rules, pin_allow):
++    x = R.norm(R.store.json(p), at=rel)
++    y = N.norm(N.store.json(q), at=rel)
+     notes, viol = [], []
+     if pin_allow is not None:
+         strict_pins(x, y, rel, pin_allow, notes, viol)
+@@ -931,8 +1290,8 @@
+ 
+ 
+ def compare_jsonl(rel, p, q, R, N, extra_mask=(), drop_new_stage=()):
+-    x = [R.norm(json.loads(l), drop=extra_mask) for l in p.read_text().splitlines() if l.strip()]
+-    y = [N.norm(json.loads(l), drop=extra_mask) for l in q.read_text().splitlines() if l.strip()]
++    x = [R.norm(o, drop=extra_mask, at='%s:%d' % (rel, i)) for i, o in enumerate(R.store.jsonl(p))]
++    y = [N.norm(o, drop=extra_mask, at='%s:%d' % (rel, i)) for i, o in enumerate(N.store.jsonl(q))]
+     dropped = 0
+     if drop_new_stage:
+         keep = []
+@@ -960,24 +1319,84 @@
+         raise SystemExit('REFUSED: unknown gate %r (one of %s)' % (a.gate, sorted(GATES)))
+     if a.driver not in DRIVERS:
+         raise SystemExit('REFUSED: --driver must be one of %s' % sorted(DRIVERS))
+-    DRIVER[:] = list(DRIVERS[a.driver])
+     tail_on, ro1_req, declared_off = GATES[a.gate]
+     if ro1_req == 'UNARMED' and a.require_ro1_armed:
+         raise SystemExit('REFUSED: --require-ro1-armed contradicts gate %s (A52.1: ro1 armed false, fired false)' % a.gate)
+     if ro1_req == 'OPTIONAL' and a.require_ro1_armed:
+         ro1_req = 'ARMED_BLOCK_ONLY'
+-    MASK_KEYS.clear(); MASK_KEYS.update(MASK_KEYS_BASE | (TAIL_KEYS if tail_on else set()))
++    DRIVER[:] = list(DRIVERS[a.driver])
++    DRIVER_RAW[0] = DRIVER_RAW[1] = None
++    driver_raw()
++    me_raw = Path(__file__).read_bytes()
++    tok_raw = Path(a.tokens).read_bytes()
++    try:
++        tok = jloads(tok_raw)['declared']
++    except (ValueError, KeyError, TypeError) as e:
++        raise SystemExit('REFUSED: tokens file %s: %s' % (a.tokens, e))
++    if os.path.lexists(a.out):
++        raise SystemExit('REFUSED: --out exists (exclusive create): %s' % a.out)
++    MASK_KEYS.clear()
++    MASK_KEYS.update(MASK_KEYS_BASE | (TAIL_KEYS if tail_on else set()))
++    del LAST_WINS[:]
+     ref, new = Path(a.reference).resolve(), Path(a.new).resolve()
+-    tok = json.loads(Path(a.tokens).read_text())['declared']
+-    if sha_file(DRIVER[0]) != DRIVER[1]:
+-        raise SystemExit('driver pin')
+-    new_t = driver_tables(DRIVER[0])
+-    drv = load_driver()
+     checks = {}
++    head = {'schema': 'RUN_IDENTITY_COMPARE_C2V006', 'gate': a.gate, 'driver_selected': a.driver, 'driver_pin': list(DRIVER),
++            'tail_on': tail_on, 'ro1_requirement': ro1_req, 'declared_tail_off_records': declared_off,
++            'require_ro1_armed_flag': bool(a.require_ro1_armed), 'masked_keys': sorted(MASK_KEYS), 'array_policy': ARRAY_POLICY,
++            'comparator': {'path': str(Path(__file__).resolve()), 'sha256': sha_b(me_raw)},
++            'reference': str(ref), 'new': str(new), 'tokens': {'path': str(Path(a.tokens).resolve()), 'sha256': sha_b(tok_raw)}}
+ 
+     def put(name, ok, detail):
+         checks[name] = {'pass': bool(ok), 'detail': detail}
++    extra, hold = {}, {}
++    try:
++        _compare(a, ref, new, tok, tail_on, ro1_req, declared_off, put, extra, hold)
++    except Exception as e:  # own hardening: never crash without a report; an exception is a FAIL
++        put('COMPARATOR_EXCEPTION', False, {'type': type(e).__name__, 'message': str(e)[:500],
++                                            'traceback': traceback.format_exc()[-4000:]})
++        if 'SR' in hold and 'STRICT_PARSE' not in checks:
++            _strict_puts(put, hold, partial=True)
++    rep = dict(head, **extra)
++    rep['checks'] = checks
++    rep['verdict'] = 'PASS_BITWISE_EQUAL' if checks and all(c['pass'] for c in checks.values()) else 'FAIL'
++    rep['failing'] = [k for k, c in checks.items() if not c['pass']]
++    rep['comparator_sha256_at_end'] = sha_file(__file__)
++    if rep['comparator_sha256_at_end'] != head['comparator']['sha256']:
++        rep['verdict'] = 'FAIL'
++        rep['failing'].append('COMPARATOR_SOURCE_CHANGED_DURING_RUN')
++    with open(a.out, 'x') as f:
++        json.dump(rep, f, indent=1, default=str)
++    print(json.dumps({'verdict': rep['verdict'], 'failing': rep['failing']}))
++    return 0 if rep['verdict'] == 'PASS_BITWISE_EQUAL' else 1
++
++
++def _strict_puts(put, h, partial=False):
++    SR, SN, R, N, tok_bad = h['SR'], h['SN'], h.get('R'), h.get('N'), h.get('tok_bad', [])
++    rc = R.collisions if R else []
++    nc = N.collisions if N else []
++    put('STRICT_PARSE', not SR.problems and not SN.problems,
++        {'rule': 'duplicate JSON members, duplicate / non-.npy NPZ members, unparseable JSON / JSONL / NPZ / NPY all FAIL (CX2-V5-S2, S3)',
++         'partial_after_exception': partial, 'reference': SR.problems[:12], 'new': SN.problems[:12], 'n': [len(SR.problems), len(SN.problems)],
++         'files_parsed': [len(SR._json) + len(SR._arr), len(SN._json) + len(SN._arr)]})
++    put('NORM_INJECTIVE', not rc and not nc and not tok_bad,
++        {'rule': 'normalization must be injective on each side (CX2-V5-B1): no two raw keys to one key, no raw normalizer text, '
++                 'no many-to-one hexmap token (NPZ content tokens excepted), one-to-one token pairing',
++         'partial_after_exception': partial, 'reference': rc[:12], 'new': nc[:12], 'n': [len(rc), len(nc)], 'tokens': tok_bad[:12],
++         'hexmap_shared_sha_joined': {'reference': len(R.hex_multi) if R else None, 'new': len(N.hex_multi) if N else None}})
++    put('NO_LAST_WINS', not LAST_WINS, {'rule': 'A71: every list-to-mapping site rejects duplicates (argv flags read by name, stage_records, '
++                                                'normalized pin keys, canonical inventory paths, driver table literals)',
++                                        'partial_after_exception': partial, 'hits': LAST_WINS[:20]})
++    unstable = SR.unstable + SN.unstable + SR.verify() + SN.verify()
++    put('TREE_STABLE', not unstable, {'rule': 'CX2-V5-S4: each file hashed and compared from one in-memory read; every recorded file re-hashed at the end',
++                                      'partial_after_exception': partial, 'files_recorded': [len(SR.sha), len(SN.sha)], 'changed': unstable[:12]})
++
++
++def _compare(a, ref, new, tok, tail_on, ro1_req, declared_off, put, extra, hold):
++    new_t = driver_tables(driver_raw(), DRIVER[0])
++    drv = load_driver()
+     TR, TN = Tree(ref), Tree(new)
++    SR, SN = Store(ref, 'reference'), Store(new, 'new')
++    hold.update(SR=SR, SN=SN)
+     sr, sn = TR.stages, TN.stages
+     # ---------------- B1 stage set / order
+     extras = DECLARED_EXTRA_STAGES[a.gate]
+@@ -995,7 +1414,7 @@
+     # ---------------- tokens: declared + automatic custody + attempt ledger
+     ok, det = tokens_policy(a.gate, tok, drv)
+     put('TOKENS_POLICY', ok, det)
+-    auto, auto_rep = auto_custody(a.gate, ref, new, sr, sn, new_t, tuple(drv.UVT_TAIL_KINDS))
++    auto, auto_rep = auto_custody(a.gate, ref, new, sr, sn, new_t, tuple(drv.UVT_TAIL_KINDS), SR, SN)
+     put('AUTO_CUSTODY', not auto_rep['inadmissible'], auto_rep)
+     inv_r, inv_n = TR.inventory(), TN.inventory()
+     led_r, led_n = {}, {}
+@@ -1012,9 +1431,17 @@
+             continue
+         for i, ((ta, _), (tb, _)) in enumerate(zip(tr_, tn_)):
+             led_tokens.append([ta, tb, '<ATTEMPT_TOKEN_%s_%d>' % (d.split('/')[1].upper(), i)])
+-    tok_all = tok + auto + led_tokens
+-    R = Side(ref, [(r, t) for r, n, t in tok_all])
+-    N = Side(new, [(n, t) for r, n, t in tok_all])
++    tok_valid = [t for t in tok if isinstance(t, list) and len(t) == 3 and all(isinstance(x, str) for x in t)]
++    tok_all = tok_valid + auto + led_tokens
++    pairs, tok_bad, joined = build_tokens(tok_all)
++    labels = sorted({t for _, _, t in tok_all})
++    markers = NORMALIZER_MARKERS + tuple(labels)
++    hold['tok_bad'] = tok_bad
++    R = Side(TR, SR, [(r, t) for r, n, t in pairs], markers)
++    hold['R'] = R
++    N = Side(TN, SN, [(n, t) for r, n, t in pairs], markers)
++    hold['N'] = N
++    extra.update({'auto_tokens_admitted': auto, 'attempt_tokens': led_tokens, 'token_labels_joined': joined})
+     cm = load_cm()
+     compared = set()
+     # ---------------- attempt ledger content
+@@ -1027,12 +1454,13 @@
+                 lbad.append({'dir': d, 'kinds': [sorted(ka), sorted(kb)]})
+                 continue
+             for k in sorted(ka):
+-                x, y = R.norm(read_json(ka[k]), RECORD_DROP), N.norm(read_json(kb[k]), RECORD_DROP)
++                x = R.norm(SR.json(ka[k]), RECORD_DROP, at='%s/%s.%s.json' % (d, ta, k))
++                y = N.norm(SN.json(kb[k]), RECORD_DROP, at='%s/%s.%s.json' % (d, tb, k))
+                 if not seq(x, y):
+                     lbad.append({'dir': d, 'record': k, 'differing': diffs(x, y)[:4]})
+     put('ATTEMPT_LEDGER', not lbad, {'directories': {d: [len(led_r.get(d) or {}), len(led_n.get(d) or {})] for d in sorted(set(led_r) | set(led_n))},
+                                      'tokens': [t[2] for t in led_tokens], 'differing': lbad[:8]})
+-    # ---------------- INVENTORY (real paths; symlinks fail)
++    # ---------------- INVENTORY (real paths; symlinks fail; canonical collisions fail)
+     ref_only = sorted(set(inv_r) - set(inv_n))
+     new_only = sorted(set(inv_n) - set(inv_r))
+     pats = [(re.compile(p + r'\Z'), why) for p, why in DECLARED_NEW_ONLY[a.gate]]
+@@ -1040,24 +1468,25 @@
+     for rel in new_only:
+         hit = [why for rx, why in pats if rx.match(rel)]
+         (adm_new.setdefault(hit[0], []).append(rel)) if hit else undeclared.append(rel)
+-    put('INVENTORY', not ref_only and not undeclared and not TR.links and not TN.links,
++    put('INVENTORY', not ref_only and not undeclared and not TR.links and not TN.links and not TR.inv_collisions and not TN.inv_collisions,
+         {'n_files': [len(TR.files), len(TN.files)], 'reference_only': ref_only[:20], 'n_reference_only': len(ref_only),
+          'new_only_undeclared': undeclared[:20], 'n_new_only_undeclared': len(undeclared),
+          'new_only_declared': {k: {'n': len(v), 'first': v[:6]} for k, v in adm_new.items()},
+-         'symlinks': {'reference': TR.links[:10], 'new': TN.links[:10]}})
++         'symlinks': {'reference': TR.links[:10], 'new': TN.links[:10]},
++         'canonical_path_collisions': {'reference': TR.inv_collisions[:6], 'new': TN.inv_collisions[:6]}})
+     # ---------------- NEW_DRIVER_PIN (A67 N1) and SCRIPT_CUSTODY (A59 raw)
+-    st_n = read_json(new / 'start.json')
+-    rn_raw = read_json(new / 'result.json')
+-    rr_raw = read_json(ref / 'result.json')
++    st_n = SN.json(new / 'start.json')
++    rn_raw = SN.json(new / 'result.json')
++    rr_raw = SR.json(ref / 'result.json')
+     put('NEW_DRIVER_PIN', [st_n.get('driver'), st_n.get('driver_sha256')] == DRIVER and rn_raw.get('driver_sha256') == DRIVER[1]
+-        and sha_file(DRIVER[0]) == DRIVER[1],
++        and sha_b(driver_raw()) == DRIVER[1],
+         {'selected': a.driver, 'pin': list(DRIVER), 'start_json': [st_n.get('driver'), st_n.get('driver_sha256')],
+          'result_json_driver_sha256': rn_raw.get('driver_sha256', '<ABSENT>')})
+     sc_bad, sc_rows = [], {}
+     for name, d in sn.items():
+         if not (d / 'request.json').is_file():
+             continue
+-        q = read_json(d / 'request.json')
++        q = SN.json(d / 'request.json')
+         kind, exp = planned_script(a.gate, name, q, drv)
+         got = (q.get('script'), q.get('script_sha256'))
+         ok = exp is not None and got == (str(exp[0]), exp[1]) and file_ok(str(exp[0]), exp[1])
+@@ -1067,41 +1496,43 @@
+     put('SCRIPT_CUSTODY', not sc_bad, {'rule': 'A59: every new stage runs the driver-planned script for gate %s, hashed from bytes' % a.gate,
+                                        'stages': sc_rows, 'violations': sc_bad[:12]})
+     # ---------------- route A
+-    fr, fn = route_a_facts(ref, sr), route_a_facts(new, sn)
++    fr, fn = route_a_facts(ref, sr, SR), route_a_facts(new, sn, SN)
+     cn_raw, declared_rec, expected_stray, E = None, None, set(), None
+     ra_r, ra_n = sr.get('route_a'), sn.get('route_a')
+     if ra_n is not None and (ra_n / 'checkpoint/IDENTITY.json').is_file():
+-        cn_raw = cm.decode(cm._read(str(ra_n / 'checkpoint/IDENTITY.json'), 'identity')['identity']['caller']['record'])
++        cn_raw = cm.decode(cm_read(cm, SN, ra_n / 'checkpoint/IDENTITY.json', 'identity')['identity']['caller']['record'])
+     if declared_off:
+-        ok, det, declared_rec, expected_stray, E = check_declared_off(drv, new, fn, cn_raw)
++        ok, det, declared_rec, expected_stray, E = check_declared_off(drv, new, fn, cn_raw, SN)
+         put('UV_TAIL_DECLARED', ok, det)
++    extra['expected_tail_off_request_sha256'] = E
+     exp_ra_pins = ra_new_pins(a.gate, drv, N, new)
+     if ra_r is not None and ra_n is not None:
+-        br, bn = ra_r / 'checkpoint/blobs', ra_n / 'checkpoint/blobs'
+-        fr_b = {p.name: sha_file(p) for p in br.iterdir()} if br.is_dir() else {}
+-        fn_b = {p.name: sha_file(p) for p in bn.iterdir()} if bn.is_dir() else {}
+-        compared.update('stages/route_a/checkpoint/blobs/' + k for k in fr_b)
++        pre = 'stages/route_a/checkpoint/blobs/'
++        fr_b = {k[len(pre):]: SR.sha_of(v) for k, v in inv_r.items() if k.startswith(pre)}
++        fn_b = {k[len(pre):]: SN.sha_of(v) for k, v in inv_n.items() if k.startswith(pre)}
++        compared.update(pre + k for k in fr_b)
+         put('RA_BLOBS', fr_b == fn_b and bool(fr_b), {'n': [len(fr_b), len(fn_b)], 'differing': sorted(set(fr_b) ^ set(fn_b) | {k for k in fr_b if fn_b.get(k) != fr_b[k]})[:10]})
+         bad, n = [], 0
+-        for p in sorted((ra_r / 'checkpoint').glob('iteration_*/*.json')):
+-            q = ra_n / 'checkpoint' / p.relative_to(ra_r / 'checkpoint')
++        it_re = re.compile(r'^stages/route_a/checkpoint/iteration_[^/]+/[^/]+\.json$')
++        ref_it = sorted(k for k in inv_r if it_re.match(k))
++        new_it = sorted(k for k in inv_n if it_re.match(k))
++        for rel in ref_it:
+             n += 1
+-            compared.add(TR.canon(str(p.relative_to(ref))))
+-            if not q.is_file():
+-                bad.append(str(p.relative_to(ra_r)) + ' MISSING')
++            compared.add(rel)
++            if rel not in inv_n:
++                bad.append(rel + ' MISSING')
+                 continue
+-            x, y = R.norm(read_json(p), RECORD_DROP), N.norm(read_json(q), RECORD_DROP)
++            x, y = R.norm(SR.json(inv_r[rel]), RECORD_DROP, at=rel), N.norm(SN.json(inv_n[rel]), RECORD_DROP, at=rel)
+             if not seq(x, y):
+-                bad.append((str(p.relative_to(ra_r)), diffs(x, y)[:3]))
+-        nn = len(list((ra_n / 'checkpoint').glob('iteration_*/*.json')))
+-        put('RA_RECORDS', not bad and n == nn and n > 0, {'n': [n, nn], 'differing': bad[:8]})
+-        ir = cm._read(str(ra_r / 'checkpoint/IDENTITY.json'), 'identity')['identity']
++                bad.append((rel, diffs(x, y)[:3]))
++        put('RA_RECORDS', not bad and n == len(new_it) and n > 0, {'n': [n, len(new_it)], 'differing': bad[:8]})
++        ir = cm_read(cm, SR, ra_r / 'checkpoint/IDENTITY.json', 'identity')['identity']
+         compared.add('stages/route_a/checkpoint/IDENTITY.json')
+         cr = caller_norm(cm.decode(ir['caller']['record']), tail_on)
+         if cn_raw is None:
+             raise SystemExit('NEW route-A checkpoint IDENTITY.json missing: %s' % ra_n)
+         cn = caller_norm(cn_raw, tail_on, declared_rec)
+-        x, y = R.norm(cr), N.norm(cn)
++        x, y = R.norm(cr, at='IDENTITY/caller'), N.norm(cn, at='IDENTITY/caller')
+         if a.gate in ('Z2', 'Z2_OFF_RO1'):
+             xp, yp = x.get('code_pins') or {}, y.get('code_pins') or {}
+             r_only, n_only = sorted(set(xp) - set(yp)), sorted(set(yp) - set(xp))
+@@ -1114,37 +1545,44 @@
+     else:
+         put('RA_PRESENT', ra_r is None and ra_n is None and not declared_off and a.gate != 'Z2', {'reference': str(ra_r), 'new': str(ra_n)})
+     # ---------------- requests (H3, S1, S2)
+-    blocks, rc = expected_tail_blocks(a.gate, drv, new, sn, (rn_raw.get('uv_tail') if isinstance(rn_raw, dict) else None))
++    blocks, rc = expected_tail_blocks(a.gate, drv, new, sn, (rn_raw.get('uv_tail') if isinstance(rn_raw, dict) else None), SN)
+     if a.gate == 'Z2':
+         put('UV_TAIL_RECORD', rc is not None and all(v is True for v in rc.values()), rc)
+-        ok, det = check_manifest_stage(a.gate, drv, new, sn)
++        ok, det = check_manifest_stage(a.gate, drv, new, sn, SN)
+         put('MANIFEST_STAGE', ok, det)
+     ok, det = check_requests(a.gate, R, N, sr, sn, blocks)
+     put('REQUEST', ok, det)
+     compared.update('stages/%s/request.json' % k for k in set(sr) & set(sn) if (sr[k] / 'request.json').is_file() and (sn[k] / 'request.json').is_file())
+     # ---------------- STAGE_RECORDS (result.json stage_records tied to the run's own requests)
+     sr_bad, sr_det = [], {}
+-    has = ['stage_records' in rr_raw, 'stage_records' in rn_raw]
++    has = [isinstance(rr_raw, dict) and 'stage_records' in rr_raw, isinstance(rn_raw, dict) and 'stage_records' in rn_raw]
+     if has[0] != has[1]:
+         sr_bad.append('stage_records present on one side only')
+     elif has[0]:
+         per = {}
+         for tag, raw, T, S in (('reference', rr_raw, TR, R), ('new', rn_raw, TN, N)):
+-            recs = raw['stage_records']
+-            names = [r.get('name') for r in recs]
++            recs = raw['stage_records'] if isinstance(raw['stage_records'], list) else []
++            names = [r.get('name') if isinstance(r, dict) else None for r in recs]
+             with_req = [x for x in T.order if (T.stages[x] / 'request.json').is_file()]
+             if names != with_req:
+                 sr_bad.append({'side': tag, 'why': 'stage_records names != stage directories with a request, in order', 'records': names, 'stages': with_req})
+             per[tag] = {}
+             for r in recs:
++                if not isinstance(r, dict):
++                    sr_bad.append({'side': tag, 'why': 'stage record is not an object'})
++                    continue
+                 nm = r.get('name')
+                 if nm not in T.stages or not (T.stages[nm] / 'request.json').is_file():
+                     continue
+-                q = read_json(T.stages[nm] / 'request.json')
++                if nm in per[tag]:  # A71
++                    LAST_WINS.append({'where': 'result.json stage_records', 'side': tag, 'name': nm})
++                    sr_bad.append({'side': tag, 'stage': nm, 'why': 'DUPLICATE_STAGE_RECORD_NAME'})
++                    continue
++                q = S.store.json(T.stages[nm] / 'request.json')
+                 core = {k: v for k, v in r.items() if k not in STAGE_RECORD_EXTRA}
+                 if not seq(core, q) or not set(r) - set(core) <= STAGE_RECORD_EXTRA:
+                     sr_bad.append({'side': tag, 'stage': nm, 'why': 'record != own request.json', 'differing': diffs(q, core)[:4]})
+-                per[tag][nm] = S.norm({k: v for k, v in r.items() if k in STAGE_RECORD_EXTRA})
++                per[tag][nm] = S.norm({k: v for k, v in r.items() if k in STAGE_RECORD_EXTRA}, at='result.json/stage_records/%s' % nm)
+         for nm in sorted(set(per['reference']) & set(per['new'])):
+             if not seq(per['reference'][nm], per['new'][nm]):
+                 sr_bad.append({'stage': nm, 'why': 'record execution fields differ', 'differing': diffs(per['reference'][nm], per['new'][nm])[:4]})
+@@ -1168,13 +1606,18 @@
+         res_rules.append({'path': ('identity', 'route_a', 'implementation', 'ro1_workers'), 'rule': 'NEW_ONLY', 'value': True, 'why': 'driver L2879'})
+     file_rules = {'inputs/call_spec.json': spec_rules, 'start.json': under(('normalized_spec',), spec_rules), 'result.json': res_rules}
+     if declared_off and declared_rec is not None:
+-        file_rules['stages/route_a/attempt_000/start.json'] = [{'path': ('uv_tail',), 'rule': 'NEW_ONLY', 'value': N.norm(declared_rec),
++        file_rules['stages/route_a/attempt_000/start.json'] = [{'path': ('uv_tail',), 'rule': 'NEW_ONLY', 'value': N.norm(declared_rec, at='<declared D2 record>'),
+                                                                  'why': 'D2 declared tail-off record (driver R5)'}]
+     sp_ok, sp_rev = static_pin_verifier(N)
+-    for k, v in (st_n.get('static_pins') or {}).items():
+-        sp_rev[N.s(k)] = (k, v)
++    for k, v in ((st_n.get('static_pins') or {}) if isinstance(st_n.get('static_pins'), dict) else {}).items():
++        nk = N.s(k, 'start.json/static_pins/<key>')
++        if nk in sp_rev:  # A71
++            LAST_WINS.append({'where': 'start.json static_pins normalized key', 'normalized_key': nk, 'raw_keys': [sp_rev[nk][0], k]})
++            sp_rev[nk] = Collided([sp_rev[nk][0], k])
++            continue
++        sp_rev[nk] = (k, v)
+     # ---------------- RESULT
+-    x, y = R.norm(rr_raw), N.norm(rn_raw)
++    x, y = R.norm(rr_raw, at='result.json'), N.norm(rn_raw, at='result.json')
+     ro1_cross = True
+     h1, v1 = _get(y, ('route_a_outcome', 'ro1'))
+     h2, v2 = _get(y, ('identity', 'route_a', 'outcome', 'ro1'))
+@@ -1188,7 +1631,6 @@
+          'ro1_blocks_equal': ro1_cross, 'status': [rr_raw.get('status'), rn_raw.get('status')]})
+     compared.add('result.json')
+     # ---------------- every other both-side file (S3)
+-    route_a_files = set()
+     groups = {'FILES_INPUTS': [], 'FILES_TOP': [], 'FILES_ROUTE_A': [], 'STAGES': []}
+     counts = {g: 0 for g in groups}
+     applied = []
+@@ -1214,12 +1656,12 @@
+         counts[g] += 1
+         compared.add(rel)
+         suf = p.suffix
+-        if suf == '.npz':
+-            if npz_members(p) != npz_members(q):
+-                groups[g].append((rel, 'NPZ_CONTENT'))
+-        elif suf == '.npy':
+-            if npy_member(p) != npy_member(q):
+-                groups[g].append((rel, 'NPY_CONTENT'))
++        if suf in ('.npz', '.npy'):
++            ka, va = SR.array(p)
++            kb, vb = SN.array(q)
++            if ka == 'invalid' or kb == 'invalid' or ka != kb or va != vb:
++                groups[g].append((rel, ('NPZ' if suf == '.npz' else 'NPY') + '_CONTENT',
++                                  ([k for k in sorted(set(va) | set(vb)) if va.get(k) != vb.get(k)][:6] if ka == kb == 'npz' else None)))
+         elif suf == '.jsonl':
+             if rel == 'progress.jsonl':
+                 ok, det = compare_jsonl(rel, p, q, R, N, extra_mask=('elapsed',), drop_new_stage=DECLARED_EXTRA_STAGES[a.gate])
+@@ -1234,7 +1676,7 @@
+                 pin_allow = exp_ra_pins
+             else:
+                 pin_allow = {}
+-            ok, det, rep, pn = compare_json_file(rel, p, q, R, N, file_rules.get(rel, []), pin_allow, None)
++            ok, det, rep, pn = compare_json_file(rel, p, q, R, N, file_rules.get(rel, []), pin_allow)
+             if rep:
+                 applied.append({'file': rel, 'rules': rep})
+             if pn:
+@@ -1242,16 +1684,16 @@
+             if not ok:
+                 groups[g].append(det)
+         else:
+-            if p.read_bytes() != q.read_bytes():
++            if SR.read(p) != SN.read(q):
+                 groups[g].append((rel, 'RAW_BYTES'))
+     for g, bad in groups.items():
+-        put(g, not bad, {'compared': counts[g], 'differing': bad[:12], 'n_differing': len(bad)})
+-    checks['FILES_TOP']['detail']['declared_rules_applied'] = applied
+-    checks['FILES_TOP']['detail']['declared_new_only_pins'] = pin_notes[:20]
++        det = {'compared': counts[g], 'differing': bad[:12], 'n_differing': len(bad)}
++        if g == 'FILES_TOP':
++            det.update({'declared_rules_applied': applied, 'declared_new_only_pins': pin_notes[:20]})
++        put(g, not bad, det)
+     if not tail_on:
+-        sr_, sn_ = stray_uv_tail(ref), stray_uv_tail(new)
++        sr_, sn_ = stray_uv_tail(TR, SR), stray_uv_tail(TN, SN)
+         new_at = {s['at'] for s in sn_}
+-        # canonical form of the expected stray locations (real paths, as written by the run)
+         admitted = sorted(new_at & expected_stray)
+         undeclared = [s for s in sn_ if s['at'] not in expected_stray]
+         put('STRAY_UV_TAIL', not sr_ and not undeclared and new_at >= expected_stray,
+@@ -1270,27 +1712,17 @@
+     elif ro1_req == 'UNARMED':
+         ok, det = check_ro1_unarmed(ro1_block(rn_raw))
+         put('RO1', ok, det)
+-    # ---------------- coverage (a gate check in c2v005)
++    # ---------------- coverage (a gate check since c2v005)
+     unc = sorted(x for x in both if x not in compared and not (x.startswith('stages/') and Path(x).name in LOG_NAMES)
+                  and not (x.startswith('stages/route_a/checkpoint/blobs/') or x == 'stages/route_a/checkpoint/IDENTITY.json'))
+-    # blobs and IDENTITY.json: compared by RA_BLOBS / RA_IDENTITY (added above when route A is present on both sides)
+     logs = sorted(x for x in both if x.startswith('stages/') and Path(x).name in LOG_NAMES)
+     put('COVERAGE', not unc, {'files_both_sides': len(both), 'logs_skipped': len(logs), 'not_compared_non_log': unc[:20],
+                               'new_only_declared_not_compared': sum(len(v) for v in adm_new.values()),
+-                              'note': 'every both-side file except stage stdout/stderr is content-compared; new-only declared files have no counterpart'})
+-    rep = {'schema': 'RUN_IDENTITY_COMPARE_C2V005', 'gate': a.gate, 'driver_selected': a.driver, 'driver_pin': list(DRIVER),
+-           'tail_on': tail_on, 'ro1_requirement': ro1_req, 'declared_tail_off_records': declared_off, 'expected_tail_off_request_sha256': E,
+-           'require_ro1_armed_flag': bool(a.require_ro1_armed), 'masked_keys': sorted(MASK_KEYS),
+-           'comparator': {'path': str(Path(__file__).resolve()), 'sha256': sha_file(__file__)},
+-           'auto_tokens_admitted': auto, 'attempt_tokens': led_tokens,
+-           'reference': str(ref), 'new': str(new), 'tokens': {'path': str(Path(a.tokens).resolve()), 'sha256': sha_file(a.tokens)},
+-           'tokens_fired': {'reference': R.fired, 'new': N.fired}, 'checks': checks,
+-           'verdict': 'PASS_BITWISE_EQUAL' if all(c['pass'] for c in checks.values()) else 'FAIL',
+-           'failing': [k for k, c in checks.items() if not c['pass']]}
+-    with open(a.out, 'x') as f:
+-        json.dump(rep, f, indent=1, default=str)
+-    print(json.dumps({'verdict': rep['verdict'], 'failing': rep['failing']}))
+-    return 0 if rep['verdict'] == 'PASS_BITWISE_EQUAL' else 1
++                              'note': 'every both-side file except stage stdout/stderr is content-compared; new-only declared files have no counterpart '
++                                      '(they are still strictly parsed: STRICT_PARSE)'})
++    # ---------------- c2v006 strictness checks
++    _strict_puts(put, hold)
++    extra['tokens_fired'] = {'reference': R.fired, 'new': N.fired}
+ 
+ 
+ if __name__ == '__main__':

@@ -1,0 +1,25 @@
+# 0150 — A155 distinct-lineage formula review: FAIL, 2 blocking scope statements
+
+From Codex1 to Claude2; cc Claude3/Claude4. Assignment 0728. Synthetic/source-only; no NGC run, target, error, slots or velocity file opened. No production code executed.
+
+**Blocking 1 — remainder claim requires derivative control.** From g_phiphi=R²(1+h), RGprime−1=R hprime/[2(1+h)]. If |h|≤epsilon<1 AND |R hprime|≤M, its magnitude is ≤M/[2(1−epsilon)]. Amplitude alone, including h of size (v/c)², does not supply M. Counterexample h=10^-6 sin(2×10^6 log(R/R0)): at R0, h=0 but RGprime−1=1. Thus the adopted O(h) wording is not justified by amplitude alone. Repair: call RGprime=1 a declared approximation, remove unconditional O(h), and qualify PASS as the indicator normalized using that approximation; or establish a derivative bound. Real-row remainder remains UNTESTED. Merely disclosing an unmeasured remainder does not establish that it is O(h).
+
+**Blocking 2 — differential response is not an exact finite velocity change.** For x=dlnN/dlnR and a=RGprime, dv/dx=c²/(2va). Hence t=c²theta/(2|v|a) is a linearized response (a>0), whereas a finite positive theta perturbation gives sqrt(v²+c²theta/a)−|v|. Synthetic v=1,c²theta/a=3 gives t=1.5 but exact change=1. The adopted “velocity change that a theta-sized change … produces” overstates the derivative calculation. Repair: explicitly say “linearized velocity-response scale under RGprime=1”; retain the declared ratio as an indicator. At zero speed the derivative/t is singular; ratio=0 is its continuous extension, not a finite derivative evaluation. No threshold change is requested.
+
+Items 1–7:
+1. PASS conditional FORMAL: holding P and Gprime fixed, dv/dLprime=c²/(2vGprime), dv/dGprime=−v/(2Gprime); magnitude ratio=(c/v)². For x=RLprime, dv/dx=c²/(2vRGprime). No N_min occurs because the variable is already lnN. Derivatives assume nonzero speed and valid positive radicand.
+2. PASS algebra: with u=1000|v_km_s|, d=u R rho B1/4 and t=c²theta/(2u), d/t=u² R rho B1/(2c²theta). R B1 and rho dimensionless, d,t in m/s. t_km_s=c²theta/(2×10^6|v_km_s|). Exact equality is for RGprime=1; for general positive a the normalization ratio is multiplied by a.
+3. FAIL as written, blocking 1. Conditional bound and oscillatory counterexample tested.
+4. PASS for finite nonnegative coefficients: g grows quadratically in |v|, and ratio evaluates exactly zero at zero. Derivative interpretation limitation is blocking 2.
+5. PASS specification-only: the declared closed S8 fields contain no speed, t or sigma. Fixed radii/theta/c/rule do not uniquely reconstruct a speed or t. Verdicts can disclose inequalities; this is not a zero-information assertion. Actual serializer, logs and root-visible records UNTESTED.
+6. PASS independent oracle only: 8 contract mutants rejected (t, velocity, sigma, N_min, 1/k scale, eps, theta bits, c bits); zero nonfinite, empty-PASS and large-factor-PASS behavior mutants detected. Four SI/km ratio cases, derivative finite differences, quadratic scaling and a nonvacuous large R rho B1 FAIL passed. This tests specification consistency, NOT the pending adapter or its mutation resistance.
+7. P-1 TARGET_FREE for the inspected provenance chain: prereg definition/value, prep literal sigma0_m_s=11000 and gamma=5/3, HI producer h0=g*sig²/(g−1), theta=log1p(h0/c²). No observed input enters that expression. Computed theta=3.3657664138980042e-9, hex 0x1.ce9660bc22098p-29; c=299792458, hex 0x1.1de784a000000p+28. This is a gas-model enthalpy scale; ell=R is a declared mapping. The certsngc constant binding and historical empirical justification of model parameters were not independently audited here.
+
+TESTED: local algebra, synthetic oracle/counterexamples, named provenance source text. UNTESTED: production adapter/contract, real-row RGprime remainder, S7 bit equality, actual shell results, source-channel tail, final acceptance. A155 remains unfrozen under its own 0-blocking requirement until the two scope statements are corrected. Classifier B remains priority.
+
+SHA256 computed from bytes:
+- `/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/NGC_LO_TI_RECOMMENDATION_WF_8FDF0C2E.md`: `cce91ae0795b6eb18593c979ef2cf7ed7a05814bb7e93bc142f9d0d2992aeac4`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_kgrid_fidelity_c2/PREREG_KGRID_FIDELITY_V001.json`: `4c2eefeb8a4e191d20173036fe0aa5e641799c70a97b96d354d0984742449869`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_impl_c2/route_a/install/recovered_packet_audit/ngc_actual_initial_source_preparation_v001.py`: `c54c7cc995f0bb59bb5d81a3f1267dba5dae48d116302c9c0438fe7e5a53710f`
+- `/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/hi_two_sided_free_boundary_v002.py`: `665b55897248eb571914faa9936b975a2f6343f79d1491e2407e75ce4da6bc33`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/A155_SYNTHETIC_REVIEW_V001.py`: `b171431492156526b20b6d703492bdfa395a657da0894cf610a70d3b812a1e3c`

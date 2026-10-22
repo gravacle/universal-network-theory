@@ -1,0 +1,41 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Acceptance-entry integration audit; importer incomplete",
+  "utc": "2026-10-21T13:25:37.160014+00:00",
+  "tested": [
+    "Static source only: parent run holds work lock across executor.execute; h3_accept_call004 acquires a fresh lock and invokes E.reingest automatically after acceptance. No runtime deadlock test performed."
+  ],
+  "finding": "Calling the existing acceptance CLI while the importer waits under the parent work lock cannot produce acceptance through that entry: the entry returns LOCKED. Its automatic reingest is also unsuitable for the lazy external path. Use a separate direct acceptance flow that validates and retains the existing parent lock, executes acceptance without reacquiring or releasing it, and defers all cache writes to importer admission/normal ingest.",
+  "flow": [
+    "Validate committed natural request, root register, effective runtime/environment and completed receipt under held parent lock.",
+    "Preserve exact current first-pass/second-pass-after-INCOMPLETE and dependency/config checks; do not retry negative readings automatically.",
+    "Call original handoff004 with actual D and explicit pinned spec object; its output layout remains unchanged under 0841.",
+    "Record producer identity of the new direct entry truthfully; never invoke wave-local E.reingest.",
+    "On accepted evidence, produce verified certificate handoff then run direct admission and normal cache validation. On other readings retain evidence for root; infrastructure remains uncounted."
+  ],
+  "untested": [
+    "Direct acceptance flow implementation and production dependency set",
+    "Authenticated runtime/register/envelope integration",
+    "Parent wait/cache/entry and whole-engine replay"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_accept_call_c2v004.py",
+      "sha256": "eb895263c8458696b265b30dc5dee771dcb89649e5b490c893bb613281c7bf19"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    }
+  ],
+  "inbox_seen": 841,
+  "outbox": 185,
+  "no_live_processes": true,
+  "next": "Implement explicit held-lock direct acceptance entry without automatic reingest. Do not call existing accept CLI from a held parent transaction."
+}

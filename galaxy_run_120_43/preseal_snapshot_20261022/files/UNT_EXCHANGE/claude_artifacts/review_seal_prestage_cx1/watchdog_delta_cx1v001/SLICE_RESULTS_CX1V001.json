@@ -1,0 +1,159 @@
+{
+  "date_u": "Sun Oct 18 23:00:35 UTC 2026",
+  "source_sha256": "bd0d9bab0854627957781e1666c7f5eacd1e10cd03bfde0dd2efe2e27a5a2c28",
+  "scope": "Exact bounded source slices and bash syntax only. No original watchdog/test run; no real df/notify/sleep loop. Timeout children killed by subprocess.run. All writes within owned fixtures.",
+  "nice": 10,
+  "checks": [
+    {
+      "name": "syntax watchdog_source.sh",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "name": "syntax author_test_source.sh",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "name": "missing value --log",
+      "expected": "finite refusal rc 2",
+      "actual": "TIMEOUT_CHILD_KILLED",
+      "passed": false
+    },
+    {
+      "name": "missing value --threshold-gib",
+      "expected": "finite refusal rc 2",
+      "actual": "TIMEOUT_CHILD_KILLED",
+      "passed": false
+    },
+    {
+      "name": "missing value --interval-s",
+      "expected": "finite refusal rc 2",
+      "actual": "TIMEOUT_CHILD_KILLED",
+      "passed": false
+    },
+    {
+      "name": "missing value --max-polls",
+      "expected": "finite refusal rc 2",
+      "actual": "TIMEOUT_CHILD_KILLED",
+      "passed": false
+    },
+    {
+      "name": "missing value --df-stub",
+      "expected": "finite refusal rc 2",
+      "actual": "TIMEOUT_CHILD_KILLED",
+      "passed": false
+    },
+    {
+      "name": "ordinary exclusive log",
+      "expected": 0,
+      "actual": 0,
+      "passed": true
+    },
+    {
+      "name": "existing log preserved",
+      "expected": 2,
+      "actual": 2,
+      "passed": true
+    },
+    {
+      "name": "direct lexical restricted fixture",
+      "expected": 2,
+      "actual": 2,
+      "passed": true
+    },
+    {
+      "name": "symlink ancestor into restricted fixture",
+      "expected": "refuse without creating log",
+      "actual": 0,
+      "passed": false,
+      "created_target": true,
+      "real_tree_used": false
+    },
+    {
+      "name": "dangling final symlink",
+      "expected": 2,
+      "actual": 2,
+      "passed": true,
+      "target_created": false
+    },
+    {
+      "name": "existing final symlink",
+      "expected": 2,
+      "actual": 2,
+      "passed": true
+    },
+    {
+      "name": "nonnumeric threshold",
+      "expected": 2,
+      "actual": 2,
+      "passed": true
+    },
+    {
+      "name": "threshold arithmetic normal below",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "threshold_gib": "80",
+      "available_kib": "83886079"
+    },
+    {
+      "name": "threshold arithmetic normal exact",
+      "expected": 1,
+      "actual": 1,
+      "passed": true,
+      "threshold_gib": "80",
+      "available_kib": "83886080"
+    },
+    {
+      "name": "threshold arithmetic leading-zero accepted by parser",
+      "expected": 0,
+      "actual": 1,
+      "passed": false,
+      "threshold_gib": "080",
+      "available_kib": "83886079"
+    },
+    {
+      "name": "threshold arithmetic overflow accepted by parser",
+      "expected": 0,
+      "actual": 1,
+      "passed": false,
+      "threshold_gib": "8796093022208",
+      "available_kib": "83886079"
+    },
+    {
+      "name": "df parser valid",
+      "expected": "83886079",
+      "actual": "83886079",
+      "passed": true
+    },
+    {
+      "name": "df parser wrong mount",
+      "expected": "",
+      "actual": "",
+      "passed": true
+    },
+    {
+      "name": "df parser invalid available",
+      "expected": "",
+      "actual": "",
+      "passed": true
+    }
+  ],
+  "checks_passed": 13,
+  "checks_total": 21,
+  "failed_controls": [
+    "missing value --log",
+    "missing value --threshold-gib",
+    "missing value --interval-s",
+    "missing value --max-polls",
+    "missing value --df-stub",
+    "symlink ancestor into restricted fixture",
+    "threshold arithmetic leading-zero accepted by parser",
+    "threshold arithmetic overflow accepted by parser"
+  ]
+}

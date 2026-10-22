@@ -1,0 +1,78 @@
+{
+ "schema": "SPECS_RPAIR_T2_C5H_D5_C2V001",
+ "generator": [
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/tools/make_rpair_specs_c2v001.py",
+  "09714d0396f90e69203ea0f337ed94dd1d7b852dd1b322960d60e236018b3d4a"
+ ],
+ "driver": "tail_scheme_impl_c2/driver_r4/galaxy_m0_forward_c2v010.py (b9ae92d5)",
+ "base_registry": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r4/specs/SPECS_V007_C2V002_R1.json",
+  "sha256": "9bfe96741a8aa86a8956f67fab9ebcb62548f228aaaf54dd6c1633754d26e69f"
+ },
+ "registered_specs_used_unchanged": {},
+ "specs": [
+  {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/specs/CALL_KMAX_C5H_RPAIR_T2_ROUTE_A_A2F10_HULL_N8_M32_RO1_C2V010R4.json",
+   "sha256": "b859a1ab30c8e471546ccd7989232c4fa0b0c2d0ff6eb8b082124298a40dcc75",
+   "role": "R-PAIR member C5H@RPAIR:T2/ROUTE_A",
+   "derived_from": {
+    "C5H": "60b4613080055aedd92dbb649cdfa45675f64a4d133c7ba3e4fbb15b59c7704e",
+    "branch": "ROUTE_A",
+    "pair": "T2"
+   }
+  },
+  {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/specs/CALL_KMAX_C5H_RPAIR_T2_PICARD_A2F10_HULL_N8_M32_RO1_C2V010R4.json",
+   "sha256": "08d350ad5f7bf946de068e88552ccf831b0680b8061d3a57db38439a4aa8e2be",
+   "role": "R-PAIR member C5H@RPAIR:T2/PICARD",
+   "derived_from": {
+    "C5H": "60b4613080055aedd92dbb649cdfa45675f64a4d133c7ba3e4fbb15b59c7704e",
+    "branch": "PICARD",
+    "pair": "T2"
+   }
+  },
+  {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/specs/CALL_KMAX_TAIL_C4T_D5_RPAIR_T2_ROUTE_A_A2F10_HULL_N8_M32_C2V010R4.TEMPLATE.json",
+   "sha256": "a037c254773a129ad4279c72433147b3ab5a21c4a03ff7679fdb2f3ce391706d",
+   "role": "R-PAIR member C4T-D5@RPAIR:T2/ROUTE_A",
+   "derived_from": {
+    "C4T-D5 N8": "1aaa21177776ed81485818bf1dd54d31c3811a3117af21f5ca9f8259049aa4d5",
+    "branch": "ROUTE_A",
+    "pair": "T2"
+   }
+  },
+  {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/specs/CALL_KMAX_TAIL_C4T_D5_RPAIR_T2_PICARD_A2F10_HULL_N8_M32_C2V010R4.TEMPLATE.json",
+   "sha256": "846217604fb5aa1ea056414deb6a8b223ea7c42a6585f27cf148eacebe2b11f8",
+   "role": "R-PAIR member C4T-D5@RPAIR:T2/PICARD",
+   "derived_from": {
+    "C4T-D5 N8": "1aaa21177776ed81485818bf1dd54d31c3811a3117af21f5ca9f8259049aa4d5",
+    "branch": "PICARD",
+    "pair": "T2"
+   }
+  }
+ ],
+ "b0_ext_projections": {
+  "ROUTE_A": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/specs/B0EXT_PROJECTION_C5H_RPAIR_T2_ROUTE_A_C2V009.json",
+   "sha256": "4704b626adab8ec2192eaf373c49f0ae4161bdbc273847643d1bd9bbd918a3df",
+   "role": "B0 parent input under v009-EXT (not a member)",
+   "leaf_diff_vs_member": [
+    "/numerics/route_a/ro1_workers",
+    "/numerics/route_a/seed_source_rtol_factor"
+   ]
+  },
+  "PICARD": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/specs/B0EXT_PROJECTION_C5H_RPAIR_T2_PICARD_C2V009.json",
+   "sha256": "7412bb67915a2e607d918717f26f1e7dd6a6feb1b11835cbbe9205aecd677a0a",
+   "role": "B0 parent input under v009-EXT (not a member)",
+   "leaf_diff_vs_member": [
+    "/numerics/route_a/ro1_workers"
+   ]
+  }
+ },
+ "declared": [
+  "C5H members carry numerics.route_a.ro1_workers true (A50 item 11); their C4T-D5 partners cannot (tail ON always runs the RO1 workers; driver r4 L1390 refuses the key with uv_tail): the partner equality RA1 must map /numerics/route_a/ro1_workers (absent on tail ON == true) as a declared key",
+  "route A is computed by every member (A52.3 + driver r4 L1406 refuses ro1_workers with an admitted route A); R1 pairing_and_decidability_rule text for the Picard branch says the members admit their own route A/reference/body"
+ ]
+}

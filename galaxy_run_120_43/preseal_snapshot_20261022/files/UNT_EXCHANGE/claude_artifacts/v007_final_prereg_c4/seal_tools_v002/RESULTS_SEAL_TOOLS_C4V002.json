@@ -1,0 +1,1382 @@
+{
+ "authority": {
+  "dispatch_0621": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0621_2026-10-18_claude4_codex1_codex3_claude3_A99.md",
+   "sha256": "7ab78e6a0aa4c3d11d6c4dd9887ea2fc8b65e40a84bc75de387a319534b99504"
+  }
+ },
+ "cases_by_item": {
+  "A100": [
+   {
+    "case": "A100: the prereg asks for the B2 disclosure block and no --b2-record is given",
+    "codes": [
+     "B2_DISCLOSURE_REQUIRED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A100: a B2 record that is not the registry's B2 record of record (registry C3V007 names d4b41ffc)",
+    "codes": [
+     "B2_RECORD_NOT_REGISTERED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A100: the superseded B2 C3V002 record (FAIL, no disclosure block)",
+    "codes": [
+     "B2_RECORD_NOT_PASS",
+     "B2_RECORD_NO_DISCLOSURE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "A102": [
+   {
+    "case": "A102 A-B1: a JSON CASCADE_MAP_R5_ADDENDUM with a duplicate key behind a 5,000-digit integer (main-loop patch)",
+    "codes": [
+     "CASCADE_MAP_R5_ADDENDUM_JSON"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A102 A-B1 reproduction: r12's own check_record_codes admits that duplicate-key check record (r13 fixes it)",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A102 A-B1: tool 3 refuses that check record itself (DRIVER_CHECK_RECORD_JSON_DEFECT), though the compare activated the build",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A102 A-B1: tool 5 refuses to print a driver BUILD record around that check record",
+    "codes": [
+     "CHECK_RECORD_JSON_DEFECT"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "A99.1": [
+   {
+    "case": "A99.1: BUILD_V007 still PENDING_BUILD_V007 (gap)",
+    "codes": [
+     "BUILD_NOT_THE_PREREG_NAMED_BUILD",
+     "BUILD_V007_PENDING"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: text holds PENDING_BUILD_V007; the sealed prereg fills that one leaf with the real sha",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: a seal-time fill with a sha that is not the file's bytes",
+    "codes": [
+     "BUILD_NOT_THE_PREREG_NAMED_BUILD",
+     "PIN_BYTES_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: the seal-time fill may not change the path",
+    "codes": [
+     "BUILD_NOT_BUILD_V007",
+     "BUILD_NOT_THE_PREREG_NAMED_BUILD",
+     "PIN_FILE_MISSING",
+     "SEALED_PREREG_TEXT_CHANGED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: the prereg names BUILD_V006 (not BUILD_V007)",
+    "codes": [
+     "BUILD_NOT_BUILD_V007"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: the prereg names BUILD_V005 (not BUILD_V007)",
+    "codes": [
+     "BUILD_NOT_BUILD_V007"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: a BUILD_V007 with 13 sources (V6-S3 needs 15)",
+    "codes": [
+     "BUILD_ALLOWLIST_COUNT_NOT_15"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: a BUILD_V007 listing one source twice",
+    "codes": [
+     "BUILD_ALLOWLIST_DUPLICATE_PATH"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.1: a BUILD_V007 entry whose sha is not its bytes",
+    "codes": [
+     "BUILD_ALLOWLIST_SOURCE_BYTES"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "A99.3": [
+   {
+    "case": "A99.3: the entry table lacks A90",
+    "codes": [
+     "ENTRY_TABLE_MISSING_ENTRY"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: no entry table",
+    "codes": [
+     "ENTRY_TABLE_ABSENT"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: a later entry with a table row and a no-change note",
+    "codes": [
+     "COVERED_LATER_IN_ENTRY_TABLE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: a later entry covered by its table row alone",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: a table row repeated",
+    "codes": [
+     "ENTRY_TABLE_DUPLICATE_ENTRY"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: a row whose section no longer re-hashes from the frozen bytes",
+    "codes": [
+     "ENTRY_TABLE_SECTION_CHANGED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: the changed row with root's explicit seal-record note (--covered-later A90)",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: a row whose decision is neither REVISED_HERE nor NO_CHANGE",
+    "codes": [
+     "ENTRY_TABLE_MALFORMED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: a REVISED_HERE row naming no revised clause",
+    "codes": [
+     "ENTRY_TABLE_MALFORMED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "A99.3: a changed table row accepted by root's note is recorded in the SEAL_RECORD with both section shas",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "D-01": [
+   {
+    "case": "D-01 REAL: DOUBLING ea48ac2b states its M_s only as ddo_gas_M_s; v002 reads it (1 field, no refusal)",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "D-01 reproduction: the v001 scanner finds no M_s in the real DOUBLING record (the defect)",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "D-01: DOUBLING ddo_gas_M_s 64 contradicts the registered M_s 128",
+    "codes": [
+     "CERTIFICATE_M_S"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-01: DOUBLING without ddo_gas_M_s",
+    "codes": [
+     "CERTIFICATE_STATES_NO_M_S"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-01: DOUBLING NGC half states M_s 128 against the ngc_gas_M_s slot 96",
+    "codes": [
+     "CERTIFICATE_M_S"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-01: DOUBLING NGC half states M_s 96, consistent with the slot",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-01: GQ roster M_s_doubled is not 2 M_s",
+    "codes": [
+     "CERTIFICATE_M_S_DOUBLED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-01: GQ NGC_T120L roster at M_s 128 against the slot 96",
+    "codes": [
+     "CERTIFICATE_M_S"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-01: LO tail_config_gas.M_s 64 contradicts source_gas_M_s (A73 F2)",
+    "codes": [
+     "CERTIFICATE_M_S"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-01: an M_s key naming both DDO and NGC",
+    "codes": [
+     "CERTIFICATE_M_S_CONTEXT_AMBIGUOUS"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "D-04": [
+   {
+    "case": "D-04: no binding_inputs.case_block in the sealed prereg",
+    "codes": [
+     "CASE_BLOCK_PIN_ABSENT"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: case block pin bytes differ",
+    "codes": [
+     "PIN_BYTES_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: case block pin with an extra key",
+    "codes": [
+     "CASE_BLOCK_PIN_SHAPE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04 REAL: the on-disk draft case block 6bf4ce5a refuses CASE_BLOCK_INVALID",
+    "codes": [
+     "CASE_BLOCK_INVALID"
+    ],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "D-04: a case block registering gas M_s 64 (r12 validate_case_block refuses it)",
+    "codes": [
+     "CASE_BLOCK_INVALID"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: the prereg and the case block name different route-A modes",
+    "codes": [
+     "ROUTE_A_MODE_SOURCES_DIFFER"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: r5 without the CASCADE_MAP_R5_ADDENDUM pin (SRR[9])",
+    "codes": [
+     "CASCADE_MAP_R5_ADDENDUM_REQUIRED_UNDER_R5"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: a CASCADE_MAP_R5_ADDENDUM that does not name the r5 cascade map",
+    "codes": [
+     "CASCADE_MAP_R5_ADDENDUM_DOES_NOT_NAME_THE_R5_MAP"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: an addendum not named CASCADE_MAP_R5_ADDENDUM",
+    "codes": [
+     "CASCADE_MAP_R5_ADDENDUM_NAME"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: the admission guard is not the bound plan's (SRR[10])",
+    "codes": [
+     "ADMISSION_ENTRY_NOT_THE_PLAN"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-04: the admission launcher is not a supported BUILD_V007 entry",
+    "codes": [
+     "ADMISSION_ENTRY_NOT_BUILD_SUPPORTED",
+     "ADMISSION_ENTRY_NOT_THE_PLAN"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "D-05": [
+   {
+    "case": "D-05: --covered-later as a range",
+    "codes": [
+     "COVERED_LATER_FORMAT",
+     "UNCOVERED_LATER_ENTRY"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-05: the stale README form --covered-later A82",
+    "codes": [
+     "COVERED_LATER_IN_ENTRY_TABLE",
+     "COVERED_LATER_IS_CITED",
+     "UNCOVERED_LATER_ENTRY"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-05: an entry listed twice",
+    "codes": [
+     "COVERED_LATER_DUPLICATE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "D-07": [
+   {
+    "case": "D-07: a bare PENDING string slot refuses PIN_SHAPE (no TypeError)",
+    "codes": [
+     "PIN_SHAPE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-07: a list slot refuses PIN_SHAPE",
+    "codes": [
+     "PIN_SHAPE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-07: the CLI exits 2 with a REFUSE verdict JSON (the v001 crash was exit 1)",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-07 class: a bare PENDING launch_packet slot refuses with codes, never an exception",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "D-08": [
+   {
+    "case": "D-08: a pin gap no longer hides the certificate layer (PIN_PENDING and CERTIFICATE_M_S together)",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "D-10": [
+   {
+    "case": "D-10: a FROZEN-named copy at a path other than path_to_be",
+    "codes": [
+     "FROZEN_PATH_NOT_PATH_TO_BE",
+     "PREREG_SLOT_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-10: a prereg without path_to_be",
+    "codes": [
+     "FROZEN_PATH_TO_BE_ABSENT"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-10: the dry-run flag records the path deviation as a note and never fails it",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "D-10: the frozen slot path is not path_to_be",
+    "codes": [
+     "FROZEN_SLOT_NOT_PATH_TO_BE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "PORT": [
+   {
+    "case": "genuine (later entry listed explicitly; r5-form entry table re-hashed from the frozen bytes)",
+    "codes": [],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "cited entry A60 absent",
+    "codes": [
+     "CITED_ENTRY_ABSENT_FROM_FROZEN",
+     "FROZEN_PATH_NOT_PATH_TO_BE",
+     "PREREG_SLOT_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "duplicate heading",
+    "codes": [
+     "DUPLICATE_ENTRY_HEADING",
+     "FROZEN_PATH_NOT_PATH_TO_BE",
+     "PREREG_SLOT_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "frozen cites the sealed prereg sha",
+    "codes": [
+     "FROZEN_CITES_SEALED_PREREG_SHA",
+     "FROZEN_PATH_NOT_PATH_TO_BE",
+     "PREREG_SLOT_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "later entry uncovered",
+    "codes": [
+     "UNCOVERED_LATER_ENTRY"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "not the _FROZEN copy",
+    "codes": [
+     "FROZEN_PATH_NOT_PATH_TO_BE",
+     "NOT_THE_FROZEN_COPY",
+     "PREREG_SLOT_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "expected sha differs",
+    "codes": [
+     "FROZEN_SHA_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "covered-later names an absent entry",
+    "codes": [
+     "COVERED_LATER_NOT_IN_FROZEN"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "prereg JSON with a duplicate key",
+    "codes": [
+     "PREREG_JSON"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "genuine",
+    "codes": [],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "a non-pin line changed",
+    "codes": [
+     "NON_PIN_LINE_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "pin value for another prereg",
+    "codes": [
+     "PIN_VALUE_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "inserted line",
+    "codes": [
+     "LINE_COUNT_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "second assignment of a pin",
+    "codes": [
+     "NON_PIN_LINE_DIFFERS",
+     "PIN_ASSIGNED_NOT_EXACTLY_ONCE"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "pin comment changed",
+    "codes": [
+     "PIN_COMMENT_CHANGED"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "pair pin as a list",
+    "codes": [
+     "PIN_PAIR_SHAPE"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "one pin left unset",
+    "codes": [
+     "PIN_NOT_SET"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "reviewed path not the slot",
+    "codes": [
+     "REVIEWED_PATH_NOT_THE_SLOT"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "sealed is the reviewed file",
+    "codes": [
+     "PIN_NOT_SET",
+     "SEALED_IS_REVIEWED"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "prereg compare slot holds the sealed compare",
+    "codes": [
+     "PREREG_COMPARE_SLOT_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "genuine r5 (real certificates, A92 identity records, CHECK.md, case block validated in-process)",
+    "codes": [],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "a PENDING value",
+    "codes": [
+     "PENDING_VALUE",
+     "PIN_PENDING"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "identity record pin bytes differ",
+    "codes": [
+     "PIN_BYTES_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "sealed prereg text changed outside the slots",
+    "codes": [
+     "SEALED_PREREG_TEXT_CHANGED"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "prereg slot value differs from the slots",
+    "codes": [
+     "PREREG_SLOT_VALUE_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "driver slot spelled differently from the plan",
+    "codes": [
+     "DRIVER_BUILD_DRIVER_NOT_THE_SLOT",
+     "PLAN_DRIVER_NOT_THE_SLOT"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "identity record carries another driver",
+    "codes": [
+     "IDENTITY_RECORD_LACKS_DRIVER_SHA",
+     "IDENTITY_RECORD_NEW_DRIVER_SHA"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "LO certificate at M_s 64",
+    "codes": [
+     "CERTIFICATE_M_S"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "r6 cache directory not empty (pre-warmed)",
+    "codes": [
+     "CACHE_DIRECTORY_NOT_EMPTY",
+     "DRIVER_BUILD_NOT_THE_BRANCH"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "r6 with a fresh empty cache directory: the cache rule passes; v002 refuses only because the slot's driver BUILD record is r5 (v001 passed this; A96: V007 seals on r5)",
+    "codes": [
+     "DRIVER_BUILD_NOT_THE_BRANCH"
+    ],
+    "ok": true,
+    "tag": "PORT_CHANGED"
+   },
+   {
+    "case": "r5 slot set naming a cache directory",
+    "codes": [
+     "CACHE_DIRECTORY_UNDER_R5"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "bound command edited",
+    "codes": [
+     "BOUND_COMMAND_NOT_THE_BINDER_LINE"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "slot JSON with a duplicate key",
+    "codes": [
+     "INPUT_JSON"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "text of record is not the pinned r5 (r4 given)",
+    "codes": [
+     "SEALED_PREREG_TEXT_CHANGED",
+     "TEXT_OF_RECORD_NOT_R5"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "launch build not the prereg-named BUILD_V007 (slots name BUILD_V006)",
+    "codes": [
+     "BUILD_NOT_THE_PREREG_NAMED_BUILD",
+     "PREREG_SLOT_VALUE_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "genuine: record built, nothing written, guard-shaped pins, v002 pass-through fields, B2 disclosure (real C3V003)",
+    "codes": [],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "E-SEAL1 output with a decimal row-like value",
+    "codes": [
+     "E_SEAL1_OUTPUT_MAY_SHOW_A_ROW_VALUE",
+     "E_SEAL1_OUTPUT_VALUE_BEARING"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "any slot-fill refusal produces no record",
+    "codes": [
+     "T3:PENDING_VALUE",
+     "T3:PIN_PENDING",
+     "T3:T2:PIN_VALUE_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "real guard v008 admits the v002 SEAL_RECORD (via the checked config); real launcher v007 validate() accepts the bound plan",
+    "codes": [
+     "ok"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   },
+   {
+    "case": "a SEAL_RECORD naming another driver is refused by launcher v007",
+    "codes": [
+     "PermissionError: PLAN_SEALED_DRIVER_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "PORT"
+   }
+  ],
+  "R-04": [
+   {
+    "case": "R-04: the compare's own allowed constants (0.005, 1e-12) in a blinded body are not taken for row values",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: a B6 body with test_mode true",
+    "codes": [
+     "E_SEAL1_TEST_MODE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: a B6 body from another script (the reviewed source)",
+    "codes": [
+     "E_SEAL1_SCRIPT_NOT_THE_SEALED_COMPARE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: the validity body given as the gates output",
+    "codes": [
+     "E_SEAL1_GATES_SHAPE",
+     "E_SEAL1_SCHEMA"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: a B6 body that is not blinded",
+    "codes": [
+     "E_SEAL1_NOT_BLINDED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: a B6 body carrying a JSON number",
+    "codes": [
+     "E_SEAL1_OUTPUT_VALUE_BEARING"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: a B6 body with a number glued to letters (x61.2222222)",
+    "codes": [
+     "E_SEAL1_OUTPUT_VALUE_BEARING"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: the validity body on cases other than C5H",
+    "codes": [
+     "E_SEAL1_VALIDITY_CASES_NOT_C5H"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: a B6 file that is not the compare's GATES_ONLY.json",
+    "codes": [
+     "E_SEAL1_OUTPUT_NAME"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04: a B6 body with another route-A mode",
+    "codes": [
+     "E_SEAL1_ROUTE_A_MODE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "R-04 / v001 regression: a schemaless B7 key map ({\"map\": []} passed v001)",
+    "codes": [
+     "KEY_MAP_SCHEMA"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "R-10": [
+   {
+    "case": "R-10: the SEAL_RECORD key map differs from the case block's",
+    "codes": [
+     "KEY_MAP_NOT_THE_CASE_BLOCK_MAP"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "T1": [
+   {
+    "case": "REAL cross-check: tool 1's section rule reproduces every section_sha256 of prereg r5 3245899f (20 rows; an independent implementation)",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "REAL prereg r5 3245899f: tool 1 reads its 20 entries_after_A81 rows, each re-hashes from the frozen bytes, entries after A101 covered ['A102'] (dry-run flag only for path_to_be, the CLAUDE2 path root writes at the freeze)",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   }
+  ],
+  "T3": [
+   {
+    "case": "a certificate slot holding another gate's record (LO slot = the GQ record)",
+    "codes": [
+     "CERTIFICATE_NOT_THE_SLOT_GATE",
+     "CERTIFICATE_STATES_NO_M_S"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "an identity slot holding another gate's record (Z2 slot = the B1_OFF record)",
+    "codes": [
+     "IDENTITY_RECORD_NOT_THE_SLOT_GATE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "ngc_gas_M_s 128 against the compare's NGC 96 (RI-23 needs a compare successor)",
+    "codes": [
+     "CERTIFICATE_M_S",
+     "NGC_GAS_M_S_NOT_THE_COMPARE_NGC_M_S",
+     "NGC_M_S_128_NOT_EVIDENCED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "ngc_gas_M_s 128: DOUBLING and LO_NGC must state the recomputed NGC M_s (RI-23)",
+    "codes": [
+     "CERTIFICATE_M_S",
+     "NGC_GAS_M_S_NOT_THE_COMPARE_NGC_M_S",
+     "NGC_M_S_128_NOT_EVIDENCED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "the driver BUILD record's check_record is not the driver_check_record slot",
+    "codes": [
+     "DRIVER_BUILD_CHECK_RECORD_NOT_THE_SLOT"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "a driver BUILD record the compare's activate_driver_build refuses",
+    "codes": [
+     "CASE_BLOCK_NOT_VALIDATED",
+     "DRIVER_BUILD_RECORD_REFUSED"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "the r5 text-of-record pin still PENDING is a gap, and the other layers are still reported (BUILD_V007_PENDING too)",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "an unknown prereg seal slot",
+    "codes": [
+     "PREREG_SLOT_UNKNOWN"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "REAL: the selected r12 4bd7b262 itself as the reviewed source",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "REAL BUILD_V007 94bc05a5 (15 sources from bytes) with a plan bound by the real binder from its own template V011 1b406591",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "the bound plan is not bound from the template the prereg names (the r5 text names V011; the plan used the test template)",
+    "codes": [
+     "PLAN_TEMPLATE_NOT_THE_PREREG_NAMED_TEMPLATE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "REAL prereg r5 3245899f as the text of record, its sha stated by root (case block 76309ae3 validated in-process, real BUILD_V007, V011 plan): tool 3 refuses only because the frozen copy is not yet at path_to_be",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   }
+  ],
+  "T4": [
+   {
+    "case": "B7: a key map mapping one pointer twice",
+    "codes": [
+     "KEY_MAP_DUPLICATE_POINTER",
+     "KEY_MAP_NOT_THE_CASE_BLOCK_MAP"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "B7: a NEW-item list taken from an IMPL that does not name the reviewed source",
+    "codes": [
+     "NEW_ITEMS_IMPL_NOT_THE_REVIEWED_SOURCE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "B7: an ADOPTED NEW item without MUST_FAIL tests",
+    "codes": [
+     "NEW_ITEMS_ADOPTED_WITHOUT_MUST_FAIL"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "B7: one NEW id twice",
+    "codes": [
+     "NEW_ITEMS_DUPLICATE_ID"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "B7: raw successor custody of a run on another driver",
+    "codes": [
+     "CUSTODY_DRIVER_NOT_THE_SLOT"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "B7: raw successor custody with a stage on its base script",
+    "codes": [
+     "CUSTODY_STAGES"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "admission config: genuine (pins this SEAL_RECORD, BUILD_V007, the 15-source allowlist)",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "admission config: a V006 build pin",
+    "codes": [
+     "ADMISSION_CONFIG_BUILD_NOT_BUILD_V007"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "admission config: the 13-source BUILD_V005 allowlist",
+    "codes": [
+     "ADMISSION_ALLOWLIST_COUNT_NOT_15",
+     "ADMISSION_ALLOWLIST_NOT_THE_BUILD_ALLOWLIST",
+     "ADMISSION_ALLOWLIST_NOT_THE_SEAL_RECORD_ALLOWLIST"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "admission config: the guard missing from the allowlist",
+    "codes": [
+     "ADMISSION_ALLOWLIST_COUNT_NOT_15",
+     "ADMISSION_ALLOWLIST_NOT_THE_BUILD_ALLOWLIST",
+     "ADMISSION_ALLOWLIST_NOT_THE_SEAL_RECORD_ALLOWLIST",
+     "ADMISSION_CONFIG_GUARD_NOT_NAMED_EXACTLY"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "admission config: another SEAL_RECORD pinned",
+    "codes": [
+     "ADMISSION_CONFIG_SEAL_NOT_THE_RECORD"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "admission config: an extra key",
+    "codes": [
+     "ADMISSION_CONFIG_KEYS"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "REAL BUILD_V007: the SEAL_RECORD pins it and carries its exact 15-source allowlist",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "REAL BUILD_V007: the admission-config check passes on its 15 sources (V6-S3)",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   }
+  ],
+  "T5": [
+   {
+    "case": "tool 5 prints an admissible r5 driver BUILD record with the real CHECK.md 89a6de88 (D-06)",
+    "codes": [],
+    "ok": true,
+    "tag": "REAL"
+   },
+   {
+    "case": "tool 5: a check record that is not a check of the r5 build (the LO certificate)",
+    "codes": [
+     "DRIVER_BUILD_NOT_ADMISSIBLE"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "tool 5: the printed bytes are the driver BUILD record fixture the slots pin",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ],
+  "integration": [
+   {
+    "case": "REAL BUILD_V007: the real guard v008 admission() accepts the config built from the v002 SEAL_RECORD",
+    "codes": [
+     "ok"
+    ],
+    "ok": true,
+    "tag": "REAL"
+   }
+  ],
+  "r2": [
+   {
+    "case": "r2: pin PENDING, root states the stand-in sha: every layer passes and the note names the argument",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "r2: pin PENDING, root states a sha that is not the file's bytes",
+    "codes": [
+     "TEXT_OF_RECORD_SHA_ARG_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "r2: pin PENDING, root states the r4 sha for the r5 stand-in file",
+    "codes": [
+     "TEXT_OF_RECORD_SHA_ARG_MISMATCH"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "r2: pin set, a stated sha that differs from the pin",
+    "codes": [
+     "TEXT_OF_RECORD_SHA_ARG_DIFFERS"
+    ],
+    "ok": true,
+    "tag": "NEW"
+   },
+   {
+    "case": "r2: the SEAL_RECORD records that root's argument pinned the text of record",
+    "codes": [],
+    "ok": true,
+    "tag": "NEW"
+   }
+  ]
+ },
+ "cli_runs_r2": {
+  "CLI_R2_T2_BARE_PENDING": {
+   "blocked_after_selftest": [],
+   "capture": {
+    "stderr": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T2_BARE_PENDING.stderr.txt",
+    "stderr_sha256": "83138ab0891c0fabb3507ab9bbbadf5f90287309e4c39feb723e2624147f3ccb",
+    "stdout": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T2_BARE_PENDING.stdout.txt",
+    "stdout_sha256": "b1e3528e0afacd4a88fbfa6bf3d25a9468bc07cf6e3d4cc51161b4aedc54cc82"
+   },
+   "codes": [
+    "PIN_SHAPE"
+   ],
+   "fence_selftest": "8/8",
+   "fence_v002_probes": "15/15",
+   "notes": [],
+   "verdict": "REFUSE"
+  },
+  "CLI_R2_T2_REHEARSAL_P1_REPRO": {
+   "blocked_after_selftest": [],
+   "capture": {
+    "stderr": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T2_REHEARSAL_P1_REPRO.stderr.txt",
+    "stderr_sha256": "83138ab0891c0fabb3507ab9bbbadf5f90287309e4c39feb723e2624147f3ccb",
+    "stdout": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T2_REHEARSAL_P1_REPRO.stdout.txt",
+    "stdout_sha256": "3c8075b4a1477b1a35a81a62cf5527c72fcd45582de807ec33d4068ed4d2b846"
+   },
+   "codes": [
+    "PIN_SHAPE"
+   ],
+   "fence_selftest": "8/8",
+   "fence_v002_probes": "15/15",
+   "notes": [],
+   "verdict": "REFUSE"
+  },
+  "CLI_R2_T3_PIN_PENDING_NO_ARG": {
+   "blocked_after_selftest": [],
+   "capture": {
+    "stderr": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T3_PIN_PENDING_NO_ARG.stderr.txt",
+    "stderr_sha256": "83138ab0891c0fabb3507ab9bbbadf5f90287309e4c39feb723e2624147f3ccb",
+    "stdout": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T3_PIN_PENDING_NO_ARG.stdout.txt",
+    "stdout_sha256": "9eca43138d0b73c4c41190f5c0f7ab5f898d29a29d1f185be880a0980b57d347"
+   },
+   "codes": [
+    "TEXT_OF_RECORD_PIN_PENDING"
+   ],
+   "fence_selftest": "8/8",
+   "fence_v002_probes": "15/15",
+   "notes": [],
+   "verdict": "REFUSE"
+  },
+  "CLI_R2_T3_ROOT_ARG": {
+   "blocked_after_selftest": [],
+   "capture": {
+    "stderr": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T3_ROOT_ARG.stderr.txt",
+    "stderr_sha256": "83138ab0891c0fabb3507ab9bbbadf5f90287309e4c39feb723e2624147f3ccb",
+    "stdout": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T3_ROOT_ARG.stdout.txt",
+    "stdout_sha256": "ce5271a35a54fecd1a4e5ab73a8abb132ac0a938e7a791b5bb4cb98aa07739cf"
+   },
+   "codes": [],
+   "fence_selftest": "8/8",
+   "fence_v002_probes": "15/15",
+   "notes": [
+    "TEXT_OF_RECORD_FROM_ROOT_ARGUMENT"
+   ],
+   "verdict": "PASS"
+  },
+  "CLI_R2_T4_ADMISSION_CHECK": {
+   "blocked_after_selftest": [],
+   "capture": {
+    "stderr": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T4_ADMISSION_CHECK.stderr.txt",
+    "stderr_sha256": "83138ab0891c0fabb3507ab9bbbadf5f90287309e4c39feb723e2624147f3ccb",
+    "stdout": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T4_ADMISSION_CHECK.stdout.txt",
+    "stdout_sha256": "aa8b2ded2062f8139bde531c225504a921a3bfecc46dc13afbd59e53e19e1423"
+   },
+   "codes": [],
+   "fence_selftest": "8/8",
+   "fence_v002_probes": "15/15",
+   "notes": [],
+   "verdict": "PASS"
+  }
+ },
+ "cli_t5_driver_build_record": {
+  "blocked_after_selftest": [],
+  "bytes": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/out/CLI_R2_T5_DRIVER_BUILD_RECORD_BYTES.json",
+  "note": "r12 builtin_r5_build() with check_record CHECK.md 89a6de88; root prints and creates its own (exclusive create)",
+  "sha256": "25b4ff697748ae23c0d1322228c8bdd689b4b378a70035ab89f5de03b2ba79fb"
+ },
+ "fence": {
+  "blocked_after_selftest": [],
+  "diff": "2dad9dcfce5636ea108ea03a2a2970e1198a4b9303f96efb4b69206fb4e4a097",
+  "exceptions": [
+   "(a) uvt_*.py source modules outside both runs_ext roots (lowercase basename uvt_*.py, no uvt_* directory component)",
+   "(b) CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V00*_ADDENDUM*.md, exact folder, literal and resolved"
+  ],
+  "label": "TESTED",
+  "selftest": "8/8 every run",
+  "v001": "f813c43099cfdadd3a779e395d223887d0df7cd8c8a8eb67b3a73de86eb699f0",
+  "v002": "c993d34c185d785d77c443a00033e8efeea10cd02f1a547a99af458c0f698eb5",
+  "v002_probes": "15/15 every run"
+ },
+ "files": {
+  "PARTIAL.md": "efcedbce83f6be1dfabecae1fa447e28b568e44a775e610d81f3226918128134",
+  "README_SEAL_TOOLS.md": "da29c008064ae51673dfe7106f72dfcb789f674b4c0a36e3a5daf017c7967af8",
+  "build_seal_record_c4v002.py": "60de881fd17f0d47fc5694ad1a65532588884db6618c167a3cd61a3329c61b89",
+  "check_frozen_addendum_c4v002.py": "06a98bc6b56e71bff450b749b12a7e8978824baeda41458e4319506a0cfd1891",
+  "check_sealed_compare_c4v002.py": "aebb7b731a800e558b13a5f290c7fac062183cb9ba092af45df4e6bda1f390cf",
+  "check_slot_fill_c4v002.py": "cf8492700d533be971a9378ce8219549ab66480f421b53165693331e553ba72e",
+  "out/CLI_R2_T5_DRIVER_BUILD_RECORD_BYTES.json": "25b4ff697748ae23c0d1322228c8bdd689b4b378a70035ab89f5de03b2ba79fb",
+  "out/FENCE_C4V001_TO_C4V002.diff": "2dad9dcfce5636ea108ea03a2a2970e1198a4b9303f96efb4b69206fb4e4a097",
+  "print_driver_build_record_c4v002.py": "224ea8290e1997fbc3a78e5edd9952ba1834ee5dbcb94c98b9990de3ca75d7eb",
+  "r2/build_seal_record_c4v002.py": "4192983d262e2a27a3d9c90681b6ee66a90c901bfe2f99a7dce2349bc8c5de52",
+  "r2/check_frozen_addendum_c4v002.py": "06a98bc6b56e71bff450b749b12a7e8978824baeda41458e4319506a0cfd1891",
+  "r2/check_sealed_compare_c4v002.py": "aebb7b731a800e558b13a5f290c7fac062183cb9ba092af45df4e6bda1f390cf",
+  "r2/check_slot_fill_c4v002.py": "806733fb18e167275a1de62ebc9433fecf632cc16393933801fd4c9e53cddffb",
+  "r2/print_driver_build_record_c4v002.py": "fde0b26e7ea26d4ad15213cc9c3115a807179616e0e155037c97d2179db7a673",
+  "r2/seal_common_c4v002.py": "f41b0fca51a95387577839e52308a2dc6ccb79b1e6b9283f389b54c7f348dc10",
+  "r2/tests/run_20261018T212903Z/TEST_RESULTS_C4V002.json": "6de5ab43119b2371e6941ba3ab56ae7ea70f8cdd57a2c59e1678be2948e6b639",
+  "r2/tests/test_seal_tools_c4v002.py": "8c677fdb204ad62cd86a79e441115d0ba45559d83a6745b7cef33158d51b704d",
+  "scratch/V005_ADDENDUM_READ_COPY_2_C4ST2.md": "7f552858be77888ff1e3abc4d490e7e88ca5a16374bad84ad8ae043686b39fa2",
+  "scratch/V005_ADDENDUM_READ_COPY_C4ST2.md": "ff7980e8b9b0c9f7552c551fe1507a2689dfc1357c1f0bf0cdb57e3703c7b6ce",
+  "seal_common_c4v002.py": "db6423785f3ca48d9d3473d13758f62fa735a342fc39c91082f265b1bc834b8d",
+  "tests/run_20261018T212152Z/TEST_RESULTS_C4V002.json": "64b19ddf43e41cb58a67b228bfcb98d1d9a8d798352493e55c0b19830288b0b1",
+  "tests/test_seal_tools_c4v002.py": "5e0806b1246a7e70d0094f633ea7ed57ce07ee84ab57b4df1f7ed06723212d54",
+  "tools/README_TEMPLATE_C4ST2.md": "dcc0bd4665ed86e9f905656da24d6610bc830905a0f8e5cc3a6a6a33d43f4c00",
+  "tools/fence_c4v001.py": "f813c43099cfdadd3a779e395d223887d0df7cd8c8a8eb67b3a73de86eb699f0",
+  "tools/fence_c4v002.py": "c993d34c185d785d77c443a00033e8efeea10cd02f1a547a99af458c0f698eb5",
+  "tools/fill_template_c4st2.py": "19c3164b0c2edd03c91216a19df3d6daef6fd2762f0bcb4fdd9e5829a15e497b",
+  "tools/make_fence_c4v002.py": "a108c8ac718e0468a3ccc211f700c8950102aa3ea94d4867bb3f0efe7d551803",
+  "tools/run_fenced_c4st2.py": "fe904509c7d2d6300042589aaa02d839e82b436680d293b65c5c7d4cf69f6d25",
+  "tools/xwrite_c4st2.py": "4fc279a3b1c6c5bcfd180c587b111d47266c5e7366c6d27c002c681229e10326"
+ },
+ "labels": "TESTED = run or read from bytes here; FORMAL = follows from code or text read here; UNTESTED = not checked here",
+ "lane": "Claude4 helper (A99 item 4; dispatch 0621 seal tools v002)",
+ "rulings_read": {
+  "V005_at_r2_suite_A47_A102": "27b62183a4c2f4a992d30cfee56e58e395dc2b6e74c85fe73290a26478b9469f",
+  "V005_copy_1_A47_A99": "ff7980e8b9b0c9f7552c551fe1507a2689dfc1357c1f0bf0cdb57e3703c7b6ce",
+  "V005_copy_2_A47_A100": "7f552858be77888ff1e3abc4d490e7e88ca5a16374bad84ad8ae043686b39fa2"
+ },
+ "schema": "UNT_V007_SEAL_TOOLS_V002_RESULTS_C4ST2",
+ "set_of_record": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/r2",
+ "tests": {
+  "r1": {
+   "by_tag": {
+    "NEW": "87/87",
+    "PORT": "39/39",
+    "PORT_CHANGED": "1/1",
+    "REAL": "12/12"
+   },
+   "label": "TESTED",
+   "passed": 139,
+   "results_sha256": "64b19ddf43e41cb58a67b228bfcb98d1d9a8d798352493e55c0b19830288b0b1",
+   "run_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/tests/run_20261018T212152Z",
+   "total": 139
+  },
+  "r2": {
+   "by_tag": {
+    "NEW": "96/96",
+    "PORT": "39/39",
+    "PORT_CHANGED": "1/1",
+    "REAL": "12/12"
+   },
+   "label": "TESTED",
+   "passed": 148,
+   "results_sha256": "6de5ab43119b2371e6941ba3ab56ae7ea70f8cdd57a2c59e1678be2948e6b639",
+   "run_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/r2/tests/run_20261018T212903Z",
+   "total": 148
+  }
+ },
+ "utc": "2026-10-18T21:35:24Z",
+ "verdict": "BUILT_AND_TESTED"
+}

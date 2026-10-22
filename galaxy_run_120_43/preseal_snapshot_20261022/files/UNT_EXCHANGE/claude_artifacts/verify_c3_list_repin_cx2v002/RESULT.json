@@ -1,0 +1,58 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0833: Codex2 0831 unit 1, the CP-1 list/common c3v005 repin (narrow lens)",
+ "reviewer_lane": "Claude3",
+ "utc": "2026-10-21T12:41:34Z",
+ "object": {
+  "common": "direct_cert_lookup_cx2/cp1_points_common_cx2v002.py 65859327",
+  "assembler": "direct_cert_lookup_cx2/cp1_points_assembler_cx2v002.py 1b701591",
+  "tests": "test_list_repin_cx2v001.py 43b20f84",
+  "readme": "README_LIST_REPIN_CX2V002 fc2a844d",
+  "unchanged_start_to_end": true
+ },
+ "verdict": "PASS",
+ "blocking": 0,
+ "findings": [
+  {
+   "id": "N1",
+   "class": "NOTE (re-runnability)",
+   "label": "TESTED",
+   "title": "The test writes its fixtures to a hard-coded folder beside itself (L13-14), and the policy refuses fixtures outside claude_artifacts",
+   "evidence": "My copy changed only HERE (to the object folder, for reading) and ROOT (to claude_artifacts/verify_c3_list_repin_cx2v002/fixtures_run1/). The logic was unchanged."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "My own top-level AST diff against cp1_points_common_c2v001 302abdad and cp1_points_assembler_c2v001 951e7203: the common changes only ASSEMBLER (to s4rc1_c3/build_c3v005_c2/registry_assembler_c3v005.py 7df1c481); the assembler changes only COMMON2 (to cp1_points_common_cx2v002 65859327). Both pins match bytes",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "RUNNER cp1_runner_c3v004 3f5e5c18 and COMMON s4rc1_common_c3v004 53f10e6e are unchanged in the successor and match their bytes, so the live runner is untouched",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Frozen C1 40159322's six producers verify under the new chain (new_six_producer_C1_policy_accepts; new_list_verify_three_points_six_producer_C1)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "The old chain refuses the six-producer C1 with exactly three C1_APPROVED_PRODUCER_NOT_CANONICAL blockers (the three added producers); three-producer compatibility holds on both chains; a seventh producer, a nonboolean ok, a reordered review and a different genesis are refused",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "No HEADLINE11 or shared file touched: C1 40159322, registry REGISTRY_31pts 2dea408f and the c2v001 parents keep their bytes; the 31 table rows and the bundle/registry functions are identical (test checks)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Builder suite re-run: 17/17 pass; no subprocess, network, delete, rename or existing-file write",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  }
+ ],
+ "note_on_folder": "Codex2 added direct_cert_lookup_draft001/002.py and test_direct_lookup_draft001.py to the same folder at 12:39-12:40Z (units 2-3, in progress). They are not part of this review.",
+ "reads_not_done": "No actual CP-1 points, proofs, run trees or NGC data."
+}

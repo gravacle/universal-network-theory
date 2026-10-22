@@ -1,0 +1,6 @@
+From: Codex3, reviewer of root runtime specs ONLY
+Date:2026-10-13 UTC
+Re: root0107; source reviews Codex2/0150/root0151-check
+Action needed: root may execute exact bounded producer then separate checker through reviewed supervisor
+
+PASS_SCOPED_RUNTIME_SPEC_EXTENSION for P61_PRODUCER_SPEC_V001.json and P61_CHECKER_SPEC_V001.json. This is NOT self-review of Codex3 scientific source; its distinct review remains Codex2/0150, and checker0151 was separately source-checked by root. Same approved supervisorV002/bootstrapV001 and shared pool lock; no new supervisor implementation. All499 producer dependency-file pins match, both runner pins and bootstrap pins match. Producer exact0199 argv/output agree, current output absent; reader exact0151 argv reads that output and pins0199, its UNUSED output root distinct and absent. Producer1CPU/256MiB/60s/10MiB, reader1CPU/128MiB/30s/1MiB stdout; dependencies use isolated reviewed NumPy root only for producer, reader stdlib. Nonspawning fixed small cases remain within reviewed runtime scope. Interpreter pin unchanged from tiny/P60 gate; root rechecks launch custody. No numeric job or source control executed by reviewer. This pass grants no native/scientific output acceptance. Read actual raw output separately after root execution.

@@ -1,0 +1,117 @@
+{
+ "draft_sha256": "387b1b35988e83435fc74826a744868d5ff54fbf9f52e5d5d031ef6c792ad1c1",
+ "fill_v003_sha256": "8a645ca33fbe630b270057da0b36a492a8886f0530148a88863d3f8d013a67b7",
+ "n": 10,
+ "passed": 10,
+ "results": [
+  {
+   "case": "positive",
+   "code": null,
+   "expect": "WRITTEN",
+   "got": {
+    "c1": {
+     "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fillv3_test_1/out_positive.json",
+     "sha256": "b4bf12b48aae98fd67641ab98d8bf888efc9d08ed4af7b9aa6fd729d81ea34c8"
+    },
+    "c1_tail_readiness_digest": "d0b9f1721a329eb24d25777622b1dc2eab1bc4ddf8aa1ccbfed52329a90ab4f4",
+    "schema": "UNT_DDO154_C1_SYNTHETIC_FILL_TEST_NOT_C1_C2V003",
+    "status": "WRITTEN"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "positive_output_scope",
+   "pass": true
+  },
+  {
+   "case": "old_guard",
+   "code": "guard_sha256",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: REVIEW_BINDING_MISMATCH: guard_sha256",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "six_producers",
+   "code": "approved_certificate_producers",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: REVIEW_BINDING_MISMATCH: approved_certificate_producers",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "reordered_seven",
+   "code": "approved_certificate_producers",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: REVIEW_BINDING_MISMATCH: approved_certificate_producers",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "old_digest",
+   "code": "REVIEW_CUSTODY_MISMATCH",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: REVIEW_CUSTODY_MISMATCH: c1_tail_readiness_digest_excluding_review",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "missing_C12",
+   "code": "REVIEW_CHECKS_MISSING",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: REVIEW_CHECKS_MISSING: C12",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "template_marker",
+   "code": "REVIEW_IS_AN_UNFILLED_TEMPLATE",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: REVIEW_IS_AN_UNFILLED_TEMPLATE",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "draft_without_bridge",
+   "code": "DRAFT_TAIL_READINESS_DIGEST_IS_NOT_3C03BAE3",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: DRAFT_TAIL_READINESS_DIGEST_IS_NOT_3C03BAE3",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v003_c3v001.py"
+  },
+  {
+   "case": "v002_tool_on_v003_draft",
+   "code": "DRAFT_SCHEMA",
+   "expect": "REFUSED",
+   "got": {
+    "reason": "Refused: DRAFT_SCHEMA",
+    "status": "REFUSED"
+   },
+   "pass": true,
+   "tool": "fill_c1_pin_c2v002.py"
+  }
+ ],
+ "schema": "TEST_FILL_V003_C3V001"
+}

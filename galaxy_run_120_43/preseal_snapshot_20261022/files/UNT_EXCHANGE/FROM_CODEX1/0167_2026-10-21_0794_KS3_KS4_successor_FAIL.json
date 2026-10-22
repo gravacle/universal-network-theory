@@ -1,0 +1,69 @@
+{
+  "dispatch": "0794",
+  "verdict": "FAIL",
+  "blocking_count": 1,
+  "blocking_items": [
+    {
+      "id": "CX1-KS-SR-01",
+      "finding": "Inherited c1_policy_gate reads certificate_policy_review twice; audit single-read MUST_PASS fails. Fix requires function changes forbidden by minimal AST-only delta.",
+      "evidence": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/TEST_RESULT_CX1V001.json",
+        "sha256": "9851c7093858196dad742feace953e7b3dd9c2b30eae8a14766085b70a65ae08"
+      },
+      "source_lines": "registry_assembler_ks4_cx1v001.py:439-443; common read_json_pinned delegates to read_bytes_pinned."
+    }
+  ],
+  "TESTED": "8/8 inert full policy-gate cases; 5/5 in-memory mutations caught; exact AST delta and existing-pin preservation; audit observed 2 policy-review reads.",
+  "UNTESTED": [
+    "Full registry verify and inherited large suites",
+    "Real S1 C1/row32/acceptance, admission closure/fence, production launch/seal"
+  ],
+  "artifacts": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/BUILD_INPUTS.json",
+      "sha256": "6214a5a1745203d26c4960f0661daa33265c7f554897feb3f0a13fc4b13210f8"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/README.md",
+      "sha256": "38d7aeb0c7a4aa2618003091bde0e7aba003890ada4d2481d836b6695cfcf188"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/S1_SOURCE_CLOSURE_DELTA_CX1V001.json",
+      "sha256": "1f6c3979351177c0f644b3b56e5e81a7b3a59a418dcf60911b0e8cec36509108"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/TEST_RESULT_CX1V001.json",
+      "sha256": "9851c7093858196dad742feace953e7b3dd9c2b30eae8a14766085b70a65ae08"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/build_cx1v001.py",
+      "sha256": "9a1cae27e5c79d810a1b94783f50104ea311f5279cdc6a6aa2d157721f41c78f"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/registry_assembler_ks4_cx1v001.py",
+      "sha256": "48d4add36b90425841b3943bc26dd4e5874a9a1c98d7dee2b61640c0a9ed5dc0"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/registry_assembler_ks4_cx1v001.py.diff",
+      "sha256": "4b73381669a5a04c045e10b419d37754fd0e28e851b3b3083090f267fe067dea"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/s4rc1_common_ks3_cx1v001.py",
+      "sha256": "3d62865d2458e6e9e193879821360305852687fd0828a071dc5f4cd62da8ab3d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/s4rc1_common_ks3_cx1v001.py.diff",
+      "sha256": "118d12eb0e2c7b32f03dcc5fb44fb584ce96bd298e8e697e687245407b8b8eae"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/test_successor_cx1v001.py",
+      "sha256": "712df112af75ac28b922550820f94dce25d88fdd9e071551d2fd8f3fda5c525f"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/HASHES_CX1V001.json",
+      "sha256": "ed0eda133b8ca7484ec769cdc440328c58b137e91eea928161ad8f7592b84618"
+    }
+  ],
+  "root_action": "Rule narrow per-invocation verified-buffer reuse change and its allowed AST delta, or explicitly resolve inherited-code treatment. Current build is not single-read compliant.",
+  "authorship": "Codex1 drafted list and authored successors; own-build tests. Codex3 policy review and root verify pending."
+}

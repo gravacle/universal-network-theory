@@ -1,0 +1,60 @@
+{
+ "deps": {
+  "enumerator": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/consumed_states_b1_c2v001.py",
+   "sha256": "4ca7f3640bff6adc13d181a8045bec750681362595a9a9e71e643fa521af60f0"
+  },
+  "evidence": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/current_source_evidence_b1_c2v001.py",
+   "sha256": "7044e1310bb0b8cde08f7839b88b949409d15219fb24756f418224a0e7c0ddce"
+  },
+  "guard": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/certificate_guard_b1_c2v001.py",
+   "sha256": "9e3fc109621a9e600e2ea4aa8346c3e2baf002ac3df759238f7d8efcb3809677"
+  },
+  "lo_adapter": {
+   "entry": "adapt_call_lo",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/lo_state_proof_adapter_c3v003.py",
+   "sha256": "211a3220f015f8410f81e981f73355d9975d9b738a42a9d1092c28c4ae1c336c"
+  },
+  "lo_core": null,
+  "row_producer": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/row_reference_producer_c2v003.py",
+   "sha256": "67fddd24945de31d70f940cb1ff85ef9d467b20d62a764cd159f58afc909e01e"
+  },
+  "srb_adapter": null,
+  "writer": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/replay_inputs_writer_c2v002.py",
+   "sha256": "808cfe6a98f8e89a17d8b54e0f8d36b40c8445b121ce2efe2008b82b3a4592d9"
+  }
+ },
+ "policy": {
+  "approved_certificate_producers": null,
+  "approved_evidence_producer_sha256": null,
+  "approved_review_sha256": null,
+  "approved_uniform_producer_sha256": null,
+  "evidence_producer": null,
+  "packet_binding_reviews": null,
+  "root_ruling_refs": null,
+  "row_policy_reviews": null,
+  "trusted_source_producers": [
+   "67fddd24945de31d70f940cb1ff85ef9d467b20d62a764cd159f58afc909e01e",
+   "7044e1310bb0b8cde08f7839b88b949409d15219fb24756f418224a0e7c0ddce"
+  ]
+ },
+ "schema": "H3_CAMPAIGN_ACCEPTANCE_DEPS_C2V001",
+ "sources": {
+  "approved_certificate_producers": "C1 list (+ slot proof cd10cd59, A158); MUST equal the config list exactly",
+  "enumerator": "A139 (b1 enumerator); MUST equal the config tail_readiness.state_enumerator (the step refuses otherwise)",
+  "evidence": "acceptance v004 B1_EVIDENCE L60-61 (7044e131)",
+  "guard": "wrapper q5b1 L30 (9e3fc109); the step refuses another guard",
+  "lo_adapter": "acceptance v004 LO_ADAPTER L55-57 (the handoff refuses any other)",
+  "lo_core": "C1 (the lo_core whose PR.point_context the handoff uses; not in the permitted reads)",
+  "reviews_and_rulings": "C1 / A134 Q4 (row policy reviews, Codex1), packet binding reviews, root_ruling_refs: as C1 / CP-1 pass them",
+  "row_producer": "A158 row producer v003 67fddd24",
+  "srb_adapter": "C1: Claude3 SRB-ROT adapter (adapt_call_srb_rot signature, Q10)",
+  "trusted_source_producers": "A158: row producer v003 67fddd24 + b1 evidence 7044e131",
+  "writer": "A158 writer 808cfe6a"
+ },
+ "status": "TEMPLATE_ROOT_FILLS_FROM_C1"
+}

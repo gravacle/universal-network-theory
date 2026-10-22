@@ -1,0 +1,58 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/tests/synthetic/syn_h3_c2v001.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/tests/synthetic/syn_h3_c2v003.py
+@@ -1,4 +1,13 @@
+ """SYNTHETIC stand-ins for the h3_campaign_path_c2 end-to-end test (not physics; no solver; no proof of anything).
++
++c2v003 = syn_h3_c2v001 (a5948614) plus two declared reading switches, read from the root_ruling_refs the acceptance step
++forwards (so one module serves every call, and the handoff's LO_ADAPTER pin can name it):
++  root_ruling_refs['SYN_LO_VERDICT'] == 'FAIL'       -> adapt_call_lo reads every state FAIL with the lo_core threshold
++                                                       blocker (handoff v004 L330-331 -> LO_ABOVE_THRESHOLD; at the accepted
++                                                       route-A state the call reads NON_LAPSE_TAIL_MATERIAL, L542-543);
++  root_ruling_refs['SYN_SRB_READING'] == 'BOUND_INSUFFICIENT' -> adapt_call_srb_rot reads BOUND_INSUFFICIENT (L548-549).
++Without them every reading is c2v001's PASS.  These exist only to exercise the F6 path (V006 A192 item 3); they set no
++threshold and stand for no physics.
+ 
+ The campaign acceptance step runs the adopted handoff acceptance_q2 v004 (5ff464cc) unchanged, with root's dependency pins.
+ On a mock-driver call the real producers have nothing to read, so the test pins THIS file for every dependency slot
+@@ -22,6 +31,7 @@
+ 
+ PROOF_SCHEMA = 'UNT_CALIBRATION_POINT_PROOF_CX2V001'          # certificate_guard_b1 L14
+ LO_CORE_SCHEMA = 'UNT_POINT_LO_NUMERICAL_CX2V001'               # wrapper q5b1 L186
++LO_THRESHOLD_BLOCKER = 'LO_NUMERICAL_INDICATOR_ABOVE_THRESHOLD'   # handoff v004 L52 (lo_core L258-259)
+ RHO_KEYS = ('schema', 'gate', 'identity', 'point_sha256', 'custody', 'settings', 'coverage_complete',
+             'required_coverage_inverse_kpc', 'full_registered_search_executed', 'shells')   # wrapper q5b1 L177-178
+ MOCK = Path(__file__).resolve().parent / 'mock_driver_h3_c2v001.py'
+@@ -139,13 +149,18 @@
+     slot = read_pin(spec['numerics']['uv_tail']['lo_certificate'])
+     rho = {k: slot[k] for k in RHO_KEYS}
+     producer = root_ruling_refs['SYN_LO_PRODUCER']
++    fail = root_ruling_refs.get('SYN_LO_VERDICT') == 'FAIL'
+     out, root = [], Path(out_root)
+     for i, st in enumerate(inventory['states']):
+         shells = [{'range_inverse_kpc': [4.0, 64.0], 'max_over_tau': 0.001},
+                   {'range_inverse_kpc': [64.0, EDGE], 'max_over_tau': 0.001}]
+         core = put_x(root / ('S%03d_LO_CORE_RECORD.json' % i), {
+             'schema': LO_CORE_SCHEMA, 'kind': 'CURRENT_SAVED_STATE', 'state': st, 'rho': rho,
+-            'summed_max_over_tau': 0.002, 'blockers': [], 'synthetic': True})
++            'summed_max_over_tau': 0.002, 'blockers': [LO_THRESHOLD_BLOCKER] if fail else [], 'synthetic': True})
++        if fail:
++            out.append({'state': st, 'verdict': 'FAIL', 'reading': 'FAIL', 'state_class': 'ACCEPTED_ROUTE_A',
++                        'blockers': [], 'record': None, 'core_record': core})
++            continue
+         proof = put_x(root / ('S%03d_LO_PROOF.json' % i), {
+             'schema': PROOF_SCHEMA, 'gate': 'LO', 'status': 'TESTED', 'verdict': 'PASS', 'point_sha256': ctx['point_sha256'],
+             'custody_sha256': ctx['custody_sha256'], 'producer': producer, 'state': st, 'shells': shells,
+@@ -153,9 +168,12 @@
+             'i1t_verdict': 'PASS', 'GQ_uniform_proof_sha256': gq, 'core_record': core, 'synthetic': True})
+         out.append({'state': st, 'verdict': 'PASS', 'reading': 'PASS', 'state_class': 'ACCEPTED_ROUTE_A', 'blockers': [],
+                     'record': proof, 'core_record': core})
+-    return {'states': out, 'blockers': [], 'call_lo_reading': 'PASS', 'class_reading': None, 'step4_stop': False}
++    return {'states': out, 'blockers': [], 'call_lo_reading': 'FAIL' if fail else 'PASS', 'class_reading': None,
++            'step4_stop': False}
+ 
+ 
+ def adapt_call_srb_rot(spec, *, call_dir, result, inventory, bundle_ref, state_input_ref, rows_input_ref, root_ruling_refs,
+                        approved_producer_sha256, trusted_source_producers):
++    if root_ruling_refs.get('SYN_SRB_READING') == 'BOUND_INSUFFICIENT':
++        return {'reading': 'BOUND_INSUFFICIENT', 'proof': None}
+     return {'reading': 'PASS', 'proof': {'schema': 'H3_SYNTHETIC_SRB_ROT_PROOF', 'state_input': state_input_ref}}

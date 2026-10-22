@@ -1,0 +1,227 @@
+{
+  "summary": "Claude3 lean review (0700, A115) of root guard cascade: guard011, launcher012, bind010, PRELAUNCH005, DIRECT_BATCH_PARAMS_S45_C2V003 (pin-only deltas) incl. honest tail-ON PRELAUNCH end to end",
+  "agentCount": 2,
+  "logs": [],
+  "result": {
+    "review": {
+      "verdict": "PASS. 0 blocking findings and 6 NOTEs. The README (27cd181b) and HASHES.txt (e9acbca9) check out from their bytes. Every object and every base matches its stated sha. Each object differs from its base only on its stated pin lines, and each new pin equals its target's build bytes. In guard011 only L20 changed: the contract is now exactly {7a6af535:{79e8936d}}, and all 33 definitions have the same AST as in guard010. The honest tail-ON path PASSES end to end on the packet's own interpreter (codex runtime Python 3.12.14). The path is PRELAUNCH005 -> guard011 -> the real q5b1 wrapper 7a6af535 -> the real adapter cx2v002 -> the real R5 normalize_spec -> the (b1) guard 9e3fc109. It used a byte-copy of spec 50e7288e and synthetic certificate fixtures under claude_artifacts. It produced record fe23bd6c, and a fresh-process replay is byte-equal. launcher012's worker-mode validate and bind010's validate also pass on the bound plan. Every MUST_FAIL row is refused with the expected code at the expected line, and R1 behaves identically under guard010 and guard011. The packet_read pins equal the build bytes. cp -n publication keeps the shas. No defect is reachable from honest pinned producers, and no computed value changes.",
+      "blocking": 0,
+      "findings": [
+        {
+          "id": "N1",
+          "cls": "NOTE",
+          "title": "The honest path with the REAL custody deriver reads a run tree, so this lens used a synthetic deriver. The in-fence R1 exception on that real path is therefore shown formally, not by a run.",
+          "evidence": "custody_cx2v002.py (6810b7c3) L129 calls d.uvt_static_pins(False). The R5 driver (b5cc62af) L1215-1222 verifies every pin in UVT_MONITOR_PINS, and L343 'a2f10_result' is CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json. Claude3's earlier A131 P0 summary records that same read. Under this lens's no-run-tree rule, the E2E used a SYNTHETIC custody deriver. The tripwire saw no run-tree access and no R1 open. Not run here: the R1 read inside the fence on the real custody path. guard011's R1 code (r1_verified_read, lexical_path, safe_path, raw, _audit) has the same AST as guard010's. All 14 R1 rows give identical results on the real R1 1e27430c (see the checked list). Cascade-neutral.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "N2",
+          "cls": "NOTE",
+          "title": "Pre-existing: bind010's validate admits a plan whose launcher pin is launcher011. It still fails closed at launch.",
+          "evidence": "In scenario F05_bound_plan_pins_launcher011 the plan pins guard011 and launcher011. bind010 G.validate PASSES, because the binder passes plan['launcher']['path'] as producer, so the launcher half of L326 always holds. launcher012 refuses the plan with LAUNCHER_GUARD_IDENTITY at guard011 L326. The real launcher011, which loads guard010, also refuses it with LAUNCHER_GUARD_IDENTITY at guard010 L326. bind009 has the same AST as bind010 apart from the pin lines, so this is not introduced by the cascade. It needs a wrong input, not an honest root plan. Results: lens/run1/results/F05_*.",
+          "label": "TESTED"
+        },
+        {
+          "id": "N3",
+          "cls": "NOTE",
+          "title": "Before the honest PRELAUNCH can run, the q5b1 wrapper must be published beside core dc895f8a and the v006r8 sibling (README_V002 publication).",
+          "evidence": "Scenario N01 names the wrapper at its unpublished build_v002 path as context_module. It is refused with UNPINNED_PREFLIGHT_SOURCE: wrapper L27 tries to load HERE/calibration_core_cx2v006r10_c4.py, which is not there, and guard011 L160 refuses it. It fails closed. The E2E PASS used a byte-copy of the wrapper staged beside symlinks to the real core and the real v006r8. That staging also shows the contract is keyed by sha, not by path.",
+          "label": "TESTED"
+        },
+        {
+          "id": "N4",
+          "cls": "NOTE",
+          "title": "Root's C1 sources must list the uv-tail library owned_uv_tail_lapse_v002.py (2026f2b6). The builder's E01 could not show this.",
+          "evidence": "With the real adapter cx2v002, the R5 normalize_spec loads the tail library: uvt_library -> exec_verified at R5 L887. Scenario N02 drops that one source and is refused with UNPINNED_PREFLIGHT_SOURCE at guard011 L160. The builder's E01 used a synthetic adapter and 15 sources, so it never loaded the driver. This lens's minimal honest set is 16 sources: the builder's set plus 2026f2b6, with the real adapter in place of the synthetic one (lens/run1 BUILD_LOG ead305ca). A real custody deriver needs more. Codex1's 117-source candidate already includes 2026f2b6. This concerns C1 content, not the cascade.",
+          "label": "TESTED"
+        },
+        {
+          "id": "N5",
+          "cls": "NOTE",
+          "title": "Pre-existing: the params still pin plan templates (templates_v004) whose guard and launcher fields name guard v007 and launcher v008.",
+          "evidence": "DIRECT_BATCH_PARAMS_S45_C2V003 keeps the batches.*.template pins unchanged, which follows the pin-only rule. They are DIII f14514fe, HEADLINE 2e9a3cb2, SENS_HI fdb96200 and SENS_LO ea97f536, all sha-verified. Their .guard.path and .launcher.path name step4_guard_cx1v007.py and step4_launcher_cx1v008.py. The same pins were already in C2V002. Plans must take guard and launcher from packet_read. A plan that copied the template pins would be refused with GUARD_IDENTITY or LAUNCHER_GUARD_IDENTITY (consequence FORMAL; fails closed).",
+          "label": "TESTED"
+        },
+        {
+          "id": "N6",
+          "cls": "NOTE",
+          "title": "Publication: guard011 and launcher012 compare the plan's pins with their own loaded location. They need guard011, launcher012 and bind010 together in a non-symlinked impl/. cp -n returns 1 when the target already exists.",
+          "evidence": "guard011 L326 requires plan['guard']==pin(__file__) and plan['launcher']==pin(producer). pin() resolves symlinks through safe_path. launcher012 L62/83/100/126/157 pass its own __file__. bind010 L27 confines outputs to HERE.parent. The launcher lock is HERE.parent/STEP4_MACHINE_LOCK_V001, the same as launcher011's. PRELAUNCH005 only records its own path as the manifest producer, and nothing downstream checks it. step4_launch_packet_cx1/impl has no symlink component (lstat walk, TESTED). With the staged co-located layout, the whole E2E passes. Copying with cp -n into fixtures_lens/run1/pubsim keeps eb97e303, 59c00707 and 4d07dca3. A cp -n onto an existing name exits 1 and leaves the bytes unchanged, so root's publication step should stop on a nonzero exit.",
+          "label": "TESTED"
+        }
+      ],
+      "checked": [
+        {
+          "claim": "README 27cd181b and HASHES.txt e9acbca9 from bytes; README read in full",
+          "result": "CONFIRMED",
+          "note": "The file is HASHES.txt. Every object, base, wrapper 7a6af535, adapter bdedb83e, spec 50e7288e and R1 1e27430c was re-hashed at the end and is unchanged. The three impl targets are still absent."
+        },
+        {
+          "claim": "(1) guard011 vs guard010: only L20 changed; contract key 7a6af535, value {79e8936d} kept, nothing else changed",
+          "result": "CONFIRMED",
+          "note": "Line diff shows only L20 replaced (362/362 lines, no CR). The contract is {7a6af535:{79e8936d}}, the same value as guard010. All 51 top-level nodes except the contract assignment have the same AST, and so do all 33 function and class definitions, including native_preflight, fence, _audit and validate. 79e8936d is the real _resolve_source literal of both 7a6af535 and ef3d3d69 (lens/static_lens1.out.json)."
+        },
+        {
+          "claim": "(1) launcher012 L5-6, bind010 L8-9, PRELAUNCH005 L12-13 only; new pins equal target bytes",
+          "result": "CONFIRMED",
+          "note": "The ASTs are the same apart from the GUARD_PATH and GUARD_SHA256 assignments. Each GUARD_SHA256 is eb97e303, which equals guard011's build bytes. PRELAUNCH005's GUARD_PATH is impl/step4_guard_c2v011.py."
+        },
+        {
+          "claim": "(1)/(4) params C2V003: only L357-358/361-362/365-366; packet_read pins equal build bytes",
+          "result": "CONFIRMED",
+          "note": "binder 4d07dca3, guard eb97e303 and launcher 59c00707 at the impl publication paths. The JSON outside packet_read equals C2V002. The schema field still reads C2V002 (stale label, README N1)."
+        },
+        {
+          "claim": "Generator records and diffs reproduce from bytes",
+          "result": "CONFIRMED",
+          "note": "The DRYRUN (45f6dcaf) and WRITE (7d3c7608) records have equal outputs and diffs. All five unified diffs, regenerated from the predecessor and build bytes, equal diffs/*.diff."
+        },
+        {
+          "claim": "(2) Honest tail-ON PRELAUNCH005 -> guard011 -> real q5b1 wrapper -> real adapter cx2v002 -> byte-copy of spec 50e7288e, fixtures under claude_artifacts",
+          "result": "CONFIRMED",
+          "note": "PASS on Python 3.12.14. Record fe23bd6c91fb…, manifest a917918e…. certificate_policy ok. certificate_prelaunch ok, with EPS and GQ evidence. Sensitivity HEADLINE_NOT_GATED. normalized_sha256 1c95ee44 comes from the real R5 normalize_spec. Substitutions: PRELAUNCH005 GUARD_PATH points to a staged byte-identical guard011. The wrapper is a staged byte-copy beside symlinks to the real core and v006r8. C1 is the real v006r9 721c7230 with coordinate_spec replaced by the copy and synthetic numerics and tail_readiness. Custody, registry and proofs are synthetic. Honest-path refusals: none. The tripwire refused nothing, with no run-tree, C5H, UVT_ or R1 opens."
+        },
+        {
+          "claim": "(2) Replay equal in a fresh process",
+          "result": "CONFIRMED",
+          "note": "A fresh native_preflight under guard011's fence equals the emitted record as an object and byte for byte."
+        },
+        {
+          "claim": "(2) binder010 and launcher012 validate on that plan",
+          "result": "CONFIRMED",
+          "note": "launcher012 worker-mode validate passes with the admission taken from the environment and check_outputs/disk_batch False; it includes the native replay at L352. bind010 validate passes in the bind() call form with disk_batch=False. Extra: bind() itself, with only disk_admission stubbed (the real one stats the External1 UNT_STEP4_RUNS root), writes plan/admission/command under packet/, and those outputs then pass launcher012's validate."
+        },
+        {
+          "claim": "(3) The old contract key ef3d3d69 is refused",
+          "result": "CONFIRMED",
+          "note": "E2E F01 with the old wrapper is refused with PREFLIGHT_COMPILE_HASH_MISMATCH: frames go from wrapper L285 to guard011 L142, and nothing is emitted. Probe Y02 is refused the same way. Contrasts: guard010 admits ef3d3d69 (Y06) and refuses 7a6af535 (Y07). PRELAUNCH004 with guard010 refuses the q5b1 wrapper at L315 (guard010 L142)."
+        },
+        {
+          "claim": "(3) guard010-pinned plans refused by PRELAUNCH005, launcher012 and bind010",
+          "result": "CONFIRMED",
+          "note": "PRELAUNCH005 refuses with GUARD_IDENTITY at L31 and emits nothing. launcher012 validate and bind010 validate both refuse with LAUNCHER_GUARD_IDENTITY at guard011 L326."
+        },
+        {
+          "claim": "(3) cx1v001 adapter PIN_REQUIRED as before",
+          "result": "CONFIRMED",
+          "note": "Refused with PIN_REQUIRED: frames go from adapter L20 through guard011 doc (L104) to verify (L89). Nothing is emitted."
+        },
+        {
+          "claim": "(3) R1 exact-path behaviour unchanged",
+          "result": "CONFIRMED",
+          "note": "14 rows on private guard010 and guard011 instances give identical outcomes. Tested on the real R1 1e27430c (read-only exception): exact read, sha and safe_path admitted; '/./' and '//' spellings refused lexically; an alias symlink refused (R1_EXACT_PATH_REQUIRED); compile under the R1 name refused; open without a reviewed pin refused, with one admitted; write refused; a uvt_ sibling refused; another open during the R1 hash read refused; changed bytes refused. Tested on a stand-in: a symlink component refused (R1_SYMLINK_REFUSED)."
+        },
+        {
+          "claim": "Owner-contract probes Y01-Y09 and bootstraps",
+          "result": "CONFIRMED",
+          "note": "guard011 admits only the 79e8936d buffer under owner 7a6af535. Refused: a changed literal, 6aa6ca3b, drifted owner bytes, and the literal under another managed owner. launcher012 and bind010 load guard011 from beside them and refuse guard010 bytes placed at the guard011 name. PRELAUNCH005 as built fails closed with FileNotFoundError and refuses guard010 bytes."
+        },
+        {
+          "claim": "Tampered record refused",
+          "result": "CONFIRMED",
+          "note": "PRELAUNCH_REPLAY_MISMATCH at guard011 L352, by both launcher012 and bind010 validate."
+        },
+        {
+          "claim": "(5) Publication by cp -n changes no pinned path; copies keep bytes and shas",
+          "result": "CONFIRMED",
+          "note": "See N6. The targets are absent. Self-location bindings stay consistent when the three files are co-located in impl/, which has no symlinks."
+        },
+        {
+          "claim": "A115: no computed value changes",
+          "result": "CONFIRMED",
+          "note": "Only pins and the contract key changed. Gate and normalization code has the same AST, and the record checks are gate results only."
+        },
+        {
+          "claim": "Honest path with the real custody deriver, real registry, real proofs and real V007 adoption",
+          "result": "NOT_CHECKED",
+          "note": "The real custody deriver reads CLAUDE2/runs (forbidden here; see N1). This lens used synthetic numerics only."
+        },
+        {
+          "claim": "launcher012 main/worker loop and bind() with the real disk admission",
+          "result": "NOT_CHECKED",
+          "note": "Both stat the /Volumes/External1/.../UNT_STEP4_RUNS run root, and running them would be a launch."
+        }
+      ]
+    },
+    "verify": {
+      "holds": true,
+      "corrections": [
+        "Wording only, not material. N1 says 'All 14 R1 rows give identical results on the real R1 1e27430c'. The lens's own r1_probe.py ran R13 (symlink component) on a stand-in, by rebinding R1_SOURCE, and ran R12 (changed bytes) by setting the private instance's R1_SHA to zeros. The lens's checked list already states this correctly. The R1 code is AST-identical in guard010 and guard011 (FORMAL), and the 12 rows I re-ran on the real R1 gave identical outcomes (TESTED).",
+        "Wording only, not material. N4 places the refusal at 'uvt_library -> exec_verified at R5 L887'. The open that is actually refused is at R5 L580 (exec_verified read_bytes). It is reached via R5 uvt_config L930 and uvt_library L887, and refused at guard011 L160. Reproduced in N02_drop_uvlib.",
+        "Wording only, not material. In the verdict, 'byte-copy of spec 50e7288e' means the C1 coordinate_spec (DDO154_COORDINATES_CX2V006.json). The call spec is template a93c95b9 plus the real C1 block plus synthetic certificate slots."
+      ],
+      "reclassified": [],
+      "own_checks": [
+        "TESTED. Bytes. README 27cd181b and HASHES.txt e9acbca9 match, and the README was read in full. All 129 HASHES regular-file entries and all 8 listed symlinks match. Objects match: guard011 eb97e303, launcher012 59c00707, bind010 4d07dca3, PRELAUNCH005 117b3520, params C2V003 b7fdaf10. Bases match: guard010 151e9484, launcher011 c7ee8004, bind009 27879177, PRELAUNCH004 427f5554, params C2V002 5ada605b at sched_s45_c2/v002. Wrapper 7a6af535, adapter bdedb83e, b1 guard 9e3fc109, coordinate spec 50e7288e and R1 1e27430c also match. I re-hashed everything at the end and nothing changed. The three impl targets are absent.",
+        "TESTED. Static checks. Line diff and SequenceMatcher show changes only at guard L20, launcher L5-6, bind L8-9, PRELAUNCH L12-13 and params L357-358/361-362/365-366, all line-for-line with no CR. In guard, 51 top-level nodes have identical AST except the contract assignment, and 33 of 33 definitions are identical, including nested exact_code. Launcher (16 definitions), bind (2) and PRELAUNCH (3) are identical apart from the GUARD_PATH and GUARD_SHA256 assignments. The contract is {ef3d3d69:{79e8936d}} in 010 and {7a6af535:{79e8936d}} in 011. guard011 contains ef3d3d69 zero times and 6aa6ca3b zero times. The q5b1 L315 literal and the ef3d3d69 L285 literal both hash to 79e8936d. The params JSON is equal outside packet_read, and the packet_read pins name the impl paths with the build shas.",
+        "TESTED. Generator. I loaded tools/make_guard_cascade_c2v001.py (535d90e2) privately and called build() in memory, with no writes. All 5 outputs equal the build bytes and all 5 diffs equal diffs/*.diff. The DRYRUN record (45f6dcaf) and WRITE record (7d3c7608) have equal outputs, diffs and changed_lines.",
+        "TESTED. Honest tail-ON path on independent fixtures: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cascade_c3/fixtures_verify/run1, with my own synthetic values and my own tripwire. The tripwire also wraps stat, lstat, readlink, access and statvfs, so a run-tree path is refused lexically before it is touched. Path: PRELAUNCH005 (only GUARD_PATH rebound to a staged byte-identical guard011), then the guard011 fence, then a staged q5b1 copy beside symlinks to the real core dc895f8a and the real v006r8, then the real adapter cx2v002, then the real R5 driver import and normalize_spec plus uv lib 2026f2b6, then b1 guard 9e3fc109. Result: PASS on the codex runtime Python 3.12.14. Record 7ec977bc, manifest 11fa2e9b. Certificate policy ok; certificate prelaunch ok with EPS and GQ evidence; HEADLINE_NOT_GATED. Zero tripwire or stat refusals and zero R1 opens. A fresh-process replay is equal as an object and byte for byte. Results are in /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/cascade_review/verify/run1/results/.",
+        "TESTED. Lens artifacts. BUILD_LOG ead305ca, record fe23bd6c and manifest a917918e match from bytes. The lens record fe23bd6c replays equal as an object and byte for byte under my tripwire, with guard011 loaded from build/impl instead of the staged copy (normalized 1c95ee44). guard011 uses __file__ only at L326, and PACKET is unused, so the GUARD_PATH rebind cannot affect native_preflight.",
+        "TESTED. Bound plan. launcher012 worker-mode validate (admission from the environment, check_outputs and disk_batch False) passes, and it includes the L352 native replay. bind010 validate in bind()'s exact L18-23 call form (disk_batch False) passes. bind() with only disk_admission stubbed wrote plan, admission and command under packet/, and those outputs pass launcher012 validate.",
+        "TESTED. MUST_FAIL frames. M01: old wrapper ef3d3d69 refused with PREFLIGHT_COMPILE_HASH_MISMATCH (wrapper L285 to guard011 L142), nothing emitted. M02: PRELAUNCH005 GUARD_IDENTITY at L31. M03: adapter cx1v001 PIN_REQUIRED (adapter L20 to L104 doc to L89 verify). C01: PRELAUNCH004 with guard010 refuses q5b1 at its L315 (guard010 L142). B02: a guard010-pinned plan gets LAUNCHER_GUARD_IDENTITY at guard011 L326 from both launcher012 and bind010. B03: a tampered record gets PRELAUNCH_REPLAY_MISMATCH at L352 from both. Extra contrast C02: guard010 admits the ef3d3d69 L285 compile end to end and refuses only later, at the certificate policy gate (L249 NATIVE_GATE_REFUSED), because my fixture binds the b1 guard. So the contract key is the only fence difference between the two pairs.",
+        "TESTED. Probes. guard011 admits the 79e8936d literal under owner 7a6af535; guard010 refuses it. guard011 refuses the literal under ef3d3d69; guard010 admits it. Both refuse a changed literal, the 6aa6ca3b owner and the core dc895f8a owner. An owner claiming 7a6af535 with drifted bytes is refused with PIN_BYTES_CHANGED. 12 R1 rows on the real R1, read-only, are identical on guard010 and guard011: exact read, sha and safe_path admitted; '/./' and '//' spellings get PROTECTED_PATH_REFUSED; an alias symlink gets R1_EXACT_PATH_REQUIRED; a uvt_ sibling is refused lexically; a compile under the R1 name gets R1_READ_ONLY_SOURCE; an open without a pin gets R1_REVIEWED_SOURCE_REQUIRED and an open with the pin is admitted; a write in the fence is refused and the target is never created. Bootstraps: launcher012 and bind010 load guard011, and guard010 bytes at the guard011 name raise GUARD_BOOTSTRAP_HASH_MISMATCH. PRELAUNCH005 as built raises FileNotFoundError, and with guard010 bytes it is refused.",
+        "TESTED and FORMAL. NOTEs N1-N6 reproduced. N1 evidence: custody_cx2v002 (6810b7c3) L129 is modules=d.uvt_static_pins(False), and R5 L343 points at CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json. Claude3's chain_rev/a131_verify/SUMMARY_A131.json records that run-tree read for the guard010 P0 (REPLAY_EQUAL). That supports the FORMAL argument that the real custody path is fence-equivalent under guard011. N2 (B04): bind010 validate passes a launcher011-pinned plan; launcher012 refuses it at guard011 L326 and the real launcher011 at guard010 L326. N3 (N01): refused with UNPINNED_PREFLIGHT_SOURCE (wrapper L27 to guard011 L160), and q5b1 is not yet published at calib_tail_readiness_cx2/v006r10_c4. N4 (N02): refused with UNPINNED_PREFLIGHT_SOURCE. The builder's E01 used 15 sources and a synthetic adapter, without 2026f2b6. Codex1's inventory drafts V004-V006 list 2026f2b6 and R1; I did not locate the '117-source' file itself, because I did no broad search. N5: templates_v004 DIII, HEADLINE, SENS_HI and SENS_LO pin guard v007 42bf0ce9 and launcher v008 bf2d535f, the same as in C2V002. N6: none of impl/, step4_prelaunch_cx1, sched_s45_c2, v006r10_c4 or v006r8 has a symlink component. On macOS 26.6, cp -n returns 0 for a new file and 1 for an existing one (same or different bytes), and leaves the existing bytes unchanged.",
+        "TESTED. Own NOTE (documentation only, not blocking). The builder's README and RESULT.json limitation says the real direct adapter's R5 import reads the R1 uvt_ source. That is inaccurate: the adapter build, the R5 import and normalize_spec opened R1 zero times in both my run and the lens's run. Only the real custody deriver reads R1, through uvt_static_pins.",
+        "TESTED. Own NOTE (publication, trivial). The optional cp -n destinations step4_prelaunch_cx1/v005/ and sched_s45_c2/v003/ do not exist, so they must be created first. The impl/ destination exists.",
+        "FORMAL. A115. Only pins and one contract key change, and all gate and normalization code is AST-identical, so no computed value changes. No defect is reachable from honest pinned producers. All six findings stay NOTEs, with labels N1 FORMAL and N2-N6 TESTED. Not checkable here, as the lens also says: the real custody, registry and proof path, launcher012 main/worker, and the real disk_admission."
+      ]
+    }
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review:cascade",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aeb46013399fca30c",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792415275867,
+      "queuedAt": 1792415275851,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "PASS. 0 blocking findings and 6 NOTEs. The README (27cd181b…",
+      "promptPreview": "OBJECTS (root-built): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/guard_cascade/ (README 27cd181b, HASHES e9acbca9; verify both from bytes and read the README in full):\n- guard011 build/impl/step4_guard_c2v011.py eb97e303 (stated change: L20 only, contract key ef3d3d69 -> 7a6af535);\n- launcher012 59c00707 (guard pin L5-6);\n- bind010 4d07dca3 (guard pin L8-9);\n- PRELAUNCH005 …",
+      "promptFramed": true,
+      "lastProgressAt": 1792417207788,
+      "tokens": 471723,
+      "toolCalls": 99,
+      "durationMs": 1931921,
+      "resultPreview": "{\"verdict\":\"PASS. 0 blocking findings and 6 NOTEs. The README (27cd181b) and HASHES.txt (e9acbca9) check out from their bytes. Every object and every base matches its stated sha. Each object differs from its base only on its stated pin lines, and each new pin equals its target's build bytes. In guard011 only L20 changed: the contract is now exactly {7a6af535:{79e8936d}}, and all 33 definitions hav…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "verify:cascade",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a8c685f0165373377",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792417210385,
+      "queuedAt": 1792417210370,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "OBJECTS (root-built): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/guard_cascade/ (README 27cd181b, HASHES e9acbca9; verify both from bytes and read the README in full):\n- guard011 build/impl/step4_guard_c2v011.py eb97e303 (stated change: L20 only, contract key ef3d3d69 -> 7a6af535);\n- launcher012 59c00707 (guard pin L5-6);\n- bind010 4d07dca3 (guard pin L8-9);\n- PRELAUNCH005 …",
+      "promptFramed": true,
+      "lastProgressAt": 1792418590006,
+      "tokens": 373685,
+      "toolCalls": 84,
+      "durationMs": 1379621,
+      "resultPreview": "{\"holds\":true,\"corrections\":[\"Wording only, not material. N1 says 'All 14 R1 rows give identical results on the real R1 1e27430c'. The lens's own r1_probe.py ran R13 (symlink component) on a stand-in, by rebinding R1_SOURCE, and ran R12 (changed bytes) by setting the private instance's R1_SHA to zeros. The lens's checked list already states this correctly. The R1 code is AST-identical in guard010 …"
+    }
+  ],
+  "totalTokens": 845408,
+  "totalToolCalls": 183
+}

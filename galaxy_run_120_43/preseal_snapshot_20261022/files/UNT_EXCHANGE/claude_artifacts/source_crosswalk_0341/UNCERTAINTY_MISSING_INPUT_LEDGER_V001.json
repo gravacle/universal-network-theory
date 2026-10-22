@@ -1,0 +1,160 @@
+{
+ "schema": "CLAUDE2_UNCERTAINTY_MISSING_INPUT_LEDGER_V001",
+ "task": "0341",
+ "states": "REVIEW-FLAGGED / REPORTED / NULL_UNKNOWN / LITERAL / QUARANTINED / MISSING / INFERENCE / OPEN / DECLARED",
+ "absence_scope": "Absence claims refer to the searched paths: Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ (incl. halogas_source_candidate/, external_ddo154_v001/), UNT_PROGRAM_CONTROL/, UNT_EXCHANGE/lanes and claude_artifacts.",
+ "items": [
+  {
+   "id": "U1",
+   "source": "S2",
+   "item": "outer 120-arcsec annulus 40.1426-48.1711 kpc",
+   "state": "REVIEW-FLAGGED",
+   "evidence": "43.66% of finite sky area is exact zero/replaced mask; \"The resulting small effective density must not be interpreted as a precise low physical density throughout that annulus.\" (PLANAR_SOURCE_RESULTS_REVIEW.md lines 99-101). Mask processing is not undone by spatial coverage (lines 101-103).",
+   "consequence": "Applies to queries at 40.14-44.08 kpc (2 queries). The review does not say \"unreliable\"; the 0339 inventory paraphrase \"outer annulus NOT reliable density\" is replaced by this wording. No threshold is set here."
+  },
+  {
+   "id": "U2",
+   "source": "S2",
+   "item": "annulus 32.11-40.14 kpc",
+   "state": "REPORTED, NOT FLAGGED",
+   "evidence": "zero/replaced fraction 0.0402 (review table); no caution sentence in the review",
+   "consequence": "No reliability class assigned; no invented threshold."
+  },
+  {
+   "id": "U3",
+   "source": "S2",
+   "item": "annuli 0-32.11 kpc",
+   "state": "REPORTED",
+   "evidence": "zero/replaced fraction 0 in all 120-arcsec rows",
+   "consequence": "Zero mask fraction is not a detection-completeness statement (SOURCE_PIXEL_REVIEW lines 82-87)."
+  },
+  {
+   "id": "U4",
+   "source": "S2",
+   "item": "geometric coverage vs reliable source support",
+   "state": "DISTINCT",
+   "evidence": "Complete aperture 136.48 kpc is image coverage only; \"Geometric coverage does not certify source association or detection completeness\" (PLANAR_DENSITY_REPRESENTATION_PROPOSAL.md line 23)",
+   "consequence": "Coverage must not be read as support."
+  },
+  {
+   "id": "U5",
+   "source": "S2",
+   "item": "measurement uncertainty",
+   "state": "NULL_UNKNOWN",
+   "evidence": "no noise, error or mask products in the release (searched halogas_source_candidate/ and HEADER_AUDIT.md); pb-corrected, non-uniform noise; descriptive scatter field is not an error",
+   "consequence": "Do not impute."
+  },
+  {
+   "id": "U6",
+   "source": "S2",
+   "item": "kinematics-dependent mask",
+   "state": "REDUCTION DEPENDENCY",
+   "evidence": "mask includes a moment-one velocity window; masked pixels set to 0 (0339 header audit; review lines 101-103)",
+   "consequence": "Retained signal depends on a kinematic selection; see EXPOSURE_REDUCTION_NOTE_V001.md."
+  },
+  {
+   "id": "U7",
+   "source": "S2",
+   "item": "exterior retained signal",
+   "state": "LEDGER",
+   "evidence": "19,869,054.80 Msun (0.1938%) outside the complete aperture, concentrated on one geometric half; source association not asserted (proposal line 23; construction review lines 44-46)",
+   "consequence": "Not redistributed; outside the query domain."
+  },
+  {
+   "id": "U8",
+   "source": "S2",
+   "item": "geometry",
+   "state": "DECLARED WORKING PLANE",
+   "evidence": "i 72, PA 215, de Blok centre; not a warp/tilted-ring solution (settings/geometry)",
+   "consequence": "Warp/thickness family MISSING (see U16)."
+  },
+  {
+   "id": "U9",
+   "source": "S1",
+   "item": "e=1.0 entries (HI rms; stars row 2)",
+   "state": "QUARANTINED",
+   "evidence": "ReadMe Note 3 \"1.0 = upper limit\" attached to e_SigmaHI and e_Sigma*; primary Appendix E not local",
+   "consequence": "Needs primary paper."
+  },
+  {
+   "id": "U10",
+   "source": "S1",
+   "item": "stars rows 16,18,19,20 e=0.0",
+   "state": "LITERAL, MEANING UNRESOLVED",
+   "evidence": "F5.1 resolution 0.1; rounding is a hypothesis",
+   "consequence": "No replacement error."
+  },
+  {
+   "id": "U11",
+   "source": "S1",
+   "item": "H2 rows 10-22",
+   "state": "MISSING",
+   "evidence": "absent, not zero",
+   "consequence": "Outer H2: no source found within searched paths."
+  },
+  {
+   "id": "U12",
+   "source": "S1",
+   "item": "ring correlation",
+   "state": "KNOWN STRUCTURE",
+   "evidence": "12-arcsec beam vs about 10-arcsec spacing; covariance null",
+   "consequence": "Do not treat rings as independent."
+  },
+  {
+   "id": "U13",
+   "source": "S1",
+   "item": "conversion systematics (X_CO, R21, M/L)",
+   "state": "NULL_UNKNOWN",
+   "evidence": "values known; uncertainties not given locally",
+   "consequence": "Common to all rows."
+  },
+  {
+   "id": "U14",
+   "source": "S3",
+   "item": "error column and kill flag",
+   "state": "UNDOCUMENTED",
+   "evidence": "error 0.001-0.445, unit/meaning not documented locally; kill = 1 in all rows including the two commented rows",
+   "consequence": "Semantics needed before any use."
+  },
+  {
+   "id": "U15",
+   "source": "S4",
+   "item": "rows beyond 21.42 kpc (11 rows, 23.37-42.84 kpc)",
+   "state": "INFERENCE",
+   "evidence": "no .sfb counterpart; index states only that \"some exponential profiles are extrapolated at large radii\"",
+   "consequence": "Keep \"likely extrapolation\" as inference. Queries 21.42-44.08 kpc (12) have no observed stellar profile; the 44.08 kpc query lies beyond the last .dens row."
+  },
+  {
+   "id": "U16",
+   "source": "all",
+   "item": "distance uncertainty; joint i/PA region; warp; vertical structure",
+   "state": "NULL_UNKNOWN / MISSING",
+   "evidence": "distance 13.8 Mpc without uncertainty (Leroy table4 has none; SPARC e_D not substitutable); Begeman outer inclinations rise toward 77 deg; Gentile 2013 thick-disk and warp tables not local",
+   "consequence": "Inputs needed before a final source model."
+  },
+  {
+   "id": "U17",
+   "source": "S1/S2/S5",
+   "item": "HI double counting",
+   "state": "OPEN",
+   "evidence": "same tracer observed by three products over 0.3-15.1 kpc",
+   "consequence": "A crosswalk rule (which product where) is a declared choice for root/principal; none made here."
+  },
+  {
+   "id": "U18",
+   "source": "S1/S3",
+   "item": "stellar conversion convention",
+   "state": "KNOWN DIFFERENCE",
+   "evidence": "fixed ratio 1.2568 between conventions; inclination 72 vs 73",
+   "consequence": "Not reconciled; no source chosen."
+  },
+  {
+   "id": "U19",
+   "source": "S3/S4",
+   "item": "conversion uncertainties",
+   "state": "NULL_UNKNOWN",
+   "evidence": "M_sun,3.6 and zero point given without uncertainty in the local docs",
+   "consequence": "Null."
+  }
+ ]
+}

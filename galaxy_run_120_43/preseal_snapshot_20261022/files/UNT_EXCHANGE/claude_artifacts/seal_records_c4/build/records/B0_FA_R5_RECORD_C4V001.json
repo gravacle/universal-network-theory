@@ -1,0 +1,96 @@
+{
+ "cases": {
+  "A1": {
+   "code": "ROUTE_A_CHECKPOINT_MISSING",
+   "r4_record_case": "ROUTE_A_CHECKPOINT_MISSING",
+   "r5_exit": 1,
+   "spec_sha256": "688373516b8f08d2d59619b565e6b3c4dd7de14cb34e00697de83dc7e4122ee0",
+   "status": "REFUSED",
+   "terminal_line": "Refusal: ROUTE_A_CHECKPOINT_MISSING: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_driver_v008_c4/verify/V8f_delta_lines_F-A_contract/fixtures/ckpt_empty/IDENTITY.json absent; admitted attempt cannot be paired (D1)",
+   "terminal_line_equal_after_T_r4_r5": true
+  },
+  "A2": {
+   "code": "ROUTE_A_CHECKPOINT_MISSING",
+   "r4_record_case": "ROUTE_A_CHECKPOINT_MISSING",
+   "r5_exit": 1,
+   "spec_sha256": "7d2db4b6c030fcd0bcd6ab1c0f17694214060c86dfe26cb5e1f2a878821e00dd",
+   "status": "REFUSED",
+   "terminal_line": "Refusal: ROUTE_A_CHECKPOINT_MISSING: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_driver_v008_c4/verify/V8f_delta_lines_F-A_contract/fixtures/ckpt_absent_never_created/IDENTITY.json absent; admitted attempt cannot be paired (D1)",
+   "terminal_line_equal_after_T_r4_r5": true
+  },
+  "A4": {
+   "code": "ROUTE_A_CHECKPOINT_MISSING",
+   "r4_record_case": "ROUTE_A_CHECKPOINT_MISSING",
+   "r5_exit": 1,
+   "spec_sha256": "d67a89e4d67c5416f959f5b0f6ccc44e7e6bde90a41c658f01c32106507a44ce",
+   "status": "REFUSED",
+   "terminal_line": "Refusal: ROUTE_A_CHECKPOINT_MISSING: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_driver_v008_c4/verify/V8f_delta_lines_F-A_contract/fixtures/ckpt_empty/IDENTITY.json absent; admitted attempt cannot be paired (D1)",
+   "terminal_line_equal_after_T_r4_r5": true
+  }
+ },
+ "derivation": "status/code from the r5 driver terminal line recorded by the r5 B0 run (rows FA_A1_NFP_EMPTY, FA_A2_NFP_ABSENT, FA_A4_CONV_EMPTY): re.match(r\"(\\w+): (\\w+)\") -> status REFUSED iff the first token is Refusal, code = the second token (the derivation of driver_r4/gates/write_gate_records_v007_c2v003.py); the r5 run executes the r5 driver in dry-run (simulate) mode; the refusal precedes any stage",
+ "driver": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+  "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+ },
+ "gate": "B0_FA",
+ "note": "B0_FA on the sealed driver v010 r5: the three R-A F-A specs end REFUSED (ROUTE_A_CHECKPOINT_MISSING) under r5. In the B0 plan-identity count these three rows are equal early failures (no plan evidence), listed under B0-EMPTY; that does not change the B0_FA reading, which is the refusal itself.",
+ "numbers_producer": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/gates/b0_r5_vs_r4_c2v001.py",
+  "sha256": "857ccb8a49e11314c7534b1651bfd316b5eab156b2f26b8b148fea385ef4ce5c"
+ },
+ "producer": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_records_c4/build/tools/build_records_c4v001.py",
+  "sha256": "139da4ce56a021df44bea70856863206bd10cfd0a7a7ff322bf9d9635dd9e66c"
+ },
+ "schema": "UNT_KMAX_TAIL_V007_GATE_RECORD_C2V002",
+ "sources": [
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/out/B0_R5_RUN_V001/B0_R5_VS_R4_C2V001.json",
+   "role": "B0_R5",
+   "sha256": "e10e6a584ab49083f24bf4fbb7d94a32ccb667c1c1c7e0e3ff3943ca1061f929",
+   "task_pinned": "e10e6a584ab49083f24bf4fbb7d94a32ccb667c1c1c7e0e3ff3943ca1061f929",
+   "use": "r5 terminal lines of the three FA specs"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/gates/b0_r5_vs_r4_c2v001.py",
+   "role": "B0_R5_TOOL",
+   "sha256": "857ccb8a49e11314c7534b1651bfd316b5eab156b2f26b8b148fea385ef4ce5c",
+   "use": "computing tool (numbers_producer)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+   "role": "R5_DRIVER",
+   "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "task_pinned": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "use": "sealed driver"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r4/out/GATE_RECORDS_R4_SCHEMA_C2V002/GATE_B0_FA.json",
+   "role": "R4_B0_FA_RECORD",
+   "sha256": "899a89e950929251dbdc144c4694260e91b0f5a6dca4e843694213c7221f426a",
+   "use": "r4 B0_FA record: the same three specs (cross-check)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r4/gates/write_gate_records_v007_c2v003.py",
+   "role": "R4_RECORD_WRITER",
+   "sha256": "9e9b6bb34e8b45f8c32d0e170c56ecc5d1da95823a592ece049d0dac835447c9",
+   "use": "derivation precedent"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r11/FIELDS_R11.md",
+   "role": "FIELDS_R11",
+   "sha256": "c7f0dec6ff1ae45dc242c69686e88ad73089a39e1b582e73650e6e18a7368cc5",
+   "task_pinned": "c7f0dec6ff1ae45dc242c69686e88ad73089a39e1b582e73650e6e18a7368cc5",
+   "use": "field contract"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0598_2026-10-18_claude4_B3_json_and_B0_family_records.md",
+   "role": "DISPATCH_0598",
+   "sha256": "da395935443317525ed72a42ae0cd7880897dc04fbec84e11a0429169dd33466",
+   "task_pinned": "da395935443317525ed72a42ae0cd7880897dc04fbec84e11a0429169dd33466",
+   "use": "assignment"
+  }
+ ],
+ "verdict": "PASS"
+}

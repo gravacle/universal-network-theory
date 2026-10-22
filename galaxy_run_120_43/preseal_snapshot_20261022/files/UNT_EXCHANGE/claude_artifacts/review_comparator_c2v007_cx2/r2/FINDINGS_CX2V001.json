@@ -1,0 +1,49 @@
+{
+  "blocking": 0,
+  "date_u": "Sun Oct 18 19:19:06 UTC 2026",
+  "findings": [
+    {
+      "behavior": "Exact rows_whole then judge accepts owned PASS_BITWISE_EQUAL reports with failing=[] when RESULT.pass is false, or RESULT is missing. The adapter discards checks before judging. Direct judge also accepts a missing failing field.",
+      "evidence": {
+        "negative_cases": [
+          "contradictory",
+          "missing_result_check"
+        ],
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/r2/selftest/units_20261018T191552_42398/ADAPTER_RESULTS.json",
+        "sha256": "9f96270c607530dbbb8c77af7273346be36f701d346118caff4110cdcc234273"
+      },
+      "id": "S2-R2-SF1",
+      "limit": "This is a selftest robustness boundary, not a comparator false PASS. The saved final summary satisfies its declared verdict/failing/owner contract; no inconsistent actual full report is alleged.",
+      "severity": "SHOULD_FIX_NONBLOCKING",
+      "status": "TESTED",
+      "suggestion": "Validate required check inventory and check/failing/verdict agreement in report adapters before projecting rows.",
+      "title": "Report adapter discards check-level consistency evidence"
+    },
+    {
+      "behavior": "The extracted final aggregation can return PASS with units={} while case/suite rosters pass. It checks values only for units supplied.",
+      "evidence": {
+        "observation": "missing_driver_unit",
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/r2/selftest/units_20261018T191530_40318/RESULTS.json",
+        "sha256": "c671f45be39f09b663deb0be0b4bf52c33a4753f0345a9dfe791b09a9acc1c07"
+      },
+      "id": "S2-R2-SF2",
+      "limit": "Current main deterministically assigns nine units, and all nine exact source-declared names are present and true in the saved full report. No missing actual saved unit is alleged.",
+      "severity": "SHOULD_FIX_NONBLOCKING",
+      "status": "TESTED_AST_BOUNDARY",
+      "suggestion": "Give S units an expected roster and exact membership/type checks, parallel to suite cases.",
+      "title": "Driver units lack a fixed expected roster in final aggregation"
+    },
+    {
+      "id": "R2-COMMAND-N1",
+      "limits": "Actual command was not run by Codex2; coordinator reports parent created and unchanged rerun. No comparator effect.",
+      "severity": "NONBLOCKING_COORDINATOR_NOTE",
+      "status": "SOURCE_REVIEWED_RUNTIME_ATTRIBUTED_TO_0608",
+      "suggestion": "Create parent exclusively as appropriate before leaf mkdir and report actual failure.",
+      "title": "Fresh command output parent is assumed to exist and mkdir error is mislabelled"
+    }
+  ],
+  "nonblocking_total": 3,
+  "scope": "Complete Codex2 c2v007r2 delta review",
+  "should_fix": 2,
+  "verdict": "PASS_WITH_FINDINGS"
+}

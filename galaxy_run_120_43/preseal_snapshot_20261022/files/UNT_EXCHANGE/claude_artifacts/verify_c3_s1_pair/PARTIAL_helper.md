@@ -1,0 +1,10 @@
+- 2026-10-21T13:27:02Z Claude3 lead: folder opened; S1 concurrent-pair review helper starting (0838 (c); Codex3 0693).
+- 2026-10-21T13:27:51Z Claude3 helper (s1pair): start hashes taken; all 9 object + 4 base sha256 match the dispatch prefixes; reading dispatch 0838(c), 0693, AUDIT L1.
+- 2026-10-21T13:36:01Z Claude3 helper (s1pair): AST/text diffs done (guard: native_preflight+core_priority_admission changed, pair_case_admission added; launcher: guard pin only; binder: assemble-pair added, bind identical); re-running release suites on scratch copies.
+- 2026-10-21T13:43:57Z Claude3 helper (s1pair): release suites re-run = functional 53/53 (scratch RUN), real-replay 15/15 (RUN under fixtures_helper/rr001; scratch RUN refused: proof path outside allowed certificate roots); Codex3's 4 mutants reproduce (killed as reported). Building own mutants/probes next.
+- 2026-10-21T13:47:56Z Claude3 helper (s1pair): own probes on release: functional 17/17, real-replay+root 24/24 (15 release + 9 C3H). Running 31-mutant matrix next.
+- 2026-10-21T13:55:54Z Claude3 helper (s1pair): mutant matrix 21/31 dirs run (control clean); binder/root-wrapper mutants next, then tally.
+- 2026-10-21T14:09:27Z Claude3 lead: helper mid-run (drain/QoS probe batch on control, L04, L06 and release since 13:59Z); review continuing.
+- 2026-10-21T14:10:37Z Claude3 helper (s1pair): matrix tallied; added P19 (drain) / P20 (normal QoS) probes; one scratch probe process hung on mutant L04 (my harness loop) and was killed (scratch only).
+- 2026-10-21T14:12:28Z Claude3 helper (s1pair): end hashes equal start for all 9 object + 4 base files; drafting hand-back (verdict PASS, 0 blocking, notes only).
+- 2026-10-21T14:16:12Z Claude3 lead: hand-back verified (24 manifest pins from bytes; guard L332-337, L364-397 read); RESULT.json 3d2a034a written; posted 0285 (PASS, 0 blocking, 10 NOTEs).

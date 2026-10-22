@@ -1,0 +1,116 @@
+{
+ "baseline": "TESTED 15/15 expected observations reproduce r2 defects; not correctness passes.",
+ "blocking_findings_on_v003": null,
+ "controls": [
+  {
+   "control": "Root-supplied byte-pinned JSON with exact entry-specific revised/no_change disposition and meaningful reason; exact content and hash carried into returned synthetic SEAL_RECORD.",
+   "expect": "PASS",
+   "id": "D05_POSITIVE"
+  },
+  {
+   "control": "Exact Codex3 bare A102 and changed A90 covered-list counterexamples.",
+   "expect": "REFUSE",
+   "id": "D05_BARE_ENTRY"
+  },
+  {
+   "control": "Required disposition reason missing, empty or whitespace only.",
+   "expect": "REFUSE",
+   "id": "D05_EMPTY_REASON"
+  },
+  {
+   "control": "Changed cited A90 marked no_change with nominal generic reason that does not name its change.",
+   "expect": "REFUSE",
+   "id": "D05_CHANGED_NOMINAL_REASON"
+  },
+  {
+   "control": "Disposition file bytes differ from expected digest.",
+   "expect": "REFUSE",
+   "id": "D05_PIN_TAMPER"
+  },
+  {
+   "control": "Changed cited entry explicitly accounted with changed-section identity and root disposition; no reviewer substitutes scientific decision.",
+   "expect": "PASS_IF_ALLOWED_CONTRACT",
+   "id": "D05_CHANGED_EXPLICIT_REASON"
+  },
+  {
+   "control": "Owned inert complete seal/config/15-source BUILD metadata, actual checker; no launcher.",
+   "expect": "PASS",
+   "id": "B8_POSITIVE"
+  },
+  {
+   "control": "Wrong sealed_by; absent sealed_by; driver=PENDING; stale driver SHA; frozen_addendum=[]; stale frozen SHA. Exact Codex3 mutations.",
+   "expect": "REFUSE_EACH",
+   "id": "B8_SIX_NEGATIVES"
+  },
+  {
+   "control": "Driver parser uses parse_int=str; cascade addendum parser uses native integer conversion with fail-closed ValueError. README must distinguish or source must substantiate revised claim.",
+   "expect": "MATCH_SOURCE",
+   "id": "README_PARSE_INT"
+  },
+  {
+   "control": "Frozen v003 source diff against pinned r2 limited to new names plus D05/B8/README scope; no author edits.",
+   "expect": "AUDITED",
+   "id": "DELTA_ONLY"
+  }
+ ],
+ "date_u": "Sun Oct 18 21:53:06 UTC 2026",
+ "observed_files": [
+  "PARTIAL.md",
+  "dev/build_seal_record_c4v003.py",
+  "dev/check_frozen_addendum_c4v003.py",
+  "dev/check_sealed_compare_c4v003.py",
+  "dev/check_slot_fill_c4v003.py",
+  "dev/print_driver_build_record_c4v003.py",
+  "dev/seal_common_c4v003.py",
+  "dev/tests/test_seal_tools_c4v003.py",
+  "fixtures/V005_ADDENDUM_READ_COPY_C4V003.md",
+  "tools/fence_c4v002.py",
+  "tools/run_fenced_c4st2.py"
+ ],
+ "pins": [
+  {
+   "bytes": 988,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0633_2026-10-18_claude4_seal_tools_v003_D05.md",
+   "sha256": "3b3e0d4a8be56e6a3a49d6aca3cb9e0c40f752481a96344e8ca7d0c7a3edb83b"
+  },
+  {
+   "bytes": 509,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0634_2026-10-18_claude4_v003_add_B8.md",
+   "sha256": "eda276080429e2bceba2925bf8485f8b8a73069b56aba5931e6f8cca99f489da"
+  },
+  {
+   "bytes": 671,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0638_2026-10-18_codex1_takes_v003_codex3_reserve.md",
+   "sha256": "cc02bdbc54d5a33da07c3629772564d2538083412a790ddc9f841d37e9e54fcb"
+  },
+  {
+   "bytes": 2924,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0637_2026-10-18_dispatch0628_seal_tools_r2_D05_blocker.md",
+   "sha256": "650d1c61025797e80445efd5de964e0980390b62c1f28529a1fcaba948ee3da0"
+  },
+  {
+   "bytes": 2252,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0639_2026-10-18_dispatch0628_seal_tools_r2_review_FAIL.md",
+   "sha256": "66e728d43d44ecc4c367d6b9f3ead94b57a521c78d1c68841cf5ab484ee56d9e"
+  },
+  {
+   "bytes": 7352,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/reproduce_r2_counterexamples_cx1v001.py",
+   "sha256": "9aecefd63b252034a6f33c375a866c4147d26338a7db91653e31cfc23e02f910"
+  },
+  {
+   "bytes": 3961,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/BASELINE_RESULTS_CX1V001.json",
+   "sha256": "fc452657a343f7f3b0a30f7ea132b5bef9267de18c01343b9e15f279caed2182"
+  },
+  {
+   "bytes": 4330,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/PARTIAL.md",
+   "sha256": "52c8195a031ce3ecc55b39362a8c30fc69b81a68a511ae43e8d5d8921798c690"
+  }
+ ],
+ "scope": "Review-only; own inert fixtures. No C5H/UVT run reads, target data, actual seal installation, real scientific compare or launch. Existing author files unchanged.",
+ "status": "PENDING_FROZEN_V003_PUBLICATION",
+ "v003": "UNTESTED: only PARTIAL.md and frozen read-copy observed; no published tools/manifest/README/tests.",
+ "verdict": "NO_FINAL_VERDICT"
+}

@@ -1,0 +1,1086 @@
+{
+ "schema": "RUN_IDENTITY_COMPARE_C2V007",
+ "gate": "Z2",
+ "driver_selected": "r5",
+ "driver_pin": [
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+  "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+ ],
+ "tail_on": true,
+ "ro1_requirement": "ARMED",
+ "declared_tail_off_records": false,
+ "require_ro1_armed_flag": false,
+ "masked_keys": [
+  "elapsed_seconds",
+  "ended_unix_ns",
+  "pid",
+  "started_unix_ns",
+  "utc",
+  "uv_tail",
+  "uv_tail_tap"
+ ],
+ "array_policy": "ARRAY_IDENTITY_C2V007: arrays are compared by raw file bytes (equal bytes first).  A declared .npy / .npz is parsed strictly (header dict literal through ast.parse: duplicate keys, non-literals and non-dicts FAIL before evaluation; NPZ members by ZipInfo; data before the first member FAILs; allow_pickle False).  The c2v006 identity tuple (descr as written, dtype.str, itemsize, structured fields, shape, fortran_order, value sha256, trailing sha256) is the parsed form.",
+ "declared_differ": [
+  [
+   "D01",
+   "start\\.json",
+   [
+    "CUSTODY_TOKEN",
+    "DECLARED_RULE",
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "MASKED_KEY",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D02",
+   "result\\.json",
+   [
+    "CUSTODY_TOKEN",
+    "DECLARED_RULE",
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "LEDGER_TOKEN",
+    "MASKED_KEY",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D03",
+   "finish\\.json",
+   [
+    "FILE_SHA",
+    "MASKED_KEY",
+    "RUN_PATH"
+   ]
+  ],
+  [
+   "D04",
+   "progress\\.jsonl",
+   [
+    "FILE_SHA",
+    "MASKED_KEY"
+   ]
+  ],
+  [
+   "D05",
+   "inputs/(fs|le[0-9])_manifest\\.json",
+   [
+    "FILE_SHA",
+    "RUN_PATH",
+    "STAGE_DIR"
+   ]
+  ],
+  [
+   "D06",
+   "inputs/galaxy_config_((columns|feedback|rotation)_v[0-9]{3}|column_mean_v[0-9]{3}_le[0-9])\\.json",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR"
+   ]
+  ],
+  [
+   "D07",
+   "stages/[a-z0-9_]+/request\\.json",
+   [
+    "CUSTODY_TOKEN",
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR"
+   ]
+  ],
+  [
+   "D08",
+   "stages/(fs_columns_[0-9]{2}|rfs_columns_[0-9]{2}|le[0-9]_columns_[0-9]{2})/columns/(column_[0-9]{4}|start|finish)\\.json",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "MASKED_KEY",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D09",
+   "stages/(fs|le[0-9])_feedback/feedback/((start|finish)\\.json|progress\\.jsonl)",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "MASKED_KEY",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR"
+   ]
+  ],
+  [
+   "D10",
+   "stages/(fs|le[0-9])_rotation/rotation/((start|finish)\\.json|progress\\.jsonl)",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "MASKED_KEY",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D11",
+   "stages/le[0-9]_column_mean/observation/result\\.json",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "RUN_PATH",
+    "STAGE_DIR"
+   ]
+  ],
+  [
+   "D12",
+   "stages/offset/offset/((start|finish)\\.json|progress\\.jsonl)",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "MASKED_KEY",
+    "RUN_PATH",
+    "STAGE_DIR",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D13",
+   "inputs/call_spec\\.json",
+   [
+    "DECLARED_RULE",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D14",
+   "inputs/galaxy_config_(body|offset|reference)\\.json",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR"
+   ]
+  ],
+  [
+   "D15",
+   "stages/(body/body|reference/reference)/((radius_[0-9]{4}|start|finish)\\.json|progress\\.jsonl)",
+   [
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "MASKED_KEY",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D16",
+   "stages/route_a/attempt_[0-9]{3}/((start|finish|result)\\.json|progress\\.jsonl)",
+   [
+    "CUSTODY_TOKEN",
+    "DECLARED_RULE",
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "LEDGER_TOKEN",
+    "MASKED_KEY",
+    "RA_SHA",
+    "RUN_PATH",
+    "STAGE_DIR",
+    "TAIL_KEY"
+   ]
+  ],
+  [
+   "D17",
+   "stages/route_a/checkpoint/IDENTITY\\.json",
+   [
+    "CUSTODY_TOKEN",
+    "DRIVER_TOKEN",
+    "FILE_SHA",
+    "RUN_PATH"
+   ]
+  ],
+  [
+   "D18",
+   "stages/route_a/checkpoint/iteration_[0-9]{4}/(COMPLETED|START|column_[0-9]{5})\\.json",
+   [
+    "FILE_SHA",
+    "RECORD_DROP"
+   ]
+  ]
+ ],
+ "comparator": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/run_identity_compare_c2v007.py",
+  "sha256": "06ff52d636c640ebe9a92a4b2cf54620a01514992019e2b2f2dca1529f7dc188"
+ },
+ "reference": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r5_I_missing_identity_both/REF",
+ "new": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r5_I_missing_identity_both/NEW",
+ "tokens": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r5_I_missing_identity_both/TOKENS.json",
+  "sha256": "ac29af653fa22ecc77e911332105fadc002cd1822e8021c8942cc33a66b666b7"
+ },
+ "auto_tokens_admitted": [
+  [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/parallel_route_a_c2/ddo_composite_stable_cached_root_worker_v002_parallel_c2v001.py",
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/ro1_readout_c2/ddo_composite_stable_cached_root_worker_v002_parallel_uvtail_ro1_c2v002_r5.py",
+   "<SCRIPT_ROUTE_A_PATH>",
+   "CUSTODY_TOKEN"
+  ],
+  [
+   "9dbdaf11eb80fd4fa8d47e8c0827eae51d06e87f05efdd6e5c11d422ecbd197a",
+   "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da",
+   "<SCRIPT_ROUTE_A_SHA>",
+   "CUSTODY_TOKEN"
+  ],
+  [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/parallel_route_a_c2/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_c2v001.py",
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py",
+   "<ROUTE_A_SOLVER>",
+   "CUSTODY_TOKEN"
+  ],
+  [
+   "aed4dd59b38bfe1043e0c38ad4592e4b6bb74c8c4bbee969a707a310926e6f58",
+   "7667025bd9382a58688153fde98bf90f2b67d27baa39a939982631c305c229db",
+   "<ROUTE_A_SOLVER_SHA256>",
+   "CUSTODY_TOKEN"
+  ],
+  [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/driver/galaxy_m0_forward_c2v009.py",
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+   "<DRIVER_PATH>",
+   "CUSTODY_TOKEN"
+  ],
+  [
+   "237ef3d41daf4d99b0aafed3e90b27b095a741a9f66ea06ea34f3e44876d47bb",
+   "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "<DRIVER_SHA256>",
+   "CUSTODY_TOKEN"
+  ]
+ ],
+ "attempt_tokens": [],
+ "declared_tokens_n": 28,
+ "expected_tail_off_request_sha256": null,
+ "tokens_fired": {
+  "reference": {
+   "<ROUTE_A_SOLVER>": 3,
+   "<ROUTE_A_SOLVER_SHA256>": 3,
+   "<RO1_BINDING_PATH>": 2,
+   "<RO1_BINDING_SHA>": 2,
+   "<RO1_FACADE_PATH>": 2,
+   "<RO1_FACADE_SHA>": 2,
+   "<SCRIPT_ROUTE_A_PATH>": 2,
+   "<SCRIPT_ROUTE_A_SHA>": 3,
+   "<DRV_SCRIPT_REFERENCE_PATH>": 1,
+   "<DRV_SCRIPT_REFERENCE_SHA>": 1,
+   "<DRIVER_SHA256>": 2,
+   "<DRIVER_PATH>": 1
+  },
+  "new": {
+   "<ROUTE_A_SOLVER>": 3,
+   "<ROUTE_A_SOLVER_SHA256>": 3,
+   "<RO1_BINDING_PATH>": 2,
+   "<RO1_BINDING_SHA>": 3,
+   "<RO1_FACADE_PATH>": 2,
+   "<RO1_FACADE_SHA>": 2,
+   "<SCRIPT_ROUTE_A_PATH>": 2,
+   "<SCRIPT_ROUTE_A_SHA>": 4,
+   "<DRV_SCRIPT_REFERENCE_PATH>": 1,
+   "<DRV_SCRIPT_REFERENCE_SHA>": 1,
+   "<DRIVER_SHA256>": 2,
+   "<DRIVER_PATH>": 1
+  }
+ },
+ "classes_fired_by_entry": {
+  "D01": [
+   "CUSTODY_TOKEN"
+  ],
+  "D02": [
+   "CUSTODY_TOKEN",
+   "DECLARED_RULE",
+   "DRIVER_TOKEN",
+   "TAIL_KEY"
+  ],
+  "D03": [
+   "FILE_SHA",
+   "RUN_PATH"
+  ],
+  "D07": [
+   "CUSTODY_TOKEN",
+   "DRIVER_TOKEN",
+   "FILE_SHA",
+   "RUN_PATH",
+   "STAGE_DIR"
+  ],
+  "D16": [
+   "CUSTODY_TOKEN",
+   "DRIVER_TOKEN",
+   "FILE_SHA",
+   "RUN_PATH",
+   "STAGE_DIR",
+   "TAIL_KEY"
+  ],
+  "D17": [
+   "CUSTODY_TOKEN",
+   "DRIVER_TOKEN",
+   "FILE_SHA",
+   "RUN_PATH"
+  ],
+  "D18": [
+   "RECORD_DROP"
+  ]
+ },
+ "roundtrip": {
+  "reference": [
+   172,
+   172
+  ],
+  "new": [
+   258,
+   258
+  ]
+ },
+ "checks": {
+  "BYTES_EQUAL": {
+   "pass": true,
+   "detail": {
+    "rule": "A74: every file of both trees compared by raw sha256; only the closed DECLARED_DIFFER list may differ (then compared semantically); a file on one side only FAILs unless it is a declared new-only or attempt-ledger file",
+    "files_both_sides": 13,
+    "equal_bytes": 6,
+    "declared_differing": 7,
+    "declared_differing_by_entry": {
+     "D01": 1,
+     "D02": 1,
+     "D03": 1,
+     "D07": 2,
+     "D16": 1,
+     "D17": 1
+    },
+    "undeclared_differing": [],
+    "n_undeclared_differing": 0,
+    "reference_only": [],
+    "new_only_undeclared": [],
+    "new_only_declared": 4,
+    "attempt_ledger_files": 0
+   }
+  },
+  "STAGE_SET": {
+   "pass": true,
+   "detail": {
+    "reference_problems": [],
+    "new_problems": [],
+    "order_reference": [
+     "route_a",
+     "reference"
+    ],
+    "order_new": [
+     "route_a",
+     "route_a_tail_manifest",
+     "reference"
+    ],
+    "order_equal_after_declared_extras": true,
+    "declared_extra_stages": {
+     "route_a_tail_manifest": {
+      "count": 1,
+      "immediately_after_route_a": true
+     }
+    }
+   }
+  },
+  "TOKENS_POLICY": {
+   "pass": true,
+   "detail": {
+    "derivation_problems": [],
+    "n_supplied": 28,
+    "n_derived": 28,
+    "A59_base_on_new_side": [],
+    "A59_successor_missing_on_new_side": [],
+    "defects": [],
+    "reasons": [],
+    "reference_driver": [
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/driver/galaxy_m0_forward_c2v009.py",
+     "237ef3d41daf4d99b0aafed3e90b27b095a741a9f66ea06ea34f3e44876d47bb",
+     true
+    ]
+   }
+  },
+  "AUTO_CUSTODY": {
+   "pass": true,
+   "detail": {
+    "reference_driver": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/driver/galaxy_m0_forward_c2v009.py",
+     "sha256": "237ef3d41daf4d99b0aafed3e90b27b095a741a9f66ea06ea34f3e44876d47bb",
+     "declared_and_verified_from_bytes": true,
+     "tables": [
+      "AUX",
+      "PARALLEL_ROUTE_A",
+      "SCRIPTS"
+     ]
+    },
+    "pairs": [
+     {
+      "stage": "reference",
+      "kind": "reference",
+      "what": "script",
+      "reference": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/stages/ddo_homotopy_reference_root_worker_v001_gal_c2v005.py",
+       "cdf155e8161a89fd78518bbe048fae2b8114a5fb04b0fb770c30a8502308eb7f"
+      ],
+      "new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/driver_r4/route_b/ddo_homotopy_reference_root_worker_v001_gal_c2v005_uvt_c2v003_r5.py",
+       "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642"
+      ],
+      "expected_reference": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/stages/ddo_homotopy_reference_root_worker_v001_gal_c2v005.py",
+       "cdf155e8161a89fd78518bbe048fae2b8114a5fb04b0fb770c30a8502308eb7f"
+      ],
+      "expected_new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/driver_r4/route_b/ddo_homotopy_reference_root_worker_v001_gal_c2v005_uvt_c2v003_r5.py",
+       "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642"
+      ],
+      "admitted": true
+     },
+     {
+      "stage": "route_a",
+      "kind": "route_a",
+      "what": "script",
+      "reference": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/parallel_route_a_c2/ddo_composite_stable_cached_root_worker_v002_parallel_c2v001.py",
+       "9dbdaf11eb80fd4fa8d47e8c0827eae51d06e87f05efdd6e5c11d422ecbd197a"
+      ],
+      "new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/ro1_readout_c2/ddo_composite_stable_cached_root_worker_v002_parallel_uvtail_ro1_c2v002_r5.py",
+       "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+      ],
+      "expected_reference": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/parallel_route_a_c2/ddo_composite_stable_cached_root_worker_v002_parallel_c2v001.py",
+       "9dbdaf11eb80fd4fa8d47e8c0827eae51d06e87f05efdd6e5c11d422ecbd197a"
+      ],
+      "expected_new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/ro1_readout_c2/ddo_composite_stable_cached_root_worker_v002_parallel_uvtail_ro1_c2v002_r5.py",
+       "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+      ],
+      "admitted": true
+     },
+     {
+      "stage": "route_a",
+      "what": "solver",
+      "reference": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/parallel_route_a_c2/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_c2v001.py",
+       "aed4dd59b38bfe1043e0c38ad4592e4b6bb74c8c4bbee969a707a310926e6f58"
+      ],
+      "new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py",
+       "7667025bd9382a58688153fde98bf90f2b67d27baa39a939982631c305c229db"
+      ],
+      "expected_reference": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/parallel_route_a_c2/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_c2v001.py",
+       "aed4dd59b38bfe1043e0c38ad4592e4b6bb74c8c4bbee969a707a310926e6f58"
+      ],
+      "expected_new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py",
+       "7667025bd9382a58688153fde98bf90f2b67d27baa39a939982631c305c229db"
+      ],
+      "admitted": true
+     },
+     {
+      "what": "driver",
+      "reference": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/driver/galaxy_m0_forward_c2v009.py",
+       "237ef3d41daf4d99b0aafed3e90b27b095a741a9f66ea06ea34f3e44876d47bb"
+      ],
+      "new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+       "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+      ],
+      "expected_new": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+       "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+      ],
+      "admitted": true
+     }
+    ],
+    "inadmissible": [],
+    "grouped_labels": {},
+    "skipped_as_declared": 2
+   }
+  },
+  "ATTEMPT_LEDGER": {
+   "pass": true,
+   "detail": {
+    "directories": {},
+    "tokens": [],
+    "differing": []
+   }
+  },
+  "INVENTORY": {
+   "pass": true,
+   "detail": {
+    "n_files": [
+     13,
+     17
+    ],
+    "n_dirs": [
+     10,
+     12
+    ],
+    "reference_only": [],
+    "n_reference_only": 0,
+    "new_only_undeclared": [],
+    "n_new_only_undeclared": 0,
+    "new_only_declared": {
+     "driver L1091 ctx.write_input(uv_tail_config.json)": {
+      "n": 1,
+      "first": [
+       "inputs/uv_tail_config.json"
+      ]
+     },
+     "driver L1092 ctx.write_input(uv_tail_route_a_request.json)": {
+      "n": 1,
+      "first": [
+       "inputs/uv_tail_route_a_request.json"
+      ]
+     },
+     "driver AUX_UVT manifest_writer outputs": {
+      "n": 1,
+      "first": [
+       "stages/route_a_tail_manifest/manifest/ROUTE_A_TAIL_MANIFEST.json"
+      ]
+     },
+     "driver L2919-2941 (stage route_a_tail_manifest)": {
+      "n": 1,
+      "first": [
+       "stages/route_a_tail_manifest/request.json"
+      ]
+     }
+    },
+    "directories_reference_only": [],
+    "directories_new_only_undeclared": [],
+    "symlinks": {
+     "reference": [],
+     "new": []
+    },
+    "special_files": {
+     "reference": [],
+     "new": []
+    },
+    "canonical_path_collisions": {
+     "reference": [],
+     "new": []
+    }
+   }
+  },
+  "NEW_DRIVER_PIN": {
+   "pass": true,
+   "detail": {
+    "selected": "r5",
+    "pin": [
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+     "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+    ],
+    "start_json": [
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+     "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+    ],
+    "result_json_driver_sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+   }
+  },
+  "SCRIPT_CUSTODY": {
+   "pass": true,
+   "detail": {
+    "rule": "A59: every new stage runs the driver-planned script for gate Z2, hashed from bytes",
+    "stages": {
+     "route_a": {
+      "kind": "route_a",
+      "script_sha256": "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da",
+      "planned_sha256": "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da",
+      "ok": true
+     },
+     "route_a_tail_manifest": {
+      "kind": "route_a_tail_manifest",
+      "script_sha256": "44b31a8b8a91bf7ff67426a1def0b441f4e6d6dc69d00474892883f68ca93b33",
+      "planned_sha256": "44b31a8b8a91bf7ff67426a1def0b441f4e6d6dc69d00474892883f68ca93b33",
+      "ok": true
+     },
+     "reference": {
+      "kind": "reference",
+      "script_sha256": "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642",
+      "planned_sha256": "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642",
+      "ok": true
+     }
+    },
+    "violations": []
+   }
+  },
+  "RA_BLOBS": {
+   "pass": true,
+   "detail": {
+    "n": [
+     1,
+     1
+    ],
+    "differing": []
+   }
+  },
+  "RA_RECORDS": {
+   "pass": true,
+   "detail": {
+    "n": [
+     1,
+     1
+    ],
+    "differing": []
+   }
+  },
+  "RA_PINSET": {
+   "pass": true,
+   "detail": {
+    "reference_only": [],
+    "new_only": [
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001_r5.py",
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py",
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+     "<RUN>/inputs/uv_tail_route_a_request.json"
+    ],
+    "expected_new_only": [
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001_r5.py",
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py",
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+     "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+     "<RUN>/inputs/uv_tail_route_a_request.json"
+    ],
+    "value_mismatch": []
+   }
+  },
+  "RA_IDENTITY": {
+   "pass": true,
+   "detail": {
+    "compared": "the whole checkpoint identity body (caller decoded; code, controls, environment, fixed_source, format, inputs, shapes); identity_sha256 and caller.sha256 verified per side as the checkpoint module digests of that body",
+    "differing": [],
+    "pin_violations": [],
+    "declared_new_only_pins": [
+     {
+      "at": "IDENTITY/identity/caller/code_pins",
+      "declared_new_only": [
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001_r5.py",
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py",
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+       "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+       "<RUN>/inputs/uv_tail_route_a_request.json"
+      ]
+     }
+    ],
+    "digests": {
+     "reference": {
+      "identity_sha256_is_digest_of_identity": true,
+      "caller_sha256_is_digest_of_caller": true,
+      "top_level_keys_registered_and_equal_both_sides": true,
+      "caller_keys_registered_and_equal_both_sides": true
+     },
+     "new": {
+      "identity_sha256_is_digest_of_identity": true,
+      "caller_sha256_is_digest_of_caller": true,
+      "top_level_keys_registered_and_equal_both_sides": true,
+      "caller_keys_registered_and_equal_both_sides": true
+     }
+    },
+    "masked_key_paths_equal": true
+   }
+  },
+  "UV_TAIL_RECORD": {
+   "pass": true,
+   "detail": {
+    "record_present": true,
+    "enabled_true": true,
+    "config_is_inputs_file_from_bytes": true,
+    "request_is_inputs_file_from_bytes": true,
+    "manifest_is_stage_file_from_bytes": true,
+    "admissibility_test_only": true,
+    "test_only_flag": true,
+    "certificates_test_only": true,
+    "route_a_argv_equals_driver_block": true,
+    "truncation_argv_null_or_json": true
+   }
+  },
+  "MANIFEST_STAGE": {
+   "pass": true,
+   "detail": {
+    "script": true,
+    "kind_and_name": true,
+    "argv": true
+   }
+  },
+  "REQUEST": {
+   "pass": true,
+   "detail": {
+    "requests_compared": 2,
+    "differing": [],
+    "tail_blocks_inserted": {
+     "reference": [
+      "--uv-tail-config",
+      "<RUN>/inputs/uv_tail_config.json",
+      "--uv-tail-config-sha256",
+      "<SHA:28:F:inputs/uv_tail_config.json>",
+      "--uv-tail-admit-test-only",
+      "--route-a-tail-manifest",
+      "<RUN>/stages/<STAGE:route_a_tail_manifest>/manifest/ROUTE_A_TAIL_MANIFEST.json",
+      "--route-a-tail-manifest-sha256",
+      "<SHA:66:F:stages/route_a_tail_manifest/manifest/ROUTE_A_TAIL_MANIFEST.json>"
+     ],
+     "route_a": [
+      "--uv-tail-config",
+      "<RUN>/inputs/uv_tail_route_a_request.json",
+      "--uv-tail-config-sha256",
+      "<SHA:37:F:inputs/uv_tail_route_a_request.json>",
+      "--eps-certificate",
+      "NONE_TEST_ONLY",
+      "--eps-certificate-sha256",
+      "NONE_TEST_ONLY",
+      "--lo-certificate",
+      "NONE_TEST_ONLY",
+      "--lo-certificate-sha256",
+      "NONE_TEST_ONLY",
+      "--uv-tail-sidecar-directory",
+      "<RUN>/stages/<STAGE:route_a>/uv_tail_sidecar"
+     ]
+    }
+   }
+  },
+  "STAGE_RECORDS": {
+   "pass": true,
+   "detail": {
+    "present": [
+     false,
+     false
+    ],
+    "violations": []
+   }
+  },
+  "RESULT": {
+   "pass": true,
+   "detail": {
+    "differing": [],
+    "declared_rules_applied": [
+     {
+      "path": "/normalized_spec/label",
+      "rule": "MASK",
+      "present": [
+       false,
+       false
+      ],
+      "why": "spec label (custody text)",
+      "values": [
+       null,
+       null
+      ],
+      "ok": true
+     },
+     {
+      "path": "/stage_records",
+      "rule": "COVERED",
+      "present": [
+       false,
+       false
+      ],
+      "why": "request copies plus execution fields",
+      "covered_by": "STAGE_RECORDS + REQUEST",
+      "ok": true
+     },
+     {
+      "path": "/route_a_outcome/ro1",
+      "rule": "NEW_ONLY_OR_EQUAL",
+      "present": [
+       false,
+       true
+      ],
+      "why": "RO1 block (checked by RO1; exact key set, SF1)",
+      "key_set_exact": true,
+      "ok": true
+     },
+     {
+      "path": "/identity/route_a/outcome/ro1",
+      "rule": "NEW_ONLY_OR_EQUAL",
+      "present": [
+       false,
+       false
+      ],
+      "why": "RO1 block (checked by RO1; equals route_a_outcome.ro1; exact key set, SF1)",
+      "ok": true
+     },
+     {
+      "path": "/identity/route_a/implementation/kind",
+      "rule": "PAIR",
+      "present": [
+       false,
+       false
+      ],
+      "why": "driver L2872-2878 implementation kind",
+      "values": [
+       null,
+       null
+      ],
+      "ok": true
+     }
+    ],
+    "rule_violations": [],
+    "pin_violations": [],
+    "ro1_blocks_equal": true,
+    "status": [
+     "COMPLETED",
+     "COMPLETED"
+    ],
+    "masked_key_paths_equal": true,
+    "masked_key_paths": null
+   }
+  },
+  "FILES_INPUTS": {
+   "pass": true,
+   "detail": {
+    "compared": 1,
+    "by_kind": {
+     "equal_bytes": 1,
+     "declared_semantic": 0
+    },
+    "differing": [],
+    "n_differing": 0
+   }
+  },
+  "FILES_TOP": {
+   "pass": true,
+   "detail": {
+    "compared": 2,
+    "by_kind": {
+     "equal_bytes": 0,
+     "declared_semantic": 2
+    },
+    "differing": [],
+    "n_differing": 0,
+    "declared_rules_applied": [
+     {
+      "file": "start.json",
+      "rules": [
+       {
+        "path": "/normalized_spec/label",
+        "rule": "MASK",
+        "present": [
+         false,
+         false
+        ],
+        "why": "spec label (custody text)",
+        "values": [
+         null,
+         null
+        ],
+        "ok": true
+       }
+      ]
+     }
+    ],
+    "declared_new_only_pins": [
+     [
+      {
+       "at": "stages/route_a/attempt_000/start.json/input_pins",
+       "declared_new_only": [
+        "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001_r5.py",
+        "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py",
+        "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+        "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+        "<RUN>/inputs/uv_tail_route_a_request.json"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "FILES_ROUTE_A": {
+   "pass": true,
+   "detail": {
+    "compared": 2,
+    "by_kind": {
+     "equal_bytes": 1,
+     "declared_semantic": 1
+    },
+    "differing": [],
+    "n_differing": 0
+   }
+  },
+  "STAGES": {
+   "pass": true,
+   "detail": {
+    "compared": 2,
+    "by_kind": {
+     "equal_bytes": 1,
+     "declared_semantic": 1
+    },
+    "differing": [],
+    "n_differing": 0
+   }
+  },
+  "RO1": {
+   "pass": true,
+   "detail": {
+    "new_ro1": {
+     "armed": true,
+     "binding_sha256": "86af6198045ee6995daa7b57e78570643ddbd9edcc0eba42e2fdc816897ca885",
+     "events": [],
+     "fired": false,
+     "rule": "RO1",
+     "worker_sha256": "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+    },
+    "expected_worker_sha256": "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da",
+    "expected_binding_sha256": "86af6198045ee6995daa7b57e78570643ddbd9edcc0eba42e2fdc816897ca885",
+    "key_set_exact": true,
+    "registered_keys": [
+     "armed",
+     "binding_sha256",
+     "events",
+     "fired",
+     "rule",
+     "worker_sha256"
+    ],
+    "route_a_column_workers": 8
+   }
+  },
+  "RO1_CUSTODY": {
+   "pass": true,
+   "detail": {
+    "declared_entries_present": {
+     "worker_path": true,
+     "worker_sha256": true,
+     "binding_path": true,
+     "binding_sha256": true,
+     "facade_path": true,
+     "facade_sha256": true
+    },
+    "reference_side_is_reference_pin": {
+     "binding": true,
+     "facade": true
+    },
+    "new_attempt_pins": {
+     "binding": true,
+     "facade": true,
+     "worker_pin": true,
+     "request_script": true
+    }
+   }
+  },
+  "CROSS_RUN_REFERENCE": {
+   "pass": true,
+   "detail": {
+    "rule": "no file of one run contains the other run root (byte scan)",
+    "new_files_naming_reference_root": [],
+    "reference_files_naming_new_root": []
+   }
+  },
+  "DECLARED_CLASSES": {
+   "pass": true,
+   "detail": {
+    "rule": "a normalization class may fire only in a file whose declared entry allows it",
+    "violations": [],
+    "n": 0
+   }
+  },
+  "COVERAGE": {
+   "pass": true,
+   "detail": {
+    "files_both_sides": 13,
+    "not_compared": [],
+    "new_only_declared_parsed": 4,
+    "note": "every both-side file is compared: equal bytes, or a declared file compared semantically"
+   }
+  },
+  "STRICT_PARSE": {
+   "pass": true,
+   "detail": {
+    "rule": "duplicate JSON members (equal values too), duplicate NPY header keys, duplicate / non-.npy NPZ members, data before the first NPZ member, unparseable JSON / JSONL / NPZ / NPY: all FAIL (A71, A74)",
+    "partial_after_exception": false,
+    "reference": [],
+    "new": [],
+    "n": [
+     0,
+     0
+    ],
+    "files_parsed": [
+     9,
+     13
+    ]
+   }
+  },
+  "PARSE_SURFACE": {
+   "pass": true,
+   "detail": {
+    "rule": "only declared files are parsed; only regular files of the tree are opened (A74)",
+    "partial_after_exception": false,
+    "violations": [],
+    "n": [
+     0,
+     0
+    ]
+   }
+  },
+  "NORM_INJECTIVE": {
+   "pass": true,
+   "detail": {
+    "rule": "normalization is injective: one-pass replacement with self-delimiting outputs and every other \"<\" escaped; each normalized string decodes back to its raw string; raw text with normalizer output, many-to-one sha tokens and any non-bijective token relation FAIL",
+    "partial_after_exception": false,
+    "reference": [],
+    "new": [],
+    "n": [
+     0,
+     0
+    ],
+    "tokens": [],
+    "roundtrip_ok_of_strings": {
+     "reference": [
+      172,
+      172
+     ],
+     "new": [
+      258,
+      258
+     ]
+    },
+    "roundtrip_failures": []
+   }
+  },
+  "NO_LAST_WINS": {
+   "pass": true,
+   "detail": {
+    "rule": "A71: every list-to-mapping site rejects duplicates (BUILD.md A71 table)",
+    "partial_after_exception": false,
+    "hits": []
+   }
+  },
+  "TREE_STABLE": {
+   "pass": true,
+   "detail": {
+    "rule": "each file hashed once (stream) and a declared file parsed from bytes whose sha equals it; every recorded file re-hashed at the end",
+    "partial_after_exception": false,
+    "files_recorded": [
+     13,
+     17
+    ],
+    "changed": []
+   }
+  }
+ },
+ "verdict": "PASS_BITWISE_EQUAL",
+ "failing": [],
+ "comparator_sha256_at_end": "06ff52d636c640ebe9a92a4b2cf54620a01514992019e2b2f2dca1529f7dc188"
+}

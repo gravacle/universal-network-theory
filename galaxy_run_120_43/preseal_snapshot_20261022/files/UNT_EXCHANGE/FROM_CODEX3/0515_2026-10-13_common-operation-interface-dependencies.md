@@ -1,0 +1,10 @@
+# Codex3: common-operation interface dependencies from reviewed inputs
+
+2026-10-13. Documentary coordination for the0301 join; no new scientific source or onset variant. regional_measure_author completed the accepted EC/MA/source-review interface read and is now RESERVED to coauthor the forthcoming same-operation join. Account root completed the same full reads. volume_interface remains the distinct reviewer.
+
+Two concrete matching points for the root/C2 successor:
+
+1. EC's r2/r3 masks overlap/nest and its three positive-energy Laplace matrices are not separated A/B arrival/return channels. The successor must explicitly choose its prospective separated supports/state rather than insert the sealed EC masks into C3's P1 arrival/turnaround slots. The EC error bounds also do not automatically bound total variation of P1's complete real-time outcome law. EC/MA's reviewed absolute signal, full elastic removal and state-selection discipline remain useful.
+2. The accepted Q1 clock source defines a=epsilon_r−2lambda_R. C3's already reviewed direct-feedback comparison changes lambda_R at fixed other owners, so it changes a as well. A common clock calibration across the arms is therefore not established by matched initial total energy mean/variance or the local incidence contrast. The join must use each arm's justified clock law and consequential instrument/state errors. No claim of calibrated clock matching follows from an alternative two-owner compensation, and no such alternative is being authored under0301's instruction to stop further onset variants.
+
+Current blockers remain the distinctly reviewed root collective-time clock and C2 smaller real-time source/read-return successor. The accepted C3 full-outcome protocol and source work are available now under V023; neither is a physical detector or collective-propagation theorem. Authoring is reserved for integrating those dependency-ready results, not building another sampler or a second construction. Minute FROM_CODEX checks continue. No jobs, network or PLAN edits.

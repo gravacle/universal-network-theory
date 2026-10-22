@@ -1,0 +1,98 @@
+{
+  "schema": "CERTIFICATE_REVIEW_CX3V001",
+  "verdict": "PASS_WITH_FINDINGS",
+  "date_u": "Sun Oct 18 12:58:54 UTC 2026",
+  "utc": "2026-10-18T13:00:59.728718+00:00",
+  "scope": "0529 certificate-only cross-lineage review. Existing certificate bytes, saved permitted C4R3/T120L inputs and synthetic arithmetic. P128 coverage primary; P64 coverage supporting.",
+  "not_launch_authorization": true,
+  "source_build_or_scientific_run_started": false,
+  "forbidden_run_reads": false,
+  "NGC_observed_or_target_reads": false,
+  "reviewed_evidence": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_certs_gates_cx3/certificates/EPS_REVIEW_V002.json",
+      "sha256": "8abd8df09b9e00605849e6bfd42989365b56dae5887915ca4e8dbd9ff41cba5b",
+      "bytes": 5492
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_certs_gates_cx3/certificates/LO_REVIEW_V001.json",
+      "sha256": "3ae15c71cb1c94091f44be756e4ca9e10b150180213c97785d187d847c8d1056",
+      "bytes": 5972
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_certs_gates_cx3/certificates/I1T_NGC_REVIEW_V001.json",
+      "sha256": "7c603813f1a3ef5a3f71fd088a72fb318b7ac31d36c2e8358f51f168923fb798",
+      "bytes": 6357
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_certs_gates_cx3/certificates/GQ_REVIEW_V001.json",
+      "sha256": "f3bfa6f99440dc44c3cb1817faafed70e60ed9f194b66f9af121003462944e5d",
+      "bytes": 25832
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_certs_gates_cx3/certificates/LO_NGC_READOUT_REVIEW_V001.json",
+      "sha256": "ce07802fd04f24c1c37be874f548abdc28b614131e8a65ce35a80e958a1c122f",
+      "bytes": 2640
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_certs_gates_cx3/certificates/CONTRACT_AND_LO_RHO_REVIEW_V001.json",
+      "sha256": "8bbb70a13fa9468570b377802d61ddff6a1e2b4ceb7cac3a9e38bdbf947928bf",
+      "bytes": 5664
+    }
+  ],
+  "findings": [
+    {
+      "id": "CX3-C1",
+      "classification": "FIELD_SEMANTICS",
+      "status": "TESTED",
+      "owner": "Claude2 certificate consumers",
+      "finding": "EPS CERTIFIED satisfies the recorded registered refinement rule. Correct envelope estimates are published separately. For first3 shells eps and eps_max represent actual-set estimates, not the cardinal-torus envelope.",
+      "deciding_step": "A consumer requiring the full torus-envelope bound must use eps_envelope / envelope_bound.eps_max_envelope_all_shells (or max of actual/envelope), not the low-shell eps alone."
+    },
+    {
+      "id": "CX3-C2",
+      "classification": "NUMERICAL_QUALIFICATION",
+      "status": "TESTED",
+      "owner": "Claude2 scientific acceptance",
+      "finding": "Search results are numerical maximum estimates. At shell300 the independent value exceeds the record by1.52264e-8 relative (5.55e-16 absolute). No rigorous global upper-bound proof is furnished.",
+      "deciding_step": "Retain numerical-estimate labeling and the registered acceptance convention; do not promote these to proved suprema."
+    },
+    {
+      "id": "CX3-C3",
+      "classification": "CONDITIONAL_ADMISSION_GAP",
+      "status": "UNTESTED",
+      "owner": "Claude2 certificate build/admission",
+      "finding": "LO V002 is built from the saved C4R3 le3 source at M_s64. Changing to M_s128 changes S_T, hence its absolute shell integral. The recorded bound has no demonstrated mathematical transfer to M_s128, even though M_s128 GQ passes.",
+      "deciding_step": "Before using this LO record to qualify a different M_s128 source, recompute matched-source LO integrals or supply a certified bound on their difference. This is not a failure of the reviewed Ms64 arithmetic."
+    },
+    {
+      "id": "CX3-C4",
+      "classification": "READOUT_SCOPE",
+      "status": "TESTED",
+      "owner": "Claude2 LO_NGC interpretation",
+      "finding": "Non-lapse share of lnN is zero for valid metric evaluations. Non-lapse changes can still fail SPD/other guards; zero share is not unconditional admission.",
+      "deciding_step": "Preserve valid-metric qualification. Synthetic invalid-SPD control is correctly refused."
+    },
+    {
+      "id": "CX3-C5",
+      "classification": "I1T_SCOPE",
+      "status": "UNTESTED",
+      "owner": "Claude2 source/readout admission",
+      "finding": "Honest NGC I1-T certifies stored T120L iteration-zero represented stars+H2+initialHI only. Continuum tail-source representation and downstream consumer enforcement are not tested by this review.",
+      "deciding_step": "Retain exact scope and require any separately registered continuum/source admission evidence before making that different claim."
+    }
+  ],
+  "verdict_meaning": "Requested independent checks reproduce claimed numerical quantities within stated precision and confirm GQ negative/positive controls. This does not certify an entire P128 production stack or transfer Ms64 LO to Ms128.",
+  "coverage": {
+    "required_P128": 362.03867196751236,
+    "required_P64": 181.01933598375618,
+    "EPS_LO_end": 363.0,
+    "GQ": "GQ labels reach362 but generator samples a cylinder with k_perp and |k_z| up to362; it therefore contains the physical cylinder256. Do not interpret362 as a spherical truncation."
+  },
+  "errors_corrected_without_overwrite": [
+    "Initial LO helper refused platform metadata subprocess before creation. Immutable successor uses direct libm J0 with no subprocess.",
+    "EPS V001 blind search missed high-shell global candidate. V002 adds own low-shell optimum as a high-shell start; prior files retained.",
+    "LO blind rho search found a smaller local maximum. Supplement independently evaluates producer extremum and locally attempts to refute it; no claim of rigorous global supremum."
+  ],
+  "peak_rss_bytes": 314474496
+}

@@ -1,0 +1,35 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Importer incomplete; inert A226 comparator baseline established",
+  "utc": "2026-10-21T13:04:46.917653+00:00",
+  "tested": [
+    "Pinned envelope comparator: 10 inert cases passed (unchanged, changed SHA/mtime/ctime/inode/size, missing pin, foreign phase, wrong label, foreign pinset). No referenced input opened; fabricated manifests only."
+  ],
+  "untested": [
+    "Single-read importer envelope integration",
+    "Root authorization and complete coverage of envelope inputs",
+    "Explicit layout across acceptance producer dependency chain",
+    "Register/runtime/wait/cache integration and whole-engine replay"
+  ],
+  "finding": "A consumer-only path alias is insufficient: acceptance production also assumes campaign layout. Use an explicit layout binding across producer and consumers, preserving actual spec, receipt and result paths. Do not fabricate wave directories or silently reinterpret an existing acceptance record.",
+  "blocking": [
+    "I1 entry/executor/cache/wait integration remains incomplete",
+    "I2 direct-layout acceptance producer and consumer binding remains incomplete",
+    "I3 authenticated runtime/environment/envelope/speculative register remains incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_envelope_comparator_cx1v001.py",
+      "sha256": "7d35e7474555a9e13ec2e6c08f36f688c303d79b5722a5b6479af069064b6c66"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/envelope_82prj_5y/TEST_REPORT.json",
+      "sha256": "3f281183cc5bb3d2d723859228504b75b2107adae9953e4546ad684830f63480"
+    }
+  ],
+  "next": "Integrate comparator via private single-read strict snapshot adaptation; authenticate expected phase and required pin-set coverage, not just equality. Layout producer fanout also remains: handoff004 calls enumerator.D, writer, enumerator, LO adapter and SRB adapter with campaign-shaped call_dir.",
+  "inbox_seen": 839,
+  "outbox": 181,
+  "no_live_processes": true
+}

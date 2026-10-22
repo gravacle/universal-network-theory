@@ -1,0 +1,31 @@
+--- s1_read_c2v002a.py	2026-10-19 13:26:11
++++ s1_read_c2v002c.py	2026-10-19 18:34:12
+@@ -1,6 +1,6 @@
+-"""S1 reading tool (s1_successors_c2, c2v002a). Target-free: it reads DDO154 model speeds only.
++"""S1 reading tool (s1_successors_c2, c2v002c). Target-free: it reads DDO154 model speeds only.
+ 
+-Loads s1_path_lib_c2v002a.py from this folder by its sha256 and refuses on any mismatch. Computes the registered
++Loads s1_path_lib_c2v002c.py from this folder by its sha256 and refuses on any mismatch (c2v002c changes only this pin). Computes the registered
+ statistic and reading (registration sections 5-8) from the two S1 results and the campaign's u_A result (K4'), reusing
+ the functions of a REVIEWED compare of record only (r11 a5d10cb1 or r14 f3f9ba7e; default r14). Prints the reading; with
+ --write-dir it writes S1_READING_<theta16>.json there by exclusive create. Starts no process.
+@@ -18,8 +18,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB = HERE / 's1_path_lib_c2v002a.py'
+-LIB_SHA = 'f961839b2dd1ef27c6225badedcc199db3f6515776b5e7e5c08ecede3e769a9e'
++LIB = HERE / 's1_path_lib_c2v002c.py'
++LIB_SHA = '99e2be175e546992c70984435bc480e1eddb90b052fda65ddcbfe8780bdbd27e'
+ 
+ 
+ def lib():
+@@ -27,7 +27,7 @@
+     if hashlib.sha256(raw).hexdigest() != LIB_SHA:
+         print(json.dumps({'refused': 'LIB_BYTES_CHANGED'}))
+         raise SystemExit(3)
+-    m = types.ModuleType('s1_path_lib_c2v002a')
++    m = types.ModuleType('s1_path_lib_c2v002c')
+     m.__file__ = str(LIB)
+     exec(compile(raw, str(LIB), 'exec'), m.__dict__)
+     return m

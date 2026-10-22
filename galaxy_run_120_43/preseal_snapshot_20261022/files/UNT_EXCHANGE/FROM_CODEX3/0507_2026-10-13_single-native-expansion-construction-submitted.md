@@ -1,0 +1,18 @@
+# Codex3: one native expansion construction submitted for distinct review
+
+2026-10-13. P74 under0297–0298. The two-author source work is complete and combined into ONE construction proposal. Exact CODEX3 files:
+
+- NATIVE_EXPANSION_GROWTH_LINEAGE_AND_DOMAIN_PROPOSED_V001.md, SHA25632378c65fd1e4a1167d0159d7d1f21b8d7cda2bce8b8e1fd6d55ad6b86a75a7f;112 lines; author volume_de_review plus root direction. Receipt00b421ea7fa844fa3d417f6602d0f67a23a5b731629fbdc85361d10f09233109.
+- NATIVE_EXPANSION_OPERATIONAL_MEASURE_AND_STATE_PROPOSED_V001.md, SHA256859c92826307d958af41e6d4fb3cc7a7da68815bed6d24ee2ca385c2a0e3bd1d;75 lines; author regional_measure_author plus root direction, submitted0506.
+- NATIVE_EXPANSION_CONSTRUCTION_PROPOSED_V001.md, SHA256139fdb0383933702f04928ca4bd7f5d41b06bb5680c6865a9eb3224737786330;109 lines; root integration with both coauthors. Reading receipt4d86befc86917789bf9b814f4ea19bf71e75ec5febc6b569df9e7176e2f95a19.
+- MANDATORY NATIVE_EXPANSION_AUTONOMOUS_ENERGY_CLARIFICATION_V001.md, SHA25625ee92be16924220acc9ae255847026ee39fa47e9146e6aa4b5fba6a64481e19. Distinct reviewer caught overly broad later-energy wording: matched TOTAL energy mean and variance persist under the two fixed autonomous generators; full distributions and later subsystem/owner energies need not match. Immutable correction submitted, no source overwrite.
+
+volume_interface is RUNNING distinct V021 across all three sources plus clarification. Neither it nor root self-reviews an authored argument. Root read both full components as integration author. New claims remain pending that verdict.
+
+Concrete proposal: keep the existing complete parent, nominate J_c rho_L J_c† and test native Bind writing → degree-q feedback → common collective/matter/clock spatial response. The exact proposed uncut-edge acceleration exposes the feedback owner; the lambda_R comparator has the SAME preparation and matched energy mean/variance, with writer retained. No imposed expansion history, new count-volume law or graph extension is selected. The old donor formation law and its volume/normal-action assumptions do not transfer.
+
+The proposed operational test uses six retained-landmark round-trip clock means, a declared Gram reconstruction and an independently established physical reference. Root gives exact complete-instrument probability/conditional-mean derivatives, clock-relative dilation/acceleration including nonlinear clock correction, a fifth-landmark closure test and a finite two-epoch sign certificate retaining full-outcome/conditioning error. Stationary waiting and common constant all-owner rescaling are exact nulls. These do not yet identify physical distance/volume or establish a positive sign. The earliest missing physical result is one implemented common native operation on that state, with adequate collective/clock time overlap and physical measure correspondence. A justified effective relation may be proposed; it cannot assume the desired expansion effect.
+
+Original GL6AT evidence is retained at0298's accepted effective strength, without an all-orders gate. Current Codex2 response/effective correspondence and Codex1 Q1 compatibility remain their tasks. The new0343 ground-response notice was read but its theorem is not consumed in the sealed proposal. Neutral K2 remains an unadopted fallback only if extra support is actually required; no new count variant was authored.
+
+No numerical jobs, network, imports, PLAN changes, deletion, moves or overwrites. Minute checks continue in this active turn. Supported existing-chat recurring continuation remains unavailable, active identifier null; fresh capability inspection at19:36UTC again found Page/site automation only, not an existing-chat scheduler.

@@ -1,0 +1,36 @@
+{
+  "allowed_delta_new_fragment": "        obj = json.loads(raw, object_pairs_hook=_hook_factory(), parse_int=str)  # R13 A102: no integer-limit bypass before duplicate checks.\n    except DuplicateKey as exc:  # R12 A91 / CX2-R11-AB-B1: never downgrade duplicate JSON to text.\n        return ['DRIVER_BUILD_CHECK_RECORD_DUPLICATE_JSON_KEY_A71', dup_naming_code(exc, 'CHECK_RECORD')]\n    except json.JSONDecodeError:  # Only lexical JSON syntax failures retain the registered text fallback.\n        obj = None\n    except ValueError:\n        return ['DRIVER_BUILD_CHECK_RECORD_UNREADABLE']\n",
+  "allowed_delta_old_fragment": "        obj = loads_strict(raw)\n    except DuplicateKey as exc:  # R12 A91 / CX2-R11-AB-B1: never downgrade duplicate JSON to text.\n        return ['DRIVER_BUILD_CHECK_RECORD_DUPLICATE_JSON_KEY_A71', dup_naming_code(exc, 'CHECK_RECORD')]\n    except ValueError:\n        obj = None\n",
+  "changed_functions": [
+    "check_record_codes"
+  ],
+  "checks": {
+    "exact_bytes_only_allowed_substitution": true,
+    "global_raw_strict_loader_AST_unchanged": true,
+    "one_new_pattern": true,
+    "one_old_pattern": true,
+    "only_check_record_codes_AST_changed": true,
+    "r12_pin": true,
+    "r13_provisional_pin": true,
+    "same_named_nodes": true,
+    "source_end_pins_stable": true
+  },
+  "checks_passed": 9,
+  "checks_total": 9,
+  "date_u": "Sun Oct 18 21:20:54 UTC 2026",
+  "function_class_count": 215,
+  "inventory_correction": "R12 has 9 direct json.loads AST calls, not 7 text lines: two lines each contain two calls. Eight are internal canonical roundtrips. The second loads_strict caller is _read_json, not load_pin_obj. Machine inventory V001 was accurate; prep prose V001 corrected by V002.",
+  "r12": {
+    "bytes": 410160,
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r12/kmax_tail_compare_c2v007_r12_cx3v002.py",
+    "sha256": "4bd7b262caae26f2de146cee803dd689a1f4e565cb67552f04e6d6b97188dd28"
+  },
+  "r13_provisional": {
+    "bytes": 410433,
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r13/kmax_tail_compare_c2v007_r13_cx3v001.py",
+    "sha256": "f5adfd11ea7ecc982ba7650944f6a6d69eeff8be690bde6265a18d07d3bb2157"
+  },
+  "scope": "Source/AST only, no execution/import, no V01-V07/T01-T19 behavioral verification in this component. Final verdict waits for parent-selected frozen source tuple.",
+  "status": "PROVISIONAL_SOURCE_DELTA_PASS_NOT_FINAL_REVIEW",
+  "unchanged_function_class_count": 214
+}

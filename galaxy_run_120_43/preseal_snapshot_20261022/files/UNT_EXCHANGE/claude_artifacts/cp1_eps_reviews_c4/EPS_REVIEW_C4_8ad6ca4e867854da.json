@@ -1,0 +1,31 @@
+{
+  "schema": "UNT_POINT_EPS_REVIEW_CX2V001",
+  "verdict": "APPROVED",
+  "numeric_ref": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/cp1_run_c3v004b/P01_8ad6ca4e867854da_TAIL_REANCHOR_a1/EPS_NUMERIC_8ad6ca4e867854da.json",
+    "sha256": "292ed51593ed1a728ae1a10cd7dc01495104055fa52990c3088da1dafa195301"
+  },
+  "point_sha256": "8ad6ca4e867854dad71f56a97fda66f7d7b295473092a0bec84a4aca968635f8",
+  "custody_sha256": "947e2ba949f57574d6f9b7449945c1bce200f6997e3658c2a996ea69621efdb2",
+  "adapter_sha256": "4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372",
+  "accepts_registered_numerical_estimate_not_rigorous_sup": true,
+  "reviewer_lane": "Claude4",
+  "distinct_from_producer_lane": true,
+  "reviewed_utc": "2026-10-19T20:22:56Z",
+  "checklist_results": {
+    "E1": "TESTED. point_sha256 8ad6ca4e867854dad71f56a97fda66f7d7b295473092a0bec84a4aca968635f8 is the run key in STAGE_CONTEXT, STAGE_EPS and the request. The custody digest recomputed from the record custody (sha256 of its sorted compact JSON) is 947e2ba949f57574d6f9b7449945c1bce200f6997e3658c2a996ea69621efdb2, equal to STAGE_CONTEXT custody_sha256, and the two custody objects are byte-equal. The producer is point_response_producer_cx2v002.py a1dcdea8deba5bc9667f0ea36d6b94c3cc20fb1d2d95d637cc9e7ea26b478231 (record and context source pin). FORMAL: membership in the 31-point table rests on the runner check point_sha256_is_key; the table is not among the named files.",
+    "E2": "TESTED. settings registered; full_registered_search_executed true; coverage_complete true; 178 unit shells, contiguous, [4,5] to [181,182]; 14 dense audits.",
+    "E3": "TESTED. registered_discrete_verdict CERTIFIED; every shell certified; refinements in {0,1}. Refinements 1 on 9 shells: [19,20], [33,34], [51,52], [66,67], [73,74], [91,92], [98,99], [105,106], [151,152].",
+    "E4": "TESTED. eps >= eps_envelope >= 0 on every shell (eps equals eps_envelope on all 178). eps equals the maximum of its recorded parts on every shell and is >= the dense value on all 14 audited shells. eps_max 2.0506962831134956e-4 is the maximum, on [4,5], as eps_max_shell states.",
+    "E5": "TESTED. dense_over_production over the 14 audits: min 0.9999999988914843, max 1.000000000012215 (on [19,20], where eps takes the dense value). No under-resolution.",
+    "E6": "TESTED. eps_max 2.0507e-4 on [4,5]. For comparison, the V006 anchor eps_max is 6.4e-4 on [2,3], a shell this record does not cover, and the sampled |1-q| at corner_00 on [4,5] was 0.0125. No flag.",
+    "E7": "TESTED. ANCHOR_EPS_CROSSCHECK a2ace4317b857989bfb7ee69681dbea1151c40016e4afd10c3d3fdcbeb247573 reads AGREE: 178 overlapping shells, max_rel_envelope = max_rel_dominating 1.62e-8, max_rel_discrete 1.14e-8, refinement_mismatches 0, tolerance 1e-3. Recomputed independently from EPS_CERT_V006 598c8fa34dc85113aa99dd3722f6b37f6625149995d7365c8cbd1b796f830192 bytes: the maximum relative difference is 1.62e-8 in the envelope and 1.62e-8 in the dominating value (the V006 maximum over eps, eps_envelope, eps_dense_audit, eps_refined and eps_base). This record eps is >= the V006 eps on all 178 shells.",
+    "E8": "TESTED. STAGE_EPS ok true, with all nine checks true. Its record pin (path and sha256 292ed51593ed1a728ae1a10cd7dc01495104055fa52990c3088da1dafa195301) matches EPS_NUMERIC, and record_bytes 431070 equals the file size. Timing (3260.5 s wall, 2541.1 s cpu) and peak RSS (640401408 B) are present; they are information only. This point is the anchor (STAGE_CONTEXT anchor_context THIS_POINT_IS_THE_ANCHOR), so source_pins_match_anchor is null by construction.",
+    "E9": "TESTED. rigorous_supremum false; limitation: Numerical convention only; independent scientific review/admission remains required. Approved only as the registered numerical convention: the values are search lower bounds on the continuous supremum.",
+    "E10": "TESTED. The reviewer lane is Claude4, a root-approved signer (0747); it is neither the CP-1 operator lane (Claude2) nor the producer author (Codex2). The bindings are copied exactly from EPS_REVIEW_REQUEST 81b8417c9618403adb42045dc8b9b5527200ea94c8044ead4ec7df3a5a518ac6. adapter_sha256 4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372 equals the adapter file sha256 from bytes."
+  },
+  "findings": [
+    "NOTE (no action): on [4,5] the EPS_CERT_V006 field eps is its actual-set maximum, 1.546e-4 (CHECK F1), below its own envelope of 2.0507e-4. The per-point rule takes the maximum of all parts, so this record has eps 2.0507e-4 on [4,5]. That is 32.6 % above the V006 eps field and equal to the V006 dominating value within 2e-12. The cross-check compares dominating values, so its AGREE is correct; the per-point convention is the more conservative of the two."
+  ],
+  "signature": "Claude4, 2026-10-19T20:22:56Z"
+}

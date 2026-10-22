@@ -1,0 +1,229 @@
+{
+  "certificate_artifacts": "Actual EPS/LO artifact pins, parsed/scanned by writer and native-schema/proof checked by the exact reviewed producer; certificates are not copied into handoff. Synthetic writer outputs keep PENDING sentinels.",
+  "coordinate_incompatibility": {
+    "behavior": "REFUSE; no padding, relabelling, inferred nuisance value or coordinate conversion",
+    "native_headline_varying_coordinates": 3,
+    "selected_filler_varying_coordinates": 4
+  },
+  "date_u": "Sun Oct 18 21:31:18 UTC 2026",
+  "exact_fieldsets": {
+    "ACCEPTANCE_VIEW": [
+      "schema",
+      "mode",
+      "phase",
+      "ok",
+      "blockers",
+      "point_sha256",
+      "decision_pin",
+      "guarded_plan_sha256",
+      "guarded_admission_sha256",
+      "v007_verdict_pin",
+      "post_state_bundle_pin",
+      "certificate_pins"
+    ],
+    "ADMISSION_RECORD": [
+      "schema",
+      "mode",
+      "status",
+      "target_free",
+      "coordinate_pin",
+      "point",
+      "v007",
+      "decision_pin",
+      "acceptance_pin",
+      "certificate_pins",
+      "certificate_evidence_pin",
+      "scientific_evidence_pin",
+      "provenance"
+    ],
+    "AUTHORITY": [
+      "schema",
+      "mode",
+      "authority",
+      "writer_pin",
+      "record_pin",
+      "rule_pin",
+      "producer_pin",
+      "producer_review_pin",
+      "selected_registry_pin",
+      "driver_branch",
+      "driver_acceptance_pin"
+    ],
+    "CERTIFICATE_EVIDENCE": [
+      "schema",
+      "mode",
+      "target_free",
+      "point_sha256",
+      "certificate_pins",
+      "verified",
+      "scope",
+      "blockers"
+    ],
+    "CERTIFICATE_PINS": [
+      "eps_certificate",
+      "lo_certificate"
+    ],
+    "FINAL_DECISION": [
+      "schema",
+      "mode",
+      "target_free",
+      "scope",
+      "engine_status",
+      "engine_ok",
+      "coordinate_pin",
+      "admitted_points",
+      "replay",
+      "registry",
+      "blocking_findings"
+    ],
+    "PIN": [
+      "path",
+      "sha256"
+    ],
+    "POINT": [
+      "log_index",
+      "u",
+      "theta_natural"
+    ],
+    "POST_STATE_BUNDLE_VIEW": [
+      "schema",
+      "mode",
+      "target_free",
+      "point_sha256",
+      "phase",
+      "certificate_pins"
+    ],
+    "PREREG_BINDING": [
+      "case_block"
+    ],
+    "PREREG_VIEW": [
+      "schema",
+      "binding_inputs"
+    ],
+    "PRODUCER_ANSWER": [
+      "api",
+      "ok",
+      "reasons",
+      "point_sha256",
+      "provenance",
+      "certificate_pins",
+      "decision_sha256"
+    ],
+    "PRODUCER_REVIEW": [
+      "schema",
+      "mode",
+      "verdict",
+      "producer_pin",
+      "record_schema",
+      "blocking_findings",
+      "reviewer",
+      "semantic_scope"
+    ],
+    "PROVENANCE": [
+      "native_record_sha256",
+      "native_registry_line_sha256",
+      "replay_run_sha256",
+      "guarded_plan_sha256",
+      "guarded_admission_sha256",
+      "record_producer_pin"
+    ],
+    "REGISTRY_VIEW": [
+      "record_file_sha256",
+      "record_sha256",
+      "registry_line_sha256",
+      "verify_ok",
+      "registry_chain_ok",
+      "verify_reasons"
+    ],
+    "REPLAY": [
+      "complete_runs",
+      "match",
+      "canonical_run_sha256"
+    ],
+    "RULE": [
+      "schema",
+      "mode",
+      "authority",
+      "release_scope",
+      "requires_full_decision",
+      "pointwise_streaming_allowed",
+      "coordinate_pin"
+    ],
+    "SEAL": [
+      "schema",
+      "sealed_by",
+      "prereg",
+      "compare",
+      "frozen_addendum",
+      "verdict",
+      "case_block"
+    ],
+    "V007": [
+      "seal",
+      "verdict",
+      "prereg",
+      "compare",
+      "addendum",
+      "case_block"
+    ],
+    "V007_DECISION": [
+      "tests_read",
+      "outcome"
+    ],
+    "V007_VERDICT": [
+      "schema",
+      "test_mode",
+      "decision",
+      "script_sha256",
+      "prereg",
+      "case_block"
+    ]
+  },
+  "incremental_publication": "NOT_SUPPORTED_BY_CURRENT_NATIVE_RECORD_PATH",
+  "native_point_predicate": "Pointwise membership is independent; current publication waits for completed native record and replay.",
+  "native_source_custody": "The real reviewed producer must verify original native record/registry/replay and materialize the exact views without target data. The writer does not treat a root name or PASS text as scientific proof; the external root publication binds producer source, distinct review and exact input snapshots.",
+  "producer_api": {
+    "audit_fence": "Reject open/import and all os.*, shutil.*, ctypes.*, socket.*, subprocess.* audit events; stat/lstat/readlink/listdir/scandir/chdir metadata functions explicitly refused. This enforces the reviewed pure snapshot contract, not a hostile-code security sandbox.",
+    "constant": "ADMISSION_API = UNT_STEP4_TARGET_FREE_PRODUCER_API_CX1V001",
+    "function": "verify_admission(*, snapshots, record_pin, decision_pin, acceptance_pin, mode)",
+    "output": "Exact PRODUCER_ANSWER fieldset; all bindings must equal the writer-verified snapshots.",
+    "pure_only": true,
+    "required_scientific_checks": [
+      "NATIVE_RECTANGLE_MEMBERSHIP_RECOMPUTED",
+      "COMPLETE_DOUBLE_REPLAY",
+      "NATIVE_RECORD_REGISTRY_VERIFIED",
+      "GUARDED_ADMISSION_PROVENANCE",
+      "POST_STATE_CERTIFICATES_VERIFIED",
+      "NGC_POINT_CERTIFICATES_VERIFIED",
+      "UNCHANGED_NATIVE_COORDINATES"
+    ],
+    "snapshots": "Read-only mapping from canonical and original pinned absolute paths to immutable verified bytes; maximum2MiB per input."
+  },
+  "production_evidence": "UNTESTED; actual reviewed producer and coordinate-compatible consumer contract missing",
+  "release_scope": "FULL_FINAL_DECISION",
+  "root_items": [
+    "Adopt the target-free final-record/view schemas and release rule; publish the exact external authority digest independently.",
+    "Supply and independently review the real pure producer verifier, including native membership recomputation, replay/registry/source custody and certificate science.",
+    "Resolve the actual native fixed-distance three-u versus selected consumer four-u mismatch with a reviewed compatible coordinate/consumer contract; do not pad u.",
+    "Supply actual sealed V007 semantic views with original byte custody, complete native decision/replay/registry, guarded plan/admission provenance and per-point acceptance.",
+    "Supply actual NGC91/K32/M_s96 EPS/LO proof pins and native verification evidence; handoff copying does not certify proof coverage.",
+    "Choose r006 fallback or provide externally accepted r007 pin; choose one A/B interface per point/grid, then separate root preflight/allocation/launch."
+  ],
+  "schema": "UNT_STEP4_STEP5_PROPOSED_PRODUCER_CONTRACT_CX1V003",
+  "semantic_view_schemas": [
+    "UNT_STEP4_SCIENTIFIC_POINT_ADMISSION_CX1V001",
+    "UNT_STEP4_FINAL_DECISION_TARGET_FREE_VIEW_CX1V001",
+    "UNT_STEP4_POST_STATE_ACCEPTANCE_VIEW_CX1V001",
+    "UNT_STEP4_POST_STATE_BUNDLE_VIEW_CX1V001",
+    "UNT_STEP5_POINT_CERTIFICATE_EVIDENCE_CX1V001",
+    "UNT_V007_ADOPTION_SEAL_VIEW_CX1V001",
+    "UNT_V007_VERDICT_VIEW_CX1V001",
+    "UNT_V007_PREREG_VIEW_CX1V001"
+  ],
+  "status": "PROPOSED_NOT_ROOT_ADOPTED",
+  "test_scope": "Owned mocked evidence only. Production-shaped positive fixture uses prepare buffers without publishing an ADMITTED handoff.",
+  "writer_pin": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_step5_handoff_cx1/impl/write_step4_step5_handoff_cx1v008.py",
+    "sha256": "b700780d476bcfca6b25a20f4a26303e23b8a7146d2195df922e38011074ed57"
+  }
+}

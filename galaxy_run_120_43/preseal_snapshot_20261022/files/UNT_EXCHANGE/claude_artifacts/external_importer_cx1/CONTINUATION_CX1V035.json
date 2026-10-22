@@ -1,0 +1,53 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Real admission through executor hook tested with parent/scheduler/context doubles",
+  "utc": "2026-10-21T13:39:55.707742+00:00",
+  "tested": [
+    "hook executes actual direct-layout admission and preserves original call directory without local solve",
+    "ingest repeats real admission without classifier recursion and restores explicit-spec resolver",
+    "fresh ingest admission refuses identity change after selection",
+    "negative acceptance at ingest refuses without cache writes or invalid classification"
+  ],
+  "untested": [
+    "Actual parent executor and scheduler",
+    "Production context, mapper, identity and policy checks",
+    "Runtime/register/envelope/wait",
+    "Cache write and subsequent cache validation"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_hook_admission_cx1v001.py",
+      "sha256": "4a20c9688b0b1e21cfc9599dab8c75f86d5509220cca977ff82ea50592f72b66"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_valid_admission_cx1v003.py",
+      "sha256": "7fbf4fbd05eb6da1c80cefb888e9981c5b2c0f0b40f816ebef931616967ff39d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/executor_hook_cx1v002.py",
+      "sha256": "a06c348e346dfe86a0c200ce4dd106b11f75b352a355c8521cbe6f455d48a151"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/valid_admission_cx1v002.py",
+      "sha256": "a5aff8ee4b3e06454ddca36f95ea3dcb872358bb46fc3cc7b498efe4076cac52"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_wrapper_certificate_snapshot_cx1v001.py",
+      "sha256": "63c981ccf3817d87418a7866eb517c6ae20e4cf959f21303864d4a59e5b0a38e"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/real_guard_20261021T133943382693/HOOK_ADMISSION_TEST_REPORT.json",
+      "sha256": "0c4c94fff1912a829491df8c626afa2d9fa6bda60adda827107537a3da6691c5"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 186,
+  "no_live_processes": true,
+  "next": "4 hook/admission cases PASS; no recursion. Parent executor/scheduler, production identity/mapper, wait/root auth and cache integration remain incomplete. Next inspect Cache._verify_impl and wrapper check_cached_certificate for external provenance revalidation; admission-only hook does not cover cache replay."
+}

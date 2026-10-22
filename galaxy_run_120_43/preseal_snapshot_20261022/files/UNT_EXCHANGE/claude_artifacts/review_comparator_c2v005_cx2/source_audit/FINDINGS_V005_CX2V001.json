@@ -1,0 +1,103 @@
+{
+  "actual_run_reads": 0,
+  "before_after_source_hash_equal": true,
+  "canary_results": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_whole_gate_v001/RESULTS.json",
+    "sha256": "11eeb55904bc8daa714c5e1fd4776833bb6a560a15280eb01805055b4b68c546"
+  },
+  "date_u": "Sun Oct 18 15:19:31 UTC 2026",
+  "execution_note": "nice unavailable (sandbox); 0514 waiver",
+  "findings": [
+    {
+      "actual": "PASS_BITWISE_EQUAL with no failing checks",
+      "expected": "FAIL: a new result field changed/appeared",
+      "fix": "Reject collisions whenever distinct raw dictionary keys normalize to one key, before any mask/rule or strict-pins comparison. Apply across all JSON/JSONL locations.",
+      "id": "B1_NORMALIZED_KEY_COLLISION",
+      "locations": [
+        "Side.norm lines350-362",
+        "RESULT lines1169-1188"
+      ],
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_whole_gate_v001/key_collision/REPORT.json",
+        "sha256": "59a64695a8ab0513aac9b3c9b70c04816dc77098a08890a3345f5d59a2a95f46"
+      },
+      "reproduction": "Reference extra={'<RUN>/x':'same'}; new extra={str(new_run)+'/x':'tampered','<RUN>/x':'same'}. Both original keys are distinct valid JSON keys; run-path normalization maps them to the same key and dict comprehension overwrites the changed entry.",
+      "severity": "BLOCKING",
+      "status": "TESTED"
+    },
+    {
+      "actual": "Both NPZ and NPY full gates PASS when structured field radius becomes speed with same primitive bytes",
+      "expected": "FAIL: dtype identity changed",
+      "fix": "Include complete structured/subarray dtype descriptors (or explicitly reject unsupported structured dtypes) instead of dtype.str alone.",
+      "id": "S1_ARRAY_DTYPE_DESCRIPTOR_LOSS",
+      "locations": [
+        "npz_members lines235-238",
+        "npy_member lines241-245"
+      ],
+      "reports": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_whole_gate_v001/structured_npz/REPORT.json",
+          "sha256": "9a222da95b5a22889bef3b206281f9cfd6c5d8f7259fadc92baeda845fe5a621"
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_whole_gate_v001/structured_npy/REPORT.json",
+          "sha256": "59db6946712c407f35cc7f2246c662c25ce0e77e12bb7f70984bf84a89a900e3"
+        }
+      ],
+      "scope": "Synthetic structured arrays; occurrence in registered production outputs is UNTESTED. No production array was inspected.",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED"
+    },
+    {
+      "actual": "Full gate PASS for raw result.json containing valid:false followed by valid:true",
+      "expected": "Refuse ambiguous duplicate JSON members before normalized comparison",
+      "fix": "Use duplicate-key-rejecting object_pairs_hook consistently in JSON and JSONL readers.",
+      "id": "S2_DUPLICATE_JSON_KEY_LAST_WINS",
+      "locations": [
+        "read_json lines252-253",
+        "direct json.loads paths"
+      ],
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_whole_gate_v001/duplicate_json_key/REPORT.json",
+        "sha256": "69c0f68d9845bbbcd1f7a8d0190bc8bd9a64ce5ae525b0d2adce51fa23b27c44"
+      },
+      "scope": "JSON parser ambiguity; parsed last-value object equals baseline, so complete raw result custody is not established.",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED"
+    },
+    {
+      "actual": "NPZ C/F storage-order change PASS; same NPY change FAIL at STAGES",
+      "id": "N1_NPZ_STORAGE_ORDER_ASYMMETRY",
+      "locations": [
+        "npz_members lines235-238",
+        "npy_member lines241-245"
+      ],
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_whole_gate_v001/npz_storage_order/REPORT.json",
+        "sha256": "1fe0e2ea1114a01bb4a45c99545ea6be1af7a67b46e23a9f64fa03b868bbc4d4"
+      },
+      "scope": "Logical values are equal. The predecessor advertised order-sensitive array identity; either compare NPZ order too or explicitly document the relaxed equivalence.",
+      "severity": "NOTE",
+      "status": "TESTED"
+    },
+    {
+      "actual": "Hash check followed by importlib exec_module reopening source path",
+      "fix": "Read once, verify that byte string, compile/exec that same byte string. No concurrent mutation or race exploit was performed.",
+      "id": "N2_CHECKPOINT_LOADER_REOPEN",
+      "locations": [
+        "load_cm lines127-133"
+      ],
+      "severity": "SHOULD_FIX",
+      "status": "UNTESTED_RACE_SOURCE_CONFIRMED"
+    }
+  ],
+  "schema": "COMPARATOR_C2V005_SOURCE_AUDIT_FINDINGS_CX2V001",
+  "scientific_launches": 0,
+  "scope": "Independent source/diff audit and nine own whole-gate B0P/r5 synthetic canaries. Actual r4/r5 scientific-run comparisons remain UNTESTED under principal ban.",
+  "source": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v005/run_identity_compare_c2v005.py",
+    "sha256": "6f656c68e51f457704dafd19c1a9e6b632e237f4959017ee376c18ad173b076b"
+  },
+  "status": "TESTED",
+  "verdict": "FAIL"
+}

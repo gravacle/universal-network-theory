@@ -1,0 +1,24 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/structural/common_structural_cx2v003.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/common_structural_cx2v004.py
+@@ -8,8 +8,11 @@
+ from pathlib import Path
+ import numpy as np
+ 
++import hashlib as _hashlib
++_g=Path(__file__).resolve().parent/'guard_cx2v001.py';_b=_g.read_bytes();assert _hashlib.sha256(_b).hexdigest()=='b6c741172795a8ee2e769063a80faefc9795ee27b338ae0ab9990a620a7848a1';exec(compile(_b,str(_g),'exec'),globals())
++
+ ART=Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts')
+-OUT=ART/'review_comparator_c2v005_cx2/structural'
++OUT=ART/'review_comparator_c2v006_cx2/counterexamples'
+ BLOCKED=[]
+ 
+ def audit(event,args):
+@@ -80,6 +83,8 @@
+     if both_input:write(root/'inputs/parallel_metadata.json',{'same_extension':{'enabled':True}})
+     if defect=='input_extra':write(root/'inputs/extra_admission.json',{'hidden':True})
+     for dirname,kind in [('01_route_a','route_a'),('02_reference','reference'),('03_body','body')]:
++        if defect=='stage_order_swapped':dirname={'01_route_a':'02_route_a','02_reference':'01_reference'}.get(dirname,dirname)
++        if defect=='renumber_same_order':dirname={'01_route_a':'31_route_a','02_reference':'42_reference','03_body':'53_body'}[dirname]
+         if defect=='missing_body' and kind=='body':continue
+         if defect=='renamed_body' and kind=='body':dirname='03_body_hidden'
+         d=root/'stages'/dirname

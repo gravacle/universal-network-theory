@@ -1,0 +1,843 @@
+--- test_phase1_c2v003.py	2026-10-19 11:16:24.275140475 -0500
++++ test_phase1_c2v003a.py	2026-10-19 12:07:37.216596135 -0500
+@@ -1,19 +1,30 @@
+-"""Tests for phase1_c2v003 (A144 successor of phase1_c2v002: R1, R2, R3, the L1-module custody, and the A135 item 10
+-handoff successor).  SYNTHETIC ONLY.
+-
+-Part 1 (T00-T29): every test of test_phase1_c2v002.py (b1aedebc) ported against v003, with the same ids.  Port changes:
+-every Phase-2 members file carries eps_km_s (the A144 R3 input contract); T22's category oracle and T25's in-process
+-members follow A144 R1; T29 (the A137 N-B checks) re-runs the same fixtures under the E_A133_2(b) formula.  T27 and T28
+-(A137 L5) now run under the shadow as well, since v002 handles the corner.
+-Part 2 (R01): regression -- every CLI call of part 1 is also run with v002 (d64351ec, untouched) on the same inputs and
+-into the same out-dir path (v002's directory is moved aside to <out>.V002_SHADOW before v003 runs).  Exit codes, stdout
+-and every output file must be byte-identical after substituting v002's value for exactly these fields: module,
+-tool_sha256 (tool identity); the engine record's created_utc and the shas that hash it; for at1 only, the A144 fields
+-(outcome, failing -- category, flag, flag_reason, the region keys and, through e_q, excess --, e_q_reading,
+-reported.e_q_per_member_row) and v003's new reported keys (pairs_member_point_noise_not_bounded and the band_region
+-keys).  norm_n of every pair failing in both versions must be equal.
+-Part 3 (T30-T36): A144 R1 (T30), R2 (T31), R3 (T32), the L1-module custody (T33), the A135 item 10 handoff (T34), the
+-scope of the change (T35, AST) and the S0 / shared-map byte identity (T36).
++"""Tests for phase1_c2v003a (A149 items 1-4 successor of phase1_c2v003: the member_eps OverflowError catch, the AT-0b
++members_sha256 custody, the print-only band_region_box_only_extent, and tests that kill v003's 5 surviving mutants).
++SYNTHETIC ONLY.
++
++Every check of test_phase1_c2v003.py (331d0212; 142 checks) is ported, in v003's order, with v003's ids except the 9
++part-2 ids, which now name v003 as the reference.  Port changes (each also noted at its site):
++  - the module under test is phase1_c2v003a (T00, T33's custody text, T35's declared AST nodes);
++  - T23: at1 with the AT-0b defect file now passes that AT-0b's own members file (MEMBERS_NOREBIND); the v003 form
++    (another members file) is now REFUSED by A149 item 2 and is tested as such in T37;
++  - T30 (c): v002's corner at1 is run directly (AT1_CORNER_V002) instead of being read from v002's shadow directory;
++  - T36 keeps v002 as its reference (S0, the shared-map handoff and L1 byte-identical to v002 except module).
++Part 1 (T00-T29): the ported v002-era tests.  Every CLI call is shadow-run with v003 (149ed4cb, untouched) on the same
++inputs into the same out-dir path (v003's directory is moved aside to <out>.V003_SHADOW before v003a runs).  One input
++is substituted for v003, and only for at1: v003's custody (A144) reads only a v003-written L1, so v003's at1 reads the L1
++that v003's own band shadow wrote (<L1 dir>.V003_SHADOW/L1_C2V001.json), whose bytes the band comparison shows equal to
++v003a's except module.
++Part 2 (R01): regression against v003.  Exit codes, stdout and every output file must be byte-identical after
++substituting v003's value for exactly these fields: module, tool_sha256 (tool identity); the engine record's
++created_utc and the shas that hash it; at0b's new members_sha256 (A149 item 2; it must equal the --members sha); at1's
++new reported.band_region_box_only_extent (A149 item 3).  Every at1 failing list is identical, field by field.
++Part 3 (T30-T36): v003's A144 R1 (T30), R2 (T31), R3 (T32), custody (T33), A135 item 10 (T34), scope (T35), S0 /
++shared-map identity (T36).
++Part 4 (T37-T43, A149): T37 members_sha256 custody (item 2); T38 the region tolerance is exactly E._LP_EPS with a
++strict '>' (kills tol 1e-9, tol 1e-13 and '>='); T39 the eps contract covers member_valid false points (kills the
++member_valid-true-only contract); T40 the certificate-map scope check matches theta keys too (kills spec-sha-only);
++T41 band_region_box_only_extent (item 3, with the exact-corner LP-tie case); T42 the 10**400 entry (item 1, shadowed
++against v003: the declared overflow difference); T43 v003 untouched, the v003a custody and the AST scope against v003.
+ 
+ Synthetic campaigns are built by the REAL orchestrator c2v005 (Context, Probe, make_plan, _commit_plan, run_wave,
+ ingest, finalise) with its in-process test executor, a toy forward and a synthetic 12-row region, on the real coordinate
+@@ -21,10 +32,10 @@
+ through its CLI as root would run it (a subprocess of the campaign interpreter), except where a test injects a fault in
+ process or places members by hand (then the tool's own at1_rows runs in process on the real engine).  No project
+ forward, no NGC3198 data or targets: NGC values are a toy function of u.  Writes only under
+-<this dir>/test_runs_v003/RUN_<UTC>_<pid>/ (an audit hook refuses any other write, and any open of a path with an
++<this dir>/test_runs_v003a/RUN_<UTC>_<pid>/ (an audit hook refuses any other write, and any open of a path with an
+ 'ngc3198' or 'uvt_' component).
+ 
+-usage: <codex python3> -I -B test_phase1_c2v003.py
++usage: <codex python3> -I -B test_phase1_c2v003a.py
+ """
+ import os
+ for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS',
+@@ -42,7 +53,7 @@
+ from pathlib import Path
+ 
+ HERE = Path(os.path.dirname(os.path.realpath(__file__)))
+-TOOL = HERE / 'phase1_c2v003.py'
++TOOL = HERE / 'phase1_c2v003a.py'
+ PY = '/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'
+ PH1 = Path(ART + 'phase1_c2')
+@@ -50,6 +61,11 @@
+ V001_TESTS = (PH1 / 'test_phase1_c2v001.py', '156f0bef3a9962774257f3737eaa61c7d7df26a2d3fdb7ebb5de81847ee83fac')
+ V002 = (PH1 / 'phase1_c2v002.py', 'd64351ecc06c61e99e2d7253c5d4311617fc1f64d34d37523102ed32720a6754')
+ V002_TESTS = (PH1 / 'test_phase1_c2v002.py', 'b1aedebc4573cdd64b882400305c57203a4f3ad1e82aad242b04eafac0a32372')
++V003 = (PH1 / 'phase1_c2v003.py', '149ed4cbe1ad96e941ce01ad4cff46369dd559a9eee4356e155ad069f4a7b406')
++V003_FILES = ((PH1 / 'test_phase1_c2v003.py', '331d02128c64cbc69f49bc2d995a0a1babb4a565c45584679cea7dc55d5f4770'),
++              (PH1 / 'mutation_phase1_c2v003.py', '54d51eb363e8f4bdee720720856785254064daa55b59010fce2e0007792723ad'),
++              (PH1 / 'README_PHASE1_C2V003.md', '52432afec3df76b6680f600ebc41c6147e2a473871d5d5296adb1d908e76a9a3'),
++              (PH1 / 'HASHES_V003.txt', '518b6601db383091d9ef5c4a18111bd27c9510cba93216a4554a8aac991712ea'))
+ EPS_MEMBER = 0.01   # A144 R3: every Phase-2 members file carries eps_km_s (port change; the Phase-1 values use 0.01)
+ A133 = ('/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/'
+         'A133_TWO_PHASE_PROTOCOL_V001.md', 'cd92ef914a0d562f0392080ebf709b5fdb1d85ef7f7b4493ee143fe782cfac17')
+@@ -61,7 +77,7 @@
+            'sha256': 'ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107'}
+ CAMP_PATH = ART + 'calibration_orchestrator_c2/v005/campaign_c2v005.py'
+ STAMP = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+-RUN = HERE / 'test_runs_v003' / ('RUN_%s_%d' % (STAMP, os.getpid()))
++RUN = HERE / 'test_runs_v003a' / ('RUN_%s_%d' % (STAMP, os.getpid()))
+ FIX = RUN / 'fixtures'
+ RESULTS = []
+ Z = 2.865260238532134
+@@ -285,7 +301,7 @@
+ 
+ 
+ # ----------------------------------------------------------------------------------------------- tool CLI
+-SHADOW = {'on': True, 'log': []}
++SHADOW = {'on': True, 'log': [], 'ref': V003[0], 'suffix': '.V003_SHADOW'}
+ SNAP_RECORD_VOLATILE = ('record_file_sha256', 'record_sha256', 'registry_line_sha256')
+ REGISTRY_VOLATILE = ('created_utc', 'record_file_sha256', 'line_sha256')
+ 
+@@ -300,60 +316,68 @@
+     return p.returncode, out
+ 
+ 
++def v003_l1_of(args):
++    """For v003's at1 shadow: the L1 v003's own band shadow wrote next to the v003a L1 (<L1 dir>.V003_SHADOW), or None."""
++    if args[:2] != ['agree', 'at1'] or '--l1' not in args:
++        return None
++    p = Path(args[args.index('--l1') + 1])
++    alt = Path(str(p.parent) + '.V003_SHADOW') / p.name
++    return alt if alt.is_file() else None
++
++
+ def tool(*args):
+-    """v003 through its CLI.  While SHADOW is on (part 1), v002 runs first on the same arguments; its out dir is moved
+-    aside to <out>.V002_SHADOW, v003 then writes the same path, and the two results are compared (R01)."""
++    """v003a through its CLI.  While SHADOW is on (part 1), the reference (v003; v002 for T36) runs first on the same
++    arguments; its out dir is moved aside to <out><suffix>, v003a then writes the same path, and the two results are
++    compared (R01).  For agree at1 under v003 only, --l1 and --l1-sha256 name the L1 that v003's own band shadow wrote
++    (v003's A144 custody reads no other L1); the substitution is recorded in the comparison."""
+     args = [str(x) for x in args]
+     if not SHADOW['on']:
+         return cli(TOOL, args)
+     od = args[args.index('--out-dir') + 1] if '--out-dir' in args else None
+     pre = od is not None and os.path.lexists(od)
+-    rc1, o1 = cli(V002[0], args)
++    rargs, l1sub = list(args), None
++    if SHADOW['ref'] == V003[0]:
++        alt = v003_l1_of(args)
++        if alt is not None:
++            rargs[rargs.index('--l1') + 1] = str(alt)
++            rargs[rargs.index('--l1-sha256') + 1] = sha(alt)
++            l1sub = str(alt)
++    rc1, o1 = cli(SHADOW['ref'], rargs)
+     d1 = None
+     if od is not None and not pre and os.path.lexists(od):
+-        d1 = od + '.V002_SHADOW'
++        d1 = od + SHADOW['suffix']
+         os.rename(od, d1)
+     rc2, o2 = cli(TOOL, args)
+     d2 = od if (od is not None and not pre and os.path.lexists(od)) else None
+-    SHADOW['log'].append(shadow_compare(args, rc1, o1, d1, rc2, o2, d2))
++    rec = shadow_compare(args, rc1, o1, d1, rc2, o2, d2, SHADOW['ref'])
++    rec.update(ref=os.path.basename(str(SHADOW['ref'])), l1_substituted=l1sub)
++    SHADOW['log'].append(rec)
+     return rc2, o2
+ 
+ 
+-def shadowed(fn):
+-    """Shadowed CLI calls outside part 1 (T36): returns (fn's result, the R01 comparison records of its calls); the
+-    records are not added to the part-1 log."""
+-    on, n0 = SHADOW['on'], len(SHADOW['log'])
++def shadowed(fn, ref=None, suffix=None):
++    """Shadowed CLI calls outside part 1 (T36 against v002, T42 against v003): returns (fn's result, the comparison
++    records of its calls); the records are not added to the part-1 log."""
++    keep, n0 = dict(SHADOW), len(SHADOW['log'])
+     SHADOW['on'] = True
++    if ref is not None:
++        SHADOW['ref'], SHADOW['suffix'] = ref, suffix
+     try:
+         res = fn()
+     finally:
+-        SHADOW['on'] = on
++        SHADOW.update(on=keep['on'], ref=keep['ref'], suffix=keep['suffix'])
+     new = SHADOW['log'][n0:]
+     del SHADOW['log'][n0:]
+     return res, new
+ 
+ 
+-AT1_REPORTED_NEW = ('pairs_member_point_noise_not_bounded', 'band_region_extent', 'band_region_single_point',
+-                    'band_region_single_point_reason')
+-AT1_PAIR_DECLARED = {'category', 'excess', 'flag', 'flag_reason', 'region_rows_violated', 'region_max_violation',
+-                     'geometric_part', 'residual_part'}
+-
+-
+-def at1_detail(j1, j2):
+-    """Per at1 file: the A144 differences between v002 (j1) and v003 (j2)."""
+-    p1 = {(x['log_index'], x['id']): x for x in j1.get('failing') or []}
+-    p2 = {(x['log_index'], x['id']): x for x in j2.get('failing') or []}
+-    common = sorted(set(p1) & set(p2))
+-    fields = sorted({k for pr in common for k in set(p1[pr]) | set(p2[pr]) if p1[pr].get(k) != p2[pr].get(k)})
+-    cnt = lambda ps: {c: sum(1 for x in ps.values() if x['category'] == c) for c in sorted(set(x['category'] for x in ps.values()))}
+-    return {'outcome': [j1.get('outcome'), j2.get('outcome')], 'n_failing': [len(p1), len(p2)],
+-            'only_v002': len(set(p1) - set(p2)), 'only_v003': len(set(p2) - set(p1)), 'common': len(common),
+-            'differing_fields_on_common_pairs': fields, 'categories_v002': cnt(p1), 'categories_v003': cnt(p2),
+-            'undeclared_pair_fields': sorted(set(fields) - AT1_PAIR_DECLARED)}
++AT0B_DECLARED = 'A149 item 2: at0b members_sha256 (v003a only)'
++AT1_DECLARED = 'A149 item 3: reported.band_region_box_only_extent (v003a only)'
+ 
+ 
+-def same_bytes(name, raw1, raw2):
+-    """(identical after the declared substitutions?, substituted fields, the at1 A144 detail or None)"""
++def same_bytes(name, raw1, raw2, ref=None):
++    """(identical after the declared substitutions?, substituted fields, the at0b / at1 detail or None).  raw1 is the
++    reference's file (v003, or v002 for T36), raw2 v003a's.  The A149 fields are declared against v003 only."""
+     if raw1 == raw2:
+         return True, [], None
+     if name.endswith('.jsonl'):
+@@ -384,32 +408,32 @@
+             j2['record'][k] = j1['record'].get(k)
+         subst += ['record.' + k for k in SNAP_RECORD_VOLATILE]
+     det = None
+-    if name == 'AT1_C2V001.json':
+-        det = at1_detail(j1, j2)
+-        j2['outcome'], j2['failing'], j2['e_q_reading'] = j1.get('outcome'), j1.get('failing'), j1.get('e_q_reading')
++    if ref == V003[0] and name == 'AT0B_C2V001.json' and 'members_sha256' in j2 and 'members_sha256' not in j1:
++        det = {'members_sha256': j2.pop('members_sha256')}
++        subst.append(AT0B_DECLARED)
++    if ref == V003[0] and name == 'AT1_C2V001.json':
+         rep1, rep2 = j1.get('reported') or {}, j2.get('reported') or {}
+-        rep2['e_q_per_member_row'] = rep1.get('e_q_per_member_row')
+-        for k in AT1_REPORTED_NEW:
+-            rep2.pop(k, None)
+-        subst += ['A144: outcome, failing, e_q_reading, reported.e_q_per_member_row; v003-only reported keys '
+-                  + ', '.join(AT1_REPORTED_NEW)]
++        det = {'outcome': [j1.get('outcome'), j2.get('outcome')],
++               'n_failing': [len(j1.get('failing') or []), len(j2.get('failing') or [])],
++               'failing_identical': json.dumps(j1.get('failing'), sort_keys=True) == json.dumps(j2.get('failing'),
++                                                                                                 sort_keys=True),
++               'box_only_extent_v003a': rep2.get('band_region_box_only_extent'),
++               'box_only_extent_in_v003': 'band_region_box_only_extent' in rep1}
++        if 'band_region_box_only_extent' in rep2 and 'band_region_box_only_extent' not in rep1:
++            rep2.pop('band_region_box_only_extent')
++            subst.append(AT1_DECLARED)
+     return P.jbytes(j2) == raw1, subst, det
+ 
+ 
+-def shadow_compare(args, rc1, o1, d1, rc2, o2, d2):
++def shadow_compare(args, rc1, o1, d1, rc2, o2, d2, ref=None):
+     cmd = args[0] + (' ' + args[1] if args[0] == 'agree' and len(args) > 1 else '')
+-    r = {'cmd': cmd, 'out': d2 or d1, 'rc': [rc1, rc2], 'diffs': [], 'subst': [], 'at1': None, 'stdout_at1_changed': []}
++    r = {'cmd': cmd, 'out': d2 or d1, 'rc': [rc1, rc2], 'diffs': [], 'subst': [], 'at1': None, 'at0b': None}
+     if rc1 != rc2:
+         r['diffs'].append('exit code %s != %s' % (rc1, rc2))
+     s1, s2 = dict(o1), dict(o2)
+     for s in (s1, s2):
+         if isinstance(s.get('files'), dict):
+             s['files'] = sorted(s['files'])
+-    if cmd == 'agree at1':
+-        for k in ('outcome', 'n_failing'):
+-            if k in s1 and s1.get(k) != s2.get(k):
+-                r['stdout_at1_changed'].append(k)
+-                s2[k] = s1[k]
+     if s1 != s2:
+         r['diffs'].append('stdout %s != %s' % (json.dumps(s1)[:300], json.dumps(s2)[:300]))
+     n1 = sorted(os.listdir(d1)) if d1 else []
+@@ -417,12 +441,17 @@
+     if n1 != n2:
+         r['diffs'].append('files %s != %s' % (n1, n2))
+     for name in sorted(set(n1) & set(n2)):
+-        ok, subst, det = same_bytes(name, (Path(d1) / name).read_bytes(), (Path(d2) / name).read_bytes())
++        ok, subst, det = same_bytes(name, (Path(d1) / name).read_bytes(), (Path(d2) / name).read_bytes(), ref)
+         r['subst'] = sorted(set(r['subst']) | set(subst))
+-        if det is not None:
++        if det is not None and name == 'AT1_C2V001.json':
+             r['at1'] = det
+-            if det['undeclared_pair_fields'] or 'norm_n' in det['differing_fields_on_common_pairs']:
+-                r['diffs'].append('%s: undeclared per-pair field differences %s' % (name, det['differing_fields_on_common_pairs']))
++            if not det['failing_identical']:
++                r['diffs'].append('%s: the failing lists differ' % name)
++        if det is not None and name == 'AT0B_C2V001.json':
++            want = sha(args[args.index('--members') + 1]) if '--members' in args else None
++            r['at0b'] = dict(det, members_arg_sha256=want, equal=det['members_sha256'] == want)
++            if det['members_sha256'] != want:
++                r['diffs'].append('%s: members_sha256 is not the sha of the --members file' % name)
+         if not ok:
+             r['diffs'].append('%s differs beyond the declared fields' % name)
+     return r
+@@ -464,7 +493,7 @@
+           and SPEC['engine_parameters']['hull_growth_tol'] == 0.02 and SPEC['engine_parameters']['max_repair_step'] == 0.25)
+     check('T00.pins_from_bytes_and_registered_parameters', ok, {'a133': A133[1][:16], 'engine': P.ENGINE_PIN[1][:16]})
+     check('T00.v001_tool_and_tests_untouched', sha(V001[0]) == V001[1] and sha(V001_TESTS[0]) == V001_TESTS[1] and
+-          P.MODULE == 'phase1_c2v003' and P.PREFIX_FAMILIES == ('seed', 'jacobian', 'repair', 'gd_pre'),
++          P.MODULE == 'phase1_c2v003a' and P.PREFIX_FAMILIES == ('seed', 'jacobian', 'repair', 'gd_pre'),   # port: v003a
+           {'v001': sha(V001[0])[:16], 'v001_tests': sha(V001_TESTS[0])[:16]})
+     check('T00.v002_tool_and_tests_untouched_and_engine_LP_EPS_is_1e-12',
+           sha(V002[0]) == V002[1] and sha(V002_TESTS[0]) == V002_TESTS[1] and E._LP_EPS == 1e-12,
+@@ -1093,15 +1122,17 @@
+           {'outcome': doc.get('outcome'), 'n_failing': len(doc.get('failing') or []),
+            'categories': sorted(set(f['category'] for f in doc.get('failing') or []))})
+     a0b_bad = S['at0b_defect']
++    m_bad = FIX / 'MEMBERS_NOREBIND.json'   # port (A149 item 2): the defect AT-0b's own members file, not MEMBERS_C1
+     rc1, o1 = tool('agree', 'at1', '--snapshot', out, '--snapshot-sha256', snap_sha(out), '--l1', _l1, '--l1-sha256',
+                    sha(_l1), '--fdplan', S['seed_fd'], '--fdplan-sha256', sha(S['seed_fd']), '--at0a', S['seed_at0a'],
+                    '--at0a-sha256', sha(S['seed_at0a']), '--at0b', a0b_bad, '--at0b-sha256', sha(a0b_bad),
+                    '--phase2-record', rec2['record_path'], '--phase2-record-sha256', rec2['record_file_sha256'],
+-                   '--phase2-registry', rec2['registry_path'], '--members', FIX / 'MEMBERS_C1.json', '--members-sha256',
+-                   sha(FIX / 'MEMBERS_C1.json'), '--config', c.cfg, '--config-sha256', c.cfg_sha, '--interior-count', 6,
++                   '--phase2-registry', rec2['registry_path'], '--members', m_bad, '--members-sha256',
++                   sha(m_bad), '--config', c.cfg, '--config-sha256', c.cfg_sha, '--interior-count', 6,
+                    '--out-dir', RUN / 'AT1_DEFECT')
+     check('T23.MUST_FAIL_at1_with_AT0_defect_reads_AGREEMENT_DEFECT', rc1 == 10 and o1.get('outcome') == 'AGREEMENT_DEFECT',
+-          {'rc': rc1, 'outcome': o1.get('outcome')})
++          {'rc': rc1, 'outcome': o1.get('outcome'), 'reason': o1.get('reason'),
++           'port_note': 'members = the defect AT-0b own file (A149 item 2); the v003 form is REFUSED, see T37'})
+ 
+ 
+ def t25_categories(S):
+@@ -1207,28 +1238,41 @@
+ TOOL_IDENTITY = {'module', 'tool_sha256', 'created_utc', 'record_sha256', 'record_file_sha256', 'line_sha256',
+                  'record.record_file_sha256', 'record.record_sha256', 'record.registry_line_sha256'}
+ CMDS = ('snapshot', 'fdplan', 'handoff', 'band', 'agree at0a', 'agree at0b', 'agree at1')
++DECLARED = {'agree at0b': AT0B_DECLARED, 'agree at1': AT1_DECLARED}   # A149 items 2 and 3; nothing else may differ
+ 
+ 
+ def r01_regression(S):
+-    """Every part-1 CLI call ran under v002 and v003 on identical inputs into the same out-dir path."""
++    """Every part-1 CLI call ran under v003 and v003a on identical inputs (at1: v003 reads its own band shadow's L1)
++    into the same out-dir path.  Port of v003's R01 (which targeted v002): the reference is now v003."""
+     groups = {}
+     for r in SHADOW['log']:
+         groups.setdefault(r['cmd'], []).append(r)
+     for cmd in CMDS:
+         rs = groups.get(cmd, [])
+         bad = [r for r in rs if r['diffs']]
++        allowed = TOOL_IDENTITY | ({DECLARED[cmd]} if cmd in DECLARED else set())
+         ident = [r for r in rs if not r['diffs'] and set(r['subst']) <= TOOL_IDENTITY]
+         det = {'calls': len(rs), 'identical_up_to_tool_identity': len(ident),
+-               'exit_codes': sorted(set(r['rc'][1] for r in rs)),
++               'exit_codes': sorted(set(r['rc'][1] for r in rs)), 'reference': sorted(set(r['ref'] for r in rs)),
+                'substituted_fields': sorted(set(f for r in rs for f in r['subst'])),
+                'bad': [(r['out'], r['diffs'][:2]) for r in bad][:4]}
+-        ok = bool(rs) and not bad
+-        if cmd != 'agree at1':   # only at1 may differ beyond the tool identity (A144)
+-            ok = ok and len(ident) == len(rs)
++        ok = bool(rs) and not bad and all(set(r['subst']) <= allowed and r['ref'] == V003[0].name for r in rs)
++        if cmd == 'agree at0b':   # A149 item 2: members_sha256 on every at0b file, equal to the --members sha
++            wrote = [r for r in rs if r['out'] and os.path.isfile(os.path.join(r['out'], 'AT0B_C2V001.json'))]
++            ok = ok and bool(wrote) and all(r['at0b'] and r['at0b']['equal'] and DECLARED[cmd] in r['subst']
++                                            for r in wrote)
++            det['at0b_members_sha256'] = [(os.path.basename(r['out'] or ''), (r['at0b'] or {}).get('equal'))
++                                          for r in rs]
++        elif cmd == 'agree at1':   # A149 item 3: the new print key only; v003 read its own band shadow's L1
++            wrote = [r for r in rs if r['out'] and os.path.isfile(os.path.join(r['out'], 'AT1_C2V001.json'))]
++            ok = ok and bool(wrote) and all(r['l1_substituted'] for r in rs) and \
++                all(r['at1'] and r['at1']['failing_identical'] and DECLARED[cmd] in r['subst'] for r in wrote)
++            det['at1'] = [(os.path.basename(r['out'] or ''), r['rc'], (r['at1'] or {}).get('outcome'),
++                           (r['at1'] or {}).get('n_failing'), os.path.basename(os.path.dirname(r['l1_substituted'] or '')))
++                          for r in rs]
+         else:
+-            det['at1_A144_differences'] = [(os.path.basename(r['out'] or ''), r['at1'], r['stdout_at1_changed'])
+-                                           for r in rs]
+-        check('R01.regression_v002_shadow_%s_byte_identical_except_declared_fields' % cmd.replace(' ', '_'), ok, det)
++            ok = ok and len(ident) == len(rs)
++        check('R01.regression_v003_shadow_%s_byte_identical_except_declared_fields' % cmd.replace(' ', '_'), ok, det)
+     other = sorted(set(groups) - set(CMDS))
+     l5_fx = [r for r in SHADOW['log'] if r['cmd'] == 'snapshot' and
+              any(t in (r['out'] or '') for t in ('/SNAP_NOID', '/SNAP_CORNER'))]
+@@ -1237,10 +1281,12 @@
+           {'other_commands': other, 'l5_snapshot_calls': [(os.path.basename(r['out'] or ''), r['rc'], r['subst'])
+                                                           for r in l5_fx]})
+     at1 = [r for r in groups.get('agree at1', []) if r['at1']]
+-    check('R01.at1_pairs_failing_in_both_versions_differ_only_in_declared_fields_(norm_n_equal)',
+-          bool(at1) and all(not r['at1']['undeclared_pair_fields'] and
+-                            'norm_n' not in r['at1']['differing_fields_on_common_pairs'] for r in at1),
+-          [(os.path.basename(r['out']), r['at1']['differing_fields_on_common_pairs']) for r in at1])
++    check('R01.at1_failing_lists_identical_to_v003_field_by_field_(norm_n_category_excess_e_q_all_equal)',
++          bool(at1) and all(r['at1']['failing_identical'] and r['at1']['outcome'][0] == r['at1']['outcome'][1] and
++                            r['at1']['box_only_extent_in_v003'] is False and
++                            isinstance(r['at1']['box_only_extent_v003a'], list) for r in at1),
++          [(os.path.basename(r['out']), r['at1']['outcome'], r['at1']['n_failing'], r['at1']['failing_identical'])
++           for r in at1])
+ 
+ 
+ # ----------------------------------------------------------------------------------------------- L5 (A137; 0191 L5)
+@@ -1933,7 +1979,10 @@
+           all(x['rc'] == [[0, 0], 0, 0] and x['byte_identical'] and x['outcome'][0] == x['outcome'][1] and
+               x['n_failing'][0] > 0 for x in clires.values()), clires)
+     # (c) T27 corner: v002's 316 NGC_NONLINEAR pairs (linear toy) read OUTSIDE_BOX_SLICE ['BOX'] under v003
+-    d2 = json.loads((RUN / 'AT1_CORNER.V002_SHADOW' / 'AT1_C2V001.json').read_text())
++    # port: v002's corner at1 (formerly read from v002's part-1 shadow directory) is run directly on the same inputs
++    rcv2, _ov2, d2 = at1_cli(fx_of(S, 'corner'), cp2['l1'], RUN / 'AT0B_CORNER' / 'AT0B_C2V001.json', cp2['members'],
++                             'CORNER_V002', path=V002[0])
++    d2 = d2 if rcv2 == 0 else {'failing': [], 'outcome': None}
+     d3 = json.loads((RUN / 'AT1_CORNER' / 'AT1_C2V001.json').read_text())
+     Lc = Ls['corner']
+     upos = upos_of(cp2['run2'])
+@@ -2460,7 +2509,7 @@
+     rc, o, _d = at1_cli(fx, l1p, ch['a0b'], ch['mp'], 'V002_L1_CUSTODY')
+     check('T33.MUST_FAIL_at1_on_an_L1_written_by_v002_refused_L1_module_and_no_out_dir',
+           rcb == 0 and json.loads(l1p.read_text())['module'] == 'phase1_c2v002' and rc == 3 and
+-          "L1 module 'phase1_c2v002' is not phase1_c2v003" in o.get('reason', '') and
++          "L1 module 'phase1_c2v002' is not phase1_c2v003a" in o.get('reason', '') and   # port: v003a
+           not (RUN / 'AT1_V002_L1_CUSTODY').exists(), {'band_v002_rc': rcb, 'rc': rc, 'reason': o.get('reason')})
+ 
+ 
+@@ -2544,9 +2593,11 @@
+     changed = sorted(k for k in a if k in b and a[k] != b[k])
+     added = sorted(k for k in b if k not in a)
+     removed = sorted(k for k in a if k not in b)
+-    want_changed = ['<docstring>', '=E_Q_READING', '=MODULE', 'at1_rows', 'cmd_at1', 'cmd_handoff']
+-    want_added = ['=CERT_MAPS', '=REGION_CATEGORY', '=REGION_FAMILIES', 'band_region', 'band_region_extent',
+-                  'certificate_maps', 'check_member_eps', 'member_eps', 'region_violation']
++    # port: v003a also changes cmd_at0b against v002 and adds band_region_box_only_extent (A149); T43 checks v003a
++    # against v003 node by node
++    want_changed = ['<docstring>', '=E_Q_READING', '=MODULE', 'at1_rows', 'cmd_at0b', 'cmd_at1', 'cmd_handoff']
++    want_added = ['=CERT_MAPS', '=REGION_CATEGORY', '=REGION_FAMILIES', 'band_region', 'band_region_box_only_extent',
++                  'band_region_extent', 'certificate_maps', 'check_member_eps', 'member_eps', 'region_violation']
+     check('T35.scope_band_rows_cmd_band_linear_model_AST_identical_to_v002_and_only_the_declared_nodes_changed',
+           all(a[k] == b[k] for k in ('band_rows', 'cmd_band', 'linear_model')) and changed == want_changed and
+           added == want_added and removed == [],
+@@ -2555,13 +2606,15 @@
+ 
+ # ----------------------------------------------------------------------------------------------- T36: S0 and shared map
+ def t36_identity(S):
++    """Port: the reference stays v002 (the shared form is kept for S0 / u_A alone and stays byte-identical to v002)."""
+     c = S['corner']
++    v2 = {'ref': V002[0], 'suffix': '.V002_SHADOW'}
+     (r0, recs0) = shadowed(lambda: tool('fdplan', '--s0-only', '--config', c.cfg, '--config-sha256', c.cfg_sha, '--out-dir',
+-                                        RUN / 'S0_CORNER_T36'))
++                                        RUN / 'S0_CORNER_T36'), **v2)
+     cs, outs = S['seed'], S['seed_snap']
+     pp, rp = provenance_fixture(cs, outs, 'T36')
+-    (r1, recs1) = shadowed(lambda: handoff(cs, outs, pp, rp, 'T36_SHARED'))
+-    (r2, recs2) = shadowed(lambda: band_cli_on(S['seed_snap'], S['seed_fd'], S['vals1'], 'T36'))
++    (r1, recs1) = shadowed(lambda: handoff(cs, outs, pp, rp, 'T36_SHARED'), **v2)
++    (r2, recs2) = shadowed(lambda: band_cli_on(S['seed_snap'], S['seed_fd'], S['vals1'], 'T36'), **v2)
+     recs = {'fdplan_s0': recs0, 'handoff_shared_map': recs1, 'band': recs2}
+     check('T36.MUST_PASS_S0_path_shared_map_handoff_and_L1_byte_identical_to_v002_except_the_module_field',
+           r0[0] == 0 and r1[0] == 0 and r2[0] == 0 and
+@@ -2570,12 +2623,374 @@
+           {k: [(x['rc'], x['subst'], x['diffs']) for x in v] for k, v in recs.items()})
+ 
+ 
++# ----------------------------------------------------------------------------------------------- part 4: A149
++def t37_members_custody(S):
++    """A149 item 2: at0b records members_sha256; at1 refuses MEMBERS (no out-dir) unless its --members sha equals it."""
++    fx = fx_of(S, 'seed')
++    rec = {'AT0B_OK': FIX / 'MEMBERS_LINEAR.json', 'AT0B_NOREBIND': FIX / 'MEMBERS_NOREBIND.json',
++           'AT0B_C1': FIX / 'MEMBERS_C1.json', 'AT0B_Q1': FIX / 'MEMBERS_Q1.json',
++           'AT0B_CORNER': S['corner_phase2']['members']}
++    got = {k: json.loads((RUN / k / 'AT0B_C2V001.json').read_text()) for k in rec}
++    check('T37.A149_2_MUST_PASS_at0b_records_members_sha256_equal_to_the_sha_of_the_members_bytes_it_read',
++          all(got[k].get('members_sha256') == sha(m) and got[k]['module'] == 'phase1_c2v003a' for k, m in rec.items()),
++          {k: [got[k].get('outcome'), (got[k].get('members_sha256') or '')[:16], sha(m)[:16]] for k, m in rec.items()})
++    # (b) v003's T23 combination: the AT-0b defect file (NOREBIND) with another members file (C1)
++    l1c1 = RUN / 'L1_C1' / 'L1_C2V001.json'
++    a0b_bad = RUN / 'AT0B_NOREBIND' / 'AT0B_C2V001.json'
++    rc, o, _d = at1_cli(fx, l1c1, a0b_bad, FIX / 'MEMBERS_C1.json', 'A149_DEFECT_AT0B_OTHER_MEMBERS')
++    rcv, ov, _dv = at1_cli(fx, RUN / 'L1_C1.V003_SHADOW' / 'L1_C2V001.json', a0b_bad, FIX / 'MEMBERS_C1.json',
++                           'A149_DEFECT_AT0B_OTHER_MEMBERS_V003', path=V003[0])
++    check('T37.A149_2_MUST_FAIL_at1_members_file_other_than_the_one_AT0b_read_REFUSED_MEMBERS_no_out_dir (v003 T23 form)',
++          rc == 3 and 'MEMBERS' in o.get('reason', '') and 'members_sha256' in o.get('reason', '') and
++          'A149 item 2' in o.get('reason', '') and not (RUN / 'AT1_A149_DEFECT_AT0B_OTHER_MEMBERS').exists(),
++          {'rc': rc, 'reason': o.get('reason'), 'v003_on_the_same_inputs': [rcv, ov.get('outcome'), ov.get('reason')]})
++    # (c) the adversarial verifier's case: the Q1 members file with only the u_A member's result_pin changed
++    mq = json.loads((FIX / 'MEMBERS_Q1.json').read_text())
++    rf = FIX / 'A149_OTHER_UA_RESULT.json'
++    rf.write_text('{"synthetic_toy_result": true, "note": "not the Phase-1 u_A result"}')
++    uAli = json.loads(Path(S['seed_fd']).read_text())['u_A']['log_index']
++    for p in mq['points']:
++        if p['log_index'] == uAli:
++            p['result_pin'] = pin(rf)
++    mp2 = FIX / 'MEMBERS_Q1_UA_RESULT_PIN_CHANGED.json'
++    mp2.write_text(json.dumps(mq, indent=1))
++    a0bq = RUN / 'AT0B_Q1' / 'AT0B_C2V001.json'
++    rc, o, _d = at1_cli(fx, RUN / 'L1_Q1' / 'L1_C2V001.json', a0bq, mp2, 'A149_UA_RESULT_PIN_CHANGED')
++    rcv, ov, _dv = at1_cli(fx, RUN / 'L1_Q1.V003_SHADOW' / 'L1_C2V001.json', a0bq, mp2,
++                           'A149_UA_RESULT_PIN_CHANGED_V003', path=V003[0])
++    check('T37.A149_2_MUST_FAIL_at1_members_file_with_the_u_A_result_pin_changed_after_AT0b_REFUSED_no_out_dir',
++          rc == 3 and 'members_sha256' in o.get('reason', '') and not (RUN / 'AT1_A149_UA_RESULT_PIN_CHANGED').exists(),
++          {'rc': rc, 'reason': o.get('reason'), 'v003_on_the_same_inputs': [rcv, ov.get('outcome')]})
++    # (d) an AT-0b file without members_sha256 (written by v003)
++    a0b3 = RUN / 'AT0B_C1.V003_SHADOW' / 'AT0B_C2V001.json'
++    rc, o, _d = at1_cli(fx, l1c1, a0b3, FIX / 'MEMBERS_C1.json', 'A149_V003_AT0B')
++    check('T37.A149_2_MUST_FAIL_at1_with_an_AT0b_that_records_no_members_sha256_(v003-written)_REFUSED_no_out_dir',
++          'members_sha256' not in json.loads(a0b3.read_text()) and rc == 3 and 'members_sha256' in o.get('reason', '')
++          and "recorded by AT-0b" in o.get('reason', '') and not (RUN / 'AT1_A149_V003_AT0B').exists(),
++          {'rc': rc, 'reason': o.get('reason')})
++
++
++def exact_L(uA=(0.0, 0.4, 0.6)):
++    """SYNTHETIC exact-geometry linear model in linear_model's layout: V = I (V_I = e_0, m_id = 1), S has only column 0
++    (entries +-1, +-2, +-0.5) and DDO row 0 has zero slack (q_A,0 = zrow_0: b_band row 0 = 0.0).  For a member
++    u = u_A + t e_0 with u_A,0 = 0.0: Delta = (t, 0, 0), c = t and DDO row 0's violation (A c)_0 - max(b_0, 0) = t, all
++    exact in floating point; every other row has slack >= 0.25 - t."""
++    import numpy as np
++    S_ = np.zeros((6, 3))
++    S_[:, 0] = [1.0, -1.0, 2.0, -2.0, 0.5, -0.5]
++    V = np.eye(3)
++    qA = np.zeros(6)
++    qA[0] = 5.0
++    return {'uA': np.array(uA, dtype=float), 'qA': qA, 'zrow': np.full(6, 5.0), 'S': S_, 'V': V, 'I': [0], 'N': [1, 2],
++            'VI': V[[0]], 'fA': 100.0 + np.arange(6, dtype=float), 'sig': np.ones(6), 'J': S_.copy(),
++            'P': {'max_repair_step': 0.25, 'hull_growth_tol': 0.02, 'march_step': 0.05},
++            'rows': ['SYN_X%02d' % i for i in range(6)]}
++
++
++def t38_region_tolerance(S):
++    """A149 item 4: the region test is (A c)_i - max(b_i, 0) > E._LP_EPS, exactly: violations 5e-13 and 1e-12 read [],
++    1e-12 + one ulp and 1e-10 read LINEAR_DDO (kills tolerance 1e-9, tolerance 1e-13 and '>=')."""
++    import numpy as np
++    Lx = exact_L()
++    ts = {1001: 5e-13, 1002: 1e-12, 1003: float(np.nextafter(1e-12, np.inf)), 1004: 1e-10, 1005: 2e-12}
++    want = {1001: [], 1002: [], 1003: ['LINEAR_DDO'], 1004: ['LINEAR_DDO'], 1005: ['LINEAR_DDO']}
++    mem = [(li, [t, 0.4, 0.6]) for li, t in ts.items()]
++    l1x, _m = l1_of(Lx, synth_F(Lx, (0.05, 0.05, 0.05)), lin_g)
++    fx_, _r = P.at1_rows(E, Lx, l1x, run2_of(Lx, mem), mv_of(mem, bumped(lin_g)), QIDS)
++    reg = P.band_region(Lx)
++    res, ok = {}, len(fx_) == 43 * len(mem)
++    for li, t in ts.items():
++        c = Lx['VI'] @ (np.array(dict(mem)[li]) - Lx['uA'])
++        viol, mx = P.region_violation(E, reg, c)
++        ind = indep_region(Lx, c)
++        cats = sorted(set(x['category'] for x in fx_ if x['log_index'] == li))
++        lists = sorted(set(tuple(x['region_rows_violated']) for x in fx_ if x['log_index'] == li))
++        res[li] = {'t': t.hex(), 'c_equals_t': float(c[0]) == t, 'LINEAR_DDO_violation': mx['LINEAR_DDO'],
++                   'violation_equals_t_exactly': mx['LINEAR_DDO'] == t, 'region': viol, 'independent': ind[0],
++                   'categories': cats, 'lists': [list(x) for x in lists]}
++        ok = ok and float(c[0]) == t and mx['LINEAR_DDO'] == t and viol == want[li] and ind[0] == want[li] and \
++            lists == [tuple(want[li])] and cats == ([CAT[want[li][0]]] if want[li] else ['NGC_NONLINEAR'])
++    check('T38.A149_4_MUST_FAIL_region_tolerance_is_exactly_E._LP_EPS_with_a_strict_> (violations 5e-13 and 1e-12 '
++          'read [], 1e-12+ulp, 2e-12 and 1e-10 read LINEAR_DDO)', ok and E._LP_EPS == 1e-12, res)
++
++
++def t39_contract_member_valid_false(S):
++    """A149 item 4: the A144 R3 contract covers every member point of the file, member_valid false included (kills the
++    member_valid-true-only contract); a member_valid false point with a full list is accepted (control)."""
++    fxs = fx_of(S, 'seed')
++    fd = json.loads(Path(fxs['fd']).read_text())
++    ch = chain(fxs, 'MVF', 'linear')
++    base = json.loads(Path(ch['mp']).read_text())
++    li_x = [p['log_index'] for p in base['points'] if p['log_index'] != fd['u_A']['log_index']][0]
++    res = {}
++    for tag, mut in (('MVF_NOEPS', lambda p: p.pop('eps_km_s')), ('MVF_LEN42', lambda p: p.update(eps_km_s=[0.01] * 42)),
++                     ('MVF_CONTROL', lambda p: None)):
++        doc = json.loads(json.dumps(base))
++        for p in doc['points']:
++            if p['log_index'] == li_x:
++                p['member_valid'] = False
++                mut(p)
++        mp = FIX / ('MEMBERS_%s.json' % tag)
++        mp.write_text(json.dumps(doc, indent=1))
++        rc0, o0, a0b = at0b_cli(fxs, ch['vals'], mp, tag)
++        rc, o, d = at1_cli(fxs, ch['l1'], a0b, mp, tag)
++        res[tag] = {'at0b': [rc0, json.loads(a0b.read_text()).get('outcome') if a0b.exists() else None], 'rc': rc,
++                    'reason': o.get('reason'), 'out_dir': (RUN / ('AT1_' + tag)).exists(), 'outcome': d.get('outcome')}
++    ok = all(res[t]['at0b'] == [0, 'PASS'] and res[t]['rc'] == 3 and 'eps_km_s' in (res[t]['reason'] or '') and
++             ('[%d]' % li_x) in (res[t]['reason'] or '') and not res[t]['out_dir'] for t in ('MVF_NOEPS', 'MVF_LEN42'))
++    check('T39.A149_4_MUST_FAIL_member_valid_false_point_without_a_43_entry_eps_km_s_REFUSED_MEMBERS_no_out_dir '
++          '(control: with the list it is accepted)',
++          ok and res['MVF_CONTROL']['rc'] == 0 and res['MVF_CONTROL']['out_dir'], dict(res, member=li_x))
++
++
++def t40_scope_by_theta_key(S):
++    """A149 item 4: a per-member map pin that names another admitted point by its theta key alone is refused (kills the
++    spec-sha-only scope check); by its spec sha alone, refused; naming only its own member's key, accepted (control)."""
++    c, out = S['seed'], S['seed_snap']
++    pp, rp = provenance_fixture(c, out, 'PM_KEY')
++    _d, rec = rec_of(out)
++    members = [m['log_index'] for m in P.v003g_members(c.ctx, rec['run'], 6)['points']]
++    keys = {p['log_index']: O.theta_key(p['theta_natural']) for p in rec['run']['exploration']['admitted_points']}
++    cp = campaign_of(c)
++    specs = {li: cp.orch.cache.entries[k]['provenance']['spec_sha256'] for li, k in keys.items()}
++    fx = RUN / 'PROV_PM_KEY'
++    a_, b_ = members[0], members[1]
++    files = {'key_only_other': {'synthetic': True, 'point_theta_key': keys[b_]},
++             'spec_only_other': {'synthetic': True, 'point_spec_sha256': specs[b_]},
++             'key_only_own': {'synthetic': True, 'point_theta_key': keys[a_]}}
++    res = {}
++    for name, body in files.items():
++        cf = fx / ('CERT_%s.json' % name.upper())
++        cf.write_text(json.dumps(body))
++        raw = cf.read_bytes()
++        maps = {str(li): {'eps_certificate': pin(fx / ('CERT_%d.json' % li)), 'gq_certificate': 'PENDING'}
++                for li in members}
++        maps[str(a_)]['eps_certificate'] = pin(cf)
++        rf = json.loads(Path(rp).read_text())
++        rf.pop('certificate_pins')
++        rf[P.CERT_MAPS] = maps
++        rfp = fx / ('ROOT_FIELDS_%s.json' % name.upper())
++        rfp.write_text(json.dumps(rf, indent=1))
++        rc, o, o_ = handoff(c, out, pp, rfp, 'PM_' + name.upper())
++        res[name] = {'rc': rc, 'out_dir': o_.exists(), 'reason': o.get('reason', '')[:240],
++                     'names_other_key': keys[b_].encode() in raw, 'names_any_spec_sha': any(s.encode() in raw
++                                                                                        for s in specs.values() if s)}
++    ko, so, own = res['key_only_other'], res['spec_only_other'], res['key_only_own']
++    check('T40.A149_4_MUST_FAIL_map_pin_naming_another_member_by_theta_key_alone_refused_CERTIFICATE_MAP (and by spec '
++          'sha alone; own key alone accepted)',
++          ko['names_other_key'] and not ko['names_any_spec_sha'] and ko['rc'] == 3 and not ko['out_dir'] and
++          'CERTIFICATE_MAP' in ko['reason'] and ('member %d' % a_) in ko['reason'] and str(b_) in ko['reason'] and
++          so['rc'] == 3 and not so['out_dir'] and 'CERTIFICATE_MAP' in so['reason'] and
++          own['rc'] == 0 and own['out_dir'], dict(res, member=a_, other=b_))
++
++
++def tie_L(tiny):
++    """The adversarial verifier's A5 construction (p1v003_verify_adv probes, inproc A5): u_A = (1, 0, 0.5), V_I ~ (1, 1,
++    0)/sqrt2, so the box rows alone pin c = 0 exactly; the DDO row with the largest |S V_I^T| gets b_band = tiny."""
++    import numpy as np
++    V = np.array([[1.0, 1.0, 0.0], [1.0, -1.0, 0.0], [0.0, 0.0, 1.0]]) / np.array([[math.sqrt(2)], [math.sqrt(2)], [1.0]])
++    L = synth_L((1.0, 0.0, 0.5), V, (3.0, 0.0, 0.0), n_ddo=8, ddo_half=6.0, seed=7)
++    s0 = (L['S'] @ L['VI'].T)[:, 0]
++    i0 = int(np.argmax(np.abs(s0)))
++    L['qA'][i0] = (L['zrow'][i0] - tiny) if s0[i0] > 0 else -(L['zrow'][i0] - tiny)
++    return L
++
++
++def t41_box_only_extent(S):
++    """A149 item 3: band_region_box_only_extent, print only."""
++    import numpy as np
++
++    def ok_box(ext, want):
++        return len(ext) == len(want) and all(e['lp_status'] == ['OPTIMAL', 'OPTIMAL'] and
++                                             abs(e['extent'][0] - w[0]) <= 1e-12 and abs(e['extent'][1] - w[1]) <= 1e-12
++                                             for e, w in zip(ext, want))
++    docs = {'corner_T27': (RUN / 'AT1_CORNER', 'corner'), 'seed_Q1': (RUN / 'AT1_Q1', 'seed'),
++            'cm2': (RUN / 'AT1_CM2', 'cm2'), 'seed_R3': (RUN / 'AT1_R3_SEED', 'seed')}
++    res, ok = {}, True
++    for name, (d, lk) in docs.items():
++        rep = json.loads((d / 'AT1_C2V001.json').read_text())['reported']
++        L = S['Ls'][lk]
++        A, b, fam = P.band_region(L)
++        ind = indep_extent(A[fam['BOX']], b[fam['BOX']])
++        box, full = rep.get('band_region_box_only_extent') or [], rep['band_region_extent']
++        contains = all(bx['extent'][0] <= fl['extent'][0] + 1e-12 and fl['extent'][1] <= bx['extent'][1] + 1e-12
++                       for bx, fl in zip(box, full))
++        res[name] = {'box_only': [x['extent'] for x in box], 'independent_box_only': ind, 'full': [x['extent'] for x in full],
++                     'single_point': rep['band_region_single_point'], 'reason': rep['band_region_single_point_reason'],
++                     'directions': [x['direction'] for x in box] == L['I'], 'box_contains_full': contains}
++        ok = ok and ok_box(box, ind) and res[name]['directions'] and contains
++    ok = ok and res['corner_T27']['box_only'] == [[0.0, 0.0]] and res['corner_T27']['single_point'] is True and \
++        res['corner_T27']['reason'] == 'BOX_CORNER' and res['seed_Q1']['box_only'] != res['seed_Q1']['full']
++    check('T41.A149_3_MUST_PASS_at1_prints_band_region_box_only_extent_equal_to_an_independent_box_only_computation '
++          '(corner [0.0,0.0], interior, CM2; it contains the full-region extent)', ok, res)
++    # (b) the exact-corner LP-tie case: the full-region extent is a few ulps off 0.0, the box-only extent is [0.0, 0.0]
++    res, tie = {}, []
++    for tiny in (0.0, 1e-14, 1e-13, 5e-13, 1e-12):
++        L = tie_L(tiny)
++        ext, sp, why = P.band_region_extent(E, L)
++        box = P.band_region_box_only_extent(E, L)
++        res[repr(tiny)] = {'full': ext[0]['extent'], 'full_status': ext[0]['lp_status'], 'single_point': sp,
++                           'reason': why, 'box_only': box[0]['extent'], 'box_status': box[0]['lp_status']}
++        if ext[0]['extent'] != [0.0, 0.0]:
++            tie.append(repr(tiny))
++    ok = all(x['box_only'] == [0.0, 0.0] and x['box_status'] == ['OPTIMAL', 'OPTIMAL'] for x in res.values()) and \
++        res['0.0']['single_point'] is True and res['0.0']['reason'] == 'BOX_CORNER' and len(tie) >= 1 and \
++        all(res[t]['single_point'] is False and res[t]['reason'] is None and
++            0.0 <= min(res[t]['full']) and max(res[t]['full']) < 1e-12 for t in tie)
++    L = tie_L(float(tie[0])) if tie else tie_L(1e-14)
++    mem = [(1101, [float(x) for x in L['uA']])]
++    _f, rr = P.at1_rows(E, L, l1_of(L, synth_F(L, (-0.05, 0.05, 0.05)), lin_g)[0], run2_of(L, mem),
++                        mv_of(mem, lin_g), QIDS)
++    ok = ok and rr['band_region_box_only_extent'][0]['extent'] == [0.0, 0.0] and rr['band_region_single_point'] is False
++    check('T41.A149_3_MUST_PASS_exact_corner_LP_tie_full_region_extent_off_0.0_by_ulps_single_point_stays_exact_false_'
++          'and_box_only_extent_is_[0.0,0.0]', ok, dict(res, tie_cases=tie,
++                                                       at1_rows_box_only=rr['band_region_box_only_extent'],
++                                                       at1_rows_single_point=rr['band_region_single_point']))
++    # (c) non-OPTIMAL programs: box-only prints NOT_AVAILABLE with the statuses, and changes no row
++    def lp_fault(A_, b_, w_):
++        c_, _st = E._lp_max(A_, b_, w_)
++        return c_, 'ITERATION_LIMIT'
++    L = S['Ls']['corner']
++    ph = S['corner_phase2']
++    l1 = dict(json.loads(Path(ph['l1']).read_text()), fd_du=[f['du'] for f in S['Fs']['corner']])
++    mv = {p['log_index']: p for p in json.loads(Path(ph['members']).read_text())['points']}
++    f_ok, r_ok = P.at1_rows(E, L, l1, ph['run2'], mv, QIDS)
++    f_bad, r_bad = P.at1_rows(E, L, l1, ph['run2'], mv, QIDS, lp=lp_fault)
++    same = json.dumps(f_ok) == json.dumps(f_bad) and all(json.dumps(r_ok[k]) == json.dumps(r_bad[k]) for k in r_ok
++                                                         if not k.startswith('band_region'))
++    check('T41.A149_3_MUST_FAIL_non_OPTIMAL_box_only_program_prints_NOT_AVAILABLE_with_its_status_and_changes_no_row',
++          same and all(e['extent'] == ['NOT_AVAILABLE', 'NOT_AVAILABLE'] and
++                       e['lp_status'] == ['ITERATION_LIMIT', 'ITERATION_LIMIT'] for e in r_bad['band_region_box_only_extent'])
++          and r_ok['band_region_box_only_extent'][0]['extent'] == [0.0, 0.0],
++          {'fault': r_bad['band_region_box_only_extent'], 'ok': r_ok['band_region_box_only_extent'],
++           'rows_and_failing_unchanged': same})
++    # (d) the reason and the printed box-only extent agree wherever the band region is a single point
++    Lo = synth_L((0.5, 0.5, 0.5), rand_orth(21), (3.0, 0.0, 0.0), seed=9)
++    svi = (Lo['S'] @ Lo['VI'].T)[:, 0]
++    sgn = 1.0 if np.sum(svi > 0) >= 2 else -1.0
++    i, j = [k for k in range(len(svi)) if sgn * svi[k] > 0][:2]
++    Lo['qA'][i], Lo['qA'][j] = Lo['zrow'][i], -Lo['zrow'][j]   # T31's OTHER_ROWS fixture
++    cases = dict(S['Ls'], other_rows=Lo, tie_0=tie_L(0.0), **{'tie_%s' % t: tie_L(float(t)) for t in tie})
++    res, ok = {}, True
++    for name, L in cases.items():
++        _e, sp, why = P.band_region_extent(E, L)
++        box = P.band_region_box_only_extent(E, L)
++        zero = all(x['lp_status'] == ['OPTIMAL', 'OPTIMAL'] and x['extent'] == [0.0, 0.0] for x in box)
++        res[name] = {'single_point': sp, 'reason': why, 'box_only_zero': zero}
++        if sp is True:
++            ok = ok and (why == 'BOX_CORNER') == zero
++        else:
++            ok = ok and why is None
++    check('T41.A149_3_MUST_PASS_single_point_reason_BOX_CORNER_iff_the_printed_box_only_extents_are_OPTIMAL_[0.0,0.0]',
++          ok and res['corner']['single_point'] is True and res['other_rows']['reason'] == 'OTHER_ROWS', res)
++
++
++def t42_overflow(S):
++    """A149 item 1: an int entry beyond the float range is flagged MEMBER_EPS_NON_FINITE for that pair only; v003 refused
++    the whole at1 (INTERNAL_ERROR OverflowError) -- the declared overflow difference, shadowed against v003."""
++    def me(v):
++        try:
++            return P.member_eps([v], 0)
++        except Exception as exc:   # noqa: BLE001 -- recorded, so the CLI checks below still run
++            return ('RAISED', type(exc).__name__)
++    unit = {'10**400': me(10 ** 400), '-10**400': me(-(10 ** 400)), '2**1024': me(2 ** 1024), '2**1023': me(2 ** 1023),
++            '10**300': me(10 ** 300)}
++    check('T42.A149_1_MUST_FAIL_member_eps_int_beyond_the_float_range_is_NON_FINITE_never_an_exception (in process)',
++          unit['10**400'] == (None, 'MEMBER_EPS_NON_FINITE') and unit['-10**400'] == (None, 'MEMBER_EPS_NON_FINITE') and
++          unit['2**1024'] == (None, 'MEMBER_EPS_NON_FINITE') and unit['2**1023'] == (float(2 ** 1023), None) and
++          unit['10**300'] == (1e300, None), {k: list(v) for k, v in unit.items()})
++    fxs = fx_of(S, 'seed')
++    fd = json.loads(Path(fxs['fd']).read_text())
++    li_x = [m['log_index'] for m in fxs['sel2']['points'] if m['log_index'] != fd['u_A']['log_index']][0]
++    out = {}
++    for tag, val in (('A149_OVERFLOW', 10 ** 400), ('A149_INF', float('inf'))):
++        def run(tag=tag, val=val):
++            ch = chain(fxs, tag, 'quad', eps_fn=lambda li, q: val if (li, q) == (li_x, 9) else 0.004 + 0.001 * (q % 5))
++            rc, o, d = at1_cli(fxs, ch['l1'], ch['a0b'], ch['mp'], tag)
++            return ch, rc, o, d
++        (ch, rc, o, d), recs = shadowed(run, ref=V003[0], suffix='.V003_SHADOW')
++        out[tag] = {'ch': ch, 'rc': rc, 'o': o, 'd': d, 'recs': recs}
++    ov = out['A149_OVERFLOW']
++    rep = ov['d'].get('reported') or {}
++    raw_ok = ('%d' % 10 ** 400).encode() in Path(ov['ch']['mp']).read_bytes()
++    recs = {r['cmd']: r for r in ov['recs']}
++    a1 = recs.get('agree at1') or {}
++    v3_reason = ''
++    for d_ in a1.get('diffs') or []:
++        v3_reason += d_
++    check('T42.A149_1_MUST_FAIL_10**400_entry_flags_one_pair_MEMBER_EPS_NON_FINITE_and_at1_completes (CLI)',
++          raw_ok and ov['ch']['rc'] == [0, 0] and ov['rc'] == 0 and
++          rep.get('pairs_member_point_noise_not_bounded') == [{'log_index': li_x, 'id': QIDS[9],
++                                                               'flag_reason': 'MEMBER_EPS_NON_FINITE'}] and
++          [x for x in rep.get('e_q_per_member_row') or [] if x['flag'] == 'MEMBER_POINT_NOISE_NOT_BOUNDED'] ==
++          [x for x in rep.get('e_q_per_member_row') or [] if (x['log_index'], x['id']) == (li_x, QIDS[9])],
++          {'rc': ov['rc'], 'reason': ov['o'].get('reason'), 'outcome': ov['d'].get('outcome'),
++           'flagged': rep.get('pairs_member_point_noise_not_bounded'), 'members_file_holds_the_401_digit_int': raw_ok})
++    # the shadow: band and at0b differ from v003 only in the declared fields; at1 differs only by the overflow case
++    v3 = a1.get('rc') == [3, 0] and a1.get('out', '').endswith('AT1_A149_OVERFLOW') and \
++        not os.path.exists(str(RUN / 'AT1_A149_OVERFLOW') + '.V003_SHADOW') and \
++        all(d_.startswith(('exit code 3 != 0', 'stdout ', 'files [] != ')) for d_ in a1.get('diffs') or []) and \
++        'OverflowError' in v3_reason and a1.get('l1_substituted')
++    band_ok = not recs['band']['diffs'] and recs['band']['subst'] == ['module']
++    at0b_ok = not recs['agree at0b']['diffs'] and recs['agree at0b']['subst'] == sorted(['module', AT0B_DECLARED])
++    inf_ = out['A149_INF']
++    same = (RUN / 'AT1_A149_OVERFLOW' / 'AT1_C2V001.json').read_bytes() == \
++        (RUN / 'AT1_A149_INF' / 'AT1_C2V001.json').read_bytes() if ov['rc'] == 0 and inf_['rc'] == 0 else False
++    i1 = {r['cmd']: r for r in inf_['recs']}.get('agree at1') or {}
++    check('T42.A149_1_shadow_v003_declared_overflow_difference_only (v003 refuses INTERNAL_ERROR OverflowError, no '
++          'out-dir; band and at0b declared fields only; v003a reads 10**400 byte-identically to an inf entry)',
++          v3 and band_ok and at0b_ok and same and not i1.get('diffs') and AT1_DECLARED in (i1.get('subst') or []),
++          {'at1_shadow': [a1.get('rc'), [d_[:200] for d_ in a1.get('diffs') or []]], 'band': recs['band']['subst'],
++           'at0b': recs['agree at0b']['subst'], 'overflow_equals_inf_bytes': same,
++           'inf_shadow': [i1.get('rc'), i1.get('diffs'), i1.get('subst')]})
++
++
++def t43_v003_and_scope(S):
++    """v003 untouched; at1 custody accepts only a v003a-written L1; the AST scope against v003."""
++    import ast
++    check('T43.v003_tool_tests_mutation_README_and_HASHES_untouched (sha256 from bytes)',
++          sha(V003[0]) == V003[1] and all(sha(p) == h for p, h in V003_FILES),
++          {os.path.basename(str(p)): sha(p)[:16] for p, _h in ((V003[0], None),) + V003_FILES})
++    fx = fx_of(S, 'seed')
++    l13 = RUN / 'L1_C1.V003_SHADOW' / 'L1_C2V001.json'
++    rc, o, _d = at1_cli(fx, l13, RUN / 'AT0B_C1' / 'AT0B_C2V001.json', FIX / 'MEMBERS_C1.json', 'A149_V003_L1')
++    check('T43.MUST_FAIL_at1_on_an_L1_written_by_v003_refused_L1_module_and_no_out_dir',
++          json.loads(l13.read_text())['module'] == 'phase1_c2v003' and rc == 3 and
++          "L1 module 'phase1_c2v003' is not phase1_c2v003a" in o.get('reason', '') and
++          not (RUN / 'AT1_A149_V003_L1').exists(), {'rc': rc, 'reason': o.get('reason')})
++
++    def tops(p):
++        out = {}
++        for n in ast.parse(Path(p).read_text()).body:
++            if isinstance(n, (ast.FunctionDef, ast.ClassDef)):
++                out[n.name] = ast.dump(n)
++            elif isinstance(n, ast.Assign):
++                for tg in n.targets:
++                    for nm in ([tg] if isinstance(tg, ast.Name) else getattr(tg, 'elts', [])):
++                        if isinstance(nm, ast.Name):
++                            out['=' + nm.id] = ast.dump(n)
++            elif isinstance(n, ast.Expr) and isinstance(getattr(n, 'value', None), ast.Constant):
++                out['<docstring>'] = ast.dump(n)
++        return out
++    a, b = tops(V003[0]), tops(TOOL)
++    changed = sorted(k for k in a if k in b and a[k] != b[k])
++    added = sorted(k for k in b if k not in a)
++    removed = sorted(k for k in a if k not in b)
++    keep = ('band_rows', 'cmd_band', 'linear_model', 'band_region', 'band_region_extent', 'region_violation',
++            'check_member_eps', 'certificate_maps', 'cmd_handoff', 'members_values', '=E_Q_READING')
++    check('T43.scope_against_v003_only_MODULE_member_eps_cmd_at0b_at1_rows_cmd_at1_changed_and_box_only_helper_added '
++          '(band_rows, cmd_band, linear_model and the A144 helpers AST-identical)',
++          changed == ['<docstring>', '=MODULE', 'at1_rows', 'cmd_at0b', 'cmd_at1', 'member_eps'] and
++          added == ['band_region_box_only_extent'] and removed == [] and all(a[k] == b[k] for k in keep),
++          {'changed': changed, 'added': added, 'removed': removed})
++
++
+ def main():
+     RUN.mkdir(parents=True)
+     FIX.mkdir()
+     sys.addaudithook(_audit)
+     S = {}
+-    # part 1: the v002 tests, ported; every CLI call is shadow-run with v002 (R01)
++    # part 1: the v002-era tests, ported; every CLI call is shadow-run with v003 (R01)
+     guard('T00', t00_pins)
+     guard('T01', lambda: t01_seed(S))
+     guard('T03', lambda: t03_s0_fd(S))
+@@ -2594,13 +3009,13 @@
+     guard('T25', lambda: t25_categories(S))
+     guard('T26', lambda: t26_snapshot_race_free(S))
+     guard('T24', lambda: t24_at0a_tamper(S))
+-    guard('T27', lambda: t27_corner(S))   # v002's A137 L5 and N-B checks, now under the v002 shadow too
++    guard('T27', lambda: t27_corner(S))   # v002's A137 L5 and N-B checks, under the v003 shadow
+     guard('T28', lambda: t28_corner_must_fail(S))
+     guard('T29', lambda: t29_nb(S))
+     n_ported = len(RESULTS)
+-    # part 2: regression against v002
++    # part 2: regression against v003
+     SHADOW['on'] = False
+-    with open(RUN / 'SHADOW_REGRESSION_V002_V003.json', 'x') as fh:
++    with open(RUN / 'SHADOW_REGRESSION_V003_V003A.json', 'x') as fh:
+         json.dump(SHADOW['log'], fh, indent=1, default=str)
+     guard('R01', lambda: r01_regression(S))
+     n_r01 = len(RESULTS) - n_ported
+@@ -2613,16 +3028,26 @@
+     guard('T34', lambda: t34_handoff(S))
+     guard('T35', lambda: t35_scope(S))
+     guard('T36', lambda: t36_identity(S))
++    n_p3 = len(RESULTS) - n_ported - n_r01
++    # part 4: A149 items 1-4 (new)
++    guard('T37', lambda: t37_members_custody(S))
++    guard('T38', lambda: t38_region_tolerance(S))
++    guard('T39', lambda: t39_contract_member_valid_false(S))
++    guard('T40', lambda: t40_scope_by_theta_key(S))
++    guard('T41', lambda: t41_box_only_extent(S))
++    guard('T42', lambda: t42_overflow(S))
++    guard('T43', lambda: t43_v003_and_scope(S))
+     n_pass = sum(1 for r in RESULTS if r['pass'])
+     summary = {'run_dir': str(RUN), 'n': len(RESULTS), 'pass': n_pass, 'fail': len(RESULTS) - n_pass,
+-               'n_ported_part1': n_ported, 'n_regression_part2': n_r01, 'n_new_part3': len(RESULTS) - n_ported - n_r01,
++               'n_ported_part1': n_ported, 'n_regression_part2': n_r01, 'n_ported_part3': n_p3,
++               'n_ported_total': n_ported + n_r01 + n_p3, 'n_new_part4_A149': len(RESULTS) - n_ported - n_r01 - n_p3,
+                'shadow_cli_calls': len(SHADOW['log']),
+                'must_fail': sum(1 for r in RESULTS if 'MUST_FAIL' in r['id']),
+                'must_fail_pass': sum(1 for r in RESULTS if 'MUST_FAIL' in r['id'] and r['pass']),
+                'must_pass': sum(1 for r in RESULTS if 'MUST_FAIL' not in r['id']),
+                'must_pass_pass': sum(1 for r in RESULTS if 'MUST_FAIL' not in r['id'] and r['pass']),
+                'audit_denied': AUDIT['denied'], 'tool_sha256': sha(TOOL), 'test_sha256': sha(__file__),
+-               'v001_sha256': sha(V001[0]), 'v002_sha256': sha(V002[0])}
++               'v001_sha256': sha(V001[0]), 'v002_sha256': sha(V002[0]), 'v003_sha256': sha(V003[0])}
+     with open(RUN / 'RESULTS.json', 'x') as fh:
+         json.dump({'summary': summary, 'results': RESULTS}, fh, indent=1, default=str)
+     print(json.dumps(summary, indent=1))

@@ -1,0 +1,4642 @@
+{
+ "meta": {
+  "harness": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/annular_knot_review_0451/fixtures_n2v001.py",
+  "harness_sha256": "ae9e35cd699d8ccbc0b06a8efd39bab0311f12f8bbdc9282a4082d139f9dae79",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "argv": [
+   "fixtures_n2v001.py",
+   "--module",
+   "c3_snapshot_23bb22fb/annular_knot_maps_c3v001.py",
+   "--scalar-fn",
+   "build_annular_scalar_maps",
+   "--helicity-fn",
+   "build_annular_regular_helicity_maps",
+   "--adapter",
+   "c3v001",
+   "--out",
+   "fixture_results_n2v001_c3.json"
+  ],
+  "threads": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "contract_sha256_verified": true,
+  "helper_sha256_verified": true,
+  "old_scalar_sha256_verified": true,
+  "old_helicity_sha256_verified": true,
+  "tolerances": {
+   "edge_abs": 1e-13,
+   "map_rel": 1e-12,
+   "trace_abs": 1e-15,
+   "preserve_rel": 1e-14,
+   "rootder_rel": 1e-11,
+   "fd_rel": 1e-06,
+   "fd_step_rel": 1e-06,
+   "intrinsic_card_abs": 1e-12,
+   "intrinsic_rel": 1e-09,
+   "hard_residual": 1e-13,
+   "ortho": 1e-12,
+   "projector": 1e-12,
+   "hel_map_rel": 1e-11,
+   "norms_rel": 1e-13,
+   "sv_rel": 1e-12,
+   "outer_rel": 1e-13,
+   "hel_fd_value_rel": 1e-11
+  },
+  "rank_controls": {
+   "relative": 1e-12,
+   "absolute": 0.0
+  },
+  "scope": "synthetic analytic geometry only; no project data or project run",
+  "geometries": [
+   {
+    "name": "G1",
+    "seed": 4511,
+    "L": 3.0,
+    "shape": "linear",
+    "z_rule": "split",
+    "edges": [
+     0.0,
+     0.05421226608026863,
+     0.10964586514384997,
+     0.1558975644780771,
+     0.2289913929999236,
+     0.296092844693353,
+     0.32769918184963875,
+     0.35888764323776917,
+     0.43671925005333323,
+     0.46892751371942043,
+     0.5542276250845306,
+     0.5884383350229127,
+     0.6441030403138629,
+     0.6860090302569134,
+     0.7269428534525564,
+     0.8012707374395094,
+     0.8617239579200558,
+     0.9305823408521426,
+     1.0
+    ],
+    "min_annulus_width": 0.031188461388130417
+   },
+   {
+    "name": "G2",
+    "seed": 4512,
+    "L": 2.5e+20,
+    "shape": "smooth",
+    "z_rule": "split",
+    "edges": [
+     0.0,
+     0.0719571994826513,
+     0.13233737128726947,
+     0.18264770909535236,
+     0.24303843041635692,
+     0.28641820561994175,
+     0.3576608625227014,
+     0.39703680379528283,
+     0.4594193728396434,
+     0.4976659229679993,
+     0.557788798596145,
+     0.620036529687741,
+     0.6506732337720126,
+     0.684509382924372,
+     0.7359875259622779,
+     0.8155139264310799,
+     0.8734379053421117,
+     0.9494994029607938,
+     1.0
+    ],
+    "min_annulus_width": 0.03063670408427155
+   },
+   {
+    "name": "G3",
+    "seed": 4513,
+    "L": 0.7,
+    "shape": "smooth",
+    "z_rule": "plain",
+    "edges": [
+     0.0,
+     0.05429887172721862,
+     0.13216864905204528,
+     0.20347144124323485,
+     0.26044966943557396,
+     0.3226491900695255,
+     0.3685840211489028,
+     0.4266649323785181,
+     0.48011129474827147,
+     0.5246683335229253,
+     0.5823544967804384,
+     0.6517383398617317,
+     0.7146115591655969,
+     0.7538278844126067,
+     0.8011866308205035,
+     0.8338260403950777,
+     0.8657268458953215,
+     0.934959648348799,
+     1.0
+    ],
+    "min_annulus_width": 0.03190080550024377
+   }
+  ],
+  "seconds": 1.62
+ },
+ "target": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/annular_knot_review_0451/c3_snapshot_23bb22fb/annular_knot_maps_c3v001.py",
+  "sha256": "23bb22fb94c3a6b39b84479a1c5e03812fbcdeaf6180ca85ddad083a3d3d92c4",
+  "scalar_fn": "build_annular_scalar_maps",
+  "helicity_fn": "build_annular_regular_helicity_maps",
+  "adapter": "c3v001",
+  "static_scan": {
+   "status": "PASS",
+   "public_functions": [
+    "finite",
+    "build_annular_scalar_maps",
+    "build_annular_regular_helicity_maps"
+   ],
+   "linalg_calls": [
+    {
+     "line": 293,
+     "call": "np.linalg.qr",
+     "function": "_regular_helicity_core",
+     "kind": "expected"
+    },
+    {
+     "line": 282,
+     "call": "np.linalg.svd",
+     "function": "_regular_helicity_core",
+     "kind": "expected"
+    }
+   ],
+   "flagged_identifiers": [],
+   "nonstatic_toplevel": [],
+   "imports": [
+    {
+     "line": 29,
+     "names": [
+      "numbers"
+     ],
+     "module": null,
+     "function": "<module>"
+    },
+    {
+     "line": 31,
+     "names": [
+      "numpy"
+     ],
+     "module": null,
+     "function": "<module>"
+    }
+   ]
+  },
+  "caller_tolerances": {
+   "edge_absolute_tolerance": 1.4210854715202004e-14,
+   "weight_relative_tolerance": 1.4210854715202004e-14
+  },
+  "counts": {
+   "PASS": 390,
+   "INFO": 20
+  },
+  "by_group": {
+   "F-edges": {
+    "PASS": 51,
+    "INFO": 3
+   },
+   "F-names": {
+    "PASS": 3,
+    "INFO": 3
+   },
+   "F-noproj": {
+    "PASS": 3
+   },
+   "F-scalar": {
+    "PASS": 36
+   },
+   "F-preserve": {
+    "PASS": 30,
+    "INFO": 6
+   },
+   "F-chain": {
+    "PASS": 6,
+    "INFO": 2
+   },
+   "F-helicity": {
+    "PASS": 261,
+    "INFO": 6
+   }
+  },
+  "failures": [],
+  "rows": [
+   {
+    "group": "F-edges",
+    "check": "G1:clean_geometry_accepted",
+    "status": "PASS"
+   },
+   {
+    "group": "F-names",
+    "check": "G1:scalar_required_names",
+    "status": "PASS",
+    "missing": [],
+    "optional_absent": [],
+    "top_level_keys": [
+     "arrays",
+     "edge_recovery",
+     "not_supplied",
+     "provenance",
+     "quadrature_shape",
+     "scope",
+     "status",
+     "trial_shape"
+    ]
+   },
+   {
+    "group": "F-names",
+    "check": "G1:provenance_returned",
+    "status": "INFO",
+    "keys": [
+     "provenance"
+    ],
+    "content": {
+     "module_version": "c3v001",
+     "contract_sha256": "58ffcbb86cd6512bb02ddf384a593311d1a9483f73f0cd83633432a9f5ef073e",
+     "old_scalar_map_sha256": "3bd792bafcfc32f5e0ed9e7cc62bdfec67a3ec185bd80ce1981f90dbe30db943",
+     "binding_module_sha256": "87866875f8a6883f62b778c123326f3c65090fdacae4fe8c79913e07b4405462",
+     "outer_radius_m": 3.0
+    }
+   },
+   {
+    "group": "F-noproj",
+    "check": "G1:no_callables_returned",
+    "status": "PASS",
+    "callables": []
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:recovered_edges_vs_generator",
+    "status": "PASS",
+    "key": "arrays.annular_edges_s",
+    "max_abs_err": 2.220446049250313e-16,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:s0_zero_s18_one",
+    "status": "PASS",
+    "s0": 0.0,
+    "s18_minus_1": 0.0,
+    "bitwise_s0_0": true,
+    "bitwise_s18_1": true
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:trial_shape_19x8",
+    "status": "PASS",
+    "trial_shape": [
+     19,
+     8
+    ]
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:quadrature_shape_72x32",
+    "status": "PASS",
+    "quadrature_shape": [
+     72,
+     32
+    ]
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:value_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 5.7889164474056984e-15,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:partial_R_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 4.7639986997412033e-14,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:partial_z_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 5.0451298654627805e-15,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:outer_trace_exact_at_s1",
+    "status": "PASS",
+    "shape": [
+     8,
+     152
+    ],
+    "max_abs_err": 0.0,
+    "bitwise_kron_e18_I8": true,
+    "tol": 1e-15
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:lower_surface_trace_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     152
+    ],
+    "rel_err_vs_kron_Bnodes": 5.7889164474056984e-15,
+    "rel_err_vs_kron_I19": "inf",
+    "note": "72x152 = trace at radial nodes; 19x152 = per-knot coefficient trace"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:upper_surface_trace_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     152
+    ],
+    "rel_err_vs_kron_Bnodes": 5.7889164474056984e-15,
+    "rel_err_vs_kron_I19": "inf",
+    "note": "72x152 = trace at radial nodes; 19x152 = per-knot coefficient trace"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:radial_value_B_72x19",
+    "status": "PASS",
+    "shape": [
+     72,
+     19
+    ],
+    "rel_err": 5.7889164474056984e-15
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:annular_edges_R_m",
+    "status": "PASS",
+    "rel_err": 1.4802973661668753e-16
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:radial_derivative_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     19
+    ],
+    "rel_err_vs_trial_dBdR_72x19": 7.35046953652259e-15,
+    "rel_err_vs_geometry_DR_72x72": "inf"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G1:intrinsic_natural_cubic_cardinal_from_nodes",
+    "status": "PASS",
+    "cardinal_abs": 1.3766765505351941e-14,
+    "C1_rel": 1.1185918072012391e-13,
+    "C2_rel": 1.388300581530092e-13,
+    "natural_end_rel": 9.141437276699782e-15,
+    "node_derivative_rel": 6.971600188860245e-14,
+    "tol_card": 1e-12,
+    "tol_rel": 1e-09
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:roots_identical",
+    "status": "PASS",
+    "present": true
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:zeta_preserved",
+    "status": "PASS",
+    "shape": [
+     72,
+     32
+    ],
+    "rel_err": 0.0,
+    "bitwise": true,
+    "tol": 1e-14
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:weights_RdRdz_preserved",
+    "status": "PASS",
+    "shape": [
+     2304
+    ],
+    "rel_err": 0.0,
+    "bitwise": true,
+    "tol": 1e-14
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:root_radial_derivatives_old72_convention",
+    "status": "PASS",
+    "rel_err_vs_own": 9.324366498899927e-14,
+    "rel_err_vs_helper": 5.414148289683894e-14,
+    "tol": 1e-11
+   },
+   {
+    "group": "F-chain",
+    "check": "G1:partial_R_V_vs_central_FD",
+    "status": "PASS",
+    "rel_err": 1.9624741669094203e-09,
+    "rel_err_half_step": 7.019115695061019e-10,
+    "tol": 1e-06,
+    "chain_term_share": 0.6304193932695634
+   },
+   {
+    "group": "F-chain",
+    "check": "G1:partial_z_V_vs_central_FD",
+    "status": "PASS",
+    "rel_err": 1.356428304976974e-10,
+    "rel_err_half_step": 2.2590285914681269e-10,
+    "tol": 1e-06
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     2,
+     0,
+     1
+    ],
+    "expected": [
+     2,
+     0,
+     1
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 3.767589380890838e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 6.648112368035686e-16,
+    "threshold_rel_err": 8.061897300692708e-16,
+    "min_sv_over_threshold": 318297791228.6177
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 9.992007221626409e-15,
+    "max_abs_BZ": 1.0199501485793814e-16,
+    "projector_err": 9.992007221626409e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 4.996003610813183e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 6.647974152741934e-18
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 3.961940760935899e-15,
+     "UP": 3.900542008563669e-15,
+     "UZ": 3.819792399927727e-15,
+     "partial_R_UR": 5.68489436816267e-14,
+     "partial_R_UP": 3.002954336604606e-14,
+     "partial_R_UZ": 3.0123280802250473e-14,
+     "partial_z_UR": 5.185702113815886e-15,
+     "partial_z_UP": 3.1336665818875123e-15,
+     "partial_z_UZ": 3.0776233340506086e-15,
+     "divU": 3.0776233340506086e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m1:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.259874405887089e-15,
+     "partial_R_UR": 1.7217244465760735e-09,
+     "partial_z_UR": 1.2496656073466456e-10,
+     "UP": 3.712164096193398e-15,
+     "partial_R_UP": 1.8103000420262186e-09,
+     "partial_z_UP": 1.3251710931545254e-10,
+     "UZ": 2.9732857983887274e-15,
+     "partial_R_UZ": 1.4876627324441297e-09,
+     "partial_z_UZ": 8.336221320355378e-11,
+     "divU": 1.787707763883772e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     3,
+     1,
+     2
+    ],
+    "expected": [
+     3,
+     1,
+     2
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 2.4256056177543717e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 6.606234970948405e-16,
+    "threshold_rel_err": 6.008335704744609e-16,
+    "min_sv_over_threshold": 318255255885.44025
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 8.43769498715119e-15,
+    "max_abs_BZ": 1.301735435883907e-16,
+    "projector_err": 8.43769498715119e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 4.218847493575577e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 1.3624360870541918e-18
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 4.4137411928081425e-15,
+     "UP": 3.8692726538636926e-15,
+     "UZ": 3.787381220738504e-15,
+     "partial_R_UR": 5.679859567980325e-14,
+     "partial_R_UP": 2.975349925364913e-14,
+     "partial_R_UZ": 2.980826650533462e-14,
+     "partial_z_UR": 5.306205515455243e-15,
+     "partial_z_UP": 3.195025174160576e-15,
+     "partial_z_UZ": 3.1386282189002946e-15,
+     "divU": 3.1386282189002946e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m2:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 4.257589477347433e-15,
+     "partial_R_UR": 1.2796581781445889e-09,
+     "partial_z_UR": 9.883797269744023e-11,
+     "UP": 7.22349799926021e-15,
+     "partial_R_UP": 1.3070584511638985e-09,
+     "partial_z_UP": 1.666416937203746e-10,
+     "UZ": 2.981908699790044e-15,
+     "partial_R_UZ": 1.1125181762008601e-09,
+     "partial_z_UZ": 1.1834506092208612e-10,
+     "divU": 1.524584310845596e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     4,
+     2,
+     3
+    ],
+    "expected": [
+     4,
+     2,
+     3
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 1.8818009058049645e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 4.3768219901664997e-16,
+    "threshold_rel_err": 3.980696410659675e-16,
+    "min_sv_over_threshold": 318213223378.8362
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.199040866595169e-14,
+    "max_abs_BZ": 1.0132250482545593e-16,
+    "projector_err": 1.199040866595169e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.995204332975809e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 2.734988016786042e-19
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 4.995099389092238e-15,
+     "UP": 3.936740767168182e-15,
+     "UZ": 3.8777865293500954e-15,
+     "partial_R_UR": 5.6707209290519835e-14,
+     "partial_R_UP": 2.948477157631487e-14,
+     "partial_R_UZ": 2.941642284380217e-14,
+     "partial_z_UR": 5.440308192758907e-15,
+     "partial_z_UP": 3.263462545025215e-15,
+     "partial_z_UZ": 3.199408902510453e-15,
+     "divU": 3.199408902510453e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m3:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 5.351967919217569e-15,
+     "partial_R_UR": 1.253249454766248e-09,
+     "partial_z_UR": 1.007204139271655e-10,
+     "UP": 2.5600278305248433e-15,
+     "partial_R_UP": 8.726939505061441e-10,
+     "partial_z_UP": 9.367927844771961e-11,
+     "UZ": 2.7018631466309537e-15,
+     "partial_R_UZ": 1.5540204894684937e-09,
+     "partial_z_UZ": 6.319681036349841e-11,
+     "divU": 1.7110048971102341e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     5,
+     3,
+     4
+    ],
+    "expected": [
+     5,
+     3,
+     4
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 2.13136035871663e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 8.700088963272669e-16,
+    "threshold_rel_err": 7.912684817049621e-16,
+    "min_sv_over_threshold": 318171693126.91296
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.199040866595169e-14,
+    "max_abs_BZ": 6.503214725746284e-17,
+    "projector_err": 1.199040866595169e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.995204332975809e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 5.913313962043472e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 5.841574919980167e-15,
+     "UP": 4.020305521240155e-15,
+     "UZ": 3.944599151285389e-15,
+     "partial_R_UR": 5.648405864913283e-14,
+     "partial_R_UP": 2.922305244713342e-14,
+     "partial_R_UZ": 2.91190264471714e-14,
+     "partial_z_UR": 5.573949830455278e-15,
+     "partial_z_UP": 3.3316316973480734e-15,
+     "partial_z_UZ": 3.2703212081199007e-15,
+     "divU": 3.2703212081199007e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m4:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 4.48840602247452e-15,
+     "partial_R_UR": 2.0474191409980863e-09,
+     "partial_z_UR": 1.0109336869141983e-10,
+     "UP": 3.8861078944209035e-15,
+     "partial_R_UP": 1.6501716538993855e-09,
+     "partial_z_UP": 9.632038112384974e-11,
+     "UZ": 4.275011578113695e-15,
+     "partial_R_UZ": 1.820805029525972e-09,
+     "partial_z_UZ": 9.72198261275124e-11,
+     "divU": 1.970270443191769e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     6,
+     4,
+     5
+    ],
+    "expected": [
+     6,
+     4,
+     5
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 1.5807793749042567e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 4.323799766312717e-16,
+    "threshold_rel_err": 3.9324729789884415e-16,
+    "min_sv_over_threshold": 318130664164.9752
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.4654943925052066e-14,
+    "max_abs_BZ": 7.147235029345371e-17,
+    "projector_err": 1.4654943925052066e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 7.32747196252598e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 2.1829892797215637e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 5.8866676048293555e-15,
+     "UP": 4.095422082371378e-15,
+     "UZ": 4.022763695199475e-15,
+     "partial_R_UR": 5.6191708814294734e-14,
+     "partial_R_UP": 2.908486007004957e-14,
+     "partial_R_UZ": 2.891242403684983e-14,
+     "partial_z_UR": 5.6958931414120095e-15,
+     "partial_z_UP": 3.392292971519185e-15,
+     "partial_z_UZ": 3.3409475416810354e-15,
+     "divU": 3.3409475416810354e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m5:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 4.778643402350707e-15,
+     "partial_R_UR": 2.004094301586152e-09,
+     "partial_z_UR": 9.578776913064153e-11,
+     "UP": 5.770364920653583e-15,
+     "partial_R_UP": 1.511692273323937e-09,
+     "partial_z_UP": 1.2713913181863846e-10,
+     "UZ": 2.6763403400723953e-15,
+     "partial_R_UZ": 7.951583632440265e-10,
+     "partial_z_UZ": 7.178005273236697e-11,
+     "divU": 1.1077446424194205e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     7,
+     5,
+     6
+    ],
+    "expected": [
+     7,
+     5,
+     6
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 1.510080202420818e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 5.372581695091895e-16,
+    "threshold_rel_err": 3.9090676692226373e-16,
+    "min_sv_over_threshold": 318090135183.366
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.4210854715202004e-14,
+    "max_abs_BZ": 8.452772372192203e-17,
+    "projector_err": 1.4210854715202004e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 7.105427357600951e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 1.3230936554601954e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 5.9506778518967706e-15,
+     "UP": 4.17838114813337e-15,
+     "UZ": 4.112163212669722e-15,
+     "partial_R_UR": 5.560077191938035e-14,
+     "partial_R_UP": 2.8834842123713826e-14,
+     "partial_R_UZ": 2.862908968775557e-14,
+     "partial_z_UR": 5.819421630219985e-15,
+     "partial_z_UP": 3.452753837676337e-15,
+     "partial_z_UZ": 3.3958848819245715e-15,
+     "divU": 3.3958848819245715e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m6:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 4.946591106908708e-15,
+     "partial_R_UR": 2.350540462500983e-09,
+     "partial_z_UR": 1.1319239937053375e-10,
+     "UP": 2.9748919949152134e-15,
+     "partial_R_UP": 1.428152511556168e-09,
+     "partial_z_UP": 8.192157497879378e-11,
+     "UZ": 3.2553575933647727e-15,
+     "partial_R_UZ": 1.3799217047517782e-09,
+     "partial_z_UZ": 1.430052616343728e-10,
+     "divU": 2.863947888604946e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:rank_threshold_failclosed_rel2",
+    "status": "PASS",
+    "reported_status": "UNRESOLVED_OUTER_CONSTRAINT_RANK"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m0_outside_1_6",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: Declared modes1..6 only"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:m7_outside_1_6",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: Declared modes1..6 only"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:valid_narrow_annulus_1e-3",
+    "status": "INFO",
+    "accepted": true,
+    "edge_err": 2.220446049250313e-16,
+    "max_weight_relative_residual": 6.496795972126569e-15
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:node_inner_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 6.786e-10, adjacent 4.457e-10, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:node_outer_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 4.614e-10, adjacent 8.250e-10, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:weight_one_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 1.000e-09)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:weight_pair_sum_preserving_1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 2.036e-09)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:s0_eq_1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 2.220e-16, s0 1.000e-09, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:s18_eq_1m1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 2.220e-16, s0 3.469e-18, s18 1.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:all_edges_shift_m1e-9_exact_measure",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 2.220e-16, s0 1.000e-09, s18 1.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:overlap_g8_gap_g12_1e-7_sum_preserving",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 1.000e-07, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:overlap_g8_1e-7",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 1.000e-07, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:unordered_swap_groups5_6",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: Actual ordered interior radial nodes, positive RdR weights and true outer radius required"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:unordered_reverse_within_group7",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: Actual ordered interior radial nodes, positive RdR weights and true outer radius required"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:gl_in_R_not_in_s_exact_measure",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 4.242e-03, adjacent 6.364e-03, s0 7.745e-03, s18 1.783e-04; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:outer_radius_mismatch_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 2.220e-16, s0 0.000e+00, s18 2.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G1:failclosed:nodes68_drop_last_group",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m: shape (72,) required, got (68,)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:clean_geometry_accepted",
+    "status": "PASS"
+   },
+   {
+    "group": "F-names",
+    "check": "G2:scalar_required_names",
+    "status": "PASS",
+    "missing": [],
+    "optional_absent": [],
+    "top_level_keys": [
+     "arrays",
+     "edge_recovery",
+     "not_supplied",
+     "provenance",
+     "quadrature_shape",
+     "scope",
+     "status",
+     "trial_shape"
+    ]
+   },
+   {
+    "group": "F-names",
+    "check": "G2:provenance_returned",
+    "status": "INFO",
+    "keys": [
+     "provenance"
+    ],
+    "content": {
+     "module_version": "c3v001",
+     "contract_sha256": "58ffcbb86cd6512bb02ddf384a593311d1a9483f73f0cd83633432a9f5ef073e",
+     "old_scalar_map_sha256": "3bd792bafcfc32f5e0ed9e7cc62bdfec67a3ec185bd80ce1981f90dbe30db943",
+     "binding_module_sha256": "87866875f8a6883f62b778c123326f3c65090fdacae4fe8c79913e07b4405462",
+     "outer_radius_m": 2.5e+20
+    }
+   },
+   {
+    "group": "F-noproj",
+    "check": "G2:no_callables_returned",
+    "status": "PASS",
+    "callables": []
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:recovered_edges_vs_generator",
+    "status": "PASS",
+    "key": "arrays.annular_edges_s",
+    "max_abs_err": 1.1102230246251565e-16,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:s0_zero_s18_one",
+    "status": "PASS",
+    "s0": 0.0,
+    "s18_minus_1": 0.0,
+    "bitwise_s0_0": true,
+    "bitwise_s18_1": true
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:trial_shape_19x8",
+    "status": "PASS",
+    "trial_shape": [
+     19,
+     8
+    ]
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:quadrature_shape_72x32",
+    "status": "PASS",
+    "quadrature_shape": [
+     72,
+     32
+    ]
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:value_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 3.587612454386739e-15,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:partial_R_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 2.8872832914078585e-14,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:partial_z_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 2.485522335521727e-15,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:outer_trace_exact_at_s1",
+    "status": "PASS",
+    "shape": [
+     8,
+     152
+    ],
+    "max_abs_err": 0.0,
+    "bitwise_kron_e18_I8": true,
+    "tol": 1e-15
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:lower_surface_trace_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     152
+    ],
+    "rel_err_vs_kron_Bnodes": 3.1196630038145556e-15,
+    "rel_err_vs_kron_I19": "inf",
+    "note": "72x152 = trace at radial nodes; 19x152 = per-knot coefficient trace"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:upper_surface_trace_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     152
+    ],
+    "rel_err_vs_kron_Bnodes": 3.1196630038145556e-15,
+    "rel_err_vs_kron_I19": "inf",
+    "note": "72x152 = trace at radial nodes; 19x152 = per-knot coefficient trace"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:radial_value_B_72x19",
+    "status": "PASS",
+    "shape": [
+     72,
+     19
+    ],
+    "rel_err": 3.1196630038145556e-15
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:annular_edges_R_m",
+    "status": "PASS",
+    "rel_err": 1.31072e-16
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:radial_derivative_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     19
+    ],
+    "rel_err_vs_trial_dBdR_72x19": 4.008667627105926e-15,
+    "rel_err_vs_geometry_DR_72x72": "inf"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G2:intrinsic_natural_cubic_cardinal_from_nodes",
+    "status": "PASS",
+    "cardinal_abs": 9.076073226310655e-15,
+    "C1_rel": 1.2731081061432076e-13,
+    "C2_rel": 1.37437114489502e-13,
+    "natural_end_rel": 1.9287608912470386e-14,
+    "node_derivative_rel": 6.829068176670709e-14,
+    "tol_card": 1e-12,
+    "tol_rel": 1e-09
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:roots_identical",
+    "status": "PASS",
+    "present": true
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:zeta_preserved",
+    "status": "PASS",
+    "shape": [
+     72,
+     32
+    ],
+    "rel_err": 0.0,
+    "bitwise": true,
+    "tol": 1e-14
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:weights_RdRdz_preserved",
+    "status": "PASS",
+    "shape": [
+     2304
+    ],
+    "rel_err": 0.0,
+    "bitwise": true,
+    "tol": 1e-14
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:root_radial_derivatives_old72_convention",
+    "status": "PASS",
+    "rel_err_vs_own": 6.137859552850354e-14,
+    "rel_err_vs_helper": 3.921410269876528e-14,
+    "tol": 1e-11
+   },
+   {
+    "group": "F-chain",
+    "check": "G2:partial_R_V_vs_central_FD",
+    "status": "PASS",
+    "rel_err": 1.9346946806085533e-09,
+    "rel_err_half_step": 5.898977053960758e-10,
+    "tol": 1e-06,
+    "chain_term_share": 0.6765594967452464
+   },
+   {
+    "group": "F-chain",
+    "check": "G2:partial_z_V_vs_central_FD",
+    "status": "PASS",
+    "rel_err": 1.441492171222545e-10,
+    "rel_err_half_step": 1.972446612071469e-10,
+    "tol": 1e-06
+   },
+   {
+    "group": "F-chain",
+    "check": "G2:partial_R_V_vs_FD_of_generator_geometry",
+    "status": "INFO",
+    "rel_dev": 0.0028873878204278285,
+    "note": "nonzero by design: preserved old 72-node spline root derivatives approximate the analytic ones"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     2,
+     0,
+     1
+    ],
+    "expected": [
+     2,
+     0,
+     1
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 2.334656965747539e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 9.250047972057679e-16,
+    "threshold_rel_err": 8.412869621731879e-16,
+    "min_sv_over_threshold": 324606580520.4592
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 5.773159728050814e-15,
+    "max_abs_BZ": 7.647412172563136e-17,
+    "projector_err": 5.773159728050814e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 2.8865798640253987e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 6.024891988914886e-18
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.680877761835998e-15,
+     "UP": 3.030557469901563e-15,
+     "UZ": 2.9819477486070995e-15,
+     "partial_R_UR": 4.106927682077778e-14,
+     "partial_R_UP": 1.6574307956831726e-14,
+     "partial_R_UZ": 1.663584807722454e-14,
+     "partial_z_UR": 2.4252043543832595e-15,
+     "partial_z_UP": 1.7591725999489099e-15,
+     "partial_z_UZ": 1.786369877403346e-15,
+     "divU": 2.2217975350204114e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m1:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 1.475486990135216e-15,
+     "partial_R_UR": 2.0829783358721614e-09,
+     "partial_z_UR": 1.0510873339927815e-10,
+     "UP": 1.56085095397901e-15,
+     "partial_R_UP": 1.6603998673121562e-09,
+     "partial_z_UP": 9.611030774120753e-11,
+     "UZ": 2.0504107211035576e-15,
+     "partial_R_UZ": 2.1683473076413537e-09,
+     "partial_z_UZ": 6.432444611676883e-11,
+     "divU": 1.7549101279729227e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     3,
+     1,
+     2
+    ],
+    "expected": [
+     3,
+     1,
+     2
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 2.5705899274899935e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 9.201164577897195e-16,
+    "threshold_rel_err": 6.2763078253036805e-16,
+    "min_sv_over_threshold": 324600506051.6351
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 7.993605777301127e-15,
+    "max_abs_BZ": 1.0869219958378687e-16,
+    "projector_err": 7.993605777301127e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 3.996802888650548e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 1.6607485406780777e-18
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.9268260508064073e-15,
+     "UP": 3.1056362853301126e-15,
+     "UZ": 2.9714100394953632e-15,
+     "partial_R_UR": 4.108879306991699e-14,
+     "partial_R_UP": 1.6375483312777645e-14,
+     "partial_R_UZ": 1.647603047782145e-14,
+     "partial_z_UR": 2.428132413733075e-15,
+     "partial_z_UP": 1.7531322795189502e-15,
+     "partial_z_UZ": 1.6910542852152428e-15,
+     "divU": 2.2083833922054322e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m2:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.4955158637426262e-15,
+     "partial_R_UR": 1.3320890517146313e-09,
+     "partial_z_UR": 8.283606964810357e-11,
+     "UP": 3.2781310770901478e-15,
+     "partial_R_UP": 2.0121560708655348e-09,
+     "partial_z_UP": 9.68661184547305e-11,
+     "UZ": 2.2103075185568494e-15,
+     "partial_R_UZ": 1.7343305587276826e-09,
+     "partial_z_UZ": 8.712830649487766e-11,
+     "divU": 1.52685615609373e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     4,
+     2,
+     3
+    ],
+    "expected": [
+     4,
+     2,
+     3
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 2.112865890409382e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 9.15348273339441e-16,
+    "threshold_rel_err": 1.0406305060990245e-15,
+    "min_sv_over_threshold": 324594302664.16766
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 7.993605777301127e-15,
+    "max_abs_BZ": 7.9301981908196e-17,
+    "projector_err": 7.993605777301127e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 3.996802888650548e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 3.1895417118251326e-19
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.9655611458690733e-15,
+     "UP": 3.0952721286456847e-15,
+     "UZ": 2.8766079144456043e-15,
+     "partial_R_UR": 4.122449076099716e-14,
+     "partial_R_UP": 1.6221968495681417e-14,
+     "partial_R_UZ": 1.6290993093171532e-14,
+     "partial_z_UR": 2.3689750755713303e-15,
+     "partial_z_UP": 1.747281711080112e-15,
+     "partial_z_UZ": 1.596554195460094e-15,
+     "divU": 2.200805609714088e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m3:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.947088653715995e-15,
+     "partial_R_UR": 1.7418442253013071e-09,
+     "partial_z_UR": 1.1513819369585725e-10,
+     "UP": 2.065505890400021e-15,
+     "partial_R_UP": 1.1286903859741536e-09,
+     "partial_z_UP": 7.51411922395811e-11,
+     "UZ": 2.1458298744388572e-15,
+     "partial_R_UZ": 1.4569815464419828e-09,
+     "partial_z_UZ": 7.049454904616504e-11,
+     "divU": 2.696471201159172e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     5,
+     3,
+     4
+    ],
+    "expected": [
+     5,
+     3,
+     4
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 1.6277486207436445e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 9.106929054041519e-16,
+    "threshold_rel_err": 8.282703724072708e-16,
+    "min_sv_over_threshold": 324587986384.6412
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 7.993605777301127e-15,
+    "max_abs_BZ": 9.229813226934425e-17,
+    "projector_err": 7.993605777301127e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 3.996802888650548e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 9.719223119648396e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 3.3746452509587147e-15,
+     "UP": 2.966560898029794e-15,
+     "UZ": 2.782690061619176e-15,
+     "partial_R_UR": 4.126879374280355e-14,
+     "partial_R_UP": 1.603146131272548e-14,
+     "partial_R_UZ": 1.6023824819913506e-14,
+     "partial_z_UR": 2.4154714721540028e-15,
+     "partial_z_UP": 1.6172085099346827e-15,
+     "partial_z_UZ": 1.76803272422016e-15,
+     "divU": 2.187940496222448e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m4:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.720630877637972e-15,
+     "partial_R_UR": 2.292139307175453e-09,
+     "partial_z_UR": 9.131314944204838e-11,
+     "UP": 2.123644515338931e-15,
+     "partial_R_UP": 1.330029673802998e-09,
+     "partial_z_UP": 1.5534405691115735e-10,
+     "UZ": 3.5898393602286885e-15,
+     "partial_R_UZ": 2.406669432543193e-09,
+     "partial_z_UZ": 7.742860599346134e-11,
+     "divU": 3.001118652235758e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     6,
+     4,
+     5
+    ],
+    "expected": [
+     6,
+     4,
+     5
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 8.358312730793915e-16,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 9.061436895530311e-16,
+    "threshold_rel_err": 8.241328846934549e-16,
+    "min_sv_over_threshold": 324581571301.8844
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.1546319456101628e-14,
+    "max_abs_BZ": 1.515056089206931e-16,
+    "projector_err": 1.1546319456101628e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.773159728050781e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 6.694842989391264e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 3.468399653641763e-15,
+     "UP": 2.838896325979279e-15,
+     "UZ": 2.8577116801238063e-15,
+     "partial_R_UR": 4.122034357275364e-14,
+     "partial_R_UP": 1.5804909232355457e-14,
+     "partial_R_UZ": 1.5876240940164104e-14,
+     "partial_z_UR": 2.5146180966173323e-15,
+     "partial_z_UP": 1.7361039813399846e-15,
+     "partial_z_UZ": 1.7622961596172922e-15,
+     "divU": 2.1698271465287913e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m5:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.1369929884004195e-15,
+     "partial_R_UR": 2.066557849673023e-09,
+     "partial_z_UR": 6.613684341802659e-11,
+     "UP": 3.117768626068939e-15,
+     "partial_R_UP": 2.973761267077045e-09,
+     "partial_z_UP": 9.818458671849386e-11,
+     "UZ": 2.4565301333358463e-15,
+     "partial_R_UZ": 1.4331861038027886e-09,
+     "partial_z_UZ": 7.438762717540848e-11,
+     "divU": 1.4194797887035876e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     7,
+     5,
+     6
+    ],
+    "expected": [
+     7,
+     5,
+     6
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 1.525690533938356e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 7.889827379729547e-16,
+    "threshold_rel_err": 8.200864228305152e-16,
+    "min_sv_over_threshold": 324575069825.34265
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.199040866595169e-14,
+    "max_abs_BZ": 1.2163785697601636e-16,
+    "projector_err": 1.199040866595169e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.995204332975809e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 1.6795855901203078e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 3.49071672557053e-15,
+     "UP": 2.9480750130656737e-15,
+     "UZ": 2.932468291749922e-15,
+     "partial_R_UR": 4.128773684935436e-14,
+     "partial_R_UP": 1.562272851479048e-14,
+     "partial_R_UZ": 1.5618950888239715e-14,
+     "partial_z_UR": 2.509271274169098e-15,
+     "partial_z_UP": 1.7307564675080054e-15,
+     "partial_z_UZ": 1.6688922111415204e-15,
+     "divU": 2.151992588050908e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m6:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 2.2536093967091978e-15,
+     "partial_R_UR": 2.97723696840707e-09,
+     "partial_z_UR": 1.0183409758175789e-10,
+     "UP": 2.1570252492332354e-15,
+     "partial_R_UP": 3.3930921118946254e-09,
+     "partial_z_UP": 1.0097294948991906e-10,
+     "UZ": 2.2061902710458564e-15,
+     "partial_R_UZ": 2.153548773973413e-09,
+     "partial_z_UZ": 6.411414206226152e-11,
+     "divU": 5.175169333157872e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:rank_threshold_failclosed_rel2",
+    "status": "PASS",
+    "reported_status": "UNRESOLVED_OUTER_CONSTRAINT_RANK"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m0_outside_1_6",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: Declared modes1..6 only"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:m7_outside_1_6",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: Declared modes1..6 only"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:valid_narrow_annulus_1e-3",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 1.110e-13)",
+    "note": "valid input refused at the roundoff tolerances passed; weight residual scales ~eps*s/ds"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:node_inner_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 7.065e-10, adjacent 4.640e-10, s0 0.000e+00, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:node_outer_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 4.659e-10, adjacent 8.330e-10, s0 0.000e+00, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:weight_one_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 1.000e-09)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:weight_pair_sum_preserving_1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 1.777e-09)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:s0_eq_1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 3.331e-16, s0 1.000e-09, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:s18_eq_1m1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 4.441e-16, s0 0.000e+00, s18 1.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:all_edges_shift_m1e-9_exact_measure",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 3.331e-16, adjacent 3.331e-16, s0 1.000e-09, s18 1.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:overlap_g8_gap_g12_1e-7_sum_preserving",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 1.000e-07, s0 0.000e+00, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:overlap_g8_1e-7",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 1.000e-07, s0 0.000e+00, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:unordered_swap_groups5_6",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: Actual ordered interior radial nodes, positive RdR weights and true outer radius required"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:unordered_reverse_within_group7",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: Actual ordered interior radial nodes, positive RdR weights and true outer radius required"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:gl_in_R_not_in_s_exact_measure",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 5.630e-03, adjacent 8.976e-03, s0 1.028e-02, s18 9.346e-05; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:outer_radius_mismatch_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 3.331e-16, adjacent 3.331e-16, s0 6.939e-18, s18 2.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G2:failclosed:nodes68_drop_last_group",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m: shape (72,) required, got (68,)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:clean_geometry_accepted",
+    "status": "PASS"
+   },
+   {
+    "group": "F-names",
+    "check": "G3:scalar_required_names",
+    "status": "PASS",
+    "missing": [],
+    "optional_absent": [],
+    "top_level_keys": [
+     "arrays",
+     "edge_recovery",
+     "not_supplied",
+     "provenance",
+     "quadrature_shape",
+     "scope",
+     "status",
+     "trial_shape"
+    ]
+   },
+   {
+    "group": "F-names",
+    "check": "G3:provenance_returned",
+    "status": "INFO",
+    "keys": [
+     "provenance"
+    ],
+    "content": {
+     "module_version": "c3v001",
+     "contract_sha256": "58ffcbb86cd6512bb02ddf384a593311d1a9483f73f0cd83633432a9f5ef073e",
+     "old_scalar_map_sha256": "3bd792bafcfc32f5e0ed9e7cc62bdfec67a3ec185bd80ce1981f90dbe30db943",
+     "binding_module_sha256": "87866875f8a6883f62b778c123326f3c65090fdacae4fe8c79913e07b4405462",
+     "outer_radius_m": 0.7
+    }
+   },
+   {
+    "group": "F-noproj",
+    "check": "G3:no_callables_returned",
+    "status": "PASS",
+    "callables": []
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:recovered_edges_vs_generator",
+    "status": "PASS",
+    "key": "arrays.annular_edges_s",
+    "max_abs_err": 3.3306690738754696e-16,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:s0_zero_s18_one",
+    "status": "PASS",
+    "s0": 0.0,
+    "s18_minus_1": 0.0,
+    "bitwise_s0_0": true,
+    "bitwise_s18_1": true
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:trial_shape_19x8",
+    "status": "PASS",
+    "trial_shape": [
+     19,
+     8
+    ]
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:quadrature_shape_72x32",
+    "status": "PASS",
+    "quadrature_shape": [
+     72,
+     32
+    ]
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:value_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 7.563042943516233e-15,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:partial_R_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 3.631687940686344e-14,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:partial_z_2304x152_vs_expectation",
+    "status": "PASS",
+    "shape": [
+     2304,
+     152
+    ],
+    "real": true,
+    "rel_err": 6.357456988795526e-15,
+    "tol": 1e-12
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:outer_trace_exact_at_s1",
+    "status": "PASS",
+    "shape": [
+     8,
+     152
+    ],
+    "max_abs_err": 0.0,
+    "bitwise_kron_e18_I8": true,
+    "tol": 1e-15
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:lower_surface_trace_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     152
+    ],
+    "rel_err_vs_kron_Bnodes": 7.563042943516233e-15,
+    "rel_err_vs_kron_I19": "inf",
+    "note": "72x152 = trace at radial nodes; 19x152 = per-knot coefficient trace"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:upper_surface_trace_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     152
+    ],
+    "rel_err_vs_kron_Bnodes": 7.563042943516233e-15,
+    "rel_err_vs_kron_I19": "inf",
+    "note": "72x152 = trace at radial nodes; 19x152 = per-knot coefficient trace"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:radial_value_B_72x19",
+    "status": "PASS",
+    "shape": [
+     72,
+     19
+    ],
+    "rel_err": 7.563042943516233e-15
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:annular_edges_R_m",
+    "status": "PASS",
+    "rel_err": 3.1720657846433045e-16
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:radial_derivative_generalized",
+    "status": "PASS",
+    "shape": [
+     72,
+     19
+    ],
+    "rel_err_vs_trial_dBdR_72x19": 6.8579203676861155e-15,
+    "rel_err_vs_geometry_DR_72x72": "inf"
+   },
+   {
+    "group": "F-scalar",
+    "check": "G3:intrinsic_natural_cubic_cardinal_from_nodes",
+    "status": "PASS",
+    "cardinal_abs": 1.186550857568136e-14,
+    "C1_rel": 1.1029245134753543e-13,
+    "C2_rel": 6.968767958146718e-14,
+    "natural_end_rel": 4.330213120577878e-15,
+    "node_derivative_rel": 5.766222478890761e-14,
+    "tol_card": 1e-12,
+    "tol_rel": 1e-09
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:roots_identical",
+    "status": "PASS",
+    "present": true
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:zeta_preserved",
+    "status": "PASS",
+    "shape": [
+     72,
+     32
+    ],
+    "rel_err": 0.0,
+    "bitwise": true,
+    "tol": 1e-14
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:weights_RdRdz_preserved",
+    "status": "PASS",
+    "shape": [
+     2304
+    ],
+    "rel_err": 0.0,
+    "bitwise": true,
+    "tol": 1e-14
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:root_radial_derivatives_old72_convention",
+    "status": "PASS",
+    "rel_err_vs_own": 8.121797800682079e-14,
+    "rel_err_vs_helper": 4.2746304214115906e-14,
+    "tol": 1e-11
+   },
+   {
+    "group": "F-chain",
+    "check": "G3:partial_R_V_vs_central_FD",
+    "status": "PASS",
+    "rel_err": 3.863062613970298e-09,
+    "rel_err_half_step": 9.273966096453238e-10,
+    "tol": 1e-06,
+    "chain_term_share": 0.7099402563296742
+   },
+   {
+    "group": "F-chain",
+    "check": "G3:partial_z_V_vs_central_FD",
+    "status": "PASS",
+    "rel_err": 1.204311314096752e-10,
+    "rel_err_half_step": 2.3469574747714237e-10,
+    "tol": 1e-06
+   },
+   {
+    "group": "F-chain",
+    "check": "G3:partial_R_V_vs_FD_of_generator_geometry",
+    "status": "INFO",
+    "rel_dev": 0.003910629018769268,
+    "note": "nonzero by design: preserved old 72-node spline root derivatives approximate the analytic ones"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     2,
+     0,
+     1
+    ],
+    "expected": [
+     2,
+     0,
+     1
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 3.616292619278592e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 1.0078220510347793e-15,
+    "threshold_rel_err": 9.166088157460576e-16,
+    "min_sv_over_threshold": 361425117436.3623
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 9.769962616701378e-15,
+    "max_abs_BZ": 8.281956288879548e-17,
+    "projector_err": 9.769962616701378e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 4.884981308350665e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 7.319840600385932e-18
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 5.327361219334528e-15,
+     "UP": 5.195996327031921e-15,
+     "UZ": 5.1119069614488665e-15,
+     "partial_R_UR": 4.5944065193800403e-14,
+     "partial_R_UP": 2.0806189538147685e-14,
+     "partial_R_UZ": 2.080627934226342e-14,
+     "partial_z_UR": 6.355794555342985e-15,
+     "partial_z_UP": 3.704598988466169e-15,
+     "partial_z_UZ": 3.640140382162897e-15,
+     "divU": 3.640140382162897e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m1:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 4.87347022768047e-15,
+     "partial_R_UR": 5.900909236909779e-09,
+     "partial_z_UR": 1.4133648623925892e-10,
+     "UP": 4.5019350782605294e-15,
+     "partial_R_UP": 4.015323728334584e-09,
+     "partial_z_UP": 1.1593877311884592e-10,
+     "UZ": 6.735053686013411e-15,
+     "partial_R_UZ": 4.2492773661875156e-09,
+     "partial_z_UZ": 1.2717503331507642e-10,
+     "divU": 1.0821997971889193e-09
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     3,
+     1,
+     2
+    ],
+    "expected": [
+     3,
+     1,
+     2
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 3.919573336865329e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 1.1272356409270454e-15,
+    "threshold_rel_err": 7.973893223899236e-16,
+    "min_sv_over_threshold": 361425117436.3626
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.021405182655144e-14,
+    "max_abs_BZ": 8.826886081291432e-17,
+    "projector_err": 1.021405182655144e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.107025913275694e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 1.9040676056098667e-18
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 6.273074601359852e-15,
+     "UP": 5.065658668413852e-15,
+     "UZ": 4.9606573371782825e-15,
+     "partial_R_UR": 4.5643835982945407e-14,
+     "partial_R_UP": 2.0481191623525052e-14,
+     "partial_R_UZ": 2.041589434274826e-14,
+     "partial_z_UR": 6.1957012425418896e-15,
+     "partial_z_UP": 3.599801930351501e-15,
+     "partial_z_UZ": 3.538072382041607e-15,
+     "divU": 3.538072382041607e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m2:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 6.262523394074618e-15,
+     "partial_R_UR": 2.515960918661286e-09,
+     "partial_z_UR": 9.960755765512896e-11,
+     "UP": 9.13027566417465e-15,
+     "partial_R_UP": 2.590322136471609e-09,
+     "partial_z_UP": 1.085732786669794e-10,
+     "UZ": 4.343819618969648e-15,
+     "partial_R_UZ": 1.421238310769594e-09,
+     "partial_z_UZ": 1.1448083481620751e-10,
+     "divU": 4.381856320048045e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     4,
+     2,
+     3
+    ],
+    "expected": [
+     4,
+     2,
+     3
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 4.853992906613263e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 9.962649749009982e-16,
+    "threshold_rel_err": 1.0193599307636967e-15,
+    "min_sv_over_threshold": 361425117436.3624
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.021405182655144e-14,
+    "max_abs_BZ": 1.1776473281010435e-16,
+    "projector_err": 1.021405182655144e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.107025913275694e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 8.050183001941644e-19
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 7.217525321746968e-15,
+     "UP": 4.917872759149011e-15,
+     "UZ": 4.824064802237111e-15,
+     "partial_R_UR": 4.521064940148081e-14,
+     "partial_R_UP": 2.0095974165540082e-14,
+     "partial_R_UZ": 2.001791475182328e-14,
+     "partial_z_UR": 6.051416849391366e-15,
+     "partial_z_UP": 3.5042853633293713e-15,
+     "partial_z_UZ": 3.4428781020839697e-15,
+     "divU": 3.4428781020839697e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m3:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 3.661082697906841e-15,
+     "partial_R_UR": 6.164796613354858e-09,
+     "partial_z_UR": 1.0568098216195714e-10,
+     "UP": 4.4722851001880495e-15,
+     "partial_R_UP": 2.0474826236251146e-09,
+     "partial_z_UP": 7.711268979569257e-11,
+     "UZ": 3.2873422475883795e-15,
+     "partial_R_UZ": 1.313719334474856e-09,
+     "partial_z_UZ": 8.778001713130979e-11,
+     "divU": 1.0381783583913212e-09
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     5,
+     3,
+     4
+    ],
+    "expected": [
+     5,
+     3,
+     4
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 3.524296853351263e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 1.114482100278204e-15,
+    "threshold_rel_err": 1.1262395171375464e-15,
+    "min_sv_over_threshold": 361425117436.36255
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 9.769962616701378e-15,
+    "max_abs_BZ": 8.017440744980802e-17,
+    "projector_err": 9.769962616701378e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 4.884981308350665e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 2.1280461326315274e-19
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 6.7972616147013625e-15,
+     "UP": 4.7853302033517074e-15,
+     "UZ": 4.6887139892436564e-15,
+     "partial_R_UR": 4.4820945093013074e-14,
+     "partial_R_UP": 1.9729847181283162e-14,
+     "partial_R_UZ": 1.9628282151691093e-14,
+     "partial_z_UR": 5.907863786442383e-15,
+     "partial_z_UP": 3.409623966188213e-15,
+     "partial_z_UZ": 3.3426486477140533e-15,
+     "divU": 3.3426486477140533e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m4:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 5.932221962982313e-15,
+     "partial_R_UR": 2.1964644804215658e-09,
+     "partial_z_UR": 8.447373809419393e-11,
+     "UP": 4.3592127640852286e-15,
+     "partial_R_UP": 3.290733977325603e-09,
+     "partial_z_UP": 1.375978732919677e-10,
+     "UZ": 6.505866612722419e-15,
+     "partial_R_UZ": 4.070970470887605e-09,
+     "partial_z_UZ": 1.3007112942190618e-10,
+     "divU": 2.628608820940898e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     6,
+     4,
+     5
+    ],
+    "expected": [
+     6,
+     4,
+     5
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 3.826809850843415e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 8.61997812240108e-16,
+    "threshold_rel_err": 7.839824431722337e-16,
+    "min_sv_over_threshold": 361425117436.3626
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.021405182655144e-14,
+    "max_abs_BZ": 8.255791669263617e-17,
+    "projector_err": 1.021405182655144e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.107025913275694e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 8.079234773567839e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 6.88520707534245e-15,
+     "UP": 4.64930496716785e-15,
+     "UZ": 4.561148242515108e-15,
+     "partial_R_UR": 4.429856980198799e-14,
+     "partial_R_UP": 1.9305430728668613e-14,
+     "partial_R_UZ": 1.918432361269872e-14,
+     "partial_z_UR": 5.7492057820020234e-15,
+     "partial_z_UP": 3.3075062412950156e-15,
+     "partial_z_UZ": 3.243295232871819e-15,
+     "divU": 3.243295232871819e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m5:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 3.96895889533678e-15,
+     "partial_R_UR": 3.509142289276585e-09,
+     "partial_z_UR": 8.575413916270486e-11,
+     "UP": 3.0435158049436684e-15,
+     "partial_R_UP": 2.5538287107778516e-09,
+     "partial_z_UP": 1.0148445336387731e-10,
+     "UZ": 2.9070802225617026e-15,
+     "partial_R_UZ": 1.3813790347889628e-09,
+     "partial_z_UZ": 8.217058497064291e-11,
+     "divU": 3.4624053697442464e-10
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:status_regular",
+    "status": "PASS",
+    "reported_status": "REGULAR_HELICITY_MAPS"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:required_names_present",
+    "status": "PASS",
+    "missing": []
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:regularity_exponents",
+    "status": "PASS",
+    "got": [
+     7,
+     5,
+     6
+    ],
+    "expected": [
+     7,
+     5,
+     6
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:all_maps_2304x448",
+    "status": "PASS",
+    "dims": {
+     "UR": [
+      2304,
+      448
+     ],
+     "UP": [
+      2304,
+      448
+     ],
+     "UZ": [
+      2304,
+      448
+     ],
+     "partial_R_UR": [
+      2304,
+      448
+     ],
+     "partial_R_UP": [
+      2304,
+      448
+     ],
+     "partial_R_UZ": [
+      2304,
+      448
+     ],
+     "partial_z_UR": [
+      2304,
+      448
+     ],
+     "partial_z_UP": [
+      2304,
+      448
+     ],
+     "partial_z_UZ": [
+      2304,
+      448
+     ],
+     "divU": [
+      2304,
+      448
+     ]
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:raw_transform_456x448",
+    "status": "PASS",
+    "shape": [
+     456,
+     448
+    ]
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:column_norms_stacked_dimensionless",
+    "status": "PASS",
+    "rel_err": 2.86132679498124e-15,
+    "tol": 1e-13
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:true_outer_8_rows_no_lid",
+    "status": "PASS",
+    "shape": [
+     8,
+     456
+    ],
+    "rel_err_vs_exact_outer": 0.0,
+    "vertical_block_nonzero": false
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:singular_values_and_threshold",
+    "status": "PASS",
+    "sv_rel_err": 9.797298206235974e-16,
+    "threshold_rel_err": 1.0024414661543661e-15,
+    "min_sv_over_threshold": 361425117436.36255
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:nullspace_orthonormal_BZ0_full_rank448",
+    "status": "PASS",
+    "columns": 448,
+    "ortho": 1.021405182655144e-14,
+    "max_abs_BZ": 6.024172102672412e-17,
+    "projector_err": 1.021405182655144e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:normalized_nullspace_consistent_with_transform",
+    "status": "PASS",
+    "rel_err": 5.107025913275694e-15
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:true_outer_xiR_zero_in_reduced_coordinates",
+    "status": "PASS",
+    "rel": 2.1758316670243076e-20
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:all_maps_equal_raw_maps_at_ONE_shared_transform",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 6.782711596982219e-15,
+     "UP": 4.519039784740293e-15,
+     "UZ": 4.428118546776266e-15,
+     "partial_R_UR": 4.378913220766016e-14,
+     "partial_R_UP": 1.8900431140716306e-14,
+     "partial_R_UZ": 1.8780267187333922e-14,
+     "partial_z_UR": 5.642172977504304e-15,
+     "partial_z_UP": 3.23511828620737e-15,
+     "partial_z_UZ": 3.156519015462569e-15,
+     "divU": 3.156519015462569e-15
+    },
+    "tol": 1e-11
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:divU_identity_from_returned_maps",
+    "status": "PASS",
+    "rel_err": 0.0
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m6:physical_field_FD_product_rule_and_divergence",
+    "status": "PASS",
+    "rel_errs": {
+     "UR": 6.0220170049209906e-15,
+     "partial_R_UR": 5.157617222930637e-09,
+     "partial_z_UR": 8.786047050851128e-11,
+     "UP": 2.617313505945293e-15,
+     "partial_R_UP": 4.412155230078773e-09,
+     "partial_z_UP": 8.105138491343051e-11,
+     "UZ": 6.24086584108593e-15,
+     "partial_R_UZ": 3.6853021324548366e-09,
+     "partial_z_UZ": 8.35838113682525e-11,
+     "divU": 1.0464606326986621e-09
+    }
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:rank_threshold_failclosed_rel2",
+    "status": "PASS",
+    "reported_status": "UNRESOLVED_OUTER_CONSTRAINT_RANK"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m0_outside_1_6",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: Declared modes1..6 only"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:m7_outside_1_6",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: Declared modes1..6 only"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:valid_narrow_annulus_1e-3",
+    "status": "INFO",
+    "accepted": false,
+    "raised": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 1.110e-13)",
+    "note": "valid input refused at the roundoff tolerances passed; weight residual scales ~eps*s/ds"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:node_inner_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 7.422e-10, adjacent 4.875e-10, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:node_outer_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 4.867e-10, adjacent 8.702e-10, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:weight_one_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 1.000e-09)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:weight_pair_sum_preserving_1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_RdR_weights_m2 are not the GL weights of the recovered annuli (relative 1.471e-09)"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:s0_eq_1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 3.331e-16, s0 1.000e-09, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:s18_eq_1m1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 2.220e-16, s0 3.469e-18, s18 1.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:all_edges_shift_m1e-9_exact_measure",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 5.551e-16, s0 1.000e-09, s18 1.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:overlap_g8_gap_g12_1e-7_sum_preserving",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 1.000e-07, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:overlap_g8_1e-7",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 1.000e-07, s0 3.469e-18, s18 2.220e-16; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:unordered_swap_groups5_6",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: Actual ordered interior radial nodes, positive RdR weights and true outer radius required"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:unordered_reverse_within_group7",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: Actual ordered interior radial nodes, positive RdR weights and true outer radius required"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:gl_in_R_not_in_s_exact_measure",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 4.249e-03, adjacent 5.323e-03, s0 7.757e-03, s18 1.562e-04; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:outer_radius_mismatch_rel1e-9",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m are not 18 contiguous four-point GL groups in s=(R/L)^2 on [0,1] at edge_absolute_tolerance: node 2.220e-16, adjacent 5.551e-16, s0 3.469e-18, s18 2.000e-09; no edge is gues"
+   },
+   {
+    "group": "F-edges",
+    "check": "G3:failclosed:nodes68_drop_last_group",
+    "status": "PASS",
+    "raised": true,
+    "exception": "ValueError: radial_nodes_m: shape (72,) required, got (68,)"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:custody_failclosed:root_radial_derivatives_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_maps: root_radial_derivatives do not reproduce from the stored radial_derivative"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:custody_failclosed:value_block_entry_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_maps: value blocks do not reproduce Legendre maps of the stored zeta"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:custody_failclosed:weights_RdRdz_entry_rel1e-9",
+    "status": "PASS",
+    "raised": "ValueError: radial_RdR_weights_m2 do not match the preserved weights_RdRdz (relative 3.366e-11)"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:custody_failclosed:old_scalar_map_sha_wrong",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_map_sha256: reviewed v001 scalar-map pin required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:custody_failclosed:binding_sha_wrong",
+    "status": "PASS",
+    "raised": "ValueError: binding_module_sha256: pinned binding v002 spline helper required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:custody_failclosed:edge_tolerance_missing_None",
+    "status": "PASS",
+    "raised": "ValueError: edge_absolute_tolerance: real number required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:module_edge_recovery_diagnostics",
+    "status": "INFO",
+    "max_node_residual_s": 2.220446049250313e-16,
+    "max_adjacent_edge_mismatch_s": 2.220446049250313e-16,
+    "s0_residual": 3.469446951953614e-18,
+    "s18_residual": 2.220446049250313e-16,
+    "max_weight_relative_residual": 6.496795972126569e-15,
+    "weights_custody_max_relative": 2.9960275409819366e-16,
+    "edge_absolute_tolerance": 1.4210854715202004e-14,
+    "weight_relative_tolerance": 1.4210854715202004e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:input_mismatch_failclosed:helicity_R_differs_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: radial_nodes_m/outer_radius_m differ from those of the scalar maps"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G1:input_mismatch_failclosed:helicity_L_differs_rel1e-12",
+    "status": "PASS",
+    "raised": "ValueError: radial_nodes_m/outer_radius_m differ from those of the scalar maps"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G1:v001_valid_zweight_sum_5e-13",
+    "status": "INFO",
+    "v001_check_passes": true,
+    "raised": "ValueError: radial_RdR_weights_m2 do not match the preserved weights_RdRdz (relative 5.002e-13)",
+    "weight_relative_tolerance_passed": 1.4210854715202004e-14,
+    "note": "weight_relative_tolerance also gates the 32-term column-sum custody check"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:custody_failclosed:root_radial_derivatives_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_maps: root_radial_derivatives do not reproduce from the stored radial_derivative"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:custody_failclosed:value_block_entry_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_maps: value blocks do not reproduce Legendre maps of the stored zeta"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:custody_failclosed:weights_RdRdz_entry_rel1e-9",
+    "status": "PASS",
+    "raised": "ValueError: radial_RdR_weights_m2 do not match the preserved weights_RdRdz (relative 4.284e-11)"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:custody_failclosed:old_scalar_map_sha_wrong",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_map_sha256: reviewed v001 scalar-map pin required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:custody_failclosed:binding_sha_wrong",
+    "status": "PASS",
+    "raised": "ValueError: binding_module_sha256: pinned binding v002 spline helper required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:custody_failclosed:edge_tolerance_missing_None",
+    "status": "PASS",
+    "raised": "ValueError: edge_absolute_tolerance: real number required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:module_edge_recovery_diagnostics",
+    "status": "INFO",
+    "max_node_residual_s": 2.220446049250313e-16,
+    "max_adjacent_edge_mismatch_s": 3.3306690738754696e-16,
+    "s0_residual": 0.0,
+    "s18_residual": 2.220446049250313e-16,
+    "max_weight_relative_residual": 3.630484523080231e-15,
+    "weights_custody_max_relative": 2.9045697541383613e-16,
+    "edge_absolute_tolerance": 1.4210854715202004e-14,
+    "weight_relative_tolerance": 1.4210854715202004e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:input_mismatch_failclosed:helicity_R_differs_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: radial_nodes_m/outer_radius_m differ from those of the scalar maps"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G2:input_mismatch_failclosed:helicity_L_differs_rel1e-12",
+    "status": "PASS",
+    "raised": "ValueError: radial_nodes_m/outer_radius_m differ from those of the scalar maps"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G2:v001_valid_zweight_sum_5e-13",
+    "status": "INFO",
+    "v001_check_passes": true,
+    "raised": "ValueError: radial_RdR_weights_m2 do not match the preserved weights_RdRdz (relative 5.002e-13)",
+    "weight_relative_tolerance_passed": 1.4210854715202004e-14,
+    "note": "weight_relative_tolerance also gates the 32-term column-sum custody check"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:custody_failclosed:root_radial_derivatives_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_maps: root_radial_derivatives do not reproduce from the stored radial_derivative"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:custody_failclosed:value_block_entry_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_maps: value blocks do not reproduce Legendre maps of the stored zeta"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:custody_failclosed:weights_RdRdz_entry_rel1e-9",
+    "status": "PASS",
+    "raised": "ValueError: radial_RdR_weights_m2 do not match the preserved weights_RdRdz (relative 2.142e-11)"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:custody_failclosed:old_scalar_map_sha_wrong",
+    "status": "PASS",
+    "raised": "ValueError: old_scalar_map_sha256: reviewed v001 scalar-map pin required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:custody_failclosed:binding_sha_wrong",
+    "status": "PASS",
+    "raised": "ValueError: binding_module_sha256: pinned binding v002 spline helper required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:custody_failclosed:edge_tolerance_missing_None",
+    "status": "PASS",
+    "raised": "ValueError: edge_absolute_tolerance: real number required"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:module_edge_recovery_diagnostics",
+    "status": "INFO",
+    "max_node_residual_s": 2.220446049250313e-16,
+    "max_adjacent_edge_mismatch_s": 3.3306690738754696e-16,
+    "s0_residual": 3.469446951953614e-18,
+    "s18_residual": 2.220446049250313e-16,
+    "max_weight_relative_residual": 8.444089794932672e-15,
+    "weights_custody_max_relative": 2.1165677958338418e-16,
+    "edge_absolute_tolerance": 1.4210854715202004e-14,
+    "weight_relative_tolerance": 1.4210854715202004e-14
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:input_mismatch_failclosed:helicity_R_differs_1ulp",
+    "status": "PASS",
+    "raised": "ValueError: radial_nodes_m/outer_radius_m differ from those of the scalar maps"
+   },
+   {
+    "group": "F-helicity",
+    "check": "G3:input_mismatch_failclosed:helicity_L_differs_rel1e-12",
+    "status": "PASS",
+    "raised": "ValueError: radial_nodes_m/outer_radius_m differ from those of the scalar maps"
+   },
+   {
+    "group": "F-preserve",
+    "check": "G3:v001_valid_zweight_sum_5e-13",
+    "status": "INFO",
+    "v001_check_passes": true,
+    "raised": "ValueError: radial_RdR_weights_m2 do not match the preserved weights_RdRdz (relative 4.999e-13)",
+    "weight_relative_tolerance_passed": 1.4210854715202004e-14,
+    "note": "weight_relative_tolerance also gates the 32-term column-sum custody check"
+   }
+  ]
+ }
+}

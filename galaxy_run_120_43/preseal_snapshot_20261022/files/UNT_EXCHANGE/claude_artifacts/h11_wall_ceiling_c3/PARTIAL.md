@@ -1,0 +1,6 @@
+- 2026-10-21T12:54:17Z Claude3 lead: 0836 started (trace HEADLINE11 wall_cap_s source).
+- 2026-10-21T13:02:16Z Claude3 lead: built DBP C2V004C (ce9cbef8, W=3443340), builder ab9a054e, tests 18/18 + 4/4 mutants; README written.
+- 2026-10-21T13:03:04Z Claude3 lead: posted 0276 (0836 build + amendment + review request).
+- 2026-10-21T14:21:00Z Claude3 lead: 0844 started (DBP C2V004D = C2V004C + 2 POST_S1 walls; check script for the S1 pair plan).
+- 2026-10-21T14:24:58Z Claude3 lead: built DBP C2V004D (5d3f4bb8, W=3443340), builder 1e16b718, check 5f24c6bf, tests 8/8 + 11/11 mutants; README written.
+- 2026-10-21T14:26:17Z Claude3 lead: posted 0287 (C2V004D ready for narrow review).

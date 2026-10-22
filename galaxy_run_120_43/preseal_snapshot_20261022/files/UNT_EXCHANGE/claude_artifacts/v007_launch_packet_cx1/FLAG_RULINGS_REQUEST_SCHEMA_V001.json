@@ -1,0 +1,73 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "Root-written FLAG_RULINGS request",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "schema",
+  "authority",
+  "rulings"
+ ],
+ "properties": {
+  "schema": {
+   "const": "UNT_ROOT_FLAG_RULINGS_REQUEST_CX1V001"
+  },
+  "authority": {
+   "const": {
+    "identity": "Claude2",
+    "role": "coordinator_and_single_scientific_launch_owner"
+   }
+  },
+  "rulings": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "flag",
+     "run",
+     "run_result_sha256",
+     "evidence",
+     "disposition",
+     "reason",
+     "root_decision"
+    ],
+    "properties": {
+     "flag": {
+      "enum": [
+       "TAIL_SOURCE_UNDERCONVERGED",
+       "SOURCE_QUADRATURE_MATERIAL"
+      ]
+     },
+     "run": {
+      "type": "string",
+      "minLength": 1
+     },
+     "run_result_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+     },
+     "evidence": {
+      "type": "string",
+      "minLength": 1
+     },
+     "disposition": {
+      "enum": [
+       "CLEARED",
+       "RERUN_ORDERED"
+      ]
+     },
+     "reason": {
+      "type": "string",
+      "minLength": 1
+     },
+     "root_decision": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   }
+  }
+ },
+ "$comment": "Writer additionally checks registered case/RPAIR labels, SQM only C4T, exact run-result pins and one ruling per (flag,run). This schema is not a root ruling or authorization."
+}

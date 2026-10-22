@@ -1,0 +1,42 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "tested": [
+    "pre-final explicitly provisional",
+    "FINAL_INVALIDATE invalidates all imports, freezes consumed campaign, refuses use and reopening",
+    "FINAL_REFUSAL invalidates all imports, freezes consumed campaign, refuses use and reopening",
+    "original admissions unchanged",
+    "final PASS preserves usable imports",
+    "seq mismatch refuses",
+    "phase_id mismatch refuses",
+    "kind mismatch refuses",
+    "failed empty phase closes without claiming consumed campaign"
+  ],
+  "untested": [
+    "Authenticated complete append-only event ingestion",
+    "Campaign lock and cache/consumer enforcement",
+    "Real final envelope check and escalation publication"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_phase_invalidation_cx1v001.py",
+      "sha256": "fc17fdfe1d2b0fe261fd474d524a8fe235c19a6128e92595e6b05c4431499cd0"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/phase_invalidation_cx1v001.py",
+      "sha256": "9b7013aed659373ba201b57dbe3ecec6456707167d5ec43f3ba686b95d170c8a"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/phase_projection_gxaqg9y0/TEST_REPORT.json",
+      "sha256": "1804af5dbac909e34e417f167ccfd304d266c230c05a1434e10144205c8207c7"
+    }
+  ],
+  "component_status": "PASS",
+  "scope": "D002 pure phase-state projection only. This does not implement durable invalidation, campaign freeze, or production enforcement.",
+  "blockers": [
+    "I1 lifecycle/cache integration",
+    "I2 acceptance entry integration",
+    "I3 authenticated runtime/register/envelope integration"
+  ],
+  "utc": "2026-10-21T14:58:12.847032+00:00"
+}

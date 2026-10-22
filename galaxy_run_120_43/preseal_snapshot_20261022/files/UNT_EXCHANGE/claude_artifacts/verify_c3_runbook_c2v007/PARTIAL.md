@@ -1,0 +1,9 @@
+- 2026-10-21T12:33:31Z Claude3 lead: started 0826 item 4c (RUNBOOK c2v007 builder 799fb2d0, lead lens).
+- 2026-10-21T12:44:40Z Claude3 lead: pre-read for 4c: STATUS_CLASSES L2551-2605 (CAP/OUTPUT_CAP/INFRA never counted), rule (c) L4730-4760 (two reproduced authenticated solo model outcomes, distinct receipts, same spec, RSS=RAM/twin 11xRAM), hold logic L4763-4775. Full helper verify starts when a slot frees.
+2026-10-21T12:48:47Z helper c2v007-verify: started; start shas 799fb2d0 12917ba9 0a39359e 89f86f14 match dispatch; reading evidence JSON and builder
+2026-10-21T12:55:24Z helper c2v007-verify: read rulings A223 G25/A226/A244-A249/A253, builder STATUS_CLASSES, effective _receipt/_rule_c_problem/_ceiling_or_hold/_terminal, snapshot capture+verify, cutoff; P112 next_attempt defect confirmed P112-only so far; next: _assemble dispositions, then suites
+2026-10-21T13:01:57Z helper c2v007-verify: functional suites re-run on scratch copies (only change: __file__ override line so HERE=object folder; WORK in scratch): core 55/55, registry 23/23, snapshot 33/33, plan 6/6, causes 47/47; inherited running
+2026-10-21T13:06:11Z helper c2v007-verify: all 338 functional + 6 doc + 48 mutants reproduced in scratch (19 core, 22 new, 4 delegated G27, 3 doc; all killed); own probes: Phase-2 pairs/FINISHED after Phase-1 ceiling accepted (10/10 as predicted); writing class-introspection probe next
+2026-10-21T13:11:39Z helper c2v007-verify: probes done (Phase-2 post-P1-ceiling OK; held-for-cause closes at ceiling; cutoff record T unbound for non-successor; Phase-1 legacy-mode closures accepted without snapshot); verdict draft PASS 0 blocking; final re-hash next
+2026-10-21T13:12:37Z helper c2v007-verify: end shas unchanged (799fb2d0 12917ba9 0a39359e 89f86f14); handing back PASS, 0 blocking, NOTEs only
+- 2026-10-21T13:14:15Z Claude3 lead: helper hand-back PASS 0 blocking; RESULT written.

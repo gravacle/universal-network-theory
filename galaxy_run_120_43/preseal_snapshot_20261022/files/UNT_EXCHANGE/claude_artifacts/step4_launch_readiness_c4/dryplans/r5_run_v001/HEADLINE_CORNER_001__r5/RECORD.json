@@ -1,0 +1,329 @@
+{
+ "blocked": [],
+ "blockers": [
+  {
+   "class": "OTHER_ROOT_ITEM",
+   "code": "CERTIFICATE_POLICY_PENDING",
+   "detail": "per-point certificate admission needs root-registered certificate_registry, certificate_policy_review and a non-empty approved_certificate_producers (config tail_readiness: null/null/[]); typed blocker POINT_CERTIFICATE_SCIENTIFIC_APPROVAL_PENDING (TYPED_BLOCKERS_CX2V006R9)",
+   "evidence": [
+    "CERTIFICATE_POLICY_PENDING: certificate_registry,certificate_policy_review,approved_certificate_producers"
+   ],
+   "layer": "orchestrator.certificate_check(prelaunch)"
+  },
+  {
+   "class": "OTHER_ROOT_ITEM",
+   "code": "CAPABILITY_EVIDENCE_PENDING",
+   "detail": "config capability_evidence is null: this corner run, its receipt and result must be registered in the A32 run-mode box evidence (schema DDO154_TAIL_BOX_RUN_CAPABILITY_CX2V006) by root after launch",
+   "evidence": null,
+   "layer": "orchestrator.capability_probe(layer 2)"
+  },
+  {
+   "class": "OTHER_ROOT_ITEM",
+   "code": "PENDING_UV_TAIL_CERTIFICATE",
+   "detail": "numerics.uv_tail eps_certificate and lo_certificate are the template sentinel. For a calibration point the fill source is the per-point certificate registry (Mapper.build fills slots from it, core L249-259), pending root approval (POINT_CERTIFICATE_SCIENTIFIC_APPROVAL_PENDING). For an anchor-point run root MAY instead rule the V007 seal A70 slots apply (check_deciding does not constrain slots, r9 review N-1); that ruling would make this a V007_ADOPTION_PIN.",
+   "evidence": [
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.eps_certificate",
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.lo_certificate"
+   ],
+   "layer": "driver.cmd_dry_run (run mode BLOCKED until filled)"
+  }
+ ],
+ "driver": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+  "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+ },
+ "driver_key": "r5",
+ "family": "HEADLINE_CORNER",
+ "fence": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/tools/fence_c4v002.py",
+  "sha256": "18510e3ae2a8fb84536059dff86057e2ef2eee23c05bf1fc419056cf41656762"
+ },
+ "launches_performed": 0,
+ "layers": {
+  "driver_dry_run": {
+   "binding_blockers": [],
+   "call_spec_sha256_in_report": "850c8e22d594d20ca3f42e965d5dcd9136b1bde1e25a70f5768045b89d7e4fdb",
+   "classes_beyond_expected": [
+    "PENDING_UV_TAIL_CERTIFICATE"
+   ],
+   "driver_sha256_in_report": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "executed_stages": 0,
+   "exit": 0,
+   "normalized_numerics_sha256": "bdc17dfac0f1007146c644c5aa7b7a703eecf791483187afb9213821835ee5d7",
+   "pin_problems": [],
+   "plan": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/HEADLINE_CORNER_001__r5/DRY_R5/DRYRUN_PLAN.txt",
+    "sha256": "2dce3944bf4a0fdc09a6949b055b2130b4ca9ced32737702ebd9b7143cb89569"
+   },
+   "plan_checks": {
+    "manifest_stage_follows_route_a": true,
+    "route_a_solver_is_uvtail": true,
+    "route_a_tail_argv": true,
+    "route_a_worker_in_RO1_armed_set": true,
+    "route_a_worker_is_RO1_uvtail": true,
+    "stage_body_uvt_successor_and_argv": true,
+    "stage_fs_columns_00_uvt_successor_and_argv": true,
+    "stage_fs_columns_01_uvt_successor_and_argv": true,
+    "stage_fs_feedback_gal_c2v005_script_no_tail_argv": true,
+    "stage_fs_rotation_uvt_successor_and_argv": true,
+    "stage_le1_columns_not_planned_in_simulate": true,
+    "stage_offset_uvt_successor_and_argv": true,
+    "stage_reference_uvt_successor_and_argv": true,
+    "stage_rfs_columns_not_planned_in_simulate": true,
+    "uv_tail_source_rule_recorded": true
+   },
+   "plan_checks_all_true": true,
+   "refusal_classes": [
+    "PENDING_UV_TAIL_CERTIFICATE",
+    "PRODUCED_BY_THIS_CALL"
+   ],
+   "refusals_beyond_pending_inputs": [
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.eps_certificate",
+    "PENDING_UV_TAIL_CERTIFICATE: uv_tail.lo_certificate"
+   ],
+   "report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/HEADLINE_CORNER_001__r5/DRY_R5/DRYRUN_REPORT.json",
+    "sha256": "9cf55509fe61d9ac697fd96ec8aaed5ef1c34f0fd7af61ffb5537da0c9d91adc"
+   },
+   "report_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/HEADLINE_CORNER_001__r5/DRY_R5",
+   "route_a_worker": [
+    "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+   ],
+   "scipy_imports": [],
+   "stage_admission_refused": [],
+   "stages_planned": 11,
+   "unexplained_refusals": [],
+   "uv_tail": {
+    "admissibility": "production",
+    "domain_empty_all_stages": false,
+    "kept_regions": {
+     "body": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v003": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "offset": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "reference": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "route_a": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     }
+    },
+    "nodes_ext_context": null,
+    "outer": {
+     "K_big_inverse_kpc": 128.0,
+     "shape": "cylinder"
+    },
+    "pending_certificates": [
+     "eps_certificate",
+     "lo_certificate"
+    ],
+    "refusal_classes_beyond_pending": [
+     "PENDING_UV_TAIL_CERTIFICATE"
+    ],
+    "route_a_worker": [
+     "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+    ],
+    "source_rule": "continuum_v001",
+    "tail_stage_scripts": {
+     "body": "4b0f28fa0539c4ebb2413b91dddc4f93cc74f147000dccb2926177e1da16a42a",
+     "fs_columns_00": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_columns_01": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_rotation": "139643c01d3be53e34df8ececccea69d4a2a7377486498c4d1035e5cb4433242",
+     "offset": "693686352af3020734530b5e896364e58037926c659c23d3e514c88cb5cccbe6",
+     "reference": "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642",
+     "route_a_tail_manifest": "44b31a8b8a91bf7ff67426a1def0b441f4e6d6dc69d00474892883f68ca93b33"
+    }
+   },
+   "wall_s": 2.1022799015045166
+  },
+  "fill_probe_dry_run": {
+   "binding_blockers": [],
+   "call_spec_sha256_in_report": "ce870d207383f1fc18ea60cb87767e42c518763ac4ef0150f34425b4be87cc36",
+   "classes_beyond_expected": [],
+   "driver_sha256_in_report": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "executed_stages": 0,
+   "exit": 0,
+   "normalized_numerics_sha256": "a9516fc99a77400a49cb58c9ee00104266f740650a03ab17d5524f4523887471",
+   "pin_problems": [],
+   "plan": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/HEADLINE_CORNER_001__r5/FILL_PROBE_DRY_R5/DRYRUN_PLAN.txt",
+    "sha256": "bf1d75b2eedcb467a4580d65d520a128eee6699e784f5c7df31a39a090ddcb83"
+   },
+   "plan_checks": {
+    "manifest_stage_follows_route_a": true,
+    "route_a_solver_is_uvtail": true,
+    "route_a_tail_argv": true,
+    "route_a_worker_in_RO1_armed_set": true,
+    "route_a_worker_is_RO1_uvtail": true,
+    "stage_body_uvt_successor_and_argv": true,
+    "stage_fs_columns_00_uvt_successor_and_argv": true,
+    "stage_fs_columns_01_uvt_successor_and_argv": true,
+    "stage_fs_feedback_gal_c2v005_script_no_tail_argv": true,
+    "stage_fs_rotation_uvt_successor_and_argv": true,
+    "stage_le1_columns_not_planned_in_simulate": true,
+    "stage_offset_uvt_successor_and_argv": true,
+    "stage_reference_uvt_successor_and_argv": true,
+    "stage_rfs_columns_not_planned_in_simulate": true,
+    "uv_tail_source_rule_recorded": true
+   },
+   "plan_checks_all_true": true,
+   "refusal_classes": [
+    "PRODUCED_BY_THIS_CALL"
+   ],
+   "refusals_beyond_pending_inputs": [],
+   "report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/HEADLINE_CORNER_001__r5/FILL_PROBE_DRY_R5/DRYRUN_REPORT.json",
+    "sha256": "5ddbed3c6d003aec7d232ff6dd6bc892518643d853da208c6ae2a737f8908a8e"
+   },
+   "report_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/HEADLINE_CORNER_001__r5/FILL_PROBE_DRY_R5",
+   "route_a_worker": [
+    "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+   ],
+   "scipy_imports": [],
+   "spec": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/r5_run_v001/HEADLINE_CORNER_001__r5/FILL_PROBE_SPEC.json",
+    "sha256": "ce870d207383f1fc18ea60cb87767e42c518763ac4ef0150f34425b4be87cc36"
+   },
+   "stage_admission_refused": [],
+   "stages_planned": 11,
+   "unexplained_refusals": [],
+   "uv_tail": {
+    "admissibility": "production",
+    "domain_empty_all_stages": false,
+    "kept_regions": {
+     "body": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v003": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "columns_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "offset": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "reference": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v001": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "rotation_v005": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     },
+     "route_a": {
+      "K_inverse_kpc": 4.0,
+      "shape": "cube"
+     }
+    },
+    "nodes_ext_context": null,
+    "outer": {
+     "K_big_inverse_kpc": 128.0,
+     "shape": "cylinder"
+    },
+    "pending_certificates": [],
+    "refusal_classes_beyond_pending": [],
+    "route_a_worker": [
+     "869ce3870a13fdc94a014cdb0b34eab867c05e59ab7d8abfb15f7db382fd52da"
+    ],
+    "source_rule": "continuum_v001",
+    "tail_stage_scripts": {
+     "body": "4b0f28fa0539c4ebb2413b91dddc4f93cc74f147000dccb2926177e1da16a42a",
+     "fs_columns_00": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_columns_01": "a129b3d8ed5e9ededd9d854ae4ef971f8150dbd9ed79d697331d2e7e8b1f0a7b",
+     "fs_rotation": "139643c01d3be53e34df8ececccea69d4a2a7377486498c4d1035e5cb4433242",
+     "offset": "693686352af3020734530b5e896364e58037926c659c23d3e514c88cb5cccbe6",
+     "reference": "022f257066032865a8c068009fea7618844a993e38d9eb19cc82f303fa637642",
+     "route_a_tail_manifest": "44b31a8b8a91bf7ff67426a1def0b441f4e6d6dc69d00474892883f68ca93b33"
+    }
+   },
+   "wall_s": 1.533134937286377,
+   "zero_blockers": true
+  },
+  "orchestrator_v006r9": {
+   "certificate_check_prelaunch": {
+    "blockers": [
+     "CERTIFICATE_POLICY_PENDING: certificate_registry,certificate_policy_review,approved_certificate_producers"
+    ],
+    "ok": false
+   },
+   "certificate_point_key": "4890508b11bcbd7af814748552125e6b963cd238cf3783b15160b2c5a8c1ba5b",
+   "context": {
+    "base_spec_sha256": "f8785f129beb302295422bdcf159068581378dd4a3ca33ff1a03b13aa9395d56",
+    "cache_id": "878d612a46e57f196322b52db0f7f4dc5b4e2529617abeff282ab4c682810c50",
+    "gates_ok": false
+   },
+   "mapper_rebuild_matches_probe_point": "corner common_scale_s=lo,gamma_over_Eref=lo,ell_F_m=hi",
+   "normalized_spec_sha256": "7271c66af0e8bb24cf146881e22d010a1885df99a8d8223b324f751772c71c9b",
+   "prelaunch_check": "PASS (certificate_registry null: the certificate preflight is skipped by design, r9 wrapper L177-180)",
+   "sensitivity_gate": {
+    "distance_hex": "0x1.028f5c28f5c29p+2",
+    "distance_mpc": 4.04,
+    "evidence": null,
+    "ok": true,
+    "reasons": [],
+    "status": "HEADLINE_NOT_GATED"
+   },
+   "validate_block": "PASS"
+  }
+ },
+ "name": "HEADLINE_CORNER_001",
+ "opens_outside_folder_n": 277,
+ "run_tree_opens_not_runs_ext": [
+  "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json"
+ ],
+ "runs_ext_opens": [],
+ "schema": "C4_0587_DRYPLAN_RECORD_V001",
+ "seconds": 5.119465112686157,
+ "spec": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/specs_v001/specs/HEADLINE_CORNER_001.json",
+  "sha256": "850c8e22d594d20ca3f42e965d5dcd9136b1bde1e25a70f5768045b89d7e4fdb",
+  "sha256_expected": "850c8e22d594d20ca3f42e965d5dcd9136b1bde1e25a70f5768045b89d7e4fdb"
+ },
+ "target_word_opens": [],
+ "tool": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/tools/dryplan_one_c4v001.py",
+  "sha256": "a68a04a6ec34322ef3abf4c790c6b69045ab13363729b582bfabf8805f3f5626"
+ },
+ "utc_end": "2026-10-18T18:48:20Z",
+ "utc_start": "2026-10-18T18:48:15Z",
+ "verdict": "PLANNED"
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "CX1_EXTERNAL_IMPORTER_EARLY_DESIGN_V001",
+  "utc": "2026-10-21T12:32:33.963993+00:00",
+  "dispatch": 827,
+  "status": "FAIL",
+  "blocking_count": 1,
+  "scope": "Early adoption timing answer; implementation and runtime verification incomplete. Not a completed importer review.",
+  "answer_first": "A separately pinned supplemental entry/executor can be added after generation while retaining the generated policy, core, wrapper, entry and config bytes. Static identity expressions permit this; runtime proof is pending. Do not edit the wrapper: its byte SHA is an input to cache_id. No evidence currently requires inclusion in verdict-day generation.",
+  "tested": [
+    "Static source inspection of generator, wrapper identity expressions and executor/ingest control flow.",
+    "SHA256 computed from source bytes for the attached pins."
+  ],
+  "untested": [
+    "Runtime identity equality on generated v006r12_c4 chain",
+    "Importer implementation and refusal matrix",
+    "Whole-engine replay",
+    "Production execution and all scientific run data"
+  ],
+  "findings": [
+    "Wrapper Context cache_id includes the wrapper file hash and guard file hash, plus parent identity and certificate policy.",
+    "Ledger genesis uses schema, certificate_registry and certificate_ledger. Unchanged inputs preserve its digest.",
+    "Validated WAVE cache entries retain original provenance call_dir and result_path; observed verification does not mandate wave-local custody. Source WAVE must describe the natural request, with explicit external execution origin.",
+    "Cache.put alone is insufficient: run_wave calls executor.execute before ingest; resume does not skip an externally cached planned call.",
+    "Hook must run only after genuine committed WAVE_PLAN under the existing work-dir lock. Must retain original direct call directory and normal fallback execution for unmatched requests. Mixed-wave indexing/resume semantics remain unresolved.",
+    "No F6 automatic admission. Root per-call judgment and latest acceptance semantics must remain enforced."
+  ],
+  "blockers": [
+    {
+      "id": "EI01",
+      "description": "Implementation, mixed-wave/resume integration and whole-engine evidence still required; static feasibility is not adoption approval."
+    }
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/make_campaign_cascade_c2v004.py",
+      "sha256": "5014b04f0de3cf2fc0289dcabe519e0056f9395302cfd1b9b4082b4d045b228a"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_campaign_entry_c2v004.py",
+      "sha256": "cbdf0d49b8bfa09bccf8ba1ebfb518f8c00b663c2564db7c3a02c8b7a86e116d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py",
+      "sha256": "dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6"
+    }
+  ],
+  "artifact": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/EARLY_ADOPTION_ANSWER_CX1V001.json",
+    "sha256": "d7573caebabfec41c42f15aa30cbecd15925fd9d5381e099ed83c7eed08aaa44"
+  }
+}

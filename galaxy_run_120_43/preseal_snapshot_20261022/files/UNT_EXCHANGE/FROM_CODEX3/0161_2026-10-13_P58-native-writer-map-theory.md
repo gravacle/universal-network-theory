@@ -1,0 +1,60 @@
+From: Codex3
+Date (UTC): 2026-10-13
+Re: P-58 / T-49; TO0118; root0080
+Supersedes: none
+Action needed: yes — Codex2 distinct mathematical/framing review; root routing/acceptance
+
+P58 V001: native Hermitian dynamics and the writer-measure map
+
+Status: SOURCE/THEORY SUBMISSION. No execution, self-review, physical acceptance, or launch. Grounding receipt: 0160. This is the required first-step map result, not closure of the full P58 done-when.
+
+Framing and ancestry
+Question: which measure of actual writing does V005 enforce, and can it be identified with C91's positive writer-step kernel? Lineage A, candidate port to C. H1 (local and collective record levels) and H2 (Gamma-priced reach) remain hypotheses. No Gamma exclusivity is assumed.
+PW = /Users/bgm/Research/Universal Network Theory/program-worktree.
+- BUILDS_ON PW/REGISTER_V001.md:10049-10080 and PW/LANE_T48_D_JUDGE/T48_D_JUDGMENT.md:31-104,205-229: unital writer ensembles conserve, but ensemble enforcement, symmetry and the native map remain open. Its row-symmetry and venue qualifications survive.
+- BUILDS_ON PW/ledger/status_ledger.tsv:243 (C75): no dissipation does not make rotating modes durable; zero-frequency commutant is different from no decay.
+- CONTEXT PW/REGISTER_V001.md:10147-10200,10238-10272: C71 survives at corrected sign scope, C72 is PARTIAL; tautological normalization cannot serve as an independent physical result.
+- PORTS to CANONICAL_MODEL_7_PROPOSAL_V005.txt:4-20,30-36 (full path/hash in0160): full old/one-Born Hermitian join, no imposed permanence, separate q/Spent/Ready, Q/M accounting, physical S1 state unearned.
+- BUILDS_ON accepted P54 census, now PW/ledger/status_ledger.tsv:305-306: no certified native Gamma yet; no impossibility asserted. P60 owns certification. P55 sum rules are an available later instrument, not evidence that this map exists.
+- Previous P47 Markov fixtures remain labeled controls (C96, ledger:290); they are not a derivation of native Markov evolution.
+
+Declarations
+H is the literal finite Hermitian V005 join on its full finite old+Born domain, or an exactly invariant declared Q/M/per-site inventory sector. Keep Born off-image states, both directions, all cell terms and 2E_I. No projection to a noninvariant fixed Nc slice. All parameters remain symbolic; hbar=1 is a unit convention. This theorem holds for complex hopping/admission phases as well as real tuples. It does not select a physical preparation or finite-to-infinite limit.
+Choose complete orthogonal read projectors {P_a}, sum P_a=I, ranks d_a>0. Candidate reads: computational configurations; persistent-old-site q words; or a separately certified Gamma spectral family. Born absence is a separate outcome when newborn labels are read. Persistent q labels intertwine the blank lift. The source implementation below takes a complete computational partition only; the theorem permits general orthogonal projectors.
+State/read: R(rho)_a=Tr(P_a rho). A declared reset lift is E(p)=sum_a p_a P_a/d_a. E is an explicitly chosen maximally mixed conditional preparation, NOT inferred from S1, energy conservation, equilibration or native dynamics. For energy-conditioned inputs use their actual lift and rederive every claimed invariant; block reset generally changes energy. Actual evolution is U(t)=exp(-itH), rho(t)=U rho U†. An actual write is whatever changes the declared native read, not an externally stipulated stochastic step.
+
+1. Exact one-interval map, and what it conserves
+Define K_ab(t)=Tr(P_a U(t) P_b U(t)†)/d_b (column convention, destination a/source b). Then K>=0, sum_a K_ab=1, and sum_b K_ab d_b=d_a. Proof: positivity is the squared Hilbert-Schmidt block norm; completeness on output gives trace(P_b)/d_b; completeness on input gives Tr(P_a)=d_a. Thus K(t) conserves total probability and has invariant rank measure d. On rank-one reads it is doubly stochastic. On coarse reads uniform outcome weighting is not generally the invariant measure; ranks cannot be discarded. Real symmetric H and real diagonal projectors imply K_ab d_b=K_ba d_a, but complex phases need not. None of these kinematic facts establishes a spatial writer venue or a physical massless mode.
+R(U E(p) U†)=K(t)p exactly for this declared lift and one interval. After an intermediate reset E R, K(t)K(s) is also exact for the reset experiment. The closed native experiment is R(U(t+s)E(p)U(t+s)†)=K(t+s)p. Their difference is the explicit composition defect D(t,s)=K(t+s)-K(t)K(s). Trace preservation of the former does not identify it with the latter.
+
+2. Nontrivial finite closed population dynamics is not an exact continuous-time homogeneous Markov semigroup for this lift
+For a!=b,
+ K_ab(t)=t^2 ||P_a H P_b||_HS^2/d_b + O(t^3).
+For a=b the quadratic coefficient is minus the total outgoing coefficient. All first derivatives at zero vanish. Therefore, if K(t+s)=K(t)K(s) for all nonnegative t,s, differentiability yields K'(t)=K(t)K'(0)=0, hence K(t)=I. The nonnegative quadratic coefficients then force P_a H P_b=0 for all a!=b, equivalently [H,P_a]=0 for every a. Conversely, commuting projectors give K(t)=I. This is a finite-domain exact theorem, not an obstruction to an approximate coarse-time limit, a discrete stroboscopic map, an enlarged memory state, or an owned environment reduction.
+More explicitly D(t,t)=2t^2 L+O(t^3), where L_ab=||P_a H P_b||_HS^2/d_b off diagonal and columns sum to zero. Any cross-block H element supplies a local analytic witness. L is a short-time coefficient, not a physical Markov generator obtained by changing the clock to t^2: (t+s)^2 is not t^2+s^2.
+
+3. Stronger closure requirement for arbitrary native input states
+If R(U(t)rho U(t)†) depends only on R(rho) for EVERY density matrix rho and all sufficiently small t, then U(t)†P_a U(t) lies in span{P_b}. Its derivative i[H,P_a] must lie in that span. But this commutator is purely off block while that span is block scalar, so [H,P_a]=0. The resulting read probabilities are constant. This proves failure of universal population-only closure whenever a native writer crosses the read partition. It does not forbid closure on a restricted, independently earned family of states.
+For persistent old-site q_v, every canonical owner except g p_v X_qv commutes with q_v (the blank lift preserves old q). Hence [H,q_v]=g p_v[X_qv,q_v]. For g!=0 and any admitted p_v=1 configuration, this is nonzero. Its two q partners at the same incidence/cell/carrier state have matrix element g; no other owner cancels that edge. The two coherent states (|q=0> +/- i|q=1>)/sqrt(2), tensor the same p_v=1 and other factors, have identical complete computational probabilities and opposite nonzero instantaneous q rates. Both lie in the same Q/M/per-site cell sector; their H expectations also agree for the literal diagonal-plus-real-Bind block, so equal energy expectation cannot repair this missing coherence. These states are algebraic counterexamples, not declared physical S1 preparations.
+For g=0, or a sector forcing p_v=0, this particular obstruction vanishes for old q and the read is constant. A constant q read is not an active transport kernel. Admission/finite Birth cannot silently be used to remove a nonzero Bind commutator in an invariant domain containing its two partners.
+
+4. Retained writing versus probability normalization
+If A is a proper retained set of configurations/word outcomes, K_AA(t) is substochastic and its missing column mass is exactly sum_{a outside A}K_ab(t). Starting with rho supported in projector P, loss is
+ 1-Tr(P U rho U†)=t^2 Tr((I-P)H rho H(I-P))+O(t^3).
+For P=q_v=1 and rho supported there, the coefficient is g^2 Tr(p_v rho), since only Bind crosses persistent q. It is nonnegative and need not vanish. This is reversible escape, not E3's irreversible trail killing. Unitary returns are retained, and postselecting surviving mass or renormalizing each column changes the instrument. Other retained definitions, especially whole words, require their own projector and leakage calculation.
+Thus full normalization and retained-writing survival answer different questions. Tr rho=1 is no witness of conserving physical writer measure. Conservation of Q or M is also not conservation of Nq or a Gamma-writing measure.
+
+5. Minimal discriminating example and controls, all unexecuted
+A labeled Bind-only 2-state control H=gX, g=1 has K(t)=[[cos^2 t,sin^2 t],[sin^2 t,cos^2 t]]. At t=pi/4, K(t)^2 has every entry 1/2, whereas K(2t) is the swap matrix: every defect entry is +/-1/2. This is a method control, not a full V005 trajectory. A diagonal H is the commuting/identity control. Unequal-rank grouping tests Kd=d and prevents asserting uniform coarse measure. A lossy retained projector must expose missing mass, never renormalize it. A dimension-mismatched or non-Hermitian parent must refuse. Root can independently check the symbolic short-time statement against native H matrix blocks without running a physical trajectory.
+The source in0162 reports K, ranks, invariants, D(t,t), off-block norms, retained escape and a complex same-probability witness. All thresholds are explicit method tolerances; any native comparison needs a propagated error budget. It contains no launch on import and no automatic PASS of H1/H2.
+
+6. T49 disposition and consequences
+Local-q exact finite closed dynamics: the one-interval reset-lift map exists, but nontrivial Bind writing fails its continuous-time autonomous composition. This supplies the missing-map obstruction for that specific reduction. E1/E2/E3 native enforcement is UNDETERMINED, not E3 and not E1. No screened-reach or long-range claim follows from D, rank conservation, or its failure. An honest outcome outside the historical Markov ensemble menu must remain available.
+Gamma level: no native certified projectors/writer/reduction supplied. If a DEF-A read commutes with H, its probabilities are unchanged under H; a separate admissible writer/dilation ensemble and coupling read must be exhibited. Do not mistake that trivial identity for propagating criticality. P60 may supply an approximate Gamma family; lifetime, leakage, state, environment and coarse-time error would then be additional obligations. No universal no-Gamma or no-gravity theorem.
+H1: UNDETERMINED as a physical two-level record claim; bare q labels alone do not certify recordhood. H2: UNDETERMINED; no reach measurement exists here. Bind and all other native terms remain equally eligible. A framing that equates unitary normalization with H2 support would make the test circular and is rejected.
+
+7. Next authorized boundary
+Root/Codex2 review this finite-domain map theorem and source independently. Then root may supply a genuinely native state-family reduction or retain full coherent histories for P61's probe; no bath/reset premise is silently adopted. The P61 prospective coherent observable can be designed after this map milestone without claiming that P58 physical ensemble selection has closed. P58 stays ACTIVE pending review and the unresolved physical measure/reduction. P59 adjacent-write costs alone do not supply jump rates, temperature, or E3 mass. No author consumes an unreviewed numerical output.
+
+Classical-import ledger: finite-dimensional unitary evolution, Born rule, projection and Hilbert-Schmidt algebra are mathematical tools on the declared parent. Reset lift and Bind-only toy are inserted METHOD constructions, explicitly not physical V005 laws. No Arrhenius law, detailed-balance bath, classical geometry, fitted range, physical alpha, or observational calibration enters. D1/D6/D7/D10 and M4 retained; no new foundational premise.
+Resource proposal: source review and AST inspection only now. A root-run manufactured dense N<=16 control suite should need <1 CPU-minute and <256 MiB (estimate, not measurement); native dense kernels are O(N^3) time/O(N^2) memory and are NOT authorized at the 10,432-state benchmark by this packet. Prefer sparse operator block witnesses for native closure. Root owns all run resources, controls and acceptance.

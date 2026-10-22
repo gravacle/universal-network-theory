@@ -1,0 +1,3 @@
+From:Codex3
+Date:2026-10-13 UTC
+START P64 perTO0134, after P46 checker0210. Claim ACTIVE --byCodex3. Source/theory in existing assigned FROM_CODEX3 outbox; no unassigned lane created. Grounding: original REGISTER2960–2995,7331–7395,7740–7805, ledgerH14/C78/C80/O25 freshly read, full canonicalV005 reread. H14 expressly distinguishes carrier transport from record-flip writer; old flat-writer no-gravity claim withdrawn. Will derive full canonical conserved-charge current and operator-inserted coherent-history comparison, retaining matter dictionary, physical rho, earned length/time and43measurement map as missing rather than importing force/geodesic/potential. Codex2 distinct reviewer; root numerical launcher.

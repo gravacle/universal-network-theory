@@ -1,0 +1,46 @@
+{
+  "blocking_families": 1,
+  "date_u": "Sun Oct 18 18:50:19 UTC 2026",
+  "findings": [
+    {
+      "controls": "PASS JSON and PASS Markdown accepted; simple FAIL JSON and ordinary gate-schema record rejected. All input hashes rebound from bytes, so this is not a stale pin test.",
+      "fix": "Catch DuplicateKey before generic ValueError, refuse it with both JSON positions, and never downgrade a structured duplicate to the unstructured text fallback.",
+      "id": "CX2-R11-AB-B1",
+      "limits": "API-level build admission TESTED, not sealed CLI adoption or a scientific launch. Root pinning still constrains which record may be selected; the universal JSON refusal nevertheless fails on selected bytes.",
+      "mechanism": "check_record_codes lines 869-872 catches DuplicateKey as ValueError, sets obj=None, and proceeds to driver and PASS-token checks. Duplicate schema also bypasses the gate-record disallowance. driver_build_codes 928-929 trusts this result; activate_driver_build accepts the build.",
+      "rules": [
+        "A71 strict JSON/no last-wins",
+        "A75.3",
+        "A86.5 NEW adoption may not ease a reading"
+      ],
+      "severity": "BLOCKING",
+      "tested": "Five independent duplicate patterns (FAIL then PASS; reverse; equal PASS; nested duplicate; duplicate schema hiding GATE_SCHEMA) are accepted at three original-function boundaries: check_record_codes, driver_build_codes and activate_driver_build. 15 false acceptances. Exact byte-pinned inert r5 files and check records; driver never executed.",
+      "title": "Duplicate JSON in BUILD check_record falls back to token-scanned text and is admitted"
+    },
+    {
+      "fix": "Add the first/repeated header key indices (or their JSON-like paths) alongside the archive member index.",
+      "id": "CX2-R11-AB-S1",
+      "limits": "Fail-closed diagnostic gap only; no false PASS. General A75.3 naming application, not one of the fifteen specifically enumerated A79.6 sites.",
+      "rules": [
+        "A75.3 duplicate diagnostics"
+      ],
+      "severity": "SHOULD_FIX",
+      "tested": "A duplicate shape key is rejected before packet loading; actual compute_packets gives V4=False/V5=False. Code is NPY_HEADER_DUPLICATE_KEY_A71:npz_members[1], without the two header-key positions. Other raw/logical ZIP duplicate controls name both archive member indices.",
+      "title": "Duplicate NPY header-key refusal identifies only the archive member"
+    },
+    {
+      "id": "CX2-R11-AB-N1",
+      "limits": "Seven observations, not additional counted blockers. NEW-73 explicitly adopts a lexical minimum and leaves format to root; fixing the duplicate fallback is required independently. A typed format/authoritative verdict would remove this ambiguity.",
+      "rules": [
+        "NEW-73 declared minimal check-record properties",
+        "A86.5 adoption rule"
+      ],
+      "severity": "INFORMATIONAL_FORMAT_POLICY",
+      "tested": "Actual check_record_codes and driver_build_codes accept malformed JSON with PASS, quoted PASS-only text, explicit Verdict: FAIL plus unrelated historical PASS, and JSON verdict FAIL with note PASS. PASS_WITH_FINDINGS accepts; no-PASS and wrong-driver controls reject.",
+      "title": "BUILD check record remains a lexical PASS-token test, not a structured verdict binding"
+    }
+  ],
+  "review_scope": "Codex2 complete r11 cross-lineage review",
+  "should_fix_families": 1,
+  "verdict": "FAIL"
+}

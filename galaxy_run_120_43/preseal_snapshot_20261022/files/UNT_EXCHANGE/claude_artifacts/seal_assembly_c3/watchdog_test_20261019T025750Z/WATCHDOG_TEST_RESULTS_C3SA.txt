@@ -1,0 +1,17 @@
+# step2_disk_watch.sh tests (Claude3, 20261019T025750Z); watchdog sha bd0d9bab0854627957781e1666c7f5eacd1e10cd03bfde0dd2efe2e27a5a2c28; all simulated (stub df or a high threshold); notifications stubbed
+T1  PASS  simulated threshold 100000 GiB, real df: LOW + NOTIFY_STUB (rc 0)
+T2  PASS  default 80 GiB, real df: OK, no notification (free_gib=417.90)
+T3  PASS  df stub 50 GiB: LOW + NOTIFY_STUB
+T4  PASS  boundary: 80 GiB exactly -> OK; 80 GiB - 1 KiB -> LOW
+T5  PASS  unparseable df: DF_ERROR on both polls, no alert, keeps running
+T6  PASS  existing log: REFUSE (rc 2), file unchanged
+T7  PASS  run-tree / firmlink log path refused (rc 2): /Users/bgm/Research/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007/watch.log
+T7  PASS  run-tree / firmlink log path refused (rc 2): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/watchdog_test_20261019T025750Z/runs_ext/watch.log
+T7  PASS  run-tree / firmlink log path refused (rc 2): /System/Volumes/Data/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/watchdog_test_20261019T025750Z/T7.log
+T7  PASS  /Users/bgm/Research/UNT_INTERNAL_RUNS still absent
+T8  PASS  relative path, missing folder, unknown option, non-integer threshold: all REFUSE (rc 2), nothing created
+T9  PASS  background run, 3 OK polls, SIGTERM -> STOP line (rc 0)
+T10 PASS  osacompile accepts the notification line (compiled only, not run)
+T11 INFO  fixed paths in the script: /ABS/PATH/STEP2_DISK_WATCH_V007.log /runs_ext /runs_ext/ /System/Volumes/Data /system/volumes/data/ /Users/bgm/Research/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007 /uvt_ 
+UNTESTED: a real notification with sound (run once by root: step2_disk_watch.sh --log ABS_PATH --test-notify)
+ALL PASS

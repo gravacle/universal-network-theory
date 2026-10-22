@@ -1,0 +1,719 @@
+{
+ "date_u": "Tue Oct 20 19:40:39 UTC 2026",
+ "declared_list_sha256": "c08b9858f558b5f795994d0f89f2c459de590d3688c43c47e1343147d8ccd0cf",
+ "interfaces": {
+  "0786_restoring_mutants": [
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "imported": true,
+    "name": "0786_ignore_sibling_sha",
+    "replace": "need(pin[\"sha256\"] == matches[0], \"OBSERVATIONS_SIBLING_SHA\", path)",
+    "source_sha256": "6d1a40802c89b1c5ada29e754ee8f03da757c4c6b723c657a113dff97c3f8624",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "imported": true,
+    "name": "0786_ignore_missing_sibling",
+    "replace": "need(Path(path).is_file(), \"OBSERVATIONS_SIBLING_MISSING\", path)",
+    "source_sha256": "c7baca5d38f77e4270a5e703b16b59141630af784708a81ae8cd082ca789fe99",
+    "status": "KILLED",
+    "with": "if not Path(path).is_file(): return {\"path\": path, \"sha256\": matches[0]}, {\"counts\": {}, \"last_observation\": {}}"
+   },
+   {
+    "control": "PASS",
+    "detection": "FileExistsError",
+    "imported": true,
+    "name": "0786_parent_written_first",
+    "replace": "observations_pin = ctx.write(path + \".observations.json\", report)",
+    "source_sha256": "f796013d99d898107e44e51f1f1bb32da676a2de0c4b9f192045ff5c6304da2f",
+    "status": "KILLED",
+    "with": "ctx.write(path, rec)\n    observations_pin = ctx.write(path + \".observations.json\", report)"
+   }
+  ],
+  "P112_open_audit": {
+   "forbidden_output_opens": 0,
+   "p112_open_events": 246
+  },
+  "RV21_interruption": "TESTED an actual forked synthetic invocation exiting after inert monitor Popen and before monitor_pid.json. Resume and close use the saved invocation and exact launch bytes.",
+  "all_public_command_read_audit": {
+   "commands": [
+    "assemble_registry",
+    "cli",
+    "close_attempt",
+    "launch",
+    "launch_resume",
+    "record_monitor_refused",
+    "sampler",
+    "status",
+    "stop_outside_set",
+    "write_cutoff"
+   ],
+   "scope": "In-process opens whose stack contains the tested executable; spelled and resolved paths. Immutable reads at most once per outer command. Successful volatile observations and unlisted process-counter script identity probes are separately classified. Own executable sha reads are excepted. Child process executable reopening is outside this hook.",
+   "status": "TESTED",
+   "violations": []
+  },
+  "cx2v002_regressions": "TESTED synthetic saved states and inert processes only. The per-operation audit checks spelled paths and realpaths in this process; it cannot observe executable reopening inside child processes. Child executable integrity remains the root envelope's responsibility.",
+  "cx2v002_restoring_mutants": [
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "write_launch_record",
+    "imported": true,
+    "name": "B1_launch_reread",
+    "replace": "raw, lj = snapshot",
+    "source_sha256": "84217cbe5c9033be3a221b3261813eb4a803f937292300f8a751953201f57e9a",
+    "status": "KILLED",
+    "with": "raw, lj = try_launch_json(plan[\"launch_json\"])"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "history",
+    "imported": true,
+    "name": "B2_receipt_reread",
+    "replace": "\"monitor_receipt\": monitor_pin",
+    "source_sha256": "4690354a6af5b35157fc759817c080d84f93b61d205449e894a2b1d6f0718b29",
+    "status": "KILLED",
+    "with": "\"monitor_receipt\": {\"path\": receipt_path, \"sha256\": sha(Path(receipt_path).read_bytes())}"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "assemble_registry",
+    "imported": true,
+    "name": "B3_registry_reread",
+    "replace": "\"registry\": registry_pin",
+    "source_sha256": "f313f85498ee4c35047252d6bd2c2cfef4d1b72638d1c7d889083e03aa54c9b5",
+    "status": "KILLED",
+    "with": "\"registry\": {\"path\": str(p), \"sha256\": sha(p.read_bytes())}"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "command_argv",
+    "imported": true,
+    "name": "B4_command_parse_refusal",
+    "replace": "return row[\"command\"].split()",
+    "source_sha256": "94b809087810438b2a68fc4274f1195e384335b210f27be02c86be891fda8b7a",
+    "status": "KILLED",
+    "with": "raise Refusal(\"PS_COMMAND_PARSE\")"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "observe_file",
+    "imported": true,
+    "name": "F1_unguarded_launch_observation",
+    "replace": "guard_record(path)",
+    "source_sha256": "489c77f3cf66f3dbf9e796f89c7d56f9f622167e1cd3e38eda55d78e146c744c",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "guard_record",
+    "imported": true,
+    "name": "F1_allow_record_alias",
+    "replace": "need(os.path.realpath(path) == path, \"RECORD_SYMLINK\", path)",
+    "source_sha256": "c3dec0df4af560e63fe5d244d9eae77d49ee8393f23ee2ec7a304b26f876acf6",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "tool_gate",
+    "imported": true,
+    "name": "F2_tool_splitlines",
+    "replace": "text.split(\"\\n\")",
+    "source_sha256": "8ef12511bc0cc82bdbb475bf636c89f7fd1be5d617e3e2089456c8fbd93ee370",
+    "status": "KILLED",
+    "with": "text.splitlines()"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "residual_lines",
+    "imported": true,
+    "name": "F2_residual_splitlines",
+    "replace": "text.split(\"\\n\")",
+    "source_sha256": "6e9d79c44a221ebaab06a40aff6e997a37c6e40378786cf50ffd310ccdcbe2c1",
+    "status": "KILLED",
+    "with": "text.splitlines()"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "launch_resume",
+    "imported": true,
+    "name": "F3_require_monitor_pid_file",
+    "replace": "and inv.is_file():",
+    "source_sha256": "293c84083bdeed5450a555fc6a4b13c50a67b89f472f0f97b7ccc2755090135e",
+    "status": "KILLED",
+    "with": "and inv.is_file() and mp.is_file():"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "kit_kill_target",
+    "imported": true,
+    "name": "F4_any_exit_one_ended",
+    "replace": "if type(failure) is dict and failure.get(\"alive\") is False:",
+    "source_sha256": "8a5202a9a5ccbad8e4a78ce19ae859f266a83a4d5536c7874a0daf6ec7511608",
+    "status": "KILLED",
+    "with": "if True:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "imported": true,
+    "name": "F5_configured_V006",
+    "replace": "need(self.synthetic or c[\"v006\"] == V006, \"V006_CONFIG_PATH\")",
+    "source_sha256": "423b5d269d99d8ce1709d4d51d9ce3d94dfbf034f9445f02b3b7168ca3f16319",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "path_rules",
+    "imported": true,
+    "name": "F6_postseal_guard_removed",
+    "replace": "need(not any(p.lower() == \"v007_postseal_records\" for p in parts), \"PATH_V007_POSTSEAL\", where)",
+    "source_sha256": "46c94af7014f73fce258138580d974ec323b57a5881c17b845eabb41ead9ef96",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "read_record",
+    "imported": true,
+    "name": "cleanup_pin_then_reread",
+    "replace": "return read_and_pin(guard_record(path), decode=decode)",
+    "source_sha256": "d1c96f7c24450707560086496f804e9f02ee153477a51aea835875c58d8ea803",
+    "status": "KILLED",
+    "with": "pin, raw = read_and_pin(guard_record(path), decode=False)\n    raw = Path(path).read_bytes()\n    return pin, strict_json(raw) if decode else raw"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "read_and_pin",
+    "imported": true,
+    "name": "0785_immutable_cache_bypassed",
+    "replace": "if snapshots is not None and cache_key in snapshots:",
+    "source_sha256": "fcbd77fc9dc81c9ef66dffb0d6451487eb7b0a08b156d0419daf5ef3d901a957",
+    "status": "KILLED",
+    "with": "if False:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "observe_file",
+    "imported": true,
+    "name": "0785_volatile_pin_reread",
+    "replace": "pin = {\"path\": path, \"sha256\": sha(raw)}",
+    "source_sha256": "21878c84f2525aa807507a318ad054f279e5a8ae8dcab5a09a083af9d07fb5cb",
+    "status": "KILLED",
+    "with": "pin = {\"path\": path, \"sha256\": sha(Path(path).read_bytes())}"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "write_cutoff",
+    "imported": true,
+    "name": "0785_cutoff_copy_reread",
+    "replace": "write_x_bytes(p, raw)",
+    "source_sha256": "f39724d4b1d8dc6f293dcd4da712f0e9739e92caf0d992199c35d96ac74619d5",
+    "status": "KILLED",
+    "with": "write_x_bytes(p, read_v006(ctx.cfg[\"v006\"], kind=\"v006_cutoff\"))"
+   }
+  ],
+  "live_synthetic_scope": "TESTED public CLI with synthetic driver/dry/watch and verified monitor API wrapper. Production driver, certificates, mounted volumes and scientific behavior remain UNTESTED.",
+  "mutation_tests": [
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": null,
+    "imported": false,
+    "name": "wildcard_status",
+    "replace": "assert len(STATUS_CLASSES) == 54",
+    "source_sha256": "67243d7a0bd217bd4ee59b06c915eedcb2764979a590b71ad0d5fac3da439ac6",
+    "status": "KILLED",
+    "with": "STATUS_CLASSES[\"*\"] = \"INFRA\"\nassert len(STATUS_CLASSES) == 54"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "raw_status",
+    "imported": true,
+    "name": "swapped_precedence",
+    "replace": "if mislaunch is not None:",
+    "source_sha256": "c368a9e11acbc221fd245b55ff541a098b24db3d1ad430aaf2d1446de0b0b0e1",
+    "status": "KILLED",
+    "with": "if mislaunch is not None and not str(rec.get(\"status\", \"\")).startswith(\"STOPPED_\"):"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "raw_status",
+    "imported": true,
+    "name": "unbound_mislaunch",
+    "replace": "need(bound, \"MISLAUNCH_NOT_BOUND\")",
+    "source_sha256": "049c5366be5c7f352aed6b2d05cfafa5ec0395e5759c3aee7db4d326cf460c0d",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "sample_value",
+    "imported": true,
+    "name": "ignored_sample_gap",
+    "replace": "if gap > 2 * p:",
+    "source_sha256": "2f9eeed9a62f0a784d63411d6d1531b4bc8eda4d50e01e50fa528baf3b802503",
+    "status": "KILLED",
+    "with": "if False:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "next_attempt",
+    "imported": true,
+    "name": "undoubled_rerun_wall",
+    "replace": "caps[\"wall_cap_s\"] = first[\"wall_cap_s\"] * 2",
+    "source_sha256": "895cc689bdd96ab28352f1ed700f0a34b848cbbb73b8c4064e7e239e7c491b22",
+    "status": "KILLED",
+    "with": "caps[\"wall_cap_s\"] = first[\"wall_cap_s\"]"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "next_attempt",
+    "imported": true,
+    "name": "twin_rss_at_ram",
+    "replace": "caps[\"rss_cap_bytes\"] = RAM * (11 if name == TWIN else 1)",
+    "source_sha256": "e7015eb3ff187bd47192f3aecf662f74e37acb7e89219976a0c10bc9bec15721",
+    "status": "KILLED",
+    "with": "caps[\"rss_cap_bytes\"] = RAM"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "next_attempt",
+    "imported": true,
+    "name": "numbering_restarts",
+    "replace": "k = max(ks, default=0) + 1",
+    "source_sha256": "0d019d28b520f1590c045362438b88b560135c41f67014f6d57678ae8211bcad",
+    "status": "KILLED",
+    "with": "k = 1"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "equal_hex",
+    "imported": true,
+    "name": "theta_numeric_equality",
+    "replace": "fhex(left, where) == fhex(right, where)",
+    "source_sha256": "b071a7cd6af8dcea4912cf4ceaeb9b717cca650d8ffbc713082220af309b2903",
+    "status": "KILLED",
+    "with": "left == right"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "disk_check",
+    "imported": true,
+    "name": "disk_off_by_one",
+    "replace": "free >= caps[\"output_cap_bytes\"] + DISK_RESERVE",
+    "source_sha256": "5549dcede228cb24b04fcae784a394626b48955e1553aeaa589db326fcb7b252",
+    "status": "KILLED",
+    "with": "free > caps[\"output_cap_bytes\"] + DISK_RESERVE"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "close_attempt",
+    "imported": true,
+    "name": "receipt_before_mapping",
+    "replace": "call = ctx.call(name)",
+    "source_sha256": "fec972bac82509353a3a83c54472ae5b761eb6b00e0d0d28af0552ce411f5fd8",
+    "status": "KILLED",
+    "with": "ctx.write(outdir + \".attempt_receipt.json\", {\"counterfactual_early_write\": True})\n    call = ctx.call(name)"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "terminal_prefix",
+    "imported": true,
+    "name": "infra_repeat_requires_rule_c",
+    "replace": "prev.get(\"solo_mode\") is True and caps_of(cur) == caps_of(prev)",
+    "source_sha256": "8c36488379ab19919a2052c2bc13c63eeca389c59e4b2a8ed727c12e074f997b",
+    "status": "KILLED",
+    "with": "prev.get(\"solo_mode\") is True and caps_of(cur) == caps_of(prev) and cur[\"wall_cap_s\"] == 2 * first[\"wall_cap_s\"]"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "write_cutoff",
+    "imported": true,
+    "name": "cutoff_from_completing_receipt",
+    "replace": "latest = max(terms, key=lambda t: timestamp(t[\"time_utc\"], whole=True))[\"time_utc\"]",
+    "source_sha256": "0a2b960ae7a37686ef4dad4ecb10c595f001bad5b247d64886c090d2b2716c63",
+    "status": "KILLED",
+    "with": "latest = terms[-1][\"time_utc\"]"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "close_attempt",
+    "imported": true,
+    "name": "gate_on_launch_only",
+    "replace": "ctx.gate()",
+    "source_sha256": "4d426870c2a35d0d79ec80b460518038b0e359229c77e7f7f941d148adf10fa9",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "next_attempt",
+    "imported": true,
+    "name": "refused_retry_not_solo",
+    "replace": "elif last[\"raw_status\"] in (\"CHILD_FAILED|REFUSED\", \"CHILD_FAILED|BLOCKED\"):\n            solo = True",
+    "source_sha256": "0b3f0e5c9c5c13bfed6bd7d1adfaa7d2b30a127c9ef318d0f8643c6a57ef08e9",
+    "status": "KILLED",
+    "with": "elif last[\"raw_status\"] in (\"CHILD_FAILED|REFUSED\", \"CHILD_FAILED|BLOCKED\"):\n            solo = False"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "sample_value",
+    "imported": true,
+    "name": "sample_time_without_floor",
+    "replace": "math.floor(timestamp(sample[\"last_utc\"]))",
+    "source_sha256": "f073a03fcc39f57b5e2477e8af446ec027aa1f8f758f81744dd49277a82fea02",
+    "status": "KILLED",
+    "with": "timestamp(sample[\"last_utc\"])"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "next_attempt",
+    "imported": true,
+    "name": "nonattempt_retry_first_caps",
+    "replace": "caps = dict(trailing_nonattempt[\"caps\"])",
+    "source_sha256": "ce4912c39ce62d2dda37c07134cccb131cd1050d22c875ba8f2d03e92bdfe4c0",
+    "status": "KILLED",
+    "with": "caps = first_caps(name)"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "next_attempt",
+    "imported": true,
+    "name": "retry_before_terminal",
+    "replace": "need(terminal is None, \"ATTEMPT_AFTER_TERMINAL\", terminal)",
+    "source_sha256": "f8232c7d5f2c75689e72ace7a2f7f919b15d1c24eec2c5e655c90a101ae928fc",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "terminal_prefix",
+    "imported": true,
+    "name": "nonconsecutive_rule_c_pair",
+    "replace": "for i, cur in enumerate(actual):",
+    "source_sha256": "c7df51f20a56402a0b794f568c551207594c47f5b14408330085bc5b37ce99af",
+    "status": "KILLED",
+    "with": "actual = [r for r in actual if r[\"status_class\"] != \"INFRA\"]\n    for i, cur in enumerate(actual):"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "history",
+    "imported": true,
+    "name": "ended_monitor_unreported",
+    "replace": "\"ATTEMPT_ACTIVE\" if live else \"MONITOR_ENDED_NO_RECEIPT\"",
+    "source_sha256": "4fed2beb12fbcf63f604e5acb7ab414f574f4b42e1a4e72d42cfa1bb565dc2a8",
+    "status": "KILLED",
+    "with": "\"ATTEMPT_ACTIVE\""
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "sampler",
+    "imported": true,
+    "name": "sampler_waits_forever",
+    "replace": "if gone_mounted_s >= 60:",
+    "source_sha256": "70328e97b7f8ee1e3705429b499289347388805ae2eb5d84483489a3d0895ab1",
+    "status": "KILLED",
+    "with": "if False:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "honor_residual",
+    "imported": true,
+    "name": "residual_with_receipt",
+    "replace": "need(not os.path.lexists(paths[\"receipt\"]), \"RESIDUAL_RETRY_NOT_RESIDUAL\")",
+    "source_sha256": "927b0585657c424da1639fea4ce509d6d10f19f39411da287fbb27f1276795da",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "honor_residual",
+    "imported": true,
+    "name": "residual_with_live_driver",
+    "replace": "need(not monitors and not any(r[\"command\"] == command for r in rows),\n         \"RESIDUAL_ATTEMPT_PROCESS_ALIVE\")",
+    "source_sha256": "d394bf8c2be35316d1f98b59206827eb7101a52b64298d83aa40b5cf4d51f467",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "next_attempt",
+    "imported": true,
+    "name": "residual_number_omitted",
+    "replace": "ks = [r[\"attempt\"] for r in records] + [k for n, k in residuals if n == name]",
+    "source_sha256": "ef65ad54526b628e51c328e71141ce779d565607cae150c88cd26b121724cf71",
+    "status": "KILLED",
+    "with": "ks = [r[\"attempt\"] for r in records]"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "history",
+    "imported": true,
+    "name": "nonattempt_launch_is_attempt",
+    "replace": "if not is_directory or not spec_match:",
+    "source_sha256": "4811a87eb59fe4274d96cf190c645f988bcfe73de119bbcdde7a9aa0fb65b381",
+    "status": "KILLED",
+    "with": "if not spec_match:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "stop_launch_failure",
+    "imported": true,
+    "name": "mon_pid_after_monitor_stopped",
+    "replace": "None if monitor_stopped or qualified is None else qualified[\"pid\"]",
+    "source_sha256": "67285b676fb5965e24d7bb73da9539c657b7ee544ac0a70cd93d0c9d65c8f011",
+    "status": "KILLED",
+    "with": "monitor_pid"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "write_launch_record",
+    "imported": true,
+    "name": "mislaunch_without_launch_json",
+    "replace": "need(outcome == \"LAUNCH\" or os.path.lexists(plan[\"launch_json\"]), \"NO_MISLAUNCH_WITHOUT_LAUNCH_JSON\")",
+    "source_sha256": "12b0051c560a37bf5f06491cff1a844598d3544cf603551055c400b851619a80",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "tool_gate",
+    "imported": true,
+    "name": "unanchored_tool_pin",
+    "replace": "for line in text.split(\"\\n\"):",
+    "source_sha256": "012cb07ea52f97fc1d2e6adfca7e752d926bee34fba92d9b3fb8b24742b43714",
+    "status": "KILLED",
+    "with": "for line in text.split(\"\\n\"):\n        line = line[line.find(\"TOOL_PIN \"):] if \"TOOL_PIN \" in line else line"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "residual_lines",
+    "imported": true,
+    "name": "unanchored_residual",
+    "replace": "for line in text.split(\"\\n\"):",
+    "source_sha256": "3fa5cb6c34cd84c4b9e0418b293031df18e5638473310ae5d55737859f6fe368",
+    "status": "KILLED",
+    "with": "for line in text.split(\"\\n\"):\n        line = line[line.find(\"RESIDUAL_RETRY \"):] if \"RESIDUAL_RETRY \" in line else line"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "refusal_records",
+    "imported": true,
+    "name": "recheck_absence_after_relaunch",
+    "replace": "if not relaunched:",
+    "source_sha256": "21e15015dca92484082531f117f71b9aa1e7950f83c9dc4b4a31fc4b0cf141be",
+    "status": "KILLED",
+    "with": "if True:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "honor_residual",
+    "imported": true,
+    "name": "residual_without_mount",
+    "replace": "mount_first(ctx.cfg, origin, ctx.system)",
+    "source_sha256": "0ca6ddce5e5181986da45880b211a425f88bcb60e400117784a95c1302425b83",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "refusal_records",
+    "imported": true,
+    "name": "refusal_without_mount",
+    "replace": "mount_first(ctx.cfg, origin, ctx.system)",
+    "source_sha256": "04e2d9f55d0c0451b998f4bfe1e5b3b250a849d1c0777037b89c04b88ad4f976",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "history",
+    "imported": true,
+    "name": "assembly_honors_nonresidual",
+    "replace": "nonattempt = honor_residual(ctx, call, k, records, residuals, rows)",
+    "source_sha256": "87cb2b611956d061cbaf207ab13b3ec1e34ff7d47241555996acf39063a7a3d4",
+    "status": "KILLED",
+    "with": "nonattempt = ({\"attempt\":k,\"caps\":hits[0][\"caps\"],\"solo_mode\":False,\"reason\":\"RESIDUAL_RETRY\"} if assembly else honor_residual(ctx, call, k, records, residuals, rows))"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "entry_reuse",
+    "imported": true,
+    "name": "interrupted_entry_unrecoverable",
+    "replace": "need(not records, \"ALREADY_LAUNCHED\")",
+    "source_sha256": "5cfb1bf3793b1b353872e62c1233f5f61362d23cde9c5e6527e7d38d676c391a",
+    "status": "KILLED",
+    "with": "need(not records and refusals, \"ALREADY_LAUNCHED\")"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "launch_resume",
+    "imported": true,
+    "name": "resume_always_refused",
+    "replace": "ctx.gate()",
+    "source_sha256": "cc73a1efee7199c2ddd16cf334881987b7d5938755ef1396df0e393608f1cdcb",
+    "status": "KILLED",
+    "with": "ctx.gate()\n    raise Refusal(\"COUNTERFACTUAL_RESUME_REFUSED\")"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "qualified_process",
+    "imported": true,
+    "name": "bare_monitor_pid",
+    "replace": "if row[\"pid\"] != pid or not has_arg(row[\"command\"], tool):",
+    "source_sha256": "3c68c6e8bac98c26d7184cb66cd568cc807a0dac5c80a8d9623c8cd6d099bae0",
+    "status": "KILLED",
+    "with": "if row[\"pid\"] != pid:\n            continue\n        return row\n        if not has_arg(row[\"command\"], tool):"
+   }
+  ],
+  "parsed_certificate_restoring_mutant": {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "replace": "obj = certificate_docs[certificate]",
+   "source_sha256": "91fa6c3225b83d62fc6a4afb315c85752d1bad5d9a042184ff682575434418be",
+   "status": "KILLED",
+   "with": "obj = strict_json(Path(cfg[certificate][\"path\"]).read_bytes())"
+  },
+  "process_fault_injection": "TESTED malformed saved invocation states and injected sampler/process failures. The unresponsive-process test intercepts both signals; it signals no OS process. Missing/failed first-sample tests replace only sampler Popen, before any monitor start.",
+  "ps_bytes_restoring_mutant": {
+   "control": "PASS",
+   "detection": "UnicodeDecodeError",
+   "imported": true,
+   "replace": "errors=\"surrogateescape\"",
+   "source_sha256": "1367e4dec5522705c070dc299118d97419e0bce3d6198bc8eca63ac220726f04",
+   "status": "KILLED",
+   "with": "errors=\"strict\""
+  },
+  "qualified_stop_scope": "TESTED real ps and TERM against suite-created inert monitor/driver groups. Injected clock advances the 15/60-second bounds; real elapsed timeout duration is not asserted.",
+  "receipt_residence": "TESTED helper projection reads nine roles. c2v006 _terminal requires receipt inside run_dir; P112's true sibling residence needs root's c2v007. Full assembly was not called.",
+  "receipt_residence_demonstrated": "TESTED c2v006 _receipt on an inside synthetic copy and _terminal rejecting the true sibling with RECEIPT_NOT_IN_RUN_DIR. No full assembly, v003g or slots access.",
+  "registry_theta_limitation": "TESTED: _launch_registry accepts either shape-valid digest. UNTESTED: real PLAN agreement; deciding test is root's first real Phase-1 registry assembly (0782).",
+  "resume_fixture_scope": "TESTED saved interrupted states with real-format monitor records: completed/live monitor, live/reused invocation pid, mismatch, gate and mount. No actual scientific interruption was induced.",
+  "same_k_recovery_scope": "TESTED public launch after a separate synthetic invocation exits with a registered entry: first sampler ps failure, and a D7 monitor-refusal record. Both reuse the pinned entry at k=1, report ALREADY_REGISTERED_SAME_SPEC, use a new work directory and close successfully. No real scientific monitor or driver was started.",
+  "sampler_clock_tests": "TESTED with an injected clock: monitor refusal, first ps failure, 60 mounted seconds, and mount restoration. These do not claim elapsed wall-clock or production-machine sampling."
+ },
+ "limits": [
+  "UNTESTED full real PLAN/registry assembly, v003g execution, slots access, production scientific operation.",
+  "TESTED c2v006 helpers retain the documented registry shape/theta limitation and sibling-receipt residence refusal.",
+  "UNTESTED G26 successor acceptance: part 5 remains a separately dispatched root review.",
+  "TESTED in-process audited operations; child executable reopening is covered by root's integrity envelope."
+ ],
+ "prior_interface_inventory": {
+  "bytes": 6793,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2/INTERFACE_PROOF_CX2V001.json",
+  "sha256": "33d3598d04afd6f959c8c761bd4a0142ae2123b7933139852c2d0b998ad3328d"
+ },
+ "receipt_roles": {
+  "host_ram_bytes": "host_ram_bytes",
+  "other_ngc_processes_max": "other_ngc_processes_max",
+  "output_cap_bytes": "output_cap_bytes",
+  "rss_cap_bytes": "rss_cap_bytes",
+  "spec_sha256": "spec_sha256",
+  "status": "raw_status",
+  "theta_sha256": "theta_sha256",
+  "time_utc": "time_utc",
+  "wall_cap_s": "wall_cap_s"
+ },
+ "schema": "P112_INTERFACE_PROOF_CX2V002",
+ "source_inventory": {
+  "bytes": 13489,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/SOURCE_BYTE_AUDIT_CX2V002.json",
+  "sha256": "afdb5abcf572c9dce480e260bb30d0264f04af9e54af9e03f2bae0bda3acdda5"
+ },
+ "source_pins": {
+  "builder": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/roster_builder_c2v006.py",
+   "sha256": "0cc731065d1f00e1549cb7b9442c901da0a35f48c8a03d67f14701f652ad0aa2"
+  },
+  "kit": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/s0_kit_c2v003a.py",
+   "sha256": "fdc0ee6c833072b40991750f8df1122a1b51910986f01af3480a73cccfbed550"
+  },
+  "monitor": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+   "sha256": "ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107"
+  },
+  "orchestrator": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+   "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+  },
+  "writer": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/s0_prelaunch_record_c2v001.py",
+   "sha256": "a10965b7a508f106e3d153632d2b1a39a427d9106fa2de3c9e09d92b85bcb59a"
+  }
+ },
+ "status": "TESTED",
+ "status_map_sha256": "c36c37886aa67db763160681be99904c3ae9f22ebb51f3e841adadfa0e1cdb54",
+ "test_program": {
+  "bytes": 209703,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/test_phase1_ngc_launch_cx2v002.py",
+  "sha256": "920cf3ef94e9ce5a46479c99d6c6f9684827d55e262759fc591ef57bc6699a2e"
+ },
+ "test_record": {
+  "bytes": 91380,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/test_records_cx2v002/RUN1/TEST_RECORD.json",
+  "sha256": "b323fd780c77201560f1d975b2e410e4ebb35b09bb630b4efeb6c763f89fd954"
+ },
+ "tool": {
+  "bytes": 130631,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/phase1_ngc_launch_cx2v002.py",
+  "sha256": "65ac534953678ee845910d0a32e41b71deff142b660b3efbed68e302a33777aa"
+ }
+}

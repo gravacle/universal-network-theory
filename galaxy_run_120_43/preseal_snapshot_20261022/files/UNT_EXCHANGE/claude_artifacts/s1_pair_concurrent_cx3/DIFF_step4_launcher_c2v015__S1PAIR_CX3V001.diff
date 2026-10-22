@@ -1,0 +1,18 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_launcher_c2v015.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/v001/step4_launcher_c2v015_s1pair_cx3v001.py
+@@ -1,3 +1,4 @@
++"""CX3V001 S1 pair launcher: one worker holds the unchanged machine lock for both calls. Runtime functions byte-for-byte AST-equal to launcher015."""
+ """Root-only step-4 direct batches. No automatic retry; no raw campaign fallback."""
+ # c2v015 = launcher014 (5d6af4a7) with its memory terms removed (V006 A172): no memory_free / memory_pressure read, no
+ # free term in decision or in the admission log, no nice >= 10 requirement; the guard is guard014. The machine lock,
+@@ -5,8 +6,8 @@
+ import argparse, fcntl, hashlib, json, os, signal, subprocess, sys, time, types
+ from pathlib import Path
+ HERE=Path(__file__).resolve().parent
+-GUARD_PATH=HERE/'step4_guard_c2v014.py'
+-GUARD_SHA256='6efdca016416a919b25a1e23d46a415b75fe2b5e60145ba098f864730975165d'
++GUARD_PATH=HERE/'step4_guard_c2v014_s1pair_cx3v001.py'
++GUARD_SHA256='1274a39a19a7d8540858b8f45be0b683e776fa4fc1386bec10871bb0342ac6cc'
+ GUARD_BYTES=GUARD_PATH.read_bytes()
+ if hashlib.sha256(GUARD_BYTES).hexdigest()!=GUARD_SHA256:
+     raise PermissionError('GUARD_BOOTSTRAP_HASH_MISMATCH')

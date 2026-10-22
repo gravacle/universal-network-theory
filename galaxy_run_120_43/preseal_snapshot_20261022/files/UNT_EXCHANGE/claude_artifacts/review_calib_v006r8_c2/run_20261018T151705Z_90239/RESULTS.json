@@ -1,0 +1,786 @@
+{
+ "fixtures_driver_normalizer_refused": {
+  "reanchor_extra_physical_key": "Refusal: physical: unknown keys ['ML_3p6']",
+  "reanchor_ulp_inclination_deg": "Refusal: UNSUPPORTED inclination 66.00000000000001: only the registered 66 deg is supported (BLOCKED_GAS_REDEPROJECTION). The DDO154 gas annuli are extracted IN the 66 d"
+ },
+ "rows": [
+  {
+   "id": "P1",
+   "name": "exact registered template point + config.anchor pins + workers_8 row passes",
+   "observed": [],
+   "pass": true
+  },
+  {
+   "id": "P2",
+   "name": "row order does not matter (positive)",
+   "observed": [],
+   "pass": true
+  },
+  {
+   "id": "N1",
+   "name": "log/exp engine-seed coordinate (differs in ['common_scale_s', 'ell_F_m', 'gamma'] at ~1e-15) refuses as reanchor",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N2",
+   "name": "D=4.0400001 (near 4.04) refuses as reanchor",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: DECIDING_DDO154_HEADLINE_REQUIRED"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N3",
+   "name": "D=4.040000000000001 (near 4.04) refuses as reanchor",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: DECIDING_DDO154_HEADLINE_REQUIRED"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N4",
+   "name": "D=4.039999999999999 (near 4.04) refuses as reanchor",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: DECIDING_DDO154_HEADLINE_REQUIRED"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N5.0",
+   "name": "one-ulp change in Eref_J refuses as reanchor",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N5.1",
+   "name": "one-ulp change in common_scale_s refuses as reanchor",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N5.2",
+   "name": "one-ulp change in ell_F_m refuses as reanchor",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N5.3",
+   "name": "one-ulp change in entropy_K_factor refuses as reanchor",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N5.4",
+   "name": "one-ulp change in gamma refuses as reanchor",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N5.5",
+   "name": "one-ulp change in inclination_deg refuses as reanchor",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "N6",
+   "name": "extra physical key refuses (at registration compare or driver normalization)",
+   "observed": [
+    "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+   ],
+   "pass": true
+  },
+  {
+   "id": "O1",
+   "name": "OBSERVATION (not a requirement): inclination 66 (int) vs 66.0 (float), gate_ok recorded",
+   "observed": {
+    "gate_ok": true,
+    "reasons": []
+   },
+   "pass": true
+  },
+  {
+   "id": "C1",
+   "name": "different coefficient file (real distinct bytes, sha d270a8e8) refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "C2",
+   "name": "byte-identical coefficient copy at another path (sha 2e3a36d8) refuses (exact pin object)",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "C3",
+   "name": "same file via path alias \"/./\" refuses (exact pin object)",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "C4",
+   "name": "right path, wrong coefficient sha refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "S1",
+   "name": "second fresh run at the exact registered point, config.anchor pins the first: refuses",
+   "observed": {
+    "expected_reason": "REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "S2",
+   "name": "workers_8 run relabelled reanchor (its own pins) refuses",
+   "observed": {
+    "expected_reason": "REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "S3",
+   "name": "other headline theta, config.anchor rebound to it: refuses on registration",
+   "observed": {
+    "expected_reason": "REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "S4",
+   "name": "two rows both named reanchor refuses",
+   "observed": {
+    "expected_reason": "DECIDING_EXACT_NAMED_REANCHOR_AND_WORKERS_8_REQUIRED",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: DECIDING_EXACT_NAMED_REANCHOR_AND_WORKERS_8_REQUIRED"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "S5",
+   "name": "same run in both rows refuses (distinct results)",
+   "observed": {
+    "expected_reason": "DECIDING_DISTINCT_RUN_RESULTS_REQUIRED",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: DECIDING_DISTINCT_RUN_RESULTS_REQUIRED"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W1",
+   "name": "config.anchor.result swapped to the workers_8 run refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W2",
+   "name": "config.anchor.receipt swapped to the workers_8 run refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W3",
+   "name": "config.anchor.spec_sha256 swapped to the workers_8 run refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W4",
+   "name": "receipts swapped between rows, config.anchor.receipt made consistent with the swap: refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: receipt does not verify: ['spec pin differs']"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W5",
+   "name": "receipts swapped between rows, config.anchor unchanged: refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W6",
+   "name": "results swapped between rows, config.anchor.result consistent with swap: refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: DECIDING_RESULT_BINDING_OR_VALIDITY"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W7",
+   "name": "config.anchor.result = byte copy of reanchor result at other path refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W8",
+   "name": "row spec_sha256 field differs from its spec pin refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: DECIDING_SPEC_PIN_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W9",
+   "name": "config.anchor.result pending (null) refuses",
+   "observed": {
+    "expected_reason": "CONFIG_ANCHOR_TAIL_REANCHOR_PENDING",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_TAIL_REANCHOR_PENDING"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W10",
+   "name": "config.anchor.receipt pending (null) refuses",
+   "observed": {
+    "expected_reason": "CONFIG_ANCHOR_TAIL_REANCHOR_PENDING",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_TAIL_REANCHOR_PENDING"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W11",
+   "name": "config.anchor.spec_sha256 pending (null) refuses",
+   "observed": {
+    "expected_reason": "CONFIG_ANCHOR_TAIL_REANCHOR_PENDING",
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_TAIL_REANCHOR_PENDING"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "W12",
+   "name": "shipped config.anchor (pending result) refuses a well-formed pair",
+   "observed": [
+    "OrchestratorError: CONFIG_ANCHOR_TAIL_REANCHOR_PENDING"
+   ],
+   "pass": true
+  },
+  {
+   "id": "T1",
+   "name": "config.anchor registered_point sha tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T2",
+   "name": "config.anchor registered_point path alias tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T3",
+   "name": "config.anchor physical distance 4.0400001 tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T4",
+   "name": "config.anchor physical gamma one ulp tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T5",
+   "name": "config.anchor coefficients sha tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T6",
+   "name": "config.anchor driver sha tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T7",
+   "name": "config.anchor use true (old alias) tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: R8_ANCHOR_ALIAS_DISABLED"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T8",
+   "name": "config.anchor use missing tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: R8_ANCHOR_ALIAS_DISABLED"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T9",
+   "name": "config.anchor physical removed tamper refuses",
+   "observed": {
+    "expected_reason": null,
+    "gate_ok": false,
+    "reasons": [
+     "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "T10",
+   "name": "no anchor (direct call, no ambient context) fails closed",
+   "observed": [
+    "OrchestratorError: CONFIG_ANCHOR_REGISTRATION_MISMATCH"
+   ],
+   "pass": true
+  },
+  {
+   "id": "O2",
+   "name": "OBSERVATION: reanchor numerics differing from config.numerics.block outside validate_block",
+   "observed": {
+    "picard_passes_2": {
+     "gate_ok": true,
+     "reasons": []
+    },
+    "route_a_max_iterations_8": {
+     "gate_ok": true,
+     "reasons": []
+    },
+    "uv_quadrature_order_4": {
+     "gate_ok": true,
+     "reasons": []
+    }
+   },
+   "pass": true
+  },
+  {
+   "id": "X1",
+   "name": "actual Context: own fixture config with bound anchor -> deciding gate ok",
+   "observed": [],
+   "pass": true
+  },
+  {
+   "id": "X2",
+   "name": "actual inherited fresh_gates re-binds the instance anchor",
+   "observed": [],
+   "pass": true
+  },
+  {
+   "id": "X3",
+   "name": "actual Context: substitute D=4.04 workers-8 reanchor (config.anchor = original) -> gate refuses",
+   "observed": [
+    "OrchestratorError: REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH"
+   ],
+   "pass": true
+  },
+  {
+   "id": "X4",
+   "name": "actual Context refuses at construction when config.anchor physical is not the registration",
+   "observed": "CONFIG_ANCHOR_REGISTRATION_MISMATCH",
+   "pass": true
+  },
+  {
+   "id": "X5",
+   "name": "ANCHOR_CONTEXT restored to None after all Context work",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "F1",
+   "name": "config.anchor key set is registration-only",
+   "observed": [
+    "coefficients",
+    "driver_sha256",
+    "physical",
+    "receipt",
+    "registered_point",
+    "result",
+    "spec_sha256",
+    "use"
+   ],
+   "pass": true
+  },
+  {
+   "id": "F2",
+   "name": "config.anchor contains no target words",
+   "observed": [],
+   "pass": true
+  },
+  {
+   "id": "F3",
+   "name": "config.anchor.physical == registered == source template physical (exact objects)",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "F4",
+   "name": "config.anchor.coefficients == template coefficients and sha 2e3a36d8 from bytes",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "F5",
+   "name": "registered_point / source_template / coordinate_registration pins verify from bytes",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "F6",
+   "name": "coordinate registration declares ngc3198_access NONE and pins the same anchor spec",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "F7",
+   "name": "template galaxy DDO154, no NGC key anywhere in template",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "F8",
+   "name": "result/receipt/spec_sha256 pending (null), use false",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "R1",
+   "name": "shipped allowlist is empty frozenset",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "R2",
+   "name": "empty allowlist refuses any review bytes (Claude3 distinct lane)",
+   "observed": "DISTINCT_REVIEW_SHA_NOT_ROOT_REGISTERED",
+   "pass": true
+  },
+  {
+   "id": "R3",
+   "name": "empty allowlist refuses any review bytes (Codex2)",
+   "observed": "DISTINCT_REVIEW_SHA_NOT_ROOT_REGISTERED",
+   "pass": true
+  },
+  {
+   "id": "R4",
+   "name": "in-memory root registration of exact bytes accepts",
+   "observed": null,
+   "pass": true
+  },
+  {
+   "id": "R5",
+   "name": "renamed reviewer string (one extra space), own correct pin, wrong sha refuses",
+   "observed": "DISTINCT_REVIEW_SHA_NOT_ROOT_REGISTERED",
+   "pass": true
+  },
+  {
+   "id": "R6",
+   "name": "reviewer renamed to Codex2, own correct pin refuses",
+   "observed": "DISTINCT_REVIEW_SHA_NOT_ROOT_REGISTERED",
+   "pass": true
+  },
+  {
+   "id": "R7",
+   "name": "renamed file claiming the registered sha refuses",
+   "observed": "BYTE_PIN_MISMATCH: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_calib_v006r8_c2/run_20261018T151705Z_90239/review_077.json",
+   "pass": true
+  },
+  {
+   "id": "R8",
+   "name": "registered sha with extra pin key refuses",
+   "observed": "PIN_SHAPE",
+   "pass": true
+  },
+  {
+   "id": "R9",
+   "name": "relative path to registered bytes refuses",
+   "observed": "PIN_ABSOLUTE_PATH_REQUIRED",
+   "pass": true
+  },
+  {
+   "id": "R10",
+   "name": "sensitivity_gate: renamed-reviewer review (unregistered sha) refuses on sha, before A68",
+   "observed": [
+    "DISTINCT_REVIEW_SHA_NOT_ROOT_REGISTERED"
+   ],
+   "pass": true
+  },
+  {
+   "id": "R11",
+   "name": "sensitivity_gate: registered review still refuses while A68 comparator unreviewed",
+   "observed": [
+    "COMPARATOR_A68_SUCCESSOR_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "id": "R12",
+   "name": "with A68 flipped in memory, registered+bound review passes review checks then refuses later (synthetic report)",
+   "observed": [
+    "'reference'"
+   ],
+   "pass": true
+  },
+  {
+   "id": "R13",
+   "name": "registered sha does not excuse binding: wrong distance_hex refuses DISTINCT_REVIEW_BINDING",
+   "observed": [
+    "DISTINCT_REVIEW_BINDING"
+   ],
+   "pass": true
+  },
+  {
+   "id": "R14",
+   "name": "OBSERVATION: registered bytes naming Codex2 are not refused on name (trust is the root sha registration)",
+   "observed": {
+    "distinct_review_refusal": false,
+    "reasons": [
+     "'reference'"
+    ]
+   },
+   "pass": true
+  },
+  {
+   "id": "R15",
+   "name": "headline D=4.04 ungated (unchanged)",
+   "observed": {
+    "distance_hex": "0x1.028f5c28f5c29p+2",
+    "distance_mpc": 4.04,
+    "evidence": null,
+    "ok": true,
+    "reasons": [],
+    "status": "HEADLINE_NOT_GATED"
+   },
+   "pass": true
+  },
+  {
+   "id": "R16",
+   "name": "compute_pair refuses on A68 before plan/run reads",
+   "observed": "COMPARATOR_A68_SUCCESSOR_REQUIRED",
+   "pass": true
+  },
+  {
+   "id": "R17",
+   "name": "self-attested reviewer-name denylist removed from source",
+   "observed": null,
+   "pass": true
+  }
+ ],
+ "schema": "C2_REVIEW_V006R8_RESULTS_V001",
+ "scope": "synthetic fixtures only; no launch",
+ "sources": [
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_orchestrator_cx2v006r8_v004.py",
+   "sha256": "1ddbe6da1b34e84a9a419a0c72e2933a74cd3021cbdb68c91f5691193b9ce488"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_core_cx2v006r8_v003.py",
+   "sha256": "603ab460fb039494659f5b0e03998b28ff2a7f124d9ae7fd7491340523929e08"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/sensitivity_policy_cx2v006r8_v002.py",
+   "sha256": "8fb0660077d56ddc787ac67386f8def72e6f5a04fd14e44eb20ed9facf19de4f"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/RUN_CONFIG_DDO154_CX2V006R8_P128_MS128.json",
+   "sha256": "4d2d19a28104c4e05eb015b6e5ad790b199c5ed75c49a2c5da80d1e000c6df75"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/REGISTERED_ANCHOR_CX2V006R8.json",
+   "sha256": "7693959ceca48581a06c1ca439c02bd80fd2ecfb158073270e3d2dc614ea79c3"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_calib_v006r8_c2/tools/test_r8_c2.py",
+   "sha256": "235879d069fa69d6fdfc0c7e0fafda49c4575b85efa8dcab86c375de65ddbe3c"
+  }
+ ],
+ "status": "TESTED",
+ "summary": {
+  "blocked_attempts": [],
+  "failed": [],
+  "passed": 76,
+  "total": 76
+ }
+}

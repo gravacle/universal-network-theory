@@ -1,0 +1,1284 @@
+--- v009-EXT 999331af
++++ galaxy_m0_forward_c2v010.py r4 b9ae92d5
+@@ -1,4 +1,28 @@
+ """INERT parameterized clean m=0 ("route B") forward driver, Claude2 lane, galaxy-config binding c2v006.
++c2v010 (Claude2 lane tail_scheme_impl_c2/driver): the merge of the two drivers both called "c2v009" (root V004 addendum A29),
++plus the R-A F-A fix, readout rule RO1 and the optional UV-tail block.  Cite this file by sha256, never as "v010" alone.
++  r4 (tail_scheme_impl_c2/driver_r4; successor of r3 4c14552f): RO1 c2v002 (CHECK_V001 F1, A49); nodes_v001 built (A50 item 11);
++  probe_R_m in the route-A tail record (A50 item 13); reference successor uvt_c2v003 (CHECK F4); optional
++  numerics.route_a.ro1_workers for tail-OFF calls (A50 items 11-12).  See C2V010 r4 comments.
++  base bytes: v009-EXT = kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py (999331af).
++  (m1) every v008 -> v009-GEO hunk (stage_successor_gal_c2v005/driver/DIFF_V008_V009.diff; v009-GEO 237ef3d4), re-applied
++       at the EXT lines: BIND7, the eleven gal_c2v005 stage pins, schema V005, the three schema-V005 galaxy-config files,
++       ADMISSION_HEAD and the two record texts.  v009-EXT's G5/G6 prep-v009 selection and numerics.route_a.max_iterations
++       are kept.  At 4.04 Mpc a tail-OFF call equals v009-EXT after the GEO pin map and v009-GEO after the EXT map (gate B0).
++  (m2) the R-A F-A fix verbatim from REVIEW_DRIVER_V008_C4_V001 sec 6 (f0987f41; gal_c2v005 CHECK_V001 F1): an admitted
++       DDO154 route A paired with a checkpoint without IDENTITY.json is REFUSED (ROUTE_A_CHECKPOINT_MISSING) before any
++       outcome verdict; a route A computed in run mode that returned a result without a checkpoint IDENTITY is
++       FAILED_AT_STAGE (ROUTE_A_RESULT_WITHOUT_CHECKPOINT).
++  (m3) readout rule RO1 (V004 addendum A42.2, A46 RA5; V005 A49): the ro1_readout_c2 driver hunks applied verbatim
++       (r4: ro1_readout_c2/driver_patch/c2v002/DRIVER_V009EXT_RO1_c2v002.diff 90eb7b56, incl. hunk 6, the RO1-aware NGC reader).  A converged route-A result whose circular-trial readout
++       was refused and recorded by a pinned RO1 binding/worker is CONVERGED; route B proceeds on the checkpoint.
++  (u)  OPTIONAL numerics.uv_tail (DDO154 only): the tail-corrected lapse (TAIL_SCHEME_DESIGN_V002 sec 2.5/3.7 with the
++       V002_R1 record; root A45-A47).  ABSENT: nothing of the C2V010 uv_tail block is normalized, pinned, scanned, loaded or
++       launched and the call is the v009 call.  PRESENT: route A = the RO1 successors of the uvtail_c2v001 workers with the
++       uvtail solvers and the tail request; a route-A tail manifest stage (route_a_tail_manifest_c2v001.py) rebuilds the
++       accepted-iteration tail state from the route-A sidecar and checks its digest; the gal_c2v005_uvt route-B successors run
++       the eight stage kinds that read the lapse (feedback v002/v004 and the column mean stay gal_c2v005).  See C2V010 comments.
++v009-EXT (999331af) text follows.
+ c2v009 (Claude2 lane kmax_prereg_v005_c2/extension_c5c6): successor of driver_v008_c2/galaxy_m0_forward_c2v008.py (f8e47701).
+ Changes ONLY (see the C2V009 comments):
+   (a) route-A prep node budget: DDO154 grids of 97..120 nodes/axis run prep v009 (extension_c5c6/prep_successor,
+@@ -13,6 +37,13 @@
+       Absent: the per-call seed is exactly the c2v008 seed.  With an admitted route A it is allowed and must equal the
+       value the admitted checkpoint was computed with: it enters the per-call seed, and route_a_custody blocks a seed sha
+       that differs from the checkpoint's caller seed (an admitted rerun of a C5/C6 prefix carries the same value).
++v009-GEO (237ef3d4) text follows.
++c2v009 (Claude2 lane stage_successor_gal_c2v005): driver_v008_c2/galaxy_m0_forward_c2v008.py (f8e47701) with ONLY the
++route-B stage binding moved to the gal_c2v005 successors (stage_successor_gal_c2v005/stages; the shared admission also
++admits the five DDO154 per-call geometry fields PER_CALL, schema V005 per_call_geometry), the schema V005 pin, the three
++galaxy-config files re-pinned to their schema V005 copies, the shared-admission head the binding check locates, and two
++record texts (geometry probe rule, GEOMETRY_NOT_ADMITTED refusal).  At 4.04 Mpc every request and input equals c2v008
++after the pin substitution; at D != 4.04 the probe now admits and run mode is no longer BLOCKED before any stage.
+ c2v008 text follows.
+ c2v008 (Claude2 lane driver_v008_c2): successor of driver_v007_c2/galaxy_m0_forward_c2v007.py (0338584b).
+ Changes ONLY (see the C2V008 comments):
+@@ -148,6 +179,7 @@
+ S2MOD = EX / 'ngc_route_construction_c2/stages2/modules'  # c2v005: stages2 module successors
+ BIND = EX / 'ngc_route_impl_c2/binding'  # c2v005: gal_c2v003 stage successors, schema V003, galaxy configs
+ BIND6 = EX / 'ngc_f10_c2/route_b_v006'  # c2v006: gal_c2v004 stage successors, schema V004, galaxy configs, NGC binding
++BIND7 = EX / 'stage_successor_gal_c2v005'  # c2v009: gal_c2v005 stage successors, schema V005, galaxy configs
+ KPC_M = 3.085677581491367e19  # identical to seed numerical_inputs.kpc_m (checked at run time)
+ THREAD_ENV = ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS',
+               'VECLIB_MAXIMUM_THREADS', 'BLIS_NUM_THREADS')
+@@ -157,17 +189,18 @@
+ SCRIPTS = {
+     'route_a': (HR / 'ddo_composite_stable_cached_root_worker_v002.py', 'c4cb682669993afbad3c623a010244cc8a31b9fcbacfe44e6bc692bf2d5895a4'),
+     # c2v006: the gal_c2v004 successors of the c2v005 gal_c2v003 stages (route_b_v006/stages/build_stages_c2v004.py)
+-    'reference': (BIND6 / 'stages/ddo_homotopy_reference_root_worker_v001_gal_c2v004.py', 'dbdbfba1d693452a62076a7fc1f4d6cb348fb135d9d15a7f060f2908ff3158a7'),
+-    'body': (BIND6 / 'stages/ddo_saved_root_body_array_root_v002_gal_c2v004.py', '0bf1c4cbd1e768f7b0ab461c5cb439d8e40ebe64cf91fedccc5254603f8c0dd7'),
+-    'offset': (BIND6 / 'stages/ddo_body_source_offset_root_v003_gal_c2v004.py', 'e821ae42b643ecf9ff2362f8d5dd3e56056b3300df929d290e9b3eb7558bc480'),
+-    'columns_v001': (BIND6 / 'stages/ddo_fixed_K_free_surface_root_v001_gal_c2v004.py', 'bb93683496e707bbd1bcd1db575c2c7341b53d02e7b395f1038654954ac834e0'),
+-    'rotation_v001': (BIND6 / 'stages/ddo_free_surface_rotation_root_v001_gal_c2v004.py', 'fd9f51d4c400ba9b7f8c0fab69991beda7a9c4b6901894a7ce7f154d82025362'),
+-    'feedback_v002': (BIND6 / 'stages/ddo_free_surface_native_feedback_root_v002_gal_c2v004.py', '4bf84ce4e9f8673e87cb0062ac7f38473ec4f312b055c0564891795174a2a09b'),
+-    'columns_v003': (BIND6 / 'stages/ddo_fixed_K_free_surface_root_v003_gal_c2v004.py', 'b20c51520666882b4d43342103b8ecef610eb93f96f4c884eaec62619e76da21'),
+-    'columns_v005': (BIND6 / 'stages/ddo_fixed_K_free_surface_root_v005_gal_c2v004.py', '0fdf435a5366275c0885cca9dbb73558e8a3ed58f509db03448ae75ec7bbf2ca'),
+-    'rotation_v005': (BIND6 / 'stages/ddo_free_surface_rotation_root_v005_gal_c2v004.py', '9b2ded4fda7135e047a40586fdaae4a7c52a6998648aa330064c6a8e5ceffb48'),
+-    'feedback_v004': (BIND6 / 'stages/ddo_free_surface_native_feedback_root_v004_gal_c2v004.py', '938fb9746726e2ef117fb014aef240e62e884d814c89e5efe898c7073794d014'),
+-    'column_mean_v004': (BIND6 / 'stages/ddo12_lower_entropy_column_mean_root_v004_gal_c2v004.py', '11d6f8b8f54b677ae6a01a044b08db33d425a26a558bd4726d14d647217c9877'),
++    # c2v009: their gal_c2v005 successors (stage_successor_gal_c2v005/stages/build_stages_c2v005.py; admission only)
++    'reference': (BIND7 / 'stages/ddo_homotopy_reference_root_worker_v001_gal_c2v005.py', 'cdf155e8161a89fd78518bbe048fae2b8114a5fb04b0fb770c30a8502308eb7f'),
++    'body': (BIND7 / 'stages/ddo_saved_root_body_array_root_v002_gal_c2v005.py', '7387493b6e2e153afd0e2352cf630edd32944d641dc563a706381983add0b1e3'),
++    'offset': (BIND7 / 'stages/ddo_body_source_offset_root_v003_gal_c2v005.py', '1ee18dcdcc42fc2465cebcc120297f262839fc4506249416b4d71d6a00be3dd4'),
++    'columns_v001': (BIND7 / 'stages/ddo_fixed_K_free_surface_root_v001_gal_c2v005.py', '2699cc76777621aea33398acb394ec880189399623a24dd0fb6d76e9ed0a0011'),
++    'rotation_v001': (BIND7 / 'stages/ddo_free_surface_rotation_root_v001_gal_c2v005.py', 'a49085e96e8b5f241b45e72682140b4b6892fa6171ca8c8d42fc28b0eaa61e85'),
++    'feedback_v002': (BIND7 / 'stages/ddo_free_surface_native_feedback_root_v002_gal_c2v005.py', '77ac558786dbe8dc932ff1d902200f85d570f058b903e7253acb31d40a2cb99b'),
++    'columns_v003': (BIND7 / 'stages/ddo_fixed_K_free_surface_root_v003_gal_c2v005.py', '1f473e39a7634e86bc49edfd1a409ca787c92a7031b761b734933e7401d31ba0'),
++    'columns_v005': (BIND7 / 'stages/ddo_fixed_K_free_surface_root_v005_gal_c2v005.py', '99fab2857b3f18e1f05c78da81c9d1dc2b4206e65aaadb4ed0fd78b8a639bea1'),
++    'rotation_v005': (BIND7 / 'stages/ddo_free_surface_rotation_root_v005_gal_c2v005.py', 'be1c913f4cfe3f6ccafd5d48bd2fb68856fa080ad8da016091ec237c652bef25'),
++    'feedback_v004': (BIND7 / 'stages/ddo_free_surface_native_feedback_root_v004_gal_c2v005.py', 'b3a8424e15343bbf3dc80430d3170f385718eb96d5cc5789fa66e3be5b30b02e'),
++    'column_mean_v004': (BIND7 / 'stages/ddo12_lower_entropy_column_mean_root_v004_gal_c2v005.py', 'ae78b012d079ceffd62af1dbc8c59c4aaf97cbc30e697eca8b58cd03fb732d38'),
+ }
+ # c2v006: the c2v005 script each successor was built from (declared plan-difference class STAGE_SUCCESSOR_C2V004).
+ C2V005_SCRIPTS = {
+@@ -241,6 +274,115 @@
+ }
+ ROUTE_A_COLUMN_WORKERS_MAX = 64  # the worker and solver refuse anything outside 1..64 (INTERFACE "API")
+ ROUTE_A_MAX_ITERATIONS_MAX = 32  # C2V009 (b): declared ceiling for numerics.route_a.max_iterations (base seed value 8)
++# RO1 (ro1_readout_c2/RO1_IMPL_V002.md; ROOT_DECISIONS V004 ADDENDUM A42.2, V005 ADDENDUM A48 AMB-14/AMB-15, A49).
++# c2v002 (A49): RO1_MESSAGES adds DEGENERATE_RADIAL_EULER (A49.1), the pins name the RO1 c2v002 successors, and the NGC
++# route-A-only reader ngc_read_route_a_result records rows None when route_a_outcome.ro1 fired (A49.3).
++# (1) Readout rule RO1.  Every route-A outcome record carries route_a_outcome.ro1 = {rule 'RO1', fired, events, armed, ...}
++# (the V007 compare path, AMB-15).  An attempt written through a pinned RO1 binding (result.json input_pins) by a pinned RO1
++# worker (attempt start.json worker_pin) is ARMED.  If an armed attempt's prediction slot carries an admissible
++# route_a_readout_refusal record (code RO1_CODE, refusal in RO1_MESSAGES, after_convergence True, readout_status RO1_CODE,
++# predictions_available False, rows None) and the solver outcome is converged, it is classified CONVERGED, fired is True
++# and events = [the record]: route B proceeds on the checkpoint.  Every other classification is exactly v009-EXT's.
++# The workers are the RO1 successors of the uvtail_c2v001 route-A workers (same CLI); this driver launches none of them
++# (v010 wires them in place of its uvtail_c2v001 workers).
++# (2) AMB-14: OPTIONAL numerics.route_a.seed_source_rtol_factor f (finite, 0 < f <= 1): the per-call seed
++# numerical_inputs.source_rtol becomes base source_rtol * f (the route-A source-convergence rtol: binding controls ->
++# composite adapter -> solver bound source_atol_J + source_rtol*scale).  Absent: normalization, seed and requests are
++# byte-identical to v009-EXT.  Nothing else changes.
++RO1_DIR = EX / 'ro1_readout_c2'
++RO1_ROUTE_A = {
++    'worker': (RO1_DIR / 'ddo_composite_stable_cached_root_worker_v002_uvtail_ro1_c2v002.py', '9f74d4652dbbc237f2d38951440a9a95875251fb2cd286499b404a0cf35a8ad1'),
++    'worker_parallel': (RO1_DIR / 'ddo_composite_stable_cached_root_worker_v002_parallel_uvtail_ro1_c2v002.py', 'd676ecb2c05e8017a4ffbde74a01e7a7ec1a4290149baa6cbfe62435bb573d97'),
++    'ngc_worker': (RO1_DIR / 'ngc43_composite_coupled_root_worker_v002_uvtail_ro1_c2v002.py', '6559ff6a364adbd5d23c04378b74e8fb6adfb8681b52f20451bc8582dce3a593'),
++    'ngc_worker_parallel': (RO1_DIR / 'ngc43_composite_coupled_root_worker_v002_parallel_uvtail_ro1_c2v002.py', '4065fe58e9f5c6734c15ab193de95c69392d477eff8d26c0e6254d49483f2292'),
++    'binding': (RO1_DIR / 'ddo_composite_stable_cached_binding_v002_uvtail_ro1_c2v002.py', '86af6198045ee6995daa7b57e78570643ddbd9edcc0eba42e2fdc816897ca885'),
++    'ngc_binding': (RO1_DIR / 'ngc_composite_full_coupled_binding_v002_uvtail_ro1_c2v002.py', '52dc4065da6b0307d1a37bb63bf22921edd08709a763b0ed5a114e8c2b0f2226'),
++}
++RO1_CODE = 'ROUTE_A_READOUT_NO_CIRCULAR_BRANCH'
++RO1_MESSAGES = ('NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH',  # V005 ADDENDUM A49.1: exact raised texts (e9be043b L208, L205, L184)
++                'DEGENERATE_RADIAL_EULER: zero exact denominator; no unique speed', 'NON_TIMELIKE_COLUMN')
++# ---- C2V010 (u) uv_tail (tail_scheme_impl_c2/driver; TAIL_SCHEME_DESIGN_V002 sec 2.5/3.7, V002_R1; root V004 A42/A45/A46,
++# V005 A47).  Used ONLY when a DDO154 call spec declares numerics.uv_tail; absent, no table below is pinned, scanned, loaded or
++# launched.  Tail ON: route A = RO1_ROUTE_A worker / worker_parallel (RO1 successors of the uvtail_c2v001 workers d223ad61 /
++# dac9efcb) with AUX_UVT solver / solver_parallel; then the manifest stage AUX_UVT manifest_writer; route-B kinds in
++# SCRIPTS_UVT run their gal_c2v005_uvt successors (tail_scheme_impl_c2/route_b BUILD_ROUTE_B_UVT_C2V002 8379a92d).
++UVT = EX / 'tail_scheme_impl_c2'
++UVT_LIB = {
++    'lib': (UVT / 'module/owned_uv_tail_lapse_v001.py', 'c28d4209dc617708e1ae4d1d568ecf88d79fa926847f0ac050748642e6990b22'),
++    'roster': (UVT / 'module/uv_tail_source_roster_c2v001.py', '4366e3d6ca717b6f25a6799fa60b8ce05561a70d39662d7b1f08b75fc2171ad2'),
++    'provider': (UVT / 'module/posix_libm_bessel_jn_provider_c2v001.py', 'd6c55b55c701a7172e6eaf86ef3f0fedb7f5b2de32d3dbeb06c1bbee471d3171'),
++}
++SCRIPTS_UVT = {
++    'reference': (UVT / 'driver_r4/route_b/ddo_homotopy_reference_root_worker_v001_gal_c2v005_uvt_c2v003.py', '4778fc73d52973da7ab2c07bcbcfc9d0f502277fe34b5a42440962593f648c56'),  # r4 F4: successor of uvt_c2v002 6775599e
++    'body': (UVT / 'route_b/stages/ddo_saved_root_body_array_root_v002_gal_c2v005_uvt_c2v001.py', '674e2b20d737b9c6e5efde54b37d15aeea14288e1e4f91e759c9a291e197ca2b'),
++    'offset': (UVT / 'route_b/stages/ddo_body_source_offset_root_v003_gal_c2v005_uvt_c2v001.py', '59b7370bf853edcd0525c4d6fd723bd518794267b35b326753fd808d14b8f9ef'),
++    'columns_v001': (UVT / 'route_b/stages/ddo_fixed_K_free_surface_root_v001_gal_c2v005_uvt_c2v001.py', 'a5de0a1dd9be1115eaf8c928884ad9cdc9777eed8970899a1bd385c29acf5a15'),
++    'rotation_v001': (UVT / 'route_b/stages/ddo_free_surface_rotation_root_v001_gal_c2v005_uvt_c2v001.py', '4114d9fd66b3c60db6db4a6c955cb293e541d0df6df53590050d555a00daa35a'),
++    'columns_v003': (UVT / 'route_b/stages/ddo_fixed_K_free_surface_root_v003_gal_c2v005_uvt_c2v001.py', '1b788c26e1a2a00a9f8c72dd02832a4e87769ec4fd4300ae1cd03753c699babc'),
++    'columns_v005': (UVT / 'route_b/stages/ddo_fixed_K_free_surface_root_v005_gal_c2v005_uvt_c2v001.py', '5523c677ff5dd6c6cae0b94dc8ab8775e9d634d9a62748a79e4ccd7e7adb3569'),
++    'rotation_v005': (UVT / 'route_b/stages/ddo_free_surface_rotation_root_v005_gal_c2v005_uvt_c2v001.py', 'aa9992bdbcaa112d79f13446021fc169fb0c31a59703709c1a58820c5d8f2ad0'),
++}
++AUX_UVT = {
++    'route_b_binding': (UVT / 'route_b/uvt_route_b_binding_c2v001.py', '7288a5d17976cc0267316e16f6a15aab2ca5c87d810c7d498f2a3787fe571651'),
++    'controller': (UVT / 'route_a/route_a_uv_tail_controller_c2v001.py', '51d32e7b2b8c83c7544c24d64ea3161007fbec35769a64a869972efac055cb68'),
++    'facade': (UVT / 'route_a/owned_stable_lapse_hi_facade_uvtail_c2v001.py', '191fb7bd91708b6aae9fdc21d1bf81c01482374ae5b6f80cbaad5a9a8438af9c'),
++    'solver': (UVT / 'route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_uvtail_c2v001.py', '8ef3079b0a23c32c688605e96eb5b79beb79768578cc7aef22ea087c7ae12469'),
++    'solver_parallel': (UVT / 'route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py', '7667025bd9382a58688153fde98bf90f2b67d27baa39a939982631c305c229db'),
++    'manifest_writer': (UVT / 'driver/route_a_tail_manifest_c2v001.py', '5e716092854c9b6e93c354fa49158234703110a02416dec633fabfa4b4f0d2d3'),
++}
++# K16 (planning only): the v002-lineage NGC route-A code the tail-ON NGC configuration plans (route_a_f10/LAUNCH.json d70cbcfe).
++NGC_CODE_UVT = {
++    'worker': RO1_ROUTE_A['ngc_worker'], 'worker_parallel': RO1_ROUTE_A['ngc_worker_parallel'], 'binding': RO1_ROUTE_A['ngc_binding'],
++    'uvtail_binding_base': (UVT / 'route_a/ngc_composite_full_coupled_binding_v002_uvtail_c2v001.py', 'e666bede787aac37424faec70d0fb8abc9bc68f9db3d7408a1a59fa507b30ff7'),
++    'solver': AUX_UVT['solver'], 'solver_parallel': AUX_UVT['solver_parallel'],
++    'lineage_evidence': (EX / 'ngc_f10_c2/route_a_f10/LAUNCH.json', 'd70cbcfe061ba357a0f8cfc8624468b4d00569b01b99bae6a268585846c3f1e7'),
++}
++# The route-A monitor (design sec 1.7, K13) is composed from bytes, never supplied by the caller.
++UVT_MONITOR_PINS = {
++    'binding': (C1 / 'DDO154_COLUMN_MEAN_REFERENCE_BINDING_V001.json', 'f42c7c657cd9b8bcef6b88e980918ff2570b1fc0a5480784d8bf3b8bb2a3c600'),
++    'a2f10_result': (ROOT / 'CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json', 'bcd2f64ec6c858a51718b2badb85b9e35121b6a3575227a4c9e4b8b5c673836e'),
++    'prereg_v005': (EX / 'kmax_prereg_v005_c2/KMAX_MATRIX_PREREG_V005.json', 'dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174'),
++}
++UVT_REQUEST_SCHEMA = 'UNT_UV_TAIL_ROUTE_A_REQUEST_C2V001'
++UVT_RECORD_SCHEMA = 'UNT_GALAXY_M0_FORWARD_UV_TAIL_C2V010'
++UVT_PENDING_CERTIFICATE = 'PENDING_UV_TAIL_CERTIFICATE'  # template sentinel for an EPS/LO certificate not yet produced
++UVT_TEST_ONLY = 'NONE_TEST_ONLY'  # the library's TEST_ONLY_CERT (checked against the library at normalization)
++UVT_MT_THRESHOLD = 0.25  # design sec 1.7 (pre-named); the controller refuses any other value
++UVT_TAIL_KINDS = ('reference', 'body', 'offset', 'columns_v001', 'rotation_v001', 'columns_v003', 'columns_v005', 'rotation_v005')
++UVT_BINDING_KIND = {'reference': 'reference', 'body': 'body', 'offset': 'offset', 'columns_v001': 'fs_columns',
++                    'rotation_v001': 'fs_rotation', 'columns_v003': 'rfs_columns', 'columns_v005': 'le_columns',
++                    'rotation_v005': 'le_rotation'}
++UVT_ARGV_NON_PATH = ('--uv-tail-truncation',)  # JSON-valued flag (route-B binding add_argv); never a path
++# ---- C2V010 r4 (driver_r4): nodes_v001 (T2 only; TAIL_SCHEME_DESIGN_V002 sec 1.3 table; root V005 A50 item 11; C4T-D5).  Used
++# ONLY when numerics.uv_tail.source_rule is nodes_v001 (tail_scheme_impl_c2/nodes_v001, BUILD_NODES_SUCCESSORS_C2V001 aad641c3db4dee18):
++# route A = the nodes RO1 workers (RO1 c2v002 workers with the nodes controller), the nodes manifest writer, and the nodes
++# successors of the eight route-B stage kinds (they refuse continuum_v001, which keeps SCRIPTS_UVT / AUX_UVT / RO1_ROUTE_A).
++UVT_NODES = UVT / 'nodes_v001'
++UVT_NODES_LIB = (UVT_NODES / 'lib/owned_uv_tail_nodes_v001.py', 'c8a04fb55f6c388c7cc5b735cb0e19222836c49acfce46d846198951593be551')
++SCRIPTS_UVT_NODES = {
++    'reference': (UVT_NODES / 'route_b/stages/ddo_homotopy_reference_root_worker_v001_gal_c2v005_uvt_nodes_c2v001.py', '350c2e6010d0117f613edf92bb178647d52c4bd0c1b0a5c4df6b9d5d7d79faf2'),
++    'body': (UVT_NODES / 'route_b/stages/ddo_saved_root_body_array_root_v002_gal_c2v005_uvt_nodes_c2v001.py', '148676d30effa8aa00e4df2ca6e499b469053848481077b1688812b4886c74bf'),
++    'offset': (UVT_NODES / 'route_b/stages/ddo_body_source_offset_root_v003_gal_c2v005_uvt_nodes_c2v001.py', '59c0695eb1812b40789890b700b87bb0d8cbb1bd0e3cfd11d2662425fe739d85'),
++    'columns_v001': (UVT_NODES / 'route_b/stages/ddo_fixed_K_free_surface_root_v001_gal_c2v005_uvt_nodes_c2v001.py', '0a51c2607f1185062b2d507ed8fc338b201ddf976a03f4e93287afdfa8ef6df8'),
++    'rotation_v001': (UVT_NODES / 'route_b/stages/ddo_free_surface_rotation_root_v001_gal_c2v005_uvt_nodes_c2v001.py', '451623dc8177c581d1902b814e7dfee37703b73e4ce73a3aacf166e35ea0b85d'),
++    'columns_v003': (UVT_NODES / 'route_b/stages/ddo_fixed_K_free_surface_root_v003_gal_c2v005_uvt_nodes_c2v001.py', '94f9e2a498e476104f81d0ca81e32da83286e4ce15b7e1a8a520e5f760a0e1c0'),
++    'columns_v005': (UVT_NODES / 'route_b/stages/ddo_fixed_K_free_surface_root_v005_gal_c2v005_uvt_nodes_c2v001.py', '9d9ca45a32d219a742e0ebc3757e13c5ebb9a92361b58d88ead2666ab5b1d492'),
++    'rotation_v005': (UVT_NODES / 'route_b/stages/ddo_free_surface_rotation_root_v005_gal_c2v005_uvt_nodes_c2v001.py', '78099dd8e9e3cfb1a655222359eae8b445684fff13309d853f43dd6be8d2d1d6'),
++}
++AUX_UVT_NODES = {
++    'route_b_binding': (UVT_NODES / 'route_b/uvt_route_b_binding_nodes_c2v001.py', '493248a1fa5b234feffd035dd5fd9ed2b46ea48621c533542b5a5815b03d94da'),
++    'controller': (UVT_NODES / 'route_a/route_a_uv_tail_controller_nodes_c2v001.py', 'af93ee981d9bb2023c649707fb928273c4cb177cdea4d50deef5154a36700319'),
++    'facade': AUX_UVT['facade'], 'solver': AUX_UVT['solver'], 'solver_parallel': AUX_UVT['solver_parallel'],
++    'manifest_writer': (UVT_NODES / 'route_a/route_a_tail_manifest_nodes_c2v001.py', '9ec0580588248e861d7e9a13d1fd3c9bd08255aa2870afad437af6c254ecc440'),
++}
++NODES_ROUTE_A = {
++    'worker': (UVT_NODES / 'route_a/ddo_composite_stable_cached_root_worker_v002_uvtail_ro1_nodes_c2v001.py', 'dbb331db412027e3499e1700e1df8dac90b30fcd9216951ced0fbbccd6df1457'),
++    'worker_parallel': (UVT_NODES / 'route_a/ddo_composite_stable_cached_root_worker_v002_parallel_uvtail_ro1_nodes_c2v001.py', '5a4c7d41c5a02d2ed0af74e09b4d3b8e726eab7484069dbb459474d1f8cbc177'),
++    'binding': RO1_ROUTE_A['binding'],
++}
++# r4 (R5; root V005 A50 items 11-12): tail-OFF route A on the RO1 c2v002 workers (numerics.route_a.ro1_workers true).
++UVT_RO1_OFF_REQUEST_SCHEMA = 'UNT_UV_TAIL_ROUTE_A_REQUEST_TAIL_OFF_RO1_C2V010R4'
++
+ # c2v005 wiring (stages2 report): module successors and the pin each consumer must carry (checked by binding_blockers).
+ MODULE_SUCCESSORS = {
+     'reference_module': {'successor': AUX['reference_module'],
+@@ -708,7 +850,7 @@
+ def normalize_route_a_numerics(ra):
+     """C2V007 (b): numerics.route_a = {column_workers: N}, N an int (not bool) in 1..ROUTE_A_COLUMN_WORKERS_MAX.
+     N = 1 is the reviewed serial worker + reviewed solver (exactly the c2v006 request); N > 1 the parallel successors."""
+-    _strict(ra, ('column_workers', 'max_iterations'), 'numerics.route_a')  # C2V009 (b): + max_iterations
++    _strict(ra, ('column_workers', 'max_iterations', 'seed_source_rtol_factor', 'ro1_workers'), 'numerics.route_a')  # C2V009 (b), RO1 AMB-14, r4 R5
+     n = ra.get('column_workers', 1)
+     if type(n) is not int or not 1 <= n <= ROUTE_A_COLUMN_WORKERS_MAX:
+         raise Refusal('numerics.route_a.column_workers must be an int in 1..%d, not %r' % (ROUTE_A_COLUMN_WORKERS_MAX, n))
+@@ -718,12 +860,376 @@
+         if type(m) is not int or not 1 <= m <= ROUTE_A_MAX_ITERATIONS_MAX:
+             raise Refusal('numerics.route_a.max_iterations must be an int in 1..%d, not %r' % (ROUTE_A_MAX_ITERATIONS_MAX, m))
+         out['max_iterations'] = m
++    if 'seed_source_rtol_factor' in ra:  # RO1 AMB-14: present only when declared (absent -> exactly the v009-EXT normalization)
++        f = ra['seed_source_rtol_factor']
++        if isinstance(f, bool) or not isinstance(f, (int, float)) or not math.isfinite(f) or not 0 < f <= 1:
++            raise Refusal('numerics.route_a.seed_source_rtol_factor must be a finite number in (0, 1], not %r' % (f,))
++        out['seed_source_rtol_factor'] = float(f)
++    if 'ro1_workers' in ra:  # C2V010 r4 (R5; A50 items 11-12): present only when declared; only true is meaningful
++        if ra['ro1_workers'] is not True:
++            raise Refusal('numerics.route_a.ro1_workers must be true when declared (absent = the v009 workers), not %r' % (ra['ro1_workers'],))
++        out['ro1_workers'] = True
+     return out
+ 
+ 
+ def route_a_column_workers(nspec):
+     """C2V007 (b): the route-A column worker count of a normalized spec (absent -> 1, the reviewed serial path)."""
+     return ((nspec.get('numerics') or {}).get('route_a') or {}).get('column_workers', 1)
++
++
++# ----------------------------------------------------------------------------- C2V010 (u) uv_tail helpers
++_UVT_LOADED = {}
++
++
++def uvt_library():
++    """C2V010: the pinned tail library, executed from its verified bytes (inert: definitions only)."""
++    if 'lib' not in _UVT_LOADED:
++        lib = exec_verified(UVT_LIB['lib'][0], UVT_LIB['lib'][1], 'c2v010_uvt_lib')
++        if lib.TEST_ONLY_CERT != UVT_TEST_ONLY or lib.KPC_M != KPC_M or lib.PROVIDER_SHA256 != UVT_LIB['provider'][1]:
++            raise Refusal('UV_TAIL_LIBRARY_CONSTANTS differ from the driver (TEST_ONLY_CERT, KPC_M, provider pin)')
++        _UVT_LOADED['lib'] = lib
++    return _UVT_LOADED['lib']
++
++
++def normalize_uv_tail(raw, ngc=False):
++    """C2V010: numerics.uv_tail = the tail library's configuration object (UNT_UV_TAIL_CONFIG_C2V001; strict keys, checked by
++    the pinned library's own normalize_config).  enabled must be true: a tail-OFF call omits the block (root A45 N3: in tail-OFF
++    mode v010 constructs no TailBoundary).  source_rule continuum_v001, or (r4) nodes_v001 with a composite ext_grid object (T2 only;
++    DDO154; the nodes successors; ext grid checked at planning).  eps_/lo_certificate: {path, sha256} (verified from
++    bytes at planning and at every build), NONE_TEST_ONLY (admitted only when every stage domain is empty, uvt_plan), or the
++    template sentinel PENDING_UV_TAIL_CERTIFICATE (planning only; run mode BLOCKED, class PENDING_UV_TAIL_CERTIFICATE)."""
++    if not isinstance(raw, dict):
++        raise Refusal('numerics.uv_tail must be an object (the tail library configuration)')
++    if raw.get('enabled') is not True:
++        raise Refusal('numerics.uv_tail.enabled must be true; omit numerics.uv_tail for a tail-OFF call (A45 N3)')
++    info = uvt_info(raw)
++    sr = uvt_config(info)['source_rule']
++    if sr != 'continuum_v001':  # C2V010 r4 (R2): nodes_v001 is built (T2 only); its ext grid is checked at planning (uvt_plan)
++        if not isinstance(sr.get('ext_grid'), dict):
++            raise Refusal('UV_TAIL_NODES_V001_EXT_GRID_INVALID: source_rule.ext_grid must be a composite grid spec object, not %r'
++                          % (sr.get('ext_grid'),))
++        if ngc:
++            raise Refusal('UV_TAIL_NODES_V001_DDO154_ONLY: the nodes_v001 successors bind DDO154 (T2 C4T-D5)')
++    # the normalized spec carries the library configuration itself (canonical JSON), the object the V007 compare registers
++    # and normalizes with the pinned library (v007_compare_c2 FIELDS: normalized_spec/numerics/uv_tail)
++    return json.loads(canonical(raw))
++
++
++def uvt_info(raw):
++    """C2V010: the planning record of a normalized numerics.uv_tail: {config (the library config), config_sha256 (the
++    library-normalized sha; None while a certificate is the pending sentinel), pending_certificates, test_only_certificates}."""
++    pending = sorted(k for k in ('eps_certificate', 'lo_certificate') if raw.get(k) == UVT_PENDING_CERTIFICATE)
++    cfg = uvt_config({'config': raw, 'pending_certificates': pending})
++    test_only = sorted(k for k in ('eps_certificate', 'lo_certificate') if k not in pending and cfg[k] == UVT_TEST_ONLY)
++    return {'config': json.loads(canonical(raw)), 'config_sha256': None if pending else cfg['sha256'],
++            'pending_certificates': pending, 'test_only_certificates': test_only}
++
++
++def uvt_config(nuv):
++    """C2V010: the library-normalized config (a pending certificate sentinel replaced by NONE_TEST_ONLY for validation only)."""
++    lib = uvt_library()
++    probe = dict(nuv['config'])
++    for k in nuv['pending_certificates']:
++        probe[k] = UVT_TEST_ONLY
++    try:
++        return lib.normalize_config(probe)
++    except ValueError as exc:
++        raise Refusal('numerics.uv_tail: %s' % exc)
++
++
++def uvt_is_nodes(raw):
++    """C2V010 r4: True when a numerics.uv_tail block (raw or normalized) declares source_rule nodes_v001."""
++    sr = (raw or {}).get('source_rule') if isinstance(raw, dict) else None
++    return isinstance(sr, dict) and sr.get('rule') == 'nodes_v001'
++
++
++def uvt_active(nodes):
++    """C2V010 r4: the active tail-ON tables (scripts, aux, route-A workers): nodes_v001 -> the nodes successors; else r3's."""
++    if nodes:
++        return {'scripts': SCRIPTS_UVT_NODES, 'aux': AUX_UVT_NODES, 'route_a': NODES_ROUTE_A, 'lib_extra': {'nodes': UVT_NODES_LIB}}
++    return {'scripts': SCRIPTS_UVT, 'aux': AUX_UVT, 'route_a': RO1_ROUTE_A, 'lib_extra': {}}
++
++
++def uvt_nodes_library():
++    """C2V010 r4: the pinned nodes_v001 library (inert: definitions only), for the planning-time ext-grid check."""
++    if 'nodes' not in _UVT_LOADED:
++        _UVT_LOADED['nodes'] = exec_verified(UVT_NODES_LIB[0], UVT_NODES_LIB[1], 'c2v010r4_uvt_nodes_lib')
++    return _UVT_LOADED['nodes']
++
++
++def ro1_off_request():
++    """C2V010 r4 (R5): the tail-disabled route-A request of a ro1_workers call (the RO1 worker CLI requires one; enabled false ->
++    the RO1 binding receives uv_tail=None and executes the reviewed statements; the controller is never constructed)."""
++    return {'schema': UVT_RO1_OFF_REQUEST_SCHEMA, 'uv_tail': {'enabled': False, 'eps_certificate': UVT_TEST_ONLY, 'lo_certificate': UVT_TEST_ONLY},
++            'note': 'tail OFF on the RO1 c2v002 workers (root V005 A50 items 11-12): RO1 armed, no UV-tail arithmetic'}
++
++
++def ro1_off_pins():
++    """C2V010 r4 (R5): the code a ro1_workers tail-OFF route A loads (RO1 workers + binding, the uvtail facade, the controller module the
++    RO1 worker loads and pin-checks, the module-lane library it pins), verified from bytes."""
++    pins = {}
++    for label, (path, s) in (('RO1 worker', RO1_ROUTE_A['worker']), ('RO1 worker_parallel', RO1_ROUTE_A['worker_parallel']),
++                             ('RO1 binding', RO1_ROUTE_A['binding']), ('uvt facade', AUX_UVT['facade']), ('uvt controller', AUX_UVT['controller']),
++                             ('uvt lib', UVT_LIB['lib']), ('uvt roster', UVT_LIB['roster']), ('uvt provider', UVT_LIB['provider'])):
++        pins[str(path)] = verify_pin(path, s, 'ro1_workers ' + label)
++    return pins
++
++
++def ro1_off_blockers():
++    """C2V010 r4 (R5): the RO1 workers pin the RO1 c2v002 binding, the uvtail facade and the controller (bytes)."""
++    out = []
++    for key in ('worker', 'worker_parallel'):
++        try:
++            verify_pin(RO1_ROUTE_A[key][0], RO1_ROUTE_A[key][1], 'RO1 ' + key)
++        except Refusal as exc:
++            out.append('RO1_OFF_PIN: %s' % exc); continue
++        t = Path(RO1_ROUTE_A[key][0]).read_text()
++        for need in (RO1_ROUTE_A['binding'][1], AUX_UVT['facade'][1], AUX_UVT['controller'][1]):
++            if need not in t:
++                out.append('RO1_OFF_WORKER_PIN: %s does not pin %s' % (Path(RO1_ROUTE_A[key][0]).name, need[:16]))
++    return out
++
++
++def route_a_ro1_workers(nspec):
++    """C2V010 r4 (R5): numerics.route_a.ro1_workers of a normalized spec (absent -> False, the v009 workers)."""
++    return bool(((nspec.get('numerics') or {}).get('route_a') or {}).get('ro1_workers', False))
++
++
++def uvt_route_a_monitor(ni):
++    """C2V010: the route-A tail-source monitor M_T (design sec 1.7, K13; R1 L1 E^A): the 12 column-mean binding row radii,
++    the seed's source azimuths, v_ref = the A2F10 route-A row speeds (a forward-model output) and tau_i of prereg V005,
++    threshold 1/4 -- composed from pinned bytes."""
++    b = _pinned_json(UVT_MONITOR_PINS['binding'][0], UVT_MONITOR_PINS['binding'][1], 'uv_tail monitor binding')
++    a2 = _pinned_json(UVT_MONITOR_PINS['a2f10_result'][0], UVT_MONITOR_PINS['a2f10_result'][1], 'uv_tail monitor A2F10 result')
++    v5 = _pinned_json(UVT_MONITOR_PINS['prereg_v005'][0], UVT_MONITOR_PINS['prereg_v005'][1], 'uv_tail monitor prereg V005')
++    R = [q['radius_m'] for q in b['query_rows']]
++    v = [x['speed_km_s'] for x in a2['identity']['route_a']['route_a_rows']]
++    tau = [float(t) for t in v5['tau_km_s']]
++    n = ni['source_azimuth_count']
++    if not (len(R) == len(v) == len(tau) == 12) or type(n) is not int or n < 4:
++        raise Refusal('UV_TAIL_MONITOR_INPUTS: %d radii, %d v_ref, %d tau, azimuths %r' % (len(R), len(v), len(tau), n))
++    return {'probe_R_m': R, 'probe_phi_rad': [2 * math.pi * j / n for j in range(n)], 'v_ref_km_s': v, 'tau_km_s': tau,
++            'threshold': UVT_MT_THRESHOLD,
++            'provenance': {'probe_R_m': {'path': str(UVT_MONITOR_PINS['binding'][0]), 'sha256': UVT_MONITOR_PINS['binding'][1], 'field': 'query_rows[].radius_m'},
++                           'v_ref_km_s': {'path': str(UVT_MONITOR_PINS['a2f10_result'][0]), 'sha256': UVT_MONITOR_PINS['a2f10_result'][1],
++                                          'field': 'identity.route_a.route_a_rows[].speed_km_s'},
++                           'tau_km_s': {'path': str(UVT_MONITOR_PINS['prereg_v005'][0]), 'sha256': UVT_MONITOR_PINS['prereg_v005'][1], 'field': 'tau_km_s'},
++                           'probe_phi_rad': 'the %d route-A column azimuths 2 pi j / %d (seed source_azimuth_count)' % (n, n)}}
++
++
++def uvt_prep_patches(coeff_default, coeff_path, coeff_sha, geo, prep_path, prep_sha):
++    """C2V010: the route-A prep module patch exactly as execute_chain builds it for a computed route A (the manifest stage
++    re-runs the same prep, so it receives the same patch and the same LOCAL['prep'] dict item)."""
++    prep_set = {}
++    if not coeff_default:
++        prep_set.update({'COEFFICIENT': {'__path__': coeff_path}, 'COEFFICIENT_SHA': coeff_sha})
++    if geo is not None:
++        prep_set['C'] = {'__path__': geo['C_dir']}
++    return [{'path': str(prep_path), 'sha256': prep_sha, 'set': prep_set}] if prep_set else []
++
++
++def uvt_plan(ctx, sp, ni, refuse, prep_patches):
++    """C2V010: tail-ON planning, before route A.  Per-stage kept regions C (design sec 1.1, the library's kept_region; route A,
++    reference, body: cube K; offset, columns, rotations: the call truncation) and whether each omitted domain D = O \\ C is
++    empty; certificate custody (rule UVT_TEST_ONLY_EMPTY_DOMAIN: NONE_TEST_ONLY certificates only when EVERY stage domain is
++    empty -- the identity gate B1 -- and then route A runs with admissibility test_only and the route-B successors receive
++    --uv-tail-admit-test-only, recorded); the route-B config file (the spec's library config) and the route-A request
++    (UNT_UV_TAIL_ROUTE_A_REQUEST_C2V001: config, admissibility, monitor).  Pending certificates: nothing is written."""
++    lib = uvt_library()
++    nuv = uvt_info(sp['numerics']['uv_tail'])
++    if ni['kpc_m'] != lib.KPC_M:
++        raise Refusal('UV_TAIL_UNITS: seed kpc_m differs from the tail library KPC_M')
++    K_m = float(ni['composite_grid_spec']['breaks_inverse_kpc'][-1]) / KPC_M
++    cfg = uvt_config(nuv)
++    tr = sp['numerics']['truncation']
++    trunc = None if tr['shape'] == 'cube' else {'shape': tr['shape'], 'kmax_inverse_kpc': tr['kmax_inverse_kpc']}
++    kept = {}
++    for kind in ('route_a',) + UVT_TAIL_KINDS:
++        bk = 'route_a' if kind == 'route_a' else UVT_BINDING_KIND[kind]
++        try:
++            k = lib.kept_region(bk, trunc, K_m)
++        except ValueError as exc:
++            raise Refusal('numerics.uv_tail kept region (%s): %s' % (bk, exc))
++        kept[kind] = {'binding_kind': bk, 'kept': k, 'domain_empty': bool(lib.domain_is_empty(k, cfg['outer']))}
++    nodes = uvt_is_nodes(nuv['config'])  # C2V010 r4 (R2): nodes_v001 -- D = G_ext \\ G_K for every stage (never empty), cubes only
++    nodes_ctx = None
++    if nodes:
++        bad = sorted(k for k, v in kept.items() if v['kept'].get('shape') != 'cube')
++        if bad:
++            raise Refusal('UV_TAIL_NODES_V001_REQUIRES_CUBE_KEPT: stage kept regions %s are not the cube (truncation %r)' % (bad, tr))
++        try:
++            nodes_ctx = uvt_nodes_library().ext_context(ext_spec=nuv['config']['source_rule']['ext_grid'],
++                                                        kept_spec=ni.get('composite_grid_spec'), kpc_m=ni['kpc_m'])['record']
++        except ValueError as exc:
++            raise Refusal('UV_TAIL_NODES_V001_EXT_GRID_INVALID: %s' % exc)
++        for v in kept.values():
++            v['domain_empty'] = nodes_ctx['n_ext_nodes'] == 0
++            v['domain_rule'] = 'nodes_v001: D = G_ext \\ G_K (%d extra nodes)' % nodes_ctx['n_ext_nodes']
++    act = uvt_active(nodes)
++    empty_all = all(v['domain_empty'] for v in kept.values())
++    if nuv['test_only_certificates'] and not empty_all:
++        raise Refusal('UVT_TEST_ONLY_REQUIRES_EMPTY_DOMAIN: NONE_TEST_ONLY certificates %s are admitted only when every stage '
++                      'domain D = O \\ C is empty (identity gate B1); non-empty: %s'
++                      % (nuv['test_only_certificates'], sorted(k for k, v in kept.items() if not v['domain_empty'])))
++    admissibility = 'test_only' if nuv['test_only_certificates'] else 'production'
++    certs = {}
++    for k in ('eps_certificate', 'lo_certificate'):
++        c = nuv['config'][k]
++        if k in nuv['pending_certificates']:
++            certs[k] = ['%s(%s.path)' % (UVT_PENDING_CERTIFICATE, k), '%s(%s.sha256)' % (UVT_PENDING_CERTIFICATE, k)]
++            refuse('uv_tail.' + k, 'PENDING_UV_TAIL_CERTIFICATE',
++                   '%s is the template sentinel %s: gate %s (design sec 1.5/1.6) has not produced its certificate; the filled '
++                   'spec replaces exactly this entry by {path, sha256}' % (k, UVT_PENDING_CERTIFICATE, 'EPS' if k.startswith('eps') else 'LO'))
++        elif c == UVT_TEST_ONLY:
++            certs[k] = [UVT_TEST_ONLY, UVT_TEST_ONLY]
++        else:
++            certs[k] = [str(c['path']), verify_pin(c['path'], c['sha256'], 'uv_tail ' + k)]
++    monitor = uvt_route_a_monitor(ni)
++    request = {'schema': UVT_REQUEST_SCHEMA, 'uv_tail': nuv['config'], 'admissibility': admissibility, 'monitor': monitor}
++    written = not nuv['pending_certificates']
++    if written:
++        cfg_p, cfg_s = ctx.write_input('uv_tail_config.json', nuv['config'])
++        req_p, req_s = ctx.write_input('uv_tail_route_a_request.json', request)
++    else:
++        cfg_p = ctx.out / 'inputs' / 'uv_tail_config.json'
++        req_p = ctx.out / 'inputs' / 'uv_tail_route_a_request.json'
++        cfg_s, req_s = 'PENDING_SHA256(%s)' % cfg_p, 'PENDING_SHA256(%s)' % req_p
++    return {'schema': UVT_RECORD_SCHEMA, 'enabled': True,
++            'config': {'path': str(cfg_p), 'sha256': cfg_s, 'written': written, 'normalized_sha256': nuv['config_sha256']},
++            'request': {'path': str(req_p), 'sha256': req_s, 'written': written, 'schema': UVT_REQUEST_SCHEMA},
++            'admissibility': admissibility, 'certificates': certs, 'pending_certificates': list(nuv['pending_certificates']),
++            'kept_regions': kept, 'domain_empty_all_stages': empty_all, 'outer': cfg['outer'], 'K_inverse_kpc': K_m * KPC_M,
++            'monitor_provenance': monitor['provenance'], 'prep_patches': prep_patches,
++            'route_a_argv': ['--uv-tail-config', req_p, '--uv-tail-config-sha256', req_s,
++                             '--eps-certificate', certs['eps_certificate'][0], '--eps-certificate-sha256', certs['eps_certificate'][1],
++                             '--lo-certificate', certs['lo_certificate'][0], '--lo-certificate-sha256', certs['lo_certificate'][1]],
++            'truncation_argv': None if trunc is None else canonical(trunc),
++            'test_only_flag': ['--uv-tail-admit-test-only'] if admissibility == 'test_only' else [],
++            'rules': {'kept_region': 'design sec 1.1: route A, reference, body cube K; offset, columns, rotations the call truncation',
++                      'test_only': 'UVT_TEST_ONLY_EMPTY_DOMAIN (NONE_TEST_ONLY certificates only with every stage domain empty)',
++                      'admission': 'UVT_ADMISSION_MISMATCH (an admitted route A / reference / body must carry this config sha; tail OFF: none)'},
++            'source_rule': 'nodes_v001' if nodes else 'continuum_v001', 'nodes_ext_context': nodes_ctx,  # C2V010 r4 (R2)
++            'monitor_probe_R_m': monitor['probe_R_m'], 'monitor_probe_phi_rad': monitor['probe_phi_rad'],  # C2V010 r4 (R3)
++            'code': {'route_a_workers': {k: [str(act['route_a'][k][0]), act['route_a'][k][1]] for k in ('worker', 'worker_parallel')},
++                     'route_a_solvers': {k: [str(act['aux'][k][0]), act['aux'][k][1]] for k in ('solver', 'solver_parallel')},
++                     'route_a_controller': [str(act['aux']['controller'][0]), act['aux']['controller'][1]],
++                     'manifest_writer': [str(act['aux']['manifest_writer'][0]), act['aux']['manifest_writer'][1]],
++                     'route_b': {k: [str(p), s] for k, (p, s) in act['scripts'].items()},
++                     'route_b_binding': [str(act['aux']['route_b_binding'][0]), act['aux']['route_b_binding'][1]],
++                     'library': {k: [str(p), s] for k, (p, s) in dict(UVT_LIB, **act['lib_extra']).items()}}}
++
++
++def uvt_route_a_identity_check(cp, want_config_sha256):
++    """C2V010: the uv_tail entry of a route-A checkpoint's caller numerical_controls (the uvtail binding writes
++    controller.identity() there).  want None (a tail-OFF call): the checkpoint must carry none; otherwise its config_sha256
++    must be this call's.  Refusal UVT_ADMISSION_MISMATCH.  Returns the entry summary (None when absent)."""
++    cm = exec_verified(AUX['checkpoint_module'][0], AUX['checkpoint_module'][1], 'c2v010_uvt_ckpt')
++    ident = _read_checkpoint_identity(cm, cp)
++    caller = cm.decode(ident['identity']['caller']['record'])
++    got = (caller.get('numerical_controls') or {}).get('uv_tail')
++    if want_config_sha256 is None:
++        if got is not None:
++            raise Refusal('UVT_ADMISSION_MISMATCH: route-A checkpoint %s carries a UV-tail entry (config %s); this call is tail OFF'
++                          % (cp, (got or {}).get('config_sha256') if isinstance(got, dict) else got))
++        return None
++    if not isinstance(got, dict) or got.get('config_sha256') != want_config_sha256:
++        raise Refusal('UVT_ADMISSION_MISMATCH: route-A checkpoint %s tail config %r is not this call config %s'
++                      % (cp, got.get('config_sha256') if isinstance(got, dict) else got, want_config_sha256))
++    return {k: got.get(k) for k in ('config_sha256', 'request_sha256', 'admissibility', 'kept', 'static_identity_sha256')}
++
++
++def uvt_admitted_record_check(path, uvt, label):
++    """C2V010: an admitted reference (start.json) / body (finish.json) output and this call's tail mode must agree:
++    tail OFF -> no enabled uv_tail record; tail ON -> a record with this call's config sha (UVT_ADMISSION_MISMATCH)."""
++    rec = json.loads(Path(path).read_text()).get('uv_tail')
++    if uvt is None:
++        if isinstance(rec, dict) and rec.get('enabled'):
++            raise Refusal('UVT_ADMISSION_MISMATCH: admitted %s %s carries an enabled UV-tail record; this call is tail OFF' % (label, path))
++        return None
++    if not isinstance(rec, dict) or (uvt['config_sha256'] is not None and rec.get('config_sha256') != uvt['config_sha256']):
++        raise Refusal('UVT_ADMISSION_MISMATCH: admitted %s %s tail record %r is not this call config %s'
++                      % (label, path, None if not isinstance(rec, dict) else rec.get('config_sha256'), uvt['config_sha256']))
++    return {'config_sha256': rec.get('config_sha256'), 'state_digest': rec.get('state_digest')}
++
++
++def uvt_stage_records(records):
++    """C2V010: the uv_tail record each executed tail stage wrote into its finish.json (state digest, empty, I1-T verdict)."""
++    out = []
++    for rec in records:
++        if not rec.get('executed') or rec.get('kind') not in UVT_TAIL_KINDS + ('route_a_tail_manifest',):
++            continue
++        od = _argv_map(rec['argv']).get('--outdir')
++        fin = Path(od) / 'finish.json' if od else None
++        if fin is None or not fin.is_file():
++            out.append({'stage': rec['name'], 'kind': rec['kind'], 'finish': 'ABSENT'})
++            continue
++        f = json.loads(fin.read_text())
++        u = f.get('uv_tail') if rec['kind'] != 'route_a_tail_manifest' else {k: f.get(k) for k in ('state_digest', 'empty', 'production_admissible', 'manifest', 'manifest_sha256')}
++        u = u if isinstance(u, dict) else {}
++        out.append({'stage': rec['name'], 'kind': rec['kind'], 'finish_sha256': sha256_file(fin), 'state_digest': u.get('state_digest'),
++                    'empty': u.get('empty'), 'production_admissible': u.get('production_admissible'),
++                    'test_only_admitted': u.get('test_only_admitted'), 'i1t_verdict': (u.get('i1t') or {}).get('verdict') if isinstance(u.get('i1t'), dict) else None,
++                    'srb_rot': u.get('srb_rot')})
++    return out
++
++
++def uvt_binding_blockers(nodes=False):
++    """C2V010: blockers of the tail-ON binding found from bytes: every route-B uvt successor names its gal_c2v005 base sha (the
++    SCRIPTS pin) and loads the pinned route-B binding; the binding, the route-A controller and the RO1 workers pin the
++    library / controller / facade bytes this driver pins; the manifest writer pins the controller."""
++    out = []
++
++    def text(path, sha, label):
++        try:
++            verify_pin(path, sha, label)
++        except Refusal as exc:
++            out.append('UVT_PIN: %s' % exc)
++            return ''
++        return Path(path).read_text()
++    act = uvt_active(nodes)  # C2V010 r4 (R2): the nodes tables for a nodes_v001 call
++    bpath, bsha = act['aux']['route_b_binding']
++    for kind, (path, sha) in act['scripts'].items():
++        t = text(path, sha, 'uvt successor ' + kind)
++        base_path, base_sha = SCRIPTS[kind]
++        if ('successor of %s (sha256 %s)' % (Path(base_path).name, base_sha)) not in t:
++            out.append('UVT_BASE: %s does not name its gal_c2v005 base %s %s' % (Path(path).name, Path(base_path).name, base_sha[:16]))
++        if ("UVT_BINDING=(Path('%s'),'%s')" % (bpath, bsha)) not in t:
++            out.append('UVT_BINDING_PIN: %s does not load the pinned route-B binding %s' % (Path(path).name, bsha[:16]))
++    bt = text(bpath, bsha, 'uvt route-B binding')
++    ct = text(act['aux']['controller'][0], act['aux']['controller'][1], 'uvt controller')
++    for key, (p, s) in dict(UVT_LIB, **act['lib_extra']).items():
++        for name, t in (('route-B binding', bt), ('route-A controller', ct)):
++            if s not in t:
++                out.append('UVT_LIBRARY_PIN: %s does not pin %s %s' % (name, key, s[:16]))
++    for key in ('worker', 'worker_parallel'):
++        t = text(act['route_a'][key][0], act['route_a'][key][1], 'route-A ' + key)
++        for need in (act['aux']['controller'][1], act['aux']['facade'][1], RO1_ROUTE_A['binding'][1]) + tuple(s for _, s in act['lib_extra'].values()):
++            if need not in t:
++                out.append('UVT_ROUTE_A_WORKER_PIN: %s does not pin %s' % (Path(act['route_a'][key][0]).name, need[:16]))
++    wt = text(act['aux']['manifest_writer'][0], act['aux']['manifest_writer'][1], 'manifest writer')
++    if act['aux']['controller'][1] not in wt:
++        out.append('UVT_MANIFEST_WRITER_PIN: the manifest writer does not pin the route-A controller')
++    return out
++
++
++def uvt_static_pins(nodes=False):
++    """C2V010: every tail-ON code/data pin, verified from bytes (only when numerics.uv_tail is declared).  r4: the active tables."""
++    pins = {}
++    act = uvt_active(nodes)
++    for label, table in (('lib', dict(UVT_LIB, **act['lib_extra'])), ('route_b', act['scripts']), ('aux', act['aux']), ('route_a', act['route_a']),
++                         ('ro1', RO1_ROUTE_A), ('monitor', UVT_MONITOR_PINS)):
++        for key, (path, sha) in table.items():
++            pins[str(path)] = verify_pin(path, sha, 'uv_tail %s %s' % (label, key))
++    return pins
++
++
++def uvt_scan_roots(scripts, nodes=False):
++    """C2V010: transitive-scan roots of a tail-ON call: the active stage scripts, AUX, and every tail-ON code pin (r4: active)."""
++    roots = list(scripts.values()) + list(AUX.values())
++    act = uvt_active(nodes)
++    for table in (dict(UVT_LIB, **act['lib_extra']), act['aux'], act['route_a']):
++        roots += list(table.values())
++    return roots
+ 
+ 
+ def normalize_spec(spec):
+@@ -773,7 +1279,7 @@
+     _abs(coeff['path'], 'coefficients.path')
+     out['coefficients'] = {'path': str(Path(coeff['path'])), 'sha256': coeff['sha256']}
+     num = spec.get('numerics', {})
+-    _strict(num, ('composite_grid_spec', 'truncation', 'picard', 'brackets', 'column_workers', 'k_domain', 'route_a'), 'numerics')  # C2V007 (b): + route_a
++    _strict(num, ('composite_grid_spec', 'truncation', 'picard', 'brackets', 'column_workers', 'k_domain', 'route_a', 'uv_tail'), 'numerics')  # C2V007 (b): + route_a; C2V010 (u): + uv_tail
+     grid = num.get('composite_grid_spec', None)
+     if grid is not None:
+         _strict(grid, ('version', 'breaks_inverse_kpc', 'panel_orders', 'total_axis_nodes', 'scope'), 'composite_grid_spec')
+@@ -877,6 +1383,12 @@
+     out_num['column_workers'] = workers
+     if 'route_a' in num:  # C2V007 (b): present only when declared, so a default spec normalizes exactly as in c2v006
+         out_num['route_a'] = normalize_route_a_numerics(num['route_a'])
++    if 'uv_tail' in num:  # C2V010 (u): present only when declared (absent -> exactly the v009 normalization)
++        if gname != 'DDO154':
++            raise Refusal('numerics.uv_tail: the route-B tail successors bind DDO154 only (UV_TAIL_ROUTE_B_GALAXY_NOT_BOUND_C2V001)')
++        out_num['uv_tail'] = normalize_uv_tail(num['uv_tail'])
++        if out_num.get('route_a', {}).get('ro1_workers'):  # C2V010 r4 (R5): tail ON always runs the RO1 workers
++            raise Refusal('numerics.route_a.ro1_workers is for tail-OFF calls (a tail-ON call always runs the RO1 workers)')
+     out['numerics'] = out_num
+     adm = spec.get('admit', {}) or {}
+     _strict(adm, ('route_a', 'reference', 'body'), 'admit')
+@@ -891,6 +1403,8 @@
+         norm_adm['route_a'] = {k: str(a[k]) for k in ('attempt_directory', 'checkpoint_directory', 'identity_sha256', 'result_sha256')}
+         if out_num.get('route_a', {}).get('column_workers', 1) > 1:  # C2V007 (b): a parallel route A that would never run
+             raise Refusal('numerics.route_a.column_workers > 1 requires route A to be computed by this call (admit.route_a absent)')
++        if out_num.get('route_a', {}).get('ro1_workers'):  # C2V010 r4 (R5): an admitted route A cannot be RO1-armed
++            raise Refusal('numerics.route_a.ro1_workers requires route A to be computed by this call (an admitted attempt keeps its own worker)')
+     if adm.get('reference') is not None:
+         if 'route_a' not in norm_adm:
+             raise Refusal('admit.reference requires admit.route_a')
+@@ -936,6 +1450,8 @@
+     ra_num = nspec['numerics'].get('route_a') or {}
+     if 'max_iterations' in ra_num:  # C2V009 (b): route-A outer-iteration budget (absent: base seed value, c2v008 seed)
+         new['max_iterations'] = ra_num['max_iterations']
++    if 'seed_source_rtol_factor' in ra_num:  # RO1 AMB-14: route-A source rtol x f (absent: base seed value, v009-EXT seed)
++        new['source_rtol'] = ni['source_rtol'] * ra_num['seed_source_rtol_factor']
+     changed = []
+     for k, v in new.items():
+         if canonical(ni.get(k)) != canonical(v):
+@@ -1187,11 +1703,11 @@
+     refused = {k: r['call_geometry'].get('refusal') for k, r in rows.items() if not r['call_geometry']['accepted']}
+     controls = all(r['registered_control']['accepted'] for r in rows.values())
+     return {'stages': rows, 'refused': refused, 'controls_accepted': controls, 'admitted': bool(rows) and not refused and controls,
+-            'rule': ('gal_c2v004 shared admission (schema V004 admission_rules): a DDO154 config field is admitted only as '
++            'rule': ('gal_c2v005 shared admission (schema V005 admission_rules; c2v009): a DDO154 config field is admitted only as '
+                      'DDO154_EXACT_LITERAL (== the schema ddo154 value, i.e. the 4.04 Mpc files) or PER_CALL on a per-call kind '
+                      '(PER_CALL_CUSTODY, ROUTE_A_RUN_OUTCOME, STAGE_CODE_IDENTITY), a call input (source.coefficients) or a '
+-                     'declared input slot; the geometry fields are SHARED_SAME_VALUE / GALAXY_SOURCE_RECONSTRUCTION / '
+-                     'GALAXY_DERIVED_SHAPE / OBSERVATION_BINDING kinds')}
++                     'declared input slot, or (c2v005) PER_CALL on a field of PER_CALL_GEOMETRY[galaxy] that the schema V005 '
++                     'per_call_geometry entry lists (DDO154: the five distance-dependent fields)')}
+ 
+ 
+ def _relative_request_paths(req):
+@@ -1219,6 +1735,8 @@
+     argv = [str(a) for a in req.get('argv', [])]
+     for i, a in enumerate(argv):
+         if a.startswith('--') or i == 0 or not argv[i - 1].startswith('--'):
++            continue
++        if argv[i - 1] in UVT_ARGV_NON_PATH or a == UVT_TEST_ONLY:  # C2V010 (u): JSON value / certificate sentinel, not paths
+             continue
+         try:
+             float(a)
+@@ -1261,6 +1779,8 @@
+         self.driver = str(Path(__file__).resolve())
+         self.route_a_outcome = None  # C2V007 (a) F1: classification of the route-A result.json (c2v003c hunk @@ -882)
+         self.geometry = None  # C2V008 (a): per-call geometry record + stage-admission probe (None at the registered geometry)
++        self.scripts = SCRIPTS  # C2V010 (u): the stage-script table (tail ON: SCRIPTS + SCRIPTS_UVT + the manifest writer)
++        self.uv_tail = None  # C2V010 (u): tail-ON planning/custody record (None: tail OFF)
+ 
+     # -- paths / hashes ------------------------------------------------------------------
+     def stage_dir(self, name):
+@@ -1298,7 +1818,7 @@
+ 
+     # -- stage execution -------------------------------------------------------------------
+     def request(self, name, key, argv, stage_globals=None, module_patches=None, mask=None):
+-        script, sha = SCRIPTS[key]
++        script, sha = self.scripts[key]  # C2V010 (u): SCRIPTS unless tail ON
+         return {'name': name, 'kind': key, 'script': str(script), 'script_sha256': sha, 'argv': [str(a) for a in argv],
+                 'stage_globals': stage_globals or {}, 'module_patches': module_patches or [], 'mask': mask}
+ 
+@@ -1385,7 +1905,11 @@
+     f = sfp.get('failure')
+     if isinstance(f, dict):
+         rec['failure'] = {k: f.get(k) for k in ('type', 'message', 'iteration', 'column_index', 'stage')}
++    ro1, ro1_fired = ro1_outcome(ra, pred, result_path, conv_flag is True and outcome == ROUTE_A_CONVERGED)  # RO1
+     if conv_flag is True and outcome == ROUTE_A_CONVERGED and rec['predictions_available'] is True:
++        rec['classification'] = 'CONVERGED'
++        rec['converged_iteration'] = rec['last_completed_iteration']
++    elif ro1_fired:  # RO1: converged fixed point, circular-trial readout refused and recorded; route B proceeds
+         rec['classification'] = 'CONVERGED'
+         rec['converged_iteration'] = rec['last_completed_iteration']
+     elif conv_flag is not True:
+@@ -1394,7 +1918,39 @@
+     else:
+         rec['classification'] = 'INCONSISTENT'
+         rec['converged_iteration'] = None
++    rec['ro1'] = ro1  # RO1 (AMB-15): result.route_a_outcome.ro1 in every outcome record
+     return rec
++
++
++def ro1_outcome(ra, pred, result_path, converged):
++    """RO1: (ro1 block, fired).  Block = {'rule': 'RO1', 'fired', 'events', 'armed', 'worker_sha256', 'binding_sha256'}.
++    armed: result.json input_pins name a pinned RO1 binding AND the attempt start.json worker_pin is a pinned RO1 worker
++    (else the shas are None; a non-armed attempt that returned a result had no readout refusal).  fired (events = [the
++    record]) only for an armed attempt with an admissible route_a_readout_refusal record on a converged outcome; a present but
++    inadmissible record is kept under 'inadmissible_record' with fired False.  Raises nothing."""
++    bind, worker = [], None
++    try:
++        pins = ra.get('input_pins') or {}
++        bind = [s for p, s in (RO1_ROUTE_A['binding'], RO1_ROUTE_A['ngc_binding']) if pins.get(str(Path(p).resolve())) == s]
++        if bind:
++            worker = json.loads((Path(result_path).parent / 'start.json').read_text()).get('worker_pin')
++    except (OSError, ValueError, TypeError, AttributeError):
++        bind, worker = [], None
++    armed = bool(bind) and worker in ({RO1_ROUTE_A[k][1] for k in ('worker', 'worker_parallel', 'ngc_worker', 'ngc_worker_parallel')}
++                                      | {NODES_ROUTE_A[k][1] for k in ('worker', 'worker_parallel')})  # C2V010 r4: + the nodes RO1 workers
++    block = {'rule': 'RO1', 'fired': False, 'events': [], 'armed': armed,
++             'worker_sha256': worker if armed else None, 'binding_sha256': bind[0] if armed else None}
++    rec = pred.get('route_a_readout_refusal')
++    if rec is None:
++        return block, False
++    ok = (armed and converged is True and isinstance(rec, dict) and rec.get('code') == RO1_CODE and rec.get('refusal') in RO1_MESSAGES
++          and rec.get('after_convergence') is True and pred.get('readout_status') == RO1_CODE
++          and pred.get('predictions_available') is False and 'rows' in pred and pred.get('rows') is None)
++    if ok:
++        block.update(fired=True, events=[dict(rec)])
++    else:
++        block['inadmissible_record'] = rec
++    return block, ok
+ 
+ 
+ def require_route_a_fixed_point(rec, reported_iteration=None):
+@@ -1648,17 +2204,17 @@
+ # binding/configs/make_galaxy_config_c2v005.py).  Per stage call the driver writes the config in the successor's
+ # format {format, schema{name,path,sha256}, galaxy, fields[, producer_pins]}: galaxy fields from that file, PER_CALL
+ # fields from bytes of this call, a DECLARED_INPUT_SLOT from the call spec.  One shared admission reads it (N5).
+-GC_SCHEMA = (BIND6 / 'schema/GALAXY_CONFIG_SCHEMA_V004.json', '8fc7ef48ed91f9cd00e356296b9524adcfd65a1933d3332e9d1ad176c17364bb')
+-GC_SCHEMA_NAME = 'UNT_ROUTE_B_GALAXY_CONFIG_SCHEMA_V004'
++GC_SCHEMA = (BIND7 / 'schema/GALAXY_CONFIG_SCHEMA_V005.json', 'f9b8d48eca10e5c8f2299c23dc1ac69c60c9f87bc24486024e675f7927bc042a')  # c2v009
++GC_SCHEMA_NAME = 'UNT_ROUTE_B_GALAXY_CONFIG_SCHEMA_V005'  # c2v009
+ GC_FORMAT = 'UNT_ROUTE_B_DRIVER_GALAXY_CONFIG_C2V006'
+ GC_ENTRY = {'DDO154': 'ddo154', 'NGC3198': 'ngc3198'}
+ GC_MEMBER_ENTRY = {('NGC3198', 'GL10_ALTERNATIVE'): 'ngc3198_gl10_alternative'}  # c2v006 (A2, CHECK D2)
+ # c2v006: keyed by (galaxy, member); member None = the primary entry.
+ GALAXY_CONFIG_FILES = {
+-    'DDO154': (BIND6 / 'configs/GALAXY_CONFIG_DDO154_C2V006.json', '24d07f800e3c3c31bc5123f359603d336f095482bf5c1c83802c3192fadebdd0'),
+-    'NGC3198': (BIND6 / 'configs/GALAXY_CONFIG_NGC3198_C2V006.json', '64b6f1fadb432b1d5e2ee5b54620fb0c4d2cdb59e425e8034458e0dcd58ee441'),
+-    ('NGC3198', 'GL10_ALTERNATIVE'): (BIND6 / 'configs/GALAXY_CONFIG_NGC3198_GL10_ALTERNATIVE_C2V006.json',
+-                                      '4a1aa7ebc1a913c3e09b320f6dfacda7670af819acb4f37c2ef1c0eb5b1784ae'),
++    'DDO154': (BIND7 / 'configs/GALAXY_CONFIG_DDO154_GAL_C2V005.json', 'c21f1272f94026dcd4d38b5a8d89e8af2c76e85fbdff2d28f517c366c80f7c45'),  # c2v009
++    'NGC3198': (BIND7 / 'configs/GALAXY_CONFIG_NGC3198_GAL_C2V005.json', '299ce971fab0ad6557754066d39ec5a0a664d09dfddcff7650f91b059cd82559'),  # c2v009
++    ('NGC3198', 'GL10_ALTERNATIVE'): (BIND7 / 'configs/GALAXY_CONFIG_NGC3198_GL10_ALTERNATIVE_GAL_C2V005.json',  # c2v009
++                                      '0873b6a4ffde696243f842c656fdc64c519d40aaad7a04f4beda5d47b0f1335a'),
+ }
+ ADMITTED_STATUS = ('DDO154_EXACT_LITERAL', 'PER_CALL', 'SUPPLIED_REVIEWED_CODE', 'SUPPLIED_REVIEWED_DATA', 'SUPPLIED_REVIEWED_CODE_AND_DATA',
+                    'SUPPLIED_TARGET_FREE_MANIFEST', 'SHARED_SAME_VALUE', 'SUPPLIED_ROOT_DECISION')
+@@ -1678,7 +2234,7 @@
+ COLMEAN_PRODUCER_PINS = ('rotation_worker',)
+ ROUTE_A_CONVERGED_OUTCOME = 'CONVERGED_FINITE_FIXED_POINT'
+ READER_HEAD = '# ---- c2v002 shared strict route-A reader (verbatim; stages2 CHECK D2)'
+-ADMISSION_HEAD = '# ---- c2v004 shared stage-config admission (schema V004, members; ROOT_DECISIONS V002 A2/A4)'
++ADMISSION_HEAD = '# ---- c2v005 shared stage-config admission (schema V005, members, DDO154 per-call geometry; ROOT_DECISIONS V003 A13)'  # c2v009
+ TRUNCATION_HEAD = '# ---- c2v003 shared N2 radial truncation'
+ TRUNCATION_KINDS = ('reference', 'body', 'offset', 'rotation_v001', 'rotation_v005')
+ 
+@@ -1901,7 +2457,7 @@
+     return text[i:text.index(end, i) + len(end)]
+ 
+ 
+-def binding_blockers():
++def binding_blockers(scripts=None):
+     """Blockers of the c2v005 binding, found from the successors' bytes (independent of the galaxy).  The stages2 wiring:
+     every successor pins schema V003 and its own format; the shared admission, the strict route-A reader and the N2
+     truncation blocks are byte-identical where present; the reference successor binds only the reference module
+@@ -1909,7 +2465,7 @@
+     driver's; B1 (column mean never verifies against the fixed reviewed rotation v005 file)."""
+     out = []
+     blocks = {'admission': {}, 'reader': {}, 'truncation': {}}
+-    for kind, (path, sha) in SCRIPTS.items():
++    for kind, (path, sha) in (SCRIPTS if scripts is None else scripts).items():  # C2V010 (u): tail ON passes the active table
+         if kind not in GENERALIZED:
+             continue
+         text = Path(path).read_text()
+@@ -1941,21 +2497,23 @@
+     return out
+ 
+ 
+-def producer_pin(kind, sha):
+-    """{path, sha256} of the script with this sha among {the successor of `kind`, its reviewed base}; else refuse."""
+-    for path, s in (SCRIPTS[kind], GENERALIZED[kind]['base']):
++def producer_pin(kind, sha, extra=None):
++    """{path, sha256} of the script with this sha among {the successor of `kind`, its reviewed base}; else refuse.
++    C2V010 (u): extra = SCRIPTS_UVT in a tail-ON call only (its uvt successor is then also a whitelisted producer)."""
++    for path, s in (SCRIPTS[kind], GENERALIZED[kind]['base']) + ((extra[kind],) if extra and kind in extra else ()):
+         if sha == s:
+             return {'path': str(path), 'sha256': s}
+     raise Refusal('c2v005: producer %s of %s is neither the successor nor its reviewed base' % (sha, kind))
+ 
+ 
+-def rotation_producer_pin(sha):
+-    return producer_pin('rotation_v005', sha)
+-
+-
+-def probe_stage_admission(kind, path, sha):
+-    """DRY-RUN ONLY: the successor's own config-admission function on the written config file."""
+-    m = exec_verified(SCRIPTS[kind][0], SCRIPTS[kind][1], 'c2v005_probe_' + kind)
++def rotation_producer_pin(sha, extra=None):
++    return producer_pin('rotation_v005', sha, extra)
++
++
++def probe_stage_admission(kind, path, sha, scripts=None):
++    """DRY-RUN ONLY: the successor's own config-admission function on the written config file (C2V010: of the active script)."""
++    scripts = SCRIPTS if scripts is None else scripts
++    m = exec_verified(scripts[kind][0], scripts[kind][1], 'c2v005_probe_' + kind)
+     try:
+         if kind == 'column_mean_v004':
+             pins, nc, nphi, nz, obsv, rotw = m.galaxy_config((str(path), sha))
+@@ -2042,6 +2600,13 @@
+     g = GALAXIES[gname]
+     ngc = gname != 'DDO154'
+     sv = ctx.saved
++    uvt = uvt_info(sp['numerics']['uv_tail']) if 'uv_tail' in sp['numerics'] else None  # C2V010 (u): None = tail OFF (every statement of the chain is then the v009 one)
++    uvt_act = uvt_active(uvt_is_nodes(sp['numerics'].get('uv_tail')))  # C2V010 r4 (R2): nodes_v001 -> the nodes tables
++    uvt_extra = uvt_act['scripts'] if uvt is not None else None
++    uvx = None
++    ro1_off = uvt is None and route_a_ro1_workers(sp)  # C2V010 r4 (R5): tail OFF on the RO1 c2v002 workers (declared)
++    if uvt is not None:
++        ctx.scripts = dict(SCRIPTS, **uvt_act['scripts'], route_a_tail_manifest=uvt_act['aux']['manifest_writer'])
+     P = sp['numerics']['picard']['passes']
+     bound = sp['numerics']['picard']['speed_change_bound_km_s']
+     workers = sp['numerics']['column_workers']
+@@ -2170,7 +2735,7 @@
+         """c2v004 rule: sha of the script that produced the upstream output(s).  run: SCRIPTS[key] (this call ran it);
+         simulate on SAVED outputs, or an ADMITTED upstream in any mode (c2v005): the worker_sha256 recorded in their
+         start.json, which must be the successor or its reviewed base."""
+-        run_value = SCRIPTS[key][1]
++        run_value = ctx.scripts[key][1]  # C2V010 (u): the active script (SCRIPTS unless tail ON)
+         val, src = run_value, 'SCRIPTS[%s] (this call runs it)' % key
+         if ctx.mode != 'run' or admitted:
+             recs = [Path(x) / 'start.json' for x in dirs]
+@@ -2180,7 +2745,7 @@
+                 if len(have) != len(recs) or len(vals) != 1:
+                     raise Refusal('c2v005: mixed upstream producers for %s %s' % (stage, flag))
+                 val, src = vals.pop(), 'worker_sha256 recorded in the %s upstream start.json' % ('admitted' if admitted else 'saved')
+-                producer_pin(key, val)
++                producer_pin(key, val, uvt_extra)
+             elif admitted:
+                 raise Refusal('c2v005: admitted %s output has no start.json to name its producer' % key)
+         producer_log.append({'stage': stage, 'flag': flag, 'value': val, 'source': src, 'run_mode_value': run_value,
+@@ -2221,11 +2786,14 @@
+         ctx.geometry = info['geometry']
+         if not probe['admitted']:
+             refuse('geometry', 'GEOMETRY_NOT_ADMITTED_BY_STAGE_BINDING',
+-                   'distance_Mpc %r != registered %r: the reviewed gal_c2v004 stages refuse the per-call geometry config fields '
+-                   '(their own admission, schema V004): %s%s. Needs a stage/schema successor that admits these DDO154 fields per '
+-                   'call; no stage is run.' % (sp['physical']['distance_Mpc'], g['registered_geometry']['distance_Mpc'],
++                   'distance_Mpc %r != registered %r: the pinned gal_c2v005 stages refuse the per-call geometry config fields '
++                   '(their own admission, schema V005): %s%s. No stage is run.' % (sp['physical']['distance_Mpc'], g['registered_geometry']['distance_Mpc'],
+                                                '; '.join('%s: %s' % kv for kv in sorted(probe['refused'].items())),
+                                                '' if probe['controls_accepted'] else ' (registered-geometry control copies also refused)'))
++
++    if uvt is not None:  # C2V010 (u): tail-ON planning (kept regions, certificates, route-B config, route-A request)
++        uvx = uvt_plan(ctx, sp, ni, refuse, uvt_prep_patches(coeff_default, coeff_path, coeff_sha, geo, prep_path, prep_sha))
++        ctx.uv_tail = uvx
+ 
+     # ---------------- route A
+     adm = sp.get('admit') or {}
+@@ -2266,14 +2834,29 @@
+         # pins, so the prep COEFFICIENT module patch and the prep V008 LOCAL['prep'] dict item apply unchanged.
+         ra_workers = route_a_column_workers(sp)
+         solver_pin = AUX['solver'] if ra_workers == 1 else PARALLEL_ROUTE_A['solver']
++        if uvt is not None:  # C2V010 (u): the uvtail solvers (route_a/; serial 8ef3079b, parallel 7667025b)
++            solver_pin = uvt_act['aux']['solver'] if ra_workers == 1 else uvt_act['aux']['solver_parallel']
+         ra_argv = ['--seed', seed_path, '--seed-sha256', seed_sha, '--solver', solver_pin[0], '--solver-sha256', solver_pin[1],
+                    '--checkpoint-module', AUX['checkpoint_module'][0], '--checkpoint-module-sha256', AUX['checkpoint_module'][1],
+                    '--outdir', att, '--checkpoint-directory', cp, '--start-iteration', '0']
+         if ra_workers > 1:
+             ra_argv += ['--column-workers', str(ra_workers)]
++        if uvt is not None:  # C2V010 (u): tail request, certificates, new sidecar directory (the controller creates it)
++            ra_argv += uvx['route_a_argv'] + ['--uv-tail-sidecar-directory', d / 'uv_tail_sidecar']
++        if ro1_off:  # C2V010 r4 (R5): the RO1 worker CLI with a tail-disabled request (sidecar never created)
++            off_p, off_s = ctx.write_input('uv_tail_route_a_request_tail_off_ro1.json', ro1_off_request())
++            ra_argv += ['--uv-tail-config', off_p, '--uv-tail-config-sha256', off_s, '--eps-certificate', UVT_TEST_ONLY,
++                        '--eps-certificate-sha256', UVT_TEST_ONLY, '--lo-certificate', UVT_TEST_ONLY, '--lo-certificate-sha256', UVT_TEST_ONLY,
++                        '--uv-tail-sidecar-directory', d / 'uv_tail_sidecar']
+         req = ctx.request('route_a', 'route_a', ra_argv, module_patches=patches)
+         if ra_workers > 1:
+             req['script'], req['script_sha256'] = str(PARALLEL_ROUTE_A['worker'][0]), PARALLEL_ROUTE_A['worker'][1]
++        if uvt is not None:  # C2V010 (u): the RO1 successors of the uvtail workers (same CLI and LOCAL keys); r4: nodes -> nodes workers
++            w = uvt_act['route_a']['worker'] if ra_workers == 1 else uvt_act['route_a']['worker_parallel']
++            req['script'], req['script_sha256'] = str(w[0]), w[1]
++        if ro1_off:  # C2V010 r4 (R5): tail OFF on the RO1 c2v002 workers, the v009 solvers
++            w = RO1_ROUTE_A['worker'] if ra_workers == 1 else RO1_ROUTE_A['worker_parallel']
++            req['script'], req['script_sha256'] = str(w[0]), w[1]
+         if prep_key in ('prep_v008', 'prep_v009'):  # C2V009 (a): v009 is injected the same way as v008
+             req['stage_dict_items'] = {'LOCAL': {'prep': {'path': str(prep_path), 'sha256': prep_sha}}}
+         ctx.run_stages([req], [d])
+@@ -2282,6 +2865,13 @@
+             'column_workers': ra_workers, 'kind': 'REVIEWED_SERIAL' if ra_workers == 1 else 'PARALLEL_C2V001',
+             'worker': {'path': req['script'], 'sha256': req['script_sha256']},
+             'solver': {'path': str(solver_pin[0]), 'sha256': solver_pin[1]}}
++        if uvt is not None:  # C2V010 (u)
++            info['route_a']['implementation']['kind'] = (('UVTAIL_NODES_RO1_SERIAL_C2V001' if ra_workers == 1 else 'UVTAIL_NODES_RO1_PARALLEL_C2V001')
++                                                         if uvt_is_nodes(sp['numerics'].get('uv_tail')) else
++                                                         ('UVTAIL_RO1_SERIAL_C2V001' if ra_workers == 1 else 'UVTAIL_RO1_PARALLEL_C2V001'))
++        if ro1_off:  # C2V010 r4 (R5)
++            info['route_a']['implementation']['kind'] = 'TAIL_OFF_RO1_SERIAL_C2V010R4' if ra_workers == 1 else 'TAIL_OFF_RO1_PARALLEL_C2V010R4'
++            info['route_a']['implementation']['ro1_workers'] = True
+     if not ngc:
+         info['route_a']['prep'] = dict(prep_info, role=('used by this call' if info['route_a']['mode'] == 'computed' else
+                                                         'expected for this grid; the admitted checkpoint records its own (custody.prep_code_pins)'))
+@@ -2306,7 +2896,18 @@
+             raise Refusal('admitted checkpoint identity differs from declared')
+         if ngc and cust['identity_sha256'] != sp['route_a_inputs']['identity_sha256']:
+             raise Refusal('NGC route-A checkpoint identity differs from route_a_inputs.identity_sha256')
++        if uvt is None:  # C2V010 (u): a tail-OFF call never admits a tail-ON route A (never fires on v009 checkpoints)
++            uvt_route_a_identity_check(cp, None)
++        elif uvt['config_sha256'] is not None:
++            uvx['route_a_checkpoint_tail'] = uvt_route_a_identity_check(cp, uvt['config_sha256'])
++        else:
++            uvx['route_a_checkpoint_tail'] = 'PENDING (certificate sentinel: config sha unknown)'
+     else:
++        # C2V010 (m2): the R-A F-A fix (REVIEW_DRIVER_V008_C4_V001 sec 6, f0987f41), before any outcome verdict.
++        if not ngc and info['route_a']['mode'] == 'admitted':
++            raise Refusal('ROUTE_A_CHECKPOINT_MISSING: %s/IDENTITY.json absent; admitted attempt cannot be paired (D1)' % cp)
++        if info['route_a']['mode'] == 'computed' and ctx.mode == 'run' and ra_outcome is not None:
++            raise StageFailed('ROUTE_A_RESULT_WITHOUT_CHECKPOINT: %s' % cp)
+         if ra_outcome is not None:  # C2V007 (a) F1 (c2v003c): no checkpoint but a returned result -> outcome first
+             require_route_a_fixed_point(ra_outcome)
+         if ngc and not route_a_inputs_pending(sp['route_a_inputs']):  # c2v006: a supplied NGC route A must have its checkpoint
+@@ -2319,6 +2920,46 @@
+         info['route_a']['route_a_rows'] = ra['result']['result']['rows']
+         if geo is not None:
+             info['route_a']['route_a_rows_scope'] = geo['record']['route_a_rows']  # c2v003b
++    if uvt is not None:  # C2V010 (u): the route-A tail record, then the manifest stage (reference, body, offset read it)
++        u = ((ra or {}).get('result') or {}).get('uv_tail') if ra is not None else None
++        if ra is not None and not isinstance(u, dict):
++            raise StageFailed('UV_TAIL_ROUTE_A_RECORD_MISSING: %s has no result.uv_tail (a tail-OFF route A in a tail-ON call?)' % att_res)
++        if isinstance(u, dict) and uvt['config_sha256'] is not None and u.get('config_sha256') != uvt['config_sha256']:
++            raise Refusal('UVT_ADMISSION_MISMATCH: route-A result tail config %r is not this call config %s' % (u.get('config_sha256'), uvt['config_sha256']))
++        uvx['route_a_record'] = None if not isinstance(u, dict) else {k: u.get(k) for k in (
++            'outcome', 'accepted_iteration', 'M_T_accepted', 'M_T_threshold', 'monitor_status', 'flags', 'production_admissible',
++            'boundary_state_digest_at_return', 'config_sha256', 'request_sha256', 'admissibility', 'E_A_rows_km_s_accepted', 'sidecar')}
++        if uvx['route_a_record'] is not None:  # C2V010 r4 (R3; A50 item 13): the E^A row radii, in the request's probe order
++            uvx['route_a_record'].update(probe_R_m=list(uvx['monitor_probe_R_m']), probe_phi_rad=list(uvx['monitor_probe_phi_rad']),
++                                         probe_source='uv_tail request monitor (binding f42c7c65 query_rows[].radius_m; seed azimuths)')
++        d = ctx.stage_dir('route_a_tail_manifest')
++        mdir = d / 'manifest'
++        margv = ['--seed', seed_path, '--seed-sha256', seed_sha, '--attempt-directory', att, '--checkpoint-directory', cp,
++                 '--checkpoint-module', AUX['checkpoint_module'][0], '--checkpoint-module-sha256', AUX['checkpoint_module'][1],
++                 '--uv-tail-request', uvx['request']['path'], '--uv-tail-request-sha256', uvx['request']['sha256'], '--outdir', mdir]
++        mreq = ctx.request('route_a_tail_manifest', 'route_a_tail_manifest', margv, module_patches=uvx['prep_patches'])
++        if prep_key in ('prep_v008', 'prep_v009'):  # the same prep the route-A worker ran (LOCAL['prep'] dict item)
++            mreq['stage_dict_items'] = {'LOCAL': {'prep': {'path': str(prep_path), 'sha256': prep_sha}}}
++        ctx.run_stages([mreq], [d])
++        uvx['manifest'] = {'path': str(mdir / 'ROUTE_A_TAIL_MANIFEST.json'), 'sha256': ctx.finish_sha(mdir, 'ROUTE_A_TAIL_MANIFEST.json')}
++        if (mdir / 'finish.json').is_file():
++            mf = json.loads((mdir / 'finish.json').read_text())
++            uvx['manifest'].update(state_digest=mf.get('state_digest'), empty=mf.get('empty'), production_admissible=mf.get('production_admissible'))
++
++    def uvt_argv(kind, source_rotation=None):
++        """C2V010 (u): the tail argv of a route-B uvt successor ([] when tail OFF): config, manifest (reference, body,
++        offset), the call truncation for the masked kinds, the source rotation (rfs/le columns, le rotation)."""
++        if uvt is None:
++            return []
++        bk = UVT_BINDING_KIND[kind]
++        a = ['--uv-tail-config', uvx['config']['path'], '--uv-tail-config-sha256', uvx['config']['sha256']] + uvx['test_only_flag']
++        if bk in ('reference', 'body', 'offset'):
++            a += ['--route-a-tail-manifest', uvx['manifest']['path'], '--route-a-tail-manifest-sha256', uvx['manifest']['sha256']]
++        if bk not in ('reference', 'body') and uvx['truncation_argv'] is not None:
++            a += ['--uv-tail-truncation', uvx['truncation_argv']]
++        if bk in ('rfs_columns', 'le_columns', 'le_rotation'):
++            a += ['--uv-tail-source-rotation-directory', source_rotation]
++        return a
+     ident = cust['identity_sha256']
+     it = cust['iteration']
+     info['route_a']['reported_final_iteration'] = it
+@@ -2354,11 +2995,14 @@
+         verify_pin(ref / 'finish.json', adm['reference']['finish_sha256'], 'admitted reference finish')
+         if not ngc and json.loads((ref / 'start.json').read_text())['source_custody']['sha256'] != profile_sha:  # C2V008 (a), c2v003b
+             raise Blocked('REFERENCE_GEOMETRY_MISMATCH: admitted reference was not built from this call source profile')
++        r_t = uvt_admitted_record_check(ref / 'start.json', uvt, 'reference')  # C2V010 (u)
++        if uvt is not None:
++            uvx['admitted_reference_tail'] = r_t
+     else:
+         d = ctx.stage_dir('reference')
+         ref = d / 'reference' if ctx.mode == 'run' else ctx.saved_or('reference', d / 'reference')
+         req = gen_request('reference', 'reference', common + ['--reference-module', AUX['reference_module'][0],
+-                          '--reference-sha256', AUX['reference_module'][1], '--outdir', ref], stage_globals=ref_globals)
++                          '--reference-sha256', AUX['reference_module'][1], '--outdir', ref] + uvt_argv('reference'), stage_globals=ref_globals)
+         ctx.run_stages([req], [d])
+     percall['custody.reference_run'] = {'directory': str(ref), 'start_sha256': ctx.finish_sha(ref, 'start.json'),
+                                         'finish_sha256': ctx.finish_sha(ref)}
+@@ -2369,10 +3013,13 @@
+         verify_pin(body / 'finish.json', adm['body']['finish_sha256'], 'admitted body finish')
+         if not ngc and src_sha not in json.loads((body / 'start.json').read_text())['input_pins'].values():  # C2V008 (a), c2v003b
+             raise Blocked('BODY_GEOMETRY_MISMATCH: admitted body was not built from this call monotone source')
++        b_t = uvt_admitted_record_check(body / 'finish.json', uvt, 'body')  # C2V010 (u)
++        if uvt is not None:
++            uvx['admitted_body_tail'] = b_t
+     else:
+         d = ctx.stage_dir('body')
+         body = d / 'body' if ctx.mode == 'run' else ctx.saved_or('body', d / 'body')
+-        req = gen_request('body', 'body', common + ['--outdir', body], module_patches=[reuse_patch])
++        req = gen_request('body', 'body', common + ['--outdir', body] + uvt_argv('body'), module_patches=[reuse_patch])
+         ctx.run_stages([req], [d])
+     body_fin = ctx.finish_sha(body)
+     percall['custody.body_worker_sha256'] = producer([body], 'body', 'config custody.body_worker_sha256', 'offset', admitted='body' in adm)
+@@ -2381,7 +3028,7 @@
+     d = ctx.stage_dir('offset')
+     off = d / 'offset' if ctx.mode == 'run' else ctx.saved_or('offset', d / 'offset')
+     req = gen_request('offset', 'offset', common + ['--body-directory', body, '--body-finish-sha256', body_fin,
+-                      '--wave-batch', FA['wave_batch'], '--position-batch', FA['position_batch'], '--outdir', off],
++                      '--wave-batch', FA['wave_batch'], '--position-batch', FA['position_batch'], '--outdir', off] + uvt_argv('offset'),
+                       module_patches=[reuse_patch], mask=mask)
+     ctx.run_stages([req], [d])
+     if mask is not None:
+@@ -2481,17 +3128,17 @@
+         table = {str(i): list(rule['fs_absolute_overrides'].get(str(i), template['enthalpy_bracket'])) for i in range(n)}
+         fs_plan = generated_runs('fs', table, v001=True)
+         checks['fs'] = rule_vs_saved(g, 'fs', table)
+-    fs_dirs = column_pass('fs', 'columns_v001', [], fs_plan)
++    fs_dirs = column_pass('fs', 'columns_v001', [] + uvt_argv('columns_v001'), fs_plan)
+     mpath, msha = manifest('fs', fs_dirs)
+     d = ctx.stage_dir('fs_rotation')
+     fs_rot = d / 'rotation' if ctx.mode == 'run' else ctx.saved_or('fs_rotation', d / 'rotation')
+-    fs_col_producer = producer_pin('columns_v001', producer(fs_dirs, 'columns_v001', 'config producer_pins.column_worker', 'fs_rotation'))
++    fs_col_producer = producer_pin('columns_v001', producer(fs_dirs, 'columns_v001', 'config producer_pins.column_worker', 'fs_rotation'), uvt_extra)
+     ctx.run_stages([gen_request('fs_rotation', 'rotation_v001', base + ['--column-manifest', mpath, '--column-manifest-sha256', msha,
+-                    '--mass-relative-tolerance', FA['mass_relative_tolerance'], '--outdir', fs_rot],
++                    '--mass-relative-tolerance', FA['mass_relative_tolerance'], '--outdir', fs_rot] + uvt_argv('rotation_v001'),
+                     module_patches=[reuse_patch], mask=mask, producers={'column_worker': fs_col_producer})], [d])
+     d = ctx.stage_dir('fs_feedback')
+     fs_fb = d / 'feedback' if ctx.mode == 'run' else ctx.saved_or('fs_feedback', d / 'feedback')
+-    fs_rot_producer = producer_pin('rotation_v001', producer([fs_rot], 'rotation_v001', 'config producer_pins.rotation_worker', 'fs_feedback'))
++    fs_rot_producer = producer_pin('rotation_v001', producer([fs_rot], 'rotation_v001', 'config producer_pins.rotation_worker', 'fs_feedback'), uvt_extra)
+     ctx.run_stages([gen_request('fs_feedback', 'feedback_v002', base + ['--rotation-directory', fs_rot,
+                     '--rotation-finish-sha256', ctx.finish_sha(fs_rot), '--wave-batch', FA['wave_batch'],
+                     '--position-batch', FA['position_batch'], '--bessel-cache-entries', FA['bessel_cache_entries'],
+@@ -2518,10 +3165,11 @@
+         rfs_dirs = ['PENDING(rfs columns)']
+         ctx.records.append({'name': 'rfs_columns', 'executed': False, 'note': 'controls depend on fs column enthalpies (rule mode)'})
+     else:
+-        rfs_dirs = column_pass('rfs', 'columns_v003', rfs_args, rfs_plan)
++        rfs_dirs = column_pass('rfs', 'columns_v003', rfs_args + uvt_argv('columns_v003', fs_rot), rfs_plan)
+ 
+     # ---------------- LE Picard passes (v005 / v005 / v004 + column mean v004, all gal_c2v003)
+     field_dir, field_sha = fs_fb, fs_fb_sha
++    field_rot = fs_rot  # C2V010 (u): the rotation the current field's feedback transformed
+     field_worker = producer([fs_fb], 'feedback_v002', '--feedback-worker-sha256', 'le1 field')  # c2v004 (run: c2v003 value)
+     prev_dirs = rfs_dirs
+     prev_speeds = None
+@@ -2548,7 +3196,7 @@
+             ctx.records.append({'name': tag + '_columns', 'executed': False, 'note': 'controls depend on previous column enthalpies'})
+             break
+         cols = column_pass(tag, 'columns_v005', ['--feedback-directory', field_dir, '--feedback-finish-sha256', field_sha,
+-                           '--feedback-worker-sha256', field_worker, '--entropy-scale', efs], plan)
++                           '--feedback-worker-sha256', field_worker, '--entropy-scale', efs] + uvt_argv('columns_v005', field_rot), plan)
+         mpath, msha = manifest(tag, cols)
+         d = ctx.stage_dir(tag + '_rotation')
+         rot = d / 'rotation' if ctx.mode == 'run' else ctx.saved_or(tag + '_rotation', d / 'rotation')
+@@ -2556,7 +3204,7 @@
+                         '--feedback-directory', field_dir, '--feedback-finish-sha256', field_sha,
+                         '--column-worker-sha256', producer(cols, 'columns_v005', '--column-worker-sha256', tag + '_rotation'),
+                         '--feedback-worker-sha256', field_worker,
+-                        '--mass-relative-tolerance', FA['mass_relative_tolerance'], '--outdir', rot, '--entropy-scale', efs],
++                        '--mass-relative-tolerance', FA['mass_relative_tolerance'], '--outdir', rot, '--entropy-scale', efs] + uvt_argv('rotation_v005', field_rot),
+                         module_patches=[reuse_patch], mask=mask)], [d])
+         pass_rec = {'pass': p, 'columns': [str(x) for x in cols], 'rotation': str(rot), 'field': str(field_dir)}
+         rf = Path(rot) / 'finish.json'
+@@ -2587,7 +3235,7 @@
+                     [str(Path(cols[0]) / 'finish.json'), ctx.finish_sha(cols[0])]]
+             percall['custody.column_mean_input_pins'] = pins  # c2v004: was stage global PINS
+             rot_worker = rotation_producer_pin(producer([rot], 'rotation_v005', 'config producer_pins.rotation_worker',
+-                                                        tag + '_column_mean'))
++                                                        tag + '_column_mean'), uvt_extra)
+             ctx.run_stages([gen_request(tag + '_column_mean', 'column_mean_v004', ['--outdir', obsd], tag=tag,
+                                         producers={'rotation_worker': rot_worker})], [d])
+             rp = Path(obsd) / 'result.json'
+@@ -2625,6 +3273,7 @@
+                         '--current-feedback-worker-sha256', field_worker],
+                         module_patches=[reuse_patch], mask=mask)], [d])
+         field_dir, field_sha = fb, ctx.finish_sha(fb)
++        field_rot = rot  # C2V010 (u)
+         field_worker = producer([fb], 'feedback_v004', '--feedback-worker-sha256', 'le%d field' % (p + 1))
+         prev_dirs = cols
+     info['bracket_rule_checks'] = checks
+@@ -2632,6 +3281,8 @@
+     info['galaxy_config']['stage_configs'] = [m for _, _, m in gc_written.values()]
+     info['refusals'] = refusals
+     info['percall_known'] = {k: v for k, v in percall.items()}
++    if uvx is not None:  # C2V010 (u): tail-ON record (absent for tail OFF)
++        info['uv_tail'] = uvx
+     return info, final
+ 
+ 
+@@ -2759,6 +3410,10 @@
+     if nspec['galaxy'] == 'DDO154' and geometry_active(nspec):  # C2V008 (a), c2v003b: inputs of the per-call geometry derivation
+         for key, (path, sha) in GEOMETRY_PINS.items():
+             pins[str(path)] = verify_pin(path, sha, 'geometry ' + key)
++    if 'uv_tail' in (nspec.get('numerics') or {}):  # C2V010 (u): tail-ON code and data pins, only when declared
++        pins.update(uvt_static_pins(uvt_is_nodes(nspec['numerics']['uv_tail'])))
++    elif route_a_ro1_workers(nspec):  # C2V010 r4 (R5): tail OFF on the RO1 workers
++        pins.update(ro1_off_pins())
+     return pins
+ 
+ 
+@@ -2850,7 +3505,9 @@
+                  'scope': 'Route-B m0 forward call; no observed velocity read, no score, no calibration admission.'})
+         # c2v004/c2v005: fail closed before any stage on a binding blocker found from bytes (see binding_blockers);
+         # NGC3198: execute_chain raises Blocked at the first remaining refusal, before any stage it would feed.
+-        bb = binding_blockers()
++        _nodes = uvt_is_nodes(nspec['numerics'].get('uv_tail'))  # C2V010 r4
++        bb = (binding_blockers() + (ro1_off_blockers() if route_a_ro1_workers(nspec) else [])) if 'uv_tail' not in nspec['numerics'] else (
++            binding_blockers(dict(SCRIPTS, **uvt_active(_nodes)['scripts'])) + uvt_binding_blockers(_nodes))  # C2V010 (u): tail ON, active tables
+         if bb:
+             result['binding_blockers'] = bb
+             raise Blocked(' | '.join(bb))
+@@ -2922,6 +3579,8 @@
+         if ctx.geometry is not None:  # C2V008 (a): per-call geometry record and the stage-admission probe, every status
+             result['geometry'] = ctx.geometry
+         result['stage_records'] = ctx.records
++        if ctx.uv_tail is not None:  # C2V010 (u): tail record + each tail stage's finish.json tail record, every status
++            result['uv_tail'] = dict(ctx.uv_tail, stage_records=uvt_stage_records(ctx.records))
+         if ctx.spec.get('reference_compare'):
+             result['reference_comparison'] = reference_comparison(ctx.records, GALAXIES[ctx.spec['galaxy']].get('saved_runs', {}))
+             result['deciding_test'] = deciding_test_verdict(result['reference_comparison'], ctx.passes)  # c2v004
+@@ -3037,6 +3696,13 @@
+     # C2V007 (b): with a parallel route A the scan also covers the parallel worker (its LOCAL pins) and solver.
+     report['transitive_pins'] = (transitive_pins_and_scipy() if route_a_column_workers(nspec) == 1 else
+                                  transitive_pins_and_scipy(list(SCRIPTS.values()) + list(AUX.values()) + list(PARALLEL_ROUTE_A.values())))
++    if 'uv_tail' in nspec['numerics']:  # C2V010 (u): tail ON scans the active scripts and every tail-ON code pin
++        _nodes = uvt_is_nodes(nspec['numerics']['uv_tail'])  # C2V010 r4
++        report['transitive_pins'] = transitive_pins_and_scipy(uvt_scan_roots(dict(SCRIPTS, **uvt_active(_nodes)['scripts']), _nodes) + list(PARALLEL_ROUTE_A.values()))
++    elif route_a_ro1_workers(nspec):  # C2V010 r4 (R5): tail OFF on the RO1 workers
++        report['transitive_pins'] = transitive_pins_and_scipy(list(SCRIPTS.values()) + list(AUX.values()) + list(PARALLEL_ROUTE_A.values())
++                                                              + [RO1_ROUTE_A[k] for k in ('worker', 'worker_parallel', 'binding')]
++                                                              + [AUX_UVT['facade'], AUX_UVT['controller']] + list(UVT_LIB.values()))
+     report['coefficient_npz_headers'] = _npz_headers(nspec['coefficients']['path'])
+     if nspec['galaxy'] == 'DDO154':
+         seed_obj, changed, reusable = per_call_seed(nspec)
+@@ -3044,7 +3710,7 @@
+         repro_like = reusable and nspec['numerics']['truncation']['shape'] == 'cube' and \
+             nspec['physical']['entropy_K_factor'] == g['default_entropy_K_factor'] and \
+             nspec['coefficients']['sha256'] == g['default_coefficients'][1] and nspec['numerics']['picard']['passes'] == 3 and \
+-            not geometry_active(nspec)  # C2V008 (a), c2v003b: saved outputs exist only at the registered geometry
++            not geometry_active(nspec) and 'uv_tail' not in nspec['numerics']  # C2V008 (a), c2v003b; C2V010 (u): saved outputs are tail OFF
+     else:  # c2v005 NGC3198 route B: the seed is the route-A lane's (route_a_inputs), never composed here
+         report['seed'] = {'source': 'route_a_inputs.seed', 'route_a_inputs': nspec['route_a_inputs']}
+         repro_like = False
+@@ -3053,7 +3719,8 @@
+     info, final = execute_chain(ctx)
+     report['identity'] = info
+     # c2v004: binding blockers and the fields each successor consumes (from its own module constants)
+-    report['binding_blockers'] = binding_blockers()
++    report['binding_blockers'] = ((binding_blockers() + (ro1_off_blockers() if route_a_ro1_workers(nspec) else [])) if ctx.uv_tail is None else
++                                  binding_blockers(ctx.scripts) + uvt_binding_blockers(ctx.uv_tail.get('source_rule') == 'nodes_v001'))  # C2V010 (u); r4
+     consumed = {k: consumed_fields(k) for k in GENERALIZED}
+     cp_ra = Path(info['route_a']['checkpoint'])
+     ident_ra = info['route_a']['custody']['identity_sha256']
+@@ -3072,7 +3739,7 @@
+             row['dropped_stage_globals'] = gen['dropped_globals']
+             row['omitted_fields_consumed'] = sorted(set(gm['omitted_per_call_fields']) & set(consumed[rec['kind']]))
+             if gm['written']:
+-                row['stage_admission'] = probe_stage_admission(rec['kind'], gm['path'], gm['sha256'])
++                row['stage_admission'] = probe_stage_admission(rec['kind'], gm['path'], gm['sha256'], ctx.scripts)  # C2V010: active script
+             else:
+                 row['stage_admission'] = 'PENDING (config not written: per-call fields %s pending in simulate)' % gm['pending_fields']
+                 row['pending_probe'] = gm.get('pending_probe')  # c2v005: the successor's own admission on a placeholder copy
+@@ -3179,6 +3846,17 @@
+     report['summary']['overrides_wording'] = '%d of %d identity overrides are no-ops' % (
+         report['summary']['overrides_noop_identical'], report['summary']['overrides_total'])
+     report['summary']['route_a_prep'] = info.get('route_a', {}).get('prep')
++    if ctx.uv_tail is not None:  # C2V010 (u): tail-ON plan record and summary (absent for tail OFF)
++        report['uv_tail'] = ctx.uv_tail
++        report['summary']['uv_tail'] = {
++            'admissibility': ctx.uv_tail['admissibility'], 'pending_certificates': ctx.uv_tail['pending_certificates'],
++            'source_rule': ctx.uv_tail.get('source_rule'), 'nodes_ext_context': ctx.uv_tail.get('nodes_ext_context'),  # C2V010 r4
++            'domain_empty_all_stages': ctx.uv_tail['domain_empty_all_stages'], 'outer': ctx.uv_tail['outer'],
++            'kept_regions': {k: v['kept'] for k, v in ctx.uv_tail['kept_regions'].items()},
++            'route_a_worker': [x['script_sha256'] for x in stages if x['kind'] == 'route_a'],
++            'tail_stage_scripts': {x['name']: x['script_sha256'] for x in stages if x['kind'] in UVT_TAIL_KINDS + ('route_a_tail_manifest',)},
++            'refusal_classes_beyond_pending': sorted({it['class'] for it in report['remaining_refusals']['items']
++                                                      if it['class'] not in EXPECTED_PENDING_CLASSES})}
+     lines = ['DRY-RUN PLAN %s  (spec %s)' % (nspec.get('label', ''), report['call_spec_sha256']), '']
+     if info.get('geometry'):  # C2V008 (a): only at a per-call geometry (the registered-geometry report is unchanged)
+         gp = info['geometry']['stage_admission_probe']
+@@ -3190,6 +3868,16 @@
+                      % (info['geometry']['distance_Mpc'], sorted(info['geometry']['files']), gp['admitted'], gp['controls_accepted']))
+         for kind, msg in sorted(gp['refused'].items()):
+             lines.append('  REFUSED by %s own admission: %s' % (kind, msg))
++        lines.append('')
++    if ctx.uv_tail is not None:  # C2V010 (u)
++        u = ctx.uv_tail
++        lines.append('UV TAIL (C2V010): admissibility %s; outer %s; K %.6g/kpc; all stage domains empty: %s; pending certificates: %s'
++                     % (u['admissibility'], u['outer'], u['K_inverse_kpc'], u['domain_empty_all_stages'], u['pending_certificates'] or 'none'))
++        lines.append('UV TAIL source rule (r4): %s%s' % (u.get('source_rule'), '' if not u.get('nodes_ext_context') else
++                     '; ext grid %s (%d extra nodes)' % (u['nodes_ext_context']['ext_spec']['version'] if 'version' in u['nodes_ext_context']['ext_spec'] else '?',
++                                                      u['nodes_ext_context']['n_ext_nodes'])))
++        for k, v in u['kept_regions'].items():
++            lines.append('  kept %-14s %-12s %s empty=%s' % (k, v['binding_kind'], v['kept'], v['domain_empty']))
+         lines.append('')
+     for b in report['binding_blockers']:  # c2v004
+         lines.append('BINDING BLOCKER (run mode refuses before any stage): ' + b)
+@@ -3763,7 +4451,7 @@
+     if (str(coeff.get('path')), coeff.get('sha256')) != (str(g['default_coefficients'][0]), g['default_coefficients'][1]):
+         raise Refusal('NGC c2v002: only the default coefficient grid fe5a2f06 (hard-coded in NGC prep v001) is supported')
+     num = spec.get('numerics', {})
+-    _strict(num, ('composite_grid_spec', 'k_domain', 'h2_tail_mass_rtol', 'truncation'), 'numerics')
++    _strict(num, ('composite_grid_spec', 'k_domain', 'h2_tail_mass_rtol', 'truncation', 'uv_tail'), 'numerics')  # C2V010 (K16): + uv_tail
+     tr = num.get('truncation', {'shape': 'cube'})
+     _strict(tr, ('shape',), 'truncation')
+     if tr.get('shape', 'cube') != 'cube':
+@@ -3790,7 +4478,8 @@
+         raise Refusal('NGC: numerics.h2_tail_mass_rtol (positive finite) is required by the reviewed worker; no reviewed value exists')
+     return {'schema': NGC_SCHEMA, 'config': 'NGC3198_C2V002', 'galaxy': 'NGC3198', 'label': spec.get('label', ''), 'physical': p,
+             'coefficients': {'path': str(coeff['path']), 'sha256': coeff['sha256']},
+-            'numerics': {'composite_grid_spec': grid, 'k_domain': kd, 'h2_tail_mass_rtol': float(tol), 'truncation': {'shape': 'cube'}}}
++            'numerics': dict({'composite_grid_spec': grid, 'k_domain': kd, 'h2_tail_mass_rtol': float(tol), 'truncation': {'shape': 'cube'}},
++                             **({'uv_tail': normalize_uv_tail(num['uv_tail'], ngc=True)} if 'uv_tail' in num else {}))}  # C2V010 (K16); r4: nodes refused
+ 
+ 
+ def ngc_seed(nspec):
+@@ -4030,17 +4719,33 @@
+     return {'galaxy_config': {'path': gc['path'], 'sha256': gc['sha256']}, 'stages': out}
+ 
+ 
+-def ngc_stage_plan(seed_path, seed_sha, stages_dir, admission=None):
++def ngc_stage_plan(seed_path, seed_sha, stages_dir, admission=None, uvt=None):
+     d = Path(stages_dir) / '01_route_a_ngc43'
+     script, sha = NGC_CODE['worker']
++    if uvt is not None:  # C2V010 (K16): tail ON plans the v002-lineage RO1 uvtail NGC worker, never NGC_CODE v001
++        script, sha = NGC_CODE_UVT['worker']
+     argv = ['--seed', str(seed_path), '--seed-sha256', seed_sha, '--solver', str(AUX['solver'][0]), '--solver-sha256', AUX['solver'][1],
+             '--checkpoint-module', str(AUX['checkpoint_module'][0]), '--checkpoint-module-sha256', AUX['checkpoint_module'][1],
+             '--outdir', str(d / 'attempt_000'), '--checkpoint-directory', str(d / 'checkpoint'), '--start-iteration', '0']
++    if uvt is not None:  # C2V010 (K16): the uvtail solver and the tail argv (request not composed here: NGC route A is the NGC lane's)
++        argv[argv.index('--solver') + 1] = str(AUX_UVT['solver'][0])
++        argv[argv.index('--solver-sha256') + 1] = AUX_UVT['solver'][1]
++        argv += ['--uv-tail-config', 'PENDING_NGC_UV_TAIL_REQUEST(route-A request composed by the NGC route-A lane)',
++                 '--uv-tail-config-sha256', 'PENDING_NGC_UV_TAIL_REQUEST_SHA256', '--eps-certificate', 'PENDING', '--eps-certificate-sha256',
++                 'PENDING', '--lo-certificate', 'PENDING', '--lo-certificate-sha256', 'PENDING', '--uv-tail-sidecar-directory', str(d / 'uv_tail_sidecar')]
+     plan = [{'name': 'route_a_ngc43', 'kind': 'route_a_ngc43', 'script': str(script), 'script_sha256': sha, 'argv': argv,
+              'command': [PY, '-I', '-B', str(script)] + argv, 'executed': False,
+              'status': 'PLANNED_BLOCKED (see caller_contract_check)',
+              'cost_estimate': 'ESTIMATE_NOT_MEASURED: DDO route A = 1594 s for 72x8 = 576 gas columns, 12 queries; NGC has up to '
+                               '51x4x8 = 1632 gas columns and 43 queries, so roughly 1.3-1.5 h serial if column work dominates'}]
++    if uvt is not None:  # C2V010 (K16): the declared plan difference
++        plan[0]['ngc_code_lineage_swap'] = {
++            'from': {k: [str(p), s] for k, (p, s) in NGC_CODE.items() if k in ('worker', 'binding')},
++            'to': {k: [str(p), s] for k, (p, s) in NGC_CODE_UVT.items()},
++            'evidence': [str(NGC_CODE_UVT['lineage_evidence'][0]), NGC_CODE_UVT['lineage_evidence'][1]],
++            'uv_tail_config_sha256': uvt_info(uvt)['config_sha256'],
++            'status': 'PLANNED_ONLY: tail-ON NGC route A runs on the v002-lineage code of the live NGC route-A packet; this '
++                      'configuration plans and never launches it; NGC route B with the tail is not bound (DDO154 only)'}
+     adm = {a['stage']: a for a in ((admission or {}).get('stages') or [])}
+     for name in ('reference', 'body', 'offset', 'fs_columns', 'fs_rotation', 'fs_feedback', 'rfs_columns',
+                  'le_columns', 'le_rotation', 'le_feedback', 'le_column_mean'):
+@@ -4095,7 +4800,19 @@
+         reasons.append('worker status %s' % fin.get('status'))
+     if sha256_file(result_path) != fin.get('result_sha256'):
+         reasons.append('result sha256 differs from worker finish.json')
+-    x = json.loads(Path(result_path).read_text())['result']['result']
++    ra = json.loads(Path(result_path).read_text())  # RO1 (A49.3): the whole result, for the ro1 record
++    x = ra['result']['result']
++    sfp = x.get('source_fixed_point') if isinstance(x.get('source_fixed_point'), dict) else {}
++    ro1, ro1_fired = ro1_outcome(ra, x, result_path, sfp.get('converged_finite_fixed_point') is True
++                                 and (sfp.get('checkpoint') or {}).get('outcome') == ROUTE_A_CONVERGED)
++    if ro1_fired:  # RO1 (A49.3): converged fixed point, readout refused: rows None recorded (no TypeError), not valid
++        reasons.append('RO1: route-A circular-trial readout refused after a converged fixed point (%s); no route-A rows'
++                       % ro1['events'][0].get('refusal'))
++        return {'rows': None, 'speeds_km_s': None, 'valid': False, 'reasons': reasons, 'ro1': ro1,
++                'validity_definition': 'worker RETURNED_ACTUAL_RESULT, result sha matches, 43 manifest ids in order, finite speeds, '
++                                       'converged source fixed point, predictions_available',
++                'm_ge_1_diagnostics': None, 'dynamics_status': x.get('dynamics_status'), 'accepted_for_calibration': False,
++                'route': 'ROUTE_A_ONLY (route B blocked)'}
+     rows = x['rows']
+     if [r['id'] for r in rows] != ids:
+         reasons.append('row ids are not the 43 manifest ids in order')
+@@ -4165,7 +4882,7 @@
+     pins, review, sources, seed, seed_path, seed_sha, kd = _ngc_collect(nspec, out / 'inputs', writer)
+     contract = ngc_caller_contract_check()
+     admission = ngc_route_b_admission(out / 'inputs', writer)  # c2v004
+-    plan = ngc_stage_plan(seed_path, seed_sha, out / 'stages', admission)
++    plan = ngc_stage_plan(seed_path, seed_sha, out / 'stages', admission, nspec['numerics'].get('uv_tail'))  # C2V010 (K16)
+     _write_x(out / 'start.json', {'schema': NGC_RESULT_SCHEMA, 'utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+              'pid': os.getpid(), 'driver': str(Path(__file__).resolve()), 'driver_sha256': result['driver_sha256'],
+              'call_spec_sha256': spec_sha, 'normalized_spec': nspec, 'static_pins': pins,
+@@ -4190,7 +4907,7 @@
+     pins, review, sources, seed, seed_path, seed_sha, kd = _ngc_collect(nspec, rd / 'simulated_call' / 'inputs', writer)
+     contract = ngc_caller_contract_check()
+     admission = ngc_route_b_admission(rd / 'simulated_call' / 'inputs', writer)  # c2v004
+-    plan = ngc_stage_plan(seed_path, seed_sha, rd / 'simulated_call' / 'stages', admission)
++    plan = ngc_stage_plan(seed_path, seed_sha, rd / 'simulated_call' / 'stages', admission, nspec['numerics'].get('uv_tail'))  # C2V010 (K16)
+     locals_ = ngc_prep_local_modules()
+     roots = [v for v in NGC_CODE.values()] + [AUX['solver'], AUX['checkpoint_module']] + \
+         [(x['path'], x['sha256']) for x in locals_ if x['exists']]

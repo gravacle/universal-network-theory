@@ -1,0 +1,48 @@
+{
+  "schema": "CX1_REVIEW_C3_ROOT_RECORDS_V001",
+  "utc": "2026-10-22T13:41:07.717161+00:00",
+  "reviewer": "Codex1",
+  "author": "Claude3",
+  "status": "CHANGES_REQUIRED",
+  "blocking_count": 1,
+  "tool": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_c3/l2_root_records_writer_c3v001.py",
+    "sha256": "d17b1306565d003606fd78f46c8cb09509cc7672e48ac6387cdfebd81824123e"
+  },
+  "suite": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/c3_writer_review_20261022T133939280464Z/TEST_RECORD.json",
+    "sha256": "3b68a97b6908268a09a906a80ac765a095694a16e96d0be932420ee41e196b85"
+  },
+  "suite_result": "19/19 PASS on fixedPython3.12 -I -B in fresh inertfixtures",
+  "additional_probes": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/c3_writer_review_20261022T133939280464Z/REVIEW_PROBES.json",
+    "sha256": "574a4664010f7b1209882a10837f6261e3b95645b0309c99cacacd6427de9fa8"
+  },
+  "findings": [
+    {
+      "id": "B1",
+      "severity": "blocking before direct launch",
+      "location": {
+        "direct_launch": 144,
+        "common": 110
+      },
+      "problem": "direct-launch bypasses the unchanged register and launch consumer checks promised byD031; common checks only rowset/capture count/freeze shape. It writes records for an invalid register key and null freeze policy/entry pins.",
+      "reproduced": "Both cases exit0 and create launchJSON; subsequent binding exits2 with L2_KEY or FREEZE_CODE_PINS.",
+      "impact": "Malformed root metadata is accepted at the prelaunch step and only refused when campaign import occurs, after the expensive direct batch could have launched. No invalid admission was demonstrated.",
+      "required_fix": "Validate all seven register entries and freeze code pins before direct-launch publication against unchanged pinned consumer contracts. Add MUST_FAIL tests asserting no output for malformed register and freeze pins. Any synthetic validation context must remain test/internal validation only and never become a root binding record."
+    }
+  ],
+  "notes": [
+    {
+      "id": "N1",
+      "location": 64,
+      "text": "read_pin lacks O_NONBLOCK before its regular-file check, a running byte cap, and before/after fstat consistency. Metadata SHA still authenticates returned bytes, but malformed FIFO can block before refusal and a growing input bypasses the initial size cap. Recommend hardening and inert refusal tests."
+    },
+    {
+      "id": "N2",
+      "location": 153,
+      "text": "The every-input-read-once claim is not true: MemSnapshot does not cache disk reads, so each of seven select_two_stage calls rereads the register; freeze and captures also get reread. Cache verified raw buffers and reuse them, or narrow the claim. No false admission demonstrated."
+    }
+  ],
+  "boundaries": "Inert metadata and real runtime producer only; no scientific launch/run-tree/NGC reads; sources unmodified."
+}

@@ -1,0 +1,168 @@
+--- ../calibration_orchestrator_c2/v005/campaign_c2v005.py	2026-10-17 19:01:34.401940319 -0500
++++ campaign_s45_c2v001.py	2026-10-19 05:20:36.821915464 -0500
+@@ -1,4 +1,19 @@
+-"""INERT campaign launcher for galaxy_m0_forward driver calls (Claude2 lane calibration_orchestrator_c2/v005, c2v005).
++"""INERT campaign launcher for galaxy_m0_forward driver calls (Claude2 sched_s45_c2, campaign_s45_c2v001).
++s45_c2v001 = campaign_c2v005 (d35d5d4a) with exactly one change, the admission rule (principal: scheduling rules set from
++MEASURED resources, not from models):
++  * the head of the queue (FIFO, never skipped) starts only when the shared machine gate machine_gate_s45_c2v001 (pinned
++    below by sha256, loaded from bytes) admits it: count < max_concurrent, <= 4 pooled calls in route A machine-wide,
++    busy-core weights <= 24, memory (live footprint or phase reservation of every root-monitor run tree + the head's
++    route-A reservation + one transfer-spike headroom) <= 100 GB, swap <= 8 GB, >= 120 s since the youngest root monitor
++    (constants and their MEASURED / DERIVED basis: machine_gate_s45_c2v001.PARAMS);
++  * the c2v005 process-budget rule (route A = max(route_a.column_workers, column_workers) processes, sum <= budget) no
++    longer admits: process_budget and PROCESS_BUDGET_MAX (17) are still validated exactly as in c2v005 (the parent
++    orchestrator c2v005 checks both, L1727 and L1755-1756) and still reported, with the same summary keys.
++Call directories, monitor command, caps, resume rules, record vocabulary and summary keys are c2v005's; the summary gains
++'gate' and 'gate_log'.  The wave wall cap (campaign_wall_cap_s) is unchanged and still stops new starts.
++c2v005 docstring follows.
++
++INERT campaign launcher for galaxy_m0_forward driver calls (Claude2 lane calibration_orchestrator_c2/v005, c2v005).
+ c2v005 = campaign_c2v003 (be462862) with exactly two changes (Claude4 R-B C4-4 and the C4-1 read class):
+   * every monitor is started with start_new_session=True: its own session and process group, so a signal sent to the
+     launching process group (the orchestrator's) never reaches a monitor; each monitor keeps enforcing its wall, RSS and
+@@ -30,7 +45,7 @@
+  {"calls": [{"spec": {...}} | {"spec_path": P, "spec_sha256": H}, ...], "max_concurrent": N, "process_budget": B,
+   "stage_aware": bool, "per_call": {"wall_cap_s", "rss_cap_bytes", "output_cap_bytes", "poll_s"},
+   "campaign_wall_cap_s": F, "driver": {"path", "sha256"}, "monitor": {"path", "sha256"}}
+-CLI:  campaign_c2v005.py --campaign FILE.json --campaign-dir DIR [--resume]
++CLI:  campaign_s45_c2v001.py --campaign FILE.json --campaign-dir DIR [--resume]
+ Importing this module does nothing.
+ """
+ import hashlib
+@@ -41,8 +56,10 @@
+ import time
+ from pathlib import Path
+ 
+-MODULE_NAME = 'campaign_c2v005'
+-PROCESS_BUDGET_MAX = 17
++MODULE_NAME = 'campaign_s45_c2v001'
++PROCESS_BUDGET_MAX = 17                                         # unchanged: validated and reported, no longer admits
++GATE_PATH = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/machine_gate_s45_c2v001.py'
++GATE_SHA256 = '6d0c45f8948d54d208809671af6ffa96197f5079aa73100991c7fa9d04cb93fa'
+ PY = '/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3'
+ THREAD_ENV = ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS',
+               'BLIS_NUM_THREADS')
+@@ -67,6 +84,18 @@
+     return m
+ 
+ 
++def _load_gate(path=GATE_PATH, sha=GATE_SHA256):
++    """s45: the shared machine gate, executed from the exact bytes whose sha256 is pinned in this module."""
++    import types
++    raw = Path(path).read_bytes()
++    if hashlib.sha256(raw).hexdigest() != sha:
++        raise ValueError('gate pin mismatch')
++    m = types.ModuleType('s45_machine_gate')
++    m.__file__ = str(path)
++    exec(compile(raw, str(path), 'exec'), m.__dict__)
++    return m
++
++
+ def _spec_bytes(call):
+     if 'spec' in call:
+         return (json.dumps(call['spec'], indent=1, sort_keys=True, allow_nan=False) + '\n').encode()
+@@ -126,7 +155,8 @@
+             'elapsed_seconds': rec.get('elapsed_seconds'), 'peak_rss_bytes': rec.get('peak_rss_bytes')}
+ 
+ 
+-def run_campaign(*, campaign, campaign_dir, resume=False, python=PY):
++def run_campaign(*, campaign, campaign_dir, resume=False, python=PY, _gate=None):
++    """s45: _gate is for SYNTHETIC tests only (an injected machine_gate Gate); production loads the pinned gate."""
+     cdir = Path(campaign_dir)
+     reasons = []
+     calls = campaign.get('calls')
+@@ -153,19 +183,29 @@
+     if cdir.exists() and not resume:
+         reasons.append('campaign dir exists; pass resume=True to resume by verified receipt')
+     specs = []
++    classes = []                                                # s45: the gate class of each call
+     if not reasons:
+         try:
+             monitor = _load_monitor(mon['path'], mon['sha256'])
+             if sha256_file(drv['path']) != drv['sha256']:
+                 raise ValueError('driver pin mismatch')
++            G = _load_gate()                                    # s45: pinned gate bytes (also when a test injects one)
++            gate = _gate if _gate is not None else G.Gate()
+             for c in calls:
+                 raw = _spec_bytes(c)
+                 peak, after = spec_weights(raw)
+                 specs.append((raw, hashlib.sha256(raw).hexdigest(), peak, after))
++                classes.append(G.class_from_spec_bytes(raw, params=gate.P))
+         except Exception as exc:
+             reasons.append('%s: %s' % (type(exc).__name__, exc))
+     if not reasons and max(s[2] for s in specs) > budget:
+         reasons.append('a call needs %d processes > process_budget %d' % (max(s[2] for s in specs), budget))
++    if not reasons:                                             # s45: a call the gate could never admit (no deadlock)
++        P = gate.P
++        for c in classes:
++            if c['w_route_a'] > P['core_limit'] or c['res_route_a_gb'] + P['spike_headroom_gb'] > P['mem_limit_gb']:
++                reasons.append('a call can never pass the machine gate on an empty machine: %r' % (c,))
++                break
+     if reasons:
+         return {'ok': False, 'status': 'REFUSED', 'reasons': reasons, 'calls': []}
+     cdir.mkdir(parents=True, exist_ok=True)
+@@ -196,12 +236,30 @@
+             return after
+         return peak
+ 
++    gate_log = []                                               # s45: admissions + each change of the refusal reasons
++    last_start = None
++    last_refusal = None
++    max_gate_cores = 0.0
+     while pending or running:
+         while pending and len(running) < n and time.monotonic() - t0 < cap:
+-            cur = sum(weight(j) for j in running)
+             i = pending[0]
+-            if cur + specs[i][2] > budget:
+-                break                                           # FIFO: wait until the head fits
++            dec = gate.decide(owned={running[j][0].pid: {'class': classes[j], 'progress': running[j][3] / 'out' / 'progress.jsonl'}
++                                     for j in running},
++                              head=classes[i], n_running=len(running), max_concurrent=n, last_own_start=last_start)
++            if not dec['admit']:
++                key = (i, tuple(dec['reasons']))
++                if key != last_refusal:
++                    gate_log.append({'t': round(time.monotonic() - t0, 3), 'event': 'wait', 'call': i,
++                                     'reasons': dec['reasons'], 'cores_after_admit': dec['cores_after_admit'],
++                                     'mem_after_admit_gb': dec['mem_after_admit_gb'], 'swap_gb': dec['swap_gb']})
++                    last_refusal = key
++                break                                           # FIFO: wait until the head passes the gate
++            last_refusal = None
++            gate_log.append({'t': round(time.monotonic() - t0, 3), 'event': 'admit', 'call': i,
++                             'cores_after_admit': dec['cores_after_admit'], 'mem_after_admit_gb': dec['mem_after_admit_gb'],
++                             'pooled_route_a_now': dec['pooled_route_a_now'], 'swap_gb': dec['swap_gb'],
++                             'n_runs_seen': len(dec['runs']), 'footprint_source': dec.get('footprint_source')})
++            max_gate_cores = max(max_gate_cores, dec['cores_after_admit'])
+             pending.pop(0)
+             raw, ssha, _, _ = specs[i]
+             d = cdir / ('call_%04d' % i)
+@@ -222,6 +280,7 @@
+             se = open(d / 'monitor.stderr.txt', 'x')
+             # c2v005 (C4-4): the monitor runs in its own session, outside the launcher's process group
+             running[i] = (subprocess.Popen(cmd, stdout=so, stderr=se, env=env, start_new_session=True), so, se, d)
++            last_start = time.monotonic()                       # s45: spacing (the gate also sees the monitor's age)
+             launched += 1
+             max_seen = max(max_seen, len(running))
+             w = sum(weight(j) for j in running)
+@@ -244,7 +303,7 @@
+                 records[i] = {'index': i, 'call_dir': str(d), 'status': 'FAILED', 'reasons': v['reasons'], 'monitor_exit': p.returncode}
+             weight_log.append({'t': round(time.monotonic() - t0, 3), 'event': 'finish', 'call': i,
+                                'accounted': sum(weight(j) for j in running)})
+-        if running:
++        if running or pending:                                  # s45: the gate may hold the head with nothing running
+             time.sleep(0.2)
+     for i in pending:
+         records[i] = {'index': i, 'status': 'NOT_STARTED', 'reason': 'campaign wall cap reached before start'}
+@@ -257,7 +316,11 @@
+                'n_resumed': sum(1 for r in records if r['status'].startswith('RESUMED')),
+                'n_not_started': sum(1 for r in records if r['status'] == 'NOT_STARTED'),
+                'n_unverified': sum(1 for r in records if r['status'] == 'DIR_EXISTS_UNVERIFIED'),
+-               'campaign_wall_used_s': time.monotonic() - t0, 'retries': 0}
++               'campaign_wall_used_s': time.monotonic() - t0, 'retries': 0,
++               'gate': {'module': G.MODULE_NAME, 'path': GATE_PATH, 'sha256': GATE_SHA256, 'params': dict(gate.P),
++                        'injected_for_test': _gate is not None, 'max_cores_after_admit': max_gate_cores,
++                        'call_classes': classes, 'n_probes': gate.n_probes},
++               'gate_log': gate_log}
+     sp = cdir / ('campaign_summary_%s_%d_%d.json' % (time.strftime('%Y%m%dT%H%M%SZ', time.gmtime()), os.getpid(), time.time_ns()))
+     with open(sp, 'x') as f:
+         json.dump(summary, f, indent=1, allow_nan=False)

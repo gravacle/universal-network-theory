@@ -1,0 +1,43 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Importer remains incomplete; envelope prerequisite adapter added",
+  "utc": "2026-10-21T13:06:32.304811+00:00",
+  "tested": [
+    "envelope_guard_cx1v001: 8 inert cases passed; strict duplicate-key refusal, expected phase, coverage present/nonempty, ctime rewrite, unresolved pins and actual file hash mismatch. Snapshot read counters confirm one read each for tool/start/end on positive path; not independent OS audit."
+  ],
+  "untested": [
+    "Root registration authentication and complete required input coverage",
+    "Actual envelope collection/snapshot",
+    "Envelope integration with admission",
+    "Direct layout acceptance chain, runtime/wait/cache integration and whole-engine replay"
+  ],
+  "finding": "A consumer-only path alias is insufficient: acceptance production also assumes campaign layout. Use an explicit layout binding across producer and consumers, preserving actual spec, receipt and result paths. Do not fabricate wave directories or silently reinterpret an existing acceptance record.",
+  "blocking": [
+    "I1 entry/executor/cache/wait integration remains incomplete",
+    "I2 direct-layout acceptance producer and consumer binding remains incomplete",
+    "I3 authenticated runtime/environment/envelope/speculative register remains incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/envelope_guard_cx1v001.py",
+      "sha256": "b6171a19f82e43cc7df949ff7a7e68d8625ab5e8269b1d2cdfd5e93d76b2c738"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_envelope_guard_cx1v001.py",
+      "sha256": "4e051769bb5ad5497c9f870107e91e43871c32ef44fd102a1b59d5ca42d31b87"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/envelope_bv8btaau/GUARD_TEST_REPORT.json",
+      "sha256": "1a9dc9f175cff983be5faca2aeaa93057901c65ffffa90585ec64458a30048a3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/snapshot_cx1v001.py",
+      "sha256": "036cf99ec6f6d2710f36134ece719e064bbb4a4abca550e752fde3e28c2a1279"
+    }
+  ],
+  "next": "Authenticate root registration supplying expected phase/pinset/required coverage, bind runtime/environment, then integrate wait and cache. Layout producer dependency adaptation remains unresolved. Envelope guard only compares manifests; never produces snapshots or reads referenced inputs.",
+  "inbox_seen": 839,
+  "outbox": 181,
+  "no_live_processes": true
+}

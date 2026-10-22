@@ -1,0 +1,263 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/storage_check_h3_c2v001.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/storage_check_h3_c2v003.py
+@@ -1,57 +1,109 @@
+-"""Storage checks for the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v001; V006 A147 L3-01, A188).  READ-ONLY.
++"""Storage checks for the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v003; V006 A192 item 5).  READ-ONLY.
+ 
+-Two subcommands; neither moves, deletes or writes anything except --out (exclusive create).
++Successor of storage_check_h3_c2v001 (e0b3a89a), loaded by path and sha.  `move` is c2v001's, unchanged.  `wave` changes in
++one thing only (A192 item 5, the verifier's blocking item): b, the per-call bytes the forecast uses, is measured as the CALL
++DIR's TOTAL BYTES AFTER ACCEPTANCE, including the handoff's ACCEPTANCE_TAILSTATES_* exports and TAIL_CERTIFICATE_ACCEPTANCE.json
++-- not the receipt's output bytes.
+ 
+-wave  -- the per-wave disk check root runs before every `run` that plans a new wave.
+-  The parent's rule (c75a889f disk_forecast L2163-2182, applied before every new wave L3503-3506 and on a resume L3476-3479):
+-  a wave of n calls starts only if free >= n x disk_guard.per_call_bytes + disk_guard.reserve_bytes (guard = the 80 GiB cap,
+-  A147 L3-01), else HALTED_DISK.  This check reads the campaign's OWN receipts (waves/wave_*/campaign/call_*/RECEIPT.json of
+-  --work-dir; FINISHED ones), takes the largest final/peak output as the measured per-call bytes, reads free space by
+-  statvfs at the work dir, and forecasts the listed future waves (default: the rest of the ENGINE_SHAPED list of
+-  w1_disk_forecast_v001, sim_s45_c2v003 L460, an ASSUMED shape) with --other-bytes K:B for other outputs root expects on the
+-  same volume before wave K (HEADLINE11, S0, NGC).  Exit 0 if the next wave fits, 5 if it would halt HALTED_DISK.
++  b per call dir  = max(apparent bytes, allocated bytes) over every regular file under waves/wave_*/campaign/call_*/ (no
++                    symlink followed; a hard-linked inode counted once; metadata only, no file is opened).
++  accepted        = the call dir holds TAIL_CERTIFICATE_ACCEPTANCE.json (reingest VALID) or at least one
++                    ACCEPTANCE_TAILSTATES_* directory (a handoff pass ran: ACCEPTED, MODEL_INVALID or a halt).
++  measured b      = the largest b over ACCEPTED call dirs (None before any acceptance).  The receipt-based value of c2v001 is
++                    reported beside it for comparison, never used.
++The forecast and the next-wave rule are c2v001's (parent L3503-3506: free >= n x guard + reserve, else HALTED_DISK).
+ 
+-move  -- may DIR leave the campaign volume by a verified move?
+-  Collects every {path, sha256} pin of the given JSON files (--pins-from: the H3 config, the seal tuple record, the V007
+-  report, the certificate registry, ...; with --follow, pinned .json files up to 8 MiB are read for their own pins, depth 3,
+-  except files under run trees or volumes and NGC3198 / C5H / UVT_ / .codex paths (NO_FOLLOW): those pins are checked by
+-  path only, never opened)
+-  and refuses (exit 3, NOT_MOVABLE) when a pinned path resolves under DIR, when DIR holds or lies inside the campaign work dir
+-  (the cache re-hashes entries by path, parent L2302-2341; SF1 pins the work dir identity), or when DIR is not a directory.
+-  Exit 0 MOVABLE.  The move itself is root's (README section 6): ditto, then a sha256 manifest of both trees compared equal,
+-  then the source removed; never a plain mv across volumes.
++Threshold (STORAGE_PLAN_ERRATUM_C2V001 section 3-4, recomputed from the measured b; FORMAL arithmetic):
++  need_k(b) = (sum_{j<k} n_j) * b + n_k * guard + reserve;  R(b) = max_k need_k(b);
++  the program fits iff R(b) + other_program <= total_free (both volumes, root's df at plan time);
++  b* = min over k with sum_{j<k} n_j > 0 of (total_free - other_program - n_k * guard - reserve) / sum_{j<k} n_j.
++  With --threshold-total-free-bytes F and --threshold-other-program-bytes H (both required for it), the document carries
++  R(b), the binding wave, b* and whether b <= b*.  Nothing here moves, deletes or writes anything except --out.
+ 
+-usage: python3 -I -B storage_check_h3_c2v001.py wave --work-dir WD [--next-calls N] [--waves 8,2,...] [--other-bytes K:B ...]
+-                                                     [--guard-bytes G] [--reserve-bytes R] [--out OUT.json]
+-       python3 -I -B storage_check_h3_c2v001.py move --candidate DIR --work-dir WD --pins-from F.json [...] [--follow]
++usage: python3 -I -B storage_check_h3_c2v003.py wave --work-dir WD [--next-calls N] [--waves 8,2,...] [--other-bytes K:B ...]
++                    [--per-call-output-bytes B] [--guard-bytes G] [--reserve-bytes R] [--out OUT.json]
++                    [--threshold-total-free-bytes F --threshold-other-program-bytes H [--threshold-waves 1,8,2,...]]
++       python3 -I -B storage_check_h3_c2v003.py move ...   (c2v001's)
++exit: wave 0 the next wave fits, 5 it would halt HALTED_DISK; move 0 MOVABLE, 3 NOT_MOVABLE.
+ """
+ import argparse
+ import hashlib
++import importlib.util
+ import json
+ import os
++import stat
+ import sys
+ from pathlib import Path
+ 
+-GiB = 1 << 30
+-ENGINE_SHAPED = [1, 8, 2, 1, 1, 1, 10, 10, 24, 8, 2, 1, 10, 10, 24, 7]      # w1_disk_forecast_v001 / sim_s45_c2v003 L460
+-NO_FOLLOW = ('/runs/', '/runs_ext/', 'unt_internal_runs', '/volumes/', 'ngc3198', 'c5h', '/.codex/', '/uvt_')
++PRED = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'storage_check_h3_c2v001.py'),
++        'e0b3a89a4a2930311c393cd62d2f51b0b343fe705736d8083a45628c8a75706d')
++ACCEPT_MARKERS = ('TAIL_CERTIFICATE_ACCEPTANCE.json',)
++TAILSTATES_PREFIX = 'ACCEPTANCE_TAILSTATES_'
+ 
+ 
+-def no_follow(*paths):
+-    return any(m in str(p).lower() for p in paths for m in NO_FOLLOW)
++def load_pred():
++    raw = Path(PRED[0]).read_bytes()
++    if hashlib.sha256(raw).hexdigest() != PRED[1]:
++        raise SystemExit('PIN_MISMATCH %s' % PRED[0])
++    sp = importlib.util.spec_from_file_location('_h3_storage_c2v001', PRED[0])
++    m = importlib.util.module_from_spec(sp)
++    exec(compile(raw, PRED[0], 'exec'), m.__dict__)
++    return m
+ 
+ 
+-def campaign_receipts(work_dir):
++S1 = load_pred()
++GiB = S1.GiB
++ENGINE_SHAPED = S1.ENGINE_SHAPED
++
++
++def tree_bytes(d):
++    """(apparent, allocated, n_files, tailstate dirs) of every regular file under d; lstat only, symlinks not followed."""
++    seen, app, alloc, n, ts = set(), 0, 0, 0, []
++    for root, dirs, files in os.walk(d, followlinks=False):
++        if root == str(d):
++            ts = sorted(x for x in dirs if x.startswith(TAILSTATES_PREFIX))
++        for f in files:
++            st = os.lstat(os.path.join(root, f))
++            if not stat.S_ISREG(st.st_mode) or (st.st_dev, st.st_ino) in seen:
++                continue
++            seen.add((st.st_dev, st.st_ino))
++            app += st.st_size
++            alloc += getattr(st, 'st_blocks', 0) * 512
++            n += 1
++    return app, alloc, n, ts
++
++
++def call_dirs(work_dir):
+     out = []
+-    for rp in sorted(Path(work_dir).glob('waves/wave_*/campaign/call_*/RECEIPT.json')):
+-        try:
+-            r = json.loads(rp.read_text())
+-        except (OSError, ValueError):
++    for cd in sorted(Path(work_dir).glob('waves/wave_*/campaign/call_*')):
++        if not cd.is_dir() or cd.is_symlink():
+             continue
+-        if r.get('status') == 'FINISHED':
+-            out.append({'receipt': str(rp), 'final_output_bytes': r.get('final_output_bytes'),
+-                        'peak_output_bytes': r.get('peak_output_bytes'), 'elapsed_seconds': r.get('elapsed_seconds')})
++        app, alloc, n, ts = tree_bytes(cd)
++        accepted = any((cd / m).is_file() for m in ACCEPT_MARKERS) or bool(ts)
++        out.append({'call_dir': str(cd), 'apparent_bytes': app, 'allocated_bytes': alloc, 'b_bytes': max(app, alloc),
++                    'n_files': n, 'acceptance_tailstate_dirs': ts, 'accepted': accepted})
+     return out
++
++
++def threshold(b, waves, total_free, other, guard, reserve):
++    rows, before = [], 0
++    for k, n in enumerate(waves, 1):
++        rows.append({'wave': k, 'n_calls': n, 'calls_before': before,
++                     'need_bytes': before * (b or 0) + n * guard + reserve})
++        before += n
++    binding = max(rows, key=lambda r: r['need_bytes'])
++    cands = [((total_free - other - r['n_calls'] * guard - reserve) / r['calls_before'], r['wave'])
++             for r in rows if r['calls_before'] > 0]
++    bstar, bw = min(cands) if cands else (None, None)
++    first_ok = all(r['n_calls'] * guard + reserve <= total_free - other for r in rows if r['calls_before'] == 0)
++    return {'R_bytes': binding['need_bytes'], 'R_GiB': round(binding['need_bytes'] / GiB, 1), 'binding_wave': binding['wave'],
++            'b_star_bytes': bstar, 'b_star_GiB': None if bstar is None else round(bstar / GiB, 2), 'b_star_binding_wave': bw,
++            'total_free_bytes': total_free, 'other_program_bytes': other, 'b_bytes': b,
++            'b_GiB': None if b is None else round(b / GiB, 2),
++            'fits': None if b is None else (bool(first_ok) and binding['need_bytes'] + other <= total_free),
++            'rule': 'STORAGE_PLAN_ERRATUM_C2V001 sections 3-4: R(b) = max_k (sum_{j<k} n_j) b + n_k guard + reserve; '
++                    'fits iff R(b) + other <= total free; b* solves equality at the binding wave',
++            'waves': waves}
+ 
+ 
+ def wave_check(a):
+@@ -61,11 +113,12 @@
+         anc = anc.parent
+     st = os.statvfs(str(anc))
+     free = st.f_bavail * st.f_frsize
+-    recs = campaign_receipts(wd) if wd.is_dir() else []
+-    sizes = [max(int(r['final_output_bytes'] or 0), int(r['peak_output_bytes'] or 0)) for r in recs]
+-    measured = max(sizes) if sizes else None
++    calls = call_dirs(wd) if wd.is_dir() else []
++    acc = [c['b_bytes'] for c in calls if c['accepted']]
++    measured = max(acc) if acc else None
++    recs = S1.campaign_receipts(wd) if wd.is_dir() else []
++    rsz = [max(int(r['final_output_bytes'] or 0), int(r['peak_output_bytes'] or 0)) for r in recs]
+     per_call = a.per_call_output_bytes if a.per_call_output_bytes is not None else measured
+-    n_done = len({str(Path(r['receipt']).parent) for r in recs})
+     waves = [int(x) for x in a.waves.split(',')] if a.waves else ENGINE_SHAPED[1:]
+     other = {}
+     for s in a.other_bytes:
+@@ -80,65 +133,28 @@
+         rows.append({'future_wave': k, 'n_calls': n, 'free_GiB': round(f / GiB, 1), 'need_GiB': round(nd / GiB, 1),
+                      'fits': f >= nd, 'shortfall_GiB': 0.0 if f >= nd else round((nd - f) / GiB, 1)})
+         used += n * (per_call or 0)
+-    first = next((r for r in rows if not r['fits']), None)
+-    doc = {'schema': 'H3_STORAGE_WAVE_CHECK_C2V001', 'work_dir': str(wd), 'free_bytes': free, 'free_read_at': str(anc),
+-           'finished_campaign_calls': n_done, 'measured_per_call_output_bytes': measured,
+-           'forecast_per_call_output_bytes': per_call, 'guard_bytes': a.guard_bytes, 'reserve_bytes': a.reserve_bytes,
++    doc = {'schema': 'H3_STORAGE_WAVE_CHECK_C2V003', 'work_dir': str(wd), 'free_bytes': free, 'free_read_at': str(anc),
++           'b_rule': 'A192 item 5: the call dir total bytes after acceptance (incl. ACCEPTANCE_TAILSTATES exports)',
++           'call_dirs': calls, 'n_call_dirs': len(calls), 'n_accepted_call_dirs': len(acc),
++           'measured_per_call_bytes_after_acceptance': measured,
++           'receipt_output_bytes_max_for_comparison': max(rsz) if rsz else None,
++           'forecast_per_call_bytes': per_call, 'guard_bytes': a.guard_bytes, 'reserve_bytes': a.reserve_bytes,
+            'next_wave': {'n_calls': nxt, 'need_bytes': need, 'fits': free >= need}, 'forecast': rows,
+-           'first_halting_future_wave': first, 'other_bytes_before_wave': other,
+-           'rule': 'parent L3503-3506: free >= n x guard + reserve, else HALTED_DISK (nothing deleted)'}
++           'first_halting_future_wave': next((r for r in rows if not r['fits']), None), 'other_bytes_before_wave': other,
++           'rule': 'parent L3503-3506: free >= n x guard + reserve, else HALTED_DISK (nothing deleted)',
++           'predecessor': {'path': PRED[0], 'sha256': PRED[1]}}
++    if a.threshold_total_free_bytes is not None or a.threshold_other_program_bytes is not None:
++        if a.threshold_total_free_bytes is None or a.threshold_other_program_bytes is None:
++            raise SystemExit('--threshold-total-free-bytes and --threshold-other-program-bytes go together')
++        tw = [int(x) for x in a.threshold_waves.split(',')] if a.threshold_waves else list(ENGINE_SHAPED)
++        doc['threshold'] = threshold(per_call, tw, a.threshold_total_free_bytes, a.threshold_other_program_bytes,
++                                     a.guard_bytes, a.reserve_bytes)
+     if a.out:
+         with open(a.out, 'x') as fh:
+             json.dump(doc, fh, indent=1, sort_keys=True)
+             fh.write('\n')
+     print(json.dumps(doc, indent=1, sort_keys=True))
+     return 0 if doc['next_wave']['fits'] else 5
+-
+-
+-def pins_in(obj, out):
+-    if isinstance(obj, dict):
+-        if isinstance(obj.get('path'), str) and isinstance(obj.get('sha256'), str) and len(obj['sha256']) == 64:
+-            out.append(obj['path'])
+-        for v in obj.values():
+-            pins_in(v, out)
+-    elif isinstance(obj, list):
+-        for v in obj:
+-            pins_in(v, out)
+-    return out
+-
+-
+-def move_check(a):
+-    cand = os.path.realpath(a.candidate)
+-    if not os.path.isdir(cand):
+-        print(json.dumps({'status': 'NOT_MOVABLE', 'reasons': ['candidate is not a directory: %s' % cand]}, indent=1))
+-        return 3
+-    wd = os.path.realpath(a.work_dir)
+-    reasons, seen, todo = [], set(), [(os.path.abspath(p), 0) for p in a.pins_from]
+-    pinned = []
+-    while todo:
+-        p, depth = todo.pop()
+-        if p in seen:
+-            continue
+-        seen.add(p)
+-        try:
+-            doc = json.loads(Path(p).read_bytes())
+-        except (OSError, ValueError) as exc:
+-            reasons.append('pin source unreadable: %s (%s)' % (p, type(exc).__name__))
+-            continue
+-        for q in pins_in(doc, []):
+-            pinned.append((p, q))
+-            rq = os.path.realpath(q)
+-            if a.follow and depth < 3 and rq.endswith('.json') and not no_follow(q, rq) and os.path.isfile(rq) \
+-                    and os.path.getsize(rq) <= 8 * 1024 * 1024:
+-                todo.append((rq, depth + 1))
+-    hits = sorted({(src, q) for src, q in pinned if os.path.realpath(q) == cand or os.path.realpath(q).startswith(cand + '/')})
+-    reasons += ['pinned by %s: %s' % (src, q) for src, q in hits]
+-    if wd == cand or wd.startswith(cand + '/') or cand.startswith(wd + '/'):
+-        reasons.append('the campaign work dir %s is or contains or is inside the candidate' % wd)
+-    doc = {'schema': 'H3_STORAGE_MOVE_CHECK_C2V001', 'candidate': cand, 'work_dir': wd, 'pin_sources_read': sorted(seen),
+-           'n_pins': len(pinned), 'status': 'NOT_MOVABLE' if reasons else 'MOVABLE', 'reasons': reasons}
+-    print(json.dumps(doc, indent=1, sort_keys=True))
+-    return 3 if reasons else 0
+ 
+ 
+ def main(argv=None):
+@@ -153,13 +169,16 @@
+     w.add_argument('--guard-bytes', type=int, default=80 * GiB)
+     w.add_argument('--reserve-bytes', type=int, default=20 * GiB)
+     w.add_argument('--out')
++    w.add_argument('--threshold-total-free-bytes', type=int)
++    w.add_argument('--threshold-other-program-bytes', type=int)
++    w.add_argument('--threshold-waves')
+     m = sub.add_parser('move')
+     m.add_argument('--candidate', required=True)
+     m.add_argument('--work-dir', required=True)
+     m.add_argument('--pins-from', action='append', required=True)
+     m.add_argument('--follow', action='store_true')
+     a = ap.parse_args(argv)
+-    return wave_check(a) if a.cmd == 'wave' else move_check(a)
++    return wave_check(a) if a.cmd == 'wave' else S1.move_check(a)
+ 
+ 
+ if __name__ == '__main__':

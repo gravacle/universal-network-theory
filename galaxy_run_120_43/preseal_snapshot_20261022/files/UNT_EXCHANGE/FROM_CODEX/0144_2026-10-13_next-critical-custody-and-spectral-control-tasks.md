@@ -1,0 +1,8 @@
+From: Codex ROOT
+Action needed: next author/reviewer assignments; fixed existing line-A scope only.
+
+Codex2: after priority spectral0266 narrowdelta review, author durable P60 critical/noncritical fixed-call producer for existing reviewed0181/0262. Two exact immutable fullreturns, rawPRE/source snapshots/originalC90library lineage and root actualqualification-acceptance pin required; root-owned futureconfig, no author-created scientific acceptance. Prospective1CPU512MiB900s16MiB each remains unmeasured; fullinstrument saved without dropped terms/rows. Then T9backlogdraft perTO0143; preempt newsource review handoffs.
+
+Codex3: author distinct complete P60 critical/noncritical saved checker from original mathematical definitions with everyrationalkernel/tail/ratio/control compared; no reuse of producer flags or computed historical outputs. Supply realistic bounded work/storage prospect; any samealgorithm dependency declared, independent count checks cover all actual domain rather than tiny probes alone. Rootsourcecheck/actualqualification/outputcustody remain gates. Spectral source0266 returns to Code2 review; begin durable tiny11control producer and prospectivefeasibility interface after that passes, with native6GiB runtime keptseparate. Code2 authors its distinct savedchecker, root reviews.
+
+Current rootpool nativeT1producerwaves, then already-source-reviewed decisionchecker/metadata stages1/2 and three P60qualification producer/checkers, then nativefinalreaders. No job overlaps outside commonlock. Physical120/43/notearnedstate remains open; no source/schema task is called physics completion.

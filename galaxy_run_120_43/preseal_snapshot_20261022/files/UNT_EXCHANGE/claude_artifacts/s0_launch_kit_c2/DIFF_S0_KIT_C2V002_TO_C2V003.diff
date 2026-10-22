@@ -1,0 +1,2218 @@
+--- s0_kit_c2v002.py
++++ s0_kit_c2v003.py
+@@ -1,37 +1,36 @@
+-"""s0_kit_c2v002.py -- the checks and custody records behind the S0 launch scripts (s0_launch_kit_c2, C2V002).
++"""s0_kit_c2v003.py -- the checks and custody records behind the S0 launch scripts (s0_launch_kit_c2, C2V003).
+ 
+ It launches nothing: it never starts root_monitor or the NGC driver, and it never reads a run's result.  The shell
+-scripts (launch_s0_serial_root_c2v002.sh, launch_twin_root_c2v002.sh, twin_kill_watch_c2v002.sh) call one subcommand per
+-step and act only on exit 0.  Exit codes: 0 pass, 3 refused (confirm-kind: stop the launch), 4 written with an
+-order/consistency flag, 5 (confirm-kind) the launched monitor ended before its kind was read, 1 'not yet'
+-(twin-trigger) or 'child not alive' (kill-target), 2 usage.  Every file it writes is created exclusively ('x') and fsynced.
+-
+-C2V002 (successor of C2V001; verifier B1): V006 A147 L3-03.  After each launch, confirm-kind reads the gate's
+---hold-check JSON, matches runs[].key to the launched monitor pid, and requires runs[].kind = NGC_SERIAL (each S0) or
+-NGC_TWIN (the twin) with phase route_a.  Any other reading (GENERIC, NGC_UNIDENTIFIED, the other NGC kind, another phase)
+-stops the launch at once; a launch never read within the timeout (not seen, or the probe failed) is stopped too (fail
+-closed).  The stop is a procedural mis-launch (record by exclusive create); its relaunch runs as attempt k+1 in the same
+-launch root under the same M-15 record.  The exit code of --hold-check alone confirms nothing.
++scripts (launch_s0_serial_root_c2v003.sh, launch_twin_root_c2v003.sh, twin_kill_watch_c2v003.sh) call one subcommand per
++step and act only on exit 0.  Exit codes: 0 pass, 3 refused (launch-check: stop the launch), 4 written with an
++order/consistency flag, 1 'not yet' (twin-trigger) or 'child not alive' (kill-target), 2 usage.  Every file it writes is
++created exclusively ('x') and fsynced.
++
++C2V003 (successor of C2V002; V006 A166, the principal's direction to stop micromanaging the Mac's resources): no memory
++gating.  The sched v003 admission (ngc_admission class, gate decide, the A133 103 GB rule), the gate --hold-check /
++--twin-start-check calls, the A147 L3-03 kind check and the twin's wave-state attestation are removed; nothing here reads
++the machine's memory.  The per-call RSS cap is physical RAM (137,438,953,472 B) for the serial and the twin; the wall
++and output caps are unchanged.  The twin may start any time after the seed serial's LAUNCH record.  Kept: M-15 first,
++seed first, fill / dry plan / registry / custody checks, absolute External1 paths, the disk check, the relaunch path and
++the twin's kill watch after iteration 1.  The post-launch check is now the launch record (<receipt>.launch.json)
++against the plan; a launch whose record does not match is stopped as a procedural mis-launch and relaunched as attempt
++k+1 in the same launch root under the same M-15 record.
+ 
+ Subcommands (see each function's docstring):
+   validate        args + every pin from bytes -> plan (shell assignments or JSON); writes nothing (except --emit json --out)
+   fill-check      the filled serial/twin specs against the role's handoff, certificates and V006 SPEC_PIN
+   dry-verdict     the fresh cx3r008 dry plan: blocker lists, not the readiness label (RI45-13 item 7)
+   register        the per-point launch registry entry (exclusive create)
+-  admission       sched v003 NGC serial admission (pinned ngc_admission class + pinned gate decide) + the A133 memory rule
+-  gate-cli        synthetic-only emulation of machine_gate --hold-check / --twin-start-check (injected snapshot); prints
+-                  exactly what the real CLI prints
+-  confirm-kind    A147 L3-03: the post-launch --hold-check reading of the launched monitor's run (kind and phase)
+   ext1-check      External1 mount, path spelling, absent outputs, free space >= output cap + 20 GiB
+   step2-check     step 2's last receipt exists (A135.5)
+-  watch-check     the V006 WATCH_PIN watch script verifies and is running (A135.5)
++  watch-check     the V006 WATCH_PIN watch script verifies and is running (A135.5; the watch is passive, A166)
+   order-check     after the M-15 step: seed serial first, one confirmed launch per name, attempt k+1 only after a
+-                  recorded mis-launch of attempt k whose monitor receipt exists (A143 D2; A147 L3-03; r3a L454)
++                  recorded mis-launch of attempt k whose monitor receipt exists (M-15; r3a L454)
+   freeze-check    V006 unchanged since the M-15 record while no launch receipt exists yet
+   record-epoch    the M-15 record's date -u epoch second
+   monitor-argv    validates the exact root_monitor argv the script will exec (D3 form) and prints it shell-quoted
+-  wave-state      root's wave/direct-batch attestation for the twin (A143 D2/D3)
+-  launch-record   writes the attempt's record (exclusive create): LAUNCH (kind confirmed), MISLAUNCH (stopped) or ENDED
++  launch-check    the post-launch check: <receipt>.launch.json against the plan (command, pins, caps, retries, M-15 order)
++  launch-record   writes the attempt's record (exclusive create): LAUNCH (launch check confirmed) or MISLAUNCH (stopped)
+   twin-trigger    A141 L4: iteration_0001/COMPLETED.json and uv_tail_sidecar/iteration_0001.json both exist
+   kill-target     verifies a launched driver process group (spec sha, leaf, group leader, command, parent) before a kill
+   kill-record     writes the twin's planned-stop kill record (exclusive create)
+@@ -40,7 +39,6 @@
+ import calendar
+ import hashlib
+ import json
+-import math
+ import os
+ import re
+ import shlex
+@@ -58,7 +56,7 @@
+ A = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'
+ UNTPC = '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/'
+ GiB = 1 << 30
+-VTAG = 'C2V002'
++VTAG = 'C2V003'
+ ROLES = ('seed', 'j0', 'j1', 'j2')
+ ROLE_NAME = {'seed': 'SEED', 'j0': 'J0', 'j1': 'J1', 'j2': 'J2'}
+ S0_ROLE = {'seed': 'seed', 'j0': 'jacobian_first_attempt_0', 'j1': 'jacobian_first_attempt_1', 'j2': 'jacobian_first_attempt_2'}
+@@ -66,24 +64,24 @@
+         'j0': '3d7785669b549d6f9b9e0df65a3ad71de00c0da26a974c77ccb258856000fa60',
+         'j1': 'ab7bf95317b37652282ac7da86931816955ce8a781279b79e1d5258689c3970c',
+         'j2': '4b9b4ec88eb2d94ce2c8eeb52e2f7c5b5b7f96bdb5d4df52b9077ba06401f6a2'}
+-CAPS = {'serial': {'wall_cap_s': 610324, 'rss_cap_bytes': 34359738368, 'output_cap_bytes': 146028888064},
+-        'twin': {'wall_cap_s': 22752, 'rss_cap_bytes': 92341796864, 'output_cap_bytes': 34359738368}}
+-EXPECTED_KIND = {'serial': 'NGC_SERIAL', 'twin': 'NGC_TWIN'}      # A147 L3-03
++RAM_BYTES = 137438953472                          # V006 A166: per-call RSS cap = physical RAM (128 GiB)
++CAPS = {'serial': {'wall_cap_s': 610324, 'rss_cap_bytes': RAM_BYTES, 'output_cap_bytes': 146028888064},
++        'twin': {'wall_cap_s': 22752, 'rss_cap_bytes': RAM_BYTES, 'output_cap_bytes': 34359738368}}
++CAPS_FROM_FILE = ('wall_cap_s', 'output_cap_bytes')   # checked against CAPS_S45_C2V003; the RSS cap is A166's, not the file's
+ EXPECTED_LEAF = {'serial': 1, 'twin': 8}
+-EXPECTED_PHASE = 'route_a'
+ MAX_ATTEMPT = 99
+-DISK_RESERVE_BYTES = 20 * GiB                     # per-start check: one output cap + 20 GiB (kept; see README C8)
+-A133_LIMIT_GB, A133_SERIAL_PEAK_GB, A133_CAMPAIGN_RESERVE_GB = 103.0, 20.11, 29.1   # A133 section 1.4 in A141 L2 units
++DISK_RESERVE_BYTES = 20 * GiB                     # per-start check: one output cap + 20 GiB (kept; A166 keeps the disk guard)
+ SERIAL_FILE, TWIN_FILE = 'CALL_A_K32_A2_HEADLINE_C2V001.json', 'CALL_A_K32_A2_HEADLINE_CW8_TWIN_C2V001.json'
+ FILL_RECEIPT = 'FILL_RECEIPT_C2V001.json'
+ LEAF = ('numerics', 'route_a', 'column_workers')
+ LAUNCH_SCHEMA = 'UNT_GALAXY_M0_MONITOR_RECEIPT_C2V001_LAUNCH'
+ HEX64 = re.compile(r'^[0-9a-f]{64}$')
+-ATTEMPT_RE = re.compile(r'^(?P<name>S0_(?:SEED|J0|J1|J2)_SERIAL|S0_SEED_CW8_TWIN)_(?P<kind>LAUNCH|MISLAUNCH|ENDED)_C2V002_'
++ATTEMPT_RE = re.compile(r'^(?P<name>S0_(?:SEED|J0|J1|J2)_SERIAL|S0_SEED_CW8_TWIN)_(?P<kind>LAUNCH|MISLAUNCH)_C2V003_'
+                         r'A(?P<k>[1-9][0-9]?)\.json$')
+-RECORD_SCHEMA = {'LAUNCH': 'UNT_S0_LAUNCH_RECORD_C2V002', 'MISLAUNCH': 'UNT_S0_MISLAUNCH_RECORD_C2V002',
+-                 'ENDED': 'UNT_S0_ENDED_BEFORE_KIND_READ_C2V002'}
+-TEMPLATE_MON_PID, TEMPLATE_SPEC, TEMPLATE_DRIVER = '@LAUNCHED_MONITOR_PID@', '@LAUNCHED_SPEC@', '@NGC_DRIVER_SHA256@'
++RECORD_SCHEMA = {'LAUNCH': 'UNT_S0_LAUNCH_RECORD_C2V003', 'MISLAUNCH': 'UNT_S0_MISLAUNCH_RECORD_C2V003'}
++LAUNCH_RULE = ('V006 A166: no gate reading and no memory admission; after each launch the launch record '
++               '(<receipt>.launch.json) must match the plan (command, driver/spec/monitor pins, caps with RSS = RAM, '
++               'retries 0, launch after the M-15 record); otherwise the launch is stopped as a procedural mis-launch')
+ P0 = A + 'ngc_point_producer_c4/s0/build_c4v001/out/'
+ REAL = {
+     'v006': UNTPC + 'CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md',
+@@ -95,10 +93,6 @@
+                'sha256': 'ec417e76509427d8e942f52f02e9862a0277c90e3b92014c48b44a2efad61783'},
+     'dry_harness': {'path': A + 'step5_path_c2/tools/dry_one_c2v001.py',
+                     'sha256': 'aac20dd3ca18bb609b37216f552aeb5a6b9f37147e17fc5501ea3c8d0842596b'},
+-    'ngc_admission': {'path': A + 'sched_s45_c2/v003/ngc_admission_s45_c2v003.py',
+-                      'sha256': 'bdb44eeb807fd860a7f382526fba4b6c256ccffb29c6c6b4d129b4b6c14925f3'},
+-    'gate': {'path': A + 'sched_s45_c2/v003/machine_gate_s45_c2v003.py',
+-             'sha256': '736a3438b0a3af41eb8d7b2c764f25ff0f9e18942320a4542a9893b6b419f811'},
+     'caps': {'path': A + 'sched_s45_c2/v003/CAPS_S45_C2V003.json',
+              'sha256': '35f66b6a3152f985fe6edcbaeda2950e5b17e9f9f6026e5f6201052db1508f64'},
+     's0_record': {'path': A + 'phase1_c2/S0_RECORD_ROOT_V001/S0_C2V001.json',
+@@ -131,9 +125,9 @@
+     'external1_root': '/Volumes/External1',
+     'python': PY,
+ }
+-SYNTHETIC_KEYS = ('schema', 'v006', 'driver', 'monitor', 'filler', 'dry_harness', 'ngc_admission', 'gate', 's0_record', 'policy',
++SYNTHETIC_KEYS = ('schema', 'v006', 'driver', 'monitor', 'filler', 'dry_harness', 's0_record', 'policy',
+                   'acceptance', 'lo', 'gq_gate', 'eps', 'gq', 'gate_pins', 'external1_root', 'python',
+-                  'external1_require_mount', 'free_bytes_override', 'snapshot', 'snapshot_after_launch')
++                  'external1_require_mount', 'free_bytes_override')
+ 
+ 
+ class Refusal(ValueError):
+@@ -265,7 +259,7 @@
+     raw = Path(a.synthetic_pins).read_bytes()
+     need(sha_bytes(raw) == a.synthetic_pins_sha256, 'SYNTHETIC_PINS_SHA_MISMATCH')
+     sp = strict_json(raw, 'synthetic pins')
+-    need(type(sp) is dict and set(sp) == set(SYNTHETIC_KEYS) and sp['schema'] == 'S0_LAUNCH_KIT_SYNTHETIC_PINS_C2V002',
++    need(type(sp) is dict and set(sp) == set(SYNTHETIC_KEYS) and sp['schema'] == 'S0_LAUNCH_KIT_SYNTHETIC_PINS_C2V003',
+          'SYNTHETIC_PINS_KEYS')
+     # a synthetic run can never reach the real monitor or the real driver
+     for k in ('driver', 'monitor'):
+@@ -317,15 +311,17 @@
+     receipt = outdir + '.receipt.json'
+     reg_name = 'S0_%s_SERIAL' % nm if a.call == 'serial' else 'S0_SEED_CW8_TWIN'
+     # every pin from bytes
+-    for key in ('driver', 'monitor', 'filler', 'dry_harness', 'ngc_admission', 'gate', 's0_record', 'policy', 'acceptance',
+-                'lo', 'gq_gate', 'gate_pins'):
++    for key in ('driver', 'monitor', 'filler', 'dry_harness', 's0_record', 'policy', 'acceptance', 'lo', 'gq_gate', 'gate_pins'):
+         verify_pin(pins[key], key)
+     verify_pin(pins['eps'][a.role], 'eps_' + a.role)
+     verify_pin(pins['gq'][a.role], 'gq_' + a.role)
+     caps = verify_pin(REAL['caps'], 'caps')
+     cj = strict_json(Path(caps['path']).read_bytes(), 'caps')
+-    need({c: cj['ngc_s0_call_of_record'][c] for c in CAPS['serial']} == CAPS['serial'] and
+-         {c: cj['ngc_identity_twin'][c] for c in CAPS['twin']} == CAPS['twin'], 'CAPS_FILE_DIFFERS_FROM_KIT_CAPS')
++    need({c: cj['ngc_s0_call_of_record'][c] for c in CAPS_FROM_FILE} == {c: CAPS['serial'][c] for c in CAPS_FROM_FILE} and
++         {c: cj['ngc_identity_twin'][c] for c in CAPS_FROM_FILE} == {c: CAPS['twin'][c] for c in CAPS_FROM_FILE},
++         'CAPS_FILE_WALL_OR_OUTPUT_DIFFERS_FROM_KIT_CAPS')
++    need(all(type(CAPS[c]['rss_cap_bytes']) is int and CAPS[c]['rss_cap_bytes'] == RAM_BYTES for c in CAPS),
++         'RSS_CAP_NOT_RAM (V006 A166: the RSS cap is physical RAM, %d B)' % RAM_BYTES)
+     s0 = strict_json(Path(pins['s0_record']['path']).read_bytes(), 's0 record')
+     pts = [p for p in s0.get('points') or [] if p.get('role') == S0_ROLE[a.role]]
+     need(len(pts) == 1 and pts[0].get('key') == KEYS[a.role], 'S0_RECORD_HAS_NO_POINT_%s_WITH_KEY' % a.role)
+@@ -352,17 +348,17 @@
+         prev = {'attempt': k - 1, 'mislaunch_record': str(launches_dir / record_name(reg_name, 'MISLAUNCH', k - 1)),
+                 'outdir': prev_out, 'receipt': prev_out + '.receipt.json'}
+     plan = {
+-        'schema': 'S0_LAUNCH_PLAN_C2V002', 'mode': a.mode, 'call': a.call, 'role': a.role, 'attempt': k,
++        'schema': 'S0_LAUNCH_PLAN_C2V003', 'mode': a.mode, 'call': a.call, 'role': a.role, 'attempt': k,
+         'synthetic': synthetic, 'synthetic_pins': sp_pin, 'python': pins['python'],
+         'kit': {'dir': str(KIT_DIR), 'helper': {'path': str(Path(__file__).resolve()), 'sha256': sha_file(__file__)},
+                 'record_writer': {'path': str(KIT_DIR / RECORD_WRITER[0]), 'sha256': RECORD_WRITER[1]}, 'gate_pins': gp},
+-        'pins': {key: pins[key] for key in ('driver', 'monitor', 'filler', 'dry_harness', 'ngc_admission', 'gate', 's0_record',
+-                                            'policy', 'acceptance', 'lo', 'gq_gate')},
++        'pins': {key: pins[key] for key in ('driver', 'monitor', 'filler', 'dry_harness', 's0_record', 'policy', 'acceptance',
++                                            'lo', 'gq_gate')},
+         'eps': pins['eps'][a.role], 'gq_binding': pins['gq'][a.role], 'caps_file': caps, 'caps': CAPS[a.call],
++        'caps_basis': {'wall_cap_s': 'CAPS_S45_C2V003 (A135 item 3; A141 L1)', 'output_cap_bytes': 'CAPS_S45_C2V003 (A140 N3)',
++                       'rss_cap_bytes': 'V006 A166: physical RAM %d B' % RAM_BYTES},
+         'theta_key': KEYS[a.role],
+-        'expected': {'kind': EXPECTED_KIND[a.call], 'phase': EXPECTED_PHASE, 'leaf': EXPECTED_LEAF[a.call],
+-                     'rule': 'V006 A147 L3-03: after each launch root reads --hold-check runs[].kind and phase; each S0 '
+-                             'reads NGC_SERIAL, the twin NGC_TWIN; GENERIC or NGC_UNIDENTIFIED is stopped at once'},
++        'expected': {'leaf': EXPECTED_LEAF[a.call], 'rule': LAUNCH_RULE},
+         'names': {'handoff_pin': 'S0_' + nm, 'spec_pin': reg_name, 'serial_spec_pin': 'S0_%s_SERIAL' % nm,
+                   'run_name': run_name, 'first_call': 'S0_SEED_SERIAL'},
+         'launch_root': lr,
+@@ -370,15 +366,14 @@
+                   'registry': str(lrp / 'registry' / ('%s_%s.json' % (reg_name, VTAG))),
+                   'launch_record': str(launches_dir / record_name(reg_name, 'LAUNCH', k)),
+                   'mislaunch_record': str(launches_dir / record_name(reg_name, 'MISLAUNCH', k)),
+-                  'ended_record': str(launches_dir / record_name(reg_name, 'ENDED', k)),
+                   'seed_registry': str(lrp / 'registry' / ('S0_SEED_SERIAL_%s.json' % VTAG)),
+                   'launches_dir': str(launches_dir), 'kill_dir': str(lrp / 'twin_kill')},
+         'previous_attempt': prev,
+         'ext1_root': ext1, 'run_root': rr, 'outdir': outdir, 'receipt': receipt, 'launch_json': receipt + '.launch.json',
+         'v006': {'path': v006, 'sha256_at_validate': sha_bytes(vraw)},
+         'v006_pins': {'handoff': hand, 'spec': spec_pin, 'serial_spec': serial_pin, 'watch': watch},
+-        'synthetic_extras': ({key: pins[key] for key in ('external1_require_mount', 'free_bytes_override', 'snapshot',
+-                                                         'snapshot_after_launch')} if synthetic else None),
++        'synthetic_extras': ({key: pins[key] for key in ('external1_require_mount', 'free_bytes_override')}
++                             if synthetic else None),
+     }
+     if a.mode == 'launch':
+         need(hand is not None, 'V006_HAS_NO_HANDOFF_PIN %s (RI45-09)' % plan['names']['handoff_pin'])
+@@ -401,16 +396,15 @@
+           'PLAN_DRIVER_SHA': plan['pins']['driver']['sha256'], 'PLAN_MONITOR': plan['pins']['monitor']['path'],
+           'PLAN_MONITOR_SHA': plan['pins']['monitor']['sha256'], 'PLAN_FILLER': plan['pins']['filler']['path'],
+           'PLAN_FILLER_SHA': plan['pins']['filler']['sha256'], 'PLAN_DRY': plan['pins']['dry_harness']['path'],
+-          'PLAN_DRY_SHA': plan['pins']['dry_harness']['sha256'], 'PLAN_GATE': plan['pins']['gate']['path'],
+-          'PLAN_GATE_SHA': plan['pins']['gate']['sha256'], 'PLAN_GATE_PINS': plan['kit']['gate_pins']['path'],
++          'PLAN_DRY_SHA': plan['pins']['dry_harness']['sha256'], 'PLAN_GATE_PINS': plan['kit']['gate_pins']['path'],
+           'PLAN_GATE_PINS_SHA': plan['kit']['gate_pins']['sha256'], 'PLAN_RECORD': plan['paths']['record'],
+           'PLAN_REGISTRY': plan['paths']['registry'], 'PLAN_LAUNCH_RECORD': plan['paths']['launch_record'],
+-          'PLAN_MISLAUNCH_RECORD': plan['paths']['mislaunch_record'], 'PLAN_ENDED_RECORD': plan['paths']['ended_record'],
++          'PLAN_MISLAUNCH_RECORD': plan['paths']['mislaunch_record'],
+           'PLAN_SEED_REGISTRY': plan['paths']['seed_registry'], 'PLAN_LAUNCHES_DIR': plan['paths']['launches_dir'],
+           'PLAN_OUTDIR': plan['outdir'], 'PLAN_RECEIPT': plan['receipt'], 'PLAN_LAUNCH_JSON': plan['launch_json'],
+           'PLAN_EXT1': plan['ext1_root'], 'PLAN_WALL': str(plan['caps']['wall_cap_s']), 'PLAN_RSS': str(plan['caps']['rss_cap_bytes']),
+           'PLAN_OUTCAP': str(plan['caps']['output_cap_bytes']), 'PLAN_THETA_KEY': plan['theta_key'],
+-          'PLAN_EXPECTED_KIND': plan['expected']['kind'], 'PLAN_EXPECTED_LEAF': str(plan['expected']['leaf']),
++          'PLAN_EXPECTED_LEAF': str(plan['expected']['leaf']),
+           'PLAN_FIRST_CALL': plan['names']['first_call'], 'PLAN_HANDOFF': hand.get('path', ''),
+           'PLAN_HANDOFF_SHA': hand.get('sha256', ''), 'PLAN_SPEC_PIN_SHA': spec.get('sha256', ''),
+           'PLAN_RUN_NAME': plan['names']['run_name']}
+@@ -422,7 +416,7 @@
+ def load_plan(path):
+     raw = Path(path).read_bytes()
+     plan = strict_json(raw, 'plan')
+-    need(plan.get('schema') == 'S0_LAUNCH_PLAN_C2V002', 'PLAN_SCHEMA')
++    need(plan.get('schema') == 'S0_LAUNCH_PLAN_C2V003', 'PLAN_SCHEMA')
+     return plan
+ 
+ 
+@@ -501,7 +495,7 @@
+         checks['serial_of_same_fill_registered'] = (sp is not None and sp['sha256'] == shas[SERIAL_FILE]) or \
+             (sp is None and plan['mode'] == 'dry')
+     bad = sorted(k for k, v in checks.items() if not v)
+-    out = {'schema': 'S0_FILL_CHECK_C2V002', 'ok': not bad, 'failed': bad, 'checks': checks, 'date_u': date_u(),
++    out = {'schema': 'S0_FILL_CHECK_C2V003', 'ok': not bad, 'failed': bad, 'checks': checks, 'date_u': date_u(),
+            'fill_dir': str(d), 'serial': {'path': str(d / SERIAL_FILE), 'sha256': shas[SERIAL_FILE]},
+            'twin': {'path': str(d / TWIN_FILE), 'sha256': shas[TWIN_FILE]},
+            'fill_receipt': {'path': str(d / FILL_RECEIPT), 'sha256': shas[FILL_RECEIPT]},
+@@ -538,7 +532,7 @@
+         'planned_route_a': rdy.get('planned_route_a') is True,
+     }
+     bad = sorted(k for k, v in checks.items() if not v)
+-    out = {'schema': 'S0_DRY_VERDICT_C2V002', 'ok': not bad, 'failed': bad, 'checks': checks, 'date_u': date_u(),
++    out = {'schema': 'S0_DRY_VERDICT_C2V003', 'ok': not bad, 'failed': bad, 'checks': checks, 'date_u': date_u(),
+            'log': {'path': a.log, 'sha256': sha_file(a.log)},
+            'readiness': {'path': str(rd / 'NGC_SOURCE_BUILD_READINESS.json'),
+                          'sha256': sha_file(rd / 'NGC_SOURCE_BUILD_READINESS.json')},
+@@ -552,7 +546,7 @@
+ 
+ 
+ def attempt_records(plan, name=None):
+-    """The attempt records in <launch root>/launches (LAUNCH | MISLAUNCH | ENDED, attempt k), optionally of one name."""
++    """The attempt records in <launch root>/launches (LAUNCH | MISLAUNCH, attempt k), optionally of one name."""
+     d = Path(plan['paths']['launches_dir'])
+     out = []
+     if d.is_dir():
+@@ -571,7 +565,7 @@
+     dv = strict_json(Path(a.dry_verdict).read_bytes(), 'dry verdict')
+     need(fc['ok'] and dv['ok'], 'FILL_OR_DRY_NOT_OK')
+     need(dv['spec']['sha256'] == fc['launch_spec']['sha256'], 'DRY_PLAN_OF_ANOTHER_SPEC')
+-    entry = {'schema': 'UNT_S0_LAUNCH_REGISTRY_ENTRY_C2V002', 'name': plan['names']['spec_pin'], 'role': plan['role'],
++    entry = {'schema': 'UNT_S0_LAUNCH_REGISTRY_ENTRY_C2V003', 'name': plan['names']['spec_pin'], 'role': plan['role'],
+              'call': plan['call'], 'theta_key': plan['theta_key'], 'spec': fc['launch_spec'],
+              'v006_spec_pin': fc['v006_spec_pin'], 'v006_handoff_pin': fc['v006_handoff_pin'],
+              'pair': {'serial': fc['serial'], 'twin': fc['twin']}, 'fill_dir': fc['fill_dir'], 'fill_receipt': fc['fill_receipt'],
+@@ -600,256 +594,6 @@
+     return 0
+ 
+ 
+-# ------------------------------------------------------------------------------------------------------------- gate
+-class FakeClock:
+-    def __init__(self):
+-        self.t = 1000.0
+-
+-    def __call__(self):
+-        return self.t
+-
+-
+-def substitute(obj, subst):
+-    """Synthetic snapshots only: the three template strings become the launched monitor pid (int), the launched spec path
+-    and the pinned gate's ngc_driver_sha256.  Any template left unresolved refuses."""
+-    if isinstance(obj, dict):
+-        return {k: substitute(v, subst) for k, v in obj.items()}
+-    if isinstance(obj, list):
+-        return [substitute(v, subst) for v in obj]
+-    if isinstance(obj, str) and obj in (TEMPLATE_MON_PID, TEMPLATE_SPEC, TEMPLATE_DRIVER):
+-        v = subst.get(obj)
+-        need(v is not None, 'SYNTHETIC_TEMPLATE_UNRESOLVED %s' % obj)
+-        return v
+-    return obj
+-
+-
+-def synthetic_snapshot(plan, key, subst=None):
+-    ex = plan['synthetic_extras']
+-    need(plan['synthetic'] and ex and ex.get(key), 'SYNTHETIC_SNAPSHOT_ONLY')
+-    snap = substitute(strict_json(Path(ex[key]).read_bytes(), 'snapshot'), subst or {})
+-    snap['procs_cpu'] = {int(k): v for k, v in (snap.get('procs_cpu') or {}).items()}
+-    for r in snap.get('runs') or []:
+-        r['cpu_s'] = {int(k): v for k, v in (r.get('cpu_s') or {}).items()}
+-    return snap
+-
+-
+-def load_gate(plan):
+-    NA = load_module(plan['pins']['ngc_admission'], 'ngc_admission_s45_c2v003')
+-    need(NA.GATE_SHA256 == plan['pins']['gate']['sha256'] and os.path.realpath(NA.GATE_PATH) ==
+-         os.path.realpath(plan['pins']['gate']['path']), 'NGC_ADMISSION_GATE_PIN_DIFFERS')
+-    G = NA._load_pinned(NA.GATE_PATH, NA.GATE_SHA256, 's45_machine_gate_ngc')
+-    return NA, G
+-
+-
+-def make_gate(plan, G, snapshot_key, params=None, subst=None):
+-    if plan['synthetic']:
+-        snap = synthetic_snapshot(plan, snapshot_key, subst)
+-        clock = FakeClock()
+-        return G.Gate(params=params, probe_fn=lambda: snap, clock=clock), clock
+-    return G.Gate(params=params), None
+-
+-
+-def warm(gate, clock):
+-    gate.sample(force=True)
+-    if clock is not None:
+-        clock.t += gate.P['warmup_s'] + 1.0
+-    else:
+-        time.sleep(gate.P['warmup_s'])
+-    gate.sample(force=True)
+-
+-
+-def a133_memory_ok(live_runs_gb):
+-    """A133 section 1.4 in A141 L2 units: measured run footprint + 20.11 GB + 29.1 GB <= 103 GB (footprint <= 53.79 GB)."""
+-    return isinstance(live_runs_gb, (int, float)) and math.isfinite(live_runs_gb) and \
+-        live_runs_gb + A133_SERIAL_PEAK_GB + A133_CAMPAIGN_RESERVE_GB <= A133_LIMIT_GB + 1e-9
+-
+-
+-def cmd_admission(a):
+-    """sched v003 admission of one NGC serial call: ngc_admission_s45_c2v003's own wave-1 class (family NGC_SERIAL), its
+-    class/gate consistency checks, then the pinned gate's decide() on a warmed sample (spacing 600 s as the loop uses),
+-    plus the A133 memory rule (A147 L3-02: the stricter of the two).  Disk is ext1-check's.  Reads ps/top/sysctl/vm_stat
+-    through the gate (real mode)."""
+-    plan = load_plan(a.plan)
+-    need(plan['call'] == 'serial', 'ADMISSION_IS_FOR_THE_SERIAL_CALL (the twin uses --twin-start-check)')
+-    NA, G = load_gate(plan)
+-    raw = Path(a.spec).read_bytes()
+-    need(sha_bytes(raw) == a.spec_sha256, 'SPEC_SHA')
+-    cw = NA.spec_route_a_workers(raw)
+-    reasons = []
+-    if cw != 1:
+-        reasons.append('SPEC_NOT_SERIAL column_workers=%r' % (cw,))
+-    why_class = NA.class_matches_gate(G)
+-    if why_class:
+-        reasons.append('CLASS_MISMATCH: %s' % why_class)
+-    c1 = NA.PARAMS['class_wave1']
+-    head = NA.ngc_class(G, c1['res_route_a_gb'], c1['spike_gb'], NA.PARAMS)
+-    never = G.never_admissible(head, G.PARAMS)
+-    if never:
+-        reasons.append('NEVER_ADMISSIBLE: %s' % never)
+-    gate, clock = make_gate(plan, G, 'snapshot', params={'spacing_s': NA.PARAMS['spacing_s']})
+-    warm(gate, clock)
+-    d = gate.decide(owned={}, head=head, n_running=0, max_concurrent=NA.PARAMS['max_concurrent'], last_own_start=None)
+-    reasons += ['GATE_' + r for r in d['reasons']]
+-    mem_ok = a133_memory_ok(d.get('live_runs_gb'))
+-    if not mem_ok:
+-        reasons.append('A133_MEMORY: live run footprint %.2f GB + %.2f + %.2f > %.1f GB' % (
+-            d.get('live_runs_gb') or float('nan'), A133_SERIAL_PEAK_GB, A133_CAMPAIGN_RESERVE_GB, A133_LIMIT_GB))
+-    out = {'schema': 'S0_ADMISSION_C2V002', 'admit': not reasons, 'reasons': reasons, 'date_u': date_u(),
+-           'head': head, 'gate_decision': d, 'a133_memory_ok': mem_ok,
+-           'ngc_admission': plan['pins']['ngc_admission'], 'gate': plan['pins']['gate'], 'synthetic': plan['synthetic'],
+-           'spec': {'path': a.spec, 'sha256': a.spec_sha256},
+-           'note': 'ngc_admission_s45_c2v003 is an admission LOOP that launches; this check uses its class and the pinned gate '
+-                   'only, and root launches through root_monitor directly (its wave-1 wall cap 576,000 s differs from the '
+-                   'S0 cap 610,324 s).'}
+-    if a.out:
+-        write_x(a.out, out)
+-    print(json.dumps({'admit': out['admit'], 'reasons': reasons, 'live_runs_gb': d.get('live_runs_gb'),
+-                      'mem_after_admit_gb': d.get('mem_after_admit_gb')}))
+-    return 0 if out['admit'] else 3
+-
+-
+-def emulate_gate_cli(plan, which, mon_pid=None, spec=None):
+-    """Synthetic only: (exit code, stdout) exactly as machine_gate_s45_c2v003 main() prints them (L812-830), on the pinned
+-    gate code with the injected snapshot.  hold: snapshot_after_launch (templates resolved); twin-start: snapshot."""
+-    need(plan['synthetic'], 'GATE_CLI_EMULATION_IS_SYNTHETIC_ONLY: root runs the pinned gate CLI itself')
+-    _, G = load_gate(plan)
+-    if which == 'hold':
+-        subst = {TEMPLATE_MON_PID: mon_pid, TEMPLATE_SPEC: spec, TEMPLATE_DRIVER: G.PARAMS['ngc_driver_sha256']}
+-        gate, _ = make_gate(plan, G, 'snapshot_after_launch', subst=subst)
+-        d = gate.hold_check()
+-        return (2 if not d['probe_ok'] else (3 if d['hold'] else 0)), json.dumps(d, indent=1, default=str) + '\n'
+-    gate, clock = make_gate(plan, G, 'snapshot')
+-    warm(gate, clock)
+-    d = gate.twin_start()
+-    return (0 if d['admit'] else 3), json.dumps({k: v for k, v in d.items() if k != 'runs'}, indent=1, default=str) + '\n'
+-
+-
+-def cmd_gate_cli(a):
+-    plan = load_plan(a.plan)
+-    code, out = emulate_gate_cli(plan, a.which, a.mon_pid, a.spec)
+-    sys.stdout.write(out)
+-    return code
+-
+-
+-# ------------------------------------------------------------------------------------------------------------- A147 L3-03
+-def kind_reading(stdout_text, exit_code, mon_pid, expected_kind):
+-    """One --hold-check reading of the launched monitor's run.  -> {'state': CONFIRMED | WRONG | NOT_YET, 'reason', 'run'}.
+-    NOT_YET: the CLI failed or printed no JSON object, the probe failed (exit 2 / probe_ok false), the exit code disagrees
+-    with 'hold', or no run has key == the monitor pid (not seen).  WRONG (stop at once): more than one run with the key,
+-    a kind other than the expected one (GENERIC, NGC_UNIDENTIFIED or the other NGC kind), a phase other than route_a, a
+-    twin that is not in the hold list, or a serial that is.  CONFIRMED otherwise.  The exit code alone never confirms."""
+-    def res(state, reason, run=None):
+-        return {'state': state, 'reason': reason, 'run': run}
+-    if exit_code not in (0, 2, 3):
+-        return res('NOT_YET', 'GATE_CLI_EXIT_%s' % exit_code)
+-    try:
+-        d = json.loads(stdout_text)
+-    except (ValueError, TypeError):
+-        return res('NOT_YET', 'GATE_CLI_OUTPUT_UNPARSEABLE')
+-    if type(d) is not dict:
+-        return res('NOT_YET', 'GATE_CLI_OUTPUT_NOT_AN_OBJECT')
+-    if exit_code == 2 or d.get('probe_ok') is not True:
+-        return res('NOT_YET', 'PROBE_FAILED %s' % (d.get('probe_reasons'),))
+-    if type(d.get('hold')) is not bool or exit_code != (3 if d['hold'] else 0):
+-        return res('NOT_YET', 'EXIT_DISAGREES_WITH_HOLD (exit %s, hold %r)' % (exit_code, d.get('hold')))
+-    runs = d.get('runs')
+-    if not isinstance(runs, list):
+-        return res('NOT_YET', 'NO_RUNS_LIST')
+-    mine = [r for r in runs if type(r) is dict and type(r.get('key')) is int and r['key'] == mon_pid]
+-    if not mine:
+-        return res('NOT_YET', 'NOT_SEEN (no runs[].key == %d among %d runs)' % (mon_pid, len(runs)))
+-    if len(mine) > 1:
+-        return res('WRONG', 'DUPLICATE_KEY %d' % mon_pid, mine)
+-    r = mine[0]
+-    if r.get('kind') != expected_kind:
+-        return res('WRONG', 'WRONG_KIND %s (expected %s)' % (r.get('kind'), expected_kind), r)
+-    if r.get('phase') != EXPECTED_PHASE:
+-        return res('WRONG', 'WRONG_PHASE %s (expected %s)' % (r.get('phase'), EXPECTED_PHASE), r)
+-    twins = d.get('twins') if isinstance(d.get('twins'), list) else []
+-    if expected_kind == 'NGC_TWIN' and not (d['hold'] is True and mon_pid in twins):
+-        return res('WRONG', 'TWIN_NOT_IN_THE_HOLD_LIST', r)
+-    if expected_kind == 'NGC_SERIAL' and mon_pid in twins:
+-        return res('WRONG', 'SERIAL_IN_THE_HOLD_LIST', r)
+-    return res('CONFIRMED', 'KIND_AND_PHASE_READ %s %s' % (r['kind'], r['phase']), r)
+-
+-
+-def pid_alive(pid):
+-    try:
+-        os.kill(pid, 0)
+-    except ProcessLookupError:
+-        return False
+-    except PermissionError:
+-        return True
+-    st = subprocess.run(['/bin/ps', '-o', 'stat=', '-p', str(pid)], capture_output=True, text=True, timeout=20).stdout.strip()
+-    return bool(st) and not st.startswith('Z')
+-
+-
+-def real_hold_check(plan):
+-    verify_pin(plan['pins']['gate'], 'gate')
+-    try:
+-        r = subprocess.run([plan['python'], '-I', '-B', plan['pins']['gate']['path'], '--hold-check'], capture_output=True,
+-                           text=True, timeout=180, cwd='/',
+-                           env={'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LC_ALL': 'C', 'HOME': os.environ.get('HOME', '/')})
+-        return r.returncode, r.stdout, r.stderr
+-    except subprocess.TimeoutExpired:
+-        return -1, '', 'TIMEOUT'
+-
+-
+-def cmd_confirm_kind(a):
+-    """A147 L3-03, after <receipt>.launch.json exists: poll --hold-check (real: the pinned gate CLI; synthetic: the
+-    emulation) every --poll-s until the run with key == --mon-pid reads the expected kind and phase (CONFIRMED, exit 0),
+-    reads anything else (MISLAUNCH, exit 3: stop at once), or --timeout-s passes unread (MISLAUNCH NOT_CONFIRMED, exit 3:
+-    fail closed).  If the monitor is gone and was never seen: ENDED (exit 5).  Every gate output is kept in
+-    <work>/kind_check/; the verdict is written to --out by exclusive create."""
+-    plan = load_plan(a.plan)
+-    plan_sha = sha_file(a.plan)
+-    expected = plan['expected']['kind']
+-    need(a.mon_pid > 1 and a.timeout_s >= 0 and a.poll_s > 0, 'CONFIRM_KIND_ARGS')
+-    kd = Path(a.work) / 'kind_check'
+-    kd.mkdir()
+-    t0 = time.monotonic()
+-    readings, verdict, reason, last = [], None, None, None
+-    n = 0
+-    while True:
+-        n += 1
+-        try:
+-            if plan['synthetic']:
+-                code, out = emulate_gate_cli(plan, 'hold', a.mon_pid, a.spec)
+-                err = ''
+-            else:
+-                code, out, err = real_hold_check(plan)
+-        except (Refusal, OSError, ValueError, KeyError, TypeError) as e:
+-            code, out, err = -1, '', '%s: %s' % (type(e).__name__, e)
+-        so = write_x_bytes(kd / ('hold_check_%03d.stdout.json' % n), out.encode(), 0o444)
+-        write_x_bytes(kd / ('hold_check_%03d.stderr.txt' % n), err.encode(), 0o444)
+-        r = kind_reading(out, code, a.mon_pid, expected)
+-        last = dict(r, n=n, exit=code, stdout_sha256=so, t_s=round(time.monotonic() - t0, 3))
+-        readings.append({k: last[k] for k in ('n', 'exit', 'state', 'reason', 'stdout_sha256', 't_s')})
+-        if r['state'] == 'CONFIRMED':
+-            verdict, reason = 'CONFIRMED', r['reason']
+-            break
+-        if r['state'] == 'WRONG':
+-            verdict, reason = 'MISLAUNCH', r['reason']
+-            break
+-        if r['reason'].startswith('NOT_SEEN') and not pid_alive(a.mon_pid):
+-            verdict, reason = 'ENDED', 'MONITOR_ENDED_BEFORE_ITS_RUN_WAS_READ'
+-            break
+-        if time.monotonic() - t0 >= a.timeout_s:
+-            verdict, reason = 'MISLAUNCH', 'NOT_CONFIRMED within %ss (last: %s)' % (a.timeout_s, r['reason'])
+-            break
+-        time.sleep(a.poll_s)
+-    out = {'schema': 'S0_KIND_VERDICT_C2V002', 'verdict': verdict, 'reason': reason, 'expected_kind': expected,
+-           'expected_phase': EXPECTED_PHASE, 'mon_pid': a.mon_pid, 'call': plan['call'], 'role': plan['role'],
+-           'attempt': plan['attempt'], 'reading': last, 'readings': readings, 'n_probes': n,
+-           'gate': plan['pins']['gate'], 'gate_cli': 'emulated (synthetic)' if plan['synthetic'] else 'pinned gate --hold-check',
+-           'plan': {'path': a.plan, 'sha256': plan_sha}, 'spec': a.spec, 'timeout_s': a.timeout_s, 'poll_s': a.poll_s,
+-           'rule': plan['expected']['rule'], 'date_u': date_u(), 'synthetic': plan['synthetic']}
+-    write_x(a.out, out)
+-    print(json.dumps({'verdict': verdict, 'reason': reason, 'n_probes': n,
+-                      'run': (last or {}).get('run')}))
+-    return {'CONFIRMED': 0, 'MISLAUNCH': 3, 'ENDED': 5}[verdict]
+-
+-
+ # ------------------------------------------------------------------------------------------------------------- checks
+ def cmd_ext1_check(a):
+     """External1 mounted (synthetic: a directory), no symlinked ancestor, the outputs absent, free >= cap + 20 GiB."""
+@@ -877,7 +621,7 @@
+     need_bytes = plan['caps']['output_cap_bytes'] + DISK_RESERVE_BYTES
+     if free is None or free < need_bytes:
+         reasons.append('DISK_FREE %s < %d (output cap + 20 GiB, per-start check)' % (free, need_bytes))
+-    out = {'schema': 'S0_EXT1_CHECK_C2V002', 'ok': not reasons, 'reasons': reasons, 'free_bytes': free,
++    out = {'schema': 'S0_EXT1_CHECK_C2V003', 'ok': not reasons, 'reasons': reasons, 'free_bytes': free,
+            'required_bytes': need_bytes, 'outdir': plan['outdir'], 'receipt': plan['receipt'], 'date_u': date_u()}
+     if a.out:
+         write_x(a.out, out)
+@@ -890,7 +634,7 @@
+     plan = load_plan(a.plan)
+     p = a.receipt
+     ok = isinstance(p, str) and os.path.isabs(p) and Path(p).is_file()
+-    out = {'schema': 'S0_STEP2_CHECK_C2V002', 'ok': ok, 'receipt': p, 'sha256': sha_file(p) if ok else None,
++    out = {'schema': 'S0_STEP2_CHECK_C2V003', 'ok': ok, 'receipt': p, 'sha256': sha_file(p) if ok else None,
+            'date_u': date_u(), 'role': plan['role']}
+     if a.out:
+         write_x(a.out, out)
+@@ -899,7 +643,8 @@
+ 
+ 
+ def cmd_watch_check(a):
+-    """A135.5: the V006 WATCH_PIN MEMORY_WATCH script verifies from bytes and a process running it exists (ps)."""
++    """A135.5: the V006 WATCH_PIN MEMORY_WATCH script verifies from bytes and a process running it exists (ps).
++    The watch is passive (alerts only, A166); this checks only that it runs, never what it reads."""
+     plan = load_plan(a.plan)
+     w = plan['v006_pins']['watch']
+     reasons = []
+@@ -916,7 +661,7 @@
+         running = [ln.strip() for ln in ps.splitlines() if w['path'] in ln]
+         if not running:
+             reasons.append('WATCH_NOT_RUNNING')
+-    out = {'schema': 'S0_WATCH_CHECK_C2V002', 'ok': not reasons, 'reasons': reasons, 'watch_pin': w,
++    out = {'schema': 'S0_WATCH_CHECK_C2V003', 'ok': not reasons, 'reasons': reasons, 'watch_pin': w,
+            'running_processes': running[:5], 'date_u': date_u()}
+     if a.out:
+         write_x(a.out, out)
+@@ -941,11 +686,11 @@
+     first attempt, or when launch records exist without it):
+       - the record exists; no confirmed launch (LAUNCH record) of this name exists in any attempt;
+       - attempt k has no record yet, and no later attempt has one;
+-      - attempt k > 1 (A147 L3-03 relaunch): attempt k-1 ended in a MISLAUNCH record of this name, written under the same
+-        M-15 record (sha), and its monitor receipt exists (that monitor and its driver have ended); an ENDED record or no
+-        record refuses (a run failure is root's ruling, A50/A108, not this relaunch path);
+-      - every call other than the seed serial needs a confirmed seed serial launch (A143 D2; r3a L454); the twin also needs
+-        the seed registry entry."""
++      - attempt k > 1 (the relaunch path): attempt k-1 ended in a MISLAUNCH record of this name, written under the same
++        M-15 record (sha), and its monitor receipt exists (that monitor and its driver have ended); no record refuses (a
++        run failure is root's ruling, A50/A108, not this relaunch path);
++      - every call other than the seed serial needs a confirmed seed serial launch (M-15; r3a L454); the twin also needs
++        the seed registry entry, and nothing else: it may start any time after the seed's LAUNCH record (A166)."""
+     plan = load_plan(a.plan)
+     P = plan['paths']
+     name, k = plan['names']['spec_pin'], plan['attempt']
+@@ -966,7 +711,7 @@
+         if not prev:
+             reasons.append('NO_RECORD_OF_ATTEMPT_%d (a relaunch follows a recorded mis-launch of the previous attempt)' % (k - 1))
+         elif prev[0]['kind'] != 'MISLAUNCH' or len(prev) != 1:
+-            reasons.append('ATTEMPT_%d_IS_NOT_A_RECORDED_MISLAUNCH (%s): the A147 L3-03 relaunch follows a procedural '
++            reasons.append('ATTEMPT_%d_IS_NOT_A_RECORDED_MISLAUNCH (%s): the relaunch follows a procedural '
+                            'mis-launch only; any other ending is root\'s ruling (A50; A108)' % (k - 1, [r['kind'] for r in prev]))
+         else:
+             m = strict_json(Path(prev[0]['path']).read_bytes(), 'mis-launch record')
+@@ -982,7 +727,8 @@
+             if not os.path.lexists(pa['receipt']):
+                 reasons.append('PREVIOUS_ATTEMPT_MONITOR_RECEIPT_MISSING %s (its monitor has not ended; stop it first)'
+                                % pa['receipt'])
+-            prev_info = {'record': prev[0]['path'], 'sha256': sha_file(prev[0]['path']), 'reason': m.get('kind_verdict_reason')}
++            prev_info = {'record': prev[0]['path'], 'sha256': sha_file(prev[0]['path']),
++                         'reason': m.get('launch_verdict_reason')}
+     if not (plan['call'] == 'serial' and plan['role'] == 'seed'):
+         seed = [r for r in attempt_records(plan, 'S0_SEED_SERIAL') if r['kind'] == 'LAUNCH']
+         if not seed:
+@@ -1089,37 +835,6 @@
+     return calendar.timegm(time.strptime(s, '%Y-%m-%dT%H:%M:%SZ'))
+ 
+ 
+-def cmd_wave_state(a):
+-    """Root's attestation for the twin start (A143 D2/D3; A140 N2): ROOT_WAVE_STATE_C2V001 with wave_in_progress false,
+-    direct_batch_pending false, utc no older than 600 s (and not in the future by more than 60 s)."""
+-    reasons = []
+-    try:
+-        w = strict_json(Path(a.file).read_bytes(), 'wave state')
+-    except (OSError, Refusal) as e:
+-        print(json.dumps({'ok': False, 'reasons': ['WAVE_STATE_UNREADABLE %s' % e]}))
+-        return 3
+-    if not (type(w) is dict and set(w) == {'schema', 'wave_in_progress', 'direct_batch_pending', 'utc', 'written_by'} and
+-            w['schema'] == 'ROOT_WAVE_STATE_C2V001' and type(w['wave_in_progress']) is bool and
+-            type(w['direct_batch_pending']) is bool):
+-        reasons.append('WAVE_STATE_FORM')
+-    else:
+-        if w['wave_in_progress']:
+-            reasons.append('MID_WAVE')
+-        if w['direct_batch_pending']:
+-            reasons.append('DIRECT_BATCH_PENDING')
+-        try:
+-            age = time.time() - parse_iso(w['utc'])
+-            if age > 600 or age < -60:
+-                reasons.append('WAVE_STATE_STALE age_s=%.0f' % age)
+-        except (ValueError, TypeError):
+-            reasons.append('WAVE_STATE_UTC_FORM')
+-    out = {'ok': not reasons, 'reasons': reasons, 'file': a.file, 'sha256': sha_file(a.file)}
+-    if a.out:
+-        write_x(a.out, dict(out, schema='S0_WAVE_STATE_CHECK_C2V002', date_u=date_u()))
+-    print(json.dumps(out))
+-    return 0 if not reasons else 3
+-
+-
+ def find_stage(outdir):
+     st = Path(outdir) / 'stages'
+     if not st.is_dir():
+@@ -1198,7 +913,7 @@
+     lr = Path(a.launch_root)
+     d = lr / 'twin_kill'
+     d.mkdir(exist_ok=True)
+-    rec = {'schema': 'UNT_S0_TWIN_KILL_RECORD_C2V002', 'date_u': date_u(), 'reason': a.reason, 'pgid': a.pgid,
++    rec = {'schema': 'UNT_S0_TWIN_KILL_RECORD_C2V003', 'date_u': date_u(), 'reason': a.reason, 'pgid': a.pgid,
+            'result': a.result, 'launch_json': {'path': a.launch_json, 'sha256': sha_file(a.launch_json)},
+            'outdir': a.outdir, 'rule': 'A141 L4: the planned twin stop after iteration 1 COMPLETED + sidecar record; not a '
+                                        'failure (A135 item 3; A133 section 3(c)); the twin is never a member'}
+@@ -1209,84 +924,119 @@
+ 
+ 
+ # ------------------------------------------------------------------------------------------------------------- records
+-def cmd_launch_record(a):
+-    """After the monitor wrote <receipt>.launch.json: check it against the plan and write this attempt's record ('x'):
+-      LAUNCH     the kind verdict is CONFIRMED for this monitor pid and plan (required; A147 L3-03);
+-      MISLAUNCH  the launch was stopped (procedural mis-launch, not a scientific failure); carries the kind verdict, the
+-                 kill-target verification, the stop result and the monitor receipt when it exists; names the relaunch;
+-      ENDED      the monitor ended before its run was read (a run failure: root rules, A50/A108; no kit relaunch).
+-    One record per attempt.  First record in the launch root: the launch utc must be later than the M-15 record's date -u
+-    second, and V006 is re-hashed (a change is flagged)."""
+-    plan = load_plan(a.plan)
+-    rec, rsha = read_record(plan)
+-    name, k = plan['names']['spec_pin'], plan['attempt']
+-    already = [r['path'] for r in attempt_records(plan, name) if r['attempt'] == k]
+-    need(not already, 'ATTEMPT_ALREADY_RECORDED %s' % already)
+-    kv, kv_pin = None, None
+-    if a.kind_verdict and os.path.lexists(a.kind_verdict):
+-        kv = strict_json(Path(a.kind_verdict).read_bytes(), 'kind verdict')
+-        kv_pin = pin_of(a.kind_verdict)
+-    if a.outcome == 'LAUNCH':
+-        need(kv is not None and kv.get('schema') == 'S0_KIND_VERDICT_C2V002' and kv.get('verdict') == 'CONFIRMED' and
+-             kv.get('mon_pid') == a.mon_pid and kv.get('expected_kind') == plan['expected']['kind'] and
+-             (kv.get('plan') or {}).get('sha256') == sha_file(a.plan),
+-             'A LAUNCH RECORD NEEDS A CONFIRMED KIND VERDICT FOR THIS MONITOR PID AND PLAN (A147 L3-03)')
+-    if a.outcome == 'ENDED':
+-        need(kv is not None and kv.get('verdict') == 'ENDED' and kv.get('mon_pid') == a.mon_pid, 'ENDED_NEEDS_AN_ENDED_VERDICT')
+-    lj_raw = Path(plan['launch_json']).read_bytes()
+-    lj = strict_json(lj_raw, 'launch json')
+-    first = not launches(plan)
+-    expected_cmd = [plan['python'], '-I', '-B', plan['pins']['driver']['path'], 'run', '--spec', a.spec, '--outdir', plan['outdir']]
+-    caps = lj.get('caps') or {}
++def caps_equal(caps, want):
++    try:
++        return isinstance(caps, dict) and all(float(caps.get(c, -1)) == float(v) for c, v in want.items())
++    except (TypeError, ValueError):
++        return False
++
++
++def launch_checks(plan, rec, spec, spec_sha256):
++    """The launch record root_monitor wrote (<receipt>.launch.json) against the plan -> (checks, raw bytes, dict, utc epoch).
++    The checks are C2V002's launch-record checks, unchanged, plus 'launch_json_parseable'; an unreadable or unparseable
++    launch record fails that check and never passes."""
++    try:
++        raw = Path(plan['launch_json']).read_bytes()
++        lj = strict_json(raw, 'launch json')
++        need(type(lj) is dict, 'LAUNCH_JSON_NOT_AN_OBJECT')
++    except (OSError, Refusal):
++        return {'launch_json_parseable': False}, None, {}, None
++    expected_cmd = [plan['python'], '-I', '-B', plan['pins']['driver']['path'], 'run', '--spec', spec, '--outdir', plan['outdir']]
++    pins = lj.get('pins') if isinstance(lj.get('pins'), dict) else {}
+     try:
+         launch_epoch = parse_iso(lj.get('utc'))
+     except (TypeError, ValueError):
+         launch_epoch = None
+     checks = {
++        'launch_json_parseable': True,
+         'schema': lj.get('schema') == LAUNCH_SCHEMA,
+         'command_is_planned': lj.get('command') == expected_cmd,
+-        'driver_pin': (lj.get('pins') or {}).get('driver') == {'path': plan['pins']['driver']['path'],
+-                                                                'sha256': plan['pins']['driver']['sha256']},
+-        'spec_pin': (lj.get('pins') or {}).get('spec') == {'path': a.spec, 'sha256': a.spec_sha256},
+-        'monitor_sha': ((lj.get('pins') or {}).get('monitor') or {}).get('sha256') == plan['pins']['monitor']['sha256'],
+-        'caps': all(float(caps.get(c, -1)) == float(v) for c, v in plan['caps'].items()),
++        'driver_pin': pins.get('driver') == {'path': plan['pins']['driver']['path'], 'sha256': plan['pins']['driver']['sha256']},
++        'spec_pin': pins.get('spec') == {'path': spec, 'sha256': spec_sha256},
++        'monitor_sha': isinstance(pins.get('monitor'), dict) and
++        pins['monitor'].get('sha256') == plan['pins']['monitor']['sha256'],
++        'caps': caps_equal(lj.get('caps'), plan['caps']),
+         'retries_0': lj.get('retries_allowed') == 0,
+         'child_pid': type(lj.get('child_pid')) is int,
+         'm15_record_precedes_this_launch': launch_epoch is not None and launch_epoch > int(rec['date_u_epoch_s']),
+     }
++    return checks, raw, lj, launch_epoch
++
++
++def cmd_launch_check(a):
++    """The post-launch check (C2V003).  V006 A166 removed the A147 L3-03 gate reading; what is read now is the launch
++    record root_monitor wrote: once <receipt>.launch.json exists, its command, driver/spec/monitor pins, caps (RSS = RAM),
++    retries 0, child pid and launch time (after the M-15 record) must equal the plan's.  CONFIRMED -> exit 0.  Anything
++    else, including an unreadable launch record or an error here, -> MISLAUNCH, exit 3 (fail closed: the script stops the
++    launch at once).  The verdict goes to --out by exclusive create.  Nothing here reads the machine's memory or a gate."""
++    plan = load_plan(a.plan)
++    plan_sha = sha_file(a.plan)
++    need(a.mon_pid > 1, 'LAUNCH_CHECK_ARGS')
++    lj_pin, rsha, err = None, None, None
++    try:
++        rec, rsha = read_record(plan)
++        checks, raw, lj, _ = launch_checks(plan, rec, a.spec, a.spec_sha256)
++        if raw is not None:
++            lj_pin = {'path': plan['launch_json'], 'sha256': sha_bytes(raw), 'child_pid': lj.get('child_pid')}
++        failed = sorted(c for c, v in checks.items() if not v)
++    except Exception as e:                                             # fail closed
++        checks, failed, err = {}, ['LAUNCH_CHECK_ERROR'], '%s: %s' % (type(e).__name__, e)
++    verdict = 'MISLAUNCH' if failed else 'CONFIRMED'
++    reason = 'LAUNCH_RECORD_MATCHES_PLAN' if not failed else 'LAUNCH_RECORD_DIFFERS_FROM_PLAN %s%s' % (
++        failed, (' (%s)' % err) if err else '')
++    out = {'schema': 'S0_LAUNCH_VERDICT_C2V003', 'verdict': verdict, 'reason': reason, 'failed': failed, 'checks': checks,
++           'mon_pid': a.mon_pid, 'call': plan['call'], 'role': plan['role'], 'attempt': plan['attempt'],
++           'launch_json': lj_pin, 'm15_record_sha256': rsha, 'plan': {'path': a.plan, 'sha256': plan_sha},
++           'spec': {'path': a.spec, 'sha256': a.spec_sha256}, 'caps_expected': plan['caps'], 'rule': plan['expected']['rule'],
++           'date_u': date_u(), 'synthetic': plan['synthetic']}
++    write_x(a.out, out)
++    print(json.dumps({'verdict': verdict, 'reason': reason}))
++    return 0 if verdict == 'CONFIRMED' else 3
++
++
++def cmd_launch_record(a):
++    """After the monitor wrote <receipt>.launch.json and launch-check ran: write this attempt's record ('x'):
++      LAUNCH     the launch verdict is CONFIRMED for this monitor pid, this plan and these launch-record bytes (required);
++      MISLAUNCH  the launch was stopped (procedural mis-launch, not a scientific failure); carries the launch verdict, the
++                 kill-target verification, the stop result and the monitor receipt when it exists; names the relaunch.
++    One record per attempt.  First record in the launch root: the launch utc must be later than the M-15 record's date -u
++    second, and V006 is re-hashed (a change is flagged)."""
++    plan = load_plan(a.plan)
++    rec, rsha = read_record(plan)
++    name, k = plan['names']['spec_pin'], plan['attempt']
++    already = [r['path'] for r in attempt_records(plan, name) if r['attempt'] == k]
++    need(not already, 'ATTEMPT_ALREADY_RECORDED %s' % already)
++    lv, lv_pin = None, None
++    if a.launch_verdict and os.path.lexists(a.launch_verdict):
++        lv = strict_json(Path(a.launch_verdict).read_bytes(), 'launch verdict')
++        lv_pin = pin_of(a.launch_verdict)
++    checks, lj_raw, lj, launch_epoch = launch_checks(plan, rec, a.spec, a.spec_sha256)
++    if a.outcome == 'LAUNCH':
++        need(lv is not None and lv.get('schema') == 'S0_LAUNCH_VERDICT_C2V003' and lv.get('verdict') == 'CONFIRMED' and
++             lv.get('mon_pid') == a.mon_pid and (lv.get('plan') or {}).get('sha256') == sha_file(a.plan) and
++             lj_raw is not None and (lv.get('launch_json') or {}).get('sha256') == sha_bytes(lj_raw),
++             'A LAUNCH RECORD NEEDS A CONFIRMED LAUNCH VERDICT FOR THIS MONITOR PID, PLAN AND LAUNCH RECORD')
++    first = not launches(plan)
+     flags = []
+     v006_now = sha_file(plan['v006']['path'])
+     if first and v006_now != rec['v006']['sha256']:
+         flags.append('V006_CHANGED_BETWEEN_RECORD_AND_THIS_CHECK')
+-    hold_info = None
+-    if kv is not None and isinstance(kv.get('reading'), dict):
+-        n = kv['reading'].get('n')
+-        try:
+-            d = json.loads(Path(a.work, 'kind_check', 'hold_check_%03d.stdout.json' % n).read_text())
+-            hold_info = {'hold': d.get('hold'), 'twins': d.get('twins'), 'probe_ok': d.get('probe_ok'),
+-                         'n_runs': len(d.get('runs') or [])}
+-        except (OSError, ValueError, TypeError):
+-            hold_info = None
+-    if a.outcome == 'LAUNCH' and plan['call'] == 'serial' and hold_info and hold_info.get('hold'):
+-        flags.append('HOLD_TRUE_AT_SERIAL_LAUNCH twins %s (another tree holds; this serial reads NGC_SERIAL)' % hold_info['twins'])
+     bad = sorted(c for c, v in checks.items() if not v)
+     out = {'schema': RECORD_SCHEMA[a.outcome], 'outcome': a.outcome, 'name': name, 'role': plan['role'], 'call': plan['call'],
+            'attempt': k, 'first_record_in_launch_root': first, 'checks': checks, 'failed': bad, 'flags': flags,
+            'm15_record': {'path': plan['paths']['record'], 'sha256': rsha, 'date_u': rec['date_u'],
+                           'date_u_epoch_s': rec['date_u_epoch_s'], 'v006_sha256': rec['v006']['sha256']},
+-           'launch_json': {'path': plan['launch_json'], 'sha256': sha_bytes(lj_raw), 'utc': lj.get('utc'),
+-                           'utc_epoch_s': launch_epoch, 'child_pid': lj.get('child_pid')},
++           'launch_json': {'path': plan['launch_json'], 'sha256': sha_bytes(lj_raw) if lj_raw is not None else None,
++                           'utc': lj.get('utc'), 'utc_epoch_s': launch_epoch, 'child_pid': lj.get('child_pid')},
+            'v006_sha256_now': v006_now, 'spec': {'path': a.spec, 'sha256': a.spec_sha256},
+            'driver': plan['pins']['driver'], 'monitor': plan['pins']['monitor'], 'outdir': plan['outdir'],
+-           'receipt': plan['receipt'], 'caps': plan['caps'], 'monitor_pid': a.mon_pid, 'watch_pid': a.watch_pid,
+-           'kind_check': {'verdict_file': kv_pin, 'verdict': (kv or {}).get('verdict'),
+-                          'reason': (kv or {}).get('reason'), 'expected_kind': plan['expected']['kind'],
+-                          'expected_phase': plan['expected']['phase'], 'run_read': ((kv or {}).get('reading') or {}).get('run'),
+-                          'n_probes': (kv or {}).get('n_probes'), 'hold_at_reading': hold_info,
+-                          'rule': plan['expected']['rule']},
+-           'kind_verdict_reason': (kv or {}).get('reason') if kv else 'KIND_CHECK_DID_NOT_RETURN_A_VERDICT',
++           'receipt': plan['receipt'], 'caps': plan['caps'], 'caps_basis': plan['caps_basis'], 'monitor_pid': a.mon_pid,
++           'watch_pid': a.watch_pid,
++           'launch_check': {'verdict_file': lv_pin, 'verdict': (lv or {}).get('verdict'), 'reason': (lv or {}).get('reason'),
++                            'failed': (lv or {}).get('failed'), 'rule': plan['expected']['rule']},
++           'launch_verdict_reason': (lv or {}).get('reason') if lv else 'LAUNCH_CHECK_DID_NOT_RETURN_A_VERDICT',
+            'work_files': {Path(p).name: {'path': p, 'sha256': sha_file(p)} for p in sorted(str(x) for x in Path(a.work).iterdir())
+-                          if Path(p).is_file() and Path(p).name not in ('mislaunch_record.out', 'ended_record.out')},
++                          if Path(p).is_file() and Path(p).name not in ('mislaunch_record.out',)},
+            'registry': {'path': plan['paths']['registry'], 'sha256': sha_file(plan['paths']['registry'])},
+            'plan': {'path': a.plan, 'sha256': sha_file(a.plan)},
+            'kit': plan['kit'], 'synthetic': plan['synthetic'], 'date_u': date_u(),
+@@ -1301,9 +1051,9 @@
+                 kt = {'unparseable': True}
+         rcpt = plan['receipt']
+         out.update({
+-            'classification': 'PROCEDURAL_MISLAUNCH (V006 A147 L3-03): the launch was stopped because the gate did not read '
+-                              'it as %s in phase %s; not a scientific failure; its outputs are never read' % (
+-                                  plan['expected']['kind'], plan['expected']['phase']),
++            'classification': 'PROCEDURAL_MISLAUNCH: the launch was stopped because its launch record (<receipt>.launch.json) '
++                              'did not match the plan (%s); not a scientific failure; its outputs are never read' % (
++                                  (lv or {}).get('failed'),),
+             'stop': {'result': a.stop_result, 'pgid': a.pgid, 'kill_target': kt,
+                      'kill_target_file': pin_of(a.kill_target_out) if a.kill_target_out and os.path.lexists(a.kill_target_out) else None},
+             'monitor_receipt': ({'path': rcpt, 'exists': True, 'sha256': sha_file(rcpt)} if os.path.lexists(rcpt)
+@@ -1313,12 +1063,9 @@
+                          'outdir': plan['run_root'] + '/' + run_name_for(plan['call'], ROLE_NAME[plan['role']], k + 1),
+                          'how': 'the same script with --attempt %d in this launch root (order-check admits it once this '
+                                 'attempt\'s monitor receipt exists)' % (k + 1),
+-                         'root_note': 'root records this mis-launch in V006 (A147 L3-03); V006 is no longer write-frozen'}})
+-    if a.outcome == 'ENDED':
+-        out['note'] = ('the monitor ended before the gate read its run; a run failure is root\'s ruling (A50 outcome order; '
+-                       'A108: no automatic retry); the kit offers no relaunch for it')
++                         'root_note': 'root records this mis-launch in V006; V006 is no longer write-frozen'}})
+     Path(plan['paths']['launches_dir']).mkdir(exist_ok=True)
+-    path = plan['paths'][{'LAUNCH': 'launch_record', 'MISLAUNCH': 'mislaunch_record', 'ENDED': 'ended_record'}[a.outcome]]
++    path = plan['paths'][{'LAUNCH': 'launch_record', 'MISLAUNCH': 'mislaunch_record'}[a.outcome]]
+     h = write_x(path, out)
+     print(json.dumps({'status': '%s_RECORD_WRITTEN' % a.outcome, 'path': path, 'sha256': h, 'failed': bad, 'flags': flags}))
+     if a.outcome != 'LAUNCH':
+@@ -1349,21 +1096,6 @@
+     r = sub.add_parser('register')
+     for k in ('plan', 'fill-check', 'dry-verdict'):
+         r.add_argument('--' + k, required=True)
+-    ad = sub.add_parser('admission')
+-    for k in ('plan', 'spec', 'spec-sha256'):
+-        ad.add_argument('--' + k, required=True)
+-    ad.add_argument('--out')
+-    g = sub.add_parser('gate-cli')
+-    g.add_argument('--plan', required=True)
+-    g.add_argument('--which', choices=('hold', 'twin-start'), required=True)
+-    g.add_argument('--mon-pid', type=int)
+-    g.add_argument('--spec')
+-    ck = sub.add_parser('confirm-kind')
+-    for k in ('plan', 'work', 'spec', 'out'):
+-        ck.add_argument('--' + k, required=True)
+-    ck.add_argument('--mon-pid', type=int, required=True)
+-    ck.add_argument('--timeout-s', type=float, default=900.0)
+-    ck.add_argument('--poll-s', type=float, default=15.0)
+     for name in ('ext1-check', 'watch-check', 'freeze-check', 'record-epoch'):
+         s = sub.add_parser(name)
+         s.add_argument('--plan', required=True)
+@@ -1377,15 +1109,16 @@
+     m = sub.add_parser('monitor-argv')
+     m.add_argument('--plan', required=True)
+     m.add_argument('argv', nargs=argparse.REMAINDER)
+-    w = sub.add_parser('wave-state')
+-    w.add_argument('--file', required=True)
+-    w.add_argument('--out')
++    lc = sub.add_parser('launch-check')
++    for k in ('plan', 'spec', 'spec-sha256', 'out'):
++        lc.add_argument('--' + k, required=True)
++    lc.add_argument('--mon-pid', type=int, required=True)
+     lr = sub.add_parser('launch-record')
+     for k in ('plan', 'work', 'spec', 'spec-sha256'):
+         lr.add_argument('--' + k, required=True)
+-    lr.add_argument('--outcome', choices=('LAUNCH', 'MISLAUNCH', 'ENDED'), required=True)
++    lr.add_argument('--outcome', choices=('LAUNCH', 'MISLAUNCH'), required=True)
+     lr.add_argument('--mon-pid', type=int, required=True)
+-    lr.add_argument('--kind-verdict')
++    lr.add_argument('--launch-verdict')
+     lr.add_argument('--watch-pid', type=int)
+     lr.add_argument('--stop-result', choices=('KILLED_TERM', 'KILLED_KILL', 'ALREADY_ENDED', 'NOT_KILLED_TARGET_REFUSED'))
+     lr.add_argument('--kill-target-out')
+@@ -1405,10 +1138,10 @@
+     if a.cmd == 'launch-record' and a.outcome == 'MISLAUNCH' and not a.stop_result:
+         ap.error('--outcome MISLAUNCH needs --stop-result')
+     fn = {'validate': cmd_validate, 'fill-check': cmd_fill_check, 'dry-verdict': cmd_dry_verdict, 'register': cmd_register,
+-          'admission': cmd_admission, 'gate-cli': cmd_gate_cli, 'confirm-kind': cmd_confirm_kind, 'ext1-check': cmd_ext1_check,
++          'ext1-check': cmd_ext1_check,
+           'step2-check': cmd_step2_check, 'watch-check': cmd_watch_check, 'order-check': cmd_order_check,
+           'freeze-check': cmd_freeze_check, 'record-epoch': cmd_record_epoch, 'monitor-argv': cmd_monitor_argv,
+-          'wave-state': cmd_wave_state, 'launch-record': cmd_launch_record, 'twin-trigger': cmd_twin_trigger,
++          'launch-check': cmd_launch_check, 'launch-record': cmd_launch_record, 'twin-trigger': cmd_twin_trigger,
+           'kill-target': cmd_kill_target, 'kill-record': cmd_kill_record}[a.cmd]
+     try:
+         return fn(a)
+--- launch_s0_serial_root_c2v002.sh
++++ launch_s0_serial_root_c2v003.sh
+@@ -1,18 +1,19 @@
+ #!/bin/bash
+-# launch_s0_serial_root_c2v002.sh -- root's launch of one S0 serial call of record (s0_launch_kit_c2, C2V002).
++# launch_s0_serial_root_c2v003.sh -- root's launch of one S0 serial call of record (s0_launch_kit_c2, C2V003).
+ #
+ # DEFAULT IS DRY: it fills, dry-plans and checks, prints the exact root_monitor command, and launches nothing.
+-# Only --launch starts root_monitor (root alone launches; A133; A141; A143; A147).
++# Only --launch starts root_monitor (root alone launches; A133; A141).
++# C2V003 (V006 A166): no memory gating.  No machine-gate admission, no A133 103 GB rule, no post-launch gate reading;
++# the RSS cap is physical RAM (137438953472 B); wall and output caps unchanged.  macOS schedules memory.
+ #
+ # Usage:
+-#   launch_s0_serial_root_c2v002.sh <seed|j0|j1|j2> --launch-root DIR --run-root /Volumes/External1/NGC_<NAME>
+-#       [--attempt K] [--step2-receipt ABS_PATH] [--launch] [--dry-admission]
+-#       [--kind-confirm-timeout-s 900] [--kind-poll-s 15]
++#   launch_s0_serial_root_c2v003.sh <seed|j0|j1|j2> --launch-root DIR --run-root /Volumes/External1/NGC_<NAME>
++#       [--attempt K] [--step2-receipt ABS_PATH] [--launch]
+ #       [--synthetic-pins FILE --synthetic-pins-sha256 H]      (synthetic tests only; refused with real monitor/driver)
+ #
+-# Attempts (A147 L3-03 relaunch): attempt 1 is the default.  A procedural mis-launch of attempt k is relaunched as
++# Attempts (relaunch path): attempt 1 is the default.  A procedural mis-launch of attempt k is relaunched as
+ # --attempt k+1 in the same launch root, under the same M-15 record; the outdir is <run root>/NGC_P1_S0_<ROLE>_SERIAL_RUN_
+-# C2V002_A<k>.  order-check admits attempt k+1 only after attempt k's MISLAUNCH record and its monitor receipt exist.
++# C2V003_A<k>.  order-check admits attempt k+1 only after attempt k's MISLAUNCH record and its monitor receipt exist.
+ #
+ # Order (each step refuses with exit 3 and launches nothing):
+ #   1. validate: role, attempt, paths (absolute; run root one level under /Volumes/External1, name NGC_*, never runs_ext,
+@@ -25,31 +26,31 @@
+ #      V006 SPEC_PIN).
+ #   5. a FRESH dry plan (RI45-13) with dry_one_c2v001 (aac20dd3); refuse on any blocker (lists, not the label).
+ #   6. register the spec sha in the per-point launch registry (exclusive create; reused for the same spec).
+-#   7. driver sha from bytes = 577f8c94... (and the monitor ba031c23...); the exact monitor argv (A147 L3-03 form).
+-#   8. sched v003 admission (ngc_admission class + pinned gate decide + A133 memory rule); External1 checks and free
+-#      space >= 136 GiB + 20 GiB; step 2's last receipt; the WATCH_PIN watch is running.
++#   7. driver sha from bytes = 577f8c94... (and the monitor ba031c23...); the exact monitor argv (D3 form).
++#   8. External1 checks and free space >= 136 GiB + 20 GiB (disk guard); step 2's last receipt; the WATCH_PIN watch
++#      (passive) is running.
+ #   9. V006 freeze (first launch in the launch root): unchanged since the record; wait until the UTC second has advanced.
+ #  10. launch root_monitor with exactly --driver-sha256 <64 hex>, absolute --spec, absolute --outdir /Volumes/External1/...,
+-#      caps wall 610324 s, RSS 32 GiB, output 136 GiB; nohup; caffeinate -i -w <monitor pid>.
+-#  11. wait for <receipt>.launch.json; A147 L3-03 kind check (confirm-kind): the --hold-check run with key = the monitor pid
+-#      must read kind NGC_SERIAL and phase route_a.  CONFIRMED -> launch record (exit 0, or 4 with a flag).  Any other
+-#      reading, or none within the timeout -> stop the driver process group at once (kill-target checks), write the
+-#      MISLAUNCH record, exit 5; relaunch with --attempt k+1.  Monitor gone before it was read -> ENDED record, exit 5.
+-# Exit: 0 done (DRY: printed), 3 refused, 4 launched with an order flag, 5 alert (mis-launch stopped, ended, or no
+-#       launch record from the monitor), 2 usage.
++#      caps wall 610324 s, RSS 137438953472 B (RAM), output 136 GiB; nohup; caffeinate -i -w <monitor pid>.
++#  11. wait for <receipt>.launch.json; launch-check: the launch record must match the plan (command, pins, caps,
++#      retries 0, launch after the M-15 record).  CONFIRMED -> launch record (exit 0, or 4 with a flag).  Otherwise ->
++#      stop the driver process group at once (kill-target checks), write the MISLAUNCH record, exit 5; relaunch with
++#      --attempt k+1.
++# Exit: 0 done (DRY: printed), 3 refused, 4 launched with an order flag, 5 alert (mis-launch stopped, or no launch
++#       record from the monitor), 2 usage.
+ set -euo pipefail
+ set -o noclobber
+ umask 022
+ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+ export LC_ALL=C
+ 
+-KIT_SHA='0ba823f3fbd11e80547bcf43e8db0538594f5c3c1e21b4014016a40a7f66d109'
++KIT_SHA='e58c8605fd35d8894d214ee3e06fa83d9577b14efdaa960938bf2bb330676e73'
+ RW_SHA='a10965b7a508f106e3d153632d2b1a39a427d9106fa2de3c9e09d92b85bcb59a'
+ REAL_DRIVER_SHA='577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377'
+ REAL_MONITOR_SHA='ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107'
+ PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3
+ KIT_DIR=$(cd "$(dirname "$0")" && pwd -P)
+-KIT="$KIT_DIR/s0_kit_c2v002.py"
++KIT="$KIT_DIR/s0_kit_c2v003.py"
+ RW="$KIT_DIR/s0_prelaunch_record_c2v001.py"
+ 
+ die() { echo "REFUSED: $*" >&2; exit 3; }
+@@ -62,25 +63,20 @@
+ 
+ ROLE="${1:-}"
+ case "$ROLE" in seed|j0|j1|j2) shift ;; *) echo "usage: $0 <seed|j0|j1|j2> --launch-root DIR --run-root /Volumes/External1/NGC_<NAME> [--attempt K] [--step2-receipt F] [--launch]" >&2; exit 2 ;; esac
+-LAUNCH=0; DRY_ADM=0; LR=""; RR=""; STEP2=""; SP=""; SPH=""; ATTEMPT=1; KIND_TIMEOUT=900; KIND_POLL=15
++LAUNCH=0; LR=""; RR=""; STEP2=""; SP=""; SPH=""; ATTEMPT=1
+ while [ $# -gt 0 ]; do
+   case "$1" in
+     --launch-root) need_arg $# "$1"; LR="$2"; shift 2 ;;
+     --run-root) need_arg $# "$1"; RR="$2"; shift 2 ;;
+     --attempt) need_arg $# "$1"; ATTEMPT="$2"; shift 2 ;;
+     --step2-receipt) need_arg $# "$1"; STEP2="$2"; shift 2 ;;
+-    --kind-confirm-timeout-s) need_arg $# "$1"; KIND_TIMEOUT="$2"; shift 2 ;;
+-    --kind-poll-s) need_arg $# "$1"; KIND_POLL="$2"; shift 2 ;;
+     --synthetic-pins) need_arg $# "$1"; SP="$2"; shift 2 ;;
+     --synthetic-pins-sha256) need_arg $# "$1"; SPH="$2"; shift 2 ;;
+     --launch) LAUNCH=1; shift ;;
+-    --dry-admission) DRY_ADM=1; shift ;;
+     *) die "unknown argument: $1" ;;
+   esac
+ done
+ case "$ATTEMPT" in [1-9]|[1-9][0-9]) ;; *) die "--attempt must be an integer 1..99" ;; esac
+-case "$KIND_TIMEOUT$KIND_POLL" in *[!0-9]*) die "--kind-confirm-timeout-s and --kind-poll-s must be integers" ;; esac
+-[ "$KIND_POLL" -ge 1 ] || die "--kind-poll-s must be >= 1"
+ MODE=dry; [ "$LAUNCH" = 1 ] && MODE=launch
+ [ -n "$LR" ] && [ -n "$RR" ] || die "--launch-root and --run-root are required"
+ VARGS=(--role "$ROLE" --call serial --mode "$MODE" --launch-root "$LR" --run-root "$RR" --attempt "$ATTEMPT")
+@@ -96,7 +92,7 @@
+ 
+ # ---- 2. M-15 record FIRST (A142 item 6; M-15 (a)+(1))
+ if [ ! -e "$PLAN_RECORD" ] && [ "$ROLE" != seed ]; then
+-  [ "$MODE" = dry ] || die "NO_M15_RECORD: the seed serial launches first and writes the record (A143 D2; r3a L454)"
++  [ "$MODE" = dry ] || die "NO_M15_RECORD: the seed serial launches first and writes the record (M-15; r3a L454)"
+   note "DRY: no M-15 record yet; the seed serial writes it at its launch"
+ elif [ ! -e "$PLAN_RECORD" ] && [ "$PLAN_ATTEMPT" != 1 ]; then
+   [ "$MODE" = dry ] || die "NO_M15_RECORD: a relaunch (attempt $PLAN_ATTEMPT) runs under the existing M-15 record of its launch root"
+@@ -166,18 +162,12 @@
+          --output-cap-bytes "$PLAN_OUTCAP")
+ CMDLINE=$("$PY" -I -B "$KIT" monitor-argv --plan "$WORK/plan.json" -- "${MON_CMD[@]}") || die "monitor argv form: $CMDLINE"
+ 
+-# ---- 8. admission and preconditions
+-if [ "$MODE" = launch ] || [ "$DRY_ADM" = 1 ]; then
+-  ADM=$("$PY" -I -B "$KIT" admission --plan "$WORK/plan.json" --spec "$SPEC" --spec-sha256 "$SPEC_SHA" --out "$WORK/admission.json") \
+-    || die "not admitted (sched v003): $ADM"
+-  note "admission: $ADM"
+-fi
+-
++# ---- 8. preconditions (no memory admission: V006 A166)
+ if [ "$MODE" = dry ]; then
+   [ -n "$PLAN_SPEC_PIN_SHA" ] || note "DRY: V006 has no SPEC_PIN S0_${RUP}_SERIAL yet; register $SPEC_SHA (RI45-13) before --launch"
+   echo "DRY: nothing launched. The launch command would be:"
+   echo "$CMDLINE"
+-  echo "After the launch: the A147 L3-03 kind check (--hold-check runs[].key = monitor pid: kind $PLAN_EXPECTED_KIND, phase route_a)."
++  echo "After the launch: the launch-record check (<receipt>.launch.json against the plan; RSS cap = RAM); no gate reading (A166)."
+   echo "DRY_SPEC_SHA256=$SPEC_SHA"
+   echo "DRY_WORK=$WORK"
+   exit 0
+@@ -204,7 +194,7 @@
+ caffeinate -i -w "$MON_PID" > /dev/null 2>&1 < /dev/null &
+ note "monitor pid $MON_PID"
+ 
+-# ---- 11. launch receipt, then the A147 L3-03 kind check
++# ---- 11. launch receipt, then the launch-record check
+ n=0
+ while [ ! -e "$PLAN_LAUNCH_JSON" ] && [ "$n" -lt 600 ]; do
+   kill -0 "$MON_PID" 2> /dev/null || break
+@@ -215,16 +205,11 @@
+   exit 5
+ fi
+ KC=0
+-KV=$("$PY" -I -B "$KIT" confirm-kind --plan "$WORK/plan.json" --work "$WORK" --mon-pid "$MON_PID" --spec "$SPEC" \
+-     --timeout-s "$KIND_TIMEOUT" --poll-s "$KIND_POLL" --out "$WORK/kind_verdict.json") || KC=$?
+-note "kind check (A147 L3-03): $KV"
++KV=$("$PY" -I -B "$KIT" launch-check --plan "$WORK/plan.json" --mon-pid "$MON_PID" --spec "$SPEC" --spec-sha256 "$SPEC_SHA" \
++     --out "$WORK/launch_verdict.json") || KC=$?
++note "launch check: $KV"
+ RARGS2=(--plan "$WORK/plan.json" --work "$WORK" --spec "$SPEC" --spec-sha256 "$SPEC_SHA" --mon-pid "$MON_PID"
+-        --kind-verdict "$WORK/kind_verdict.json")
+-if [ "$KC" = 5 ]; then
+-  "$PY" -I -B "$KIT" launch-record --outcome ENDED "${RARGS2[@]}" > "$WORK/ended_record.out" 2>&1 || true
+-  echo "ALERT: the monitor ended before the gate read its run (ENDED record: $(cat "$WORK/ended_record.out")); root rules (A50/A108)" >&2
+-  exit 5
+-fi
++        --launch-verdict "$WORK/launch_verdict.json")
+ if [ "$KC" != 0 ]; then
+   # procedural mis-launch (or no verdict): stop the driver process group at once, with the kill-target checks
+   KT=0
+@@ -243,7 +228,7 @@
+   PG_ARG=(); [ -n "${PGID:-}" ] && [ "$KT" = 0 ] && PG_ARG=(--pgid "$PGID")
+   "$PY" -I -B "$KIT" launch-record --outcome MISLAUNCH "${RARGS2[@]}" --stop-result "$RES" \
+     --kill-target-out "$WORK/kill_target.json" ${PG_ARG[@]+"${PG_ARG[@]}"} > "$WORK/mislaunch_record.out" 2>&1 || true
+-  echo "MISLAUNCH_STOPPED (A147 L3-03; procedural, not a scientific failure): kind check exit $KC, stop $RES; $(cat "$WORK/mislaunch_record.out")" >&2
++  echo "MISLAUNCH_STOPPED (procedural, not a scientific failure): launch check exit $KC, stop $RES; $(cat "$WORK/mislaunch_record.out")" >&2
+   echo "Relaunch: the same command with --attempt $((PLAN_ATTEMPT + 1)) in this launch root (same M-15 record), once root has recorded the mis-launch." >&2
+   exit 5
+ fi
+@@ -251,5 +236,5 @@
+ LREC=$("$PY" -I -B "$KIT" launch-record --outcome LAUNCH "${RARGS2[@]}") || LRC=$?
+ note "launch record: $LREC"
+ [ "$LRC" = 0 ] || { echo "ALERT: launch record flags (exit $LRC): $LREC" >&2; [ "$LRC" = 4 ] && exit 4; exit 5; }
+-note "LAUNCHED (kind NGC_SERIAL, phase route_a confirmed). D4: alert if the measured route-A peak exceeds 22.4 GB. On the result: driver_sha256 = 577f8c94; reads stay validity-only."
++note "LAUNCHED (launch record matches the plan; RSS cap = RAM). On the result: driver_sha256 = 577f8c94; reads stay validity-only."
+ exit 0
+--- launch_twin_root_c2v002.sh
++++ launch_twin_root_c2v003.sh
+@@ -1,41 +1,36 @@
+ #!/bin/bash
+-# launch_twin_root_c2v002.sh -- root's launch of the cw8 identity twin at the seed theta (s0_launch_kit_c2, C2V002).
++# launch_twin_root_c2v003.sh -- root's launch of the cw8 identity twin at the seed theta (s0_launch_kit_c2, C2V003).
+ #
+ # DEFAULT IS DRY: checks, prints the monitor and kill-watch commands, launches nothing.  Only --launch starts root_monitor.
+-# A143 D2: the serial S0 call of record launches first; the twin (same theta) starts later, when the gate admits it.
+-# A143 D3 / A147 L3-03: exact form (--driver-sha256 <64 hex>, absolute --spec); refuses mid-wave or with a direct batch
+-#          pending.  After the start, the --hold-check run whose key is the twin's monitor pid must read kind NGC_TWIN and
+-#          phase route_a, and be in the hold list (so the hold is this twin's).  Any other reading (GENERIC,
+-#          NGC_UNIDENTIFIED, NGC_SERIAL, another phase), or none within the timeout, stops the twin at once: a
+-#          procedural mis-launch, recorded, relaunched as --attempt k+1 in the same launch root.  The exit code of
+-#          --hold-check alone confirms nothing (an NGC_UNIDENTIFIED tree or another twin also makes it exit 3).
+-# A141 L4: twin_kill_watch_c2v002.sh stops the twin once iteration_0001 COMPLETED.json and the sidecar iteration record
+-#          exist (a planned stop, never a failure; the twin is never a member).
++# V006 A166: the twin may start any time after the seed serial's LAUNCH record.  No gate admission (--twin-start-check),
++#          no wave-state attestation, no post-launch gate reading; the RSS cap is physical RAM (137438953472 B); wall
++#          22752 s and output 32 GiB unchanged.
++# D3 form: exact --driver-sha256 <64 hex>, absolute --spec.  After the start, the launch record (<receipt>.launch.json)
++#          must match the plan; otherwise the twin is stopped at once: a procedural mis-launch, recorded, relaunched as
++#          --attempt k+1 in the same launch root.
++# A141 L4: twin_kill_watch_c2v003.sh stops the twin once iteration_0001 COMPLETED.json and the sidecar iteration record
++#          exist (a planned stop to save compute, never a failure; the twin is never a member).
+ #
+ # Usage:
+-#   launch_twin_root_c2v002.sh --launch-root DIR --run-root /Volumes/External1/NGC_<NAME> --wave-state ROOT_WAVE_STATE.json
+-#       [--attempt K] [--step2-receipt ABS_PATH] [--launch] [--dry-fill-dir DIR] [--dry-admission]
+-#       [--watch-poll-s 30] [--kind-confirm-timeout-s 900] [--kind-poll-s 15]
++#   launch_twin_root_c2v003.sh --launch-root DIR --run-root /Volumes/External1/NGC_<NAME>
++#       [--attempt K] [--step2-receipt ABS_PATH] [--launch] [--dry-fill-dir DIR] [--watch-poll-s 30]
+ #       [--synthetic-pins FILE --synthetic-pins-sha256 H]
+-# The wave-state file (root-written just before, schema ROOT_WAVE_STATE_C2V001) is
+-#   {"schema": "ROOT_WAVE_STATE_C2V001", "wave_in_progress": false, "direct_batch_pending": false,
+-#    "utc": "YYYY-MM-DDTHH:MM:SSZ", "written_by": "Claude2"}      (no older than 600 s)
+-# Exit: 0 done (DRY: printed), 3 refused, 4 launched with an order flag, 5 alert (mis-launch stopped, ended, or no
+-#       launch record from the monitor), 2 usage.
++# Exit: 0 done (DRY: printed), 3 refused, 4 launched with an order flag, 5 alert (mis-launch stopped, or no launch record
++#       from the monitor), 2 usage.
+ set -euo pipefail
+ set -o noclobber
+ umask 022
+ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+ export LC_ALL=C
+ 
+-KIT_SHA='0ba823f3fbd11e80547bcf43e8db0538594f5c3c1e21b4014016a40a7f66d109'
+-WATCH_SHA='60ab79db5960dfcf7d8d66d28c330e608a21dc7b1f9817842d0ffa6c7882aa43'
++KIT_SHA='e58c8605fd35d8894d214ee3e06fa83d9577b14efdaa960938bf2bb330676e73'
++WATCH_SHA='88e7c8981959036fccc45fdb60ff551555ea66c15a137d74025414ee864f9a14'
+ REAL_DRIVER_SHA='577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377'
+ REAL_MONITOR_SHA='ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107'
+ PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3
+ KIT_DIR=$(cd "$(dirname "$0")" && pwd -P)
+-KIT="$KIT_DIR/s0_kit_c2v002.py"
+-WATCH="$KIT_DIR/twin_kill_watch_c2v002.sh"
++KIT="$KIT_DIR/s0_kit_c2v003.py"
++WATCH="$KIT_DIR/twin_kill_watch_c2v003.sh"
+ 
+ die() { echo "REFUSED: $*" >&2; exit 3; }
+ note() { echo "[s0-twin $(date -u +%Y-%m-%dT%H:%M:%SZ)] $*"; }
+@@ -45,31 +40,26 @@
+ [ -f "$KIT" ] && [ "$(sha "$KIT")" = "$KIT_SHA" ] || die "kit helper sha differs from $KIT_SHA"
+ [ -f "$WATCH" ] && [ "$(sha "$WATCH")" = "$WATCH_SHA" ] || die "kill-watch sha differs from $WATCH_SHA"
+ 
+-LAUNCH=0; DRY_ADM=0; LR=""; RR=""; STEP2=""; SP=""; SPH=""; WAVE=""; DRY_FILL=""; ATTEMPT=1
+-WPOLL=30; KIND_TIMEOUT=900; KIND_POLL=15
++LAUNCH=0; LR=""; RR=""; STEP2=""; SP=""; SPH=""; DRY_FILL=""; ATTEMPT=1
++WPOLL=30
+ while [ $# -gt 0 ]; do
+   case "$1" in
+     --launch-root) need_arg $# "$1"; LR="$2"; shift 2 ;;
+     --run-root) need_arg $# "$1"; RR="$2"; shift 2 ;;
+-    --wave-state) need_arg $# "$1"; WAVE="$2"; shift 2 ;;
+     --attempt) need_arg $# "$1"; ATTEMPT="$2"; shift 2 ;;
+     --step2-receipt) need_arg $# "$1"; STEP2="$2"; shift 2 ;;
+     --dry-fill-dir) need_arg $# "$1"; DRY_FILL="$2"; shift 2 ;;
+     --watch-poll-s) need_arg $# "$1"; WPOLL="$2"; shift 2 ;;
+-    --kind-confirm-timeout-s) need_arg $# "$1"; KIND_TIMEOUT="$2"; shift 2 ;;
+-    --kind-poll-s) need_arg $# "$1"; KIND_POLL="$2"; shift 2 ;;
+     --synthetic-pins) need_arg $# "$1"; SP="$2"; shift 2 ;;
+     --synthetic-pins-sha256) need_arg $# "$1"; SPH="$2"; shift 2 ;;
+     --launch) LAUNCH=1; shift ;;
+-    --dry-admission) DRY_ADM=1; shift ;;
+     *) die "unknown argument: $1" ;;
+   esac
+ done
+ case "$ATTEMPT" in [1-9]|[1-9][0-9]) ;; *) die "--attempt must be an integer 1..99" ;; esac
+-case "$WPOLL$KIND_TIMEOUT$KIND_POLL" in *[!0-9]*) die "poll and timeout values must be integers" ;; esac
+-[ "$KIND_POLL" -ge 1 ] || die "--kind-poll-s must be >= 1"
++case "$WPOLL" in ''|*[!0-9]*) die "--watch-poll-s must be an integer" ;; esac
+ MODE=dry; [ "$LAUNCH" = 1 ] && MODE=launch
+-[ -n "$LR" ] && [ -n "$RR" ] && [ -n "$WAVE" ] || die "--launch-root, --run-root and --wave-state are required"
++[ -n "$LR" ] && [ -n "$RR" ] || die "--launch-root and --run-root are required"
+ VARGS=(--role seed --call twin --mode "$MODE" --launch-root "$LR" --run-root "$RR" --attempt "$ATTEMPT")
+ if [ -n "$SP" ] || [ -n "$SPH" ]; then VARGS+=(--synthetic-pins "$SP" --synthetic-pins-sha256 "$SPH"); fi
+ 
+@@ -81,7 +71,7 @@
+ fi
+ note "mode=$MODE attempt=$PLAN_ATTEMPT outdir=$PLAN_OUTDIR"
+ 
+-# ---- 2. order: the M-15 record and the seed serial's confirmed launch record exist (A143 D2: serial first)
++# ---- 2. order: the M-15 record and the seed serial's confirmed launch record exist (seed first; then any time, A166)
+ STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+ if [ "$MODE" = launch ]; then WROOT="$LR/work"; else WROOT="$LR/dry"; fi
+ [ -d "$WROOT" ] || mkdir "$WROOT"
+@@ -119,7 +109,7 @@
+ # ---- 5. registry
+ REG=$("$PY" -I -B "$KIT" register --plan "$WORK/plan.json" --fill-check "$WORK/fill_check.json" --dry-verdict "$WORK/dry_verdict.json") || die "register: $REG"
+ 
+-# ---- 6. driver / monitor sha; exact argv (twin caps 22752 / 92341796864 / 34359738368)
++# ---- 6. driver / monitor sha; exact argv (twin caps 22752 / 137438953472 (RAM) / 34359738368)
+ [ "$(sha "$PLAN_DRIVER")" = "$PLAN_DRIVER_SHA" ] || die "driver sha"
+ [ "$(sha "$PLAN_MONITOR")" = "$PLAN_MONITOR_SHA" ] || die "monitor sha"
+ MON_CMD=("$PLAN_PY" -I -B "$PLAN_MONITOR" --driver "$PLAN_DRIVER" --driver-sha256 "$PLAN_DRIVER_SHA" --spec "$SPEC"
+@@ -129,23 +119,11 @@
+ WATCH_BASE=(/bin/bash "$WATCH" --launch-root "$LR" --launch-json "$PLAN_LAUNCH_JSON" --outdir "$PLAN_OUTDIR"
+             --twin-spec-sha256 "$SPEC_SHA" --poll-s "$WPOLL" --kill)
+ 
+-# ---- 7. never mid-wave, no direct batch pending (root's attestation), then the gate's twin-start check
+-WS=$("$PY" -I -B "$KIT" wave-state --file "$WAVE" --out "$WORK/wave_state_check.json") || die "wave state: $WS"
+-if [ "$MODE" = launch ] || [ "$DRY_ADM" = 1 ]; then
+-  TS=0
+-  if [ "$PLAN_SYNTHETIC" = 1 ]; then
+-    "$PY" -I -B "$KIT" gate-cli --plan "$WORK/plan.json" --which twin-start > "$WORK/twin_start_check.json" 2> "$WORK/twin_start_check.stderr.txt" || TS=$?
+-  else
+-    [ "$(sha "$PLAN_GATE")" = "$PLAN_GATE_SHA" ] || die "gate sha"
+-    "$PLAN_PY" -I -B "$PLAN_GATE" --twin-start-check > "$WORK/twin_start_check.json" 2> "$WORK/twin_start_check.stderr.txt" || TS=$?
+-  fi
+-  [ "$TS" = 0 ] || die "--twin-start-check exit $TS: $(tail -c 1500 "$WORK/twin_start_check.json")"
+-fi
+-
++# ---- 7. (V006 A166: no wave-state attestation and no gate admission; the twin starts any time after the seed's LAUNCH)
+ if [ "$MODE" = dry ]; then
+   echo "DRY: nothing launched. The twin launch command would be:"
+   echo "$CMDLINE"
+-  echo "After the launch: the A147 L3-03 kind check (--hold-check runs[].key = monitor pid: kind NGC_TWIN, phase route_a, in the hold list)."
++  echo "After the launch: the launch-record check (<receipt>.launch.json against the plan; RSS cap = RAM); no gate reading (A166)."
+   echo "Then the kill watch (A141 L4), with the twin's monitor pid:"
+   printf '%q ' "${WATCH_BASE[@]}"; echo "--mon-pid <monitor pid>"
+   echo "DRY_TWIN_SPEC_SHA256=$SPEC_SHA"
+@@ -173,18 +151,13 @@
+ done
+ [ -e "$PLAN_LAUNCH_JSON" ] || { echo "ALERT: no $PLAN_LAUNCH_JSON; see $WORK/monitor.stdout.txt" >&2; exit 5; }
+ 
+-# ---- 9. A147 L3-03 kind check: this twin reads NGC_TWIN in route_a and holds; otherwise stop it at once
++# ---- 9. launch-record check: the twin's launch record matches the plan; otherwise stop it at once
+ KC=0
+-KV=$("$PY" -I -B "$KIT" confirm-kind --plan "$WORK/plan.json" --work "$WORK" --mon-pid "$MON_PID" --spec "$SPEC" \
+-     --timeout-s "$KIND_TIMEOUT" --poll-s "$KIND_POLL" --out "$WORK/kind_verdict.json") || KC=$?
+-note "kind check (A147 L3-03): $KV"
++KV=$("$PY" -I -B "$KIT" launch-check --plan "$WORK/plan.json" --mon-pid "$MON_PID" --spec "$SPEC" --spec-sha256 "$SPEC_SHA" \
++     --out "$WORK/launch_verdict.json") || KC=$?
++note "launch check: $KV"
+ RARGS2=(--plan "$WORK/plan.json" --work "$WORK" --spec "$SPEC" --spec-sha256 "$SPEC_SHA" --mon-pid "$MON_PID"
+-        --kind-verdict "$WORK/kind_verdict.json")
+-if [ "$KC" = 5 ]; then
+-  "$PY" -I -B "$KIT" launch-record --outcome ENDED "${RARGS2[@]}" > "$WORK/ended_record.out" 2>&1 || true
+-  echo "ALERT: the twin's monitor ended before the gate read its run (ENDED record: $(cat "$WORK/ended_record.out")); root rules (A50/A108)" >&2
+-  exit 5
+-fi
++        --launch-verdict "$WORK/launch_verdict.json")
+ if [ "$KC" != 0 ]; then
+   KT=0
+   PGID=$("$PY" -I -B "$KIT" kill-target --launch-json "$PLAN_LAUNCH_JSON" --spec-sha256 "$SPEC_SHA" \
+@@ -202,7 +175,7 @@
+   PG_ARG=(); [ -n "${PGID:-}" ] && [ "$KT" = 0 ] && PG_ARG=(--pgid "$PGID")
+   "$PY" -I -B "$KIT" launch-record --outcome MISLAUNCH "${RARGS2[@]}" --stop-result "$RES" \
+     --kill-target-out "$WORK/kill_target.json" ${PG_ARG[@]+"${PG_ARG[@]}"} > "$WORK/mislaunch_record.out" 2>&1 || true
+-  echo "MISLAUNCH_STOPPED (A147 L3-03; procedural, not a scientific failure): twin kind check exit $KC, stop $RES; $(cat "$WORK/mislaunch_record.out")" >&2
++  echo "MISLAUNCH_STOPPED (procedural, not a scientific failure): twin launch check exit $KC, stop $RES; $(cat "$WORK/mislaunch_record.out")" >&2
+   echo "Relaunch: the same command with --attempt $((PLAN_ATTEMPT + 1)) in this launch root (same M-15 record), once root has recorded the mis-launch." >&2
+   exit 5
+ fi
+@@ -214,5 +187,5 @@
+ LREC=$("$PY" -I -B "$KIT" launch-record --outcome LAUNCH "${RARGS2[@]}" --watch-pid "$WATCH_PID") || LRC=$?
+ note "launch record: $LREC; kill watch pid $WATCH_PID"
+ [ "$LRC" = 0 ] || { echo "ALERT: launch record flags (exit $LRC): $LREC" >&2; [ "$LRC" = 4 ] && exit 4; exit 5; }
+-note "TWIN LAUNCHED; kind NGC_TWIN in route_a and the hold confirmed for its own key; the kill watch stops it after iteration 1 COMPLETED + sidecar (A141 L4)."
++note "TWIN LAUNCHED; launch record matches the plan (RSS cap = RAM); the kill watch stops it after iteration 1 COMPLETED + sidecar (A141 L4)."
+ exit 0
+--- twin_kill_watch_c2v002.sh
++++ twin_kill_watch_c2v003.sh
+@@ -1,5 +1,5 @@
+ #!/bin/bash
+-# twin_kill_watch_c2v002.sh -- A141 L4 kill trigger for the cw8 identity twin (s0_launch_kit_c2, C2V002).
++# twin_kill_watch_c2v003.sh -- A141 L4 kill trigger for the cw8 identity twin (s0_launch_kit_c2, C2V003).
+ #
+ # The twin's planned stop: once <outdir>/stages/NN_route_a/checkpoint/iteration_0001/COMPLETED.json AND
+ # <outdir>/stages/NN_route_a/uv_tail_sidecar/iteration_0001.json both exist, stop the twin's driver process group
+@@ -9,10 +9,11 @@
+ # child is alive, leads its own group, runs exactly the launch record's command, its parent is the twin's monitor
+ # (--mon-pid, when given), and that command's spec is the registered twin (sha256, column_workers 8).
+ # C2V002: kill-target takes --spec-sha256/--expect-leaf/--mon-pid; the kill record is named after the outdir (attempts).
++# C2V003: unchanged except the kit name and sha (V006 A166 keeps the twin kill after iteration 1, to save compute).
+ #
+ # DEFAULT IS DRY: reports WOULD_KILL and exits.  --kill sends the signals and writes the kill record (exclusive create).
+ # Usage:
+-#   twin_kill_watch_c2v002.sh --launch-root DIR --launch-json <receipt>.launch.json --outdir <twin outdir>
++#   twin_kill_watch_c2v003.sh --launch-root DIR --launch-json <receipt>.launch.json --outdir <twin outdir>
+ #       --twin-spec-sha256 H [--mon-pid PID] [--kill] [--poll-s 30] [--once] [--max-wait-s 30000]
+ # Exit: 0 trigger handled (or the twin ended by itself, or max wait reached), 1 not met (--once), 3 refused.
+ set -euo pipefail
+@@ -21,10 +22,10 @@
+ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+ export LC_ALL=C
+ 
+-KIT_SHA='0ba823f3fbd11e80547bcf43e8db0538594f5c3c1e21b4014016a40a7f66d109'
++KIT_SHA='e58c8605fd35d8894d214ee3e06fa83d9577b14efdaa960938bf2bb330676e73'
+ PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3
+ KIT_DIR=$(cd "$(dirname "$0")" && pwd -P)
+-KIT="$KIT_DIR/s0_kit_c2v002.py"
++KIT="$KIT_DIR/s0_kit_c2v003.py"
+ 
+ die() { echo "REFUSED: $*" >&2; exit 3; }
+ note() { echo "[twin-watch $(date -u +%Y-%m-%dT%H:%M:%SZ)] $*"; }
+--- tests/test_s0_launch_kit_c2v002.py
++++ tests/test_s0_launch_kit_c2v003.py
+@@ -1,22 +1,20 @@
+-"""test_s0_launch_kit_c2v002.py -- synthetic tests of s0_launch_kit_c2 (C2V002).  It never starts root_monitor or the
+-NGC driver: every launch-mode test runs on stub monitor/driver/filler/dry-harness scripts written into the run directory,
+-whose shas differ from the real pins (the kit refuses synthetic pins naming the real monitor or driver).  The real gate
+-and ngc_admission code is used as pure code with injected machine snapshots (no live probe, no run-tree read).  The
+-post-launch kind check (A147 L3-03) runs the pinned gate's hold_check() on snapshots whose launched-run entry is a
+-template resolved to the launched stub monitor's pid and spec; one row compares that emulation with the real gate CLI
+-main() (its module probe replaced by the same snapshot) byte for byte.
++"""test_s0_launch_kit_c2v003.py -- synthetic tests of s0_launch_kit_c2 (C2V003; V006 A166: no memory gating).  It never
++starts root_monitor or the NGC driver: every launch-mode test runs on stub monitor/driver/filler/dry-harness scripts
++written into the run directory, whose shas differ from the real pins (the kit refuses synthetic pins naming the real
++monitor or driver).  No gate or ngc_admission code is loaded or run: C2V003 has none.  The post-launch check is the
++launch record (<receipt>.launch.json) against the plan; mis-launches are produced by stub-monitor variants that record a
++non-RAM RSS cap or retries 1.
++Ported from test_s0_launch_kit_c2v002.py; the gate-related rows are removed (listed in the README) and N-rows are new.
+ Read-only uses of real files: the kit's own data files, the gate documents (sha256 only), FREEZE_EXPECTED_INPUTS_CX3V002
+ and C2V001, the v003g module (AST of write_freeze_manifest), the live V006 (pin parse, three OBSERVED rows), the TSR flag
+-record (sha256), the real pins (sha256).
+-Usage: PY -I -B tests/test_s0_launch_kit_c2v002.py [--kit DIR] [--out-root DIR]
++record (sha256), the real pins (sha256), CAPS_S45_C2V003 (through the kit).
++Usage: PY -I -B tests/test_s0_launch_kit_c2v003.py [--kit DIR] [--out-root DIR]
+ Writes only inside <out-root>/RUN_<utc>_<pid>/ (exclusive creates); RESULTS.json last.
+ """
+ import argparse
+ import ast
+ import calendar
+-import contextlib
+ import hashlib
+-import io
+ import json
+ import os
+ import re
+@@ -32,8 +30,13 @@
+ REAL_DRIVER_SHA = '577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377'
+ REAL_MONITOR = A + 'galaxy_m0_forward_c2_0466/root_monitor_c2v001.py'
+ REAL_DRIVER = A + 'ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py'
+-GATE = (A + 'sched_s45_c2/v003/machine_gate_s45_c2v003.py', '736a3438b0a3af41eb8d7b2c764f25ff0f9e18942320a4542a9893b6b419f811')
+-NGC_ADM = (A + 'sched_s45_c2/v003/ngc_admission_s45_c2v003.py', 'bdb44eeb807fd860a7f382526fba4b6c256ccffb29c6c6b4d129b4b6c14925f3')
++RAM = 137438953472                      # V006 A166: the RSS cap of every S0 call (physical RAM)
++OLD_RSS = {'serial': 34359738368, 'twin': 92341796864}     # the C2V002 RSS caps (32 GiB, 86 GiB)
++KIT_FILES = ('s0_kit_c2v003.py', 'launch_s0_serial_root_c2v003.sh', 'launch_twin_root_c2v003.sh', 'twin_kill_watch_c2v003.sh',
++             's0_prelaunch_record_c2v001.py', 'GATE_DOCUMENT_PINS_V002.json', 'GATE_DOCUMENT_PINS_V002.md',
++             'FREEZE_EXPECTED_INPUTS_C2V002.json', 'build/assemble_s0_launch_kit_c2v003.py', 'build/src/s0_kit_c2v003.py',
++             'build/src/launch_s0_serial_root_c2v003.sh', 'build/src/launch_twin_root_c2v003.sh',
++             'build/src/twin_kill_watch_c2v003.sh', 'tests/test_s0_launch_kit_c2v003.py')
+ V003G = A + 'freeze_score_readiness_cx3/v003g/prediction_freeze_c2v003g_cx3v001.py'
+ CX3V002 = A + 'step5_ngc_route_ab_readiness_cx3/FREEZE_EXPECTED_INPUTS_CX3V002.json'
+ C2V001 = A + 's0_launch_kit_c2/FREEZE_EXPECTED_INPUTS_C2V001.json'
+@@ -47,7 +50,6 @@
+         'j2': '4b9b4ec88eb2d94ce2c8eeb52e2f7c5b5b7f96bdb5d4df52b9077ba06401f6a2'}
+ S0_ROLE = {'seed': 'seed', 'j0': 'jacobian_first_attempt_0', 'j1': 'jacobian_first_attempt_1', 'j2': 'jacobian_first_attempt_2'}
+ NAME = {'seed': 'SEED', 'j0': 'J0', 'j1': 'J1', 'j2': 'J2'}
+-T_MON, T_SPEC, T_DRV = '@LAUNCHED_MONITOR_PID@', '@LAUNCHED_SPEC@', '@NGC_DRIVER_SHA256@'
+ ROWS = []
+ STARTED = []          # pids (= process-group ids) of processes the test starts directly, killed at the end
+ MON_BEFORE = []
+@@ -154,6 +156,7 @@
+ STUB_MONITOR = r'''"""stub monitor for s0_launch_kit_c2 tests: root_monitor's CLI subset and launch-record format; NOT root_monitor."""
+ import argparse, hashlib, json, os, subprocess, sys, time
+ from pathlib import Path
++VARIANT = '@@V@@'     # '' honest; 'rss32' records a 32 GiB RSS cap whatever it was given; 'retries1' records retries 1
+ PY = '/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3'
+ ap = argparse.ArgumentParser()
+ for k in ('driver', 'driver-sha256', 'spec', 'outdir', 'receipt'): ap.add_argument('--' + k, required=True)
+@@ -169,13 +172,14 @@
+ cmd = [a.python, '-I', '-B', a.driver, 'run', '--spec', a.spec, '--outdir', a.outdir]
+ pins = {'driver': {'path': a.driver, 'sha256': a.driver_sha256}, 'spec': {'path': a.spec, 'sha256': sh(a.spec)},
+         'python': a.python, 'monitor': {'path': str(Path(__file__).resolve()), 'sha256': sh(__file__)}}
+-caps = {'wall_cap_s': a.wall_cap_s, 'rss_cap_bytes': a.rss_cap_bytes, 'output_cap_bytes': a.output_cap_bytes, 'poll_s': 1.0}
++caps = {'wall_cap_s': a.wall_cap_s, 'rss_cap_bytes': 34359738368 if VARIANT == 'rss32' else a.rss_cap_bytes,
++        'output_cap_bytes': a.output_cap_bytes, 'poll_s': 1.0}
+ so = open(receipt.with_name(receipt.name + '.stdout.txt'), 'x'); se = open(receipt.with_name(receipt.name + '.stderr.txt'), 'x')
+ started = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+ proc = subprocess.Popen(cmd, stdout=so, stderr=se, start_new_session=True)
+ with open(launch, 'x') as f:
+     json.dump({'schema': 'UNT_GALAXY_M0_MONITOR_RECEIPT_C2V001_LAUNCH', 'utc': started, 'command': cmd, 'pins': pins, 'caps': caps,
+-               'child_pid': proc.pid, 'retries_allowed': 0}, f)
++               'child_pid': proc.pid, 'retries_allowed': 1 if VARIANT == 'retries1' else 0}, f)
+ code = proc.wait()
+ with open(receipt, 'x') as f:
+     json.dump({'schema': 'UNT_GALAXY_M0_MONITOR_RECEIPT_C2V001', 'exit_code': code, 'stub': True}, f)
+@@ -187,16 +191,6 @@
+     return wx(FX / 'stubs' / name, template.replace('@@V@@', str(variant)))
+ 
+ 
+-def snap(runs, ok=True, reasons=(), pool=80.0):
+-    return {'ok': ok, 'reasons': list(reasons), 'runs': runs, 'swap_gb': 1.0, 'vm': None, 'pool_free_gb': pool, 'procs_cpu': {},
+-            'footprint_source': 'top'}
+-
+-
+-def run_entry(mon_pid, driver_sha, spec, outdir, age=5.0, members=(990902,), fp=1.0):
+-    return {'monitor_pid': mon_pid, 'age_s': age, 'outdir': outdir, 'members': list(members), 'nproc': len(members), 'cpu_s': {},
+-            'rss_bytes': 0, 'driver_sha256': driver_sha, 'spec': spec, 'footprint_gb': fp}
+-
+-
+ # ------------------------------------------------------------------------------------------------ fixtures
+ def fixtures():
+     global FX
+@@ -232,32 +226,12 @@
+         'driver_short': stub('stub_driver_short.py', STUB_DRIVER, 3), 'driver_long': stub('stub_driver_long.py', STUB_DRIVER, 300),
+         'driver_instant': stub('stub_driver_instant.py', STUB_DRIVER, 0),
+         'monitor': stub('stub_monitor_s0kit.py', STUB_MONITOR, ''),
++        'monitor_rss32': stub('stub_monitor_s0kit_rss32.py', STUB_MONITOR, 'rss32'),
++        'monitor_retries1': stub('stub_monitor_s0kit_retries1.py', STUB_MONITOR, 'retries1'),
+         'watch': stub('memory_watch_stub_s0kit.py', STUB_WATCH, 1800),
+     }
+-    twin_spec = wx(FX / 'TWIN_TREE_SPEC.json', {'numerics': {'route_a': {'column_workers': 8}}})
+-    after_out = FX / 'phase_after_out'
+-    wx(after_out / 'progress.jsonl', json.dumps({'stage': 'route_a', 'event': 'finished'}) + '\n')
+-    no_out = str(FX / 'no_such_out_launched')
+-    other_twin = run_entry(990101, T_DRV, twin_spec['path'], str(FX / 'no_such_out_2'), age=30.0, members=(990102,), fp=5.0)
+-    me = lambda **kw: run_entry(kw.pop('mon', T_MON), kw.pop('drv', T_DRV), kw.pop('spec', T_SPEC), kw.pop('out', no_out), **kw)
+-    snaps = {
+-        'empty': snap([], pool=100.0),
+-        'busy': snap([run_entry(990001, '0' * 64, None, str(FX / 'no_such_out_1'), age=50000.0,
+-                                members=range(990002, 990013), fp=60.0)], pool=40.0),
+-        'ddo_inflight': snap([run_entry(990201, '1' * 64, None, str(FX / 'no_such_out_3'), age=9000.0,
+-                                        members=range(990202, 990213), fp=12.0)]),
+-        'launched_ok': snap([me()]),
+-        'launched_generic': snap([me(drv='0' * 64)]),
+-        'launched_unidentified': snap([me(spec='/nonexistent_s0kit_c2v002_test/spec.json')]),
+-        'launched_phase_after': snap([me(out=str(after_out))]),
+-        'launched_generic_plus_twin': snap([me(drv='0' * 64), other_twin]),
+-        'launched_ok_plus_twin': snap([me(), other_twin]),
+-        'twin_other_only': snap([other_twin]),
+-        'probe_failed': snap([], ok=False, reasons=['ps: synthetic probe failure']),
+-    }
+-    snaps = {k: wx(FX / 'snap' / ('%s.json' % k.upper()), v) for k, v in snaps.items()}
+     return dict(g=g, gate_names=gate_names, gp=gp, s0=s0, eps=eps, gq=gq, lo=lo, gqg=gqg, policy=policy, acc=acc, hand=hand,
+-                stubs=stubs, snaps=snaps, twin_spec=twin_spec)
++                stubs=stubs)
+ 
+ 
+ def v006_text(F, specs=None, extra='', watch=True, heading=True, rowgates='ROOT_LISTED_ROW_GATES NONE', gates=None):
+@@ -285,28 +259,24 @@
+ PINS_N = [0]
+ 
+ 
+-def pins_file(F, tag, v006, filler='filler_ok', dry='dry_ok', driver='driver_short', ext1='/Volumes/External1', free=None,
+-              snapshot='empty', after='launched_ok', monitor=None, driver_pin=None, require_mount=False):
++def pins_dict(F, v006, filler='filler_ok', dry='dry_ok', driver='driver_short', ext1='/Volumes/External1', free=None,
++              monitor=None, driver_pin=None, require_mount=False):
+     S = F['stubs']
+-    sp = {'schema': 'S0_LAUNCH_KIT_SYNTHETIC_PINS_C2V002', 'v006': v006,
+-          'driver': driver_pin or S[driver], 'monitor': monitor or S['monitor'], 'filler': S[filler], 'dry_harness': S[dry],
+-          'ngc_admission': {'path': NGC_ADM[0], 'sha256': NGC_ADM[1]}, 'gate': {'path': GATE[0], 'sha256': GATE[1]},
+-          's0_record': F['s0'], 'policy': F['policy'], 'acceptance': F['acc'], 'lo': F['lo'], 'gq_gate': F['gqg'],
+-          'eps': F['eps'], 'gq': F['gq'], 'gate_pins': F['gp'], 'external1_root': ext1, 'python': PY,
+-          'external1_require_mount': require_mount, 'free_bytes_override': free,
+-          'snapshot': F['snaps'][snapshot]['path'], 'snapshot_after_launch': F['snaps'][after]['path']}
+-    PINS_N[0] += 1
+-    return wx(FX / 'pins' / ('PINS_%03d_%s.json' % (PINS_N[0], tag)), sp)
++    return {'schema': 'S0_LAUNCH_KIT_SYNTHETIC_PINS_C2V003', 'v006': v006,
++            'driver': driver_pin or S[driver], 'monitor': monitor or S['monitor'], 'filler': S[filler], 'dry_harness': S[dry],
++            's0_record': F['s0'], 'policy': F['policy'], 'acceptance': F['acc'], 'lo': F['lo'], 'gq_gate': F['gqg'],
++            'eps': F['eps'], 'gq': F['gq'], 'gate_pins': F['gp'], 'external1_root': ext1, 'python': PY,
++            'external1_require_mount': require_mount, 'free_bytes_override': free}
+ 
+ 
+-def wave(tag, wave_in_progress=False, pending=False, age_s=0):
+-    return wx(FX / 'wave' / ('WAVE_%s.json' % tag), {'schema': 'ROOT_WAVE_STATE_C2V001', 'wave_in_progress': wave_in_progress,
+-                                                     'direct_batch_pending': pending, 'written_by': 'test',
+-                                                     'utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(time.time() - age_s))})
++def pins_file(F, tag, v006, raw=None, **kw):
++    sp = raw if raw is not None else pins_dict(F, v006, **kw)
++    PINS_N[0] += 1
++    return wx(FX / 'pins' / ('PINS_%03d_%s.json' % (PINS_N[0], tag)), sp)
+ 
+ 
+ def serial(role, lr, rr, pins=None, launch=False, extra=(), tag='x'):
+-    cmd = ['/bin/bash', str(KIT / 'launch_s0_serial_root_c2v002.sh'), role, '--launch-root', str(lr), '--run-root', rr]
++    cmd = ['/bin/bash', str(KIT / 'launch_s0_serial_root_c2v003.sh'), role, '--launch-root', str(lr), '--run-root', rr]
+     if pins:
+         cmd += ['--synthetic-pins', pins['path'], '--synthetic-pins-sha256', pins['sha256']]
+     if launch:
+@@ -314,9 +284,8 @@
+     return run(cmd + list(extra), tag)
+ 
+ 
+-def twin(lr, rr, wave_pin, pins=None, launch=False, extra=(), tag='x'):
+-    cmd = ['/bin/bash', str(KIT / 'launch_twin_root_c2v002.sh'), '--launch-root', str(lr), '--run-root', rr,
+-           '--wave-state', wave_pin['path']]
++def twin(lr, rr, pins=None, launch=False, extra=(), tag='x'):
++    cmd = ['/bin/bash', str(KIT / 'launch_twin_root_c2v003.sh'), '--launch-root', str(lr), '--run-root', rr]
+     if pins:
+         cmd += ['--synthetic-pins', pins['path'], '--synthetic-pins-sha256', pins['sha256']]
+     if launch:
+@@ -362,7 +331,7 @@
+ 
+ 
+ def outdir_of(rr, name, k):
+-    return '%s/NGC_P1_S0_%s_RUN_C2V002_A%d' % (rr, name, k)
++    return '%s/NGC_P1_S0_%s_RUN_C2V003_A%d' % (rr, name, k)
+ 
+ 
+ def child_of(rr, name, k):
+@@ -371,7 +340,12 @@
+ 
+ 
+ def rec_path(lr, name, kind, k):
+-    return Path(lr) / 'launches' / ('%s_%s_C2V002_A%d.json' % (name, kind, k))
++    return Path(lr) / 'launches' / ('%s_%s_C2V003_A%d.json' % (name, kind, k))
++
++
++def work_of(lr, name, k):
++    w = sorted((Path(lr) / 'work').glob('%s_A%d_*' % (name, k)))
++    return w[-1] if w else None
+ 
+ 
+ # ------------------------------------------------------------------------------------------------ data-file tests
+@@ -529,81 +503,74 @@
+         sha_f(LIVE_V006)[:8], (so.strip()[:160])), not o.exists(), {'exit': code})
+ 
+ 
+-# ------------------------------------------------------------------------------------------------ A147 L3-03 reading
+-def t_kind_reading(F):
+-    kit = load_kit_module('s0_kit_c2v002.py')
+-    M = 4242
+-
+-    def out(runs, hold, twins=(), ok=True):
+-        return json.dumps({'hold': hold, 'twins': list(twins), 'overdue': [], 'limit_s': 23352.0, 'probe_ok': ok,
+-                           'probe_reasons': [], 'hold_or_probe_failed': hold or not ok, 'runs': runs}, indent=1)
+-
+-    def r(key, kind, phase='route_a'):
+-        return {'key': key, 'phase': phase, 'kind': kind, 'age_s': 5.0}
+-    cases = [
+-        ('U02', 'MUST_PASS', 'serial: own key NGC_SERIAL in route_a, exit 0 -> CONFIRMED', out([r(M, 'NGC_SERIAL')], False), 0,
+-         'NGC_SERIAL', 'CONFIRMED'),
+-        ('U03', 'MUST_FAIL', 'serial: own key GENERIC, exit 0 (C2V001 passed it) -> WRONG (stop)', out([r(M, 'GENERIC')], False), 0,
+-         'NGC_SERIAL', 'WRONG'),
+-        ('U04', 'MUST_FAIL', 'serial: own key NGC_UNIDENTIFIED, exit 3 -> WRONG (stop)',
+-         out([r(M, 'NGC_UNIDENTIFIED')], True, [M]), 3, 'NGC_SERIAL', 'WRONG'),
+-        ('U05', 'MUST_FAIL', 'serial: no run with key = the monitor pid (another NGC_SERIAL run present) -> NOT_YET, never confirmed',
+-         out([r(M + 1, 'NGC_SERIAL')], False), 0, 'NGC_SERIAL', 'NOT_YET'),
+-        ('U06', 'MUST_FAIL', 'probe failed (exit 2, probe_ok false) -> NOT_YET, never confirmed', out([r(M, 'NGC_SERIAL')], False, ok=False),
+-         2, 'NGC_SERIAL', 'NOT_YET'),
+-        ('U07', 'MUST_PASS', 'twin: own key NGC_TWIN in route_a, in the hold list, exit 3 -> CONFIRMED',
+-         out([r(M, 'NGC_TWIN')], True, [M]), 3, 'NGC_TWIN', 'CONFIRMED'),
+-        ('U08', 'MUST_FAIL', 'twin: own key GENERIC while another twin holds (exit 3; C2V001 counted it confirmed) -> WRONG',
+-         out([r(M, 'GENERIC'), r(990101, 'NGC_TWIN')], True, [990101]), 3, 'NGC_TWIN', 'WRONG'),
+-        ('U09', 'MUST_FAIL', 'twin: own key NGC_TWIN but phase after -> WRONG_PHASE', out([r(M, 'NGC_TWIN', 'after')], False), 0,
+-         'NGC_TWIN', 'WRONG'),
+-        ('U10', 'MUST_FAIL', 'key given as the string "4242" is not the integer monitor pid -> NOT_YET',
+-         out([dict(r(M, 'NGC_SERIAL'), key=str(M))], False), 0, 'NGC_SERIAL', 'NOT_YET'),
+-        ('U11', 'MUST_FAIL', 'exit 0 while hold is true (inconsistent CLI output) -> NOT_YET', out([r(M, 'NGC_SERIAL')], True, [990101]),
+-         0, 'NGC_SERIAL', 'NOT_YET'),
+-        ('U12', 'MUST_PASS', 'serial: own key NGC_SERIAL while another twin holds (exit 3) -> CONFIRMED (the hold is not this run\'s)',
+-         out([r(M, 'NGC_SERIAL'), r(990101, 'NGC_TWIN')], True, [990101]), 3, 'NGC_SERIAL', 'CONFIRMED'),
+-        ('U13', 'MUST_FAIL', 'twin: own key NGC_SERIAL -> WRONG', out([r(M, 'NGC_SERIAL')], False), 0, 'NGC_TWIN', 'WRONG'),
+-        ('U14', 'MUST_FAIL', 'unparseable output -> NOT_YET', 'Traceback (most recent call last)', 1, 'NGC_SERIAL', 'NOT_YET'),
+-    ]
+-    for tid, kind, desc, text, code, exp, want in cases:
+-        got = kit.kind_reading(text, code, M, exp)
+-        check(tid, kind, 'kind_reading: ' + desc, got['state'] == want, got)
+-    ok = kit.a133_memory_ok(53.79) and not kit.a133_memory_ok(53.80) and not kit.a133_memory_ok(float('nan'))
+-    check('U01', 'MUST_PASS', 'A133 rule in A141 L2 units: footprint + 20.11 + 29.1 <= 103 GB admits 53.79, refuses 53.80 and NaN', ok)
+-
+-
+-def t_gate_cli_equivalence(F):
+-    """GC01: the kit's synthetic --hold-check emulation prints byte-for-byte what the pinned gate CLI main() prints for the
+-    same snapshot (main()'s module probe replaced), and kind_reading reads the real CLI output as CONFIRMED / WRONG."""
+-    import types
+-    kit = load_kit_module('s0_kit_c2v002.py')
+-    raw = Path(GATE[0]).read_bytes()
+-    assert sha_b(raw) == GATE[1]
+-    serial_spec = wx(RUN / 'gc' / 'SERIAL_SPEC.json', {'numerics': {'route_a': {'column_workers': 1}}})
+-    results = []
+-    for tag, key, expected, want in (('launched_ok', 'GC01', 'NGC_SERIAL', 'CONFIRMED'),
+-                                     ('launched_generic_plus_twin', 'GC02', 'NGC_TWIN', 'WRONG'),
+-                                     ('launched_unidentified', 'GC03', 'NGC_TWIN', 'WRONG')):
+-        plan = {'synthetic': True, 'synthetic_extras': {'snapshot_after_launch': F['snaps'][tag]['path']},
+-                'pins': {'ngc_admission': {'path': NGC_ADM[0], 'sha256': NGC_ADM[1]}, 'gate': {'path': GATE[0], 'sha256': GATE[1]}}}
+-        spec = serial_spec['path'] if expected == 'NGC_SERIAL' else F['twin_spec']['path']
+-        e_code, e_out = kit.emulate_gate_cli(plan, 'hold', 4242, spec)
+-        m = types.ModuleType('machine_gate_s45_c2v003_test')
+-        m.__file__ = GATE[0]
+-        exec(compile(raw, GATE[0], 'exec'), m.__dict__)
+-        snap = kit.synthetic_snapshot(plan, 'snapshot_after_launch', {T_MON: 4242, T_SPEC: spec,
+-                                                                      T_DRV: m.PARAMS['ngc_driver_sha256']})
+-        m.probe = lambda run=None, params=None, _s=snap: _s
+-        buf = io.StringIO()
+-        with contextlib.redirect_stdout(buf):
+-            r_code = m.main(['--hold-check'])
+-        r_out = buf.getvalue()
+-        got = kit.kind_reading(r_out, r_code, 4242, expected)
+-        ok = r_out == e_out and r_code == e_code and got['state'] == want
+-        check(key, 'MUST_PASS' if want == 'CONFIRMED' else 'MUST_FAIL',
+-              'real gate CLI main() --hold-check (probe replaced by snapshot %s) == the kit emulation byte for byte (exit %d); '
+-              'kind_reading on the real output: %s' % (tag, r_code, want), ok, {'reading': got, 'equal': r_out == e_out})
++# ------------------------------------------------------------------------------------------------ A166: no memory gating
++REMOVED_FUNCTIONS = ('cmd_admission', 'cmd_gate_cli', 'cmd_confirm_kind', 'cmd_wave_state', 'kind_reading', 'real_hold_check',
++                     'emulate_gate_cli', 'load_gate', 'make_gate', 'warm', 'a133_memory_ok', 'synthetic_snapshot', 'substitute',
++                     'FakeClock', 'pid_alive')
++EXPECTED_SUBCOMMANDS = {'validate', 'fill-check', 'dry-verdict', 'register', 'ext1-check', 'step2-check', 'watch-check',
++                        'order-check', 'freeze-check', 'record-epoch', 'monitor-argv', 'launch-check', 'launch-record',
++                        'twin-trigger', 'kill-target', 'kill-record'}
++SCRIPT_GATE_TOKENS = ('--hold-check', '--twin-start-check', 'machine_gate', 'ngc_admission', '"$KIT" admission',
++                      '"$KIT" confirm-kind', '"$KIT" gate-cli', '"$KIT" wave-state', '--dry-admission', '--kind-confirm',
++                      '--kind-poll', '--wave-state', '$PLAN_GATE"', 'PLAN_GATE_SHA', 'PLAN_EXPECTED_KIND', 'kind_verdict')
++KIT_CODE_GATE_TOKENS = ('hold_check', 'hold-check', 'twin_start', 'twin-start', 'machine_gate', 'ngc_admission', 'snapshot',
++                        '.decide(', 'A133_LIMIT', 'live_runs_gb', 'NGC_SERIAL', 'NGC_TWIN', 'wave_in_progress')
++
++
++def code_lines(p):
++    return [ln for ln in Path(p).read_text().splitlines() if not ln.lstrip().startswith('#')]
++
++
++def t_no_gate_static():
++    """N01: the C2V003 code carries no gate call, no memory admission and no kind check; RSS caps = RAM."""
++    code, so, se = run([PY, '-I', '-B', str(KIT / 's0_kit_c2v003.py'), '--help'], 'N01_help')
++    m = re.search(r'\{([a-z0-9,-]+)\}', so)
++    subs = set(m.group(1).split(',')) if m else set()
++    kit = load_kit_module('s0_kit_c2v003.py')
++    src = (KIT / 's0_kit_c2v003.py').read_text()
++    body = src.split('"""', 2)[2]                                   # the code after the module docstring
++    kit_hits = [t for t in KIT_CODE_GATE_TOKENS if t in body]
++    script_hits = {n: [t for t in SCRIPT_GATE_TOKENS if any(t in ln for ln in code_lines(KIT / n))]
++                   for n in ('launch_s0_serial_root_c2v003.sh', 'launch_twin_root_c2v003.sh', 'twin_kill_watch_c2v003.sh')}
++    caps_ok = kit.RAM_BYTES == RAM and kit.CAPS == {
++        'serial': {'wall_cap_s': 610324, 'rss_cap_bytes': RAM, 'output_cap_bytes': 146028888064},
++        'twin': {'wall_cap_s': 22752, 'rss_cap_bytes': RAM, 'output_cap_bytes': 34359738368}}
++    ok = subs == EXPECTED_SUBCOMMANDS and not [f for f in REMOVED_FUNCTIONS if hasattr(kit, f)] and \
++        not {'gate', 'ngc_admission'} & set(kit.REAL) and \
++        not {'gate', 'ngc_admission', 'snapshot', 'snapshot_after_launch'} & set(kit.SYNTHETIC_KEYS) and \
++        not kit_hits and not any(script_hits.values()) and caps_ok
++    check('N01', 'MUST_PASS', 'A166 static: kit subcommands are exactly the 16 kept/new ones (no admission, gate-cli, '
++          'confirm-kind, wave-state); no gate/ngc_admission pin; no gate, kind or memory token in the kit code or the scripts; '
++          'CAPS serial 610324 s / RAM / 136 GiB, twin 22752 s / RAM / 32 GiB', ok,
++          {'subcommands': sorted(subs), 'kit_hits': kit_hits, 'script_hits': script_hits, 'caps_ok': caps_ok})
++
++
++def t_rss_constant(F, LRD, VA_path):
++    """N04: validate refuses a kit whose RSS cap is not RAM (module constant mutated in memory; the file is untouched)."""
++    P = pins_file(F, 'N04', VA_path)
++    ns = lambda call: argparse.Namespace(role='seed', call=call, mode='dry', launch_root=str(LRD),
++                                         run_root='/Volumes/External1/NGC_SYN_S0_RUNROOT', attempt='1',
++                                         synthetic_pins=P['path'], synthetic_pins_sha256=P['sha256'])
++    res = {}
++    for call in ('serial', 'twin'):
++        kit = load_kit_module('s0_kit_c2v003.py')
++        plan = kit.build_plan(ns(call))
++        res[call + '_ram'] = plan['caps']['rss_cap_bytes'] == RAM
++        kit.CAPS[call]['rss_cap_bytes'] = OLD_RSS[call]
++        try:
++            kit.build_plan(ns(call))
++            res[call + '_old'] = 'accepted'
++        except kit.Refusal as e:
++            res[call + '_old'] = str(e)
++    ok = res['serial_ram'] and res['twin_ram'] and all(res[c + '_old'].startswith('RSS_CAP_NOT_RAM') for c in ('serial', 'twin'))
++    check('N04', 'MUST_FAIL', 'validate refuses an RSS cap that is not RAM (the C2V002 32 GiB serial / 86 GiB twin caps, set in '
++          'the loaded module): RSS_CAP_NOT_RAM; the unmodified kit plans RSS = 137438953472', ok, res)
++    raw = dict(pins_dict(F, VA_path), ngc_admission=F['stubs']['dry_ok'], gate=F['stubs']['dry_ok'],
++               snapshot=F['stubs']['dry_ok']['path'], snapshot_after_launch=F['stubs']['dry_ok']['path'])
++    code, so, se = serial('seed', LRD, '/Volumes/External1/NGC_SYN_S0_RUNROOT', pins_file(F, 'N05', VA_path, raw=raw), tag='N05')
++    check('N05', 'MUST_FAIL', 'synthetic pins that still carry the C2V002 gate keys (ngc_admission, gate, snapshot, '
++          'snapshot_after_launch) are refused (SYNTHETIC_PINS_KEYS)', code == 3 and 'SYNTHETIC_PINS_KEYS' in (so + se),
++          (se.strip() or so.strip())[-200:])
+ 
+ 
+ # ------------------------------------------------------------------------------------------------ DRY and refusals
+@@ -622,22 +589,23 @@
+     cmd = lines[0] if len(lines) == 1 else ''
+     want = re.compile(r'^\S+python3 -I -B \S+/stub_monitor_s0kit\.py --driver \S+/stub_driver_short\.py --driver-sha256 '
+                       r'(?P<h>[0-9a-f]{64}) --spec (?P<s>/\S+/CALL_A_K32_A2_HEADLINE_C2V001\.json) --outdir '
+-                      r'/Volumes/External1/NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_SERIAL_RUN_C2V002_A1 --receipt '
+-                      r'/Volumes/External1/NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_SERIAL_RUN_C2V002_A1\.receipt\.json '
+-                      r'--wall-cap-s 610324 --rss-cap-bytes 34359738368 --output-cap-bytes 146028888064$')
++                      r'/Volumes/External1/NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A1 --receipt '
++                      r'/Volumes/External1/NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A1\.receipt\.json '
++                      r'--wall-cap-s 610324 --rss-cap-bytes 137438953472 --output-cap-bytes 146028888064$')
+     m = want.match(cmd)
+     ok = code == 0 and m is not None and m.group('h') == F['stubs']['driver_short']['sha256'] and \
+         not (LRD / 'M15_PRELAUNCH_RECORD_C2V001.json').exists() and not (LRD / 'launches').exists() and \
+-        not (LRD / 'registry').exists() and 'DRY: nothing launched' in so and 'kind NGC_SERIAL, phase route_a' in so
++        not (LRD / 'registry').exists() and 'DRY: nothing launched' in so and 'launch-record check' in so and \
++        'no gate reading (A166)' in so
+     check('L01', 'MUST_PASS', 'DRY seed: one root_monitor command, --driver-sha256 <64 hex>, absolute --spec, --outdir '
+-          '/Volumes/External1/NGC_*/NGC_P1_S0_SEED_SERIAL_RUN_C2V002_A1, caps 610324/32 GiB/136 GiB, the A147 kind check named; '
+-          'no record, registry or launch', ok, cmd)
++          '/Volumes/External1/NGC_*/NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A1, caps 610324 s / RSS 137438953472 (RAM) / 136 GiB, '
++          'the launch-record check named; no record, registry or launch', ok, cmd)
+     code2, so2, se2, spec_j0, work_j0 = dry_seed(F, LRD, P, 'L01b', role='j0')
+-    ok = code2 == 0 and spec_j0 is not None and 'NGC_P1_S0_J0_SERIAL_RUN_C2V002_A1' in so2
++    ok = code2 == 0 and spec_j0 is not None and 'NGC_P1_S0_J0_SERIAL_RUN_C2V003_A1' in so2
+     check('L01b', 'MUST_PASS', 'DRY j0 before any record: notes the seed writes the record, fills its own point', ok)
+     code3, so3, se3, _, _ = dry_seed(F, LRD, P, 'L01c', extra=('--attempt', '2'))
+-    check('L01c', 'MUST_PASS', 'DRY --attempt 2 prints the attempt-2 outdir ..._SERIAL_RUN_C2V002_A2', code3 == 0 and
+-          'NGC_P1_S0_SEED_SERIAL_RUN_C2V002_A2 ' in so3)
++    check('L01c', 'MUST_PASS', 'DRY --attempt 2 prints the attempt-2 outdir ..._SERIAL_RUN_C2V003_A2', code3 == 0 and
++          'NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A2 ' in so3)
+     return LRD, P, spec_sha, work, spec_j0, work_j0
+ 
+ 
+@@ -685,6 +653,10 @@
+     real_drv = {'path': REAL_DRIVER, 'sha256': REAL_DRIVER_SHA}
+     must_fail('L10b', 'synthetic pins naming the real driver are refused', 'seed', LRD, rr,
+               pins_file(F, 'L10b', VA_path, driver_pin=real_drv), 'SYNTHETIC_PINS_NAME_THE_REAL_DRIVER')
++    for tid, flag in (('L18', '--dry-admission'), ('L18b', '--kind-confirm-timeout-s')):
++        extra = (flag,) if flag == '--dry-admission' else (flag, '900')
++        must_fail(tid, 'the removed C2V002 option %s is refused (unknown argument; A166)' % flag, 'seed', LRD, rr, P,
++                  'unknown argument: %s' % flag, extra=extra)
+ 
+ 
+ def t_monitor_argv(F, work):
+@@ -692,19 +664,25 @@
+     pl = jload(plan)
+     base = [pl['python'], '-I', '-B', pl['pins']['monitor']['path'], '--driver', pl['pins']['driver']['path'], '--driver-sha256',
+             pl['pins']['driver']['sha256'], '--spec', str(Path(work) / 'fill' / 'CALL_A_K32_A2_HEADLINE_C2V001.json'),
+-            '--outdir', pl['outdir'], '--receipt', pl['receipt'], '--wall-cap-s', '610324', '--rss-cap-bytes', '34359738368',
++            '--outdir', pl['outdir'], '--receipt', pl['receipt'], '--wall-cap-s', '610324', '--rss-cap-bytes', str(RAM),
+             '--output-cap-bytes', '146028888064']
+-    kit = [PY, '-I', '-B', str(KIT / 's0_kit_c2v002.py'), 'monitor-argv', '--plan', plan, '--']
++    kit = [PY, '-I', '-B', str(KIT / 's0_kit_c2v003.py'), 'monitor-argv', '--plan', plan, '--']
+     code, so, se = run(kit + base, 'M01')
+-    check('M01', 'MUST_PASS', 'monitor-argv accepts the planned D3 / A147 L3-03 form', code == 0, so.strip()[:200])
++    check('M01', 'MUST_PASS', 'monitor-argv accepts the planned D3 form with RSS cap = RAM (137438953472)', code == 0,
++          so.strip()[:200])
+     cases = {
+         'M02': ('relative --spec', {9: 'fill/CALL_A_K32_A2_HEADLINE_C2V001.json'}, 'SPEC_NOT_ABSOLUTE'),
+-        'M03': ('--outdir spelled through runs_ext', {11: '/Users/bgm/Research/UNT_EXCHANGE/CLAUDE2/runs_ext/NGC_X/NGC_P1_S0_SEED_SERIAL_RUN_C2V002_A1',
+-                                                     13: '/Users/bgm/Research/UNT_EXCHANGE/CLAUDE2/runs_ext/NGC_X/NGC_P1_S0_SEED_SERIAL_RUN_C2V002_A1.receipt.json'},
++        'M03': ('--outdir spelled through runs_ext', {11: '/Users/bgm/Research/UNT_EXCHANGE/CLAUDE2/runs_ext/NGC_X/NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A1',
++                                                     13: '/Users/bgm/Research/UNT_EXCHANGE/CLAUDE2/runs_ext/NGC_X/NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A1.receipt.json'},
+                 'OUTDIR_SPELLED_THROUGH_RUNS_EXT'),
+         'M04': ('--driver-sha256 as an 8-hex prefix', {7: pl['pins']['driver']['sha256'][:8]}, 'DRIVER_SHA256_FORM'),
+         'M05': ('the 64 GiB predecessor output cap', {19: '68719476736'}, 'CAP --output-cap-bytes'),
+         'M06': ('receipt not <outdir>.receipt.json', {13: pl['outdir'] + '.json'}, 'RECEIPT_FORM'),
++        'M09': ('the C2V002 serial RSS cap 32 GiB (RSS cap not RAM; A166)', {17: '34359738368'}, 'CAP --rss-cap-bytes'),
++        'M09b': ('an RSS cap one byte below RAM', {17: str(RAM - 1)}, 'CAP --rss-cap-bytes'),
++        'M10': ('a relative --outdir (and its receipt)', {11: 'NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A1',
++                                                         13: 'NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_SERIAL_RUN_C2V003_A1.receipt.json'},
++                'OUTDIR_NOT_ABSOLUTE_UNDER'),
+     }
+     for tid, (desc, edits, want) in cases.items():
+         argv = list(base)
+@@ -714,20 +692,20 @@
+         check(tid, 'MUST_FAIL', 'monitor-argv refuses %s' % desc, code == 3 and want in so, so.strip()[:200])
+     argv = base[:6] + ['--driver-sha256=' + pl['pins']['driver']['sha256']] + base[8:]
+     code, so, se = run(kit + argv, 'M07')
+-    check('M07', 'MUST_FAIL', 'monitor-argv refuses the --driver-sha256=<hex> spelling (A147 L3-03: no = forms)', code == 3, so.strip()[:200])
++    check('M07', 'MUST_FAIL', 'monitor-argv refuses the --driver-sha256=<hex> spelling (D3: no = forms)', code == 3, so.strip()[:200])
+     argv = base[:8] + ['--spec=' + base[9]] + base[10:]
+     code, so, se = run(kit + argv, 'M08')
+     check('M08', 'MUST_FAIL', 'monitor-argv refuses the --spec=<path> spelling', code == 3, so.strip()[:200])
+ 
+ 
+ # ------------------------------------------------------------------------------------------------ launches
+-def launch_seed_ok(F, lr, rr, ext, v006, step2, tag, after='launched_ok', driver='driver_short', extra=()):
+-    P = pins_file(F, tag, v006, ext1=str(ext), free=200 * (1 << 30), after=after, driver=driver)
++def launch_seed_ok(F, lr, rr, ext, v006, step2, tag, driver='driver_short', monitor='monitor', extra=()):
++    P = pins_file(F, tag, v006, ext1=str(ext), free=200 * (1 << 30), driver=driver, monitor=F['stubs'][monitor])
+     return serial('seed', lr, rr, P, launch=True, extra=('--step2-receipt', step2['path']) + tuple(extra), tag=tag)
+ 
+ 
+ def t_serial_launch(F, VB_path, VC_path, step2):
+-    # sequence S: seed launch confirmed, repeats refused, j0 confirmed beside another twin (flag), twin confirmed + watch kill
++    # sequence S: seed launch confirmed (no gate), repeats refused, j0 launched after the seed, twin (t_twin) after the seed
+     LRS, EXT, rr = seq('S')
+     code, so, se = launch_seed_ok(F, LRS, rr, EXT, VB_path, step2, 'L11')
+     rec = LRS / 'M15_PRELAUNCH_RECORD_C2V001.json'
+@@ -735,58 +713,67 @@
+     lj = Path(outdir_of(rr, 'SEED_SERIAL', 1) + '.receipt.json.launch.json')
+     ok = code == 0 and rec.exists() and lrec.exists() and lj.exists()
+     info = {'exit': code, 'tail': (se.strip() or so.strip())[-300:]}
++    L, J = {}, {}
+     if ok:
+         r, L, J = jload(rec), jload(lrec), jload(lj)
+         t_launch = calendar.timegm(time.strptime(J['utc'], '%Y-%m-%dT%H:%M:%SZ'))
+-        kc = L['kind_check']
++        lc = L['launch_check']
+         ok = r['date_u_epoch_s'] < int(t_launch) and L['failed'] == [] and L['flags'] == [] and \
+             L['first_record_in_launch_root'] is True and L['m15_record']['sha256'] == sha_f(rec) and \
+             r['v006']['sha256'] == sha_f(VB_path) and os.stat(rec).st_mtime_ns <= os.stat(lj).st_mtime_ns and \
+-            (LRS / 'registry' / 'S0_SEED_SERIAL_C2V002.json').exists() and kc['verdict'] == 'CONFIRMED' and \
+-            kc['run_read']['key'] == L['monitor_pid'] and kc['run_read']['kind'] == 'NGC_SERIAL' and \
+-            kc['run_read']['phase'] == 'route_a' and L['outcome'] == 'LAUNCH' and L['attempt'] == 1
+-        info.update(record_epoch=r['date_u_epoch_s'], launch_utc=J['utc'], run_read=kc.get('run_read'))
++            (LRS / 'registry' / 'S0_SEED_SERIAL_C2V003.json').exists() and lc['verdict'] == 'CONFIRMED' and \
++            lc['failed'] == [] and L['outcome'] == 'LAUNCH' and L['attempt'] == 1 and \
++            L['schema'] == 'UNT_S0_LAUNCH_RECORD_C2V003'
++        info.update(record_epoch=r['date_u_epoch_s'], launch_utc=J['utc'], launch_check=lc.get('reason'))
+     check('L11', 'MUST_PASS', 'synthetic --launch: M-15 record first (exclusive; its date -u second < the .launch.json utc), registry '
+-          'entry, then the A147 kind check reads runs[].key = the monitor pid as NGC_SERIAL / route_a; LAUNCH record A1', ok, info)
++          'entry, then the launch-record check CONFIRMED (launch record matches the plan); LAUNCH record A1', ok, info)
++    w = work_of(LRS, 'S0_SEED_SERIAL', 1)
++    pl = jload(w / 'plan.json') if w else {}
++    names = sorted(p.name for p in w.iterdir()) if w else []
++    ok = bool(L) and code == 0 and not {'gate', 'ngc_admission'} & set(pl.get('pins', {})) and \
++        pl['caps']['rss_cap_bytes'] == RAM and J.get('caps', {}).get('rss_cap_bytes') == RAM and L['caps']['rss_cap_bytes'] == RAM and \
++        not [n for n in names if n.startswith(('admission', 'kind_check', 'kind_verdict', 'twin_start', 'wave_state'))] and \
++        'launch_verdict.json' in names and 'kind_check' not in L and 'admission' not in L
++    check('N02', 'MUST_PASS', 'launch without gate: the seed launch ran no admission, no gate call and no kind check (its work '
++          'directory holds no admission/kind_check/twin_start/wave_state file; the plan pins no gate); its RSS cap is RAM in the '
++          'plan, the monitor argv and the launch record', ok, {'work_files': names})
+     code, so, se = launch_seed_ok(F, LRS, rr, EXT, VB_path, step2, 'L15')
+     check('L15', 'MUST_FAIL', 'a second seed --launch (attempt 1) in the same launch root refuses (ALREADY_LAUNCHED)',
+           code == 3 and 'ALREADY_LAUNCHED' in (so + se))
+     code, so, se = launch_seed_ok(F, LRS, rr, EXT, VC_path, step2, 'L15b', extra=('--attempt', '2'))
+     check('L15b', 'MUST_FAIL', 'seed --attempt 2 after a confirmed attempt 1 refuses (ALREADY_LAUNCHED; no relaunch of a good launch)',
+           code == 3 and 'ALREADY_LAUNCHED' in (so + se) and 'ATTEMPT_1_IS_NOT_A_RECORDED_MISLAUNCH' in (so + se))
+-    Pj = pins_file(F, 'S_j0', VC_path, ext1=str(EXT), free=200 * (1 << 30), after='launched_ok_plus_twin')
++    Pj = pins_file(F, 'S_j0', VC_path, ext1=str(EXT), free=200 * (1 << 30))
+     code, so, se = serial('j0', LRS, rr, Pj, launch=True, extra=('--step2-receipt', step2['path']), tag='L16')
+     l2 = rec_path(LRS, 'S0_J0_SERIAL', 'LAUNCH', 1)
+     L2 = jload(l2) if l2.exists() else {}
+-    ok = code == 4 and l2.exists() and L2['first_record_in_launch_root'] is False and L2['failed'] == [] and \
+-        any(f.startswith('HOLD_TRUE_AT_SERIAL_LAUNCH') for f in L2['flags']) and L2['kind_check']['verdict'] == 'CONFIRMED'
+-    check('L16', 'MUST_PASS', 'j0 --launch after the seed (V006 changed since the record: the freeze ended at the first receipt), '
+-          'read NGC_SERIAL on its own key while another twin holds: launched, exit 4 with flag HOLD_TRUE_AT_SERIAL_LAUNCH', ok,
++    ok = code == 0 and l2.exists() and L2['first_record_in_launch_root'] is False and L2['failed'] == [] and \
++        L2['flags'] == [] and L2['launch_check']['verdict'] == 'CONFIRMED'
++    check('L16', 'MUST_PASS', 'j0 --launch after the seed (V006 changed since the record: the freeze ended at the first receipt): '
++          'launched, exit 0, no flag (C2V002\'s HOLD_TRUE_AT_SERIAL_LAUNCH gate flag is gone)', ok,
+           {'exit': code, 'flags': L2.get('flags')})
+     return LRS, EXT, rr
+ 
+ 
+ def t_mislaunch_serial(F, VB_path, VC_path, step2):
+-    # K: GENERIC serial is stopped at once, recorded, and relaunched as attempt 2 under the same M-15 record
++    # K: a launch whose record does not match the plan (the monitor recorded a 32 GiB RSS cap, not RAM) is stopped at once,
++    # recorded, and relaunched as attempt 2 under the same M-15 record
+     LR, EXT, rr = seq('K')
+-    code, so, se = launch_seed_ok(F, LR, rr, EXT, VB_path, step2, 'K01', after='launched_generic', driver='driver_long')
++    code, so, se = launch_seed_ok(F, LR, rr, EXT, VB_path, step2, 'K01', driver='driver_long', monitor='monitor_rss32')
+     child = child_of(rr, 'SEED_SERIAL', 1)
+     time.sleep(0.5)
+     mrec = rec_path(LR, 'S0_SEED_SERIAL', 'MISLAUNCH', 1)
+     M = jload(mrec) if mrec.exists() else {}
+-    hold_exit0 = False
+-    kv = sorted((LR / 'work').glob('S0_SEED_SERIAL_A1_*/kind_check/hold_check_001.stdout.json'))
+-    if kv:
+-        d = json.loads(kv[-1].read_text())
+-        hold_exit0 = d['hold'] is False and d['probe_ok'] is True
+     ok = code == 5 and mrec.exists() and not rec_path(LR, 'S0_SEED_SERIAL', 'LAUNCH', 1).exists() and \
+-        M.get('kind_verdict_reason', '').startswith('WRONG_KIND GENERIC') and \
++        M.get('launch_verdict_reason', '').startswith('LAUNCH_RECORD_DIFFERS_FROM_PLAN') and \
++        M['launch_check']['failed'] == ['caps'] and \
+         M['stop']['result'] in ('KILLED_TERM', 'KILLED_KILL') and not alive(child) and \
+-        M['monitor_receipt']['exists'] is True and M['relaunch']['attempt'] == 2 and hold_exit0 and \
+-        M['schema'] == 'UNT_S0_MISLAUNCH_RECORD_C2V002' and 'PROCEDURAL_MISLAUNCH' in M['classification']
+-    check('K01', 'MUST_FAIL', 'a serial the gate reads GENERIC (its --hold-check exit is 0, which C2V001 took as success) is stopped '
+-          'at once: process group killed, MISLAUNCH record A1 (procedural), monitor receipt present, no LAUNCH record', ok,
+-          {'exit': code, 'reason': M.get('kind_verdict_reason'), 'stop': (M.get('stop') or {}).get('result'),
++        M['monitor_receipt']['exists'] is True and M['relaunch']['attempt'] == 2 and \
++        M['schema'] == 'UNT_S0_MISLAUNCH_RECORD_C2V003' and 'PROCEDURAL_MISLAUNCH' in M['classification']
++    check('K01', 'MUST_FAIL', 'RSS cap not RAM at launch: a monitor whose launch record carries rss_cap_bytes 32 GiB (not the planned '
++          'RAM) is stopped at once: process group killed, MISLAUNCH record A1 (procedural, failed [caps]), monitor receipt present, '
++          'no LAUNCH record', ok,
++          {'exit': code, 'reason': M.get('launch_verdict_reason'), 'stop': (M.get('stop') or {}).get('result'),
+            'child_alive': alive(child)})
+     code, so, se = serial('j0', LR, rr, pins_file(F, 'K02', VC_path, ext1=str(EXT), free=200 * (1 << 30)), launch=True,
+                           extra=('--step2-receipt', step2['path']), tag='K02')
+@@ -804,59 +791,36 @@
+     rec = LR / 'M15_PRELAUNCH_RECORD_C2V001.json'
+     ok = code == 0 and l2.exists() and L2['outdir'] == outdir_of(rr, 'SEED_SERIAL', 2) and \
+         L2['m15_record']['sha256'] == sha_f(rec) == M.get('m15_record', {}).get('sha256') and \
+-        L2['first_record_in_launch_root'] is False and L2['kind_check']['verdict'] == 'CONFIRMED' and \
++        L2['first_record_in_launch_root'] is False and L2['launch_check']['verdict'] == 'CONFIRMED' and \
+         'ALREADY_REGISTERED_SAME_SPEC' in so and L2['attempt'] == 2 and len(list((LR).glob('M15_PRELAUNCH_RECORD*'))) == 1
+     check('K05', 'MUST_PASS', 'relaunch --attempt 2 in the same launch root under the same M-15 record (V006 changed after the '
+-          'first receipt: allowed): new outdir ..._A2, registry reused for the same spec, kind confirmed, LAUNCH record A2', ok,
+-          {'exit': code, 'tail': (se.strip() or so.strip())[-240:]})
++          'first receipt: allowed): new outdir ..._A2, registry reused for the same spec, launch check confirmed, LAUNCH record A2',
++          ok, {'exit': code, 'tail': (se.strip() or so.strip())[-240:]})
+     code, so, se = launch_seed_ok(F, LR, rr, EXT, VC_path, step2, 'K06', extra=('--attempt', '3'))
+     check('K06', 'MUST_FAIL', 'seed --attempt 3 after the confirmed relaunch refuses (ALREADY_LAUNCHED)',
+           code == 3 and 'ALREADY_LAUNCHED' in (so + se))
+-
+-
+-def t_mislaunch_variants(F, VB_path, step2):
+-    def one(tid, desc, after, want_reason, extra=(), want_hold=None):
+-        LR, EXT, rr = seq(tid)
+-        code, so, se = launch_seed_ok(F, LR, rr, EXT, VB_path, step2, tid, after=after, driver='driver_long', extra=extra)
+-        child = child_of(rr, 'SEED_SERIAL', 1)
+-        time.sleep(0.5)
+-        mrec = rec_path(LR, 'S0_SEED_SERIAL', 'MISLAUNCH', 1)
+-        M = jload(mrec) if mrec.exists() else {}
+-        ok = code == 5 and mrec.exists() and want_reason in M.get('kind_verdict_reason', '') and not alive(child) and \
+-            M['stop']['result'] in ('KILLED_TERM', 'KILLED_KILL') and not rec_path(LR, 'S0_SEED_SERIAL', 'LAUNCH', 1).exists()
+-        if want_hold is not None and ok:
+-            ok = (M['kind_check']['hold_at_reading'] or {}).get('hold') is want_hold
+-        check(tid, 'MUST_FAIL', desc, ok, {'exit': code, 'reason': M.get('kind_verdict_reason'),
+-                                          'stop': (M.get('stop') or {}).get('result'), 'child_alive': alive(child)})
+-    one('K07', 'a serial the gate reads NGC_UNIDENTIFIED (hold exit 3, C2V001 alerted but did not stop) is stopped and recorded',
+-        'launched_unidentified', 'WRONG_KIND NGC_UNIDENTIFIED', want_hold=True)
+-    one('K08', 'a serial the gate never sees (runs [], hold exit 0: C2V001 passed it) is stopped at the timeout (fail closed)',
+-        'empty', 'NOT_CONFIRMED', extra=('--kind-confirm-timeout-s', '2', '--kind-poll-s', '1'))
+-    one('K09', 'a failed probe (exit 2: C2V001 passed it) never confirms; stopped at the timeout (fail closed)',
+-        'probe_failed', 'PROBE_FAILED', extra=('--kind-confirm-timeout-s', '2', '--kind-poll-s', '1'))
+-    one('K10', 'a serial read NGC_SERIAL but in phase "after" (the gate would undercount it) is stopped (WRONG_PHASE)',
+-        'launched_phase_after', 'WRONG_PHASE after')
+-    # E: the monitor ends before its run is read -> ENDED record; no kit relaunch
+-    LR, EXT, rr = seq('E01')
+-    code, so, se = launch_seed_ok(F, LR, rr, EXT, VB_path, step2, 'E01', after='empty', driver='driver_instant',
+-                                  extra=('--kind-confirm-timeout-s', '20', '--kind-poll-s', '1'))
+-    erec = rec_path(LR, 'S0_SEED_SERIAL', 'ENDED', 1)
+-    check('E01', 'MUST_FAIL', 'a launch whose monitor ends before the gate reads it writes an ENDED record (exit 5); no LAUNCH or '
+-          'MISLAUNCH record', code == 5 and erec.exists() and not rec_path(LR, 'S0_SEED_SERIAL', 'MISLAUNCH', 1).exists() and
+-          not rec_path(LR, 'S0_SEED_SERIAL', 'LAUNCH', 1).exists(), {'exit': code, 'tail': se.strip()[-200:]})
+-    code, so, se = launch_seed_ok(F, LR, rr, EXT, VB_path, step2, 'E02', extra=('--attempt', '2'))
+-    check('E02', 'MUST_FAIL', '--attempt 2 after an ENDED attempt refuses (ATTEMPT_1_IS_NOT_A_RECORDED_MISLAUNCH: a run failure is '
+-          'root\'s ruling, A50/A108)', code == 3 and 'ATTEMPT_1_IS_NOT_A_RECORDED_MISLAUNCH' in (so + se))
++    # K11: another launch-record mismatch (retries 1) is stopped the same way
++    LR, EXT, rr = seq('K11')
++    code, so, se = launch_seed_ok(F, LR, rr, EXT, VB_path, step2, 'K11', driver='driver_long', monitor='monitor_retries1')
++    child = child_of(rr, 'SEED_SERIAL', 1)
++    time.sleep(0.5)
++    mrec = rec_path(LR, 'S0_SEED_SERIAL', 'MISLAUNCH', 1)
++    M = jload(mrec) if mrec.exists() else {}
++    ok = code == 5 and mrec.exists() and M['launch_check']['failed'] == ['retries_0'] and not alive(child) and \
++        M['stop']['result'] in ('KILLED_TERM', 'KILLED_KILL') and not rec_path(LR, 'S0_SEED_SERIAL', 'LAUNCH', 1).exists()
++    check('K11', 'MUST_FAIL', 'a launch record with retries_allowed 1 (not the planned 0) is stopped and recorded as a mis-launch',
++          ok, {'exit': code, 'reason': M.get('launch_verdict_reason'), 'child_alive': alive(child)})
+ 
+ 
+ def t_freeze_and_order(F, VB_path, VC_path, step2):
+     LRF, EXT, rr = seq('F')
+-    Pbusy = pins_file(F, 'F_busy', VB_path, ext1=str(EXT), free=200 * (1 << 30), snapshot='busy')
+-    code, so, se = serial('seed', LRF, rr, Pbusy, launch=True, extra=('--step2-receipt', step2['path']), tag='L14')
++    Plow = pins_file(F, 'F_lowdisk', VB_path, ext1=str(EXT), free=100 * (1 << 30))
++    code, so, se = serial('seed', LRF, rr, Plow, launch=True, extra=('--step2-receipt', step2['path']), tag='L14')
+     rec = LRF / 'M15_PRELAUNCH_RECORD_C2V001.json'
+-    ok = code == 3 and 'not admitted' in se and 'GATE_MEMORY_HARD' in se and rec.exists() and not (LRF / 'launches').exists()
+-    check('L14', 'MUST_FAIL', 'admission refused (sched v003 gate MEMORY_HARD on a busy synthetic machine): no launch; the M-15 '
+-          'record was already written as the first action', ok, se.strip()[-260:])
++    ok = code == 3 and 'DISK_FREE' in se and rec.exists() and not (LRF / 'launches').exists()
++    check('L14', 'MUST_FAIL', 'a pre-launch refusal after the M-15 step (here the disk guard: free 100 GiB < 136 + 20 GiB; '
++          'C2V002 used the gate MEMORY_HARD refusal, removed by A166): no launch; the M-15 record was already written as the '
++          'first action', ok, se.strip()[-260:])
+     Pc = pins_file(F, 'F_changed', VC_path, ext1=str(EXT), free=200 * (1 << 30))
+     code, so, se = serial('seed', LRF, rr, Pc, launch=True, extra=('--step2-receipt', step2['path']), tag='L12')
+     ok = code == 3 and 'V006_CHANGED_SINCE_RECORD' in se and not (LRF / 'launches').exists() and 'ALREADY_REGISTERED_SAME_SPEC' in so
+@@ -867,20 +831,33 @@
+           code == 3 and 'SEED_SERIAL_NOT_LAUNCHED_FIRST' in (so + se))
+     LRN = mkdir(RUN / 'LR_NOREC')
+     code, so, se = serial('j0', LRN, rr, Pc, launch=True, extra=('--step2-receipt', step2['path']), tag='L13')
+-    check('L13', 'MUST_FAIL', 'j0 --launch with no M-15 record refuses before writing anything (the seed serial writes it)',
+-          code == 3 and 'NO_M15_RECORD' in se and not any(LRN.iterdir()))
++    check('L13', 'MUST_FAIL', 'missing M-15: j0 --launch with no M-15 record refuses before writing anything (the seed serial '
++          'writes it)', code == 3 and 'NO_M15_RECORD' in se and not any(LRN.iterdir()))
+     LRA = mkdir(RUN / 'LR_NOREC_A2')
+     code, so, se = serial('seed', LRA, rr, Pc, launch=True, extra=('--step2-receipt', step2['path'], '--attempt', '2'), tag='L13c')
+-    check('L13c', 'MUST_FAIL', 'seed --attempt 2 in a launch root with no M-15 record refuses before writing anything (a relaunch '
+-          'runs under the existing record)', code == 3 and 'NO_M15_RECORD' in se and not any(LRA.iterdir()))
++    check('L13c', 'MUST_FAIL', 'missing M-15: seed --attempt 2 in a launch root with no M-15 record refuses before writing '
++          'anything (a relaunch runs under the existing record)', code == 3 and 'NO_M15_RECORD' in se and not any(LRA.iterdir()))
++    LRT = mkdir(RUN / 'LR_NOREC_TWIN')
++    code, so, se = twin(LRT, rr, pins_file(F, 'N06', VB_path, ext1=str(EXT), free=200 * (1 << 30)), launch=True,
++                        extra=('--step2-receipt', step2['path']), tag='N06')
++    check('N06', 'MUST_FAIL', 'missing M-15: the twin --launch in a launch root with no M-15 record refuses at order-check '
++          '(M15_RECORD_MISSING); no record, registry or launch is written', code == 3 and 'M15_RECORD_MISSING' in se and
++          not (LRT / 'M15_PRELAUNCH_RECORD_C2V001.json').exists() and not (LRT / 'launches').exists() and
++          not (LRT / 'registry').exists(), se.strip()[-200:])
+     LRD2, EXT2, rr2 = seq('DISK')
+     Pd = pins_file(F, 'F_disk', VB_path, ext1=str(EXT2), free=100 * (1 << 30))
+     code, so, se = serial('seed', LRD2, rr2, Pd, launch=True, extra=('--step2-receipt', step2['path']), tag='L14b')
+-    check('L14b', 'MUST_FAIL', 'refuses when External1 free space < 136 GiB + 20 GiB', code == 3 and 'DISK_FREE' in se)
++    check('L14b', 'MUST_FAIL', 'refuses when External1 free space < 136 GiB + 20 GiB (disk guard kept)', code == 3 and 'DISK_FREE' in se)
+     LRD3, EXT3, rr3 = seq('NOSTEP2')
+     Pn = pins_file(F, 'F_nostep2', VB_path, ext1=str(EXT3), free=200 * (1 << 30))
+     code, so, se = serial('seed', LRD3, rr3, Pn, launch=True, tag='L14c')
+     check('L14c', 'MUST_FAIL', '--launch refuses without step 2\'s last receipt (A135.5)', code == 3 and 'step2-receipt' in se)
++    LRD4, EXT4, rr4 = seq('S2REL')
++    Pr = pins_file(F, 'F_s2rel', VB_path, ext1=str(EXT4), free=200 * (1 << 30))
++    code, so, se = serial('seed', LRD4, rr4, Pr, launch=True, extra=('--step2-receipt', 'STEP2_LAST_RECEIPT_SYNTHETIC.json'),
++                          tag='L14d')
++    check('L14d', 'MUST_FAIL', 'a relative --step2-receipt path is refused (step 2: ok false); no launch',
++          code == 3 and 'step 2:' in se and not (LRD4 / 'launches').exists(), se.strip()[-200:])
+     Preal_ext = pins_file(F, 'F_realext', VB_path)
+     code, so, se = serial('seed', mkdir(RUN / 'LR_REALEXT'), '/Volumes/External1/NGC_SYN_NEVER', Preal_ext, launch=True,
+                           extra=('--step2-receipt', step2['path']), tag='L10c')
+@@ -888,50 +865,42 @@
+           code == 3 and 'SYNTHETIC_LAUNCH_MUST_NOT_USE_EXTERNAL1' in (so + se) and not any((RUN / 'LR_REALEXT').iterdir()))
+ 
+ 
+-def twin_launch(F, lr, rr, ext, v006, step2, tag, after, extra=()):
+-    Pt = pins_file(F, tag, v006, ext1=str(ext), free=200 * (1 << 30), driver='driver_long', after=after)
+-    return twin(lr, rr, wave('w_' + tag), Pt, launch=True, extra=('--step2-receipt', step2['path']) + tuple(extra), tag=tag)
++def twin_launch(F, lr, rr, ext, v006, step2, tag, monitor='monitor', extra=()):
++    Pt = pins_file(F, tag, v006, ext1=str(ext), free=200 * (1 << 30), driver='driver_long', monitor=F['stubs'][monitor])
++    return twin(lr, rr, Pt, launch=True, extra=('--step2-receipt', step2['path']) + tuple(extra), tag=tag)
+ 
+ 
+ def t_twin(F, VB_path, VC_path, step2, LRS, EXT, rr, seed_dry_work):
+     LRD = RUN / 'LR_DRY'
+     P = pins_file(F, 'T_dry', VB_path)
+-    w_ok = wave('ok')
+     rr_dry = '/Volumes/External1/NGC_SYN_S0_RUNROOT'
+-    code, so, se = twin(LRD, rr_dry, w_ok, P, extra=('--dry-fill-dir', str(Path(seed_dry_work) / 'fill')), tag='T01')
++    code, so, se = twin(LRD, rr_dry, P, extra=('--dry-fill-dir', str(Path(seed_dry_work) / 'fill')), tag='T01')
+     cmd = [ln for ln in so.splitlines() if 'stub_monitor_s0kit.py' in ln]
+     ok = code == 0 and len(cmd) == 1 and re.search(
+         r' --driver-sha256 [0-9a-f]{64} --spec /\S+/CALL_A_K32_A2_HEADLINE_CW8_TWIN_C2V001\.json --outdir '
+-        r'/Volumes/External1/NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_CW8_TWIN_RUN_C2V002_A1 --receipt \S+\.receipt\.json '
+-        r'--wall-cap-s 22752 --rss-cap-bytes 92341796864 --output-cap-bytes 34359738368$', cmd[0]) is not None and \
+-        'twin_kill_watch_c2v002.sh' in so and 'kind NGC_TWIN, phase route_a, in the hold list' in so
+-    check('T01', 'MUST_PASS', 'DRY twin: exact D3 form with twin caps 22752/92341796864/34359738368, the A147 kind check and the A141 '
+-          'L4 watch command; nothing launched', ok, cmd[0] if cmd else so[-200:])
+-    for tid, desc, wp, want in (('T02', 'refuses mid-wave', wave('mid', wave_in_progress=True), 'MID_WAVE'),
+-                                ('T03', 'refuses with a direct batch pending', wave('pend', pending=True), 'DIRECT_BATCH_PENDING'),
+-                                ('T04', 'refuses a stale wave-state attestation (> 600 s)', wave('stale', age_s=3600),
+-                                 'WAVE_STATE_STALE')):
+-        code, so, se = twin(LRD, rr_dry, wp, P, extra=('--dry-fill-dir', str(Path(seed_dry_work) / 'fill')), tag=tid)
+-        check(tid, 'MUST_FAIL', 'twin %s' % desc, code == 3 and want in se, se.strip()[-200:])
+-    Pd = pins_file(F, 'T_ddo', VB_path, snapshot='ddo_inflight')
+-    code, so, se = twin(LRD, rr_dry, w_ok, Pd, extra=('--dry-fill-dir', str(Path(seed_dry_work) / 'fill'), '--dry-admission'),
+-                        tag='T05')
+-    check('T05', 'MUST_FAIL', 'twin refuses when --twin-start-check refuses (DDO route A in flight; gate v003 code)',
+-          code == 3 and 'twin-start-check exit 3' in se and 'DDO_ROUTE_A_IN_FLIGHT' in se, se.strip()[-200:])
+-    code, so, se = twin(RUN / 'LR_F', str(RUN / 'EXT1_F' / 'NGC_SYN_F'), w_ok,
++        r'/Volumes/External1/NGC_SYN_S0_RUNROOT/NGC_P1_S0_SEED_CW8_TWIN_RUN_C2V003_A1 --receipt \S+\.receipt\.json '
++        r'--wall-cap-s 22752 --rss-cap-bytes 137438953472 --output-cap-bytes 34359738368$', cmd[0]) is not None and \
++        'twin_kill_watch_c2v003.sh' in so and 'launch-record check' in so
++    check('T01', 'MUST_PASS', 'DRY twin (no --wave-state): exact D3 form with twin caps 22752 s / RSS 137438953472 (RAM) / '
++          '34359738368, the launch-record check and the A141 L4 watch command; nothing launched', ok,
++          cmd[0] if cmd else so[-200:])
++    code, so, se = twin(LRD, rr_dry, P, extra=('--dry-fill-dir', str(Path(seed_dry_work) / 'fill'), '--wave-state',
++                                               str(RUN / 'no_wave.json')), tag='T02')
++    check('T02', 'MUST_FAIL', 'the removed C2V002 --wave-state option is refused (unknown argument; A166: the twin starts any time '
++          'after the seed)', code == 3 and 'unknown argument: --wave-state' in se, se.strip()[-200:])
++    code, so, se = twin(RUN / 'LR_F', str(RUN / 'EXT1_F' / 'NGC_SYN_F'),
+                         pins_file(F, 'T06', VC_path, ext1=str(RUN / 'EXT1_F'), free=200 * (1 << 30)), launch=True,
+                         extra=('--step2-receipt', step2['path']), tag='T06')
+-    check('T06', 'MUST_FAIL', 'twin --launch before the seed serial launched refuses (A143 D2)',
++    check('T06', 'MUST_FAIL', 'twin --launch before the seed serial launched refuses (seed first, M-15)',
+           code == 3 and 'SEED_SERIAL_NOT_LAUNCHED_FIRST' in (so + se))
+-    # T08: the twin after the seed (sequence S): kind NGC_TWIN on its own key, the kill watch on the trigger
+-    code, so, se = twin_launch(F, LRS, rr, EXT, VC_path, step2, 'T08', 'launched_ok', extra=('--watch-poll-s', '1'))
++    # T08: the twin after the seed (sequence S): launch record matches; the kill watch on the trigger
++    code, so, se = twin_launch(F, LRS, rr, EXT, VC_path, step2, 'T08', extra=('--watch-poll-s', '1'))
+     lrec = rec_path(LRS, 'S0_SEED_CW8_TWIN', 'LAUNCH', 1)
+     L = jload(lrec) if lrec.exists() else {}
+-    ok = code == 0 and lrec.exists() and L['failed'] == [] and L['kind_check']['verdict'] == 'CONFIRMED' and \
+-        L['kind_check']['run_read']['kind'] == 'NGC_TWIN' and L['kind_check']['run_read']['key'] == L['monitor_pid'] and \
+-        L['kind_check']['hold_at_reading']['twins'] == [L['monitor_pid']]
+-    check('T08', 'MUST_PASS', 'synthetic twin --launch after the seed: the run with key = its monitor pid reads NGC_TWIN in route_a '
+-          'and is the one in the hold list; launch record; kill watch started', ok, (se.strip() or so.strip())[-300:])
++    ok = code == 0 and lrec.exists() and L['failed'] == [] and L['launch_check']['verdict'] == 'CONFIRMED' and \
++        L['caps']['rss_cap_bytes'] == RAM and isinstance(L.get('watch_pid'), int)
++    check('T08', 'MUST_PASS', 'synthetic twin --launch after the seed (and j0): launch record matches the plan (RSS cap = RAM); '
++          'LAUNCH record; kill watch started', ok, (se.strip() or so.strip())[-300:])
+     tout = Path(outdir_of(rr, 'SEED_CW8_TWIN', 1))
+     child = child_of(rr, 'SEED_CW8_TWIN', 1)
+     st = tout / 'stages' / '01_route_a'
+@@ -950,7 +919,7 @@
+     time.sleep(1.0)
+     ok = alive_before and alive_mid is True and kr.exists() and not alive(child) and jload(kr)['result'] in ('KILLED_TERM', 'KILLED_KILL')
+     check('W02', 'MUST_PASS', 'kill watch: COMPLETED alone does not stop the twin; COMPLETED + sidecar iteration_0001 stops its '
+-          'process group (target verified incl. its monitor as parent) and writes the kill record (A141 L4)', ok,
++          'process group (target verified incl. its monitor as parent) and writes the kill record (A141 L4, kept by A166)', ok,
+           {'alive_before': alive_before, 'alive_mid': alive_mid, 'dead': not alive(child), 'record': kr.exists()})
+ 
+ 
+@@ -967,41 +936,38 @@
+         mrec = rec_path(LR, 'S0_SEED_CW8_TWIN', 'MISLAUNCH', k)
+         M = jload(mrec) if mrec.exists() else {}
+         return M, child, mrec
++    # N03: the twin straight after the seed's LAUNCH record: no J serial, no wave state, no gate
++    LR, EXT, rr = seeded('N03')
++    code, so, se = twin_launch(F, LR, rr, EXT, VB_path, step2, 'N03', extra=('--watch-poll-s', '1'))
++    lrec = rec_path(LR, 'S0_SEED_CW8_TWIN', 'LAUNCH', 1)
++    L = jload(lrec) if lrec.exists() else {}
++    js = [p.name for p in (LR / 'launches').iterdir() if '_J' in p.name] if (LR / 'launches').is_dir() else ['?']
++    ok = code == 0 and lrec.exists() and L['launch_check']['verdict'] == 'CONFIRMED' and js == [] and \
++        rec_path(LR, 'S0_SEED_SERIAL', 'LAUNCH', 1).exists()
++    check('N03', 'MUST_PASS', 'the twin launches straight after the seed serial\'s LAUNCH record (no J serial launched, no '
++          'wave-state attestation, no gate admission): LAUNCH record A1 (A166)', ok, {'exit': code, 'tail': (se.strip() or so.strip())[-200:]})
++    c = child_of(rr, 'SEED_CW8_TWIN', 1)
++    if c:
++        STARTED.append(c)
+     LR, EXT, rr = seeded('T10')
+-    code, so, se = twin_launch(F, LR, rr, EXT, VC_path, step2, 'T10', 'launched_generic_plus_twin')
++    code, so, se = twin_launch(F, LR, rr, EXT, VC_path, step2, 'T10', monitor='monitor_rss32')
+     M, child, mrec = stopped(LR, rr)
+-    ok = code == 5 and mrec.exists() and M.get('kind_verdict_reason', '').startswith('WRONG_KIND GENERIC') and not alive(child) and \
+-        (M['kind_check']['hold_at_reading'] or {}).get('hold') is True and \
+-        (M['kind_check']['hold_at_reading'] or {}).get('twins') == [990101] and \
+-        not rec_path(LR, 'S0_SEED_CW8_TWIN', 'LAUNCH', 1).exists()
+-    check('T10', 'MUST_FAIL', 'a twin read GENERIC while ANOTHER twin (990101) makes --hold-check exit 3 (C2V001 took that exit as '
+-          'confirmation) is stopped at once and recorded as a mis-launch', ok,
+-          {'exit': code, 'reason': M.get('kind_verdict_reason'), 'child_alive': alive(child)})
+-    code, so, se = twin_launch(F, LR, rr, EXT, VC_path, step2, 'T12', 'launched_ok', extra=('--attempt', '2', '--watch-poll-s', '1'))
++    ok = code == 5 and mrec.exists() and M.get('launch_verdict_reason', '').startswith('LAUNCH_RECORD_DIFFERS_FROM_PLAN') and \
++        M['launch_check']['failed'] == ['caps'] and not alive(child) and \
++        M['stop']['result'] in ('KILLED_TERM', 'KILLED_KILL') and not rec_path(LR, 'S0_SEED_CW8_TWIN', 'LAUNCH', 1).exists()
++    check('T10', 'MUST_FAIL', 'RSS cap not RAM at the twin launch: a twin whose launch record carries a 32 GiB RSS cap is stopped '
++          'at once and recorded as a mis-launch (no kill watch started)', ok,
++          {'exit': code, 'reason': M.get('launch_verdict_reason'), 'child_alive': alive(child)})
++    code, so, se = twin_launch(F, LR, rr, EXT, VC_path, step2, 'T12', extra=('--attempt', '2', '--watch-poll-s', '1'))
+     l2 = rec_path(LR, 'S0_SEED_CW8_TWIN', 'LAUNCH', 2)
+     L2 = jload(l2) if l2.exists() else {}
+-    ok = code == 0 and l2.exists() and L2['kind_check']['verdict'] == 'CONFIRMED' and \
++    ok = code == 0 and l2.exists() and L2['launch_check']['verdict'] == 'CONFIRMED' and \
+         L2['outdir'] == outdir_of(rr, 'SEED_CW8_TWIN', 2) and L2['m15_record']['sha256'] == M.get('m15_record', {}).get('sha256')
+-    check('T12', 'MUST_PASS', 'twin relaunch --attempt 2 after its mis-launch, same launch root and M-15 record: NGC_TWIN confirmed '
+-          'on its own key, outdir ..._A2, LAUNCH record A2', ok, {'exit': code, 'tail': (se.strip() or so.strip())[-240:]})
++    check('T12', 'MUST_PASS', 'twin relaunch --attempt 2 after its mis-launch, same launch root and M-15 record: launch check '
++          'confirmed, outdir ..._A2, LAUNCH record A2', ok, {'exit': code, 'tail': (se.strip() or so.strip())[-240:]})
+     c2 = child_of(rr, 'SEED_CW8_TWIN', 2)
+     if c2:
+         STARTED.append(c2)
+-    LR, EXT, rr = seeded('T11')
+-    code, so, se = twin_launch(F, LR, rr, EXT, VC_path, step2, 'T11', 'launched_unidentified')
+-    M, child, mrec = stopped(LR, rr)
+-    ok = code == 5 and mrec.exists() and 'WRONG_KIND NGC_UNIDENTIFIED' in M.get('kind_verdict_reason', '') and \
+-        not alive(child) and (M['kind_check']['hold_at_reading'] or {}).get('hold') is True
+-    check('T11', 'MUST_FAIL', 'a twin read NGC_UNIDENTIFIED (it holds, exit 3; C2V001 counted it hold-confirmed) is stopped and '
+-          'recorded as a mis-launch', ok, {'exit': code, 'reason': M.get('kind_verdict_reason')})
+-    LR, EXT, rr = seeded('T09')
+-    code, so, se = twin_launch(F, LR, rr, EXT, VC_path, step2, 'T09', 'twin_other_only',
+-                               extra=('--kind-confirm-timeout-s', '2', '--kind-poll-s', '1'))
+-    M, child, mrec = stopped(LR, rr)
+-    ok = code == 5 and mrec.exists() and 'NOT_CONFIRMED' in M.get('kind_verdict_reason', '') and not alive(child) and \
+-        M['stop']['result'] in ('KILLED_TERM', 'KILLED_KILL')
+-    check('T09', 'MUST_FAIL', 'a twin the gate never sees, while another tree holds (exit 3 every poll), is never confirmed and is '
+-          'stopped at the timeout (fail closed)', ok, {'exit': code, 'reason': M.get('kind_verdict_reason')})
+ 
+ 
+ def t_twin_spec_leaf(F, VA_path):
+@@ -1011,7 +977,7 @@
+     h = F['hand']['seed']
+     code, so, se = run([PY, '-I', '-B', F['stubs']['filler_twin2']['path'], '--handoff', h['path'], '--expected-sha256',
+                         h['sha256'], '--output-dir', str(d / 'fill')], 'T07_fill')
+-    code, so, se = twin(LRD, '/Volumes/External1/NGC_SYN_S0_RUNROOT', wave('t7'), pins_file(F, 'T07', VA_path),
++    code, so, se = twin(LRD, '/Volumes/External1/NGC_SYN_S0_RUNROOT', pins_file(F, 'T07', VA_path),
+                         extra=('--dry-fill-dir', str(d / 'fill')), tag='T07')
+     check('T07', 'MUST_FAIL', 'twin refuses a spec pair that differs outside numerics.route_a.column_workers', code == 3 and
+           'pair_differs_only_in_leaf' in se, se.strip()[-200:])
+@@ -1031,7 +997,7 @@
+     time.sleep(0.5)
+     wx(lj, {'schema': 'UNT_GALAXY_M0_MONITOR_RECEIPT_C2V001_LAUNCH', 'child_pid': p.pid, 'command': cmd,
+             'pins': {'spec': spec}, 'utc': '2026-10-19T00:00:00Z'})
+-    W = ['/bin/bash', str(KIT / 'twin_kill_watch_c2v002.sh'), '--launch-root', str(d), '--launch-json', str(lj), '--outdir',
++    W = ['/bin/bash', str(KIT / 'twin_kill_watch_c2v003.sh'), '--launch-root', str(d), '--launch-json', str(lj), '--outdir',
+          str(out), '--twin-spec-sha256', spec['sha256']]
+     code, so, se = run(W + ['--once'], 'W01')
+     check('W01', 'MUST_PASS', 'watch --once: COMPLETED without the sidecar iteration record is not the trigger (exit 1, no kill)',
+@@ -1051,7 +1017,7 @@
+     lj3 = Path(str(out3) + '.receipt.json.launch.json')
+     wx(lj3, {'schema': 'UNT_GALAXY_M0_MONITOR_RECEIPT_C2V001_LAUNCH', 'child_pid': p.pid, 'command': cmd[:-1] + ['/elsewhere'],
+              'pins': {'spec': spec}, 'utc': '2026-10-19T00:00:00Z'})
+-    code, so, se = run(['/bin/bash', str(KIT / 'twin_kill_watch_c2v002.sh'), '--launch-root', str(d), '--launch-json', str(lj3),
++    code, so, se = run(['/bin/bash', str(KIT / 'twin_kill_watch_c2v003.sh'), '--launch-root', str(d), '--launch-json', str(lj3),
+                         '--outdir', str(out3), '--twin-spec-sha256', spec['sha256'], '--kill', '--once'], 'W03')
+     check('W03', 'MUST_FAIL', 'watch refuses to kill when the live process command differs from the launch record (pid reuse)',
+           code == 3 and p.poll() is None and 'CHILD_COMMAND_DIFFERS' in se)
+@@ -1060,7 +1026,7 @@
+     mkdir(out5 / 'stages' / '02_route_a')
+     lj5 = Path(str(out5) + '.receipt.json.launch.json')
+     wx(lj5, {'child_pid': p.pid})
+-    code, so, se = run(['/bin/bash', str(KIT / 'twin_kill_watch_c2v002.sh'), '--launch-root', str(d), '--launch-json', str(lj5),
++    code, so, se = run(['/bin/bash', str(KIT / 'twin_kill_watch_c2v003.sh'), '--launch-root', str(d), '--launch-json', str(lj5),
+                         '--outdir', str(out5), '--twin-spec-sha256', spec['sha256'], '--kill', '--once'], 'W05')
+     check('W05', 'MUST_FAIL', 'watch refuses two route-A stage directories', code == 3 and p.poll() is None)
+     os.killpg(p.pid, signal.SIGTERM)
+@@ -1068,8 +1034,16 @@
+ 
+ 
+ def t_real_paths():
+-    """Real pins, read-only: the kit refuses today, before any fill or write."""
++    """Real pins, read-only: the kit refuses today, before any fill or write.  Guard (new in C2V003): the rows run only while
++    the live V006 has no HANDOFF_PIN, SPEC_PIN or WATCH_PIN line; with those lines the real-pin DRY would run the real filler
++    and dry harness, which these tests never do, so the rows are then recorded as not run."""
+     LRZ = mkdir(RUN / 'LR_REAL')
++    live = Path(LIVE_V006).read_text()
++    lines = [ln for ln in live.splitlines() if re.match(r'^(HANDOFF_PIN|SPEC_PIN|WATCH_PIN) ', ln)]
++    if lines:
++        check('Z01', 'OBSERVED', 'NOT RUN: the live V006 (sha %s) now has %d HANDOFF/SPEC/WATCH pin lines; the real-pin DRY would '
++              'run the real filler and dry harness' % (sha_f(LIVE_V006)[:8], len(lines)), True)
++        return
+     code, so, se = serial('seed', LRZ, '/Volumes/External1/NGC_S0_NEVER_LAUNCHED', tag='Z01')
+     check('Z01', 'OBSERVED', 'real pins DRY against the live V006 (sha %s): exit %d, %s' % (
+         sha_f(LIVE_V006)[:8], code, (se.strip() or so.strip())[-150:].replace('\n', ' ')),
+@@ -1103,7 +1077,7 @@
+     ap.add_argument('--out-root', default=None)
+     a = ap.parse_args()
+     KIT = Path(a.kit)
+-    root = Path(a.out_root) if a.out_root else KIT / 'tests' / 'runs_v002'
++    root = Path(a.out_root) if a.out_root else KIT / 'tests' / 'runs_v003'
+     root.mkdir(parents=True, exist_ok=True)
+     RUN = root / ('RUN_%s_%d' % (time.strftime('%Y%m%dT%H%M%SZ', time.gmtime()), os.getpid()))
+     RUN.mkdir()
+@@ -1116,9 +1090,9 @@
+         step2 = wx(FX / 'STEP2_LAST_RECEIPT_SYNTHETIC.json', {'synthetic_step2_receipt': True})
+         VA = wx(FX / 'v006' / 'V006_A.md', v006_text(F))
+         t_gate_pins_and_freeze()
+-        t_kind_reading(F)
+-        t_gate_cli_equivalence(F)
++        t_no_gate_static()
+         LRD, P, seed_sha, seed_work, j0_sha, j0_work = t_serial_dry(F, VA['path'])
++        t_rss_constant(F, LRD, VA['path'])
+         seed_fill = Path(seed_work) / 'fill'
+         specs = [('S0_SEED_SERIAL', {'sha256': seed_sha, 'path': str(seed_fill / 'CALL_A_K32_A2_HEADLINE_C2V001.json')}),
+                  ('S0_SEED_CW8_TWIN', {'sha256': sha_f(seed_fill / 'CALL_A_K32_A2_HEADLINE_CW8_TWIN_C2V001.json'),
+@@ -1132,7 +1106,6 @@
+         t_monitor_argv(F, seed_work)
+         LRS, EXT, rr = t_serial_launch(F, VB['path'], VC['path'], step2)
+         t_mislaunch_serial(F, VB['path'], VC['path'], step2)
+-        t_mislaunch_variants(F, VB['path'], step2)
+         t_freeze_and_order(F, VB['path'], VC['path'], step2)
+         t_twin_spec_leaf(F, VA['path'])
+         t_twin(F, VB['path'], VC['path'], step2, LRS, EXT, rr, seed_work)
+@@ -1152,10 +1125,10 @@
+         mp = [r for r in ROWS if r['kind'] == 'MUST_PASS']
+         mf = [r for r in ROWS if r['kind'] == 'MUST_FAIL']
+         ob = [r for r in ROWS if r['kind'] == 'OBSERVED']
+-        res = {'schema': 'S0_LAUNCH_KIT_TEST_RESULTS_C2V002', 'run': str(RUN), 'kit': str(KIT),
++        res = {'schema': 'S0_LAUNCH_KIT_TEST_RESULTS_C2V003', 'run': str(RUN), 'kit': str(KIT),
+                'date_u': subprocess.run(['/bin/date', '-u'], capture_output=True, text=True).stdout.strip(),
+                'elapsed_s': round(time.time() - t0, 1),
+-               'kit_files': {n: sha_f(KIT / n) for n in sorted(os.listdir(KIT)) if (KIT / n).is_file()},
++               'kit_files': {n: sha_f(KIT / n) for n in KIT_FILES if (KIT / n).is_file()},
+                'live_v006_sha256': sha_f(LIVE_V006),
+                'must_pass': [len([r for r in mp if r['ok']]), len(mp)], 'must_fail': [len([r for r in mf if r['ok']]), len(mf)],
+                'observed': len(ob), 'all_ok': all(r['ok'] for r in mp + mf), 'rows': ROWS}

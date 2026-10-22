@@ -1,0 +1,46 @@
+{
+ "schema": "NGC3198_QUERY_MANIFEST_EXTRACTION_SPEC_V001",
+ "task": "0337 part 2",
+ "status": "INERT; NOT EXECUTED BY AUTHOR; ROOT REVIEW AND RUN REQUIRED",
+ "script": "extract_ngc3198_query_manifest_v001.py",
+ "usage": "python3 extract_ngc3198_query_manifest_v001.py <new_output.json>",
+ "primary_source": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_NGC3198_rotmod.dat",
+  "sha256": "17b774ad11e7dd745a067073b76f1909d4de32fa87616df12b64da3f225cf953",
+  "bytes": 2075,
+  "author_read": "HASH ONLY"
+ },
+ "crosscheck_source": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_MassModels_Lelli2016c.mrt",
+  "sha256": "9108994b12cc401b94a1768beca61c53ec354779385c9c9cc571049f3043244c",
+  "author_read": "in-file MRT HEADER ONLY (lines 1-24); data rows not displayed"
+ },
+ "schema_basis": {
+  "massmodels": "in-file MRT header lines 9-11: ID bytes 1-11 A11; D bytes 13-18 F6.2 Mpc; R bytes 20-25 F6.2 kpc. Each data line is truncated to 25 bytes before use.",
+  "rotmod": "EXPECTED SPARC Rotmod layout: one comment line with columns [Rad Vobs errV Vgas Vdisk Vbul SBdisk SBbul], next comment line of units whose first token is kpc, and an optional \"# Distance = X Mpc\" line. Not documented in any local file found; the extractor VERIFIES these in-file and fails closed (E_SCHEMA_COLUMNS / E_SCHEMA_UNITS). See blocker B1."
+ },
+ "emitted": [
+  "data_row_index",
+  "query_id (NGC3198-Q01..Q43 by original order)",
+  "source_line_number",
+  "Rad_text (published decimal text)",
+  "Rad_unit=kpc"
+ ],
+ "never_emitted": "Vobs, errV, Vgas, Vdisk, Vbul, SBdisk, SBbul (validated for row width only, then discarded); raw lines; arbitrary headers",
+ "checks": [
+  "sha256 pins (E_PIN)",
+  "ASCII (E_ENCODING)",
+  "column/unit schema (E_SCHEMA_COLUMNS/E_SCHEMA_UNITS)",
+  "8 fields per data row (E_ROW_FIELDS)",
+  "decimal Rad (E_RAD_FORMAT)",
+  "finite > 0 (E_RAD_VALUE)",
+  "strictly increasing (E_ORDER)",
+  "exactly 43 rows (E_COUNT)",
+  "no overwrite (E_OUTPUT_EXISTS)",
+  "MRT schema (E_MRT_SCHEMA; crosscheck -> FAILED, not fatal)"
+ ],
+ "reference_distance_policy": "Report rotmod header distance (strict regex) and MassModels D (must be identical across NGC3198 rows) separately with an agreement flag. No distance is chosen. Null where it cannot be safely established.",
+ "crosscheck": "MATCH requires the same row count and numeric equality of every Rad in order. Text equality is reported separately. Mismatch row indices are reported (radii are allowed values).",
+ "exposure_label": "development-exposed",
+ "validation": "Synthetic-fixture tests only (fake values, scratch): OK path (43 rows, MATCH, distances agree, injected fake velocity value absent from output); wrong columns -> E_SCHEMA_COLUMNS; 42 rows -> E_COUNT; existing output -> E_OUTPUT_EXISTS."
+}

@@ -1,0 +1,133 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003a/calibration_region_engine_c2v003a.py	2026-10-17 09:55:56.412666903 -0500
++++ calibration_region_engine_c2v003b.py	2026-10-17 22:03:58.078464026 -0500
+@@ -1,4 +1,18 @@
+-"""calibration_region_engine_c2v003a -- Module 1, version 003a (Claude2 lane).
++"""calibration_region_engine_c2v003b -- Module 1, version 003b (Claude2 lane).
++
++v003b (Claude4 0475 R1 SF-2, REVIEW_CALIBRATION_V003A_0475_V001 87751def; the only change against v003a
++sha256 193841fa...a63a6): identifiability_report cleans the SVD right vectors on every EXACTLY-zero column j of the
++sigma-scaled Jacobian (a coordinate the DDO154 rows never read). After _fix_signs, one right vector per such column
++(the one with the largest |V[k][j]|, lowest index on ties, each vector used for at most one column) is set to +e_j
++(the sign _fix_signs gives e_j); every other right vector has its component on those columns set to 0 and is
++renormalised. If several null-space vectors share such a column (more than one carrier) the remaining carriers are
++re-orthonormalised (modified Gram-Schmidt against the other vectors, in index order); if the cleaned basis still
++fails the orthonormality / ||S v_k|| = s_k tolerances the uncleaned basis is kept. A NOTE in the report's reasons
++names the columns, the vectors set to e_j and the largest |component| removed; with no exactly-zero column the
++report is byte-identical to v003a's. Singular values and the identified / near-null partition are not changed.
++This removes the rounding-level leak (above _BOX_TOL once column scales span ~2.5 decades) that capped
++face-anchored march sides at _BOX_TOL/|leak| and reached the LP rays, direction_box_extent and the freeze D6
++plan. Besides MODULE_NAME / PREDECESSOR (hence the run's and the record's 'module' field) everything is v003a's.
+ 
+ v003a (CHECK_V001 X1, line map in DELTA_V003_V003A.md): write_calibration_record and
+ verify_calibration_record RECOMPUTE the exploration fingerprint from the run content (exploration.admitted_points
+@@ -95,8 +109,9 @@
+     'verify_calibration_record',
+ ]
+ 
+-MODULE_NAME = 'calibration_region_engine_c2v003a'
+-PREDECESSOR = ('calibration_region_engine_c2v003 sha256 ec509648cd7324692fac57d1c710e261555b540c82dddec72aa2384fff51fcc7; '
++MODULE_NAME = 'calibration_region_engine_c2v003b'
++PREDECESSOR = ('calibration_region_engine_c2v003a sha256 193841fa1f1d078f7fc981fdba78cf3d736b50ee17e019f0cf94aae94e3a63a6; '
++               'calibration_region_engine_c2v003 sha256 ec509648cd7324692fac57d1c710e261555b540c82dddec72aa2384fff51fcc7; '
+                'calibration_region_engine_c2v002 sha256 248ba5f909adfce589b11e6e52227b5ce182edd3ce01317b1d063fd994c02e05; '
+                'calibration_region_engine_c3v001 sha256 f5613832fcb6e452b4490d56453cce37fb8846e802442407e794f80a6ec84e0b')
+ CALIBRATION_RECORD_SCHEMA = 'CALIBRATION_RUN_RECORD_C2V003'
+@@ -1288,6 +1303,87 @@
+     return vt
+ 
+ 
++def _clean_zero_columns(S, vt, s_full, varying_names):
++    """v003b (Claude4 0475 R1 SF-2): clean the right vectors on EXACTLY-zero columns of the scaled Jacobian.
++
++    For each column j with S[:, j] == 0 exactly (ascending j), the right vector with the largest |vt[k, j]| not
++    already chosen for an earlier column (lowest k on ties) becomes +e_j; every other right vector gets 0 on all such
++    columns and is renormalised. Exact arithmetic gives these values (e_j is in the null space and every vector of
++    the row space has 0 there); the SVD leaves rounding-level components that _edge_t / the LP rows read as box
++    exits. When more than one vector carried a column (a shared null block), the remaining carriers are
++    re-orthonormalised (modified Gram-Schmidt, two passes, index order) against every other vector. The cleaned
++    basis must pass the _check_identifiability tolerances (orthonormal to _ORTHO_TOL, ||S v_k|| = s_k to
++    _ORTHO_TOL * max(1, s_max)); otherwise vt is returned unchanged. Returns (vt, note or None)."""
++    m, n = S.shape
++    if m == 0 or n == 0:
++        return vt, None
++    cols = [j for j in range(n) if bool(np.all(S[:, j] == 0.0))]
++    if not cols:
++        return vt, None
++    V0 = np.array(vt, dtype=float, copy=True)
++    chosen = {}
++    for j in cols:
++        cand = [k for k in range(n) if k not in chosen.values()]
++        if not cand:
++            break
++        mag = np.abs(V0[cand, j])
++        chosen[j] = cand[int(np.argmax(mag))]
++    if len(chosen) != len(cols):
++        return vt, (f'NOTE (v003b SF-2): {len(cols)} exactly-zero scaled-Jacobian columns exceed the basis; right '
++                    f'vectors not cleaned')
++    kset = set(chosen.values())
++    V = V0.copy()
++    removed = 0.0
++    for k in range(n):
++        if k in kset:
++            continue
++        removed = max(removed, float(np.max(np.abs(V[k, cols]))))
++        V[k, cols] = 0.0
++        nrm = float(np.linalg.norm(V[k]))
++        if nrm > 0.0:
++            V[k] = V[k] / nrm
++    for j, k in chosen.items():
++        V[k] = 0.0
++        V[k, j] = 1.0
++    s_max = float(s_full[0]) if n else 0.0
++
++    def passes(W):
++        if float(np.max(np.abs(W @ W.T - np.eye(n)))) > _ORTHO_TOL:
++            return False
++        return all(abs(float(np.linalg.norm(S @ W[k])) - float(s_full[k])) <= _ORTHO_TOL * max(1.0, s_max)
++                   for k in range(n))
++
++    regs = ''
++    if not passes(V):
++        carriers = [k for k in range(n) if k not in kset and float(np.max(np.abs(V0[k, cols]))) > math.sqrt(_ORTHO_TOL)]
++        if carriers:
++            others = [k for k in range(n) if k not in carriers]
++            for _pass in range(2):
++                done = []
++                for k in carriers:
++                    v = V[k].copy()
++                    for b in others + done:
++                        v = v - float(v @ V[b]) * V[b]
++                    v[cols] = 0.0
++                    nrm = float(np.linalg.norm(v))
++                    if nrm > 0.0:
++                        v = v / nrm
++                    V[k] = v
++                    done.append(k)
++            regs = f'; carrier vector(s) {carriers} re-orthonormalised'
++        if not passes(V):
++            return vt, (f'NOTE (v003b SF-2): exactly-zero scaled-Jacobian column(s) {cols} '
++                        f'({[varying_names[j] for j in cols]}): the cleaned basis fails the orthonormality / '
++                        f'singular-value tolerance; right vectors kept uncleaned (largest component on those columns '
++                        f'outside the chosen vectors {removed:.3e})')
++    V = _fix_signs(V)
++    note = (f'NOTE (v003b SF-2): exactly-zero scaled-Jacobian column(s) {cols} '
++            f'({[varying_names[j] for j in cols]}): right vector(s) {[chosen[j] for j in cols]} set to +e_j; '
++            f'components up to {removed:.3e} on those columns removed from the other right vectors, renormalised'
++            f'{regs}')
++    return V, note
++
++
+ @_fail_closed
+ def identifiability_report(*, jacobian_u, sigmas, row_ids, varying_names, null_tolerance):
+     """SVD identifiability report of the sigma-scaled Jacobian diag(1/sigma) . J_u.
+@@ -1383,6 +1479,10 @@
+     s_full = np.zeros(n, dtype=float)
+     s_full[:n_svd] = s
+     vt = _fix_signs(vt)
++    # v003b (Claude4 0475 R1 SF-2): exactly-zero scaled columns -> 0 components elsewhere, renormalised, +e_j
++    vt, zc_note = _clean_zero_columns(S, vt, s_full, list(varying_names))
++    if zc_note:
++        reasons.append(zc_note)
+     s_max = float(s_full[0]) if n > 0 else 0.0
+     floor = float(max(m, n) * np.finfo(float).eps)
+     eff = max(tol, MIN_NULL_TOLERANCE, floor)   # S3: enforced minimum tolerance

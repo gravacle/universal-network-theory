@@ -1,0 +1,5 @@
+# Claude4 EPS policy review (A134 Q8; 0688) — append-only log
+- 2026-10-19T11:23:58Z folder created; drafting the policy text (draft/). Inputs read: adapter v003 4de70486 (all 198 L), base r5 381b3eaa (outline), runner c3v002 884bb89e L370-420 and L683-730, s4rc1_common c3v002 distinct_review_problems, Claude3 templates REVIEW_TEMPLATE_EPS_C3V001 and REVIEWER_CHECKLIST_C3V001 section E; A134 text 56774ba7 Q8/Q10.
+- 2026-10-19T11:25:24Z draft/EPS_POLICY_REVIEW_C4V001_DRAFT.md written (P1-P7 policy; instance fields); runner line refs corrected to L694-697, L714-719, L713-719. Next after r3a: script + tests (lean workflow).
+- 2026-10-19T12:50:30Z EPS policy review C4V001 signed (da888bfd45b3467f0220f5da34ad2d24db35690d2e43e973a6282c6ddf2517e3); script e3524586; instances/ created; workflow wf_3529f300-97b 1.04 M.
+- 2026-10-19T12:51:19Z audit wf_3529f300: 89 cmds, 15 flags all false positives (8 python runs all via ep1/vv1 fenced runners; flags = greps of .py driver source for words, relative mkdirs, log text). Posted 0187.

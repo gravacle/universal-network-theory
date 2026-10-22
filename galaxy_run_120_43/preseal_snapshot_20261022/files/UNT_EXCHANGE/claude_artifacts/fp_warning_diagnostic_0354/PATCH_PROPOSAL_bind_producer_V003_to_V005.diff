@@ -1,0 +1,77 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/fp_warning_diagnostic_0354/PATCH_PROPOSAL_bind_producer_v003.py	2026-10-15 11:34:50.144772710 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/fp_warning_diagnostic_0354/PATCH_PROPOSAL_bind_producer_v005.py	2026-10-15 11:45:27.000265992 -0500
+@@ -1,5 +1,8 @@
+-"""INERT PATCH PROPOSAL (task 0354) = producer V002 8cab5228... + backend floating-status accounting at exactly four N x N
+-matmul sites. NOT a launch version; any root attempt needs a separately reviewed version with fresh immutable paths.
++"""INERT PATCH PROPOSAL V005 (task 0354; V005 = V004 with classification_meaning matched to the label actually assigned) = producer V002 8cab5228... + backend floating-status accounting at exactly four N x N
++matmul sites. V004 = V003 143e4357... + independent-review NOTE corrections: N1 (a non-finite product reports
++all_within_nonblas_bound null, never True; per-site counters of non-finite / bound-evaluated / bound-failed products), N2 (the
++verified label is renamed FLAGGED_PRODUCTS_FINITE_WITHIN_NONBLAS_ROUNDING_BOUND with an explicit meaning: it does NOT establish
++that the flags were spurious), N3 (absolute underflow term 64*k*smallest_subnormal added to the bound). Numerics unchanged. NOT a launch version; any root attempt needs a separately reviewed version with fresh immutable paths.
+ 0354 diagnosis: Accelerate-backed numpy.matmul (NumPy 2.0.2, macOS 26.6 arm64) raises all four FP status flags on N x N
+ products for N >= 15 (strided/transposed views N >= 8) while returning bit-exact results, even for all-zero matrices; NumPy
+ then reports them as RuntimeWarnings. Change: mm(site, A, B) computes the SAME A @ B (bit-identical to V002) inside a local
+@@ -58,6 +61,7 @@
+ X_BITS=(1,0,1,1,0,0);Y_BITS=(0,1,0,0,1,1)
+ CHECK_KEYS=['endpoint_eigen_residual_relative_tolerance','endpoint_orthogonality_absolute_tolerance','inverse_residual_relative_tolerance','inverse_method_relative_tolerance','contraction_agreement_relative_tolerance','minimum_numerical_denominator_margin']
+ EPS=float(np.finfo(np.float64).eps)
++TINY_SUB=float(np.finfo(np.float64).smallest_subnormal)
+ FLAG_EVENTS={}
+ def mm(site,A,B):
+  """A @ B exactly as V002 computes it; backend FP status flags are recorded and the product is verified (0354)."""
+@@ -67,16 +71,30 @@
+   with np.errstate(all='call'):out=A@B
+  finally:np.seterrcall(old)
+  if kinds:
+-  ev=FLAG_EVENTS.setdefault(site,{'calls_with_flags':0,'flag_kinds':Counter(),'all_finite':True,'all_within_nonblas_bound':True,'max_abs_deviation':0.0})
++  ev=FLAG_EVENTS.setdefault(site,{'calls_with_flags':0,'flag_kinds':Counter(),'nonfinite_products':0,'bound_evaluated_products':0,'bound_failed_products':0,'max_abs_deviation':0.0})
+   ev['calls_with_flags']+=1;ev['flag_kinds'].update(kinds)
+-  finite=bool(np.all(np.isfinite(out)));ev['all_finite']&=finite
+-  if finite:
+-   ref=np.einsum('ij,jk->ik',A,B,optimize=False);bound=64*A.shape[1]*EPS*np.einsum('ij,jk->ik',np.abs(A),np.abs(B),optimize=False)
+-   dev=np.abs(out-ref);ev['max_abs_deviation']=max(ev['max_abs_deviation'],float(dev.max()));ev['all_within_nonblas_bound']&=bool(np.all(dev<=bound))
++  if not bool(np.all(np.isfinite(out))):ev['nonfinite_products']+=1
++  else:
++   k=A.shape[1];ref=np.einsum('ij,jk->ik',A,B,optimize=False)
++   bound=64*k*EPS*np.einsum('ij,jk->ik',np.abs(A),np.abs(B),optimize=False)+64*k*TINY_SUB
++   dev=np.abs(out-ref);ev['bound_evaluated_products']+=1;ev['bound_failed_products']+=int(not bool(np.all(dev<=bound)))
++   if bool(np.all(np.isfinite(dev))):ev['max_abs_deviation']=max(ev['max_abs_deviation'],float(dev.max()))
+  return out
++VERIFIED_LABEL='FLAGGED_PRODUCTS_FINITE_WITHIN_NONBLAS_ROUNDING_BOUND'
++VERIFIED_MEANING=('every flagged product at this site was finite and every entry was within 64*k*eps*(|A||B|)+64*k*smallest_subnormal of an '
++ 'independent non-BLAS einsum reference; this does NOT establish that the raised flags were spurious (for products of size >= 15 '
++ 'genuine overflow, NaN and underflow events also raise all four flags, so flag kinds carry no information)')
++NOT_VERIFIED_MEANING=('at least one flagged product at this site was non-finite (bound not evaluated) or had an entry outside the '
++ 'non-BLAS rounding bound; reported in check_failures as backend_flag_unverified, never treated as verified')
+ def flag_report():
+- return {k:{'calls_with_flags':v['calls_with_flags'],'flag_kinds':dict(v['flag_kinds']),'all_finite':v['all_finite'],'all_within_nonblas_bound':v['all_within_nonblas_bound'],'max_abs_deviation':v['max_abs_deviation'],
+-  'classification':'BACKEND_STATUS_FLAG_ONLY_VERIFIED' if v['all_finite'] and v['all_within_nonblas_bound'] else 'BACKEND_FLAG_UNVERIFIED'} for k,v in FLAG_EVENTS.items()}
++ r={}
++ for k,v in FLAG_EVENTS.items():
++  ok=v['nonfinite_products']==0 and v['bound_failed_products']==0 and v['bound_evaluated_products']==v['calls_with_flags']
++  r[k]={'calls_with_flags':v['calls_with_flags'],'flag_kinds':dict(v['flag_kinds']),'nonfinite_products':v['nonfinite_products'],
++   'bound_evaluated_products':v['bound_evaluated_products'],'bound_failed_products':v['bound_failed_products'],'all_finite':v['nonfinite_products']==0,
++   'all_within_nonblas_bound':(v['bound_failed_products']==0) if v['nonfinite_products']==0 else None,'max_abs_deviation_over_finite_deviations':v['max_abs_deviation'],
++   'classification':VERIFIED_LABEL if ok else 'FLAGGED_PRODUCT_NOT_VERIFIED','classification_meaning':VERIFIED_MEANING if ok else NOT_VERIFIED_MEANING}
++ return r
+ class Fail(Exception):pass
+ def sha(b):return hashlib.sha256(b).hexdigest()
+ def fin(x):
+@@ -320,7 +338,7 @@
+      if not ok:cf.append({'case_id':r['case_id'],'endpoint':k,'check':ck})
+    if not r['endpoint_translation_identity']['holds_numerically']:cf.append({'case_id':r['case_id'],'check':'endpoint_translation_identity'})
+    for site,ev in r.get('backend_flag_events',{}).items():
+-    if ev['classification']!='BACKEND_STATUS_FLAG_ONLY_VERIFIED':cf.append({'case_id':r['case_id'],'check':'backend_flag_unverified','site':site})
++    if ev['classification']!=VERIFIED_LABEL:cf.append({'case_id':r['case_id'],'check':'backend_flag_unverified','site':site})
+    if not r['dimension_is_4L']:cf.append({'case_id':r['case_id'],'check':'dimension_is_4L'})
+    c=r['contraction']
+    if c['status']=='EVALUATED_NUMERICAL_EVIDENCE_ONLY':
+@@ -336,7 +354,7 @@
+    if c['status']=='EVALUATED_NUMERICAL_EVIDENCE_ONLY' and not c['ceiling']['C_yx_within_ceiling']:cf.append({'case_id':r['case_id'],'check':'ceiling'})
+   if not window['holds']:cf.append({'check':'window_W'})
+   status='COMPLETED' if not errors else 'FAILED'
+-  out={'schema':'BIND_COUPLING_REFERENCE_OUTPUT_V003_PROPOSAL','status':status,'status_meaning':'COMPLETED = computation finished; NOT a scientific pass','case_ids':CASE_IDS,'cases':records,'errors':errors,'check_failures':cf,
++  out={'schema':'BIND_COUPLING_REFERENCE_OUTPUT_V005_PROPOSAL','status':status,'status_meaning':'COMPLETED = computation finished; NOT a scientific pass','case_ids':CASE_IDS,'cases':records,'errors':errors,'check_failures':cf,
+    'full_parent_ready':False,'frozen':{'coordinates':{k:rstr(v) if isinstance(v,Fraction) else v for k,v in p.items()},'relations_checked':rel,'window_W':window,'Delta_family_bound_G':dfam,'checks':checks},
+    'labels':{'evidence':'NUMERICAL_EVIDENCE_ONLY','scope':'restricted fixed-energy Feshbach coefficient of a reviewed native coupling; h, g factored out; not motion, gravity sign, distance/clock normalization or DM/DE','energy_map':'F(E1) is not an exact time generator; actual cluster energies need F(E)u = Eu'},
+    'pins':pins,'environment':env,'floating_point_warnings_captured':wrec,

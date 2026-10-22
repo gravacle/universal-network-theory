@@ -1,0 +1,29 @@
+{
+  "status": "FAIL",
+  "blocking_count": 1,
+  "dispatch": 780,
+  "result": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/APPLY_H3_C2V004_REVIEW_CX1_V001/REVIEW_RESULT.json",
+    "sha256": "68fcf7b8acf21c610369c9db02f058a01529571845a7bc52e69156257bf8d93b"
+  },
+  "blocking_items": [
+    {
+      "id": "CX1-S4RA1-01",
+      "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v004/apply_h3_fields_c2v004.py",
+      "function": "block_derived",
+      "problem": "pin_problem hashes one read; block_derived parses a second read. If the second read differs only at a permitted slot, apply accepts the unhashed value and reports the original source pin and block_derived_equals_block_source_numerics=true. This fails dispatch 0780 check 2 and A218 derived-from-pinned-bytes requirement.",
+      "reproduction": "Own in-memory Path.read_bytes substitution; shipped BLOCK_SOURCE_PIN unchanged. First read is actual FILLED de6d7d77 bytes; second differs only in eps_certificate. Accepted=true, unhashed_block_written=true, report_claim=true. Actual source bytes remain unchanged.",
+      "root_note_disposition": "A220 N1 report-to-digest and downstream \u00a75 checks can detect a bad result later, but do not make this tool refuse or prove its output came from the verified buffer. The published adversarial T10 treats this demonstrated defect as INFO; 24/24 therefore does not close it.",
+      "requested_fix": "Read the block source once, hash that buffer against the exact pin, parse that same buffer, and derive from it. Add a refusal/provenance regression for a read-changing fixture; publish an immutable successor."
+    }
+  ],
+  "TESTED": "41/41 + regressions 90/90 and 77/77; mutations 10/10; adversarial 24/24; independent pin/payload defect reproduced.",
+  "UNTESTED": [
+    "Final verdict-bound W1/H1 config, real r5 prelaunch on the FILLED base, production binder/launch, final W1 cache id."
+  ],
+  "stricter_choices": {
+    "exact_path_pin": "Accept: binds the commissioned FILLED artifact and rejects aliases; bytes alone at another path intentionally not sufficient.",
+    "block_source_field_equality": "Accept when field is present; prevents config provenance contradicting the derivation pin. Missing/null field is allowed by implementation and still requires later complete-config policy validation.",
+    "stray_sha_flag_refusal": "Accept: prevents an unpaired flag from being silently interpreted as a positional argument."
+  }
+}

@@ -1,0 +1,14 @@
+# 0027 — Claude3 DONE (pre-announced 0481 item, done on the principal's "Proceed"): NGC3198 parallel route-A launch-packet review
+
+From **Claude3**. UTC 2026-10-17T18:33:23Z. No dispatch number was issued for this review (0481 said it would follow once the packet and its check existed; both exist, and CURRENT_INSTRUCTIONS records Claude3 as out of credits, which the principal has since overridden by switching this session to Fable 5.1). Posted so the coordinator can use or ignore it. Read-only outside `claude_artifacts/review_ngc_parallel_packet_c3/`; no launches; no run result, finish, column or FAILURE record opened.
+
+## Verdict: PASS_WITH_CORRECTIONS on the two review questions; the packet's BLOCKED / do-not-launch status is confirmed from bytes
+
+Review `claude_artifacts/review_ngc_parallel_packet_c3/REVIEW_NGC_PARALLEL_PACKET_C3_V001.md` (sha256 30288119015a280463505205ebdbacfdf11be9a87fb324998147ab03df475dd4); evidence `PACKET_EVIDENCE_V001.json`. Bytes: serial request `9da3461b`, PAR N8 `42829687`, N3 `d5a2fcd4`, PAR template `735dbb5d`, launcher v002 `d8147134`, driver v006 `c53997b4`; HASHES.txt 90/90 from bytes.
+
+1. **Request diff:** own recursive diff, 53 → 55 leaves: only `script`/`script_sha256`, `launch_pins.worker` and `launch_pins.solver` (path+sha), `argv --solver/--solver-sha256`, `argv --outdir/--checkpoint-directory` (PAR run directory) and the added `--column-workers 8` change; N3 differs from N8 only in that value. Seed, every other pin, patch, mask and globals byte-identical. Holds; the outdir rename should be named in the claim (C1).
+2. **v006 admission:** `route_a_custody` (L923–947) and the admission path (L1654–1658, L1689–1692) check seed, physical parameters, grid digest, strict converged final iteration, identity self-hash and equality with `route_a_inputs`, finish status and result sha; nothing reads the route-A worker or solver sha (`AUX['solver']` is used only to build the computed route-A request, L1676; all `worker_sha256` references are route-B stage producers). The PAR template differs from the serial template only in label and the two PAR directories. Holds; the parallel identity will differ from the serial one by design; stage-level admission stays UNTESTED until a real PAR checkpoint exists (C4).
+
+**Blocked, confirmed:** B1 seed pin mismatch (ADDENDUM pinned `4070146d`, now `17c26616`, mtime 17:22:29Z; workers refuse before mkdir); B2 the serial run already FINISHED / RETURNED_ACTUAL_RESULT (1426.7 s) with a FAILURE record and no COMPLETED in iteration_0000 (names only), so a bitwise-equivalent parallel rerun would reproduce it and v006 would refuse it (C2: root must read that failure first); B3 the N=8 cap needs root's 12 GiB declaration. For the next configuration a successor build tool taking the seed as input is needed (C3, concurring with the internal check).
+
+Done solo to conserve the Fable limit. Checking FROM_CODEX every minute.

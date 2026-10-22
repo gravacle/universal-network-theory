@@ -1,0 +1,392 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_c2_v003b/guard_check/v003c/prediction_freeze_c2v003c.py	2026-10-17 18:55:11.451852887 -0500
++++ prediction_freeze_c2v003d.py	2026-10-17 22:07:49.205473330 -0500
+@@ -1,7 +1,37 @@
+-"""prediction_freeze_c2v003c -- Module 2 v003c (Claude2 lane, TASK B guard fix), superseding prediction_freeze_c2v003b
+-(sha256 ca44ac47...4c938), itself superseding prediction_freeze_c2v003a (sha256 5ee3e5dc...e0f9b8),
+-prediction_freeze_c2v003 (sha256 f670d14b...5e8028), prediction_freeze_c2v002 (sha256 613f3438...ec85314b) and
+-prediction_freeze_c3v001 (sha256 ed6b5a3e...09200).
++"""prediction_freeze_c2v003d -- Module 2 v003d (Claude2 lane), superseding prediction_freeze_c2v003c
++(sha256 3d58b5fb...b03c5f5), itself superseding prediction_freeze_c2v003b (sha256 ca44ac47...4c938),
++prediction_freeze_c2v003a (sha256 5ee3e5dc...e0f9b8), prediction_freeze_c2v003 (sha256 f670d14b...5e8028),
++prediction_freeze_c2v002 (sha256 613f3438...ec85314b) and prediction_freeze_c3v001 (sha256 ed6b5a3e...09200).
++
++v003d changes (Claude4 0475 R1, REVIEW_CALIBRATION_V003A_0475_V001 87751def, SF-1 and the freeze part of SF-2):
++  * SF-1 (the freeze trusted the caller's dict for everything but admission). The writer and the verifier, on the
++    mandatory pinned calibration record:
++      1. RECOMPUTE select_representative_points(exploration=<the record's run>, interior_count=
++         admitted_region.selection_interior_count, spec=<the freeze coordinates>) (the run's region path replaced by
++         the pinned, sha-verified region file) and require the canonical bytes of the frozen admitted_region to
++         equal the recomputed one, and the selection points (writer) / every member and alternative member
++         (log_index, role, u, identified_projection, theta) (verifier) to equal the recomputed points;
++      2. cross-check status and flags against the record: record status == run status == run exploration status
++         == admitted_region.exploration_status; record stage == run stage == 'exploration:' + exploration stage ==
++         'exploration:' + admitted_region.exploration_stage_reached; record ok == run ok; run flags /
++         region_possibly_truncated / truncation_causes == the exploration's; the ENGINE_FLAG_ and
++         ENGINE_COVERAGE_NOT_REPORTED evidence and engine_coverage_report follow the exploration;
++      3. _validate_admitted_region re-applies IDENTIFICATION_RULE: always (structure check) to the frozen singular
++         values (required, n non-negative non-increasing reals; identified need s > 0 and s >= z or
++         s >= MIN_NULL_TOLERANCE * s_max; near-null need s < z; every near-null s below every identified s), and
++         with the record (writer and verifier) exactly: the record's effective_null_tolerance must be
++         max(null_tolerance, MIN_NULL_TOLERANCE, max(m, n) * eps), its identified set must follow from its
++         singular values under the rule, its right vectors must be orthonormal and diagonalise the recorded S^T S
++         (|<S v_k, S v_l> - delta_kl s_k^2| <= _ORTHO_TOL * max(1, s_max^2)), and the frozen basis, singular
++         values and partition must equal the record's.
++    The honest order is unchanged (the record of step 1b and the run passed at step 2 are the same run).
++  * SF-2 (freeze part). _edge_t has the engine's face slack (a component above _V_TOL pointing out of a face the
++    point sits on gives s = _V_TOL / |d_i|, not 0). A side is skipped as a zero displacement when s <= _ZERO_DISP
++    or when s * max|d_i| <= _FACE_TOL (the displaced point equals the reference to the face tolerance in every
++    coordinate), so a genuine outward component at a face still spends no NGC3198 evaluation. The skip reason
++    text now says what the rule is (the v003c text named "reference already at this box face" for any skip).
++  Everything else is v003c's: the A13 fixed-distance mode (v003b), the V8e-3/A23 relabel refusal and run
++  coordinate binding (v003c), labels, schemas and records.
+ 
+ v003c changes (Claude4 R-A FROM_CLAUDE4/0038 V8e-3/V8e-4/V8e-5; root A23 of the open V004 addendum, cited by name):
+   * Relabel guard (V8e-3, A23 Counting): a coordinate of kind 'other' may not carry geometric units (Mpc, deg) or a
+@@ -129,7 +159,7 @@
+ 
+ SCHEMA = 'FREEZE_MANIFEST_C2V003'
+ REGISTRATION_SCHEMA = 'FREEZE_REGISTRATION_C2V003'
+-MODULE_NAME = 'prediction_freeze_c2v003c'
++MODULE_NAME = 'prediction_freeze_c2v003d'
+ # D3/A4: the program's target-free NGC3198 query manifest
+ # (UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json)
+ PROGRAM_QUERY_MANIFEST_SHA256 = 'a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494'
+@@ -332,6 +362,20 @@
+ _ZERO_DISP = 1e-12
+ _MAX_REASONS = 20
+ _MAX_REASON_CHARS = 500
++# v003d (SF-1 fix 3): the engine's identification rule, re-applied here (calibration_region_engine_c2v003(a/b),
++# verbatim constants and text)
++ABSOLUTE_IDENTIFICATION_THRESHOLD = 2.865260238532134
++MIN_NULL_TOLERANCE = 1e-6
++IDENTIFICATION_RULE = ('identified iff (s_i > 0 and s_i >= effective_null_tolerance * s_max) or '
++                       's_i >= ABSOLUTE_IDENTIFICATION_THRESHOLD (z = 2.865260238532134); '
++                       'effective_null_tolerance = max(null_tolerance, MIN_NULL_TOLERANCE, max(m, n) * eps); '
++                       'singular values are per unit of u, i.e. per computational box (box-dependent)')
++_FLOAT_EPS = 2.220446049250313e-16   # numpy.finfo(float).eps (the engine's rank floor uses it)
++SKIP_ZERO_DISPLACEMENT_REASON = (
++    'SKIPPED: zero displacement (v003d rule: a near-null side whose box-limited step s <= 1e-12, or whose largest '
++    'coordinate move s * max|d_i| <= 1e-9 because the reference member sits on a computational-box face that a '
++    'component above 1e-12 of this direction points out of; a declared coordinate whose target equals its trial '
++    'value)')
+ 
+ 
+ # --------------------------------------------------------------------------
+@@ -1877,12 +1921,14 @@
+ # --------------------------------------------------------------------------
+ 
+ def _edge_t(a, d):
+-    """Largest s >= 0 with a + s*d inside [0, 1]^n; components |d_i| <= _V_TOL are inert (A2 lesson)."""
++    """Largest s >= 0 with a + s*d inside [0, 1]^n up to the face slack _V_TOL; components |d_i| <= _V_TOL are
++    inert (A2 lesson). v003d (SF-2): the engine's face slack (calibration_region_engine _edge_t): a component above
++    _V_TOL pointing out of a face the point sits on limits s to _V_TOL / |d_i| instead of 0."""
+     smax = math.inf
+     for ai, di in zip(a, d):
+         if abs(di) <= _V_TOL:
+             continue
+-        lim = (1.0 - ai) / di if di > 0 else (0.0 - ai) / di
++        lim = max(1.0 - ai, _V_TOL) / di if di > 0 else min(0.0 - ai, -_V_TOL) / di
+         smax = min(smax, lim)
+     if not math.isfinite(smax):
+         return 0.0
+@@ -1924,7 +1970,10 @@
+             plan.append({'kind': SENS_NULL, 'target': str(d['index']), 'side': side,
+                          'displacement': float(sign * t), 'displacement_units': U_UNITS, 'limited_by': lim,
+                          'u_displaced': ud, 'theta_ngc': _theta_ngc_from_engine(S, th_eng),
+-                         'skipped_zero_displacement': bool(t <= _ZERO_DISP),
++                         # v003d (SF-2): with the face slack a genuine outward component at a face gives a step of
++                         # _V_TOL / |d_i|; the displaced point then equals the reference to _FACE_TOL: still skipped
++                         'skipped_zero_displacement': bool(t <= _ZERO_DISP or
++                                                           t * max((abs(x) for x in vec), default=0.0) <= _FACE_TOL),
+                          'linearised_ddo_shift_sigma': (float(ddo * t) if ddo is not None else None)})
+     for nm in S['sensitivity_targets']:
+         c = S['by_name'][nm]
+@@ -2040,7 +2089,7 @@
+                   'speeds_km_s': [None] * len(ids), 'delta_from_reference_km_s': [None] * len(ids),
+                   'reasons': [], 'exception': None})
+         if e['skipped_zero_displacement']:
+-            e['reasons'] = ['SKIPPED: zero displacement (reference already at this box face / trial value)']
++            e['reasons'] = [SKIP_ZERO_DISPLACEMENT_REASON]   # v003d (SF-2): the rule, not a guessed cause
+         elif used >= budget:
+             e['reasons'] = ['NOT_EVALUATED: sensitivity budget %d exhausted' % budget]
+         else:
+@@ -2281,7 +2330,7 @@
+         reasons.append('%s differs from the envelope recomputed from the member arrays' % where)
+ 
+ 
+-def _validate_admitted_region(ar, S, reasons):
++def _validate_admitted_region(ar, S, reasons, record_ident=None):
+     if not isinstance(ar, dict) or set(ar) != ADMITTED_REGION_KEYS:
+         reasons.append('admitted_region keys differ from %s' % sorted(ADMITTED_REGION_KEYS))
+         return None
+@@ -2351,11 +2400,108 @@
+                 bad.append('near_null_directions[%r] inconsistent' % d.get('index'))
+     if ar['bounds_semantics'] != BOUNDS_SEMANTICS or ar['unit_coordinate_units'] != U_UNITS:
+         bad.append('bounds_semantics/unit_coordinate_units text differs')
++    # v003d (SF-1 fix 3): IDENTIFICATION_RULE re-applied to the frozen singular values; with the pinned record's
++    # identifiability report (writer and verifier) re-applied exactly, and S^T S diagonalised by the frozen basis
++    if not bad:
++        bad.extend(_identification_rule_reasons(ar, n))
++    if not bad and record_ident is not None:
++        bad.extend(_record_identifiability_reasons(ar, n, record_ident))
+     for b in bad:
+         reasons.append('admitted_region: ' + b)
+     return None if bad else ar
+ 
+ 
++def _identification_rule_reasons(ar, n):
++    """v003d (SF-1 fix 3): necessary form of IDENTIFICATION_RULE on the frozen singular values alone (the effective
++    tolerance is not frozen in admitted_region; the exact form needs the record, _record_identifiability_reasons).
++    identified iff (s > 0 and s >= eff * s_max) or s >= z with eff >= MIN_NULL_TOLERANCE, hence: every identified s
++    is > 0 and (>= z or >= MIN_NULL_TOLERANCE * s_max); every near-null s is < z; and the identified set is an upper
++    set of the singular values (every near-null s < every identified s)."""
++    ident, near, sv = ar['identified'], ar['near_null'], ar['singular_values']
++    if not _is_list_of(sv, n, _is_real) or any(float(x) < 0.0 for x in sv):
++        return ['singular_values must be %d finite non-negative reals (IDENTIFICATION_RULE is re-applied to them, '
++                'SF-1 fix 3); got %s' % (n, _safe_repr(sv)[:80])]
++    s = [float(x) for x in sv]
++    smax = s[0] if n else 0.0
++    if any(s[i + 1] - s[i] > _ORTHO_TOL * max(1.0, smax) for i in range(n - 1)):
++        return ['singular_values must be non-increasing (SF-1 fix 3)']
++    out = []
++    z = ABSOLUTE_IDENTIFICATION_THRESHOLD
++    for k in ident:
++        if not (s[k] > 0.0 and (s[k] >= z or s[k] >= MIN_NULL_TOLERANCE * smax)):
++            out.append('identified direction %d (s = %r, s_max = %r) is not identified under IDENTIFICATION_RULE for '
++                       'any effective tolerance >= MIN_NULL_TOLERANCE %r (SF-1 fix 3)' % (k, s[k], smax,
++                                                                                         MIN_NULL_TOLERANCE))
++    for k in near:
++        if s[k] >= z:
++            out.append('near-null direction %d has s = %r >= z = %r: IDENTIFICATION_RULE identifies it (SF-1 fix 3)'
++                       % (k, s[k], z))
++    if ident and near and max(s[k] for k in near) >= min(s[k] for k in ident):
++        out.append('the identified set is not an upper set of the singular values (a near-null s %r >= an identified '
++                   's %r): no effective tolerance gives this partition (SF-1 fix 3)'
++                   % (max(s[k] for k in near), min(s[k] for k in ident)))
++    return out
++
++
++def _record_identifiability_reasons(ar, n, ident):
++    """v003d (SF-1 fix 3): the pinned record's identifiability report re-checked from its own content, and the frozen
++    basis bound to it. Pure Python (no numpy): the record's effective tolerance follows the engine formula; its
++    partition follows IDENTIFICATION_RULE from its singular values; its right vectors are orthonormal and diagonalise
++    the recorded S^T S (S = scaled_jacobian); the frozen right_vectors / singular_values / identified / near_null
++    equal the record's."""
++    if not isinstance(ident, dict):
++        return ['the pinned calibration record carries no identifiability report (SF-1 fix 3)']
++    Sm, V, s = ident.get('scaled_jacobian'), ident.get('right_vectors'), ident.get('singular_values')
++    if not isinstance(Sm, list) or not Sm or not all(_is_list_of(r, n, _is_real) for r in Sm) or \
++            not _is_list_of(V, n, lambda v: _is_list_of(v, n, _is_real)) or not _is_list_of(s, n, _is_real):
++        return ['the pinned record identifiability arrays are malformed (scaled_jacobian m x %d, right_vectors and '
++                'singular_values of %d) (SF-1 fix 3)' % (n, n)]
++    m = len(Sm)
++    Sm = [[float(x) for x in r] for r in Sm]
++    V = [[float(x) for x in v] for v in V]
++    s = [float(x) for x in s]
++    out = []
++    tol, eff, floor = ident.get('null_tolerance'), ident.get('effective_null_tolerance'), \
++        ident.get('numerical_rank_floor')
++    exp_floor = float(max(m, n) * _FLOAT_EPS)
++    if not (_is_real(tol) and _is_real(eff) and _is_real(floor)) or float(floor) != exp_floor or \
++            float(eff) != max(float(tol), MIN_NULL_TOLERANCE, exp_floor):
++        out.append('the pinned record effective_null_tolerance %r is not max(null_tolerance %r, MIN_NULL_TOLERANCE '
++                   '%r, max(m, n) * eps %r) (SF-1 fix 3)' % (eff, tol, MIN_NULL_TOLERANCE, exp_floor))
++        return out
++    eff = float(eff)
++    smax = s[0]
++    z = ABSOLUTE_IDENTIFICATION_THRESHOLD
++    expect = [k for k in range(n) if (smax > 0.0 and s[k] > 0.0 and s[k] >= eff * smax) or s[k] >= z]
++    rid, rnn = ident.get('identified'), ident.get('near_null')
++    if not isinstance(rid, list) or not isinstance(rnn, list) or not all(_is_int(k) for k in rid + rnn) or \
++            sorted(int(k) for k in rid) != expect or sorted(int(k) for k in rnn) != \
++            [k for k in range(n) if k not in expect]:
++        out.append('the pinned record identified %s / near_null %s do not follow IDENTIFICATION_RULE from its '
++                   'singular values (expected identified %s) (SF-1 fix 3)' % (_safe_repr(rid)[:60],
++                                                                              _safe_repr(rnn)[:60], expect))
++        return out
++    for i in range(n):
++        for j in range(i, n):
++            if abs(_dot(V[i], V[j]) - (1.0 if i == j else 0.0)) > _ORTHO_TOL:
++                out.append('the pinned record right_vectors are not orthonormal (<v%d, v%d>) (SF-1 fix 3)' % (i, j))
++                return out
++    SV = [[math.fsum(Sm[r][c] * V[k][c] for c in range(n)) for r in range(m)] for k in range(n)]
++    scale = _ORTHO_TOL * max(1.0, smax * smax)
++    for k in range(n):
++        for l_ in range(k, n):
++            g = math.fsum(a * b for a, b in zip(SV[k], SV[l_])) - (s[k] * s[k] if k == l_ else 0.0)
++            if abs(g) > scale:
++                out.append('the pinned record right_vectors do not diagonalise the recorded S^T S (<S v%d, S v%d> - '
++                           'delta s^2 = %r) (SF-1 fix 3)' % (k, l_, g))
++                return out
++    if [[float(x) for x in v] for v in ar['right_vectors']] != V or [float(x) for x in ar['singular_values']] != s \
++            or list(ar['identified']) != expect or list(ar['near_null']) != [k for k in range(n) if k not in expect]:
++        out.append('the frozen right_vectors / singular_values / identified / near_null differ from the pinned '
++                   'record\'s identifiability report (SF-1 fix 3)')
++    return out
++
++
+ def _validate_reference(ref, members, centroid, reasons):
+     if not isinstance(ref, dict) or set(ref) != REFERENCE_KEYS:
+         reasons.append('reference_member keys differ from %s' % sorted(REFERENCE_KEYS))
+@@ -2853,6 +2999,127 @@
+     return True
+ 
+ 
++def _record_status_reasons(cdoc, ar):
++    """v003d (SF-1 fix 2): status, stage and flags of the frozen admitted_region against the pinned record."""
++    run = cdoc.get('run')
++    ex = run.get('exploration') if isinstance(run, dict) else None
++    if not isinstance(ex, dict):
++        return ['the pinned calibration record carries no run.exploration']
++    out = []
++    st = ex.get('status')
++    if not (isinstance(st, str) and cdoc.get('status') == run.get('status') == st == ar['exploration_status']):
++        out.append('status: record %s / run %s / run exploration %s / frozen exploration_status %s must be equal'
++                   % (_safe_repr(cdoc.get('status')), _safe_repr(run.get('status')), _safe_repr(st),
++                      _safe_repr(ar['exploration_status'])))
++    stage = ex.get('stage_reached')
++    if not (isinstance(stage, str) and cdoc.get('stage_reached') == run.get('stage_reached') ==
++            'exploration:%s' % stage and ar['exploration_stage_reached'] == stage):
++        out.append('stage: record %s / run %s / exploration %s / frozen %s are not one stage'
++                   % (_safe_repr(cdoc.get('stage_reached')), _safe_repr(run.get('stage_reached')), _safe_repr(stage),
++                      _safe_repr(ar['exploration_stage_reached'])))
++    if cdoc.get('ok') is not (run.get('ok') is True):
++        out.append('record ok %s differs from the run ok %s' % (_safe_repr(cdoc.get('ok')), _safe_repr(run.get('ok'))))
++    flags = ex.get('flags')
++    if run.get('flags') != (list(flags) if isinstance(flags, (list, tuple)) else flags) or \
++            run.get('region_possibly_truncated') != ex.get('region_possibly_truncated') or \
++            run.get('truncation_causes') != list(ex.get('truncation_causes') or []):
++        out.append('run flags / region_possibly_truncated / truncation_causes differ from the run exploration\'s')
++    ev = ar['truncation_evidence'] if isinstance(ar['truncation_evidence'], list) else []
++    engine_flag = (ex.get('region_possibly_truncated') is True or
++                   (isinstance(flags, (list, tuple)) and 'REGION_POSSIBLY_TRUNCATED' in flags))
++    reported = ('region_possibly_truncated' in ex) or isinstance(flags, (list, tuple))
++    if ('ENGINE_FLAG_REGION_POSSIBLY_TRUNCATED' in ev) != engine_flag or \
++            ('ENGINE_COVERAGE_NOT_REPORTED' in ev) != (not reported) or \
++            (('EXPLORATION_STATUS_%s' % st) in ev) != (st != STATUS_COMPLETE):
++        out.append('truncation_evidence %s does not follow the record (engine flag %s, coverage reported %s, status '
++                   '%s)' % (_safe_repr(ev)[:120], engine_flag, reported, _safe_repr(st)))
++    try:
++        cov = _plain(ex.get('coverage'), 'coverage') if ex.get('coverage') is not None else None
++    except (ValueError, TypeError, RecursionError):
++        cov = {'unserialisable': True}
++    if cov != ar['engine_coverage_report']:
++        out.append('engine_coverage_report differs from the record\'s exploration coverage')
++    return out
++
++
++def _member_key(m, theta_key):
++    return {'log_index': m.get('log_index'), 'role': m.get('role'), 'u': m.get('u'),
++            'identified_projection': m.get('identified_projection'), 'theta': m.get(theta_key)}
++
++
++def _check_record_binds_selection(cdoc, S, ar, region_path, points, member_lists, reasons):
++    """v003d (SF-1, writer and verifier): everything select_representative_points freezes must follow from the pinned
++    record, not from the caller's dict.
++      fix 2: _record_status_reasons (status, stage, flags, coverage);
++      fix 3: _validate_admitted_region with the record's identifiability report (IDENTIFICATION_RULE exactly,
++             S^T S diagonalised, frozen basis = record basis);
++      fix 1: select_representative_points RECOMPUTED from the record's run (region path replaced by the pinned,
++             sha-verified region file; interior_count = the frozen selection_interior_count; spec = the freeze
++             coordinates): the canonical bytes of the frozen admitted_region must equal the recomputed ones, the
++             selection points (writer; None in the verifier) must equal the recomputed points, and every member list
++             (log_index, role, u, identified_projection, theta) must equal them in order.
++    Appends reasons; returns True when all hold."""
++    n0 = len(reasons)
++    run = cdoc.get('run')
++    if not isinstance(run, dict):
++        reasons.append('REFUSED (SF-1): the pinned calibration record carries no run')
++        return False
++    _validate_admitted_region(ar, S, reasons, record_ident=run.get('identifiability'))
++    if len(reasons) > n0:
++        reasons.insert(n0, 'REFUSED (SF-1 fix 3): the frozen admitted_region / identifiability does not follow the '
++                           'pinned record')
++        return False
++    st = _record_status_reasons(cdoc, ar)
++    if st:
++        reasons.append('REFUSED (SF-1 fix 2): the frozen admitted_region disagrees with the pinned calibration '
++                       'record: %s' % st[:3])
++        return False
++    if not isinstance(run.get('region'), dict):
++        reasons.append('REFUSED (SF-1 fix 1): the pinned calibration record run carries no region')
++        return False
++    run2 = dict(run)
++    run2['region'] = dict(run['region'], path=region_path)
++    sel = select_representative_points(exploration=run2, interior_count=ar['selection_interior_count'],
++                                       spec={'coordinates': S['coordinates']})
++    if not sel.get('ok'):
++        reasons.append('REFUSED (SF-1 fix 1): select_representative_points could not be recomputed from the pinned '
++                       'calibration record: %s' % _safe_repr(sel.get('reasons'))[:300])
++        return False
++    try:
++        same = _canonical_bytes(_plain(sel['admitted_region'], 'recomputed')) == _canonical_bytes(_plain(ar, 'frozen'))
++    except (ValueError, TypeError, RecursionError) as exc:
++        reasons.append('REFUSED (SF-1 fix 1): admitted_region not canonically comparable: %s' % type(exc).__name__)
++        return False
++    if not same:
++        diff = []
++        for k in sorted(ADMITTED_REGION_KEYS):
++            try:
++                if _canonical_bytes(_plain(sel['admitted_region'].get(k), k)) != _canonical_bytes(_plain(ar.get(k), k)):
++                    diff.append(k)
++            except (ValueError, TypeError, RecursionError):
++                diff.append(k)
++        reasons.append('REFUSED (SF-1 fix 1): the frozen admitted_region differs from the one select_representative_'
++                       'points recomputes from the pinned calibration record (fields %s)' % diff)
++        return False
++    expect = [_member_key(p, 'theta_natural') for p in sel['points']]
++    try:
++        exp_bytes = _canonical_bytes(_plain(expect, 'points'))
++        if points is not None and \
++                _canonical_bytes(_plain([_member_key(p, 'theta_natural') for p in points], 'points')) != exp_bytes:
++            reasons.append('REFUSED (SF-1 fix 1): the selection points differ from the points recomputed from the '
++                           'pinned calibration record')
++            return False
++        for label, lst in member_lists:
++            if _canonical_bytes(_plain([_member_key(m, 'theta_engine') for m in lst], label)) != exp_bytes:
++                reasons.append('REFUSED (SF-1 fix 1): %s (log_index, role, u, identified_projection, theta) differ from '
++                               'the points recomputed from the pinned calibration record' % label)
++                return False
++    except (ValueError, TypeError, RecursionError) as exc:
++        reasons.append('REFUSED (SF-1 fix 1): members not canonically comparable: %s' % type(exc).__name__)
++        return False
++    return True
++
++
+ def _member_order(members):
+     return [{'log_index': m['log_index'], 'role': m['role']} for m in members]
+ 
+@@ -2916,6 +3183,9 @@
+         value and the selection's (the run's) fingerprint;
+       * the admission rectangles are re-derived from the pinned region file BYTES and every member (and every
+         admitted point of the record) is re-classified against them from the recorded DDO154 predictions.
++    v003d (SF-1): the selection is recomputed from the pinned record's run and must be byte-equal (admitted_region,
++    points, every evaluated member list); status, stage and flags are cross-checked against the record; the
++    identification rule is re-applied with the record's report (_check_record_binds_selection).
+     After the manifest, writes registration_path (D8) recording the manifest FILE sha256; that
+     value must be logged before any target access and passed to score_after_freeze.
+     """
+@@ -3089,6 +3359,11 @@
+     if not _check_run_coordinate_binding(S, (rec_doc.get('run') or {}).get('spec'), 'the pinned calibration record',
+                                          reasons):
+         return out
++    # v003d (SF-1): status/flags, identifiability and the whole selection follow from the pinned record
++    if not _check_record_binds_selection(rec_doc, S, ar, region_pins[0]['path'], selection['points'],
++                                         [('alternative_evaluations[%r].members' % nm, alternative_evaluations[nm]
++                                           ['members']) for nm in sorted(alternative_evaluations)], reasons):
++        return out
+     cal_binding = {'path': rec_pin['path'], 'sha256': rec_pin['sha256'],
+                    'exploration_fingerprint': rec_doc.get('exploration_fingerprint')}
+     out['calibration_record_bound'] = True
+@@ -3269,6 +3544,11 @@
+     if not _check_run_coordinate_binding(S, (cdoc.get('run') or {}).get('spec'), 'the bound calibration record',
+                                          reasons):
+         return None
++    # v003d (SF-1): status/flags, identifiability, the frozen selection and every member follow from the record
++    lists = [('members', doc['members'])] + [('alternative_results[%r].members' % nm, a['members'])
++                                             for nm, a in sorted(doc['alternative_results'].items())]
++    if not _check_record_binds_selection(cdoc, S, doc['admitted_region'], region_path, None, lists, reasons):
++        return None
+     return doc
+ 
+ 

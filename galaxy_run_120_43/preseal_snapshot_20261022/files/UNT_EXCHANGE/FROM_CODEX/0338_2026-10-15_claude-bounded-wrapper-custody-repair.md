@@ -1,0 +1,15 @@
+# 0338 — Bounded wrapper resource-accounting repair (implementation only)
+
+From Codex1 to CLAUDE2. New support task, independent of 0337; use spare capacity or sequence after 0337. Acknowledge both task IDs separately. The principal explicitly asks to shift useful workload to Claude to conserve Codex usage. Do not duplicate a task already acknowledged by another Claude worker. Keep physics and launch decisions with Codex.
+
+Prepare an immutable corrected wrapper source, without executing, importing or compiling the scientific producer or launching any calculation. Existing source:
+/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/readiness_fixed_probe_cij_root_launch_wrapper_v001.py
+SHA227dd2f584ad0a25d19c316bcdb7a35a9873cce0d4f20a1e7806a7bccde9778d.
+Distinct review:
+/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/response_packet_audit/OWNED_FIXED_PROBE_CIJ_WRAPPER_V001_PRELAUNCH_REVIEW_V001.md
+SHAe06ee380b784bd661e346c93ce03293d25a038cbde0d1d92262fb685481dc647.
+Read these fully. Science, producer pin, cases, paths and caps remain fixed. Preserve V001. Write candidate V002 in your own artifact directory; root will review its exact bytes and run it only after acceptance.
+
+Required custody-only repair: V001 samples final wall/RSS before hashing outputs and serializing the receipt. Move all substantial output hashing and JSON preparation before final acceptance measurements. Capture a post-receipt-write elapsed/RSS verdict so any tail overrun makes the authoritative terminal/outer record FAILED_OR_INCOMPLETE, never a success. One workable pattern: primary receipt contains provisional verdict, then a small exclusive terminal receipt contains measured postwrite verdict and is the authoritative acceptance record. Clearly document this hierarchy and preserve both if interrupted. Avoid recursive attempts to measure every final byte; do account for potentially large output reads and serialization. Prefer streaming hashes to bounded memory. Keep root-only one scientific child, internal producer8s/external10s wall,256MiB conservative wrapper+child RSS,32MiB output cap. Include all created result/journal/receipt files in the output accounting or explicitly reserve their small bounded overhead within that same cap. Retain durable per-owner stdout, exact input pin checks, no existing-output overwrite, Python optimization prohibited, hard-kill custody and incomplete result reporting. No automatic rerun or cap change. No change to scientific formulas or gates.
+
+Return candidate source path/hash, exact diff against V001, and short review-read checklist. No producer execution; source inspection only. Post to FROM_CLAUDE2. Continue checking FROM_CODEX every60seconds for new addressed work after each completion while session is active; acknowledge and deduplicate. Suggested destination /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/bounded_wrapper_0338/.

@@ -1,0 +1,124 @@
+{
+ "python": "3.9.6",
+ "numpy": "2.0.2",
+ "checks": [
+  {
+   "check": "C1_analytic_nonconstant_density_vs_FD_minus_div_rho_xi",
+   "ok": true,
+   "max_rel_err": 4.372130019345201e-12,
+   "cases": "m=1..6, 9 points x 3 columns, 4th-order FD h=1e-3"
+  },
+  {
+   "check": "C2_bitwise_equal_literal_contract_formula",
+   "ok": true
+  },
+  {
+   "check": "C3_real_dtype_maps_bitwise_equal_complex",
+   "ok": true
+  },
+  {
+   "check": "C4_inputs_unmodified",
+   "ok": true
+  },
+  {
+   "check": "C4_output_fresh_array_no_aliasing",
+   "ok": true
+  },
+  {
+   "check": "C5_rho_zero",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_rho_negative",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_rho_R_negative_accepted",
+   "ok": true,
+   "expected": "accept",
+   "got": "accept"
+  },
+  {
+   "check": "C5_rho_z_complex_rejected",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_U_z_nan",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_divU_inf",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_divU_shape_mismatch",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_rho_R_wrong_length",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_U_R_bool_dtype",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_overflow_to_nonfinite",
+   "ok": true,
+   "expected": "reject",
+   "got": "reject:ValueError"
+  },
+  {
+   "check": "C5_positional",
+   "ok": true,
+   "expected": "reject:TypeError",
+   "got": "reject:TypeError"
+  },
+  {
+   "check": "C5_missing_divU",
+   "ok": true,
+   "expected": "reject:TypeError",
+   "got": "reject:TypeError"
+  },
+  {
+   "check": "C5_unknown_kwarg",
+   "ok": true,
+   "expected": "reject:TypeError",
+   "got": "reject:TypeError"
+  },
+  {
+   "check": "C6_PM_with_Gkin_equals_minus_gammaP_divU_minus_xi_grad_P",
+   "ok": true,
+   "max_rel_err": 3.2585131678606207e-16
+  },
+  {
+   "check": "C7_antiHermitian_part_matches_thermal_wind_imbalance_formula",
+   "ok": true,
+   "max_rel_err": 6.591911274825656e-15
+  },
+  {
+   "check": "C7_A_Hermitian_when_fixed_K_thermal_wind_holds",
+   "ok": true,
+   "max_rel_antiHermitian": 4.734641822749899e-16
+  }
+ ],
+ "module_sha256_after": "a8b2d578fbb0c41a02dac6a5fcfb3e5333ef3a998090cc1fc97c1117b1aaea22",
+ "euler_sha256_after": "8632bda6d4a80d0d25bfa90ef4b1066954b6bc67c90f184d0a78c232bf3013da",
+ "all_ok": true
+}

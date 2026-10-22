@@ -1,0 +1,322 @@
+{
+ "schema": "C3SA_MUSTFAIL_C0X_V001",
+ "helper": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v012.py",
+  "sha256": "b13483966fcb8755608d73e05c0e70dc94e39a2b07635f54efc0c86849748bac"
+ },
+ "dry_run": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261018T231735Z",
+ "n_cases": 33,
+ "ALL_OK": true,
+ "pycache_prefix_entries": 0,
+ "results": [
+  {
+   "case": "A-0",
+   "what": "freeze a byte copy of the final V005 (sha and length right)",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "post": {
+    "copy_is_the_final_bytes": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "A-1",
+   "what": "the right sha but a wrong length (143080)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OPEN_V005_LENGTH 143081 != 143080 (A106: the FINAL V005 bytes; nothing was copied)",
+   "post": {
+    "nothing_copied": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "A-2",
+   "what": "an open file one byte longer, checked against the final sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PIN_BYTES_MISMATCH open_v005: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_c0x_20261018T232043Z/SYNTHETIC_OPEN_PLUS_ONE_BYTE_V005_ADDENDUM.md has 405026acfce7db49fbac54076eb93f0989015ab58f8f61efdbaf8a98bdbb5f3e, pinned c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1",
+   "post": {
+    "nothing_copied": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "A-3",
+   "what": "the FROZEN copy exists already (exclusive create)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_EXISTS frozen: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_c0x_20261018T232043Z/A0_V005_ADDENDUM_FROZEN.md",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-0",
+   "what": "control: r5 (named by the r6 stand-in SELECTED fixture) + the real sealed prereg and slots",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-1",
+   "what": "an EDITED sealed prereg named as its own text of record (and as the sealed prereg)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_DOES_NOT_NAME /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_c0x_20261018T232043Z/C02_EDITED_SEALED_PREREG.json 584be5448eefa1932ec558287960f88db4eb52a97c69bcedd187e6e2ebcb09f4",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-2",
+   "what": "the same edited sealed prereg, with a forged SELECTED that names it",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_TEXT_OF_RECORD_HAS_FILLED_SLOTS ['certificates', 'compare', 'driver', 'frozen_addendum', 'identity_comparator', 'identity_gate_records', 'launch_packet', 'producer_registry'] (a sealed or edited prereg named as its own text of record)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-3",
+   "what": "the genuine sealed prereg named as the text of record (forged SELECTED names it)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_TEXT_OF_RECORD_HAS_FILLED_SLOTS ['certificates', 'compare', 'driver', 'frozen_addendum', 'identity_comparator', 'identity_gate_records', 'launch_packet', 'producer_registry'] (a sealed or edited prereg named as its own text of record)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-4",
+   "what": "r5 as text of record, but a sealed prereg edited outside the slot values",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_SEALED_PREREG_NOT_THE_TEXT_OF_RECORD_PLUS_SLOT_VALUES",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-5",
+   "what": "a SELECTED file that also gives the text-of-record path another sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_NAMES_ANOTHER_SHA_FOR /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R5.json: 0000000000000000000000000000000000000000000000000000000000000000",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-6",
+   "what": "prereg r4 as the text of record while the SELECTED file stores r5",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_DOES_NOT_NAME /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r4/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R4.json e3b6b5b2ba265f54d15381f358913dd3ea931761aaa649c98a7583f58f1b7cf8",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-7",
+   "what": "the sealed prereg given as both files (same path and sha)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_TEXT_OF_RECORD_HAS_FILLED_SLOTS ['certificates', 'compare', 'driver', 'frozen_addendum', 'identity_comparator', 'identity_gate_records', 'launch_packet', 'producer_registry'] (a sealed or edited prereg named as its own text of record)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-0",
+   "what": "control: the real sealed-mode GATES_ONLY body of dry run 10",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-1",
+   "what": "the body evaluated another GQ record than the slot",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:certificates.GQ:GQ",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-2",
+   "what": "the B1 (Z2) gate status is FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_SLOT_GATE_STATUS_FAIL:identity_gate_records.Z2:B1",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-3",
+   "what": "the LO_NGC gate is missing from the body",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_SLOT_GATE_NOT_IN_THE_BODY:certificates.LO_NGC:LO_NGC",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-4",
+   "what": "a test-mode body (not sealed)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03_GATES_ONLY_BODY_NOT_SEALED_MODE",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-0",
+   "what": "the real final slots of dry run 10 (the draft): EPS_NGC and I1T_NGC are not registered in V009",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"certificates.EPS_NGC\": [\"GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:EPS\", \"PRODUCER_NOT_ROOT_REGISTERED_A62_2:EPS\"], \"certificates.I1T_NGC\": [\"C04_NOT_A_REGISTRY_GATE:certificates.I1T_NGC:I1T_NGC\"]}",
+   "MUST_FAIL_ok": true,
+   "post": {
+    "refuses_exactly_EPS_NGC_and_I1T_NGC": true
+   }
+  },
+  {
+   "case": "C04-1",
+   "what": "control (synthetic): the same slots without the two unregistered NGC certificates: every other slot passes",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-2",
+   "what": "the GQ slot holds the superseded GQ V005 record (fbceefe6)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"certificates.GQ\": [\"GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:GQ\", \"PRODUCER_NOT_ROOT_REGISTERED_A62_2:GQ\"]}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-3",
+   "what": "the identity comparator slot holds a superseded comparator (gates_v007 c2v007, 06ff52d6)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"identity_comparator\": [\"C04_IDENTITY_COMPARATOR_NOT_ROOT_REGISTERED_A57_3:identity_comparator\"], \"identity_gate_records.B0prime_RERUN\": [\"C04_IDENTITY_RECORD_COMPARATOR_IS_NOT_THE_SLOT_COMPARATOR:identity_gate_records.B0prime_RERUN\"], \"identity_gate_records.Z2\": [\"C04_IDENTITY_RECORD_COMPARATOR_IS_NOT_THE_SLOT_COMPARATOR:identity_gate_records.Z2\"], \"identity_ga",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-4",
+   "what": "the Z2 slot holds the B1_OFF record (gate not the slot)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"identity_gate_records.Z2\": [\"C04_IDENTITY_GATE_NOT_THE_SLOT:identity_gate_records.Z2:B1_OFF\"]}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-5",
+   "what": "the slots name another registry sha than the one checked",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_REGISTRY_IS_NOT_THE_GIVEN_REGISTRY {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/producer_registry_c3/out/PRODUCER_REGISTRY_C3V009.json', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-0",
+   "what": "control: the real bound plan and command of dry run 10",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-1",
+   "what": "the bound plan names another allowlisted source (ea_replay_cx1v012) as the launcher",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_PLAN_LAUNCHER_NOT_EXACT {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/ea_replay_cx1v012.py', 'sha256': '380e2d81027eba4c86843b904ccb79f5f27e6c917b5f3f5a71f286c01be32156'}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-2",
+   "what": "the bound plan names another allowlisted source (shell_filter_cx1v004) as the guard",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_PLAN_GUARD_NOT_EXACT {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/shell_filter_cx1v004.py', 'sha256': '4fcbd495fe41e881637aa64eef342c8adf1193b54e9b7e80b7261f9217b5dabb'}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-3",
+   "what": "another allowlisted source given AS the launcher (ea_replay, its BUILD row)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_LAUNCHER_NAME 'ea_replay_cx1v012.py' (want route_a_token_launcher_cx1v007.py)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-4",
+   "what": "the launcher by its exact name but another sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_LAUNCHER_NOT_THE_BUILD_ROW ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/route_a_token_launcher_cx1v007.py', '380e2d81027eba4c86843b904ccb79f5f27e6c917b5f3f5a71f286c01be32156') (BUILD_V007 row ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/route_a_token_launcher_cx1v007.py', '861bba68dd7d207beb30ed828c1557955f31979cf2e15369acccc52ea59595",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-0",
+   "what": "control: the real bound command (2 lines) is byte-equal to the binder output form",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-1",
+   "what": "an edit in the NON-final line (the comment line); the last line intact",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 554 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-2",
+   "what": "an extra trailing line",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 3; 556 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-3",
+   "what": "the last line edited (another plan path)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 2; 547 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-4",
+   "what": "CRLF line endings",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 547 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+--- ngc3198_query_coverage_adapter_v001.py	2026-10-15 10:48:13.482749885 -0500
++++ ngc3198_query_coverage_adapter_v002.py	2026-10-15 10:55:46.516307865 -0500
+@@ -1,4 +1,6 @@
+-"""INERT target-free query-coverage adapter V001 for NGC3198 (task 0350). ROOT runs it; the author has run it only on synthetic
++"""INERT target-free query-coverage adapter V002 for NGC3198 (task 0350; V001 813c9915... + distinct-review fixes: frozen S2
++settings allowlist, every correction reference carried, exact stored number text, final-edge pointer, width checked and
++carried, first/last-row naming). ROOT runs it; the author has run it only on synthetic
+ bundles (produced by the reviewed source-bundle adapter code from synthetic inputs).
+ 
+ Input: the root-executed source-only bundle (sha-pinned) and root's saved-output review (sha-pinned; must name the bundle
+@@ -23,7 +25,10 @@
+ (fc9cdcfa..., reviewed PASS): exclusive <output>.candidate (0444), fsync, re-read, exclusive hard link, guarded post-link
+ checks; never unlink/move/overwrite. Exits: 0 published, 2 validation, 4 publication (candidate may remain), 3 unexpected,
+ 130 interrupted.
+-Usage: python3 -I -B ngc3198_query_coverage_adapter_v001.py <new_coverage.json>
++Notes: S2 grid contiguity is required EXACTLY (stricter than the upstream adapter's 1e-9 tolerance; the pinned bundle is
++expected to be exactly contiguous; any mismatch fails closed for root attention). The root-review binding is a presence
++check of the bundle sha in the sha-pinned review file, not an approval test.
++Usage: python3 -I -B ngc3198_query_coverage_adapter_v002.py <new_coverage.json>
+ """
+ import decimal,hashlib,json,os,re,stat,sys
+ from fractions import Fraction
+@@ -36,6 +41,12 @@
+ PRESENCE_FIELD='effective_HI_Msun_pc2_complete_only'
+ COMPONENTS=['HI','H2','stars']
+ OPEN_REFS=['OPEN-1','OPEN-3','OPEN-4','OPEN-5','OPEN-7','OPEN-8','OPEN-9','OPEN-10']
++S2_SETTINGS=['HI_atoms_cm2_per_Msun_pc2','bin_arcsec','center_dec_deg','center_ra_deg','center_source','column_conversion_from_history','distance_pc','geometry','helium_factor','inclination_deg','orientation_source','pa_deg','rebin']
++WIDTHS={'profile_40arcsec':decimal.Decimal(40),'profile_120arcsec':decimal.Decimal(120)}
++class SD(decimal.Decimal):
++ """Decimal that remembers the exact JSON number text it was parsed from."""
++ def __new__(cls,text):
++  o=super().__new__(cls,text);o.text=text;return o
+ def _a(p):return re.compile(p,re.ASCII)
+ DECIMAL=_a(r'\d+(\.\d+)?');RATIONAL=_a(r'-?\d+(/[1-9]\d*)?');QID=_a(r'NGC3198-Q(\d{2})')
+ class Fail(Exception):pass
+@@ -55,7 +66,7 @@
+  try:b=Path(p).read_bytes()
+  except OSError:raise Fail('E_PIN_'+key+'_MISSING')
+  if sha(b)!=h:raise Fail('E_PIN_'+key)
+- try:return json.loads(b,object_pairs_hook=_pairs,parse_constant=_const,parse_float=decimal.Decimal),{'file':p,'sha256':h,'bytes':len(b)},b
++ try:return json.loads(b,object_pairs_hook=_pairs,parse_constant=_const,parse_float=SD),{'file':p,'sha256':h,'bytes':len(b)},b
+  except ValueError:raise Fail('E_JSON_'+key)
+ def need(o,k,code,t=None):
+  if not isinstance(o,dict) or k not in o:raise Fail(code)
+@@ -65,12 +76,15 @@
+ def dec(x,code):
+  if type(x) is bool or not isinstance(x,(int,decimal.Decimal)) or (isinstance(x,decimal.Decimal) and not x.is_finite()):raise Fail(code)
+  return x
+-def as_stored(x):return {'decimal_as_stored':str(x)} if isinstance(x,decimal.Decimal) else x
++def as_stored(x):
++ if isinstance(x,decimal.Decimal):return {'decimal_as_stored':getattr(x,'text',str(x))}
++ if type(x) is int:return {'integer_as_stored':str(x)}
++ return x
+ def frac(x):return Fraction(x) if isinstance(x,int) else Fraction(x)  # Decimal -> exact Fraction of the stored decimal
+ def jsonable(o):
+  if isinstance(o,decimal.Decimal):
+   if not o.is_finite():raise Fail('E_NONFINITE')
+-  return {'decimal_as_stored':str(o)}
++  return {'decimal_as_stored':getattr(o,'text',str(o))}
+  if isinstance(o,dict):return {k:jsonable(v) for k,v in o.items()}
+  if isinstance(o,list):return [jsonable(v) for v in o]
+  return o
+@@ -119,6 +133,8 @@
+  for oi,o in enumerate(orders):
+   for pk,n in PROFILES.items():
+    p=need(need(o,'profiles','E_S2_PROFILES',dict),pk,'E_S2_PROFILE',dict);base='/sources/S2_HALOGAS_PLANAR/orders/%d/profiles/%s'%(oi,pk)
++   wv=dec(need(need(p,'width_arcsec','E_S2_WIDTH',dict),'value','E_S2_WIDTH'),'E_S2_WIDTH_TYPE')
++   if frac(wv)!=frac(WIDTHS[pk]):raise Fail('E_S2_WIDTH_VALUE')
+    lo=[dec(x,'E_S2_EDGE_TYPE') for x in need(need(p,'r_lo_kpc','E_S2_RLO',dict),'values','E_S2_RLO',list)]
+    hi=[dec(x,'E_S2_EDGE_TYPE') for x in need(need(p,'r_hi_kpc','E_S2_RHI',dict),'values','E_S2_RHI',list)]
+    comp=need(need(p,'complete_by_conservative_chord_bound','E_S2_COMPLETE',dict),'values','E_S2_COMPLETE',list)
+@@ -139,24 +155,24 @@
+     pv=need(need(gd,PRESENCE_FIELD,'E_S2_FIELD_'+PRESENCE_FIELD,dict),'values','E_S2_FIELD_'+PRESENCE_FIELD,list)
+     if len(pv)!=n:raise Fail('E_S2_FIELD_LENGTH')
+     groups[g]['effective_density_present']=[x is not None for x in pv]
+-   out.append({'order_index':oi,'subpixels_per_axis':ORDERS[oi],'profile':pk,'lo':lo,'hi':hi,'complete':comp,'groups':groups,'base':base})
++   out.append({'order_index':oi,'subpixels_per_axis':ORDERS[oi],'profile':pk,'width':wv,'lo':lo,'hi':hi,'complete':comp,'groups':groups,'base':base})
+  return out
+ # ---------------- correspondence ----------------
+ def s1_correspondence(q,rows):
+  def ref(r):return {'row_index':r['row_index'],'original_line_number':r['original_line_number'],'radius_literal':r['radius_literal'],'bundle_pointer':r['bundle_pointer'],'components':r['components']}
+  for r in rows:
+   if q==r['r']:return {'status':'EXACT_SAMPLE_RADIUS','row':ref(r)}
+- if q<rows[0]['r']:return {'status':'BELOW_SAMPLED_RANGE','nearest_sampled_row':ref(rows[0])}
+- if q>rows[-1]['r']:return {'status':'ABOVE_SAMPLED_RANGE','nearest_sampled_row':ref(rows[-1])}
++ if q<rows[0]['r']:return {'status':'BELOW_SAMPLED_RANGE','first_sampled_row':ref(rows[0]),'note':'the first ring is reported for orientation only; it does not stand in for the query'}
++ if q>rows[-1]['r']:return {'status':'ABOVE_SAMPLED_RANGE','last_sampled_row':ref(rows[-1]),'note':'the last ring is reported for orientation only; it does not stand in for the query'}
+  for a,b in zip(rows,rows[1:]):
+   if a['r']<q<b['r']:return {'status':'BRACKETED','lower_row':ref(a),'upper_row':ref(b),'note':'two sampled ring radii bracket the query; this does NOT establish observed coverage of the intervening aperture'}
+  raise Fail('E_S1_CORRESPONDENCE_INTERNAL')
+ def s2_correspondence(q,p):
+  lo,hi=p['lo'],p['hi'];n=len(lo)
+- res={'order_index':p['order_index'],'subpixels_per_axis':p['subpixels_per_axis'],'profile':p['profile'],'convention':'[r_lo, r_hi); final outer edge explicit'}
++ res={'order_index':p['order_index'],'subpixels_per_axis':p['subpixels_per_axis'],'profile':p['profile'],'width_arcsec_as_stored':as_stored(p['width']),'width_pointer':p['base']+'/width_arcsec','convention':'[r_lo, r_hi); final outer edge explicit'}
+  if q<frac(lo[0]):res['status']='OUTSIDE_BELOW';return res
+  if q==frac(hi[n-1]):res.update(status='ON_FINAL_OUTER_EDGE',final_outer_edge_as_stored=as_stored(hi[n-1]),final_outer_edge_pointer=p['base']+'/r_hi_kpc/values/%d'%(n-1));return res
+- if q>frac(hi[n-1]):res.update(status='OUTSIDE_ABOVE',final_outer_edge_as_stored=as_stored(hi[n-1]));return res
++ if q>frac(hi[n-1]):res.update(status='OUTSIDE_ABOVE',final_outer_edge_as_stored=as_stored(hi[n-1]),final_outer_edge_pointer=p['base']+'/r_hi_kpc/values/%d'%(n-1));return res
+  js=[j for j in range(n) if frac(lo[j])<=q<frac(hi[j])]
+  if len(js)!=1:raise Fail('E_S2_CORRESPONDENCE_INTERNAL')
+  j=js[0]
+@@ -168,19 +184,29 @@
+  return res
+ def context(b):
+  s2=b['sources']['S2_HALOGAS_PLANAR'];s1=b['sources']['S1_LEROY_T7'];cv=need(b,'conventions','E_CONVENTIONS',dict)
+- settings={k:{'value_as_stored':as_stored(need(v,'value','E_S2_SETTING')),'bundle_pointer':'/sources/S2_HALOGAS_PLANAR/settings/'+k,'source_pointer':need(v,'pointer','E_S2_SETTING_POINTER',str)} for k,v in need(s2,'settings','E_S2_SETTINGS',dict).items()}
++ st=need(s2,'settings','E_S2_SETTINGS',dict);settings={}
++ for k in S2_SETTINGS:
++  v=need(st,k,'E_S2_SETTING_'+k,dict);x=need(v,'value','E_S2_SETTING_'+k)
++  if not (isinstance(x,str) or type(x) is int or (isinstance(x,decimal.Decimal) and x.is_finite())):raise Fail('E_S2_SETTING_TYPE_'+k)
++  settings[k]={'value_as_stored':as_stored(x),'bundle_pointer':'/sources/S2_HALOGAS_PLANAR/settings/'+k,'source_pointer':need(v,'pointer','E_S2_SETTING_POINTER',str)}
+  items=need(cv,'items','E_CONVENTION_ITEMS',dict);geo={}
++ def ids(lst,code):
++  out=[]
++  for i,c in enumerate(need({'x':lst},'x',code,list)):
++   cid=need(c,'id',code+'_ID',str);out.append(cid)
++  return out
+  for sid in ('S1_LEROY_T7','S2_HALOGAS_C1'):
+-  for key in ('geometry','radial_coordinate','helium_conversion_state','error_fields','masks','support'):
+-   it=need(need(items,sid,'E_CONV_'+sid,dict),key,'E_CONV_'+sid+'_'+key,dict)
+-   geo['%s/%s'%(sid,key)]={'bundle_pointer':'/conventions/items/%s/%s'%(sid,key),'attached_correction_ids':[c.get('id') for c in need(it,'corrections','E_CONV_CORR',list)]}
++  for key,it in need(items,sid,'E_CONV_'+sid,dict).items():
++   geo['%s/%s'%(sid,key)]={'bundle_pointer':'/conventions/items/%s/%s'%(sid,key),'attached_correction_ids':ids(need(it,'corrections','E_CONV_CORR',list),'E_CONV_CORR')}
++ geo['source_level_corrections']={'bundle_pointer':'/conventions/source_level_corrections','correction_ids':ids(need(cv,'source_level_corrections','E_CONV_SOURCE_LEVEL',list),'E_CONV_SOURCE_LEVEL')}
++ geo['corrections_for_sources_not_in_bundle']={'bundle_pointer':'/conventions/corrections_for_sources_not_in_bundle','correction_ids':ids(need(cv,'corrections_for_sources_not_in_bundle','E_CONV_NOT_IN_BUNDLE',list),'E_CONV_NOT_IN_BUNDLE')}
+  oi=need(need(b,'open_issues','E_OPEN',dict),'items','E_OPEN_ITEMS',list);ids=[x.get('id') for x in oi]
+  for r in OPEN_REFS:
+   if r not in ids:raise Fail('E_OPEN_REF_MISSING')
+  return {'s2_settings':settings,'s2_measurement_uncertainty':{'state':need(need(s2,'measurement_uncertainty','E_S2_UNC',dict),'state','E_S2_UNC',str),'bundle_pointer':'/sources/S2_HALOGAS_PLANAR/measurement_uncertainty'},
+   's1_unknown_uncertainty':{'bundle_pointer':'/sources/S1_LEROY_T7/unknown_uncertainty'},'s1_table_level':{'bundle_pointer':'/sources/S1_LEROY_T7/table_level'},
+   'geometry_and_conversion_context':geo,'open_issue_refs':[{'id':r,'bundle_pointer':'/open_issues/items/%d'%ids.index(r)} for r in OPEN_REFS],
+-  'radius_convention_note':'S1 ring radii, S2 annulus edges and query radii are compared as the literal kpc numbers each source records; each source keeps its own geometry/distance convention (by reference); no rescaling, deprojection or aperture equivalence is asserted'}
++  'all_conventions_pointer':'/conventions','radius_convention_note':'S1 ring radii, S2 annulus edges and query radii are compared as the literal kpc numbers each source records; each source keeps its own geometry/distance convention (by reference); no rescaling, deprojection or aperture equivalence is asserted'}
+ # ---------------- publication (0348 lifecycle, reused from source-bundle adapter V005) ----------------
+ def candidate_path(outp):return outp.with_name(outp.name+'.candidate')
+ def publish(outp,b):
+@@ -229,9 +255,9 @@
+  for q in qs:
+   out_q.append({'query_id':q['query_id'],'Rad_text':q['Rad_text'],'Rad_unit':q['Rad_unit'],'bundle_pointer':q['bundle_pointer'],'source_pointer':q['source_pointer'],
+    'S1':s1_correspondence(q['q'],rows),'S2':[s2_correspondence(q['q'],p) for p in profs]})
+- res={'schema':'NGC3198_QUERY_SOURCE_COVERAGE_CANDIDATE_V001','status':'CANDIDATE_METADATA_ONLY',
++ res={'schema':'NGC3198_QUERY_SOURCE_COVERAGE_CANDIDATE_V002','status':'CANDIDATE_METADATA_ONLY',
+   'adapter':{'file':os.path.abspath(__file__),'sha256':sha(Path(os.path.abspath(__file__)).read_bytes())},
+-  'inputs':{'bundle':pb,'root_review':pr},'scope':'metadata-only correspondence of literal query radii to stored source grids; no interpolation, resampling, source choice, order averaging, unit/distance conversion, aperture assertion, density, velocity, force or UNT result',
++  'inputs':{'bundle':pb,'root_review':pr,'root_review_binding':'presence of the bundle sha in the sha-pinned review file; not an approval test'},'scope':'metadata-only correspondence of literal query radii to stored source grids; no interpolation, resampling, source choice, order averaging, unit/distance conversion, aperture assertion, density, velocity, force or UNT result',
+   'comparison':{'queries':'Fraction(Rad_text)','S1':'Fraction(exact rational radius string)','S2':'Fraction(Decimal(edge as stored in the bundle JSON))','rounding':'none'},
+   'labels':{'S1':['EXACT_SAMPLE_RADIUS','BRACKETED','BELOW_SAMPLED_RANGE','ABOVE_SAMPLED_RANGE'],'S2':['IN_ANNULUS','ON_FINAL_OUTER_EDGE','OUTSIDE_ABOVE','OUTSIDE_BELOW'],'S2_flags':['query_equals_inner_edge'],
+    'S1_component_flags':['p53_interpretation','error_kind','value_missing','upper_limit_marker']},

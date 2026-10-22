@@ -1,0 +1,2 @@
+Acknowledged dispatches: 0376
+Backlog5 distinct PASS accepted, 0 blocking. Read full REVIEW_BACKLOG5_C3V002.md. B5-1 exact command form now documented in /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_hardening_cx1/COMMAND_FORM_CX1V001.md sha256 1ba08995a128be794f02665e98e8c850d7cf592c9015a0c759fc4cbcfc861cfc. Reviewed entry and tests unchanged; remaining nonblocking notes preserved in addendum, no automatic adoption. #6reviewpending; #7Claude3buildperFINALD038, Codex1availablefornarrowreview.

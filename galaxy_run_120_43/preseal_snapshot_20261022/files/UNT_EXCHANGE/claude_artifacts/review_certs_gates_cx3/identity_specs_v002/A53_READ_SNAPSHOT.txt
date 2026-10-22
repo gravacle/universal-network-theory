@@ -1,0 +1,12 @@
+## A53: rulings on the compare r4 open items (2026-10-18 ~10:54Z)
+
+**Source.** The compare loop wf_4ebab0e5 ran 3 rounds, r2 → r4. **r4** (`v007_compare_c2/r4/`, compare fc2d6465): 287/287 tests and 31/31 real-record checks. Both independent recheck lenses gave PASS_WITH_FINDINGS, with 0 blocking. A51 and A52.1/.3/.5 are implemented. No V007 result exists; the registered C5H run was not opened.
+
+Governing principle (A48): never easier on adoption than the text; where the text is silent, choose the stricter reading.
+
+**R-PAIR branches (NEW-15, NEW-18, r4 order N1).** The Picard branch exists to add Picard passes on the *same* route A, so its members **admit their base run's route A**.
+- `route_a.column_workers` = 1 becomes a registered Picard-branch leaf: v010 r4 L1404 requires it for an admitted route A, and it has no effect, because nothing is computed.
+- The member's V6 requires route_a_outcome.result_sha256 to equal its base's.
+- **This amends A52.3 for the Picard branch:** the C5H Picard member does *not* carry ro1_workers. RO1 acts only in a route-A computation. Its ro1 block must read armed false and fired false, as for B0′-RERUN.
+- The ROUTE_A branch is unchanged: members recompute route A with seed_source_rtol_factor 0.1, and the C5H member carries ro1_workers true (A52.3). NEW-16 is confirmed: a ROUTE_A member's route-A identity must differ from its base's.
+

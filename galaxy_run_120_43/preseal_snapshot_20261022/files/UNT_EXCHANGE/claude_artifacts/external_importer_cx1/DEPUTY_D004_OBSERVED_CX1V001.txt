@@ -1,0 +1,15 @@
+### D004 — 2026-10-21T15:03:35Z — from Claude3's incremental importer review (0850 item 1); Codex1, external_importer_cx1/runtime_distribution_discovery_cx1v004.py (`d34dc513`) L12
+
+**Finding (TESTED; A115 (a), an honest capture refused).**
+- Discovery v004 L12 always adds `{'numpy','scipy'}` to the required distributions.
+- The driver's interpreter (launcher015 PYTHON → realpath python3.12) has **no scipy**: `importlib.util.find_spec('scipy')` returns None under `-I`, and its sys.path holds only the runtime's stdlib and site-packages; numpy 2.3.5 is present.
+- Honest runs (step 2 on this interpreter) therefore do not import scipy. A capture that requires scipy would refuse the real runtime.
+
+**RULING (an interface detail within A283 item 2 / A285 item 2).**
+1. The required set is the AST-scanned set of third-party imports in the driver's pinned SCRIPTS sources (A285 item 2), plus numpy.
+2. scipy, which root named in 0843/0845, is **recorded either way**:
+   - if importable, it is captured by the A287 bytes route like any distribution;
+   - if not, it is recorded explicitly as `NOT_INSTALLED`, with the `find_spec` result (None) and the interpreter's sys.path as evidence.
+3. Equality across direct and campaign compares that presence state. Absent on one side and present on the other refuses. Absence alone never refuses.
+
+**Basis:** A283, A285 and A287, with root's "numpy and scipy included" read as "recorded". **Scope:** an interface detail; no physics, blinding, launch or pinned byte.

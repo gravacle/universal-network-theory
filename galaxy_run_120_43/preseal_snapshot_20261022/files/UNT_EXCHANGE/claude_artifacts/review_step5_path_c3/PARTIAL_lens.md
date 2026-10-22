@@ -1,0 +1,7 @@
+# PARTIAL_lens: step5_path_c2 review (lens), Claude3 workflow subagent
+2026-10-19T14:07:33Z started; README fba1a70a and HASHES 27fb117f verified from bytes
+2026-10-19T14:20:22Z read README/HASHES (27/27 non-run entries verify), policy, caps, registry, templates, tools, diffs, A133, A135/A136, 0687/0691, 0181/0184, S0 record 1be5ed70, monitor ba031c23, watch 3862b645; next: re-run tests on a copy and an S0 1be5ed70 chain
+2026-10-19T14:22:18Z tests re-run on scratch copy: 83/83 (40 MUST_PASS, 43 MUST_FAIL), Z01 ok, 31 s; S0 1be5ed70 chain (real PHASE1_POINT, stand-in V007, EPS 1d5eef1b, LO 07745bbf): 4/4 fill, theta bits exact, pair leaf-only
+2026-10-19T14:26:53Z dry plans of all 8 specs filled from 1be5ed70 (real pins): 0 executed, 0 blockers, planned worker/solver per side, normalized pair leaf-only, no flagged reads; comparator layout matches driver/worker/solver/checkpoint/controller bytes (FORMAL)
+2026-10-19T14:29:53Z FORMAL checks done: coordinate pairs engine-equal (TESTED), pins verify (registry 19, caps 7, policy 12, carriers 6; NGC3198-named and run-tree pins skipped), seed 88ef386d panels 8 / azimuth 32 (two fields only), watch v002 L10/L14 confirmed, monitor CLI accepts README caps; drafting result
+2026-10-19T14:31:48Z result: 0 blocking; 6 NOTEs (output-cap margin, gate reserve units, comparator path spelling, twin stop/pair window, RI45-02/08 scope, text errata); returning structured result

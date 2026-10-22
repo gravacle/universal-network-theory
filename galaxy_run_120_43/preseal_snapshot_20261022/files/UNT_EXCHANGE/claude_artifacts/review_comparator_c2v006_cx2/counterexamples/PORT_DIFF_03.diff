@@ -1,0 +1,50 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/invocation_canaries_cx2v003.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/invocation_canaries_cx2v004.py
+@@ -20,6 +20,9 @@
+ import types
+ from pathlib import Path
+ import numpy as np
++
++import hashlib as _hashlib
++_g=Path(__file__).resolve().parent/'guard_cx2v001.py';_b=_g.read_bytes();assert _hashlib.sha256(_b).hexdigest()=='b6c741172795a8ee2e769063a80faefc9795ee27b338ae0ab9990a620a7848a1';exec(compile(_b,str(_g),'exec'),globals())
+ 
+ EX=Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts')
+ GEO=(str(EX/'stage_successor_gal_c2v005/driver/galaxy_m0_forward_c2v009.py'),'237ef3d41daf4d99b0aafed3e90b27b095a741a9f66ea06ea34f3e44876d47bb')
+@@ -140,8 +143,10 @@
+     ap=argparse.ArgumentParser();ap.add_argument('--comparator',required=True);ap.add_argument('--sha256',required=True);ap.add_argument('--out',required=True);ap.add_argument('--driver',choices=('r4','r5'),required=True);ap.add_argument('--only-baselines',action='store_true');a=ap.parse_args(argv)
+     out=Path(a.out).resolve();out.mkdir(parents=True,exist_ok=False);started=time.monotonic()
+     m=load(a.comparator,a.sha256,'cx2_invocation_comparator');m.DRIVER[:]=list(m.DRIVERS[a.driver]);drv=m.load_driver();cm=m.load_cm();rows=[]
++    owners={'F02':'REQUEST','F03':'REQUEST','F04':'REQUEST','F05':'REQUEST','F06':'REQUEST','F07':'REQUEST','F08':'SCRIPT_CUSTODY','F09':'SCRIPT_CUSTODY','F10':'REQUEST','F11':'REQUEST','F12':'REQUEST','F15':'STAGES','F16':'STAGES','F17':'STAGES','F18':'INVENTORY','F19':'INVENTORY','F20':'STAGE_SET','F22':'REQUEST','F23':'REQUEST'}
+     ref_req='stages/11_reference/request.json';ra_req='stages/07_route_a/request.json';arr='stages/11_reference/reference/response.npz'
+     def case(name,gate,expected,mut=None,note='',required_failure=()):
++        required_failure=tuple(set(required_failure)|({owners[name[:3]]} if name[:3] in owners else set()))
+         d=out/name;d.mkdir();r=Tree(d/'REF','REF',gate,m,drv,cm);n=Tree(d/'NEW','NEW',gate,m,drv,cm)
+         tokens=[]
+         if gate=='Z2':
+@@ -163,7 +168,7 @@
+         passed=passed and all(k in (rep.get('failing') or []) for k in required_failure)
+         if name=='F08_Z2_NEW_base_equals_REF_with_tokens':passed=passed and rep.get('checks',{}).get('TOKENS_POLICY',{}).get('pass') is True
+         rows.append({'name':name,'gate':gate,'expected':expected,'actual':verdict,'pass':passed,'failing':rep.get('failing'),
+-                     'exception':exception,'note':note,'required_failure':list(required_failure),'report':pin(op) if op.exists() else None,'tokens':pin(tp)})
++                     'owner_details':{k:rep.get('checks',{}).get(k) for k in required_failure},'exception':exception,'note':note,'required_failure':list(required_failure),'report':pin(op) if op.exists() else None,'tokens':pin(tp)})
+         print(name,expected,verdict,rep.get('failing'),flush=True)
+     case('P00_distinct_invocation_baseline','B0P_RERUN','PASS')
+     case('P01_Z2_correct_explicit_replacement','Z2','PASS')
+@@ -195,7 +200,7 @@
+         case('F16_npz_integer_float_dtype','B0P_RERUN','FAIL',dtype)
+         def order(r,n,t,d):
+             z=np.arange(12,dtype=np.float64).reshape(3,4);r.files[arr]=('npz',{'m':np.array(z,order='C')});n.files[arr]=('npz',{'m':np.array(z,order='F')})
+-        case('P17_npz_C_F_logical_identity','B0P_RERUN','PASS',order)
++        case('F17_npz_C_F_storage_difference','B0P_RERUN','FAIL',order,'Original P17 becomes MUST_FAIL under c2v006 ARRAY_POLICY: storage order is identity for NPZ too.',required_failure=('STAGES',))
+         case('F18_extra_dangling_symlink','B0P_RERUN','FAIL',lambda r,n,t,d:n.links.update({'dangling_alias.json':str(d/'NO_SUCH_TARGET.json')}))
+         def external_link(r,n,t,d):
+             target=d/'external_target.json';jfile(target,{'outside_fixture_tree':True});n.files.pop('stages/11_reference/reference/finish.json');n.links['stages/11_reference/reference/finish.json']=str(target)
+@@ -204,7 +209,7 @@
+         case('P21_exact_tail_block_prefix_insertion','Z2','PASS',lambda r,n,t,d:req(n).update(argv=req(n)['argv'][4:]+req(n)['argv'][:4]),'Route-B comparison permits the same exact contiguous block before the unchanged ordinary argv; route-A still requires suffix.')
+         case('F22_tail_flag_on_reference_side','Z2','FAIL',lambda r,n,t,d:r.obj(ref_req)['argv'].extend(['--uv-tail-admit-test-only']))
+         case('F23_manifest_outside_run','Z2','FAIL',lambda r,n,t,d:req(n)['argv'].extend(['--route-a-tail-manifest',str(d/'outside_manifest.json')]))
+-    rep={'schema':'CX2_INVOCATION_VALUE_CANARIES_V003','utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
++    rep={'date_u':os.environ.get('CX2_DATE_U'),'execution_note':'nice unavailable (sandbox); 0514 waiver','schema':'CX2_INVOCATION_VALUE_CANARIES_V003','utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+          'status':'TESTED' if pin(a.comparator)['sha256']==a.sha256 else 'STALE','selected_driver':a.driver,'tested_sha256':a.sha256,'byte_pin_unchanged_after':pin(a.comparator)['sha256']==a.sha256,'comparator':pin(a.comparator),'source':pin(__file__),'rows':rows,
+          'passed':sum(r['pass'] for r in rows),'total':len(rows),'unexpected':[r['name'] for r in rows if not r['pass']],
+          'all_trees_synthetic':True,'scientific_launches':0,'process_network_attempts':attempts,

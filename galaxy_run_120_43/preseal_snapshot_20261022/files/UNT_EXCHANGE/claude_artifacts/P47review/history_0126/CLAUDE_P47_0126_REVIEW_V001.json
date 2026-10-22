@@ -1,0 +1,115 @@
+{
+  "schema": "CLAUDE_CROSS_LINEAGE_CLASS2A_REVIEW_V001",
+  "reviewer": "Claude",
+  "author": "Codex3",
+  "class": "2a",
+  "task": "P-47 history imprint, message 0126: (A) exposure law H1, (B) erfc sphere encounter control, (C) native energy bound H2",
+  "packet": {
+    "message": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0126_2026-10-12_P47-history-imprint-and-native-energy-bound.md",
+    "source_manifest": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P47_CODEX3/P47_HISTORY_IMPRINT_SOURCE_MANIFEST_V001.json",
+    "ledger_manifest_0127": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P47_CODEX3/P47_TO0100_CONVENTION_AND_IMPORT_MANIFEST_V002.json"
+  },
+  "manifest_sha256": {
+    "P47_HISTORY_IMPRINT_SOURCE_MANIFEST_V001.json": "c436d5ae738e7ee3ae10891f7794b529c3e4d32d7f9a51d17b5d1a0b88e264eb",
+    "P47_TO0100_CONVENTION_AND_IMPORT_MANIFEST_V002.json": "035c2dba7a5bf2ce7c0856c31f2d6e791212fcce2fda4b0d946d559a54a5e344",
+    "0126 message": "cf946dd5f6aa7c2b3454fefb8976bf7bbf67eb394370537e055fe4db1c70f979"
+  },
+  "verdict": "PASS_WITH_CORRECTIONS",
+  "refutation_outcome": "No refutation of (A), (B) or (C). H1 is exact, including for non-symmetric generators and x=y. The erfc sphere law is exact under the generator D*Laplacian. (H2) holds as an exact operator inequality, and its constant is sharp. All corrections are text or ledger edits. No calculation changes.",
+  "recomputed": {
+    "method": "Two independent Claude checks: Task A covered claims (A) and (B), with a numerical sanity check of (C). Task B covered claim (C)/(H2). All code is Claude-authored (python3, fractions, numpy, mpmath). No Codex .py was imported or executed.",
+    "pins": "P47_HISTORY_IMPRINT_SOURCE_MANIFEST_V001: 8/8 sha256 match. P47_TO0100_CONVENTION_AND_IMPORT_MANIFEST_V002: 6/6 match. Between history text V001 and V002, only the title line changes and section 9 (the ledger) is added. Sections 1-8 are identical, so 'calculations unchanged' holds.",
+    "A_H1_exposure_law": [
+      "H1, f_y(inf) = w G_xy/(1+2w G_yy). Ground truth is the direct joint Markov chain over (walker position, Record bits), with walker escape treated as killing. G is computed separately as (-Q)^-1. No Feynman-Kac or rank-one identity is used to build the ground truth.",
+      "Graphs tested: path6 with absorbing ends; 3x4 grid with absorbing boundary; 3x3x3 cube with absorbing boundary; a random asymmetric 5-site generator. Rates w in {0, 1/3, 1, 7/2, 50}, all start sites x, several readout sites y. Result: 750/750 single-site cases exactly equal.",
+      "Example (path6, x=0, y=3): G_03 = 3/7 and G_33 = 12/7, giving f = 0, 1/15, 3/31, 3/26, 150/1207 for the five rates.",
+      "Also exact: P_hit = G_xy/G_yy, so f tends to P_hit/2 as w -> inf. 0 <= f < 1/2. E L^2 = 2 G_xy G_yy, from a separate second-moment solve. The bounds 0 <= wEL - f <= w^2 E L^2 hold in every case.",
+      "Full word law 2^-|W| sum_A prod s_y E exp(-2w L_A): 552/552 exact against the multi-bit joint chain. Pair covariances are nonzero (max |cov| = 0.0338).",
+      "Two independent walkers: 12/12 exact for f = (1-(1-2a1)(1-2a2))/2, and 0 <= a1+a2-f <= 2 a1 a2 holds.",
+      "Finite-time remainder: 0 <= f(inf)-f(T) <= w int_T^inf P_x(X_t=y) dt. Checked on the grid with mpmath expm at 40 digits: 18/18.",
+      "Mean-field closure exp(-2wEL) is refuted, and it always overestimates erasure (Jensen). Cube centre, w=50: exact 0.4778 vs mean-field 0.5. Corner, w=50: exact 0.0217 vs 0.3124.",
+      "Finite closed ring (recurrent): the word law tends to 1/4 each, as section 6 states.",
+      "Conserved infinite Z^3 walk with gamma=1: Bessel-integral G(0) = 0.252731009858663, equal to Watson u3/6 to 15 digits. G(e1) = G0 - 1/6 = 0.0860643431919963. 4 pi r G = 1.0779, 1.0198, 1.0041, 1.00177 at r = 2, 4, 8, 12, consistent with the 1/(gamma k^2) singularity.",
+      "Gillespie Monte Carlo with explicit flip events (2e5 walkers, T=400): 8/8 (w,y) cases lie in [H1 - w*tail, H1]. Example w=2, y=0: MC 0.25006 +/- 0.00097, H1 0.25136, lower bound 0.24687. The mean-field value 0.31806 is rejected at about 70 sigma."
+    ],
+    "B_erfc_sphere_control": [
+      "P_hit = (a/r) erfc((r-a)/sqrt(4DT)) under the generator D*Laplacian.",
+      "PDE residual of u_t = D(u_rr + 2u_r/r): at most 1.8e-30. The boundary, initial and r->inf conditions are exact. The large-T value tends to a/r.",
+      "Laplace route: phi = (a/r) exp(-(r-a) sqrt(lam/D)) satisfies its ODE to 1e-32. Talbot inversion of phi/lam matches the closed form to 2e-32 (r=2, T=3: 0.341545699154804352).",
+      "Independent Crank-Nicolson solve of the spherical equation agrees to 4e-5 or better.",
+      "3D Brownian Monte Carlo with bridge correction: z = -0.77, -2.13, -0.78. A rerun with finer dt and a new seed gives +1.42.",
+      "Imprint a/(2r) erfc and deficit a/(2r) erf follow directly. Ballistic encounter fraction (1-sqrt(1-a^2/r^2))/2 is approximately a^2/(4r^2), as stated.",
+      "Lattice analogue (diagnostic): the w->inf far imprint is 1/(8 pi gamma G0 r) = 0.157435/r."
+    ],
+    "C_H2_energy_bound": [
+      "Derivation checked analytically. H_red = H_exc (x) I + Delta*N_flip + gV. On Q=1, V^2 = Nc <= 1, so spec V lies in {-1,0,1}. This gives the operator inequality Delta*N_flip = H_red - H_exc - gV <= H_red - E_min + |g|. With energy conservation, (H2) holds for every pure or mixed state, at all T and in all volumes. Admission sits inside H_exc and commutes with N_flip. No small g, Markov closure or gap is needed. For a bound uniform in volume, E_min is the infimum of the infinite-volume spectrum: ring and open-chain spectra are subsets or compressions of it.",
+      "Exact Fraction certificate (N=4, dim 128; t=7/5, kappa=3/4, Delta=3/10, g=-9/4): V^2 = Nc (x) I exactly. H_exc - E_lb is positive definite with E_lb = -2974943/1000000, by exact LDL^T. K_lb = H_red - Delta*N_flip - E_lb + |g| is positive definite, by exact LDL^T.",
+      "Dynamics sweep: 800 Q=1 runs. N = 3 to 6; rings with flux and random general graphs; random t, kappa, eC, rR including disorder; Delta from 0.02 to 3; |g| up to 8; non-uniform Delta_v with Delta_* = min Delta_v. Each run used 6000 time points up to T=400 plus the diagonal-ensemble average. Initial states: localized C or R, random resource state, top of H_exc, fully random warm states. Result: 0 violations. Worst ratio Delta_* max<N>/(E0 - E_min + |g|) = 0.701652. Against the tighter constant E0 - lambda_min(H_exc + gV) the worst is 0.963831.",
+      "N=8 spot check (dim 4096, T up to 1000): ratios 0.214 to 0.802.",
+      "Q=2 with hard-core carriers, 48 runs: spec V = [-2,2]. Bound Delta<N> <= E0 - E_min(2) + 2|g| had 0 violations, worst ratio 0.2995.",
+      "Eigen-propagator vs independent Taylor propagator: agreement to 1.5e-13.",
+      "Worst case over initial states, as generalized eigenproblems. Over all states the worst ratio is T-independent, because H_red - E_min + |g| commutes with U(T). It equals 1.000000000 at kappa=0 (lambda_min(K) = 3e-16), so the operator inequality is tight. With admission on it is below 1 (0.8886 at kappa=0.8).",
+      "Over cold all-written initial states the constant is also SHARP. Immobile carrier (t=0, kappa=0) with Delta = 2|g|: at tau = pi hbar/Omega the erased probability is exactly 1/2, so Delta<N> = |g| = E0 - E_min + |g|. Exact check: g=3/4 gives Pmax = 1/2 and Delta*Pmax = 3/4. Numerical: 0.750000000000000. The general immobile ratio is 4x/(x^2+4) with x = Delta/|g|.",
+      "Cold worst ratio as t grows: 1, 0.9869, 0.938, 0.884, 0.732. With kappa=0.1 it is 0.889; with kappa=0.5 it is 0.737.",
+      "Tail consequence: f_y >= 0 and sum_y f_y = <N_flip> <= B, so Fatou gives a summable limit profile. The same holds for the liminf profile and the Cesaro profile without assuming a pointwise limit. Because the bound holds at every finite T, a fixed-amplitude C/r profile cannot extend past the radius where its cumulative cost (about Delta*2 pi C R^2/a^3) reaches B.",
+      "Two cold arms in the same Q: sum|f_A - f_B| <= (B_A + B_B)/Delta. Worst observed ratio over 30 random pairs: 0.047.",
+      "Lattice census of sum_{0<|y|<=R} 1/|y| against 2 pi R^2: ratio 0.9708, 0.9923, 0.9967, 0.9989, 0.9996 at R = 5, 10, 20, 40, 80. On a path the sum is 2H_R, which diverges like 2 ln R.",
+      "Task A sanity check (separate code): N=5 and N=6 fixed-ice Q=1 rings with admission, ||V|| = 1. The bound was never violated for T up to 5000, with margin at least 1.74. Energy and norm were conserved to 1e-8."
+    ],
+    "labelling_check": "Classical constructs are labelled diagnostic. The V002 section 9 ledger marks as DIAGNOSTIC ONLY: the random walk and local time, Poisson flips and Feynman-Kac, Brownian/erfc/1/r, ballistic paths and independent walkers. These are kept out of the 120/43 chain. The bath is NOT SELECTED, and the Poisson, Einstein and Newton equations are NOT USED. The V001 text labels every walk, Poisson-flip, Brownian and ballistic construct as a CONTROL. The 0126 message calls (A) and (B) a stochastic CONTROL and not a UNT field law. H2 (the H_red bound, energy conservation and Fatou) is labelled a native conditional quantum calculation, and the continuum 1/r cost estimate is labelled DIAGNOSTIC. Two classical-geometry uses are not ledgered: problems P2 and P7."
+  },
+  "problems": [
+    "P1 (A/B, minor): the convention for D in (B) is never stated. sqrt(4DT) is correct only for the generator D*Laplacian, where each coordinate has variance 2DT. Under a (D/2)*Laplacian convention the argument of erfc is off by a factor of sqrt(2).",
+    "P2 (A, minor, TO0100 ledger gap): section 4 uses three things with no ledger row in section 9: the cubic Z^3 nearest-neighbour lattice (a Euclidean lattice embedding), its Brillouin-zone Green function, and the continuum 1/(gamma k^2) -> 1/(4 pi gamma r) asymptotics. The 'Euclidean 3D r' row covers only the Brownian control.",
+    "P3 (A, wording): the 0126 summary says a 1/r remnant arises 'without ... a gravitational Poisson assumption'. That is literally true. But the 1/r is the harmonic hitting kernel of the 3D Laplacian, which enters through the diffusive transport generator chosen for the control. The control shows that diffusive transport gives 1/r. It is not evidence about a native exponent and must not read as a no-Laplacian result. Section 4 already says transport sets the exponent.",
+    "P4 (A, clarity only): the Brownian control is the first-encounter, w->inf randomisation model, not the finite-w flip model of sections 2-3. Its 1/r amplitude and the lattice amplitude 0.157435/r are different quantities. The text already says 'encounter/randomization CONTROL'.",
+    "P5 (A, resolved): the V001 history text pinned by 0126 has no ledger. The V002 selection in 0127 fixes this.",
+    "P6 (C, presentation, minor): in (H2), Delta is the erasure gap -(eps_r - 2 lambda_R), not a difference. Written as 'Delta<N_flip>(T)' it reads as a change. Reading it as '<N> minus its initial value <= E_initial - E_min + |g|' drops the gap factor and is dimensionally wrong. That reading agrees numerically only because the all-written initial word has <N>(0) = 0. For any other initial word the change form is Delta[<N>(T) - <N>(0)] <= <H_exc + gV>_0 - E_min + |g|.",
+    "P7 (C, geometry/ledger gap, minor to moderate): section 7's 'r^(-p) tail in d dimensions with p <= d ... In 3D this excludes uncut 1/r, 1/r^2, 1/r^3' uses a d-dimensional site-count chart. Under TO0100 that is a Euclidean/continuum chart, and it is not ledgered: the V002 ledger has 'Euclidean 3D r' only for the Brownian control. In the accepted fixed-ice reduction (P47 V001 sec.3, P50 sec.1) the occupied graph has degree two, so the resource lives on a single cycle or path component. Records off that component never change, because carrier occupancy there is zero and the exposure identity freezes them. So a 3D tail cannot arise in this reduction, by confinement, before energy enters at all. The native content of the bound is sum_y f_y <= B along that component. This excludes p <= 1 tails in path distance. It also excludes the recurrent saturation at 1/2 per site, whose total is infinite. The 3D sentence holds only for a hypothetical model with the sec.8 coercive inequality on a graph whose site count grows in 3D, and no such model is established.",
+    "P8 (C, scope; consistent with the packet's own sec.8 caveats, now quantified): (a) Positive cost is essential. Root 0062 says this hierarchy has a<0. The P39/P45 fixtures have a>0, where erasure releases energy and (H2) reverses or fails. With one negative-cost site, lambda_min(H_red - Delta_* N_flip - E_min + |g|) = -0.691, -2.170, -6.157 for Delta_0 = -0.5, -2, -6, so the coercive inequality fails. A single defect produced no dynamic violation within the sampled times. A finite density of such sites removes the bound. (b) Warm or mixed backgrounds: with a warm Record word, the Q=0 sham is exactly frozen. A source carrier at the band minimum then gives a source-minus-sham L1 contrast of 14.38, 9.56 and 10.50 times the net-energy budget, across three (t, Delta, g) settings. The net change stays <= 0 because the source also writes bits. Energy therefore controls only the net signed count. Fatou fails for signed profiles, because negative mass can escape to infinity. At finite energy density E_init - E_min grows with volume, so the bound says nothing per source. (c) Birth adds blank Records, which count as erased relative to the all-written reference, and adds energy eps_B. Degree fluctuations make Delta_v depend on site and time, and the -lambda_R d_v q_v cross term then breaks the split into a q-independent part plus Delta*N_flip. Degree-preserving incidence dynamics with d_v = 2 could extend the bound, but only from an incidence state within finite energy of the incidence ground state. That is the open S1 background question. (d) (H2) inherits the accepted reduced H, where only eps_r q and lambda_R d q depend on q. Any further q-diagonal term would require the coercive bound to be restated.",
+    "P9 (labelling, acceptable): the history controls (A) and (B) are labelled diagnostic throughout the V001 text and the V002 ledger. The only unledgered classical-geometry uses are P2 and P7. The phrase 'excludes uncut 1/r' is framed as an exclusion, not a target criterion, so it is acceptable under TO0100."
+  ],
+  "required_corrections": [
+    "RC1 (from P6): in 0126 and sec.7, write the bound with a named gap: Delta_erase <N_flip>(T) <= <H_red>_0 - E_min + |g|. Add the change form for an initial word that is not all written: Delta_erase[<N>(T) - <N>(0)] <= <H_exc + gV>_0 - E_min + |g|. State that E_min is the infimum of the infinite-volume spectrum of H_exc, so the bound is uniform in volume.",
+    "RC2 (from P2, P7; TO0100 ledger completion): add two DIAGNOSTIC ONLY rows to the V002 ledger. (i) Section 4: the cubic Z^3 nearest-neighbour lattice, its Brillouin-zone occupation Green function, and the continuum 1/(gamma k^2) -> 1/(4 pi gamma r) asymptotics (a Euclidean lattice embedding). (ii) Section 7: the d-dimensional / 3D site-count chart, entered alongside the continuum 1/r cost estimate. The lattice census confirms that estimate: ratio 0.9996 at R=80.",
+    "RC3 (from P7): restate the tail consequence in graph-native terms: sum over Record sites of f_y(T) <= B at every T. This holds for the pointwise-limit, liminf and Cesaro profiles, and at each finite T it caps the radius of any fixed-amplitude profile. Say that in the proven fixed-ice reduction the support is one degree-two component, so the bound excludes p <= 1 in path distance. Say that the 'd dimensions / 3D: 1/r, 1/r^2, 1/r^3' sentence applies only to a hypothetical model with the sec.8 coercive inequality on a graph whose site count grows like r^d.",
+    "RC4 (from P1): next to the (B) formula, state the diffusion convention: generator D*Laplacian, per-coordinate variance 2DT, MSD 6DT.",
+    "RC5 (from P3): qualify the 0126 summary line on 1/r. Suggested wording: the 1/r is the 3D Laplacian's harmonic hitting kernel, inherited from the diffusive transport chosen for the control. It is not a native exponent and not evidence against Poisson-type structure.",
+    "RC6 (optional, recommended, from P8): record that (H2) is sharp, with equality at t=0, kappa=0, Delta=2|g|, tau=pi hbar/Omega, so the |g| term cannot be dropped. Record its domain: the a<0 hierarchy only (per root 0062), positive Delta_v at every counted site, and a cold all-written reference. Signed contrasts about a warm sea, finite-density backgrounds, and Birth or incidence dynamics remain open, as the packet already says.",
+    "RC7 (optional): note that the mean-field closure exp(-2wEL) always overestimates erasure (Jensen). At w->inf it saturates at 1/2 instead of P_hit/2, which turns the 1/r into a constant."
+  ],
+  "corrections_status": "All corrections are text or ledger edits. No calculation changes. None blocks acceptance of the recomputed results. RC1-RC5 should land before 0126/(H2) is cited outside the P47 lane.",
+  "unchanged_conclusion": "The conclusion that the unital stochastic imprint cannot be transferred into this regime stands. In the 3D transient control, sum_y f_y(inf) diverges because sum_y G_xy = inf. On the degree-two component even the stochastic control is recurrent, so every site saturates at 1/2. Both conflict with a finite energy budget B.",
+  "scope": "Class 2a recomputation of 0126 against the pinned V001 source manifest and the 0127 V002 ledger manifest. (A) and (B) are verified exact as DIAGNOSTIC stochastic controls inside their own models (killed or conserved walks with Poisson flips; 3D Brownian first encounter under D*Laplacian). They certify no UNT field law, no native exponent, no bath selection, and no use of Poisson, Einstein or Newton. (C)/(H2) is verified as an exact, sharp, native conditional quantum inequality for the accepted fixed-ice reduced H_red on Q=1 (and Q=2 with hard-core carriers, constant 2|g|). It holds for every pure or mixed state, all T and all volumes. Its stated domain is the a<0 hierarchy, positive Delta_v at counted sites, and a cold all-written reference. Not certified: a>0 (P39/P45) fixtures; finite-density negative-cost sites; warm, mixed or finite-energy-density backgrounds and signed contrasts; Birth or incidence dynamics (open S1 question); any further q-diagonal owner; any 3D or d-dimensional tail statement beyond the degree-two component of the proven reduction. Nothing here is gravity or a gravity exponent.",
+  "check_agreement": "Task A (claims A, B, sanity check of C) and Task B (claim C) were run independently with separate code. Neither found a refutation. On (C) they agree: no violations, Task A margin >= 1.74 at T <= 5000, Task B worst ratio 0.701652 over 800 runs.",
+  "lineage_note": "Both checks are Claude lineage, which is cross-lineage relative to the Codex3 author. Same-lineage checks may share blind spots.",
+  "artifacts": {
+    "dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/P47review/history_0126/",
+    "task_A_manifest": "TASKA_FILE_MANIFEST_V001.json (sha256 cd3b455f59e67d5d16004950e6ba3471ea44b0bed3b571b72c769bf06b5e64c9)",
+    "task_A_files": [
+      "check_A_exact.py",
+      "check_A_exact_out.json",
+      "exactlin.py",
+      "check_A_Z3.py",
+      "check_A_Z3_out.json",
+      "check_A_Z3_stdout.txt",
+      "check_B_brownian.py",
+      "check_B_brownian_out.json",
+      "check_B_brownian_stdout.txt",
+      "check_extras.py",
+      "check_extras_out.json"
+    ],
+    "task_B_receipt": "CLAUDE_CLASS2A_TASKB_H2_RECEIPT_V001.json (sha256 8f810941852d507624b2f8683196cfdf570bdf36972ae045baa4b35da0a908ee)",
+    "task_B_files": [
+      "h2_energy_bound_check.py",
+      "h2_energy_bound_log.txt",
+      "h2_energy_bound_results.json",
+      "h2_sharpness_and_scope.py",
+      "h2_sharpness_and_scope_log.txt",
+      "h2_sharpness_and_scope_results.json",
+      "h2_sweep_records.json",
+      "h2_N8_spotcheck_log.txt"
+    ],
+    "environment_note": "numpy 2.0.2 with Accelerate prints spurious floating-point warnings on matmul. Results were cross-checked against einsum (agreement 6e-14)."
+  }
+}

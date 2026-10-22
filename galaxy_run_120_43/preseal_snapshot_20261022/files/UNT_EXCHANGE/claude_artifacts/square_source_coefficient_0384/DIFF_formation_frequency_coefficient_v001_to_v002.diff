@@ -1,0 +1,95 @@
+--- formation_frequency_coefficient_v001.py
++++ formation_frequency_coefficient_v002.py
+@@ -1,4 +1,4 @@
+-# UNT support task 0392 -- inert author implementation, v001.
++# UNT support task 0392 -- inert author implementation, v002 (review F1/F6: intermediate finiteness, j = 0).
+ # One public function, formation_frequency_coefficient, plus private helpers.
+ # Helpers are copied (not imported) from the reviewed 0390 V002 modules in this
+ # directory. Module-level code is limited to the numpy import and function
+@@ -165,7 +165,8 @@
+             "only F(z) - F(0), never both. The remainder bound controls only this "
+             "coefficient's frequency expansion, not omitted coupling orders, other owners "
+             "or collective poles. Bare nonstationary preparation needs the two-time "
+-            "kernel. No causal lapse-inverse shortcut is authorized."
++            "kernel. No causal lapse-inverse shortcut is authorized. This is the j = 0 "
++            "reference coefficient: there is no source argument and no source shift in D_ab."
+         ),
+     }
+ 
+@@ -209,7 +210,8 @@
+         q_a  = |sum_i conj(U_d[i,a]) chi[i]|^2,   w_ab = q_a q_b,
+         D_ab = 2 Ud + 2 sigma mu0 + E_a(d) + E_b(d) - 2 e2   (all 16 > pos_tol),
+         |sum w - 1| <= resid_tol (no renormalization),  m_sigma = min D_ab,
+-        r_p  = sum w_ab / D_ab^p,  p = 2, 3, 5, 7.
++        r_p  = sum w_ab / D_ab^p,  p = 2, 3, 5, 7  (every D_ab^p must be finite and > 0).
++      j = 0 reference: there is no source argument and no source shift in D_ab.
+       For every z (|z| < m_sigma for BOTH sigma):
+         F_sigma(z)  = 2 sum w_ab / [D_ab (D_ab^2 - z^2)],
+         F4_sigma(z) = 2 (r_3 + z^2 r_5 + z^4 r_7),
+@@ -237,7 +239,9 @@
+     selection, a metric kernel or a prediction. At z = 0 it equals the static
+     contact; the caller REPLACES that contact with F(z) or adds only F(z) - F(0),
+     never both. The bound controls only the frequency expansion. No lapse-inverse
+-    shortcut.
++    shortcut. This is the j = 0 reference coefficient. The bound's intermediates
++    m_sigma^9, |z|^6 and 1 - |z|^2/m_sigma^2 must be finite, with m_sigma^9 > 0 and
++    1 - |z|^2/m_sigma^2 > 0, or the call fails closed.
+     """
+     result = _new_result()
+     failures = result["failures"]
+@@ -427,6 +431,15 @@
+             )
+         if len(failures) > n_failures_before:
+             continue
++        for p in (2, 3, 5, 7):
++            D_p = D ** p
++            if not (np.all(np.isfinite(D_p)) and np.all(D_p > 0.0)):
++                failures.append(
++                    f"pair table sigma={sigma:+d}: D**{p} has a zero or non-finite entry "
++                    "(overflow or underflow)"
++                )
++        if len(failures) > n_failures_before:
++            continue
+         r_p = {}
+         t = w
+         for p in range(1, 8):
+@@ -475,19 +488,36 @@
+             F = 2.0 * np.einsum("ab->", w / denom, optimize=False)
+             F4 = 2.0 * (r[3] + z2 * r[5] + z4 * r[7])
+             ratio = (az * az) / (m * m)
+-            bound = 2.0 * az ** 6 / (m ** 9 * (1.0 - ratio))
++            m9 = m ** 9
++            az6 = az ** 6
++            one_minus = 1.0 - ratio
++            if (
++                np.isfinite(m9)
++                and m9 > 0.0
++                and np.isfinite(az6)
++                and np.isfinite(one_minus)
++                and one_minus > 0.0
++            ):
++                bound = 2.0 * az6 / (m9 * one_minus)
++            else:
++                bound = None
++                failures.append(
++                    f"frequency: bound intermediate m**9 = {float(m9)!r}, |z|**6 = "
++                    f"{float(az6)!r} or 1 - |z|^2/m^2 = {float(one_minus)!r} is non-finite "
++                    f"or not > 0 at z[{k}], sigma={sigma:+d}"
++                )
+             finite = bool(
+                 np.all(np.isfinite(denom))
+                 and np.isfinite(F)
+                 and np.isfinite(F4)
+-                and np.isfinite(bound)
++                and (bound is None or np.isfinite(bound))
+             )
+             per_sigma.append(
+                 {
+                     "sigma": sigma,
+                     "F": _pair(F),
+                     "F4": _pair(F4),
+-                    "frequency_remainder_bound": float(bound),
++                    "frequency_remainder_bound": None if bound is None else float(bound),
+                 }
+             )
+             if not finite:

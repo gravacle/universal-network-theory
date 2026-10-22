@@ -1,0 +1,114 @@
+"""H3 campaign entry (Claude2 h3_campaign_path_c2, c2v001; V006 A188): successor of w1_campaign_entry_v001 (6a6957f2).
+
+What it is.  The launch entry of the DDO154 calibration campaign on the q5b1-line wrapper (V006 A139: the wrapper with the
+A134 Q5 per-state LO slot rule).  It loads the wrapper from its bytes after a sha256 check; the wrapper pins its core, the
+core pins the adoption policy and the parent c75a889f, and the wrapper/core replace the parent's module globals Context,
+Orchestrator, Mapper, Cache, CampaignExecutor, check_deciding, check_numerics and resolve.  `plan`, `status`, `run` and
+`resolve` are then the parent's own main(argv) over that patched module: no argument is added, removed or reinterpreted,
+so the parent's refusal semantics and exit codes (EXIT, parent L204-206) are unchanged.
+
+Changes against w1_campaign_entry_v001 (6a6957f2), and nothing else:
+  1. WRAPPER / WRAPPER_SHA pin the q5b1-line wrapper.  The generator make_campaign_cascade_c2v001 rewrites exactly these two
+     lines when it re-pins the chain (this template pins the published q5b1 wrapper 7a6af535; the generator's regression
+     reproduces this file byte for byte).  ENTRY_NAME names this successor.
+  2. main(argv) = dispatch(load_wrapper(), argv); check_patch() is v001's pin/patch check, factored out unchanged.
+  3. New command `reingest` (A188 gap 3): the wrapper's own Orchestrator.reingest(wave, call_index, bundle_ref)
+     (q5b1 L335-358: lock, prepare(create=False), SF1 identity, cache id, call index, spec, write_acceptance, classify,
+     cache put; no solver call).  Entry guards, all refusals before the wrapper is called: every gate of this config
+     passes (Context.gates_ok); the wave's WAVE_PLAN exists and was planned under this config_sha256 and gate_digest
+     (parent L3320); the bundle pin is {path, sha256} and its bytes verify.  Output: one JSON object; exit 0 OK, 3 REFUSED,
+     8 LOCKED.
+
+usage:
+  python3 -I -B h3_campaign_entry_<SUB>.py plan     --config CFG
+  python3 -I -B h3_campaign_entry_<SUB>.py status   --config CFG
+  python3 -I -B h3_campaign_entry_<SUB>.py run      --config CFG [--new-campaign] [--max-waves N]
+  python3 -I -B h3_campaign_entry_<SUB>.py resolve  --config CFG --wave W (--token T ... | --all --halt-sha256 H)
+                                                    --decision retry|retry_with_recovery [--recovery P] --reason TEXT
+  python3 -I -B h3_campaign_entry_<SUB>.py reingest --config CFG --wave W --call-index I --bundle B --bundle-sha256 H
+`run` must be started through launch_setsid_c2v005.py (C4-4: a non-synthetic run refuses unless it is the session leader).
+"""
+import argparse
+import hashlib
+import importlib.util
+import json
+import sys
+from pathlib import Path
+
+WRAPPER = Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/calibration_orchestrator_cx2v006r10_c4_q5b1.py')
+WRAPPER_SHA = '7a6af535805399d49ec3f1c1cbe9e4911d98f6fae0ad50b69a0641214fcd5d4d'
+PARENT_SHA = 'c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d'
+ENTRY_NAME = 'h3_campaign_entry_c2v001'
+REINGEST_EXIT = {'OK': 0, 'REFUSED': 3, 'LOCKED': 8}
+
+
+def load_wrapper():
+    raw = WRAPPER.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != WRAPPER_SHA:
+        raise SystemExit('PIN_MISMATCH wrapper %s' % WRAPPER)
+    sp = importlib.util.spec_from_file_location('_cx2q5b1_h3_entry', WRAPPER)
+    m = importlib.util.module_from_spec(sp)
+    sys.modules[sp.name] = m
+    exec(compile(raw, str(WRAPPER), 'exec'), m.__dict__)
+    return m
+
+
+def check_patch(M):
+    O = M.O
+    if hashlib.sha256(Path(O.__file__).read_bytes()).hexdigest() != PARENT_SHA:
+        raise SystemExit('PIN_MISMATCH parent %s' % O.__file__)
+    if O.Context is not M.Context or O.Orchestrator is not M.Orchestrator:
+        raise SystemExit('wrapper patch not installed on the parent module')
+    return O
+
+
+def reingest(M, config, wave, call_index, bundle_ref):
+    """Entry guards, then the wrapper's own reingest.  Returns the wrapper's dict or a REFUSED dict."""
+    O = M.O
+    ctx = M.Context(config)
+    if not ctx.gates_ok():
+        return {'status': 'REFUSED', 'reasons': ['REINGEST_GATES_NOT_PASSED: %s'
+                                                 % sorted(k for k, g in ctx.gates.items() if not g.get('ok'))]}
+    pp = ctx.work_dir / 'waves' / ('wave_%04d' % int(wave)) / 'WAVE_PLAN.json'
+    if not pp.is_file():
+        return {'status': 'REFUSED', 'reasons': ['REINGEST_NO_WAVE_PLAN: %s' % pp]}
+    plan = O.load_json_file(pp, 'wave plan')
+    if plan.get('config_sha256') != ctx.config_sha256 or plan.get('gate_digest') != ctx.gate_digest:
+        return {'status': 'REFUSED', 'reasons': ['REINGEST_PLAN_CONFIG_OR_GATES_DIFFER: wave %s was planned under config %s '
+                                                 'gates %s; this config gives %s / %s'
+                                                 % (wave, str(plan.get('config_sha256'))[:16],
+                                                    str(plan.get('gate_digest'))[:16], ctx.config_sha256[:16],
+                                                    ctx.gate_digest[:16])]}
+    if not isinstance(bundle_ref, dict) or set(bundle_ref) != {'path', 'sha256'}:
+        return {'status': 'REFUSED', 'reasons': ['REINGEST_BUNDLE_PIN_REQUIRED: {path, sha256}']}
+    O.read_pinned(bundle_ref, 'post-state certificate bundle')
+    return M.Orchestrator(ctx).reingest(int(wave), int(call_index), bundle_ref)
+
+
+def dispatch(M, argv):
+    check_patch(M)
+    if argv and argv[0] == 'reingest':
+        ap = argparse.ArgumentParser(prog=ENTRY_NAME + ' reingest')
+        ap.add_argument('command', choices=('reingest',))
+        ap.add_argument('--config', required=True)
+        ap.add_argument('--wave', type=int, required=True)
+        ap.add_argument('--call-index', type=int, required=True)
+        ap.add_argument('--bundle', required=True)
+        ap.add_argument('--bundle-sha256', required=True)
+        a = ap.parse_args(argv)
+        try:
+            out = reingest(M, a.config, a.wave, a.call_index, {'path': a.bundle, 'sha256': a.bundle_sha256})
+        except (M.Error, M.CertificateRefusal, OSError, ValueError, KeyError, TypeError) as exc:
+            out = {'status': 'REFUSED', 'reasons': ['%s: %s' % (type(exc).__name__, exc)]}
+        out = dict(out, launches_performed=0)
+        print(json.dumps(out, indent=1, sort_keys=True, default=str))
+        return REINGEST_EXIT.get(out.get('status'), 3)
+    return M.O.main(argv)
+
+
+def main(argv):
+    return dispatch(load_wrapper(), argv)
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

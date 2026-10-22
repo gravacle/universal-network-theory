@@ -1,0 +1,580 @@
+--- driver_v007_c2/galaxy_m0_forward_c2v007.py	2026-10-17 13:03:56.269293541 -0500
++++ driver_v008_c2/galaxy_m0_forward_c2v008.py	2026-10-17 14:02:53.295646176 -0500
+@@ -1,4 +1,25 @@
+ """INERT parameterized clean m=0 ("route B") forward driver, Claude2 lane, galaxy-config binding c2v006.
++c2v008 (Claude2 lane driver_v008_c2): successor of driver_v007_c2/galaxy_m0_forward_c2v007.py (0338584b).
++Changes ONLY (see the C2V008 comments):
++  (a) DDO154 physical.distance_Mpc is a call input again: the c2v003b/c2v003c per-call geometry path (derive_geometry,
++      geometry_inputs, GEOMETRY_PINS; absorb_c2_0473/driver_f/galaxy_m0_forward_c2v003c.py ed326130) is ported VERBATIM and
++      wired into the galaxy-config structure: route-A prep module patch C (as c2v003c), route-A custody source-profile pin
++      (ROUTE_A_GEOMETRY_MISMATCH, as c2v003c), the reference PROFILE/PROFILE_SHA stage globals and reuse-module patch (as
++      c2v003c), and the per-call config fields source.profile, source.monotone_source, radial.outer_edge_kpc,
++      observation.binding, observation.query_rows (to the stages that consume them).  Inclination stays registered-only;
++      NGC3198 keeps its registered geometry (both NGC normalizers unchanged).  At the registered 4.04 Mpc nothing new is
++      planned or written (requests byte-identical to c2v007).  At D != 4.04 the gal_c2v004 stages' OWN shared admission
++      (schema V004) refuses those PER_CALL fields for DDO154 (only DDO154_EXACT_LITERAL or PER_CALL on per-call kinds), so
++      run mode is BLOCKED (GEOMETRY_NOT_ADMITTED_BY_STAGE_BINDING) before any stage, from a probe that runs each stage's
++      own admission function on the per-call config (and on a registered-geometry control copy).  Also ported from
++      c2v003c: the admitted reference/body geometry custody (reference start.json source_custody, body input_pins).
++  (b) is the deciding-(ii) comparator (deciding/compare_deciding_ii_c2v008.py); no driver change.
++  (d) c2v003c CHECK D1 (DDO154): a route-A attempt must belong to the checkpoint it is paired with (result.json
++      source_fixed_point.checkpoint.identity_sha256 == IDENTITY, and its attempt token has an attempts/<token>.end.json of
++      that identity); else Refusal ROUTE_A_ATTEMPT_NOT_OF_THIS_CHECKPOINT, checked before the F1 outcome.
++  Not changed (INTERFACE_V008 (c)): LE and reference column parallelism (the column mean v004 consumes exactly one 72-column
++  run; the reference stage writes one run of all radii).
++c2v007 text follows.
+ c2v007 (Claude2 lane driver_v007_c2): successor of ngc_f10_c2/route_b_v006/galaxy_m0_forward_c2v006.py (c53997b4).
+ Changes ONLY (see the C2V007 comments):
+   (a) the four RD1 driver fixes of absorb_c2_0473/driver_f/galaxy_m0_forward_c2v003c.py (ed326130; hunks in
+@@ -222,6 +243,20 @@
+     'G4': ([-4, -3] + _G2_BREAKS + [3, 4], [6] * 16, 96),
+     'GR': (list(_G2_BREAKS), [6] + [8] * 10 + [6], 92),
+ }
++# C2V008 (a), verbatim from c2v003b/c2v003c: pinned inputs of the per-call DDO154 geometry derivation (read only when
++# distance != registered).
++GEOMETRY_PINS = {
++    'calibration_input': (HR / 'DDO154_CURRENT_MODEL_CALIBRATION_INPUT_POPULATED_V001.json', '8fff3e433f932947c2725ac7fb769126abb87814e11eeb19723974485e98e5e7'),
++    'stellar_3d': (C1 / 'GALAXY_STELLAR_3D_REFERENCE_SOURCE_V001.json', '612dc36529835e233fdda5810636ab8b99924fba9d0117b168aeeb9d1e2c449f'),
++    'photometric': (HR / 'STELLAR_PHOTOMETRIC_REFERENCE_MEAN_PROFILE_V001.json', '2f31122d9f2a1e3a3a63560fcd20541e4dfcf235eefca966b2fed644702b8b6a'),
++    'source_binding_v003': (C1 / 'GALAXY_PHYSICAL_SOURCE_STATE_BINDING_V003.json', '7cadac8b66096a9d9942e9861289a1d41bad084e13cd7ba655341eb06e6afae9'),
++    'monotone_reducer': (HR / 'ddo_monotone_bernstein_source_controls_v002.py', '50edaba79af30cbc3582685861b55bb3eefdbe6fcb002ec1a4187b6913b4f83c'),
++}
++PROFILE_NAME = 'GALAXY_RADIAL_SOURCE_REFERENCE_V001.json'  # literal file name read by prep V007/V008 as C/PROFILE_NAME
++# C2V008 (a): galaxy-config fields whose DDO154 value depends on the call distance, in the order derive_geometry produces
++# them.  Each travels (PER_CALL) only to the stages that consume it (consumed_fields); none is consumed by columns/feedback.
++GEOMETRY_CONFIG_FIELDS = ('source.profile', 'source.monotone_source', 'radial.outer_edge_kpc', 'observation.binding',
++                          'observation.query_rows')
+ # Reviewed fixed stage arguments (not parameters).
+ FIXED_ARGS = {'wave_batch': '256', 'position_batch': '512', 'bessel_cache_entries': '500000',
+               'mass_relative_tolerance': '1.1e-8'}
+@@ -685,11 +720,19 @@
+          'distance_Mpc': _num(phys.get('distance_Mpc', g['registered_geometry']['distance_Mpc']), 'distance_Mpc'),
+          'inclination_deg': _num(phys.get('inclination_deg', g['registered_geometry']['inclination_deg']), 'inclination_deg')}
+     geo = g['registered_geometry']
+-    if p['distance_Mpc'] != geo['distance_Mpc'] or p['inclination_deg'] != geo['inclination_deg']:
+-        raise Refusal('UNSUPPORTED geometry: only the registered distance %.2f Mpc and inclination %.0f deg are supported. '
+-                      'The D/4.3 radial scaling and cos66/cos64 stellar re-facing are baked into the pinned source JSON '
+-                      '(no code applies them) and the 12 query radii/sin66/sin64 map are fixed in the pinned binding.'
+-                      % (geo['distance_Mpc'], geo['inclination_deg']))
++    # C2V008 (a), from c2v003b/c2v003c: any finite positive DDO154 distance is accepted (derive_geometry).  Inclination stays
++    # registered-only (c2v003c text verbatim).  This branch is reached only for DDO154 (NGC3198 has its own normalizers, which
++    # keep refusing any non-registered geometry); the galaxy test below keeps that explicit.
++    if gname != 'DDO154' and p['distance_Mpc'] != geo['distance_Mpc']:
++        raise Refusal('UNSUPPORTED geometry: only the registered distance %.2f Mpc is supported for %s' % (geo['distance_Mpc'], gname))
++    if p['inclination_deg'] != geo['inclination_deg']:
++        raise Refusal('UNSUPPORTED inclination %r: only the registered %.0f deg is supported (BLOCKED_GAS_REDEPROJECTION). '
++                      'The DDO154 gas annuli are extracted IN the %.0f deg plane: extract_source.py bins every sky pixel by '
++                      'deprojected radius with y/cos(i) before the annular masses/means exist, so another inclination '
++                      'changes the pixel-to-annulus assignment, not a factor on the pinned arrays. No pinned formula or '
++                      'route-B stage re-extracts the gas; the stellar cos(i)/cos64 re-facing and the sin(i)/sin64 '
++                      'observation map alone would give a mixed-plane source. Distance is supported.'
++                      % (p['inclination_deg'], geo['inclination_deg'], geo['inclination_deg']))
+     out['physical'] = p
+     coeff = spec.get('coefficients', None)
+     if coeff is None:
+@@ -880,6 +923,244 @@
+     return seed, changed, reusable
+ 
+ 
++# ----------------------------------------------------------------------------- c2v003b per-call geometry
++# C2V008 (a): the block below (geometry_active .. geometry_inputs) is VERBATIM c2v003c ed326130 L717-888 (= c2v003b).
++# The annotation literal 'galaxy_m0_forward_c2v003b' in the per-call files is kept on purpose: c2v008 writes the
++# byte-identical per-call profile, monotone source and column-mean binding that c2v003c writes for the same distance.
++def geometry_active(nspec):
++    """True when the call geometry differs from the registered one (then per-call source files are derived)."""
++    reg = GALAXIES[nspec['galaxy']]['registered_geometry']
++    p = nspec['physical']
++    return p['distance_Mpc'] != reg['distance_Mpc'] or p['inclination_deg'] != reg['inclination_deg']
++
++
++def _pinned_json(path, sha, label):
++    raw = Path(path).read_bytes()
++    if sha256_bytes(raw) != sha:
++        raise Refusal('%s pin mismatch: %s' % (label, path))
++    return json.loads(raw)
++
++
++def derive_geometry(gname, D, inc):
++    """Per-call DDO154 inputs at distance D [Mpc] (inclination: registered value only, see normalize_spec).
++    No producer script of the pinned profile exists on disk; each formula below is the documented rule and is
++    GUARDED to reproduce the pinned registered records bitwise before it is applied at D:
++      HI (calibration input source_conversion.distance; extract_source.py radii = angle*D, mass ~ D^2):
++        lambda = D/4.3 (HI extraction distance); s_edges = (r_4.3*lambda)^2; annular means/controls unchanged;
++        integrated mass = fsum(pi*1e6*ds*mean); original mass = fsum(annulus HI mass)*helium*lambda^2.
++      stars (STELLAR_PHOTOMETRIC_REFERENCE_MEAN_PROFILE_V001, reference distance 4.04, face-on cos(i)):
++        radius = arcsec*(D*1e3)/(arcsec per rad); Sigma = Sigma_64*cos(i)/cos(64) (distance-free);
++        Rd and h = Rd/7.3 are angular scales converted with D: x D/4.04; masses x (D/4.04)^2; midplane x 1/(D/4.04).
++      observation (column-mean binding): radius_m = r_catalogue*(D/4.04)*kpc_m; physical inclination radians(i).
++      monotone source: the pinned reviewed reducer V002 re-run on the per-call HI record (saved sweeps/KKT).
++    Returns (profile_obj, monotone_result, binding_obj_without_source_profile, record)."""
++    if gname != 'DDO154':
++        raise Refusal('per-call geometry is implemented for DDO154 only')
++    g = GALAXIES[gname]
++    reg = g['registered_geometry']
++    if inc != reg['inclination_deg']:
++        raise Refusal('inclination %r: BLOCKED_GAS_REDEPROJECTION (see normalize_spec)' % (inc,))
++    if not (isinstance(D, float) and math.isfinite(D) and D > 0):
++        raise Refusal('distance_Mpc must be a finite positive float')
++    prof = _pinned_json(g['profile'][0], g['profile'][1], 'profile')
++    cal = _pinned_json(*GEOMETRY_PINS['calibration_input'], 'calibration input')
++    s3 = _pinned_json(*GEOMETRY_PINS['stellar_3d'], 'stellar 3D source')['galaxies']['DDO154']
++    ph = _pinned_json(*GEOMETRY_PINS['photometric'], 'photometric reference')
++    base_bind = _pinned_json(g['column_mean_binding'][0], g['column_mean_binding'][1], 'column-mean binding')
++    base_mono = _pinned_json(g['monotone_source'][0], g['monotone_source'][1], 'monotone source')
++    old = prof['galaxies']['DDO154']
++    na = cal['source_HI']['NA']
++    pg = ph['galaxies']['DDO154']
++    nodes = [x for x in pg['nodes'] if x['reference_included']]
++    D_hi = float(cal['geometry']['source_distance_Mpc'])       # HI extraction distance (4.3)
++    D_st = float(pg['distance_Mpc_reference'])                  # photometric reference distance (4.04)
++    i_st = float(pg['inclination_deg_reference'])               # photometric face-on reduction inclination (64)
++    D_rows = {float(x['reference_distance_Mpc']) for x in cal['response_rows']}
++    n = int(na['complete_prefix']['bin_count'])
++    if (D_hi != reg['HI_original_distance_Mpc'] or float(na['reference_geometry']['distance_pc']) != D_hi * 1e6
++            or D_st != reg['distance_Mpc'] or D_rows != {reg['distance_Mpc']} or i_st != reg['released_inclination_deg']
++            or old['geometry']['distance_Mpc'] != reg['distance_Mpc'] or n != len(old['HI_plus_He']['annular_means_Msun_pc2'])
++            or len(nodes) != len(s3['radius_kpc'])):
++        raise Refusal('geometry source reference values differ from the registered geometry')
++    he = float(na['reference_geometry']['helium_factor'])
++    r_hi = [float(na['r_lo_kpc'][0])] + [float(x) for x in na['r_hi_kpc'][:n]]
++    arcsec_rad = float(ph['normalization']['angular_arcsec_per_radian'])
++
++    def hi_edges(Dx):
++        lam = Dx / D_hi
++        return lam, [(x * lam) ** 2 for x in r_hi]
++
++    def star_radius(Dx):
++        return [float(x['radius_literal']) * (Dx * 1e3) / arcsec_rad for x in nodes]
++
++    def faceon(ix):
++        return math.cos(math.radians(ix)) / math.cos(math.radians(i_st))
++
++    def query_rows(Dx):
++        return [{'id': x['id'], 'radius_m': float(x['radius_reference_kpc']) * (Dx / float(x['reference_distance_Mpc'])) * KPC_M}
++                for x in cal['response_rows']]
++    # Guards: the formulas reproduce the pinned registered records bitwise.
++    f_reg = faceon(reg['inclination_deg'])
++    guards = {
++        'hi_edges': hi_edges(reg['distance_Mpc'])[1] == old['HI_plus_He']['s_edges_kpc2'],
++        'hi_means': [float(x) * he for x in na['full_annulus']['effective_retained_HI_Msun_pc2'][:n]] == old['HI_plus_He']['annular_means_Msun_pc2'],
++        'star_radius': star_radius(D_st) == s3['radius_kpc'] == old['stellar_reference']['radius_kpc'],
++        'star_sigma': [s * f_reg for s in s3['surface_density_Msun_pc2']] == old['stellar_reference']['surface_density_Msun_pc2'],
++        'star_scales': (s3['outer_scale_kpc'], s3['height_kpc']) == (old['stellar_reference']['outer_scale_kpc'], old['stellar_reference']['height_kpc']),
++        'faceon_factor': f_reg == old['geometry']['stellar_faceon_factor_from_64deg'],
++        'query_rows': query_rows(reg['distance_Mpc']) == base_bind['query_rows'],
++        'binding_inclinations': (base_bind['physical_inclination_rad'], base_bind['released_inclination_rad'])
++        == (math.radians(reg['inclination_deg']), math.radians(reg['released_inclination_deg'])),
++    }
++    if not all(guards.values()):
++        raise Refusal('geometry formulas do not reproduce the pinned registered files: %s' % sorted(k for k, v in guards.items() if not v))
++    lam, edges = hi_edges(D)
++    mu = D / D_st
++    f = faceon(inc)
++    gas = dict(old['HI_plus_He'])
++    gas['s_edges_kpc2'] = edges
++    gas['integrated_mass_Msun'] = math.fsum(math.pi * 1e6 * (b - a) * m for a, b, m in zip(edges, edges[1:], gas['annular_means_Msun_pc2']))
++    gas['original_retained_mass_scaled_Msun'] = math.fsum(na['full_annulus']['mass_Msun'][:n]) * he * lam ** 2
++    gas['relative_mass_pairing_difference'] = (abs(gas['integrated_mass_Msun'] - gas['original_retained_mass_scaled_Msun'])
++                                               / gas['original_retained_mass_scaled_Msun'])
++    gas['support_radius_kpc'] = r_hi[-1] * lam
++    star = dict(old['stellar_reference'])
++    star['radius_kpc'] = star_radius(D)
++    star['surface_density_Msun_pc2'] = [s * f for s in s3['surface_density_Msun_pc2']]
++    star['midplane_density_Msun_pc3'] = [x * f / mu for x in s3['midplane_density_Msun_pc3']]
++    star['outer_scale_kpc'] = s3['outer_scale_kpc'] * mu
++    star['height_kpc'] = s3['height_kpc'] * mu
++    for k in ('mass_within_last_node_Msun', 'assumed_exponential_tail_mass_Msun', 'total_reference_stellar_mass_Msun'):
++        star[k] = s3[k] * f * mu ** 2
++    geom = dict(old['geometry'])
++    geom.update(distance_Mpc=D, inclination_deg=inc, radial_distance_scale=lam, stellar_faceon_factor_from_64deg=f,
++                released_velocity_reference_factor=math.sin(math.radians(inc)) / math.sin(math.radians(reg['released_inclination_deg'])))
++    note = {'driver': 'galaxy_m0_forward_c2v003b', 'distance_Mpc': D, 'inclination_deg': inc,
++            'note': 'Per-call copy; only the DDO154 geometry-dependent fields are re-derived (derive_geometry docstring).'}
++    profile = dict(prof)
++    profile['galaxies'] = dict(prof['galaxies'], DDO154=dict(old, geometry=geom, HI_plus_He=gas, stellar_reference=star))
++    profile['c2_geometry'] = dict(note, base={'path': str(g['profile'][0]), 'sha256': g['profile'][1]})
++    red = exec_verified(GEOMETRY_PINS['monotone_reducer'][0], GEOMETRY_PINS['monotone_reducer'][1], 'c2v003b_monotone_reducer')
++    mono = red.reduce_source(record=gas, max_sweeps=base_mono['diagnostics']['max_sweeps'],
++                             kkt_tolerance=base_mono['diagnostics']['normalized_kkt_tolerance'])
++    if mono.get('status') != base_mono['status']:
++        raise Refusal('GEOMETRY_MONOTONE_SOURCE_NOT_ADMITTED: reviewed reducer returned %s' % mono.get('status'))
++    mono['worker_sha256'] = GEOMETRY_PINS['monotone_reducer'][1]
++    mono['model_choice'] = base_mono['model_choice']
++    mono['c2_geometry'] = dict(note, base={'path': str(g['monotone_source'][0]), 'sha256': g['monotone_source'][1]})
++    binding = dict(base_bind, query_rows=query_rows(D), distance_Mpc=D, physical_inclination_rad=math.radians(inc))
++    binding['c2_geometry'] = dict(note, base={'path': str(g['column_mean_binding'][0]), 'sha256': g['column_mean_binding'][1]})
++    ctrl = all(mono['source_record'][k] == base_mono['source_record'][k] for k in ('boundary_controls_Msun_pc2', 'middle_controls_Msun_pc2'))
++    record = {'distance_Mpc': D, 'inclination_deg': inc, 'hi_lambda_D_over_4p3': lam, 'length_scale_D_over_4p04': mu,
++              'stellar_faceon_factor': f, 'registered_formula_guards': guards,
++              'monotone_controls_bitwise_equal_to_registered': ctrl,
++              'unchanged_numerics': 'seed numerical controls (kpc-valued search/step/limits), composite k grid and column '
++                                    'solver template are numerical choices and are NOT rescaled with D',
++              'route_a_rows': ('NOT AT CALL GEOMETRY: prep V007/V008 reads the 12 query radii at %.2f Mpc from the calibration '
++                               'input and the route-A binding hard-codes radians(66)/radians(64); route-A rows are a '
++                               'diagnostic only. The route-B rows use the per-call binding.' % reg['distance_Mpc'])}
++    return profile, mono, binding, record
++
++
++def _write_bytes_x(ctx, path, raw):
++    if ctx.mode == 'run':
++        with open(path, 'xb') as f:
++            f.write(raw)
++            f.flush()
++            os.fsync(f.fileno())
++    else:
++        if Path(path).exists():
++            raise Refusal('dry-run input exists: %s' % path)
++        Path(path).write_bytes(raw)
++    return sha256_file(path)
++
++
++def geometry_inputs(ctx, nspec):
++    """c2v003b: None at the registered geometry (pinned files; plan unchanged).  Otherwise write the per-call
++    inputs under <out>/inputs: geometry_C/{PROFILE_NAME, byte copy of source binding V003} (the prep reads both
++    as C/<name>), geometry_monotone_source.json and geometry_column_mean_binding.json."""
++    if not geometry_active(nspec):
++        return None
++    p = nspec['physical']
++    profile, mono, binding, record = derive_geometry(nspec['galaxy'], p['distance_Mpc'], p['inclination_deg'])
++    gdir = ctx.out / 'inputs' / 'geometry_C'
++    gdir.mkdir(parents=True, exist_ok=False)
++    ppath, psha = ctx.write_input('geometry_C/' + PROFILE_NAME, profile)
++    bpath, bsha = GEOMETRY_PINS['source_binding_v003']
++    raw = Path(bpath).read_bytes()
++    if sha256_bytes(raw) != bsha or _write_bytes_x(ctx, gdir / Path(bpath).name, raw) != bsha:
++        raise Refusal('source binding V003 copy pin mismatch')
++    mono['input'] = {'path': str(ppath), 'sha256': psha, 'record': 'galaxies.DDO154.HI_plus_He'}
++    mpath, msha = ctx.write_input('geometry_monotone_source.json', mono)
++    binding['source_profile'] = {'path': str(ppath), 'sha256': psha}
++    cpath, csha = ctx.write_input('geometry_column_mean_binding.json', binding)
++    record['files'] = {'C_directory': str(gdir), 'profile': [str(ppath), psha], 'source_binding_v003_copy': [str(gdir / Path(bpath).name), bsha],
++                       'monotone_source': [str(mpath), msha], 'column_mean_binding': [str(cpath), csha]}
++    return {'C_dir': str(gdir), 'profile': (str(ppath), psha), 'monotone': (str(mpath), msha),
++            'binding': (str(cpath), csha), 'record': record}
++
++
++def geometry_config_fields(geo):
++    """C2V008 (a): the galaxy-config values of GEOMETRY_CONFIG_FIELDS at the call geometry, read back from the per-call
++    files geometry_inputs wrote (sha256 re-verified from bytes).  geo None (registered geometry) -> {}: nothing changes.
++    radial.outer_edge_kpc = sqrt(last per-call s_edge), the expression the DDO154 literal check uses at 4.04 Mpc (and the
++    stages' radial_truncation compares with IEEE sqrt); observation.query_rows = the per-call binding rows {id, radius_m}."""
++    if geo is None:
++        return {}
++    raws = {}
++    for key in ('profile', 'binding'):
++        raw = Path(geo[key][0]).read_bytes()
++        if sha256_bytes(raw) != geo[key][1]:
++            raise Refusal('per-call geometry file pin mismatch: %s' % geo[key][0])
++        raws[key] = json.loads(raw)
++    edges = raws['profile']['galaxies']['DDO154']['HI_plus_He']['s_edges_kpc2']
++    return {'source.profile': {'path': str(geo['profile'][0]), 'sha256': geo['profile'][1]},
++            'source.monotone_source': {'path': str(geo['monotone'][0]), 'sha256': geo['monotone'][1]},
++            'radial.outer_edge_kpc': float(math.sqrt(edges[-1])),
++            'observation.binding': {'path': str(geo['binding'][0]), 'sha256': geo['binding'][1]},
++            'observation.query_rows': [{'id': q['id'], 'radius_m': q['radius_m']} for q in raws['binding']['query_rows']]}
++
++
++def geometry_admission_probe(ctx, gc, gfields):
++    """C2V008 (a): does the reviewed stage binding admit this call's geometry?  For every successor that consumes a
++    GEOMETRY_CONFIG_FIELDS field, write a probe config = the stage config with those fields PER_CALL at the call geometry
++    and every other field the galaxy-config entry (DDO154_EXACT_LITERAL; column mean: custody.column_mean_input_pins = the
++    5-pin list the driver passes, built from the saved chain with the probe's binding first; producer pins = the successor
++    scripts), and run the SUCCESSOR'S OWN admission (probe_stage_admission) on it; plus a control copy at the registered
++    geometry, which must be accepted (else the probe proves nothing).  Writes only probe files under <out>/inputs.
++    Returns {stages: {kind: {geometry_fields, call_geometry, registered_control}}, refused, controls_accepted, admitted}."""
++    rows = {}
++    lit = gc['cfg']['fields']['custody.column_mean_input_pins']['value']
++    for kind in GENERALIZED:
++        consumed = set(consumed_fields(kind))
++        gf = {k: v for k, v in gfields.items() if k in consumed}
++        if not gf:
++            continue
++        row = {'geometry_fields': sorted(gf)}
++        for tag, pc in (('call_geometry', dict(gf)), ('registered_control', {})):
++            if kind == 'column_mean_v004':
++                b = pc.get('observation.binding') or gc['cfg']['fields']['observation.binding']['value']
++                pins = [[str(b['path']), b['sha256']]]
++                for run_key in ('rotation_run', 'columns_run'):
++                    for name in ('start.json', 'finish.json'):
++                        f = Path(lit[run_key]) / name
++                        pins.append([str(f), sha256_file(f)])
++                pc['custody.column_mean_input_pins'] = pins
++            producers = {n: producer_pin(k, SCRIPTS[k][1]) for n, k in GENERALIZED[kind].get('producer_pins', {}).items()} or None
++            obj, _ = stage_config_object(kind, gc, pc, omit_missing_per_call=False, producers=producers)
++            p, s = ctx.write_input('geometry_admission_probe_%s_%s.json' % (kind, tag), obj)
++            row[tag] = dict(probe_stage_admission(kind, p, s), path=str(p), sha256=s, per_call_fields=sorted(pc))
++        rows[kind] = row
++    refused = {k: r['call_geometry'].get('refusal') for k, r in rows.items() if not r['call_geometry']['accepted']}
++    controls = all(r['registered_control']['accepted'] for r in rows.values())
++    return {'stages': rows, 'refused': refused, 'controls_accepted': controls, 'admitted': bool(rows) and not refused and controls,
++            'rule': ('gal_c2v004 shared admission (schema V004 admission_rules): a DDO154 config field is admitted only as '
++                     'DDO154_EXACT_LITERAL (== the schema ddo154 value, i.e. the 4.04 Mpc files) or PER_CALL on a per-call kind '
++                     '(PER_CALL_CUSTODY, ROUTE_A_RUN_OUTCOME, STAGE_CODE_IDENTITY), a call input (source.coefficients) or a '
++                     'declared input slot; the geometry fields are SHARED_SAME_VALUE / GALAXY_SOURCE_RECONSTRUCTION / '
++                     'GALAXY_DERIVED_SHAPE / OBSERVATION_BINDING kinds')}
++
++
+ def _relative_request_paths(req):
+     """C2V007 (a) F2, from c2v003c (RD1 F2; hunk @@ -865): every path a stage request hands to the child that is not
+     absolute.  Paths are the script, argv values (any value that is not a number, a 64-hex digest or a simulate-mode
+@@ -946,6 +1227,7 @@
+         self.log = None
+         self.driver = str(Path(__file__).resolve())
+         self.route_a_outcome = None  # C2V007 (a) F1: classification of the route-A result.json (c2v003c hunk @@ -882)
++        self.geometry = None  # C2V008 (a): per-call geometry record + stage-admission probe (None at the registered geometry)
+ 
+     # -- paths / hashes ------------------------------------------------------------------
+     def stage_dir(self, name):
+@@ -1104,7 +1386,29 @@
+                       'report %r (strict reader)' % (rec['converged_iteration'], reported_iteration))
+ 
+ 
+-def route_a_custody(cp, seed_sha, coeff_path, call_physical, outcome=None, expected_solver=None):
++def route_a_attempt_link(cm, ra, identity_sha, cp):
++    """C2V008 (d), v003c CHECK D1 (RD1 F6): the route-A attempt (its own result.json `ra`) must belong to the checkpoint it
++    is paired with: result.result.source_fixed_point.checkpoint.identity_sha256 == the checkpoint IDENTITY identity_sha256,
++    and its attempt token names an attempts/<token>.end.json of that identity.  Else Refusal (a pairing error in the call
++    spec or tooling, never a model outcome).  A computed route A always passes (attempt and checkpoint of one run)."""
++    try:
++        ck = ra['result']['result']['source_fixed_point']['checkpoint']
++        got, tok = ck.get('identity_sha256'), ck.get('attempt')
++    except (KeyError, TypeError, AttributeError) as exc:
++        raise StageFailed('ROUTE_A_RESULT_UNREADABLE (attempt/checkpoint link): %s: %s' % (type(exc).__name__, exc))
++    if got != identity_sha:
++        raise Refusal('ROUTE_A_ATTEMPT_NOT_OF_THIS_CHECKPOINT: attempt result.json names checkpoint identity %r, the paired '
++                      'checkpoint IDENTITY is %s' % (got, identity_sha))
++    end = Path(cp) / 'attempts' / ('%s.end.json' % tok) if isinstance(tok, str) and tok and '/' not in tok else None
++    if end is None or not end.is_file():
++        raise Refusal('ROUTE_A_ATTEMPT_NOT_OF_THIS_CHECKPOINT: attempt token %r has no %s/attempts/<token>.end.json' % (tok, cp))
++    rec = cm._read(str(end), 'attempt_end')
++    if rec.get('identity_sha256') != identity_sha:
++        raise Refusal('ROUTE_A_ATTEMPT_NOT_OF_THIS_CHECKPOINT: %s carries identity %r' % (end.name, rec.get('identity_sha256')))
++    return {'identity_sha256': got, 'attempt': tok, 'end_record': str(end), 'end_outcome': rec.get('outcome')}
++
++
++def route_a_custody(cp, seed_sha, coeff_path, call_physical, outcome=None, expected_solver=None, profile_sha=None, attempt_result=None):
+     """Verify a route-A checkpoint (computed in this call or admitted) from bytes and return
+     the per-call identity the route-B stages need.  c2v005: the route-B stages are generalized, so the converged final
+     iteration is the one the checkpoint's own records report under the strict rule (route_a_reported_iteration); the
+@@ -1113,13 +1417,23 @@
+     the identity/parameter/coefficient/background checks and BEFORE the strict reader, so a no-fixed-point attempt ends
+     ROUTE_A_NO_FIXED_POINT instead of ROUTE_A_ITERATION_AMBIGUOUS; its converged iteration must equal the reader's.
+     (b) custody.solver_code = IDENTITY code.solver {path, sha256} from bytes (the one IDENTITY field the parallel solver
+-    changes); `expected_solver` (path, sha) given -> it must match (route A computed by this call), else recorded only."""
++    changes); `expected_solver` (path, sha) given -> it must match (route A computed by this call), else recorded only.
++    C2V008: (d) `attempt_result` (the attempt's result.json) must belong to this checkpoint (route_a_attempt_link), checked
++    right after the identity self-hash, before any outcome verdict; (a) `profile_sha` (DDO154: the call's source profile,
++    per-call or registered) must be the one PROFILE_NAME pin the checkpoint caller recorded (c2v003b verbatim:
++    ROUTE_A_GEOMETRY_MISMATCH).  The seed does not depend on the distance, so without this check a route A prepared at
++    another distance would be admitted."""
+     import numpy as np
+     cm = exec_verified(AUX['checkpoint_module'][0], AUX['checkpoint_module'][1], 'c2v001_ckpt')
+     ident = _read_checkpoint_identity(cm, cp)
++    link = route_a_attempt_link(cm, attempt_result, ident['identity_sha256'], cp) if attempt_result is not None else None
+     caller = cm.decode(ident['identity']['caller']['record'])
+     if caller['seed']['sha256'] != seed_sha:
+         raise Blocked('checkpoint caller seed %s is not this call seed %s' % (caller['seed']['sha256'], seed_sha))
++    if profile_sha is not None:  # c2v003b: the checkpoint must have been prepared from this call's source profile
++        got = sorted(s for p, s in (caller.get('code_pins') or {}).items() if Path(p).name == PROFILE_NAME)
++        if got != [profile_sha]:
++            raise Blocked('ROUTE_A_GEOMETRY_MISMATCH: checkpoint source profile pins %s, call profile %s' % (got, profile_sha))
+     phys = caller['physical_parameters']
+     for k in ('Eref_J', 'ell_F_m', 'gamma'):
+         if phys.get(k) != call_physical[k]:
+@@ -1157,7 +1471,8 @@
+             'caller_seed': caller['seed'], 'physical': {k: phys.get(k) for k in ('Eref_J', 'ell_F_m', 'gamma')},
+             'prep_code_pins': {p: s for p, s in (caller.get('code_pins') or {}).items()
+                                if 'actual_initial_source_preparation' in p},  # c2v003: record which prep built route A (c2v005: DDO or NGC)
+-            'solver_code': solver_code}  # C2V007 (b)
++            'solver_code': solver_code,  # C2V007 (b)
++            'attempt_link': link, 'source_profile_sha256': profile_sha}  # C2V008 (d), (a)
+ 
+ 
+ def column_H(run_dirs):
+@@ -1773,6 +2088,7 @@
+         if _has_pending(v):
+             refuse(k, 'PENDING_N3_MONOTONE_SOURCE', '%s is a DECLARED_INPUT_SLOT (N3) not yet filled by the reviewed reducer output' % k)
+     gc_written = {}
++    gfields = {}  # C2V008 (a): per-call geometry config fields; stays empty at the registered geometry and for NGC3198
+ 
+     def stage_gc(kind, tag='', producers=None):
+         """Write (once per name) the per-stage config of successor `kind`; returns (path, sha, meta)."""
+@@ -1784,6 +2100,8 @@
+             raise Refusal('c2v005 internal: per-call fields %s not yet computed for %s' % (missing, kind))
+         pc = {k: percall[k] for k in STAGE_PER_CALL[kind]}
+         pc.update({k: percall[k] for k in gc['slots'] if k in consumed_fields(kind)})  # a slot travels only to its consumers
++        # C2V008 (a): per-call geometry fields (empty at the registered geometry) travel only to their consumers too
++        pc.update({k: v for k, v in gfields.items() if k in consumed_fields(kind)})
+         obj, omitted = stage_config_object(kind, gc, pc, omit_missing_per_call=True, producers=producers)
+         pending = sorted(k for k, v in pc.items() if _has_pending(v))
+         if producers is not None and _has_pending(producers):
+@@ -1804,10 +2122,11 @@
+         gc_written[name] = (p, s, meta)
+         return gc_written[name]
+ 
+-    def gen_request(name, key, argv, tag='', module_patches=None, mask=None, producers=None):
+-        """Request for a gal_c2v003 successor: c2v003 argv + galaxy-config tokens appended; no stage globals."""
++    def gen_request(name, key, argv, tag='', module_patches=None, mask=None, producers=None, stage_globals=None):
++        """Request for a gal_c2v003 successor: c2v003 argv + galaxy-config tokens appended; no stage globals (C2V008 (a):
++        except the reference PROFILE/PROFILE_SHA at a per-call geometry, as c2v003c)."""
+         p, s, meta = stage_gc(key, tag, producers)
+-        req = ctx.request(name, key, list(argv) + galaxy_config_argv(key, p, s), stage_globals={},
++        req = ctx.request(name, key, list(argv) + galaxy_config_argv(key, p, s), stage_globals=stage_globals or {},
+                           module_patches=module_patches, mask=mask)
+         req['galaxy_config'] = meta
+         return req
+@@ -1850,6 +2169,26 @@
+                      'rule': 'V007 for <=%d nodes/axis (unchanged); V008 for %d..%d (review %s)'
+                              % (PREP_V007_MAX_AXIS_NODES, PREP_V007_MAX_AXIS_NODES + 1, PREP_V008_MAX_AXIS_NODES, PREP_V008_REVIEW[1][:16])}
+ 
++    # C2V008 (a), from c2v003b (c2v003c @L1338): per-call geometry inputs (DDO154 only; None at the registered geometry:
++    # pinned files, plan unchanged).  Then the stage-admission probe: run mode is BLOCKED here, before any stage, when a
++    # successor's own admission refuses the per-call geometry fields (simulate: recorded, planning goes on).
++    geo = geometry_inputs(ctx, sp) if not ngc else None
++    profile_sha = None if ngc else (geo['profile'][1] if geo is not None else g['profile'][1])
++    if not ngc:
++        src_path, src_sha = geo['monotone'] if geo is not None else g['monotone_source']
++    if geo is not None:
++        gfields.update(geometry_config_fields(geo))
++        probe = geometry_admission_probe(ctx, gc, gfields)
++        info['geometry'] = dict(geo['record'], config_fields=gfields, stage_admission_probe=probe)
++        ctx.geometry = info['geometry']
++        if not probe['admitted']:
++            refuse('geometry', 'GEOMETRY_NOT_ADMITTED_BY_STAGE_BINDING',
++                   'distance_Mpc %r != registered %r: the reviewed gal_c2v004 stages refuse the per-call geometry config fields '
++                   '(their own admission, schema V004): %s%s. Needs a stage/schema successor that admits these DDO154 fields per '
++                   'call; no stage is run.' % (sp['physical']['distance_Mpc'], g['registered_geometry']['distance_Mpc'],
++                                               '; '.join('%s: %s' % kv for kv in sorted(probe['refused'].items())),
++                                               '' if probe['controls_accepted'] else ' (registered-geometry control copies also refused)'))
++
+     # ---------------- route A
+     adm = sp.get('admit') or {}
+     if ngc:
+@@ -1877,9 +2216,13 @@
+         att = Path(sa['attempt']) if 'attempt' in sa else d / 'attempt_000'
+         cp = Path(sa['checkpoint']) if 'checkpoint' in sa else d / 'checkpoint'
+         patches = []
++        prep_set = {}  # C2V008 (a): one prep module patch as c2v003c (same key order; identical to c2v007 without geometry)
+         if not coeff_default:
+-            patches.append({'path': str(prep_path), 'sha256': prep_sha,
+-                            'set': {'COEFFICIENT': {'__path__': coeff_path}, 'COEFFICIENT_SHA': coeff_sha}})
++            prep_set.update({'COEFFICIENT': {'__path__': coeff_path}, 'COEFFICIENT_SHA': coeff_sha})
++        if geo is not None:
++            prep_set['C'] = {'__path__': geo['C_dir']}  # c2v003b: prep reads C/PROFILE_NAME and C/<binding V003>
++        if prep_set:
++            patches.append({'path': str(prep_path), 'sha256': prep_sha, 'set': prep_set})
+         # C2V007 (b): N = 1 -> exactly the c2v006 request (reviewed worker c4cb6826 + reviewed solver 44d9c23c);
+         # N > 1 -> the parallel worker successor with the parallel solver and --column-workers N.  Same LOCAL keys and
+         # pins, so the prep COEFFICIENT module patch and the prep V008 LOCAL['prep'] dict item apply unchanged.
+@@ -1917,7 +2260,10 @@
+     expected_solver = solver_pin if (info['route_a']['mode'] == 'computed' and ctx.mode == 'run') else None
+     if (Path(cp) / 'IDENTITY.json').is_file():
+         # c2v005: route_a_custody reads the converged final iteration by the strict rule (no literal 4)
+-        cust = route_a_custody(cp, seed_sha, coeff_path, call_phys, outcome=ra_outcome, expected_solver=expected_solver)
++        # C2V008: (a) the call source profile (DDO154; c2v003b); (d) the attempt must belong to this checkpoint (CHECK D1;
++        # DDO154 only, as in c2v003c: the NGC route-A result bytes may not be read in this lane, so NGC is left as c2v007)
++        cust = route_a_custody(cp, seed_sha, coeff_path, call_phys, outcome=ra_outcome, expected_solver=expected_solver,
++                               profile_sha=profile_sha, attempt_result=None if ngc else ra)
+         if 'route_a' in adm and cust['identity_sha256'] != adm['route_a']['identity_sha256']:
+             raise Refusal('admitted checkpoint identity differs from declared')
+         if ngc and cust['identity_sha256'] != sp['route_a_inputs']['identity_sha256']:
+@@ -1933,12 +2279,19 @@
+     info['route_a']['custody'] = cust
+     if ra is not None:
+         info['route_a']['route_a_rows'] = ra['result']['result']['rows']
++        if geo is not None:
++            info['route_a']['route_a_rows_scope'] = geo['record']['route_a_rows']  # c2v003b
+     ident = cust['identity_sha256']
+     it = cust['iteration']
+     info['route_a']['reported_final_iteration'] = it
+     percall['custody.checkpoint_identity_sha256'] = ident
+     percall['route_a.accepted_iteration'] = it
+     reuse_patch = {'path': str(reuse_path), 'sha256': reuse_sha, 'set': {'SEED_SHA': seed_sha, 'IDENTITY': ident}}
++    ref_globals = None
++    if geo is not None:  # C2V008 (a), c2v003b: homotopy worker PROFILE (reference stage itself; body/offset read it as reuse.PROFILE)
++        ref_globals = {}
++        for target in (reuse_patch['set'], ref_globals):
++            target.update(PROFILE={'__path__': geo['profile'][0]}, PROFILE_SHA=geo['profile'][1])
+     mask = None
+     if tr['shape'] != 'cube':
+         mask = {'shape': tr['shape'], 'kmax_inverse_m': kmask_m, 'g4_file_sha256': cust['g4_ref']['file_sha256'],
+@@ -1961,11 +2314,13 @@
+         ref = Path(adm['reference']['directory'])
+         verify_pin(ref / 'start.json', adm['reference']['start_sha256'], 'admitted reference start')
+         verify_pin(ref / 'finish.json', adm['reference']['finish_sha256'], 'admitted reference finish')
++        if not ngc and json.loads((ref / 'start.json').read_text())['source_custody']['sha256'] != profile_sha:  # C2V008 (a), c2v003b
++            raise Blocked('REFERENCE_GEOMETRY_MISMATCH: admitted reference was not built from this call source profile')
+     else:
+         d = ctx.stage_dir('reference')
+         ref = d / 'reference' if ctx.mode == 'run' else ctx.saved_or('reference', d / 'reference')
+         req = gen_request('reference', 'reference', common + ['--reference-module', AUX['reference_module'][0],
+-                          '--reference-sha256', AUX['reference_module'][1], '--outdir', ref])
++                          '--reference-sha256', AUX['reference_module'][1], '--outdir', ref], stage_globals=ref_globals)
+         ctx.run_stages([req], [d])
+     percall['custody.reference_run'] = {'directory': str(ref), 'start_sha256': ctx.finish_sha(ref, 'start.json'),
+                                         'finish_sha256': ctx.finish_sha(ref)}
+@@ -1974,6 +2329,8 @@
+     if 'body' in adm:
+         body = Path(adm['body']['directory'])
+         verify_pin(body / 'finish.json', adm['body']['finish_sha256'], 'admitted body finish')
++        if not ngc and src_sha not in json.loads((body / 'start.json').read_text())['input_pins'].values():  # C2V008 (a), c2v003b
++            raise Blocked('BODY_GEOMETRY_MISMATCH: admitted body was not built from this call monotone source')
+     else:
+         d = ctx.stage_dir('body')
+         body = d / 'body' if ctx.mode == 'run' else ctx.saved_or('body', d / 'body')
+@@ -2183,6 +2540,8 @@
+             d = ctx.stage_dir(tag + '_column_mean')
+             obsd = d / 'observation' if ctx.mode == 'run' else ctx.saved_or(tag + '_column_mean', d / 'observation')
+             b, b_ok, b_st = gc_value(gc, 'observation.binding')  # c2v005: DDO154 == g['column_mean_binding'] (checked)
++            if 'observation.binding' in gfields:  # C2V008 (a), c2v003b: the per-call column-mean binding
++                b, b_ok = gfields['observation.binding'], True
+             bpin = [str(b['path']), b['sha256']] if b_ok else ['NONE_IN_REVIEWED_CODE(observation.binding)', 'NONE_IN_REVIEWED_CODE']
+             pins = [bpin, [str(Path(rot) / 'start.json'), ctx.finish_sha(rot, 'start.json')],
+                     [str(Path(rot) / 'finish.json'), ctx.finish_sha(rot)],
+@@ -2359,6 +2718,9 @@
+     gpath, gsha = GALAXY_CONFIG_FILES[nspec['galaxy'] if nspec.get('member') is None else (nspec['galaxy'], nspec['member'])]
+     pins[str(gpath)] = verify_pin(gpath, gsha, 'galaxy config')
+     pins[str(GC_SCHEMA[0])] = verify_pin(GC_SCHEMA[0], GC_SCHEMA[1], 'galaxy-config schema')
++    if nspec['galaxy'] == 'DDO154' and geometry_active(nspec):  # C2V008 (a), c2v003b: inputs of the per-call geometry derivation
++        for key, (path, sha) in GEOMETRY_PINS.items():
++            pins[str(path)] = verify_pin(path, sha, 'geometry ' + key)
+     return pins
+ 
+ 
+@@ -2519,6 +2881,8 @@
+     if ctx is not None:
+         if ctx.route_a_outcome is not None:  # C2V007 (a) F1 (c2v003c hunk @@ -1724): outcome + converged iteration, every status
+             result['route_a_outcome'] = ctx.route_a_outcome
++        if ctx.geometry is not None:  # C2V008 (a): per-call geometry record and the stage-admission probe, every status
++            result['geometry'] = ctx.geometry
+         result['stage_records'] = ctx.records
+         if ctx.spec.get('reference_compare'):
+             result['reference_comparison'] = reference_comparison(ctx.records, GALAXIES[ctx.spec['galaxy']].get('saved_runs', {}))
+@@ -2641,7 +3005,8 @@
+         report['seed'] = {'base_seed_reused_bitwise': reusable, 'changed_fields': changed}
+         repro_like = reusable and nspec['numerics']['truncation']['shape'] == 'cube' and \
+             nspec['physical']['entropy_K_factor'] == g['default_entropy_K_factor'] and \
+-            nspec['coefficients']['sha256'] == g['default_coefficients'][1] and nspec['numerics']['picard']['passes'] == 3
++            nspec['coefficients']['sha256'] == g['default_coefficients'][1] and nspec['numerics']['picard']['passes'] == 3 and \
++            not geometry_active(nspec)  # C2V008 (a), c2v003b: saved outputs exist only at the registered geometry
+     else:  # c2v005 NGC3198 route B: the seed is the route-A lane's (route_a_inputs), never composed here
+         report['seed'] = {'source': 'route_a_inputs.seed', 'route_a_inputs': nspec['route_a_inputs']}
+         repro_like = False
+@@ -2777,6 +3142,17 @@
+         report['summary']['overrides_noop_identical'], report['summary']['overrides_total'])
+     report['summary']['route_a_prep'] = info.get('route_a', {}).get('prep')
+     lines = ['DRY-RUN PLAN %s  (spec %s)' % (nspec.get('label', ''), report['call_spec_sha256']), '']
++    if info.get('geometry'):  # C2V008 (a): only at a per-call geometry (the registered-geometry report is unchanged)
++        gp = info['geometry']['stage_admission_probe']
++        report['summary']['geometry'] = {'distance_Mpc': info['geometry']['distance_Mpc'], 'files': info['geometry']['files'],
++                                         'config_fields': sorted(info['geometry']['config_fields']),
++                                         'stage_binding_admits_geometry': gp['admitted'], 'refused_by': gp['refused'],
++                                         'registered_controls_accepted': gp['controls_accepted']}
++        lines.append('GEOMETRY distance %r Mpc (per-call files %s); stage binding admits it: %s; registered controls accepted: %s'
++                     % (info['geometry']['distance_Mpc'], sorted(info['geometry']['files']), gp['admitted'], gp['controls_accepted']))
++        for kind, msg in sorted(gp['refused'].items()):
++            lines.append('  REFUSED by %s own admission: %s' % (kind, msg))
++        lines.append('')
+     for b in report['binding_blockers']:  # c2v004
+         lines.append('BINDING BLOCKER (run mode refuses before any stage): ' + b)
+     if report['binding_blockers']:

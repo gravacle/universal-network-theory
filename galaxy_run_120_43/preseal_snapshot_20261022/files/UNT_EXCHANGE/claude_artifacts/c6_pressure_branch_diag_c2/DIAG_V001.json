@@ -1,0 +1,500 @@
+{
+ "schema": "C6_PRESSURE_BRANCH_DIAG_C2_V001",
+ "scope": "Read-only diagnostic of the C6 (KMAX_A2F10_C6R3_RUN_V001) route-A readout refusal; replays of the pinned readout on saved converged checkpoints only; no launch; C5 call-level result.json not read; no NGC3198 target opened.",
+ "Q1_call_chain": {
+  "chain": [
+   "driver v009 999331af L2252-2280 route_a request (parallel worker, L2276) -> stage_main L671",
+   "worker ddo_composite_stable_cached_root_worker_v002_parallel_c2v001.py 9dbdaf11 L103 binding.evaluate; L114-118 failure.json + re-raise (no result.json)",
+   "binding ddo_composite_stable_cached_binding_v002.py d81b24b7 L91-102 solve (fixed point, checkpointed); L104-115 prediction.evaluate with 8 equal azimuths 2*pi*i/8, streaming_module=prep mods[streaming]",
+   "prediction galaxy_coupled_fourier_hi_prediction_v005.py 54136c71 L55 solve; L118-136 local(phi); L128 pressure_streaming_speed; L138-160 every obs azimuth then its 4 angular-stencil azimuths",
+   "galaxy_baryonic_source_forward_v002.py e9be043b L189-209: v2=(dlnN+pgrad)/(dlnR+pgrad), L207-208 raise NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH unless 0<=v2<1"
+  ],
+  "readout_purpose": "Post-convergence circular-streaming TRIAL rows (prediction v005 returns predictions_available_semantics CALCULABLE_TRIAL_ONLY, dynamics_status UNASSESSED_CIRCULAR_TRIAL, accepted_for_calibration False). The driver only records them (v009 L2318-2319 info.route_a.route_a_rows); no route-B stage and no kmax compare script reads them.",
+  "route_b_consumes": "the converged checkpoint (IDENTITY, iteration START prepared_wavevectors/prepared_weighted_responses, COMPLETED converged) via the reuse module: e.g. rotation_v005_gal_c2v004 L209 accepted current, L242 start[prepared_wavevectors]",
+  "consequence": "a refusal in a diagnostic-only readout, AFTER route A converged (it 8, residual 2.746e56 <= bound 3.487e56), removes result.json, so the driver stops the call (C6 result.json valid=false, reasons [stage(s) exited nonzero: [route_a]]) and route B never runs on a valid fixed point",
+  "label": "TESTED (code read + C6 result.json)"
+ },
+ "Q2_failure_point": {
+  "exact_replay": {
+   "index": 85,
+   "query_index": 2,
+   "radius_kpc": 1.48,
+   "phi_rad": 0.7853981633974483,
+   "d_log_N": -1.9671583093716652e-29,
+   "d_log_R": 2.1897157206705203e-20,
+   "d_pressure": -2.2615307900363305e-33,
+   "energy_density": 0.0001009594585467828,
+   "pressure": 1.3592238185108745e-13,
+   "pgrad": -2.240038545713539e-29,
+   "numerator": -4.207196855085204e-29,
+   "denominator": 2.1897157184304817e-20,
+   "v2": -1.9213438619789367e-09,
+   "exception": "NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH"
+  },
+  "exact_replay_outcome": {
+   "status": "RAISED",
+   "type": "ValueError",
+   "message": "NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH"
+  },
+  "replay_fidelity": {
+   "K2_R1.48_obs_nodes_0_1_bitwise": [
+    true,
+    true
+   ],
+   "K3_R1.48_obs_nodes_0_1_bitwise": [
+    true,
+    true
+   ],
+   "K4_R1.48_obs_nodes_0_1_bitwise": [
+    true,
+    true
+   ],
+   "K5_R1.48_obs_nodes_0_1_bitwise": [
+    true,
+    true
+   ],
+   "C6_exact_failing_call_equals_sweep_row": true
+  },
+  "fidelity_C5_query01_phi0_bitwise": "out/FIDELITY_C5_Q0_PHI0_V001.json vs saved C5 node: dlnN, dlnR, dp, P, v, both stencil derivatives bitwise equal",
+  "location": "query DDO154_SPARC12_03, R = 1.48 kpc, first refusal at phi = pi/4 (call 86 of the readout; queries 01, 02 and query 03 phi=0 passed)",
+  "full_C6_roster_sweep": {
+   "calls": 480,
+   "refused": 20,
+   "refused_queries": [
+    "DDO154_SPARC12_03"
+   ],
+   "refused_azimuths_rad": [
+    0.7854,
+    2.3562,
+    3.927,
+    5.4978
+   ],
+   "per_query": {
+    "DDO154_SPARC12_11": {
+     "radius_kpc": 5.43,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.264788536990147e-28,
+     "max_pressure_to_lapse_ratio": 0.4931760090105657
+    },
+    "DDO154_SPARC12_10": {
+     "radius_kpc": 4.94,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 2.790656870019274e-28,
+     "max_pressure_to_lapse_ratio": 0.037225259589343335
+    },
+    "DDO154_SPARC12_09": {
+     "radius_kpc": 4.44,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.7506849532180001e-28,
+     "max_pressure_to_lapse_ratio": 0.20191213776343217
+    },
+    "DDO154_SPARC12_08": {
+     "radius_kpc": 3.95,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 2.542146518363244e-28,
+     "max_pressure_to_lapse_ratio": -0.11168700625607438
+    },
+    "DDO154_SPARC12_12": {
+     "radius_kpc": 5.92,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.5763798555916184e-28,
+     "max_pressure_to_lapse_ratio": 0.1777179174822886
+    },
+    "DDO154_SPARC12_03": {
+     "radius_kpc": 1.48,
+     "calls": 40,
+     "refused": 20,
+     "min_numerator_per_m": -4.2139818568018773e-29,
+     "max_pressure_to_lapse_ratio": 0.2383067177525761
+    },
+    "DDO154_SPARC12_02": {
+     "radius_kpc": 0.99,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.0023972570712368e-28,
+     "max_pressure_to_lapse_ratio": 0.02040780258559152
+    },
+    "DDO154_SPARC12_01": {
+     "radius_kpc": 0.49,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.5603928618972717e-28,
+     "max_pressure_to_lapse_ratio": 0.06728906865086745
+    },
+    "DDO154_SPARC12_07": {
+     "radius_kpc": 3.46,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.6895328057067622e-28,
+     "max_pressure_to_lapse_ratio": 0.03998262005190804
+    },
+    "DDO154_SPARC12_06": {
+     "radius_kpc": 2.96,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 4.2020843021469343e-29,
+     "max_pressure_to_lapse_ratio": 0.3877774146700469
+    },
+    "DDO154_SPARC12_05": {
+     "radius_kpc": 2.47,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.743524584320463e-28,
+     "max_pressure_to_lapse_ratio": -0.04044022228595165
+    },
+    "DDO154_SPARC12_04": {
+     "radius_kpc": 1.97,
+     "calls": 40,
+     "refused": 0,
+     "min_numerator_per_m": 1.0246736928510753e-28,
+     "max_pressure_to_lapse_ratio": 0.06003723758439531
+    }
+   },
+   "radial_resolution_test_failures": 0
+  },
+  "C6_radial_profile_phi_pi4": [
+   {
+    "R_kpc": 1.2,
+    "dlnN_dR": 1.3696411999476347e-28,
+    "pgrad": -3.923392629732504e-30,
+    "numerator": 1.3304072736503097e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.3,
+    "dlnN_dR": 5.154916428611482e-29,
+    "pgrad": -3.752614187466585e-30,
+    "numerator": 4.779655009864823e-29,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.4,
+    "dlnN_dR": -6.549435866744971e-30,
+    "pgrad": -1.030709593763577e-29,
+    "numerator": -1.685653180438074e-29,
+    "status": "NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH"
+   },
+   {
+    "R_kpc": 1.48,
+    "dlnN_dR": -1.9671583093716652e-29,
+    "pgrad": -2.240038545713539e-29,
+    "numerator": -4.207196855085204e-29,
+    "status": "NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH"
+   },
+   {
+    "R_kpc": 1.56,
+    "dlnN_dR": -2.745451265230993e-30,
+    "pgrad": -4.1558219152267855e-29,
+    "numerator": -4.430367041749885e-29,
+    "status": "NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH"
+   },
+   {
+    "R_kpc": 1.65,
+    "dlnN_dR": 4.1362659362333835e-29,
+    "pgrad": 2.389648961496858e-29,
+    "numerator": 6.525914897730242e-29,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.75,
+    "dlnN_dR": 9.94228440078473e-29,
+    "pgrad": 1.260324077185352e-29,
+    "numerator": 1.1202608477970082e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.85,
+    "dlnN_dR": 1.4491738111110055e-28,
+    "pgrad": 1.8576956503022447e-30,
+    "numerator": 1.467750767614028e-28,
+    "status": "OK"
+   }
+  ],
+  "C6_radial_profile_phi0": [
+   {
+    "R_kpc": 1.2,
+    "dlnN_dR": 1.073607883251779e-28,
+    "pgrad": -1.476390710960272e-30,
+    "numerator": 1.0588439761421762e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.3,
+    "dlnN_dR": 1.325207961815978e-28,
+    "pgrad": -1.2598448722885293e-29,
+    "numerator": 1.199223474587125e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.4,
+    "dlnN_dR": 1.555634077057276e-28,
+    "pgrad": -2.6378496749125617e-29,
+    "numerator": 1.29184910956602e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.48,
+    "dlnN_dR": 1.6735910224227617e-28,
+    "pgrad": -3.9882798341374635e-29,
+    "numerator": 1.2747630390090154e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.56,
+    "dlnN_dR": 1.708696931950063e-28,
+    "pgrad": -5.698036879103288e-29,
+    "numerator": 1.1388932440397343e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.65,
+    "dlnN_dR": 1.6470209467155835e-28,
+    "pgrad": 1.3511781538415604e-29,
+    "numerator": 1.7821387620997395e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.75,
+    "dlnN_dR": 1.481633987486665e-28,
+    "pgrad": 8.987364983281704e-30,
+    "numerator": 1.571507637319482e-28,
+    "status": "OK"
+   },
+   {
+    "R_kpc": 1.85,
+    "dlnN_dR": 1.2731164932419876e-28,
+    "pgrad": 4.083275962817951e-30,
+    "numerator": 1.3139492528701672e-28,
+    "status": "OK"
+   }
+  ],
+  "same_point_K2_to_K6": {
+   "K2": {
+    "numerator_at_pi4_e28": 1.4168014608549497,
+    "dlnN_at_pi4_e28": 1.8505836929101351,
+    "numerator_a0_e28": 1.6564496935512047,
+    "dlnN_a0_e28": 2.1051379146292764,
+    "dlnN_a4_e28": 0.24592210699704306,
+    "dlnN_a8_e28": -0.008632114722098337,
+    "pgrad_a0_e28": -0.44868822107807155,
+    "numerator_min_over_samples_e28": 1.4168014608549497
+   },
+   "K3": {
+    "numerator_at_pi4_e28": 1.462140660677985,
+    "dlnN_at_pi4_e28": 1.8885206132735703,
+    "numerator_a0_e28": 1.595227191634536,
+    "dlnN_a0_e28": 2.0361602920136974,
+    "dlnN_a4_e28": -0.011578794216402177,
+    "dlnN_a8_e28": -0.15921847295652913,
+    "pgrad_a0_e28": -0.4409331003791615,
+    "numerator_min_over_samples_e28": 1.4324152594850712
+   },
+   "K4": {
+    "numerator_at_pi4_e28": 1.9734724900090506,
+    "dlnN_at_pi4_e28": 2.4370429335057486,
+    "numerator_a0_e28": 1.9479505503297652,
+    "dlnN_a0_e28": 2.419287694007325,
+    "dlnN_a4_e28": -0.7194584917625678,
+    "dlnN_a8_e28": -0.7017032522641441,
+    "pgrad_a0_e28": -0.47133714367755986,
+    "numerator_min_over_samples_e28": 0.6539436143079721
+   },
+   "K5": {
+    "numerator_at_pi4_e28": 0.796532851193662,
+    "dlnN_at_pi4_e28": 1.1410636015330176,
+    "numerator_a0_e28": 1.9032612341341282,
+    "dlnN_a0_e28": 2.4077102345034187,
+    "dlnN_a4_e28": 0.0023467387207314373,
+    "dlnN_a8_e28": -1.2642998942496695,
+    "pgrad_a0_e28": -0.5044490003692904,
+    "numerator_min_over_samples_e28": 0.7959841336558858
+   },
+   "K6": {
+    "numerator_at_pi4_e28": -0.4207196855085204,
+    "dlnN_at_pi4_e28": -0.19671583093716652,
+    "numerator_a0_e28": 1.509435160452857,
+    "dlnN_a0_e28": 1.9830377110077984,
+    "dlnN_a4_e28": 0.9351534266799642,
+    "dlnN_a8_e28": -1.2446001152650008,
+    "pgrad_a0_e28": -0.47360255055494144,
+    "numerator_min_over_samples_e28": -0.4207196855085204
+   },
+   "naive_linear_C4_C5_C6_slope_e28_per_kpc^-1": -1.1970960877587855,
+   "successive_differences_e28": [
+    -1.1769396388153885,
+    -1.2172525367021825
+   ],
+   "ratio_d2_over_d1": 1.0342523070489575,
+   "geometric_limit_if_ratio_lt1_e28": null
+  },
+  "saved_min_numerator_per_query_K2_K5": {
+   "K2": {
+    "DDO154_SPARC12_01": 1.1242371438217021e-28,
+    "DDO154_SPARC12_02": 1.796172445621088e-28,
+    "DDO154_SPARC12_03": 1.416124013918364e-28,
+    "DDO154_SPARC12_04": 1.711285746585551e-28,
+    "DDO154_SPARC12_05": 1.8422984055928817e-28,
+    "DDO154_SPARC12_06": 1.1545954368619953e-28,
+    "DDO154_SPARC12_07": 1.482321048858602e-28,
+    "DDO154_SPARC12_08": 1.9486135918879147e-28,
+    "DDO154_SPARC12_09": 9.299549376579136e-29,
+    "DDO154_SPARC12_10": 1.5118428623686814e-28,
+    "DDO154_SPARC12_11": 6.919624331116401e-29,
+    "DDO154_SPARC12_12": 1.402771513134588e-28
+   },
+   "K3": {
+    "DDO154_SPARC12_01": 1.6448957378985796e-28,
+    "DDO154_SPARC12_02": 1.7721908393417138e-28,
+    "DDO154_SPARC12_03": 1.4324152594850713e-28,
+    "DDO154_SPARC12_04": 1.1420526623808547e-28,
+    "DDO154_SPARC12_05": 1.4926453627030734e-28,
+    "DDO154_SPARC12_06": 4.8200908808343456e-29,
+    "DDO154_SPARC12_07": 1.5101113233870977e-28,
+    "DDO154_SPARC12_08": 2.3124488402317914e-28,
+    "DDO154_SPARC12_09": 1.5805126053505075e-28,
+    "DDO154_SPARC12_10": 2.1762249843774106e-28,
+    "DDO154_SPARC12_11": 9.044958589640341e-29,
+    "DDO154_SPARC12_12": 1.2925856168318577e-28
+   },
+   "K4": {
+    "DDO154_SPARC12_01": 1.8796485635606478e-28,
+    "DDO154_SPARC12_02": 1.7096535804347263e-28,
+    "DDO154_SPARC12_03": 6.539436143079721e-29,
+    "DDO154_SPARC12_04": 8.140987350345038e-29,
+    "DDO154_SPARC12_05": 1.0311204863367182e-28,
+    "DDO154_SPARC12_06": 1.284490830860594e-28,
+    "DDO154_SPARC12_07": 1.5385324628993545e-28,
+    "DDO154_SPARC12_08": 2.504960569952133e-28,
+    "DDO154_SPARC12_09": 1.3803320192062393e-28,
+    "DDO154_SPARC12_10": 2.3335365032364127e-28,
+    "DDO154_SPARC12_11": 1.0751399125312245e-28,
+    "DDO154_SPARC12_12": 1.7275709209531197e-28
+   },
+   "K5": {
+    "DDO154_SPARC12_01": 1.8001901059230688e-28,
+    "DDO154_SPARC12_02": 1.4113342393027914e-28,
+    "DDO154_SPARC12_03": 7.958550667040939e-29,
+    "DDO154_SPARC12_04": 5.711551644767166e-29,
+    "DDO154_SPARC12_05": 1.3973143161807842e-28,
+    "DDO154_SPARC12_06": 1.3711409363726178e-28,
+    "DDO154_SPARC12_07": 1.1432872050104088e-28,
+    "DDO154_SPARC12_08": 2.2520106621454494e-28,
+    "DDO154_SPARC12_09": 2.1824287744809205e-28,
+    "DDO154_SPARC12_10": 2.6284059197983545e-28,
+    "DDO154_SPARC12_11": 8.453205837957623e-29,
+    "DDO154_SPARC12_12": 1.8463433558056952e-28
+   }
+  },
+  "label": "TESTED"
+ },
+ "Q3_verdict": {
+  "branch": "v^2 < 0 (v2/c2 = -1.921e-9): numerator -4.207e-29 /m < 0, denominator +2.190e-20 /m; not the >= 1 side",
+  "cause": "the lapse gradient itself is negative (dlnN_dR = -1.967e-29 /m at phi = pi/4, lapse decreasing outward); the HI pressure term (pgrad = -2.240e-29 /m) has the same sign and supplies 53% of the negative numerator. Without pressure v^2 would still be < 0, so it is lapse-driven, not asymmetric-drift-dominated. Azimuthal-mean pressure/lapse ratio at R=1.48 is 0.24 (a0 pgrad -0.47e-28 vs a0 dlnN 1.98e-28).",
+  "region": "R ~ 1.38-1.60 kpc at the four diagonal azimuths phi = pi/4 + j*pi/2 (C6 radial profile: 1.30 passes, 1.40/1.48/1.56 refuse, 1.65 passes); on the roster only query 03 (all 4 diagonal obs azimuths and their 16 stencil azimuths = 20 refused calls); the 11 other roster radii pass at every azimuth",
+  "harmonics_at_R1.48": "dlnN_dR = a0 + a4 cos4phi + a8 cos8phi (+aliases), from phi = 0, pi/8, pi/4 (dihedral symmetry verified to 7e-32): a0 2.11, 2.04, 2.42, 2.41, 1.98; a4 +0.25, -0.01, -0.72, +0.00, +0.94; a8 -0.01, -0.16, -0.70, -1.26, -1.24 (e-28 /m; K = 2..6). At phi = pi/4 the value is a0 - a4 + a8: K6 1.98 - 0.94 - 1.24 = -0.20.",
+  "resolution_or_sign": "Resolution/representation effect, not a sign artifact. TESTED: same formula and signs at every K and azimuth; the isotropic part stays positive (numerator a0 1.66, 1.60, 1.95, 1.90, 1.51 e-28 for K2..K6); the refusal comes from the azimuthal harmonics: a4 (cube m=4) changes sign with K and grows at even K (0.25, 0.72, 0.94), a8 grows with K and levels at about -1.25 from K5. The readout azimuths 2*pi*i/8 coincide with the 8 route-A gas-column azimuths (prep v009 L152, binding L104-105). The nearest gas-column radii are 1.105, 1.359, 1.526, 1.633, 1.862 kpc. Comparison: route-B le3 midplane field (body gas, 16 azimuths) at R 1.36-1.63 kpc, K4 C4R3: a4 within +-0.05e-28 and m0 2.24-2.27e-28. ATTRIBUTION of a4/a8 to the route-A discrete 8-azimuth column source under cube truncation: PLAUSIBLE (consistent by contrast with route B; mechanism not isolated, UNTESTED). The thin stellar disc (h 0.049 kpc) is not the driver at 1.48 kpc: the isotropic part is bounded.",
+  "label": "TESTED (branch side, location, numbers, harmonic split, K2-K6 series); PLAUSIBLE (source-column attribution)"
+ },
+ "Q4_route_b_and_tail": {
+  "route_b_depends_on_readout": "NO (TESTED by code): route-B stages read the converged checkpoint, not route_a_rows",
+  "route_b_own_refusal": "YES, an m0 analogue: owned_free_surface_rotation_v001 e1b354ec L20 omega2=(C_R - h k/gamma)/R, L31 positive=all(omega2>0) over 72 radii x 32 heights; rotation_v005_gal_c2v004 L273-277 records positive_rotation_square; column_mean_v004_gal_c2v004 L194 refuses unless positive_rotation_square is True, L204 refuses any Omega<=0. It uses the phi-averaged dPhi/dR (L265), so the a4/a8 harmonics that cause the route-A refusal do not enter it.",
+  "route_b_margin_K2_K4": {
+   "K2": {
+    "positive": true,
+    "max_support_ratio": 0.6720385318551046,
+    "at_R_kpc": 12.591314480790695,
+    "at_roster_radii": {
+     "0.49": 0.0278,
+     "0.99": 0.0324,
+     "1.48": 0.0711,
+     "1.97": 0.0476,
+     "2.47": 0.0604,
+     "2.96": 0.058,
+     "3.46": 0.0623,
+     "3.95": 0.0593,
+     "4.44": 0.1028,
+     "4.94": 0.1411,
+     "5.43": 0.0795,
+     "5.92": 0.1235
+    }
+   },
+   "K3": {
+    "positive": true,
+    "max_support_ratio": 0.6529569948419838,
+    "at_R_kpc": 12.591314480790695,
+    "at_roster_radii": {
+     "0.49": 0.0266,
+     "0.99": 0.0341,
+     "1.48": 0.0698,
+     "1.97": 0.046,
+     "2.47": 0.0577,
+     "2.96": 0.0584,
+     "3.46": 0.0623,
+     "3.95": 0.0579,
+     "4.44": 0.1013,
+     "4.94": 0.1368,
+     "5.43": 0.0804,
+     "5.92": 0.1222
+    }
+   },
+   "K4": {
+    "positive": true,
+    "max_support_ratio": 0.6519311337767151,
+    "at_R_kpc": 12.591314480790695,
+    "at_roster_radii": {
+     "0.49": 0.028,
+     "0.99": 0.0359,
+     "1.48": 0.0671,
+     "1.97": 0.0453,
+     "2.47": 0.0596,
+     "2.96": 0.0561,
+     "3.46": 0.0635,
+     "3.95": 0.0566,
+     "4.44": 0.0943,
+     "4.94": 0.1292,
+     "5.43": 0.0791,
+     "5.92": 0.12
+    }
+   }
+  },
+  "route_b_margin_note": "support ratio s = -(dP/dR)/(rho dPhi/dR) on the le3 rotation (s >= 1 is Omega^2 <= 0): max 0.672, 0.653, 0.652 at R=12.59 kpc for K2, K3, K4; 0.08 at R~5.4 and 0.07 at R~1.5 kpc. TESTED for K2-K4; C5/C6 route B UNTESTED here (C5 route B not read, C6 has none).",
+  "trend_extrapolation": "Raw failing-point numerator 1.97 (K4), 0.80 (K5), -0.42 (K6) e-28: successive differences -1.18, -1.22 (ratio 1.03), so it does not contract and no K->inf limit can be extrapolated from C4-C5-C6 (UNTESTED; the K->inf value is not determined by these three points). The harmonic split shows the drop is a4 changing sign plus a8 levelling off, not an m0 trend.",
+  "tail_corrected_runs": "V007 production tail: continuum_v001 source, cylinder K_big 32 minus cube K, lapse-only, route-A jet order 1, so route A is computed in every T-run and its readout gets the tail. A continuum-source tail adds isotropic content but cannot remove harmonics carried by the discrete-column field inside cube K. Expected numerator at R=1.48, phi=pi/4 = a0(dlnN) - a4 + a8 + pgrad(pi/4), using that run's cube-K a4/a8 and pgrad(pi/4) = -0.46, -0.34, -0.22 e-28 (K4, K5, K6): C4T about a0 + 0.02 - 0.46 (passes if a0(C4T) > 0.44e-28); C5T about a0 - 1.26 - 0.34 (passes if a0 > 1.60; the cube value is 2.41); C6T about a0 - 2.18 - 0.22 (refuses unless the tail lifts a0 from 1.98 to above 2.40e-28, +21%). C4T-D6, whose nodes_v001 tail reproduces the G6 discrete roster on G6\\G4, is expected to reproduce C6 and refuse. All PLAUSIBLE, UNTESTED (deciding test: replay this readout on the C4T/C6T/C4T-D6 converged route-A checkpoints, or on saved C4R3/C6 states plus the module tail, before V007 is sealed).",
+  "label": "TESTED (route-B independence, own refusal, K2-K4 margin); UNTESTED (tail-run outcomes, k->inf limit)"
+ },
+ "Q5_recommendation_V007_T2": [
+  "T2 as drafted (\"C4T-D6 vs C6 direct, sealed V006\") has no reference: C6 is a registered failure with no route-B rows. T2I is also unsatisfiable, because it needs C6 offset new_body_fourier_J and feedback gas_source_feedback, which never ran. Re-specify both on G5: T2 = C4T-D5 (K=4 cube + nodes_v001 tail on G5\\G4, numerics byte-equal to the C5 call except composite_grid_spec and uv_tail) vs C5 direct (sealed V006 R1). T2I = the nodes_v001 replicas against the C5 rosters on G5\\G4. Same threshold 1/4 tau (A28), decidable. C5 route A passed the readout (minimum roster numerator 0.571e-28 at R=1.97, 0.796e-28 at R=1.48); its route-B validity is decided by V006 R1 when C5 completes, not here.",
+  "Declare a handling rule before V007 is sealed. The refusal is expected (PLAUSIBLE) in C6T (T1_H) and in any D6-type run. Proposed rule RO1: a NO_SUBLUMINAL_CIRCULAR_PRESSURE_BRANCH (or DEGENERATE_RADIAL_EULER) refusal raised by the prediction-v005 readout AFTER a CONVERGED_FINITE_FIXED_POINT is a measured property of the circular-trial readout at that state. It is recorded (query, phi, R, numerator, denominator) as ROUTE_A_READOUT_NO_CIRCULAR_BRANCH, and route B runs on the converged checkpoint. The route-B Omega^2>0 refusal (column_mean L194/L204) stays the decision-relevant branch test; route_a_rows are never used by T1-T3. This needs a reviewed worker/driver successor that persists the converged result with the readout failure record, catching only these two refusals and only after convergence. Today the worker writes no result.json (worker L114-118), and admit.route_a needs a result_sha256.",
+  "Under V006 R1 (sealed, not changed here), C6 stays a registered failure. Gate V1(v) \"one rerun of the same spec\" would reproduce it: the replay of the pinned readout on the saved converged checkpoint raised at the identical call, bitwise. Report it as a deterministic defect, not a rerun candidate.",
+  "MT_monitor uses v_ref = A2F10 route_a_rows (K=2). It is unaffected: the K2 readout margin at R=1.48 is 1.42e-28."
+ ],
+ "artifacts": {
+  "out/ANALYSIS_V001.json": "751defb25e5104fa59b7400b6581a7bf508c79d387194edbe1ff3cbf9773f787",
+  "out/AZ16R_K2_IT4_V001.json": "f5012d4b5bec56b38443ae8bd4845cd44f9520740c2c24c1a293da1e8253e8b5",
+  "out/AZ16R_K3_IT5_V001.json": "ec95e012dc7963f397440a7bafde2f69068c9c1e2353fdcc10b80a5116635917",
+  "out/AZ16R_K4_IT6_V001.json": "7f6389c610aaf844ed83a8bf1462a00693fddbe40c3683d72009afb75193d560",
+  "out/AZ16R_K5_IT7_V001.json": "34f74bbd65935ab53df9c7ee3914a2a4409e193681c5bdefbdc369184c518466",
+  "out/AZ16_C6_IT8_V001.json": "1d0d8815e6a5b89f76027d133790d77c4229fc4276ed12fe7eedbb2cb752c0b9",
+  "out/EXACT_C6_IT8_V001.json": "4e726769a2c62fa41fb032cac62a87c45bcd4f89dacf26f8e2d52f9688d34399",
+  "out/FIDELITY_C5_Q0_PHI0_V001.json": "c9abc55fd5a3d9ef5d60eed5c3f4130a4b2a2346e2bf63cd32edcfd9d008889a",
+  "out/RADIAL_C6_IT8_V001.json": "05372e4b8c11f437d0060a990986ec818d31fae6a63c1363a40be715ae1ea16b",
+  "out/ROUTE_B_MARGIN_C2R3_C4R3_V001.json": "f417661d1173cafc0522a5fa7d98b17753cc8ad718ae909b592a72cca4802101",
+  "out/SAVED_READOUT_K2_K5_V001.json": "8933ff0a6a79e2dc40df89ce23dbd693125e2b640f1e0f0ce1f2f4daf1bcffa8",
+  "out/SWEEP_C6_IT8_Q10_9_8_7_V001.json": "56173c0fb712761af2b42f7fab93cd0377feac5c9e746c97e742824c40f25650",
+  "out/SWEEP_C6_IT8_Q11_2_1_0_V001.json": "a94642ab0177e7c4d1a1bdf188f8e013c6bb25c2b57f1a120fee9308c0165e9a",
+  "out/SWEEP_C6_IT8_Q6_5_4_3_V001.json": "ae21e5d3ce39ca9b6e5b6731f48cdf5b337f81bbf62aa74e00c133e5a35202e7",
+  "tools/analyze_c2.py": "0ff5a576d349fcc571fa75b0c88522a4fcb8481a3fe7cb7b46f27332be7123e9",
+  "tools/extract_saved_readout_c2.py": "f1bbe04b7b75f67ec8aadf368ce65e12b536c5ec1fd25d75b55f01a5071343eb",
+  "tools/make_diag_c2.py": "db9559628b5bc99f5673cf528e6a434b975bd17901f21ef65c7b35e94d558fab",
+  "tools/replay_readout_c2.py": "26587d7734e374e6e046bac6b25440e38ecdb36a61a2211846891510dfd8a08e",
+  "tools/replay_readout_c2_v002.py": "63414799cc91fd4e367354a518378a6723ad8abfdb46f592a682ec3948447fec",
+  "tools/replay_readout_c2_v003.py": "5ae4b8fb817dd9f0f0aee51ffc73f4a8239e11144f5f2a5f2ca74cfc377b6170",
+  "tools/route_b_margin_c2.py": "28623af6c7b0126a8e5652366ce35e17b48d1007a4feb21d8872d0466ea41558",
+  "tools/show_partial_c2.py": "0a0870c6af147db3fc09089eb302850b8c1968130efe2e2026d5abb0da94b466"
+ }
+}

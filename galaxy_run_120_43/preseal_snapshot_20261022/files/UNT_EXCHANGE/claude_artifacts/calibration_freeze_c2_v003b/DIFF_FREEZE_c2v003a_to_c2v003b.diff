@@ -1,0 +1,692 @@
+--- calibration_freeze_c2_v003a/prediction_freeze_c2v003a.py	2026-10-17 09:58:25.213630429 -0500
++++ calibration_freeze_c2_v003b/prediction_freeze_c2v003b.py	2026-10-17 17:50:12.585141558 -0500
+@@ -1,6 +1,28 @@
+-"""prediction_freeze_c2v003a -- Module 2 v003a (Claude2 lane), superseding prediction_freeze_c2v003
+-(sha256 f670d14b...5e8028), itself superseding prediction_freeze_c2v002 (sha256 613f3438...ec85314b) and
+-prediction_freeze_c3v001 (sha256 ed6b5a3e...09200).
++"""prediction_freeze_c2v003b -- Module 2 v003b (Claude2 lane), superseding prediction_freeze_c2v003a
++(sha256 5ee3e5dc...e0f9b8), itself superseding prediction_freeze_c2v003 (sha256 f670d14b...5e8028),
++prediction_freeze_c2v002 (sha256 613f3438...ec85314b) and prediction_freeze_c3v001 (sha256 ed6b5a3e...09200).
++
++v003b changes (root decisions A13, A16.1/A16.4, A10/A12/A18 notes; INTERFACE_C2V003B.md):
++  * A13: coordinate mode DDO154_DISTANCE_FIXED_AT_REGISTERED. A coordinate with scope 'ddo154_fixed'
++    (role fixed, kind distance, units Mpc, reference_value = trial_value = 4.04, no sensitivity) declares the DDO154
++    distance a FIXED COUNTED CONSTANT, not a nuisance. Its engine coordinate is the V001 one with role fixed (scope
++    DDO154, box kept for the engine's distance_summary binding). apply_coordinate_mode converts the V001 freeze
++    coordinate list under the orchestrator addendum's coordinate_mode declaration (only scope and role of the distance
++    change). The mode is derived from the coordinate list, so the verifier and the scorer re-derive it.
++  * In that mode only: every NGC3198 band label and every band_scope entry carries 'conditional on DDO154 D=4.04
++    (A13)'; conditional_on_trial_values lists the fixed constant; the manifest carries a module-generated
++    'headline_conditions' block (mode, fixed constant, the distance-as-nuisance alternative
++    NOT_EVALUATED_BEFORE_FREEZE, the A16 slot summary, the structural-assumption keys) that the verifier recomputes;
++    the notes must carry the A16.1 slot block (notes.ngc3198_slot_sensitivity, status NOT_EVALUATED_BEFORE_FREEZE)
++    and notes.structural_assumptions with SA-BH-01, SA-REACH-01 and an A18 entry; a declared alternative
++    DDO154_DISTANCE_NUISANCE marked EVALUATED_BEFORE_FREEZE refuses.
++  * A16.4 (any mode, only when notes.ngc3198_slot_sensitivity is present): every evaluated NGC3198 slot sensitivity
++    entry must be a refusal (valid not True, no valid row) carrying the reason GEOMETRY_NOT_EXPOSED; a box-end call
++    that returned valid refuses the freeze (a silently ignored D or i would freeze a false zero sensitivity). The
++    block's declared range and headline geometry must equal the slots' boxes and trial values. Checks only: no
++    manifest content is added in the 4-coordinate mode.
++  * Without a 'ddo154_fixed' coordinate (the 4-coordinate mode) every output is v003a's, except MODULE_NAME and the
++    refusal texts that enumerate the accepted scopes.
+ 
+ v003a changes (CHECK_V001 X1; line map in DELTA_V003_V003A.md):
+   * X1/P34-14: select_representative_points re-derives every admission rectangle from the DDO154 region
+@@ -53,7 +75,8 @@
+ ``ok: bool`` and ``reasons: list[str]``):
+ 
+     load_query_manifest(*, path, expected_sha256)                                   [v001, unchanged]
+-    make_freeze_coordinate_spec(*, coordinates)                                     [new, D10]
++    make_freeze_coordinate_spec(*, coordinates)                                     [new, D10; v003b A13]
++    apply_coordinate_mode(*, coordinates, coordinate_mode)                          [v003b, A13]
+     select_representative_points(*, exploration, interior_count, spec)              [D5/D7/D10]
+     evaluate_envelopes(*, forward_ngc, points, spec, query_ids, budget)             [A3/D5/D10]
+     select_reference_member(*, selection, evaluation)                               [new, D5]
+@@ -94,7 +117,7 @@
+ 
+ SCHEMA = 'FREEZE_MANIFEST_C2V003'
+ REGISTRATION_SCHEMA = 'FREEZE_REGISTRATION_C2V003'
+-MODULE_NAME = 'prediction_freeze_c2v003a'
++MODULE_NAME = 'prediction_freeze_c2v003b'
+ # D3/A4: the program's target-free NGC3198 query manifest
+ # (UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json)
+ PROGRAM_QUERY_MANIFEST_SHA256 = 'a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494'
+@@ -162,9 +185,10 @@
+ SCOPE_SHARED = 'shared'
+ SCOPE_DDO = 'ddo154_nuisance'
+ SCOPE_NGC = 'ngc3198_nuisance'
+-SCOPES = (SCOPE_SHARED, SCOPE_DDO, SCOPE_NGC)
++SCOPE_DDO_FIXED = 'ddo154_fixed'   # v003b (A13): the DDO154 distance as a fixed counted constant, not a nuisance
++SCOPES = (SCOPE_SHARED, SCOPE_DDO, SCOPE_NGC, SCOPE_DDO_FIXED)
+ KINDS = ('distance', 'inclination', 'other')
+-DISTANCE_REFERENCE_MPC = {SCOPE_DDO: 4.04, SCOPE_NGC: 13.8}
++DISTANCE_REFERENCE_MPC = {SCOPE_DDO: 4.04, SCOPE_NGC: 13.8, SCOPE_DDO_FIXED: 4.04}
+ COORD_KEYS = frozenset({'name', 'transform', 'lower', 'upper', 'role', 'trial_value', 'units', 'scope',
+                         'kind', 'reference_value', 'sensitivity'})
+ 
+@@ -178,6 +202,44 @@
+ SENS_FIXED = 'FIXED_SHARED_COORDINATE'
+ SENS_NGC = 'NGC3198_NUISANCE'
+ 
++# v003b: coordinate modes (root decision A13) and the NGC3198 slot geometry rulings (A16.1 / A16.4)
++MODE_D_FIXED = 'DDO154_DISTANCE_FIXED_AT_REGISTERED'
++MODE_D_NUISANCE = 'DDO154_DISTANCE_NUISANCE'
++COORDINATE_MODES = (MODE_D_FIXED, MODE_D_NUISANCE)
++DDO154_REGISTERED_DISTANCE_MPC = 4.04
++A13_CONDITION = 'conditional on DDO154 D=4.04 (A13)'
++SENS_DDO_FIXED = 'DDO154_FIXED_COUNTED_CONSTANT'
++FIXED_CONSTANT_STATUS = 'FIXED_COUNTED_CONSTANT_NOT_A_NUISANCE'
++GEOMETRY_NOT_EXPOSED = 'GEOMETRY_NOT_EXPOSED'
++HEADLINE_CONDITIONS_KEY = 'headline_conditions'
++NOTES_SLOT_KEY = 'ngc3198_slot_sensitivity'
++NOTES_SA_KEY = 'structural_assumptions'
++SA_REQUIRED = ('SA-BH-01', 'SA-REACH-01')
++SA_SECTION_A18 = 'A18'
++ROOT_A13 = {'id': 'A13', 'section': 'A13 - DDO154 distance fixed at 4.04 Mpc for the headline calibration',
++            'file': ('/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/'
++                     'CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V003_ADDENDUM.md'),
++            'sha256': '5bef6552b92b0939405ae6d6cefd12c1df95f2d57097589439fa37aa78b9b468', 'status': 'FROZEN_PINNED'}
++ROOT_A16 = {'ids': ['A16.1', 'A16.4'], 'file_name': 'ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V004_ADDENDUM.md',
++            'status': 'OPEN_CITED_BY_NAME_NOT_PINNED'}
++A13_ADMISSIBILITY = ('A13: a slice of the 4-D admitted region at D = 4.04 is contained in its projection, so the '
++                     'NGC3198 bands can only narrow (stricter test, never more lenient)')
++DISTANCE_ALTERNATIVE = {
++    'name': MODE_D_NUISANCE, 'kind': 'calibration_coordinate', 'status': 'NOT_EVALUATED_BEFORE_FREEZE',
++    'description': ('DDO154 distance as a nuisance coordinate (the V001 4-coordinate calibration): a sensitivity only, '
++                    'never a headline (A13)'),
++    'deciding_work': ('stage successor gal_c2v005 + galaxy-config schema V005 (run-mode admission of the per-call DDO154 '
++                      'geometry), then the D Jacobian column at two step sizes'),
++    'scored': False}
++A16_READING = ('A16.1/A16.4: the headline uses the registered NGC3198 geometry; the slot boxes are the declared range of '
++               'a sensitivity NOT_EVALUATED_BEFORE_FREEZE. forward_ngc refuses every box-end geometry with '
++               'GEOMETRY_NOT_EXPOSED, so the box-limited sensitivity band rows are invalid by design and '
++               'conditional_on_trial_values.sensitivity_evaluated true for these slots reads "attempted and refused", '
++               'not a zero sensitivity')
++ENVELOPE_LABEL_A13 = ENVELOPE_LABEL + '; ' + A13_CONDITION
++SENSITIVITY_LABEL_A13 = SENSITIVITY_LABEL + '; ' + A13_CONDITION
++BAND_SCOPE_A13 = {k: v + '; ' + A13_CONDITION for k, v in BAND_SCOPE.items()}
++
+ # P46 harness FORBIDDEN set (lanes/P46_CODEX2/line_a_prediction_harness_v002.py)
+ # plus the four target-row names required by INTERFACE_0462_V001.
+ FORBIDDEN = frozenset({
+@@ -655,6 +717,22 @@
+         if scope in (SCOPE_DDO, SCOPE_NGC) and role != 'nuisance':
+             reasons.append('%s %s coordinates must have role nuisance' % (where, scope))
+             bad = True
++        if scope == SCOPE_DDO_FIXED:
++            # v003b (A13): the DDO154 distance fixed at its registered value, a counted constant, not a nuisance
++            if role != 'fixed':
++                reasons.append('%s %s coordinates must have role fixed (A13)' % (where, scope))
++                bad = True
++            if kind != 'distance':
++                reasons.append('%s %s is only the DDO154 distance (kind distance, A13)' % (where, scope))
++                bad = True
++            if not _is_real(tv) or float(tv) != DDO154_REGISTERED_DISTANCE_MPC:
++                reasons.append('%s %s trial_value must be the registered %r Mpc (A13)'
++                               % (where, scope, DDO154_REGISTERED_DISTANCE_MPC))
++                bad = True
++            if c['sensitivity'] is not None:
++                reasons.append('%s %s takes no sensitivity: a fixed counted constant; distance as a nuisance is the '
++                               'recorded alternative NOT_EVALUATED_BEFORE_FREEZE (A13)' % (where, scope))
++                bad = True
+         if kind not in KINDS:
+             reasons.append('%s.kind must be one of %s' % (where, list(KINDS)))
+             bad = True
+@@ -664,7 +742,8 @@
+             bad = True
+         if kind == 'distance':
+             if scope not in DISTANCE_REFERENCE_MPC:
+-                reasons.append('%s distance coordinates must be ddo154_nuisance or ngc3198_nuisance' % where)
++                reasons.append('%s distance coordinates must be ddo154_nuisance, ddo154_fixed or ngc3198_nuisance'
++                               % where)
+                 bad = True
+             else:
+                 if units != 'Mpc':
+@@ -704,7 +783,7 @@
+                     bad = True
+                 else:
+                     sens_norm = {'mode': 'step', 'step': float(sens['step'])}
+-            if not ((scope == SCOPE_SHARED and role == 'fixed') or scope == SCOPE_NGC):
++            if not ((scope == SCOPE_SHARED and role == 'fixed') or scope == SCOPE_NGC or scope == SCOPE_DDO_FIXED):
+                 reasons.append('%s sensitivity may be declared only for fixed shared coordinates and NGC3198 '
+                                'nuisances (free and DDO154 coordinates are spanned by calibration)' % where)
+                 bad = True
+@@ -725,6 +804,10 @@
+                 reasons.append('%s has %d %s coordinates; at most one allowed' % (scope, n, kind))
+             if scope == SCOPE_NGC and n != 1:
+                 reasons.append('NGC3198 needs its own %s nuisance slot (D10)' % kind)
++    ddo_fixed = [c['name'] for c in coords if c['scope'] == SCOPE_DDO_FIXED]
++    if ddo_fixed and sum(1 for c in coords if c['scope'] in (SCOPE_DDO, SCOPE_DDO_FIXED) and c['kind'] == 'distance') > 1:
++        reasons.append('DDO154 has a fixed distance %s and another distance coordinate; at most one DDO154 distance '
++                       '(A13: fixed, or the recorded nuisance alternative)' % ddo_fixed)
+     engine = [c for c in coords if c['scope'] != SCOPE_NGC]
+     varying = [c['name'] for c in engine if c['role'] != 'fixed']
+     if not varying:
+@@ -744,6 +827,9 @@
+         'ngc_theta_names': shared + ngc,
+         'fixed_shared': [c['name'] for c in coords if c['scope'] == SCOPE_SHARED and c['role'] == 'fixed'],
+         'sensitivity_targets': [c['name'] for c in coords if c['sensitivity'] is not None],
++        # v003b (A13): the mode is a function of the coordinate list (None = the v003a 4-coordinate behaviour)
++        'ddo_fixed_names': ddo_fixed,
++        'coordinate_mode': MODE_D_FIXED if ddo_fixed else None,
+     }
+ 
+ 
+@@ -769,6 +855,10 @@
+     inclination slot. Returns 'engine_coordinates' (D4: engine-ready nine-field dicts in the engine's
+     spellings, NGC3198 slots excluded; pass them to run_calibration_region unchanged) and 'spec'
+     (pass it to the other functions). One step rule (D4): trial_value +/- step inside [lower, upper].
++    v003b (A13): scope 'ddo154_fixed' (role fixed, kind distance, units Mpc, reference_value and trial_value 4.04,
++    sensitivity None; at most one DDO154 distance in all) puts the list in coordinate mode
++    DDO154_DISTANCE_FIXED_AT_REGISTERED, reported as 'coordinate_mode' (absent otherwise). Its engine coordinate has
++    scope DDO154 and role fixed; it is never passed to forward_ngc. See apply_coordinate_mode.
+     """
+     reasons = []
+     out = {'ok': False, 'spec': None, 'engine_coordinates': [], 'ngc_theta_names': [],
+@@ -782,10 +872,96 @@
+     # 'NONE' | 'BOX_ENDS' | {'step_natural': x}); NGC3198 slots are never passed to the DDO154 engine.
+     out['engine_coordinates'] = [_engine_coordinate(c) for c in S['coordinates'] if c['scope'] != SCOPE_NGC]
+     out['ngc_theta_names'] = list(S['ngc_theta_names'])
++    if S['coordinate_mode'] is not None:   # v003b (A13): reported only in the fixed-distance mode
++        out['coordinate_mode'] = S['coordinate_mode']
++    out['ok'] = True
++    return out
++
++
++@_fail_closed
++def apply_coordinate_mode(*, coordinates, coordinate_mode):
++    """v003b (A13): the freeze coordinate list for an orchestrator coordinate_mode declaration.
++
++    coordinates: the V001 freeze coordinate list (the DDO154 distance a ddo154_nuisance coordinate) plus the NGC3198
++    slots. coordinate_mode: the addendum's {'mode', 'free_coordinates', 'fixed_engine_coordinates', ...}.
++      * DDO154_DISTANCE_FIXED_AT_REGISTERED: fixed_engine_coordinates must be exactly {<name>: 4.04} naming the single
++        DDO154 distance coordinate (trial_value 4.04); its scope becomes 'ddo154_fixed' and its role 'fixed'; nothing
++        else changes (box, transform, units, reference_value kept). The engine coordinate then differs from the V001
++        one only in role (nuisance -> fixed), as the orchestrator's own mode rule requires.
++      * DDO154_DISTANCE_NUISANCE: fixed_engine_coordinates must be empty; the list is returned unchanged.
++    In both modes the resulting varying engine names must equal free_coordinates (order included).
++    Returns {'ok', 'mode', 'coordinates', 'changed', 'varying_engine_names', 'engine_coordinates', 'reasons'}.
++    """
++    reasons = []
++    out = {'ok': False, 'mode': None, 'coordinates': [], 'changed': [], 'varying_engine_names': [],
++           'engine_coordinates': [], 'reasons': reasons}
++    if not isinstance(coordinate_mode, dict) or not isinstance(coordinate_mode.get('mode'), str) or \
++            coordinate_mode.get('mode') not in COORDINATE_MODES:
++        reasons.append('coordinate_mode must be a dict whose mode is one of %s' % list(COORDINATE_MODES))
++        return out
++    mode = coordinate_mode['mode']
++    out['mode'] = mode
++    S0 = _build_spec(coordinates, reasons)
++    if S0 is None:
++        return out
++    if S0['coordinate_mode'] is not None:
++        reasons.append('apply_coordinate_mode takes the V001 list (DDO154 distance a nuisance); it already holds the '
++                       'fixed coordinate(s) %s' % S0['ddo_fixed_names'])
++        return out
++    fx = coordinate_mode.get('fixed_engine_coordinates')
++    free = coordinate_mode.get('free_coordinates')
++    new = [dict(c, sensitivity=(dict(c['sensitivity']) if c['sensitivity'] else None)) for c in S0['coordinates']]
++    if mode == MODE_D_NUISANCE:
++        if fx not in (None, {}):
++            reasons.append('coordinate mode %s fixes nothing, got fixed_engine_coordinates %s' % (mode, _safe_repr(fx)))
++            return out
++    else:
++        dd = [c for c in new if c['scope'] == SCOPE_DDO and c['kind'] == 'distance']
++        if len(dd) != 1:
++            reasons.append('coordinate mode %s needs exactly one ddo154_nuisance distance coordinate, found %d'
++                           % (mode, len(dd)))
++            return out
++        c = dd[0]
++        if not isinstance(fx, dict) or len(fx) != 1 or list(fx) != [c['name']] or \
++                not _is_real(fx[c['name']]) or float(fx[c['name']]) != DDO154_REGISTERED_DISTANCE_MPC:
++            reasons.append('coordinate mode %s must fix exactly {%r: %r}, got %s'
++                           % (mode, c['name'], DDO154_REGISTERED_DISTANCE_MPC, _safe_repr(fx)))
++            return out
++        if c['trial_value'] != DDO154_REGISTERED_DISTANCE_MPC:
++            reasons.append('%s trial_value %r is not the registered %r Mpc (A13)'
++                           % (c['name'], c['trial_value'], DDO154_REGISTERED_DISTANCE_MPC))
++            return out
++        c['scope'] = SCOPE_DDO_FIXED
++        c['role'] = 'fixed'
++    changed = [(a['name'], k) for a, b in zip(S0['coordinates'], new) for k in sorted(set(a) | set(b))
++               if a.get(k) != b.get(k)]
++    expect = [] if mode == MODE_D_NUISANCE else [(c['name'], 'role'), (c['name'], 'scope')]
++    if changed != expect:
++        reasons.append('coordinate mode changed %s, expected exactly %s' % (changed, expect))
++        return out
++    S = _build_spec(new, reasons)
++    if S is None:
++        return out
++    if not isinstance(free, (list, tuple)) or list(free) != S['varying_engine']:
++        reasons.append('coordinate_mode.free_coordinates %s differ from the varying engine coordinates %s'
++                       % (_safe_repr(free), S['varying_engine']))
++        return out
++    out['coordinates'] = [dict(c, sensitivity=(dict(c['sensitivity']) if c['sensitivity'] else None))
++                          for c in S['coordinates']]
++    out['changed'] = [list(x) for x in changed]
++    out['varying_engine_names'] = list(S['varying_engine'])
++    out['engine_coordinates'] = [_engine_coordinate(c) for c in S['coordinates'] if c['scope'] != SCOPE_NGC]
+     out['ok'] = True
+     return out
+ 
+ 
++def _mode_labels(S):
++    """v003b: (envelope label, sensitivity label, band_scope) of the coordinate mode."""
++    if S.get('coordinate_mode') == MODE_D_FIXED:
++        return ENVELOPE_LABEL_A13, SENSITIVITY_LABEL_A13, BAND_SCOPE_A13
++    return ENVELOPE_LABEL, SENSITIVITY_LABEL, BAND_SCOPE
++
++
+ def _engine_coordinate(c):
+     sens = c['sensitivity']
+     if sens is None:
+@@ -1452,7 +1628,7 @@
+         return None, [False] * nq, [None] * nq, preasons, exc
+ 
+ 
+-def _pointwise_envelope(members, ids):
++def _pointwise_envelope(members, ids, label=ENVELOPE_LABEL):
+     """A3 + P34-06 (v003): a query is valid iff EVERY selected member was evaluated (status COMPLETE) and at
+     least one member is valid; the band is the min/max over the VALID members. A member whose evaluation is
+     invalid (D1: all of its rows invalid) is excluded and counted in n_excluded_invalid instead of voiding
+@@ -1467,7 +1643,7 @@
+         rows.append({'id': q, 'band_low_km_s': (min(vals) if nv else None),
+                      'band_high_km_s': (max(vals) if nv else None), 'n_members': n, 'n_valid': nv,
+                      'n_excluded_invalid': n_excl, 'n_unevaluated': n_uneval,
+-                     'valid': bool(n >= 1 and n_uneval == 0 and nv >= 1), 'label': ENVELOPE_LABEL})
++                     'valid': bool(n >= 1 and n_uneval == 0 and nv >= 1), 'label': label})
+     return rows
+ 
+ 
+@@ -1564,7 +1740,7 @@
+     status = STATUS_COMPLETE if n_eval == len(members) else STATUS_BUDGET
+     if status != STATUS_COMPLETE:
+         reasons.append('BUDGET_EXHAUSTED: %d of %d selected members evaluated' % (n_eval, len(members)))
+-    env = _pointwise_envelope(members, ids)
++    env = _pointwise_envelope(members, ids, _mode_labels(S)[0])
+     n_mv = sum(1 for m in members if m['member_valid'])
+     if n_eval - n_mv:
+         reasons.append('MEMBER_INVALID: %d evaluated member(s) invalid (excluded from the envelope, scored 0): %s'
+@@ -1705,7 +1881,7 @@
+     return plan
+ 
+ 
+-def _sensitivity_summary(ref, entries, ids):
++def _sensitivity_summary(ref, entries, ids, label=SENSITIVITY_LABEL):
+     active = [e for e in entries if not e['skipped_zero_displacement']]
+     per_query = []
+     for j, q in enumerate(ids):
+@@ -1724,7 +1900,7 @@
+                           'box_limited_band_high_km_s': (max(allv) if allv else None),
+                           'max_abs_delta_km_s': (float(mad) if mad is not None else None),
+                           'n_planned': len(active), 'n_valid': len(vals), 'valid': bool(valid),
+-                          'label': SENSITIVITY_LABEL})
++                          'label': label})
+     per_target = []
+     keys = []
+     for e in entries:
+@@ -1775,6 +1951,8 @@
+         reasons.append('selection must be an ok output of select_representative_points')
+     if reasons:
+         return out
++    sens_label = _mode_labels(S)[1]   # v003b: the A13 condition in the fixed-distance mode
++    out['label'] = sens_label
+     ref = reference['member']
+     if len(ref['speeds_km_s']) != len(ids):
+         reasons.append('reference member arrays do not match query_ids')
+@@ -1814,7 +1992,7 @@
+     status = STATUS_COMPLETE if not pending else STATUS_BUDGET
+     if pending:
+         reasons.append('BUDGET_EXHAUSTED: %d planned sensitivity evaluations not run' % len(pending))
+-    per_query, per_target = _sensitivity_summary(ref, entries, ids)
++    per_query, per_target = _sensitivity_summary(ref, entries, ids, sens_label)
+     out.update({'ok': True, 'status': status, 'budget': budget, 'evaluations_used': used,
+                 'reference_member_id': ref['member_id'], 'null_direction_rule': rule, 'evaluations': entries,
+                 'per_query': per_query, 'per_target': per_target})
+@@ -1904,6 +2082,12 @@
+         out.append({'kind': SENS_NULL, 'name': str(d['index']), 'trial_value': d['trial_projection'],
+                     'units': 'dimensionless unit-box projection u.v', 'sensitivity_declared': True,
+                     'sensitivity_evaluated': evaluated(SENS_NULL, str(d['index']))})
++    for nm in S.get('ddo_fixed_names') or []:   # v003b (A13): the bands are conditional on the fixed DDO154 distance
++        c = S['by_name'][nm]
++        out.append({'kind': SENS_DDO_FIXED, 'name': nm, 'trial_value': c['trial_value'], 'units': c['units'],
++                    'reference_value': c['reference_value'], 'sensitivity_declared': False,
++                    'sensitivity_evaluated': False, 'status': FIXED_CONSTANT_STATUS,
++                    'alternative': MODE_D_NUISANCE + ' NOT_EVALUATED_BEFORE_FREEZE', 'root_decision': 'A13'})
+     return out
+ 
+ 
+@@ -2021,11 +2205,11 @@
+         reasons.append('%s budget/evaluations_used malformed' % where)
+ 
+ 
+-def _validate_envelope(env, members, ids, where, reasons):
++def _validate_envelope(env, members, ids, where, reasons, label=ENVELOPE_LABEL):
+     if not isinstance(env, list) or len(env) != len(ids):
+         reasons.append('%s must be a list of %d rows' % (where, len(ids)))
+         return
+-    if env != _pointwise_envelope(members, ids):
++    if env != _pointwise_envelope(members, ids, label):
+         reasons.append('%s differs from the envelope recomputed from the member arrays' % where)
+ 
+ 
+@@ -2128,7 +2312,8 @@
+         reasons.append('sensitivity keys differ from %s' % sorted(SENS_KEYS))
+         return
+     bad = []
+-    if sens['label'] != SENSITIVITY_LABEL or sens['stage'] != 'ngc_sensitivity':
++    sens_label = _mode_labels(S)[1]
++    if sens['label'] != sens_label or sens['stage'] != 'ngc_sensitivity':
+         bad.append('label/stage text differs')
+     if ref_member is None or sens['reference_member_id'] != ref_member['member_id']:
+         bad.append('reference_member_id differs from the frozen reference member')
+@@ -2176,11 +2361,161 @@
+         reasons.append('sensitivity: status inconsistent with pending evaluations')
+     if not _is_int(sens['evaluations_used']) or sens['evaluations_used'] != sum(1 for e in entries if e['evaluated']):
+         reasons.append('sensitivity: evaluations_used inconsistent')
+-    pq, pt = _sensitivity_summary(ref_member, entries, ids)
++    pq, pt = _sensitivity_summary(ref_member, entries, ids, sens_label)
+     if sens['per_query'] != pq or sens['per_target'] != pt:
+         reasons.append('sensitivity: per_query/per_target differ from the values recomputed from evaluations')
+ 
+ 
++def _check_slot_geometry(S, sens, notes, reasons):
++    """v003b, root rulings A16.1 / A16.4 (writer and verifier share it).
++
++    Applies when notes carries the A16.1 slot block notes.ngc3198_slot_sensitivity (slots V002 notes_block_for_manifest
++    layout); in coordinate mode DDO154_DISTANCE_FIXED_AT_REGISTERED the block is required. Checks:
++      * the block: status NOT_EVALUATED_BEFORE_FREEZE, applies_to = the NGC3198 slot names, declared_range = the
++        slots' [lower, upper] and trial values (units included), headline_geometry = the slots' trial values (the
++        registered geometry: distance 13.8 Mpc; inclination = its reference_value when one is declared), a non-empty
++        manifest_reading_note;
++      * A16.4: every EVALUATED NGC3198 slot sensitivity entry is a refusal (forward flag not True, no valid row) whose
++        reasons carry GEOMETRY_NOT_EXPOSED. A valid box-end result refuses (it would freeze a false zero sensitivity).
++    Appends reasons on any violation and returns None; otherwise returns the summary written into headline_conditions
++    in the fixed-distance mode. Returns None (no reason) when the block is absent outside that mode: v003a behaviour."""
++    block = notes.get(NOTES_SLOT_KEY) if isinstance(notes, dict) else None
++    if block is None:
++        if S.get('coordinate_mode') == MODE_D_FIXED:
++            reasons.append('REFUSED (A16.1): coordinate mode %s requires notes.%s (the slot block of the adopted NGC3198 '
++                           'freeze inputs: registered-geometry headline, box sensitivity NOT_EVALUATED_BEFORE_FREEZE)'
++                           % (MODE_D_FIXED, NOTES_SLOT_KEY))
++        return None
++    n0 = len(reasons)
++    ngc = list(S['ngc_nuisance_names'])
++    if not isinstance(block, dict):
++        reasons.append('REFUSED (A16.1): notes.%s must be an object' % NOTES_SLOT_KEY)
++        return None
++    if block.get('status') != ALT_NOT_EVALUATED:
++        reasons.append('REFUSED (A16.1): notes.%s.status must be %s' % (NOTES_SLOT_KEY, ALT_NOT_EVALUATED))
++    at = block.get('applies_to')
++    if not isinstance(at, list) or not all(isinstance(x, str) for x in at) or len(set(at)) != len(at) or \
++            set(at) != set(ngc):
++        reasons.append('REFUSED (A16.1): notes.%s.applies_to must list exactly the NGC3198 slots %s'
++                       % (NOTES_SLOT_KEY, ngc))
++    dr = block.get('declared_range')
++    if not isinstance(dr, dict) or set(_safe_str(k) for k in dr) != set(ngc):
++        reasons.append('REFUSED (A16.1): notes.%s.declared_range must cover exactly the NGC3198 slots %s'
++                       % (NOTES_SLOT_KEY, ngc))
++    else:
++        for nm in ngc:
++            c, e = S['by_name'][nm], dr.get(nm)
++            if not isinstance(e, dict) or any(not _is_real(e.get(f)) or float(e.get(f)) != c[f]
++                                              for f in ('lower', 'upper', 'trial_value')) or e.get('units') != c['units']:
++                reasons.append('REFUSED (A16.1): notes.%s.declared_range[%r] differs from the slot box [%r, %r], trial '
++                               '%r %s' % (NOTES_SLOT_KEY, nm, c['lower'], c['upper'], c['trial_value'], c['units']))
++    by_kind = {S['by_name'][nm]['kind']: S['by_name'][nm] for nm in ngc}
++    hg = block.get('headline_geometry')
++    cd, ci = by_kind.get('distance'), by_kind.get('inclination')
++    if not isinstance(hg, dict) or cd is None or ci is None or \
++            not _is_real(hg.get('distance_Mpc')) or float(hg['distance_Mpc']) != cd['trial_value'] or \
++            cd['trial_value'] != DISTANCE_REFERENCE_MPC[SCOPE_NGC] or \
++            not _is_real(hg.get('physical_inclination_deg')) or float(hg['physical_inclination_deg']) != ci['trial_value'] \
++            or (ci['reference_value'] is not None and ci['trial_value'] != ci['reference_value']):
++        reasons.append('REFUSED (A16.1): notes.%s.headline_geometry must equal the slots\' trial values, the registered '
++                       'geometry (distance %r Mpc; inclination at its reference_value when declared)'
++                       % (NOTES_SLOT_KEY, DISTANCE_REFERENCE_MPC[SCOPE_NGC]))
++    rn = block.get('manifest_reading_note')
++    if not isinstance(rn, str) or not rn.strip():
++        reasons.append('REFUSED (A16.4): notes.%s.manifest_reading_note must explain the invalid-by-design box rows'
++                       % NOTES_SLOT_KEY)
++    if len(reasons) > n0:
++        return None
++    entries = sens.get('evaluations') if isinstance(sens, dict) else None
++    if not isinstance(entries, list):
++        reasons.append('REFUSED (A16.4): sensitivity evaluations missing')
++        return None
++    box, refused, unevaluated, skipped = [], 0, 0, 0
++    for e in entries:
++        if not isinstance(e, dict) or e.get('kind') != SENS_NGC:
++            continue
++        box.append(e.get('entry_id'))
++        if e.get('skipped_zero_displacement') is True:
++            skipped += 1
++            continue
++        if e.get('evaluated') is not True:
++            unevaluated += 1
++            continue
++        rv, rr = e.get('row_valid'), e.get('reasons')
++        valid_any = e.get('forward_valid_flag') is True or (isinstance(rv, list) and any(x is True for x in rv))
++        geo = isinstance(rr, list) and any(isinstance(r, str) and GEOMETRY_NOT_EXPOSED in r for r in rr)
++        if valid_any or not geo:
++            reasons.append('REFUSED (A16.4): NGC3198 slot sensitivity entry %s (%s %s) %s; forward_ngc must return '
++                           'valid=false with reason %s for any geometry other than the registered one (a silently '
++                           'ignored D or i would freeze a false zero sensitivity)'
++                           % (_safe_repr(e.get('entry_id')), _safe_repr(e.get('target')), _safe_repr(e.get('side')),
++                              'returned a valid evaluation' if valid_any else 'was refused without that reason',
++                              GEOMETRY_NOT_EXPOSED))
++        else:
++            refused += 1
++    if len(reasons) > n0:
++        return None
++    pq = sens.get('per_query') if isinstance(sens.get('per_query'), list) else []
++    return {'status': ALT_NOT_EVALUATED, 'root_rulings': dict(ROOT_A16, ids=list(ROOT_A16['ids'])),
++            'headline_geometry': {nm: S['by_name'][nm]['trial_value'] for nm in ngc},
++            'declared_range': {nm: [S['by_name'][nm]['lower'], S['by_name'][nm]['upper']] for nm in ngc},
++            'box_end_entries': box, 'n_refused_geometry_not_exposed': refused, 'n_not_evaluated': unevaluated,
++            'n_skipped_zero_displacement': skipped,
++            'box_limited_band_rows_invalid': sum(1 for r in pq if not (isinstance(r, dict) and r.get('valid') is True)),
++            'box_limited_band_rows_total': len(pq), 'reading': A16_READING}
++
++
++def _headline_conditions(S, alts, a16, notes, reasons):
++    """v003b (A13): the module-generated headline_conditions block of the fixed-distance mode (writer and verifier).
++
++    Requires notes.structural_assumptions with SA-BH-01 and SA-REACH-01 (non-empty text_verbatim; A10, A12.2) and an
++    entry whose section is A18 (non-empty text_verbatim; A18), refuses a declared alternative DDO154_DISTANCE_NUISANCE
++    marked EVALUATED_BEFORE_FREEZE, and needs the A16 summary (a16, from _check_slot_geometry). Appends reasons and
++    returns None on any violation."""
++    if S.get('coordinate_mode') != MODE_D_FIXED:
++        return None
++    n0 = len(reasons)
++    for a in alts['declared']:
++        if a['name'] == MODE_D_NUISANCE and a['status'] == ALT_EVALUATED:
++            reasons.append('REFUSED (A13): alternative %s is declared %s; under A13 distance as a nuisance is '
++                           'NOT_EVALUATED_BEFORE_FREEZE' % (MODE_D_NUISANCE, ALT_EVALUATED))
++    sa = notes.get(NOTES_SA_KEY) if isinstance(notes, dict) else None
++    a18 = []
++    if not isinstance(sa, dict):
++        reasons.append('REFUSED (A10/A12/A18): coordinate mode %s requires notes.%s (SA-BH-01, SA-REACH-01, an A18 '
++                       'entry)' % (MODE_D_FIXED, NOTES_SA_KEY))
++    else:
++        for k in SA_REQUIRED:
++            e = sa.get(k)
++            if not isinstance(e, dict) or not isinstance(e.get('text_verbatim'), str) or not e['text_verbatim'].strip():
++                reasons.append('REFUSED (A10/A12): notes.%s.%s must carry a non-empty text_verbatim' % (NOTES_SA_KEY, k))
++        a18 = sorted(k for k, e in sa.items() if isinstance(k, str) and k not in SA_REQUIRED and isinstance(e, dict)
++                     and e.get('section') == SA_SECTION_A18 and isinstance(e.get('text_verbatim'), str)
++                     and e['text_verbatim'].strip())
++        if not a18:
++            reasons.append('REFUSED (A18): notes.%s must carry an entry with section %s and a non-empty text_verbatim '
++                           '(the A2 in-plane anisotropy limitation, next to SA-REACH-01)' % (NOTES_SA_KEY, SA_SECTION_A18))
++    if a16 is None and len(reasons) == n0:
++        reasons.append('REFUSED (A16.1): the NGC3198 slot block did not validate')
++    if len(reasons) > n0:
++        return None
++    fixed = []
++    for nm in S['ddo_fixed_names']:
++        c = S['by_name'][nm]
++        fixed.append({'name': nm, 'value': c['trial_value'], 'units': c['units'], 'scope': c['scope'],
++                      'role': c['role'], 'kind': c['kind'], 'reference_value': c['reference_value'],
++                      'status': FIXED_CONSTANT_STATUS, 'computational_box': [c['lower'], c['upper']],
++                      'box_use': 'kept only for the engine binding to region.distance_summary; never sampled'})
++    return {'coordinate_mode': MODE_D_FIXED, 'root_decision': dict(ROOT_A13),
++            'free_engine_coordinates': list(S['varying_engine']), 'fixed_counted_constants': fixed,
++            'band_condition': A13_CONDITION,
++            'labelled': ['band_scope (every entry)', 'pointwise_envelope rows',
++                         'alternative_results.*.pointwise_envelope rows', 'sensitivity.label',
++                         'sensitivity.per_query rows', 'conditional_on_trial_values (' + SENS_DDO_FIXED + ')'],
++            'admissibility': A13_ADMISSIBILITY, 'recorded_alternatives': [dict(DISTANCE_ALTERNATIVE)],
++            'ngc3198_slot_box_sensitivity': a16, 'structural_assumptions_present': list(SA_REQUIRED) + a18}
++
++
+ def _validate_manifest_structure(doc, reasons):
+     """Full structural + internal-consistency check (writer and verifier share it). Fails closed."""
+     try:
+@@ -2194,7 +2529,8 @@
+         reasons.append('manifest is not a JSON object')
+         return
+     keys = set(doc)
+-    missing, extra = MANIFEST_KEYS - keys, keys - MANIFEST_KEYS
++    # v003b: headline_conditions is present exactly in the A13 fixed-distance mode (checked once S is built)
++    missing, extra = MANIFEST_KEYS - keys, keys - MANIFEST_KEYS - {HEADLINE_CONDITIONS_KEY}
+     if missing:
+         reasons.append('manifest missing keys %s' % sorted(missing))
+     if extra:
+@@ -2204,7 +2540,7 @@
+     for k, v in (('schema', SCHEMA), ('units', UNITS), ('semantics', SEMANTICS),
+                  ('within_error_rule', WITHIN_ERROR_RULE), ('headline_rule', HEADLINE_RULE),
+                  ('band_scope', BAND_SCOPE)):
+-        if doc[k] != v:
++        if doc[k] != v and not (k == 'band_scope' and doc[k] == BAND_SCOPE_A13):   # v003b: mode checked below
+             reasons.append('%s differs from the frozen value' % k)
+     if doc['target_velocities_included'] is not False:
+         reasons.append('target_velocities_included is not False')
+@@ -2230,6 +2566,14 @@
+         return
+     if doc['coordinates'] != S['coordinates']:
+         reasons.append('coordinates are not in normalised form')
++    # v003b (A13): labels, band_scope and headline_conditions follow the coordinate mode of the frozen coordinates
++    env_label, _sens_label, band_scope = _mode_labels(S)
++    if doc['band_scope'] != band_scope and doc['band_scope'] in (BAND_SCOPE, BAND_SCOPE_A13):
++        reasons.append('band_scope differs from the frozen value of coordinate mode %s' % S['coordinate_mode'])
++    if (HEADLINE_CONDITIONS_KEY in doc) != (S['coordinate_mode'] == MODE_D_FIXED):
++        reasons.append('%s must be present exactly in coordinate mode %s (here: coordinate mode %s, key present %s)'
++                       % (HEADLINE_CONDITIONS_KEY, MODE_D_FIXED, S['coordinate_mode'], HEADLINE_CONDITIONS_KEY in doc))
++        return
+     ar = _validate_admitted_region(doc['admitted_region'], S, reasons)
+     if ar is None:
+         return
+@@ -2248,7 +2592,7 @@
+                        'selected representative, and only those, is a member)')
+         return
+     _validate_member_eval(doc['member_evaluation'], members, 'member_evaluation', reasons)
+-    _validate_envelope(doc['pointwise_envelope'], members, ids, 'pointwise_envelope', reasons)
++    _validate_envelope(doc['pointwise_envelope'], members, ids, 'pointwise_envelope', reasons, env_label)
+     ref_member = _validate_reference(doc['reference_member'], members, ar['centroid_identified'], reasons)
+     _validate_sensitivity(doc['sensitivity'], ref_member, S, ar, ids, reasons)
+     altres = doc['alternative_results']
+@@ -2266,7 +2610,8 @@
+                 if _member_order(a['members']) != ar['selected_points']:
+                     reasons.append('%s.members differ from admitted_region.selected_points (D2)' % w)
+                 _validate_member_eval(a['member_evaluation'], a['members'], w + '.member_evaluation', reasons)
+-                _validate_envelope(a['pointwise_envelope'], a['members'], ids, w + '.pointwise_envelope', reasons)
++                _validate_envelope(a['pointwise_envelope'], a['members'], ids, w + '.pointwise_envelope', reasons,
++                                   env_label)
+     if reasons:
+         return
+     expect = _incomplete_reasons(ar, doc['member_evaluation'], doc['sensitivity'], altres)
+@@ -2276,6 +2621,13 @@
+         reasons.append('freeze_status %r inconsistent with incomplete_reasons' % (doc['freeze_status'],))
+     if doc['conditional_on_trial_values'] != _conditional_on_trial(S, ar, doc['sensitivity']):
+         reasons.append('conditional_on_trial_values differs from the recomputed list')
++    # v003b: A16.1/A16.4 slot geometry (any mode, when declared in the notes) and the A13 headline conditions
++    a16 = _check_slot_geometry(S, doc['sensitivity'], doc['notes'], reasons)
++    if S['coordinate_mode'] == MODE_D_FIXED:
++        hc = _headline_conditions(S, alts, a16, doc['notes'], reasons)
++        if hc is not None and doc[HEADLINE_CONDITIONS_KEY] != hc:
++            reasons.append('headline_conditions differ from the block recomputed from the coordinates, the '
++                           'sensitivity and the notes (A13/A16)')
+     pins = doc['pins']
+     if not isinstance(pins, dict) or set(pins) != {'code_files', 'input_files'}:
+         reasons.append('pins must be an object with exactly code_files and input_files')
+@@ -2617,6 +2969,11 @@
+         return out
+     status = FREEZE_INCOMPLETE if incomplete else FREEZE_COMPLETE
+     out['freeze_status'] = status
++    # v003b: A16.1/A16.4 slot geometry (when declared; required in the A13 mode) and the A13 headline conditions
++    a16 = _check_slot_geometry(S, sens_rec, notes, reasons)
++    hc = _headline_conditions(S, alts, a16, notes, reasons) if S['coordinate_mode'] == MODE_D_FIXED else None
++    if reasons:
++        return out
+ 
+     code_pins = _pin_files(code_files, 'code_files', reasons)
+     input_pins = _pin_files(input_files, 'input_files', reasons)
+@@ -2671,8 +3028,9 @@
+         'observation_region': {'sha256': region_sha},
+         'calibration_record': cal_binding,
+     }
++    band_scope = _mode_labels(S)[2]   # v003b: the A13 condition in the fixed-distance mode
+     try:
+-        manifest = _plain({
++        body = {
+             'schema': SCHEMA,
+             'module': MODULE_NAME,
+             'created_utc': _now_utc(),
+@@ -2691,7 +3049,7 @@
+             'reference_member': ref_rec,
+             'pointwise_envelope': prim['pointwise_envelope'],
+             'sensitivity': sens_rec,
+-            'band_scope': BAND_SCOPE,
++            'band_scope': band_scope,
+             'conditional_on_trial_values': _conditional_on_trial(S, ar, sens_rec),
+             'alternative_results': alt_results,
+             'headline_rule': HEADLINE_RULE,
+@@ -2701,7 +3059,10 @@
+             'notes': notes,
+             'target_velocities_included': False,
+             'manifest_sha256': '0' * 64,
+-        }, 'manifest')
++        }
++        if hc is not None:   # v003b (A13): only in the fixed-distance mode
++            body[HEADLINE_CONDITIONS_KEY] = hc
++        manifest = _plain(body, 'manifest')
+     except (ValueError, TypeError, RecursionError) as exc:
+         reasons.append('manifest not canonically serialisable: %s: %s' % (type(exc).__name__, _safe_str(exc)))
+         return out
+@@ -3110,8 +3471,13 @@
+         'note': ('unevaluated or invalid rows count as not within error; no pointwise or median curve is '
+                  'a headline'),
+     }
++    S = _build_spec(doc['coordinates'], [])   # verified above; v003b: labels follow the coordinate mode
++    env_label, sens_label, _bs = _mode_labels(S)
++    if S['coordinate_mode'] == MODE_D_FIXED:
++        out['headline']['band_condition'] = A13_CONDITION
++        out['headline']['headline_conditions'] = doc[HEADLINE_CONDITIONS_KEY]
+     erows, eov, einv = _band_rows(doc['pointwise_envelope'], 'band_low_km_s', 'band_high_km_s', ids, bound)
+-    out['pointwise_envelope'] = {'label': ENVELOPE_LABEL, 'rows': erows, 'band_overlap_count': eov,
++    out['pointwise_envelope'] = {'label': env_label, 'rows': erows, 'band_overlap_count': eov,
+                                  'invalid_count': einv, 'headline': False}
+     sens = doc['sensitivity']
+     srows, sov, sinv = _band_rows(sens['per_query'], 'box_limited_band_low_km_s', 'box_limited_band_high_km_s',
+@@ -3119,7 +3485,7 @@
+     for r, pq in zip(srows, sens['per_query']):
+         r['reference_speed_km_s'] = pq['reference_speed_km_s']
+         r['max_abs_delta_km_s'] = pq['max_abs_delta_km_s']
+-    out['sensitivity'] = {'label': SENSITIVITY_LABEL, 'status': sens['status'], 'rows': srows,
++    out['sensitivity'] = {'label': sens_label, 'status': sens['status'], 'rows': srows,
+                           'band_overlap_count': sov, 'invalid_count': sinv, 'headline': False,
+                           'conditional_on_trial_values': doc['conditional_on_trial_values']}
+     alts = []
+@@ -3139,6 +3505,11 @@
+             rec.update({'scored': False, 'headline': False,
+                         'note': 'NOT_EVALUATED_BEFORE_FREEZE: sensitivity only, never scored as the headline'})
+         alts.append(rec)
++    if S['coordinate_mode'] == MODE_D_FIXED:   # v003b (A13): the recorded distance alternative, never scored
++        for a in doc[HEADLINE_CONDITIONS_KEY]['recorded_alternatives']:
++            alts.append({'name': a['name'], 'kind': a['kind'], 'status': a['status'], 'role': 'NON_PRIMARY',
++                         'scored': False, 'headline': False,
++                         'note': 'NOT_EVALUATED_BEFORE_FREEZE: sensitivity only, never scored as the headline (A13)'})
+     out['alternatives'] = alts
+     out['refused'] = False
+     out['ok'] = True

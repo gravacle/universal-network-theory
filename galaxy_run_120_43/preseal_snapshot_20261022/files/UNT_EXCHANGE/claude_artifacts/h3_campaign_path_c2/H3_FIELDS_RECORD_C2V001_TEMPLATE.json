@@ -1,0 +1,183 @@
+{
+ "applies_to": "the frozen W1 config: v004a after the A140 N4 wall rebuild (w1_rebuild_v001 -> RUN_CONFIG_..._S45_C2V005A), then these fields by apply_h3_fields_c2v001 (A137 N-C: all before W1)",
+ "cache_id": "the parent cache id is unchanged (none of these paths enters it, parent L1774-1780); the wrapper cache id changes because tail_readiness, the wrapper bytes and the guard bytes enter it (q5b1 L52-55)",
+ "fields": [
+  {
+   "citation": "A126, A129, A188; policy L46-57",
+   "gate": "numerics_verdict",
+   "how": "apply_h3_fields --seal-record: the sealed V007 report {path, V}",
+   "path": "numerics.verdict_artifact",
+   "value": null,
+   "value_status": "DERIVED_FROM_THE_SEAL_RECORD"
+  },
+  {
+   "citation": "A126; policy L59; generator SEALED_COMPARE",
+   "gate": "numerics_verdict",
+   "how": "apply_h3_fields --seal-record: {sealed compare path, C}",
+   "path": "numerics.compare",
+   "value": null,
+   "value_status": "DERIVED_FROM_THE_SEAL_RECORD"
+  },
+  {
+   "citation": "policy L63 (rep.prereg == preref exactly)",
+   "gate": "numerics_verdict",
+   "how": "apply_h3_fields --seal-record: the report's own prereg object",
+   "path": "numerics.sealed_prereg",
+   "value": null,
+   "value_status": "DERIVED_FROM_THE_SEAL_RECORD"
+  },
+  {
+   "citation": "A187 (adopts the C4T tail); policy L98, L102-105",
+   "gate": "numerics_verdict",
+   "how": "the C4T call spec {path, sha256}; its numerics must equal numerics.block and admit must be {}",
+   "path": "numerics.block_source",
+   "value": null,
+   "value_status": "ROOT_FILLS_AT_THE_VERDICT"
+  },
+  {
+   "citation": "policy L95-101",
+   "gate": "numerics_verdict",
+   "how": "C4T out/result.json {path, sha256}; sha must equal report.inputs.C4T.result_sha256",
+   "path": "numerics.adopted_result",
+   "value": null,
+   "value_status": "ROOT_FILLS_AT_THE_VERDICT"
+  },
+  {
+   "citation": "policy L121-132",
+   "gate": "numerics_verdict",
+   "how": "optional [{case_id, result}] of other cases on C4T's grid; a case listed here can enter the adoption derivation's source receipts (measured_per_call_bytes)",
+   "path": "numerics.source_results",
+   "value": [],
+   "value_status": "ROOT_FILLS_AT_THE_VERDICT (v004a [] is valid)"
+  },
+  {
+   "citation": "core L114-197",
+   "gate": "deciding_test",
+   "how": "schema DDO154_V010R5_DECIDING_CX2V006, TESTED ok, driver r5, route_a_column_workers 8, runs reanchor (the registered A2F10 point) and workers_8, each a fresh DDO154 4.04 call at the config block with receipt + finish",
+   "path": "deciding_test",
+   "value": null,
+   "value_status": "MEASURED: two fresh runs (no permitted V006 section commissions them)"
+  },
+  {
+   "citation": "core L152-157",
+   "gate": "deciding_test",
+   "how": "the reanchor run result pin",
+   "path": "anchor.result",
+   "value": null,
+   "value_status": "MEASURED (= the reanchor row)"
+  },
+  {
+   "citation": "core L152-157",
+   "gate": "deciding_test",
+   "how": "the reanchor run receipt pin",
+   "path": "anchor.receipt",
+   "value": null,
+   "value_status": "MEASURED (= the reanchor row)"
+  },
+  {
+   "citation": "core L152-157",
+   "gate": "deciding_test",
+   "how": "the reanchor spec sha256",
+   "path": "anchor.spec_sha256",
+   "value": null,
+   "value_status": "MEASURED (= the reanchor row)"
+  },
+  {
+   "citation": "core L313-340",
+   "gate": "driver_capability",
+   "how": "schema DDO154_TAIL_BOX_RUN_CAPABILITY_CX2V006, TESTED ok, driver r5, base_spec_sha256 = the config base spec; one row per probe spec sha (9 points) with run_mode_admitted true and a FINISHED/COMPLETED receipt + result",
+   "path": "capability_evidence",
+   "value": null,
+   "value_status": "MEASURED after the registry (the probe spec shas carry the slots)"
+  },
+  {
+   "citation": "A134 Q5, Q8; wrapper L86-90",
+   "gate": "certificate_policy",
+   "how": "points[digest(point_identity)] = {identity, bundle, eps_certificate, lo_certificate} for the 9 probe points, the W1 seed and EVERY later planned point (F5: open item for root)",
+   "path": "tail_readiness.certificate_registry",
+   "value": null,
+   "value_status": "COMPUTED by the per-point EPS / rho producers"
+  },
+  {
+   "citation": "wrapper q5b1 L59-77",
+   "gate": "certificate_policy",
+   "how": "schema DDO154_CERTIFICATE_POLICY_REVIEW_CX2V001, TESTED ok, binding driver r5, custody_deriver, state_enumerator, the producer list exactly, guard_sha256 9e3fc109, driver_slot_rule POINT_EPS_AND_REGISTERED_RHO_SLOT_PER_STATE_LO_ACCEPTANCE, post_state_handoff TAIL_CERTIFICATE_ACCEPTANCE_CX2V001",
+   "path": "tail_readiness.certificate_policy_review",
+   "value": null,
+   "value_status": "REVIEWER SIGNS"
+  },
+  {
+   "citation": "A139, A158 (adds the slot proof cd10cd59)",
+   "gate": "certificate_policy",
+   "how": "the exact C1 producer list; the acceptance deps record must carry the same list",
+   "path": "tail_readiness.approved_certificate_producers",
+   "value": null,
+   "value_status": "ROOT: C1's list (H1)"
+  },
+  {
+   "citation": "A139 \"name the b1 enumerator (A138)\"; acceptance v004 docstring L29-30",
+   "gate": "certificate_policy",
+   "how": "the b1 enumerator; the acceptance deps must use the same pin",
+   "path": "tail_readiness.state_enumerator",
+   "value": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/consumed_states_b1_c2v001.py",
+    "sha256": "4ca7f3640bff6adc13d181a8045bec750681362595a9a9e71e643fa521af60f0"
+   },
+   "value_status": "FIXED (value of record)"
+  },
+  {
+   "citation": "v004a",
+   "gate": "certificate_policy",
+   "how": "kept; listed so the record is complete",
+   "path": "tail_readiness.custody_deriver",
+   "value": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/custody_cx2v002.py",
+    "sha256": "6810b7c3614e219f6e059208fbe59e905d01aa3a115e3c723079b579a027a377"
+   },
+   "value_status": "UNCHANGED_FROM_V004A (no permitted ruling changes it)"
+  },
+  {
+   "citation": "parent L1828-1926; wrapper q5b1 L213-227",
+   "gate": "adoption_regeneration",
+   "how": "from the candidate config (every other H3 field set) and root's source receipts on C4T's grid",
+   "path": "adoption_derivation",
+   "value": null,
+   "value_status": "COMPUTED at the verdict (build_adoption_derivation_c2v001)"
+  },
+  {
+   "citation": "parent L1905-1908, L1919-1922; run sheet section 3",
+   "gate": "adoption_regeneration",
+   "how": "the builder prints it; 17,442,511,906 only if C4T_C5c is a source receipt on C4T's grid (UNTESTED)",
+   "path": "disk_guard.measured_per_call_bytes",
+   "value": null,
+   "value_status": "COMPUTED with the derivation (largest output over its source receipts)"
+  },
+  {
+   "citation": "parent L1797-1826; A140 \"V2 is decided at H3\"",
+   "gate": "u_i_carrier",
+   "how": "NOT_CARRIED_DECLARED or FROZEN_BANDS_ONLY; ADMISSION_RECTANGLES refuses",
+   "path": "u_i_carrier.carrier",
+   "value": "NOT_CARRIED_DECLARED",
+   "value_status": "ROOT DECLARES (v004a default)"
+  },
+  {
+   "citation": "parent L1821-1824",
+   "gate": "u_i_carrier",
+   "how": "root's name and V006 entry",
+   "path": "u_i_carrier.declared_by",
+   "value": null,
+   "value_status": "ROOT DECLARES"
+  },
+  {
+   "citation": "parent L1821-1824",
+   "gate": "u_i_carrier",
+   "how": "the basis text",
+   "path": "u_i_carrier.basis",
+   "value": null,
+   "value_status": "ROOT DECLARES"
+  }
+ ],
+ "schema": "H3_FIELDS_RECORD_C2V001",
+ "status": "TEMPLATE_VALUES_PENDING",
+ "unchanged": "every v004a leaf not listed here (numerics.block, scheduling leaves, caps, campaign, driver, work dir, ...)"
+}

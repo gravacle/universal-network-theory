@@ -1,0 +1,139 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0838 (c) / Codex3 0693: S1 concurrent-pair build CX3V001 (guard, launcher, binder successors of guard014/launcher015/binder011, root wrapper v002)",
+ "reviewer_lane": "Claude3 (helper lens 13:27-14:12Z; lead verification after hand-back)",
+ "utc": "2026-10-21T14:15:45Z",
+ "object": {
+  "folder": "claude_artifacts/s1_pair_concurrent_cx3/",
+  "guard": "v001/step4_guard_c2v014_s1pair_cx3v001.py 1274a39a",
+  "launcher": "v001/step4_launcher_c2v015_s1pair_cx3v001.py 2e41da37",
+  "binder": "v001/step4_bind_c2v011_s1pair_cx3v001.py f57f5f1d",
+  "root_wrapper": "v001/s1_pair_root_cx3v002.py c08b5b78",
+  "readme": "README_CX3V001.md 27e86901",
+  "manifest": "REVIEW_MANIFEST_CX3V001.json a3679eb3",
+  "bases_unchanged": "guard014 6efdca01, launcher015 cd987edd, binder011 d3d9702e, s1_launch_root_c2v002c d4e31013, s1_path_lib_c2v002c 99e2be17",
+  "hashes_from_bytes": "lead: all 24 manifest pins match from bytes after the hand-back; helper: 13 object and base files equal at start and end"
+ },
+ "verdict": "PASS",
+ "blocking": 0,
+ "checked": [
+  {
+   "claim": "No widening: core_priority_admission refuses any batch other than POST_S1 (guard L332), and needs exactly two calls in the S1 order with max_active 2 (L335-337); a plan bound to guard014 is refused by the successor launcher (LAUNCHER_GUARD_IDENTITY, probe P04)",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper) + lead read from bytes"
+  },
+  {
+   "claim": "Each child is a root-authorized legacy single-call admission whose own plan is ROOT_BOUND, POST_S1, bound to guard014/launcher015 lineage, with its call bytes, caps, fill record, ramp (max_active 1), verdict and core priority bound (pair_case_admission L364-388); the parent admission must still be root's published ROOT_AUTHORIZED config bound to the plan (validate L392-397)",
+   "result": "CONFIRMED",
+   "label": "FORMAL (lead read) + TESTED (helper)"
+  },
+  {
+   "claim": "Diff confinement (helper AST diff): guard changes only native_preflight (one line) and core_priority_admission, adding two constants and pair_case_admission; launcher only GUARD_PATH, GUARD_SHA256 and docstring; binder bind/check_command AST-identical, main adds the assemble-pair dispatch",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper)"
+  },
+  {
+   "claim": "Physics unchanged: replay byte-equal specs, pair calls equal the child plans' calls, driver r5, monitor sha fixed, single-thread environment; each call keeps its own C1, context, native preflight and source review",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper)"
+  },
+  {
+   "claim": "Second call only under the 60 s first-iteration ramp; failure drains and a second batch is locked out; outputs never alias; disk bound covers both calls (193,273,528,320 B); normal QoS kept for the worker",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper probes P15-P17, P19, P20)"
+  },
+  {
+   "claim": "Old single-call path still works (R02: both children ADMITTED by c2v002c, 0620 controls PASS); old wrapper refuses the pair plan (R01)",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper)"
+  },
+  {
+   "claim": "Release suites reproduce: functional 53/53, real-replay 15/15; Codex3's 4 mutants killed as reported; the helper's 30 mutants: 18 killed by the release suites, 10 more by its probes, 2 equivalent survivors (W05, W08)",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper)"
+  },
+  {
+   "claim": "A226 single read (pinned reads via verify/doc/pinned_json) and blinding (DDO only, lexical NGC refusal unchanged, audit hooks denied nothing)",
+   "result": "CONFIRMED",
+   "label": "FORMAL (helper)"
+  },
+  {
+   "claim": "Production behaviour (real C1s, mounted volume, contention, real DRY run)",
+   "result": "NOT_CHECKED",
+   "label": "FORMAL"
+  }
+ ],
+ "findings": [
+  {
+   "id": "N1",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "Release suite does not pin refusal codes; 12 of 30 helper mutants survive it",
+   "evidence": "refused() accepts any exception (test_s1_pair_cx3v002.py L114-119), and the launcher AST test compares functions only, not constants such as LOCK. Survivors G01-G03, G07-G10, G12, G13, L05, W05, W08; helper probes kill 10 of the 12 (P01, P02, P13, P06-P09, P11, P12, P18); W05 and W08 duplicate guard L352-354 (equivalent). Recommendation: add the probes as non-gating regression controls."
+  },
+  {
+   "id": "N2",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "Codex3's one_C1_for_both mutant does not exercise a shared C1",
+   "evidence": "It dies at assembly on S1_PAIR_CHILD_CALL_BINDING (guard L376). A shared C1 is refused by S1_PAIR_DISTINCT_C1_REQUIRED (L355-356; P13, R10); crossed C1s by native preflight (G04, R10)."
+  },
+  {
+   "id": "N3",
+   "cls": "NOTE",
+   "label": "FORMAL+TESTED",
+   "title": "Distinct-C1 check compares {path, sha} references, not content",
+   "evidence": "A byte copy of the S1 C1 at another path passes L356; native preflight then refuses it (R10). Forged input only (A115)."
+  },
+  {
+   "id": "N4",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "Pair wrapper relaxations versus the old path",
+   "evidence": "campaign_window ignored, including the old INACTIVE-window refusal (lib L1179-1183; R04), consistent with A274 item 4; no spawn timeout (root L62; old _spawn 600 s, lib L1317); NUMEXPR/BLIS thread variables added (root L14), no physics effect since the monitor forces all six to 1."
+  },
+  {
+   "id": "N5",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "pair_case_admission re-checks only part of guard014 validate per child",
+   "evidence": "e.g. it does not re-allowlist the child's original guard/launcher/monitor/driver within the child's own sources; honest children come from binder011's full guard014 validate (README L22; R02). Forged children only."
+  },
+  {
+   "id": "N6",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The assembler copies ROOT_AUTHORIZED status/authority from the C3T child into the parent candidate",
+   "evidence": "bind L77-85. Authority is root's independent publication of the bound parent digest (README L49; validate L392-397). Root should review the parent like any other admission."
+  },
+  {
+   "id": "N7",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "Launcher015 behaviour now governs the pair",
+   "evidence": "per-call disk check = that call's cap + 20 GiB (launcher L117, L123; batch check covers both, TESTED); a non-systemic C3T end before its first iteration drains the worker, so C4T needs its own later batch (old single-call path admits it, R02); both native preflights re-run every 60 s poll (L97), production duration UNTESTED."
+  },
+  {
+   "id": "N8",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "Concurrency may lengthen each call against the 100,800 s wall cap",
+   "evidence": "DBP C2V004B e239d21e; a wall stop is an uncounted infrastructure rerun (A133(c), C17). DBP POST_S1 already sets max_active 2. UNTESTED risk."
+  },
+  {
+   "id": "N9",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The binder's command file skips the pair wrapper's S1 checks",
+   "evidence": "bind L48-51; same as the old path; README L59 forbids using it."
+  },
+  {
+   "id": "N10",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "Root's A226 item-3 envelope must cover the nested child inputs",
+   "evidence": "child admissions, child plans, both C1s and prelaunch records (README L57); whether the envelope tool follows nested pins is UNTESTED here."
+  }
+ ],
+ "reads_not_done": "No run trees, run outputs or NGC data; no launches, no network; synthetic fixtures only (claude_artifacts/verify_c3_s1_pair/fixtures_helper/, about 144 MB) and scratch copies. One hung scratch probe process (mutant L04) was killed by the helper."
+}

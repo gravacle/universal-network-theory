@@ -1,0 +1,704 @@
+{
+ "schema": "C3SA_E1_SITES_MUSTFAIL_V001",
+ "target": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+  "sha256": "36058df84bb2088970be442bc64445a4c6939b45df3e9cb3294cedef62c65ac0"
+ },
+ "contrast": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v016.sh",
+  "sha256": "dcdb746c76546169bc0b4702c832265b59115c552480f248bdd5c3f354f0a6e8"
+ },
+ "generators": {
+  "c3v008": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/make_dry_run_c3sa_c3v008.py",
+   "sha256": "0c2c0201741ce0f8e9da3fa9bd5fdab4cea0a656d9111569b8194233730350ee",
+   "env_dry_run": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T010953Z"
+  },
+  "c3v009": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/make_dry_run_c3sa_c3v009.py",
+   "sha256": "78c900ffcd984c1bc35b53c823a16b01728dcee56cfe5dbc12d48614f9681573",
+   "env_dry_run": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T013957Z"
+  },
+  "c3v010": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/c3v009_prestage/tools/make_dry_run_c3sa_c3v010.py",
+   "sha256": "ab01df672987408cb18954db79698da8051097d1fd6d8ddcc66522e028fedf4c",
+   "env_dry_run": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T013957Z"
+  }
+ },
+ "shim": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/dryrun_tool_shim_c3sa_c3v007.py",
+  "sha256": "df19ac11401d76593f3b7a03474a31c955a77ec5585475e2a5bc9588027fd135"
+ },
+ "real_outputs_absent_before": true,
+ "real_outputs_absent_after": true,
+ "sites": [
+  {
+   "site": "S01",
+   "c3v016_line": 298,
+   "step": "0",
+   "what": "the HELPER and RUNNER sha check (HELPER is the first operand)",
+   "expected_refuse": "the helper or runner bytes differ from their pins",
+   "covered_before_by": "E1-1",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 349,
+    "generator": "c3v010",
+    "fixture_edit": "HELPER -> a byte-modified copy of the pinned helper (HELPER_SHA unchanged)",
+    "fixture_files": {
+     "fixture_helper": "6ac888a13c515b0d8abaf5c34882aa0c2475fcc4e4d3b63ebb9d09420f8a9e6c"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S01_target/SITE_COPY_S01_target.sh",
+     "sha256": "9b62c5a81760fdb92c8d5da51a045aac8d069c601bd7cdcb769127a21b6bb08e"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S01_target/SITE_COPY_S01_target.diff",
+     "sha256": "9789223937a0416a10e6eb73cf520481298b3a4e2b3f03da2674ab6857464b15",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the helper or runner bytes differ from their pins (these two verify everything else from bytes)",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 298,
+    "generator": "c3v008",
+    "fixture_edit": "HELPER -> a byte-modified copy of the pinned helper (HELPER_SHA unchanged)",
+    "fixture_files": {
+     "fixture_helper": "495ab9fe2d2dd3eeb966ce6f5ba32b6cf9d8687f97c7dcc538be0f8e3013e145"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S01_c3v016/SITE_COPY_S01_c3v016.sh",
+     "sha256": "0de88e29574fca5739c4e95bb06539125baaccc67bb6ce34f4a9b9539e69d58b"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S01_c3v016/SITE_COPY_S01_c3v016.diff",
+     "sha256": "a60bbd40414b709f6d1b2dfd89fe4c5de5dcc277361bfa15eecd5089b5807519",
+     "changed_lines": 81
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S02",
+   "c3v016_line": 325,
+   "step": "0",
+   "what": "CONTROL: the text of record binds the case block (had its || REFUSE fallback in c3v016 already)",
+   "expected_refuse": "the text of record does not bind the case block",
+   "covered_before_by": "",
+   "is_control": true,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 378,
+    "generator": "c3v010",
+    "fixture_edit": "PREREG_TOR / R6_SELECTED -> a synthetic r6 copy whose binding_inputs.case_block.path is wrong (sha right), with its addendum copy inside its own folder, and a synthetic SELECTED naming it",
+    "fixture_files": {
+     "addendum_copy": "c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1",
+     "fixture_tor": "29cf0df54edf9387d35719cc574b9c86a5b315839616852e8559162172c0715a",
+     "fixture_selected_r6": "6a362389bb50ae3f7e7168a5bbe10c3578bf2d00e6c3f95a4621b587b6d1cee7"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S02_target/SITE_COPY_S02_target.sh",
+     "sha256": "e2103b139b9ab9be012cc030c0c9fb5ff3713beb5c6f5305064accda5630730e"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S02_target/SITE_COPY_S02_target.diff",
+     "sha256": "48583cc58723a078c7a71cd227effb59ff43fd309ab08c6dadd161de05926c0c",
+     "changed_lines": 83
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the text of record does not bind the case block its SELECTED file stores",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 325,
+    "generator": "c3v008",
+    "fixture_edit": "PREREG_TOR / R6_SELECTED -> a synthetic r6 copy whose binding_inputs.case_block.path is wrong (sha right), with its addendum copy inside its own folder, and a synthetic SELECTED naming it",
+    "fixture_files": {
+     "addendum_copy": "c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1",
+     "fixture_tor": "44d1843b7e20ea9cd5b26319e146f6a6854648b234879735572adb1a835b0acc",
+     "fixture_selected_r6": "32aa444059d951aefb36631c1800a2824576b78186a51841845de36f57b71e76"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S02_c3v016/SITE_COPY_S02_c3v016.sh",
+     "sha256": "b724791a4e018f8365f4906742182a7b9dc5c09638b49a691b924a9cf953a4b1"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S02_c3v016/SITE_COPY_S02_c3v016.diff",
+     "sha256": "54ad4873befcced45cf871fa8947f95e52ccc96f6bd8923371b7cd31926a9b38",
+     "changed_lines": 83
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the text of record does not bind the case block its SELECTED file stores",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "no_defect_at_this_site": true
+   }
+  },
+  {
+   "site": "S03",
+   "c3v016_line": 355,
+   "step": "0",
+   "what": "the draft driver (driver.path first)",
+   "expected_refuse": "the slot draft's driver is not DRIVER",
+   "covered_before_by": "E1-2",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 415,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT -> the target's draft with only driver.path wrong",
+    "fixture_files": {
+     "fixture_draft": "63c1b39fe736ecb9a585773bbf2d2b0a3eeed1d30a127e9543f41edc2a47b844"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S03_target/SITE_COPY_S03_target.sh",
+     "sha256": "794d99b5480306bf2463fa2b4a7876e5a9436bf5c256ac96beafa5f84bbd6cfb"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S03_target/SITE_COPY_S03_target.diff",
+     "sha256": "1961501b965570dbb60473262f1af04e2796fa0b9a7fe28de3936ce871731f5e",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's driver is not DRIVER (path and sha)",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 355,
+    "generator": "c3v008",
+    "fixture_edit": "DRAFT -> the target's draft with only driver.path wrong",
+    "fixture_files": {
+     "fixture_draft": "63c1b39fe736ecb9a585773bbf2d2b0a3eeed1d30a127e9543f41edc2a47b844"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S03_c3v016/SITE_COPY_S03_c3v016.sh",
+     "sha256": "b5e22da226548cd0c4655fb6461ccd15c2387f68ff1dbca4506ec34d599a253a"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S03_c3v016/SITE_COPY_S03_c3v016.diff",
+     "sha256": "ddd80ebcbe5f04695eb2a644748d39a90057cbcf13b345b6ae9ca14b16741f14",
+     "changed_lines": 81
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S04",
+   "c3v016_line": 356,
+   "step": "0",
+   "what": "the draft producer registry (path first)",
+   "expected_refuse": "the slot draft's producer_registry is not REGISTRY",
+   "covered_before_by": "",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 417,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT -> the target's draft with only producer_registry.path wrong",
+    "fixture_files": {
+     "fixture_draft": "5113ed3320de05cfb719caafddac1426d478f9e5998b04da00fc01751041fb68"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S04_target/SITE_COPY_S04_target.sh",
+     "sha256": "8e9cd7d104da285bd3eaa02774e47a07fe9ed0ad311c6a82fb99cac72401d4ee"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S04_target/SITE_COPY_S04_target.diff",
+     "sha256": "9834261b0a6a4a409c1c2e33c43b7c42babd9e99b5d6999a6c41c2dd0d1f5872",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's producer_registry is not REGISTRY (path and sha)",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 356,
+    "generator": "c3v008",
+    "fixture_edit": "DRAFT -> the target's draft with only producer_registry.path wrong",
+    "fixture_files": {
+     "fixture_draft": "5113ed3320de05cfb719caafddac1426d478f9e5998b04da00fc01751041fb68"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S04_c3v016/SITE_COPY_S04_c3v016.sh",
+     "sha256": "c51891563cb8c88cb73af5bd27e9d57e41f4fe786aedeaad01adddc1049d8a12"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S04_c3v016/SITE_COPY_S04_c3v016.diff",
+     "sha256": "455a3ccca25229d10d9d3dc2ef74ddfb167cec4c174bdf7d1451ee797a6bad9d",
+     "changed_lines": 81
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S05",
+   "c3v016_line": 357,
+   "step": "0",
+   "what": "the draft BUILD_V007 pin (path first)",
+   "expected_refuse": "the slot draft's launch_packet.build is not BUILD",
+   "covered_before_by": "",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 419,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT -> the target's draft with only launch_packet.build.path wrong",
+    "fixture_files": {
+     "fixture_draft": "8bbfd451cbab609fc6152633b71fb7d0c16824a34bb96c4b25bc2090028f58b8"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S05_target/SITE_COPY_S05_target.sh",
+     "sha256": "4ac5f7fe172f7e83849f16b3775ef82c84b65f8f289214177ec633b128d999f3"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S05_target/SITE_COPY_S05_target.diff",
+     "sha256": "531fc416f292bb281ffb33e1d18638523a39f290be68516adf6d2a7edc424812",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's launch_packet.build is not BUILD (path and sha)",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 357,
+    "generator": "c3v008",
+    "fixture_edit": "DRAFT -> the target's draft with only launch_packet.build.path wrong",
+    "fixture_files": {
+     "fixture_draft": "8bbfd451cbab609fc6152633b71fb7d0c16824a34bb96c4b25bc2090028f58b8"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S05_c3v016/SITE_COPY_S05_c3v016.sh",
+     "sha256": "62d750c9ba330556fc8dbb783575126805bfe320e09a017008fecd13900ff0a5"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S05_c3v016/SITE_COPY_S05_c3v016.diff",
+     "sha256": "681b5af2841b56d0e857db45eb480651c8cad9a50a5a110de5732b397132d75a",
+     "changed_lines": 81
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S06",
+   "c3v016_line": 358,
+   "step": "0",
+   "what": "the draft admission entry (launcher.path first of four)",
+   "expected_refuse": "the slot draft's admission_entry is not LAUNCHER and GUARD",
+   "covered_before_by": "E1-3",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 421,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT -> the target's draft with only admission_entry.launcher.path wrong",
+    "fixture_files": {
+     "fixture_draft": "f8af21ce3eca71063b8cd489257d316ff26574a5a0d1119d06d33da5401f72ad"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S06_target/SITE_COPY_S06_target.sh",
+     "sha256": "32b0d55f230a735d9aa5e9bedc2c280e58170635a2a211e61ccf86909bc3cf28"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S06_target/SITE_COPY_S06_target.diff",
+     "sha256": "04e81abd80487ca96eb4051845bdf813bc0294fc51bbfd957bcc73b9c3f3aaa0",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's admission_entry is not LAUNCHER and GUARD (paths and shas)",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 358,
+    "generator": "c3v008",
+    "fixture_edit": "DRAFT -> the target's draft with only admission_entry.launcher.path wrong",
+    "fixture_files": {
+     "fixture_draft": "f8af21ce3eca71063b8cd489257d316ff26574a5a0d1119d06d33da5401f72ad"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S06_c3v016/SITE_COPY_S06_c3v016.sh",
+     "sha256": "15ff2c63db059f041ca3748d72ceb7ee55089e8fd3696bd7caa3fabe2113f47d"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S06_c3v016/SITE_COPY_S06_c3v016.diff",
+     "sha256": "d2cb471190ad4c1a91bb0a321522e5f485d65ca85bceb0c3bdfafa77a07df5b1",
+     "changed_lines": 81
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S07",
+   "c3v016_line": 360,
+   "step": "0",
+   "what": "the draft identity gate records (Z2 sha first of three)",
+   "expected_refuse": "the slot draft's identity_gate_records are not",
+   "covered_before_by": "E1-4",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 424,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT -> the target's draft with only identity_gate_records.Z2.sha256 wrong",
+    "fixture_files": {
+     "fixture_draft": "9c6732112b3f3ba88a692b78d7d766c96f3d65ee2cee42b797a1017dea37ae82"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S07_target/SITE_COPY_S07_target.sh",
+     "sha256": "7eff8c7da561a01693193f74d7a429f8e88a36619c6fa4cccdb189f60c799790"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S07_target/SITE_COPY_S07_target.diff",
+     "sha256": "c2cf6e15f77898c1360481634879581125c1092150ae86f6838bd7e218befdd0",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's identity_gate_records are not IDREC_Z2, IDREC_Z2OFF and IDREC_B0P",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 360,
+    "generator": "c3v008",
+    "fixture_edit": "DRAFT -> the target's draft with only identity_gate_records.Z2.sha256 wrong",
+    "fixture_files": {
+     "fixture_draft": "9c6732112b3f3ba88a692b78d7d766c96f3d65ee2cee42b797a1017dea37ae82"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S07_c3v016/SITE_COPY_S07_c3v016.sh",
+     "sha256": "efa9856f284387359bddf696160bcc8b0585f194f8b70d9df25635d41c5d936e"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S07_c3v016/SITE_COPY_S07_c3v016.diff",
+     "sha256": "fedaea09fd86f7f86a6fc219256280f923c4331bc8849f031600f8cf471f28e9",
+     "changed_lines": 81
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S08",
+   "c3v016_line": 363,
+   "step": "0",
+   "what": "the draft documented output paths, attempt 1 (frozen_addendum.path first of four; DRAFT_PATHS_MUST_MATCH=1 as in production)",
+   "expected_refuse": "the slot draft's documented output paths are not this script's",
+   "covered_before_by": "",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 434,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT_PATHS_MUST_MATCH back to 1 (as in production); DRAFT -> a draft documenting this copy's scratch DBR / bound plan / bound command paths and a wrong frozen_addendum.path",
+    "fixture_files": {
+     "fixture_draft": "b5a1d347c444d2f62aac32fd16377df95d84b3d7e7d7760a6441076ad1b72e88"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S08_target/SITE_COPY_S08_target.sh",
+     "sha256": "e7f93e9064b34b312a164e82e97ed0db28f13e6e70f73c38e852278ef87f62e5"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S08_target/SITE_COPY_S08_target.diff",
+     "sha256": "9c21a7f00d26d60f64d9f39122dfef80732e936f7c83e14d5abc9dec55b3440d",
+     "changed_lines": 79
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's documented output paths are not this script's (attempt 1)",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 363,
+    "generator": "c3v008",
+    "fixture_edit": "DRAFT_PATHS_MUST_MATCH back to 1 (as in production); DRAFT -> a draft documenting this copy's scratch DBR / bound plan / bound command paths and a wrong frozen_addendum.path",
+    "fixture_files": {
+     "fixture_draft": "082e218966133a8aa1169a4a9b732c9fbc724ab0a8be3356ae1d623cfe968960"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S08_c3v016/SITE_COPY_S08_c3v016.sh",
+     "sha256": "0c2de66d7223ddecde3ce03c6d83bf26d2df4f0e8b3ed2044444b4d02c15805f"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S08_c3v016/SITE_COPY_S08_c3v016.diff",
+     "sha256": "f3ae26ecd145a6a0f131030e962705ef1a83b4eb73442fa2c32f3b5405de9101",
+     "changed_lines": 79
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S09",
+   "c3v016_line": 454,
+   "step": "3",
+   "what": "the binder's plan and command paths (plan.path first)",
+   "expected_refuse": "the binder's plan or command path is not BOUND_PLAN / BOUND_COMMAND",
+   "covered_before_by": "",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 526,
+    "generator": "c3v010",
+    "fixture_edit": "BINDER -> the real binder plus a wrapper that changes only the plan path it reports",
+    "fixture_files": {
+     "fixture_binder": "653f5b01f7893e28357b3df96adf41f92c2ce933f122dc9029e32e8c4dbe4f57"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S09_target/SITE_COPY_S09_target.sh",
+     "sha256": "69116714ad96538377d0c6d73dcc6857c7245a999330e5d906e1d4daeb844c5d"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S09_target/SITE_COPY_S09_target.diff",
+     "sha256": "4dbbd884de25999c9ad2d4b032c4e9cdf3502aceab74b969c3c8d47c9c1093d2",
+     "changed_lines": 75
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the binder's plan or command path is not BOUND_PLAN / BOUND_COMMAND",
+    "stopped_at_step": "3",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 454,
+    "generator": "c3v008",
+    "fixture_edit": "BINDER -> the real binder plus a wrapper that changes only the plan path it reports",
+    "fixture_files": {
+     "fixture_binder": "653f5b01f7893e28357b3df96adf41f92c2ce933f122dc9029e32e8c4dbe4f57"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S09_c3v016/SITE_COPY_S09_c3v016.sh",
+     "sha256": "ce5bfaee6b52e9f7d21fbee6cc2ee5afa9a9522312b5ec82782af573326ea2b0"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S09_c3v016/SITE_COPY_S09_c3v016.diff",
+     "sha256": "3f7fa56356780fa322136f58b0950a29f8d888f0cf52cd719f33e7dc2353bfba",
+     "changed_lines": 75
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S10",
+   "c3v016_line": 455,
+   "step": "3",
+   "what": "the binder's driver and frozen addendum paths (driver.path first)",
+   "expected_refuse": "the binder's driver or frozen addendum path is not DRIVER / FROZEN",
+   "covered_before_by": "",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 528,
+    "generator": "c3v010",
+    "fixture_edit": "BINDER -> the real binder plus a wrapper that changes only the driver path it reports",
+    "fixture_files": {
+     "fixture_binder": "575b9ca3079e0c280c21bd931696a69920daeef35d3b12bb9da097b32fad9e7c"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S10_target/SITE_COPY_S10_target.sh",
+     "sha256": "222d8e8c8fa036de628cc432fd6e991a1c6191c839c356474c1f080d42552e2a"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S10_target/SITE_COPY_S10_target.diff",
+     "sha256": "82dda9b9cca11cf51f6853f474948ff0cdff068966c4f733b2ecd7f378e3a436",
+     "changed_lines": 75
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the binder's driver or frozen addendum path is not DRIVER / FROZEN",
+    "stopped_at_step": "3",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   },
+   "contrast_c3v016": {
+    "site_found": true,
+    "site_line_in_script": 455,
+    "generator": "c3v008",
+    "fixture_edit": "BINDER -> the real binder plus a wrapper that changes only the driver path it reports",
+    "fixture_files": {
+     "fixture_binder": "575b9ca3079e0c280c21bd931696a69920daeef35d3b12bb9da097b32fad9e7c"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S10_c3v016/SITE_COPY_S10_c3v016.sh",
+     "sha256": "c48e3966cd480fc63203fcc30c5fd707fd3d9d8a9fe76edb5d6526bd9342e08e"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S10_c3v016/SITE_COPY_S10_c3v016.diff",
+     "sha256": "189c1124667509a7ef2f804bf7559c2eaba6f1affbe270279c1089b47a15f31a",
+     "changed_lines": 75
+    },
+    "exit": 0,
+    "refuse_line": "",
+    "stopped_at_step": null,
+    "marker_seen": true,
+    "next_step_banner_seen": true,
+    "copy_end_reached": true,
+    "defect_reproduced": true
+   }
+  },
+  {
+   "site": "S11",
+   "c3v016_line": null,
+   "step": "0",
+   "what": "A111 (c3v017+, fallback from birth): the draft driver_check_record (path first)",
+   "expected_refuse": "the slot draft's driver_check_record is not the A111 record",
+   "covered_before_by": "disclosures-suite S-8 (sha form)",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 429,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT -> the target's draft with only driver_check_record.path wrong",
+    "fixture_files": {
+     "fixture_draft": "28130968e395e2bdd1af98ae113c72ec6c42c39e5425af897d8c04f7a4d31099"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S11_target/SITE_COPY_S11_target.sh",
+     "sha256": "0a8f57ae163c7695efc8d726aa5cb95f1365678eac0c13007d1e061c23461b9f"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S11_target/SITE_COPY_S11_target.diff",
+     "sha256": "d1d3a6ecb1cb5f4d76ef2af469e0f2d2e04769d40ee50a8093cab3707b82ba54",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's driver_check_record is not the A111 record",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   }
+  },
+  {
+   "site": "S12",
+   "c3v016_line": null,
+   "step": "0",
+   "what": "A111 (c3v017+, fallback from birth): the draft EPS_NGC pin (one test in the C04_EXCLUSIONS loop; path form)",
+   "expected_refuse": "the slot draft's certificates.EPS_NGC is not the A111 record",
+   "covered_before_by": "disclosures-suite S-9 (sha form)",
+   "is_control": false,
+   "target": {
+    "site_found": true,
+    "site_line_in_script": 432,
+    "generator": "c3v010",
+    "fixture_edit": "DRAFT -> the target's draft with only certificates.EPS_NGC.path wrong",
+    "fixture_files": {
+     "fixture_draft": "3a5883d402d8d0b45f3148b7b79072818e4edb385eb53013a5406977916ddd4f"
+    },
+    "copy": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S12_target/SITE_COPY_S12_target.sh",
+     "sha256": "4ce6395113180cca017dd76c7ae2541b745df9b08a90d008cfb40676e1071d3a"
+    },
+    "diff_vs_production": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/e1_sites_c3v020_20261019T025415Z/S12_target/SITE_COPY_S12_target.diff",
+     "sha256": "4115eddf76c86c0386163022f9ad5454d4a6d431a7ab5f36eb4c22008772be34",
+     "changed_lines": 81
+    },
+    "exit": 1,
+    "refuse_line": "REFUSE: the slot draft's certificates.EPS_NGC is not the A111 record",
+    "stopped_at_step": "0",
+    "marker_seen": false,
+    "next_step_banner_seen": false,
+    "copy_end_reached": false,
+    "ok": true
+   }
+  }
+ ],
+ "n_sites": 12,
+ "n_target_ok": 12,
+ "n_defect_sites": 9,
+ "n_defect_reproduced_on_c3v016": 9,
+ "control_S02_no_defect_on_c3v016": true,
+ "all_ok": true
+}

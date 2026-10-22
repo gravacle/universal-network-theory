@@ -1,0 +1,103 @@
+{
+ "schema": "C3SA_DRY_RUN_SUBSTITUTIONS_V001",
+ "root_script": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v027.sh",
+  "sha256": "239a51c34439b9510155762db8ba02709f1a478b3601de371799ec78591df02f"
+ },
+ "dry_run_script": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/ROOT_SEAL_STEPS_DRYRUN_B.sh",
+  "sha256": "63be80013b2536ef77820966c89ecdce69709bd229237790649ccedfc46abdf4"
+ },
+ "substitutions": [
+  {
+   "id": "S01 frozen copy -> scratch",
+   "old": "FROZEN=\"$CTRL/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM_FROZEN.md\"",
+   "new": "FROZEN=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_ctrl/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM_FROZEN.md\""
+  },
+  {
+   "id": "S02 seal folder -> scratch",
+   "old": "SEAL_DIR=\"$CTRL/V007_SEAL_ASSEMBLY$SFX\"",
+   "new": "SEAL_DIR=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY$SFX\""
+  },
+  {
+   "id": "S03 bound plan -> scratch binder folder",
+   "old": "BOUND_PLAN=\"$PKT/P128/LAUNCH_PLAN_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.json\"",
+   "new": "BOUND_PLAN=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_pkt/P128/LAUNCH_PLAN_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.json\""
+  },
+  {
+   "id": "S04 bound command -> scratch binder folder",
+   "old": "BOUND_COMMAND=\"$PKT/P128/LAUNCH_COMMAND_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.txt\"",
+   "new": "BOUND_COMMAND=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_pkt/P128/LAUNCH_COMMAND_V011_CX3V001_BOUND_R5_V007_SEAL$SFX.txt\""
+  },
+  {
+   "id": "S05 admission config -> scratch",
+   "old": "CONFIG=\"$PKT/ROOT_SEAL_ADMISSION_V001.json\"",
+   "new": "CONFIG=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_pkt/ROOT_SEAL_ADMISSION_V001.json\""
+  },
+  {
+   "id": "S06 binder -> byte-identical scratch copy (HERE = scratch_pkt; same sha)",
+   "old": "BINDER=\"$PKT/bind_sealed_launch_plan_cx1v001.py\";",
+   "new": "BINDER=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_pkt/bind_sealed_launch_plan_cx1v001.py\";"
+  },
+  {
+   "id": "S09 seal inputs folder -> scratch",
+   "old": "SEAL_INPUTS_DIR=\"$CTRL/V007_SEAL_ASSEMBLY_INPUTS\"",
+   "new": "SEAL_INPUTS_DIR=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY_INPUTS\""
+  },
+  {
+   "id": "S10 gates-only manifest -> stand-in (no identity-run tree, no case)",
+   "old": "MANIFEST_GATES=\"$C3/MANIFEST_GATES_ONLY_C3SA_c3v002.json\"; MANIFEST_GATES_SHA=\"46dc53104d518edc9b00e77c0b4995df3e4871999c7264926dad186726ed62ca\"",
+   "new": "MANIFEST_GATES=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/fixtures/MANIFEST_GATES_ONLY_STANDIN.json\"; MANIFEST_GATES_SHA=\"6dba5a1c083c1de17688e2336972f31c1d1ed30e894b8c7e99907d912c1bf7dc\""
+  },
+  {
+   "id": "S11 draft documents the real paths, the dry run uses scratch",
+   "old": "DRAFT_PATHS_MUST_MATCH=1 ",
+   "new": "DRAFT_PATHS_MUST_MATCH=0 "
+  },
+  {
+   "id": "S12 the scratch config is not the guard CONFIG path",
+   "old": "EXPECT_CONFIG_IS_GUARD_CONFIG=True ",
+   "new": "EXPECT_CONFIG_IS_GUARD_CONFIG=False "
+  },
+  {
+   "id": "S13 step 8 fence mode dryrun (refuses all runs_ext/UVT_*; C5H dirs redirected to a stand-in)",
+   "old": "STEP8_MODE=root ",
+   "new": "STEP8_MODE=dryrun "
+  },
+  {
+   "id": "S14 step 8 stand-in for C5H_REGISTERED_RUN_DIRS",
+   "old": "STEP8_STANDIN=\"\"",
+   "new": "STEP8_STANDIN=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/fixtures/C5H_STANDIN_REGISTERED_DIR\""
+  },
+  {
+   "id": "S17 the step-2 output root to create -> scratch (RP-S1; the REAL root is never created by a dry run); its parent UNT_INTERNAL_RUNS is absent at setup, as it is on disk",
+   "old": "OUTPUT_ROOT_TO_CREATE=\"$INTERNAL_OUTPUT_ROOT\"",
+   "new": "OUTPUT_ROOT_TO_CREATE=\"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T064733Z/passB/scratch_internal/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007\""
+  },
+  {
+   "id": "S18 the scratch root is not the template output root (the template outputs stay the real strings and are only checked absent; nothing is created there)",
+   "old": "OUTPUT_ROOT_IS_TEMPLATE_ROOT=1 ",
+   "new": "OUTPUT_ROOT_IS_TEMPLATE_ROOT=0 "
+  },
+  {
+   "id": "S15 step 9 STUBBED: booleans stdout fixture plus a labelled B6-form VALIDITY_ONLY.json; the compare and the C5H run are never touched",
+   "old": "step9_validity_c5h() {\n  STEP=9; echo \"STEP 9 sealed compare --validity-only --case C5H, booleans only, stdout to file (SEAL_CHECKLIST_R5 L29 B6; r5 srr[1]; A47 I3)\"\n  v005_still_frozen 9\n  run_h STEP_09_MANIFEST make-c5h-manifest --sealed-compare \"$SEALED_COMPARE\" --sealed-compare-sha \"$SC_SHA\" --c5h-dir \"$UNT_SEAL_C5H_RUN_DIR\" \\\n        --b0-record \"$B0_RECORD=$B0_RECORD_SHA\" --out \"$C5H_MANIFES...(function body; see the diff)",
+   "new": "step9_validity_c5h() {\n  STEP=9; echo \"STEP 9 STUBBED (dry run): the sealed compare is NOT executed; no C5H path is opened, stat'ed or resolved\"\n  v005_still_frozen 9\n  cat > \"$VALIDITY_STDOUT\" <<'STUBEOF'\n{\"schema\": \"DRY_RUN_FIXTURE_NOT_A_COMPARE_OUTPUT\", \"fixture\": \"STUB for ROOT_SEAL_STEPS step 9 (Claude3 0626 dry run): --validity-only --case C5H was NOT run\", \"cases\": {\"C5H\": {\"valid\": false, ..."
+  },
+  {
+   "id": "S16 (both passes) tools 3 and 4 run through the DRY-RUN SHIM: the pinned runner plus ONE patch, the D-10 allowance for the tool 1 runs inside them (the FROZEN copy is in scratch, never at path_to_be); NOT a seal tool",
+   "old": "T3_RUN=(\"${PYX[@]}\" \"$RUNNER\" \"${RUN_MODS_COMMON[@]}\" --module \"check_frozen_addendum_c4v003=$T1=$T1_SHA\" --module \"check_sealed_compare_c4v003=$T2=$T2_SHA\" --main \"$T3=$T3_SHA\" --call main --)\nT4_RUN=(\"${PYX[@]}\" \"$RUNNER\" \"${RUN_MODS_COMMON[@]}\" --module \"check_frozen_addendum_c4v003=$T1=$T1_SHA\" --module \"check_sealed_compare_c4v003=$T2=$T2_SHA\" --module \"check_slot_fill_c4v003=$T3=$T3_SHA\" --m...(function body; see the diff)",
+   "new": "T3_RUN=(\"${PYX[@]}\" \"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/dryrun_tool_shim_c3sa_c3v007.py\" \"${RUN_MODS_COMMON[@]}\" --module \"check_frozen_addendum_c4v003=$T1=$T1_SHA\" --module \"check_sealed_compare_c4v003=$T2=$T2_SHA\" --main \"$T3=$T3_SHA\" --call main --)\nT4_RUN=(\"${PYX[@]}\" \"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/dryrun_tool_shi..."
+  },
+  {
+   "id": "S16b (both passes) the direct tool 1 run gets its own --allow-open-copy-for-dry-run (D-10 -> its DRY_RUN note); --expect-frozen-sha stays",
+   "old": "  \"${T1_RUN[@]}\" --prereg \"$PREREG_TOR\" --frozen \"$FROZEN\" --expect-frozen-sha \"$V005_FINAL_SHA\" --addendum-at-text-of-record \"$TABLE_BYTES\" \\",
+   "new": "  \"${T1_RUN[@]}\" --prereg \"$PREREG_TOR\" --frozen \"$FROZEN\" --expect-frozen-sha \"$V005_FINAL_SHA\" --addendum-at-text-of-record \"$TABLE_BYTES\" --allow-open-copy-for-dry-run \\"
+  },
+  {
+   "id": "S23 (pass B only) the tools get NO dispositions file (README_SEAL_TOOLS_V003: optional when L u CH is empty, as for r6); the helper still checks the pinned entries:[] object",
+   "old": "  COV_ARGS=(--dispositions \"$UNT_SEAL_DISPOSITIONS_PATH\" --dispositions-sha \"$UNT_SEAL_DISPOSITIONS_SHA256\")   # SA-CX1-B3: one pinned file, tools 1, 3, 4",
+   "new": "  COV_ARGS=()   # DRY RUN pass B (S23): no dispositions file to the tools"
+  }
+ ]
+}

@@ -1,0 +1,97 @@
+{
+  "dispatch": 779,
+  "status": "PASS",
+  "blocking_count": 0,
+  "blocking_items": [],
+  "utc": "2026-10-20T15:48:41.158137+00:00",
+  "TESTED": {
+    "T1": "GUARD_IDENTITY refusal",
+    "T2": "Successor emits on guard014 candidate",
+    "T3": "guard014 validates successor record",
+    "T4": "Tamper refused PRELAUNCH_REPLAY_MISMATCH",
+    "T5": "PRELAUNCH005 emits on guard011 candidate; exact record bytes equal T2",
+    "T6": "Successor on guard011 candidate refused GUARD_IDENTITY",
+    "T7": "guard014 validates original PRELAUNCH005 record with native replay",
+    "T8": "Missing prelaunch refused PIN_REQUIRED"
+  },
+  "diff": {
+    "result": "Entire module prefix after docstring through native_preflight is AST-identical, including imports, constants, functions/classes and audit fence. All local native helper definitions are in that prefix. globals_api exports only unchanged require/R5_SHA/admitted_source/doc/load. HERE/PACKET differ by location but are unused by native preflight/helpers. Dynamic adapter/context/policy/driver calls use admitted input pins, not guard version.",
+    "identical_definitions": [
+      "r1_verified_read",
+      "Refusal",
+      "require",
+      "lexical_path",
+      "safe_path",
+      "raw",
+      "sha",
+      "pin",
+      "verify",
+      "_pairs",
+      "_finite_float",
+      "decode",
+      "doc",
+      "canonical",
+      "digest",
+      "source_map",
+      "admitted_source",
+      "check_review",
+      "_managed_source",
+      "_registered_cache",
+      "_audit",
+      "fence",
+      "load",
+      "positive_gate",
+      "adoption",
+      "spec_structure",
+      "globals_api",
+      "native_preflight"
+    ],
+    "changed_behavior_outside_native": "guard014 adds core_priority_admission and changes validate route admission; this is not whole-guard equivalence."
+  },
+  "notes": [
+    "Unchanged harness first failed T2/T5 with UNPINNED_PREFLIGHT_SOURCE when scratch was under /Research/: syn_compare.py is omitted from sources. T3/T4/T7 were consequently unexecuted in that run, and harness exit was still 0. Preserved initial RESULT.json. Fresh /private/tmp scratch with byte-identical harness gives all eight expected outcomes. Harness portability/exit-status limitation, not a replay defect.",
+    "Records omit guard identity; emitter manifests do carry guard/producer identity and are not claimed byte-equal.",
+    "No production successor needed for this ruling. Original PRELAUNCH005 unchanged; successor exists only as synthetic test fixture."
+  ],
+  "UNTESTED": [
+    "Real production inputs, binder CLI invocation, real certificate/policy/sensitivity calculations: harness uses synthetic adapter/context/policy.",
+    "Scientific launch and production seal."
+  ],
+  "objects": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_c2v011.py",
+      "sha256": "eb97e303b968dc941e2059ada813be95340662253c327a7b9a9634bb8a2c8033"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_guard_c2v014.py",
+      "sha256": "6efdca016416a919b25a1e23d46a415b75fe2b5e60145ba098f864730975165d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_prelaunch_cx1/v005/step4_prelaunch_c2v005.py",
+      "sha256": "117b35209cc57d8eda730bed94a772e3b29c4ee25bc33a4fcf4628ef70bc6f27"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/PRELAUNCH_G14_REVIEW_CX1_V001/syn_prelaunch_g14.py",
+      "sha256": "4dd7c90fd4e8d9178c2e92146d98b965a99ae9b9fb2d40fef03e44a7d7cbc855"
+    }
+  ],
+  "evidence": {
+    "initial_run": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/PRELAUNCH_G14_REVIEW_CX1_V001/run/RESULT.json",
+      "sha256": "53c64cf7f1a96f5f2cc0f02ee32be1d243384251c4d898eb722ca8e318ec2f5c"
+    },
+    "successful_run": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/PRELAUNCH_G14_REVIEW_CX1_V001/TMP_RUN_RESULT.json",
+      "sha256": "db7058d86cf9c927c20cca1483488cf99bb154d37c40fe54a7fadfc37a233c28"
+    },
+    "record_t2": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/PRELAUNCH_G14_REVIEW_CX1_V001/TMP_T2_RECORD.json",
+      "sha256": "50861d94fd14e48ad3cbbad15299e22d4fda3e45ab210929a970add996e112d8"
+    },
+    "record_t5": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/PRELAUNCH_G14_REVIEW_CX1_V001/TMP_T5_RECORD.json",
+      "sha256": "50861d94fd14e48ad3cbbad15299e22d4fda3e45ab210929a970add996e112d8"
+    },
+    "temporary_run": "/private/tmp/cx1-prelaunch-g14-q1g76gpy"
+  }
+}

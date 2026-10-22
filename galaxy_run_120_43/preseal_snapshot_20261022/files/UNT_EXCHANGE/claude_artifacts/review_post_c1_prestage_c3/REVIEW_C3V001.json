@@ -1,0 +1,114 @@
+{
+ "blocking": [],
+ "checks": [
+  {
+   "finalizer_lines": [
+    189
+   ],
+   "id": "C1",
+   "lookup_lines": [
+    298
+   ],
+   "result": "PASS",
+   "what": "successor request fields equal lookup v003 bound-mode REQUEST_FIELDS"
+  },
+  {
+   "finalizer_lines": [
+    200
+   ],
+   "id": "C2",
+   "lookup_lines": [
+    450
+   ],
+   "result": "PASS",
+   "what": "replay_out_dir rule (new child of the lookup dir, parent exists) matches F1 output predicate"
+  },
+  {
+   "id": "C3",
+   "lookup_lines": [
+    85
+   ],
+   "result": "PASS",
+   "what": "prestage input paths pass F1 lexical policy (no protected part)"
+  },
+  {
+   "finalizer_lines": [
+    259
+   ],
+   "id": "C4",
+   "result": "PASS",
+   "what": "verification_replayed is read from the F1 manifest, never set by the finalizer"
+  },
+  {
+   "finalizer_lines": [
+    242
+   ],
+   "id": "C5",
+   "result": "PASS",
+   "what": "execute re-renders and requires byte-equal PREPARED and files before replay"
+  },
+  {
+   "finalizer_lines": [
+    292,
+    296
+   ],
+   "id": "C6",
+   "result": "PASS",
+   "what": "root-only modes require --actor Claude2 and the ack flag; prepare never runs F1"
+  },
+  {
+   "finalizer_lines": [
+    219,
+    195
+   ],
+   "id": "C7",
+   "result": "PASS",
+   "what": "outputs exclusive (xb), source_review null, production_admissible false in prepared/review/result"
+  },
+  {
+   "finalizer_lines": [
+    132
+   ],
+   "id": "C8",
+   "result": "PASS",
+   "what": "binding validated by the pinned helper plus successor-C1 hardening (schema C2V002, synthetic_test False, no placeholder)"
+  }
+ ],
+ "consumers_traced": {
+  "direct_cert_lookup_a296_cx2v003.py": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/lookup/direct_cert_lookup_a296_cx2v003.py",
+   "sha256": "bfcaa714555dcea236121071644f1de3ba34bd57e95dd631f36145d42094c2f1"
+  }
+ },
+ "not_done": [
+  "Codex2 suites (72 author, 48 independent, 23 AST) were not re-run by Claude3; root-only F1 replay not executed (custody)."
+ ],
+ "notes": [
+  "N1: a JSON input that is not an object (e.g. a list for records) raises AttributeError, which the CLI does not catch: traceback and exit 1 instead of REFUSED exit 3. Fail-closed either way (A115 NOTE).",
+  "N2: the four plan inputs (DIRECT_CERT_LOOKUP_REQUEST_CX2V001 request, CP1_POINTS_LEDGER_RECORDS_C2V001 records with the ROOT_BOUND binding, CP1_POINTS_OFFLINE_VERIFY_C2V001, the 7-call admission predecessor) do not exist before the direct batch; finalization is a direct-batch step (checklist C3V003 D1), not Thursday R6.",
+  "N3: ADMISSION_CANDIDATE itself carries no production_admissible field; its non-admissibility rests on source_review=null, so root binds it only after a distinct source review (as the handoff says)."
+ ],
+ "request": "Codex2 0602 / 0603",
+ "reviewed": {
+  "INPUTS_UNBOUND_TEMPLATE_CX2V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/post_c1_prestage_cx2v001/build/INPUTS_UNBOUND_TEMPLATE_CX2V001.json",
+   "sha256": "42b19b1797975d341ec16f99c11df2e094358fa37fc7e7cde4141bdc0499990d"
+  },
+  "PRESTAGE_CX2V001.md": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/post_c1_prestage_cx2v001/build/PRESTAGE_CX2V001.md",
+   "sha256": "caabdc8401ba4a6889aae22e969ba95cd71f691e9f8aa6af06a366085c10fe2a"
+  },
+  "SOURCE_PINS_CX2V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/post_c1_prestage_cx2v001/build/SOURCE_PINS_CX2V001.json",
+   "sha256": "76ffd4a204bbc5d9c9be10deab8cd9cbbb2c6218323782c4eb36b9df1ab3fab6"
+  },
+  "finalize_post_c1_cx2v004.py": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/post_c1_prestage_cx2v001/build/finalize_post_c1_cx2v004.py",
+   "sha256": "5743cfefeb423da01e69024d51b92fca1c4c4a30b603662629b8a4d4569e4baf"
+  }
+ },
+ "reviewer": "Claude3 (deputy)",
+ "schema": "NARROW_REVIEW_C3V001",
+ "utc": "2026-10-22T08:04:55Z",
+ "verdict": "PASS, 0 blocking; usable by root at checklist C3V003 step D1"
+}

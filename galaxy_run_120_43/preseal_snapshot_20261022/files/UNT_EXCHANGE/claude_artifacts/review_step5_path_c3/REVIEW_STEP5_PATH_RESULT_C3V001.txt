@@ -1,0 +1,221 @@
+{
+  "summary": "Claude3 lean review (0695 A135 item 1, A115) of root step-5 NGC path claude_artifacts/step5_path_c2/: one lens + one adversarial verifier",
+  "agentCount": 2,
+  "logs": [],
+  "result": {
+    "review": {
+      "verdict": "CONFIRMED_WITH_NOTES. 0 blocking: no class (a) and no class (b) finding, plus 6 NOTEs. Every lens item held under refute-by-default. (1) Each object does what the README says. 27/27 non-run HASHES entries verify from bytes; the 2 test RESULTS under tests/runs were not opened, per the run-tree rule. (2) Driver cx3r008 is pinned at 577f8c94 (registry 2c3f421d, review 7ff20c1d). Root's S0 record 1be5ed70 went through phase1_point_handoffs and then fill in real PHASE1_POINT mode, with a V007 stand-in, EPS 1d5eef1b and the A136 LO custody pin 07745bbf. All 4 points filled. In each pair, the raw specs and the normalized specs differ only at numerics.route_a.column_workers (1 vs 8). The comparator compares bitwise, prints no value, and its file layout matches the driver, worker, solver, checkpoint and controller bytes. Nothing in the object drops column_workers from the re-binding key before the identity test. (3) Caps: the serial wall cap is 610,324 s = 2 x U; RSS is 32 GiB, at least 1.5 x 20.11 GB; output is 64 GiB, the 0181 floor. The twin has 22,752 s, 86 GiB and 32 GiB. root_monitor ba031c23 accepts these flags, in bytes and seconds. (4) Watch v002 3862b645 does not count NGC processes and prints GiB labelled as GB, both confirmed from its bytes. The object flags both for root. (5) The S0 thetas are taken bit for bit from 1be5ed70. (6) RI45-02 (a) and RI45-08 (a) hold on the S0 path. (7) The 83 tests re-ran on a scratch copy: 83/83 (40 MUST_PASS, 43 MUST_FAIL), Z01 clean. Dry plans of all 8 specs filled from 1be5ed70 (real pins) showed 0 executed stages, 0 blockers and no run-tree or NGC-target reads. Conduct: synthetic and dry only, with no launches. No run tree was read, listed or stat-ed, and no NGC target file was opened. I opened one NGC3198-named file directly: the README-named target-free seed 88ef386d, for two fields only. The tools and tests I ran also opened the pinned target-free NGC model inputs (the slots file d3859b42 and the driver's seed and pins), as root's record runs do. The re-run test process read phase1's own test_runs fixtures, which the test file and README name; I opened nothing under any runs-named path myself. One ls -R ran on my own 9-file scratch copy. Writes went only to scratch and to claude_artifacts/review_step5_path_c3/PARTIAL_lens.md; I created that directory because it was absent. fixtures_lens was not needed. Evidence: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/step5_review/lens/ (test1.stdout, the s0chain/ fills and dry logs, scripts/).",
+      "blocking": 0,
+      "findings": [
+        {
+          "id": "L1",
+          "cls": "NOTE",
+          "title": "The serial output cap (64 GiB = 68.72 GB) sits exactly at the 0181 floor, with thin margin on the U path",
+          "evidence": "CAPS_FIRST_NGC_POINT_C2V001 output_cap_bytes 68719476736, basis '37-41.5 GB at I = 16 before route B and the readout'. Claude3's own RI45-12 verifier record REVIEW_RI45_12_RESULT_C3V001.txt (cc25da63, L214): 'With route-B node logs (about 1.13 GB per route-B prepare) the U total is about 50-60 GB or more, so ... at least 64 GiB (68.7 GB) leaves thin margin. Set the cap from a measurement at iterations 0-1 or at about 96 GiB.' root_monitor ba031c23 fixes the cap at launch and kills the process group on OUTPUT_CAP (L163-171). A late stop costs a full rerun under A133 3(c) and leaves the point unevaluated under 3(f). No honest estimate exceeds 68.7 GB, so this is not class (a). Root should rule about 96 GiB, or accept 64 GiB knowingly.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L2",
+          "cls": "NOTE",
+          "title": "Memory-gate reserve units: the 27 GB campaign reserve is a GiB figure, so the gate thresholds are about 2.1 GB lax",
+          "evidence": "A133 1.4 takes the reserve from STEP2_MEMORY_WATCH_V002.csv: 'C4T_A 27.1 GB', with a '27 GB reserve'. Watch v002 3862b645 L14 computes each per-run value as KiB/1048576, which is GiB, so 27.1 GiB = 29.10 GB. CAPS memory_gate and README 5 use 103 - 27 - peaks in decimal GB: 55.9 / 26.0 / 8.7 (8.79) GB. In consistent units they are 53.8 / 23.9 / 6.7 GB. The object already flags the watch's GiB label (watch_units), but not that the reserve itself comes from that label. When root fixes the watch units (README 7 item 5), the reserve should become 29.1 GB.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L3",
+          "cls": "NOTE",
+          "title": "Comparator tokens depend on --serial/--twin being spelled exactly like the --outdir given to root_monitor",
+          "evidence": "compare_identity_pair_c2v001 Side.tok replaces only the given run path and its realpath (L152-166). The driver writes request.json argv from os.path.abspath(outdir), unresolved (driver L8990-8991, ctx.request). The binding sets numerical_controls.uv_tail = controller.identity(), whose 'sidecar' is the argv path, also unresolved (binding L144; controller L291-296). The worker records resolved paths. runs_ext is a link to External1 (0184 L3). If root passes the resolved form, the argv and sidecar spellings are not tokenized, and an honest pair reads DIFFERENT (a false DIFFERENT). That is the safe direction: everything stays serial, and the compare can be re-run to a new --out. Rule: pass the identical outdir strings, or tokenize the abspath forms too.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L4",
+          "cls": "NOTE",
+          "title": "The twin's planned stop and the pair memory window both rely on root's N4 early kill",
+          "evidence": "From the RI45-12 verifier figures (N8 tree 31,455 s E; replica 7,135 / 11,371 s; serial side 17,750 / 26,184 s): unless killed, the twin at E runs about 9 more iterations (about 1,737 s each) to its 22,752 s wall cap. That is about 25-29 GB of output at 2.3-2.6 GB per iteration, approaching its 32 GiB output cap. The serial at E passes the end of its iteration 1 at 17,750 s while the twin is still alive, outside the 'serial_iterations_0_1_spike' the pair gate (26.0 / 8.7 GB) assumes. README 7 item 3 names only a WALL_CAP stop as planned. Root's N4 (kill the twin once iteration_000{N-1}/COMPLETED.json and the sidecar iteration record exist; any twin cap stop is planned) closes both, and should be the ruling.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L5",
+          "cls": "NOTE",
+          "title": "'RI45-02 (a) and RI45-08 (a) closed for interface A' holds for the S0 path only",
+          "evidence": "RI45-02 (a) (ROOT_ITEMS_STEP45_V002 417de6fe L73-86) asks for binding to 'the exact coordinate-addendum and config identity'. The S0 path binds the config's (spec, addendum) pair: TESTED, and X05 passes. The F path checks only that the snapshot and record shas are strings (fill L230-233, root N2). The export path binds the coordinate spec only (fill L195, root N3). RI45-08 (a) also lists the writer binding (not built; phase1_c2v001 is the Phase-1 writer) and the FREEZE_EXPECTED_INPUTS successor. FREEZE_EXPECTED_INPUTS_CX3V002 169df91f L145 still reads 'registered driver branch acceptance or r006 fallback' (TESTED by grep, root N7), and README 7 does not list it. None of this is reachable on honest S0 inputs. Scope the README 7 item 1 wording to S0.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L6",
+          "cls": "NOTE",
+          "title": "Text errata (cosmetic)",
+          "evidence": "NO_FIX_NEEDED.txt says 'HASHES.txt: 28/28 entries', but HASHES lists 29 (27 verify here; the 2 RESULTS were not opened under the run-tree rule). The twin template's successor_change copies 'so the normalized numerics of the call of record equal the superseded template's', though the twin differs at the leaf. STEP5_REGISTRY is said to pin 'every object above' but omits IDENTITY_PAIR_COMPARISON_SPEC_C2V001.md (HASHES covers it). The dry_one diff also renames the guard prefix, run_name and log schema, while README 2 mentions only the fence. The pair U threshold 8.79 GB is printed as 8.7.",
+          "label": "FORMAL"
+        }
+      ],
+      "checked": [
+        {
+          "claim": "(7) Root's 83 tests pass on a copy",
+          "result": "CONFIRMED",
+          "note": "Exact test bytes (cd8a2e52) on a scratch copy whose 27 hashed files verify: 83/83, 40 MUST_PASS, 43 MUST_FAIL, Z01 fence denied nothing, exit 0, 31 s (14:20:54-14:21:25Z). No claude_artifacts path rule was needed."
+        },
+        {
+          "claim": "HASHES 27fb117f lists every file from bytes; README fba1a70a",
+          "result": "PARTIAL",
+          "note": "README and HASHES shas match. 27/27 non-run entries verify. The 2 tests/runs RESULTS.json entries were NOT_CHECKED under the run-tree rule."
+        },
+        {
+          "claim": "(2) Driver cx3r008 pin 577f8c94 with registry 2c3f421d and acceptance 7ff20c1d; no fallback",
+          "result": "CONFIRMED",
+          "note": "Driver bytes 577f8c94. Pins verify from bytes: registry 19, caps 7, policy 12, carrier policy 6 (the NGC3198-named slots and seed pins and the run-tree RESULTS were skipped by me; the tools verify slots and seed during fills and dry plans). Registry default is null. r006/r007 are refused (X07-X09, K03, K04)."
+        },
+        {
+          "claim": "(2) Serial call of record has route_a.column_workers 1, the twin 8, and nothing else differs",
+          "result": "CONFIRMED",
+          "note": "TESTED on all 4 points of 1be5ed70: raw spec leaf diffs and normalized-spec leaf diffs are exactly .numerics.route_a.column_workers. Labels are identical. Planned worker/solver per side: ee27227c/8ef3079b and 293a417f/7667025b, with '--start-iteration 0 --column-workers 8'."
+        },
+        {
+          "claim": "(2) Identity comparison is bitwise and prints no value",
+          "result": "CONFIRMED",
+          "note": "C01-C20 re-ran (1 ulp gives DIFFERENT; no float in the record). FORMAL: the checkpoint c2v003 identity carries no column_workers (both solvers pass identical controls; 'N is NOT checkpoint identity'). Payloads are float.hex-encoded, and blobs are content-addressed. The RO1 readout does not use the pool, per binding 9b5ce82a. Root N5 (BadZipFile gives exit 1 with no record) stands. See L3."
+        },
+        {
+          "claim": "(2) Re-binding key excludes column_workers only after the identity is TESTED",
+          "result": "CONFIRMED",
+          "note": "FORMAL: nothing excludes the leaf. The label is the theta key only, the spec sha includes route_a.column_workers, and a cw8 call of record needs a one-leaf policy successor (README 4.9). D08: Phase-1 and Phase-2 spec bytes are equal at the same theta and certificates. Consistent with A136 G3."
+        },
+        {
+          "claim": "(2) LO_NGC_K32_CERT_V001 07745bbf as a custody pin per A136",
+          "result": "CONFIRMED",
+          "note": "TESTED: all 4 S0 fills plus 8 dry plans with LO 07745bbf show 0 blockers. The driver hash-checks the pin and records it. Root N1 also confirmed TESTED: no certificate kind or point check (the anchor EPS 1d5eef1b was accepted for all 4 points)."
+        },
+        {
+          "claim": "(3) Caps against RI45-12: wall at least 2x forecast, output at least 64 GiB, RSS meets A61",
+          "result": "CONFIRMED",
+          "note": "Serial: 610,324 = 2 x 305,162; 32 GiB = 34.36 GB, at least 30.17 GB; 64 GiB = 68.72 GB, at the 0181 floor (see L1). Twin: 22,752 = 2 x 11,376 s; 86 GiB = 92.34 GB, at least 91.93 GB; 32 GiB. 381,500 s is correctly rejected. root_monitor ba031c23 takes ps rss KiB x 1024, lstat byte sizes and a monotonic wall clock, with no upper bounds and no retry."
+        },
+        {
+          "claim": "(3) N4 condition: seed 88ef386d has hi_panels_per_side 8 and source_azimuth_count 32",
+          "result": "CONFIRMED",
+          "note": "TESTED: sha 88ef386d, numerical_inputs 8 and 32. Only these two fields were read; the README names the file as the target-free seed."
+        },
+        {
+          "claim": "(4) Watch: NGC processes not counted; units GiB labelled GB",
+          "result": "CONFIRMED",
+          "note": "Watch v002 3862b645 L10 pgrep matches only _RUN_V011_CX3V001_R2 or N1_SERIAL_V002, not the planned NGC_P1_S0_* outdirs. L14 sums KiB and divides by 1048576 (GiB). The object flags both (README 5, 7 item 5; caps watch_coverage/watch_units). The reserve units are in L2."
+        },
+        {
+          "claim": "(4) Memory-gate arithmetic 55.9 / 26.0 / 8.7 GB",
+          "result": "PARTIAL",
+          "note": "Correct as 103 - 27 - peaks (8.79 is truncated to 8.7). In consistent units, with the reserve at 29.1 GB, the thresholds are 53.8 / 23.9 / 6.7 GB (L2)."
+        },
+        {
+          "claim": "(5) S0 thetas taken bit for bit from 1be5ed70",
+          "result": "CONFIRMED",
+          "note": "TESTED, real PHASE1_POINT mode with config fa771c2c (V002/V005A pair, synthetic_test false): Eref_J, ell_F_m and common_scale_s equal the record's theta_hex bits; gamma bits = goE x EB; label key = record key; theta_hex consistent. s*(ge*EB) = (s*ge)*EB at all 4 points, so the driver's gamma_eff matches 0184 item 1's binding bitwise."
+        },
+        {
+          "claim": "(6) RI45-02 (a) and RI45-08 (a) semantics",
+          "result": "PARTIAL",
+          "note": "S0 path: mode name, admitted pair, 4.04 fixed, 3-u, theta_natural mapping (X02-X06). cx3r008-only filler policy, registry and carrier policy. Filler coordinate mode = orchestrator c2v005 _apply_coordinate_mode; theta_key verbatim (FORMAL). The F path, the export path, the writer binding and FREEZE_EXPECTED_INPUTS are partial (L5)."
+        },
+        {
+          "claim": "Admitted coordinate pairs are engine-equal (policy admitted_pairs_basis)",
+          "result": "CONFIRMED",
+          "note": "TESTED: engine_coordinates and engine_parameters are byte-equal, and the addendum coordinate_mode is equal (DDO154_DISTANCE_FIXED_AT_REGISTERED). They differ only in 'freeze' and applies_to."
+        },
+        {
+          "claim": "(1) Dry plans: 0 executed stages, no binding blocker; with real pins no blocker; readiness label PENDING_CERTIFICATES via all([])",
+          "result": "CONFIRMED",
+          "note": "TESTED on the 8 specs filled from 1be5ed70: harness and driver exit 0, ctx simulate only, executed_stages 0, binding_blockers [], source_build_blockers [], future deps only PENDING_ROUTE_A_OUTPUTS, label PENDING_CERTIFICATES, 244 reads with none flagged, 0 writes outside."
+        },
+        {
+          "claim": "(1) README 4 commands match the tools' CLIs",
+          "result": "CONFIRMED",
+          "note": "FORMAL: phase1 fdplan --s0-only --config/--config-sha256/--out-dir; handoffs, fill, positional dry_one; root_monitor --wall-cap-s (float) and --rss/--output-cap-bytes (int); comparator flags. phase1 handoff takes one certificate_pins object (L516-541), as README 3 says."
+        },
+        {
+          "claim": "Root verifier notes N1-N10 (NO_FIX_NEEDED)",
+          "result": "PARTIAL",
+          "note": "N1 and N7 TESTED, N2, N3, N5 and N8 FORMAL-consistent, N4 extended in L4. N6, N9 and N10 were NOT_CHECKED."
+        }
+      ]
+    },
+    "verify": {
+      "holds": true,
+      "corrections": [
+        "L4 arithmetic (FORMAL; class and conclusion unchanged). The lens divided the whole N8 tree (31,455 s at E) by 14 iterations, giving 1,737 s per iteration, 'about 9 more iterations' and '25-29 GB, approaching its 32 GiB output cap'. But that tree includes the readout, which stays serial in the parent (10,427 s at E), and stage 02 (3,209 s at E), and E assumes I = 7. So the twin's route-A iterations at E take about 17,800 s in all, about 2,100 s each after the 7,135 s replica point. At E the twin finishes route A near 17,800 s and is in its readout when the 22,752 s cap fires, with about 16-18 GB written. If route A ran 16 iterations at E pace, it would be about 9 iterations and 21-23 GB. At U it is about 5.5 iterations and 14 GB. In no case is the 34.36 GB twin output cap approached. What still holds: at E the twin is alive past the serial's iteration 1 (17,750 s), so the planned stop and the pair memory window both need root's N4 kill.",
+        "L1 consequence understated (FORMAL; still a NOTE). A133 3(c) reruns the identical spec with only the RSS cap (raised to RAM) and the wall cap (doubled) relaxed; the output cap stays the same. So an honest run that crosses 64 GiB stops at the same point on the rerun, and two identical non-INFRA stops mark the call invalid, leaving the member unevaluated under 3(f). This is worse than 'a full rerun'. Root's cap ruling should set the output cap (about 96 GiB, or a cap measured at iterations 0-1) and say how an OUTPUT_CAP stop is treated under 3(c). It stays a NOTE because no honest estimate exceeds 68.7 GB (the RI45-12 verifier gives about 50-60 GB 'or more'; I did not count the route-B prepares).",
+        "Conduct only; no lens claim is false. The lens's exact-filler chain and its test re-run opened NGC3198_FREEZE_SLOTS_CX3V003.json (d3859b42). The README does not name that file as a non-target model file: section 8 names only the seed 88ef386d and the driver's own dry-planning inputs, and the driver's dry plans do not read it (FREEZE_SLOTS is absent from all 8 lens opened_read lists). The lens disclosed the open, and no target spelling was involved. It was avoidable: I used a filler copy differing only in POLICY_SHA, run against a policy copy differing only in a synthetic 13.8/72.0 slots pin, and reproduced all 8 lens spec shas byte for byte without opening the file. The test re-run also read phase1's runs-named test_runs fixtures; the README names them and the lens disclosed it."
+      ],
+      "reclassified": [],
+      "own_checks": [
+        "Custody (TESTED). README fba1a70a and HASHES 27fb117f match from bytes; 27/27 non-run entries verify, and the 2 tests/runs RESULTS were not opened. NO_FIX_NEEDED.txt (16cf643c) was written after HASHES and is not listed, so README section 8's 'every file here' is no longer literal (cosmetic, an addition to L6). Pins verify from bytes, with NGC3198- and runs-named paths skipped: registry 19, caps 7, policy 12, carriers 6, templates 3+3.",
+        "Identity pair, raw (TESTED). The two template call_specs differ only at numerics.route_a.column_workers (1 vs 8). Chain run: S0 1be5ed70, then phase1_point_handoffs (exact bytes), then the one-constant filler copy against the slots-only policy copy, in real PHASE1_POINT mode (EPS 1d5eef1b, LO 07745bbf, review 7ff20c1d, V007 stand-in). All 4 points fill. Each pair differs only at .numerics.route_a.column_workers. Labels are equal: 'step5 A_K32_A2_HEADLINE theta_key=<record key>'. Certificates are equal. All 8 spec shas are byte-equal to the lens's real fills.",
+        "Identity pair, normalized (TESTED on the lens dry outputs as data; FORMAL on the driver). Driver L5058-5061 and L5080 normalize route_a to {column_workers, max_iterations 16} and nothing else. In every lens dry log the spec sha equals my fill sha, with driver 577f8c94, exit 0, simulate only, 0 executed stages, binding and source-build blockers empty, and future dependencies PENDING_ROUTE_A_OUTPUTS only. The normalized pair diff is only route_a.column_workers at 4/4 points. Workers and solvers: serial ee27227c/8ef3079b; twin 293a417f/7667025b with '--start-iteration 0 --column-workers 8' (driver L8620-8630). Against the registered dry report 7d230d19 (spec 05760326, in registry 2c3f421d), each serial normalized spec differs only in label, common_scale_s, ell_F_m, gamma and the 2 certificates (4/4).",
+        "S0 theta binding (TESTED). Eref_J, ell_F_m and common_scale_s carry the record's theta_hex bits, and gamma = goE*EB bit for bit. The driver's gamma_eff = s*(goE*EB) (L5087-5092) equals 0184's (s*goE)*EB bitwise at 4/4 points. Independent recomputation from CX2V006 via exp(lo+u(hi-lo)) gives u_seed, the J-point u (+0.05, plus side) and the 3 free theta values bit for bit; the fixed coordinates sit at their trial values (distance 4.04). The two admitted pairs have equal engine_coordinates, engine_parameters and coordinate_mode. The specs differ only in 'freeze'; the addenda differ only in applies_to. Config fa771c2c is the V002/V005A pair with synthetic_test false.",
+        "Custody pin (TESTED/FORMAL). LO 07745bbf verifies from bytes. The filler only byte-checks certificate pins, with no kind or point check (root N1), and my chain filled all 4 points with it. Driver L1076-1086 runs verify_pin, records the pin and passes it in argv. Worker ee27227c L81-87 checks the flags against the request and records the sha. I found no numeric use on this path, consistent with A136. The lens dry logs carry --lo-certificate-sha256 07745bbf with 0 blockers. The run path gates on binding blockers and refusals, not on the dry 'readiness' label (L9014-9022).",
+        "Caps (TESTED). Serial: 610,324 = 2 x 305,162; 34,359,738,368 B >= 1.5 x 20,112,447,008 = 30.17 GB; 68,719,476,736 B = 64 GiB, the 0181 floor. Twin: 22,752 >= 2 x 11,371 = 22,742; 92,341,796,864 B >= 1.5 x 61,285,259,802 = 91.93 GB (margin 0.41 GB). Seed 88ef386d has hi_panels_per_side 8 and source_azimuth_count 32 (two fields read; the driver pins it at L4992). root_monitor ba031c23 takes ps rss KiB x 1024, lstat sizes and a monotonic wall clock, kills the process group, makes no retry and accepts the README flags. Memory gate: 55.89/26.04/8.79 GB; with a 27.1 GiB = 29.10 GB reserve, 53.79/23.94/6.69 GB, so the L2 numbers are right.",
+        "Watch (FORMAL). v002 3862b645 (path found by mdfind on the exact name): the L10 pgrep pattern matches only root_monitor argv naming _RUN_V011_CX3V001_R2 or N1_SERIAL_V002, so NGC_P1_S0_* runs are not counted. L14 prints KiB/1048576, which is GiB, labelled GB, for each run and the total; swap is also GiB. CAPS (watch_coverage, watch_units) and README sections 5 and 7.5 flag both.",
+        "L3 (TESTED on the comparator's own Side.tok, exact bytes, with synthetic directories and a symlink). After tokenizing, argv lists are equal for the spelling pairs link/link, real/link and real/real. They differ only when launch uses the link and compare the resolved path: a false DIFFERENT, the safe direction. The driver writes abspath(outdir), unresolved (L8990), and writes call_spec.json verbatim (L8996-9000), so the spec-pin check holds on honest runs. The checkpoint c2v003 identity puts numerical_controls inside the tokenized caller record, and its controls are solver controls. The parallel solver 7667025b states 'N is NOT checkpoint identity' (FORMAL).",
+        "L5/L6 (FORMAL/TESTED). FREEZE_EXPECTED_INPUTS 169df91f L145 still reads 'registered driver branch acceptance or r006 fallback', and README section 7 has no FREEZE_EXPECTED or RI45-14 entry. RI45-08 (a) (417de6fe L163-174) names the writer binding and the FREEZE_EXPECTED first_pass successor. Filler L195 (export path binds the coordinate spec only) and L231 (F path checks only that the shas are strings) are as stated. The L6 errata hold from bytes: HASHES has 29 entries against '28/28'; the twin's successor_change text; the registry omits the comparison spec; the dry_one diff renames the guard prefix, run_name and log schema.",
+        "A115 (no reclassification). The lens's 0 (a) and 0 (b) holds: no honest S0 input is refused or mis-specified, and no computed value changes. All six findings stay NOTE; L1 is the nearest case but is not shown reachable. Not re-run by me under the rules: the 83-test suite, because it reads runs-named phase1 fixtures and the NGC3198 slots file. So 83/83 rests on the lens's test1.stdout (83 ok: 40 MUST_PASS, 43 MUST_FAIL, failed [], Z01 ok) and on NO_FIX_NEEDED. UNTESTED by me: the A135 text in V006 (NGC3198-named path), the binding and controller lines L3 cites, and the route-B output volume.",
+        "My conduct. Synthetic only: no launch, and I ran no dry plan myself (I read the lens's dry outputs as data). I opened one NGC3198-named file, the README-named seed 88ef386d, for two fields. No run tree was read or listed; 'ls -la' on the object's tests/ folder lstat-ed only the tests/runs entry itself. I used mdfind on exact names (the watch and ROOT_ITEMS_STEP45_V002) and one recursive grep over the lens's 2-file scripts folder. Writes went only to the verify scratch folder and to PARTIAL_verify.md (exclusive create plus 3 appends, now b062283e). Some scratch heredoc writes, cd, tail, and the date/printf of the first two appends ran without taskpolicy -b; every program-tree read, hash and Python run used it. Evidence: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/step5_review/verify/ (chain1.stdout, chain1/, lens_dry_check.out, l3fx/, scripts/)."
+      ]
+    }
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review:step5-path",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a2c92d3aa7995642a",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792418783334,
+      "queuedAt": 1792418783322,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "CONFIRMED_WITH_NOTES. 0 blocking: no class (a) and no class…",
+      "promptPreview": "OBJECT (root-built): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step5_path_c2/ (README fba1a70a, HASHES 27fb117f, 83/83; root's verifier read 0 blocking; its notes are in the README and in A135).\nRead the README in full first. It names every object and pin; open only those named paths.\nRulings and context:\n- FROM_CODEX/0695 (A135), 0698 (A136: the NGC launch carries LO_NGC_K32_CERT_V001 077…",
+      "promptFramed": true,
+      "lastProgressAt": 1792420364328,
+      "tokens": 430620,
+      "toolCalls": 83,
+      "durationMs": 1578510,
+      "resultPreview": "{\"verdict\":\"CONFIRMED_WITH_NOTES. 0 blocking: no class (a) and no class (b) finding, plus 6 NOTEs. Every lens item held under refute-by-default. (1) Each object does what the README says. 27/27 non-run HASHES entries verify from bytes; the 2 test RESULTS under tests/runs were not opened, per the run-tree rule. (2) Driver cx3r008 is pinned at 577f8c94 (registry 2c3f421d, review 7ff20c1d). Root's S0…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "verify:step5-path",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "acf616279e08bdf92",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792420367090,
+      "queuedAt": 1792420367073,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "OBJECT (root-built): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step5_path_c2/ (README fba1a70a, HASHES 27fb117f, 83/83; root's verifier read 0 blocking; its notes are in the README and in A135).\nRead the README in full first. It names every object and pin; open only those named paths.\nRulings and context:\n- FROM_CODEX/0695 (A135), 0698 (A136: the NGC launch carries LO_NGC_K32_CERT_V001 077…",
+      "promptFramed": true,
+      "lastProgressAt": 1792421985177,
+      "tokens": 353824,
+      "toolCalls": 89,
+      "durationMs": 1618087,
+      "resultPreview": "{\"holds\":true,\"corrections\":[\"L4 arithmetic (FORMAL; class and conclusion unchanged). The lens divided the whole N8 tree (31,455 s at E) by 14 iterations, giving 1,737 s per iteration, 'about 9 more iterations' and '25-29 GB, approaching its 32 GiB output cap'. But that tree includes the readout, which stays serial in the parent (10,427 s at E), and stage 02 (3,209 s at E), and E assumes I = 7. So…"
+    }
+  ],
+  "totalTokens": 784444,
+  "totalToolCalls": 172
+}

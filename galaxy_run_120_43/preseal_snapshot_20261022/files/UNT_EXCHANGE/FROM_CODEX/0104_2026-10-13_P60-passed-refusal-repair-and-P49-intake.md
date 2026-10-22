@@ -1,0 +1,11 @@
+From: Codex root
+Date (UTC): 2026-10-13T02:25:59.345101+00:00
+Re: Codex2/0143–0144; Codex3/0196; TO0133
+Supersedes: P60 unexecuted status; P49 hold only
+Action needed: yes — Codex2 narrow P58 companion source/spec review; Codex3 P60 saved-review and P49 intake
+
+P60 producer and independent0186 checker executed sequentially under exact specs released by Codex2/0143. Producer0.210s/31686656bytes; reader0.090s/19644416bytes, both exit0/no resource fault. Independent checker reports PASS_TESTED_MANUFACTURED_METHOD_ONLY for19cases, absolute1e-10, no native release. Saved custody under ROOT_EXECUTION_BLOCK_V001/P60_PRODUCER_RUN_V001 and P60_CHECKER_RUN_V001, actual input/results FUTURE_P60_METHOD_V001. Codex3: inspect independent saved checker/custody report, no need to rerun code or self-review source; root records gate acceptance using independently authored checker. No native Gamma claim.
+
+Codex2/0144 raw-refusal gap accepted as real. Preserve first P58 positive outputs; do not repeat positive diagonalizations. New P58_REFUSAL_COMPANION_V001.py and P58_REFUSAL_SPEC_V001.json save only the exact three malformed inputs and actual ValueError type/message. AST only. Codex2 please source/spec-review then root runs narrow companion and you check saved records. Underlying source unchanged,1CPU/256MiB/60s/10MiB; first-wave source PASS was not complete raw refusal custody. Cost raw method accepted on Codex3/0196, resource evidence on Codex2/0143; writeback follows.
+
+TO0133 P49 release received; PAUSE is not a gate. Initial original source acceptance0077 explicitly also requires actual root wrappers/gates/reuse pointers and complete original closures. Its native domain is a20672-state finite Q1 benchmark with10432-state invariant component, not an already qualified collective physical state family. Accepted A first65-step segment must be reused, not relaunched. I am checking48pins/costs/interfaces next. Current supervisorV002 scope and16MiB output guard are tiny-only; native campaign requires its own reviewed resource/custody configuration rather than relabeling the tiny gate. No physical background or long-time/energy-only state is inferred from finite-window stability or five unequal-energy preparations.

@@ -1,0 +1,119 @@
+{
+ "schema": "DDO154_CALIBRATION_COORDINATE_SPEC_ADDENDUM_C2V004",
+ "applies_to_coordinate_spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/DDO154_CALIBRATION_COORDINATE_SPEC_V001.json",
+ "applies_to_coordinate_spec_sha256": "fdeb5eb9b69b302c3b7eca21ed772184da56e26224fa4f8b08c8a2b0534106f8",
+ "supersedes": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v003/COORDINATE_SPEC_ADDENDUM_V003.json",
+  "sha256": "5dc1c6e70ea568f60a4e4d865127d31a396db27a5a8ec7e18e8602a23cea0d09",
+  "file_untouched": true
+ },
+ "author": "Claude2 lane, calibration_orchestrator_c2/v004 builder (2026-10-17)",
+ "purpose": "Carries root decision A13 (DDO154 distance FIXED at 4.04 Mpc for the headline calibration; free coordinates s, gamma/Eref, ell_F only, boxes as in the V001 spec) and the CHECK_SCIENCE_V001 / CHECK_SOFTWARE_V001 corrections of orchestrator c2v003 WITHOUT changing the V001 coordinate spec bytes. Pinned by sha256 in the c2v004 config; copied into plan output and FINAL_SUMMARY. All V003 items are carried; D3 (work dir) and PC-5 (distance capability) are updated for A13, C5 records the S4 byte checks; new items: A13_coordinate_mode, DISTANCE_ALTERNATIVE, FREEZE_COORDINATE_COMPATIBILITY.",
+ "root_decision": {
+  "id": "A13",
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V003_ADDENDUM.md",
+  "sha256": "5bef6552b92b0939405ae6d6cefd12c1df95f2d57097589439fa37aa78b9b468",
+  "section": "A13 - DDO154 distance fixed at 4.04 Mpc for the headline calibration (2026-10-17 ~21:10Z)"
+ },
+ "coordinate_mode": {
+  "mode": "DDO154_DISTANCE_FIXED_AT_REGISTERED",
+  "free_coordinates": [
+   "common_scale_s",
+   "gamma_over_Eref",
+   "ell_F_m"
+  ],
+  "fixed_engine_coordinates": {
+   "distance_Mpc": 4.04
+  },
+  "rule": "the orchestrator takes the V001 engine coordinates (derived by prediction_freeze_c2v003a from the V001 coordinate list and re-checked equal to the V001 record) and changes ONLY the role of distance_Mpc from nuisance to fixed; trial value 4.04 (the registered distance, region distance_summary central value), box unchanged [3.9810717055349722, 4.111497211045223] so the engine still binds it to region.distance_summary (role fixed is admitted by the engine binding, calibration_region_engine_c2v003a L2517); boxes of s, gamma/Eref, ell_F are the V001 boxes; every call spec carries physical.distance_Mpc = 4.04 (the template value; raw changed paths at the trial point: label only)",
+  "v001_distance_engine_coordinate": {
+   "lower": 3.9810717055349722,
+   "name": "distance_Mpc",
+   "role": "nuisance",
+   "scope": "DDO154",
+   "sensitivity": "NONE",
+   "transform": "log",
+   "trial_value": 4.04,
+   "units": "Mpc",
+   "upper": 4.111497211045223
+  },
+  "admissibility": "A13: a slice of the 4-D admitted region at D = 4.04 is contained in its projection, so the NGC3198 bands can only narrow (stricter test, never more lenient)",
+  "cache_id": "the mode, the varying names and the sha256 of the engine coordinates enter the cache id"
+ },
+ "items": {
+  "D5": {
+   "outcome": "NO_ADMITTED_POINT_FOUND",
+   "status": "UNTESTED (emptiness of the admitted region inside the computational box is not proven by one engine run)",
+   "deciding_test": "Restart rule, declared before any run: a second engine run on the same coordinate boxes, numerics block and driver with rng_seed 1 and global_design_count 24 (a coordinate spec V002 that changes only engine_parameters; the theta cache id excludes engine parameters, so every earlier point replays at zero cost and only new points are launched).",
+   "tested_negative_condition": "TESTED-NEGATIVE (no admitted point in the box at that design resolution) only if BOTH runs end NO_ADMITTED_POINT_FOUND AND every evaluation of both runs is VALID or MODEL_INVALID by the taxonomy AND (CHECK_SCIENCE_V001 C4) neither run has any MODEL_INVALID entry with judgment_call=true (R10 under a declared contraction test that states judgment_call true, R30 with a declared Picard bound, column/HI token judgment rules) nor any root-declared invalid entry (ROOT_RESOLUTION). Otherwise the outcome stays UNTESTED. FINAL_SUMMARY.D5_assessment reports, per run, whether that run meets the condition.",
+   "root_confirms": true
+  },
+  "D14": {
+   "claim": "native energy ratios and sampler b are fixed at one point (CA-25), not explored",
+   "status": "UNTESTED",
+   "deciding_test": "native re-sampling at alternative points: per-chain A2 coefficient grids evaluated at the reference member"
+  },
+  "D19": {
+   "claim": "BR-K1 x {M/L, He, Gamma, h*, photometry} and between-branch interactions",
+   "status": "UNTESTED (counted; tier-2 coverage not claimed)",
+   "deciding_test": "a driver extension that exposes M/L, He, Gamma and photometry (PC-5), then a factorial at the reference member"
+  },
+  "D10": {
+   "claim": "route A stays cube-truncated (cannot be masked)",
+   "status": "COUNTED assumption under any non-cube numerics block",
+   "evidence": "driver c2v008 truncation_mask: route A, reference and body run UNMASKED (cube grid); the mask applies to the offset stage and later only"
+  },
+  "D3": {
+   "item": "disk retention rule",
+   "status": "DECIDED (principal, 2026-10-17): keep everything, no retention and no deletion",
+   "work_dir": "CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_V004 (symlink runs_ext -> /Volumes/External1/...; 4 TB volume); the orchestrator records the resolved path and refuses a dangling link or a path outside work_dir_volume; F3 (c2v004): the config pins work_dir_identity (resolved path, the runs_ext link target, volume mount point and VolumeUUID) and every command compares it and WORK_DIR.json",
+   "guard": "HALTED_DISK before any wave that does not fit (free space of the work_dir volume >= n_calls x per_call_bytes_guard + reserve)"
+  },
+  "F6_side_bound": {
+   "orchestrator_guard_side_bound_calls": 11,
+   "formula": "floor(log2(sqrt(n_varying)/march_step)) + 3 + bisection_steps = 5 + 3 + 3",
+   "note": "The V001 spec rationale records side_bound_calls 10; the guard uses 11 (+1 margin)."
+  },
+  "F6_ngc_placeholder_wording": {
+   "corrected_statement": "The NGC3198 slots in the V001 spec are the freeze module's required NGC reference values (distance 13.8 Mpc is the NGC source distance that make_freeze_coordinate_spec requires as reference_value); no NGC3198 target, velocity or observed rotation file is used, and the engine coordinates do not contain the NGC slots."
+  },
+  "PC-9": {
+   "item": "route-A converged iteration != 4",
+   "status_with_c2v008": "CLOSED in code (strict reader route_a_reported_iteration, no ITERATION_NOT_4 lock; ROUTE_A_NO_FIXED_POINT is its own status since c2v007). A converged iteration != 4 on a real call is UNTESTED (deciding test: the first real call whose route A converges at iteration 3 or 5 completes with status COMPLETED)."
+  },
+  "PC-5": {
+   "item": "DDO154 distance exposed",
+   "status_with_c2v008": "PARTIAL. TESTED-POSITIVE: c2v008 normalize_spec accepts every probe point (trial, W1, W2 and all 16 corners) and only the declared fields differ (evidence/DRIVER_CAPABILITY_EVIDENCE_V001.json, layer 1). TESTED-NEGATIVE for run mode: the driver's own dry-run reports GEOMETRY_NOT_ADMITTED_BY_STAGE_BINDING at every DDO154 distance != 4.04 (the reviewed gal_c2v004 stages refuse the five per-call geometry fields; c2v008 L2184-2190 BLOCKS run mode before any stage), so the capability gate (layer 2) refuses to run.",
+   "deciding_test": "a gal_c2v005 stage set + galaxy-config schema V005 that admit the DDO154 per-call geometry fields, a driver re-pinned to them, then: a fresh capability evidence file with all 16 corners run-mode admitted, and A2F10 at 3.98107 and 4.1115 Mpc producing 12 rows (INTERFACE_V008 open item).",
+   "status_with_A13": "NOT NEEDED FOR THE HEADLINE CALIBRATION: with D fixed at 4.04 every call is at the registered distance, which c2v008 admits in run mode (v003 evidence: the trial, W1 seed and the three non-distance W2 Jacobian specs admitted); the c2v004 capability evidence (evidence/v008_V004/DRIVER_CAPABILITY_EVIDENCE_V001.json) dry-runs the trial point, W1, W2 and all 8 corners of the 3-D box at D = 4.04. The run-mode gap at D != 4.04 (TESTED-NEGATIVE, 16/16 corners in v003) now concerns only DISTANCE_ALTERNATIVE."
+  },
+  "C5_deciding_gate": {
+   "rule": "the orchestrator runs only when BOTH c2v008 deciding tests pass from bytes: (i) ADMIT_PREFIX spec 4ac5527a PASS_BITWISE_EQUAL with custody (iteration 4, solver 44d9c23c, attempt link 98816902../01792161909921426000-19994-831a3fbc, profile f5becd45, no geometry key) and (ii) the full A2F10 anchor call spec 4978ba17 with the c2v008 comparator report (b122b8e6) PASS_BITWISE_EQUAL on all 13 checks; receipts verified by the pinned monitor. The anchor alias needs the same driver (no equivalence shortcut).",
+   "S4_bytes": "c2v004: the comparator FILE at the report comparator.path must hash to b122b8e6 from bytes; the report reference must resolve (realpath) to CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001 and its result.json must hash to bcd2f64e from bytes; the report's own comparator.sha256 must also equal b122b8e6"
+  },
+  "C2_route_a_budget": {
+   "rule": "ROUTE_A_NO_FIXED_POINT with ITERATION_BUDGET_EXHAUSTED is NUMERICS_LIMITED unless root declares route_a_contraction_test (taxonomy V002 LAST_RATIOS_AT_LEAST); the residual history is recorded either way.",
+   "status": "UNTESTED inside the box (deciding test: the residual history of the first budget-exhausted call)"
+  },
+  "C11_caps": {
+   "rule": "monitor-cap halts (wall, RSS, output) and capability-gap halts are never resolvable as invalid; per-call output cap 12 GiB (worst case k=7, P=6 about 9.5 GB from the anchor increments)."
+  },
+  "S1_R30": {
+   "rule": "taxonomy V003: under a declared Picard bound R30 is MODEL_INVALID only when no recorded pass produced positive rotation; otherwise NUMERICS_LIMITED FINAL_PICARD_ITERATE_NONPOSITIVE_UNCONVERGED (HALT with the pass history; root resolves)",
+   "status": "UNTESTED inside the box (deciding test: passes_history of the first R30 hit)"
+  },
+  "DISTANCE_ALTERNATIVE": {
+   "alternative": "DDO154 distance as a nuisance coordinate (the V001 4-coordinate spec; coordinate mode DDO154_DISTANCE_NUISANCE)",
+   "status": "NOT_EVALUATED_BEFORE_FREEZE (A13: a sensitivity only)",
+   "deciding_work": "the stage successor gal_c2v005 + galaxy-config schema V005 (run-mode admission of the per-call geometry), then the D Jacobian column at two step sizes (FD noise floor, PC-7) and the 4.04 continuity test (per-call path at D = 4.04 bitwise equal to the registered path)",
+   "orchestrator_c2v004": "refuses the nuisance mode in a non-synthetic config; synthetic tests exercise it"
+  },
+  "FREEZE_COORDINATE_COMPATIBILITY": {
+   "claim": "prediction_freeze_c2v003a can consume a calibration whose engine coordinates hold the DDO154 distance fixed",
+   "status": "TESTED-NEGATIVE (evidence/probe_freeze_compatibility_c2v004.out.json)",
+   "why": "the freeze coordinate list requires role nuisance for scope ddo154_nuisance and allows a distance kind only in a nuisance scope (prediction_freeze_c2v003a _build_spec), so it cannot state a fixed DDO154 distance; with the V001 4-coordinate freeze list select_representative_points requires the exploration varying names to equal its 4 varying engine names, and with the distance slot omitted its engine names lack distance_Mpc",
+   "consequence": "the calibration record of c2v004 is valid for the engine; ROOT_CALL_ORDER step 2 (freeze) needs a freeze successor (or a freeze-side declaration) that represents the fixed DDO154 distance before the freeze",
+   "deciding_test": "a freeze module successor run on the c2v004 synthetic 3-coordinate calibration record (T3D) to FREEZE_COMPLETE"
+  }
+ }
+}

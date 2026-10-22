@@ -1,0 +1,130 @@
+{
+ "schema": "CLAUDE2_OUTER_SOURCE_PROVENANCE_V001",
+ "task": "0339",
+ "object": "NGC3198",
+ "need": "source support beyond Leroy rings (15.1 kpc); query domain to ~44 kpc",
+ "note": "Inventory only; no source selected, no extraction run, no readiness claimed. Hashes of C1-C4 primary files re-verified by Claude.",
+ "candidates": [
+  {
+   "id": "C1",
+   "tracer": "HI (2-D map)",
+   "status": "SOURCE-ONLY NATIVE OBSERVATION; best outer candidate",
+   "files": [
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/NGC3198-LR_coldens.fits",
+     "sha256": "3028f340ef22a8a3544bbddc1d463980903c04c494b4b95399b7d431ab730aa5",
+     "note": "BUNIT card JY/BEAM.km/s is STALE; HISTORY shows conversion to cm^-2"
+    },
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/NGC3198-LR_mom0m.fits",
+     "sha256": "9cb18cf529a5f10c5e7671515e2ceae1344c5f3e4273038979681ae6c22f5259",
+     "note": "BUNIT JY/BEAM.km/s"
+    }
+   ],
+   "citation": "HALOGAS DR1 v2 (doi:10.5281/zenodo.3715549); Heald et al. 2011 A&A 526 A118; science paper Gentile et al. 2013 (arXiv:1304.4232)",
+   "header": {
+    "telescope": "WSRT",
+    "naxis": "1024x1024",
+    "pixel": "4.0 arcsec (CDELT +/-1.11111e-3 deg, SIN)",
+    "beam": "35.23 x 33.49 arcsec, BPA 5.01 deg",
+    "map_extent": "68.27 arcmin per axis (about +/-34.1 arcmin)",
+    "blank_keyword": null
+   },
+   "reduction": "Miriad: UVLIN order 2; INVERT robust 0, cell 4, fwhm 30 taper; CLEAN, RESTOR; SoFiA SCfind thr 4; MATHS mask nrch>2 AND moment-one window; IMBLR masked pixels -> 0; LINMOS pb-correction",
+   "conversions": "optically thin: TB=606e3/(bmaj*bmin); NHI=1.823e18*int TB dv. No helium, no cos i in map. Program: 1 Msun/pc^2=1.25e20 cm^-2, He x1.36 once",
+   "geometry": "documented working plane: THINGS centre 10h19m55.0s +45d32m58.9s; D 13.8 Mpc, i 72, PA 215 (Leroy table4); THINGS mean i 71.5; WCS ref pixel NOT galaxy centre",
+   "uncertainty": "no noise/error/mask products in release; pb-corrected (non-uniform noise); zeros may be masked, not empty (29,979 positive, 2 negative, 1,018,595 zero pixels)",
+   "caveat": "mask uses a moment-one velocity window: selection is kinematics-dependent",
+   "prior_extraction": "REVIEWED: PLANAR_EXTRACTION_PROTOCOL/PREFLIGHT accepted; PLANAR_SOURCE_RESULTS_REVIEW.md (a21fa9db...) 63 checks pass; fixed plane, 40/120 arcsec annuli to 48.17 kpc; mask/zero fraction 0 inside 32.1 kpc, 4.0% at 32.1-40.1 kpc, 43.7% at 40.1-48.2 kpc (outer annulus NOT reliable density); C0 Bernstein representation reviewed (PLANAR_DENSITY_CONSTRUCTION_REVIEW.md); HALOGAS_SOURCE_ORACLE_REVIEW.md (822be173...) source closure 438 checks pass",
+   "do_not_use": [
+    "HALOGAS_FIELD_ORACLE.json",
+    "HALOGAS_FIELD_RESULTS*",
+    "HALOGAS40/120_ML36_RETAINED_*Newton*.json (classical-gravity/response products)"
+   ]
+  },
+  {
+   "id": "C2",
+   "tracer": "HI (1-D table)",
+   "status": "published modeled tilted-ring average; exposed development source",
+   "files": [
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/begeman1989_original.pdf",
+     "sha256": "7745f7e83d2e31f90f493fa6c35b8e090c344b4dbdf83bc3bb206bde2899420c",
+     "note": "HASH ONLY; contains rotation-curve tables"
+    },
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/OUTER_GAS_INPUT_DECISION.md",
+     "sha256": "b45a72c3b2f0067aae71efe25e92f1a3340f99a666ae708d757a3b7ccbe119be",
+     "note": "24-value transcription of Begeman 1989 Table 3"
+    }
+   ],
+   "citation": "Begeman 1989, A&A 223, 47, Table 3",
+   "details": "bare HI Msun/pc^2, 0-11.5 arcmin at 0.5 arcmin; no per-ring errors; average of halves; original D 9.4 Mpc; paper helium 1.4 (do not stack with 1.36); 11.5 arcmin = 46.16 kpc at 13.8 Mpc",
+   "review": "GALAXY_SOURCE_PREFLIGHT.md accepted as modeled exposed development source; transcription review file cited in GALAXY_FIELD_PREFLIGHT.md NOT located"
+  },
+  {
+   "id": "C3",
+   "tracer": "stellar 3.6 micron (1-D surface photometry)",
+   "status": "source-only native observation",
+   "files": [
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_NGC3198.sfb",
+     "sha256": "ae071272156d47f6292fa405adf3a9b2042f8678581af108b2d5d1e9e102ddbc"
+    }
+   ],
+   "citation": "SPARC, Lelli, McGaugh & Schombert 2016 (Spitzer [3.6])",
+   "details": "columns radius arcsec, mu mag/arcsec^2, kill, error; on-sky, no inclination/extinction correction; 66 rows 0.65-320.16 arcsec (to 5.34 arcmin); two commented rows to 6.46 arcmin",
+   "conversion": "PHOTOMETRIC_SOURCE_COMPARISON.md: M_sun,3.6=3.24, F0=280.9 Jy, C3.6=703.80 Lsun/pc^2 per MJy/sr; Leroy 280 cos i I3.6; M/L=0.5 conventions differ x1.2568"
+  },
+  {
+   "id": "C4",
+   "tracer": "stellar disk decomposition (derived photometry)",
+   "status": "derived; outer part likely model extrapolation",
+   "files": [
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_NGC3198.dens",
+     "sha256": "4dbe84c28033a501c1599998daa534ae4d73957597c342fba21fd7a3def71d21"
+    }
+   ],
+   "details": "Rad kpc, SBdisk/SBbulge Lsun/pc^2 (not inclination corrected); 77 rows 0.043-42.84 kpc; SPARC: some exponential profiles extrapolated at large radii, so beyond the .sfb extent is likely not an independent measurement"
+  }
+ ],
+ "do_not_use_as_density": [
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/FROZEN_NGC3198_INPUT_V001.json",
+   "reason": "PUBLISHED_NEWTONIAN_FORCE_TEMPLATES (SPARC rotmod-derived)"
+  }
+ ],
+ "thickness_warp_in_same_sources": [
+  "Gentile 2013: thick/extraplanar HI ~15% of HI mass, scale height 3+/-1 kpc (as quoted in a readiness review; primary table not local)",
+  "Begeman Table 2: outer inclinations rising to 77 deg",
+  "HALOGAS half-asymmetry 0.042: descriptive only, not warp proof"
+ ],
+ "absent_within_searched_paths": [
+  "THINGS NGC3198 MOM0 (NA/RO): listed in things_data_index.html only",
+  "HALOGAS HR maps, cube, noise, mask or error products",
+  "Spitzer/IRAC/S4G/SINGS image or profile beyond SPARC .sfb/.dens",
+  "Gentile 2013 or Heald 2011 PDFs; numerical HALOGAS radial-profile or tilted-ring tables",
+  "no NGC3198 source files in UNT_EXCHANGE/claude_artifacts or where-atoms-come-from"
+ ],
+ "missing_inputs": [
+  "Leroy-to-HALOGAS tracer-overlap/crosswalk rule for 0-15.1 kpc (no double counting)",
+  "HALOGAS noise and uncertainty model (release has none)",
+  "outer stellar source beyond 5.34 arcmin (only .dens extrapolation)",
+  "outer H2 (none)",
+  "vertical/thick-disk family (Gentile 2013 primary table not local)",
+  "primary Gentile 2013 tilted-ring/warp geometry"
+ ],
+ "searched_paths": [
+  "/Users/bgm/Research/Universal Network Theory/",
+  "/Users/bgm/Research/UNT_EXCHANGE/lanes/",
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/",
+  "/Users/bgm/MB Work/where-atoms-come-from/"
+ ],
+ "custody": {
+  "fits": "header only (2880-byte block reader); no pixel arrays",
+  "incidental": "the helper saw two moment-one velocity-window thresholds in a HALOGAS MATHS HISTORY card and the VOBS header value; header velocity numbers, not rotation-curve data; not recorded here",
+  "not_opened": "rotmod files, SPARC MassModels/sample MRT data rows, Leroy table4, MOM1/cubes, npz/RESPONSE/FIT/TRIAL/ACCEPTED products, HALOGAS Newton JSONs, begeman1989 PDF",
+  "helper": "one background read-only Claude helper inside this session; output spot-checked by Claude (6 hashes, review-file existence)"
+ }
+}

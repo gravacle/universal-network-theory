@@ -1,0 +1,152 @@
+{
+ "audit_denials": [],
+ "checks": [
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "D05/baseline20",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "failures": [
+     {
+      "code": "UNCOVERED_LATER_ENTRY",
+      "detail": "entries after A101 need a table row or a no-change note (A81 RI-26; A99.3): A102"
+     }
+    ]
+   },
+   "name": "D05/later_missing",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "D05/later_bare",
+   "passed": true
+  },
+  {
+   "detail": "A102: covers this entry for the prereg text of record (A81 RI-26)",
+   "name": "D05/bare_later_boilerplate_exact",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "failures": [
+     {
+      "code": "ENTRY_TABLE_SECTION_CHANGED",
+      "detail": "A90: the frozen section hashes to 43a6c2ac, the table row says 92129acd; a successor revision, or root's explicit seal-record note (--covered-later A90), is needed (A81 RI-26)"
+     }
+    ]
+   },
+   "name": "D05/changed_missing",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "D05/changed_bare",
+   "passed": true
+  },
+  {
+   "detail": "A90: its section changed after the text of record was written (table row 92129acd1ad111dfc395eb495a57c2568a87610e4656f473feeb2a77f4b74180, frozen 43a6c2acec7367e262a65e5a0a116a38f453d8d89dcb041fadeca6a015b26c04); root's explicit seal-record note (A81 RI-26)",
+   "name": "D05/bare_changed_boilerplate",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "B8/positive",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "B8/wrong_sealed_by",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "B8/missing_sealed_by",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "B8/malformed_driver",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "B8/stale_driver",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "B8/malformed_frozen",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "failures": []
+   },
+   "name": "B8/stale_frozen",
+   "passed": true
+  },
+  {
+   "detail": [],
+   "name": "zero_audit_denials",
+   "passed": true
+  }
+ ],
+ "count": 15,
+ "date_u": "Sun Oct 18 21:52:46 UTC 2026",
+ "harness": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/reproduce_r2_counterexamples_cx1v001.py",
+  "sha256": "9aecefd63b252034a6f33c375a866c4147d26338a7db91653e31cfc23e02f910"
+ },
+ "passed": 15,
+ "scope": "Exact Codex3 D05 fixtures and six B8 mutations on byte-pinned r2. Actual T1; exact AST admission/no_change helpers. No real compare or full builder imported. Synthetic records only, not valid authority; no seal installed or scientific process. Expected r2 malformed PASS results reproduce defects and are not correctness passes. v003 remains UNTESTED until frozen publication.",
+ "source_pins": [
+  {
+   "bytes": 10276,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/r2/seal_common_c4v002.py",
+   "sha256": "f41b0fca51a95387577839e52308a2dc6ccb79b1e6b9283f389b54c7f348dc10"
+  },
+  {
+   "bytes": 14703,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/r2/check_frozen_addendum_c4v002.py",
+   "sha256": "06a98bc6b56e71bff450b749b12a7e8978824baeda41458e4319506a0cfd1891"
+  },
+  {
+   "bytes": 29048,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v002/r2/build_seal_record_c4v002.py",
+   "sha256": "4192983d262e2a27a3d9c90681b6ee66a90c901bfe2f99a7dce2349bc8c5de52"
+  }
+ ],
+ "status": "TESTED_BASELINE_DEFECT_REPRODUCTIONS"
+}

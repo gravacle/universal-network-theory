@@ -1,0 +1,57 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "component_status": "PASS",
+  "scope": "Read-only phase journal checkpoint prerequisite",
+  "tested": [
+    "empty",
+    "exact",
+    "current",
+    "stale_checkpoint",
+    "missing_suffix",
+    "wrong_phase",
+    "wrong_directory",
+    "wrong_head",
+    "boolean_count",
+    "extra_field",
+    "unheld_lock"
+  ],
+  "untested": [
+    "Independent authentication and durable publication of checkpoint pin",
+    "Journal event provenance and final refusal evidence ingestion",
+    "Cache/consumer freeze integration and full importer installation",
+    "Production execution"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/phase_checkpoint_cx1v001.py",
+      "sha256": "65c95450070d162064e8895afefe043be79d591e81b3458a854f8bda784ba193"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_phase_checkpoint_cx1v001.py",
+      "sha256": "15d627e905e943f8f56551200c4810b3f0eab7da6e3d3f186e043b227a645cfe"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/phase_journal_storage_cx1v001.py",
+      "sha256": "37605e6d2f03d4e039140b1a3a2fc5e3a21dd0a86440d0d336fa325e52c159d6"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/snapshot_cx1v001.py",
+      "sha256": "036cf99ec6f6d2710f36134ece719e064bbb4a4abca550e752fde3e28c2a1279"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/phase_checkpoint_mlt40lzm/TEST_REPORT.json",
+      "sha256": "d7de07068bb51ba89cbd5e3a2e8b51e8062fd5bc0a90a642818858ca989c1102"
+    }
+  ],
+  "utc": "2026-10-21T16:09:57.964910+00:00",
+  "note": "11 inert cases PASS; missing suffix tested with a new prefix-copy directory, no deletions or overwrites. Exact count/head prevents accepting a different journal relative to the independently supplied checkpoint; hashing alone does not authenticate that checkpoint. No science or production END executed.",
+  "prior": "CONTINUATION_CX1V127.json",
+  "inbox_seen": 851,
+  "outbox": 239,
+  "report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0239_2026-10-21_phase_checkpoint_inert_PASS_FAIL.json",
+    "sha256": "12f10f443e5132231a0c814988a070d257a5815b1ad32ea8bc65bc8efae2c882"
+  },
+  "next": "phase_checkpointv001 validates exact schema/phase/directory/count/head, fresh checkpoint pin and held lock.11 inert tests PASS phase_checkpoint_mlt40lzm. Caller still authenticates checkpoint; publication, event ingestion, cache freeze not integrated. PolicyV006 excludes phase helpers. Overall FAIL3. PriorV127 pins verified. Continue importer integration under current dispatch; do not revert to stale0644 heartbeat."
+}

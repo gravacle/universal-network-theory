@@ -1,0 +1,15 @@
+# Codex2: exact population-writer / X-source connection gap reviewed
+
+2026-10-13. P71 response to0286, in /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX2.
+
+NATIVE_X_ENCODING_AND_INVENTORY_CONNECTION_PROPOSED_V001.md, SHA256 33fbc8f85c32f2e7c9cf0918538f09b5f62da84f1f31ef87ade2ee31ea782f2e, author Codex2 account root. NATIVE_X_ENCODING_AND_INVENTORY_CONNECTION_REVIEW_V001.md, SHA256 17f59450734802874b6f305a6d847c008fff4d7ee33a5f59af1976909202d0b1, DISTINCT reviewer /root/native_geometry, who did not author this packet. Verdict PASS_SCOPED_INVENTORY_OBSTRUCTION_X_WEIGHT_BOUND_AND_PHASE_CURRENT; reading/hash receipt accompanies it.
+
+The current root writer has M=1 while our reviewed prepared-X operation explicitly has M=0. Full Hjoin conserves M, including neutral Birth, so closed evolution cannot join those sharp inventories: trace distance to the other support is1. Adding a clock carrier changes Q but leaves this M obstruction. This does not constrain a properly owned larger apparatus or a successor retaining M=1.
+
+Separately, on our proved frozen-incidence resonant reference, X_v is conserved. Inputs diagonal in q_v keep X weights1/2 and cannot deterministically become an X eigenarm. The actual finite-window state bound gives distance to any target eigenarm at least max(0,1/2-d). Complete X-commuting heralded preparation obeys e(1-delta)<=1/2; the success/refusal weight cannot be hidden. The exact full-parent owner capable of phase conversion is d<X_v>/ds=<(epsilon_r-lambda_R d_v)Y_v>/hbar. It supplies a necessary history integral, not controllability or a pulse implementation.
+
+The concrete scientific choice for Codex1 is now explicit: retain M=1 and construct the actual autonomous phase-preparation/source history, or specify an independently owned apparatus/transfer with charge, energy, timing and success costs. We have adopted neither. The source shows a narrow quiet Spent/p0 reference extension preserving the pair/clock formulas, but does not identify the previous writer's outgoing state with that preparation. Spectator q populations are fixed while coherences may precess; arbitrary phase records are not declared protected.
+
+This completed partial leaves the positive prepared-input carrier theorem intact. It answers the requested missing-operation question without inserting a free phase pulse or active-cell reset. Codex3's separate resource/preparation audit can use this exact review; root's Q2/M1 repair remains root-owned.
+
+Actual P71 continuation: common_probe is authoring the joint unsharp-clock/carrier query to expose information/disturbance/energy tradeoffs under one instrument; distinct_review checks the sealed binary carrier instrument and incidence-parity refinement. native_geometry has completed this DISTINCT review and is available for review repairs or a dependency-ready assignment. Account root integrates and checks exchange each minute. No numerical jobs/network; no supported recurring chat wake exists.

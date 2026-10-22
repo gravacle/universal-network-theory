@@ -1,0 +1,201 @@
+--- h3_accept_call_c2v003.py
++++ h3_accept_call_c2v004.py
+@@ -1,4 +1,27 @@
+-"""Per-call acceptance step of the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v003; V006 A188 gap 3, A158, A192).
++"""Per-call acceptance step of the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v004; V006 A188 gap 3, A158, A192).
++
++c2v004 (V006 A192 item 3: INCOMPLETE reruns once, failure readings are frozen; verifier B1, ADV rows C03 and C04) against
++h3_accept_call_c2v003 (ae5ab4a6), and nothing else:
++  * the entry must be a c2v004-line entry (ENTRY_NAME h3_campaign_entry_c2v004, checked before the wrapper loads; else
++    ENTRY_NOT_C2V004_LINE): its wrapper refuses a reingest (VALID or certified MODEL_INVALID) whose record is not of the
++    call's latest acceptance pass, and a certified MODEL_INVALID while the call dir holds TAIL_CERTIFICATE_ACCEPTANCE.json;
++  * passes are counted by the wrapper's acceptance_passes (the handoff's ACCEPTANCE_TAILSTATES_C2V002_A<nnn> directories;
++    any other ACCEPTANCE_TAILSTATES_* entry refuses, ACCEPTANCE_PASSES_UNREADABLE);
++  * a second pass only after an INCOMPLETE first pass: with one pass in the call dir the step refuses, nothing written,
++    unless root pins that pass's acceptance record (--first-pass-record ABS --first-pass-record-sha256 H) and it is the
++    adopted handoff's record (A158) of THIS call dir and of its one pass (tailstate_dir) reading INCOMPLETE
++    (ACCEPTANCE_RERUN_FIRST_PASS_RECORD_REQUIRED / ACCEPTANCE_RERUN_NOT_AFTER_INCOMPLETE).  An ACCEPTED,
++    NON_LAPSE_TAIL_MATERIAL, BOUND_INSUFFICIENT or any other first reading stands.  Two passes: ACCEPTANCE_RERUN_LIMIT, as
++    c2v003.  A first-pass record given while the call dir holds no pass refuses (FIRST_PASS_RECORD_WITHOUT_A_PASS).  The
++    pass list is read again under the work-dir lock just before the handoff runs (ACCEPTANCE_PASSES_CHANGED);
++  * f6_action of an INCOMPLETE second pass is HALT_ROOT_RULES_PER_CALL (a third pass refuses); the step record (schema
++    H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V004) also carries acceptance_passes_after, acceptance_pass (the handoff's
++    tailstate_dir) and first_pass_record.
++usage: python3 -I -B h3_accept_call_c2v004.py <c2v003 arguments> [--first-pass-record /ABS/ACCEPTANCE_RECORD.json
++                                                                   --first-pass-record-sha256 H]   (second pass only)
++Text below is c2v003's.
++
++Per-call acceptance step of the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v003; V006 A188 gap 3, A158, A192).
+ 
+ c2v003 (V006 A192 items 2-3) against h3_accept_call_c2v002 (c9058dd5), and nothing else:
+   * the entry must be a c2v003-line entry (ENTRY_NAME h3_campaign_entry_c2v003, checked before the wrapper loads; else
+@@ -55,6 +78,7 @@
+ import hashlib
+ import importlib.util
+ import json
++import os
+ import sys
+ from pathlib import Path
+ 
+@@ -67,19 +91,27 @@
+                'approved_uniform_producer_sha256', 'root_ruling_refs')
+ ACCEPTED = ('ACCEPTED', 'ACCEPTED_PASS_FLAGGED')
+ EXIT = {'OK': 0, 'REFUSED': 3, 'LOCKED': 8, 'NOT_ACCEPTED': 13}
+-ENTRY_LINE = 'h3_campaign_entry_c2v003'           # A192: the entry whose wrapper carries the ledger lookup and F6
++ENTRY_LINE = 'h3_campaign_entry_c2v004'           # c2v004 B1: the entry whose wrapper carries the latest-pass rule
+ TAILSTATES_PREFIX = 'ACCEPTANCE_TAILSTATES_'      # handoff v004 L90: one directory per acceptance pass
+ MAX_PASSES = 2                                    # A192 item 3: INCOMPLETE reruns the acceptance step once
+ CERTIFIABLE_INVALID = ('NON_LAPSE_TAIL_MATERIAL', 'BOUND_INSUFFICIENT')    # A192 item 3 (handoff NOT_MODEL_OUTPUT, L86)
+-
+-
+-def f6_action(hrec, accepted):
++ACCEPTANCE_RECORD_SCHEMA = 'DDO154_TAIL_ACCEPTANCE_RECORD_C2V001'           # c2v004 B1: handoff v004 L50
++RERUNNABLE = 'INCOMPLETE'                                                    # c2v004 B1: A192 item 3, the only rerun reading
++
++
++def f6_action(hrec, accepted, passes_after=1):
+     """The A192 item 3 row for this reading (recorded; the step itself only reingests ACCEPTED readings)."""
+     reading = hrec.get('reading')
+     if accepted:
+         return 'CACHED_VALID'
++    if reading == 'INCOMPLETE' and passes_after >= MAX_PASSES:           # c2v004 B1: the one rerun is spent
++        return 'HALT_ROOT_RULES_PER_CALL (A192 item 3: the one rerun read INCOMPLETE; a third pass refuses)'
++    if reading == 'INCOMPLETE' and not hrec.get('tailstate_dir'):         # c2v004 B1: refused before its state export
++        return ('RERUN_ACCEPTANCE_ONCE_AFTER_ROOT_CHECKS_INPUTS (A192 item 3; no new forward call; this attempt made no '
++                'acceptance pass directory, so the pass count and the --first-pass-record rule are unchanged)')
+     if reading == 'INCOMPLETE':
+-        return 'RERUN_ACCEPTANCE_ONCE_AFTER_ROOT_CHECKS_INPUTS (A192 item 3; no new forward call)'
++        return ('RERUN_ACCEPTANCE_ONCE_AFTER_ROOT_CHECKS_INPUTS (A192 item 3; no new forward call; pin this acceptance record '
++                'as --first-pass-record)')
+     if reading in CERTIFIABLE_INVALID and hrec.get('rows_are_model_output') is False \
+             and not hrec.get('step4_stop_for_root_ruling'):
+         return ('CERTIFIED_MODEL_INVALID_ELIGIBLE (A192 item 3): root may run the entry reingest-invalid with this '
+@@ -109,8 +141,8 @@
+ def load_chain(entry_path, entry_sha256):
+     E = load_module(entry_path, entry_sha256, '_h3_accept_entry')
+     if getattr(E, 'ENTRY_NAME', None) != ENTRY_LINE:
+-        raise Refused('ENTRY_NOT_C2V003_LINE: ENTRY_NAME %r (%s required: its wrapper carries the ledger lookup and F6, '
+-                      'A192)' % (getattr(E, 'ENTRY_NAME', None), ENTRY_LINE))
++        raise Refused('ENTRY_NOT_C2V004_LINE: ENTRY_NAME %r (%s required: its wrapper carries the latest-pass rule, '
++                      'c2v004 B1)' % (getattr(E, 'ENTRY_NAME', None), ENTRY_LINE))
+     M = E.load_wrapper()
+     E.check_patch(M)
+     return E, M
+@@ -176,7 +208,42 @@
+     return d
+ 
+ 
+-def accept(E, M, H, *, config, wave, call_index, deps_path, deps_sha256, records_dir):
++def first_pass_problems(M, call_dir, passes, ref):
++    """c2v004 B1: [] iff ref pins the adopted handoff's record of THIS call dir and of its one pass, reading INCOMPLETE."""
++    if not isinstance(ref, dict) or set(ref) != {'path', 'sha256'} or not all(isinstance(ref[k], str) for k in ref) \
++            or not os.path.isabs(ref['path']):
++        return ['FIRST_PASS_RECORD_PIN_REQUIRED: an absolute {path, sha256}']
++    try:
++        rec = json.loads(M.O.read_pinned(ref, 'first-pass acceptance record'))
++    except (M.Error, ValueError) as exc:
++        return ['FIRST_PASS_RECORD_UNREADABLE: %s' % exc]
++    if not isinstance(rec, dict):
++        return ['FIRST_PASS_RECORD_SCHEMA: not an object']
++    here = Path(call_dir).resolve()
++    bad = []
++    if rec.get('schema') != ACCEPTANCE_RECORD_SCHEMA:
++        bad.append('FIRST_PASS_RECORD_SCHEMA: %r' % (rec.get('schema'),))
++    if rec.get('handoff') != HANDOFF:
++        bad.append('FIRST_PASS_RECORD_HANDOFF_NOT_A158: %r' % (rec.get('handoff'),))
++    if rec.get('call_dir') != str(here):
++        bad.append('FIRST_PASS_RECORD_OTHER_CALL: record %s; this call %s' % (rec.get('call_dir'), here))
++    if rec.get('tailstate_dir') != str(here / passes[0]):
++        bad.append('FIRST_PASS_RECORD_NOT_THE_FIRST_PASS: record pass %s; the call dir\'s one pass %s'
++                   % (rec.get('tailstate_dir'), passes[0]))
++    if rec.get('reading') != RERUNNABLE:
++        bad.append('FIRST_PASS_READING_STANDS: %r (A192 item 3: only INCOMPLETE reruns; failure readings are frozen)'
++                   % (rec.get('reading'),))
++    return bad
++
++
++def passes_of(M, call_dir):
++    try:
++        return M.acceptance_passes(call_dir)
++    except (M.Error, OSError) as exc:
++        raise Refused('ACCEPTANCE_PASSES_UNREADABLE: %s' % exc)
++
++
++def accept(E, M, H, *, config, wave, call_index, deps_path, deps_sha256, records_dir, first_pass_ref=None):
+     O = M.O
+     ctx, plan, c, call_dir = locate(M, config, wave, call_index)
+     receipt = finished(M, ctx, c, call_dir)
+@@ -184,10 +251,19 @@
+     orch.cache.open(create=False)
+     if c['key'] in orch.cache.entries:
+         raise Refused('ALREADY_ACCEPTED: key %s is cached' % c['key'][:16])
+-    passes = sorted(p.name for p in call_dir.iterdir() if p.is_dir() and p.name.startswith(TAILSTATES_PREFIX))
++    passes = passes_of(M, call_dir)                                  # c2v004 B1: the wrapper's pass rule
+     if len(passes) >= MAX_PASSES:
+         raise Refused('ACCEPTANCE_RERUN_LIMIT: the call dir already holds %d acceptance passes %s (A192 item 3: INCOMPLETE '
+                       'reruns once); root rules the call' % (len(passes), passes))
++    if passes and first_pass_ref is None:                             # c2v004 B1
++        raise Refused('ACCEPTANCE_RERUN_FIRST_PASS_RECORD_REQUIRED: the call dir holds the pass %s; a second pass runs only '
++                      'after that pass read INCOMPLETE (A192 item 3): pin its acceptance record' % passes[0])
++    if passes:
++        bad = first_pass_problems(M, call_dir, passes, first_pass_ref)
++        if bad:
++            raise Refused('ACCEPTANCE_RERUN_NOT_AFTER_INCOMPLETE: %s' % bad)
++    elif first_pass_ref is not None:
++        raise Refused('FIRST_PASS_RECORD_WITHOUT_A_PASS: the call dir holds no acceptance pass')
+     d = read_deps(deps_path, deps_sha256)
+     tr = ctx.cfg['tail_readiness']
+     bad = []
+@@ -208,6 +284,8 @@
+     if not lock.acquire():
+         return {'status': 'LOCKED', 'reasons': ['a run holds the work-dir lock']}
+     try:
++        if passes_of(M, call_dir) != passes:                          # c2v004 B1: read again under the lock
++            raise Refused('ACCEPTANCE_PASSES_CHANGED: another pass appeared in %s' % call_dir)
+         deps = H.load_deps(d['deps'])
+         hrec, hrec_ref = H.accept_call(call_dir=str(call_dir), spec=spec, deps=deps, policy=policy,
+                                        records_dir=str(records_dir), mode='guard')
+@@ -216,7 +294,8 @@
+     accepted = (hrec.get('reading') in ACCEPTED and hrec.get('outputs_are_evidence') is True
+                 and (hrec.get('guard') or {}).get('ok') is True and isinstance(hrec.get('bundle'), dict)
+                 and not hrec.get('step4_stop_for_root_ruling'))
+-    out = {'schema': 'H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V003', 'wave': int(wave), 'call_index': int(call_index),
++    passes_after = len(passes) + (1 if hrec.get('tailstate_dir') else 0)     # c2v004 B1
++    out = {'schema': 'H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V004', 'wave': int(wave), 'call_index': int(call_index),
+            'key': c['key'], 'spec_sha256': c['spec_sha256'], 'call_dir': str(call_dir), 'receipt': receipt,
+            'config_sha256': ctx.config_sha256, 'cache_id': ctx.cache_id, 'gate_digest': ctx.gate_digest,
+            'deps_record': {'path': str(Path(deps_path).resolve()), 'sha256': deps_sha256},
+@@ -225,8 +304,10 @@
+            'step4_stop_for_root_ruling': hrec.get('step4_stop_for_root_ruling'), 'bundle': hrec.get('bundle'),
+            'guard_ok': (hrec.get('guard') or {}).get('ok'), 'blockers': hrec.get('blockers'),
+            'prelaunch_bundle': rec['bundle'], 'rows_are_model_output': hrec.get('rows_are_model_output'),
+-           'outputs_are_evidence': hrec.get('outputs_are_evidence'), 'f6_action': f6_action(hrec, accepted),
+-           'ledger': ctx.ledger_head()}
++           'outputs_are_evidence': hrec.get('outputs_are_evidence'),
++           'f6_action': f6_action(hrec, accepted, passes_after), 'ledger': ctx.ledger_head(),
++           'acceptance_passes_after': passes_after, 'acceptance_pass': hrec.get('tailstate_dir'),   # c2v004 B1
++           'first_pass_record': first_pass_ref}
+     if not accepted:
+         out.update(status='NOT_ACCEPTED', reingest=None,
+                    note='nothing reingested; the call stays INFRA CERTIFICATE_ACCEPTANCE_REFUSED; root rules (F6)')
+@@ -248,14 +329,19 @@
+         ap.add_argument(k, required=True)
+     ap.add_argument('--wave', type=int, required=True)
+     ap.add_argument('--call-index', type=int, required=True)
++    ap.add_argument('--first-pass-record')                           # c2v004 B1: second pass only
++    ap.add_argument('--first-pass-record-sha256')
+     return ap.parse_args(argv)
+ 
+ 
+ def execute(a, E, M, H):
+     """accept() with the CLI's refusal handling and output; -> exit code."""
+     try:
++        if (a.first_pass_record is None) != (a.first_pass_record_sha256 is None):
++            raise Refused('FIRST_PASS_RECORD_PIN_REQUIRED: --first-pass-record and --first-pass-record-sha256 together')
++        fp = None if a.first_pass_record is None else {'path': a.first_pass_record, 'sha256': a.first_pass_record_sha256}
+         out = accept(E, M, H, config=a.config, wave=a.wave, call_index=a.call_index, deps_path=a.deps,
+-                     deps_sha256=a.deps_sha256, records_dir=a.records_dir)
++                     deps_sha256=a.deps_sha256, records_dir=a.records_dir, first_pass_ref=fp)
+     except Refused as exc:
+         out = {'status': 'REFUSED', 'reasons': [str(exc)]}
+     except Exception as exc:                       # noqa: BLE001 -- any other failure is a refusal, never a pass

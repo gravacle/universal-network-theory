@@ -1,0 +1,94 @@
+--- step4_guard_c2v012.py
++++ step4_guard_c2v013.py
+@@ -2,14 +2,14 @@
+ Root publishes the exact admission bytes independently; an environment hash is a
+ custody anchor, not a cryptographic identity. Native preflight is always repeated.
+ 
+-c2v012 = guard011 (eb97e303) with one change (A150 R-S1-3 (1)): the L333 core-priority clause. A POST_S1 batch
+-of one S1_UA_C3T / S1_UA_C4T call, its spec verified by the S1 fill-record replay, may be admitted with the
+-campaign active iff machine gate v003 hold_check and decide admit the S1 head from a live snapshot, A133's root
+-memory rule holds on that snapshot, and the snapshot shows no other r5 tree in route A beyond the gate's
+-allowance. The live gate is evaluated at every validation before the call starts. Every other batch is
+-unchanged: campaign_inactive true is still required, with guard011's code and refusal.
++c2v013 = guard012 (f4656fec) with one change (V006 A166, the principal's direction to stop micromanaging the
++Mac's resources): the S1 overlap's live memory admission is removed. A POST_S1 batch of one S1_UA_C3T / S1_UA_C4T
++call, tail ON on r5, its spec verified by the S1 fill-record replay (guard012's core_priority_admission, unchanged),
++may be admitted with the campaign active with no memory condition: no machine gate v003 hold_check / decide, no
++r5 route-A allowance, no A133 rule. Every other batch is unchanged: campaign_inactive true is still required,
++with guard011's code and refusal.
+ """
+-import ast, contextlib, hashlib, importlib.util, importlib.machinery, json, math, os, re, stat, sys, time, types, threading
++import ast, contextlib, hashlib, importlib.util, importlib.machinery, json, math, os, re, stat, sys, types, threading
+ from pathlib import Path
+ HERE=Path(__file__).resolve().parent
+ PACKET=HERE.parent
+@@ -320,10 +320,7 @@
+ S1_OVERLAP_SCHEMA='UNT_S1_OVERLAP_ADMISSION_C2V001'
+ S1_REPLAY_API='UNT_S1_FILL_REPLAY_C2V002'
+ S1_OVERLAP_CASES=('S1_UA_C3T','S1_UA_C4T')
+-GATE_PIN={'path':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v003/machine_gate_s45_c2v003.py','sha256':'736a3438b0a3af41eb8d7b2c764f25ff0f9e18942320a4542a9893b6b419f811'}
+-A133_LIMIT_GB=103.0             # A133 L114 (75 % of RAM)
+-A133_S1_TERM_GB=29.1            # A133 L123 in consistent units (registration C2V002 section 11 rule 2)
+-A133_CAMPAIGN_RESERVE_GB=29.1   # V6 L669
++# c2v013 (V006 A166): GATE_PIN, the A133 constants, s1_overlap_started, load_gate and s1_overlap_live are removed.
+ 
+ def core_priority_admission(plan,cfg):
+     """guard011 L333 for every admission whose core_priority is the inactive dict (returns None: unchanged path).
+@@ -351,41 +348,7 @@
+     require(got.get('bytes')==verify(call['spec']),'S1_OVERLAP_REPLAY_MISMATCH')
+     return call
+ 
+-def s1_overlap_started(call):
+-    """True once any output of the S1 call exists (the launcher refuses to start a call whose outputs exist)."""
+-    return any(os.path.lexists(p) for p in (call['outdir'],call['receipt'],call['receipt']+'.launch.json',call['monitor_log']))
+-
+-def load_gate():
+-    m=types.ModuleType('_step4_s1_overlap_gate');m.__file__=GATE_PIN['path']
+-    exec(compile(verify(GATE_PIN),GATE_PIN['path'],'exec'),m.__dict__)
+-    return m
+-
+-def s1_overlap_live(call,*,gate=None,sleep=None):
+-    """The live admission of the S1 head, before its start: gate v003 hold_check, warm-up, decide (owned = {}),
+-    then the r5 route-A allowance and A133's root rule on the decide snapshot. Any gate error refuses."""
+-    try:
+-        GM=load_gate();M=gate if gate is not None else GM.Gate()
+-        h=M.hold_check()
+-        require(h.get('probe_ok') is True,'S1_OVERLAP_GATE_PROBE_FAILED')
+-        require(h.get('hold') is False,'S1_OVERLAP_GATE_TWIN_HOLD')
+-        M.sample(force=True);(sleep or time.sleep)(M.P['warmup_s'])
+-        head=dict(GM.class_from_spec_bytes(verify(call['spec'])),name='S1_OVERLAP_HEAD_'+call['case'])
+-        d=M.decide(owned={},head=head,n_running=0,max_concurrent=1)
+-        require(d.get('admit') is True,'S1_OVERLAP_GATE_REFUSED')
+-        snap=M.last or {}
+-        runs=snap.get('runs') or []
+-        view,_=M.runs_view(snap,{})
+-        phase={r['key']:r['phase'] for r in view}
+-        others=[r for r in runs if r.get('outdir')!=call['outdir'] and r.get('driver_sha256') in (R5_SHA,None) and phase.get(r.get('monitor_pid'))=='route_a']
+-        require(len(others)<=int(M.P['route_a_cap'])-1,'S1_OVERLAP_R5_ROUTE_A_BEYOND_GATE_ALLOWANCE')
+-        fp=[r.get('footprint_gb') for r in runs]
+-        require(all(type(x) in (int,float) and math.isfinite(x) for x in fp),'S1_OVERLAP_A133_FOOTPRINT_UNKNOWN')
+-        require(sum(fp)+A133_S1_TERM_GB+A133_CAMPAIGN_RESERVE_GB<=A133_LIMIT_GB,'S1_OVERLAP_A133_MEMORY_RULE')
+-        return {'admit':True,'mem_after_admit_gb':d.get('mem_after_admit_gb'),'other_r5_route_a':len(others),'run_footprint_gb':sum(fp)}
+-    except Refusal:raise
+-    except Exception as e:raise Refusal('S1_OVERLAP_GATE_ERROR',type(e).__name__+': '+str(e)[:300]) from e
+-
+-def validate(plan_ref,producer,*,check_outputs=True,execute_native=True,config_ref=None,_candidate_config=None,_plan_bytes=None,disk_batch=True,_overlap_gate=None,_overlap_sleep=None):
++def validate(plan_ref,producer,*,check_outputs=True,execute_native=True,config_ref=None,_candidate_config=None,_plan_bytes=None,disk_batch=True):
+     """No process creation; validation precedes worker, sleep assertion and every monitor."""
+     if config_ref is None and _candidate_config is None:
+         p=os.environ.get('UNT_STEP4_ADMISSION_PATH','');h=os.environ.get('UNT_STEP4_ADMISSION_SHA256','')
+@@ -408,7 +371,7 @@
+     require(rule==cfg.get('route_a_admission'),'ROOT_RAMP_APPROVAL_REQUIRED')
+     require(rule.get('minimum_free_percent')==25 and rule.get('poll_seconds')==60 and rule.get('source')=='/usr/bin/memory_pressure' and rule.get('ramp')=='previous_first_completed_route_a_iteration','RAMP_RULE_REQUIRED')
+     require(rule.get('first_case_memory_exemption') is False,'FIRST_MEMORY_BYPASS_REFUSED')
+-    overlap=core_priority_admission(plan,cfg)
++    core_priority_admission(plan,cfg)
+     require(plan.get('batch') in ('HEADLINE','DIII','SENS_LO','SENS_HI','POST_S1'),'BATCH_REQUIRED')
+     calls=plan.get('calls');require(isinstance(calls,list) and len(calls)>0,'NONEMPTY_CALLS_REQUIRED')
+     require(len({c['case'] for c in calls})==len(calls),'DUPLICATE_CASE')
+@@ -437,5 +400,4 @@
+     if check_outputs:
+         for p in outputs:require(not os.path.lexists(p),'EXISTING_OUTPUT')
+     if disk_batch:disk_admission(plan)
+-    if overlap is not None and not s1_overlap_started(overlap):s1_overlap_live(overlap,gate=_overlap_gate,sleep=_overlap_sleep)
+     return plan,cfg

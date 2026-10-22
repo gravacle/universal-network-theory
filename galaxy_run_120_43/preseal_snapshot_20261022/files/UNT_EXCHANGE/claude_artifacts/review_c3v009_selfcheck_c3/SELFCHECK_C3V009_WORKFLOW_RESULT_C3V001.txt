@@ -1,0 +1,428 @@
+{
+  "summary": "Independent refute-by-default review of SELECTED c3v009 (seal pre-stage) with adversarial verification of each finding",
+  "agentCount": 6,
+  "logs": [],
+  "result": [
+    {
+      "lens": "wiring",
+      "review": {
+        "verdict": "PASS on the v004/V002 wiring and command-line lens: 0 BLOCKING, 0 SHOULD_FIX, 4 NOTE. All the named files hash to their expected values from bytes, and the 45 of 45 {path, sha256} pairs in SELECTED c3v009 verify, byte counts included. Checks (1) to (6) all hold. (1) The 10 roles in the v004 SELECTED file match c3v020 exactly in path and sha, and all six tool and common files sit in seal_tools_v004/. (2) The step-10 tool-4 call matches the README_SEAL_TOOLS_V004_DELTA B7 line flag for flag (18 flags, same order), with --manual-disclosures = the V002 path and --manual-disclosures-sha256 = a0284ecedd1c9a322242ee69611269afa8fdfc46c15ccd71e556248b230e1ed3. (3) Step 12 is build_seal_record_c4v004.py --check-admission-config \"$CONFIG\" --seal-record \"$SEAL_RECORD\", the B8 line. (4) c3v020 has exactly one direct tool-1 run (L478), and it carries --expect-frozen-sha c01b3c51...4bb1. The frozen_addendum slot is filled with the same constant (L544); tools 3 and 4 pass that slot sha to tool 1 as its expected sha. (5) No executable path in the script, helper, runner, fence or tool 4 names V001. L364 refuses the V001 sha before anything reads the disclosures file, and pin() refuses any sha that is not 64 lowercase hex. So V001's bytes cannot reach tool 4 from the SELECTED script. (6) The tool order is 1, 5, 3, 2, 4 build, 4 admission, which matches README_SEAL_TOOLS_V003 L157. R-02 is wired at step 11 on the written SEAL_RECORD, before step 12. It passed in both dry-run passes, and a refusal there stops the script before step 12. C-03 is at L622. No other changes from c3v008. On the dry run: it did NOT execute the SELECTED bytes 36058df8 directly. It executed two copies, a4bb6142 and a801f4b5, and each is c3v020 plus its published SUBSTITUTION diff, byte for byte. No substitution touches a c3v009-delta line. However, substitution S16 swapped the production runner for a dry-run shim for tools 3 and 4, so the production run form for tool 4 v004 has never been executed (NOTE N1).",
+        "checked": [
+          "TESTED: all named files hashed from bytes and match: SELECTED c3v009 9e10eae1, c3v008 f30fd48c, script c3v020 36058df8 / c3v019 f4843a47, helper c3v019 91b15dc6 / c3v017 3c642d1a, runner 2b040e94, fence 9c62ad49, V002 a0284ece, V001 b9db6fd1, v004 SELECTED 593c59fa, r6 SELECTED 7200acd9, README_V004_DELTA cec2bfc9, README_V003 86012117, the v004 tool files, dry-run INDEX 3e53ea8a; root posts 0648 101f671f, 0649 bea6411d; Claude4 0126 88fdb769; Claude3 0115 ee5462c2",
+          "TESTED: all 45 {path, sha256} pairs in SELECTED c3v009 verify from bytes, byte counts included (none protected, none a symlink)",
+          "TESTED (1): evaluated the PINS block of a scratch copy of c3v020 in bash 3.2 (no command substitution in it). For each of the 10 roles (seal_common, tool_1..tool_5, readme_v003_run_order, readme_v004_delta, selected_r6, selected_v003_superseded_for_the_seal), the script's path and sha equal files.<role> in the v004 SELECTED file and the file's bytes. The schema matches. T_COMMON and T1-T5 all sit directly in TD = seal_tools_v004; the only v003-folder paths are V003_SELECTED and V003_README, both checked by role and never executed",
+          "TESTED (1): helper selected-roles (L1456-1500) parses strictly, requires files[role] == {path, sha256} exactly, then re-pins every role from bytes. Dry-run step-0 stderr shows n=10 PASS against 593c59fa",
+          "TESTED (2): expanded c3v020 L658-663 in bash 3.2 with T4_RUN replaced by an argv printer, and tokenized the README_V004 B7 block with shlex. The 18 flags are identical and in the same order; values: --manual-disclosures = .../root_inputs/SEAL_MANUAL_DISCLOSURES_V002.json, --manual-disclosures-sha256 = the full 64-hex a0284ece... sha. Tool 4 v004's argparse (L659-668) defines both flags; the runner calls main(argv)",
+          "TESTED (3): the expanded L696 is --check-admission-config $PKT/ROOT_SEAL_ADMISSION_V001.json --seal-record SEAL_RECORD, identical to the B8 block; entry point build_seal_record_c4v004.py through T4_RUN. Tool 4 main() L652-657 routes it; seal_common emit returns 2 on any non-PASS and the runner propagates it",
+          "TESTED (4): the only direct T1_RUN call is L478, and it carries --expect-frozen-sha \"$V005_FINAL_SHA\" = c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1. The helper imports no seal tool. L544 fills FROZEN_ADDENDUM with $V005_FINAL_SHA, and the draft's frozen_addendum.sha256 is the PENDING_ROOT_AT_SEAL_ASSEMBLY:FROZEN_ADDENDUM marker. Tool 3 (L545-546) passes the slot sha to tool 1 as its expected sha. The slot holds c01b3c51 in both dry-run passes",
+          "TESTED (5): grep of the script, helper, runner, fence and tool 4 v004 finds no executable V001 path or sha. The only V001 sha is DISCLOSURES_SUPERSEDED_SHAS (L223); the schema string SEAL_MANUAL_DISCLOSURES_V001 is what V002 itself carries. A bash 3.2 fixture of L364 verbatim under set -Eeuo pipefail with the ERR trap: a0284ece passes; b9db6fd1 gives 'REFUSE ... superseded' and STOPPED at step 0. Helper pin() refuses uppercase, empty and short shas (PIN_SHA_FORMAT) before any read. L364 runs before check-disclosures (L382) and pin (L394-404). Neither dry-run SEAL_RECORD contains b9db6fd1 or a V001 path",
+          "TESTED: V002 is V001 plus exactly the row A106_2_SRR13_CHECK_SPLIT. Its schema is SEAL_MANUAL_DISCLOSURES_V001; e_r6_1_text (469 characters) equals r6 basis.erratum_E_R6_1 and tool 4 v004's single E_R6_1 literal (read by AST, one binding)",
+          "TESTED (6): parsed the top-level call order and each step function's T*_RUN calls: tool 1 L478, tool 5 L492, tool 3 L592 (after step 4 / B4), tool 2 L603 (after step 5 / B5), tool 4 build L658, tool 4 admission L696. This equals README_SEAL_TOOLS_V003 L157. Every step function is called as a simple command, so set -e applies",
+          "TESTED (R-02 wiring): L677-679 pass V002 path and sha, key manual_disclosures, form pin_content_raw_text, schema UNT_V007_SEAL_RECORD_C4V004 and the r6 SELECTED pin. It runs after copy-exclusive and the sha check, on the written file. A bash 3.2 fixture with run_h verbatim from L324: a helper exit 2 at step 11 gives STOPPED at step 11, and step 12 never runs",
+          "TESTED (R-02 logic, synthetic scratch copies; the helper's /Users/ path policy relaxed in-process for scratch paths only): genuine record PASS. Refused, each with its own code: manual_disclosures removed, null, wrong e_r6_1_text, raw_text CRLF, raw_text minified, pin path of another file, pin sha of V001, extra pin key, extra key, content missing the A106_2 row, int changed to bool, v003 schema, a whole V001 record, raw_text = V001 bytes, duplicate key (16/16 as expected)",
+          "TESTED: helper c3v017 to c3v019 AST diff: only main changed; added RECORD_FORMS, _canon and c_seal_record_disclosures; nothing removed. Script c3v019 to c3v020 diff is confined to the A112/P13/R-02 items and comments. Runner, fence, slot draft and gates manifest pins are identical in SELECTED c3v008 and c3v009",
+          "TESTED: tool 4 v004 imports seal_common, check_slot_fill and check_sealed_compare; tool 3 imports tools 1 and 2 lazily; tools 1, 2 and 5 import only seal_common. T4_RUN and T3_RUN pre-load exactly these modules in a valid order. No module top level reads a file",
+          "TESTED (dry run): SUBSTITUTIONS_A/B.json name root_script 36058df8; RUN_A/B.sh exec ROOT_SEAL_STEPS_DRYRUN_A/B.sh; patching c3v020 with the published SUBSTITUTION_A/B.diff reproduces a4bb6142 and a801f4b5 byte for byte. The substitution IDs match the INDEX (S23 in pass B only). Every sha in the INDEX table matches the bytes: diffs, scripts, run scripts, stdout and stderr, SEAL_RECORD 01eef4e0 / 0174ea95, config, receipt, STEP_11 log, summary. 32 PASS lines and 'ALL STEPS PASS' in each pass. Mtimes: c3v020 02:49:44Z, then the dry-run copy 02:50:53Z, with no later edit",
+          "TESTED (dry run records): in both passes the SEAL_RECORD has schema C4V004; manual_disclosures has exactly {pin, content, raw_text}; raw_text is the V002 bytes; pin = V002 path and sha; content = parsed V002; e_r6_1_text = r6. Tool 4's own stderr shows pins_verified.manual_disclosures = V002 and its sha equals the record's. STEP_11_DISCLOSURES_VERBATIM and STEP_12_TOOL4_ADMISSION verdicts are PASS",
+          "TESTED: in production the D-10 path holds without the dry-run allowance: r6 seal_slots.frozen_addendum.path_to_be equals the FROZEN literal (CTRL L203 + L283), which equals the slot draft's frozen_addendum.path. The draft's driver_build_record, bound_plan and bound_command paths also equal the production outputs (the S11 check)",
+          "TESTED: bash -n passes on the scratch copy of c3v020 (bash 3.2.57). The real /Users/bgm/Research/UNT_INTERNAL_RUNS is absent",
+          "Hard rules kept: read-only under /Users/bgm/Research; no ROOT_SEAL_STEPS, seal tool, runner or helper was run against real paths; no launch; no read, list or stat of runs_ext/KMAX_A2F10_C5H_RUN_V001, UVT_* or NGC targets. All fixtures, copies and harnesses are in /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/wiring/"
+        ],
+        "findings": [
+          {
+            "id": "W-N1",
+            "severity": "NOTE",
+            "title": "The dry run of record executed substituted copies, not 36058df8, and the production run form for tools 3 and 4 (runner c3v003 with tool 4 v004) was never executed",
+            "evidence": "RUN_A.sh L21 and RUN_B.sh exec ROOT_SEAL_STEPS_DRYRUN_A.sh (a4bb6142) and _B.sh (a801f4b5). c3v020 (36058df8) plus the published SUBSTITUTION_A.diff (2b2fffb3) or SUBSTITUTION_B.diff (2e30731d) reproduces each byte for byte. No substitution touches DISCLOSURES*, TD, T_COMMON/T1-T5, V004_*, the step-0 L364 check, check-disclosures or the 10-role check, the step-10 tool-4 line, step-11 R-02 or the step-12 B8 line. But S16 replaces $RUNNER with tools/dryrun_tool_shim_c3sa_c3v007.py (df19ac11) in T3_RUN and T4_RUN (dry-run script L312-313), so steps 4a, 10 and 12 never ran through run_pinned_c3sa_c3v003.py in any recorded run, and CHECK_TOOL4_IMPORTS_c3v020_REAL_V004.json is a static check. Diffing runner against shim gives the header comments, _shim_patch / _shim_patch_common (D-10 only) and 4 lines in run(); the loader code is identical. Production D-10 holds: r6 path_to_be == FROZEN == draft frozen_addendum.path. So this is a coverage limit with a fail-closed downside, not a defect. README c3v009 L71 ('with the real v004 tools ... no stand-in') is accurate only together with the S16 entry.",
+            "label": "TESTED",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T025053Z/passA/SUBSTITUTIONS_A.json",
+            "line": "S16 (dry-run script L312-313)",
+            "repro": "In scratch: cp ROOT_SEAL_STEPS_c3v020.sh w.sh; /usr/bin/patch -s -o p.sh w.sh < passA/SUBSTITUTION_A.diff; shasum -a 256 p.sh (gives a4bb6142...); diff tools/run_pinned_c3sa_c3v003.py tools/dryrun_tool_shim_c3sa_c3v007.py"
+          },
+          {
+            "id": "W-N2",
+            "severity": "NOTE",
+            "title": "Non-production texts still give V001 as the tool-4 disclosures pin, and tool 4 v004 itself accepts V001, so the seal script is the only V001 barrier",
+            "evidence": "SELECTED_SEAL_TOOLS_V004_C4V001 (593c59fa) files.root_manual_disclosures_file and basis.tool_4_cli_for_r6, the README_SEAL_TOOLS_V004_DELTA B7 literal (L121), and Claude4 0126's wiring bullets all give SEAL_MANUAL_DISCLOSURES_V001.json and b9db6fd1. Dry-run tooling also names V001: setup_dry_run_c3sa_c3v013.sh L128 (a locate diagnostic) and make_root_script_c3v020.py L19, L85 (replacement anchors). Scratch test: tool 4 v004's manual_disclosures_codes on a copy of V001 with sha b9db6fd1 gives ACCEPTED (MANUAL_DISCLOSURES_VERIFIED); with an uppercase sha it gives PIN_MISMATCH. So V001 is kept out only by c3v020's V002 constant, its pins, L364 and the step-11 R-02 check, and all of these hold in production. A hand run of tool 4 from the v004 README or SELECTED literal would embed V001. A112 governs, and Claude3 already disclosed this (SELECTED c3v009 findings.v004_selected_names_v001).",
+            "label": "TESTED",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/README_SEAL_TOOLS_V004_DELTA.md",
+            "line": "121",
+            "repro": "Scratch: copy the v004 *.py files and V001; python3 -I -B with sys.path.insert(0, copy_dir); import seal_common_c4v003 as C, build_seal_record_c4v004 as T4; T4.manual_disclosures_codes(C.Checker('fx'), (V001_copy, 'b9db6fd1716be1e2fb47b6daf9b1e6e81743d6544f9ec72b589cf50fe0fa4ab6')) returns a tuple with no failures"
+          },
+          {
+            "id": "W-N3",
+            "severity": "NOTE",
+            "title": "README_SEAL_TOOLS_V003's B1 row gives tool 1 '--prereg <sealed prereg>', but the script's direct tool-1 run (before B4) uses the unsealed text of record",
+            "evidence": "README_SEAL_TOOLS_V003 L161 (B1): check_frozen_addendum_c4v003.py --prereg <sealed prereg> ... At step 2 no sealed prereg exists yet (B4 is step 4), so c3v020 L478 passes --prereg \"$PREREG_TOR\" (the dry-run tool-1 notes include PREREG_SLOT_NOT_FILLED). Tools 3 (step 4a) and 4 (step 10) re-run tool 1 internally on the sealed prereg with expect_frozen_sha = the slot sha c01b3c51 (check_slot_fill_c4v003 L545-546), so the sealed-prereg tool-1 check runs twice. This is unchanged since c3v015 and outside the c3v009 delta; the order of record is unaffected.",
+            "label": "FORMAL",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/README_SEAL_TOOLS_V003.md",
+            "line": "161 (script L478)"
+          },
+          {
+            "id": "W-N4",
+            "severity": "NOTE",
+            "title": "Stale comments and docstring in the tuple (cosmetic)",
+            "evidence": "Helper c3v019 c_seal_record_disclosures docstring (L697-699) still says the script passes PENDING_V004_RECORD_FORMAT and that this check REFUSES, while c3v020 L225 passes the real key, form and schema. The c3v020 TOOL ORDER comment (L94-L100) still cites the seal tools v002 README ('v003 has not landed') and 'v002/v003 only; the helper's guard self-check stands in'. Several step echo lines cite v001/v002 README line numbers (e.g. L466, L585, L599). L12 cites basis.tool_4_cli_for_r6, a text that names V001, as the source of the step-10 flags, although the values are V002. None of this affects execution.",
+            "label": "TESTED",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v019.py",
+            "line": "697-699 (script L12, L94-L100)"
+          }
+        ]
+      },
+      "verified": [],
+      "unverified": []
+    },
+    {
+      "lens": "r02",
+      "review": {
+        "verdict": "R-02 lens: no BLOCKING and no SHOULD_FIX findings; one NOTE. Every attempt to slip a bad disclosure past the R-02 check (helper c3v019 c_seal_record_disclosures, sha 91b15dc6) was refused. That is 121 bad records out of 131 synthetic SEAL_RECORDs plus 4 of 8 extra cases, all refused with the right typed code; the other 14 cases are passing controls or characterizations that are expected to pass. Results are identical under Python 3.12.14 (the version step 0 enforces) and 3.9.6. It enforces R-02's three checks of record (SELECTED_SEAL_TOOLS_V004_C4V001 basis.for_the_seal_script), in that order: raw_text = V002 bytes, then pin = {path, sha256}, then content.e_r6_1_text = the r6 erratum. It then also requires content to equal the V002 object exactly, types included. In c3v020, step 11 checks the WRITTEN SEAL_RECORD: SEAL_RECORD is assigned once (L303) and SR_SHA once (L673, the sha of the written file). The helper re-reads and pins those bytes, and steps 12 and 13 pin the same path and SR_SHA again (the config's seal field is {a.seal, a.seal_sha}). The check runs unconditionally (called once, L749), on every attempt path, strictly before step 12 (L750). A refusal stops the script under set -e in /bin/bash 3.2.57: in the hash-verified step-11 slice, all 16 refusing fixtures plus a tool-4 sha mismatch case stopped at step 11 and never reached step 12. The 0648/0649 R-02 items are met: both tool-4 flags are passed at step 10 (L663), V002 is a hard constant (L222), and V001 is refused at step 0 (L364). The one NOTE: errexit only holds in a clean shell. An inherited BASH_ENV, or an exported function named set, silently disables it, so an R-02 refusal is logged but the run still ends \"ALL STEPS PASS\". Running the script as /bin/bash -p closes this. Read-only on /Users/bgm/Research: all files under review re-hashed unchanged after the review.",
+        "findings": [
+          {
+            "id": "R02-N1",
+            "severity": "NOTE",
+            "label": "TESTED",
+            "title": "set -e is neutralized if the calling environment shadows 'set' (BASH_ENV or an exported function); an R-02 refusal is then silent and step 12 runs",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+            "line": "189 (set -Eeuo pipefail), 324 (run_h), 677-679 (STEP_11_DISCLOSURES_VERBATIM)",
+            "evidence": "bash 3.2.57 runs the BASH_ENV file, and imports exported BASH_FUNC_<name>%% functions, before the script's first line, and a function named 'set' overrides the builtin. When that happens, L189 'set -Eeuo pipefail' (and noclobber at L190) does nothing. The test used the hash-verified c3v020 slices: preamble L189-197 (4b4c2a65), jf/run_h/sha_of L318-325 (d69839bf) and step11 L669-681 (a277831b). Only H was redirected to the scratch helper wrapper, and steps 12/13 were replaced by marker stubs. With BASH_ENV pointing at a file containing 'set() { :; }', fixture C02 (raw_text CRLF) gave: STEP_11_DISCLOSURES_VERBATIM.json = REFUSE SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES; yet stdout printed '  PASS  STEP_11_DISCLOSURES_VERBATIM.json'; the step-12 stub was reached with the refused record's SR_SHA (c68c9c28...); the run ended 'ALL STEPS PASS', rc 0, with empty stderr. The exported-function form gave the same result. Under /bin/bash -p the same run stops: 'STOPPED at step 11 (exit 2)', and the good-record run P00 still passes under -p. The dry-run runner (passA/RUN_A.sh) invokes 'exec /bin/bash <script>', with no -p and the caller's environment inherited. Not reachable from a clean environment: this agent's shell has no BASH_ENV and no exported functions. The gap applies to every step, not just R-02. The script already hardens PATH and runs Python with -I, but nothing covers BASH_ENV or inherited functions. Remedy: document and use '/bin/bash -p ROOT_SEAL_STEPS_c3v020.sh' for root's run, optionally from 'env -i' with the UNT_SEAL_* inputs passed explicitly. No change to the tuple needed.",
+            "repro": "S=/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/r02; BASH_ENV=$S/envtest/shadow_set.sh /bin/bash $S/tools/harness_step11.sh $S $S/bash_runs/NEW/V007_SEAL_ASSEMBLY $S/fx/rec/C02.json (mkdir $S/bash_runs/NEW first) -> rc 0, STEP12_REACHED; add -p after /bin/bash -> rc 2, STOPPED at step 11. Prior evidence: $S/bash_runs/ENV_C02, ENV_C02_func, ENV_C02_p, P00_p."
+          }
+        ],
+        "checked": [
+          "TESTED: hashed from bytes and all match the expected shas: SELECTED c3v009 9e10eae1, c3v008 f30fd48c, script c3v020 36058df8, c3v019 f4843a47, helper c3v019 91b15dc6, c3v017 3c642d1a, runner 2b040e94, fence 9c62ad49, V002 a0284ece, V001 b9db6fd1, r6 SELECTED 7200acd9, v004 SELECTED 593c59fa, tool 4 v004 9787cf58. All re-hashed unchanged at the end of the review.",
+          "TESTED: helper diff c3v017 -> c3v019 adds only RECORD_FORMS, _canon, c_seal_record_disclosures, the subparser line and the dispatch entry; no import-time I/O (AST scan).",
+          "TESTED: tool 4 v004 writes manual_disclosures = {pin {path: the CLI string p, unresolved; sha256: h}, content: parsed object, raw_text: raw.decode('utf-8')} (L424-434, L543) with SCHEMA 'UNT_V007_SEAL_RECORD_C4V004' (L73). These match the script's L225 constants, so in production the R-02 pin compares exactly against $DISCLOSURES.",
+          "TESTED: dry run of record. Steps 10-12 and the main sequence in passA/passB are byte-identical to c3v020, and DISCLOSURES was not substituted. Both dry-run SEAL_RECORDs (01eef4e0, 0174ea95) carry pin = the production V002 path and sha, raw_text hashing to a0284ece, and content equal to the V002 object; both STEP_11_DISCLOSURES_VERBATIM.json logs say PASS.",
+          "TESTED: V002 is pure ASCII, has no BOM, no CR and no trailing newline, contains bools and ints, and its bytes are exactly json.dumps(obj, indent=1, sort_keys=True).",
+          "TESTED: method. A wrapper (run_helper_scratch.py fedaf774) loads the sha-verified helper copy unchanged and swaps only path_policy's '/Users/' prefix rule for the scratch prefix; every other path is refused, so the copy could never touch a real path. Each fixture ran as an isolated process (-I -B).",
+          "TESTED: 131 fixtures (fx/FIXTURES.json c2521870): 121 refuse with the expected typed code, 10 pass as expected; 0 mismatches under 3.12.14 (results/R02_FIXTURES_PY312_run2.json 5eed57e5) and under 3.9.6 (results/R02_FIXTURES_PY39_run2.json d782080d), with verdicts and exit codes identical. Run 1 (results/R02_FIXTURES_PY312.json) had 2 errors in my own expectations, corrected in run 2: C13 was a no-op because V002 already is that serialization, and I12 because V001 carries the same E_R6_1 text.",
+          "TESTED: manual_disclosures removed, null, [], string, 0, true, {}, extra key, missing raw_text, bare V002 object, one-element list, or present only under a case-variant or zero-width-space key: all refuse with KEY_PATH_MISSING or FORM_KEYS.",
+          "TESTED: duplicate keys all refuse SEAL_RECORD_DUPLICATE_KEY: top-level manual_disclosures in both orders, the escaped spelling 'manual_disclosures', and duplicates inside content (schema, e_r6_1_text), pin (path), raw_text and the top-level schema.",
+          "TESTED: raw_text variants all refuse R02_RAW_TEXT: BOM, CRLF, CR only, trailing newline added, last character removed, a trailing newline removed from a pinned file that has one, CRLF file normalized to LF, leading space, doubled space, NUL, tab, U+2028, V001 text, list of lines, base64, null, indent-2 / reversed-key / compact re-serializations. A lone surrogate refuses via EXCEPTION UnicodeEncodeError (exit 2). Control: A-style JSON escapes decode to the identical string and pass, which is not a bypass.",
+          "TESTED: NFC vs NFD on a synthetic non-ASCII disclosures file: NFD raw_text refuses RAW_TEXT, NFD content refuses CONTENT_NOT_THE_FILE, NFD pinned file vs NFC record refuses, a single decomposed character refuses; the NFC verbatim control passes.",
+          "TESTED: content variants all refuse CONTENT_NOT_THE_FILE: extra key, missing key, V001 object (missing the A106_2_SRR13_CHECK_SPLIT row), last row dropped, row duplicated, rows reordered, schema renamed, trailing space, and type swaps false->0, true->1, 1->true, int->float, 2.848e3, int->string, bool->null, bool->'false'. Content as a list or without e_r6_1_text refuses R02_E_R6_1. Key-order and whitespace controls pass, which is correct since content is compared as an object.",
+          "TESTED: e_r6_1_text variants all refuse R02_E_R6_1 while raw_text and pin are correct: trailing space, a space removed or doubled, Cyrillic U+0435, NBSP, ZWSP, U+2010, empty, leading newline, list. Also refused: an r6 copy with a changed erratum, a basis that is a list, a duplicate erratum key, a wrong r6 sha or schema, and missing r6 flags.",
+          "TESTED: pin variants all refuse R02_PIN: trailing slash, '//', '/./', '/../', a case variant and the /tmp symlink spelling (both the same file), /System/Volumes/Data prefix, fullwidth solidus, trailing space, uppercase sha, V001 sha, sha with newline, extra 'bytes' key, missing sha256, list, null, V001 pin, and the production literal path against a scratch --disclosures.",
+          "TESTED: record-schema and parse variants all refuse: schema C4V003, missing, trailing space, lowercase, null, Cyrillic lookalike; top-level array, BOM, trailing data, NaN, -Infinity, 1e999, depth 70, a 5000-digit int, invalid UTF-8, UTF-16, wrong or uppercase --seal-sha, a symlinked --seal; plus repeated --seal flags, PENDING and unknown --form. Check order confirmed: raw_text first, then pin, then e_r6_1_text (fixtures O01-O03).",
+          "TESTED, characterized as no finding because unreachable from the script: '--record-schema ANY', the weaker 'object' form, and a self-consistent V001 record with --disclosures V001 all pass in the helper. An extra look-alike top-level key carrying forged V001 also passes, since R-02 checks only one key path. The script hard-assigns key, form and schema (L225) and DISCLOSURES = V002 (L222), none overridable from the environment (only UNT_SEAL_ATTEMPT is, at L281). Step 0 L364 refuses the V001 sha and pin() refuses non-canonical sha spellings (PIN_SHA_FORMAT). The record bytes equal tool 4 v004's output (CAND_SHA copy at L672, compared with tool 4's stderr sha at L674).",
+          "FORMAL + TESTED: step 11 checks the WRITTEN record. L672 copy-exclusive writes $SEAL_RECORD; L673 SR_SHA = sha_of($SEAL_RECORD); L677 passes --seal \"$SEAL_RECORD\" --seal-sha \"$SR_SHA\"; pin() re-reads that path without following links and verifies the sha before parsing. Step 12 make-config (L687) re-pins the same path and SR_SHA and writes cfg.seal = {a.seal, a.seal_sha}; step 13 make-receipt re-pins and requires cfg.seal to match. In the bash harness, the R-02 log's seal_record sha256, the file's sha and the SR_SHA handed to step 12 were all bb650e72.",
+          "FORMAL + TESTED: on every attempt path. UNT_SEAL_ATTEMPT only sets SFX (L282) and gates step-0/1 FROZEN and draft checks (L433, L440, L453); the main sequence (L735-752) has no conditionals; there is no return, exit, '|| true' or 'set +e' anywhere; step11_seal_record is called once (L749). The harness gave the same behaviour with a V007_SEAL_ASSEMBLY_ATTEMPT_2 folder (P00 pass, F03 stopped at step 11). The production SEAL_RECORD path spellings for attempts 1, 2 and 9 pass the helper's lexical path rules (string check only, no filesystem access).",
+          "FORMAL + TESTED: strictly before step 12, and a refusal stops under set -e. R-02 is the last command of step 11 apart from an echo; step 12 is the next top-level call (L750). Nothing on the call chain (step11_seal_record, run_h, H) sits in an if, a &&/|| list or a negation. Under /bin/bash 3.2.57, 16 refusing fixtures (P01 A01 A02 B02 C01 C02 C03 C14 E03 E04 F03 G01 G05 H01 H08, plus attempt-2 F03) each gave rc 2, 'STOPPED at step 11 (exit 2)' and no step-12 marker. A tool-4 stderr sha mismatch stopped at L674 (rc 1) before R-02 ran.",
+          "TESTED: c3v019 -> c3v020: step10_tool4 is byte-identical (both flags were already present; only the DISCLOSURES constant changed); step 11 adds only the R-02 call; step 12 changes only a comment; step 13, the main sequence, the preamble and H/jf/run_h/sha_of are identical. C-03 is present at step 8 (L622).",
+          "OBSERVATION, not a finding: after an R-02 refusal the refused SEAL_RECORD_V007.json stays at its final name in that attempt's folder (this script never deletes). No config, receipt or summary is written, so it is inert; this follows from checking the WRITTEN record as R-02 requires.",
+          "OBSERVATION, not a finding: the helper's sha is verified once in step 0 (L349) and then executed by path, including at step 11. Same design as c3v019 (L331); it applies to every H step.",
+          "OBSERVATION: SEAL_MANUAL_DISCLOSURES_V003_DRAFT.json (sha 21968a07f50d6bf5dda9e64cfa61c7e3ec80bca9943c0f84956611ac99b8be3e, 7856 bytes, written 2026-10-19T03:19:53Z by another party) appeared in root_inputs during this review. c3v009 pins V002; a draft is not a ruling and was not analysed. If root rules a V003, DISCLOSURES and the superseded list would need updating.",
+          "Evidence (scratch): /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/r02/ contains tools/ (gen_fixtures_v2.py be09879a, gen_fixtures_x.py 0cb4a3c3, run_fixtures.py 1c20ccde, harness_step11.sh 47738379, drive_harness.sh 0660267b), fx/ (FIXTURES.json c2521870, FIXTURES_X.json def1b6b5), results/ (R02_FIXTURES_PY312_run2.json 5eed57e5, R02_FIXTURES_PY39_run2.json d782080d, R02_FIXTURES_X_PY312.json 6e1cbec8) and bash_runs/. Nothing was written under /Users/bgm/Research; no script, seal tool, runner or helper was run on a real path; no C5H, UVT or NGC path was opened, listed or stat'ed."
+        ]
+      },
+      "verified": [],
+      "unverified": []
+    },
+    {
+      "lens": "shell",
+      "review": {
+        "verdict": "LENS shell control flow (c3v020 under macOS /bin/bash 3.2.57, set -Eeuo pipefail): 0 BLOCKING, 2 SHOULD_FIX, 0 NOTE. In a clean environment, every required check stops the run when it fails. That covers the pins, the roles, C-02..C-06, C-03 at L622, R-02 at L677-679 (before step12_config at L750), the tool-4 flags at L663, the V001 refusal at L364 plus the pins at L382/L400, and the admission steps L687-697. All 18 step calls (L735-752) and every H/run_h/need/tor_table_bytes/v005_still_frozen call are plain statements: none sits in an if, &&, || or ! context. There is no 'local x=$(...)', no '|| true', no subshell, no process substitution, no return/exit and no set +e. Every $(...) wraps one command or the one sha_of pipeline, and pipefail carries into $(...) (tested). Every [ \"$(...)\" = PIN ] compares against a non-empty pin. All 29 REFUSE echoes end in 'false'. Every program on the path reports refusal as a non-zero int exit code. The two SHOULD_FIX items are not reachable in the production run unless root's environment is contaminated or an outside actor changes the seal folder mid-run. (1) The script does not run in bash privileged mode, so a bash function imported from the environment (set, false or [) or a BASH_ENV file can switch off errexit or every refusal. With an imported set() the fixture ends 'ALL STEPS PASS', exit 0, after a helper REFUSE. '/bin/bash -p' blocks this (tested). (2) pyc_prefix_empty (L326) passes when 'ls -A' fails. Fixtures: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/shell_control_flow/fx/",
+        "findings": [
+          {
+            "id": "SCF-1",
+            "severity": "SHOULD_FIX",
+            "label": "TESTED",
+            "title": "Errexit and every refusal can be switched off by bash functions imported from the environment (BASH_FUNC_set%%, BASH_FUNC_false%%, BASH_FUNC_[%%) or by BASH_ENV; the script is not run with bash -p",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+            "line": "1, 189 (dependent sites: every '|| { echo REFUSE; false; }' and 'case ... false;;', e.g. 345, 349-350, 361-367, 378-379, 415-436, 460, 526-529, 674; every [ ] test; every H/run_h call, e.g. 534, 559, 590, 622, 656, 677, 696)",
+            "evidence": "Bash looks up function names before builtins and imports exported functions (BASH_FUNC_name%%) and BASH_ENV before L189 runs; L192 cleans PATH only after that. The fixture uses the script's own prologue (L189-197) and the L674 refusal shape, then a run_h whose fake helper exits 2. Clean environment: stops, exit 1. F24b, env 'BASH_FUNC_set%%=() { return 0; }': prints the REFUSE line, then '  PASS  STEP_11_DISCLOSURES_VERBATIM.json', then 'ROOT_SEAL_STEPS: ALL STEPS PASS', exit 0; $- = hB, so e, u, E and C (noclobber) are all off. F24a (imported false) and F24c (BASH_ENV defining false): the refusal printed and the run continued, so L349-350 (the helper/runner sha check, the root of trust) would be a no-op. F24d (imported [): the L674 test passed silently. The same three injections under '/bin/bash -p' all stop at the refusal, exit 1. The dry-run launcher of record uses 'exec /bin/bash <script>' (dry_run_20261019T025053Z/passA/RUN_A.sh L21), which inherits the caller's environment and ignores any shebang flag. FORMAL: with set() injected, step 1 onward would also create the real outputs (L452 mkdir SEAL_DIR, FROZEN, bound plan, CONFIG, RECEIPT) after a printed REFUSE. Reachability: this session's agent environment on the same machine has no BASH_ENV, BASH_FUNC_* or SHELLOPTS (checked), so the production run is not shown to be exposed. Fix: root invokes '/bin/bash -p .../ROOT_SEAL_STEPS_c3v020.sh' (optionally under 'env -i' with only the UNT_SEAL_* inputs), and the root run line documents it.",
+            "repro": "FXDIR=/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/shell_control_flow/fx; /bin/bash $FXDIR/run_fx.sh F24b_BASH_FUNC_set $FXDIR/bodies/F24_env_override.sh 'BASH_FUNC_set%%=() { return 0; }'  (control: omit the env argument; mitigation: env FXW=$FXDIR/work/w_p 'BASH_FUNC_set%%=() { return 0; }' /bin/bash -p $FXDIR/work/F24b_BASH_FUNC_set.sh)"
+          },
+          {
+            "id": "SCF-2",
+            "severity": "SHOULD_FIX",
+            "label": "TESTED",
+            "title": "pyc_prefix_empty (the SA-CX1-B2 pin-integrity guard) passes when 'ls -A' fails or when the prefix is replaced by a dangling symlink",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+            "line": "326 (reached through v005_still_frozen at L327, at the start of steps 2-13)",
+            "evidence": "In '[ ! -e \"$PYC_PREFIX\" ] || [ -z \"$(/bin/ls -A \"$PYC_PREFIX\")\" ] || { REFUSE; false; }' the exit status of ls is discarded: a failing ls yields empty output, which reads as an empty prefix. F18: prefix chmod 0311 holding planted.pyc; ls says 'Permission denied', the check passes, exit 0, with no REFUSE and no ERR-trap line (the $(...) runs where errexit is suppressed). F18b: prefix replaced by a dangling symlink; '[ ! -e ]' is true, so the check passes. Why it matters (FORMAL): with -X pycache_prefix, Python reads cached bytecode only from this prefix, for every import (stdlib included) in the helper, the runner and the tools, so a planted .pyc could replace pinned or stdlib code. Not reachable in the production run: L452 creates the prefix (mode 0755) inside a fresh seal folder, and -B never writes .pyc there, so an outside actor would need write access to the seal folder mid-run. Fix: a bare assignment, which stops on an ls failure under set -e (F06, F08b): 'local l; l=\"$(/bin/ls -A \"$PYC_PREFIX\")\"; [ -z \"$l\" ] || { REFUSE; false; }', with the absent branch tested as '[ ! -e P ] && [ ! -L P ]'.",
+            "repro": "FXDIR=/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/shell_control_flow/fx; /bin/bash $FXDIR/run_fx.sh F18_pyc_prefix_unreadable $FXDIR/bodies/F18_pyc_prefix_unreadable.sh; /bin/bash $FXDIR/run_fx.sh F18b_pyc_prefix_dangling $FXDIR/bodies/F18b_pyc_prefix_dangling.sh"
+          }
+        ],
+        "checked": [
+          "TESTED: shasum -a 256 of the key files matches the expected values: SELECTED c3v009 9e10eae1, SELECTED c3v008 f30fd48c, script c3v020 36058df8, script c3v019 f4843a47, helper c3v019 91b15dc6, helper c3v017 3c642d1a, runner 2b040e94, fence 9c62ad49, V002 a0284ece; seal tools v004 (T4 9787cf58, T1 a56f8d79, T2 c2c5dfc5, T3 316973a1, T5 e5bedffe, seal_common 101a3aeb, readme cec2bfc9, SELECTED 593c59fa). Every path and sha pinned in SELECTED c3v009's tuple (script, helper, runner, fence, V002, the V001-refused entry, v004 SELECTED, tool 4) matches its bytes.",
+          "TESTED (parsing the script bytes): L735-752 call all 18 step functions as plain statements; each function is defined exactly once; the set of defined steps equals the set called. Every call of H, run_h, need, tor_table_bytes, v005_still_frozen and pyc_prefix_empty is a plain statement, including those in then/else bodies (L440, L454, L457). jf and sha_of appear only inside $(...). Contrast fixtures F04 (run_h in || or if) and F05 (a step function under ||) reproduce the hazard; no such site exists in c3v020.",
+          "TESTED F03/F15: run_h called plainly with the helper exiting 2 stops before its PASS echo (exit 2). The same failure inside an if/else body also stops.",
+          "TESTED F01/F02a/F02b: F01 reproduces SA-C3-E1 (a failing non-final && operand is ignored). The fixed form '&& ... || { REFUSE; false; }' stops whether the first or a later operand fails. Every && chain (L345, 349-350, 378-379, 415-436, 526-529) has that fallback; all 29 REFUSE echoes are followed by '>&2; false' (the one regex miss at L432 is a ${x%%=*} brace artifact; F14 covers that loop).",
+          "TESTED F08a/F08b: 'local x=$(false)' masks the failure and the split form does not. c3v020 uses only the split form (L331, 359, 431, 558, 576, 631).",
+          "TESTED F06/F07/F10/F10b: bare assignments from $(sha_of missing) and $(jf missing-key) stop, because pipefail carries into $(...) in bash 3.2. L673 therefore stops before L674. The F10b contrast shows the L674 test alone would accept '' = '' if L673 were masked; L673 is not masked.",
+          "TESTED F21: errexit is OFF inside $(...) in bash 3.2 ('$(false; echo hi)' yields 'hi'). FORMAL: no $(...) in c3v020 contains more than one command or the sha_of pipeline, so nothing is exposed.",
+          "TESTED F09/F25: in [ \"$(failing)\" = PIN ] the empty output never equals a non-empty pin (sites L347-349, 378, 415-435, 501, 520, 526-530, 674, 691); a failing [ ] as a function's last command (the L501 shape) stops. $(...) strips trailing newlines, but none of the compared JSON values in the pinned DRAFT (e12292a2) or PREREG_TOR (d28c95f5) end in whitespace.",
+          "TESTED F30: at L495, a failing $(jf) inside an argument is ignored by the shell, but a scratch copy of helper c3v019 (91b15dc6) refuses with 'PIN_SHA_FORMAT src: \\'\\''', exit 2, and creates nothing. F19: the unquoted $(printf -- '--pin %s ' ...) at L404, 588, 602, 654 and 695 splits into exactly 12 words with no whitespace or glob characters. F20: ${COV_ARGS[@]+\"${COV_ARGS[@]}\"} keeps a dispositions path containing spaces as one word (and expands to 0 words when unset).",
+          "TESTED F11-F14/F22: need() (L328, called at L353) refuses an unset first, middle or last input under set -u; a set-but-empty input is accepted by design and refused by later checks. The stale-input loop (L359-360), 'case ... false;;' inside functions (L333/335, 352, 362-367), the for-loop refusal (L432) and the top-level ATTEMPT case (L282) all stop.",
+          "TESTED F16/F17/F26: a noclobber redirect target that already exists stops a function call even when the helper would PASS. L345 refuses a dangling symlink at the seal folder path. A refusal two functions deep (v005_still_frozen calling pyc_prefix_empty) stops. Exit statuses are kept through the ERR trap (1 or 2, never 0).",
+          "TESTED: an unquoted-expansion scan finds only the intentional $(printf ...) sites. The script has no CR, NUL or TAB bytes and no non-ASCII in code; 'bash -n' parse check is OK (parse only, nothing executed).",
+          "FORMAL, from the code: the exit code reaching the shell follows every refusal. The helper main (L1799-1808) exits 0 only when the subcommand returns normally, else 2, and pin() rejects any sha that is not hex64. The runner returns 0 for None, passes ints through, and maps non-ints to 1. Tools 1-5 return int 0/2 through C.emit/guarded_run. The binder raises on failure (exit 1). Compare r13 main returns 0/2. No program on the path returns a bool, so sys.exit(False) cannot occur.",
+          "TESTED F23: the asserts in the inline Python at L406-413 and L510-515 stay live under -I even with PYTHONOPTIMIZE=2 (optimize flag 0 on the system python and on the pinned 3.12 interpreter).",
+          "FORMAL, from helper bytes: no optional argument lets a check skip. check-tor at L590/L656 receives all four sealed arguments (the helper requires all or none). output-root verify (L711) runs _digits, which refuses an empty dev or ino. check-seal-record-disclosures (L677-679) receives the r6 arguments, form pin_content_raw_text (not locate) and record schema UNT_V007_SEAL_RECORD_C4V004 (not ANY).",
+          "TESTED + FORMAL: the L367 case pattern accepts '..', '.' and '//' spellings under SEAL_INPUTS_DIR, but the helper's nofollow_walk refuses those components at the L394 pin, so it fails closed.",
+          "0648/0649 requirements in the control flow (FORMAL): tool 4 gets --manual-disclosures and --manual-disclosures-sha256 at L663; R-02 is a plain run_h at L677-679 in step 11, on the written SEAL_RECORD, before step12_config; C-03 is a plain run_h at L622 in step 8. Shell changes from c3v019 to c3v020 (diff) are limited to new constants, the static case at L364, one consolidated selected-roles H at L387-392, the R-02 run_h, and summary arguments; all use established shapes.",
+          "Not reported (cosmetic, outside the REQUIRED-check scope): with set -E the ERR trap prints 'STOPPED at step N ... Nothing after this step ran.' from inside a failing $(...) while the step keeps going (twice before the helper ran, in F30). This is a misleading log line only.",
+          "Not in this lens: the helper is executed by path at every H call but its sha is checked only at step 0 (L349). This is a time-of-check/time-of-use exposure that needs an active writer to the helper file during the run.",
+          "Hard rules kept: nothing written under /Users/bgm/Research. No ROOT_SEAL_STEPS script, seal tool or runner was run, and the helper ran only as a scratch copy with synthetic arguments. No launches. No access to runs_ext/KMAX_A2F10_C5H_RUN_V001, runs_ext/UVT_* or NGC targets. All fixtures are under /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/shell_control_flow/fx/ (prologue.sh, run_fx.sh, bodies/, work/)."
+        ]
+      },
+      "verified": [
+        {
+          "id": "SCF-1",
+          "severity": "SHOULD_FIX",
+          "label": "TESTED",
+          "title": "Errexit and every refusal can be switched off by bash functions imported from the environment (BASH_FUNC_set%%, BASH_FUNC_false%%, BASH_FUNC_[%%) or by BASH_ENV; the script is not run with bash -p",
+          "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+          "line": "1, 189 (dependent sites: every '|| { echo REFUSE; false; }' and 'case ... false;;', e.g. 345, 349-350, 361-367, 378-379, 415-436, 460, 526-529, 674; every [ ] test; every H/run_h call, e.g. 534, 559, 590, 622, 656, 677, 696)",
+          "evidence": "Bash looks up function names before builtins and imports exported functions (BASH_FUNC_name%%) and BASH_ENV before L189 runs; L192 cleans PATH only after that. The fixture uses the script's own prologue (L189-197) and the L674 refusal shape, then a run_h whose fake helper exits 2. Clean environment: stops, exit 1. F24b, env 'BASH_FUNC_set%%=() { return 0; }': prints the REFUSE line, then '  PASS  STEP_11_DISCLOSURES_VERBATIM.json', then 'ROOT_SEAL_STEPS: ALL STEPS PASS', exit 0; $- = hB, so e, u, E and C (noclobber) are all off. F24a (imported false) and F24c (BASH_ENV defining false): the refusal printed and the run continued, so L349-350 (the helper/runner sha check, the root of trust) would be a no-op. F24d (imported [): the L674 test passed silently. The same three injections under '/bin/bash -p' all stop at the refusal, exit 1. The dry-run launcher of record uses 'exec /bin/bash <script>' (dry_run_20261019T025053Z/passA/RUN_A.sh L21), which inherits the caller's environment and ignores any shebang flag. FORMAL: with set() injected, step 1 onward would also create the real outputs (L452 mkdir SEAL_DIR, FROZEN, bound plan, CONFIG, RECEIPT) after a printed REFUSE. Reachability: this session's agent environment on the same machine has no BASH_ENV, BASH_FUNC_* or SHELLOPTS (checked), so the production run is not shown to be exposed. Fix: root invokes '/bin/bash -p .../ROOT_SEAL_STEPS_c3v020.sh' (optionally under 'env -i' with only the UNT_SEAL_* inputs), and the root run line documents it.",
+          "repro": "FXDIR=/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/shell_control_flow/fx; /bin/bash $FXDIR/run_fx.sh F24b_BASH_FUNC_set $FXDIR/bodies/F24_env_override.sh 'BASH_FUNC_set%%=() { return 0; }'  (control: omit the env argument; mitigation: env FXW=$FXDIR/work/w_p 'BASH_FUNC_set%%=() { return 0; }' /bin/bash -p $FXDIR/work/F24b_BASH_FUNC_set.sh)",
+          "verdict": {
+            "refuted": false,
+            "severity_after": "NOTE",
+            "label": "TESTED",
+            "reason": "I could not refute the mechanism. I reproduced it on this machine's /bin/bash 3.2.57 using lines copied verbatim from a sha-verified copy of c3v020, and the reviewer's line references are accurate. The script is mode 0644, so it can only be run as `/bin/bash <script>`. The earlier READMEs give the run line as \"Root runs `/bin/bash ROOT_SEAL_STEPS_c3vNNN.sh` after exporting the root inputs\", and the dry-run launcher of record uses `exec /bin/bash`. So the run inherits root's environment, and the channel is open in principle. Changing the L1 shebang would not help, because bash ignores its flags in that mode.\n\nI am downgrading it to NOTE because nothing in the production run reaches it, and I found no harmless way it could arise:\n- **What it needs:** a function literally named `set`, `false` or `[`, or a BASH_ENV file that defines one, in root's environment.\n- **Nothing sets these** in this session's environment, the shell startup files, the Claude shell snapshots or settings env blocks, or launchctl.\n- **zsh cannot create them.** Root's login shell, zsh 5.9, refuses to export a `BASH_FUNC_x%%` name.\n- **Anyone who could plant one already controls root's shell or its parent process.** That means startup files, ZDOTDIR or harness hooks. From there they can wrap or replace `/bin/bash -p` or `env -i` themselves, so `-p` only blocks accidental environment contents, and those cannot plausibly contain these names.\n- **No byte in the tuple is wrong.** An in-script guard cannot close this either, because BASH_ENV code runs before line 1.\n\nThe fix belongs in root's documented run line, which the c3v009 README and SELECTED file do not state: `/usr/bin/env -i <UNT_SEAL_* inputs> /bin/bash -p .../ROOT_SEAL_STEPS_c3v020.sh`. It costs nothing and is worth adopting, but it is a documentation item, not a defect.\n\nOne small correction to the claim: only an imported or BASH_ENV `set` disables every check. An imported `false` skips the `|| { REFUSE; false; }` and `case ... false;;` refusals, including L349-350, but a helper exit still stops the run. An imported `[` passes the `[ ]` tests silently, but the `case` refusals and helper exits still stop it.",
+            "evidence": "TESTED, fixture.\n- **Source:** the copy of c3v020 at /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/adv_scf1/src/ROOT_SEAL_STEPS_c3v020.sh.copy hashes to 36058df84bb2088970be442bc64445a4c6939b45df3e9cb3294cedef62c65ac0.\n- **Fixture:** /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/adv_scf1/work/ALL.sh (a01dc84b). It is built from production L189-197, L316, L324-325, L328, L345, L349-350, L361, L364, L674, L677-680 and L753, each diff-checked as verbatim, with scratch-only values. The fake helper /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/adv_scf1/fake_helper.sh writes a REFUSE verdict to stderr and exits 2.\n- **How it was run:** /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/adv_scf1/run_variant.sh (cb9e4e08), under env -i PATH=/usr/bin:/bin HOME=scratch, with GNU bash 3.2.57(1) arm64-apple-darwin25.\n\nResults:\n- **V0, clean environment:** prints \"REFUSE: the seal folder exists already\", then \"STOPPED at step 0\", exit 1. Same under -p.\n- **V1, `BASH_FUNC_set%%=() { return 0; }`:** all 5 REFUSE lines print, but the run continues. \"PASS STEP_11_DISCLOSURES_VERBATIM.json\" appears after the helper's exit 2 (its log holds the REFUSE verdict), then \"ROOT_SEAL_STEPS: ALL STEPS PASS\", exit 0, with $- = hB. Under -p: stops, exit 1.\n- **V5, BASH_ENV file defining set():** same as V1. Under -p: exit 1.\n- **V2, `BASH_FUNC_false%%`, and V4, BASH_ENV defining false():** L345, L349-350 (the helper/runner sha), L361, L364 and L674 all print REFUSE and pass. The run stops only at the step-11 run_h, exit 2. Under -p: exit 1.\n- **V3, `BASH_FUNC_[%%`, and V6, BASH_ENV defining [():** L345, L349-350 and L361 pass with no output, and the run stops at the L364 case. With DISCLOSURES_SHA set to a0284ece (fixture /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/adv_scf1/work/ALL_V002.sh), L345, L349, L361 and L674 all pass silently, and it stops only at the step-11 helper, exit 2. Under -p: exit 1.\n\nHow production is invoked (from bytes):\n- ROOT_SEAL_STEPS_c3v020.sh is -rw-r--r--.\n- README_SEAL_ASSEMBLY_C3_c3v002.md L16 and c3v003.md L18: \"Root runs `/bin/bash ROOT_SEAL_STEPS_...sh` after exporting the root inputs\".\n- The c3v009 README (ac575ce8) and SELECTED c3v009 (9e10eae1) contain no run line.\n- passA/RUN_A.sh (7d4e4275, the same sha as in the INDEX) L21: `exec /bin/bash .../ROOT_SEAL_STEPS_DRYRUN_A.sh`.\n- No `bash -p` or `env -i` run line appears in the FROM_CODEX, CODEX1, CLAUDE2, CLAUDE3 or CLAUDE4 posts (grep).\n\nReachability checks:\n- **This session's environment** has no BASH_ENV, BASH_FUNC_*, SHELLOPTS or POSIXLY_CORRECT.\n- **Shell startup files:** 0 matching lines for BASH_ENV, BASH_FUNC, SHELLOPTS, export -f or POSIXLY_CORRECT in ~/.zprofile, ~/.zshrc, /etc/zprofile, /etc/zshrc, /etc/profile and /etc/bashrc. ~/.zshenv, ~/.bashrc and ~/.bash_profile do not exist.\n- **Claude config:** 0 matches in the shell-snapshots and settings*.json of ~/.claude, ~/.claude-lane3 and ~/.claude-lane4.\n- **launchctl:** getenv BASH_ENV is empty.\n- **zsh 5.9:** `export 'BASH_FUNC_set%%=...'` fails with \"not valid in this context\".\n- **Root's live session environment** cannot be inspected from here (FORMAL).\n\nThe real /Users/bgm/Research/UNT_INTERNAL_RUNS is still absent. Nothing under /Users/bgm/Research was written or run."
+          }
+        },
+        {
+          "id": "SCF-2",
+          "severity": "SHOULD_FIX",
+          "label": "TESTED",
+          "title": "pyc_prefix_empty (the SA-CX1-B2 pin-integrity guard) passes when 'ls -A' fails or when the prefix is replaced by a dangling symlink",
+          "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+          "line": "326 (reached through v005_still_frozen at L327, at the start of steps 2-13)",
+          "evidence": "In '[ ! -e \"$PYC_PREFIX\" ] || [ -z \"$(/bin/ls -A \"$PYC_PREFIX\")\" ] || { REFUSE; false; }' the exit status of ls is discarded: a failing ls yields empty output, which reads as an empty prefix. F18: prefix chmod 0311 holding planted.pyc; ls says 'Permission denied', the check passes, exit 0, with no REFUSE and no ERR-trap line (the $(...) runs where errexit is suppressed). F18b: prefix replaced by a dangling symlink; '[ ! -e ]' is true, so the check passes. Why it matters (FORMAL): with -X pycache_prefix, Python reads cached bytecode only from this prefix, for every import (stdlib included) in the helper, the runner and the tools, so a planted .pyc could replace pinned or stdlib code. Not reachable in the production run: L452 creates the prefix (mode 0755) inside a fresh seal folder, and -B never writes .pyc there, so an outside actor would need write access to the seal folder mid-run. Fix: a bare assignment, which stops on an ls failure under set -e (F06, F08b): 'local l; l=\"$(/bin/ls -A \"$PYC_PREFIX\")\"; [ -z \"$l\" ] || { REFUSE; false; }', with the absent branch tested as '[ ! -e P ] && [ ! -L P ]'.",
+          "repro": "FXDIR=/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/shell_control_flow/fx; /bin/bash $FXDIR/run_fx.sh F18_pyc_prefix_unreadable $FXDIR/bodies/F18_pyc_prefix_unreadable.sh; /bin/bash $FXDIR/run_fx.sh F18b_pyc_prefix_dangling $FXDIR/bodies/F18b_pyc_prefix_dangling.sh",
+          "verdict": {
+            "refuted": false,
+            "severity_after": "SHOULD_FIX",
+            "label": "TESTED",
+            "reason": "Not refuted. The site is real and the F18 fail-open reproduces from verbatim c3v020 bytes. It is not reachable in the production run, and it is pre-existing code that c3v009 may not change, so it does not block c3v009. SHOULD_FIX stands.\n\n(1) TESTED, F18 holds. With the prefix at mode 0311 or 0000, `ls -A` prints nothing and exits 1. The guard passes: exit 0, no REFUSE, no ERR-trap line. Meanwhile the pinned Python 3.12.14 (-I -B -X pycache_prefix) still loads a planted unchecked-hash .pyc through that prefix, both for a user module and for stdlib json. Correction: the run is not fully silent, because \"ls: ...: Permission denied\" reaches the script's stderr.\n\n(2) TESTED, F18b is weaker than claimed. A dangling-symlink prefix does pass the guard. But at check time nothing planted can be read through it (the probe printed GENUINE), which is the same as the absent branch the guard accepts by design. Planted code loads only if the link target is created after the check. A real directory has the same post-check race: the guard runs once at the start of each step, not before every Python process, and steps 0, 1 and the summary have no check at all.\n\n(3) \"Could replace pinned or stdlib code\": the stdlib part is TESTED. Pinned code cannot be replaced directly. The runner execs it from verified buffers and pre-loads it into sys.modules (run_pinned L62-L64, L123-L128). Only the stdlib modules that pinned code imports can be swapped (e.g. hashlib, json), which subverts pinned checks indirectly.\n\n(4) Not reachable in production. TESTED: the seal folder's parent CTRL is drwxr-xr-x bgm:staff with no ACL entries; umask 022 (L191); step 0 refuses if the seal folder exists (L345); L452 mkdirs a fresh prefix at 0755. The dry run of record left both prefixes as real, empty 0755 directories, and neither stderr has an \"ls:\" or REFUSE line. FORMAL: creating the F18 or F18b state mid-run needs uid bgm or uid 0. That same uid can already rewrite the helper (0644 bgm), which is sha-checked only at L349 and then run by path (L316) at every H call. That is a simpler bypass that nothing later catches, so this defect adds no new exposure.\n\n(5) TESTED, pre-existing. L326 and L327 are byte-identical to c3v019's L308 (the c3v008 tuple; sha 0d04aecf... and 3434c2c2...) and to both dry-run scripts. 0649 requires \"there are no other changes from c3v008\", so fixing this inside c3v009 would itself break that requirement. It belongs in a later round and is not a c3v009 blocker.\n\n(6) TESTED, the proposed fix works in bash 3.2. F18 now stops via the ERR trap, and F18b now REFUSEs. One residual remains: a symlink to an empty directory still passes, which is the same as the post-check race.",
+            "evidence": "Hashes from bytes: c3v009 SELECTED 9e10eae1 (its selected_tuple.script.path = ROOT_SEAL_STEPS_c3v020.sh), c3v020 36058df8, c3v019 f4843a47, helper c3v019 91b15dc6, runner 2b040e94. Pinned PY real sha 8506f337, version 3.12.14.\n\nThe guard line hashes identically (0d04aecf2cd52fba...) in c3v020 L326, c3v019 L308, and both dry-run scripts (passA, passB). v005_still_frozen hashes 3434c2c2... in both scripts. It has 15 call sites, steps 2 through 13 (L467-L703).\n\nFixture (all paths absolute):\n- Generator: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/verify_SCF-2/gen_run.sh. It takes L189-L197, L306, L326-L327 and L452 verbatim (via sed) from the byte-verified copy /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/verify_SCF-2/ROOT_SEAL_STEPS_c3v020.copy.sh (36058df8). Only H is stubbed. Runs under /bin/bash 3.2.57.\n- Scenario bodies: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/verify_SCF-2/bodies/\n\nResults with the c3v020 guard:\n- S0 normal: exit 0\n- S1 readable planted file: REFUSE + STOPPED, exit 1\n- S2 / S2b (F18, mode 0311): exit 0, only \"ls: ...: Permission denied\" on stderr\n- S7 (mode 0000): exit 0, same stderr line\n- S3 (F18b, dangling symlink): exit 0, silent\n- S4 symlink to a non-empty dir: REFUSE\n- S5 symlink to an empty dir: pass\n- S6 prefix removed: pass\n\nPython impact test, scratch only: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/verify_SCF-2/py/\n- Prefix 0311: `ls -A` output '' with rc=1, yet mod_x.X = PLANTED_VIA_PREFIX and json.PLANTED = PLANTED_STDLIB_JSON.\n- Dangling-symlink prefix: GENUINE / None.\n- Same symlink after its target is created: PLANTED.\n- No __pycache__ was written.\n\nFix variant: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/verify_SCF-2/gen_run_fix.sh\n- S2, S2b, S7: STOPPED, exit 1\n- S3: REFUSE\n- S5: still passes\n\nReachability:\n- CTRL is drwxr-xr-x bgm:staff, and `ls -lde` shows no ACL entries.\n- Helper and runner are -rw-r--r-- bgm.\n- HELPER_SHA appears only at L206 (pin) and L349 (step-0 check). The helper runs by path at L316.\n- Dry run 20261019T025053Z: both NO_PYCACHE_PREFIX_EMPTY dirs are drwxr-xr-x and empty (ls rc=0). RUN_A and RUN_B stderr have 0 \"Permission denied\", 0 \"ls:\" and 0 REFUSE lines.\n\n0649 L11: \"there are no other changes from c3v008.\""
+          }
+        }
+      ],
+      "unverified": []
+    },
+    {
+      "lens": "delta",
+      "review": {
+        "checked": [
+          "TESTED: sha256 from bytes, all equal to the expected values: SELECTED c3v009 9e10eae1, SELECTED c3v008 f30fd48c, script c3v020 36058df8, script c3v019 f4843a47, helper c3v019 91b15dc6, helper c3v017 3c642d1a, runner 2b040e94, fence 9c62ad49, slot draft c3v003 e12292a2, gates manifest e5967bb9, v004 SELECTED 593c59fa, V002 a0284ece, V001 b9db6fd1, r6 SELECTED 7200acd9, HASHES c3v008 0acaf1a3, C02_C08 split f7f3dc4e, README c3v009 ac575ce8.",
+          "TESTED: the runner, fence, slot draft and gates manifest have the same path and sha in both SELECTED tuples and in both scripts' pin lines (those pin lines are not in the c3v019->c3v020 diff), and the bytes on disk match. Byte-identical to c3v008.",
+          "TESTED: SELECTED c3v009 has 45 of 45 path/sha/bytes pins matching bytes (no-follow reads). SELECTED c3v008 still has 32 of 32.",
+          "TESTED: diff of c3v019 -> c3v020 has 17 hunks, and every changed line is classified. (a) SEAL_TOOLS_STATUS L248; TD -> seal_tools_v004 L254; V004_SELECTED/SHA/SCHEMA and T4/T4_SHA L261-262 replace the PENDING values; V003_README L264 is respelled to the same absolute path; V004_README L265 is new; one 10-role v004 selected-roles call (L387-392) replaces the v003 7-role call and the v004 1-role call. (b) DISCLOSURES -> V002 L222; DISCLOSURES_SUPERSEDED_SHAS = V001 L223; refusal L364. (c) HELPER pin c3v017->c3v019 L206; STEP_11_DISCLOSURES_VERBATIM L677-679. (d) DISCLOSURES_RECORD_KEY/FORM/SEAL_RECORD_SCHEMA L225, added to the PENDING scan at L351. (e) header and history L2-17, the P13 table row L149-151, inline and section comments, the PENDING message L352, the B8 comment L694, the root_next C-08 string L720, and summary rows L731-732. (f) OTHER: none.",
+          "TESTED: the TD move leaves the T_COMMON/T1/T2/T3/T5 lines unchanged. The seal_tools_v004 copies hash to the v003 pins (101a3aeb, a56f8d79, c2c5dfc5, 316973a1, e5bedffe); T4 = 9787cf58 and README_V004 = cec2bfc9. $TD is used only by the tool paths and V004_README.",
+          "TESTED: c3v020's 10 role-pins equal v004 SELECTED files[role] (path and sha) and equal SELECTED c3v009 roles_checked_in_step_0. The 17 v004 entries that are not role-checked are evidence/doc files plus root_manual_disclosures_file (V001, intentionally not used).",
+          "TESTED: step 10's tool-4 call (L658-663) is unchanged from c3v019. It already passed --manual-disclosures \"$DISCLOSURES\" --manual-disclosures-sha256 \"$DISCLOSURES_SHA\", now V002, and its flag order matches README_SEAL_TOOLS_V004_DELTA B7. Step 12's B8 (--check-admission-config, --seal-record) matches L129.",
+          "TESTED: tool 4 v004 bytes have SCHEMA 'UNT_V007_SEAL_RECORD_C4V004' and a top-level record key 'manual_disclosures' = {pin{path,sha256}, content, raw_text}, matching the script's R-02 constants. Its imports (seal_common/check_slot_fill/check_sealed_compare _c4v003) are covered by the unchanged T4_RUN module list.",
+          "TESTED: helper top-level AST diff (python3 -I, copies): 115 -> 118 nodes, no removals, order kept. Added: RECORD_FORMS, _canon, c_seal_record_disclosures (after c_check_disclosures). Changed: main only. Text diff has 4 hunks: 6 header comment lines, the 3 new definitions, one sub() registration, and one dispatch-dict entry. The new names are referenced only by c_seal_record_disclosures and main, so no existing function's behaviour changes.",
+          "TESTED: main() diff adds only sub('check-seal-record-disclosures', ..., opt=(r6-selected, r6-selected-sha, r6-schema)) and the 'check-seal-record-disclosures': c_seal_record_disclosures entry.",
+          "TESTED (bash 3.2.57 fixture, line L364 verbatim): DISCLOSURES_SHA = V001 gives REFUSE and 'STOPPED at step 0', rc=1, and nothing after it runs. V002 passes.",
+          "TESTED (bash 3.2.57 fixture, L669-681 verbatim, stub helper): if R-02 refuses, the script stops at step 11 and step 12 never runs (rc=1). If it passes, step 12 runs.",
+          "TESTED (synthetic fixture on a helper copy; read_nofollow patched to scratch-only paths): check-seal-record-disclosures PASSes the control. It REFUSEs (rc=2) each of: manual_disclosures removed, null, wrong e_r6_1_text, raw_text off the pin, pin sha = V001, other pin path, extra key, content row dropped, schema C4V003.",
+          "TESTED: bash -n passes on both scripts. The summary's single-quoted python compiles with no embedded apostrophe. The summary has 16 key/value pairs (even argv).",
+          "TESTED: the && audit gives 17 && lines in both versions; every non-if && list has its || REFUSE fallback. The nine sites L349/415/417/419/421/424/434/526/528 and the A111 sites L429/432 are as stated in 0115/SELECTED.",
+          "TESTED: every line C02_C08_CHECK_SPLIT_c3v020.md cites matches the script bytes. C-02 L370/L590/L656 = check-tor; C-03 L622 = gates-provenance; C-04 L559 = slot-registry; C-05/C-06 L534 = bound-check (helper raises C05_*/C06_* codes there); C-07 context L469; C-08 L382 and L677. Step starts L342/465/505/555/584/608/645/669 also match.",
+          "TESTED: V002 = V001 plus exactly one root_disclosures row, A106_2_SRR13_CHECK_SPLIT. The schema string is still SEAL_MANUAL_DISCLOSURES_V001, and e_r6_1_text equals r6 basis.erratum_E_R6_1 (469 chars).",
+          "TESTED: HASHES_C3SA_c3v008.txt. All 5703 readable entries match their bytes (no-follow walk). 18 synthetic dummy.txt entries under LOOK/KMAX_A2F10_C5H_RUN_V001 and LOOK/runs_ext/UVT_FAKE_RUN were deliberately not read (hard rule). The 93 symlink texts match by lstat/readlink only, never followed. No unlisted regular file exists beyond the 3 stated exclusions. It lists SELECTED c3v009 at 9e10eae1.",
+          "TESTED: in the dry run of record 025053Z, SUBSTITUTION_A/B.diff (2b2fffb3/2e30731d) equal fresh diffs of production c3v020 against ROOT_SEAL_STEPS_DRYRUN_A/B.sh. Every hunk is a declared substitution (S01-S06, S09-S18, S16b, S23 in B). No substitution touches step 0, the step-10 flags or step 11. Both SEAL_RECORDs (01eef4e0/0174ea95) carry V002 verbatim (raw_text bytes, pin, content, e_r6_1_text), and both STEP_11 logs PASS. The T3/T4 shim is the runner plus the D-10 patches only, the same shim df19ac11 as c3v008.",
+          "TESTED: the real seal outputs are absent at 2026-10-19T03:15:39Z: /Users/bgm/Research/UNT_INTERNAL_RUNS, CTRL/V007_SEAL_ASSEMBLY, the FROZEN copy, ROOT_SEAL_ADMISSION_V001.json, and the bound plan and command.",
+          "FORMAL: no launch and no write under /Users/bgm/Research by this reviewer. The script, seal tools, runner and helper were never run against real paths. Nothing under C5H, UVT_* or NGC targets was read, listed or stat'ed. Scratch: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/c3v009_review/no_other_changes/"
+        ],
+        "findings": [
+          {
+            "id": "NOC-N1",
+            "severity": "NOTE",
+            "title": "SELECTED c3v009 (and README L46) understate the helper delta: RECORD_FORMS and the header comments are omitted; 'everything else byte-identical' is not literally true",
+            "evidence": "SELECTED c3v009 L169 says: 'AST: main changed, _canon and c_seal_record_disclosures added; everything else byte-identical'. README_SEAL_ASSEMBLY_C3_c3v009.md L46 says: 'AST differs only in main and in two added functions'. The bytes show three additions. The top-level AST diff of c3v017 -> c3v019 adds RECORD_FORMS (a tuple constant), _canon and c_seal_record_disclosures, and changes only main. The text diff also adds 6 header comment lines (71a72,77). There is no behaviour consequence. RECORD_FORMS and _canon are referenced only by c_seal_record_disclosures, no pre-existing function references the new names, and main adds only the new sub() and its dispatch entry. Claude3's 0115 post does list RECORD_FORMS.",
+            "label": "TESTED",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json",
+            "line": "169 (also README_SEAL_ASSEMBLY_C3_c3v009.md L46)",
+            "repro": "python3 -I astdiff.py seal_steps_c3sa_c3v017.py seal_steps_c3sa_c3v019.py, run on copies in scratch. The result: removed [], added ['RECORD_FORMS','_canon','c_seal_record_disclosures'], changed ['main']."
+          },
+          {
+            "id": "NOC-N2",
+            "severity": "NOTE",
+            "title": "SELECTED c3v009's script-diff list does not enumerate every changed line, but every unlisted change is in an allowed category",
+            "evidence": "The list at L163-167 names P13 wiring, A112, R-02, and 'comments: B2, B8 and the P13 table row'. It does not name: the HELPER pin c3v017->c3v019 (L206); the R-02 constants DISCLOSURES_RECORD_KEY/FORM/SEAL_RECORD_SCHEMA (L225) and their addition to the PENDING scan (L351); the shortened PENDING message (L352); SEAL_TOOLS_STATUS (L248); V003_README respelled to the same absolute path and the new V004_README (L264-265); the new summary pin manual_disclosures_in_record (L732); and the header and inline comments (L2-17, L219-224, L246-247, L254, L259-260, L384-386, L675-676). Each of these is (a), (b), (c), (d) or (e). None is (f), so the 0649 'no other changes' condition holds. Claude3 0115 item 3 gives the fuller list.",
+            "label": "TESTED",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json",
+            "line": "163-167",
+            "repro": "diff ROOT_SEAL_STEPS_c3v019.sh ROOT_SEAL_STEPS_c3v020.sh on copies gives 17 hunks (diff -U0 | grep ^@@)."
+          },
+          {
+            "id": "NOC-N3",
+            "severity": "NOTE",
+            "title": "c3v020 keeps stale comments and one dead variable",
+            "evidence": "L117-118 still read 'Status at build (2026-10-19 ~01:40Z). The script REFUSES in step 0 while P13 or any root input (P2, P5-P10) is unresolved.', but P13 is DONE in c3v020. L178 attributes the fixed disclosures file to 'A110 / 0647', though the pin is now V002 under A112/0648. V003_SELECTED_SCHEMA (L250) is now unused, because the v003 selected-roles call that consumed it was removed. All three are comments or dead code with no effect on behaviour.",
+            "label": "TESTED",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+            "line": "117-118, 178, 250",
+            "repro": "sed -n '117,118p;178p;250p' ROOT_SEAL_STEPS_c3v020.sh shows the lines. grep -n V003_SELECTED_SCHEMA ROOT_SEAL_STEPS_c3v020.sh shows only the definition."
+          },
+          {
+            "id": "NOC-N4",
+            "severity": "NOTE",
+            "title": "SELECTED c3v009 drops c3v008's disk-watchdog entry without listing the drop under differences",
+            "evidence": "SELECTED c3v008 L56 had convenience_NOT_in_the_seal_hash_chain.disk_watchdog: step2_disk_watch.sh bd0d9bab. SELECTED c3v009 has no such section, and its differences_from_SELECTED_c3v008 does not mention the removal. The watchdog bytes still hash to bd0d9bab0854627957781e1666c7f5eacd1e10cd03bfde0dd2efe2e27a5a2c28. README c3v009 L18 records it as unchanged, and c3v020's root_next (L719) still names it. This is documentation only; the watchdog is outside the seal hash chain.",
+            "label": "TESTED",
+            "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json",
+            "line": "n/a (absent section; c3v008 L56)",
+            "repro": "shasum -a 256 step2_disk_watch.sh; grep -n convenience_NOT SELECTED_SEAL_PRESTAGE_C3SA_c3v00[89].json"
+          }
+        ],
+        "verdict": "Lens 'no other changes from c3v008' (0649): 0 BLOCKING, 0 SHOULD_FIX, 4 NOTE. The runner (2b040e94), fence (9c62ad49), slot draft (e12292a2) and gates manifest (e5967bb9) are byte-identical to c3v008. Every line changed from script c3v019 to c3v020 falls in category (a) v004 pins/role check, (b) V002 pin/V001 refusal, (c) R-02 step 11 plus the helper pin, (d) record constants, or (e) comment/summary text; there is no (f) OTHER change. From helper c3v017 to c3v019, the top-level AST changes only main, which gains just the new subcommand's registration and dispatch, and adds RECORD_FORMS, _canon and c_seal_record_disclosures. Nothing else in the helper changes in behaviour. HASHES_C3SA_c3v008.txt matches bytes for all 5703 entries I could read (18 synthetic forbidden-pattern entries skipped by rule), and all 93 symlink entries match. Every C02_C08 split line number matches the script bytes. The NOTEs cover documentation only: SELECTED c3v009's differences text is accurate in substance but omits RECORD_FORMS, the helper comment lines and several minor script lines (all in allowed categories); c3v020 has stale header comments and one dead variable; and SELECTED c3v009 drops the watchdog entry without listing the drop."
+      },
+      "verified": [],
+      "unverified": []
+    }
+  ],
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review:wiring",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a643c5e91cc02c09a",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792379041605,
+      "queuedAt": 1792379041596,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "PASS on the v004/V002 wiring and command-line lens: 0 BLOCK…",
+      "promptPreview": "You are an independent reviewer for the UNT program's Claude3 lane. Object under review: the seal pre-stage tuple SELECTED c3v009.\n\nKey files (all absolute; hash everything from bytes with shasum -a 256 or hashlib; never trust a sha quoted in a post or README):\n- SELECTED c3v009: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json (expected 9e…",
+      "promptFramed": true,
+      "lastProgressAt": 1792380099062,
+      "tokens": 343266,
+      "toolCalls": 70,
+      "durationMs": 1057457,
+      "resultPreview": "{\"verdict\":\"PASS on the v004/V002 wiring and command-line lens: 0 BLOCKING, 0 SHOULD_FIX, 4 NOTE. All the named files hash to their expected values from bytes, and the 45 of 45 {path, sha256} pairs in SELECTED c3v009 verify, byte counts included. Checks (1) to (6) all hold. (1) The 10 roles in the v004 SELECTED file match c3v020 exactly in path and sha, and all six tool and common files sit in sea…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "review:r02",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a0acc74ff21a7aff9",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792379041605,
+      "queuedAt": 1792379041596,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "R-02 lens: no BLOCKING and no SHOULD_FIX findings; one NOTE…",
+      "promptPreview": "You are an independent reviewer for the UNT program's Claude3 lane. Object under review: the seal pre-stage tuple SELECTED c3v009.\n\nKey files (all absolute; hash everything from bytes with shasum -a 256 or hashlib; never trust a sha quoted in a post or README):\n- SELECTED c3v009: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json (expected 9e…",
+      "promptFramed": true,
+      "lastProgressAt": 1792380266129,
+      "tokens": 278425,
+      "toolCalls": 57,
+      "durationMs": 1222654,
+      "resultPreview": "{\"verdict\":\"R-02 lens: no BLOCKING and no SHOULD_FIX findings; one NOTE. Every attempt to slip a bad disclosure past the R-02 check (helper c3v019 c_seal_record_disclosures, sha 91b15dc6) was refused. That is 121 bad records out of 131 synthetic SEAL_RECORDs plus 4 of 8 extra cases, all refused with the right typed code; the other 14 cases are passing controls or characterizations that are expecte…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "review:shell",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a210006c26d39dbac",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792379041605,
+      "queuedAt": 1792379041596,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "LENS shell control flow (c3v020 under macOS /bin/bash 3.2.5…",
+      "promptPreview": "You are an independent reviewer for the UNT program's Claude3 lane. Object under review: the seal pre-stage tuple SELECTED c3v009.\n\nKey files (all absolute; hash everything from bytes with shasum -a 256 or hashlib; never trust a sha quoted in a post or README):\n- SELECTED c3v009: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json (expected 9e…",
+      "promptFramed": true,
+      "lastProgressAt": 1792380270245,
+      "tokens": 252786,
+      "toolCalls": 54,
+      "durationMs": 1226770,
+      "resultPreview": "{\"verdict\":\"LENS shell control flow (c3v020 under macOS /bin/bash 3.2.57, set -Eeuo pipefail): 0 BLOCKING, 2 SHOULD_FIX, 0 NOTE. In a clean environment, every required check stops the run when it fails. That covers the pins, the roles, C-02..C-06, C-03 at L622, R-02 at L677-679 (before step12_config at L750), the tool-4 flags at L663, the V001 refusal at L364 plus the pins at L382/L400, and the ad…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "review:delta",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a88a6de25cc8b0c68",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792379041605,
+      "queuedAt": 1792379041596,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "Lens 'no other changes from c3v008' (0649): 0 BLOCKING, 0 S…",
+      "promptPreview": "You are an independent reviewer for the UNT program's Claude3 lane. Object under review: the seal pre-stage tuple SELECTED c3v009.\n\nKey files (all absolute; hash everything from bytes with shasum -a 256 or hashlib; never trust a sha quoted in a post or README):\n- SELECTED c3v009: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json (expected 9e…",
+      "promptFramed": true,
+      "lastProgressAt": 1792379916225,
+      "tokens": 314889,
+      "toolCalls": 63,
+      "durationMs": 872750,
+      "resultPreview": "{\"checked\":[\"TESTED: sha256 from bytes, all equal to the expected values: SELECTED c3v009 9e10eae1, SELECTED c3v008 f30fd48c, script c3v020 36058df8, script c3v019 f4843a47, helper c3v019 91b15dc6, helper c3v017 3c642d1a, runner 2b040e94, fence 9c62ad49, slot draft c3v003 e12292a2, gates manifest e5967bb9, v004 SELECTED 593c59fa, V002 a0284ece, V001 b9db6fd1, r6 SELECTED 7200acd9, HASHES c3v008 0a…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "verify:shell:SCF-1",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "aac853e96315f2933",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792380272599,
+      "queuedAt": 1792380272589,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "NOTE",
+      "promptPreview": "You are an independent reviewer for the UNT program's Claude3 lane. Object under review: the seal pre-stage tuple SELECTED c3v009.\n\nKey files (all absolute; hash everything from bytes with shasum -a 256 or hashlib; never trust a sha quoted in a post or README):\n- SELECTED c3v009: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json (expected 9e…",
+      "promptFramed": true,
+      "lastProgressAt": 1792380963354,
+      "tokens": 179102,
+      "toolCalls": 34,
+      "durationMs": 690755,
+      "resultPreview": "{\"refuted\":false,\"severity_after\":\"NOTE\",\"label\":\"TESTED\",\"reason\":\"I could not refute the mechanism. I reproduced it on this machine's /bin/bash 3.2.57 using lines copied verbatim from a sha-verified copy of c3v020, and the reviewer's line references are accurate. The script is mode 0644, so it can only be run as `/bin/bash <script>`. The earlier READMEs give the run line as \\\"Root runs `/bin/bas…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "verify:shell:SCF-2",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a43af5449fe0e57ad",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792380272599,
+      "queuedAt": 1792380272589,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "SHOULD_FIX",
+      "promptPreview": "You are an independent reviewer for the UNT program's Claude3 lane. Object under review: the seal pre-stage tuple SELECTED c3v009.\n\nKey files (all absolute; hash everything from bytes with shasum -a 256 or hashlib; never trust a sha quoted in a post or README):\n- SELECTED c3v009: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA_c3v009.json (expected 9e…",
+      "promptFramed": true,
+      "lastProgressAt": 1792380834605,
+      "tokens": 138178,
+      "toolCalls": 27,
+      "durationMs": 557418,
+      "resultPreview": "{\"refuted\":false,\"severity_after\":\"SHOULD_FIX\",\"label\":\"TESTED\",\"reason\":\"Not refuted. The site is real and the F18 fail-open reproduces from verbatim c3v020 bytes. It is not reachable in the production run, and it is pre-existing code that c3v009 may not change, so it does not block c3v009. SHOULD_FIX stands.\\n\\n(1) TESTED, F18 holds. With the prefix at mode 0311 or 0000, `ls -A` prints nothing a…"
+    }
+  ],
+  "totalTokens": 1506646,
+  "totalToolCalls": 305
+}

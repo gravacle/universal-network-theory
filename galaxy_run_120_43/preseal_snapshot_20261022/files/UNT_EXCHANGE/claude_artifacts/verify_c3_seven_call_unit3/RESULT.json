@@ -1,0 +1,136 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0848 item 1 (0828 unit 3, narrowed): Codex2's seven-call direct Jacobian batch admission under guard014/launcher015/binder011, with plan/admission templates (FROM_CODEX2/0575)",
+ "reviewer_lane": "Claude3 (helper cross-family lens 14:47-15:12Z; lead spot-checked the key claims from bytes)",
+ "utc": "2026-10-21T15:12:45Z",
+ "object": {
+  "folder": "jacobian_seven_call_admission_cx2/",
+  "readme": "d8138c56",
+  "plan_template": "f7e9d389",
+  "admission_template": "450861b8",
+  "root_bind_inputs": "8abb9a42",
+  "source_proof": "6acd4ac5",
+  "start_equals_end": "19/19 (helper)"
+ },
+ "verdict": "PASS",
+ "blocking": 0,
+ "successor_needed": "none now (conditional: N1)",
+ "checked": [
+  {
+   "claim": "No successor is needed after H11 has fully ended with no campaign live. All seven calls are tail-on R5. guard014 binds route_a_admission.max_active only to cfg, int 1..6 (L373-374; lead re-read); it never reads the DBP, and neither does the binder.",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper probes on the real guard014 validate) + FORMAL (lead)"
+  },
+  {
+   "claim": "max_active 6 counts route A only; the 7th call starts after one call leaves route A and its predecessor completes a first iteration; at most one start per poll",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "The machine flock is exclusive and non-blocking, kept through draining and inherited by the monitors; H11 used the same lock path, so H11 must have fully ended",
+   "result": "CONFIRMED (caveat N5)",
+   "label": "TESTED (real flock on a scratch file)"
+  },
+  {
+   "claim": "Caps 3443340 / 137438953472 / 85899345920 (DBP C and D HEADLINE identical); disk batch 580 GiB and per-start 100 GiB",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "No tail-ON case-name whitelist and no total call ceiling in guard014; the inactive core-priority dict is mandatory; the templates fail closed as published",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Codex2's 97/97 static tests and 48/48 template checks reproduce; the helper's own probes 43/43 plus 5/5 fence probes",
+   "result": "CONFIRMED (coverage gaps in N2)",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Native preflight (adoption tuple, adapter, certificate and sensitivity gates), real disk, mount and flock state, monitor behaviour, actual H11 status",
+   "result": "NOT_CHECKED (PENDING_ROOT_INPUT)",
+   "label": "FORMAL"
+  }
+ ],
+ "findings": [
+  {
+   "id": "N1",
+   "cls": "NOTE (conditional successor trigger)",
+   "label": "TESTED + FORMAL (lead re-read guard014 L27-29, L150; c2v004 L602-603)",
+   "title": "If the non-genesis direct_context or cfg.context_module loads the c2v004 ledger wrapper (7c9b4248) inside native_preflight's fence, guard014 refuses with PREFLIGHT_COMPILE_HASH_MISMATCH",
+   "evidence": "c2v004 compiles _resolve_source under its own __file__ (L602-603). Its buffer sha 79e8936d is allowed only for owner 7a6af535 (GENERATED_COMPILE_CONTRACT L27-29). Smallest successor if needed: guard015 = guard014 plus {7c9b4248: {79e8936d}}, which forces launcher016 and binder012 (guard-pin change only). Unit 2's adapter should avoid loading c2v004 in preflight."
+  },
+  {
+   "id": "N2",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "Codex2's tests mocked safe_path, lexists, disk_output_volume and flock and used /INERT_ONLY paths; the helper's real-path, real-disk-code and real-flock probes close the gap",
+   "evidence": "the eight-call test expected ROOT_ORDER_BINDING and never showed that no count ceiling exists"
+  },
+  {
+   "id": "N3",
+   "cls": "NOTE",
+   "label": "TESTED + FORMAL",
+   "title": "guard014 does not require D to exist, but launcher015 opens D/monitor.log with 'xb' (L127)",
+   "evidence": "with no D, the first start fails and the batch drains; root must create each D exclusively first"
+  },
+  {
+   "id": "N4",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "A held lock is invisible to the parent",
+   "evidence": "main() returns 0 after spawning (L150-159); the worker's ANOTHER_STEP4_BATCH_ACTIVE appears only in the launcher log; a retry needs a new log name and a new plan; root confirms the lock is free first and reads the log after"
+  },
+  {
+   "id": "N5",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The flock is inherited by caffeinate and the monitor, not necessarily by the driver",
+   "evidence": "'H11 ended' must mean no H11 monitor and no H11 driver process alive"
+  },
+  {
+   "id": "N6",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "A 4+3 split would serialize the minus calls behind the first batch's full end",
+   "evidence": "the single batch needs unit 2 ready when H11 ends"
+  },
+  {
+   "id": "N7",
+   "cls": "NOTE",
+   "label": "TESTED + FORMAL",
+   "title": "The 100 GiB per-start check runs at every poll and drains on failure; 580 - 6x80 = 100 leaves no slack for logs and receipts",
+   "evidence": "root keeps a margin above 580 GiB free on External1 after H11's outputs"
+  },
+  {
+   "id": "N8",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The core_priority attestation covers T0 only, but R302 may start days later; any drain clears all unstarted calls",
+   "evidence": "the A283 register and importer must treat a D with no outputs as never started"
+  },
+  {
+   "id": "N9",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "No memory check in the guard or launcher (A172); six DDO154 tail-ON route-A runs may be concurrent",
+   "evidence": "a -9 or 137 exit drains the batch; RAM fit is root's judgement"
+  },
+  {
+   "id": "N10",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "Fill-checklist gaps",
+   "evidence": "the guard admits a plan still carrying template_status DO_NOT_EXECUTE and template_metadata.pending (drop them); case names are baked into the prelaunch docs (renaming gives PRELAUNCH_REPLAY_MISMATCH); the R300-302 keys come from the synthetic draft POINTS_LIST and the guard binds neither the point key nor the D name (cross-check against CP-1 certified rows 300-302); the suggested binder output folder does not exist and binder011 does not create parents; 'launcher log outside every D' is template-enforced only; the batch value is a label (DIII also admits)"
+  },
+  {
+   "id": "N11",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The adapter receives the whole admission and could add its own case-name rules",
+   "evidence": "PENDING the unit 2 adapter"
+  }
+ ],
+ "disposition": "review PASS, ready for root adoption (0851 item 5), subject to N1 at unit 2's integration",
+ "reads_not_done": "Nothing under /Volumes touched; no run tree, NGC or V007 file; c2v004 compiled, never executed; worker() and main() not executed."
+}

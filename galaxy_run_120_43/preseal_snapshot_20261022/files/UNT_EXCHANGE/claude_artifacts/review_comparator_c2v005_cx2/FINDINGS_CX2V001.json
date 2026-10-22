@@ -1,0 +1,56 @@
+{
+  "date_u": "Sun Oct 18 15:22:36 UTC 2026",
+  "findings": [
+    {
+      "detail": "Side.norm collapses distinct raw keys that map to the same normalized key. A new-only tampered value disappears and the full actual B0P/r5 gate returns PASS. Reject collisions recursively before comparison; covers full result and any normalized dict/pin dict.",
+      "id": "CX2-V5-B1",
+      "severity": "BLOCKING",
+      "status": "TESTED",
+      "title": "Normalized dictionary-key collisions erase changed result fields"
+    },
+    {
+      "detail": "dtype.str collapses structured field descriptors. Renamed fields with unchanged bytes and shape pass NPY and NPZ whole-gate controls. Use full descriptors or reject unsupported structured arrays. Production occurrence UNTESTED.",
+      "id": "CX2-V5-S1",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED",
+      "title": "Structured array field identity lost"
+    },
+    {
+      "detail": "A result containing valid:false then valid:true passes. Reject duplicate members consistently in JSON and JSONL readers.",
+      "id": "CX2-V5-S2",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED",
+      "title": "Duplicate JSON members use last-wins parsing"
+    },
+    {
+      "detail": "A NEW NPZ with an earlier tampered state.npy and a later unchanged state.npy passes every check. Reject duplicate ZIP member names and duplicate logical array keys before loading.",
+      "id": "CX2-V5-S3",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED",
+      "title": "Duplicate NPZ archive members disappear"
+    },
+    {
+      "detail": "load_cm verifies the path then importlib reads it again. Execute the verified byte snapshot. No race exploit was executed.",
+      "id": "CX2-V5-S4",
+      "severity": "SHOULD_FIX",
+      "status": "SOURCE_CONFIRMED_RACE_UNTESTED",
+      "title": "Checkpoint module loader reopens after hashing"
+    },
+    {
+      "detail": "NPZ C/F order is ignored while NPY order is compared. Logical values are unchanged. Clarify the contract or make handling consistent.",
+      "id": "CX2-V5-N1",
+      "severity": "NOTE",
+      "status": "TESTED",
+      "title": "Array storage-order equivalence differs between NPZ and NPY"
+    }
+  ],
+  "schema": "CX2_COMPARATOR_V005_FINAL_FINDINGS_V001",
+  "scientific_launches": 0,
+  "scientific_pairs": "UNTESTED_BLOCKED_BY_PRINCIPAL_UVT_READ_RESTRICTION",
+  "source": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v005/run_identity_compare_c2v005.py",
+    "sha256": "6f656c68e51f457704dafd19c1a9e6b632e237f4959017ee376c18ad173b076b"
+  },
+  "status": "TESTED_CODE_AND_SYNTHETIC_CANARIES",
+  "verdict": "FAIL"
+}

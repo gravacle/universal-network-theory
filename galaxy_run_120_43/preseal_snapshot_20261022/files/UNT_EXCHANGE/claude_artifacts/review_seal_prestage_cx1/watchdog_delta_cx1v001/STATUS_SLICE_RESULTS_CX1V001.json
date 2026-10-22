@@ -1,0 +1,38 @@
+{
+  "date_u": "Sun Oct 18 23:01:19 UTC 2026",
+  "scope": "Exact notification-function/test-notify branch and author status-tail slices only; osascript is an owned shell-function double. No real notification, watcher, df or poll loop.",
+  "checks": [
+    {
+      "name": "test-notify exact branch with owned osascript function double rc 0",
+      "expected": "exit zero",
+      "actual_exit": 0,
+      "passed": true,
+      "log": "SYNTHETIC NOTIFIED rc=0 message='Test notification from step2_disk_watch.sh (no disk alarm)'\nSYNTHETIC END test-notify\n",
+      "real_notification_used": false
+    },
+    {
+      "name": "test-notify exact branch with owned osascript function double rc 7",
+      "expected": "nonzero exit",
+      "actual_exit": 0,
+      "passed": false,
+      "log": "SYNTHETIC NOTIFIED rc=0 message='Test notification from step2_disk_watch.sh (no disk alarm)'\nSYNTHETIC END test-notify\n",
+      "real_notification_used": false
+    },
+    {
+      "name": "author test status tail ok_all=1",
+      "expected": "exit zero",
+      "actual_exit": 0,
+      "passed": true,
+      "stdout": "ALL PASS\nOWNED_INERT_PATH\n"
+    },
+    {
+      "name": "author test status tail ok_all=0",
+      "expected": "nonzero exit",
+      "actual_exit": 0,
+      "passed": false,
+      "stdout": "SOME FAIL\nOWNED_INERT_PATH\n"
+    }
+  ],
+  "checks_passed": 2,
+  "checks_total": 4
+}

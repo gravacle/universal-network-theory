@@ -1,0 +1,515 @@
+{
+ "schema": "CLAUDE2_0349_PINNED_SEMANTIC_SCHEMA_V001",
+ "task": "0349 (CLAUDE2 helper 0349-audit, read-only)",
+ "source": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt",
+  "sha256": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243",
+  "bytes": 28259,
+  "distributor_copy_identical": "joint_parent_continuation/sparc_official_sample_2026-10-06_v001.mrt (same sha256; sidecar url https://astroweb.case.edu/SPARC/SPARC_Lelli2016c.mrt, per 0345-B)"
+ },
+ "cds_readme": {
+  "path": ".../external_ddo154_v001/SPARC_ReadMe.html",
+  "sha256": "457f61cd8e63dd7b8f8ce0052a458294fa1a5acc2b5b23bb951a2c40d69f9666",
+  "line_numbering": "tag-stripped, html-unescaped text lines"
+ },
+ "scope": "fields 1-7 of the two target rows (NGC3198 line 152, DDO154 line 104) in bytes 1-41; field 8 only as the right boundary",
+ "ordered_fields": [
+  {
+   "pos": 1,
+   "field": "Galaxy",
+   "header": {
+    "line": 10,
+    "bytes": "1-11",
+    "format": "A11",
+    "label": "Galaxy"
+   },
+   "cds": {
+    "line": 148,
+    "bytes": "1-11",
+    "format": "A11",
+    "label": "Name"
+   },
+   "token_rule": "equals the target name exactly (NGC3198 / DDO154); no blank; lies in bytes 1-11; only token in bytes 1-11; byte 12 blank",
+   "census_175_rows": {
+    "tokens_in_bytes_1_11": {
+     "1": 175
+    },
+    "token_end_byte": {
+     "11": 175
+    },
+    "justification": {
+     "right": 171,
+     "full_11": 4
+    },
+    "byte12_blank": 175,
+    "names_with_internal_blank": 0,
+    "non_alphanumeric_chars": {
+     "-": 24
+    }
+   }
+  },
+  {
+   "pos": 2,
+   "field": "T",
+   "emitted": false,
+   "header": {
+    "line": 11,
+    "bytes": "12-13",
+    "format": "I2",
+    "label": "T",
+    "note": "Note (1) lines 30-32: codes 0..11"
+   },
+   "cds": {
+    "line": 149,
+    "bytes": "13-14",
+    "format": "I2",
+    "label": "Type",
+    "range": "[0/11]",
+    "note": "Note (1) lines 177-191: codes 0..11"
+   },
+   "token_regex": "^(?:[0-9]|1[01])$",
+   "census_175_rows": {
+    "present_as_token": 175,
+    "width": {
+     "1": 131,
+     "2": 44
+    },
+    "start_byte": {
+     "13": 44,
+     "14": 131
+    },
+    "end_byte": {
+     "14": 175
+    },
+    "domain_0_11_no_leading_zero": 175,
+    "blank_type_rows": 0
+   }
+  },
+  {
+   "pos": 3,
+   "field": "D",
+   "emitted": true,
+   "header": {
+    "line": 12,
+    "bytes": "14-19",
+    "format": "F6.2",
+    "units": "Mpc",
+    "label": "D"
+   },
+   "cds": {
+    "line": 150,
+    "bytes": "16-21",
+    "format": "F6.2",
+    "label": "Dist",
+    "range": "[0.98/127.8]"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]{0,2})\\.[0-9]{2}$",
+   "domain": "D > 0",
+   "guard": "[0.98,127.8] (CDS; reject-only)",
+   "census_175_rows": {
+    "shapes": {
+     "9.99": 65,
+     "99.99": 107,
+     "999.99": 3
+    },
+    "end_byte": {
+     "21": 175
+    },
+    "exact_2_decimals": 175,
+    "leading_zero": 0
+   }
+  },
+  {
+   "pos": 4,
+   "field": "e_D",
+   "emitted": true,
+   "header": {
+    "line": 13,
+    "bytes": "20-24",
+    "format": "F5.2",
+    "units": "Mpc",
+    "label": "e_D"
+   },
+   "cds": {
+    "line": 151,
+    "bytes": "23-27",
+    "format": "F5.2",
+    "label": "e_Dist",
+    "range": "[0.05/12.8]"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]?)\\.[0-9]{2}$",
+   "guard": "[0.05,12.8] (CDS; reject-only)",
+   "census_175_rows": {
+    "shapes": {
+     "9.99": 156,
+     "99.99": 19
+    },
+    "end_byte": {
+     "27": 175
+    },
+    "exact_2_decimals": 175,
+    "leading_zero": 0
+   }
+  },
+  {
+   "pos": 5,
+   "field": "f_D",
+   "emitted": true,
+   "header": {
+    "line": 14,
+    "bytes": "25-26",
+    "format": "I2",
+    "label": "f_D",
+    "note": "Note (2) lines 33-38: codes 1..5"
+   },
+   "cds": {
+    "line": 152,
+    "bytes": "29",
+    "format": "I1",
+    "label": "f_Dist",
+    "range": "[1/5]",
+    "note": "Note (2) lines 192-199: codes 1..5"
+   },
+   "token_regex": "^[1-5]$",
+   "width_conflict": "header I2 vs CDS I1; the token rule (exactly one digit 1-5) satisfies both",
+   "census_175_rows": {
+    "width": {
+     "1": 175
+    },
+    "start_byte": {
+     "30": 175
+    },
+    "end_byte": {
+     "30": 175
+    },
+    "single_digit_1_5": 175
+   }
+  },
+  {
+   "pos": 6,
+   "field": "Inc",
+   "emitted": true,
+   "header": {
+    "line": 15,
+    "bytes": "27-30",
+    "format": "F4.1",
+    "units": "deg",
+    "label": "Inc"
+   },
+   "cds": {
+    "line": 153,
+    "bytes": "31-34",
+    "format": "F4.1",
+    "label": "i",
+    "range": "[15/90]",
+    "note": "Note (3): mean i of the outer HI disk"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]?)\\.[0-9]$",
+   "domain": "0 <= Inc <= 90",
+   "guard": "[15,90] (CDS; reject-only)",
+   "census_175_rows": {
+    "shapes": {
+     "99.9": 175
+    },
+    "end_byte": {
+     "35": 175
+    },
+    "exact_1_decimal": 175,
+    "leading_zero": 0
+   }
+  },
+  {
+   "pos": 7,
+   "field": "e_Inc",
+   "emitted": true,
+   "header": {
+    "line": 16,
+    "bytes": "31-34",
+    "format": "F4.1",
+    "units": "deg",
+    "label": "e_Inc"
+   },
+   "cds": {
+    "line": 154,
+    "bytes": "36-39",
+    "format": "F4.1",
+    "label": "e_i",
+    "range": "[1/10]"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]?)\\.[0-9]$",
+   "guard": "[1,10] (CDS; reject-only)",
+   "census_175_rows": {
+    "shapes": {
+     "9.9": 139,
+     "99.9": 36
+    },
+    "end_byte": {
+     "40": 175
+    },
+    "exact_1_decimal": 175,
+    "leading_zero": 0,
+    "ends_at_or_before_40": 175
+   }
+  },
+  {
+   "pos": 8,
+   "field": "L[3.6] (boundary only)",
+   "header": {
+    "line": 17,
+    "bytes": "35-41",
+    "format": "F7.3"
+   },
+   "cds": {
+    "line": 155,
+    "bytes": "41-47",
+    "format": "F7.3",
+    "range": "[0/490]"
+   },
+   "rule": "must have no non-blank byte in 1-41 (byte 41 blank and exactly 7 tokens in 1-41); its F.3 shape could never satisfy the F.1 rule at position 7",
+   "census_175_rows": {
+    "byte41_blank": 175,
+    "exactly_7_tokens_in_1_41": 175
+   }
+  }
+ ],
+ "shape_sequence": "A | I | F.2 | F.2 | I | F.1 | F.1 || F.3 (field 8)",
+ "why_order_plus_shapes_fix_the_mapping": [
+  "Order: both documents list the same 19 fields in the same order with corresponding labels (DOC_LAYOUT_RECONCILIATION all_19_in_same_order_with_corresponding_labels = True).",
+  "Any one-position shift (a missing, merged or split field, or field 8 entering) changes the shape seen at some position: I vs F.2 at 2/3, F.2 vs I at 4/5, I vs F.1 at 5/6, F.1 vs F.3 at 7. Only adjacent same-shape pairs (D,e_D) and (Inc,e_Inc) can trade places without a shape change.",
+  "Inc/e_Inc: their documented CDS ranges [15/90] and [1/10] are disjoint, so a transposition fails the reject-only guards (fixture F38; 108/108 swap cases caught).",
+  "D/e_D: ranges overlap on [0.98,12.8]; a transposition there is invisible to every prefix check (fixture F35; 36/108 swap cases pass). Excluded by the two-document order, the NGC3198 anchor on the same column, and row invariance of the column (census).",
+  "Name: a blank inside a name plus a blank Type can yield 7 conforming tokens (fixture F28); this is caught only by confining token 1 to bytes 1-11 (C5) and refusing blank names (C1)."
+ ],
+ "documented_layout_relation": {
+  "cds_equals_header_plus_one_leading_blank_per_field_with_fD_narrowed_to_I1": true,
+  "cds_lrecl": [
+   "table1.dat     130        175   *Galaxy sample"
+  ],
+  "predicted_lrecl_113_plus_18_minus_1": 130,
+  "derived_H_plus_1": {
+   "Galaxy": [
+    1,
+    11,
+    "A11"
+   ],
+   "T": [
+    13,
+    14,
+    "I2"
+   ],
+   "D": [
+    16,
+    21,
+    "F6.2"
+   ],
+   "e_D": [
+    23,
+    27,
+    "F5.2"
+   ],
+   "f_D": [
+    29,
+    30,
+    "I2"
+   ],
+   "Inc": [
+    32,
+    35,
+    "F4.1"
+   ],
+   "e_Inc": [
+    37,
+    40,
+    "F4.1"
+   ],
+   "L[3.6]": [
+    42,
+    48,
+    "F7.3"
+   ],
+   "e_L[3.6]": [
+    50,
+    56,
+    "F7.3"
+   ],
+   "Reff": [
+    58,
+    62,
+    "F5.2"
+   ],
+   "SBeff": [
+    64,
+    71,
+    "F8.2"
+   ],
+   "Rdisk": [
+    73,
+    77,
+    "F5.2"
+   ],
+   "SBdisk": [
+    79,
+    86,
+    "F8.2"
+   ],
+   "MHI": [
+    88,
+    94,
+    "F7.3"
+   ],
+   "RHI": [
+    96,
+    100,
+    "F5.2"
+   ],
+   "Vflat": [
+    102,
+    106,
+    "F5.1"
+   ],
+   "e_Vflat": [
+    108,
+    112,
+    "F5.1"
+   ],
+   "Q": [
+    114,
+    116,
+    "I3"
+   ],
+   "Ref.": [
+    118,
+    131,
+    "A14"
+   ]
+  },
+  "derived_H_plus_1_record_length": 131,
+  "meaning": "H+1 is the CDS blank-separator convention applied to the in-file header widths with f_D kept I2. It is computed from the two documents only; neither document states it for this file.",
+  "census_fixed_offset_validity_rows": {
+   "MRT_HEADER_AS_WRITTEN": {
+    "T": 44,
+    "D": 0,
+    "e_D": 0,
+    "f_D": 0,
+    "Inc": 0,
+    "e_Inc": 0,
+    "ALL_SIX": 0
+   },
+   "CDS_TABLE1_README": {
+    "T": 175,
+    "D": 175,
+    "e_D": 175,
+    "f_D": 0,
+    "Inc": 0,
+    "e_Inc": 0,
+    "ALL_SIX": 0
+   },
+   "DERIVED_H_PLUS_1": {
+    "T": 175,
+    "D": 175,
+    "e_D": 175,
+    "f_D": 175,
+    "Inc": 175,
+    "e_Inc": 175,
+    "ALL_SIX": 175
+   }
+  },
+  "note_header_T_slice": "the header-as-written T slice (12-13) is a format-valid I2 in 44 rows, all of them two-digit Types cut to their first digit: a valid-looking slice that is the wrong value. The blank-bounded token rule cannot truncate this way."
+ },
+ "target_rows": {
+  "NGC3198": {
+   "line": 152,
+   "class_mask_1_41": "____AAA9999__9__99.99__9.99__9_99.9__9.9_",
+   "token_spans": [
+    [
+     5,
+     11
+    ],
+    [
+     14,
+     14
+    ],
+    [
+     17,
+     21
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     30,
+     30
+    ],
+    [
+     32,
+     35
+    ],
+    [
+     38,
+     40
+    ]
+   ]
+  },
+  "DDO154": {
+   "line": 104,
+   "class_mask_1_41": "_____AAA999_99___9.99__9.99__9_99.9__9.9_",
+   "token_spans": [
+    [
+     6,
+     11
+    ],
+    [
+     13,
+     14
+    ],
+    [
+     18,
+     21
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     30,
+     30
+    ],
+    [
+     32,
+     35
+    ],
+    [
+     38,
+     40
+    ]
+   ]
+  }
+ },
+ "evidence_files": {
+  "PREFIX_CENSUS_0349_V001.json": {
+   "file": "PREFIX_CENSUS_0349_V001.json",
+   "sha256": "3d6b1f556d9823f6fd3acc479aa6a8f8c7e82dd690d25063f4f516b0a4595b67"
+  },
+  "DOC_LAYOUT_RECONCILIATION_0349_V001.json": {
+   "file": "DOC_LAYOUT_RECONCILIATION_0349_V001.json",
+   "sha256": "4237979246cd4c88e79c3c86db70e48320f613f0ec00cab6e15733241317a262"
+  },
+  "TEST_RESULTS_0349_V001.json": {
+   "file": "TEST_RESULTS_0349_V001.json",
+   "sha256": "f0dd0be8ceb44eb890e2e7fa1ed07b4277e0e4763784e48726aa4b8832f81188"
+  },
+  "REAL_TARGET_BOOLEANS_0349_V001.json": {
+   "file": "REAL_TARGET_BOOLEANS_0349_V001.json",
+   "sha256": "37e67407cd91de42d514be364dda6f54a12475f6626204ae8b9b2e2bc1a37d72"
+  },
+  "ADVERSARIAL_FIXTURES_0349_V001.json": {
+   "file": "ADVERSARIAL_FIXTURES_0349_V001.json",
+   "sha256": "1c4f22f39f4af966ad14130e14fc3503654d0ed16e854e050f79234c44d4b53e"
+  },
+  "prefix_contract_checker_0349.py": {
+   "file": "prefix_contract_checker_0349.py",
+   "sha256": "46799b8ffbcf19eccf29ece7b1a6527fda7966e8c86c15b76d660d92ed3f5400"
+  }
+ }
+}

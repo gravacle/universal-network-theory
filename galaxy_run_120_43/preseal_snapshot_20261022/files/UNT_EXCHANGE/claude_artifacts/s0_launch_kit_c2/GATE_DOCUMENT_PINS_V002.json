@@ -1,0 +1,248 @@
+{
+ "schema": "UNT_S0_GATE_DOCUMENT_PINS_C2V002",
+ "status": "BUILT_FOR_ROOT: the gate-document list for root's pre-launch V006 pin entry (M-15 (a)+(1); A142 item 6). It becomes a pin only when root writes the GATE_PIN lines into V006.",
+ "date_u": "Mon Oct 19 17:18:15 UTC 2026",
+ "supersedes": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/GATE_DOCUMENT_PINS_V001.json",
+  "sha256": "afa1df05bf6329997adccf160dc6fd56534c59b914332c264c79512df1e7ce36",
+  "same_gate_rows_and_row_gate_list": true,
+  "what_changed": "related_root_records (was pending_gate_documents): the TSR flag record from bytes; v006_status_at_build re-read against the V006 at this build"
+ },
+ "erratum_v001": {
+  "item": "GATE_DOCUMENT_PINS_V001.json pending_gate_documents[0] (and the same sentence in FREEZE_EXPECTED_INPUTS_C2V001.json input_files, README_S0_LAUNCH_KIT_C2V001.md section 5 and the C2V001 report) states the TSR flag record is absent \"(TESTED: directory runbook_v002_c2 does not exist)\".",
+  "correction": "FALSE. The builder wrote that sentence as a constant (build_s0_launch_kit_c2v001.py L176-177, L313) and ran no existence check. TESTED now: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/ROOT_TSR_FLAG_RECORD_V001.json exists (stat birth 2026-10-19T16:16:03Z), sha256 61bd8a83492e96ffb22d576a93b65d14c047f92e3be4bbfc2c0120f439cf7edc from bytes; the C2V001 data files were written at 2026-10-19T16:25:33Z (stat birth of GATE_DOCUMENT_PINS_V001.json).",
+  "unaffected": "the 15 gate_documents rows, root_listed_row_gates and the V006 line syntax (byte-equal content); the C2V001 launch scripts read only gate_documents and root_listed_row_gates",
+  "v001_bytes_unchanged": "V001 files are never edited; this V002 file supersedes V001 for root's pin entry"
+ },
+ "labels": {
+  "TESTED": "run here from bytes",
+  "FORMAL": "read from cited bytes",
+  "UNTESTED": "not run; deciding test named"
+ },
+ "v006_at_build": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md",
+  "sha256": "9bcb3150a31d4c8e01ae9aa69e220fcbcfedfbfeb1745f524adea50de439a432",
+  "bytes": 92385,
+  "note": "TESTED per row (v006_status_at_build): PINNED_FULL, PREFIX_ONLY_<8hex> or ABSENT in the V006 bytes at build time. M-15 (a) needs the full sha256 pinned."
+ },
+ "gate_documents": [
+  {
+   "name": "NTEST_K32_COMPARE_COMPLETE",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_COMPARE_COMPLETE_V001.json",
+   "sha256": "6f095f64a1f1acc2ad2910af12f645e18acdf16fb62bfd936386a61c47ef30e9",
+   "bytes": 3907,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "N_GATE_AND_M7_TSR_PIN",
+   "role": "N-test record of record (schema NGC_NTEST_COMPARE_C2V002, n_route_ab_gate OPEN, outcome N_FAIL_N1). r3a I-6 L111-116: a route-A/B run launched while this gate is not OPEN carries PROVISIONAL (N_GATE_NOT_OPEN); the state is judged at the launch moment. M-7 TSR pin.",
+   "v006_status_at_build": "ABSENT"
+  },
+  {
+   "name": "NTEST_N1_RING_RADII",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_RECORDS_COMPLETE_V001_N1.json",
+   "sha256": "8867c3766cc08585286ca969d4aa3fdec47fd9b15a8fe815d466346119c95c70",
+   "bytes": 13778,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "N_GATE_INPUT_AND_M7_TSR_PIN",
+   "role": "N1 record (ring radii; schema NGC_NTEST_RECORD_C2V001): input to the N-gate; M-7 TSR flag pin (ring 15 -> Q25).",
+   "v006_status_at_build": "ABSENT"
+  },
+  {
+   "name": "ROUTE_B_GL4_NODES",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/REGISTERED_ROUTE_B_GL_NODES_CX3V001.json",
+   "sha256": "ec1dcca572f295dab24e343650a519b6c96e3557e6ccc603f453dea490cb717d",
+   "bytes": 22526,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "ROW_RULE_INPUT_AND_M7_TSR_PIN",
+   "role": "Registered route-B GL4 node record: feeds the QUERY_OUTSIDE_RETAINED_SUPPORT row rule (A60 gap rows); M-7 TSR pin. A rule input, not a root-listed row gate.",
+   "v006_status_at_build": "ABSENT"
+  },
+  {
+   "name": "GQ_NGC_91_MS96",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/GQ_NGC_91_MS96_V001.json",
+   "sha256": "be148bab4d80ef412d55d2011cac2e3a1d44725a0ba21a4d2bf43c7ffbdc1a76",
+   "bytes": 2762,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "NUMERICS_CONDITION_I6",
+   "role": "GQ_NGC gate record (M_s 96, coverage to 91; verdict PASS): fixes M_s 96 in the spec (I-6); bound by all four S0 GQ bindings (A132 D2(a)).",
+   "v006_status_at_build": "PREFIX_ONLY_be148bab"
+  },
+  {
+   "name": "LO_NGC_K32",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_ngc_k32/gates/LO_NGC_K32_CERT_V001.json",
+   "sha256": "07745bbf6d5c35d5a8568de7fc9e78b8c3bd8c3e371680dc8869c42a893c0382",
+   "bytes": 16916,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "LAUNCH_CUSTODY_PIN",
+   "role": "LO_NGC_K32 gate record (verdict PASS): uv_tail.lo_certificate of all four S0 calls (A136); custody pin only.",
+   "v006_status_at_build": "PREFIX_ONLY_07745bbf"
+  },
+  {
+   "name": "EPS_NGC91_ANCHOR",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_ngc_k32/gates/EPS_CERT_NGC91_V001.json",
+   "sha256": "1d5eef1b602d2489ba8c0e652156555bbd2bfddf083931c7c4c82fa0a1e0c13d",
+   "bytes": 253224,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "ENVELOPE_SOURCE",
+   "role": "EPS_NGC anchor gate record (to 91; CERTIFIED): the rule-(b) envelope source of the per-point records and the NGC certificate slot (A107/A111).",
+   "v006_status_at_build": "PREFIX_ONLY_1d5eef1b"
+  },
+  {
+   "name": "I1T_NGC_T120L",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_v002/gates/I1T_NGC_T120L_V001.json",
+   "sha256": "3ae7981a0c022d50a153a0857b10660661fedfd5adedcba3b805802b4a1809b6",
+   "bytes": 9080,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "NUMERICS_CONDITION_I6_D4",
+   "role": "I1T_NGC gate record (T120L; PASS): the tail library refuses UV_TAIL_I1T_MISSING without it.",
+   "v006_status_at_build": "PREFIX_ONLY_3ae7981a"
+  },
+  {
+   "name": "S0_POINT_EPS_SEED",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_968c915bece706ea_C4V002_s0seed.json",
+   "sha256": "efdc430a561ae936d860f85ec050f22a10f17c03aad7ad17fc2150744dcde563",
+   "bytes": 371372,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_NUMERICS_I6_D4",
+   "role": "S0 per-point EPS record (seed, theta key 968c915bece706ea): uv_tail.eps_certificate of this S0 call (A135 item 2, rule (b)); used numerically.",
+   "v006_status_at_build": "PREFIX_ONLY_efdc430a"
+  },
+  {
+   "name": "S0_POINT_EPS_J0",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_3d7785669b549d6f_C4V002_s0j0.json",
+   "sha256": "8270b6b3eb9daddd01e32f7c6cc0fd143afd6b751ff9ced310ac92ca365586da",
+   "bytes": 371483,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_NUMERICS_I6_D4",
+   "role": "S0 per-point EPS record (j0, theta key 3d7785669b549d6f): uv_tail.eps_certificate of this S0 call (A135 item 2, rule (b)); used numerically.",
+   "v006_status_at_build": "PREFIX_ONLY_8270b6b3"
+  },
+  {
+   "name": "S0_POINT_EPS_J1",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_ab7bf95317b37652_C4V002_s0j1.json",
+   "sha256": "bfac8f57233e904aed30f68594645b5b9c97697e47ce088e9d18e7a8fe4aff1e",
+   "bytes": 371760,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_NUMERICS_I6_D4",
+   "role": "S0 per-point EPS record (j1, theta key ab7bf95317b37652): uv_tail.eps_certificate of this S0 call (A135 item 2, rule (b)); used numerically.",
+   "v006_status_at_build": "PREFIX_ONLY_bfac8f57"
+  },
+  {
+   "name": "S0_POINT_EPS_J2",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_4b9b4ec88eb2d94c_C4V002_s0j2.json",
+   "sha256": "5dd9900a7db31003cb1b1054c156f6ac73b062375bae3a423990e782a2ccfdfc",
+   "bytes": 371841,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_NUMERICS_I6_D4",
+   "role": "S0 per-point EPS record (j2, theta key 4b9b4ec88eb2d94c): uv_tail.eps_certificate of this S0 call (A135 item 2, rule (b)); used numerically.",
+   "v006_status_at_build": "PREFIX_ONLY_5dd9900a"
+  },
+  {
+   "name": "S0_GQ_BINDING_SEED",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_968c915bece706ea_C4V002_gqseedA.json",
+   "sha256": "903a7d6c88804bb99175ec78927184f210fa1fb07c32c985c294ef0546d0b979",
+   "bytes": 13547,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_CUSTODY_D4",
+   "role": "S0 per-point GQ binding (seed): binds GQ_NGC_91_MS96 (be148bab) at this theta; a D-4 per-point record, not a spec field.",
+   "v006_status_at_build": "PREFIX_ONLY_903a7d6c"
+  },
+  {
+   "name": "S0_GQ_BINDING_J0",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_3d7785669b549d6f_C4V002_gqj0A.json",
+   "sha256": "cc6113ce39adaa3b24154848d099fec693aec15b91f09c3f9ca74299448d5f27",
+   "bytes": 13585,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_CUSTODY_D4",
+   "role": "S0 per-point GQ binding (j0): binds GQ_NGC_91_MS96 (be148bab) at this theta; a D-4 per-point record, not a spec field.",
+   "v006_status_at_build": "PREFIX_ONLY_cc6113ce"
+  },
+  {
+   "name": "S0_GQ_BINDING_J1",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_ab7bf95317b37652_C4V002_gqj1A.json",
+   "sha256": "4fc1d744f2d0cb38a08d086aa8c20603bbd3b43c7c27a9a0d0d83665091402ca",
+   "bytes": 13585,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_CUSTODY_D4",
+   "role": "S0 per-point GQ binding (j1): binds GQ_NGC_91_MS96 (be148bab) at this theta; a D-4 per-point record, not a spec field.",
+   "v006_status_at_build": "PREFIX_ONLY_4fc1d744"
+  },
+  {
+   "name": "S0_GQ_BINDING_J2",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_4b9b4ec88eb2d94c_C4V002_gqj2A.json",
+   "sha256": "934c0a4774b9153e7fbe25d72c743eff529079644f3fdc03ab060dc25833f3e0",
+   "bytes": 13585,
+   "sha_status": "TESTED_FROM_BYTES",
+   "class": "PER_POINT_CERTIFICATE_CUSTODY_D4",
+   "role": "S0 per-point GQ binding (j2): binds GQ_NGC_91_MS96 (be148bab) at this theta; a D-4 per-point record, not a spec field.",
+   "v006_status_at_build": "PREFIX_ONLY_934c0a47"
+  }
+ ],
+ "root_listed_row_gates": {
+  "list": [],
+  "status": "FORMAL: EMPTY SET. No source names a REGISTERED_INVALID_ROW_GATE_CX3V001 document; v003g L1574-1578: the three built-in reasons are not gates and any additional gate needs a separately pinned target-free declaration (PREREG_R3A L440, L453-456).",
+  "consequence": "The seal or score entry still carries a gate-status list (a missing list is GATE_STATUS_LIST_DEFECT). Any row gate first adopted later (RUNBOOK step 4) is LATE by rule (L455).",
+  "v006_line": "ROOT_LISTED_ROW_GATES NONE"
+ },
+ "related_root_records": [
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/ROOT_TSR_FLAG_RECORD_V001.json",
+   "sha256": "61bd8a83492e96ffb22d576a93b65d14c047f92e3be4bbfc2c0120f439cf7edc",
+   "bytes": 8828,
+   "sha_status": "EXISTS_NOT_ADOPTED",
+   "existence": {
+    "tested_utc": "2026-10-19T17:18:15Z",
+    "exists": true,
+    "birth_utc": "2026-10-19T16:16:03Z"
+   },
+   "adoption": "not adopted: its writer says it is adopted only when root pins its sha256 in the seal entry",
+   "read_from_bytes": {
+    "schema": "UNT_ROOT_TSR_FLAG_RECORD_C2V001",
+    "record_id": "ROOT_TSR_FLAG_RECORD_V001",
+    "date_u": "Mon Oct 19 16:16:03 UTC 2026",
+    "flagged_query_ids": [
+     "NGC3198-Q25"
+    ],
+    "m7_pins": {
+     "ntest_compare": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_COMPARE_COMPLETE_V001.json",
+      "sha256": "6f095f64a1f1acc2ad2910af12f645e18acdf16fb62bfd936386a61c47ef30e9",
+      "equals_gate_row": true,
+      "gate_row": "NTEST_K32_COMPARE_COMPLETE"
+     },
+     "n1_record": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_RECORDS_COMPLETE_V001_N1.json",
+      "sha256": "8867c3766cc08585286ca969d4aa3fdec47fd9b15a8fe815d466346119c95c70",
+      "equals_gate_row": true,
+      "gate_row": "NTEST_N1_RING_RADII"
+     },
+     "gl_node_record": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/REGISTERED_ROUTE_B_GL_NODES_CX3V001.json",
+      "sha256": "ec1dcca572f295dab24e343650a519b6c96e3557e6ccc603f453dea490cb717d",
+      "equals_gate_row": true,
+      "gate_row": "ROUTE_B_GL4_NODES"
+     }
+    },
+    "m7_pins_equal_gate_rows": true,
+    "support_record_status": "PENDING",
+    "support_record_schema": "UNT_ROOT_TSR_SUPPORT_CX3V001",
+    "content_statement": "TARGET-FREE. Model numerics records (N-test compare, N1 ring radii, registered GL4 nodes) and query ids only. No observed velocity, error or rotation-curve value was opened or is carried.",
+    "note": "TESTED from bytes; target-free by its own statement (query ids and model numerics records only)"
+   },
+   "name": "ROOT_TSR_FLAG_RECORD",
+   "role": "M-7 TSR flag record (A142 M-7 (i); root-written). Not a gate document of r3a section 4 and not a GATE_PIN line; listed for the RI45-14 (a) inputs. Its existence and sha256 are TESTED at this build."
+  }
+ ],
+ "v006_line_syntax": {
+  "rule": "One pin per line, starting at column 0 (a fenced code block is fine), fields separated by single spaces, the absolute path last (it may contain spaces). The pinning entry id is the nearest preceding line that starts with \"## A<digits>\". Any line that starts with a pin keyword and does not match the form refuses.",
+  "forms": [
+   "GATE_PIN <NAME> <sha256: 64 lowercase hex> <absolute path>",
+   "ROOT_LISTED_ROW_GATES NONE",
+   "ROOT_LISTED_ROW_GATE <NAME> <sha256> <absolute path>",
+   "HANDOFF_PIN S0_<SEED|J0|J1|J2> <sha256> <absolute path>    (RI45-09)",
+   "SPEC_PIN S0_<SEED|J0|J1|J2>_SERIAL <sha256> <absolute path>  (RI45-13; path = root's DRY fill)",
+   "SPEC_PIN S0_SEED_CW8_TWIN <sha256> <absolute path>",
+   "WATCH_PIN MEMORY_WATCH <sha256> <absolute path>            (A135.5: the NGC-extended GiB watch)"
+  ],
+  "NAME": "[A-Z0-9][A-Z0-9_]*; a name appears once per kind in all of V006 (a duplicate refuses)"
+ }
+}

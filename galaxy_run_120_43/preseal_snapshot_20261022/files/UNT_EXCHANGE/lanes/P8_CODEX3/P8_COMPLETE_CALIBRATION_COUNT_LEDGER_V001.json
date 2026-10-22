@@ -1,0 +1,1304 @@
+{
+  "schema": "P8_COMPLETE_CURRENT_CALIBRATION_COUNT_LEDGER_V001",
+  "author": "Codex3",
+  "created_utc": "2026-10-13T07:07:04.988787+00:00",
+  "status": "SOURCE_DOCUMENTARY_DRAFT_REQUIRES_DISTINCT_CODEX2_REVIEW",
+  "authority": "/Users/bgm/Research/UNT_EXCHANGE/TO_CODEX/0158_2026-10-13_P8-calibration-count-ledger-Codex3.md",
+  "physical_release": false,
+  "new_values_selected": false,
+  "new_numerical_or_fit_execution": false,
+  "counting": {
+    "target_fitted_magnitude_coordinates": 1,
+    "physical_calibrations_performed": 0,
+    "current_reviewed_empirical_calibration_rank": 0,
+    "required_future_fitted_coordinates": null,
+    "final_joint_empirical_identifying_rank": null,
+    "one_calibration_contract_satisfied": false,
+    "one_calibration_contract_refuted": false,
+    "verdict": "OPEN_NO_COMPLETE_NATIVE_FORWARD_MAP_OR_DEPENDENCE_RANK",
+    "inherited_source_scalar_assumptions": [
+      "O02",
+      "O04",
+      "O05",
+      "O06"
+    ],
+    "inherited_source_scalar_assumption_count": 4,
+    "source_categorical_declarations": [
+      "O16",
+      "O17"
+    ],
+    "source_categorical_declaration_count": 2,
+    "canonical_magnitude_category_count": 14,
+    "canonical_magnitude_categories_item": "M01",
+    "line_A_declared_mu_categories": 1,
+    "line_A_mu_item": "M12",
+    "do_not_sum_category_counts_into_identifying_rank": true,
+    "declared_choices_exceed_one": true,
+    "declared_choices_exceeding_one_is_not_proof_of_more_than_one_independent_fit": true
+  },
+  "normalization_groups": {
+    "ADDITION_REFERENCE": [
+      "M06",
+      "M07"
+    ],
+    "ENERGY_TIME_SCALE": [
+      "M08",
+      "M10"
+    ],
+    "OPERATIONAL_LENGTH": [
+      "M09"
+    ],
+    "WRITER_KERNEL": [
+      "M12",
+      "M13"
+    ],
+    "JOINT_IDENTIFIABILITY": [
+      "M15"
+    ]
+  },
+  "items": [
+    {
+      "id": "O01",
+      "item": "Full23-row HI/H2/combined stellar surface-density observations",
+      "classification": "MEASURED",
+      "status": "FROZEN_LITERAL_INCOMPLETE_PHYSICAL_SOURCE",
+      "existing_value_or_fact": "Published Msun/pc^2, all23 rows and original fields retained",
+      "new_value_selected": false,
+      "uncertainty": "Published fields retained; full covariance and some semantics missing",
+      "calibration_effect": "External empirical input, not zero information and not a new P8 law fit",
+      "what_removes_or_closes_the_freedom": "P53 complete original source/provenance/errors and native source correspondence",
+      "dependencies": [],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 7,
+          "line_end": 24
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 12255,
+          "line_end": 12259
+        }
+      ]
+    },
+    {
+      "id": "O02",
+      "item": "Published combined stellar mass-to-light ratio",
+      "classification": "DECLARED",
+      "status": "INHERITED_PUBLISHED_ASSUMPTION",
+      "existing_value_or_fact": "0.5; K-band through published3.6micron relation; already included",
+      "new_value_selected": false,
+      "uncertainty": "Not established in freeze",
+      "calibration_effect": "One inherited scalar conversion assumption; any later freely fitted M/L is an extra fitted coordinate unless native dependence is proved",
+      "what_removes_or_closes_the_freedom": "Independent population/composition measurement with errors, or native derivation of same observational conversion",
+      "dependencies": [
+        "O01"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 67,
+          "line_end": 74
+        }
+      ]
+    },
+    {
+      "id": "O03",
+      "item": "Separate disk and bulge M/L and decomposition",
+      "classification": "OPEN",
+      "status": "NO_SEPARATE_COMPONENTS_IN_FREEZE",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing component/band crosswalk",
+      "calibration_effect": "No disk/bulge scalar values have been selected; do not count two fitted M/L values merely because templates have those labels",
+      "what_removes_or_closes_the_freedom": "P53 independently accepted photometric component/band decomposition and P50 species map; any added independent M/L is counted",
+      "dependencies": [
+        "O02"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 67,
+          "line_end": 74
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 143,
+          "line_end": 146
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+          "line_start": 70,
+          "line_end": 74
+        }
+      ]
+    },
+    {
+      "id": "O04",
+      "item": "Helium correction",
+      "classification": "DECLARED",
+      "status": "INHERITED_ALREADY_INCLUDED",
+      "existing_value_or_fact": "1.36 in both HI and H2",
+      "new_value_selected": false,
+      "uncertainty": "Not supplied",
+      "calibration_effect": "One inherited scalar conversion assumption; multiplying again is an error, not calibration",
+      "what_removes_or_closes_the_freedom": "P53 primary provenance/composition error qualification; a changed factor must be declared and any fit counted",
+      "dependencies": [
+        "O01"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 75,
+          "line_end": 80
+        }
+      ]
+    },
+    {
+      "id": "O05",
+      "item": "CO-to-H2 conversion X_CO",
+      "classification": "DECLARED",
+      "status": "INHERITED_REPORTED_ASSUMPTION",
+      "existing_value_or_fact": "2e20 cm^-2/(K km/s)",
+      "new_value_selected": false,
+      "uncertainty": "Missing",
+      "calibration_effect": "One inherited scalar conversion assumption; not independently measured by UNT",
+      "what_removes_or_closes_the_freedom": "Independent conversion/composition constraints and errors, or native observational derivation",
+      "dependencies": [
+        "O01"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 81,
+          "line_end": 86
+        }
+      ]
+    },
+    {
+      "id": "O06",
+      "item": "CO(2-1)-to-CO(1-0) line ratio",
+      "classification": "DECLARED",
+      "status": "INHERITED_REPORTED_ASSUMPTION",
+      "existing_value_or_fact": "0.8",
+      "new_value_selected": false,
+      "uncertainty": "Missing",
+      "calibration_effect": "Separate scalar from X_CO; common provenance/correlation must be retained",
+      "what_removes_or_closes_the_freedom": "Independent line-ratio observations/errors or native same-observable relation",
+      "dependencies": [
+        "O05"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 81,
+          "line_end": 86
+        }
+      ]
+    },
+    {
+      "id": "O07",
+      "item": "Published distance and source/target distance crosswalk",
+      "classification": "MEASURED",
+      "status": "PUBLISHED_GEOMETRY_ERROR_OPEN",
+      "existing_value_or_fact": "13.8 Mpc in source table",
+      "new_value_selected": false,
+      "uncertainty": "Table has no distance error; cannot substitute SPARC error without crosswalk",
+      "calibration_effect": "Observed geometry is empirical information; target-tuned distance is an additional fitted coordinate",
+      "what_removes_or_closes_the_freedom": "P53 same-object source/target distance provenance, uncertainty and shared-dependence model",
+      "dependencies": [
+        "O01"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 87,
+          "line_end": 93
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 168,
+          "line_end": 179
+        }
+      ]
+    },
+    {
+      "id": "O08",
+      "item": "Inclination and deprojection crosswalk",
+      "classification": "MEASURED",
+      "status": "PUBLISHED_GEOMETRY_ERROR_OPEN",
+      "existing_value_or_fact": "72 degrees in source; distinct SPARC73 +/-3 is not silently equated",
+      "new_value_selected": false,
+      "uncertainty": "Source uncertainty missing",
+      "calibration_effect": "One published geometry input; an adjusted inclination is counted, no second deprojection by default",
+      "what_removes_or_closes_the_freedom": "P53/P46 original measurement/deprojection and uncertainty crosswalk",
+      "dependencies": [
+        "O07"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 94,
+          "line_end": 100
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/NATIVE_MOTION_LENGTH_HANDOFF_AND_LEDGER_V001.txt",
+          "line_start": 56,
+          "line_end": 62
+        }
+      ]
+    },
+    {
+      "id": "O09",
+      "item": "Position angle",
+      "classification": "MEASURED",
+      "status": "PUBLISHED_GEOMETRY_ERROR_OPEN",
+      "existing_value_or_fact": "215 degrees",
+      "new_value_selected": false,
+      "uncertainty": "Missing",
+      "calibration_effect": "External orientation input; any adjustable sky-to-native orientation must be exposed",
+      "what_removes_or_closes_the_freedom": "P53 observational error and native aperture correspondence",
+      "dependencies": [
+        "O07",
+        "O08"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 101,
+          "line_end": 106
+        }
+      ]
+    },
+    {
+      "id": "O10",
+      "item": "Vertical structure / surface-to-volume interpretation",
+      "classification": "OPEN",
+      "status": "NO_GEOMETRY_ADOPTED",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing",
+      "calibration_effect": "Potential function or parameter family, not automatically one nuisance scalar",
+      "what_removes_or_closes_the_freedom": "Native source sufficiency/operational geometry or separately measured structure and counted assumptions; no thin-disk/hydrostatic default",
+      "dependencies": [
+        "O01"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 107,
+          "line_end": 111
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 52,
+          "line_end": 62
+        }
+      ]
+    },
+    {
+      "id": "O11",
+      "item": "Central/outer support and interpolation/extrapolation",
+      "classification": "OPEN",
+      "status": "NO_COMPLETION_ADOPTED",
+      "existing_value_or_fact": "Observed centers0.3..15.1kpc; no completeness to44.08kpc",
+      "new_value_selected": false,
+      "uncertainty": "Missing beyond support",
+      "calibration_effect": "Each freely chosen profile/function/support rule is a declaration; fitted shape coordinates count separately",
+      "what_removes_or_closes_the_freedom": "P53 observed complete support or native bounded nonlocal completion, with all errors",
+      "dependencies": [
+        "O01",
+        "O07"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 112,
+          "line_end": 119
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 52,
+          "line_end": 62
+        }
+      ]
+    },
+    {
+      "id": "O12",
+      "item": "Missing H2 support",
+      "classification": "OPEN",
+      "status": "MISSING_NOT_ZERO",
+      "existing_value_or_fact": "13 missing rows; last populated ring6.4kpc",
+      "new_value_selected": false,
+      "uncertainty": "No bound/confidence from blank fields",
+      "calibration_effect": "No zero fill, universal bound or upper-limit likelihood selected",
+      "what_removes_or_closes_the_freedom": "P53 actual molecular support/limits or native omission bound at each required query",
+      "dependencies": [
+        "O05",
+        "O11"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 120,
+          "line_end": 125
+        }
+      ]
+    },
+    {
+      "id": "O13",
+      "item": "Published error=1.0 / censoring semantics",
+      "classification": "OPEN",
+      "status": "SEMANTIC_CONFLICT",
+      "existing_value_or_fact": "Literal error fields retained; no Gaussian or upper-limit likelihood adopted",
+      "new_value_selected": false,
+      "uncertainty": "Meaning unresolved",
+      "calibration_effect": "A likelihood choice is a declared statistical assumption; adjustable noise parameters would add fitted freedom",
+      "what_removes_or_closes_the_freedom": "Resolve original printed source versus CDS/parser shorthand through permitted documentary evidence; keep all fields quarantined meanwhile",
+      "dependencies": [
+        "O01"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 126,
+          "line_end": 131
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX2/0140_2026-10-13_P53-censoring-provenance-conflict.md",
+          "line_start": 7,
+          "line_end": 11
+        }
+      ]
+    },
+    {
+      "id": "O14",
+      "item": "Whole covariance / dependence groups",
+      "classification": "OPEN",
+      "status": "MISSING",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Common conversion/geometry systematics not included by ring RMS",
+      "calibration_effect": "Identifying rank cannot be inferred from row count or number of assumptions",
+      "what_removes_or_closes_the_freedom": "P53 joint observational covariance/dependence, then P8 native sensitivity on its supported subspace",
+      "dependencies": [
+        "O02",
+        "O04",
+        "O05",
+        "O06",
+        "O07",
+        "O08",
+        "O09",
+        "O13"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 132,
+          "line_end": 136
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 106,
+          "line_end": 123
+        }
+      ]
+    },
+    {
+      "id": "O15",
+      "item": "Beam, mask, warp and ring-selection processing",
+      "classification": "OPEN",
+      "status": "INCOMPLETE_PROVENANCE",
+      "existing_value_or_fact": "Reported12arcsec/about800pc resolution,10arcsec ring spacing",
+      "new_value_selected": false,
+      "uncertainty": "No independent-ring claim",
+      "calibration_effect": "Processing/warp functions can carry nuisance freedom; no native geometry follows from beam labels",
+      "what_removes_or_closes_the_freedom": "P53 full preprocessing/mask/beam/warp provenance and error transfer to native query operator",
+      "dependencies": [
+        "O07",
+        "O08",
+        "O14"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 137,
+          "line_end": 142
+        }
+      ]
+    },
+    {
+      "id": "O16",
+      "item": "Tracer overlap rule",
+      "classification": "DECLARED",
+      "status": "FROZEN_RULE",
+      "existing_value_or_fact": "HI+H2+published stars; no extra SPARC/HALOGAS overlapping addition; no bulge absence assumption",
+      "new_value_selected": false,
+      "uncertainty": "Component completeness unresolved",
+      "calibration_effect": "One declared categorical rule, not a fitted scalar or zero composition uncertainty",
+      "what_removes_or_closes_the_freedom": "P53 jointly accepted component representation and overlap accounting",
+      "dependencies": [
+        "O01",
+        "O03"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 143,
+          "line_end": 146
+        }
+      ]
+    },
+    {
+      "id": "O17",
+      "item": "Observational snapshot / data selection",
+      "classification": "DECLARED",
+      "status": "FROZEN_RULE",
+      "existing_value_or_fact": "Accepted Leroy density table retained; no target-fit selection or complete joint-source claim",
+      "new_value_selected": false,
+      "uncertainty": "Historical development exposure disclosed",
+      "calibration_effect": "One selection declaration; historical NGC3198 exposure cannot be erased by freezing",
+      "what_removes_or_closes_the_freedom": "P53 whole joint-source selection/provenance and independent selection review; untouched claim requires genuinely fresh objects",
+      "dependencies": [
+        "O01",
+        "O16"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 147,
+          "line_end": 165
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 168,
+          "line_end": 179
+        }
+      ]
+    },
+    {
+      "id": "O18",
+      "item": "Target-free43 aperture/radius/query crosswalk",
+      "classification": "OPEN",
+      "status": "MISSING",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing spatial/measurement errors",
+      "calibration_effect": "A chart/bin map is not automatically a unit conversion or one scalar; source and targets must stay separate",
+      "what_removes_or_closes_the_freedom": "P53/P46 all43 observation operators/apertures with accepted source mapping and errors",
+      "dependencies": [
+        "O07",
+        "O08",
+        "O09",
+        "O10",
+        "O11",
+        "O15"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 152,
+          "line_end": 156
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 239,
+          "line_end": 257
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/NATIVE_MOTION_LENGTH_HANDOFF_AND_LEDGER_V001.txt",
+          "line_start": 45,
+          "line_end": 62
+        }
+      ]
+    },
+    {
+      "id": "M01",
+      "item": "Canonical microscopic energy-magnitude categories",
+      "classification": "DECLARED",
+      "status": "DECLARED_MODEL_NOT_EMPIRICALLY_IDENTIFIED",
+      "existing_value_or_fact": [
+        "Delta/Omega",
+        "Ud/Omega",
+        "t/Omega",
+        "epsilon_r/Omega",
+        "g/Omega",
+        "lambda_R/Omega",
+        "lambda_J/Omega",
+        "abs(epsilon_B)/Omega",
+        "h/Omega",
+        "epsilon_c/Omega",
+        "abs(kappa_v)/Omega",
+        "E_I/Omega",
+        "E_R/Omega",
+        "E_S/Omega"
+      ],
+      "new_value_selected": false,
+      "uncertainty": "No physical observational identification supplied",
+      "calibration_effect": "Fourteen named magnitude categories, not fourteen independently fitted scalars; profile, symmetry and scale dependencies remain",
+      "what_removes_or_closes_the_freedom": "P3 native derivations/independent observations and full parameter-domain identifiability; a chosen benchmark tuple is not physical calibration",
+      "dependencies": [],
+      "normalization_group": "CANONICAL_PARAMETER_DOMAIN",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/CANONICAL_V006_SELECTION_AND_EXACT14_CROSSWALK_V001/CANONICAL_MODEL_7_PROPOSAL_V005.txt",
+          "line_start": 24,
+          "line_end": 26
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 106,
+          "line_end": 123
+        }
+      ]
+    },
+    {
+      "id": "M02",
+      "item": "Other model/domain declarations",
+      "classification": "DECLARED",
+      "status": "DECLARED_MODEL_SCOPE",
+      "existing_value_or_fact": [
+        "dstar",
+        "hop phases",
+        "admission phase/magnitude profile",
+        "graph and one-Born map",
+        "preparation/schedule/controller if used"
+      ],
+      "new_value_selected": false,
+      "uncertainty": "Physical scope unqualified",
+      "calibration_effect": "Categorical/function-valued choices cannot be reduced to a scalar count by naming the Hamiltonian one model",
+      "what_removes_or_closes_the_freedom": "P3/P49 native selection/derivation and premise census; preserve any remaining declarations explicitly",
+      "dependencies": [
+        "M01"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/CANONICAL_V006_SELECTION_AND_EXACT14_CROSSWALK_V001/CANONICAL_MODEL_7_PROPOSAL_V005.txt",
+          "line_start": 4,
+          "line_end": 16
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/CANONICAL_V006_SELECTION_AND_EXACT14_CROSSWALK_V001/CANONICAL_MODEL_7_PROPOSAL_V005.txt",
+          "line_start": 24,
+          "line_end": 26
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 21,
+          "line_end": 30
+        }
+      ]
+    },
+    {
+      "id": "M03",
+      "item": "Physical S1 state, energy/inventory and history regime",
+      "classification": "OPEN",
+      "status": "NATIVE_SELECTION_NOT_EARNED",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Finite benchmark errors do not cover physical-state selection",
+      "calibration_effect": "No freely selected thermal/filling/energy ensemble is licensed; any later declaration requires its proper authority and count",
+      "what_removes_or_closes_the_freedom": "P49 derive physical Record-filled state/word correlations from dynamics with conserved sectors and S1 compatibility",
+      "dependencies": [
+        "M01",
+        "M02"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/CANONICAL_V006_SELECTION_AND_EXACT14_CROSSWALK_V001/CANONICAL_MODEL_7_PROPOSAL_V005.txt",
+          "line_start": 34,
+          "line_end": 42
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+          "line_start": 78,
+          "line_end": 82
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 64,
+          "line_end": 74
+        }
+      ]
+    },
+    {
+      "id": "M04",
+      "item": "Density-to-native source placement/coarse graining",
+      "classification": "OPEN",
+      "status": "NO_NATIVE_PROVIDER",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing mapping/error/remainders",
+      "calibration_effect": "Independent filling, graph placement and source history may introduce functions/parameters beyond one magnitude",
+      "what_removes_or_closes_the_freedom": "P53/P46 native source sufficiency, full state mapping, charges, composition and uncertainty",
+      "dependencies": [
+        "O01",
+        "O10",
+        "O11",
+        "O12",
+        "O18",
+        "M03"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 32,
+          "line_end": 62
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+          "line_start": 190,
+          "line_end": 200
+        }
+      ]
+    },
+    {
+      "id": "M05",
+      "item": "Matter/species correspondence",
+      "classification": "OPEN",
+      "status": "NO_BARYON_IDENTIFICATION",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing species/composition/inertial/source relation",
+      "calibration_effect": "A proton/gas/star/bulge-to-Q/p/q/eta identification is a counted correspondence, not computed by variable naming",
+      "what_removes_or_closes_the_freedom": "P50 native stable excitation, operational composition/number/inertial response and baryonic observational crosswalk",
+      "dependencies": [
+        "M03",
+        "M04"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+          "line_start": 6,
+          "line_end": 24
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+          "line_start": 70,
+          "line_end": 74
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+          "line_start": 168,
+          "line_end": 198
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+          "line_start": 13,
+          "line_end": 18
+        }
+      ]
+    },
+    {
+      "id": "M06",
+      "item": "Fixed-Q alpha reference direction",
+      "classification": "OPEN",
+      "status": "UNIDENTIFIABLE_FROM_FIXED_Q_READS",
+      "existing_value_or_fact": "H -> H+alpha Q leaves in-sector dynamics/current/costs unchanged",
+      "new_value_selected": false,
+      "uncertainty": "No physical alpha supplied",
+      "calibration_effect": "One potential independent cross-sector energy-offset direction; no fit to fixed-Q current can identify it",
+      "what_removes_or_closes_the_freedom": "P50/P8 physical cross-sector addition/reference observable, or proof chosen prediction route is insensitive",
+      "dependencies": [
+        "M01",
+        "M05"
+      ],
+      "normalization_group": "ADDITION_REFERENCE",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+          "line_start": 178,
+          "line_end": 188
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+          "line_start": 70,
+          "line_end": 70
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 142,
+          "line_end": 166
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 12282,
+          "line_end": 12286
+        }
+      ]
+    },
+    {
+      "id": "M07",
+      "item": "Rest/addition-energy branch/reference and B30 invariant domain",
+      "classification": "OPEN",
+      "status": "UNDECLARED_UNCALIBRATED",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing positive stable branch/reference and full Born contacts",
+      "calibration_effect": "Not automatically a second alpha parameter: same ADDITION_REFERENCE group; branch/domain choices remain distinct qualifications",
+      "what_removes_or_closes_the_freedom": "P50 qualified branch and invariant Q/M/Av reference with full Born2EI/mixing; native observable matching, no m_H*c^2 default",
+      "dependencies": [
+        "M05",
+        "M06"
+      ],
+      "normalization_group": "ADDITION_REFERENCE",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+          "line_start": 168,
+          "line_end": 188
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 149,
+          "line_end": 166
+        }
+      ]
+    },
+    {
+      "id": "M08",
+      "item": "Overall physical energy unit",
+      "classification": "OPEN",
+      "status": "UNIDENTIFIED_SCALE",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing dimensional observation",
+      "calibration_effect": "Time rescaling is linked, not a second independent knob by default; must prove rank in actual map",
+      "what_removes_or_closes_the_freedom": "P8/P3 operational energy or clock observation breaking uniform H/time rescaling, with same native measurement",
+      "dependencies": [
+        "M01",
+        "M03"
+      ],
+      "normalization_group": "ENERGY_TIME_SCALE",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 130,
+          "line_end": 140
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 93,
+          "line_end": 128
+        }
+      ]
+    },
+    {
+      "id": "M09",
+      "item": "C78 native crossing cost to physical length/kpc",
+      "classification": "OPEN",
+      "status": "NO_LENGTH_MAP",
+      "existing_value_or_fact": "C78 earns crossing-cost distance only on qualified venues",
+      "new_value_selected": false,
+      "uncertainty": "Missing physical scale and observer map",
+      "calibration_effect": "No graph hop, vertex coordinate or C78 integer can be equated to kpc; an independently fitted scale would consume another coordinate unless linked natively",
+      "what_removes_or_closes_the_freedom": "P60/P46 native operational length and observational aperture map on same state, including units/error",
+      "dependencies": [
+        "M03",
+        "O18"
+      ],
+      "normalization_group": "OPERATIONAL_LENGTH",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/ledger/status_ledger.tsv",
+          "line_start": 249,
+          "line_end": 249
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/NATIVE_MOTION_LENGTH_HANDOFF_AND_LEDGER_V001.txt",
+          "line_start": 45,
+          "line_end": 54
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 85,
+          "line_end": 91
+        }
+      ]
+    },
+    {
+      "id": "M10",
+      "item": "Benchmark time to physical clock",
+      "classification": "OPEN",
+      "status": "NO_CLOCK_MAP",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing operational reference/protocol",
+      "calibration_effect": "Linked to M08 via exact energy-time identity; protocol/observer may carry further choices, not automatically one more scalar",
+      "what_removes_or_closes_the_freedom": "Native clock/light/matter readout and external time correspondence with uncertainty, then joint identifiability",
+      "dependencies": [
+        "M03",
+        "M08"
+      ],
+      "normalization_group": "ENERGY_TIME_SCALE",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 130,
+          "line_end": 140
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/NATIVE_MOTION_LENGTH_HANDOFF_AND_LEDGER_V001.txt",
+          "line_start": 45,
+          "line_end": 54
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+          "line_start": 31,
+          "line_end": 39
+        }
+      ]
+    },
+    {
+      "id": "M11",
+      "item": "Current/eta readout to observed velocity",
+      "classification": "OPEN",
+      "status": "NO_NATIVE43_VELOCITY_PROVIDER",
+      "existing_value_or_fact": "J=i[H,eta], j=J/4 and F finite benchmark only",
+      "new_value_selected": false,
+      "uncertainty": "Missing spatial weights, clock, excitation normalization and detector/deprojection map",
+      "calibration_effect": "Do not assign a free velocity multiplier atop length/time without counting/proving dependence; map may not be scalar",
+      "what_removes_or_closes_the_freedom": "P64/P46 full native transport plus operational position/clock/measurement operator for each observed bin",
+      "dependencies": [
+        "M05",
+        "M09",
+        "M10",
+        "O08",
+        "O18"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+          "line_start": 31,
+          "line_end": 39
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+          "line_start": 78,
+          "line_end": 82
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/NATIVE_MOTION_LENGTH_HANDOFF_AND_LEDGER_V001.txt",
+          "line_start": 56,
+          "line_end": 62
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 12475,
+          "line_end": 12479
+        }
+      ]
+    },
+    {
+      "id": "M12",
+      "item": "Line-A per-link coupling mu",
+      "classification": "DECLARED",
+      "status": "DECLARED_TIER_PARAMETER_PHYSICAL_VALUE_OPEN",
+      "existing_value_or_fact": "No physical value selected; historical tier sweeps rational mu",
+      "new_value_selected": false,
+      "uncertainty": "Physical ensemble link absent",
+      "calibration_effect": "One declared parameter in that venue, not automatically the same coordinate as P8 A or a canonical coefficient",
+      "what_removes_or_closes_the_freedom": "P58 derive actual writer kernel/measure conservation and link-weight symmetry; C91 conditional mu_c is not physical enforcement",
+      "dependencies": [
+        "M01",
+        "M03"
+      ],
+      "normalization_group": "WRITER_KERNEL",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/LANE_T44_B_WORLD/D24_AUDIT.txt",
+          "line_start": 7,
+          "line_end": 9
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/LANE_T44_B_WORLD/D24_AUDIT.txt",
+          "line_start": 20,
+          "line_end": 27
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/ledger/status_ledger.tsv",
+          "line_start": 270,
+          "line_end": 270
+        }
+      ]
+    },
+    {
+      "id": "M13",
+      "item": "Writer ensemble, link weights and physical criticality",
+      "classification": "OPEN",
+      "status": "ANTECEDENT_NOT_EARNED",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing native Hermitian-to-writer-kernel map",
+      "calibration_effect": "Unknown function-valued weights; do not select isotropy/criticality by desired falloff or silently set mu=mu_c",
+      "what_removes_or_closes_the_freedom": "P58 native process/ensemble and conservation; P59 adjacent bias; P60 qualified venue; anisotropy tested",
+      "dependencies": [
+        "M12",
+        "M03"
+      ],
+      "normalization_group": "WRITER_KERNEL",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/ledger/status_ledger.tsv",
+          "line_start": 270,
+          "line_end": 270
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 8,
+          "line_end": 19
+        }
+      ]
+    },
+    {
+      "id": "M14",
+      "item": "Encoding/normalization of accumulated coupling and norm",
+      "classification": "OPEN",
+      "status": "DESIGN_POINT_NOT_EARNED",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing physical norm and encoding selection",
+      "calibration_effect": "A conditional C90 member does not select normalization, occupancy encoding or native norm",
+      "what_removes_or_closes_the_freedom": "Native surface writer/design-point/norm selection and collective coarse-process derivation; all alternate outcomes retained",
+      "dependencies": [
+        "M13",
+        "M09"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 9961,
+          "line_end": 9989
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/ledger/status_ledger.tsv",
+          "line_start": 248,
+          "line_end": 248
+        }
+      ]
+    },
+    {
+      "id": "M15",
+      "item": "One P8 law-magnitude coordinate A and its observation",
+      "classification": "OPEN",
+      "status": "NO_VALUE_OR_OBSERVATION_SELECTED",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing forward map/domain/inverse set",
+      "calibration_effect": "Target maximumone fitted magnitude; may be an identifiable combination, not assumed to multiply a known shape",
+      "what_removes_or_closes_the_freedom": "Complete native F_cal/F43 with one independent scalar observation, native parameter constraints, covariance/rank/global branches",
+      "dependencies": [
+        "M04",
+        "M05",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M13",
+        "M14"
+      ],
+      "normalization_group": "JOINT_IDENTIFIABILITY",
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 93,
+          "line_end": 128
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/line_a_prediction_harness_v002.py",
+          "line_start": 46,
+          "line_end": 61
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/line_a_prediction_harness_v002.py",
+          "line_start": 103,
+          "line_end": 107
+        }
+      ]
+    },
+    {
+      "id": "M16",
+      "item": "Finite size/time/reduction/branch/stopping choices",
+      "classification": "OPEN",
+      "status": "NO_PHYSICAL_LIMIT_CERTIFICATE",
+      "existing_value_or_fact": null,
+      "new_value_selected": false,
+      "uncertainty": "Missing uniform limits and remainder bounds",
+      "calibration_effect": "Numerical tolerances are method settings; target-dependent model/reduction/stopping choice is counted selection, not free convergence",
+      "what_removes_or_closes_the_freedom": "Native controlled reduction, finite-size/time and branch stability error bounds fixed before target comparison",
+      "dependencies": [
+        "M01",
+        "M03",
+        "M11"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 182,
+          "line_end": 200
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+          "line_start": 78,
+          "line_end": 82
+        }
+      ]
+    },
+    {
+      "id": "C01",
+      "item": "Native algebra and accepted finite benchmark readouts",
+      "classification": "COMPUTED",
+      "status": "SCOPED_FORMAL_AND_FINITE_NUMERICAL",
+      "existing_value_or_fact": "Conserved Q, fixed-Q shift identity, exact current/cost operators and C163/C166/C169 bounded reads",
+      "new_value_selected": false,
+      "uncertainty": "Accepted finite errors only",
+      "calibration_effect": "Computed objects add no fitted coordinate themselves; they do not identify physical species, scale or state",
+      "what_removes_or_closes_the_freedom": "No numerical rerun needed; close separate physical mapping debts before promotion",
+      "dependencies": [
+        "M01",
+        "M02"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 12273,
+          "line_end": 12286
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 12433,
+          "line_end": 12437
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 12454,
+          "line_end": 12458
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+          "line_start": 12475,
+          "line_end": 12479
+        }
+      ]
+    },
+    {
+      "id": "C02",
+      "item": "Critical member location and earned distance on original line-A venue",
+      "classification": "COMPUTED",
+      "status": "CONDITIONAL_SINGLE_VENUE",
+      "existing_value_or_fact": "mu_c=1/6 on original degree-six venue; C78 crossing metric",
+      "new_value_selected": false,
+      "uncertainty": "Conditional venue/state/norm scope",
+      "calibration_effect": "Do not count computed mu_c as fitted, but do not use it to erase unearned physical mu/ensemble",
+      "what_removes_or_closes_the_freedom": "P58/P60 same-native-state/kernel/venue qualification and actual conservation/weight symmetry",
+      "dependencies": [
+        "M12",
+        "M13"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/LANE_T44_B_WORLD/D24_AUDIT.txt",
+          "line_start": 10,
+          "line_end": 27
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/ledger/status_ledger.tsv",
+          "line_start": 249,
+          "line_end": 249
+        },
+        {
+          "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/ledger/status_ledger.tsv",
+          "line_start": 269,
+          "line_end": 270
+        }
+      ]
+    },
+    {
+      "id": "T01",
+      "item": "Observed43 velocities, quoted errors and scoring convention",
+      "classification": "MEASURED",
+      "status": "HELD_AS_TEST_DATA_NOT_CALIBRATION",
+      "existing_value_or_fact": "No target values read or selected by this ledger",
+      "new_value_selected": false,
+      "uncertainty": "Full likelihood/covariance/censoring still requires qualification",
+      "calibration_effect": "Using target residuals to choose any prior item is calibration leakage; diagonal METHOD score is not a physical likelihood",
+      "what_removes_or_closes_the_freedom": "P46 complete source/target measurement map and P8/P9 joint error freeze; seal predictions before scoring",
+      "dependencies": [
+        "O13",
+        "O14",
+        "O18",
+        "M11",
+        "M15"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/line_a_prediction_harness_v002.py",
+          "line_start": 111,
+          "line_end": 120
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 168,
+          "line_end": 200
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 165,
+          "line_end": 166
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "item": "Calibration object/observation partition and historic exposure",
+      "classification": "OPEN",
+      "status": "NO_FRESH_UNTOUCHED_CLAIM",
+      "existing_value_or_fact": "NGC3198 is already exposed development data",
+      "new_value_selected": false,
+      "uncertainty": "Aliases/shared calibration dependencies not fully specified",
+      "calibration_effect": "One fitted scalar does not mean one observation; exclude whole target objects from calibration and retain all inherited information",
+      "what_removes_or_closes_the_freedom": "P8/P9 independently reviewed object aliases, one-observation or explicit successor budget, shared-dependence ledger and fresh holdout evidence",
+      "dependencies": [
+        "O17",
+        "T01",
+        "M15"
+      ],
+      "normalization_group": null,
+      "source_references": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 99,
+          "line_end": 110
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+          "line_start": 168,
+          "line_end": 179
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+          "line_start": 165,
+          "line_end": 165
+        }
+      ]
+    }
+  ],
+  "source_snapshots": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX2/0140_2026-10-13_P53-censoring-provenance-conflict.md",
+      "bytes_at_snapshot": 1852,
+      "sha256_of_snapshot_prefix": "0f0a106ed2c7dd0d3cb9570995662d7b7f0c80cf7cbbf90f0e8d10ebae39b4ac",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0212_2026-10-13_P64-transport-current-and-history-theory.md",
+      "bytes_at_snapshot": 10805,
+      "sha256_of_snapshot_prefix": "3c299671fc76e394214b5d7f284e9184b59a62ec3e7e776cc76d6860a8fbc437",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/NATIVE_MOTION_LENGTH_HANDOFF_AND_LEDGER_V001.txt",
+      "bytes_at_snapshot": 6920,
+      "sha256_of_snapshot_prefix": "c7ceca7b548dae4d5b0dd60d52a3d5a6da61d2fde798e35fe0eeca8ec52f60ec",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P46_CODEX2/line_a_prediction_harness_v002.py",
+      "bytes_at_snapshot": 7045,
+      "sha256_of_snapshot_prefix": "5a18ba208d18abf60063fb411770b3b3356c289215f1fced116128311abf5615",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P50_CODEX3/P50_CANONICAL_MATTER_DICTIONARY_V002.txt",
+      "bytes_at_snapshot": 15761,
+      "sha256_of_snapshot_prefix": "270cce42a085e30ad627fb462af6e4689f0274689d4b71f623972f96ba0e984c",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+      "bytes_at_snapshot": 8531,
+      "sha256_of_snapshot_prefix": "a8126eb6175f68629cc9e925bcadbced8b153659d8a3b1eed96e0f6985f64053",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P8_CODEX3/P8_NATIVE_FULL_ARM_CALIBRATION_CONTRACT_V003.txt",
+      "bytes_at_snapshot": 18866,
+      "sha256_of_snapshot_prefix": "d326fc8352909e6adf89e88fac8416aa29e9538f58807ba68ff169e7308bfa72",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/CANONICAL_V006_SELECTION_AND_EXACT14_CROSSWALK_V001/CANONICAL_MODEL_7_PROPOSAL_V005.txt",
+      "bytes_at_snapshot": 9625,
+      "sha256_of_snapshot_prefix": "e6c1c47de8b817a5ecc0fb877e5d95d89b104c255e99b58de0997913b9f6db70",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/LANE_T44_B_WORLD/D24_AUDIT.txt",
+      "bytes_at_snapshot": 9019,
+      "sha256_of_snapshot_prefix": "2e3ff2a472a557c08abe602bbcd5d524acf4269a2cd659a34fa0199446929e18",
+      "append_only_prefix": false,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/REGISTER_V001.md",
+      "bytes_at_snapshot": 847382,
+      "sha256_of_snapshot_prefix": "aaccd671c42adc300a3f6301f00b10e55f4f3af699c7493a9ab9df366d4c6e61",
+      "append_only_prefix": true,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    },
+    {
+      "path": "/Users/bgm/Research/Universal Network Theory/program-worktree/ledger/status_ledger.tsv",
+      "bytes_at_snapshot": 309965,
+      "sha256_of_snapshot_prefix": "0b6039856b5ac95f79cf3bfa18c6e5dbcef1e448e5777d2383f59ef84eff71d9",
+      "append_only_prefix": true,
+      "coverage": "Referenced lines read; hash is metadata, not a claim to read every line"
+    }
+  ],
+  "rules": [
+    "MEASURED means published observational input, including inherited reduction, never a native derivation; missing errors stay OPEN.",
+    "DECLARED counts every assumption/category separately from fitted scalar coordinates and empirical information.",
+    "COMPUTED is scoped to the original native/conditional object, not automatic physical applicability.",
+    "OPEN entries have no selected value; null is not zero and no branch is silently chosen.",
+    "Alpha shift and rest-reference route overlap; energy/time share a rescaling dependence. No duplicated scalar count without an actual map.",
+    "A newly fitted independent M/L plus independently fitted A would exceed the one-coordinate slot; correlations and native relations must be proved, not asserted.",
+    "No target velocity or desired radial law may select states, coefficients, source shape, maps, approximations or stopping.",
+    "Future accepted providers must add every newly exposed parameter/function/data dependency; this is the complete current cited debt inventory, not a claim about unknown future theory."
+  ]
+}

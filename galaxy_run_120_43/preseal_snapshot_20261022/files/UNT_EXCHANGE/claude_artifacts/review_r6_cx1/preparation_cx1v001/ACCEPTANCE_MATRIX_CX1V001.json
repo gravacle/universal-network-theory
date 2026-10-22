@@ -1,0 +1,378 @@
+{
+ "acceptance_checks": [
+  {
+   "acceptance_check": "SELECTED_R6_C4V001.json identifies the immutable file set; recompute each in-scope selected metadata file hash before review, record selection digest, and ensure no stale/mixed revisions.",
+   "authority": "0643; A106.3; 0110",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-01",
+   "refuse_if": "Missing selection, wrong bytes, unlisted selected successor, or claimed completed review of mutable development paths.",
+   "review_locations": [
+    "SELECTED_R6_C4V001.json",
+    "selected prereg/Markdown/table/delta/root-items/checklist"
+   ]
+  },
+  {
+   "acceptance_check": "R6 old-addendum read copy and stored generation anchor equal closed V005 SHA c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1 and 143081 bytes; A106 is last. Future FROZEN copy must equal those bytes; later rulings go to V006.",
+   "authority": "0643; A106.1/3",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-02",
+   "refuse_if": "Pre-A106 source anchor, an A107 V005 extension, wrong copy hash/length, or freeze instructions allowing later V005 mutation.",
+   "review_locations": [
+    "entries_after_A81.addendum_read",
+    "selected addendum_read copy",
+    "seal_slots.frozen_addendum",
+    "checklist B1"
+   ]
+  },
+  {
+   "acceptance_check": "Exactly one entry-table row for every A82\u2013A106 (25 rows); each section_sha256 and optional section length/heading matches expected_closed_v005_table using heading-to-next-## byte sections. Each row has justified NO_CHANGE or REVISED_HERE with named changed clauses.",
+   "authority": "A106.1; A99.3 as retained",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-03",
+   "refuse_if": "Missing/duplicate/stale section row, a generic coverage claim replacing required rows, or no rationale/revised-clause mapping.",
+   "review_locations": [
+    "entries_after_A81.rows",
+    "ENTRY_TABLE_R6 metadata",
+    "Markdown/table/checklist agreement"
+   ]
+  },
+  {
+   "acceptance_check": "Active compare slot and checklist A1 identify selected r13 reviewed source (reported prefix f5adfd11; SELECTED_R13 prefix 10acd098) and reviews of record Claude3 0092 and Codex1 0076. Resolve full pins from final selected metadata; both reviews require zero blocking. Historical r12 text must be clearly superseded.",
+   "authority": "A106.1; 0109; 0110",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-04",
+   "refuse_if": "Active r12 source/selection, Codex2 as current review of record, wrong r13 pin, or final-selection prefixes treated as full verified hashes.",
+   "review_locations": [
+    "seal_slots.compare",
+    "checklist A1",
+    "root items RI-20/compare review status",
+    "selected r6 delta"
+   ]
+  },
+  {
+   "acceptance_check": "Active compare admission requires zero blocking from each review of record; no alternative root-ruling route admits a remaining blocker.",
+   "authority": "A106.1 F-02",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-05",
+   "refuse_if": "The active slot still says a fix round or a ruling on the item, or equivalent bypass.",
+   "review_locations": [
+    "seal_slots.compare.rule",
+    "root items and checklist A1"
+   ]
+  },
+  {
+   "acceptance_check": "BUILD_V007 binding stays exactly the r5-declared 94bc05a5... pin; case block stays 76309ae3...; launcher/guard and template bindings retain declared identities unless an explicit current ruling is supplied. Update review/adoption wording to A105 while retaining root assembly obligations.",
+   "authority": "A106.1; A105",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-06",
+   "refuse_if": "Binding drift, treating pending root assembly actions as completed, or stale claim that the BUILD_V007 delta review has not happened.",
+   "review_locations": [
+    "seal_slots.launch_packet",
+    "binding_inputs.case_block",
+    "checklist A12",
+    "root items BUILD status"
+   ]
+  },
+  {
+   "acceptance_check": "Carry E-OPS5 as a required seal-record/E-SEAL1 disclosure: aggregate-size metadata access was disclosed, no result/file content was obtained, and no further pre-seal C5H metadata access is authorized. Review text only.",
+   "authority": "A106.1; A105 E-OPS5",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-07",
+   "refuse_if": "Disclosure omitted, altered into evidence of scientific validity, or wording authorizing the reviewer to revisit the run.",
+   "review_locations": [
+    "seal_record_requirements",
+    "disclosure text",
+    "root items/checklist B7"
+   ]
+  },
+  {
+   "acceptance_check": "Close F11(a\u2013e): RI-20/RI-21 statuses point to A83 rather than stale r4 checks; fix B2 sentence separator; include driver BUILD record creation in seal_record_requirements[4] before sealed compare; update active r13 line citations; checklist A1 names r13 and B1 ends A106/final fixed SHA.",
+   "authority": "A106.1 adopts F-11; definition in r5 review",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-08",
+   "refuse_if": "Any listed active inconsistency persists or chronology creates sealed compare before its driver BUILD record.",
+   "review_locations": [
+    "root items RI-20/RI-21",
+    "B2 clause",
+    "seal_record_requirements[4] and [8]",
+    "checklist A1/B1/B2a/B5",
+    "active source citations"
+   ]
+  },
+  {
+   "acceptance_check": "Require a clearly recorded root checklist-A7 confirmation for ngc_gas_M_s=96 in an A-entry or seal-record note, or an explicit still-pending requirement to record it at assembly. Do not infer confirmation from the lane record or open that scientific record.",
+   "authority": "0110 explicitly includes F-13; definition in r5 review",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-09",
+   "refuse_if": "R6 claims confirmation complete without a cited root note, omits the required root record, or silently changes the scientific value.",
+   "review_locations": [
+    "checklist A7",
+    "ngc gas metadata",
+    "seal_record_requirements/root items F13"
+   ]
+  },
+  {
+   "acceptance_check": "Registry expectation stays V009 32ddadcb... from r5 metadata. Keep unfilled B0_N3/B0_RO1/I4 fail-closed and distinguish pending root assembly pins from completed adoption. Actual r13 load_producer_registry/slot checks belong to selected script review.",
+   "authority": "A106 unchanged V009 binding; 0110",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-10",
+   "refuse_if": "Registry drift, stale V008 presented as selected V009, empty slots treated as passing, or script checks claimed tested here.",
+   "review_locations": [
+    "seal_slots.producer_registry",
+    "registry checklist/root items",
+    "script-boundary description"
+   ]
+  },
+  {
+   "acceptance_check": "Selected r6 JSON/Markdown/delta/table/checklist agree. Every r5\u2192r6 change maps to the approved A102\u2013A106 updates, F02/F11, 0110 F13/V009 or associated status/citation fixes. Preserve case block, driver r5, run/scientific definitions and other unchanged pins.",
+   "authority": "A106.1; 0110",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-11",
+   "refuse_if": "Undeclared scientific or run-definition changes, contradictory duplicate documents, or unrelated C02\u2013C08 implementation added to r6.",
+   "review_locations": [
+    "all selected r6 text files",
+    "declared DELTA versus r5 JSON"
+   ]
+  },
+  {
+   "acceptance_check": "R6 points to selected v003 with whole --addendum-at-text-of-record read copy. Closed A106 table and equal old/new bytes imply no dispositions file is needed; actual future altered cited bytes must invoke D05. Root seal slots/receipts remain unfilled until authorized assembly.",
+   "authority": "A106.2; 0643; 0110",
+   "final_r6_status": "UNTESTED_AWAIT_SELECTED_BYTES",
+   "id": "R6-12",
+   "refuse_if": "Old bare covered-later interface, wrong generation copy, fabricated seal status, or blanket waiver of changed-entry checks.",
+   "review_locations": [
+    "tool input instructions",
+    "root items/checklist",
+    "r6 generation copy pin"
+   ]
+  }
+ ],
+ "date_u": "Sun Oct 18 23:08:14 UTC 2026",
+ "expected_binding_pins": {
+  "build": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/BUILD_V007.md",
+   "sha256": "94bc05a5db1e6350b246c22e850ae62d95cd05ce21cdf5b329e3edded588a0de"
+  },
+  "case_block": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/case_block/CASE_BLOCK_V007_C4V001.json",
+   "sha256": "76309ae39f23060cc662c4e218a41e1f95c56a26992402218a6198625f85ee71"
+  },
+  "guard": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/producer_guard_cx1v008.py",
+   "sha256": "294cb7760679b883a62fb3117dc75e91231b2f173bcec65983e6762371ea0731"
+  },
+  "hash_status": "DECLARED_EXPECTED_BINDINGS_FROM_R5_METADATA; referenced files not opened/rehashed in this preparation",
+  "launcher": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/route_a_token_launcher_cx1v007.py",
+   "sha256": "861bba68dd7d207beb30ed828c1557955f31979cf2e15369acccc52ea595953d"
+  },
+  "registry_v009": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/producer_registry_c3/out/PRODUCER_REGISTRY_C3V009.json",
+   "sha256": "32ddadcb7567213f42288004f19def122da1d8c4db1a426f0f888bc3242484e8"
+  },
+  "spec_registry": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/SPEC_REGISTRY_R5_MS128_CX1V004.json",
+   "sha256": "c7023846299bae03c5793c4187ca334d35ca3108401208761edbca37574dee90"
+  },
+  "template_plan": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/P128/LAUNCH_PLAN_V011_CX3V001.json",
+   "sha256": "1b406591784ab4647e4aaf2686d9b3d18a259fadb435391439d2ff75df22ad3c"
+  }
+ },
+ "expected_closed_v005_table": [
+  {
+   "entry": "A82",
+   "section_bytes": 1624,
+   "section_sha256": "8a45e4a9378e5c51e5d410f007af5040840cbfa7404f52220bb4db37130ddedc"
+  },
+  {
+   "entry": "A83",
+   "section_bytes": 1315,
+   "section_sha256": "b2c7417ffbde8f7c44b630e2e103d18984d36bed78ec9b96be86b06e499f2e08"
+  },
+  {
+   "entry": "A84",
+   "section_bytes": 901,
+   "section_sha256": "598055296c7d18d52f82d1ee248c3fd5de2b2022c8b4bb25fea496b49b122360"
+  },
+  {
+   "entry": "A85",
+   "section_bytes": 1767,
+   "section_sha256": "8be593cf6eff91d21503345fdcd58a495b6eeed8a06122530b42aa320efb1cef"
+  },
+  {
+   "entry": "A86",
+   "section_bytes": 1732,
+   "section_sha256": "b3f451697f29bbc6ef094f76c94753d8a649d9d4a952aba55ee1dc4b83b7e0a8"
+  },
+  {
+   "entry": "A87",
+   "section_bytes": 1726,
+   "section_sha256": "3d479167fe3049dbbf72629120d13b393df2dc4f595a7c9dc3544cf56d8116bb"
+  },
+  {
+   "entry": "A88",
+   "section_bytes": 1421,
+   "section_sha256": "216fce8735405f208179561ca94e25019b6aec4ed7389f140979bfcc6aed47d7"
+  },
+  {
+   "entry": "A89",
+   "section_bytes": 1929,
+   "section_sha256": "2e7844cc5145afee32def134780bbab526ac93edf8a5c23cdf41559b0a6bf3a7"
+  },
+  {
+   "entry": "A90",
+   "section_bytes": 1747,
+   "section_sha256": "b1fce9a94cea5217ad474b5c72a802772bb53ec0ffcabcb44f42b147cec41232"
+  },
+  {
+   "entry": "A91",
+   "section_bytes": 1215,
+   "section_sha256": "7eb0f0a7093a7eee9a0cb89db14c6049358f9c11ada6f8590914ea1e0faab75c"
+  },
+  {
+   "entry": "A92",
+   "section_bytes": 1718,
+   "section_sha256": "6d671c27db121106c5a6773b5aaf7bcdbccd04737dbe75466d1a887a49d3ae00"
+  },
+  {
+   "entry": "A93",
+   "section_bytes": 561,
+   "section_sha256": "9474602df90fac58d31835eb5a950f909299ecc0e1f95e6d8f403ac5e60e5c7f"
+  },
+  {
+   "entry": "A94",
+   "section_bytes": 1204,
+   "section_sha256": "7ea61f90cd8feb9327b7db92bb8894fd0043383fd1ffe3ad7bbf5d1efc662b8f"
+  },
+  {
+   "entry": "A95",
+   "section_bytes": 1392,
+   "section_sha256": "435403e307b70701cf7e006c4e49477033c684041239e7862a5190ddf1bda8a5"
+  },
+  {
+   "entry": "A96",
+   "section_bytes": 1296,
+   "section_sha256": "fed0c12f8eab596f2eefd2e896fb218da527114a837339590b1ccebc35d4957c"
+  },
+  {
+   "entry": "A97",
+   "section_bytes": 2870,
+   "section_sha256": "a1734bcd393e4c16503f9cc541335694bcd1d873730550314e4a4b5bb01931a0"
+  },
+  {
+   "entry": "A98",
+   "section_bytes": 1298,
+   "section_sha256": "181248d91db1437786cc8654c4dc82bb3983ea36a069f702f6dfd2acadfd8aa9"
+  },
+  {
+   "entry": "A99",
+   "section_bytes": 1705,
+   "section_sha256": "195fe36e8abf997656ec52e92c949db188411673c3820baf1f28d85e09dbe57c"
+  },
+  {
+   "entry": "A100",
+   "section_bytes": 2662,
+   "section_sha256": "ff872d375e55bb31489bdd2cd82ca533f93e9041c03c6af76a399c203f841b5a"
+  },
+  {
+   "entry": "A101",
+   "section_bytes": 1468,
+   "section_sha256": "1a8babc42526e6af7f24075746e8e6010b5c161b9ee0e7a42564dc11c20cf961"
+  },
+  {
+   "entry": "A102",
+   "section_bytes": 1339,
+   "section_sha256": "c4b56728ded3ae292f9e26f31f0cdfa0c41516a7c836f9d5791934034a231a76"
+  },
+  {
+   "entry": "A103",
+   "section_bytes": 883,
+   "section_sha256": "b50b42bb76d3696522f03bda42dffb096652cabc3345d6e2e4bf44d2503331ec"
+  },
+  {
+   "entry": "A104",
+   "section_bytes": 689,
+   "section_sha256": "742c7ace69df2ea2fb9fb9dab6aba37484c51544f7a956dcf67ef4d1f5622d00"
+  },
+  {
+   "entry": "A105",
+   "section_bytes": 1819,
+   "section_sha256": "22ff72c7fe0ebffc015579c47c32a2e02f52dc69b44a57dbdf8bd3434fbb902d"
+  },
+  {
+   "entry": "A106",
+   "section_bytes": 1992,
+   "section_sha256": "6ea808ffafeee7b885fa870e426214bedab372f927c4e5156cfa4b3a02b595ad"
+  }
+ ],
+ "nice": 10,
+ "pending_selected_files": {
+  "observed": [],
+  "r6_final_status": "UNTESTED",
+  "selected_script_final_status": "UNTESTED",
+  "v003_final_status": "UNTESTED"
+ },
+ "schema": "UNT_R6_REVIEW_ACCEPTANCE_MATRIX_CX1V001",
+ "scope": "Metadata-only independent review preparation under0643. No tools/script executed; no dev or mutant trees scanned; no recursive pin dereferencing; no production/protected/observed data.",
+ "scope_boundaries": {
+  "F13_authority_distinction": "A106 adopts F11; Claude4 0110 explicitly includes F13, whose safe review definition requires root A7 confirmation. No new scientific result is inferred.",
+  "selected_script_next_phase": "After selected r6/v003 review, C02 stored-r6-sha identity; C04 r13 registry/V009 every slot PASS; C05 exact BUILD launcher/guard names+shas; C06 whole binder-command byte equality. C03/C08 script implementation only if root-authorized time-bounded scope is met, otherwise explicit root manual checks in seal record.",
+  "v003": "Only D05/C01, B8, README parser correction and W7-S1 MUST_FAIL cases; no speculative extra tool scope."
+ },
+ "source_pins": {
+  "claude4_0109": {
+   "bytes": 4676,
+   "hash_origin": "TESTED_FROM_FILE_BYTES",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE4/0109_2026-10-18_r5_check_r6_recommended_v002_check_scope.md",
+   "sha256": "d0b20717170661f7bcc7b5866fd6f8c074dc5058929c4e669d0515c962983bc7"
+  },
+  "claude4_0110": {
+   "bytes": 2108,
+   "hash_origin": "TESTED_FROM_FILE_BYTES",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE4/0110_2026-10-18_ack_0643_r6_through_A106_v003_option_b.md",
+   "sha256": "a2c90720a9d1bfde26acaf5933a1eec2ead8b8ff03c1c3d646c388d0060af48f"
+  },
+  "closed_v005": {
+   "bytes": 143081,
+   "hash_origin": "TESTED_FROM_FILE_BYTES",
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md",
+   "sha256": "c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1"
+  },
+  "dispatch0643": {
+   "bytes": 1392,
+   "hash_origin": "TESTED_FROM_FILE_BYTES",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0643_2026-10-18_claude4_claude3_codex1_A106_final_V005.md",
+   "sha256": "2926f7ab57cac05168d079807224f05317d2b71e0f0a86e7a78b92e98005172e"
+  },
+  "r5_checklist": {
+   "bytes": 8431,
+   "hash_origin": "TESTED_FROM_FILE_BYTES",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/SEAL_CHECKLIST_R5.md",
+   "sha256": "7ff81720e6cf108a6f71d478dcc23493fb1ee943ed2c90e88873715a2921bd13"
+  },
+  "r5_prereg": {
+   "bytes": 178323,
+   "hash_origin": "TESTED_FROM_FILE_BYTES",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R5.json",
+   "sha256": "3245899f68081a48928a7242a1d9f1ee3694bb13b3f04913dcb2825104a93393"
+  },
+  "r5_review_definitions": {
+   "bytes": 32880,
+   "hash_origin": "TESTED_FROM_FILE_BYTES",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5_check/REPORT_R5CHK_C4V002.md",
+   "sha256": "caea77aae21e19419c6d61778edb1f3ed984bf0ba21e82bbf595382dcfa3dacd"
+  }
+ },
+ "status": "TESTED_CONTRACT_PREPARATION_ONLY_FINAL_R6_UNTESTED",
+ "tested_contract_facts": {
+  "F11_and_F13_definitions_located": true,
+  "closed_last_entry_A106": true,
+  "closed_v005_sha_and_size_match": true,
+  "dispatch0643_sha_matches": true,
+  "expected_A82_A106_rows": 25,
+  "r5_declared_build_case_registry_match_A106": true,
+  "r5_row_hashes_still_match_closed_v005": true,
+  "r5_rows_A82_A101": 20
+ }
+}

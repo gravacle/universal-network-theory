@@ -1,0 +1,189 @@
+{
+  "date_u": "Sun Oct 18 16:20:00 UTC 2026",
+  "findings": [
+    {
+      "evidence": [
+        "F01_npy_duplicate_descr",
+        "F02_npz_member_duplicate_shape",
+        "F03_npy_duplicate_equal_fortran"
+      ],
+      "fix": "Parse the header AST without evaluating mappings first; recursively reject duplicate dict keys and malformed schema/types before ast.literal_eval/NumPy read_array. Retain both entry positions/values in diagnostics.",
+      "id": "CX2-V6-B1",
+      "limit": "Malformed header acceptance is TESTED; occurrence in production files UNTESTED.",
+      "location": "_npy_header:212",
+      "owner_should_fail": "STRICT_PARSE (and optionally NO_LAST_WINS)",
+      "severity": "BLOCKING",
+      "title": "Duplicate NPY header keys are last-wins"
+    },
+    {
+      "evidence": [
+        "F06_joined_label_alias_changes_result"
+      ],
+      "fix": "Use an injective structured representation for label sets or a fresh opaque identifier; reject duplicate final normalized tokens across distinct raw pairs after joining. A73 derived-triple admission remains separately necessary.",
+      "id": "CX2-V6-B2",
+      "limit": "Actual changed result value hidden under supplied synthetic tokens; no claim that registered production token files contain this pattern.",
+      "location": "build_tokens:708-709",
+      "owner_should_fail": "NORM_INJECTIVE",
+      "severity": "BLOCKING",
+      "title": "Joined token labels are not injective"
+    },
+    {
+      "evidence": [
+        "F02_ledger_newline_alias_hides_change",
+        "F03_equal_duplicate_ledger_alias"
+      ],
+      "fix": "Use fullmatch or absolute end anchor; independently reject a repeated (directory,token,kind) before assigning or removing inventory entries, naming both raw paths. Preserve all raw paths for inventory/coverage accounting.",
+      "id": "CX2-V6-B3",
+      "limit": "Synthetic ledger under a compared reference-stage tree; same grouping code handles route-A ledgers. No production incidence tested.",
+      "location": "ATTEMPT_RE:83 and _compare:1425",
+      "owner_should_fail": "NO_LAST_WINS/ATTEMPT_LEDGER/INVENTORY",
+      "severity": "BLOCKING",
+      "title": "Attempt-ledger newline aliases overwrite and disappear from inventory"
+    },
+    {
+      "evidence": [
+        "F05_duplicate_exact_declared_token"
+      ],
+      "fix": "Reject repeated raw declared entries before set aggregation, including equal-valued repeats; distinguish declared-source duplicates from intentional provenance merging of auto/declared relation entries.",
+      "id": "CX2-V6-S1",
+      "limit": "A71 duplicate acceptance; the reproduced unused duplicate alone does not change a scientific value.",
+      "location": "build_tokens:695-698",
+      "owner_should_fail": "NO_LAST_WINS or token parse/policy",
+      "severity": "SHOULD_FIX",
+      "title": "Identical declared token triples silently deduplicate"
+    }
+  ],
+  "inventory": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/CONVERSION_INVENTORY_CX2V001.json",
+    "sha256": "678980881cc452d2d67a618edbdb033495dd6e7f07950acb106a08e6c8ec7239"
+  },
+  "source_pins": [
+    {
+      "bytes": 91076,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/run_identity_compare_c2v006.py",
+      "sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48"
+    },
+    {
+      "bytes": 16199,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/BUILD.md",
+      "sha256": "fedbc6157037e2e1c847e7211b9ed9519193c99185bc4ce2362783384bb647d1"
+    },
+    {
+      "bytes": 80775,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/DIFF_c2v005_c2v006.diff",
+      "sha256": "ded144d333a50eaa0f0d45a36850f104227ed348a5db1abcff46c6658bd6621b"
+    },
+    {
+      "bytes": 83853,
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md",
+      "sha256": "c4d4ded6ee239836099162facd68b8a2944423ef76c320f24a4b474363aa5923"
+    },
+    {
+      "bytes": 1684,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0564_2026-10-18_codex2_crosslineage_review_comparator_c2v006.md",
+      "sha256": "332ed9d11fc069b772673b50d07b5db678d11fb68cad13a152ea470c5173103d"
+    },
+    {
+      "bytes": 33593,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/resumable_coupled_gas_0422/coupled_gas_checkpoint_c2v003.py",
+      "sha256": "069b393560003fc200932e2d17fa84ee750043fa2132f2cadd459915fb99b114"
+    },
+    {
+      "bytes": 18620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/invocation_canaries_cx2v003.py",
+      "sha256": "711580269ba37be0fc6c4e7206c27ca5427d56b7a558e1247cff8e44172ce72e"
+    },
+    {
+      "bytes": 9259,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probe_a71_store_cx2v001.py",
+      "sha256": "4aa88cc4c4e3866e777c8ab5afc69d599daf5e1934df0f766df798b6f7fbd610"
+    },
+    {
+      "bytes": 3727,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probe_ledger_alias_cx2v001.py",
+      "sha256": "e085d5cb4cd78312d7f872edcec044787994f9d2f6accac748d8069ef8815e14"
+    },
+    {
+      "bytes": 9057,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/RESULTS_CX2V001.json",
+      "sha256": "39b218bb9296be1a6181688151f302a98bd499eff842947c79aa073c9e2f232a"
+    },
+    {
+      "bytes": 7397,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/ledger_v001/RESULTS_LEDGER_CX2V001.json",
+      "sha256": "203f85346f9a86c5ea39df03392a3d38eaa1ea009c5f510d6f3245cf12f11c18"
+    },
+    {
+      "bytes": 19195,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/seal_source_audit_cx2v001.py",
+      "sha256": "0d14573023c07278b39c9731d54bd11b84ec07a5c53efed4f562a89578fbd192"
+    },
+    {
+      "bytes": 10459,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/P00_plain_synthetic_baseline/REPORT.json",
+      "sha256": "37dce11c4791283cf9883a20db2c7a61324aab884ec291635713b5bc2679f802"
+    },
+    {
+      "bytes": 10444,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/F01_npy_duplicate_descr/REPORT.json",
+      "sha256": "8a9d06f1728cae344f550c7591be33f8983680213deae3430d5a6ed72fc3eca6"
+    },
+    {
+      "bytes": 10465,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/F02_npz_member_duplicate_shape/REPORT.json",
+      "sha256": "059d507e97314e383d85a4b17cabd37cc2ab66b96ff71b4305176cc203dd15ef"
+    },
+    {
+      "bytes": 10468,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/F03_npy_duplicate_equal_fortran/REPORT.json",
+      "sha256": "f9c8ff3e9fc07184bb24269a3746793089429a0f1d74242397210d3e6da24012"
+    },
+    {
+      "bytes": 10547,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/C04_ordinary_array_change/REPORT.json",
+      "sha256": "7b59cb1c09d3f675150eba4a5dca2db2e22633f19ce72ba1f3e14442d58b2a64"
+    },
+    {
+      "bytes": 10477,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/F05_duplicate_exact_declared_token/REPORT.json",
+      "sha256": "f61dfae86281265dee21de57b018345cba2353fc7084df518f39d58726329c8c"
+    },
+    {
+      "bytes": 10560,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/F06_joined_label_alias_changes_result/REPORT.json",
+      "sha256": "fdcb9aef7d44f7ee22c13f5203c729be3ffa3e4d60e0f8d46c9968a6a677612d"
+    },
+    {
+      "bytes": 10578,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/C07_same_result_change_without_tokens/REPORT.json",
+      "sha256": "ae9dff0f48c2194eea543c3bdc3594e7fe939010792173ba173b01689512ac8d"
+    },
+    {
+      "bytes": 10493,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/probes_v001/P08_one_honest_declared_pair/REPORT.json",
+      "sha256": "ef67ab06de02535c79c6fd9c1f1cc06723122fe6c8d4dcfee044b902b98fe0ca"
+    },
+    {
+      "bytes": 10612,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/ledger_v001/P00_ledger_equal/REPORT.json",
+      "sha256": "8fa40daae3e626e97dbd49ea282b7411526808eb5ac5fbef7870069c05d10899"
+    },
+    {
+      "bytes": 10864,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/ledger_v001/C01_ledger_ordinary_change/REPORT.json",
+      "sha256": "28f2a21f0a8997cc3881c6b01040158fce7e1829365f3c583b5447e7cf967930"
+    },
+    {
+      "bytes": 10675,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/ledger_v001/F02_ledger_newline_alias_hides_change/REPORT.json",
+      "sha256": "8f4bc15ccb94ac303ae219e7b58db12348580655945ea1c803abd57830c79bbb"
+    },
+    {
+      "bytes": 10660,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/source_audit/ledger_v001/F03_equal_duplicate_ledger_alias/REPORT.json",
+      "sha256": "41cb169f67d2b7a0553d368dbacea02db39e00508506170881e1c4bdb277a40c"
+    }
+  ],
+  "target_sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48",
+  "verdict": "FAIL"
+}

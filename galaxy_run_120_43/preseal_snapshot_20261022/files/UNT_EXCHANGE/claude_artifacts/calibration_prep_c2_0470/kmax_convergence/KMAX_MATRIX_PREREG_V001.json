@@ -1,0 +1,91 @@
+{
+ "schema": "UNT_KMAX_CONVERGENCE_PREREG_C2_0470_V001",
+ "plan_item": "P-88 (A1-numerics): k_max / truncation-shape convergence of route-B DDO154 at fixed source and fixed parameters",
+ "status": "PREREGISTERED_BEFORE_ANY_RESULT. No case below has been run. Thresholds, gates and the decision rule are fixed here and must not be changed after any result exists; a change is a new version (V002) with the reason recorded.",
+ "binding_inputs": {
+  "root_decisions": {"path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_A1_A2_2026-10-17_V001.md"},
+  "a2_coefficients": {"path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/CRITICAL_PATH_EVALUATION_2026-10-17_V001/sampler_eval/CANDIDATE_4CHAIN_POOLED_GRID_V001.npz", "sha256": "2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7"},
+  "base_seed": {"path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_STABLE_CACHED_COUPLED_TRIAL_SEED_V002.json", "sha256": "694eaaaab38547a369ac85c3c3d0b5550d8878753ccafe7bc0e5cdcb79be6680"},
+  "row_binding": {"path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_COLUMN_MEAN_REFERENCE_BINDING_V001.json", "sha256": "f42c7c657cd9b8bcef6b88e980918ff2570b1fc0a5480784d8bf3b8bb2a3c600"},
+  "sigma_source": {"path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json", "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d", "fields_used": "rows[*].id and rows[*].quoted_random_sigma_km_s only"}
+ },
+ "row_ids": ["DDO154_SPARC12_01", "DDO154_SPARC12_02", "DDO154_SPARC12_03", "DDO154_SPARC12_04", "DDO154_SPARC12_05", "DDO154_SPARC12_06", "DDO154_SPARC12_07", "DDO154_SPARC12_08", "DDO154_SPARC12_09", "DDO154_SPARC12_10", "DDO154_SPARC12_11", "DDO154_SPARC12_12"],
+ "quoted_sigma_km_s": [1.6, 0.8, 0.7, 0.5, 0.4, 0.2, 0.2, 0.2, 0.3, 0.6, 0.7, 1.3],
+ "grids": {
+  "G2": {"role": "existing seed grid (kmax 2/kpc)", "composite_grid_spec": null,
+         "breaks_inverse_kpc": [-2, -1, -0.3, -0.1, -0.03, -0.01, 0, 0.01, 0.03, 0.1, 0.3, 1, 2],
+         "panel_orders": [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6], "axis_nodes": 72},
+  "G3": {"role": "G2 panels unchanged + one outer panel [2,3] per side, order 6 (same width and order as the existing [1,2] panel)",
+         "composite_grid_spec": {"version": "DIRECT_LAPSE_PANELS84_KMAX3_OUTER6_C2_0470_V001",
+                                 "breaks_inverse_kpc": [-3, -2, -1, -0.3, -0.1, -0.03, -0.01, 0, 0.01, 0.03, 0.1, 0.3, 1, 2, 3],
+                                 "panel_orders": [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6], "total_axis_nodes": 84,
+                                 "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-3,-2],[2,3] order 6; full signed cube; k_max convergence test P-88 only; no continuum or cutoff error certificate."},
+         "axis_nodes": 84},
+  "G4": {"role": "G3 + one more outer panel [3,4] per side, order 6",
+         "composite_grid_spec": {"version": "DIRECT_LAPSE_PANELS96_KMAX4_OUTER6_C2_0470_V001",
+                                 "breaks_inverse_kpc": [-4, -3, -2, -1, -0.3, -0.1, -0.03, -0.01, 0, 0.01, 0.03, 0.1, 0.3, 1, 2, 3, 4],
+                                 "panel_orders": [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6], "total_axis_nodes": 96,
+                                 "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-4,-3],[-3,-2],[2,3],[3,4] order 6; full signed cube; k_max convergence test P-88 only; no continuum or cutoff error certificate."},
+         "axis_nodes": 96},
+  "GR": {"role": "inner-refinement control: G2 breaks, the 10 panels inside |k|<=1/kpc raised from order 6 to 8, outer [1,2] panels unchanged",
+         "composite_grid_spec": {"version": "DIRECT_LAPSE_PANELS92_INNER8_C2_0470_V001",
+                                 "breaks_inverse_kpc": [-2, -1, -0.3, -0.1, -0.03, -0.01, 0, 0.01, 0.03, 0.1, 0.3, 1, 2],
+                                 "panel_orders": [6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6], "total_axis_nodes": 92,
+                                 "scope": "Seed V002 breaks to 2/kpc; inner ten panels order 8, outer [1,2] panels order 6; inner-refinement control for P-88 only; no continuum or cutoff error certificate."},
+         "axis_nodes": 92}
+ },
+ "cases": [
+  {"id": "C4", "grid": "G4", "shape": "cube", "kmax_inverse_kpc": null, "prefix": "compute", "priority": 1},
+  {"id": "S4", "grid": "G4", "shape": "sphere", "kmax_inverse_kpc": 4.0, "prefix": "admit:C4", "priority": 1},
+  {"id": "Y4", "grid": "G4", "shape": "cylinder", "kmax_inverse_kpc": 4.0, "prefix": "admit:C4", "priority": 1},
+  {"id": "C3", "grid": "G3", "shape": "cube", "kmax_inverse_kpc": null, "prefix": "compute", "priority": 2},
+  {"id": "S3", "grid": "G3", "shape": "sphere", "kmax_inverse_kpc": 3.0, "prefix": "admit:C3", "priority": 2},
+  {"id": "Y3", "grid": "G3", "shape": "cylinder", "kmax_inverse_kpc": 3.0, "prefix": "admit:C3", "priority": 2},
+  {"id": "C2", "grid": "G2", "shape": "cube", "kmax_inverse_kpc": null, "prefix": "compute", "priority": 3},
+  {"id": "S2", "grid": "G2", "shape": "sphere", "kmax_inverse_kpc": 2.0, "prefix": "admit:C2", "priority": 3},
+  {"id": "Y2", "grid": "G2", "shape": "cylinder", "kmax_inverse_kpc": 2.0, "prefix": "admit:C2", "priority": 3},
+  {"id": "R",  "grid": "GR", "shape": "cube", "kmax_inverse_kpc": null, "prefix": "compute", "priority": 4, "control_for": "C2"}
+ ],
+ "fixed_across_all_cases": {
+  "physical": "identical block in every case (default: seed V002 values, s=1, entropy_K_factor=64/121, 4.04 Mpc, 66 deg; or copied verbatim from the production A2 base call spec)",
+  "coefficients": "A2 4-chain pooled grid 2e3a36d8... (ROOT_DECISIONS A2)",
+  "brackets": "identical rule block in every case (default: the CALL_REPRO_RULE_FULL_C2V001 rule incl. its declared overrides; or copied verbatim from the production base call spec)",
+  "picard": {"passes": 4, "speed_change_bound_km_s": 0.01, "observe_every_pass": true},
+  "observation": "column-mean V004 rows (HI-weighted mean of R*Omega, binding f42c7c65...)",
+  "what_fixed_source_means": "Observed Sigma, fixed analytic stars, the sigma0=11 km/s K0 rule and the 64/121 entropy factor are fixed. The gas state is re-solved self-consistently in every case (that is the forward map calibration will use). Route A (and so K0, body, roots) is cube-truncated at each case's grid edge by driver design (INTERFACE_C2_0466 s5); K0 drift between grids is reported, not hidden."
+ },
+ "criterion": {
+  "sigma_min_km_s": 0.2,
+  "tau_km_s": 0.05,
+  "tau_definition": "tau = 0.25 * sigma_min (rows 06-08, quoted random sigma 0.2 km/s); applied as an ABSOLUTE bound to every row",
+  "tau_picard_km_s": 0.0125,
+  "tau_inner_km_s": 0.05,
+  "tau_shape_agreement_km_s": 0.10,
+  "relative_equivalent": "tau/v_i: about 4.3e-3 on row 01 (v~11.6 km/s) to 1.0e-3 on rows 10-11 (v~50 km/s); reported alongside, not used for the decision",
+  "statistic": "D_A(K1,K2) = max over the 12 rows of |v_i(A,K2) - v_i(A,K1)| in km/s, A in {cube, sphere, cylinder}",
+  "per_case_validity_gates": {
+   "V1": "driver status COMPLETED, valid true, exactly the 12 registered row ids with finite speeds",
+   "V2": "final-pass max_abs_change_km_s present and <= tau_picard",
+   "V3": "normalized_spec matches the registered case (grid breaks/orders, shape, kmax) and the common block (physical, coefficients sha, entropy, picard, brackets) is identical across all cases; same driver sha in all cases",
+   "V4": "final field packet wavevector axis equals the registered grid axis bitwise (prep formula) and holds axis_nodes^3 nodes",
+   "V5": "final field packet rows outside the registered mask are exactly zero, and the kept-node count equals the count from the registered grid",
+   "V6": "admitted cases: route-A identity_sha256 equals that of the cube case they admit"
+  },
+  "shape_pass": "Pass(A) iff cases (A,2),(A,3),(A,4) are valid AND D_A(3,4) <= tau AND D_A(3,4) < D_A(2,3) (contracting)",
+  "inner_control": "D_R = max_i |v_i(R) - v_i(C2)| <= tau_inner",
+  "decision_rule": [
+   "1. Any case needed by a step below is invalid -> INCOMPLETE (name the case and failed gate; rerun that case only).",
+   "2. D_R > tau_inner -> INNER_UNRESOLVED (next step: raise inner panel orders on the adopted grid; needs a prep node budget > 96).",
+   "3. No shape passes -> NOT_CONVERGED (next step: extend the shape with the smallest D_A(3,4) to 5 and 6 /kpc with the same order-6 unit outer panels, 108/120 nodes per axis; needs a reviewed prep successor with budget >= 120 and a per-call cap >= 6 GiB).",
+   "4. Two or more shapes pass but some pair differs at K=4 by more than tau_shape on any row -> NOT_CONVERGED (SHAPE_DISAGREEMENT; same next step).",
+   "5. Otherwise ADOPT A* = the passing shape with the smallest measured m4 ratio at K=4 (driver azimuthal_harmonics global_max m4; tie within 10% -> smaller D_A(3,4)), at k_max = 4 /kpc on grid G4.",
+   "6. Carried numerical uncertainty per row: u_i = |v_i(A*,4) - v_i(A*,3)| + |v_i(R) - v_i(C2)| km/s, reported with the adoption."
+  ],
+  "why_tau": [
+   "Measured Picard floor of the saved chain is 0.0095 km/s (pass 2->3); tau must sit well above it to be decidable (tau/floor = 5.3); the per-case Picard gate tau/4 = 0.0125 keeps iteration error below a quarter of tau.",
+   "A uniform 0.05 km/s bias moves every row by at most 0.25 sigma_min, i.e. <= 8.7% of the half-width of the frozen 12-row Bonferroni band (z = 2.865), and adds at most 0.75 to a 12-row chi-square even if every row had sigma_min.",
+   "It is below the carried A1-m>=1 indicator range (0.5*eps2*v = 0.015-0.272 km/s), so numerics do not dominate the declared sensitivity budget.",
+   "An absolute bound tied to sigma_min is used rather than a uniform relative bound because the calibration compares km/s residuals against sigma; a uniform 1e-3 relative bound would permit 0.05 km/s at the outer rows but demand 0.012 km/s at row 01 (near the Picard floor)."
+  ]
+ }
+}

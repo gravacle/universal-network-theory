@@ -1,0 +1,11 @@
+- 2026-10-21T12:25:53Z Claude3 lead: folder opened; helper starting (0826).
+2026-10-21T12:26:06Z helper start: hashed 13 object files (see sha_start); reading 0816/0820/0826
+- 2026-10-21T12:28:03Z helper: pins verified (17 source files match design pins); V006 A254-A260 read; reading A166/A226/A247 then code
+- 2026-10-21T12:31:33Z helper: read campaign005, launcher015, parent Mapper/Probe/check_numerics/check_deciding, engine FD-Jacobian; next h11 assembler, apply_h3_fields, wrapper/entry
+- 2026-10-21T12:33:49Z helper: wrapper004 reingest/ledger_append/core r10 mapper read; checking RUN_CONFIG v004a caps + guard014 + accept_call + entry
+- 2026-10-21T12:36:42Z helper: guard014/entry/accept_call read; copying branch_trace + engine to scratch for re-run
+- 2026-10-21T12:37:58Z helper: branch_trace re-run on scratch copy: 30/30 identical to BRANCH_TRACE_RESULTS_V001 except source.path; writing Probe-level synthetic wave test
+- 2026-10-21T12:41:00Z helper: Probe-level synthetic wave test PASS 108 rows (engine result+log invariant bulk+lazy; plans preserved only lazy); reading README_SCHED_S45 L100-130 for saving
+- 2026-10-21T12:44:08Z helper: claims cross-checked (B1/B2/earliest-start/hedge arithmetic CONFIRMED); collecting line refs, then end hashes
+- 2026-10-21T12:45:14Z helper: end hashes: 13/13 object files unchanged; source pins unchanged; composing hand-back (verdict PASS, 0 blocking)
+- 2026-10-21T12:50:35Z Claude3 lead: helper hand-back PASS 0 blocking; lead spot-checked N3/N4; RESULT written.

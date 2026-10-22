@@ -1,0 +1,37 @@
+{
+ "schema": "CLAUDE2_GEOMETRY_V002_SYNTHETIC_TESTS_V001",
+ "harness": {
+  "file": "test_extract_v002_synthetic.py",
+  "sha256": "0b27b605590a47209c0d3d6f1eabf5d1ccc4cdee4e5d7ef6e5fed22db112dfc5"
+ },
+ "method": "Test copies of V002/V001 with SRC repointed to scratch fixtures. Fixtures = the real MRT header lines (documentation, up to the last separator) + synthetic rows. The real CDS ReadMe is used for documentation verification. A fake Vflat sentinel sits beyond byte 41 in every row. The real source rows were never executed against.",
+ "real_defect_replica": "T3/T3b/T4 rows reproduce the real rows' bytes 1-39 class masks exactly (asserted), with synthetic digits.",
+ "results": [
+  "PASS T1 CDS-layout fixture -> PASS_DOCUMENTED_LAYOUT(CDS) | PASS_DOCUMENTED_LAYOUT",
+  "PASS T2 MRT-layout fixture -> PASS_DOCUMENTED_LAYOUT(MRT) | PASS_DOCUMENTED_LAYOUT",
+  "PASS T3 real-spacing replica -> FAILED_SCHEMA_VALIDATION, no values emitted | FAILED_SCHEMA_VALIDATION",
+  "PASS T3 replica bytes 1-39 class mask == real-row prefix class mask (both rows) | {\"DDO154\": \"_____AAAAAA_99___9.99__9.99__9_99.9__9.\", \"NGC3198\": \"____AAAAAAA__9__99.99__9.99__9_99.9__9.\"}",
+  "PASS T3b V001 on replica -> status OK with malformed literals (defect reproduced) | malformed fields: D,e_D,f_D,Inc,e_Inc e.g. D='5  12.'",
+  "PASS T4 replica + pinned declared layout -> PASS_DECLARED_LAYOUT | PASS_DECLARED_LAYOUT",
+  "PASS T5 a_nonnumeric_D -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 b_signed_D -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 c_zero_D -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 d_bad_method_code -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 e_inclination_95 -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 f_blank_e_Inc -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 g_missing_NGC3198 -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 h_duplicate_DDO154 -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 i_truncated_row -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 j_nan_D -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 q_exponent_D -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 r_one_decimal_for_F6.2 -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 s_inside_doc_range_violation_e_Inc_0.5 -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "PASS T5 k declared layout wrong sha -> E_DECLARATION_PIN",
+  "PASS T5 l declared field beyond byte 41 -> refused | {\"status\": \"FAILED\", \"code\": \"E_LAYOUT_FIELD_e_Inc\"}",
+  "PASS T5 m declaration while a documented layout passes -> FAILED_DECLARATION_CONFLICT",
+  "PASS T5 n output exists -> E_OUTPUT_EXISTS",
+  "PASS T5 o source pin mismatch -> E_PIN",
+  "PASS T5 p_cds_readme_tampered -> FAILED_SCHEMA_VALIDATION | {\"status\": \"FAILED_SCHEMA_VALIDATION\", \"chosen_layout\": null, \"output\": \"/private/tmp/claude-501/-Users-bgm-MB-Work/573e",
+  "SUMMARY 25 / 25 passed"
+ ]
+}

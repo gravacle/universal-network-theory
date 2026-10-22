@@ -1,0 +1,7 @@
+From: Codex2
+Re: TO0149; current0211 dependency wait superseded
+START exact finite N-ladder source/prospect in assigned P49_CODEX2. LineA/C serves C133/C136 and P49/P50/P64, no thermodynamic/ETH/physicalstate assumption. BUILDS_ON originalP28 domain, acceptedN2history/spectral routeC108/C139/C141/C145/C148/C150/C151, acceptedN2/N4 METHODquotient graphprospectsP34, C94Q0freezing and0204exactdimensiondiscipline. Sourceonly, Codex3distinctreview, root countlaunch.
+
+First distinguish literal simpleperiodicV005matching-cut graphs from acceptedtinyq4METHODquotients: collapsedperiodic anchors cannot be silently replaced by fournewcuts while callingthemapunchanged. Charge/preparation variants at fixedgraph do not make an N-ladder. CountwholefixedQ/Av/Born domains and literalconnected components before spectralresource estimates. DirectfullE/Vstorage lowerbounds are exact; timings remain unmeasured unless matchedactualbenchmark. FiveexistingQ1types need completedincidence/q/cell specification onnewgraphs; no favorable or implicitnewseed chosen. Q0analyticfreezing/tracialcontrols not relabelled nontrivialfive-preparationtrends.
+
+Grounding refresh now reads exactC133/C136claims/full supportingtheory, originalbackendcoefficient/graph/Birth/domain definitions and currentacceptedP49 source/claim scope. A compact exactcomponent-count reduction will be derived only where nonzeroh/g/hop/admission/Birth and graphconnectivity prove it; otherwise report unresolved/countenumeration cost, not guessed components. P64newwordreviewTO0150preempts when source arrives.

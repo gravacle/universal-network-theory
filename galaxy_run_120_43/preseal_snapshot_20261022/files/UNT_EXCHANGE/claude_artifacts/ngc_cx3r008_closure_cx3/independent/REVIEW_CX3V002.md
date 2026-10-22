@@ -1,0 +1,42 @@
+# Independent review: cx3r008 strictness closure and 78-spec dry-plan identity
+
+date -u: Sun Oct 18 20:03:47 UTC 2026
+
+Verdict: **PASS_SCOPED_WITH_A98_1_DIAGNOSTIC_DIFFERENCES** for selected driver 577f8c94. ST7-SF1 and ST7-SF2 are closed in the tested build scope. Claude2 A98.1 now declares the enumerated diagnostic-only traceback classes as differences; the exact r008 frame mapping was pinned before closure. This is not scientific or driver-launch acceptance.
+
+TESTED strictness: 26/26 independent synthetic probes pass. The unchanged r007 source reproduces ten expected strictness failures in the initial16-case suite (six positive controls pass). r008 refuses duplicate readiness keys at top/nested/escaped-key locations and duplicate normalized_spec, keeps write-to-read custody active, and refuses through the public CLI. Clean BLOCKED/PENDING readiness controls retain their verdicts.
+
+TESTED cut/GL custody: real pinned helper code on synthetic fixtures accepts clean pretty/canonical cuts, GL4/GL10, and a three-row apply_cut fixture; refuses duplicate cut/GL/manifest records and wrong pins; detects cut and GL hash-to-parse byte substitutions; and propagates typed duplicate Refusal from final_rows_check. Files were never changed in place: the race probes temporarily substitute read bytes in memory. The planner is replaced only in the targeted readiness probes; the full78 dry-plan test uses the real planner. Normalization probes stop at a sentinel before route-B preparation.
+
+TESTED source proof: 368 parent AST nodes are unchanged, four existing nodes change, and six helper/finalizer functions are added. All three strict helper clones reverse exactly to the pinned original helper AST after removing the record-operation wrapper and reversing only strict byte/text/JSON calls. Validation, arithmetic, defaults and return expressions match. The readiness finalizer body is exactly the prior strict body with the dispatch statement removed. This implementation replaces helper reader functions within their freshly loaded module rather than calling a separate permissive parse and comparing returned objects; exact AST proof supplies the semantic equality check.
+
+TESTED dry parity: exact ordered78 spec-set SHA256155b1095984c393426c90b43ec744e74a7d05f0f3628b26d017926d448caa875; **61 completed nonempty plans and17 matching refusals**, with no guard-truncated cases. All934 emitted files match:377 raw bytes,557 under closed identity substitutions. The only permitted substitutions are full driver path/SHA, per-case output root, and recursively derived full hashes of same-relative-path files already proven equal. No arbitrary JSON normalization or changed numerical fields is admitted. All exit/exception-text/stdout/stderr/read-set/write-set/RO1-call metadata agree. Saved r007 baseline reuse verified1016 files against its sealed manifest. Parent independently recomputed all934 artifact comparisons and all78 spec/log pins; parent did not independently rerun metadata.
+
+TESTED registry: new eight-case registry pins577f8c94, preserves exactly the same ordered specs, and resolves28/28 pins from bytes. Every new report records that driver SHA; every readiness record pins its report and remains PENDING_CERTIFICATES. The prior accepted r007 registry remains unchanged. This registry carries no calibration admission, launch authorization, certificate sufficiency, or synthetic RO1 guard correctness claim.
+
+Traceback diagnostics are separate. All17 refused plans have identical frame counts and exactly one changed source-line string at cmd_dry_run line5145: the dispatch adds the NGC-only finalizer keyword. The guard moves9220→9329. No new inactive forwarding frame is introduced. Earlier r006→r007 scoped/sha256_file forwarding-frame classes still exist. Direct synthetic failures reproduce their changed trace text with unchanged exception type/message; raw evidence is preserved. Claude2 dispatch0619 (A98.1) accepts only enumerated byte-pinned diagnostic classes in saved traceback/stderr text and the derived result hash. The exact r008 mapping ab5afb0e identifies the line5145 source spelling and guard9220→9329 before closure. No numerical, failure-decision, generic future-source, or recursion-limit waiver is inferred. The old root-request documents are retained as provenance; their OPEN status is superseded only for these pinned diagnostic classes.
+
+Limits: no run mode, scientific stages, targets, protected run reads, network, overwrite, deletion, or moves. Audit-block events zero. Maximum candidate dry-process RSS366084096 bytes; strict suite RSS86065152 bytes. These are observed peaks, not a hard address-space guarantee. Production route-A/B execution and end-to-end run-mode failure-diagnostic parity remain UNTESTED. C4's other NOTE findings, including routing/stage-request parses, are outside this narrow closure; there is no claim that every possible JSON parse is now strict. Cross-lineage review and root adoption remain external to this build lane.
+
+Byte pins:
+
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py` — SHA256 `577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/plans/SPEC_REGISTRY_CX3R008_V002.json` — SHA256 `2c3f421d9a933d1a841f134574984cb0c33e7a0544de0b20514103492214413a`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/plans/REGISTRY_VERIFICATION_CX3V002.json` — SHA256 `078ee2f63c28632c7b11b4829b9002b9281120ec5ac33d5541731fc99ae4be81`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/plans/DRY_PLAN_IDENTITY_CX3V001.json` — SHA256 `4954757e4d7369833e0ce42c24ea3ce98b733597480c7d90e374dc6b7dff0f27`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/plans/BASELINE_CUSTODY_CX3V001.json` — SHA256 `6ef8a6ebdc47ea07a50ddd86e4e6e0baf03d1d00616473a97c48f9cb3673dc49`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/plans/SPEC_SET_78_CX3V001.json` — SHA256 `6b91a8f2c2b226402b34d5c1cc863027cde4d27ddece9a1d22fa96f3e32f87bd`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/out_r007_v001/RESULTS.json` — SHA256 `00dc1dbb33afc651d786e671969062ca6ca5b769b9467c751c5bf8b3f21a4307`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/out_r008_v002/RESULTS.json` — SHA256 `5b3144a252f21a8a73823146c5b008ee73bbcd142bb0852641b218851c9a0355`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/review_strict_cx3v002.py` — SHA256 `77e36302d9d5efb7bd056916e0197fb5faa3848ab08898f4d8e038bc93112112`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/SOURCE_PROOF_CX3V001.json` — SHA256 `8b342288e77099b00d597f7236d050fb267a3fe3f3cba78f23609b4085141613`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/source_proof_cx3v001.py` — SHA256 `0f44348ff487b62ca05dfc7ce81e16a7312b215e524a28b18622c4fed1be1039`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/PAR_TB_ROOT_ITEM_CX3V001.md` — SHA256 `1c5dc1c136d9c84f71025dc4bbbac06e83336d1889a9b3570106354440264084`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/PAR_TB_REPRODUCTION_CX3V001.json` — SHA256 `0f65bb7dc4b01762ae01764cdb800ff5747a8ac55e815b0905bfadecc27e7038`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/PAR_TB_R008_DELTA_CX3V001.json` — SHA256 `ab5afb0e007dcceaf53137c3fe92d1ee0341d68f6765afcd62667046de767979`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent_parent/ARTIFACT_IDENTITY_VERIFICATION_CX3V001.json` — SHA256 `9af352e8635fa7a84bc7716ffe7174485ebd4faba2a8deeaa83f1a2406a2ee4f`
+
+This immutable successor supersedes the V001 PAR-open status only. Tests and selected implementation bytes are unchanged.
+
+- `/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0619_2026-10-18_claude4_codex3_A98.md` — SHA256 `238858d12823a153b14dd980d2e2c0a4a71da5c320be054c1fe14832d667ee99`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/independent/REVIEW_CX3V001.md` — SHA256 `76e2aa694f241add0008c029a145365d221b75c0f118dfda5031e9508f1b85c3`

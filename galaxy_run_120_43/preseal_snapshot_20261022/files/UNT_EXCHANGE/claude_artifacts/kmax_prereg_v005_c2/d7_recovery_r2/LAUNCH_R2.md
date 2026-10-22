@@ -1,0 +1,71 @@
+# KMAX D7 recovery R2 launch (prereg V005, Claude2 lane c2v005)
+
+R2 block: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/KMAX_D7_RECOVERY_R2.json` (sha256 ff7cf806cc3e297201cc151d05ce46b1c43e911d3a9dda15f1a07734532e93fd). Launched by root; nothing here launches. Each outdir is absent now.
+
+Monitor `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py` (ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107). Caps: v001 wall 21600 s, v005 wall 28800 s; rss 3221225472; output 17179869184; poll 2.0.
+
+## C2R2 (driver v001, admits A2_ANCHOR_F10_RUN_V001)
+
+spec `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_C2R2_A2F10_D7R2_C2V005.json` sha256 8f4a32471051de1fd427c0cf6242fea07c268f631a379d90988bb6c0ea6b6866
+
+```
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/galaxy_m0_forward_c2v001.py --driver-sha256 75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22 --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_C2R2_A2F10_D7R2_C2V005.json --outdir '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R2_D7R2_RUN_V001' --receipt '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R2_D7R2_RUN_V001.receipt.json' --wall-cap-s 21600 --rss-cap-bytes 3221225472 --output-cap-bytes 17179869184 --poll-s 2.0
+```
+
+## S2R2 (driver v001, admits A2_ANCHOR_F10_RUN_V001)
+
+spec `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_S2R2_A2F10_D7R2_C2V005.json` sha256 23b8793df5edc22b009cbb6b3c6134e0e8a123742f5f1513e7e6be6bc3941ded
+
+```
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/galaxy_m0_forward_c2v001.py --driver-sha256 75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22 --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_S2R2_A2F10_D7R2_C2V005.json --outdir '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S2R2_D7R2_RUN_V001' --receipt '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S2R2_D7R2_RUN_V001.receipt.json' --wall-cap-s 21600 --rss-cap-bytes 3221225472 --output-cap-bytes 17179869184 --poll-s 2.0
+```
+
+## Y2R2 (driver v001, admits A2_ANCHOR_F10_RUN_V001)
+
+spec `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_Y2R2_A2F10_D7R2_C2V005.json` sha256 73e3709fe5ed82fa5dc0da21c226ad9f260c269b7b57abc4dd3adb801e246df6
+
+```
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/galaxy_m0_forward_c2v001.py --driver-sha256 75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22 --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_Y2R2_A2F10_D7R2_C2V005.json --outdir '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y2R2_D7R2_RUN_V001' --receipt '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y2R2_D7R2_RUN_V001.receipt.json' --wall-cap-s 21600 --rss-cap-bytes 3221225472 --output-cap-bytes 17179869184 --poll-s 2.0
+```
+
+## C3R2 (driver v005, admits KMAX_A2F10_C3_V005_RUN_V001)
+
+spec `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_C3R2_A2F10_D7R2_C2V005.json` sha256 001395fa03334019debe4c0996aa35d08fa322b7634be014744ef11829c7d2ff
+
+```
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_impl_c2/binding/galaxy_m0_forward_c2v005.py --driver-sha256 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_C3R2_A2F10_D7R2_C2V005.json --outdir '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R2_D7R2_RUN_V001' --receipt '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R2_D7R2_RUN_V001.receipt.json' --wall-cap-s 28800 --rss-cap-bytes 3221225472 --output-cap-bytes 17179869184 --poll-s 2.0
+```
+
+## S3R2 (driver v005, admits KMAX_A2F10_C3_V005_RUN_V001)
+
+spec `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_S3R2_A2F10_D7R2_C2V005.json` sha256 aa636d162a3ddc45155e615064c57faf131e99c02a975794ebb76780724c2f51
+
+```
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_impl_c2/binding/galaxy_m0_forward_c2v005.py --driver-sha256 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_S3R2_A2F10_D7R2_C2V005.json --outdir '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S3R2_D7R2_RUN_V001' --receipt '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S3R2_D7R2_RUN_V001.receipt.json' --wall-cap-s 28800 --rss-cap-bytes 3221225472 --output-cap-bytes 17179869184 --poll-s 2.0
+```
+
+## Y3R2 (driver v005, admits KMAX_A2F10_C3_V005_RUN_V001)
+
+spec `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_Y3R2_A2F10_D7R2_C2V005.json` sha256 aea097d74bfd43459f15b3dae3fa08bb244c3985e4ef55810feaab667aec51a8
+
+```
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_impl_c2/binding/galaxy_m0_forward_c2v005.py --driver-sha256 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_Y3R2_A2F10_D7R2_C2V005.json --outdir '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y3R2_D7R2_RUN_V001' --receipt '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y3R2_D7R2_RUN_V001.receipt.json' --wall-cap-s 28800 --rss-cap-bytes 3221225472 --output-cap-bytes 17179869184 --poll-s 2.0
+```
+
+## RR2 (driver v005, admits KMAX_A2F10_R_V005_RUN_V001)
+
+spec `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_RR2_A2F10_D7R2_C2V005.json` sha256 9f74dbad7310119a1108ff05524f3df941c5a68b4b48dfdc762a5208f7d46308
+
+```
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py --driver /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_impl_c2/binding/galaxy_m0_forward_c2v005.py --driver-sha256 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f --spec /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/CALL_KMAX_RR2_A2F10_D7R2_C2V005.json --outdir '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_RR2_D7R2_RUN_V001' --receipt '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_RR2_D7R2_RUN_V001.receipt.json' --wall-cap-s 28800 --rss-cap-bytes 3221225472 --output-cap-bytes 17179869184 --poll-s 2.0
+```
+
+## Pending templates (not launchable yet)
+
+- C4R2: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/templates/CALL_KMAX_C4R2_A2F10_D7R2_C2V005.TEMPLATE.json` sha256 4426e8270eadb412519f672f82f264701d4c8f05ba80b0758e20f44c45af107f; PENDING: fill admit from the C4 V005 prefix once stages 01-03 exist, then dry-run under v005 before launch
+- S4R2: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/templates/CALL_KMAX_S4R2_A2F10_D7R2_C2V005.TEMPLATE.json` sha256 41f118b88cfd4a8066d7e23bbce731e3a755b52460160728785f662658fe95df; PENDING: fill admit from the C4 V005 prefix once stages 01-03 exist, then dry-run under v005 before launch
+- Y4R2: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/specs_d7r2/templates/CALL_KMAX_Y4R2_A2F10_D7R2_C2V005.TEMPLATE.json` sha256 57c5def0a1af8432c1321dfd779f7c00d095b32df3f919e08f9de406b086054b; PENDING: fill admit from the C4 V005 prefix once stages 01-03 exist, then dry-run under v005 before launch
+
+Comparison: kmax_compare_c2v005.py ... --bracket-recovery /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r2/KMAX_D7_RECOVERY_R2.json; case binding {"C2": "C2R2", "S2": "S2R2", "Y2": "Y2R2", "C3": "C3R2", "S3": "S3R2", "Y3": "Y3R2", "R": "RR2", "C4": "C4R2", "S4": "S4R2", "Y4": "Y4R2"}.
+
+LAUNCH_R2.json sha256 47e79e17087f4b014cb5b237554b6f351410f070f352af99052efa0bfb6fb945

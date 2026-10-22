@@ -1,0 +1,27 @@
+NO_FIX_NEEDED - step5_path_c2 (C2V001)
+Date: 2026-10-19
+Verdict: no blocking defects. No v002 successors written. HASHES.txt unchanged.
+
+Basis
+- Independent verify re-run (scratch copy verify_step5_c2_20261019T120250Z): tests 83/83 (40 MUST_PASS, 43 MUST_FAIL), fence blocks 0.
+- 31 dry plans: all exit 0, simulate only, 0 executed stages, 0 protected-path opens.
+- HASHES.txt: 28/28 entries verify from bytes (re-checked at NO_FIX write: 0 mismatches).
+  README_STEP5_PATH_C2V001.md fba1a70a91f70b36b0f8035bb9ade5ec78bd8a44667954bd877c03d02c2eb1cd
+  HASHES.txt                  27fb117f2d8099f65db40a44e6a2eb20d924144bf40bcee8bc1cb164ed942c94
+- 55 internal pins verify from bytes. Driver 577f8c94, K_big 32, M_s 96, A2 grid 2e3a36d8 unchanged.
+- Twin differs from serial only at numerics.route_a.column_workers. Comparator prints no values, fails closed.
+- Caps meet wall >= 2x forecast (serial 610,324 s = 2 x 305,162; twin 22,752 s). Units: GB = 1e9 bytes; root_monitor bytes/seconds.
+
+Non-blocking notes carried to root (gate, not build defects)
+N1 before S0: certificate kind and point not checked by filler, worker or dry plan (swapped EPS/LO passes). Root needs an S0 cert kind/point check under RI45-06; README must not imply dry plan validates certificates.
+N2 before any F launch: FD-point path accepts synthetic FDPLAN sources in real mode (forged snapshot/record shas accepted). Fix or root-check before any F handoff with u_A != seed.
+N3 member export path binds coordinate spec only, not addendum/config; RI45-02 (a) exact binding holds on S0 path only. Harmless today (engine-identical pairs; 4-u point refuses by shape).
+N4 before S0: twin has no iteration stop. Rule: kill twin once iteration_000{N-1}/COMPLETED.json and uv_tail_sidecar/iteration_000{N-1}.json both exist; never SIGSTOP it; any cap stop of the twin (WALL_CAP or OUTPUT_CAP) is planned.
+N5 corrupt npz with valid zip header -> uncaught BadZipFile, exit 1, no record. Never EQUAL; root reads the record, not the exit code.
+N6 before S0: spec bytes do not show who filled them. RI45-13 V006 entry should pin the fill receipt with the spec sha.
+N7 before first value read: STEP5_REGISTRY_C2V001 carries FREEZE_EXPECTED_INPUTS_CX3V002 (169df91f) with stale "or r006 fallback"; replace via RI45-14 (missing from README section 7).
+N8 twin spec is filled for every point; only launch discipline prevents a stray twin launch.
+N9 comparison spec edited after creation (disclosed in README; hashes post-edit and verify).
+N10 minor: phase1_point_handoffs can leave a partial dir on mid-loop write failure; role field used in filenames unchecked (source sha-pinned).
+
+Nothing launched. Nothing modified or deleted in this directory; this file is exclusive-created.

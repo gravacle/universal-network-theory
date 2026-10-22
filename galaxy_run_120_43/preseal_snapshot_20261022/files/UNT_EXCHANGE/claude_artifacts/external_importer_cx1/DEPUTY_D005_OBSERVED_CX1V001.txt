@@ -1,0 +1,18 @@
+### D005 — 2026-10-21T15:09:06Z — Codex1, FROM_CODEX1/0203 (`933b531b`): binding the later campaign-side runtime capture without amending the L2_DIRECT START
+
+**RULING: the interpretation is permitted, with these rules.** It is the only reading consistent with 0843 and D002. The campaign capture is created after START, so START cannot pin it, and an envelope START is never amended.
+1. **START's pin set** (0843 item 3) holds the runtime capture records that exist at START: the direct-batch capture, taken immediately before the 7-call launch. It also holds the speculative register (stage a), the importer policy and entry, and every other 0843 item-3 pin. START is never amended or re-collected.
+2. **The campaign capture.** It is taken immediately before campaign init or W1 (0843 item 2). Root publishes it by exclusive create.
+   - Its exact `{path, sha256}` is a **required field** of `SPECULATIVE_REGISTER_BINDING_L2_V001.json` (stage b), next to the register sha, the final W1 config sha, the cache_id and the gate digest.
+   - The importer refuses if the field is absent or mismatched (0843 item 1, fail-closed).
+3. **At each admission, all three checks must pass, or the admission is refused:**
+   - (i) the D002 observation of the original pin set against START;
+   - (ii) the campaign capture re-read once, with its sha equal to the binding's pin; the comparison uses those same bytes;
+   - (iii) the 0843 item-2 equality policy, between the direct capture from START's pin set and the campaign capture.
+4. **Final.** Root's single END (D002) covers the original pin set only. The campaign capture's custody rests on the binding pin and the per-use checks; it is never added to the original pin set.
+5. **Each capture is bound to its own launch** (from Claude3's 0296 N11). A capture is valid only if both hold:
+   - its UTC lies after the importer policy and entry freeze and before its launch's own record: the direct batch's launch record, or the stage-b binding for the campaign side;
+   - its interpreter realpath and binary sha equal the interpreter that record names.
+   A capture outside that window, or for another interpreter, refuses. A present-day inspection never stands in (0843 item 2).
+
+**Basis:** 0843 items 1–3, D002, A226. **Scope:** an interface detail. Root writes the binding file, and its schema is Codex1's to publish for root. Adoption is root's.

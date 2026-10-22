@@ -1,0 +1,1742 @@
+{
+  "FORMAL": [
+    {
+      "check": "rho rules",
+      "finding": "Candidate setup uses byte-pinned chain_checks.check_rho_record and rho_bitwise_canonical. collect applies the same schema, registered full search, coverage partition, producer pin, exact point identity, EPS/GQ status, custody and source-digest checks. Fixed 31-row registration is replaced by selected list points plus the pinned anchor pair. Canonical approved producer set remains exact.",
+      "refs": [
+        {
+          "file": "candidate",
+          "lines": "49-107"
+        },
+        {
+          "file": "chain_checks",
+          "lines": "162-293"
+        }
+      ]
+    },
+    {
+      "check": "FILLED and SLOT_ARGS",
+      "finding": "Only eps_certificate and lo_certificate slots are filled; emitted arguments bind the resulting file bytes, selected attempt-a rho, complete registration list, anchor pair, root rulings and producer shas. The slot-proof CLI flags and data contract agree.",
+      "refs": [
+        {
+          "file": "candidate",
+          "lines": "109-148"
+        },
+        {
+          "file": "slot_proof",
+          "lines": "264-324,354-391"
+        }
+      ]
+    },
+    {
+      "check": "bundle commands",
+      "finding": "Generated bundle command flags equal the list-mode assembler interface and campaign README section 3. Commands remain inert during this review.",
+      "refs": [
+        {
+          "file": "candidate",
+          "lines": "143-146"
+        },
+        {
+          "file": "assembler",
+          "lines": "144-181"
+        },
+        {
+          "file": "campaign_readme",
+          "lines": "77-94"
+        }
+      ]
+    },
+    {
+      "check": "A226",
+      "finding": "Every candidate read routes through Snapshot; repeated expected hashes are checked against the same stored bytes. The borrowed checker reader is replaced by this snapshot. Audit hooks saw at most one actual input open in both collect (150 inputs) and stage (151 inputs) on the 27-row fixture.",
+      "refs": [
+        {
+          "file": "candidate",
+          "lines": "27-59"
+        }
+      ]
+    },
+    {
+      "check": "A257 production rebind",
+      "finding": "README orders production points-manifest, records using existing exact-identity bundles, verify against C1/genesis, then ledger-append. assemble_records takes row, theta, pending-spec SHA and wave from the new production list and verifies bundle identity against its pinned spec; it does not relabel differing identities. Entry flags match.",
+      "refs": [
+        {
+          "file": "readme",
+          "lines": "Production W3 rebind section"
+        },
+        {
+          "file": "assembler",
+          "lines": "57-135,144-206"
+        },
+        {
+          "file": "campaign_entry",
+          "lines": "301-330"
+        }
+      ]
+    }
+  ],
+  "TESTED": {
+    "actual_os_open_audit": [
+      {
+        "PASS": true,
+        "case": "actual_single_read_audit",
+        "files": 150,
+        "max_opens": 1
+      },
+      {
+        "PASS": true,
+        "case": "actual_stage_single_read_audit",
+        "files": 151,
+        "max_opens": 1
+      }
+    ],
+    "additional_checks": "rho schema/status/registered-search/coverage/partition/producer/digest; EPS identity/full search; slot-record custody; proof key/custody/producer/status; GQ coverage/count; extra rho attempt; anchor duplicate/unregistered/bitwise disagreement; repeated SHA pin; exact FILLED/SLOT_ARGS/54 generated commands; exclusive output; stage single-read.",
+    "existing_files_overwritten_moved_or_deleted": false,
+    "functional_tests_passed": 37,
+    "functional_tests_total": 37,
+    "live_CP1_record_files_opened": [],
+    "live_point_directories_listed": false,
+    "positive_rows": [
+      300,
+      301,
+      302,
+      400,
+      401,
+      402,
+      403,
+      404,
+      405,
+      406,
+      407,
+      408,
+      409,
+      410,
+      411,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511
+    ],
+    "processes_launched": 0,
+    "source": "Exact candidate bytes loaded; no candidate edits. Author suite ported to in-process main(), output policy redirected to the independent review directory; positive fixture extended from 3 to 27 rows."
+  },
+  "UNTESTED": [
+    "Real CP1 numeric/proof contents",
+    "actual slot-proof or bundle command execution",
+    "production W3 rebind, production C1/genesis/config pins and ledger append",
+    "root review/adoption of the registration candidate"
+  ],
+  "assignment": "0824 (0819 review; 0823 build superseded)",
+  "blocking_count": 0,
+  "blocking_items": [],
+  "boundary_notes": [
+    "Registration/staging creates a root-review candidate, not an LO certificate, completed bundle or launch authorization. Existing downstream proof and C1/ledger gates remain required.",
+    "Single-read findings are the tested command fixtures and source-path analysis; no claim of locking external writers."
+  ],
+  "date_u": "Wed Oct 21 12:08:39 UTC 2026",
+  "review_harness_development": [
+    "v002 stopped because the proposed bitwise-disagreement witness changed schema and correctly hit the earlier RHO_SCHEMA_OR_GATE refusal. v003 instead changed a synthetic shell field.",
+    "v003 stopped on a review-test comparison of JSON list to Python tuple for root rulings. v004 compares the serialized list form required by the existing chain. Neither failure required a candidate change; predecessors and fixtures remain intact."
+  ],
+  "reviewer": "Codex2",
+  "schema": "CODEX2_REVIEW_CP1_LIST_RHO_SLOT_CX2V001",
+  "scope": "A115 blocking review of cx1v004 registration/staging, exact downstream interfaces, A226 reads and A257 rebind. Independent review only; root verification/adoption and all launches remain with Claude2.",
+  "sources_from_bytes": {
+    "additional_checks": {
+      "bytes": 7389,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/additional_checks_v004.py",
+      "sha256": "2a40d29345e576a6c7c6350c9f50446d6d90398e088092b72ad96ff82e40b652"
+    },
+    "assembler": {
+      "bytes": 12081,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/cp1_points_assembler_c2v001.py",
+      "sha256": "951e7203a676afe3cdf566d54970cf5a7d574fbb4cc4c485cd628aca2c0da3af"
+    },
+    "author_report": {
+      "bytes": 1498,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cp1_list_rho_slot_cx1/BUILD_REPORT_CX1V004.json",
+      "sha256": "4abe43513362719770222bb99ca40ee45ab3f6cbccac2654683006632908b271"
+    },
+    "author_tests": {
+      "bytes": 7180,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cp1_list_rho_slot_cx1/test_cp1_list_rho_slot_cx1v004.py",
+      "sha256": "8defc8aa314512f437f05f5496b1947533bd9dc3ec80ee86bcf0dc144401301c"
+    },
+    "brief": {
+      "bytes": 2767,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0819_2026-10-21_codex1_list_mode_rho_registration_and_slot_staging.md",
+      "sha256": "3bb50fe1c3e203d717f363346acbac6d1a4e573453a3dd6d834c7a82efe686fd"
+    },
+    "campaign_entry": {
+      "bytes": 21685,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_campaign_entry_c2v004.py",
+      "sha256": "cbdf0d49b8bfa09bccf8ba1ebfb518f8c00b663c2564db7c3a02c8b7a86e116d"
+    },
+    "campaign_readme": {
+      "bytes": 20075,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/README_CAMPAIGN_CERT_C2V001.md",
+      "sha256": "bc0ea884aef73c699d78886b097ce3c8afd90cfe3af8ae4ac8463657207b569d"
+    },
+    "candidate": {
+      "bytes": 12108,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cp1_list_rho_slot_cx1/cp1_list_rho_slot_cx1v004.py",
+      "sha256": "820d16a53920b3d956d18b2bf5e0b18cf1a8c65f52210624562e2ad218e631c2"
+    },
+    "chain_checks": {
+      "bytes": 22314,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/rho_registration_c2v001/cp1_registry_checks_c2v001.py",
+      "sha256": "6e46698eb0f8500d62d1c39d6bcf449acd0ac1c876c20fafb9ba6bafe93774ad"
+    },
+    "chain_script": {
+      "bytes": 51305,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/rho_registration_c2v001/cp1_registry_root_c2v001.zsh",
+      "sha256": "86d2b639df31d967e7b72eb49f7426fef8d33ec7be0bb37f70c97e01d1460db8"
+    },
+    "dispatch": {
+      "bytes": 1155,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0824_2026-10-21_codex2_stand_down_0819_review_cx1v004_instead.md",
+      "sha256": "940c87953d4c0c2615b63b598426b08982afdd8ba017201f1e665e3d3b739240"
+    },
+    "initial_port_result": {
+      "bytes": 34289,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120453344271/TEST_REPORT.json",
+      "sha256": "f7af105c6acefd98a573ab4bb387525a40486a630dff11c60f4492851babc73e"
+    },
+    "list_common": {
+      "bytes": 6891,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/cp1_points_common_c2v001.py",
+      "sha256": "302abdad6b076190f7bc8e79cc71cf4de91402a1a216eb94c254acf2be22c27e"
+    },
+    "readme": {
+      "bytes": 7713,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cp1_list_rho_slot_cx1/README_CX1V004.md",
+      "sha256": "e0a9a8743074d09fcc15bf4d4cfb49929b2e56743ed1a11b63766a5e7e5164ed"
+    },
+    "retained_checks_v002": {
+      "bytes": 7373,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/additional_checks_v002.py",
+      "sha256": "61d57f6c2367c46c0505898219e57a9427a0909a71712f18acd20d0277617e54"
+    },
+    "retained_checks_v003": {
+      "bytes": 7370,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/additional_checks_v003.py",
+      "sha256": "206e8095b4d033f5d40b6f75b9a72b1ece58a338f4073423665f5a1fc6342f8d"
+    },
+    "retained_test_port_v002": {
+      "bytes": 9305,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/review_port_v002.py",
+      "sha256": "af932a783bc9b140fdb4145e532232f825c032af286dc372fe4013f6be9d18e3"
+    },
+    "retained_test_port_v003": {
+      "bytes": 9305,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/review_port_v003.py",
+      "sha256": "c154e514856ac1c4899c96b8e12702bc23119b3f9f4dcba5e42c25d15182f88d"
+    },
+    "review_port": {
+      "bytes": 9305,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/review_port_v004.py",
+      "sha256": "1d268a8b52329162546888296d15016e73a9a776c2eb69cf611f47e66c2531cb"
+    },
+    "review_tests": {
+      "bytes": 60265,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/TEST_REPORT.json",
+      "sha256": "1566d2e51eb2a7c23802cea131fbb10762e7ed903a96edf848b4a5c93eebed2c"
+    },
+    "slot_proof": {
+      "bytes": 22368,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/lo_slot_proof_c3v003.py",
+      "sha256": "cd10cd59df44d7b79f3c3aa7ba88998d94c7292c4c2656e09bbbe16ded01bca3"
+    }
+  },
+  "test_read_files_from_bytes": [
+    {
+      "bytes": 7586,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/_compression.cpython-312.pyc",
+      "sha256": "8bc75080e3f02b78730d2928a24bee7ad4560f9eeb13b8bb680abd26f626cc58"
+    },
+    {
+      "bytes": 101125,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/argparse.cpython-312.pyc",
+      "sha256": "17e4bde6cbadce956ffa03ff71acfea3bc44bd4c5642b9ac3c3575392e62819d"
+    },
+    {
+      "bytes": 99842,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/ast.cpython-312.pyc",
+      "sha256": "29f7fdc8be6cd0410e969f366378ebf7dc796b0217de9ac4de582732515440ae"
+    },
+    {
+      "bytes": 15241,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/bz2.cpython-312.pyc",
+      "sha256": "58bf09eaf6875dd711b7a5ec0d5f8ddf13d0af49fb7d0755040ed89279e764b4"
+    },
+    {
+      "bytes": 6588,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/fnmatch.cpython-312.pyc",
+      "sha256": "78cb3d4057d8e35b4ca5c3f030d9e8766ec977e782c74ea4cd97b4213e805211"
+    },
+    {
+      "bytes": 21891,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/gettext.cpython-312.pyc",
+      "sha256": "0d06f7367ed5193e95f2945c287d2323a1ebc92e69204ce8ccac439846412182"
+    },
+    {
+      "bytes": 9909,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/glob.cpython-312.pyc",
+      "sha256": "9e8efa9e211ef35e0bafc9140cc7dc62caaaa0c987245397582f210786a6c6dc"
+    },
+    {
+      "bytes": 93884,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/ipaddress.cpython-312.pyc",
+      "sha256": "290c2088ff16dc4da20e19826f277b78cce787062c52997f10d651830e73484c"
+    },
+    {
+      "bytes": 15963,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/lzma.cpython-312.pyc",
+      "sha256": "fd3b959486225a7609e183c64b7ead4d04992c58d4347f02e4569ca3ab305fcd"
+    },
+    {
+      "bytes": 61806,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/pathlib.cpython-312.pyc",
+      "sha256": "9a98f3c867bad3dbc8e176d56bd6afd5dbf187e6a08051281c7c335d40a64eaf"
+    },
+    {
+      "bytes": 14260,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/shlex.cpython-312.pyc",
+      "sha256": "0e0c1cec5e51b53c21b574296097005f6fd4d34edd67837b64b5f73078fd4b6f"
+    },
+    {
+      "bytes": 65423,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/__pycache__/shutil.cpython-312.pyc",
+      "sha256": "869179b5cf5aab8d478d7084db1bc0ddc6e445a4b3175d96f466c7635e55888f"
+    },
+    {
+      "bytes": 4667,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__pycache__/__init__.cpython-312.pyc",
+      "sha256": "625839ae11466287e30b0da02ec07b6f25ea80c876bd7ae32c19bc208b850b46"
+    },
+    {
+      "bytes": 1751,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__pycache__/_abc.cpython-312.pyc",
+      "sha256": "d9f0c654f53b66b34634e454d3208d7e4059193a45a1d8a0283f4dbc2ad49a27"
+    },
+    {
+      "bytes": 243,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/__pycache__/__init__.cpython-312.pyc",
+      "sha256": "5e5fcca82ff167dfc1bfc9d1d283081d2ec260aa5eebcd8eae8315012d8898c2"
+    },
+    {
+      "bytes": 50721,
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/urllib/__pycache__/parse.cpython-312.pyc",
+      "sha256": "180e9766068cf52b7b1d12dc328551c8432f2699d71feab60ed8f4402adf7b1b"
+    },
+    {
+      "bytes": 1320,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0688_2026-10-19_A134_S4RC1_LO_route_ruled_owners.md",
+      "sha256": "bcb6df8e9cbd7d01c7c10e4673fb6ca60ecf6c4a439be4db6140ed521689b30d"
+    },
+    {
+      "bytes": 3973,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/gq_producer_cx2v005.py",
+      "sha256": "2832ceb95e1f4c4065963a50475b42cdb176744b824ae6a06f15c30db76441bd"
+    },
+    {
+      "bytes": 12153,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/point_response_admission_adapter_cx2v003.py",
+      "sha256": "4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372"
+    },
+    {
+      "bytes": 19198,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/point_response_producer_cx2v002.py",
+      "sha256": "a1dcdea8deba5bc9667f0ea36d6b94c3cc20fb1d2d95d637cc9e7ea26b478231"
+    },
+    {
+      "bytes": 12108,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cp1_list_rho_slot_cx1/cp1_list_rho_slot_cx1v004.py",
+      "sha256": "820d16a53920b3d956d18b2bf5e0b18cf1a8c65f52210624562e2ad218e631c2"
+    },
+    {
+      "bytes": 12081,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/cp1_points_assembler_c2v001.py",
+      "sha256": "951e7203a676afe3cdf566d54970cf5a7d574fbb4cc4c485cd628aca2c0da3af"
+    },
+    {
+      "bytes": 6891,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/cp1_points_common_c2v001.py",
+      "sha256": "302abdad6b076190f7bc8e79cc71cf4de91402a1a216eb94c254acf2be22c27e"
+    },
+    {
+      "bytes": 7389,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/additional_checks_v004.py",
+      "sha256": "2a40d29345e576a6c7c6350c9f50446d6d90398e088092b72ad96ff82e40b652"
+    },
+    {
+      "bytes": 11517,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/anchor_a.json",
+      "sha256": "d6e1264e216d8db165b4dd90999f97477728c0b4518b0ef74f0d3f0b966665f3"
+    },
+    {
+      "bytes": 11517,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/anchor_b.json",
+      "sha256": "9aee4bef90f82924bd441ca114c844c08559ee6d44ee181b0d08080d665d53a4"
+    },
+    {
+      "bytes": 11559,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/anchor_disagreement_record.json",
+      "sha256": "1a1e3f29ee7c22fa3ac755d467cdd439b05a5ff34e4d0232392e1013826649e6"
+    },
+    {
+      "bytes": 1056,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/anchor_registration.json",
+      "sha256": "e1f4916e9f0e84fb76ac5ea420db7d6bdae09cbb8b89e49f059495be5607a179"
+    },
+    {
+      "bytes": 748,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/approved.json",
+      "sha256": "47bd0693d4f981fae72cbfadbfdce98b1ca719562dbcf56b463eb2f4b600758a"
+    },
+    {
+      "bytes": 696,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_identity/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e87d37b8e0c2c85ab8dc9d596c6de1bf9310503add4017fec836857ae6c4e559"
+    },
+    {
+      "bytes": 883,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_identity/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "d160f766c85651c9b4f877c40b0924d5f465bf5601330a4fc00883035f7f1c05"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_identity/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "6d02ff277c357b21d98bf7973ebf026002f4d8f057ca037a0e3d07d2e0ae86e8"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_identity/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_partial/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "3b56b866c453cb04ead4d7565657fa24970198de05cf506c609e84dd6022810c"
+    },
+    {
+      "bytes": 882,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_partial/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "590d5f1fb689979cc0d33fe1568a61f7dc7c142f6231830a49d55017e106f8fb"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_partial/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "6d02ff277c357b21d98bf7973ebf026002f4d8f057ca037a0e3d07d2e0ae86e8"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_eps_partial/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_count/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 879,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_count/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "1a83f60ccffacaba199964ac8a63b93985ba81a58555cb316a98319db55dc5e9"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_count/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "71a5df85b204b17047e9e51b4525b94f95307ec028bc2e13fcbef913febf6ec0"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_count/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_coverage/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 882,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_coverage/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "6fdca1a2d4999812cf137023cedd7ddba5213883e55d6564adfe536684ac456a"
+    },
+    {
+      "bytes": 610,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_coverage/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "c9980a5193785361814bcf5c1f9184a1e617bb54dfaeaa0c0417bcf5ea421533"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_gq_coverage/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "df2e939617c1cb33d06e687200c460e5e108f839d89c49cd85928d03f92b594e"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "6d02ff277c357b21d98bf7973ebf026002f4d8f057ca037a0e3d07d2e0ae86e8"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P301_54ac64f1573abd5d_INERT_1_a1/EPS_NUMERIC_54ac64f1573abd5d.json",
+      "sha256": "93d3fbf189bf88ac28e2d9ed5fb7f1ee1a2cfe158cd792c00362f3b1f22f9068"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P301_54ac64f1573abd5d_INERT_1_a1/EPS_PROOF_54ac64f1573abd5d.json",
+      "sha256": "00710370ec475671d54e4ccb0117b02a743e875cff2a36ce5b8ba5d537145431"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P301_54ac64f1573abd5d_INERT_1_a1/GQ_PROOF_54ac64f1573abd5d.json",
+      "sha256": "79556108c005ff2fd6e984698eb5a635c6e000f876de4b1d53e3b8c6364ea3b9"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P301_54ac64f1573abd5d_INERT_1_a1/RHO_NUMERIC_54ac64f1573abd5d_a.json",
+      "sha256": "32e9bf6e73e4e3cd5ef99ca3791f302b277ba52059949fd4fabbf34320e1efd2"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P302_d8cad77d15af8ac8_INERT_2_a1/EPS_NUMERIC_d8cad77d15af8ac8.json",
+      "sha256": "dc02d5143efb2348f69ea29e2f4b60d41f07fc4d20b7054afd33ffae06da40e6"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P302_d8cad77d15af8ac8_INERT_2_a1/EPS_PROOF_d8cad77d15af8ac8.json",
+      "sha256": "8a9797cce47562e3c2c5c4c515adb50104f6bc094c2cc851c62a503a1440efe2"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P302_d8cad77d15af8ac8_INERT_2_a1/GQ_PROOF_d8cad77d15af8ac8.json",
+      "sha256": "e0b08374cee7e90b0fa19cdc1a27f7d4363d4c3a4484e3f14cdf7a359829094b"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P302_d8cad77d15af8ac8_INERT_2_a1/RHO_NUMERIC_d8cad77d15af8ac8_a.json",
+      "sha256": "7d59d67594a3a95991e05f0be58d4e88434b90ae2dfef42943020b2eea8e4ba3"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P400_d9a62f141925df17_INERT_3_a1/EPS_NUMERIC_d9a62f141925df17.json",
+      "sha256": "ff8d25d386cb58c69abebd4e75af288044e7b9e15b15bc98c80e3fddb978b2aa"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P400_d9a62f141925df17_INERT_3_a1/EPS_PROOF_d9a62f141925df17.json",
+      "sha256": "14702ebde13615f49e02fc6938e76973b383bdf43a5cfedfa64ed7605294c413"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P400_d9a62f141925df17_INERT_3_a1/GQ_PROOF_d9a62f141925df17.json",
+      "sha256": "92551ffe09795826e4bb779fbba98f9c38d26d4e03843244fa54ded776980f52"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P400_d9a62f141925df17_INERT_3_a1/RHO_NUMERIC_d9a62f141925df17_a.json",
+      "sha256": "9bbd6169d61c665ef295f218cf32e8b63e9cca65ea55c9aee708d55811c3f84a"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P401_895545c2b5b5f8ce_INERT_4_a1/EPS_NUMERIC_895545c2b5b5f8ce.json",
+      "sha256": "853b4d46b7666e1e7326ef89db63318e333aa659ce293769b14cbeb5a0a47028"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P401_895545c2b5b5f8ce_INERT_4_a1/EPS_PROOF_895545c2b5b5f8ce.json",
+      "sha256": "005ff4417b88c56322749d732d45e1540636c265dd375d74a8751857a6bccfe2"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P401_895545c2b5b5f8ce_INERT_4_a1/GQ_PROOF_895545c2b5b5f8ce.json",
+      "sha256": "cbde9faa3c5e4747873ffe748c0d4cdb775a986d70e11d5c43853404a3e94fde"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P401_895545c2b5b5f8ce_INERT_4_a1/RHO_NUMERIC_895545c2b5b5f8ce_a.json",
+      "sha256": "3394384b217269c3f2e216fd7c8e7502ad4800d33abc112011a68de3292b34c3"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P402_731dca7eec81c81a_INERT_5_a1/EPS_NUMERIC_731dca7eec81c81a.json",
+      "sha256": "a337a741572e934d9bb3d1ae3f32da909a2accd28323c2db32837e93a00d5c9e"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P402_731dca7eec81c81a_INERT_5_a1/EPS_PROOF_731dca7eec81c81a.json",
+      "sha256": "612e0c4fb3b8b4999d1803eb31b1e559b45fa46604c01c1d0e54e20a54ceafe1"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P402_731dca7eec81c81a_INERT_5_a1/GQ_PROOF_731dca7eec81c81a.json",
+      "sha256": "b0105972b4bfa901a77cc0f773fb0c8812022e2408b668699d403cf7df475a30"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P402_731dca7eec81c81a_INERT_5_a1/RHO_NUMERIC_731dca7eec81c81a_a.json",
+      "sha256": "de360a0366f0b78ae56bd3bb1fd979e87db17c3aab545f67dd7a3dd134a6c9ab"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P403_3d1cee473d10c7d7_INERT_6_a1/EPS_NUMERIC_3d1cee473d10c7d7.json",
+      "sha256": "2ca01d934f802b9c09789531b777856c8c84b3eda522a92d7e5570f7a2b898a3"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P403_3d1cee473d10c7d7_INERT_6_a1/EPS_PROOF_3d1cee473d10c7d7.json",
+      "sha256": "f2f6b5faf60b35b08623dae5a368d0e40fe3b1a9df1abafab713e240a960b8cf"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P403_3d1cee473d10c7d7_INERT_6_a1/GQ_PROOF_3d1cee473d10c7d7.json",
+      "sha256": "d3171bc4bd6ea070361807a8fe3db256eb5f823e1430974976e12f8b67101f01"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P403_3d1cee473d10c7d7_INERT_6_a1/RHO_NUMERIC_3d1cee473d10c7d7_a.json",
+      "sha256": "af483e2a096e9fcd17dfba2b4553b3c60eb46bb5b875f4857181f162135daca0"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P404_33db065f88f52ee2_INERT_7_a1/EPS_NUMERIC_33db065f88f52ee2.json",
+      "sha256": "9161922ac3a07e282b46193766d89b81dc32a8a6535367e44b5d3266c3afba95"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P404_33db065f88f52ee2_INERT_7_a1/EPS_PROOF_33db065f88f52ee2.json",
+      "sha256": "df0a14518de9b93e0436176404cc9c4ac5de6f6032b135ab2c148486d8995a89"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P404_33db065f88f52ee2_INERT_7_a1/GQ_PROOF_33db065f88f52ee2.json",
+      "sha256": "36ec07ad0a19c3a1092ead08b26212b31d4dd13366931081044bf78e57d0899f"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P404_33db065f88f52ee2_INERT_7_a1/RHO_NUMERIC_33db065f88f52ee2_a.json",
+      "sha256": "516bc4d757a6e8c1c5ea439872761776b80db38ffb9ab76ad24c004764cafb25"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P405_9bda9e6299f00b64_INERT_8_a1/EPS_NUMERIC_9bda9e6299f00b64.json",
+      "sha256": "e09970e1b15278b7916edc6f2db8d523d5af0ed74a2b751a9bce78532c8a961b"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P405_9bda9e6299f00b64_INERT_8_a1/EPS_PROOF_9bda9e6299f00b64.json",
+      "sha256": "d38ae404ac3c3226f009181449b296c6524d77db7b2eae86b5941378fe10908d"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P405_9bda9e6299f00b64_INERT_8_a1/GQ_PROOF_9bda9e6299f00b64.json",
+      "sha256": "6573b6e1c87dafcc5aed1a4157cb27d2ccc25b5a3ab5058c99600f3dd4924dd9"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P405_9bda9e6299f00b64_INERT_8_a1/RHO_NUMERIC_9bda9e6299f00b64_a.json",
+      "sha256": "769f9d6e66afa4fe8fcc260a88a5c7818df5d1fa80becd8420fe7d5e5a5fb390"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P406_2283192e70fd4334_INERT_9_a1/EPS_NUMERIC_2283192e70fd4334.json",
+      "sha256": "e390ae39cf798035c044b96ba8ec27a6d3924edaead5966746164848879df399"
+    },
+    {
+      "bytes": 876,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P406_2283192e70fd4334_INERT_9_a1/EPS_PROOF_2283192e70fd4334.json",
+      "sha256": "e00b3033d22dd86c21df48c4aaaa7e51fbd54e1f24ead2920774856df6044d02"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P406_2283192e70fd4334_INERT_9_a1/GQ_PROOF_2283192e70fd4334.json",
+      "sha256": "9e591c0f2c4083c5fe9a9df74629597c7a16d0745b57c191d5f664497455b7d3"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P406_2283192e70fd4334_INERT_9_a1/RHO_NUMERIC_2283192e70fd4334_a.json",
+      "sha256": "67a716e962dea39ea969402f6a3eaa1923ac18aa942969cafb74dcf566324cf5"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P407_8cd0a8bb378f49d4_INERT_10_a1/EPS_NUMERIC_8cd0a8bb378f49d4.json",
+      "sha256": "d0e1724b397b3555b548338270ab9258fc0f9c7da22c190e69e761ad66a800d2"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P407_8cd0a8bb378f49d4_INERT_10_a1/EPS_PROOF_8cd0a8bb378f49d4.json",
+      "sha256": "cb759a0b85313b579c2b913c770d4a20a58cf45cbd8ee00271fa2dafef64b907"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P407_8cd0a8bb378f49d4_INERT_10_a1/GQ_PROOF_8cd0a8bb378f49d4.json",
+      "sha256": "705998f0a35ed83c601b7ec13d9d73c601eb4d5e92ec5a1df7716ab2849a8875"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P407_8cd0a8bb378f49d4_INERT_10_a1/RHO_NUMERIC_8cd0a8bb378f49d4_a.json",
+      "sha256": "81abcc10ef991a1e483428ebe23777f165b21b1db6742b3adfffcd95bb5022f2"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P408_52a4c5dc381b9bdc_INERT_11_a1/EPS_NUMERIC_52a4c5dc381b9bdc.json",
+      "sha256": "92e5e7e06846e39b5a6bb51e4ae2f72c4774e8d539f358427e760f470358a470"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P408_52a4c5dc381b9bdc_INERT_11_a1/EPS_PROOF_52a4c5dc381b9bdc.json",
+      "sha256": "2927bb8d5f366a98b9e79c852dbd324fd639151e4b6b6759b8bd558235ea5e7e"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P408_52a4c5dc381b9bdc_INERT_11_a1/GQ_PROOF_52a4c5dc381b9bdc.json",
+      "sha256": "44200016997b076fb56583e844ab9b5ea6c4a27ba6b8dffb116693b447bc85be"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P408_52a4c5dc381b9bdc_INERT_11_a1/RHO_NUMERIC_52a4c5dc381b9bdc_a.json",
+      "sha256": "1bdbb531c65b589e6a04bb384d0c98e69e33aea42f769175958402ccc597f3bc"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P409_1fcc49ef497637cd_INERT_12_a1/EPS_NUMERIC_1fcc49ef497637cd.json",
+      "sha256": "2d14dc1a9355b6a1c34ca4a95ebeb89d999f78fec0af7ebe67901fd00dd1c3f9"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P409_1fcc49ef497637cd_INERT_12_a1/EPS_PROOF_1fcc49ef497637cd.json",
+      "sha256": "f0fa81deb058f0aa480444719e65a01896f8b02d8c6597824f2aa2bbf7d8fe22"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P409_1fcc49ef497637cd_INERT_12_a1/GQ_PROOF_1fcc49ef497637cd.json",
+      "sha256": "5f8b055037c17bdefa152400a824034684901824e841da999633a0670bcd9384"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P409_1fcc49ef497637cd_INERT_12_a1/RHO_NUMERIC_1fcc49ef497637cd_a.json",
+      "sha256": "673643af32b8c2656f549f46119dfe9512310bb1f806bac75227625515b12069"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P410_8ab6ea13203590b4_INERT_13_a1/EPS_NUMERIC_8ab6ea13203590b4.json",
+      "sha256": "ad41033cb3edc0b12124414626e21b7e924dd66d74004431dcad4e7f1dc2a71a"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P410_8ab6ea13203590b4_INERT_13_a1/EPS_PROOF_8ab6ea13203590b4.json",
+      "sha256": "2e4cbd1520fdd442b8481d1edbd577bed4e3ab3b80d28ca394841338b655a50c"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P410_8ab6ea13203590b4_INERT_13_a1/GQ_PROOF_8ab6ea13203590b4.json",
+      "sha256": "93afccff88ed268e0a58537670360c0cb4542e4de37f18d205a205fc256a96d0"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P410_8ab6ea13203590b4_INERT_13_a1/RHO_NUMERIC_8ab6ea13203590b4_a.json",
+      "sha256": "4d753b4ae7a739d30428d47f841a5b7d66e8c94c254adef25e50102968511e03"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P411_d95e891ca18a7c00_INERT_14_a1/EPS_NUMERIC_d95e891ca18a7c00.json",
+      "sha256": "fe83c5b88497f51a08ee340d7c583695294c6236375ae94d79e1e0bf9cc556ec"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P411_d95e891ca18a7c00_INERT_14_a1/EPS_PROOF_d95e891ca18a7c00.json",
+      "sha256": "8a722f4d7a32500e4bc81eeefd480add7dfc6243a399a8de156ec6dd99368dd4"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P411_d95e891ca18a7c00_INERT_14_a1/GQ_PROOF_d95e891ca18a7c00.json",
+      "sha256": "6bbfd36a56cac351984cada0b7ecd1f31aafd04e697962f3546af48a5bc6737c"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P411_d95e891ca18a7c00_INERT_14_a1/RHO_NUMERIC_d95e891ca18a7c00_a.json",
+      "sha256": "48e5013695201194c976b8bae7ea9efc3fcf9020dfdcf51a19afd6e14cb71015"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P500_f806c0f213c58b93_INERT_15_a1/EPS_NUMERIC_f806c0f213c58b93.json",
+      "sha256": "ff60dd6858c5d4651801a3484e8db9f9b9108ad4d22a31f7dbb552a0807be250"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P500_f806c0f213c58b93_INERT_15_a1/EPS_PROOF_f806c0f213c58b93.json",
+      "sha256": "0880277e81a2be9d575e0d80a355d15520dde4d2e262be3251bcfa430799dc2e"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P500_f806c0f213c58b93_INERT_15_a1/GQ_PROOF_f806c0f213c58b93.json",
+      "sha256": "2e96c4ad4500bdeff46295e32ce704c08e266bf1c6e0e66d24ad54a93f821435"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P500_f806c0f213c58b93_INERT_15_a1/RHO_NUMERIC_f806c0f213c58b93_a.json",
+      "sha256": "58be296d1a1214ff2e81ce42f47deff5d49194868c16555f4ef9b81c5df32e22"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P501_0dcb35f7864a0956_INERT_16_a1/EPS_NUMERIC_0dcb35f7864a0956.json",
+      "sha256": "c4598c98eabc90cfd6112d921d179de61d46508970acf7b2cba55936519631ac"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P501_0dcb35f7864a0956_INERT_16_a1/EPS_PROOF_0dcb35f7864a0956.json",
+      "sha256": "430c92ed6d19efd77257bc1fdce3e417bf03e7f8852f6a4f9cba75a4f655d642"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P501_0dcb35f7864a0956_INERT_16_a1/GQ_PROOF_0dcb35f7864a0956.json",
+      "sha256": "3076ee5e4eadae669afc02253727a154b5ba3bd5c95386991c021369c384d7f9"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P501_0dcb35f7864a0956_INERT_16_a1/RHO_NUMERIC_0dcb35f7864a0956_a.json",
+      "sha256": "dab251e00209234ae53d00dbc6fe3846cf513d674a0a76aaf711ca2e0b935165"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P502_57877ada817db528_INERT_17_a1/EPS_NUMERIC_57877ada817db528.json",
+      "sha256": "fd08255ee757a9a546b88a79e9e5eea9ba124079f9c1362f854f9c0e4402bfe8"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P502_57877ada817db528_INERT_17_a1/EPS_PROOF_57877ada817db528.json",
+      "sha256": "abceef10a47de8db311173c2f86baefc2084ab1c958966f5f0aefdf551913fff"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P502_57877ada817db528_INERT_17_a1/GQ_PROOF_57877ada817db528.json",
+      "sha256": "93ceb7808025f17ac3a409cc92fe7072d8a10efe76b277708ae463fcf0646e22"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P502_57877ada817db528_INERT_17_a1/RHO_NUMERIC_57877ada817db528_a.json",
+      "sha256": "4eee8a8adaf07135217211684dd8a40c4fc14d060b3eb5473efb00e05bf53c6d"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P503_f262842eb007bde2_INERT_18_a1/EPS_NUMERIC_f262842eb007bde2.json",
+      "sha256": "8264296a190280bd4b7f03f41db133e57487c2c658ef64ae591f0d4f33fc1903"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P503_f262842eb007bde2_INERT_18_a1/EPS_PROOF_f262842eb007bde2.json",
+      "sha256": "a45f9191f3126cb832b860c04b1059b1e7676cef7a43bad944cf92f4b3d4bf51"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P503_f262842eb007bde2_INERT_18_a1/GQ_PROOF_f262842eb007bde2.json",
+      "sha256": "8e1b400acdbc4bb2ec0e2dc2a46bea717e5a35a4941b113d784715866c58b169"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P503_f262842eb007bde2_INERT_18_a1/RHO_NUMERIC_f262842eb007bde2_a.json",
+      "sha256": "5b9c2bb71f432c06555bae40304169f98652557eb398523e4923f63f16d2bc30"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P504_0a8d06d4e04f723d_INERT_19_a1/EPS_NUMERIC_0a8d06d4e04f723d.json",
+      "sha256": "c1e34990cfdb475c3ecb8edfa623869442141b5aa1d8ef76c32705fa7fd0f565"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P504_0a8d06d4e04f723d_INERT_19_a1/EPS_PROOF_0a8d06d4e04f723d.json",
+      "sha256": "3f4c8ece65b6d4fa7b672ce742063f456b74ca01c02054bd7f87745ea4cf18c6"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P504_0a8d06d4e04f723d_INERT_19_a1/GQ_PROOF_0a8d06d4e04f723d.json",
+      "sha256": "9f033bcc0126cf39b5fcce9bd6915c496cee3e2b01788531c47d608db09825d8"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P504_0a8d06d4e04f723d_INERT_19_a1/RHO_NUMERIC_0a8d06d4e04f723d_a.json",
+      "sha256": "af924b526370833cdb37a40e53fce63e87778cdcb7ba8e4aff638fb954eb2b2c"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P505_f169e0d2a0f08951_INERT_20_a1/EPS_NUMERIC_f169e0d2a0f08951.json",
+      "sha256": "4e0db34c21a8c8eff3a891090ebaca89960ddd5fa94a8ebb3b16486d12417cc7"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P505_f169e0d2a0f08951_INERT_20_a1/EPS_PROOF_f169e0d2a0f08951.json",
+      "sha256": "9a7f330e09a4797483f1b236eda6eab53f421fb159083f688590a46c12e6e125"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P505_f169e0d2a0f08951_INERT_20_a1/GQ_PROOF_f169e0d2a0f08951.json",
+      "sha256": "6112b78da4b87c2b66991c617a89dc16bff68198c0731f0f9c3998534095a051"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P505_f169e0d2a0f08951_INERT_20_a1/RHO_NUMERIC_f169e0d2a0f08951_a.json",
+      "sha256": "fc4a7ec2a0dbf7fa7245798ed649ede6685e163f96ecb57de196e36239edfd64"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P506_53b45a6a3903c406_INERT_21_a1/EPS_NUMERIC_53b45a6a3903c406.json",
+      "sha256": "ac1d9fb1533ea4087b3b2a0aded4ec3918217edea1c1008695a0fc720cb4dda3"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P506_53b45a6a3903c406_INERT_21_a1/EPS_PROOF_53b45a6a3903c406.json",
+      "sha256": "df9c0292bab54473a2f615c8b80fcde642c90fa412cb1569fef8fb8e97772ec0"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P506_53b45a6a3903c406_INERT_21_a1/GQ_PROOF_53b45a6a3903c406.json",
+      "sha256": "ba4a3d55a46cb6fc73a2808d937bc5192e20200cc86d3178c63f323340f47e57"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P506_53b45a6a3903c406_INERT_21_a1/RHO_NUMERIC_53b45a6a3903c406_a.json",
+      "sha256": "7eed491dfffad088cb9115bcea28e100b19f24fd85079601dd356c06e7e08243"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P507_9a7ea96d4b584da8_INERT_22_a1/EPS_NUMERIC_9a7ea96d4b584da8.json",
+      "sha256": "e3e50e2fd50505f88de1025769db419e038a87ac10e599d064a6d5937634d742"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P507_9a7ea96d4b584da8_INERT_22_a1/EPS_PROOF_9a7ea96d4b584da8.json",
+      "sha256": "d118036880fee041f95e2af4c1fc2201c2f64adc4f0fc7262714fe211a779de9"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P507_9a7ea96d4b584da8_INERT_22_a1/GQ_PROOF_9a7ea96d4b584da8.json",
+      "sha256": "1cc248ccf154711c8c1d3699b29d968024af062a421904a9dff819d6bbdfdbb8"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P507_9a7ea96d4b584da8_INERT_22_a1/RHO_NUMERIC_9a7ea96d4b584da8_a.json",
+      "sha256": "a27776dd8a9c273d2e4d560e9c4a4d8e150d5edffde1bc0563d2416ef2b7d257"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P508_7535046a2a2b69e8_INERT_23_a1/EPS_NUMERIC_7535046a2a2b69e8.json",
+      "sha256": "177ee507b0f1a4e203b96df01073ae025f9315aa71a5bfda2d615d7662a5a85e"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P508_7535046a2a2b69e8_INERT_23_a1/EPS_PROOF_7535046a2a2b69e8.json",
+      "sha256": "b9f02fc716e5a72f9914d7dfc26f17e70f7c77d77746c6f1d0440bf41cf4b527"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P508_7535046a2a2b69e8_INERT_23_a1/GQ_PROOF_7535046a2a2b69e8.json",
+      "sha256": "263524a90d4b6e8f869f6780c09ff30751c810312a9141b9760e53b9a0942afb"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P508_7535046a2a2b69e8_INERT_23_a1/RHO_NUMERIC_7535046a2a2b69e8_a.json",
+      "sha256": "f2c103eaf5e7c7a8304de89e1115e9f4b2f7b9b18a807bc2c4371bce729ae751"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P509_e1b60389f6b3d21b_INERT_24_a1/EPS_NUMERIC_e1b60389f6b3d21b.json",
+      "sha256": "85338499308f0e48c1a462035ca6c32706c4fb86eae980cae296e92ae97c788b"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P509_e1b60389f6b3d21b_INERT_24_a1/EPS_PROOF_e1b60389f6b3d21b.json",
+      "sha256": "d1714fafd6a9b3cb65bd862d2d4b9e09a8a0dc3cf7c8969de31faf1494826cbd"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P509_e1b60389f6b3d21b_INERT_24_a1/GQ_PROOF_e1b60389f6b3d21b.json",
+      "sha256": "6a25d2327fdfce9702a674277c475dc84cbc59b803a434222c2b2982abf2bfd9"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P509_e1b60389f6b3d21b_INERT_24_a1/RHO_NUMERIC_e1b60389f6b3d21b_a.json",
+      "sha256": "7cb415cc745f78ded5f5295486ce4d02a158eef8940e558abd4d0ff2d337701c"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P510_8d0287d76ea79b1d_INERT_25_a1/EPS_NUMERIC_8d0287d76ea79b1d.json",
+      "sha256": "ca82a0b9005a50d0b38d4597c665cc6e98196cd4eb9d54fd6e3831ac4fb5af32"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P510_8d0287d76ea79b1d_INERT_25_a1/EPS_PROOF_8d0287d76ea79b1d.json",
+      "sha256": "7811e2f52f988a82e8cfe49915493e5a1a88527e1c264015289ee4de9ce34559"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P510_8d0287d76ea79b1d_INERT_25_a1/GQ_PROOF_8d0287d76ea79b1d.json",
+      "sha256": "dd8b9e021187ba777c1b1a9b89b9ceea93bd150cb06cb8b814a9326f568a4c6e"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P510_8d0287d76ea79b1d_INERT_25_a1/RHO_NUMERIC_8d0287d76ea79b1d_a.json",
+      "sha256": "883b18d7535f0f0b719b2b1824f4ff011914a950fc6ecc5a1c5a636bdff19d9e"
+    },
+    {
+      "bytes": 936,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P511_7c3fb8af9a34a87e_INERT_26_a1/EPS_NUMERIC_7c3fb8af9a34a87e.json",
+      "sha256": "c89bf97b8e4dca551bce630d60b20e1ee3cdadad575d062ee72c71968c348f00"
+    },
+    {
+      "bytes": 877,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P511_7c3fb8af9a34a87e_INERT_26_a1/EPS_PROOF_7c3fb8af9a34a87e.json",
+      "sha256": "ac73ff424bad005be95d7fd35239a8522cfdaf6e903aa5fae1ced96b94a6d746"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P511_7c3fb8af9a34a87e_INERT_26_a1/GQ_PROOF_7c3fb8af9a34a87e.json",
+      "sha256": "fa22b73f46140345d998c0bc9541d51314bac7f5631e227ad4b9c9cb4fd42422"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_inert/P511_7c3fb8af9a34a87e_INERT_26_a1/RHO_NUMERIC_7c3fb8af9a34a87e_a.json",
+      "sha256": "933508a060853b3b8ac0105a2830b1eab266e98c612099a4c14ceceee7e1afec"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_custody/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 884,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_custody/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "e0093188701bdeddeccc256df9ccc87bc40914d19cc979043e2206ac70bea8d3"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_custody/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "3dd246dd296809bb5dedc1774e6538fb59375fbf3c82c547d24332c975788b40"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_custody/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_key/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 880,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_key/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "ddac41f1b1f5a3f229b7777ffce575d4d7c3ac837772edc0fb64aa25a23346a0"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_key/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "6d02ff277c357b21d98bf7973ebf026002f4d8f057ca037a0e3d07d2e0ae86e8"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_key/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_not_pass/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 885,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_not_pass/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "fcb869f4ef63c45bcfa94624b234dfcb72b0c77059d362d59fb70533f46af5a5"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_not_pass/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "46c058ce5becb968adf5f63844fbc2d1ddba03fe55b3fb3c5cd636952f3fdb5f"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_not_pass/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_producer/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 885,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_producer/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "a9b095ddd2d805f07a6cbba704463abd8a290b1311b6224b8efdaeacb5d5ecde"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_producer/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "6d02ff277c357b21d98bf7973ebf026002f4d8f057ca037a0e3d07d2e0ae86e8"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_proof_producer/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "0249cde7dd1d8f7ef695766d5274052321169b5d6af79d9ddfee4d5ed8a98087"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_coverage/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "cbfffbdb6a994f6fbd731056facd89f61b59e67deb724924bfee527096e5881a"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_digest/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "5269fd0b71810275cadd47bb2406b453daaf94d2901f31ead8c8e81d74955131"
+    },
+    {
+      "bytes": 935,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_eps_custody/P300_ff1292136fefa5b4_INERT_0_a1/EPS_NUMERIC_ff1292136fefa5b4.json",
+      "sha256": "e897da03e74441bea5053e3752aaa9229d3ddb539303f35e9053e517da9f4536"
+    },
+    {
+      "bytes": 886,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_eps_custody/P300_ff1292136fefa5b4_INERT_0_a1/EPS_PROOF_ff1292136fefa5b4.json",
+      "sha256": "ab4a3836615dbc37ee4f05f1b2407f68ce0b060eabd054c88ff6135bb056ebb3"
+    },
+    {
+      "bytes": 609,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_eps_custody/P300_ff1292136fefa5b4_INERT_0_a1/GQ_PROOF_ff1292136fefa5b4.json",
+      "sha256": "6d02ff277c357b21d98bf7973ebf026002f4d8f057ca037a0e3d07d2e0ae86e8"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_eps_custody/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "e7052d85da5801abf7af2c71bce5999fb3e5117b378171036420f83460df773e"
+    },
+    {
+      "bytes": 2105,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_partial/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "87e56c6b7eed6d15a0c971489391f0ee30a2388a1e4408c014d3fbeb15c9a067"
+    },
+    {
+      "bytes": 2025,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_partition/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "6ed8bfe5c4b5ecc2a6f66b560ef36cb0276d46e6a11a041fd8d547a2faf5c004"
+    },
+    {
+      "bytes": 2104,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_producer/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "ebea2e205b86fe9ed6a628f73c724e8140db27cd77447036e9ffab379443a51a"
+    },
+    {
+      "bytes": 2078,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_schema/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "5040dceb518fa2bd84f05db7d7241ad7567cdce24a0a138d36cd0b4588e6ecf8"
+    },
+    {
+      "bytes": 2099,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_smoke/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "a3e0a6d87fb1414b77e798c0eca48999a0d44406e2cc8d5789b7611cb70cb6ad"
+    },
+    {
+      "bytes": 2107,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/cp1_run_rho_status/P300_ff1292136fefa5b4_INERT_0_a1/RHO_NUMERIC_ff1292136fefa5b4_a.json",
+      "sha256": "bebc5306a828a779e1dd4a05ca6804b450947d79549d19b0dfe6d89b536e7b68"
+    },
+    {
+      "bytes": 1092,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/disagreeing_anchor.json",
+      "sha256": "6af7a9d17355aebf5e51b9bb15211eb59e680bc890446e800e863168aaa8ab29"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_eps_identity.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_eps_partial.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_extra_rho.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_gq_count.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_gq_coverage.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_proof_custody.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_proof_key.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_proof_not_pass.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_proof_producer.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_coverage.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_digest.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_eps_custody.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_partial.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_partition.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_producer.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_schema.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_smoke.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/list_rho_status.json",
+      "sha256": "784e680b54de6806f20d6d4c14b4b167df85c50b4eade85a6ec8dc33a0c1b89b"
+    },
+    {
+      "bytes": 533,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/missing_anchor.json",
+      "sha256": "15f61edae017fb3cddac3ca71e11ecb572d9cb4488750e348ffaad15b203466e"
+    },
+    {
+      "bytes": 14711,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/points.json",
+      "sha256": "788739c7fd5b8ca52a89f18b1f593ee1f70f55193b02c124430b25863ffd4cd1"
+    },
+    {
+      "bytes": 25610,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/registered/RHO_REGISTRATION.json",
+      "sha256": "73f5319a736501aa65b21064d16c2830c7a5a11bca0f23a1fce473495aea1554"
+    },
+    {
+      "bytes": 1056,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/same_anchor.json",
+      "sha256": "0f7f27bcf24a21d931ada6671cadef70e61aea9d09dfc20499cc75c994d2aea3"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec0.json",
+      "sha256": "43c240e36a182b2eb0586288cf44178d966461e33e37f7cbfd3ea34f4a6aaae8"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec1.json",
+      "sha256": "cba7d73f07d7f56a362b07fda4a0b7ae14974e0f1f2137c4b6e75068492432e6"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec10.json",
+      "sha256": "4a2b7ca76b982b73d061f990eee00a1d2d7be4366678dad8d89c5c7b52a5745b"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec11.json",
+      "sha256": "3a63957d0d9853c0e37bd78110e887fc934dbb71e2e4a4978f8f6df15acefea1"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec12.json",
+      "sha256": "a2b7e9f7c5eeb26c211e923e64b20a822972b8358a1f640d38b9e1e0950a32a5"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec13.json",
+      "sha256": "5c126a061d8622b81d53f9b4dc5351e3655a1e21fce3296ddd301f8b7d27c02d"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec14.json",
+      "sha256": "5402ffe7383b1bca6c4ae8fa23e3da8788f871bc42c5c7e6282a7c8632210c44"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec15.json",
+      "sha256": "b1033c3669c55d279ab7385b3b58625528fa3592367dfa563f8f26e18b6c43c3"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec16.json",
+      "sha256": "12ec7cbda6c54ee622d52bda79339ee24860106718aaf02fe7bb4245fad4a6d3"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec17.json",
+      "sha256": "24aa644e7556f19dd1eb5a920f1b5db05a59643fc60c131e4d76b246cf118d89"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec18.json",
+      "sha256": "446c590ec0f442545e5b5715c6a10f278dd12c4912356642be99b138ead2737f"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec19.json",
+      "sha256": "53f35c16739d050e2831d35c590e2cd525034713f0bf16fddac30523bfab7b34"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec2.json",
+      "sha256": "e9c58eaac14f725a28d5f75a354ac722a9e3b271636473ef60a3c33d59582b66"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec20.json",
+      "sha256": "21b6cbe07a210453c946a30bc1e8d0caa7ab994c72b16c6fabd28d469613ed11"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec21.json",
+      "sha256": "057c3246bedb6a08c2b3706209402bb23c65d3ffe6a463808aeeb4f20df16657"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec22.json",
+      "sha256": "9c1f1f4993544c335f61df7d211848778654aabe0d02f79bc9082095a4930854"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec23.json",
+      "sha256": "c7e90217d9bfe9752e6d7ea7fbf6147509f9fba86b7375f74a9be0940a0279a9"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec24.json",
+      "sha256": "6617f8df56afbe76bb265c225ab48c3f708bffc87a7e1a0f89c074b032ed459b"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec25.json",
+      "sha256": "69669cfab4d07d0e8c424c51a1dc08a081b759f0b297a51338b2dd2e3c3db940"
+    },
+    {
+      "bytes": 211,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec26.json",
+      "sha256": "ef8704f2eeb250b08e6f7a7567d676bf5e657f469171bbdd7fe69609532e01a9"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec3.json",
+      "sha256": "e6bcc1d0f99ab6e5eabd4c84e08b53e747a4f62f4c96c9abbca1217afbb7ea42"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec4.json",
+      "sha256": "566082f19dda3104ce872c767a8954b87c20382f7cab857cf4a439f5a5f8ca59"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec5.json",
+      "sha256": "4eecc06825402f761a94c38213fe7ce53e4e2c359d1ff10ac08d5aa6f1ec5508"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec6.json",
+      "sha256": "57c3819004eaf02828ef3262468f826605c91eecdfccfc4f290f6bb246aea80f"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec7.json",
+      "sha256": "84926694e6f1dbecf068d4c55b6b97c69d4b4d915b575632d98fde708f78484f"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec8.json",
+      "sha256": "0cd3681fe62fd03c53a81be3cf624119031e0bc9df0ed0ef6e10a5397650fb1d"
+    },
+    {
+      "bytes": 210,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/spec9.json",
+      "sha256": "2c916bccb4930e0a213191bb9032fdf2bd930090cd0810b4cda6d1cde259dc44"
+    },
+    {
+      "bytes": 51158,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/COMMANDS.txt",
+      "sha256": "8b4b233b576f06cd79cd93781dca13e2172b3e8324f29b3f878ede09d5812d43"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P300_ff1292136fefa5b4.json",
+      "sha256": "4ee572fef7a7ee9cb149beb7a190b034bb34475f88a1d014d0cb998d85d639b1"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P301_54ac64f1573abd5d.json",
+      "sha256": "cccec03b92a08d5bf22e8a4240813c42a0a5a77207de84bde88c6543ff30a7c3"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P302_d8cad77d15af8ac8.json",
+      "sha256": "a810932fd7bb45ff1063fa720126e8652a3c7c3e776d65c0ab3c78f1bac68f3f"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P400_d9a62f141925df17.json",
+      "sha256": "836ec9dce7950a55b1a68c37d30b70797abe13ded3bd32cedf44c2e64b00b66e"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P401_895545c2b5b5f8ce.json",
+      "sha256": "0dbd21c0814cbe59250cfbd23d178ce3d59aa22f42e9c27829b81b840a0c1394"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P402_731dca7eec81c81a.json",
+      "sha256": "3d00a18c72e259c47418a957e79c0ab298216b88ff62732bb53fbce31ed1952d"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P403_3d1cee473d10c7d7.json",
+      "sha256": "e4f4c73dff0d6e9abf8868c83477bba8c72ee97169f06775c2cabb10ef149f7e"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P404_33db065f88f52ee2.json",
+      "sha256": "01e4be605a29c5bfc98a6fd518d39b27cbf3ecadbab6717f95637e217d3302c1"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P405_9bda9e6299f00b64.json",
+      "sha256": "30e7812c09dcf87478445bff26d8f721a5deb80d346e1f66b164ec840327aeca"
+    },
+    {
+      "bytes": 824,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P406_2283192e70fd4334.json",
+      "sha256": "c02b6de73ba86aa1e2ed594acf473443ed3a47b1534fc18f510fcce7c8b641e3"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P407_8cd0a8bb378f49d4.json",
+      "sha256": "79f6689fe6e6fac8c05278e87b372eca6a915baea8dd29d7b506927cd94f2836"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P408_52a4c5dc381b9bdc.json",
+      "sha256": "0b31ed090613b3777ed5cf3d5e45751445944c3f9ecb3b3c39844eca4778e5d6"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P409_1fcc49ef497637cd.json",
+      "sha256": "352b0eaab34c5b9521647c10dbd12956700559b35fa846c74b8d92fb4c79e165"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P410_8ab6ea13203590b4.json",
+      "sha256": "0451182342686e51f940d9355d6d8b304b8756944bdde9e0a3b218eb019abe14"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P411_d95e891ca18a7c00.json",
+      "sha256": "8c3043b667a3990af8b7725c7ecb2ef514c41d559533978c8fff7eb400ec7d9d"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P500_f806c0f213c58b93.json",
+      "sha256": "5e82493f549f241b21ad72f6480153fd9c9ac582c804b787d6bb448789bb74aa"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P501_0dcb35f7864a0956.json",
+      "sha256": "de71613ea4e5c8db00a70bf8e0bea99c694fc4bf34da41541fde4f4063fd8f8d"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P502_57877ada817db528.json",
+      "sha256": "7af8e34e3228208d62aa489841359d3be2011eca6ace69535e717570f8b1064d"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P503_f262842eb007bde2.json",
+      "sha256": "605337f40a243994cfdee22c7e6bdf4672d259c3081451bbf5f5991c87d76f7b"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P504_0a8d06d4e04f723d.json",
+      "sha256": "0cb37dff5b4da49db8c008bba7c1fee336ff6641b6ef83ebf36f0ebc250dd503"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P505_f169e0d2a0f08951.json",
+      "sha256": "ea8c91053e06f8d7b3b13b6e3cbc4cb9ab988c5e24f5e91b48f7258cbc54ea3d"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P506_53b45a6a3903c406.json",
+      "sha256": "ece2aca47502bc38702d6cba9131ccfa8f0c60118d38d3dbbf1961521f89f39f"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P507_9a7ea96d4b584da8.json",
+      "sha256": "3ccec756e43946051d3b4abdca9c41d5aad9a4ee96070d1b0c2f7df34b726301"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P508_7535046a2a2b69e8.json",
+      "sha256": "704e8b76eda5f53075beec7e1b261c56cce0bb8571acf0d49b7902f07856e172"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P509_e1b60389f6b3d21b.json",
+      "sha256": "80530ad2d6cfef9e11c96808215b8753b488f85257b6500c72bfb394f5d694e1"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P510_8d0287d76ea79b1d.json",
+      "sha256": "5fdd70c00d7ea951d36b8a1e6295927d26bb644f9b0c1726cf292e1c2d4c38cb"
+    },
+    {
+      "bytes": 827,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/FILLED_SPEC_P511_7c3fb8af9a34a87e.json",
+      "sha256": "221a1a6e5924cbd93a55455d7c1da9d0fab4e5e46c3c294c661a574e0d294e2d"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P300_ff1292136fefa5b4.json",
+      "sha256": "78de683f156a548899bd7b879f821c285adf1077b7327f815c4b9363e3920dc3"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P301_54ac64f1573abd5d.json",
+      "sha256": "3b2d419cff50fc964d13fd1a4c04f8353d80c582f379c580600c58d89140a2aa"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P302_d8cad77d15af8ac8.json",
+      "sha256": "f14fb5e6a80fdb40a3e59600c07b5e063dafa10b9d9c579449e3e2a1a659f2af"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P400_d9a62f141925df17.json",
+      "sha256": "0816ab502b1d62e9be149b3a7cefb012880f24dad1b39eeec2ca3ebad1359bcf"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P401_895545c2b5b5f8ce.json",
+      "sha256": "872c687eac405c0c67d15829061d402906cb00b06a0d54036ff610049a39216e"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P402_731dca7eec81c81a.json",
+      "sha256": "b8b428bd5370591e1327976b9b9ba5f2f4f69a0d97e4d73300492bbdfbb960e0"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P403_3d1cee473d10c7d7.json",
+      "sha256": "08b50a03d96640ef26894a2d5d8ec23c5473cc6e8fb780fc9ee99250e4da8d9c"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P404_33db065f88f52ee2.json",
+      "sha256": "95fb895ec9f79ac2155e16f43662d44de87f5b7af4cb29efde77215460d578e0"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P405_9bda9e6299f00b64.json",
+      "sha256": "9b40a227329bb6a976b937d1b270e4a9af1a4732c7a4aecff814609e2967abce"
+    },
+    {
+      "bytes": 10988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P406_2283192e70fd4334.json",
+      "sha256": "d62d6b67c4ef5cbb3a25e4e65e0c28842ae428a1d6d1751e274f4d0735886109"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P407_8cd0a8bb378f49d4.json",
+      "sha256": "a4b67d5928ae76e5c91186d5300635169b2f9a6ee048442321e097803384bf3f"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P408_52a4c5dc381b9bdc.json",
+      "sha256": "656bc1d1e54169eb380e55705ccc7a9967eeb94fa35baf2b72ecaf28a9e4a7bf"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P409_1fcc49ef497637cd.json",
+      "sha256": "6d34cc61726bc7a5d06bce610e883b3689d81ed11070ecc777e098a296af860a"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P410_8ab6ea13203590b4.json",
+      "sha256": "c10f43c67fef794fa007b32d954e8ba3fdf771741c19cf7d98f06c0bbdc4edaa"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P411_d95e891ca18a7c00.json",
+      "sha256": "66449ba25fe735cf0c65f79c9ecd5c5cabfd62bb7d542e881c7058024b9eeace"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P500_f806c0f213c58b93.json",
+      "sha256": "84c1c1521abeba0d53b93a69b5f85fa93913be4d0fd0ec5edb81616dd68f773b"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P501_0dcb35f7864a0956.json",
+      "sha256": "daa510b8a9c94e1d1a573e80bb72edc31b672abdea03c87866f7c981c21394d4"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P502_57877ada817db528.json",
+      "sha256": "83d4bb8df891d720bc011a57df5522e73d477609d37e81862e0f870aad17a55c"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P503_f262842eb007bde2.json",
+      "sha256": "dc16c0454f57b6a8edd1d324677f27f91b3ab0666973802adb861f7838ca04fa"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P504_0a8d06d4e04f723d.json",
+      "sha256": "989b5511d8e3514d0047b34b2dc5ee5af98d4891750fbc76f95f74d6fc94079e"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P505_f169e0d2a0f08951.json",
+      "sha256": "349c91414ae65da0cc259333f5ccd72543fbbac1281a44f9c7f02c930ee27b18"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P506_53b45a6a3903c406.json",
+      "sha256": "6671d4fb3b52b82a08a7ed53425e43835c2e54a482091331509759d0c8bc6813"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P507_9a7ea96d4b584da8.json",
+      "sha256": "dcecdc681568f007ba81b460353d3f555288ce74a70d2ab2eee6ed9cc4d10cad"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P508_7535046a2a2b69e8.json",
+      "sha256": "e7b8fe1ba6b37d65a1b9f17cc52203d2b25cd7fda7651017468cd18889008f98"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P509_e1b60389f6b3d21b.json",
+      "sha256": "266ceb4284919510c5a518067377dea9c8980c05db9724f7f3bf2a4e5839d41e"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P510_8d0287d76ea79b1d.json",
+      "sha256": "a4216803fd2cb0a576f26e5c3d2e486f90427e1ec43b1f70f57f51313d39f1bb"
+    },
+    {
+      "bytes": 10989,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/staged/SLOT_ARGS_P511_7c3fb8af9a34a87e.json",
+      "sha256": "cb5e9946a8d71dc9876e4191246983f579758cdf8c82c72145e6fd360d7dc223"
+    },
+    {
+      "bytes": 14711,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/table_key.json",
+      "sha256": "6af9a2fe4623f6b3ad4ea1f9237be78e1ce5cad590e94f464a0e41a38b56936b"
+    },
+    {
+      "bytes": 14717,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/table_label.json",
+      "sha256": "f071458cd89b4e489fb3bcd14aaf5bf425089765ca04a3ee699485a4aea013d8"
+    },
+    {
+      "bytes": 17034,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/unregistered.json",
+      "sha256": "fba1d0da9b924635f0ba2f30c19e9a4f5296ad3fb6c59cf209347594d301c973"
+    },
+    {
+      "bytes": 808,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/unregistered_anchor.json",
+      "sha256": "63dcf9e6f6fd80c8527a60bec02628b41a8bd772ac81e979c186266f84085f18"
+    },
+    {
+      "bytes": 14711,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_cp1_list_rho_slot_cx2/inert_fixtures/case_20261021T120701382787/wrong_key.json",
+      "sha256": "aaf4bce45bc56bffe11a9f0a75179cb11616d4e0b7d7df6fbaa77386901820cd"
+    },
+    {
+      "bytes": 31400,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/build_c3v004/s4rc1_common_c3v004.py",
+      "sha256": "53f10e6eeef62518d7ac9cb21089331b797c5c25efeaa6df3664ff9fbbe51083"
+    },
+    {
+      "bytes": 22368,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/lo_slot_proof_c3v003.py",
+      "sha256": "cd10cd59df44d7b79f3c3aa7ba88998d94c7292c4c2656e09bbbe16ded01bca3"
+    },
+    {
+      "bytes": 22314,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/rho_registration_c2v001/cp1_registry_checks_c2v001.py",
+      "sha256": "6e46698eb0f8500d62d1c39d6bcf449acd0ac1c876c20fafb9ba6bafe93774ad"
+    },
+    {
+      "bytes": 7066,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/specs_v001/specs/TAIL_REANCHOR.json",
+      "sha256": "5fc6f0bdcbe5c58c371f77e886facfc6610ae10c5018a544aa0b67c6facd58e3"
+    },
+    {
+      "bytes": 21646,
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/S4RC1_ROOT_RULINGS_DRAFT_WF_C88BB583.md",
+      "sha256": "56774ba7a1ad54be89cb1cbb6bd256333de4134ed9ef8a8e949898f7ed8c2c82"
+    }
+  ],
+  "verdict": "PASS"
+}

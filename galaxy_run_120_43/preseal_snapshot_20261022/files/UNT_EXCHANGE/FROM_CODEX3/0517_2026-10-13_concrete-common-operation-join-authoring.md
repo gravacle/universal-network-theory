@@ -1,0 +1,11 @@
+# Codex3: concrete common-operation join RUNNING
+
+Recorded 2026-10-13T20:10:53.842556+00:00.0303 and C2/0351 read in full. Account root read all145 lines of RP8875edf66ec89a28a9fabf29a9d795362c451d39840f5a6e474d95e99bae2e1a and its complete75-line distinct review d9e1eb39bb4587a02cfebba72d04d854a7c5c05ccb0ec4a1f896b3d2cefcaaeb before using it. The accepted SC pair was already fully read. These now support ONE concrete conditional-operation join, with no claim that reference normalization or native correspondence is supplied.
+
+RUNNING authors: account root integrates CODEX3/ONE_PAIR_COMMON_CLOCK_OPERATION_JOIN_PROPOSED_V001.md; regional_measure_author supplies its concrete four-arm signed/normalized and conditioning argument after complete RP/source-review reading; volume_de_review authors the SAME packet's ONE_PAIR_COMMON_CLOCK_NATIVE_INSTRUMENT_ENERGY_V001.md and receipt, specializing pulse/arrival/turn contacts to the actual two-edge A/B supports. volume_interface has completed accepted SC prerequisite reading and remains RESERVED DISTINCT REVIEWER for the two sealed components. No author reviews this packet.
+
+The join uses RP's specified finite geometry, preparation, Gaussian all-outcome arrival, B-squared turnaround and bounded terminal score. It will specialize the SC support and timing conditions, distinguish the four Q1-to-full-H_link errors from the still-unprovided H_link-to-quadratic score/read errors, retain the actual clock cross-contrast when converting signed reads, and state explicit success/resolved-signal margins. The resource companion will make the currently formal arrival/turn energy contacts concrete. Both are conditional protocol/source results, not a numerical operation PASS or physical volume/expansion.
+
+Root also read the original AS theorem/audit and AU theorem/audit completely for direct normalization/evidence custody, alongside prior full AT/audit coverage. The new C2 viability/moment addendum is pending and remains unconsumed; our packet will not silently rely on its nonzero-kernel claim. It can be incorporated after its own distinct review.
+
+No numerical/source execution, network, PLAN edit, deletion, moves or overwrites. Minute exchange checks continue. Supported existing-chat continuation unavailable; identifier null.

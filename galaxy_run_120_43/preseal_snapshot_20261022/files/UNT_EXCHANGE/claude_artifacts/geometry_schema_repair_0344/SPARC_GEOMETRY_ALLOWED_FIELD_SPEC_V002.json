@@ -1,0 +1,49 @@
+{
+ "schema": "SPARC_GEOMETRY_ALLOWED_FIELD_SPEC_V002",
+ "task": "0344",
+ "status": "INERT; NOT EXECUTED ON THE REAL SOURCE BY THE AUTHOR; ROOT REVIEW AND RUN REQUIRED",
+ "script": {
+  "file": "extract_sparc_geometry_metadata_v002.py",
+  "sha256": "9ac0275b583b5014062006ddc05638766ed25ea060f39efd26b501edcfb0c297"
+ },
+ "usage": [
+  "python3 -B extract_sparc_geometry_metadata_v002.py <new_output.json>",
+  "python3 -B extract_sparc_geometry_metadata_v002.py <new_output.json> --declared-layout <root_declaration.json> <sha256>"
+ ],
+ "pins": {
+  "source": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243",
+  "cds_readme": "457f61cd8e63dd7b8f8ce0052a458294fa1a5acc2b5b23bb951a2c40d69f9666"
+ },
+ "layouts": {
+  "MRT_INFILE_HEADER": "used only if the in-file header lines exactly match (labels, bytes, formats, units)",
+  "CDS_TABLE1_README": "used only if the ReadMe pin matches and each of the seven table1.dat description lines (bytes, format, unit, label, documented range) occurs exactly once in the table1.dat section",
+  "DECLARED": "only via --declared-layout with matching sha256, non-empty declared_by and evidence; fields Galaxy, Type, D, e_D, f_D, Inc, e_Inc; formats A/I/Fw.d with width = span; no overlap; no byte beyond 41"
+ },
+ "checks_per_field": [
+  "complete slice",
+  "right-justified ASCII digits only; Fw.d exactly d decimals; no sign, exponent, nan/inf, internal or trailing blank",
+  "domain: D finite >0; e_D >=0; f_D in 1..5; 0<=Inc<=90; e_Inc >=0; Type 0..11",
+  "CDS documented column range when the CDS layout is evaluated"
+ ],
+ "checks_per_row": [
+  "target found exactly once (aliases as V001)",
+  "row reaches the layout's last byte",
+  "documented/declared blank bytes blank"
+ ],
+ "statuses": {
+  "PASS_DOCUMENTED_LAYOUT": "exactly one documented layout passes, no declaration",
+  "PASS_DECLARED_LAYOUT": "declared layout passes and no documented layout passes",
+  "FAILED_SCHEMA_VALIDATION": "no acceptable layout passes",
+  "FAILED_AMBIGUOUS_LAYOUT": "both documented layouts pass",
+  "FAILED_DECLARATION_CONFLICT": "declared and a documented layout both pass",
+  "FAILED (code)": "pin, usage, output-exists, declaration or unexpected error; no output file"
+ },
+ "emission": "Values (D, e_D, f_D with Note-2 meaning, Inc, e_Inc, source line) only under PASS_*. FAILED outputs carry masks and booleans only. Type is validated, not emitted.",
+ "exit_codes": {
+  "0": "PASS_*",
+  "2": "FAILED_* or coded failure",
+  "3": "unexpected exception"
+ },
+ "exposure": "the whole file is read into memory, hashed and split into byte lines; bytes 1-11 of each post-header row are compared with target names; for target rows only bytes 1-41 are kept, decoded and interpreted; bytes beyond 41 are never decoded, parsed, compared, measured or emitted.",
+ "semantics": "Catalogue values as published; e_D, e_Inc catalogue mean errors, not covariance; Inc = mean outer-HI-disk value (CDS Note 3). No geometry adopted by running the extractor."
+}

@@ -1,0 +1,9 @@
+# PARTIAL_helper.md — ua_chain_prestage_c3 (Claude3 helper, root 0850 item 3 / V006 A290)
+2026-10-21T15:21:33Z START: output folder created (mkdir, no -p); reading named sources.
+2026-10-21T15:26:49Z read: dispatches 0850/0838/0841-0844; V006 A160/A201/A202/A240/A241/A268/A272/A274/A280-A282/A284/A291 by heading; audit L3/S8/S9; S1 pair README+v001 pins; S1 path README c2v002c; verify_c3_s1_pair RESULT; C2V004D README+checker; cw8 v003 contract/review + launcher CLI/config/license grammar; A272 folder scan groups phase1 + seal-s8. Next: procedure A (named by A272 checklist), then drafting.
+2026-10-21T15:33:35Z read: procedure A (S1_C3T_CERT_EXTENSION_PROCEDURE_A.md 4da9ddb5, via A272 checklist), V006 L1751-1757 (row-file pin, the dispatch's 'about L1754'), pair wrapper v002 CLI, P112 cx2v004 contract (config section), cw8 source pins (EQUAL to launcher inline). Hashed S8 tools: KS3 runner c2v002 = da08d725 (audit cites 54595c2d -> gap). Drafting runbook now.
+2026-10-21T15:39:58Z facts gathered (pair wrapper decisions, pair launcher detach+ramp events, cw8 select/license/keys exactness); writing UA_CHAIN_RUNBOOK_C3V001.md next.
+2026-10-21T15:46:06Z runbook written (UA_CHAIN_RUNBOOK_C3V001.md) and citations corrected; writing XREF next.
+2026-10-21T15:48:32Z XREF written (UA_CHAIN_XREF_C3V001.md; SRC lines 22/22 equal by script); writing GAPS next.
+2026-10-21T15:50:44Z GAPS written (UA_CHAIN_GAPS_C3V001.md); citation fixes applied; next: final consistency pass (RB line numbers vs XREF), hashes, hand-back.
+2026-10-21T15:52:37Z END: deliverables written by exclusive create (RUNBOOK, XREF, GAPS); SRC check 22/22; XREF line check 94/94; G-02 narrowed (54595c2d = ks3_c2v001, da08d725 = ks3_c2v002). No launches, no FROM_* posts, no run trees or /Volumes opened. Hand-back to lead.

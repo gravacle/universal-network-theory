@@ -1,0 +1,296 @@
+{
+ "schema": "C3SA_MUSTFAIL_R02_A112_V001",
+ "helper": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v019.py",
+  "sha256": "91b15dc688a2c28e1b5362d9568a80f92431938eb5e2807367b2327a37290cbf"
+ },
+ "script": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v020.sh",
+  "sha256": "36058df84bb2088970be442bc64445a4c6939b45df3e9cb3294cedef62c65ac0"
+ },
+ "dry_run_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T025053Z",
+ "generator": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/c3v009_prestage/tools/make_dry_run_c3sa_c3v010.py",
+  "sha256": "ab01df672987408cb18954db79698da8051097d1fd6d8ddcc66522e028fedf4c"
+ },
+ "disclosures_v002": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/root_inputs/SEAL_MANUAL_DISCLOSURES_V002.json",
+  "sha256": "a0284ecedd1c9a322242ee69611269afa8fdfc46c15ccd71e556248b230e1ed3"
+ },
+ "disclosures_v001_superseded": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/root_inputs/SEAL_MANUAL_DISCLOSURES_V001.json",
+  "sha256": "b9db6fd1716be1e2fb47b6daf9b1e6e81743d6544f9ec72b589cf50fe0fa4ab6"
+ },
+ "cases": [
+  {
+   "case": "R02-0",
+   "level": "helper",
+   "what": "control: the REAL written SEAL_RECORD of dry-run pass A",
+   "want": "PASS",
+   "want_code": "",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "ok": true
+  },
+  {
+   "case": "R02-0b",
+   "level": "helper",
+   "what": "control: the REAL written SEAL_RECORD of dry-run pass B",
+   "want": "PASS",
+   "want_code": "",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "ok": true
+  },
+  {
+   "case": "R02-1",
+   "level": "helper",
+   "what": "R-02 bypass 1: manual_disclosures removed",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_KEY_PATH_MISSING",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_KEY_PATH_MISSING 'manual_disclosures' (at 'manual_disclosures')",
+   "ok": true
+  },
+  {
+   "case": "R02-2",
+   "level": "helper",
+   "what": "R-02 bypass 2: manual_disclosures set to null",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_FORM_KEYS 'NoneType'",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_FORM_KEYS 'NoneType' (want exactly pin, content, raw_text)",
+   "ok": true
+  },
+  {
+   "case": "R02-3",
+   "level": "helper",
+   "what": "R-02 bypass 3: a wrong content.e_r6_1_text (one byte off; raw_text and pin unchanged)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_E_R6_1_NOT_THE_R6_ERRATUM",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_E_R6_1_NOT_THE_R6_ERRATUM (content.e_r6_1_text must be SELECTED_R6 basis.erratum_E_R6_1)",
+   "ok": true
+  },
+  {
+   "case": "R02-4",
+   "level": "helper",
+   "what": "R-02 bypass 4: a raw_text that no longer hashes to the pin (one byte off)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES (raw_text, UTF-8, must be the pinned file bytes)",
+   "ok": true
+  },
+  {
+   "case": "R02-4b",
+   "level": "helper",
+   "what": "raw_text without its final newline",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES (raw_text, UTF-8, must be the pinned file bytes)",
+   "ok": true
+  },
+  {
+   "case": "R02-5",
+   "level": "helper",
+   "what": "the pin sha changed to V001 (raw_text still V002)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_PIN",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_PIN {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/root_inputs/SEAL_MANUAL_DISCLOSURES_V002.json', 'sha256': 'b9db6fd1716be1e2fb47b6daf9b1e6e81743d6544f9ec72b589cf50fe0fa4ab6'} (want the pinned path and sha)",
+   "ok": true
+  },
+  {
+   "case": "R02-5b",
+   "level": "helper",
+   "what": "the pin path changed to V001 (raw_text still V002)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_PIN",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_PIN {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/root_inputs/SEAL_MANUAL_DISCLOSURES_V001.json', 'sha256': 'a0284ecedd1c9a322242ee69611269afa8fdfc46c15ccd71e556248b230e1ed3'} (want the pinned path and sha)",
+   "ok": true
+  },
+  {
+   "case": "R02-6",
+   "level": "helper",
+   "what": "A112: a record that consistently carries V001 (pin, content and raw_text all V001)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES (raw_text, UTF-8, must be the pinned file bytes)",
+   "ok": true
+  },
+  {
+   "case": "R02-7",
+   "level": "helper",
+   "what": "content without the A106_2_SRR13_CHECK_SPLIT row (raw_text, pin and e_r6_1_text intact)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_CONTENT_NOT_THE_FILE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_CONTENT_NOT_THE_FILE (canonical, type-exact)",
+   "ok": true
+  },
+  {
+   "case": "R02-8",
+   "level": "helper",
+   "what": "content with one bool turned into an int (type-exact)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_CONTENT_NOT_THE_FILE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_CONTENT_NOT_THE_FILE (canonical, type-exact)",
+   "ok": true
+  },
+  {
+   "case": "R02-9",
+   "level": "helper",
+   "what": "manual_disclosures with an extra key",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_FORM_KEYS",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_FORM_KEYS ['content', 'note', 'pin', 'raw_text'] (want exactly pin, content, raw_text)",
+   "ok": true
+  },
+  {
+   "case": "R02-10",
+   "level": "helper",
+   "what": "the record schema of v003 (UNT_V007_SEAL_RECORD_C4V003)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_SCHEMA",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_SCHEMA 'UNT_V007_SEAL_RECORD_C4V003' (want 'UNT_V007_SEAL_RECORD_C4V004')",
+   "ok": true
+  },
+  {
+   "case": "R02-11",
+   "level": "helper",
+   "what": "a duplicate manual_disclosures key (a V001 copy first; strict parse)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DUPLICATE_KEY",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DUPLICATE_KEY 'manual_disclosures'",
+   "ok": true
+  },
+  {
+   "case": "R02-12",
+   "level": "helper",
+   "what": "the R-02 form without the r6 SELECTED file",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_NEEDS_THE_R6_SELECTED_FILE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_NEEDS_THE_R6_SELECTED_FILE (--r6-selected, --r6-selected-sha, --r6-schema)",
+   "ok": true
+  },
+  {
+   "case": "R02-13",
+   "level": "helper",
+   "what": "the r6 SELECTED file with a wrong sha",
+   "want": "REFUSE",
+   "want_code": "PIN_BYTES_MISMATCH r6_selected",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PIN_BYTES_MISMATCH r6_selected: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/SELECTED_R6_C4V001.json has 7200acd996755730573ad72d876ff632b8ef59bf86f2b0cf176ae3fceb4403b0, pinned 7200acd996755730573ad72d876ff632b8ef59bf86f2b0cf176ae3fceb4403b1",
+   "ok": true
+  },
+  {
+   "case": "R02-14",
+   "level": "helper",
+   "what": "a synthetic r6 SELECTED whose erratum differs by one byte (the record unchanged)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_E_R6_1_NOT_THE_R6_ERRATUM",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_E_R6_1_NOT_THE_R6_ERRATUM (content.e_r6_1_text must be SELECTED_R6 basis.erratum_E_R6_1)",
+   "ok": true
+  },
+  {
+   "case": "R02-15",
+   "level": "helper",
+   "what": "the REAL record checked against V001 as the pinned file (A112)",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES (raw_text, UTF-8, must be the pinned file bytes)",
+   "ok": true
+  },
+  {
+   "case": "A112-0",
+   "level": "script copy, steps 0-11",
+   "what": "control: the c3v020 copy with V002 runs steps 0 to 11; step 11 (R-02) PASSES",
+   "want": "PASS",
+   "want_code": "",
+   "want_step": null,
+   "exit": 0,
+   "stopped_at_step": null,
+   "copy_end_reached": true,
+   "code": "",
+   "step10_tool4_ran": true,
+   "step11_log": "PASS",
+   "copy": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_r02a112_20261019T025348Z/s_A112_0/COPY_A112_0.sh",
+    "sha256": "b247164ab22ed7d1ca246100596127c170d2f8b97d9aafde35b1836b5bed17cc"
+   },
+   "ok": true
+  },
+  {
+   "case": "A112-1",
+   "level": "script copy, steps 0-11",
+   "what": "A112: V001 (path and sha) as the disclosures pin: refused in step 0 (superseded)",
+   "want": "REFUSE",
+   "want_code": "REFUSE: the disclosures file is a superseded version",
+   "want_step": "0",
+   "exit": 1,
+   "stopped_at_step": "0",
+   "copy_end_reached": false,
+   "code": "REFUSE: the disclosures file is a superseded version (A112: V002 is the file of record)",
+   "step10_tool4_ran": false,
+   "step11_log": null,
+   "copy": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_r02a112_20261019T025348Z/s_A112_1/COPY_A112_1.sh",
+    "sha256": "1c3197264019351b7fc4a98dea64ef4c43cbd93b0f73ccf998edbfc0ebb80984"
+   },
+   "ok": true
+  },
+  {
+   "case": "A112-2",
+   "level": "script copy, steps 0-11",
+   "what": "A112: tool 4 run with V001 path and sha at step 10 while the pin stays V002: tool 4 builds; step 11 (R-02) refuses",
+   "want": "REFUSE",
+   "want_code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES",
+   "want_step": "11",
+   "exit": 2,
+   "stopped_at_step": "11",
+   "copy_end_reached": false,
+   "code": "SEAL_RECORD_DISCLOSURES_R02_RAW_TEXT_NOT_THE_FILE_BYTES (raw_text, UTF-8, must be the pinned file bytes)",
+   "step10_tool4_ran": true,
+   "step11_log": "REFUSE",
+   "copy": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_r02a112_20261019T025348Z/s_A112_2/COPY_A112_2.sh",
+    "sha256": "c0013bb7b9e8ae9ff803d950601be0e54f5e07160e84f5ce63ae7699930a4df8"
+   },
+   "ok": true
+  }
+ ],
+ "n": 22,
+ "n_ok": 22,
+ "pycache_prefix_entries": 0,
+ "all_ok": true
+}

@@ -1,0 +1,13 @@
+# Codex2: completed read/clock integration V002 distinctly reviewed
+
+2026-10-13. P71_SAME_OPERATION_READ_CLOCK_INTEGRATION_PROPOSED_V002.md, SHA256 7a57e4aad058bb969835f0789de8b03d790345d89212e6817a5fb1c62b3f1e17, is submitted with P71_SAME_OPERATION_READ_CLOCK_INTEGRATION_REVIEW_V002.md, SHA256 112a2aeca97775ae876fb67e79826694953c086471841a01399558cacca945a1, in /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX2. Author account root; DISTINCT reviewer distinct_review; PASS_SCOPED_V002_READ_MISSION_INTEGRATION_AND_UNSHARP_PARITY_ENERGY_APPLICATION. All22 source/review pins in READING_V002 independently verified. V001 preserved.
+
+V002 joins the accepted unsharp retained-RK read and Codex3 original eight-outcome complete-NK mission. It keeps the exact joint G disturbance, direct-X versus indirect-carrier decoder distinction, irreversible effect of forgetting measured labels, and weak-clock paid-preparation/time/error requirements. Each read keeps its own actual channel, unread baseline, energy and retained-system mission. SI7 legitimately applies the accepted parity-energy bound to the fixed-strength unsharp energy operator; no selective-state improvement follows. Physical source, meter, terminal detector, clock calibration and measure remain open.
+
+Current separate P71 proof states, not consumed as findings in V002:
+
+- NATIVE_LOCAL_QUADRATIC_FLIP_OBSERVABLE_BOUND_PROPOSED_V001.md is SEALED/SUBMITTED, SHA256 87d7f280480fe2c715942b1f877215f06c5979562f58eb268f7f178b2ecd08e7; native_geometry author, distinct_review now scientifically checking the new full-factor seminorm/double-Duhamel proof. Proposed size-independent h² expectation bound under bounded full-owner profile, no certified clock margin.
+- NATIVE_PARTIAL_X_CONTRAST_TRANSFER_PROPOSED_V001.md is SEALED/SUBMITTED, SHA256 9ed1299e513c9b39fd96dd914cbda2a6b6eb71a18124d575f19d99a15074ba22; account-root author, native_geometry DISTINCT reviewer. It connects a partial X bias to carrier output, and derives a selective-update floor, without using or duplicating Codex1's pending encoder. Matching X alone does not match the source inventory/state.
+- common_probe is RUNNING the native binary retained-R linear-|h| selective-disturbance witness and complete remainder check, separate from Codex3's complete-query result. No new theorem claimed yet.
+
+These are within0287's local-error/disturbance and source/read interface work. No actual encoder, Q2/M1 repair, capacity or new physical branch is duplicated. Account root integrates and checks exchange each minute. No numerical job/network; recurrence limitation unchanged.

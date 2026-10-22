@@ -1,0 +1,322 @@
+{
+ "schema": "T120L_RECHECK_C2R_V001",
+ "status": "TESTED_PASS",
+ "checks": [
+  {
+   "name": "first_principles_k_physical_vs_saved",
+   "bitwise_equal": true,
+   "shape": [
+    1152000,
+    3
+   ],
+   "dtype": "<f8"
+  },
+  {
+   "name": "first_principles_dk_weights_vs_saved",
+   "bitwise_equal": true,
+   "shape": [
+    1152000
+   ],
+   "dtype": "<f8"
+  },
+  {
+   "name": "driver_seed_prep_k_physical",
+   "bitwise_equal": true,
+   "shape": [
+    1152000,
+    3
+   ],
+   "dtype": "<f8"
+  },
+  {
+   "name": "driver_seed_prep_dk_weights",
+   "bitwise_equal": true,
+   "shape": [
+    1152000
+   ],
+   "dtype": "<f8"
+  },
+  {
+   "name": "driver_seed_prep_source_hessian_grid",
+   "bitwise_equal": true,
+   "shape": [
+    4,
+    4,
+    4,
+    10,
+    10
+   ],
+   "dtype": "<c16"
+  },
+  {
+   "name": "driver_seed_prep_fixed_source_fourier_J",
+   "bitwise_equal": true,
+   "shape": [
+    1152000,
+    10,
+    1
+   ],
+   "dtype": "<c16"
+  },
+  {
+   "name": "driver_seed_prep_initial_gas_fourier_J",
+   "bitwise_equal": true,
+   "shape": [
+    1152000,
+    10,
+    1
+   ],
+   "dtype": "<c16"
+  },
+  {
+   "name": "driver_seed_prep_current_source_fourier_J",
+   "bitwise_equal": true,
+   "shape": [
+    1152000,
+    10,
+    1
+   ],
+   "dtype": "<c16"
+  },
+  {
+   "name": "operator_weighted_responses[0:48000]",
+   "bitwise_equal": true,
+   "shape": [
+    48000,
+    10,
+    1
+   ],
+   "dtype": "<c16"
+  },
+  {
+   "name": "operator_wavevectors[0:48000]",
+   "bitwise_equal": true,
+   "shape": [
+    48000,
+    3
+   ],
+   "dtype": "<f8"
+  },
+  {
+   "name": "operator_weighted_responses[768000:816000]",
+   "bitwise_equal": true,
+   "shape": [
+    48000,
+    10,
+    1
+   ],
+   "dtype": "<c16"
+  },
+  {
+   "name": "operator_wavevectors[768000:816000]",
+   "bitwise_equal": true,
+   "shape": [
+    48000,
+    3
+   ],
+   "dtype": "<f8"
+  },
+  {
+   "name": "operator_weighted_responses[1104000:1152000]",
+   "bitwise_equal": true,
+   "shape": [
+    48000,
+    10,
+    1
+   ],
+   "dtype": "<c16"
+  },
+  {
+   "name": "operator_wavevectors[1104000:1152000]",
+   "bitwise_equal": true,
+   "shape": [
+    48000,
+    3
+   ],
+   "dtype": "<f8"
+  }
+ ],
+ "fa_scalars_equal": {
+  "Eref": true,
+  "ell_F": true,
+  "gamma": true,
+  "relative_singular_floor": true,
+  "hermitian_tolerance": true,
+  "full_residual_relative_tolerance": true,
+  "full_residual_absolute_tolerance": true,
+  "node_convention": true,
+  "real_source_pairing_declared": true
+ },
+ "blocks": [
+  [
+   0,
+   48000
+  ],
+  [
+   768000,
+   816000
+  ],
+  [
+   1104000,
+   1152000
+  ]
+ ],
+ "driver": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/galaxy_m0_forward_c2v011_cx3v003.py",
+  "sha256": "d120eead0e424d5ae0c2e4854377f2808f258646a7fefdaba5c66f105f5e610b"
+ },
+ "call_spec": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/CALL_NGC_V011_A_CX3V003.json",
+  "sha256": "1b949fbc1ae50208fbd47363afd57ca350594d0cf73a85e7023061c30c6fd845"
+ },
+ "driver_seed_numerical_inputs": {
+  "fourier_points_per_axis": 120,
+  "source_gauss_order": 4,
+  "source_azimuth_count": 32,
+  "observation_azimuth_count": 12,
+  "hi_max_metric_calls": 1024,
+  "hi_panels_per_side": 8,
+  "max_iterations": 16,
+  "Eref_J": 1.4868672804474457e+57,
+  "ell_F_m": 9.905025036587288e+19,
+  "gamma": 2.9863917119177204e+41,
+  "solar_mass_kg": 1.98847e+30,
+  "kpc_m": 3.085677581491367e+19,
+  "kmax_inverse_kpc": 2.0,
+  "pressure_step_kpc": 0.005,
+  "azimuth_step_rad": 0.0025,
+  "hi_search_step_kpc": 0.2,
+  "hi_search_limit_kpc": 95.0,
+  "hi_root_tolerance_kpc": 1e-08,
+  "hi_log_lapse_tolerance": 1e-13,
+  "relaxation": 0.5,
+  "source_atol_J": 0.0,
+  "source_rtol": 0.01,
+  "pressure_atol_Pa_per_m": 0.0,
+  "pressure_rtol": 0.1,
+  "reality_atol": 1e-14,
+  "reality_rtol": 1e-08,
+  "relative_singular_floor": 1e-12,
+  "hermitian_tolerance": 1e-10,
+  "solve_rtol": 1e-10,
+  "solve_atol": 0.0,
+  "progress_directory": null,
+  "analytic_initial_azimuth": true,
+  "composite_grid_spec": null,
+  "h2_tail_mass_rtol": 1e-12,
+  "composite_grid_spec_anisotropic": {
+   "version": "NGC_T120L_CX3V011",
+   "axes": {
+    "x": {
+     "breaks_inverse_kpc": [
+      -2,
+      -1,
+      -0.3,
+      -0.1,
+      -0.03,
+      -0.01,
+      0,
+      0.01,
+      0.03,
+      0.1,
+      0.3,
+      1,
+      2
+     ],
+     "panel_orders": [
+      22,
+      16,
+      8,
+      5,
+      6,
+      3,
+      3,
+      6,
+      5,
+      8,
+      16,
+      22
+     ],
+     "total_axis_nodes": 120
+    },
+    "y": {
+     "breaks_inverse_kpc": [
+      -2,
+      -1,
+      -0.3,
+      -0.1,
+      -0.03,
+      -0.01,
+      0,
+      0.01,
+      0.03,
+      0.1,
+      0.3,
+      1,
+      2
+     ],
+     "panel_orders": [
+      22,
+      16,
+      8,
+      5,
+      6,
+      3,
+      3,
+      6,
+      5,
+      8,
+      16,
+      22
+     ],
+     "total_axis_nodes": 120
+    },
+    "z": {
+     "breaks_inverse_kpc": [
+      -2,
+      -1,
+      -0.3,
+      -0.1,
+      -0.03,
+      -0.01,
+      0,
+      0.01,
+      0.03,
+      0.1,
+      0.3,
+      1,
+      2
+     ],
+     "panel_orders": [
+      14,
+      10,
+      5,
+      3,
+      6,
+      2,
+      2,
+      6,
+      3,
+      5,
+      10,
+      14
+     ],
+     "total_axis_nodes": 80
+    }
+   },
+   "scope": "Registered T120L; 120x120x80; dispatch 0517"
+  },
+  "ngc_outer_gas_cut": null
+ },
+ "saved_operator_json_sha256": "e6453d520f902e77da77e49b8f8d1cdbed84639f11ed6cc661943553741b2af4",
+ "saved_prep_json_sha256": "8d60a60b47aa2d7c62a76f70c894bc8042976cdf5a2aa2be227f93ab380715c8",
+ "tool": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_ngc_v011_c2/tools/t120l_recheck_c2r.py",
+  "sha256": "91860713e1f53ff999537abb02f8d2ab29b40f859bf759ca5c6c5d853cdbfb64"
+ },
+ "prep_seconds": 56.999578417045996,
+ "wall_seconds": 117.55083904205821,
+ "peak_rss_bytes": 1414381568,
+ "gas_iterations": 0,
+ "forward_runs": 0
+}

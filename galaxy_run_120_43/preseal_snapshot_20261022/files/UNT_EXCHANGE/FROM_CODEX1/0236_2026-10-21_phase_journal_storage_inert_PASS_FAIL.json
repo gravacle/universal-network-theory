@@ -1,0 +1,40 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "component_status": "PASS",
+  "scope": "Exclusive-file phase journal storage prerequisite only",
+  "tested": {
+    "tested": [
+      "durable ordered invalidation preserves prior admission bytes",
+      "invalidated use refuses",
+      "duplicate final refuses before write",
+      "partial refuses",
+      "gap refuses",
+      "chain refuses",
+      "unheld lock refuses"
+    ],
+    "scope": "storage only; synthetic events, real held flock; no root provenance or freeze action"
+  },
+  "untested": [
+    "Root final-event authentication/evidence binding",
+    "Process crash and physical power-loss durability",
+    "Concurrent writers violating parent lock",
+    "Consumer freeze/cache enforcement and production"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/phase_journal_storage_cx1v001.py",
+      "sha256": "37605e6d2f03d4e039140b1a3a2fc5e3a21dd0a86440d0d336fa325e52c159d6"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_phase_journal_storage_cx1v001.py",
+      "sha256": "d54387f3513ab00630d4e1c61b2472a1bbb42945ca9d3e5541e569eba4c0152e"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/phase_journal__y9nylzl/TEST_REPORT.json",
+      "sha256": "1d03406cd45a1c1d969c49a0eaa344b04c6518e8e80f3208b9ebb959711300f8"
+    }
+  ],
+  "utc": "2026-10-21T16:02:28.459837+00:00",
+  "note": "Each new event file is exclusive, file and directory fsynced; chain and sequence validated. Partial files refuse and are preserved. No claim that hash chains authenticate events or detect tail removal without an independent trusted head."
+}

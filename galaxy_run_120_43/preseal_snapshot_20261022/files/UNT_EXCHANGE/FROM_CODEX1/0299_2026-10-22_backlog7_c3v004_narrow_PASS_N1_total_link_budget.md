@@ -1,0 +1,3 @@
+Acknowledged dispatches: 0382
+Backlog7 c3v004 narrow review PASS, zero blocking. B7-1/B7-2/B7-3 closed. Author55/55+11mutants reproduce without adaptation; K1 now inside WORK. One nonblocking residual N1:1parent-prefix link+32leaf links passes preflight but kernel mkdir fails ELOOP62. Counter is not the total kernel budget; please document beside race/ENOSPC/EIO or fix in successor. Do not claim complete path equivalence. Root adoption separate and should carry this note.
+Review {"path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verify_cx1_backlog7/REVIEW_BACKLOG7_CX1V004.md", "sha256": "f5cf15c7efe169a79809b9624a917a5266769b71ca6eda90f7d9ffe488ab79aa"}

@@ -1,0 +1,637 @@
+{
+ "schema": "C3SA_MUSTFAIL_W7_RPS1_V001",
+ "helper": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v019.py",
+  "sha256": "91b15dc688a2c28e1b5362d9568a80f92431938eb5e2807367b2327a37290cbf"
+ },
+ "contrast_helper": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v010.py",
+  "sha256": "823c8aca8c230d78f6a4c2e3a7b494a64546030622e4b186db799f873c537df2"
+ },
+ "build_v007": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/BUILD_V007.md",
+  "sha256": "94bc05a5db1e6350b246c22e850ae62d95cd05ce21cdf5b329e3edded588a0de"
+ },
+ "build_v006": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/BUILD_V006.md",
+  "sha256": "fb9e6a4a19395f35b9929fb163df6305c1b472f504266e2b4b98453f5bbb004f"
+ },
+ "facts_from_bytes": {
+  "build_v007_rows": 15,
+  "build_v006_rows": 15,
+  "first_13_equal": true,
+  "v006_rows_not_in_v007": [
+   [
+    "postseal_records_cx1v006.py",
+    "9fbdb0ca"
+   ],
+   [
+    "srb_rot_record_cx1v008.py",
+    "500f8b6a"
+   ]
+  ],
+  "v007_rows_14_15": [
+   [
+    "postseal_records_cx1v006_cx3v001.py",
+    "4024d82a"
+   ],
+   [
+    "srb_rot_record_cx1v008_cx3v001.py",
+    "2757847a"
+   ]
+  ]
+ },
+ "n_cases": 41,
+ "ALL_OK": true,
+ "results": [
+  {
+   "case": "W7-0",
+   "what": "control: exactly the 15 BUILD_V007 rows in table order",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true,
+   "detail": {
+    "w7_s1_allowlist": {
+     "build": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/BUILD_V007.md",
+      "sha256": "94bc05a5db1e6350b246c22e850ae62d95cd05ce21cdf5b329e3edded588a0de"
+     },
+     "byte_equal_to_the_build_table_in_table_order": true,
+     "config": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/w7/CONFIG_SYNTHETIC_01.json",
+      "sha256": "9e097be9e39feab151a585d6e90e52c444ce9df684b5851a36c67b9dfc226ae5"
+     },
+     "rows": 15
+    }
+   }
+  },
+  {
+   "case": "W7-1",
+   "what": "17 rows: the 15 plus the V006 writers 9fbdb0ca / 500f8b6a",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_COUNT 17 (want exactly 15, the BUILD_V007 table)",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-2",
+   "what": "V006's old 15 rows (rows 1-13 plus the V006 writers; BUILD_V006 fb9e6a4a table)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_ROW_NOT_IN_TABLE '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/postseal_records_cx1v006.py'",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-3",
+   "what": "substring-matched row: row 1 path truncated (its \"<sha>  <path>\" is a substring of BUILD text)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_ROW_NOT_IN_TABLE '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/ea_replay_cx1v01'",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-4",
+   "what": "substring-matched row: the binder f3e4e2be (cited in BUILD L54, outside the table) in place of row 15",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_ROW_NOT_IN_TABLE '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/bind_sealed_launch_plan_cx1v001.py'",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-5",
+   "what": "reordered: rows 1 and 2 swapped",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_ORDER_DIFFERS_FROM_TABLE",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-6",
+   "what": "duplicated row: row 1 repeated as a duplicate JSON key (16 entries in the text)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "EXCEPTION DuplicateKey: DUPLICATE_JSON_KEY '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/ea_replay_cx1v012.py'",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-7",
+   "what": "duplicated sha: row 15 replaced by row 14 sha under another path",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_ROW_NOT_IN_TABLE '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/w7/other_name.py'",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-8",
+   "what": "14 rows (row 15 missing)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_COUNT 14 (want exactly 15, the BUILD_V007 table)",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-9",
+   "what": "list form [[sha, path], ...] instead of an object",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_NOT_AN_OBJECT",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-10",
+   "what": "row 3 sha in upper case (not byte-equal)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_ROW_SHA_NOT_BYTE_EQUAL '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/shell_split_static_cx1v010.py'",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-11",
+   "what": "row 5 path with a trailing space (not byte-equal)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_ALLOWLIST_ROW_NOT_IN_TABLE '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/ra10_checkpoint_cx1v012.py '",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-12",
+   "what": "config pins BUILD_V006 while checked against BUILD_V007",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_CONFIG_BUILD_PIN_DIFFERS",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-13a",
+   "what": "BUILD copy whose table has a 16th row (a V006 writer)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_BUILD_TABLE_COUNT 16 (want exactly 15)",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-13b",
+   "what": "BUILD copy with prose inside the section, outside the fence",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_BUILD_SECTION_TEXT_OUTSIDE_THE_TABLE",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-13c",
+   "what": "BUILD copy with the allowlist heading twice",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_BUILD_SECTION_HEADING_COUNT 2",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "W7-13d",
+   "what": "BUILD copy with one table line using a single space",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "W7_BUILD_TABLE_LINE_NOT_A_ROW '380e2d81027eba4c86843b904ccb79f5f27e6c917b5f3f5a71f286c01be32156 /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/ea_replay_cx1v012.py'",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-0a",
+   "what": "create; parent absent (as on disk today): parent and root created, verified",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "target_metadata_attempts": 0,
+   "post": {
+    "root_is_real_empty_dir": true
+   },
+   "MUST_FAIL_ok": true,
+   "detail": {
+    "output_root": {
+     "absent_in_every_form": true,
+     "created": true,
+     "empty": true,
+     "existing_ancestor": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0a",
+     "free": {
+      "free_bytes": 448874430464,
+      "free_gb": 448.87,
+      "free_gib": 418.05
+     },
+     "free_at_existing_ancestor": {
+      "free_bytes": 448874430464,
+      "free_gb": 448.87,
+      "free_gib": 418.05
+     },
+     "min_free_gib_P10": 0,
+     "mode": "0o755",
+     "on_data_volume": true,
+     "parent": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0a/UNT_INTERNAL_RUNS",
+     "parent_created": true,
+     "parent_existed": false,
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0a/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "realpath": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0a/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "realpath_equals_literal": true,
+     "realpath_method": "fcntl F_GETPATH of the directory opened O_NOFOLLOW_ANY|O_DIRECTORY (the kernel path of that vnode; no symlink in any component can be followed); os.path.realpath is not called (SA-CX1-B1)",
+     "st_dev": 16777232,
+     "st_ino": 14588659,
+     "volume_root": "/System/Volumes/Data",
+     "volume_st_dev": 16777232
+    }
+   }
+  },
+  {
+   "case": "R-0b",
+   "what": "create; parent exists",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "target_metadata_attempts": 0,
+   "post": {
+    "root_created": true
+   },
+   "MUST_FAIL_ok": true,
+   "detail": {
+    "output_root": {
+     "absent_in_every_form": true,
+     "created": true,
+     "empty": true,
+     "existing_ancestor": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0b/UNT_INTERNAL_RUNS",
+     "free": {
+      "free_bytes": 448874430464,
+      "free_gb": 448.87,
+      "free_gib": 418.05
+     },
+     "free_at_existing_ancestor": {
+      "free_bytes": 448874430464,
+      "free_gb": 448.87,
+      "free_gib": 418.05
+     },
+     "min_free_gib_P10": 0,
+     "mode": "0o755",
+     "on_data_volume": true,
+     "parent": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0b/UNT_INTERNAL_RUNS",
+     "parent_created": false,
+     "parent_existed": true,
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0b/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "realpath": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0b/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "realpath_equals_literal": true,
+     "realpath_method": "fcntl F_GETPATH of the directory opened O_NOFOLLOW_ANY|O_DIRECTORY (the kernel path of that vnode; no symlink in any component can be followed); os.path.realpath is not called (SA-CX1-B1)",
+     "st_dev": 16777232,
+     "st_ino": 14588662,
+     "volume_root": "/System/Volumes/Data",
+     "volume_st_dev": 16777232
+    }
+   }
+  },
+  {
+   "case": "R-0c",
+   "what": "check mode (step 0) writes nothing",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "target_metadata_attempts": 0,
+   "post": {
+    "parent_still_absent": true
+   },
+   "MUST_FAIL_ok": true,
+   "detail": {
+    "output_root": {
+     "absent_in_every_form": true,
+     "created": false,
+     "existing_ancestor": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0c",
+     "free_at_existing_ancestor": {
+      "free_bytes": 448874430464,
+      "free_gb": 448.87,
+      "free_gib": 418.05
+     },
+     "min_free_gib_P10": 0,
+     "mode": "check",
+     "parent": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0c/UNT_INTERNAL_RUNS",
+     "parent_existed": false,
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0c/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "volume_root": "/System/Volumes/Data",
+     "volume_st_dev": 16777232
+    }
+   }
+  },
+  {
+   "case": "R-0d",
+   "what": "verify mode on R-0a with its recorded st_dev/st_ino",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true,
+   "detail": {
+    "output_root": {
+     "empty": true,
+     "free": {
+      "free_bytes": 448874430464,
+      "free_gb": 448.87,
+      "free_gib": 418.05
+     },
+     "mode": "verify",
+     "on_data_volume": true,
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0a/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "realpath": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-0a/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "realpath_equals_literal": true,
+     "realpath_method": "fcntl F_GETPATH of the directory opened O_NOFOLLOW_ANY|O_DIRECTORY (the kernel path of that vnode; no symlink in any component can be followed); os.path.realpath is not called (SA-CX1-B1)",
+     "st_dev": 16777232,
+     "st_ino": 14588659,
+     "volume_root": "/System/Volumes/Data",
+     "volume_st_dev": 16777232
+    }
+   }
+  },
+  {
+   "case": "R-1a",
+   "what": "root exists as a directory (check mode)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_EXISTS (directory): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-1/P/ROOT; RP-S1 needs a NEW directory; nothing was created",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-1b",
+   "what": "root exists as a directory (create mode)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_EXISTS (directory): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-1/P/ROOT; RP-S1 needs a NEW directory; nothing was created",
+   "target_metadata_attempts": 0,
+   "post": {
+    "same_dir_untouched": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-2",
+   "what": "root exists as a regular file",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_EXISTS (regular file): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-2/P/ROOT; RP-S1 needs a NEW directory; nothing was created",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-3",
+   "what": "root exists as a DANGLING symlink",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_HAS_SYMLINK_COMPONENT output_root: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-3/P/ROOT -> '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assem",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-4",
+   "what": "root exists as a symlink to a real directory",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_HAS_SYMLINK_COMPONENT output_root: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-4/P/ROOT -> '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assem",
+   "target_metadata_attempts": 0,
+   "post": {
+    "target_dir_untouched_empty": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-4b",
+   "what": "root is a symlink whose text names a protected look-alike (dangling)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_LINK_TEXT_PROTECTED output_root: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-4b/P/ROOT -> '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assemb",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-5",
+   "what": "the parent is a symlink to a real directory",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_HAS_SYMLINK_COMPONENT output_root parent: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-5/P -> '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_ass",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created_through_the_link": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-6",
+   "what": "the parent is a regular file",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_PARENT_NOT_A_DIRECTORY (regular file) /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-6/P",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-7",
+   "what": "the grandparent is missing",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_COMPONENT_MISSING output_root grandparent: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-7/MISSING",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-8",
+   "what": "firmlink spelling /System/Volumes/Data/Users/...",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_NOT_ABSOLUTE_USERS_SPELLING output_root: '/System/Volumes/Data/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-8/P/ROOT'",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-9a",
+   "what": "'..' as the last component under an ABSENT parent",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_COMPONENT_REFUSED output_root: '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-9a/P/..' (lexical, before any walk or mkdir)",
+   "target_metadata_attempts": 0,
+   "post": {
+    "parent_not_created": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-9a-old (reproduction, helper c3v010 823c8aca)",
+   "what": "the same '..' path on c3v010",
+   "verdict": "REFUSE",
+   "code": "OUTPUT_ROOT_EXISTS (appeared between the check and the mkdir): /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-9a-old/P/..",
+   "parent_created_before_the_refusal": true,
+   "note": "contrast only; the gap c3v011 closes"
+  },
+  {
+   "case": "R-9b",
+   "what": "a '.' component",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_COMPONENT_REFUSED output_root: '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-9b/P/./ROOT' (lexical, before any walk or mkdir)",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-10",
+   "what": "free space below a (synthetic) floor of 100000 GiB",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "FREE_BELOW_THE_ROOT_FLOOR 418.03 GiB < 100000 GiB (P10; nothing was created)",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-11",
+   "what": "verify after an entry appeared in the root",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_NOT_EMPTY (1 entries) /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-11/P/ROOT",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-12",
+   "what": "verify with another inode than the recorded one",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_IS_NOT_THE_RECORDED_DIRECTORY (st_dev, st_ino) (16777232, 14588699) != (16777232, 14588700)",
+   "target_metadata_attempts": 0,
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-13",
+   "what": "a protected name in the path (runs_ext/)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PATH_PROTECTED_REFUSED output_root: '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_w7rps1_20261019T025718Z/rps1/R-13/runs_ext/P/ROOT'",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-14",
+   "what": "the REAL literal path in CHECK mode (step 0 today; writes nothing)",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "target_metadata_attempts": 0,
+   "post": {
+    "real_parent_still_absent": true
+   },
+   "MUST_FAIL_ok": true,
+   "detail": {
+    "output_root": {
+     "absent_in_every_form": true,
+     "created": false,
+     "existing_ancestor": "/Users/bgm/Research",
+     "free_at_existing_ancestor": {
+      "free_bytes": 448857235456,
+      "free_gb": 448.86,
+      "free_gib": 418.03
+     },
+     "min_free_gib_P10": 0,
+     "mode": "check",
+     "parent": "/Users/bgm/Research/UNT_INTERNAL_RUNS",
+     "parent_existed": false,
+     "path": "/Users/bgm/Research/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007",
+     "volume_root": "/System/Volumes/Data",
+     "volume_st_dev": 16777232
+    }
+   }
+  },
+  {
+   "case": "R-15",
+   "what": "an unknown mode",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_MODE 'make'",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R-16",
+   "what": "a non-integer floor",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_ROOT_ARG_NOT_AN_INTEGER min-free-gib: '-1'",
+   "target_metadata_attempts": 0,
+   "post": {
+    "nothing_created": true
+   },
+   "MUST_FAIL_ok": true
+  }
+ ]
+}

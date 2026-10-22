@@ -1,0 +1,75 @@
+--- /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/admission_integration/owned_L4_current_graph_cycle_root_worker_v002.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/worm_move_c2_0467/owned_L4_worm_loop_root_worker_v003.py
+@@ -1,8 +1,9 @@
+-"""Inert root-only current-graph cycle/admission/family-pair capture worker.
++"""Inert root-only worm-loop/admission/family-pair capture worker V003 (delta of cycle worker V002 2237a155...).
+ Requires external 4500s/4GiB RSS/2GiB output guard; inherited soft4400s/3.5GiB.
+ Same physical TRIAL, 512 warmup,1024 measurements,2 chains,5 moves/sweep.
+-Fixed mixture: .25 occupancy,.10 current-graph cycles,.20 Birth residence,.20 admission residence,.25 prior base. Fresh seed2026101612
++Fixed mixture: .25 occupancy,.10 worm loop (replaces the current-graph cycle slot),.20 Birth residence,.20 admission residence,.25 prior base. Fresh seed2026101701
+ is bound after preparation and before any sampling. No acceptance or retries.
++Durable rows additionally carry the reference-dwell canonical key, Birth census and defect content U (durability V002).
+ """
+ import hashlib
+ import importlib.util
+@@ -19,10 +20,10 @@
+ RELEASE0456={'author_path': '/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE3/0009_2026-10-16_done-0456.md', 'author_sha256': '9c493b325573e1ff5ef9fbf294e3e739fe367999069db40b585dd6970bf7e03f', 'review_path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/admission_residence_review_0457/REVIEW_0457_V001.md', 'review_sha256': '482dc9047c07be8eb111827966179f9d0dbc1c353a0a24bead1d0d05ba9908e2', 'review_return_path': '/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE4/0011_2026-10-16_done-0457.md', 'review_return_sha256': 'e86bf046cefb8fd9edd8ddc08bc8a7fd6dd4a8ce1d36861d0f5f5e9e58c11a4b', 'interface_path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/admission_residence_0456/INTERFACE_0456_V001.md', 'interface_sha256': '337a7973f008b2846aa334dde8855106db14371d7cca5270a899a552cd517e58'}
+ SOURCES = {
+     'admission_module': (X/'admission_residence_0456/admission_residence_transport_c3v001.py', '5b19e90ee4fcf86a0b8fe570abb607ae23c8047771abc4ab317c167f1837d653'),
+-    'durability': (B/'helpers/admission_integration/owned_current_cycle_committed_capture_durability_v001.py', '5cb29e780fd956d1247de6047a097087da82f43b31cfaa57f661ff255076c0da'),
+-    'recipe': (B/'helpers/admission_integration/owned_L4_current_graph_cycle_recipe_v001.py', '76781f18e852a1368ec2216b15a04c3525435efe2e11cded3155417a239eb203'),
++    'durability': (X/'worm_move_c2_0467/owned_worm_committed_capture_durability_v002.py', 'c0646a9380ef59d1f95732faf732243f91e850ec3b94f8d3510ccdd5602b40f9'),
++    'recipe': (X/'worm_move_c2_0467/owned_L4_worm_loop_recipe_v003.py', '8eb46fff1f29d83fed676f7f61b469cb53495baa62d69a1ee4cfedb68aeab8ef'),
+     'birth_module': (B/'helpers/coefficient_method/owned_worldline_birth_residence_transport_v001.py', '6f866bda7eda7b56cb9ae7a1247cb365c16c9b40cb996af650452f8823f9f6e8'),
+-    'cycle_module': (B/'helpers/admission_integration/owned_current_graph_cycle_occupancy_v001.py', '6761d843a658b803354f67d08908342869f272a4ca39d4bb964355fd21815340'),
++    'worm_module': (X/'worm_move_c2_0467/owned_worm_loop_whole_path_c2v001.py', '9fef6042eb1e13157d19a4d4381b4c73ef6e26d779f49ad7c477f1d44b9f470d'),
+     'operator': (X/'owned_retained_response_0405/owned_parent_operator_v003.py', 'a04f87954b68bb2dcc5a1af42a465b1d554ed1fc14d9b22d43e05e3e664f7f07'),
+     'sampler': (B/'helpers/coefficient_method/owned_collective_worldline_static_response_pairallk_v006.py', '896cadbbe4059a77b33f370d643cfa7657c0e031d61d1aa46886e88eb4f576b7'),
+     'adapter': (B/'helpers/coefficient_method/owned_diamond_registration_input_adapter_v001.py', '0705be7ca500a3b8329566ba014b80645231be2178ad5b8ef089dbca163b3f77'),
+@@ -78,7 +79,7 @@
+             with output.with_name('progress.jsonl').open('x') as progress:
+                 print('Preparing full-owned L4 collective response', flush=True)
+                 prepared = recipe.prepare(family_recipe=modules['family_recipe'],
+-                    cycle_module=modules['cycle_module'],birth_module=modules['birth_module'],admission_module=modules['admission_module'],
++                    worm_module=modules['worm_module'],birth_module=modules['birth_module'],admission_module=modules['admission_module'],
+                     operator_module=modules['operator'],
+                     sampler_module=modules['sampler'], diamond_adapter=modules['adapter'],
+                     occupancy_module=modules['occupancy'], statistics_module=modules['statistics'],
+@@ -89,19 +90,20 @@
+                     or args['measurement_sweeps']!=1024 or args['move_parameters']['moves_per_sweep']!=5):
+                     raise ValueError('Frozen sampling schedule mismatch')
+                 old_seed=prepared['reweighting_capture_record']['rng_entropy']
+-                args['chain_generators']=[np.random.default_rng(s) for s in np.random.SeedSequence(2026101612).spawn(2)]
+-                prepared['reweighting_capture_record']['rng_entropy']=2026101612
+-                result['rng_binding']={'prepared_recipe_entropy':old_seed,'actual_entropy':2026101612,
++                args['chain_generators']=[np.random.default_rng(s) for s in np.random.SeedSequence(2026101701).spawn(2)]
++                prepared['reweighting_capture_record']['rng_entropy']=2026101701
++                result['rng_binding']={'prepared_recipe_entropy':old_seed,'actual_entropy':2026101701,
+                     'streams':2,'method':'SeedSequence.spawn(2); replaced before sampling'}
+-                result['current_cycle_request']={'probability_within_base':2./15.,
+-                    'total_current_cycle_probability':.75*(2./15.),'total_occupancy_probability':.25,'total_admission_residence_probability':.20,
++                result['worm_loop_request']={'probability_within_base':2./15.,
++                    'total_worm_loop_probability':.75*(2./15.),'total_occupancy_probability':.25,'total_admission_residence_probability':.20,
+                     'total_birth_residence_probability':.20,'total_prior_base_probability':.25,
+-                    'fixed_anchor_roster':prepared['current_cycle_binding']['owner_roster'],'fixed_lengths':modules['cycle_module'].LENGTHS,'selection':'Uniform fixed original anchor; uniform length; uniform graph-only cycle, no eligibility resampling'}
++                    'fixed_start_roster':prepared['worm_binding']['owner_roster'],'maximum_walk_steps':modules['worm_module'].MAX_WALK_STEPS,'lookahead':modules['worm_module'].LOOKAHEAD,'selection':'Uniform fixed original start; uniform viable occupied first edge; uniform viable alternating continuation until first revisit; exact reverse-walk Hastings factor; no eligibility resampling'}
+                 result['reweighting_capture_request'] = prepared['reweighting_capture_record']
+-                print('Sampling two chains with fixed current-cycle/occupancy/family-pair mixture', flush=True)
++                print('Sampling two chains with fixed worm-loop/occupancy/family-pair mixture', flush=True)
+                 durable=modules['durability'].DurableCapture(directory=output.with_name('committed_capture'),
+                     sampler=modules['sampler'],statistics=modules['statistics'],prepared=prepared,
+-                    clean=clean,pins=result['source_pins'])
++                    clean=clean,pins=result['source_pins'],state_labels=modules['operator'].state_labels,
++                    dstar=modules['family_recipe'].TRIAL['dstar'])
+                 durable.install()
+                 try:
+                     sampled = recipe.run_prepared(prepared=prepared)
+@@ -121,7 +123,7 @@
+                 result['runtime_counters'] = dict(prepared['counters'])
+         if prepared is not None:
+             result['mixture_counters']=dict(prepared['mixture_counters'])
+-            result['current_cycle_counters']=dict(prepared['current_cycle_binding']['counters'])
++            result['worm_counters']=dict(prepared['worm_binding']['counters'])
+             result['partial_output_scope']='Committed capture blocks retained independently; final partial block flushed on ordinary exception. Hard termination can lose at most16 newest rows. Non-resumable; no fabricated RNG/path restart. Full returned sampler prefixes preserved if returned.'
+         result['elapsed_seconds'] = time.monotonic()-started
+         json.dump(clean(result), destination, indent=2, allow_nan=False)

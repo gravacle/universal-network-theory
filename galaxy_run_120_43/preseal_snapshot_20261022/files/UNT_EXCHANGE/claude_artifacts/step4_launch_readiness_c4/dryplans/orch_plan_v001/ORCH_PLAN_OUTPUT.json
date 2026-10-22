@@ -1,0 +1,297 @@
+{
+ "alias": {
+  "reason": "ANCHOR_DISABLED_IN_CONFIG",
+  "used": false
+ },
+ "base_spec_sha256": "f8785f129beb302295422bdcf159068581378dd4a3ca33ff1a03b13aa9395d56",
+ "cache_id": "878d612a46e57f196322b52db0f7f4dc5b4e2529617abeff282ab4c682810c50",
+ "call_weights": {
+  "after_route_a": 2,
+  "column_workers": 2,
+  "peak": 8,
+  "route_a_column_workers": 8
+ },
+ "column_workers": 2,
+ "config_sha256": "a117b62b7eeeb519746d9d3e14f2245ad082ee296fb47bccc154f177fd8f8790",
+ "coordinate_mode": {
+  "admissibility": "A13 as corrected by root A23 (Claude4 R-A, verbatim): Fixing D_DDO154 = 4.04 Mpc is a counted assumption of the headline calibration, forced by the stage bindings (run mode at D \u2260 4.04 is BLOCKED). 4.04 Mpc is the registered route-B/catalogue distance; the region distance_summary central value is 4.0365 Mpc, with conditional 68% interval [3.981, 4.111] Mpc. For exact admitted sets, the D = 4.04 slice lies inside the projection of the 4-D admitted region. Every freeze member is an admitted point, and forward_ngc never receives the DDO154 distance. Every computed slice band therefore lies inside the exact projection envelope, and a member within error on the slice is a member within error of the projection. Nothing stronger is claimed. The frozen headline (min/median/max of the per-member counts plus the reference-member count) is not monotone under restriction, so the test is not claimed to be stricter. The computed INNER_SAMPLE estimates of two different runs are not ordered. A miss on NGC3198 is read as conditional on D_DDO154 = 4.04 Mpc and i_DDO154 = 66\u00b0 until the D Jacobian column bounds that effect.",
+  "admissibility_withdrawn": "A13's claim that the test is \"stricter, never more lenient\" is WITHDRAWN (A23): TESTED-NEGATIVE for the min-count headline",
+  "cache_id": "the mode, the varying names and the sha256 of the engine coordinates enter the cache id",
+  "fixed_engine_coordinates": {
+   "distance_Mpc": 4.04
+  },
+  "free_coordinates": [
+   "common_scale_s",
+   "gamma_over_Eref",
+   "ell_F_m"
+  ],
+  "mode": "DDO154_DISTANCE_FIXED_AT_REGISTERED",
+  "rule": "the orchestrator takes the V001 engine coordinates (derived by prediction_freeze_c2v003a from the V001 coordinate list and re-checked equal to the V001 record) and changes ONLY the role of distance_Mpc from nuisance to fixed; trial value 4.04 Mpc, the registered route-B/catalogue distance (A23: the region distance_summary central value is 4.0365 Mpc (mu 28.03), conditional 68% interval [3.981, 4.111] Mpc, not propagated); box unchanged [3.9810717055349722, 4.111497211045223] so the engine still binds it to region.distance_summary (role fixed is admitted by the engine binding, calibration_region_engine_c2v003a L2517); boxes of s, gamma/Eref, ell_F are the V001 boxes; every call spec carries physical.distance_Mpc = 4.04 (the template value; raw changed paths at the trial point: label only)",
+  "v001_distance_engine_coordinate": {
+   "lower": 3.9810717055349722,
+   "name": "distance_Mpc",
+   "role": "nuisance",
+   "scope": "DDO154",
+   "sensitivity": "NONE",
+   "transform": "log",
+   "trial_value": 4.04,
+   "units": "Mpc",
+   "upper": 4.111497211045223
+  }
+ },
+ "counted_assumptions_from_addendum": [
+  "CA-10",
+  "CA-31",
+  "CA-33"
+ ],
+ "disk": {
+  "calls_affordable_now_guard": 36,
+  "calls_affordable_now_measured": 78,
+  "free_bytes": 496791781376,
+  "free_bytes_read_at": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/orch_plan_v001",
+  "measured_per_call_bytes": 6081118006,
+  "next_wave_calls": 1,
+  "next_wave_fits": true,
+  "per_call_bytes_guard": 12884901888,
+  "reserve_bytes": 21474836480,
+  "rule": "HALTED_DISK before a wave unless free >= n_calls x per_call_bytes_guard + reserve; nothing is ever deleted (principal: keep everything)",
+  "volume": null,
+  "work_dir_resolved": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/orch_plan_v001/UNCREATED_ORCH_WORK_DIR"
+ },
+ "execution_note": "nice unavailable (sandbox); 0514 waiver",
+ "gate_digest": "1a2da1037917937acb84e3112180a679061dda7e5e01f3f8b79535d7f0f7698e",
+ "gates": {
+  "adoption_regeneration": {
+   "ok": false,
+   "reasons": [
+    "ADOPTION_DERIVATION_NOT_PINNED: C4-6 the config, seed spec, capability evidence, timing and caps must be regenerated from the adopted case (adoption_derivation {path, sha256})"
+   ]
+  },
+  "certificate_policy": {
+   "ok": false,
+   "reasons": [
+    "CERTIFICATE_POLICY_PENDING: certificate_registry,certificate_policy_review,approved_certificate_producers"
+   ],
+   "status": "UNTESTED"
+  },
+  "deciding_test": {
+   "ok": false,
+   "reasons": [
+    "deciding: evidence pending"
+   ],
+   "route_a_column_workers_verified": null,
+   "status": "UNTESTED"
+  },
+  "driver_capability": {
+   "layer1_normalize_ok": true,
+   "normalization": [
+    {
+     "normalize_ok": true,
+     "point": "trial",
+     "spec_sha256": "c5ede3c761338e02ae94f80fb6c6f6851f5233e7a688038aa11a497ad2c49638"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=lo,gamma_over_Eref=lo,ell_F_m=lo",
+     "spec_sha256": "f3c72d953ad21659cb2d4382a9d19994770fd720f183e34dabdcc3bc0dbc0dd4"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=hi,gamma_over_Eref=lo,ell_F_m=lo",
+     "spec_sha256": "28011f300e5fbdb357af2882da2ba145919770b5583f9804ab4cc16ebf581f90"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=lo,gamma_over_Eref=hi,ell_F_m=lo",
+     "spec_sha256": "77c54de5f07d0f47c279d63bded14d704c583fb14d2d9e68269bb4cac55f162a"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=hi,gamma_over_Eref=hi,ell_F_m=lo",
+     "spec_sha256": "ef8b7d4cd46f50c981b606fa4594271a9c50452d39c7a4c427a28233645138db"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=lo,gamma_over_Eref=lo,ell_F_m=hi",
+     "spec_sha256": "850c8e22d594d20ca3f42e965d5dcd9136b1bde1e25a70f5768045b89d7e4fdb"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=hi,gamma_over_Eref=lo,ell_F_m=hi",
+     "spec_sha256": "478ae40fe70ebd3b869f779e72193adb6934e5ef4fdac473935e2b05bbbc8cf7"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=lo,gamma_over_Eref=hi,ell_F_m=hi",
+     "spec_sha256": "4c8bb2bc1a6fa07baf2be6d981bb3f04ae61d781773cfd3d4bd5cd84c524f1f5"
+    },
+    {
+     "normalize_ok": true,
+     "point": "corner common_scale_s=hi,gamma_over_Eref=hi,ell_F_m=hi",
+     "spec_sha256": "36e0ffdbdb90cbb522118439b7a1547e2ea8a26092b5bed22bfd9b14f062f27a"
+    }
+   ],
+   "ok": false,
+   "reasons": [
+    "A32 run-mode box evidence: evidence pending"
+   ],
+   "status": "UNTESTED"
+  },
+  "numerics_verdict": {
+   "adopted": null,
+   "grid_case_inputs": {},
+   "ok": false,
+   "reasons": [
+    "V007_SEALED_ADOPT_TAIL_PENDING: require verdict_artifact,block_source,compare,sealed_prereg,adopted_result"
+   ],
+   "u_i_km_s": null
+  },
+  "u_i_carrier": {
+   "declaration": {
+    "basis": null,
+    "carrier": "NOT_CARRIED_DECLARED",
+    "declared_by": null,
+    "note": "default: not carried; declared (C4-6 c). The verdict's carried_numerical_uncertainty_km_s is recorded in plan / FINAL_SUMMARY and enters neither the engine nor the admission rectangles. ROOT TO SET declared_by and basis (or choose FROZEN_BANDS_ONLY; ADMISSION_RECTANGLES is not implemented in c2v005 and refuses). The gate refuses until root signs."
+   },
+   "ok": false,
+   "reasons": [
+    "U_I_CARRIER_ROOT_TO_SET: u_i_carrier.declared_by and .basis must be set by root (default \"not carried; declared\" is a proposal until root signs it)"
+   ],
+   "u_i_km_s_from_verdict": null
+  }
+ },
+ "gates_ok": false,
+ "launches_performed": 0,
+ "max_concurrent": 1,
+ "n_cached": 0,
+ "next_wave": {
+  "batches": 1,
+  "calls": [
+   {
+    "authorized_by": null,
+    "branch": [
+     "seed"
+    ],
+    "family": [
+     "seed"
+    ],
+    "key": "968c915bece706ea",
+    "physical": {
+     "common_scale_s": 0.10154172268068734,
+     "distance_Mpc": 4.04,
+     "ell_F_m": 9.905025036587313e+19,
+     "gamma": 2.941048894067784e+42
+    },
+    "purpose": "seed",
+    "recovery": null,
+    "sibling": false,
+    "spec_sha256": "3958aed31353908fe695de6694aab0f1b81ec9d6aab0641c58a0d7425cd9c355",
+    "u": [
+     0.5000000000000001,
+     0.5000000000000008,
+     0.5000000000000026
+    ]
+   }
+  ],
+  "families": [
+   [
+    "seed"
+   ]
+  ],
+  "n_calls": 1
+ },
+ "open_items_from_addendum": [
+  "C11_caps",
+  "C2_route_a_budget",
+  "C5_deciding_gate",
+  "D10",
+  "D14",
+  "D19",
+  "D3",
+  "D5",
+  "DISTANCE_ALTERNATIVE",
+  "F6_ngc_placeholder_wording",
+  "F6_side_bound",
+  "FREEZE_COORDINATE_COMPATIBILITY",
+  "PC-5",
+  "PC-9",
+  "S1_R30"
+ ],
+ "probe": {
+  "calls": 1,
+  "families": [
+   [
+    "seed"
+   ]
+  ],
+  "hits": 0,
+  "placeholders": 0,
+  "stop_reason": "SINGLE_REQUEST_FAMILY"
+ },
+ "process_budget": 17,
+ "runtime": {
+  "driver_python": {
+   "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+   "realpath": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+   "sha256": "8506f337a83611246ffcff62d6e96c6d2269e5db48508ca3ac2553d56c962aee"
+  },
+  "numpy": {
+   "build_config_sha256": "e284ea8f2e260fdc4e1051c21c54773796887dc8ff0a9cf5d8b8d457fb792295",
+   "core_extension": {
+    "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-darwin.so",
+    "realpath": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-darwin.so",
+    "sha256": "5e090b12a2cfc0cab8268926199ef218a33138971aaa5263f9f92462fe3b2260"
+   },
+   "file": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy/__init__.py",
+   "version": "2.3.5"
+  },
+  "orchestrator_python": {
+   "executable": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+   "realpath": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+   "sha256": "8506f337a83611246ffcff62d6e96c6d2269e5db48508ca3ac2553d56c962aee",
+   "version": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]"
+  },
+  "os": {
+   "kernel_version": "Darwin Kernel Version 25.6.0: Sat Jul 11 15:27:04 PDT 2026; root:xnu-12377.161.13~4/RELEASE_ARM64_T6050",
+   "mac_ver": "26.6",
+   "machine": "arm64",
+   "release": "25.6.0",
+   "sysname": "Darwin"
+  }
+ },
+ "seed_spec_sha256": "3958aed31353908fe695de6694aab0f1b81ec9d6aab0641c58a0d7425cd9c355",
+ "session": {
+  "pgid": 45979,
+  "pid": 45981,
+  "session_leader": false,
+  "sid": 45979
+ },
+ "source_status": "CANDIDATE_REQUIRES_DISTINCT_REVIEW",
+ "stage_aware_budget": true,
+ "status": "OK",
+ "varying_names": [
+  "common_scale_s",
+  "gamma_over_Eref",
+  "ell_F_m"
+ ],
+ "work_dir": {
+  "configured": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/orch_plan_v001/UNCREATED_ORCH_WORK_DIR",
+  "existing_ancestor": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/orch_plan_v001",
+  "existing_ancestor_st_dev": 16777232,
+  "resolved": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/orch_plan_v001/UNCREATED_ORCH_WORK_DIR",
+  "schema": "DDO154_CALIBRATION_WORK_DIR_C2V005",
+  "symlinks": [],
+  "volume": null,
+  "volume_uuid": null
+ },
+ "work_dir_identity": {
+  "pin": {
+   "resolved": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/dryplans/orch_plan_v001/UNCREATED_ORCH_WORK_DIR",
+   "symlinks": [],
+   "volume": null,
+   "volume_uuid": null
+  },
+  "pinned": true
+ },
+ "work_dir_json": "NOT_CREATED"
+}

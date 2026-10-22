@@ -1,0 +1,12 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/source_adapter_write_0348/ngc3198_source_bundle_adapter_v005.py [candidate_path, publish]
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_extractor_0353/extract_sparc_geometry_metadata_v003.py [candidate_path, publish]
+@@ -1,6 +1,7 @@
+-def candidate_path(outp):return outp.with_name(outp.name+'.candidate')
++def candidate_path(outp):return outp.with_name(outp.name+'.candidate')  # from 0348 adapter V005 (CLAUDE2 helper 0348)
+ def publish(outp,b):
+- """Create, fsync and verify an exclusive candidate, then publish it by exclusive hard link. Never unlinks/moves/overwrites."""
++ """From ngc3198_source_bundle_adapter_v005.py (0348, fc9cdcfa..., CLAUDE2 helper 0348), unchanged in behaviour.
++ Create, fsync and verify an exclusive candidate, then publish it by exclusive hard link. Never unlinks/moves/overwrites."""
+  cand=candidate_path(outp);want=sha(b)  # outp is already absolute (main)
+  info={'candidate_path':str(cand),'candidate_created':False,'expected_sha256':want,'expected_bytes':len(b),'output_path':str(outp),'output_published':False}
+  try:fd=os.open(cand,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o444)

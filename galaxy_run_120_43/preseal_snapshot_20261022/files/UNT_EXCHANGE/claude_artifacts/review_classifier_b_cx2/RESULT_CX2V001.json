@@ -1,0 +1,111 @@
+{
+  "date_u": "Tue Oct 20 15:15:22 UTC 2026",
+  "label": "TESTED plus FORMAL code/contract review",
+  "verdict": "PASS_FOR_CLASSIFICATION_WITH_NONBLOCKING_CONTRACT_AMBIGUITY",
+  "counts": {
+    "shared_cases": 368,
+    "shared_agree": 364,
+    "shared_forged_only_differences": 4,
+    "own_cases": 14,
+    "own_agree": 14,
+    "honest_form_disagreements": 0,
+    "A_DEFECT": 0,
+    "B_DEFECT": 0,
+    "CONTRACT_AMBIGUITY": 1,
+    "blocking": 0
+  },
+  "B_source": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/classifier_b_c2/build_c2v005/classifier_b_c2v005.py",
+    "sha256": "cec5bfe9582899437aa715d78e1dfdb36089ebead04f840d4d68893b3d1251c7"
+  },
+  "suite_runs": [
+    {
+      "run": 1,
+      "n": 327,
+      "pass": 327,
+      "results": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/B_suite_run_1_cx2v001/SUITE_RESULTS_CX2V001.json",
+        "sha256": "ed2e29d739125c1ff5e5d6f07f28f0b50b16e00aa0705d2ab894ccb53dc522c1"
+      },
+      "read_log": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/B_suite_run_1_cx2v001/READ_LOG_CX2V001.json",
+        "sha256": "a49b33538dd7e6bf7777034c81d54fc838c219418eabb013580dc02b579bc3f4"
+      }
+    },
+    {
+      "run": 2,
+      "n": 327,
+      "pass": 327,
+      "results": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/B_suite_run_2_cx2v001/SUITE_RESULTS_CX2V001.json",
+        "sha256": "ed2e29d739125c1ff5e5d6f07f28f0b50b16e00aa0705d2ab894ccb53dc522c1"
+      },
+      "read_log": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/B_suite_run_2_cx2v001/READ_LOG_CX2V001.json",
+        "sha256": "a49b33538dd7e6bf7777034c81d54fc838c219418eabb013580dc02b579bc3f4"
+      }
+    }
+  ],
+  "independent_clause_checks": {
+    "n": 158,
+    "passed": 158,
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/OWN_CONTRACT_CHECKS_CX2V001.json",
+    "sha256": "34e3c6a18530c096a27d6b4dbd40745a0f87c6b39264d66047e25cde2dba8ac5"
+  },
+  "B_DEFECTs": [],
+  "CONTRACT_AMBIGUITIES": [
+    {
+      "id": "CA1",
+      "classification": "CONTRACT_AMBIGUITY",
+      "blocking": false,
+      "title": "STAGE0 member distribution disclosure versus the fixed twin-count output form",
+      "contract": "C-6.1 requires the scored member distribution when the twin is invalid. C-6.3 final sentence asks for the STAGE0 member within-error distribution. The adopted output schema instead defines stage0_within_error_distribution as n=8 and the reference twin HIT count, and omits it on TWIN_INVALID.",
+      "producer_form": "score.alternatives[] carries member_within_error_counts from the distribution over all scored members (v003g L4289-L4294).",
+      "tested": "Two member counts [8,3] give producer-form n=2,min=3,median=5.5,max=8; B reports only n=8,within_error=8. For an invalid reference twin with member counts [0,3], B reports TWIN_INVALID and no member distribution. Both are classified without stops; R-DRIFT remains OPEN in the invalid-twin case.",
+      "B_locations": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/classifier_b_c2/build_c2v005/classifier_b_c2v005.py",
+          "sha256": "cec5bfe9582899437aa715d78e1dfdb36089ebead04f840d4d68893b3d1251c7",
+          "line": 2222
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/classifier_b_c2/build_c2v005/classifier_b_c2v005.py",
+          "sha256": "cec5bfe9582899437aa715d78e1dfdb36089ebead04f840d4d68893b3d1251c7",
+          "line": 2208
+        }
+      ],
+      "ruling_needed": "Clarify whether C-6 requires echoing the all-member distribution, with a synchronized text/schema correction or report field if so. The existing twin-row count may remain separately named.",
+      "A115": "Nonblocking reporting ambiguity: no wrong classification, reason, row reading, physics/gate/blinding effect demonstrated."
+    }
+  ],
+  "A_DEFECT_note": {
+    "count": 0,
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/A_SIDE/A_DEFECTS_FOR_CLAUDE4_CX2V001.md",
+    "sha256": "430d4b9524d17d534cbd57bb3e9f5af1611c13e281b446b6b5110c6ddffdb66e"
+  },
+  "kernel_and_barrier_audit": {
+    "kernels_unchanged": 15,
+    "logged_forbidden_A_code_or_output_reads": 0,
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/READ_LOG_AND_KERNEL_AUDIT_CX2V001.json",
+    "sha256": "4527508a6f21da680673edb90265638021dcf08faa3d098051b600b04edf137c"
+  },
+  "disclosures": [
+    "Codex2 wrote neither classifier, these kernels nor these producer modules; same model family as Codex1 kernels, different lane.",
+    "v003g L188 takes its FORBIDDEN set from prior Codex2 P46 code; this review did not open that older harness.",
+    "B suite uses its declared seams for 311 cases and 16 as-shipped cases; all 368 shared and 14 own comparisons ran unmodified CLI binaries.",
+    "B suite compare path redirected only to the byte-identical permitted B340 suite copy; original compare file was not opened.",
+    "Own fixtures reuse permitted root-control scaffolding; substantive member/score/band/AT1 records are hand-built. No producer executed.",
+    "Builder v001 and v002 were never executed; v003 preserves control bytes and producer canonical JSON. Original drafts retained.",
+    "Exact isolated Python and six one-thread environment variables used. nice -n 10 was attempted but setpriority was denied by the sandbox."
+  ],
+  "UNTESTED": [
+    "No actual run, receipt, real manifest, real score, observed or target velocities were opened.",
+    "Synthetic fixtures are honest classifier record forms, not a claim of full production freeze custody verification.",
+    "Supplied historical READ_LOG audit is not independent historical process telemetry; suite guard covers parent, not child process opens.",
+    "No scientific launch, production scoring or adoption decision was performed."
+  ],
+  "evidence_manifest": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_classifier_b_cx2/B_EVIDENCE_MANIFEST_CX2V001.json",
+    "sha256": "9f11273a3b198f5fb4744a8be037616967e008b23c4bed92277f6996b5f62978"
+  }
+}

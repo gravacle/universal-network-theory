@@ -1,0 +1,30 @@
+[
+  {
+    "name": "cap_two_removed",
+    "directory": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_cap_two_removed",
+    "target": "plan['route_a_admission']['max_active']==2",
+    "replacement": "plan['route_a_admission']['max_active']>=1",
+    "guard_sha256": "9bf02fd30ca9fae112044220f12a99685a8c2b8ae61e5cbdf674a183ca9eec4a"
+  },
+  {
+    "name": "child_authority_removed",
+    "directory": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_child_authority_removed",
+    "target": "require(child.get('schema')=='UNT_STEP4_ADMISSION_CX1V001' and child.get('authority')==AUTHORITY and child.get('status')=='ROOT_AUTHORIZED','S1_PAIR_CHILD_ROOT_AUTHORITY')",
+    "replacement": "require(True,'S1_PAIR_CHILD_ROOT_AUTHORITY')",
+    "guard_sha256": "7ebd9fdd7ac2a432e08ad8e1735374cdbf278740b401662b14b00d007ba9cc11"
+  },
+  {
+    "name": "child_caps_removed",
+    "directory": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_child_caps_removed",
+    "target": "require(child.get('caps')=={case:{k:call.get(k) for k in ('wall_cap_s','rss_cap_bytes','output_cap_bytes')}},'S1_PAIR_CHILD_CAP_BINDING')",
+    "replacement": "require(True,'S1_PAIR_CHILD_CAP_BINDING')",
+    "guard_sha256": "a7b01a93dc8b9c06c8f4cfa7a2d2f5358bf5b3cd6dd366b34cdabde8ea0fc53b"
+  },
+  {
+    "name": "one_C1_for_both",
+    "directory": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/mutant_one_C1_for_both",
+    "target": "cfg=pair_case_admission(cfg,call)",
+    "replacement": "cfg=pair_case_admission(cfg,{**call,'case':S1_OVERLAP_CASES[0]})",
+    "guard_sha256": "3038985d4912dd5f3045d649c2574af13e3b6472b0c58a39bb45f4b639efced0"
+  }
+]

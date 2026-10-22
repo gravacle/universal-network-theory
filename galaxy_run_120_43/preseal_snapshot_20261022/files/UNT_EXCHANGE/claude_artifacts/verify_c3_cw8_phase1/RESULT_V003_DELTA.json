@@ -1,0 +1,77 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0842/0695: cw8 Phase-1 package v003, the v002 -> v003 delta (F2, N1, N6, N8, A279), lead lens",
+ "reviewer_lane": "Claude3 (lead)",
+ "utc": "2026-10-21T13:50:46Z",
+ "object": {
+  "launcher_v003": "phase1_ngc_launch_cx3cw8v003.py 4d5b47e7 (from v002 6de0d06a)",
+  "roster_v003": "roster_builder_c2v007_cx3cw8v003.py f710334b (from a2d8dc00)",
+  "g26_v003": "g26_freeze_cx3cw8v003.py 171710bb (from 332253d2)",
+  "builder_return": "FROM_CODEX3/0695",
+  "hashes_from_bytes": "all 15 named files (3 objects, 5 review files, 7 suites/fixtures) match 0695 and are unchanged start to end"
+ },
+ "verdict": "PASS (delta)",
+ "blocking": 0,
+ "scope_note": "Covers only the v002 -> v003 delta. It closes the one blocking item in RESULT.json (F2); F1 was closed in v002 (RESULT_V002_DELTA.json). No blocking item remains open from Claude3's cw8 reviews. The S1 pair (0838 (c)) is reviewed separately.",
+ "checked": [
+  {
+   "claim": "Diff confinement (own top-level AST diff plus function-level diffs): the launcher changes only TOOL_NAME, import fcntl, cw8_check_attempt (F2), cw8_authenticate (one line: CW8_COMPARATOR_FORM), select_workers (CW8_FORECAST_FORM guard and the broadened except) and the new cw8_choice_lock decorator on select_workers; the builder changes only BUILDER_NAME, P112_REVIEWED_SHA (= 4d5b47e7, v003 launcher only) and phase1_snapshot (8 added lines, the A279 gate); G26 changes only BUILDER_PATH and BUILDER_SHA256 (= f710334b). Every hunk maps to a 0842 item.",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "F2: cw8_check_attempt compares sha256 only, after is_pin(spec); history, close_attempt and verify_closed_receipt reach it unchanged. Own kit-relaunch probe (verify_c3_cw8_phase1/probe_kit_relaunch_v003_c3.py 86bcfeaa, adapted from the helper probe that found F2): the S0 kit second invocation (fresh fill path, identical bytes) closes FINISHED with history 1 on v003, matching base cx2v004; the same probe on v002 still refuses CW8_ATTEMPT_RAW_SPEC (discriminating control); the same-path control passes on both. Codex3's kit-relaunch suite 3/3 in lane fixtures; mutants whole_pin_restored (fails exactly the honest same-sha case) and sha_check_removed (accepts a different sha) both killed.",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "N1: every exception class reachable from the try body on malformed license, comparator or forecast bytes is caught (Refusal from need/keys/dig/timestamp; OSError; ValueError incl. JSON, UTF-8, int-digit limit and fromisoformat; KeyError; TypeError; AttributeError; OverflowError from math.isfinite on huge ints; RecursionError from deep JSON). dig maps KeyError/TypeError to Refusal and LEAF has string keys only, so no IndexError; cw8_predict divides by nothing. The fallback writes the durable serial cohort record; nothing after the try depends on the input. Selector-custody suite 39/39; mutant malformed_forecast_guard_removed killed (6 controls: still serial, reason AttributeError instead of CW8_FORECAST_FORM).",
+   "result": "CONFIRMED",
+   "label": "FORMAL + TESTED"
+  },
+  {
+   "claim": "N8: O_CREAT|O_EXCL 0o444, else open the existing file O_RDONLY|O_NOFOLLOW; regular file with nlink 1; flock LOCK_EX before any choice is read; dev/ino identity re-check; cached calls discarded; closing the fd releases it. Only select_workers is locked; its callers (CLI L2548; cw8_ensure_default L3434 from L2389) and ctx.calls() take no lock, and it is the launcher's only flock, so there is no self-deadlock or lock-order inversion. The empty lock file sits outside launches/ and worker_choices/, is ignored by record_paths, and would be skipped by the builder's custody_copy_inventory (PIN_EMPTY_FILE); G26 lists nothing. Mutant choice_lock_removed killed by the concurrent-selectors control (CW8_CHOICE_DUPLICATE).",
+   "result": "CONFIRMED",
+   "label": "FORMAL + TESTED"
+  },
+  {
+   "claim": "N6: of Codex3's 15 targeted mutants I re-ran 7 in lane fixtures (kit-relaunch whole_pin_restored, sha_check_removed; selector choice_lock_removed, malformed_forecast_guard_removed, restore_license_ignored; snapshot snapshot_cause_gate_removed, authenticated_flag_instead_of_bound_record). All 7 applied (mutated source sha recorded) and were killed. Codex3 states this is not a rerun of my 24-mutant set; I did not re-run it either.",
+   "result": "CONFIRMED (sampled 7/15)",
+   "label": "TESTED"
+  },
+  {
+   "claim": "A279: phase1_snapshot refuses SNAPSHOT_SOLO_FAILED_CAUSE_REQUIRED for an eligible (pre-ceiling) FAILED attempt with solo_mode True and no bound cause_record. INFRA reclassifications (monitor nonphysics, root stops, CHILD_FAILED|REFUSED/BLOCKED) and CAP classes do not trigger it; a bound nonmodel or unknown cause passes. Snapshot suite 39/39; both A279 mutants killed (gate removed: 2 controls RETURNED; authenticated flag instead of bound record: the bound unknown/nonmodel control refused).",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Suites re-run with WORK in claude_artifacts/verify_c3_cw8_phase1/fixtures_lead_v003/: kit-relaunch 3/3, selector-custody 39/39, snapshot 39/39, test_0835_F1_F3_cx3v003 29/29; nothing was written to the object folder.",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  }
+ ],
+ "findings": [
+  {
+   "id": "N1",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The A279 gate is attempt-level, so the Phase-1 snapshot waits on cause rows for every pre-ceiling solo FAILED attempt",
+   "evidence": "builder L5634-5637 loops over all eligible attempts, so a solo FAILED attempt later superseded by a terminal attempt also needs a bound cause row in the PHASE_1 interruption policy before the snapshot. Recommendation: the runbook should say this, and the cause-producer cxv003 verify should confirm a row (model, or nonmodel/unknown) is produced for every honest FAILED-class receipt (CHILD_FAILED|FAILED, FAILED_AT_STAGE, ROUTE_A_NO_FIXED_POINT). Not blocking: fail-closed, no count changes, and Phase 1 is a reporting boundary only (A249)."
+  },
+  {
+   "id": "N2",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "No mutant isolates the CW8_COMPARATOR_FORM guard",
+   "evidence": "Without the guard a non-dict comparator record still falls back to serial (the AttributeError is caught); only the reason code would change. The forecast twin of this guard is covered by malformed_forecast_guard_removed."
+  },
+  {
+   "id": "N3",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The lock wrapper's own refusals write no fallback record",
+   "evidence": "CW8_CHOICE_LOCK_ROOT, CW8_CHOICE_LOCK_FILE and CW8_CHOICE_LOCK_IDENTITY raise before the body runs. They need a missing launch root or a tampered lock file, which is outside N1's malformed-input scope; v002 also needed an existing launch root (mkdir without parents)."
+  }
+ ],
+ "reads_not_done": "No run trees, run outputs or NGC data; synthetic fixtures only, written under the lane's own fixtures folder."
+}

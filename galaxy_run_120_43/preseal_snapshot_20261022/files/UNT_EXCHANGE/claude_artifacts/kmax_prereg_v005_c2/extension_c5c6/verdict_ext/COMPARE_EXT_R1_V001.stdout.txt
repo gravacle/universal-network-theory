@@ -1,0 +1,55 @@
+row      tau_i          C2        C3        C4        C5        C6         R
+01    0.400     11.5224   14.0357   15.8510         -         -   11.5224
+02    0.200     21.7768   24.4708   25.4028         -         -   21.7768
+03    0.175     29.0005   30.1102   30.0715         -         -   29.0005
+04    0.125     34.4091   34.6478   35.3157         -         -   34.4091
+05    0.100     38.0756   38.9977   39.9030         -         -   38.0756
+06    0.050     41.3483   42.9207   43.2946         -         -   41.3483
+07    0.050     44.5584   45.8847   46.0251         -         -   44.5584
+08    0.050     47.7066   48.6164   49.2397         -         -   47.7066
+09    0.075     49.1679   50.1136   51.0488         -         -   49.1679
+10    0.150     49.4155   50.6674   51.4182         -         -   49.4155
+11    0.175     50.9847   52.0826   52.6197         -         -   50.9846
+12    0.325     48.8056   49.5714   50.2107         -         -   48.8056
+
+gravity-only ring g0 relative to C2 (diagnostic):
+01              +0.0000   +0.4862   +0.9053         -         -   +0.0000
+02              +0.0000   +0.2718   +0.3757         -         -   +0.0000
+03              +0.0000   +0.0774   +0.0683         -         -   -0.0000
+04              +0.0000   +0.0071   +0.0497         -         -   -0.0000
+05              +0.0000   +0.0461   +0.0999         -         -   -0.0000
+06              +0.0000   +0.0810   +0.0968         -         -   -0.0000
+07              +0.0000   +0.0621   +0.0726         -         -   -0.0000
+08              +0.0000   +0.0374   +0.0646         -         -   -0.0000
+09              +0.0000   +0.0388   +0.0711         -         -   -0.0000
+10              +0.0000   +0.0485   +0.0731         -         -   -0.0000
+11              +0.0000   +0.0431   +0.0622         -         -   -0.0000
+12              +0.0000   +0.0282   +0.0483         -         -   -0.0000
+
+DECISION: {
+ "outcome": "INCOMPLETE",
+ "reasons": [
+  "C5 failed ['V1', 'V2', 'V3', 'V4', 'V5', 'V7'] V3:['galaxy', 'physical', 'coefficients', 'brackets', 'picard_bound', 'picard_observe_every_pass', 'picard_passes', \"V009_INADMISSIBLE: V009 admissibility failed: ['review']\", 'grid', 'truncation', \"route_a numerics {} not {'max_iterations': 32, 'column_workers_allowed': [1, 8]}\"]",
+  "C6 failed ['V1', 'V2', 'V3', 'V4', 'V5', 'V7'] V3:['galaxy', 'physical', 'coefficients', 'brackets', 'picard_bound', 'picard_observe_every_pass', 'picard_passes', \"V009_INADMISSIBLE: V009 admissibility failed: ['review']\", 'grid', 'truncation', \"route_a numerics {} not {'max_iterations': 32, 'column_workers_allowed': [1, 8]}\"]"
+ ],
+ "next_step": {
+  "C5": {
+   "V1": "(i) monitor stop (wall/RSS/output cap): rerun the same spec in a fresh outdir with the cap raised, separate approval; (ii) FAILED_AT_STAGE with a column-pass bracket miss: D7 per V005 later_invocations from the failed call's evidence: R(n) = previous block + W1 widenings; C5/C6 rerun admitting their own route A, reference and body under v009 with the same route_a.max_iterations; C4 rerun as C4R(n) under v005 admitting KMAX_A2F10_C4_V005_RUN_V001; the comparison takes --bracket-recovery R(n); (iii) route A without a converged fixed point within 32 iterations, the c2v009 ceiling (ROUTE_A_NO_FIXED_POINT / ITERATION_BUDGET_EXHAUSTED): registered as a measured property of the route-A relaxation at that grid; next step: if the saved residual history contracts over its last 3 iterations, a driver successor raising the route-A ceiling and its own prereg version (under separate review), else a reviewed study of the route-A relaxation (a relaxation change is a new prereg version); no rerun under V006 R1; (iv) BLOCKED admission (C4R(n), admitted reruns): regenerate the admitted spec from the cube outdir under the cube's driver and rerun; (v) any other FAILED or REFUSED: one rerun of the same spec; a second identical failure is reported as a deterministic defect for review.",
+   "V2": "Picard non-convergence within 6 passes: rerun that case with picard.passes 12 admitting its own route A, reference and body (same driver, same route_a.max_iterations); if it still fails, PICARD_NOT_CONVERGED at that grid, stop for review.",
+   "V3": "V009_INADMISSIBLE: complete the separate review of prep v009 + driver v009 (record at the named path); the comparison is then rerun on the same results (no case rerun is implied).",
+   "V4": "Grid/prep defect: stop; review the prep v009 / composite-grid path of driver v009; no rerun before that review.",
+   "V5": "Mask defect: stop; review truncation_mask/apply_mask of the driver that ran the case; no rerun before that review.",
+   "V7": "Route-A prepared inputs differ from the registered expectation: stop; review prep v009, the per-call seed and the checkpoint; no rerun before that review."
+  },
+  "C6": {
+   "V1": "(i) monitor stop (wall/RSS/output cap): rerun the same spec in a fresh outdir with the cap raised, separate approval; (ii) FAILED_AT_STAGE with a column-pass bracket miss: D7 per V005 later_invocations from the failed call's evidence: R(n) = previous block + W1 widenings; C5/C6 rerun admitting their own route A, reference and body under v009 with the same route_a.max_iterations; C4 rerun as C4R(n) under v005 admitting KMAX_A2F10_C4_V005_RUN_V001; the comparison takes --bracket-recovery R(n); (iii) route A without a converged fixed point within 32 iterations, the c2v009 ceiling (ROUTE_A_NO_FIXED_POINT / ITERATION_BUDGET_EXHAUSTED): registered as a measured property of the route-A relaxation at that grid; next step: if the saved residual history contracts over its last 3 iterations, a driver successor raising the route-A ceiling and its own prereg version (under separate review), else a reviewed study of the route-A relaxation (a relaxation change is a new prereg version); no rerun under V006 R1; (iv) BLOCKED admission (C4R(n), admitted reruns): regenerate the admitted spec from the cube outdir under the cube's driver and rerun; (v) any other FAILED or REFUSED: one rerun of the same spec; a second identical failure is reported as a deterministic defect for review.",
+   "V2": "Picard non-convergence within 6 passes: rerun that case with picard.passes 12 admitting its own route A, reference and body (same driver, same route_a.max_iterations); if it still fails, PICARD_NOT_CONVERGED at that grid, stop for review.",
+   "V3": "V009_INADMISSIBLE: complete the separate review of prep v009 + driver v009 (record at the named path); the comparison is then rerun on the same results (no case rerun is implied).",
+   "V4": "Grid/prep defect: stop; review the prep v009 / composite-grid path of driver v009; no rerun before that review.",
+   "V5": "Mask defect: stop; review truncation_mask/apply_mask of the driver that ran the case; no rerun before that review.",
+   "V7": "Route-A prepared inputs differ from the registered expectation: stop; review prep v009, the per-call seed and the checkpoint; no rerun before that review."
+  }
+ },
+ "rule": "X1. Any of C4, C5, C6 invalid or missing -> INCOMPLETE (name each case and failed gate with its gate_next_steps entry; no threshold or rule change)."
+}
+

@@ -1,0 +1,108 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_accept_call_c2v002.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_accept_call_c2v003.py
+@@ -1,4 +1,17 @@
+-"""Per-call acceptance step of the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v002; V006 A188 gap 3, A158).
++"""Per-call acceptance step of the DDO154 calibration campaign (Claude2 h3_campaign_path_c2, c2v003; V006 A188 gap 3, A158, A192).
++
++c2v003 (V006 A192 items 2-3) against h3_accept_call_c2v002 (c9058dd5), and nothing else:
++  * the entry must be a c2v003-line entry (ENTRY_NAME h3_campaign_entry_c2v003, checked before the wrapper loads; else
++    ENTRY_NOT_C2V003_LINE): its wrapper carries the R-C8 ledger and the certified MODEL_INVALID path;
++  * step 5 reads the registered point through the wrapper's one lookup, Context.certificate_record (genesis registry U
++    ledger), not the genesis registry alone (design map 3.3, ACC L160-163);
++  * A192 item 3, INCOMPLETE "reruns once": the step refuses (ACCEPTANCE_RERUN_LIMIT, nothing written) when the call dir
++    already holds two handoff passes (two ACCEPTANCE_TAILSTATES_* directories; the handoff makes one per pass, v004 L90, L226);
++  * the step record (schema H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V003) also carries the registered prelaunch bundle, the
++    handoff's rows_are_model_output, and f6_action, the A192 item 3 row for the reading (CACHED_VALID;
++    RERUN_ACCEPTANCE_ONCE_AFTER_ROOT_CHECKS_INPUTS; CERTIFIED_MODEL_INVALID_ELIGIBLE, i.e. root may run the entry's
++    reingest-invalid with this record; HALT_ROOT_RULES_PER_CALL).  The step never runs reingest-invalid itself.
++Text below is c2v002's.
+ 
+ c2v002 (V006 A191 B2) against h3_accept_call_c2v001 (05651663), and nothing else: the entry must be a c2v002-line entry
+ (ENTRY_NAME h3_campaign_entry_c2v002, checked before the wrapper loads; else ENTRY_NOT_C2V002_LINE), step 8 passes the
+@@ -34,7 +47,7 @@
+      the wrapper's lock and write_acceptance, the certificate re-check, classify, cache put).
+ It writes ACCEPT_STEP_RECORD_W<wave>_C<call>.json (exclusive create) in --records-dir once the handoff ran.
+ 
+-usage: python3 -I -B h3_accept_call_c2v002.py --entry ENTRY.py --entry-sha256 H --config CFG --wave W --call-index I
++usage: python3 -I -B h3_accept_call_c2v003.py --entry ENTRY.py --entry-sha256 H --config CFG --wave W --call-index I
+                                             --deps DEPS.json --deps-sha256 H --records-dir NEW_DIR
+ exit: 0 accepted and reingested; 3 refused; 8 locked; 13 handoff reading not accepted (nothing reingested).
+ """
+@@ -54,7 +67,24 @@
+                'approved_uniform_producer_sha256', 'root_ruling_refs')
+ ACCEPTED = ('ACCEPTED', 'ACCEPTED_PASS_FLAGGED')
+ EXIT = {'OK': 0, 'REFUSED': 3, 'LOCKED': 8, 'NOT_ACCEPTED': 13}
+-ENTRY_LINE = 'h3_campaign_entry_c2v002'           # A191 B2: the entry whose reingest takes the acceptance record
++ENTRY_LINE = 'h3_campaign_entry_c2v003'           # A192: the entry whose wrapper carries the ledger lookup and F6
++TAILSTATES_PREFIX = 'ACCEPTANCE_TAILSTATES_'      # handoff v004 L90: one directory per acceptance pass
++MAX_PASSES = 2                                    # A192 item 3: INCOMPLETE reruns the acceptance step once
++CERTIFIABLE_INVALID = ('NON_LAPSE_TAIL_MATERIAL', 'BOUND_INSUFFICIENT')    # A192 item 3 (handoff NOT_MODEL_OUTPUT, L86)
++
++
++def f6_action(hrec, accepted):
++    """The A192 item 3 row for this reading (recorded; the step itself only reingests ACCEPTED readings)."""
++    reading = hrec.get('reading')
++    if accepted:
++        return 'CACHED_VALID'
++    if reading == 'INCOMPLETE':
++        return 'RERUN_ACCEPTANCE_ONCE_AFTER_ROOT_CHECKS_INPUTS (A192 item 3; no new forward call)'
++    if reading in CERTIFIABLE_INVALID and hrec.get('rows_are_model_output') is False \
++            and not hrec.get('step4_stop_for_root_ruling'):
++        return ('CERTIFIED_MODEL_INVALID_ELIGIBLE (A192 item 3): root may run the entry reingest-invalid with this '
++                'acceptance record')
++    return 'HALT_ROOT_RULES_PER_CALL (A192 item 3)'
+ 
+ 
+ class Refused(Exception):
+@@ -79,8 +109,8 @@
+ def load_chain(entry_path, entry_sha256):
+     E = load_module(entry_path, entry_sha256, '_h3_accept_entry')
+     if getattr(E, 'ENTRY_NAME', None) != ENTRY_LINE:
+-        raise Refused('ENTRY_NOT_C2V002_LINE: ENTRY_NAME %r (%s required: its reingest takes the acceptance record, A191 B2)'
+-                      % (getattr(E, 'ENTRY_NAME', None), ENTRY_LINE))
++        raise Refused('ENTRY_NOT_C2V003_LINE: ENTRY_NAME %r (%s required: its wrapper carries the ledger lookup and F6, '
++                      'A192)' % (getattr(E, 'ENTRY_NAME', None), ENTRY_LINE))
+     M = E.load_wrapper()
+     E.check_patch(M)
+     return E, M
+@@ -154,6 +184,10 @@
+     orch.cache.open(create=False)
+     if c['key'] in orch.cache.entries:
+         raise Refused('ALREADY_ACCEPTED: key %s is cached' % c['key'][:16])
++    passes = sorted(p.name for p in call_dir.iterdir() if p.is_dir() and p.name.startswith(TAILSTATES_PREFIX))
++    if len(passes) >= MAX_PASSES:
++        raise Refused('ACCEPTANCE_RERUN_LIMIT: the call dir already holds %d acceptance passes %s (A192 item 3: INCOMPLETE '
++                      'reruns once); root rules the call' % (len(passes), passes))
+     d = read_deps(deps_path, deps_sha256)
+     tr = ctx.cfg['tail_readiness']
+     bad = []
+@@ -166,8 +200,7 @@
+     if bad:
+         raise Refused('DEPS_DIFFER_FROM_CONFIG: %s' % bad)
+     spec = O.load_json_file(call_dir / 'spec.json', 'campaign spec')
+-    registry = M.M.pin_doc(tr['certificate_registry'], 'certificate registry')
+-    rec = (registry.get('points') or {}).get(M.M.digest(M.point_identity(spec)))
++    rec = ctx.certificate_record(M.point_identity(spec))           # c2v003: the wrapper's one lookup (genesis U ledger)
+     if not isinstance(rec, dict) or not isinstance(rec.get('bundle'), dict):
+         raise Refused('POINT_NOT_REGISTERED: %s' % M.M.digest(M.point_identity(spec))[:16])
+     policy = dict({k: d['policy'][k] for k in POLICY_KEYS}, receipt=receipt, prelaunch_bundle=rec['bundle'])
+@@ -183,14 +216,17 @@
+     accepted = (hrec.get('reading') in ACCEPTED and hrec.get('outputs_are_evidence') is True
+                 and (hrec.get('guard') or {}).get('ok') is True and isinstance(hrec.get('bundle'), dict)
+                 and not hrec.get('step4_stop_for_root_ruling'))
+-    out = {'schema': 'H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V002','wave': int(wave), 'call_index': int(call_index),
++    out = {'schema': 'H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V003', 'wave': int(wave), 'call_index': int(call_index),
+            'key': c['key'], 'spec_sha256': c['spec_sha256'], 'call_dir': str(call_dir), 'receipt': receipt,
+            'config_sha256': ctx.config_sha256, 'cache_id': ctx.cache_id, 'gate_digest': ctx.gate_digest,
+            'deps_record': {'path': str(Path(deps_path).resolve()), 'sha256': deps_sha256},
+            'handoff': {'path': H.__file__, 'sha256': sha_file(H.__file__)}, 'acceptance_record': hrec_ref,
+            'reading': hrec.get('reading'), 'all_readings': hrec.get('all_readings'),
+            'step4_stop_for_root_ruling': hrec.get('step4_stop_for_root_ruling'), 'bundle': hrec.get('bundle'),
+-           'guard_ok': (hrec.get('guard') or {}).get('ok'), 'blockers': hrec.get('blockers')}
++           'guard_ok': (hrec.get('guard') or {}).get('ok'), 'blockers': hrec.get('blockers'),
++           'prelaunch_bundle': rec['bundle'], 'rows_are_model_output': hrec.get('rows_are_model_output'),
++           'outputs_are_evidence': hrec.get('outputs_are_evidence'), 'f6_action': f6_action(hrec, accepted),
++           'ledger': ctx.ledger_head()}
+     if not accepted:
+         out.update(status='NOT_ACCEPTED', reingest=None,
+                    note='nothing reingested; the call stays INFRA CERTIFICATE_ACCEPTANCE_REFUSED; root rules (F6)')

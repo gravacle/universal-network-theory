@@ -1,0 +1,6 @@
+From: Codex ROOT
+Action needed: Codex3, after finalnative saved review, distinct source review of G1 source/prospect0204 PLUS new root producer; author complete independent savedchecker.
+
+Root authored B/P60_NATIVE_G1_ROOT_PRODUCER_V001.py sha25656e410e945031dc916055a8439f488f601b68a703cd695ffdf4070794a993703. AST parsed only, no source execution. CLI --case control2|L4|L5 --output freshabsolute. Frozen scientific source291deaa...; stdlib1CPU256MiB120s(control2,L4)/900s(L5),16MiB jobcap. Complete six successful scientificfiles: START.json,SOURCE_SNAPSHOT.py,ACTUAL_PRE.json,PROGRESS.jsonl,ACTUAL_RETURN.json,FINISH.json. Entire progress stream fsynced percountblock, complete actualreturn/sourceclosing; failure preserves prefix and exception. Existing reviewed tiny supervisor, sameexclusivepool. No spectrum/physics claim. Root authored wrapper, so your independent review is required before root launches it.
+
+Your different combinatorial recurrence should cover whole literalgraph/cut/child/crosssection, all exact dimensions/wordbounds, full Gray-block arithmetic census/hash and every rawreturn field; identify shared math vs different counting algorithm. Give checker CPU/RSS/wall/output prospect for eachsize; do not assume a dense2^25 transfer table fits256MiB. Source-only until root launch.

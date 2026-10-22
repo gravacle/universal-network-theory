@@ -1,0 +1,2277 @@
+{
+ "all_pass": false,
+ "artifact_dir_0462": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462",
+ "artifact_dir_0463": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463",
+ "created_utc": "2026-10-17T15:53:09.121040+00:00",
+ "fixture_script": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/fixtures_0463_c3v001.py",
+  "sha256": "b5cdcfbd7dca0419e4e585965975475f2ce49597a4981d74afd70e7c1dbd85d8"
+ },
+ "fixtures": [
+  {
+   "checks": [
+    {
+     "check": "ok is True",
+     "observed": true,
+     "ok": true
+    },
+    {
+     "check": "status COMPLETE",
+     "observed": "COMPLETE",
+     "ok": true
+    },
+    {
+     "check": "8 call records",
+     "expected": 8,
+     "observed": 8,
+     "ok": true
+    },
+    {
+     "check": "n_ok == 8",
+     "observed": 8,
+     "ok": true
+    },
+    {
+     "check": "evaluations_run == 8",
+     "observed": 8,
+     "ok": true
+    },
+    {
+     "check": "results in theta order (index, theta, theta_key)",
+     "observed": [
+      [
+       0,
+       {
+        "alpha": 0.0,
+        "beta": 1.0
+       }
+      ],
+      [
+       1,
+       {
+        "alpha": 0.1,
+        "beta": 1.25
+       }
+      ],
+      [
+       2,
+       {
+        "alpha": 0.2,
+        "beta": 1.5
+       }
+      ],
+      [
+       3,
+       {
+        "alpha": 0.30000000000000004,
+        "beta": 1.75
+       }
+      ],
+      [
+       4,
+       {
+        "alpha": 0.4,
+        "beta": 2.0
+       }
+      ],
+      [
+       5,
+       {
+        "alpha": 0.5,
+        "beta": 2.25
+       }
+      ],
+      [
+       6,
+       {
+        "alpha": 0.6000000000000001,
+        "beta": 2.5
+       }
+      ],
+      [
+       7,
+       {
+        "alpha": 0.7000000000000001,
+        "beta": 2.75
+       }
+      ]
+     ],
+     "ok": true
+    },
+    {
+     "check": "all statuses OK",
+     "observed": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "OK"
+     ],
+     "ok": true
+    },
+    {
+     "check": "call_dir == campaign_dir/call_{index:04d}",
+     "observed": [
+      "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000",
+      "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0001"
+     ],
+     "ok": true
+    },
+    {
+     "check": "every result valid and speeds == deterministic expectation from theta",
+     "ok": true
+    },
+    {
+     "check": "all 8 receipts verify via verify_receipt",
+     "observed": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+     ],
+     "ok": true
+    },
+    {
+     "check": "8 start/finish timestamp pairs found",
+     "observed": 8,
+     "ok": true
+    },
+    {
+     "check": "max simultaneous <= max_workers (3)",
+     "observed": 3,
+     "ok": true
+    },
+    {
+     "check": "max simultaneous == 3 at some instant",
+     "observed": 3,
+     "ok": true
+    },
+    {
+     "check": "runner max_concurrent_observed <= 3",
+     "observed": 3,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 14,
+   "n_failed_checks": 0,
+   "name": "R1",
+   "notes": [],
+   "numbers": {
+    "campaign_wall_used_s": 6.4683190420037135,
+    "evaluations_run": 8,
+    "exit_codes": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "fixture_wall_s": 6.468,
+    "max_concurrent_observed_by_runner": 3,
+    "max_simultaneous_from_mock_timestamps": 3,
+    "mock_intervals_found": 8,
+    "mock_run_durations_s": [
+     2.004,
+     2.006,
+     2.004,
+     2.006,
+     2.005,
+     2.002,
+     2.006,
+     2.004
+    ],
+    "mock_span_first_start_to_last_finish_s": 6.349,
+    "n_failed": 0,
+    "n_ok": 8,
+    "receipt_sha256": {
+     "call_0000": "7bf0cdbd4c0429c4d74d3606f9f4d2c37ebb22b961bbd876baa9252cf8032817",
+     "call_0001": "780fe4ba714f3ff2c04c2b1655b77415ed7127ecffe5d69d4e3cadf8d798a12d",
+     "call_0002": "868589dc4bd769cd742c0cd92d79053e0cc759ebba2bd867fe3815c942a26bee",
+     "call_0003": "aef164f9c89e824731718a8083181143a568e676f4f893cc12b1c77c5859d2ba",
+     "call_0004": "ff27e364b911a8e35d60050c965a5cf117c19088bf7de644cb74ad69d315730a",
+     "call_0005": "1126bdedee679eb753ecd3d45935ee00a3050862ad09e3dd13514aa2179d8911",
+     "call_0006": "208245e4ed4eb3b6378dfb042caa8d4611771ed8fa442ee74573db37d6aced0d",
+     "call_0007": "50772184f983f9d89fae02b816f76f56979dd4c9f405619b58321b96693d2bd5"
+    },
+    "receipts_verified": 8,
+    "status": "COMPLETE",
+    "wall_s_per_call": [
+     2.158019708003849,
+     2.1575219170190394,
+     2.1560980000067502,
+     2.163274541962892,
+     2.161083917017095,
+     2.1586044169962406,
+     2.119779707980342,
+     2.117695458000526
+    ]
+   },
+   "status": "PASS",
+   "title": "concurrency limit, theta order, receipts verify",
+   "wall_s": 6.473
+  },
+  {
+   "checks": [
+    {
+     "check": "status COMPLETE (campaign continues after a failed call)",
+     "observed": "COMPLETE",
+     "ok": true
+    },
+    {
+     "check": "one call record",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "call status FAILED",
+     "observed": "FAILED",
+     "ok": true
+    },
+    {
+     "check": "reason == WALL_CAP",
+     "observed": "WALL_CAP",
+     "ok": true
+    },
+    {
+     "check": "n_failed == 1",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "receipt present",
+     "observed": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R2_wall_cap/call_0000/RECEIPT.json",
+     "ok": true
+    },
+    {
+     "check": "receipt verifies",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "no second attempt: exactly one out/ and one RECEIPT.json and one start.json",
+     "ok": true
+    },
+    {
+     "check": "one mock pid recorded",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "process gone after run_campaign returned (not alive, not zombie)",
+     "observed": [
+      {
+       "pid": 93115,
+       "present": false,
+       "stat": ""
+      }
+     ],
+     "ok": true
+    },
+    {
+     "check": "wall_s within [3, 6) s",
+     "observed": 3.123452291940339,
+     "ok": true
+    },
+    {
+     "check": "no result.json written by the hung mock",
+     "ok": true
+    },
+    {
+     "check": "no finish.json written by the hung mock",
+     "ok": true
+    },
+    {
+     "check": "call result is None or invalid",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 14,
+   "n_failed_checks": 0,
+   "name": "R2",
+   "notes": [],
+   "numbers": {
+    "call_reason": "WALL_CAP",
+    "call_status": "FAILED",
+    "call_wall_s": 3.123452291940339,
+    "exit_code": -9,
+    "fixture_wall_s": 3.134,
+    "max_rss_bytes_observed": 27197440,
+    "mock_pids": [
+     93115
+    ],
+    "n_out_dirs_in_call_dir": 1,
+    "n_receipts_in_call_dir": 1,
+    "n_start_json_in_call_dir": 1,
+    "output_bytes": 2285,
+    "process_survey_after_return": [
+     {
+      "pid": 93115,
+      "present": false,
+      "stat": ""
+     }
+    ],
+    "receipt_reason": "WALL_CAP",
+    "receipt_status": "FAILED",
+    "status": "COMPLETE"
+   },
+   "status": "PASS",
+   "title": "per-call wall cap (hang)",
+   "wall_s": 3.14
+  },
+  {
+   "checks": [
+    {
+     "check": "status COMPLETE (campaign continues after a failed call)",
+     "observed": "COMPLETE",
+     "ok": true
+    },
+    {
+     "check": "one call record",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "call status FAILED",
+     "observed": "FAILED",
+     "ok": true
+    },
+    {
+     "check": "reason == RSS_CAP",
+     "observed": "RSS_CAP",
+     "ok": true
+    },
+    {
+     "check": "n_failed == 1",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "receipt present",
+     "observed": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R3_rss_cap/call_0000/RECEIPT.json",
+     "ok": true
+    },
+    {
+     "check": "receipt verifies",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "no second attempt: exactly one out/ and one RECEIPT.json and one start.json",
+     "ok": true
+    },
+    {
+     "check": "max_rss_bytes_observed > 100 MiB cap",
+     "expected": "> 104857600",
+     "observed": 341606400,
+     "ok": true
+    },
+    {
+     "check": "killed by the RSS poll before the 8 s hold ended (wall_s < 7)",
+     "observed": 0.2699182500364259,
+     "ok": true
+    },
+    {
+     "check": "no result.json (mock killed before writing it)",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 11,
+   "n_failed_checks": 0,
+   "name": "R3",
+   "notes": [],
+   "numbers": {
+    "call_reason": "RSS_CAP",
+    "call_status": "FAILED",
+    "call_wall_s": 0.2699182500364259,
+    "exit_code": -9,
+    "fixture_wall_s": 0.281,
+    "max_rss_bytes_observed": 341606400,
+    "n_out_dirs_in_call_dir": 1,
+    "n_receipts_in_call_dir": 1,
+    "n_start_json_in_call_dir": 1,
+    "output_bytes": 2305,
+    "receipt_reason": "RSS_CAP",
+    "receipt_status": "FAILED",
+    "status": "COMPLETE"
+   },
+   "status": "PASS",
+   "title": "per-call RSS cap",
+   "wall_s": 0.282
+  },
+  {
+   "checks": [
+    {
+     "check": "status COMPLETE (campaign continues after a failed call)",
+     "observed": "COMPLETE",
+     "ok": true
+    },
+    {
+     "check": "one call record",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "call status FAILED",
+     "observed": "FAILED",
+     "ok": true
+    },
+    {
+     "check": "reason == OUTPUT_CAP",
+     "observed": "OUTPUT_CAP",
+     "ok": true
+    },
+    {
+     "check": "n_failed == 1",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "receipt present",
+     "observed": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R4_output_cap/call_0000/RECEIPT.json",
+     "ok": true
+    },
+    {
+     "check": "receipt verifies",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "no second attempt: exactly one out/ and one RECEIPT.json and one start.json",
+     "ok": true
+    },
+    {
+     "check": "output_bytes > 10 MiB cap",
+     "expected": "> 10485760",
+     "observed": 52431126,
+     "ok": true
+    },
+    {
+     "check": "killed by the output poll before the 8 s hold ended (wall_s < 7)",
+     "observed": 0.2632309589534998,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 10,
+   "n_failed_checks": 0,
+   "name": "R4",
+   "notes": [],
+   "numbers": {
+    "bulk_output_bytes_on_disk": 52428800,
+    "call_reason": "OUTPUT_CAP",
+    "call_status": "FAILED",
+    "call_wall_s": 0.2632309589534998,
+    "exit_code": -9,
+    "fixture_wall_s": 0.274,
+    "max_rss_bytes_observed": 28540928,
+    "n_out_dirs_in_call_dir": 1,
+    "n_receipts_in_call_dir": 1,
+    "n_start_json_in_call_dir": 1,
+    "output_bytes": 52431126,
+    "receipt_reason": "OUTPUT_CAP",
+    "receipt_status": "FAILED",
+    "status": "COMPLETE"
+   },
+   "status": "PASS",
+   "title": "per-call output cap",
+   "wall_s": 0.275
+  },
+  {
+   "checks": [
+    {
+     "check": "status COMPLETE",
+     "observed": "COMPLETE",
+     "ok": true
+    },
+    {
+     "check": "3 call records",
+     "observed": 3,
+     "ok": true
+    },
+    {
+     "check": "all three FAILED",
+     "observed": [
+      "FAILED",
+      "FAILED",
+      "FAILED"
+     ],
+     "ok": true
+    },
+    {
+     "check": "n_failed == 3",
+     "observed": 3,
+     "ok": true
+    },
+    {
+     "check": "exit_nonzero call has exit_code 3",
+     "observed": 3,
+     "ok": true
+    },
+    {
+     "check": "nan call: result None or valid False",
+     "observed": {
+      "reasons": [
+       "RESULT_JSON_INVALID:ValueError('NON_FINITE_CONSTANT:NaN')"
+      ],
+      "speeds_km_s": {},
+      "valid": false
+     },
+     "ok": true
+    },
+    {
+     "check": "nan call: exit_code 0 (failure is the reader, not the process)",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "missing_result call: result None or valid False",
+     "ok": true
+    },
+    {
+     "check": "every call has a reason string",
+     "observed": [
+      "EXIT_NONZERO",
+      "READER_INVALID",
+      "RESULT_MISSING"
+     ],
+     "ok": true
+    },
+    {
+     "check": "all three receipts verify",
+     "observed": [
+      true,
+      true,
+      true
+     ],
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 10,
+   "n_failed_checks": 0,
+   "name": "R5",
+   "notes": [],
+   "numbers": {
+    "exit_codes": [
+     3,
+     0,
+     0
+    ],
+    "n_failed": 3,
+    "reasons": [
+     "EXIT_NONZERO",
+     "READER_INVALID",
+     "RESULT_MISSING"
+    ],
+    "receipt_sha256": {
+     "call_0000": "6d0acb26d64849954bff6756c57b3e6d959aef01b95e8d481b49e06edc3bd96a",
+     "call_0001": "8e0b8da37076e521479c89ef22f7550f80e1ea675b6fa0e5d36b5f7bb6b95676",
+     "call_0002": "30f5facaffb2afcf0f91bed67c21604841bb1210dd4a7727be2e426eea5585ab"
+    },
+    "status": "COMPLETE",
+    "statuses": [
+     "FAILED",
+     "FAILED",
+     "FAILED"
+    ]
+   },
+   "status": "PASS",
+   "title": "exit_nonzero / nan / missing_result -> FAILED",
+   "wall_s": 0.272
+  },
+  {
+   "checks": [
+    {
+     "check": "R5: each FAILED call_dir has exactly one out/ and one RECEIPT.json and one start.json",
+     "observed": {
+      "call_0000": {
+       "out_dirs": 1,
+       "receipts": 1,
+       "start_json": 1
+      },
+      "call_0001": {
+       "out_dirs": 1,
+       "receipts": 1,
+       "start_json": 1
+      },
+      "call_0002": {
+       "out_dirs": 1,
+       "receipts": 1,
+       "start_json": 1
+      }
+     },
+     "ok": true
+    },
+    {
+     "check": "R2: the WALL_CAP call_dir has exactly one out/ and one RECEIPT.json",
+     "observed": {
+      "out_dirs": 1,
+      "receipts": 1,
+      "start_json": 1
+     },
+     "ok": true
+    },
+    {
+     "check": "resume=True on R5: all RESUMED_FAILED",
+     "observed": [
+      "RESUMED_FAILED",
+      "RESUMED_FAILED",
+      "RESUMED_FAILED"
+     ],
+     "ok": true
+    },
+    {
+     "check": "evaluations_run == 0",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "theta_to_seed never called on resume",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "receipt bytes unchanged by the resume",
+     "ok": true
+    },
+    {
+     "check": "no new files under the campaign call dirs",
+     "ok": true
+    },
+    {
+     "check": "n_resumed == 3",
+     "observed": 3,
+     "ok": true
+    },
+    {
+     "check": "n_failed == 3 on resume",
+     "observed": 0,
+     "ok": false
+    }
+   ],
+   "error": null,
+   "n_checks": 9,
+   "n_failed_checks": 1,
+   "name": "R6",
+   "notes": [],
+   "numbers": {
+    "evaluations_run": 0,
+    "n_resumed": 3,
+    "per_call_counts_R2": {
+     "out_dirs": 1,
+     "receipts": 1,
+     "start_json": 1
+    },
+    "per_call_counts_R5": {
+     "call_0000": {
+      "out_dirs": 1,
+      "receipts": 1,
+      "start_json": 1
+     },
+     "call_0001": {
+      "out_dirs": 1,
+      "receipts": 1,
+      "start_json": 1
+     },
+     "call_0002": {
+      "out_dirs": 1,
+      "receipts": 1,
+      "start_json": 1
+     }
+    },
+    "status": "COMPLETE",
+    "statuses": [
+     "RESUMED_FAILED",
+     "RESUMED_FAILED",
+     "RESUMED_FAILED"
+    ]
+   },
+   "status": "FAIL",
+   "title": "no retry; resume gives RESUMED_FAILED",
+   "wall_s": 0.011
+  },
+  {
+   "checks": [
+    {
+     "check": "status COMPLETE",
+     "observed": "COMPLETE",
+     "ok": true
+    },
+    {
+     "check": "all 8 RESUMED_OK",
+     "observed": [
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK"
+     ],
+     "ok": true
+    },
+    {
+     "check": "evaluations_run == 0",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "n_resumed == 8",
+     "observed": 8,
+     "ok": true
+    },
+    {
+     "check": "theta_to_seed never called on resume",
+     "ok": true
+    },
+    {
+     "check": "resume took < 5 s (no reruns)",
+     "observed": 0.009,
+     "ok": true
+    },
+    {
+     "check": "results identical to the first run (canonical JSON of the 8 forward-style results)",
+     "ok": true
+    },
+    {
+     "check": "receipt bytes unchanged by the resume",
+     "ok": true
+    },
+    {
+     "check": "theta order preserved on resume",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 9,
+   "n_failed_checks": 0,
+   "name": "R7",
+   "notes": [],
+   "numbers": {
+    "evaluations_run": 0,
+    "fixture_wall_s": 0.009,
+    "n_resumed": 8,
+    "results_canonical_sha256_first_run": "64651d82f7ddcd3249bf1d220022defb4c39d80a00dbc23ba2e415c0281cc75f",
+    "results_canonical_sha256_resume": "64651d82f7ddcd3249bf1d220022defb4c39d80a00dbc23ba2e415c0281cc75f",
+    "status": "COMPLETE",
+    "statuses": [
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK"
+    ]
+   },
+   "status": "PASS",
+   "title": "resumption by verified receipt (RESUMED_OK, identical results)",
+   "wall_s": 0.01
+  },
+  {
+   "checks": [
+    {
+     "check": "(a) verify_receipt on the tampered receipt is ok=False",
+     "observed": [
+      "RECEIPT_SELF_HASH_MISMATCH"
+     ],
+     "ok": true
+    },
+    {
+     "check": "(a) tampered call_0002 is DIR_EXISTS_UNVERIFIED on resume",
+     "observed": "DIR_EXISTS_UNVERIFIED",
+     "ok": true
+    },
+    {
+     "check": "(a) the other 7 calls are RESUMED_OK",
+     "observed": [
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "DIR_EXISTS_UNVERIFIED",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK",
+      "RESUMED_OK"
+     ],
+     "ok": true
+    },
+    {
+     "check": "(a) evaluations_run == 0",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "(a) theta_to_seed never called",
+     "ok": true
+    },
+    {
+     "check": "(a) every receipt byte-identical after the run (tampered one untouched)",
+     "ok": true
+    },
+    {
+     "check": "(a) tampered call_dir listing unchanged",
+     "ok": true
+    },
+    {
+     "check": "(a) tampered call has result None",
+     "ok": true
+    },
+    {
+     "check": "(b) empty call_0001 is DIR_EXISTS_UNVERIFIED",
+     "observed": [
+      "OK",
+      "DIR_EXISTS_UNVERIFIED"
+     ],
+     "ok": true
+    },
+    {
+     "check": "(b) fresh call_0000 ran OK",
+     "observed": [
+      "OK",
+      "DIR_EXISTS_UNVERIFIED"
+     ],
+     "ok": true
+    },
+    {
+     "check": "(b) call_0001 still empty (never touched)",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "(b) evaluations_run == 1",
+     "observed": 1,
+     "ok": true
+    },
+    {
+     "check": "(c) resume=False: every existing call is DIR_EXISTS_UNVERIFIED",
+     "observed": [
+      "DIR_EXISTS_UNVERIFIED",
+      "DIR_EXISTS_UNVERIFIED",
+      "DIR_EXISTS_UNVERIFIED",
+      "DIR_EXISTS_UNVERIFIED",
+      "DIR_EXISTS_UNVERIFIED",
+      "DIR_EXISTS_UNVERIFIED",
+      "DIR_EXISTS_UNVERIFIED",
+      "DIR_EXISTS_UNVERIFIED"
+     ],
+     "ok": true
+    },
+    {
+     "check": "(c) evaluations_run == 0",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "(c) theta_to_seed never called",
+     "ok": true
+    },
+    {
+     "check": "(c) receipts byte-identical (never overwritten)",
+     "ok": true
+    },
+    {
+     "check": "(c) call_dir listings unchanged",
+     "ok": true
+    },
+    {
+     "check": "(c) took < 5 s (nothing ran)",
+     "observed": 0.017,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 18,
+   "n_failed_checks": 0,
+   "name": "R8",
+   "notes": [],
+   "numbers": {
+    "(a) evaluations_run": 0,
+    "(a) status": "COMPLETE",
+    "(a) statuses": [
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "DIR_EXISTS_UNVERIFIED",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK",
+     "RESUMED_OK"
+    ],
+    "(b) evaluations_run": 1,
+    "(b) status": "COMPLETE",
+    "(b) statuses": [
+     "OK",
+     "DIR_EXISTS_UNVERIFIED"
+    ],
+    "(c) evaluations_run": 0,
+    "(c) ok": false,
+    "(c) status": "COMPLETE",
+    "(c) statuses": [
+     "DIR_EXISTS_UNVERIFIED",
+     "DIR_EXISTS_UNVERIFIED",
+     "DIR_EXISTS_UNVERIFIED",
+     "DIR_EXISTS_UNVERIFIED",
+     "DIR_EXISTS_UNVERIFIED",
+     "DIR_EXISTS_UNVERIFIED",
+     "DIR_EXISTS_UNVERIFIED",
+     "DIR_EXISTS_UNVERIFIED"
+    ],
+    "(c) wall_s": 0.017,
+    "tamper": {
+     "bytes": 4814,
+     "new_byte": "1",
+     "old_byte": "4",
+     "position": 2165,
+     "sha256_after": "8ed28b15e6decf6114a46245572c6518a1337e47bd2a89eda8dba3aca7fc3434",
+     "sha256_before": "868589dc4bd769cd742c0cd92d79053e0cc759ebba2bd867fe3815c942a26bee"
+    }
+   },
+   "status": "PASS",
+   "title": "tampered receipt / empty call_dir / resume=False refusal",
+   "wall_s": 0.834
+  },
+  {
+   "checks": [
+    {
+     "check": "status CAMPAIGN_CAP",
+     "observed": "CAMPAIGN_CAP",
+     "ok": true
+    },
+    {
+     "check": "some NOT_STARTED (n_not_started >= 1)",
+     "observed": 2,
+     "ok": true
+    },
+    {
+     "check": "6 call records in theta order",
+     "observed": 6,
+     "ok": true
+    },
+    {
+     "check": "started calls finished OK under their own caps (no kills)",
+     "observed": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "NOT_STARTED",
+      "NOT_STARTED"
+     ],
+     "ok": true
+    },
+    {
+     "check": "n_ok + n_not_started == 6",
+     "observed": [
+      4,
+      2
+     ],
+     "ok": true
+    },
+    {
+     "check": "NOT_STARTED calls have no call_dir on disk",
+     "observed": [
+      false,
+      false
+     ],
+     "ok": true
+    },
+    {
+     "check": "NOT_STARTED calls have receipt_path None and result None",
+     "ok": true
+    },
+    {
+     "check": "NOT_STARTED calls are the trailing ones (no new start after the cap)",
+     "observed": [
+      "OK",
+      "OK",
+      "OK",
+      "OK",
+      "NOT_STARTED",
+      "NOT_STARTED"
+     ],
+     "ok": true
+    },
+    {
+     "check": "max simultaneous <= 2",
+     "observed": 2,
+     "ok": true
+    },
+    {
+     "check": "campaign_wall_used_s >= 3",
+     "observed": 4.252187833073549,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 10,
+   "n_failed_checks": 0,
+   "name": "R9",
+   "notes": [],
+   "numbers": {
+    "campaign_wall_used_s": 4.252187833073549,
+    "evaluations_run": 4,
+    "fixture_wall_s": 4.252,
+    "max_simultaneous_from_mock_timestamps": 2,
+    "n_not_started": 2,
+    "n_ok": 4,
+    "status": "CAMPAIGN_CAP",
+    "statuses": [
+     "OK",
+     "OK",
+     "OK",
+     "OK",
+     "NOT_STARTED",
+     "NOT_STARTED"
+    ]
+   },
+   "status": "PASS",
+   "title": "campaign wall cap -> CAMPAIGN_CAP with NOT_STARTED",
+   "wall_s": 4.253
+  },
+  {
+   "checks": [
+    {
+     "check": "(a) max_workers 13 -> status REFUSED",
+     "observed": "REFUSED",
+     "ok": true
+    },
+    {
+     "check": "(a) ok is False",
+     "observed": false,
+     "ok": true
+    },
+    {
+     "check": "(a) nothing started (no call_* dirs, theta_to_seed not called)",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "(a2) max_workers 0 -> REFUSED, nothing started",
+     "observed": "REFUSED",
+     "ok": true
+    },
+    {
+     "check": "(b) wrong worker sha -> REFUSED",
+     "observed": "REFUSED",
+     "ok": true
+    },
+    {
+     "check": "(b) nothing started",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "(c) relative campaign_dir -> REFUSED",
+     "observed": "REFUSED",
+     "ok": true
+    },
+    {
+     "check": "(c) no directory created in cwd or scratch",
+     "ok": true
+    },
+    {
+     "check": "(c) refused campaign reports calls empty or all NOT_STARTED",
+     "observed": [],
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 9,
+   "n_failed_checks": 0,
+   "name": "R10",
+   "notes": [],
+   "numbers": {
+    "(a) reasons": [
+     "MAX_WORKERS_NOT_IN_1_TO_12"
+    ],
+    "(a) status": "REFUSED",
+    "(a2) max_workers 0 status": "REFUSED",
+    "(b) reasons": [
+     "WORKER_PIN_MISMATCH:worker:/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/mock_worker_0463.py:expected=8bd80ae86166ebb8be19545d0885cd50b455355811f7f4248488e8a812eb9ec1:actual=8bd80ae86166ebb8be19545d0885cd50b455355811f7f4248488e8a812eb9ec0"
+    ],
+    "(b) status": "REFUSED",
+    "(c) reasons": [
+     "CAMPAIGN_DIR_NOT_ABSOLUTE"
+    ],
+    "(c) status": "REFUSED"
+   },
+   "status": "PASS",
+   "title": "refusals: max_workers 13, wrong worker sha, relative campaign_dir",
+   "wall_s": 0.001
+  },
+  {
+   "checks": [
+    {
+     "check": "results is a list of 4",
+     "observed": "list",
+     "ok": true
+    },
+    {
+     "check": "every result is forward-style {speeds_km_s: dict, valid: bool, reasons: list}",
+     "ok": true
+    },
+    {
+     "check": "campaign output present with 4 call records",
+     "ok": true
+    },
+    {
+     "check": "results[0,1,3] valid with speeds == expectation from their own theta (theta order despite completion order 2,1,3,0)",
+     "ok": true
+    },
+    {
+     "check": "results[i] carry exactly the 12 row ids",
+     "ok": true
+    },
+    {
+     "check": "results[2] (exit_nonzero) valid False",
+     "observed": {
+      "provenance": {
+       "campaign_call": {
+        "call_dir": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R11_forward_many/call_0002",
+        "detail": "exit_code=3",
+        "index": 2,
+        "reason": "EXIT_NONZERO",
+        "receipt_path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R11_forward_many/call_0002/RECEIPT.json",
+        "status": "FAILED"
+       }
+      },
+      "reasons": [
+       "CAMPAIGN_CALL_FAILED",
+       "EXIT_NONZERO",
+       "exit_code=3"
+      ],
+      "speeds_km_s": {},
+      "valid": false
+     },
+     "ok": true
+    },
+    {
+     "check": "results[2] reasons non-empty",
+     "observed": [
+      "CAMPAIGN_CALL_FAILED",
+      "EXIT_NONZERO",
+      "exit_code=3"
+     ],
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 7,
+   "n_failed_checks": 0,
+   "name": "R11",
+   "notes": [],
+   "numbers": {
+    "campaign_status": "COMPLETE",
+    "campaign_statuses": [
+     "OK",
+     "OK",
+     "FAILED",
+     "OK"
+    ],
+    "completion_order_by_mock_finish": [
+     2,
+     1,
+     3,
+     0
+    ],
+    "n_failed": 1,
+    "n_ok": 3,
+    "ok": true,
+    "reasons": [
+     "call_0002:FAILED:EXIT_NONZERO"
+    ]
+   },
+   "status": "PASS",
+   "title": "forward_many shapes and order",
+   "wall_s": 1.341
+  },
+  {
+   "checks": [
+    {
+     "check": "receipt_path exists",
+     "observed": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000/RECEIPT.json",
+     "ok": true
+    },
+    {
+     "check": "verify_receipt ok",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "worker pin recorded with the sha256 of its bytes",
+     "expected": "8bd80ae86166ebb8be19545d0885cd50b455355811f7f4248488e8a812eb9ec0",
+     "observed": [
+      "8bd80ae86166ebb8be19545d0885cd50b455355811f7f4248488e8a812eb9ec0"
+     ],
+     "ok": true
+    },
+    {
+     "check": "solver pin recorded with the sha256 of its bytes",
+     "expected": "f638e0131912367ee301ce18229f9212dca61b63d6dc8408f295563601a416b6",
+     "observed": [
+      "f638e0131912367ee301ce18229f9212dca61b63d6dc8408f295563601a416b6"
+     ],
+     "ok": true
+    },
+    {
+     "check": "checkpoint_module pin recorded with the sha256 of its bytes",
+     "expected": "bd44854260ec1ebcec715df04fc8ab2ac54b98038f2bdce5a367ec4fb823f44d",
+     "observed": [
+      "bd44854260ec1ebcec715df04fc8ab2ac54b98038f2bdce5a367ec4fb823f44d"
+     ],
+     "ok": true
+    },
+    {
+     "check": "fourth pin: python_executable path with a sha256 recorded (and it matches the binary bytes)",
+     "observed": [
+      "8506f337a83611246ffcff62d6e96c6d2269e5db48508ca3ac2553d56c962aee"
+     ],
+     "ok": true
+    },
+    {
+     "check": "seed sha recorded and equals sha256 of seed.json bytes",
+     "observed": "f1f42437a0a760ab46be58c7e19c8017963109d726d57538bccca2327acfcbbb",
+     "ok": true
+    },
+    {
+     "check": "result_json sha re-verifies from bytes",
+     "observed": "2dad27e034e5cb40e383a4af68ad2c471b57208b55c58f9b5238acbd84c13216",
+     "ok": true
+    },
+    {
+     "check": "receipt self-hash == sha256(canonical JSON with receipt_sha256 absent)",
+     "ok": true
+    },
+    {
+     "check": "receipt file bytes are canonical JSON",
+     "ok": true
+    },
+    {
+     "check": "theta_key == canonical(theta)",
+     "observed": "{\"alpha\":0.0,\"beta\":1.0}",
+     "ok": true
+    },
+    {
+     "check": "command is a list containing the exact real argument names",
+     "observed": [
+      "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-I",
+      "-B",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/mock_worker_0463.py",
+      "--seed",
+      "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000/seed.json",
+      "--seed-sha256",
+      "f1f42437a0a760ab46be58c7e19c8017963109d726d57538bccca2327acfcbbb",
+      "--solver",
+      "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/placeholders/mock_solver_placeholder.py",
+      "--solver-sha256",
+      "f638e0131912367ee301ce18229f9212dca61b63d6dc8408f295563601a416b6",
+      "--checkpoint-module",
+      "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/placeholders/mock_checkpoint_placeholder.py",
+      "--checkpoint-module-sha256",
+      "bd44854260ec1ebcec715df04fc8ab2ac54b98038f2bdce5a367ec4fb823f44d",
+      "--outdir",
+      "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000/out",
+      "--checkpoint-directory",
+      "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000/ckpt",
+      "--start-iteration",
+      "0"
+     ],
+     "ok": true
+    },
+    {
+     "check": "command starts with python_executable -I -B worker",
+     "observed": [
+      "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-I",
+      "-B",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/mock_worker_0463.py"
+     ],
+     "ok": true
+    },
+    {
+     "check": "receipt seed sha == --seed-sha256 on the command",
+     "ok": true
+    },
+    {
+     "check": "receipt has key index",
+     "ok": true
+    },
+    {
+     "check": "receipt has key theta",
+     "ok": true
+    },
+    {
+     "check": "receipt has key theta_key",
+     "ok": true
+    },
+    {
+     "check": "receipt has key seed",
+     "ok": true
+    },
+    {
+     "check": "receipt has key command",
+     "ok": true
+    },
+    {
+     "check": "receipt has key started_utc",
+     "ok": true
+    },
+    {
+     "check": "receipt has key finished_utc",
+     "ok": true
+    },
+    {
+     "check": "receipt has key wall_s",
+     "ok": true
+    },
+    {
+     "check": "receipt has key exit_code",
+     "ok": true
+    },
+    {
+     "check": "receipt has key reason",
+     "ok": true
+    },
+    {
+     "check": "receipt has key max_rss_bytes_observed",
+     "ok": true
+    },
+    {
+     "check": "receipt has key output_bytes",
+     "ok": true
+    },
+    {
+     "check": "receipt has key result_json",
+     "ok": true
+    },
+    {
+     "check": "receipt has key result",
+     "ok": true
+    },
+    {
+     "check": "receipt has key status",
+     "ok": true
+    },
+    {
+     "check": "receipt has key receipt_sha256",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 30,
+   "n_failed_checks": 0,
+   "name": "R12",
+   "notes": [],
+   "numbers": {
+    "pins_found": [
+     {
+      "path": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "sha256": "8506f337a83611246ffcff62d6e96c6d2269e5db48508ca3ac2553d56c962aee"
+     },
+     {
+      "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000/out/result.json",
+      "sha256": "2dad27e034e5cb40e383a4af68ad2c471b57208b55c58f9b5238acbd84c13216"
+     },
+     {
+      "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000/seed.json",
+      "sha256": "f1f42437a0a760ab46be58c7e19c8017963109d726d57538bccca2327acfcbbb"
+     },
+     {
+      "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/placeholders/mock_checkpoint_placeholder.py",
+      "sha256": "bd44854260ec1ebcec715df04fc8ab2ac54b98038f2bdce5a367ec4fb823f44d"
+     },
+     {
+      "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/R1_concurrency/call_0000/seed.json",
+      "sha256": "f1f42437a0a760ab46be58c7e19c8017963109d726d57538bccca2327acfcbbb"
+     },
+     {
+      "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/placeholders/mock_solver_placeholder.py",
+      "sha256": "f638e0131912367ee301ce18229f9212dca61b63d6dc8408f295563601a416b6"
+     },
+     {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/mock_worker_0463.py",
+      "sha256": "8bd80ae86166ebb8be19545d0885cd50b455355811f7f4248488e8a812eb9ec0"
+     }
+    ],
+    "python_executable_pin_sha256": [
+     "8506f337a83611246ffcff62d6e96c6d2269e5db48508ca3ac2553d56c962aee"
+    ],
+    "receipt_exit_code": 0,
+    "receipt_max_rss_bytes_observed": 27115520,
+    "receipt_output_bytes": 3070,
+    "receipt_sha256_recomputed": "63790292ec7d6d1f57c7a9e350cf492518482cd3a1071955451de5d2fe8a904e",
+    "receipt_sha256_recorded": "63790292ec7d6d1f57c7a9e350cf492518482cd3a1071955451de5d2fe8a904e",
+    "receipt_status": "OK"
+   },
+   "status": "PASS",
+   "title": "pins in receipts",
+   "wall_s": 0.008
+  },
+  {
+   "checks": [
+    {
+     "check": "sequential engine run ok and COMPLETE",
+     "observed": [
+      true,
+      "COMPLETE",
+      []
+     ],
+     "ok": true
+    },
+    {
+     "check": "toy has exactly one near-null direction (zero column)",
+     "observed": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "check": "make_cache ok",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "batched ok",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "engine_result present",
+     "ok": true
+    },
+    {
+     "check": "canonical JSON of engine results identical (sequential vs batched)",
+     "ok": true
+    },
+    {
+     "check": "replay_new_calls == 0",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "batching.batches is a non-empty list of {purpose, n_requested, n_fetched}",
+     "observed": [
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 7,
+       "n_requested": 7,
+       "n_unique_uncached": 7,
+       "ok": true,
+       "purpose": "seed_and_jacobian_stencil",
+       "reasons": []
+      },
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 24,
+       "n_requested": 24,
+       "n_unique_uncached": 24,
+       "ok": true,
+       "purpose": "halton_design",
+       "reasons": []
+      }
+     ],
+     "ok": true
+    },
+    {
+     "check": "toy forward_many saw fewer calls than the sequential run (batching happened)",
+     "observed": [
+      28,
+      61
+     ],
+     "ok": true
+    },
+    {
+     "check": "at least one toy batch had size > 1",
+     "observed": [
+      7,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      24
+     ],
+     "ok": true
+    },
+    {
+     "check": "evaluations_used equal",
+     "observed": [
+      61,
+      61
+     ],
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 11,
+   "n_failed_checks": 0,
+   "name": "B1",
+   "notes": [],
+   "numbers": {
+    "admitted_points": 30,
+    "batched_engine_result_sha256": "60b1ad75e512a61b4d59d3086fe332093ca4fcd4e7a56767be09fe9045c01e37",
+    "batched_ok": true,
+    "batched_reasons": [],
+    "batched_wall_s": 0.006,
+    "batching": {
+     "batches": [
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 7,
+       "n_requested": 7,
+       "n_unique_uncached": 7,
+       "ok": true,
+       "purpose": "seed_and_jacobian_stencil",
+       "reasons": []
+      },
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 24,
+       "n_requested": 24,
+       "n_unique_uncached": 24,
+       "ok": true,
+       "purpose": "halton_design",
+       "reasons": []
+      }
+     ],
+     "cache_hits": 72,
+     "cache_misses": 26,
+     "design": {
+      "anchor_log_index": 0,
+      "bases": [
+       2,
+       3
+      ],
+      "design_count_requested": 24,
+      "first_index": 8,
+      "halton_indices": [
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27,
+       28,
+       29,
+       30,
+       31
+      ],
+      "identified": [
+       0,
+       1
+      ],
+      "n_inside_box": 24,
+      "n_prefetched": 24,
+      "n_truncated_by_budget": 0,
+      "notes": [],
+      "skipped_outside_box": 0
+     },
+     "fallback_failures": 0,
+     "forward_calls": 98,
+     "forward_many_calls": 28,
+     "replay_new_calls": 0,
+     "replay_performed": true,
+     "sequential_fallbacks": 26,
+     "stats_delta": {
+      "batch_calls": 2,
+      "batch_thetas_fetched": 31,
+      "batch_thetas_requested": 31,
+      "cache_hits": 72,
+      "cache_misses": 26,
+      "fallback_failures": 0,
+      "forward_calls": 98,
+      "forward_many_calls": 28,
+      "invalid_theta": 0,
+      "sequential_fallbacks": 26
+     },
+     "stencil": {
+      "conversion_failed": [],
+      "n_prefetched": 7,
+      "n_stencil_points": 6,
+      "n_truncated_by_budget": 0,
+      "per_column": [
+       {
+        "column": 0,
+        "minus_point_index": 1,
+        "minus_step": 0.05,
+        "name": "a_lin",
+        "nominal_step": 0.05,
+        "plus_point_index": 0,
+        "plus_step": 0.05,
+        "skipped_below_min_step": false
+       },
+       {
+        "column": 1,
+        "minus_point_index": 3,
+        "minus_step": 0.05,
+        "name": "b_lin",
+        "nominal_step": 0.05,
+        "plus_point_index": 2,
+        "plus_step": 0.05,
+        "skipped_below_min_step": false
+       },
+       {
+        "column": 2,
+        "minus_point_index": 5,
+        "minus_step": 0.05,
+        "name": "c_nuis",
+        "nominal_step": 0.05,
+        "plus_point_index": 4,
+        "plus_step": 0.05,
+        "skipped_below_min_step": false
+       }
+      ],
+      "seed_u": [
+       0.5,
+       0.5,
+       0.5
+      ]
+     },
+     "step2": {
+      "cache_hits": 11,
+      "evaluations_used": 37,
+      "fallback_failures": 0,
+      "forward_calls": 37,
+      "ok": true,
+      "sequential_fallbacks": 26,
+      "status": "COMPLETE"
+     },
+     "step5": {
+      "cache_hits": 61,
+      "evaluations_used": 61,
+      "fallback_failures": 0,
+      "forward_calls": 61,
+      "ok": true,
+      "sequential_fallbacks": 0,
+      "status": "COMPLETE"
+     }
+    },
+    "cache_hits": 72,
+    "cache_misses": 26,
+    "exploration_status": "COMPLETE",
+    "identified_directions": [
+     0,
+     1
+    ],
+    "near_null_directions": [
+     2
+    ],
+    "rejected_points": 25,
+    "seed_admitted": true,
+    "sequential_evaluations_used": 61,
+    "sequential_fallbacks": 26,
+    "sequential_forward_many_calls": 61,
+    "sequential_ok": true,
+    "sequential_reasons": [],
+    "sequential_result_sha256": "60b1ad75e512a61b4d59d3086fe332093ca4fcd4e7a56767be09fe9045c01e37",
+    "sequential_status": "COMPLETE",
+    "sequential_wall_s": 0.003,
+    "stats": {
+     "batch_calls": 2,
+     "batch_thetas_fetched": 31,
+     "batch_thetas_requested": 31,
+     "cache_hits": 72,
+     "cache_misses": 26,
+     "fallback_failures": 0,
+     "forward_calls": 98,
+     "forward_many_calls": 28,
+     "invalid_theta": 0,
+     "sequential_fallbacks": 26
+    },
+    "toy_forward_many_batch_sizes_batched": [
+     7,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     24
+    ],
+    "toy_forward_many_batches_batched": 28,
+    "toy_thetas_evaluated_batched": 57
+   },
+   "status": "PASS",
+   "title": "batched adapter == sequential engine (admitted seed)",
+   "wall_s": 0.011
+  },
+  {
+   "checks": [
+    {
+     "check": "sequential engine run ok and COMPLETE",
+     "observed": [
+      true,
+      "COMPLETE",
+      []
+     ],
+     "ok": true
+    },
+    {
+     "check": "toy has exactly one near-null direction (zero column)",
+     "observed": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "check": "make_cache ok",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "batched ok",
+     "observed": [],
+     "ok": true
+    },
+    {
+     "check": "engine_result present",
+     "ok": true
+    },
+    {
+     "check": "canonical JSON of engine results identical (sequential vs batched)",
+     "ok": true
+    },
+    {
+     "check": "replay_new_calls == 0",
+     "observed": 0,
+     "ok": true
+    },
+    {
+     "check": "batching.batches is a non-empty list of {purpose, n_requested, n_fetched}",
+     "observed": [
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 7,
+       "n_requested": 7,
+       "n_unique_uncached": 7,
+       "ok": true,
+       "purpose": "seed_and_jacobian_stencil",
+       "reasons": []
+      },
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 24,
+       "n_requested": 24,
+       "n_unique_uncached": 24,
+       "ok": true,
+       "purpose": "halton_design",
+       "reasons": []
+      }
+     ],
+     "ok": true
+    },
+    {
+     "check": "toy forward_many saw fewer calls than the sequential run (batching happened)",
+     "observed": [
+      45,
+      74
+     ],
+     "ok": true
+    },
+    {
+     "check": "at least one toy batch had size > 1",
+     "observed": [
+      7,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      24
+     ],
+     "ok": true
+    },
+    {
+     "check": "evaluations_used equal",
+     "observed": [
+      74,
+      74
+     ],
+     "ok": true
+    },
+    {
+     "check": "B2 seed point not admitted (repair path exercised)",
+     "observed": false,
+     "ok": true
+    }
+   ],
+   "error": null,
+   "n_checks": 12,
+   "n_failed_checks": 0,
+   "name": "B2",
+   "notes": [],
+   "numbers": {
+    "admitted_points": 46,
+    "batched_engine_result_sha256": "606acc8fa34219249cf834d1aed275f9203847eb6178e83231d0399742306499",
+    "batched_ok": true,
+    "batched_reasons": [],
+    "batched_wall_s": 0.007,
+    "batching": {
+     "batches": [
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 7,
+       "n_requested": 7,
+       "n_unique_uncached": 7,
+       "ok": true,
+       "purpose": "seed_and_jacobian_stencil",
+       "reasons": []
+      },
+      {
+       "forward_many_called": true,
+       "forward_many_ok": true,
+       "n_already_cached": 0,
+       "n_fetched": 24,
+       "n_requested": 24,
+       "n_unique_uncached": 24,
+       "ok": true,
+       "purpose": "halton_design",
+       "reasons": []
+      }
+     ],
+     "cache_hits": 81,
+     "cache_misses": 43,
+     "design": {
+      "anchor_log_index": 7,
+      "bases": [
+       2,
+       3
+      ],
+      "design_count_requested": 24,
+      "first_index": 8,
+      "halton_indices": [
+       8,
+       9,
+       10,
+       11,
+       12,
+       13,
+       14,
+       15,
+       16,
+       17,
+       18,
+       19,
+       20,
+       21,
+       22,
+       23,
+       24,
+       25,
+       26,
+       27,
+       28,
+       29,
+       30,
+       31
+      ],
+      "identified": [
+       0,
+       1
+      ],
+      "n_inside_box": 24,
+      "n_prefetched": 24,
+      "n_truncated_by_budget": 0,
+      "notes": [],
+      "skipped_outside_box": 0
+     },
+     "fallback_failures": 0,
+     "forward_calls": 124,
+     "forward_many_calls": 45,
+     "replay_new_calls": 0,
+     "replay_performed": true,
+     "sequential_fallbacks": 43,
+     "stats_delta": {
+      "batch_calls": 2,
+      "batch_thetas_fetched": 31,
+      "batch_thetas_requested": 31,
+      "cache_hits": 81,
+      "cache_misses": 43,
+      "fallback_failures": 0,
+      "forward_calls": 124,
+      "forward_many_calls": 45,
+      "invalid_theta": 0,
+      "sequential_fallbacks": 43
+     },
+     "stencil": {
+      "conversion_failed": [],
+      "n_prefetched": 7,
+      "n_stencil_points": 6,
+      "n_truncated_by_budget": 0,
+      "per_column": [
+       {
+        "column": 0,
+        "minus_point_index": 1,
+        "minus_step": 0.05,
+        "name": "a_lin",
+        "nominal_step": 0.05,
+        "plus_point_index": 0,
+        "plus_step": 0.05,
+        "skipped_below_min_step": false
+       },
+       {
+        "column": 1,
+        "minus_point_index": 3,
+        "minus_step": 0.05,
+        "name": "b_lin",
+        "nominal_step": 0.05,
+        "plus_point_index": 2,
+        "plus_step": 0.05,
+        "skipped_below_min_step": false
+       },
+       {
+        "column": 2,
+        "minus_point_index": 5,
+        "minus_step": 0.05,
+        "name": "c_nuis",
+        "nominal_step": 0.05,
+        "plus_point_index": 4,
+        "plus_step": 0.05,
+        "skipped_below_min_step": false
+       }
+      ],
+      "seed_u": [
+       0.95,
+       0.5,
+       0.5
+      ]
+     },
+     "step2": {
+      "cache_hits": 7,
+      "evaluations_used": 50,
+      "fallback_failures": 0,
+      "forward_calls": 50,
+      "ok": true,
+      "sequential_fallbacks": 43,
+      "status": "COMPLETE"
+     },
+     "step5": {
+      "cache_hits": 74,
+      "evaluations_used": 74,
+      "fallback_failures": 0,
+      "forward_calls": 74,
+      "ok": true,
+      "sequential_fallbacks": 0,
+      "status": "COMPLETE"
+     }
+    },
+    "cache_hits": 81,
+    "cache_misses": 43,
+    "exploration_status": "COMPLETE",
+    "identified_directions": [
+     0,
+     1
+    ],
+    "near_null_directions": [
+     2
+    ],
+    "rejected_points": 22,
+    "seed_admitted": false,
+    "sequential_evaluations_used": 74,
+    "sequential_fallbacks": 43,
+    "sequential_forward_many_calls": 74,
+    "sequential_ok": true,
+    "sequential_reasons": [],
+    "sequential_result_sha256": "606acc8fa34219249cf834d1aed275f9203847eb6178e83231d0399742306499",
+    "sequential_status": "COMPLETE",
+    "sequential_wall_s": 0.003,
+    "stats": {
+     "batch_calls": 2,
+     "batch_thetas_fetched": 31,
+     "batch_thetas_requested": 31,
+     "cache_hits": 81,
+     "cache_misses": 43,
+     "fallback_failures": 0,
+     "forward_calls": 124,
+     "forward_many_calls": 45,
+     "invalid_theta": 0,
+     "sequential_fallbacks": 43
+    },
+    "toy_forward_many_batch_sizes_batched": [
+     7,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     24
+    ],
+    "toy_forward_many_batches_batched": 45,
+    "toy_thetas_evaluated_batched": 74
+   },
+   "status": "PASS",
+   "title": "batched adapter == sequential engine (non-admitted seed, repair path)",
+   "wall_s": 0.013
+  }
+ ],
+ "leftover_mock_processes_after_fixtures": {},
+ "mock_worker": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/mock_worker_0463.py",
+  "sha256": "8bd80ae86166ebb8be19545d0885cd50b455355811f7f4248488e8a812eb9ec0"
+ },
+ "module_pins": {
+  "batched_engine_adapter_c3v001": {
+   "error": null,
+   "exists": true,
+   "import_ok": true,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/batched_engine_adapter_c3v001.py",
+   "sha256": "fea31b7aa353acac4404bbff25e98afbd4cb780180e67b2f6483c2952c19ae79"
+  },
+  "calibration_region_engine_c3v001": {
+   "error": null,
+   "exists": true,
+   "import_ok": true,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/calibration_region_engine_c3v001.py",
+   "sha256": "f5613832fcb6e452b4490d56453cce37fb8846e802442407e794f80a6ec84e0b"
+  },
+  "campaign_runner_c3v001": {
+   "error": null,
+   "exists": true,
+   "import_ok": true,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_forward_0463/campaign_runner_c3v001.py",
+   "sha256": "52654a33c0662a349a37de5610ebbd2e5533350faa9ba7b5c4b93072382f96d1"
+  }
+ },
+ "placeholders": {
+  "checkpoint_module": {
+   "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/placeholders/mock_checkpoint_placeholder.py",
+   "sha256": "bd44854260ec1ebcec715df04fc8ab2ac54b98038f2bdce5a367ec4fb823f44d"
+  },
+  "solver": {
+   "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999/placeholders/mock_solver_placeholder.py",
+   "sha256": "f638e0131912367ee301ce18229f9212dca61b63d6dc8408f295563601a416b6"
+  }
+ },
+ "prohibitions_respected": {
+  "deletion": false,
+  "modules_under_test_edited": false,
+  "network": false,
+  "ngc3198_velocity_read": false,
+  "real_workers_run": false
+ },
+ "python_executable": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+ "python_version": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+ "region": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+  "row_ids": [
+   "DDO154_SPARC12_01",
+   "DDO154_SPARC12_02",
+   "DDO154_SPARC12_03",
+   "DDO154_SPARC12_04",
+   "DDO154_SPARC12_05",
+   "DDO154_SPARC12_06",
+   "DDO154_SPARC12_07",
+   "DDO154_SPARC12_08",
+   "DDO154_SPARC12_09",
+   "DDO154_SPARC12_10",
+   "DDO154_SPARC12_11",
+   "DDO154_SPARC12_12"
+  ],
+  "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+ },
+ "schema": "FIXTURE_RESULTS_0463_V001",
+ "scratch_run_dir": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures0463_rerun/run_20261017T155251Z_92999",
+ "summary": {
+  "ERROR": 0,
+  "FAIL": 1,
+  "PASS": 13,
+  "UNTESTED": 0
+ },
+ "total_wall_s": 18.078,
+ "toy_coordinates": [
+  {
+   "lower": 0.0,
+   "name": "a_lin",
+   "role": "free",
+   "transform": "linear",
+   "trial_value": 1.0,
+   "upper": 2.0
+  },
+  {
+   "lower": -1.0,
+   "name": "b_lin",
+   "role": "free",
+   "transform": "linear",
+   "trial_value": 0.0,
+   "upper": 1.0
+  },
+  {
+   "lower": 0.0,
+   "name": "c_nuis",
+   "role": "nuisance",
+   "transform": "linear",
+   "trial_value": 0.5,
+   "upper": 1.0
+  },
+  {
+   "lower": 0.1,
+   "name": "d_fixed",
+   "role": "fixed",
+   "transform": "log",
+   "trial_value": 1.0,
+   "upper": 10.0
+  }
+ ]
+}

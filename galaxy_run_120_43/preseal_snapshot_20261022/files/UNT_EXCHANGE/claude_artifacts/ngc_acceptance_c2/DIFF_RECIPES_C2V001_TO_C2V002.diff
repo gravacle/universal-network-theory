@@ -1,0 +1,579 @@
+--- ngc_roster_recipes_c2v001.py	2026-10-19 17:07:56.880360699 -0500
++++ ngc_roster_recipes_c2v002.py	2026-10-19 17:13:11.516135450 -0500
+@@ -1,4 +1,53 @@
+-"""NGC roster recipes c2v001 (V006 A177 "Commissioned: NGC roster recipes (route A, route B)"). Root build (Claude2 workflow);
++"""NGC roster recipes c2v002 (V006 A180 "Commissioned": recipes c2v002 with R1 and R2). Root build (Claude2 workflow); nothing
++here is adopted until root rules and Claude3 (after its reset) reviews it. c2v002 = c2v001 (6c9e8508, A180 objects) with only
++the two A180 changes below; every other line of c2v001 is kept (its docstring follows the c2v002 notes).
++
++R1, THE MONITOR-NEXT STATE N: path (i), n_recipe_path = RECOMPUTED_GAS (read from bytes, named paths + sha256):
++  - the route-A solvers the driver pins for the NGC tail-ON call (AUX_UVT L329-330: serial 8ef3079b, parallel 7667025b;
++    chosen at driver L8623-8624) hand ONE array `updated` to both the controller and the checkpoint module, before COMPLETED:
++      serial   L215-216 updated = physical_source_fourier(...); L223-224 uv_tail.complete_iteration(gas=gas, updated=updated);
++               L228-229 cm.complete_iteration(ck, iteration, updated=updated, ...); L240 gas = (1-relaxation)*gas+relaxation*updated
++      parallel L330-333 updated; L340-341 uv_tail.complete_iteration; L345-346 cm.complete_iteration; L357 the same relaxation
++  - the checkpoint module 069b3935 (driver AUX L253) stores it in iteration_NNNN/COMPLETED.json:
++      L576-578 payload = dict(fields, ..., updated_gas_fourier_J=_put(ck, updated)); _put L223-234 = content-addressed .npy blob
++      {blob, file_sha256, array_sha256 (typed digest L108-111), dtype, shape}; on a resumed iteration the COMPLETED record must
++      reproduce digest(updated) bitwise (L572-574); the converged iteration writes COMPLETED before the solver returns
++      (serial L228 before L234; parallel L345 before L351).
++  - so gas_{n+1} = (1 - r) * gas_n + r * updated_n, the controller L483 expression verbatim (r = the sidecar identity
++    relaxation, L482; gas_n = START(n).gas_fourier_J, the same array the solver passed at L223 / L340), and N is rebuilt like
++    every other state: I1-T recomputed at n+1 (controller L484 = _i1t(iteration+1, g_next)) and required equal to the recorded
++    payload[n].next_i1t, roster on elements 0..n (L481 appends element n before L484), admitted only on exact TailState digest
++    equality (S5). The admission's recipe_provenance carries n_recipe_path = RECOMPUTED_GAS and its reason. The same path
++    rebuilds a broken-chain (n, next) state, n < a (its updated_n is equally recorded). Nothing is approximated; path (ii)
++    (RECORDED_NEXT_I1T) is not used.
++
++R2, THE c2v001 DECLARED ROUTE-B INPUTS, each now FORMAL from the V011_B_STAGES successor the driver pins (driver L4993; each
++sha from bytes): offset 1ede2384, fs_columns (columns_v001) 4d4c3467, fs_rotation (rotation_v001) 9922a919, rfs_columns
++(columns_v003) 5657503c, le_columns (columns_v005) dd0c759b, le_rotation (rotation_v005) e22e79e8. Every route-B tail stage
++runs with module_patches = [reuse_patch] (driver L8727-8732, L8783, L8810, L8868, L8922), reuse = GENERALIZED['reference']
++['base'] (driver L223, L8487) = each stage's PINS['reuse'] (ddo_homotopy_reference_root_worker_v001.py acda989d), and the
++shim sets the patch globals after the module's own code (driver L709-753).
++  - gamma_eff, c_m_s: phys = cm.decode(IDENTITY.json identity.caller.record)['physical_parameters'] of --checkpoint-directory
++    (offset L215-217; fs_columns L201-204; fs_rotation L219-222; rfs_columns L202-205; le_columns L200-203; le_rotation
++    L225-228), cm = reuse.PINS['checkpoint'] (069b3935); the binding builds with float(phys['gamma']), float(phys['c_m_s'])
++    (BB _build). The IDENTITY record must be the patched reuse.IDENTITY (stage L216 / L203 / L221) = identity.route_a.custody.
++  - profile pin: (reuse.PROFILE, reuse.PROFILE_SHA) after the stage's reuse patch (every bind call: offset L229, fs_columns
++    L222, fs_rotation L255, rfs_columns L230, le_columns L231, le_rotation L271; reuse L24-25; for NGC the patch sets only
++    SEED_SHA and IDENTITY, geo is None at driver L8570).
++  - offset body arrays: body finish.json array_file / array_sha256 (offset L223, L226-227), the body finish bound by
++    --body-finish-sha256.
++  - fs base arrays: offset finish.json outputs['updated_base_arrays.npz'] {path, sha256} (fs_columns L208-214; fs_rotation
++    L228-232; rfs_columns L211-215; le_columns L209-213; le_rotation L234-238).
++  - own-roster eval radii: the columns kinds pass [float(base['radial_nodes_m'][i]) for i in controls['radial_indices']], the
++    controls file sha-pinned by --controls/--controls-sha256 (fs_columns L192, L219-222; rfs_columns L193-195, L228-230;
++    le_columns L190-191, L229-231); the rotation kinds pass R = joined arrays['radial_nodes_m'], saved unchanged in the stage's
++    own rotation_base_arrays.npz = finish arrays_path / arrays_sha256 (fs_rotation L237, L255, L285-286; le_rotation L260,
++    L271, L302-303).
++  The digest checks are unchanged: S5 compares the recipe roster with the recorded roster digest before any build and admits
++  only on exact TailState digest equality, so a wrong reading is a refusal, never an admission.
++
++---------------------------------------------------------------------------------------------- the c2v001 docstring follows
++NGC roster recipes c2v001 (V006 A177 "Commissioned: NGC roster recipes (route A, route B)"). Root build (Claude2 workflow);
+ nothing here is adopted until root rules and Claude3 (after its reset) or Claude4 (after Fri) reviews it.
+ 
+ What a recipe is (S5 tool ngc_s5_rebuild_export_c2v003 3611e993 L273-309): S5 calls
+@@ -64,6 +113,13 @@
+ LIBRARY_SHA256 = '2026f2b6e21eba661ef97a5a2b6a8b73d0f8a2d5c3b995611c705f3dc6746a54'         # S5 LIBRARY; BB PINS['lib'] L42
+ CHECKPOINT_MODULE_SHA256 = '069b393560003fc200932e2d17fa84ee750043fa2132f2cadd459915fb99b114'  # driver AUX L253 (manifest argv)
+ CONTROLLER_SHA256 = 'c5bdd0553968e3f00b61db89f7944cebe51166006f58b727a7aed2a9b6a434fc'       # MW PINS L47-48
++# c2v002 (A180 R2): the route-B stages' reuse module = driver GENERALIZED['reference']['base'] (L223; reuse_patch L8487,
++# L8727) = every V011_B_STAGES successor's PINS['reuse']; inert at import (its main is guarded, L129).
++REUSE_MODULE = ('/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/'
++                'helpers/recovered_packet_audit/ddo_homotopy_reference_root_worker_v001.py',
++                'acda989d375925bf9a8163d8d8a3a22c3f183b6b253c8137312bccc0cefbbe36')
++REUSE_PATCH_GLOBALS = ('SEED_SHA', 'IDENTITY', 'PROFILE', 'PROFILE_SHA')                   # driver L8727-8732
++N_RECIPE_PATH = 'RECOMPUTED_GAS'                                                           # A180 R1 (i)
+ GALAXY = 'NGC3198'
+ MANIFEST_KIND = 'route_a_tail_manifest'                                                    # driver L8697
+ UVT_BINDING_KIND = {'reference': 'reference', 'body': 'body', 'offset': 'offset', 'columns_v001': 'fs_columns',
+@@ -115,6 +171,11 @@
+ C_MANIFEST = 'ROUTE_B_ROUTE_A_MANIFEST'
+ C_PHYS = 'ROUTE_B_PHYS_UNRECORDED'
+ C_I1T_B = 'ROUTE_B_I1T_UNRECORDED'
++C_UPD = 'ROUTE_A_COMPLETED_UPDATED_GAS_UNREADABLE'                                         # c2v002 (R1)
++C_ELEMENT_DIGEST = 'ROUTE_A_SIDECAR_ELEMENT_DIGEST_MISMATCH'                               # c2v002 (R1)
++C_REUSE = 'ROUTE_B_REUSE_MODULE_PATCH'                                                     # c2v002 (R2)
++C_CKPT_B = 'ROUTE_B_CHECKPOINT_IDENTITY'                                                   # c2v002 (R2)
++C_RADII = 'ROUTE_B_EVAL_RADII_UNRECORDED'                                                  # c2v002 (R2)
+ 
+ 
+ class RecipeRefusal(ValueError):
+@@ -286,12 +347,14 @@
+ class ProductionToolkit:
+     """The pinned modules of a real call, exactly as the driver's stages load them. The synthetic suite substitutes a
+     toolkit that differs only in: the call driver sha, the writer's prep (MW LOCAL['prep']), the checkpoint module sha, the
+-    roster module handed to the controller and the binding, and the binding's H2 component (its source is NGC3198-named)."""
++    roster module handed to the controller and the binding, and the binding's H2 component (its source is NGC3198-named).
++    c2v002: also the route-B stages' reuse module (REUSE_MODULE; the synthetic suite substitutes a stand-in)."""
+     kind = 'PRODUCTION'
+     driver_sha256 = DRIVER_SHA256
+     writer = MANIFEST_WRITER
+     binding = ROUTE_B_BINDING
+     checkpoint_module_sha256 = CHECKPOINT_MODULE_SHA256
++    reuse = REUSE_MODULE
+ 
+     def prep_pin(self, mw):
+         p, s = mw.LOCAL['prep']                                     # MW L43-45 (8681da84)
+@@ -311,19 +374,37 @@
+ 
+ 
+ def _writer(toolkit):
+-    mw = load_exact(toolkit.writer[0], toolkit.writer[1], 'ngc_recipes_c2v001_manifest_writer', C_WRITER)
++    mw = load_exact(toolkit.writer[0], toolkit.writer[1], 'ngc_recipes_c2v002_manifest_writer', C_WRITER)
+     cp, cs = mw.PINS['controller']                                  # MW L46-49
+     need(cs == CONTROLLER_SHA256, C_WRITER, 'writer controller pin')
+     return mw, (str(cp), cs)
+ 
+ 
+ def _binding(toolkit, lib):
+-    bmod = load_exact(toolkit.binding[0], toolkit.binding[1], 'ngc_recipes_c2v001_route_b_binding', C_BIND)
++    bmod = load_exact(toolkit.binding[0], toolkit.binding[1], 'ngc_recipes_c2v002_route_b_binding', C_BIND)
+     need(bmod.PINS['lib'][1] == LIBRARY_SHA256, C_BIND, 'binding library pin is not the S5 library (BB L42)')
+     return bmod
+ 
+ 
+ # ------------------------------------------------------------------------------------------------ route A
++def _element_n(rec, n, sdir, out, files, ctl_mod):
++    """c2v002 (R1): the element roster of iteration n that MW sidecar_elements(sdir, n) does not load (it loads 0..n-1): the
++    file the iteration-n payload names (controller L499: elements_{n:04d}.npz), listed in the sidecar finish file list with
++    its file sha (controller L553-556), positions/J digests equal to the payload digests (controller _array_digest L78-81,
++    the MW L130-135 form)."""
++    el = rec.get('elements') if isinstance(rec, dict) else None
++    name = 'elements_%04d.npz' % n
++    need(isinstance(el, dict) and el.get('file') == name and name in files, C_ELEMENT,
++         '%s is not the payload element file / not in the sidecar finish file list' % name)
++    _, raw = _own_bytes(os.path.join(sdir, name), out, 'sidecar ' + name, files[name], C_ELEMENT)
++    z = _npz(raw, 'sidecar ' + name, C_ELEMENT)
++    need('positions_m' in z and 'integrated_J' in z, C_ELEMENT, name + ': keys')
++    pos, J = z['positions_m'], z['integrated_J']
++    need(ctl_mod._array_digest(pos) == el.get('positions_digest') and ctl_mod._array_digest(J) == el.get('J_digest'),
++         C_ELEMENT_DIGEST, '%s digests are not the iteration-%d payload digests (controller L499)' % (name, n))
++    return dict(positions_m=pos, integrated_J=J)
++
++
+ def RECIPE_ROUTE_A(*, call_dir, out_dir, result, target, lib, provider, toolkit=None):
+     """A route-A iterate state: the NGC manifest writer's rebuild (MW main L191-232) at iteration m instead of the accepted
+     iteration, i.e. the controller's own build path at m (controller _i1t L372-393, _build L395-406):
+@@ -333,8 +414,13 @@
+     inputs (MW L225-227), the element rosters 0..m-1 from the sidecar (MW L124-148), r from the sidecar identity (MW L155) and
+     gas_m from the checkpoint iteration_m/START.json (MW L217-221). Target -> m (reader s5_targets L342-351):
+       (n, current)            m = n            (payload[n].state_digest, controller L490/L496)
+-      (n, next), n < a        m = n + 1        only if payload[n].next_state_digest == payload[n+1].state_digest
+-      (a, next) or a broken chain              REFUSED: ROUTE_A_MONITOR_NEXT_GAS_UNRECORDED (module docstring)."""
++      (n, next), n < a        m = n + 1        if payload[n].next_state_digest == payload[n+1].state_digest: gas_m = START(m)
++      (a, next) = N, or a broken chain (n, next), n < a:
++                              m = n + 1        c2v002 (A180 R1 (i)), n_recipe_path RECOMPUTED_GAS:
++                                               gas_m = (1 - r) * gas_n + r * updated_n (controller L483), gas_n = START(n)
++                                               gas_fourier_J, updated_n = COMPLETED(n) updated_gas_fourier_J (checkpoint
++                                               L576-578), elements 0..n (element n: elements_{n:04d}.npz, L481, L518-519),
++                                               I1-T equal to the recorded payload[n].next_i1t (L484, L497-498)."""
+     import numpy as np
+     tk = toolkit or TOOLKIT()
+     out = os.path.realpath(str(out_dir))
+@@ -348,10 +434,6 @@
+     need(isinstance(rar, dict) and type(rar.get('accepted_iteration')) is int, C_SIDECAR, 'route_a_record (driver L8693)')
+     a, n, role = rar['accepted_iteration'], og['iteration'], og['role']
+     need(0 <= n <= a, C_RANGE, 'iteration %d outside 0..%d' % (n, a))
+-    if role == NEXT and n == a:
+-        raise RecipeRefusal(C_NEXT_GAS, 'the monitor-next state of the accepted iteration %d: gas_%d = (1-r) gas_%d + r '
+-                                        'updated_%d (controller L483) is not recorded; no checkpoint START holds it '
+-                                        '(driver L7024-7038)' % (a, a + 1, a, a))
+     # ---- the manifest stage (driver L8697-8700) and its writer
+     mrec = _executed_record(result, kind=MANIFEST_KIND, code=C_MSTAGE)
+     need(mrec.get('script_sha256') == tk.writer[1], C_WRITER, 'manifest stage script %s' % mrec.get('script_sha256'))
+@@ -396,8 +478,8 @@
+         _pinned_bytes(p, s, 'seed pin ' + os.path.basename(p))
+     # ---- modules: the writer, its controller (MW PINS), the checkpoint module (manifest argv)
+     mw, ctl_pin = _writer(tk)
+-    ctl_mod = load_exact(ctl_pin[0], ctl_pin[1], 'ngc_recipes_c2v001_route_a_controller', C_WRITER)
+-    cm = load_exact(os.path.realpath(cm_path), cm_sha, 'ngc_recipes_c2v001_checkpoint', C_PIN)
++    ctl_mod = load_exact(ctl_pin[0], ctl_pin[1], 'ngc_recipes_c2v002_route_a_controller', C_WRITER)
++    cm = load_exact(os.path.realpath(cm_path), cm_sha, 'ngc_recipes_c2v002_checkpoint', C_PIN)
+     libs = tk.controller_libraries(ctl_mod)
+     req_norm = ctl_mod.normalize_request(raw_request, libs['lib'])                       # MW L210
+     # ---- the attempt (MW L211, L98-121) and the checkpoint identity (MW L213-216)
+@@ -427,49 +509,81 @@
+     sid = sid_doc.get('identity') if isinstance(sid_doc, dict) else None
+     need(isinstance(sid, dict) and sid_doc.get('identity_sha256') == _sha_bytes(_canon(sid).encode()), C_SIDECAR,
+          'sidecar identity self-sha (controller L363)')
+-    # ---- target -> iteration m
++    # ---- target -> iteration m (c2v002: a (n, next) state is either iteration n+1's begun state or rebuilt from the
++    #      recorded updated_n; records 0..q are read through MW sidecar_elements with q = the last recorded iteration needed)
+     m = n if role == CURRENT else n + 1
++    q = m if (role == CURRENT or n < a) else a                       # iteration_{a+1}.json never exists (driver L7024-7038)
+     for i in range(m):                                               # the element rosters 0..m-1 must be listed (controller L553-556)
+         need('elements_%04d.npz' % i in files, C_ELEMENT, 'elements_%04d.npz is not in the sidecar finish file list' % i)
+     try:
+-        records, elements = mw.sidecar_elements(sdir, m)              # MW L124-148: records 0..m, elements 0..m-1 (digests checked)
++        records, elements = mw.sidecar_elements(sdir, q)              # MW L124-148: records 0..q, elements 0..q-1 (digests checked)
+     except mw.ManifestRefusal as exc:
+         raise RecipeRefusal(C_ELEMENT, str(exc))
+     except (OSError, KeyError, ValueError, TypeError) as exc:
+         raise RecipeRefusal(C_ELEMENT, '%s: %s' % (type(exc).__name__, exc))
+-    for i in range(m + 1):
++    if q < m:                                                        # N: element a (controller L475-481, written L518-519)
++        elements.append(_element_n(records[n], n, sdir, out, files, ctl_mod))
++    for i in range(q + 1):
+         need(records[i].get('relaxation') == sid.get('relaxation'), C_SIDECAR, 'iteration %d relaxation' % i)
+     if role == CURRENT:
+         need(records[m].get('state_digest') == st['state_sha256'], C_ITERATE,
+              'payload[%d].state_digest is not the target (controller L490, L496)' % m)
+         recorded_i1t = [records[m].get('i1t')]
++        gas_source = 'START'
+     else:
+         need(records[n].get('next_state_digest') == st['state_sha256'], C_ITERATE, 'payload[%d].next_state_digest is not the target' % n)
+-        if records[n + 1].get('state_digest') != st['state_sha256']:
+-            raise RecipeRefusal(C_NEXT_GAS, 'the monitor-next state of iteration %d is not iteration %d begun state; its gas '
+-                                            '(1-r) gas_%d + r updated_%d (controller L483) is not recorded' % (n, n + 1, n, n))
+-        recorded_i1t = [records[n].get('next_i1t'), records[m].get('i1t')]
++        if n < a and records[n + 1].get('state_digest') == st['state_sha256']:
++            recorded_i1t = [records[n].get('next_i1t'), records[m].get('i1t')]
++            gas_source = 'START'
++        else:                                                        # N (n == a) or a broken chain: A180 R1 (i)
++            recorded_i1t = [records[n].get('next_i1t')]
++            gas_source = N_RECIPE_PATH
+     inputs.update(
+         relaxation={'basis': FORMAL, 'cite': 'SIDECAR_IDENTITY identity.relaxation (controller L335, L363); MW L155', 'value': sid.get('relaxation')},
+         elements={'basis': FORMAL, 'cite': 'sidecar elements_0000..%04d.npz, digests in iteration payloads (controller L495-499, L518-519); MW L124-148' % (m - 1),
+                   'files': {('elements_%04d.npz' % i): files['elements_%04d.npz' % i] for i in range(m)}},
+         iteration={'basis': FORMAL, 'cite': 'reader s5_targets L342-351 origin; payload digests controller L490/L496', 'm': m, 'origin': dict(og)})
+-    # ---- checkpoint iteration m: START/COMPLETED bound to the identity, gas_m (MW L217-221; driver L7031-7036)
++    # ---- checkpoint iteration c (c = m, or n for RECOMPUTED_GAS): START/COMPLETED bound to the identity (MW L217-221;
++    #      driver L7031-7036), gas_c from START
++    c = m if gas_source == 'START' else n
+     try:
+-        start = cm._read(str(os.path.join(cp, 'iteration_%04d' % m, 'START.json')), 'iteration_start')
+-        done = cm._read(str(os.path.join(cp, 'iteration_%04d' % m, 'COMPLETED.json')), 'iteration_completed')
++        start = cm._read(str(os.path.join(cp, 'iteration_%04d' % c, 'START.json')), 'iteration_start')
++        done = cm._read(str(os.path.join(cp, 'iteration_%04d' % c, 'COMPLETED.json')), 'iteration_completed')
+     except Exception as exc:
+-        raise RecipeRefusal(C_CKPT, 'iteration %d records %s: %s' % (m, type(exc).__name__, exc))
+-    need(start.get('iteration') == m and done.get('iteration') == m and start.get('identity_sha256') == ident['identity_sha256']
++        raise RecipeRefusal(C_CKPT, 'iteration %d records %s: %s' % (c, type(exc).__name__, exc))
++    need(start.get('iteration') == c and done.get('iteration') == c and start.get('identity_sha256') == ident['identity_sha256']
+          and done.get('identity_sha256') == ident['identity_sha256'] and done.get('iteration_start_sha256') == start.get('payload_sha256')
+-         and type(done.get('converged')) is bool and done['converged'] == (m == a), C_CKPT,
+-         'iteration %d START/COMPLETED not bound to this identity and iteration (driver L7033-7037)' % m)
++         and type(done.get('converged')) is bool and done['converged'] == (c == a), C_CKPT,
++         'iteration %d START/COMPLETED not bound to this identity and iteration (driver L7033-7037)' % c)
+     try:
+         gas = cm._get(str(cp), start['gas_fourier_J'])
+     except Exception as exc:
+-        raise RecipeRefusal(C_GAS, 'iteration %d gas_fourier_J %s: %s' % (m, type(exc).__name__, exc))
+-    inputs['gas'] = {'basis': FORMAL, 'cite': 'checkpoint iteration_%04d/START.json gas_fourier_J via the checkpoint module _get (MW L217, L221)' % m,
+-                     'start_payload_sha256': start.get('payload_sha256'), 'ref': start.get('gas_fourier_J')}
++        raise RecipeRefusal(C_GAS, 'iteration %d gas_fourier_J %s: %s' % (c, type(exc).__name__, exc))
++    if gas_source == 'START':
++        inputs['gas'] = {'basis': FORMAL, 'cite': 'checkpoint iteration_%04d/START.json gas_fourier_J via the checkpoint module _get (MW L217, L221)' % m,
++                         'start_payload_sha256': start.get('payload_sha256'), 'ref': start.get('gas_fourier_J')}
++    else:
++        uref = done.get('updated_gas_fourier_J')
++        need(uref is not None, C_NEXT_GAS, 'COMPLETED(%d) carries no updated_gas_fourier_J (checkpoint module L576-578): '
++                                           'gas_%d is unrecorded' % (n, m))
++        try:
++            updated = cm._get(str(cp), uref)
++        except Exception as exc:
++            raise RecipeRefusal(C_UPD, 'iteration %d updated_gas_fourier_J %s: %s' % (n, type(exc).__name__, exc))
++        r = float(sid['relaxation'])                                 # controller L482 (self.relaxation = the sidecar identity's)
++        gas = (1 - r) * gas + r * updated                            # controller L483, verbatim expression and order
++        inputs['gas'] = {'basis': FORMAL, 'cite': 'gas_%d = (1 - r) * gas_%d + r * updated_%d, controller L483 (solver 8ef3079b L240 / 7667025b L357); '
++                                                  'gas_%d = checkpoint iteration_%04d/START.json gas_fourier_J; updated_%d = iteration_%04d/COMPLETED.json '
++                                                  'updated_gas_fourier_J (checkpoint 069b3935 L576-578), the array the solver handed the controller '
++                                                  '(8ef3079b L223-229; 7667025b L340-346)' % (m, n, n, n, n, n, n),
++                         'start_payload_sha256': start.get('payload_sha256'), 'completed_payload_sha256': done.get('payload_sha256'),
++                         'ref': start.get('gas_fourier_J'), 'updated_ref': uref, 'relaxation': r}
++        prov['n_recipe_path'] = N_RECIPE_PATH
++        prov['n_recipe_path_why'] = (
++            'A180 R1 (i): the checkpoint COMPLETED record of iteration %d stores updated_gas_fourier_J (069b3935 L576-578), the '
++            'same array the solver passes to the controller (8ef3079b L223-229, 7667025b L340-346), so gas_%d follows exactly by '
++            'controller L483; I1-T recomputed at %d and equal to the recorded payload[%d].next_i1t; S5 admits only on exact '
++            'TailState digest equality' % (n, m, m, n))
+     # ---- the writer's prep with the driver's patches; the controller from_prepared (MW L206-207, L225-231)
+     ppath, psha = tk.prep_pin(mw)
+     prep = load_exact(os.path.realpath(ppath), psha, 'root_composite_prep', C_PIN)
+@@ -513,9 +627,68 @@
+ 
+ 
+ # ------------------------------------------------------------------------------------------------ route B
++def _stage_reuse(rec, out, tk, stage):
++    """c2v002 (R2): the stage's reuse module exactly as the stage sees it: its own code, then the driver's reuse patch
++    (driver L8727-8732: SEED_SHA, IDENTITY, and PROFILE/PROFILE_SHA only at a per-call geometry; shim L709-753 sets each
++    global after the module ran, the global must exist). Every route-B tail stage is requested with module_patches =
++    [reuse_patch] and no stage globals (driver gen_request L8527-8531; L8783, L8810, L8868, L8922)."""
++    req = _request_of(rec, out, C_BSTAGE)
++    need(not req.get('stage_globals'), C_REUSE, '%s: stage globals (driver gen_request L8527-8531 sets none for a tail stage)' % stage)
++    patches = req.get('module_patches')
++    rpath, rsha = str(tk.reuse[0]), tk.reuse[1]
++    need(isinstance(patches, list) and len(patches) == 1, C_REUSE, '%s: module patches are not exactly [reuse_patch] (driver L8727)' % stage)
++    p = patches[0]
++    need(isinstance(p, dict) and set(p) == {'path', 'sha256', 'set'} and isinstance(p['set'], dict), C_REUSE, stage + ': patch shape')
++    need(os.path.realpath(str(p['path'])) == os.path.realpath(rpath) and p['sha256'] == rsha, C_REUSE,
++         '%s: patch target %s is not the reuse module (driver L8487, L223)' % (stage, p['path']))
++    need({'SEED_SHA', 'IDENTITY'} <= set(p['set']) <= set(REUSE_PATCH_GLOBALS)
++         and (('PROFILE' in p['set']) == ('PROFILE_SHA' in p['set'])), C_REUSE, '%s: patch globals %s (driver L8727-8732)' % (stage, sorted(p['set'])))
++    mod = load_exact(os.path.realpath(rpath), rsha, 'ngc_recipes_c2v002_reuse', C_REUSE)
++    for name, value in p['set'].items():
++        need(hasattr(mod, name), C_REUSE, 'Override target absent: %s' % name)        # driver L740-741
++        setattr(mod, name, _decode_value(value))
++    return mod, {'path': rpath, 'sha256': rsha, 'patched_globals': sorted(p['set'])}
++
++
++def _stage_phys(*, result, argv, out, reuse, tk, stage):
++    """c2v002 (R2): gamma_eff, c_m_s = the stage's phys = checkpoint IDENTITY.json identity.caller.record decoded by the
++    reuse module's checkpoint module (offset L214-217; fs_columns L199-204; fs_rotation L217-222; rfs_columns L200-205;
++    le_columns L198-203; le_rotation L223-228), the identity being the patched reuse.IDENTITY and the call's route-A custody."""
++    cp = _own_path(_argv_value(argv, '--checkpoint-directory', C_BSTAGE, stage), out, stage + ' checkpoint directory')
++    rrec = _executed_record(result, kind='route_a', code=C_BSTAGE)
++    need(os.path.realpath(_argv_value(rrec.get('argv'), '--checkpoint-directory', C_BSTAGE, 'route_a argv')) == cp, C_CKPT_B,
++         '%s --checkpoint-directory is not the route_a stage checkpoint (driver L8607, L8736)' % stage)
++    cpin = (getattr(reuse, 'PINS', None) or {}).get('checkpoint')
++    need(isinstance(cpin, tuple) and len(cpin) == 2 and cpin[1] == tk.checkpoint_module_sha256, C_CKPT_B,
++         'reuse PINS[checkpoint] is not the driver checkpoint module (reuse L16; driver AUX L253)')
++    cm = load_exact(os.path.realpath(str(cpin[0])), cpin[1], 'ngc_recipes_c2v002_checkpoint_b', C_CKPT_B)
++    try:
++        ident = cm._read(str(os.path.join(cp, 'IDENTITY.json')), 'identity')
++        self_sha = cm._sha(cm._canonical(ident['identity']))
++        caller = cm.decode(ident['identity']['caller']['record'])
++    except Exception as exc:                                     # the checkpoint module's own refusal types
++        raise RecipeRefusal(C_CKPT_B, '%s IDENTITY %s: %s' % (stage, type(exc).__name__, exc))
++    cust = ((result.get('identity') or {}).get('route_a') or {}).get('custody') or {}
++    need(ident.get('identity_sha256') == reuse.IDENTITY == self_sha == cust.get('identity_sha256'), C_CKPT_B,
++         '%s checkpoint identity is not the patched reuse.IDENTITY / route-A custody (stage L216; driver L8722-8727)' % stage)
++    seed_sha = ((result.get('identity') or {}).get('seed') or {}).get('sha256')
++    need(isinstance(caller, dict) and (caller.get('seed') or {}).get('sha256') == reuse.SEED_SHA == seed_sha, C_CKPT_B,
++         '%s caller seed is not the patched reuse.SEED_SHA / identity.seed (stage L218)' % stage)
++    phys = caller.get('physical_parameters')
++    try:
++        g, c = float(phys['gamma']), float(phys['c_m_s'])          # BB _build: float(phys['gamma']), float(phys['c_m_s'])
++    except (TypeError, KeyError, ValueError) as exc:
++        raise RecipeRefusal(C_PHYS, '%s caller physical_parameters %s: %s' % (stage, type(exc).__name__, exc))
++    need(math.isfinite(g) and math.isfinite(c) and g > 0 and c > 0, C_PHYS, stage + ': gamma / c_m_s (BB bind UV_TAIL_PHYSICAL_INVALID)')
++    pin = {'path': os.path.join(cp, 'IDENTITY.json'), 'identity_sha256': ident.get('identity_sha256'),
++           'checkpoint_module': {'path': str(cpin[0]), 'sha256': cpin[1]}}
++    return g, c, caller, pin
++
++
+ def _route_b_context(*, out, result, target, lib, toolkit, want_kind):
+     """Common route-B inputs (binding bind/bind_offset): the stage's ctx record and finish.json, config, kept, i1t, seed,
+-    the binding module and its roster module, gamma_eff and c_m_s."""
++    the binding module and its roster module; c2v002: the stage's reuse module (patched), gamma_eff and c_m_s from the
++    route-A checkpoint caller record, the profile pin from reuse.PROFILE."""
+     tk = toolkit
+     og, st = target['origin'], target['state']
+     need(og.get('kind') == 'ROUTE_B_STAGE' and isinstance(og.get('stage'), str), C_TARGET, 'not a route-B stage target')
+@@ -573,16 +746,13 @@
+          'finish uv_tail.i1t (BB L359: the dict handed to build, L528-531 / L558)')
+     rs = tk.binding_roster(bmod)
+     b.rs = rs
+-    # gamma_eff, c_m_s: DECLARED (BB L372 phys from the successor) = the call's accepted route-A state record
++    # c2v002 (R2): the stage's reuse module; gamma_eff, c_m_s FORMAL from the route-A checkpoint caller record
++    reuse, rpin = _stage_reuse(rec, out, tk, og['stage'])
++    g, c, caller, ppin = _stage_phys(result=result, argv=argv, out=out, reuse=reuse, tk=tk, stage=og['stage'])
+     mpin = (result.get('uv_tail') or {}).get('manifest') or {}
+-    mpath, mraw = _own_bytes(mpin.get('path'), out, 'route-A tail manifest', mpin.get('sha256'), C_MANIFEST)
+-    man = _strict_json(mraw, 'route-A tail manifest', C_MANIFEST)
+-    mrec = ((man.get('state') or {}).get('record') or {}) if isinstance(man, dict) else {}
+-    g, c = mrec.get('gamma_eff'), mrec.get('c_m_s')
+-    need(type(g) is float and type(c) is float and math.isfinite(g) and math.isfinite(c) and g > 0 and c > 0, C_PHYS,
+-         'accepted state record gamma_eff / c_m_s (MW L170, L180; lib L685-686)')
+     ctx = {'bmod': bmod, 'b': b, 'rs': rs, 'K_m': K_m, 'cfg': cfg, 'kept': kept, 'i1t': i1t, 'ni': ni, 'u': u, 'fin': fin, 'argv': argv,
+-           'bkind': bkind, 'stage': og['stage'], 'gamma': g, 'c': c, 'man': man, 'man_pin': {'path': mpath, 'sha256': mpin.get('sha256')},
++           'bkind': bkind, 'stage': og['stage'], 'gamma': g, 'c': c, 'reuse': reuse, 'caller': caller,
++           'man_pin': {'path': os.path.realpath(str(mpin.get('path'))), 'sha256': mpin.get('sha256')},
+            'kpc': float(ni['kpc_m']), 'M_s': cfg['gas']['M_s']}
+     ctx['prov'] = {'recipe': 'RECIPE_ROUTE_B_' + bkind, 'toolkit': tk.kind, 'stage': og['stage'], 'inputs': {
+         'finish': {'basis': FORMAL, 'cite': 'stage --outdir finish.json bound by uv_tail.stage_records (driver L1155-1172)', 'pin': {'path': fpath, 'sha256': srec[0].get('finish_sha256')}},
+@@ -590,27 +760,26 @@
+         'kept': {'basis': FORMAL, 'cite': 'lib.kept_region(kind, truncation, K_m) BB L270-272; K_m BB L235-258; truncation argv (driver L8717-8718)', 'value': kept},
+         'i1t': {'basis': FORMAL, 'cite': 'finish uv_tail.i1t = the build i1t (BB L528-531 / L558, L359)'},
+         'stage_kind': {'basis': FORMAL, 'cite': 'BB L373 stage_kind=self.kind; driver L352-354', 'value': bkind},
+-        'gamma_eff_c_m_s': {'basis': DECLARED, 'cite': 'BB L372 phys (successor argument); value = the accepted route-A state record (MW L177-181; lib L686), the bits A167 C4b requires of every NGC state', 'pin': {'path': mpath, 'sha256': mpin.get('sha256')}}}}
++        'reuse_module': {'basis': FORMAL, 'cite': 'stage request.json module_patches = [reuse_patch] (driver L8727-8732; shim L709-753); reuse = GENERALIZED[reference][base] (driver L223, L8487)', 'pin': rpin},
++        'gamma_eff_c_m_s': {'basis': FORMAL, 'cite': 'stage phys = cm.decode(IDENTITY.json identity.caller.record)[physical_parameters] (offset L215-217; fs_columns L202-204; fs_rotation L220-222; rfs_columns L203-205; le_columns L201-203; le_rotation L226-228); BB _build float(phys[gamma]), float(phys[c_m_s])',
++                            'value': {'gamma': g, 'c_m_s': c}, 'pin': ppin}}}
+     return ctx
+ 
+ 
+-def _sidecar_profile(result, out, u):
+-    """DECLARED: the route-B successor's registered profile pin = the route-A prep profile recorded in the sidecar identity
+-    (controller L235, L216, L363); with an NGC outer gas cut the binding records it (BB L435), and it must be the same pin."""
+-    sc = ((result.get('uv_tail') or {}).get('route_a_record') or {}).get('sidecar') or {}
+-    files = sc.get('files') or {}
+-    need(isinstance(sc.get('directory'), str) and 'SIDECAR_IDENTITY.json' in files, C_PROFILE, 'route-A sidecar identity unrecorded')
+-    _, raw = _own_bytes(os.path.join(sc['directory'], 'SIDECAR_IDENTITY.json'), out, 'sidecar identity', files['SIDECAR_IDENTITY.json'], C_PROFILE)
+-    doc = _strict_json(raw, 'sidecar identity', C_PROFILE)
+-    pin = (((doc.get('identity') or {}).get('provenance') or {}).get('profile')) if isinstance(doc, dict) else None
+-    need(isinstance(pin, dict) and isinstance(pin.get('path'), str) and _is_sha(pin.get('sha256')), C_PROFILE, 'sidecar identity provenance.profile (controller L235)')
+-    cut = u.get('ngc_outer_gas_cut_custody')
+-    basis = DECLARED
++def _stage_profile(ctx):
++    """c2v002 (R2) FORMAL: the profile pin every V011_B_STAGES successor hands bind, (reuse.PROFILE, reuse.PROFILE_SHA) of
++    the patched reuse module (offset L229; fs_columns L222; fs_rotation L255; rfs_columns L230; le_columns L231; le_rotation
++    L271; reuse L24-25); with an NGC outer gas cut the binding records it (BB ngc_outer_gas_cut_custody profile_pin, set from
++    the same argument) and the two must agree."""
++    reuse = ctx['reuse']
++    path, sha = str(reuse.PROFILE), reuse.PROFILE_SHA
++    need(os.path.isabs(path) and _is_sha(sha), C_PROFILE, 'reuse PROFILE / PROFILE_SHA')
++    cut = ctx['u'].get('ngc_outer_gas_cut_custody')
+     if isinstance(cut, dict) and cut.get('profile_pin') is not None:
+-        need(cut['profile_pin'] == {'path': pin['path'], 'sha256': pin['sha256']}, C_PROFILE, 'BB L435 profile pin differs from the route-A profile')
+-        basis = FORMAL
+-    raw = _pinned_bytes(pin['path'], pin['sha256'], 'registered profile', C_PROFILE)
+-    return json.loads(raw), {'basis': basis, 'cite': 'BB bind profile argument (successor); route-A sidecar identity provenance.profile (controller L235); BB L435 when an outer cut is set', 'pin': {'path': pin['path'], 'sha256': pin['sha256']}}
++        need(cut['profile_pin'] == {'path': path, 'sha256': sha}, C_PROFILE, 'BB outer-cut profile pin differs from reuse.PROFILE')
++    raw = _pinned_bytes(path, sha, 'registered profile', C_PROFILE)
++    return json.loads(raw), {'basis': FORMAL, 'cite': 'bind(profile=(reuse.PROFILE, reuse.PROFILE_SHA)) in every V011_B_STAGES successor (offset L229; fs_columns L222; fs_rotation L255; rfs_columns L230; le_columns L231; le_rotation L271); reuse L24-25 after the stage patch (driver L8727-8732)',
++                             'pin': {'path': path, 'sha256': sha}}
+ 
+ 
+ def _stars(ctx, toolkit, prof):
+@@ -631,30 +800,45 @@
+     return d, _strict_json(raw, label + ' finish', code), {'path': p, 'sha256': sha}
+ 
+ 
+-def _output_npz(fin, d, out, name, label, code):
+-    """DECLARED producer output file: finish['outputs'][name] = {path, sha256} when recorded (BB L493 form), else <dir>/name."""
+-    o = (fin.get('outputs') or {}).get(name) if isinstance(fin, dict) else None
+-    if isinstance(o, dict) and _is_sha(o.get('sha256')):
+-        p, raw = _own_bytes(o.get('path'), out, label, o['sha256'], code)
+-        how = 'producer finish outputs[%s] (BB L493 form)' % name
+-    else:
+-        p, raw = _own_bytes(os.path.join(d, name), out, label, None, code)
+-        how = '<producer dir>/%s (no sha in a named record)' % name
+-    return _npz(raw, label, code), {'path': p, 'sha256': _sha_bytes(raw), 'how': how}
+-
+-
+ def _base_arrays(ctx, result, out):
++    """c2v002 (R2) FORMAL: base = offset finish.json outputs['updated_base_arrays.npz'] {path, sha256} of --offset-directory
++    (fs_columns L208-214; fs_rotation L228-232; rfs_columns L211-215; le_columns L209-213; le_rotation L234-238)."""
+     off_dir, off_fin, off_pin = _producer_finish(result, out, ctx['argv'], '--offset-directory', 'offset', 'offset', C_BASE)
+-    base, bpin = _output_npz(off_fin, off_dir, out, BASE_ARRAYS, 'offset updated_base_arrays', C_BASE)
++    ref = (off_fin.get('outputs') or {}).get(BASE_ARRAYS) if isinstance(off_fin, dict) else None
++    need(isinstance(ref, dict) and _is_sha(ref.get('sha256')), C_BASE, 'offset finish outputs[%s] (offset L291)' % BASE_ARRAYS)
++    p, raw = _own_bytes(ref.get('path'), out, 'offset updated_base_arrays', ref['sha256'], C_BASE)
++    base = _npz(raw, 'offset updated_base_arrays', C_BASE)
+     need(all(k in base for k in ('physical_positions_m', 'rho0', 'volume_weights_m3', 'radial_nodes_m')), C_BASE, 'base array keys')
+-    return base, bpin, off_fin, off_pin
++    return base, {'path': p, 'sha256': ref['sha256'], 'offset_finish': off_pin}, off_fin, off_pin
+ 
+ 
+-def _own_roster_radii(base):
+-    """DECLARED eval radii of the own-roster kinds (BB L372 `radii` from the successor): the unique radial nodes of the
+-    offset updated_base_arrays, the radial-node set every downstream stage reads from that file (driver L629-631)."""
+-    import numpy as np
+-    return np.unique(np.asarray(base['radial_nodes_m'], dtype=float))
++def _columns_radii(ctx, base):
++    """c2v002 (R2) FORMAL eval radii of a columns kind: radii=[float(base['radial_nodes_m'][i]) for i in ids], ids =
++    controls['radial_indices'] of --controls (sha --controls-sha256; fs_columns L192, L219-222; rfs_columns L193-195,
++    L228-230; le_columns L190-191, L229-231)."""
++    argv, stage = ctx['argv'], ctx['stage']
++    cpath = _argv_value(argv, '--controls', C_RADII, stage)
++    csha = _argv_value(argv, '--controls-sha256', C_RADII, stage)
++    need(os.path.isabs(cpath), C_RADII, stage + ': --controls not absolute')
++    raw = _pinned_bytes(os.path.realpath(cpath), csha, stage + ' controls', C_RADII)          # pinned by the ctx record argv
++    controls = _strict_json(raw, stage + ' controls', C_RADII)
++    ids = controls.get('radial_indices') if isinstance(controls, dict) else None
++    nodes = base['radial_nodes_m']
++    need(isinstance(ids, list) and ids and len(set(ids)) == len(ids) and all(type(i) is int and 0 <= i < len(nodes) for i in ids),
++         C_RADII, stage + ': controls radial_indices (stage: unique actual radial indices)')
++    return [float(nodes[i]) for i in ids], {'path': os.path.realpath(cpath), 'sha256': csha, 'radial_indices': list(ids)}
++
++
++def _rotation_radii(ctx, out):
++    """c2v002 (R2) FORMAL eval radii of a rotation kind: R = joined arrays['radial_nodes_m'], saved unchanged in the stage's
++    own rotation_base_arrays.npz = finish arrays_path / arrays_sha256 (fs_rotation L237, L255, L285-286; le_rotation L260,
++    L271, L302-303)."""
++    fin = ctx['fin']
++    need(_is_sha(fin.get('arrays_sha256')), C_RADII, ctx['stage'] + ': finish arrays_sha256')
++    p, raw = _own_bytes(fin.get('arrays_path'), out, ctx['stage'] + ' rotation arrays', fin['arrays_sha256'], C_RADII)
++    z = _npz(raw, ctx['stage'] + ' rotation arrays', C_RADII)
++    need('radial_nodes_m' in z, C_RADII, ctx['stage'] + ': rotation arrays radial_nodes_m')
++    return z['radial_nodes_m'], {'path': p, 'sha256': fin['arrays_sha256']}
+ 
+ 
+ def _route_b_fs(kind, *, call_dir, out_dir, result, target, lib, provider, toolkit):
+@@ -664,7 +848,7 @@
+     tk = toolkit or TOOLKIT()
+     out = os.path.realpath(str(out_dir))
+     ctx = _route_b_context(out=out, result=result, target=target, lib=lib, toolkit=tk, want_kind=kind)
+-    prof, ppro = _sidecar_profile(result, out, ctx['u'])
++    prof, ppro = _stage_profile(ctx)
+     s_edges = prof['galaxies'][GALAXY]['HI_plus_He']['s_edges_kpc2']                          # BB L481
+     stars = _stars(ctx, tk, prof)
+     base, bpin, off_fin, _ = _base_arrays(ctx, result, out)
+@@ -676,12 +860,17 @@
+     J = (-c * c * np.asarray(base['rho0']) * np.asarray(base['volume_weights_m3'])).reshape(-1)   # BB L490
+     roster = ctx['rs'].roster_body({'physical_positions_m': pos, 'base_integrated_source_J': J}, stars,
+                                    s_edges_kpc2=s_edges, kpc_m=ctx['kpc'], M_s=ctx['M_s'], c_m_s=c)   # BB L491-492
+-    radii = _own_roster_radii(base)
++    if kind == 'fs_columns':
++        radii, rpin = _columns_radii(ctx, base)
++        rcite = 'fs_columns L219-222 radii=[float(base[radial_nodes_m][i]) for i in controls[radial_indices]]'
++    else:
++        radii, rpin = _rotation_radii(ctx, out)
++        rcite = 'fs_rotation L237, L255 radii=R (joined arrays radial_nodes_m), saved in its own rotation_base_arrays.npz (L285-286)'
+     ctx['prov']['inputs'].update(
+         profile=ppro, h2={'basis': FORMAL if tk.kind == 'PRODUCTION' else 'SYNTHETIC', 'cite': 'BB ngc_h2_component L578-593'},
+-        base_arrays={'basis': DECLARED, 'cite': 'BB L21 / L489-490 base = offset updated_base_arrays (driver L3310); argv --offset-directory (driver L8796)', 'pin': bpin},
++        base_arrays={'basis': FORMAL, 'cite': 'offset finish outputs[updated_base_arrays.npz] of --offset-directory (fs_columns L208-214; fs_rotation L228-232); BB L489-490', 'pin': bpin},
+         roster={'basis': FORMAL, 'cite': 'BB L489-492 roster_body(stars + body gas)'},
+-        eval_radii_m={'basis': DECLARED, 'cite': 'BB L372 radii (successor); unique offset updated_base_arrays radial_nodes_m (driver L629-631)'})
++        eval_radii_m={'basis': FORMAL, 'cite': rcite, 'pin': rpin})
+     return _done(ctx, roster, radii)
+ 
+ 
+@@ -691,7 +880,7 @@
+     tk = toolkit or TOOLKIT()
+     out = os.path.realpath(str(out_dir))
+     ctx = _route_b_context(out=out, result=result, target=target, lib=lib, toolkit=tk, want_kind=kind)
+-    prof, ppro = _sidecar_profile(result, out, ctx['u'])
++    prof, ppro = _stage_profile(ctx)
+     s_edges = prof['galaxies'][GALAXY]['HI_plus_He']['s_edges_kpc2']
+     stars = _stars(ctx, tk, prof)
+     d = _own_path(_argv_value(ctx['argv'], '--uv-tail-source-rotation-directory', C_SROT, ctx['stage']), out, 'source rotation')
+@@ -704,14 +893,21 @@
+     need(all(k in z for k in ('rho0', 'volume_weights_m3', 'radial_nodes_m', 'z')), C_SROT, 'rotation array keys (BB L513)')
+     arr = {kk: z[kk].copy() for kk in ('rho0', 'volume_weights_m3', 'radial_nodes_m', 'z')}                       # BB L512-513
+     roster = ctx['rs'].roster_rotation(arr, stars, s_edges_kpc2=s_edges, kpc_m=ctx['kpc'], M_s=ctx['M_s'])         # BB L514
+-    base, bpin, _, _ = _base_arrays(ctx, result, out)
+-    radii = _own_roster_radii(base)
++    if kind == 'le_rotation':
++        radii, rpin = _rotation_radii(ctx, out)
++        rcite = 'le_rotation L260, L271 radii=R (joined arrays radial_nodes_m), saved in its own rotation_base_arrays.npz (L302-303)'
++    else:
++        base, bpin, _, _ = _base_arrays(ctx, result, out)
++        radii, rpin = _columns_radii(ctx, base)
++        rpin = dict(rpin, base_arrays=bpin)
++        rcite = ('%s radii=[float(base[radial_nodes_m][i]) for i in controls[radial_indices]], base = offset updated_base_arrays'
++                 % ('rfs_columns L211-215, L228-230' if kind == 'rfs_columns' else 'le_columns L209-213, L229-231'))
+     ctx['prov']['inputs'].update(
+         profile=ppro, h2={'basis': FORMAL if tk.kind == 'PRODUCTION' else 'SYNTHETIC', 'cite': 'BB ngc_h2_component L578-593'},
+         source_rotation={'basis': FORMAL, 'cite': 'argv --uv-tail-source-rotation-directory (driver L8719-8720); BB L503-513, L525-526',
+                          'finish': {'path': rp, 'sha256': src.get('finish_sha256')}, 'arrays': {'path': ap, 'sha256': rfin.get('arrays_sha256')}},
+         roster={'basis': FORMAL, 'cite': 'BB L514 roster_rotation(arr, stars)'},
+-        eval_radii_m={'basis': DECLARED, 'cite': 'BB L372 radii (successor); unique offset updated_base_arrays radial_nodes_m (driver L629-631)', 'pin': bpin})
++        eval_radii_m={'basis': FORMAL, 'cite': rcite, 'pin': rpin})
+     return _done(ctx, roster, radii)
+ 
+ 
+@@ -719,7 +915,7 @@
+     """offset (BB bind_offset L534-568): roster = _DifferenceRoster(body_r, ra_roster, synthetic or i1t verdict != PASS) with
+     body_r = roster_body(body positions / base_integrated_source_J[...,0,0], no stars) (BB L549-552) and ra_roster = the
+     route-A gas_IT roster of the call's ROUTE_A_TAIL_MANIFEST (BB L407-427, manifest validated by BB _manifest L379-405);
+-    eval radii = unique(body radial_nodes_m) (BB L560)."""
++    eval radii = unique(body radial_nodes_m) (BB L560). c2v002: body = the body finish.json array_file (offset L223-227)."""
+     import numpy as np
+     tk = toolkit or TOOLKIT()
+     out = os.path.realpath(str(out_dir))
+@@ -738,11 +934,13 @@
+         ra_roster, synthetic = b._manifest_gas_roster(man, ctx['ni'])                                  # BB L407-427
+     except (ValueError, TypeError, KeyError, OSError) as exc:
+         raise RecipeRefusal(C_MANIFEST, '%s: %s (BB L379-427)' % (type(exc).__name__, exc))
+-    prof, ppro = _sidecar_profile(result, out, ctx['u'])
++    prof, ppro = _stage_profile(ctx)
+     s_edges = prof['galaxies'][GALAXY]['HI_plus_He']['s_edges_kpc2']                                  # BB L546-547
+     body_dir, body_fin, body_pin = _producer_finish(result, out, argv, '--body-directory', 'body', 'body', C_BODY)
+-    need(_argv_value(argv, '--body-finish-sha256', C_BODY, 'offset') == body_pin['sha256'], C_BODY, 'offset --body-finish-sha256 (driver L8778)')
+-    body, bpin = _output_npz(body_fin, body_dir, out, BODY_ARRAYS, 'body arrays', C_BODY)
++    need(_argv_value(argv, '--body-finish-sha256', C_BODY, 'offset') == body_pin['sha256'], C_BODY, 'offset --body-finish-sha256 (offset L223; driver L8783)')
++    need(isinstance(body_fin, dict) and _is_sha(body_fin.get('array_sha256')), C_BODY, 'body finish array_sha256 (offset L226)')
++    bpath, braw = _own_bytes(body_fin.get('array_file'), out, 'body arrays', body_fin['array_sha256'], C_BODY)   # offset L226-227
++    body = _npz(braw, 'body arrays', C_BODY)
+     need(all(k in body for k in ('physical_positions_m', 'base_integrated_source_J', 'radial_nodes_m')), C_BODY, 'body array keys (BB L549-560)')
+     c = ctx['c']
+     pos = np.asarray(body['physical_positions_m'], float).reshape(-1, 3)                              # BB L549
+@@ -754,9 +952,9 @@
+     ctx['prov']['inputs'].update(
+         profile=dict(ppro, use='s_edges only (BB L546-547)'),
+         route_a_manifest={'basis': FORMAL, 'cite': 'argv --route-a-tail-manifest (driver L8715-8716); BB _manifest L379-405, _manifest_gas_roster L407-427', 'pin': {'path': mpath, 'sha256': msha}, 'state_digest': ra_state.digest},
+-        body_arrays={'basis': DECLARED, 'cite': 'BB bind_offset body (successor); body_arrays.npz of --body-directory (driver L8778, L3307)', 'pin': bpin, 'body_finish': body_pin},
++        body_arrays={'basis': FORMAL, 'cite': 'body finish.json array_file / array_sha256 of --body-directory, the finish bound by --body-finish-sha256 (offset L223, L226-227); BB bind_offset body', 'pin': {'path': bpath, 'sha256': body_fin['array_sha256']}, 'body_finish': body_pin},
+         roster={'basis': FORMAL, 'cite': 'BB L549-552, L559 _DifferenceRoster(body_r, ra_roster)'},
+-        eval_radii_m={'basis': FORMAL, 'cite': 'BB L560 unique(body radial_nodes_m) (body file DECLARED)'})
++        eval_radii_m={'basis': FORMAL, 'cite': 'BB L560 unique(body radial_nodes_m)'})
+     return _done(ctx, roster, radii)
+ 
+ 

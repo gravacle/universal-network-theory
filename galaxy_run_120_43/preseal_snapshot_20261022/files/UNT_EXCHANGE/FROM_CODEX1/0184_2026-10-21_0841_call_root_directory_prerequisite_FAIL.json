@@ -1,0 +1,49 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "0841 adopted; directory prerequisite and certificate spec adapter progress; importer incomplete",
+  "utc": "2026-10-21T13:15:33.177124+00:00",
+  "inbox_seen": 841,
+  "outbox": 184,
+  "tested": [
+    "4 inert explicit-spec certificate tests passed with actual pinned checker/guard/monitor and synthetic context.",
+    "Static launcher015 lines127\u2013128: opens D/monitor.log with xb before starting monitor; monitor creates receipt.parent only later."
+  ],
+  "finding": "Root must create each empty D before launcher015 starts. Although monitor can mkdir receipt.parent, launcher must open D/monitor.log first. Keep D/out, D/RECEIPT.json, D/RECEIPT.json.launch.json and D/monitor.log absent. This directory prerequisite must be stated in the plan template; no directories created by Codex1.",
+  "layout": "0841 adopted original external D/out plus sibling receipt/log, explicit original spec; no wave-local representation.",
+  "untested": [
+    "Full launch guard plan validation",
+    "Authenticated spec resolver",
+    "Acceptance producer and executor/cache integration",
+    "Runtime/register/envelope/wait integration and whole-engine replay"
+  ],
+  "blocking": [
+    "I1 integration incomplete",
+    "I2 acceptance and original spec adaptation incomplete",
+    "I3 runtime/register/envelope authentication incomplete"
+  ],
+  "next": "Bind resolver to authenticated original layout/spec under snapshot. Extend custody/request/parent classifier and acceptance writer, preserving original producer provenance truthfully.",
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/certificate_spec_adapter_cx1v001.py",
+      "sha256": "bb4ed278c65f4b236ccd3febcae107c07a71797253aec54be2436edafd5bf925"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_certificate_spec_adapter_cx1v001.py",
+      "sha256": "3e216dd81fe1559868bdc5d5dd558629d2dc330277ca35c15af3e34559b38373"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/real_guard_20261021T131503401528/SPEC_ADAPTER_TEST_REPORT.json",
+      "sha256": "3ffc0f2a49e30d79980c00d412e4c0b4969a6a81d391cdb24632c72ec3f30eae"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_launcher_c2v015.py",
+      "sha256": "cd987edd097323999847208d7b5fdfd93dadecb8a10beb6feaf91a0c53b68e0b"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+      "sha256": "ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107"
+    }
+  ],
+  "no_live_processes": true
+}

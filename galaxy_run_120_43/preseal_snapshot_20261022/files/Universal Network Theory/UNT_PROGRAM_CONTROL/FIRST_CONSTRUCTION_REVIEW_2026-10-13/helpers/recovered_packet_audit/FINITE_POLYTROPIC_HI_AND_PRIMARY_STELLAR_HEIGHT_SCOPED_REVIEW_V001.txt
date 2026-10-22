@@ -1,0 +1,32 @@
+FINITE POLYTROPIC HI AND PRIMARY STELLAR HEIGHT — SCOPED ANALYTIC REVIEW V001
+2026-10-16; local Codex1 helper recovered_packet_audit. Root-selected source branch; no numerical galaxy calculation.
+
+1. Primary height convention
+Source: CODEX1/LEROY_2008_ARXIV_0810_2556V1_PRIMARY_SOURCE_V001.pdf, SHA b9537561b4dbc2d96bf953ddb80566154d6c0694e7be5bb7a0e8c375a58b69ca, Appendix B page36, Stellar Velocity Dispersion prose.
+Literal sentences read: “First, we assume that the exponential stellar scale height, h*, of a galaxy does not vary with radius.” “Second, we assume that h* is related to the stellar scale length, l*, by l*/h* = 7.3 ± 2.2, the average flattening ratio measured by Kregel et al. (2002).” The same paragraph states Sigma*=4 rho* h*, with rho* the midplane stellar density, under an isothermal vertical assumption.
+A precise implementation consistent with BOTH the printed column normalization and asymptotic exponential scale is
+ rho_star(R,z)=Sigma_star(R)/(4 h*) sech^2(z/(2 h*)), h*=Rd/7.3.
+Indeed its full vertical integral is Sigma and its large-|z| exponent is exp(-|z|/h*). This is the inferred isothermal-sheet shape convention consistent with those primary statements, not a literal sech equation quoted from this paragraph. The observed population flattening motivates h*=Rd/5.1 and Rd/9.5 alternatives; these are not measured individual confidence bounds. Treat this shape as a chosen source profile, NOT proof it is in dynamical equilibrium in the UNT metric. Do not import Leroy's subsequent Newtonian sigma_star–G–Sigma relation. The earlier .196 Rd^.633 prescription remains a separately named model, not the primary reference here.
+
+2. Static polytropic HI
+For P=K rho^Gamma, epsilon=rho c^2+P/(Gamma-1), Gamma>1 and K constant along a column,
+ w=(epsilon+P)/rho=c^2+Gamma K rho^(Gamma-1)/(Gamma-1),
+ dP/(epsilon+P)=d ln w.
+Common-metric static perfect-fluid Euler gives dP/(epsilon+P)=-d ln N, so w(z)N(z)=w0 N0. Set P0/rho0=sigma0^2 and h0=Gamma sigma0^2/(Gamma-1). Then
+ f(z)=[((c^2+h0)N0/N(z)-c^2)/h0]_+^(1/(Gamma-1)),
+ rho(z)=rho0 f(z), rho0=Sigma_HI/integral f d l_perp,
+ K=sigma0^2 rho0^(1-Gamma).
+Use proper column measure consistently with the surface-density definition. In weak Euclidean reference coordinates dl_perp=dz; in the actual metric use the corresponding normal measure. P and epsilon, including internal energy, enter the SAME metric/source equations. Gamma=5/3 reference and7/5 alternative are counted isotropic effective-fluid preparations. sigma0=11km/s and8/14 alternatives are population-motivated from primary Appendix B gas prose, not object-specific coverage or molecular dispersion measurements.
+
+3. Free boundary and failure
+Require a positive central connected layer, midplane symmetry/balance, timelikeness and vanishing pressure at its free boundary. If N(z) tends N_escape, strict ln(N_escape/N0)>ln(1+h0/c^2) ensures the bracket is eventually negative and finite support under continuity. Equality is marginal and is not a finite-height certificate. If the threshold is not crossed, this selected finite-support branch fails; do not insert an unreported height cutoff. For nonmonotone profiles specify the connected layer containing the midplane rather than automatically populating disconnected positive-bracket regions. Sigma normalization and metric are solved jointly; no independent K fitted after fixing sigma0 and Sigma.
+
+4. Rotating vertical Euler
+For stationary axisymmetric no-shift metric, circular u proportional to partial_t+Omega partial_phi, R=sqrt(h_phiphi):
+ a_z=[N partial_z N-(Omega^2/c^2)R partial_z R]/[N^2-Omega^2 R^2/c^2].
+Here a_z is dimensionless logarithmic acceleration, and d ln w/dz=-a_z. If Omega is constant along a vertical column, N_rot=sqrt(N^2-Omega^2R^2/c^2) gives exact w N_rot=constant. Replace N by N_rot in f and its escape test and require N_rot>0. With Omega(z), integrate actual a_z; differentiating N_rot adds an Omega derivative absent from a_z, so the simple first integral is not valid. N-alone is exact static fluid or a declared controlled leading weak-field vertical approximation. No Newtonian gravitational law is inserted.
+
+5. H2 and scope
+Do not assign HI sigma0 to H2 silently. A concrete reference for the ten measured NGC3198 molecular rings is a normalized tracer profile with the adopted stellar h*, explicitly a shared-thickness source approximation. Vary its thickness multiplier as a stated model sensitivity only if selected; no measured interval is supplied. Missing H2 rings and DDO154 blank H2 remain separate unknown components, not zero or upper limits. The H2 reference shape is not claimed molecular hydrostatic equilibrium.
+
+Verdict: PASS_SCOPED analytic closure, with rotating Euler/proper measure/free-boundary conditions mandatory. The model gives a concrete source-preparation branch, not an independently measured gas height or guarantee of a coupled solution.

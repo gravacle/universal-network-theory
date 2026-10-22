@@ -1,0 +1,94 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/resumable_coupled_gas_0422/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_c2v001.py	2026-10-16 09:22:07.196917795 -0500
++++ coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_uvtail_c2v001.py	2026-10-17 22:51:01.971725191 -0500
+@@ -6,8 +6,17 @@
+ FIXEDSRC c2v001 (Claude2 0424): optional fixed_source_fourier_J. Omitted (None),
+ the fixed term is evaluated exactly as before. Supplied, that validated array is
+ the fixed term; fixed positions/columns are kept only as provenance.
++UVTAIL c2v001 (Claude2 tail_scheme_impl_c2/route_a; successor of 44d9c23c; TAIL_SCHEME_DESIGN_V002 sec 3.5):
++optional uv_tail (a route_a_uv_tail_controller_c2v001.RouteATailController). uv_tail=None (default) executes the
++reviewed statements unchanged. Supplied: boundary_jet_at_positions must BE uv_tail.boundary (the TailBoundary);
++the tail state of each iteration is set before prepare (L111/112), the updated roster, M_T/M_K monitor and sidecar
++are committed after the residual (L196-199, before the checkpoint COMPLETED record), and every returned outcome
++carries result['uv_tail']. Stopping rule, tolerances, guards and the column try are unchanged. bind_uv_tail(c)
++returns a module-shaped view (__file__ = this file) whose solve fixes uv_tail=c, for the reviewed composite adapter.
+ """
++import functools
+ import math
++import types
+ import numpy as np
+ 
+ 
+@@ -34,7 +43,7 @@
+           source_module, fourier_module, metric_module, hi_module, quadrature_module,
+           c_m_s, max_iterations, relaxation, source_atol_J, source_rtol,
+           reality_atol, reality_rtol, vertical_fourier_module=None, progress_callback=None,
+-          checkpoint=None, fixed_source_fourier_J=None):
++          checkpoint=None, fixed_source_fourier_J=None, uv_tail=None):
+     """Required actual inputs:
+     fixed positions[n,3]/J[n,10,1]: stellar,H2,exterior etc already integrated,
+     with source components in REGISTERED chart. Unknown sources never filled.
+@@ -78,6 +87,9 @@
+     gas=np.asarray(initial_gas_fourier_J,dtype=complex)
+     if gas.shape!=fixed.shape or gas.shape[1:]!=(10,1): raise ValueError('Single actual combined source [nk,10,1] required')
+     _finite(gas,'initial gas')
++    if uv_tail is not None:
++        # UVTAIL: the bound TailBoundary is the boundary slot; checked before any checkpoint record.
++        uv_tail.bind_check(boundary_jet_at_positions,checkpoint)
+     history=[]
+     cm=None; ck=None; start_iteration=0
+     if checkpoint is not None:
+@@ -101,14 +113,23 @@
+             # Stored already-relaxed iterate, never reconstructed by subtraction.
+             start_iteration=ck['resume']['iteration']
+             gas=ck['resume']['gas']; history=ck['resume']['history']
++    if uv_tail is not None:
++        # UVTAIL: sidecar opened (new) or verified and its rosters reloaded (resume) against this checkpoint.
++        uv_tail.open(relaxation=relaxation,start_iteration=start_iteration,
++            checkpoint_mode=None if ck is None else checkpoint['mode'],
++            checkpoint_identity_sha256=None if ck is None else ck['identity_sha256'])
+     def _finish(out,outcome):
+         if fixed_source_fourier_J is not None:
+             out['fixed_source_selection']={'selection':'SUPPLIED_FIXED_SOURCE_FOURIER_J',
+                 'fixed_positions_and_integrated_columns':'PROVENANCE_ONLY; accepted unchanged, not used for the fixed term'}
++        if uv_tail is not None: out['uv_tail']=uv_tail.result_record(outcome=outcome)
+         if ck is not None: out['checkpoint']=cm.finish(ck,outcome=outcome,result=out)
+         return out
+     for iteration in range(start_iteration,max_iterations):
+         current=fixed+gas
++        if uv_tail is not None:
++            # UVTAIL: tail state of THIS iteration's gas (I1-T against gas), before prepare and any column.
++            uv_tail.begin_iteration(iteration=iteration,gas=gas)
+         prepared=fourier_module.prepare(**args,source_density_fourier=current)
+         restored=[]; resumed=False
+         if ck is not None:
+@@ -197,6 +218,10 @@
+         if not math.isfinite(residual) or not math.isfinite(scale): raise ValueError('Nonfinite coupling residual')
+         bound=source_atol_J+source_rtol*scale
+         if not math.isfinite(bound): raise ValueError('Nonfinite source convergence bound')
++        if uv_tail is not None:
++            # UVTAIL: updated roster, next (relaxation-mirrored) state, M_T/M_K, sidecar -- before COMPLETED.
++            uv_tail.complete_iteration(iteration=iteration,positions=positions,columns=columns,gas=gas,
++                updated=updated,current=current,prepared=prepared,converged=residual<=bound)
+         history.append({'iteration':iteration,'gas_fourier_residual_J':residual,'bound_J':bound,
+                         'roots_m':[r['roots_m'] for r in solutions]})
+         if ck is not None:
+@@ -218,6 +243,19 @@
+             'scope':'iteration budget exhausted; not a solved galaxy'},'ITERATION_BUDGET_EXHAUSTED')
+ 
+ 
++def bind_uv_tail(uv_tail):
++    """Module-shaped view of THIS file whose solve fixes uv_tail (for callers such as the reviewed composite adapter
++    that call solver_module.solve with a fixed keyword set). __file__ is this file, so caller pins are unchanged."""
++    if uv_tail is None: raise ValueError('bind_uv_tail requires a controller; tail OFF uses this module directly')
++    view=types.ModuleType(__name__+'_uv_tail')
++    view.__file__=__file__
++    view.__doc__='solve() of %s with uv_tail bound'%__file__
++    view.solve=functools.partial(solve,uv_tail=uv_tail)
++    view.uv_tail=uv_tail
++    view.cylindrical_metric_covector_to_registered=cylindrical_metric_covector_to_registered
++    return view
++
++
+ def cylindrical_metric_covector_to_registered(*, R_m, phi, Cbar,
+                                                lapse_J, metric_covector_cyl,
+                                                mean_covector_J):

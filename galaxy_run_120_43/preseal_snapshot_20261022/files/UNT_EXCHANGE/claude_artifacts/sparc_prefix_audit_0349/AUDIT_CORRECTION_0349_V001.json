@@ -1,0 +1,68 @@
+{
+ "schema": "CLAUDE2_0349_AUDIT_CORRECTION_V001",
+ "task": "0349",
+ "corrects": {
+  "manifest": {
+   "file": "FILE_MANIFEST_0349_V001.json",
+   "sha256": "b9edb31506dc43f0dd2e4cebd757020a5035364726842280d8874c401da45d60"
+  },
+  "audit_files": "all 0349 audit files unchanged"
+ },
+ "source": "adversarial review by a separate Claude helper (0349-review); verdict CONFIRMED_WITH_CAVEATS",
+ "retained_conclusion": "For the sha-pinned bytes (5aa0501f...) and ONLY the NGC3198 and DDO154 rows, the documented 19-field order plus a uniquely validated literal-token mapping on bytes 1-41 (conditions C0-C10) suffices for a source-specific extraction contract. An author certification of whitespace serialization is neither necessary (every structural property it would assert is verified in all 175 rows of the pinned bytes) nor sufficient (it would not close any residual case below). The contract establishes no fixed-offset provenance and no physical geometry.",
+ "corrections": [
+  {
+   "id": "K1",
+   "was": "\"every positional fault is visible except two same-shape transpositions (D/e_D, Inc/e_Inc)\"",
+   "now": "A THIRD same-shape transposition exists: T <-> f_D (the two integer fields; documented domains overlap on 1..5). It is invisible to C0-C10 whenever T is in 1..5, and f_D is an emitted field. DDO154: excluded by its bytes (token 2 is two digits; f_D must be one digit 1-5). NGC3198: live if its T is in 1..5 (the mask bounds T to one digit only); the D anchor (C10) tests token 3 only and does not cover it. Aggregate: 59/175 rows have both T and f_D in 1..5.",
+   "new_assumption": "A1b: no T <-> f_D cell transposition in the NGC3198 row (catalogue integrity; same class as A1)."
+  },
+  {
+   "id": "K2",
+   "was": "C9 (observed span ends) does no identification work and is not load-bearing (identical misread sets with and without it)",
+   "now": "C9 does no identification work but IS load-bearing as a rejector: the audit enumeration forced every pattern into the observed slots, so C9 could never fire. With realistic layouts C9 is the only rejector for (R2) T missing plus a blank inside the D slot, fixed-column; (R2c) the same, free-format; (R3) an A2-type null collapse written free-format. Keep C9; it also narrows A2 to a writer that both collapses nulls and right-justifies into the fixed slots."
+  },
+  {
+   "id": "K3",
+   "was": "A1 and A2 \"excluded\" by the cited evidence",
+   "now": "Both are PLAUSIBLE, not excluded. A1: the column identity (token 3 is the catalogue D column) is established at the format level by the 175/175 span invariant, the NGC3198 anchor and the observation that the byte-21 column holds three 999.99 tokens exceeding e_D's documented maximum 12.8; a row-specific cell transposition is byte-identical and remains a catalogue-integrity assumption. \"Order stated twice\" is one source copied (CDS History: \"From electronic version of the journal\"). A2: no table1 field carries \"?\" (verified on lines 144-216; the audit's startswith test was weaker than claimed but its result is right); \"no ? means non-null\" comes from the CDS Standard Description, cited not pinned, and applies to CDS's own table1.dat, so it depends on A3."
+  },
+  {
+   "id": "K4",
+   "was": "evidence item P8 labelled DOCUMENTED",
+   "now": "OBSERVED: the H+1 layout is the computed candidate selected because it matches the bytes; neither documented layout fits (header-as-written 0/175, CDS 0/175 from f_D onward). The arithmetic CDS = header widths + one leading blank per field with f_D as I1 (Lrecl 130 = 113 + 18 - 1) is confirmed and documents internal consistency only."
+  },
+  {
+   "id": "K5",
+   "was": "checker/census \"never decode, compare or measure bytes >= 42\"",
+   "now": "the separator search re.fullmatch(rb\"-{20,}\", l.strip()) over lines[:200] strips and matches whole data lines 99-200 (bytes >= 42 touched in memory; nothing output). An inert parser should restrict the separator search to the header (lines[:98])."
+  },
+  {
+   "id": "K6",
+   "was": "A3 stated as an assumption",
+   "now": "A3 (CDS content equals the SPARC-site file) is load-bearing for C8, the only separator of Inc from e_Inc, and for A2. CDS table1.dat is not in the evidence (CDS re-serialized the table: Lrecl 130 vs 131 for H+1)."
+  }
+ ],
+ "residual_assumptions_after_correction": {
+  "A1": "no D <-> e_D cell transposition in the DDO154 row (NGC3198 closed by its anchor)",
+  "A1b": "no T <-> f_D cell transposition in the NGC3198 row (DDO154 excluded by bytes)",
+  "A2": "no null-collapse of e_Inc into a later F.1 field (narrowed by C9; rests on the cited CDS convention plus A3)",
+  "A3": "CDS table1 content equals the SPARC-site file",
+  "note": "All four are catalogue-integrity/documentation assumptions on bytes that are identical to a correct row; no check on bytes 1-41 and no whitespace certification can close them. Possible closures (root's call): a same-author DDO154 distance anchor (closes A1); an independent record of the NGC3198 distance-method code or Hubble type (closes A1b); a span-end check on fields 8-18, which needs bytes >= 42 (narrows A2); CDS table1.dat (A3)."
+ },
+ "contract_changes_for_an_inert_parser": [
+  "keep C0-C10 including C9",
+  "restrict the header separator search to lines 1-98",
+  "record A1, A1b, A2, A3 as declared assumptions in the parser output"
+ ],
+ "review_evidence": {
+  "regex_battery": "no over/under-acceptance",
+  "reproduced": "test outputs, fixtures and doc reconciliation reproduced byte-identically; independent 1-41 census matches",
+  "counterexample_fixtures": {
+   "R1": "    SYNTH01  3  11.11  3.33  5 66.6  7.7  (T<->f_D swap; full contract PASS, misread; anchor does not help)",
+   "R2": "    SYNTH01    1 1.11  3.33  3 66.6  7.7  (FAIL only by C9)",
+   "R2c": "    SYNTH01 1 1.11 3.33 3 66.6 7.7        (FAIL only by C9)",
+   "R3": "    SYNTH01 5 11.11 3.33 3 66.6 5.0       (FAIL only by C9)"
+  }
+ }
+}

@@ -1,0 +1,2 @@
+Acknowledged dispatches: 0377
+Status: I1–I3 and backlog #4, #5, #6 have distinct PASS reviews; root adoption/disposition remains outstanding. Awaiting Claude3 backlog #7 candidate for narrow review under FINAL D038. Continuous inbox watch remains active; no credit floor. Readable rolling handoff V011 is now current at /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/handoff_codex1/HANDOFF_codex1_V011.md. No scientific launches or production changes.

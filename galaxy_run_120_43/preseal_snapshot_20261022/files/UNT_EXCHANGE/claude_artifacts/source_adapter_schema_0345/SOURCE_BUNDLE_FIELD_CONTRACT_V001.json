@@ -1,0 +1,142 @@
+{
+ "schema": "NGC3198_SOURCE_BUNDLE_FIELD_CONTRACT_V001",
+ "task": "0345-A",
+ "adapter": {
+  "file": "ngc3198_source_bundle_adapter_v001.py",
+  "sha256": "f2df4d49ff76655bdd7c2da336488a20eceadf5f72cbdc3ac48a69946d6f9634"
+ },
+ "status": "INERT CANDIDATE; synthetic-only execution by the author; root executes after admission",
+ "basis": {
+  "crosswalk": "SOURCE_CROSSWALK_V001.json 691483835e9d5201957a2b7183deaa1e8d994efeaa2644c3374d8e59f2450c72",
+  "query_manifest": "NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494"
+ },
+ "pinned_inputs": {
+  "query_manifest": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494",
+  "s1_table (P53 01_TABLE_FULL.json)": "4cf4b4b386f7a129fceaa4da7b5eede9f2c528e518f058ed71603ff667e29d24",
+  "s2_results (PLANAR_SOURCE_RESULTS.json)": "44b359abbcae5c0c61b26d3adc515a716fd6d45795fcecff3004189814230b2c",
+  "crosswalk": "691483835e9d5201957a2b7183deaa1e8d994efeaa2644c3374d8e59f2450c72",
+  "crosswalk_correction (SOURCE_CROSSWALK_CORRECTION_0346_V001.json)": "988e871acc0e6f3c1e3b91abec7143cb5b69241d6894b140f15369a6f29fca24"
+ },
+ "allowlist": {
+  "queries": {
+   "pointers": [
+    "/rows/{i}/query_id",
+    "/rows/{i}/Rad_text",
+    "/rows/{i}/Rad_unit"
+   ],
+   "checks": [
+    "exactly 43",
+    "IDs NGC3198-Q01..Q43 in order, no duplicates",
+    "Rad_text decimal > 0, strictly increasing",
+    "unit kpc"
+   ]
+  },
+  "S1": {
+   "pointers": [
+    "/value/rows/{i}/original_line_number",
+    "/value/rows/{i}/radius_kpc",
+    "/value/rows/{i}/units",
+    "/value/rows/{i}/{gas_helium,helium_multiplier_applied,stellar_ML_applied_again}",
+    "/value/rows/{i}/{HI,H2,stars}/{published_value,published_error_field,interpretation}",
+    "/value/{whole_table_sha256,whole_covariance,source_selected,raw_to_native_map}"
+   ],
+   "checks": [
+    "status RETURN; representation MASS_SURFACE_DENSITY",
+    "23 rows, original lines 320-342 in order",
+    "radius exact-rational string, > 0, increasing",
+    "units Msun/pc^2; helium ALREADY_INCLUDED; no multiplier or M/L reapplied",
+    "MISSING => value and error null; otherwise both exact-rational strings; error not negative",
+    "H2 rows 0-9 present"
+   ],
+   "literal_format": "exact rational strings as P53 recorded them; not converted"
+  },
+  "S2": {
+   "settings_enumerated": [
+    "HI_atoms_cm2_per_Msun_pc2",
+    "bin_arcsec",
+    "center_dec_deg",
+    "center_ra_deg",
+    "center_source",
+    "column_conversion_from_history",
+    "distance_pc",
+    "geometry",
+    "helium_factor",
+    "inclination_deg",
+    "orientation_source",
+    "pa_deg",
+    "rebin"
+   ],
+   "pixel_categories": [
+    "finite",
+    "negative",
+    "nonfinite",
+    "positive",
+    "total",
+    "zero_or_replaced_mask"
+   ],
+   "orders": "/orders/{0,1} with subpixels_per_axis exactly [4, 8]",
+   "profile_arrays": [
+    "r_lo_kpc",
+    "r_hi_kpc",
+    "complete_by_conservative_chord_bound"
+   ],
+   "profiles": {
+    "profile_40arcsec": 237,
+    "profile_120arcsec": 79
+   },
+   "groups": [
+    "full",
+    "X_negative",
+    "X_nonnegative"
+   ],
+   "group_fields": {
+    "mass_Msun": "never null",
+    "positive_mass_Msun": "never null",
+    "negative_mass_Msun": "never null (signed, preserved)",
+    "effective_HI_Msun_pc2_complete_only": "null iff incomplete",
+    "effective_HI_plus_He_Msun_pc2_complete_only": "null iff incomplete (x1.36 as extracted; not reapplied)",
+    "zero_fraction_of_footprint": "never null (mask fraction)",
+    "finite_fraction_of_footprint": "never null",
+    "positive_fraction_of_footprint": "never null",
+    "negative_fraction_of_footprint": "never null",
+    "nominal_disk_area_pc2": "never null",
+    "plane_pc2": "never null",
+    "cosi_times_finite_sky_weighted_LOS_sigma_rms_Msun_pc2_not_measurement_error": "null allowed (descriptive scatter, NOT a measurement error)"
+   },
+   "checks": [
+    "status COMPLETE, failed_checks []",
+    "widths 40/120",
+    "r_lo[0]=0, r_hi>r_lo, contiguous edges (1e-9 relative)",
+    "completeness flags a contiguous prefix",
+    "numbers finite (no NaN/inf, no bool)"
+   ],
+   "addition_vs_0341": "the descriptive-scatter field is added so that scatter is carried and labelled distinctly from measurement error, as 0345 requires"
+  },
+  "conventions": "crosswalk /sources/S1_LEROY_T7/{tracers,radial_coordinate,resolution,geometry,units,helium_conversion_state,masks,error_fields,support} and /sources/S2_HALOGAS_C1/{tracer,radial_coordinate,geometry,units,helium_conversion_state,masks,error_fields,support,resolution}, copied verbatim with pointers; plus the 0346 correction companion: must bind the crosswalk sha; ids unique; every crosswalk_pointer must resolve; each correction attached to its convention item (or listed under corrections_for_sources_not_in_bundle); crosswalk text kept verbatim, correction \"now\" governs provenance class"
+ },
+ "excluded": [
+  "S1 raw_line_ascii (contains non-allowlisted columns)",
+  "S1 radius_over_r25 (r25 from table4)",
+  "S2 settings chunk_rows, tolerances and subsamples",
+  "S2 direct_map_totals, los_sigma2_sky_integral, missing_footprint_fraction_raw, half_effective_HI_difference_complete_only, jacobian bounds, solid-angle and column-integral fields, assignment_comparison, checks",
+  "every key not allowlisted (velocity, response, force or any other field) by construction"
+ ],
+ "value_kinds": {
+  "S1 error_kind": [
+   "PUBLISHED_RMS_MEASUREMENT_ERROR",
+   "PUBLISHED_FIELD_1_NOTE3_UPPER_LIMIT_MARKER_QUARANTINED (HI/stars only)",
+   "LITERAL_ZERO_MEANING_UNRESOLVED",
+   "MISSING"
+  ],
+  "S2 kinds": "per field (mask_fraction_*, descriptive_scatter_not_measurement_error, retained mass, effective density, geometry_area, geometric_completeness_flag)",
+  "S2 measurement_uncertainty": "UNKNOWN (never zero)"
+ },
+ "provenance": "every emitted array/value carries file, sha256 and JSON pointer; array element i = pointer/i",
+ "failure_policy": "any violation -> coded failure, exit 2, no bundle written; unexpected exception -> exit 3; existing output refused",
+ "open_issues": "OPEN-1..OPEN-10 emitted in the bundle (/open_issues); OPEN-10 = primary verification of numeric conversion values (0346)",
+ "provenance_classes_0346": {
+  "PRIMARY-STATED": "stated in a primary source document (e.g. Leroy ReadMe Note 2 \"Including helium.\")",
+  "SECONDARY": "value taken from a secondary local note, program freeze or audit; primary verification OPEN",
+  "PROGRAM-DECLARED": "convention declared by a program protocol (e.g. 1.25e20 per Msun/pc^2; S2 working plane)"
+ }
+}

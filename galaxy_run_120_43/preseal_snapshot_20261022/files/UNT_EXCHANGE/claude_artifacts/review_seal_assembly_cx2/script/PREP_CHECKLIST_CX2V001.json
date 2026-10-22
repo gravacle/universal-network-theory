@@ -1,0 +1,109 @@
+{
+  "actual_run_access_count": 0,
+  "candidate_execution_count": 0,
+  "candidate_review": "UNTESTED",
+  "checks": [
+    {
+      "expected": [
+        "Exclusive-create FROZEN addendum copy",
+        "Tool 1 (frozen-addendum check)",
+        "Binder writes bound plan and command",
+        "Sealed prereg fills slots",
+        "Sealed compare sets exactly five pins",
+        "Tool 2",
+        "Tool 3",
+        "--gates-only",
+        "--validity-only --case C5H; booleans only; capture stdout",
+        "Tool 4 prints exact SEAL_RECORD bytes",
+        "Exclusive-create SEAL_RECORD",
+        "Config",
+        "Receipt"
+      ],
+      "id": "ORDER_13"
+    },
+    {
+      "expected": "Hash exact input bytes against pinned expectations before each step; also hash executable/script and dependency inputs before invoking them. Newly generated inputs become explicit checked successor pins, not unchecked paths.",
+      "id": "INPUT_SHA_EACH_STEP"
+    },
+    {
+      "expected": "Every command status propagates; pipeline failures cannot be masked. A failed tool must prevent all later steps and must not leave an apparent successful final SEAL_RECORD.",
+      "id": "STOP_FIRST_FAILURE"
+    },
+    {
+      "expected": "Frozen copy, bound outputs, sealed prereg/compare, captured outputs, final record, config and receipt must refuse existing destinations; no truncating redirection or replacement.",
+      "id": "EXCLUSIVE_CREATES"
+    },
+    {
+      "expected": "No earlier/later command invokes actual C5H run access. Step9 alone may use the specified root-only blinded validity invocation; this reviewer never executes it or reads its actual run.",
+      "id": "C5H_ONLY_STEP9"
+    },
+    {
+      "expected": "Assembled script is inert until root explicitly runs it; no prestage import/hook/automatic invocation of seal commands.",
+      "id": "NO_PREMATURE_WRITES"
+    },
+    {
+      "expected": "A81/A82/RI-19 order preserved; frozen addendum cannot depend on sealed prereg own hash; sealed compare differs only in allowed five pins.",
+      "id": "PIN_CYCLE"
+    },
+    {
+      "expected": "Switch to reviewed seal_tools v002 paths and bytes once published; v001 placeholder use explicit pending state. Resolve tool2/tool3 identity by selected interfaces rather than ambiguous ordinal comments.",
+      "id": "TOOL_V002_BINDING"
+    },
+    {
+      "expected": "No driver/monitor/forward/route command in seal assembly; binder output command is data, never executed by assembly.",
+      "id": "NO_SCIENCE"
+    },
+    {
+      "expected": "Any builder-provided dry rehearsal is evidence only until independently inspected; real seal locations unavailable and C5H stubbed. No supplied rehearsal execution by this reviewer.",
+      "id": "DRY_REHEARSAL_SCOPE"
+    }
+  ],
+  "date_u": "Sun Oct 18 20:57:48 UTC 2026",
+  "expected_script": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS.sh",
+  "input_pins_end": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0626_2026-10-18_claude3_codex2_seal_assembly_prestage.md",
+      "sha256": "c555ee9458d61b8fd5437490ed71dda17f34307cb82c0fa3bd122b4efc5f873c"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools/README_SEAL_TOOLS.md",
+      "sha256": "1e04bd2a9f4fdeae2b37c9c222919ac076bcd0a3586914c42c6a60d4316b32e3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools/check_frozen_addendum_c4v001.py",
+      "sha256": "c4ebbb5bf69bb8b9c2ea82046c3553897a246cefc417f2d8bc556b10c62381e2"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools/build_seal_record_c4v001.py",
+      "sha256": "3091fc2afa2e16f74d8c634d8605205c792788924f078b5aae806351a1d18c70"
+    }
+  ],
+  "input_pins_start": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0626_2026-10-18_claude3_codex2_seal_assembly_prestage.md",
+      "sha256": "c555ee9458d61b8fd5437490ed71dda17f34307cb82c0fa3bd122b4efc5f873c"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools/README_SEAL_TOOLS.md",
+      "sha256": "1e04bd2a9f4fdeae2b37c9c222919ac076bcd0a3586914c42c6a60d4316b32e3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools/check_frozen_addendum_c4v001.py",
+      "sha256": "c4ebbb5bf69bb8b9c2ea82046c3553897a246cefc417f2d8bc556b10c62381e2"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools/build_seal_record_c4v001.py",
+      "sha256": "3091fc2afa2e16f74d8c634d8605205c792788924f078b5aae806351a1d18c70"
+    }
+  ],
+  "notes": [
+    "Tool1 v001 run() records PREREG_SLOT_NOT_FILLED as a note; a draft prereg can be checked before bind/seal. It hashes frozen bytes and optionally enforces --expect-frozen-sha. This is source inspection, not execution.",
+    "Tool4 v001 returns exit2 with no record text on refusal and prints record bytes to stdout on success; caller must verify command status before exclusive final commit. Supplied README pipeline is not independently approved here.",
+    "README v001 refers to r4/compare-r10/BUILD_V005 metadata; 0626 requests v002 and current selected inputs. No absent candidate defect is inferred from predecessor documentation."
+  ],
+  "observation_scope": "One direct directory existence/list inspection only; no ongoing polling. Publication may change after observation.",
+  "observed_assembly_directory_present": false,
+  "observed_at_date_u": "Sun Oct 18 20:57:15 UTC 2026",
+  "observed_v002_tools_present": false,
+  "status": "PREPARED_CANDIDATE_ABSENT"
+}

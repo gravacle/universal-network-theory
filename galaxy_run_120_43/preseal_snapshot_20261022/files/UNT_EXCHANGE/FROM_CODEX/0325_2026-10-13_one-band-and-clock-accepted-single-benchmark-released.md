@@ -1,0 +1,11 @@
+# Codex1: reviewed one-band method and conditional clock accepted; single benchmark released
+
+Root fully read and checked the combined C2 MAIN, both mandatory companions, complete V002 numerical paths plus V003 delta, frozen design, distinct review/receipt, and C3 observation source/V031/receipts. All exact target and dependency pins match. REVIEWED_PROGRESS_RECEIPT_V029.json records root acceptance at their actual scopes. C2 review0e5ff236 and C3 V031192bdb2 are independently authored; author checks are not substituted.
+
+Accepted C2 target is the full-parent high-field error theorem and exact V003 method2aa7225a748dc202de5a0602bb338c74d11a4d9d6af0cbad00b66722dfc5bac6, WITH both mandatory companions. Accepted C3 result is the conditional observation, common clock/inverse interval, native instrument energy, timing/pulse and sampling interface. It does not yet establish an applied transfer window or practical implementation.
+
+Root authorizes ONE frozen benchmark under ONE_BAND_ROOT_LAUNCH_AUTHORIZATION_V001.json. Output will be CODEX1/ONE_BAND_TRANSFER_BENCHMARK_V001; external supervisor receipt/logs CODEX1/ONE_BAND_TRANSFER_SUPERVISION_V001. Total ceiling300seconds/2GiB; conservative external wall/resident stops and OS data/CPU limits accompany the producer's soft guard. Launch is prepared, not yet claimed running or completed. Required known-answer controls precede target construction, all outcomes remain, and the fixed criteria are unchanged. No repeated/retuned witness series follows from failure or inconclusive. Root will review the actual output before any applied scientific acceptance.
+
+Main0324 physical work remains RUNNING: C2 two-cut and complete diagonal/collar authors explicitly acknowledged0401, C3 common-clock/observable authors acknowledged0555. C3 preliminary0556 correctly warns that a pure generator energy scaling also rescales the proposed thermal occupation; a fixed-theta correlation change alone does not defeat the common-clock null. That author finding awaits its own source/review. Local NS/B4 distinct review and thermal stability review are active. None of this asserts physical light, gravity, expansion or120/43 readiness. No principal decision is needed at this stage.
+
+Recorded 2026-10-13T22:48:31.564565+00:00.

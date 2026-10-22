@@ -1,0 +1,557 @@
+{
+ "schema": "UNT_KMAX_COMPARE_TESTS_C2_V005",
+ "n": 55,
+ "n_pass": 55,
+ "results": [
+  {
+   "test": "compare script pins the V005 prereg bytes",
+   "pass": true,
+   "detail": {
+    "pinned": "dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174"
+   }
+  },
+  {
+   "test": "real R1 recovery file validates against the real prereg",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "test": "R1 equals amendment_v005.d7_recovery.R1.brackets",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "real prereg: v005 in drivers and in drivers_allowed of exactly C3,C4,R,S3,Y3,S4,Y4",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "V005 criterion/tau/sigma/rows/grids/anchor/fixed/admission byte-identical to V004 (canonical)",
+   "pass": true,
+   "detail": [
+    "criterion",
+    "tau_km_s",
+    "quoted_sigma_km_s",
+    "row_ids",
+    "grids",
+    "anchor",
+    "fixed_across_all_cases",
+    "admission_constraint"
+   ]
+  },
+  {
+   "test": "v005_valid_adopt -> ADOPT/sphere",
+   "pass": true,
+   "detail": {
+    "got": "ADOPT/sphere",
+    "reasons": [
+     "passing shapes ['sphere', 'cylinder']; m4 candidates ['sphere']; adopted sphere by smallest Dhat_3_4"
+    ]
+   }
+  },
+  {
+   "test": "v005-valid: all 10 cases valid; C3..Y4,R ran v005, C2/S2/Y2 v001",
+   "pass": true,
+   "detail": {
+    "C4": [
+     "v005",
+     []
+    ],
+    "S4": [
+     "v005",
+     []
+    ],
+    "Y4": [
+     "v005",
+     []
+    ],
+    "C3": [
+     "v005",
+     []
+    ],
+    "S3": [
+     "v005",
+     []
+    ],
+    "Y3": [
+     "v005",
+     []
+    ],
+    "C2": [
+     "v001",
+     []
+    ],
+    "S2": [
+     "v001",
+     []
+    ],
+    "Y2": [
+     "v001",
+     []
+    ],
+    "R": [
+     "v005",
+     []
+    ]
+   }
+  },
+  {
+   "test": "v005-valid: admissibility recorded PASS",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "v005-valid: recovery recorded as R1, changed fs entries 5,6,7,8,9,45,50 only",
+   "pass": true,
+   "detail": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/check/rerun_author_tests_V001/mock_v005_valid_adopt/recovery.json",
+    "sha256": "20c7017ca7552f59689b0e11069299bd0ffcb51e33a2087556bc76c8cf33780a",
+    "reason": "test",
+    "invocation": null,
+    "equals_registered_R1": true,
+    "changed_rule_keys": [
+     "fs_absolute_overrides"
+    ],
+    "changed_fs_entries": [
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "45",
+     "50"
+    ]
+   }
+  },
+  {
+   "test": "adopt next step names the driver of the adopted K=4 case (v005)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "v005_deciding_fail -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C3 failed ['V3'] V3:[\"V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL\"]",
+     "C4 failed ['V3'] V3:[\"V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL\"]",
+     "R failed ['V3'] V3:[\"V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL\"]",
+     "S3 failed ['V3'] V3:[\"V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL\"]"
+    ]
+   }
+  },
+  {
+   "test": "deciding FAIL: exactly the v005 cases invalid, each V3 only with V005_INADMISSIBLE",
+   "pass": true,
+   "detail": {
+    "C3": [
+     "V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"
+    ],
+    "C4": [
+     "V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"
+    ],
+    "R": [
+     "V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"
+    ],
+    "S3": [
+     "V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"
+    ],
+    "S4": [
+     "V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"
+    ],
+    "Y3": [
+     "V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"
+    ],
+    "Y4": [
+     "V005_INADMISSIBLE: deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"
+    ]
+   }
+  },
+  {
+   "test": "deciding FAIL: next step is amendment_v005.driver.inadmissible_next_step",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "v005_deciding_absent -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C3 failed ['V3'] V3:['V005_INADMISSIBLE: deciding result absent (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/check/rerun_author_tests_V001/deciding_absent/result.json)']",
+     "C4 failed ['V3'] V3:['V005_INADMISSIBLE: deciding result absent (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/check/rerun_author_tests_V001/deciding_absent/result.json)']",
+     "R failed ['V3'] V3:['V005_INADMISSIBLE: deciding result absent (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/check/rerun_author_tests_V001/deciding_absent/result.json)']",
+     "S3 failed ['V3'] V3:['V005_INADMISSIBLE: deciding result absent (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/check/rerun_author_tests_V001/deciding_absent/result.json)']"
+    ]
+   }
+  },
+  {
+   "test": "deciding absent: reason names absence",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "v005_deciding_finish_sha_mismatch -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C3 failed ['V3'] V3:['V005_INADMISSIBLE: finish.json result_sha256 0000000000000000000000000000000000000000000000000000000000000000 != sha256(result.json) 5faadfa007ffb9a97f8361ec7bc24331dec610404ecab1b42541d01fad6324d1']",
+     "C4 failed ['V3'] V3:['V005_INADMISSIBLE: finish.json result_sha256 0000000000000000000000000000000000000000000000000000000000000000 != sha256(result.json) 5faadfa007ffb9a97f8361ec7bc24331dec610404ecab1b42541d01fad6324d1']",
+     "R failed ['V3'] V3:['V005_INADMISSIBLE: finish.json result_sha256 0000000000000000000000000000000000000000000000000000000000000000 != sha256(result.json) 5faadfa007ffb9a97f8361ec7bc24331dec610404ecab1b42541d01fad6324d1']",
+     "S3 failed ['V3'] V3:['V005_INADMISSIBLE: finish.json result_sha256 0000000000000000000000000000000000000000000000000000000000000000 != sha256(result.json) 5faadfa007ffb9a97f8361ec7bc24331dec610404ecab1b42541d01fad6324d1']"
+    ]
+   }
+  },
+  {
+   "test": "deciding finish_sha_mismatch: inadmissible (result_sha256)",
+   "pass": true,
+   "detail": "finish.json result_sha256 0000000000000000000000000000000000000000000000000000000000000000 != sha256(result.json) 5faadfa007ffb9a97f8361ec7bc24331dec610404ecab1b42541d01fad6324d1"
+  },
+  {
+   "test": "v005_deciding_wrong_driver -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C3 failed ['V3'] V3:['V005_INADMISSIBLE: deciding driver_sha256 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb is not the pinned v005 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f']",
+     "C4 failed ['V3'] V3:['V005_INADMISSIBLE: deciding driver_sha256 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb is not the pinned v005 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f']",
+     "R failed ['V3'] V3:['V005_INADMISSIBLE: deciding driver_sha256 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb is not the pinned v005 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f']",
+     "S3 failed ['V3'] V3:['V005_INADMISSIBLE: deciding driver_sha256 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb is not the pinned v005 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f']"
+    ]
+   }
+  },
+  {
+   "test": "deciding wrong_driver: inadmissible (driver_sha256)",
+   "pass": true,
+   "detail": "deciding driver_sha256 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb is not the pinned v005 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f"
+  },
+  {
+   "test": "v005_deciding_wrong_spec -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C3 failed ['V3'] V3:['V005_INADMISSIBLE: deciding call_spec_sha256 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd is not the pinned 4ac5527ad1731353d798c2648adc1033335a12102ec071b3ae6a619334313cb7']",
+     "C4 failed ['V3'] V3:['V005_INADMISSIBLE: deciding call_spec_sha256 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd is not the pinned 4ac5527ad1731353d798c2648adc1033335a12102ec071b3ae6a619334313cb7']",
+     "R failed ['V3'] V3:['V005_INADMISSIBLE: deciding call_spec_sha256 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd is not the pinned 4ac5527ad1731353d798c2648adc1033335a12102ec071b3ae6a619334313cb7']",
+     "S3 failed ['V3'] V3:['V005_INADMISSIBLE: deciding call_spec_sha256 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd is not the pinned 4ac5527ad1731353d798c2648adc1033335a12102ec071b3ae6a619334313cb7']"
+    ]
+   }
+  },
+  {
+   "test": "deciding wrong_spec: inadmissible (call_spec_sha256)",
+   "pass": true,
+   "detail": "deciding call_spec_sha256 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd is not the pinned 4ac5527ad1731353d798c2648adc1033335a12102ec071b3ae6a619334313cb7"
+  },
+  {
+   "test": "v003_cases_without_deciding -> ADOPT/sphere",
+   "pass": true,
+   "detail": {
+    "got": "ADOPT/sphere",
+    "reasons": [
+     "passing shapes ['sphere', 'cylinder']; m4 candidates ['sphere']; adopted sphere by smallest Dhat_3_4"
+    ]
+   }
+  },
+  {
+   "test": "S3_v003_admitting_v005_C3 -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "S3 failed ['V6']"
+    ]
+   }
+  },
+  {
+   "test": "V6: S3 under v003 admitting a v005 C3 fails V6 only",
+   "pass": true,
+   "detail": [
+    "V6"
+   ]
+  },
+  {
+   "test": "C3_on_v001 -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C3 failed ['V3'] V3:[\"driver v001 not in ['v003', 'v005']\"]",
+     "S3 failed ['V3'] V3:[\"driver v001 not in ['v003', 'v005']\"]",
+     "Y3 failed ['V3'] V3:[\"driver v001 not in ['v003', 'v005']\"]"
+    ]
+   }
+  },
+  {
+   "test": "C3 under v001 still refused by drivers_allowed",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "S2_first_attempt_in_slot -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "S2 failed ['V1', 'V3'] V3:['brackets']"
+    ]
+   }
+  },
+  {
+   "test": "S2 first attempt (anchor block, FAILED_AT_STAGE) fails V1 and V3 (brackets); next step V1 names the D7 recovery",
+   "pass": true,
+   "detail": {
+    "notes": [],
+    "V1": false,
+    "V2": true,
+    "V3": false,
+    "V3_mismatch": [
+     "brackets"
+    ],
+    "driver": "v001",
+    "V4": true,
+    "V5": true,
+    "V6": true,
+    "present": true,
+    "failed": [
+     "V1",
+     "V3"
+    ],
+    "valid_all": false
+   }
+  },
+  {
+   "test": "C2_not_regenerated -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C2 failed ['V3'] V3:['brackets']"
+    ]
+   }
+  },
+  {
+   "test": "D7 step 4: C2 on the anchor block is named alone (V3 brackets); S2R/Y2R stay valid",
+   "pass": true,
+   "detail": {
+    "bad": [
+     "C2"
+    ],
+    "mm": [
+     "brackets"
+    ]
+   }
+  },
+  {
+   "test": "C3_v005_not_regenerated -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C3 failed ['V3'] V3:['brackets']"
+    ]
+   }
+  },
+  {
+   "test": "D7 step 4: v005 C3 on the anchor block named alone",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "C2R_passes4_equivalence -> ADOPT/sphere",
+   "pass": true,
+   "detail": {
+    "got": "ADOPT/sphere",
+    "reasons": [
+     "passing shapes ['sphere', 'cylinder']; m4 candidates ['sphere']; adopted sphere by smallest Dhat_3_4"
+    ]
+   }
+  },
+  {
+   "test": "S2R_Y2R_missing -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "S2 failed ['missing']",
+     "Y2 failed ['missing']"
+    ]
+   }
+  },
+  {
+   "test": "missing S2R/Y2R named missing",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "missing_recovery_flag -> REFUSED (rc 2, no output)",
+   "pass": true,
+   "detail": {
+    "rc": 2
+   }
+  },
+  {
+   "test": "recovery_is_anchor_block -> REFUSED (rc 2, no output)",
+   "pass": true,
+   "detail": {
+    "rc": 2
+   }
+  },
+  {
+   "test": "recovery_narrows_46 -> REFUSED (rc 2, no output)",
+   "pass": true,
+   "detail": {
+    "rc": 2
+   }
+  },
+  {
+   "test": "recovery_changes_rfs_factors -> REFUSED (rc 2, no output)",
+   "pass": true,
+   "detail": {
+    "rc": 2
+   }
+  },
+  {
+   "test": "recovery_new_entry_without_template -> REFUSED (rc 2, no output)",
+   "pass": true,
+   "detail": {
+    "rc": 2
+   }
+  },
+  {
+   "test": "recovery_extra_key -> REFUSED (rc 2, no output)",
+   "pass": true,
+   "detail": {
+    "rc": 2
+   }
+  },
+  {
+   "test": "R2_all_cases -> ADOPT/sphere",
+   "pass": true,
+   "detail": {
+    "got": "ADOPT/sphere",
+    "reasons": [
+     "passing shapes ['sphere', 'cylinder']; m4 candidates ['sphere']; adopted sphere by smallest Dhat_3_4"
+    ]
+   }
+  },
+  {
+   "test": "R2 accepted: contains R1, widened entry contains template",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "R2_flag_cases_on_R1 -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "C2 failed ['V3'] V3:['brackets']",
+     "C3 failed ['V3'] V3:['brackets']",
+     "C4 failed ['V3'] V3:['brackets']",
+     "R failed ['V3'] V3:['brackets']"
+    ]
+   }
+  },
+  {
+   "test": "R2 with cases still on R1: every case V3 brackets",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "inner_fail -> INNER_UNRESOLVED",
+   "pass": true,
+   "detail": {
+    "got": "INNER_UNRESOLVED",
+    "reasons": [
+     "Dhat_R=1.6 > 1"
+    ]
+   }
+  },
+  {
+   "test": "shape_disagree -> NOT_CONVERGED",
+   "pass": true,
+   "detail": {
+    "got": "NOT_CONVERGED",
+    "reasons": [
+     "sphere vs cylinder differ by Dhat 3.4 > 2 at K=4"
+    ]
+   }
+  },
+  {
+   "test": "slow_contraction -> NOT_CONVERGED",
+   "pass": true,
+   "detail": {
+    "got": "NOT_CONVERGED",
+    "reasons": [
+     "cube: Dhat_3_4=0.97 (<=1: True), Dhat_2_3=1.03, q=0.9417 (<=0.5: False)",
+     "sphere: Dhat_3_4=0.98 (<=1: True), Dhat_2_3=1.03, q=0.9515 (<=0.5: False)",
+     "cylinder: Dhat_3_4=0.97 (<=1: True), Dhat_2_3=1.03, q=0.9417 (<=0.5: False)"
+    ]
+   }
+  },
+  {
+   "test": "picard_gate -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "S4 failed ['V2']"
+    ]
+   }
+  },
+  {
+   "test": "overmask_S4 -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "S4 failed ['V5']"
+    ]
+   }
+  },
+  {
+   "test": "over-masked S4 fails V5 only",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "identity_mismatch_S3 -> INCOMPLETE",
+   "pass": true,
+   "detail": {
+    "got": "INCOMPLETE",
+    "reasons": [
+     "S3 failed ['V6']"
+    ]
+   }
+  },
+  {
+   "test": "m4_tie_cylinder -> ADOPT/cylinder",
+   "pass": true,
+   "detail": {
+    "got": "ADOPT/cylinder",
+    "reasons": [
+     "passing shapes ['sphere', 'cylinder']; m4 candidates ['sphere', 'cylinder']; adopted cylinder by smallest Dhat_3_4"
+    ]
+   }
+  },
+  {
+   "test": "unpinned prereg refused without the test flag",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "prereg V004 refused by c2v005",
+   "pass": true,
+   "detail": ""
+  }
+ ],
+ "scripts": {
+  "kmax_compare_c2v005.py": "49404bc4b0d558c93113ed650802d9009f03be64c364f0d862213783389786f5",
+  "tests_kmax_compare_c2v005.py": "979a86784d756f49a2b1107f32ff3d5d078c6ae40992e94f020d2ab04e2e5d72"
+ },
+ "prereg_sha256": "dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174",
+ "r1_sha256": "b3938db22cc7758a40fe3559c5213873807646f1b01771c4b9fb685e71bec365"
+}

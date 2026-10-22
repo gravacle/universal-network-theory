@@ -1,0 +1,476 @@
+--- ngc_f10_c2/route_b_v006/galaxy_m0_forward_c2v006.py	2026-10-17 11:52:22.042356440 -0500
++++ driver_v007_c2/galaxy_m0_forward_c2v007.py	2026-10-17 13:03:56.269293541 -0500
+@@ -1,4 +1,21 @@
+ """INERT parameterized clean m=0 ("route B") forward driver, Claude2 lane, galaxy-config binding c2v006.
++c2v007 (Claude2 lane driver_v007_c2): successor of ngc_f10_c2/route_b_v006/galaxy_m0_forward_c2v006.py (c53997b4).
++Changes ONLY (see the C2V007 comments):
++  (a) the four RD1 driver fixes of absorb_c2_0473/driver_f/galaxy_m0_forward_c2v003c.py (ed326130; hunks in
++      DIFF_V003B_V003C.txt), ported onto the v006 structure:
++      F1 the route-A outcome is classified from the attempt's own result.json; no finite fixed point -> run status
++         ROUTE_A_NO_FIXED_POINT (a model outcome, not BLOCKED); v006 has no iteration-4 lock, so v003c's
++         "converged at k != 4" verdict becomes "converged iteration in result.json != the strict reader's iteration";
++      F2 run outdir / dry-run report dir made absolute (os.path.abspath: lexical, no symlink resolution) and every
++         path a stage request hands to its child refused if relative;
++      F3 bracket-override keys must be canonical ASCII decimal ('0' or [1-9][0-9]*), the form str(i) lookups use;
++      F4 route-A custody checks the background mu/C (the check offset v003 makes) before any route-B stage.
++  (b) OPTIONAL DDO154 parallel route A: numerics.route_a.column_workers N (int 1..64).  Absent or 1: the reviewed serial
++      worker c4cb6826 + reviewed solver 44d9c23c, request byte-identical to c2v006.  N > 1: the parallel worker successor
++      9dbdaf11 + parallel solver aed4dd59 with --column-workers N (parallel_route_a_c2, CHECK_V001 PASS).  The checkpoint
++      IDENTITY then differs only in code.solver.{path,sha256}; custody records the solver from IDENTITY bytes
++      (custody.solver_code) and, for a route A computed by this call, requires it to be the requested solver.
++c2v006 text follows.
+ c2v006 (Claude2 lane ngc_f10_c2/route_b_v006): successor of ngc_route_impl_c2/binding/galaxy_m0_forward_c2v005.py
+ (2aef51c4), from ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V002_ADDENDUM (A0, A2-A5) and the binding/reducer CHECK_V001
+ defects D1-D4, D6, D8.  Changes (see the C2V006 comments):
+@@ -174,6 +191,16 @@
+     # CURRENT_SOURCE_ALL_PANEL_DERIVATIVE_AUDIT_REVIEW_V001.json (PREP_V008_REVIEW).  Used ONLY for grids > 80 nodes/axis.
+     'prep_v008': (HC / 'ddo_actual_initial_source_preparation_v008.py', 'bb05f97452cec43e215fa0853b0674262eb54c75de524b5a640cd984cd137e62'),
+ }
++# C2V007 (b): OPTIONAL DDO154 parallel route A (parallel_route_a_c2, INTERFACE_PARALLEL_ROUTE_A_C2V001, CHECK_V001 PASS).
++# Used ONLY when numerics.route_a.column_workers > 1; never pinned, scanned or launched otherwise.  The worker is the
++# successor of SCRIPTS['route_a'] (c4cb6826; same LOCAL keys and pins, absolute H, required --column-workers N); the
++# solver is the successor of AUX['solver'] (44d9c23c).  The checkpoint module AUX['checkpoint_module'] is unchanged.
++PAR = EX / 'parallel_route_a_c2'
++PARALLEL_ROUTE_A = {
++    'worker': (PAR / 'ddo_composite_stable_cached_root_worker_v002_parallel_c2v001.py', '9dbdaf11eb80fd4fa8d47e8c0827eae51d06e87f05efdd6e5c11d422ecbd197a'),
++    'solver': (PAR / 'coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_c2v001.py', 'aed4dd59b38bfe1043e0c38ad4592e4b6bb74c8c4bbee969a707a310926e6f58'),
++}
++ROUTE_A_COLUMN_WORKERS_MAX = 64  # the worker and solver refuse anything outside 1..64 (INTERFACE "API")
+ # c2v005 wiring (stages2 report): module successors and the pin each consumer must carry (checked by binding_blockers).
+ MODULE_SUCCESSORS = {
+     'reference_module': {'successor': AUX['reference_module'],
+@@ -324,6 +351,18 @@
+     pass
+ 
+ 
++class RouteANoFixedPoint(RuntimeError):
++    """C2V007 (a) F1, from c2v003c (RD1 F1): the route-A stage returned normally (exit 0, RETURNED_ACTUAL_RESULT) but its own
++    result.json records no finite source fixed point (FAILED_SOURCE_PREPARATION, ITERATION_BUDGET_EXHAUSTED, ...).
++    A model outcome at this parameter point, NOT a tooling gap; carries the classification record.  (Solver/prediction
++    errors that RAISE instead of returning end in the worker's failure.json with a nonzero exit, i.e. FAILED_AT_STAGE;
++    so do parallel-pool failures, ColumnPoolError.)"""
++
++    def __init__(self, message, record):
++        RuntimeError.__init__(self, message)
++        self.record = record
++
++
+ def verify_pin(path, sha, label):
+     p = Path(path)
+     if not p.is_file():
+@@ -599,6 +638,29 @@
+     return path
+ 
+ 
++def _canon_key(key):
++    """C2V007 (a) F3, from c2v003c (RD1 F3): an override key is accepted only in the exact form the lookups use (str(int)):
++    ASCII '0' or [1-9][0-9]*.  str.isdigit() also accepted '05', '071', Arabic-Indic and superscript digits,
++    which were then silently not applied (or raised a bare ValueError)."""
++    import re
++    return isinstance(key, str) and re.fullmatch('0|[1-9][0-9]*', key) is not None
++
++
++def normalize_route_a_numerics(ra):
++    """C2V007 (b): numerics.route_a = {column_workers: N}, N an int (not bool) in 1..ROUTE_A_COLUMN_WORKERS_MAX.
++    N = 1 is the reviewed serial worker + reviewed solver (exactly the c2v006 request); N > 1 the parallel successors."""
++    _strict(ra, ('column_workers',), 'numerics.route_a')
++    n = ra.get('column_workers', 1)
++    if type(n) is not int or not 1 <= n <= ROUTE_A_COLUMN_WORKERS_MAX:
++        raise Refusal('numerics.route_a.column_workers must be an int in 1..%d, not %r' % (ROUTE_A_COLUMN_WORKERS_MAX, n))
++    return {'column_workers': n}
++
++
++def route_a_column_workers(nspec):
++    """C2V007 (b): the route-A column worker count of a normalized spec (absent -> 1, the reviewed serial path)."""
++    return ((nspec.get('numerics') or {}).get('route_a') or {}).get('column_workers', 1)
++
++
+ def normalize_spec(spec):
+     if isinstance(spec, dict) and spec.get('schema') == NGC_SCHEMA:
+         return normalize_ngc_spec(spec)  # c2v002 NGC3198 configuration (route A only; see NGC section)
+@@ -638,7 +700,7 @@
+     _abs(coeff['path'], 'coefficients.path')
+     out['coefficients'] = {'path': str(Path(coeff['path'])), 'sha256': coeff['sha256']}
+     num = spec.get('numerics', {})
+-    _strict(num, ('composite_grid_spec', 'truncation', 'picard', 'brackets', 'column_workers', 'k_domain'), 'numerics')
++    _strict(num, ('composite_grid_spec', 'truncation', 'picard', 'brackets', 'column_workers', 'k_domain', 'route_a'), 'numerics')  # C2V007 (b): + route_a
+     grid = num.get('composite_grid_spec', None)
+     if grid is not None:
+         _strict(grid, ('version', 'breaks_inverse_kpc', 'panel_orders', 'total_axis_nodes', 'scope'), 'composite_grid_spec')
+@@ -697,17 +759,17 @@
+             if not (isinstance(f, list) and len(f) == 2 and 0 < _num(f[0], key) < _num(f[1], key)):
+                 raise Refusal(key + ' must be [lo, hi] with 0<lo<hi')
+         for key, absolute in (('fs_absolute_overrides', True), ('rfs_factor_overrides', False)):
+-            for idx, pair in rule[key].items():
+-                if not (idx.isdigit() and 0 <= int(idx) < g['n_columns'] and isinstance(pair, list) and len(pair) == 2
++            for idx, pair in rule[key].items():  # C2V007 (a) F3: _canon_key replaces str.isdigit (c2v003c hunk @@ -577)
++                if not (_canon_key(idx) and 0 <= int(idx) < g['n_columns'] and isinstance(pair, list) and len(pair) == 2
+                         and 0 < _num(pair[0], key) < _num(pair[1], key)):
+-                    raise Refusal('%s entries must be "index": [lo, hi]' % key)
++                    raise Refusal('%s entries must be "index": [lo, hi] (canonical ASCII index, no leading zeros): %r' % (key, idx))
+         for ps, table in rule['le_factor_overrides'].items():
+-            if not (ps.isdigit() and 1 <= int(ps) <= passes) or not isinstance(table, dict):
+-                raise Refusal('le_factor_overrides keys must be pass numbers 1..passes')
++            if not (_canon_key(ps) and 1 <= int(ps) <= passes) or not isinstance(table, dict):
++                raise Refusal('le_factor_overrides keys must be pass numbers 1..passes (canonical ASCII, no leading zeros): %r' % (ps,))
+             for idx, pair in table.items():
+-                if not (idx.isdigit() and 0 <= int(idx) < g['n_columns'] and isinstance(pair, list) and len(pair) == 2
++                if not (_canon_key(idx) and 0 <= int(idx) < g['n_columns'] and isinstance(pair, list) and len(pair) == 2
+                         and 0 < _num(pair[0], 'le override') < _num(pair[1], 'le override')):
+-                    raise Refusal('le_factor_overrides entries must be "index": [lo, hi]')
++                    raise Refusal('le_factor_overrides entries must be "index": [lo, hi] (canonical ASCII index, no leading zeros): %r' % (idx,))
+         out_num['brackets'] = {'mode': 'rule', 'rule': rule}
+     elif mode == 'pinned_controls':
+         pcs = bk.get('pinned_controls')
+@@ -740,6 +802,8 @@
+     if workers > 1 and mode != 'rule':
+         raise Refusal('column_workers>1 requires brackets.mode rule (pinned controls cannot be split without new bytes)')
+     out_num['column_workers'] = workers
++    if 'route_a' in num:  # C2V007 (b): present only when declared, so a default spec normalizes exactly as in c2v006
++        out_num['route_a'] = normalize_route_a_numerics(num['route_a'])
+     out['numerics'] = out_num
+     adm = spec.get('admit', {}) or {}
+     _strict(adm, ('route_a', 'reference', 'body'), 'admit')
+@@ -752,6 +816,8 @@
+         _abs(a.get('attempt_directory'), 'admit.route_a.attempt_directory')
+         _abs(a.get('checkpoint_directory'), 'admit.route_a.checkpoint_directory')
+         norm_adm['route_a'] = {k: str(a[k]) for k in ('attempt_directory', 'checkpoint_directory', 'identity_sha256', 'result_sha256')}
++        if out_num.get('route_a', {}).get('column_workers', 1) > 1:  # C2V007 (b): a parallel route A that would never run
++            raise Refusal('numerics.route_a.column_workers > 1 requires route A to be computed by this call (admit.route_a absent)')
+     if adm.get('reference') is not None:
+         if 'route_a' not in norm_adm:
+             raise Refusal('admit.reference requires admit.route_a')
+@@ -804,6 +870,8 @@
+     reusable = canonical(seed) == canonical(base)
+     if not reusable:
+         # c2v003 annotation (CHECK_V001 s2 minor): no stage reads it; only numerical_inputs is consumed.
++        # C2V007: the literal stays 'galaxy_m0_forward_c2v006' (the seed composition code is unchanged since c2v006), so a
++        # c2v007 call writes the byte-identical seed and the byte-identical route-A request (--seed-sha256) of c2v006.
+         seed['c2_changed_fields'] = {
+             'driver': 'galaxy_m0_forward_c2v006', 'base_seed_sha256': sha, 'changed': changed,
+             'note': ('scale_seed, seed_method, scope, pins, parent_seed and quadrature_selection_evidence are copied '
+@@ -812,6 +880,54 @@
+     return seed, changed, reusable
+ 
+ 
++def _relative_request_paths(req):
++    """C2V007 (a) F2, from c2v003c (RD1 F2; hunk @@ -865): every path a stage request hands to the child that is not
++    absolute.  Paths are the script, argv values (any value that is not a number, a 64-hex digest or a simulate-mode
++    sentinel), __path__/__pathdict__/__ordered__ path entries of stage globals and module patches, module-patch and
++    dict-item paths, and the mask's module paths.  Adapted to c2v006: a sentinel is any value _has_pending accepts
++    (PENDING... or NONE_IN_REVIEWED_CODE..., the c2v005/c2v006 placeholder for an undecided field); c2v003c knew only
++    PENDING."""
++    found = []
++
++    def chk(v):
++        if isinstance(v, (str, Path)) and not _has_pending(str(v)) and not Path(str(v)).is_absolute():
++            found.append(str(v))
++
++    def val(v):
++        if isinstance(v, dict) and len(v) == 1:
++            (k, x), = v.items()
++            if k == '__path__':
++                chk(x)
++            elif k in ('__pathdict__', '__ordered__'):
++                for item in x:
++                    chk(item[0])
++    chk(req.get('script'))
++    argv = [str(a) for a in req.get('argv', [])]
++    for i, a in enumerate(argv):
++        if a.startswith('--') or i == 0 or not argv[i - 1].startswith('--'):
++            continue
++        try:
++            float(a)
++            continue
++        except ValueError:
++            pass
++        if not _is_hex64(a):
++            chk(a)
++    for v in (req.get('stage_globals') or {}).values():
++        val(v)
++    for p in req.get('module_patches') or []:
++        chk(p.get('path'))
++        for v in (p.get('set') or {}).values():
++            val(v)
++    for items in (req.get('stage_dict_items') or {}).values():
++        for pin in items.values():
++            chk(pin.get('path'))
++    for key in ('checkpoint_module', 'cache_module'):
++        if req.get('mask'):
++            chk(req['mask'][key][0])
++    return found
++
++
+ # ----------------------------------------------------------------------------- execution context
+ class Ctx:
+     """mode 'run': executes stages.  mode 'simulate': executes nothing; a stage's outputs are
+@@ -829,6 +945,7 @@
+         self.t0 = time.monotonic()
+         self.log = None
+         self.driver = str(Path(__file__).resolve())
++        self.route_a_outcome = None  # C2V007 (a) F1: classification of the route-A result.json (c2v003c hunk @@ -882)
+ 
+     # -- paths / hashes ------------------------------------------------------------------
+     def stage_dir(self, name):
+@@ -873,6 +990,11 @@
+     def run_stages(self, requests, stage_dirs):
+         """Run one or more independent stage requests concurrently (single-thread each)."""
+         import subprocess
++        for req, d in zip(requests, stage_dirs):  # C2V007 (a) F2 (c2v003c hunk @@ -926): every mode, before anything is launched
++            bad = _relative_request_paths(req) + ([str(d)] if not Path(d).is_absolute() else [])
++            if bad:
++                raise Refusal('RELATIVE_PATH_IN_REQUEST %s: stages run with cwd=<stage dir>, so relative paths %s '
++                              'would not resolve (use an absolute outdir/report dir and absolute spec paths)' % (req['name'], bad[:5]))
+         recs = []
+         if self.mode != 'run':
+             for req, d in zip(requests, stage_dirs):
+@@ -920,11 +1042,78 @@
+     return ident
+ 
+ 
+-def route_a_custody(cp, seed_sha, coeff_path, call_physical):
++ROUTE_A_CONVERGED = 'CONVERGED_FINITE_FIXED_POINT'
++
++
++def route_a_outcome_record(ra, result_path):
++    """C2V007 (a) F1, verbatim from c2v003c (RD1 F1; hunk @@ -973): classify a route-A attempt from ITS OWN result.json
++    (the route-A worker v002 writes it, exit 0, for every solver outcome the solver RETURNS).  Layout: result.result =
++    prediction v005 return; its source_fixed_point = the solver return, whose checkpoint.outcome is the solver outcome
++    token and whose history[-1].iteration is the last completed iteration.  Pure: returns the record, raises nothing
++    except StageFailed on an unreadable layout.  The parallel worker successor writes the same layout (same binding,
++    prediction and solver return; CHECK_V001 s1-s3)."""
++    try:
++        pred = ra['result']['result']
++        sfp = pred.get('source_fixed_point')
++        if not isinstance(sfp, dict):
++            raise TypeError('source_fixed_point absent')
++        hist = sfp.get('history') or []
++        outcome = (sfp.get('checkpoint') or {}).get('outcome')
++        conv_flag = sfp.get('converged_finite_fixed_point')
++        rec = {'result_path': str(result_path), 'result_sha256': sha256_file(result_path), 'outcome': outcome,
++               'converged_finite_fixed_point': conv_flag, 'predictions_available': pred.get('predictions_available'),
++               'iterations_completed': [h.get('iteration') for h in hist],
++               'last_completed_iteration': hist[-1].get('iteration') if hist else None,
++               'reason': pred.get('reason'), 'solver_scope': sfp.get('scope')}
++    except (KeyError, TypeError, AttributeError, IndexError) as exc:
++        raise StageFailed('ROUTE_A_RESULT_UNREADABLE %s: %s: %s' % (result_path, type(exc).__name__, exc))
++    f = sfp.get('failure')
++    if isinstance(f, dict):
++        rec['failure'] = {k: f.get(k) for k in ('type', 'message', 'iteration', 'column_index', 'stage')}
++    if conv_flag is True and outcome == ROUTE_A_CONVERGED and rec['predictions_available'] is True:
++        rec['classification'] = 'CONVERGED'
++        rec['converged_iteration'] = rec['last_completed_iteration']
++    elif conv_flag is not True:
++        rec['classification'] = 'ROUTE_A_NO_FIXED_POINT'
++        rec['converged_iteration'] = None
++    else:
++        rec['classification'] = 'INCONSISTENT'
++        rec['converged_iteration'] = None
++    return rec
++
++
++def require_route_a_fixed_point(rec, reported_iteration=None):
++    """C2V007 (a) F1, from c2v003c require_route_a_fixed_point: no fixed point -> RouteANoFixedPoint (its own status);
++    inconsistent record -> StageFailed.  Adapted to c2v006 (no iteration-4 lock; the stages accept the strict reader's
++    iteration): c2v003c's 'converged at k != 4 -> Blocked ROUTE_A_ITERATION_NOT_4' becomes 'converged at k != the
++    iteration the strict reader reports from the checkpoint records -> Blocked ROUTE_A_ITERATION_MISMATCH' (checked
++    only when the reader ran, i.e. reported_iteration is given)."""
++    if rec['classification'] == 'ROUTE_A_NO_FIXED_POINT':
++        f = rec.get('failure') or {}
++        raise RouteANoFixedPoint('ROUTE_A_NO_FIXED_POINT: route-A outcome %s after iterations %s%s (a result at this '
++                                 'parameter point, not a tooling gap)' % (
++                                     rec['outcome'], rec['iterations_completed'],
++                                     '; failure %s: %s (iteration %s, column %s, stage %s)' % (
++                                         f.get('type'), f.get('message'), f.get('iteration'), f.get('column_index'), f.get('stage'))
++                                     if f else ''), rec)
++    if rec['classification'] != 'CONVERGED':
++        raise StageFailed('ROUTE_A_RESULT_INCONSISTENT: converged flag %r, outcome %r, predictions_available %r'
++                          % (rec['converged_finite_fixed_point'], rec['outcome'], rec['predictions_available']))
++    if reported_iteration is not None and rec['converged_iteration'] != reported_iteration:
++        raise Blocked('ROUTE_A_ITERATION_MISMATCH: route-A result.json converged at iteration %r; the checkpoint records '
++                      'report %r (strict reader)' % (rec['converged_iteration'], reported_iteration))
++
++
++def route_a_custody(cp, seed_sha, coeff_path, call_physical, outcome=None, expected_solver=None):
+     """Verify a route-A checkpoint (computed in this call or admitted) from bytes and return
+     the per-call identity the route-B stages need.  c2v005: the route-B stages are generalized, so the converged final
+     iteration is the one the checkpoint's own records report under the strict rule (route_a_reported_iteration); the
+-    c2v004 iteration_0004 literal is gone.  Any ambiguity is a BLOCKER."""
++    c2v004 iteration_0004 literal is gone.  Any ambiguity is a BLOCKER.
++    C2V007: (a) F4 background mu/C custody (c2v003c hunk @@ -993); (a) F1 `outcome` (route_a_outcome_record) enforced after
++    the identity/parameter/coefficient/background checks and BEFORE the strict reader, so a no-fixed-point attempt ends
++    ROUTE_A_NO_FIXED_POINT instead of ROUTE_A_ITERATION_AMBIGUOUS; its converged iteration must equal the reader's.
++    (b) custody.solver_code = IDENTITY code.solver {path, sha256} from bytes (the one IDENTITY field the parallel solver
++    changes); `expected_solver` (path, sha) given -> it must match (route A computed by this call), else recorded only."""
+     import numpy as np
+     cm = exec_verified(AUX['checkpoint_module'][0], AUX['checkpoint_module'][1], 'c2v001_ckpt')
+     ident = _read_checkpoint_identity(cm, cp)
+@@ -937,9 +1126,27 @@
+             raise Blocked('checkpoint %s differs from call' % k)
+     with np.load(coeff_path, allow_pickle=False) as f:
+         grid = f['source_hessian_grid'].copy()
+-    if cm.digest(grid) != ident['identity']['inputs_sha256']['fourier_arguments']['source_hessian_grid']:
++        mu = f['background_mu'].copy()  # C2V007 (a) F4
++        Cb = f['background_C'].copy()
++    dig = ident['identity']['inputs_sha256']['fourier_arguments']
++    if cm.digest(grid) != dig['source_hessian_grid']:
+         raise Blocked('checkpoint coefficient grid differs from call coefficient grid')
++    # C2V007 (a) F4: the same two checks offset v003 makes (array equality with the caller mubar/Cbar and the
++    # operator-argument digests), made here so a mismatch blocks before the reference and body stages run.
++    if not (cm.digest(mu) == dig.get('mubar') and cm.digest(Cb) == dig.get('Cbar')
++            and np.array_equal(mu, phys.get('mubar')) and np.array_equal(Cb, phys.get('Cbar'))):
++        raise Blocked('ROUTE_A_BACKGROUND_MISMATCH: checkpoint background mu/C differs from call coefficients '
++                      '(offset v003 would refuse with Frozen background mismatch)')
++    if outcome is not None:  # C2V007 (a) F1: model outcome first (no fixed point / inconsistent record)
++        require_route_a_fixed_point(outcome)
++    solver_code = (ident['identity'].get('code') or {}).get('solver')  # C2V007 (b)
++    solver_code = {'path': solver_code.get('path'), 'sha256': solver_code.get('sha256')} if isinstance(solver_code, dict) else None
++    if expected_solver is not None and solver_code != {'path': str(expected_solver[0]), 'sha256': expected_solver[1]}:
++        raise Blocked('ROUTE_A_SOLVER_MISMATCH: checkpoint IDENTITY code.solver %r is not the solver this call ran %s %s'
++                      % (solver_code, expected_solver[0], expected_solver[1]))
+     it = route_a_reported_iteration(cp, ident['identity_sha256'], cm)
++    if outcome is not None:  # C2V007 (a) F1 adapted: result.json converged iteration == the strict reader's
++        require_route_a_fixed_point(outcome, reported_iteration=it)
+     folder = Path(cp) / ('iteration_%04d' % it)
+     start = cm._read(str(folder / 'START.json'), 'iteration_start')
+     done = cm._read(str(folder / 'COMPLETED.json'), 'iteration_completed')
+@@ -949,7 +1156,8 @@
+             'g4_ref': start['prepared_weighted_responses'], 'waves_ref': start['prepared_wavevectors'],
+             'caller_seed': caller['seed'], 'physical': {k: phys.get(k) for k in ('Eref_J', 'ell_F_m', 'gamma')},
+             'prep_code_pins': {p: s for p, s in (caller.get('code_pins') or {}).items()
+-                               if 'actual_initial_source_preparation' in p}}  # c2v003: record which prep built route A (c2v005: DDO or NGC)
++                               if 'actual_initial_source_preparation' in p},  # c2v003: record which prep built route A (c2v005: DDO or NGC)
++            'solver_code': solver_code}  # C2V007 (b)
+ 
+ 
+ def column_H(run_dirs):
+@@ -1672,34 +1880,58 @@
+         if not coeff_default:
+             patches.append({'path': str(prep_path), 'sha256': prep_sha,
+                             'set': {'COEFFICIENT': {'__path__': coeff_path}, 'COEFFICIENT_SHA': coeff_sha}})
+-        req = ctx.request('route_a', 'route_a', [
+-            '--seed', seed_path, '--seed-sha256', seed_sha, '--solver', AUX['solver'][0], '--solver-sha256', AUX['solver'][1],
+-            '--checkpoint-module', AUX['checkpoint_module'][0], '--checkpoint-module-sha256', AUX['checkpoint_module'][1],
+-            '--outdir', att, '--checkpoint-directory', cp, '--start-iteration', '0'], module_patches=patches)
++        # C2V007 (b): N = 1 -> exactly the c2v006 request (reviewed worker c4cb6826 + reviewed solver 44d9c23c);
++        # N > 1 -> the parallel worker successor with the parallel solver and --column-workers N.  Same LOCAL keys and
++        # pins, so the prep COEFFICIENT module patch and the prep V008 LOCAL['prep'] dict item apply unchanged.
++        ra_workers = route_a_column_workers(sp)
++        solver_pin = AUX['solver'] if ra_workers == 1 else PARALLEL_ROUTE_A['solver']
++        ra_argv = ['--seed', seed_path, '--seed-sha256', seed_sha, '--solver', solver_pin[0], '--solver-sha256', solver_pin[1],
++                   '--checkpoint-module', AUX['checkpoint_module'][0], '--checkpoint-module-sha256', AUX['checkpoint_module'][1],
++                   '--outdir', att, '--checkpoint-directory', cp, '--start-iteration', '0']
++        if ra_workers > 1:
++            ra_argv += ['--column-workers', str(ra_workers)]
++        req = ctx.request('route_a', 'route_a', ra_argv, module_patches=patches)
++        if ra_workers > 1:
++            req['script'], req['script_sha256'] = str(PARALLEL_ROUTE_A['worker'][0]), PARALLEL_ROUTE_A['worker'][1]
+         if prep_key == 'prep_v008':
+             req['stage_dict_items'] = {'LOCAL': {'prep': {'path': str(prep_path), 'sha256': prep_sha}}}
+         ctx.run_stages([req], [d])
+         info['route_a'] = {'mode': 'computed', 'attempt': str(att), 'checkpoint': str(cp)}
++        info['route_a']['implementation'] = {  # C2V007 (b)
++            'column_workers': ra_workers, 'kind': 'REVIEWED_SERIAL' if ra_workers == 1 else 'PARALLEL_C2V001',
++            'worker': {'path': req['script'], 'sha256': req['script_sha256']},
++            'solver': {'path': str(solver_pin[0]), 'sha256': solver_pin[1]}}
+     if not ngc:
+         info['route_a']['prep'] = dict(prep_info, role=('used by this call' if info['route_a']['mode'] == 'computed' else
+                                                         'expected for this grid; the admitted checkpoint records its own (custody.prep_code_pins)'))
++    # C2V007 (a) F1 (c2v003c hunk @@ -1229): classify the route-A outcome from its own result.json before any iteration verdict.
++    # (A pending NGC attempt path is a PENDING placeholder, never a file: nothing is opened.)
++    att_res = Path(att) / 'result.json'
++    ra = json.loads(att_res.read_text()) if att_res.is_file() else None
++    ra_outcome = route_a_outcome_record(ra, att_res) if ra is not None else None
++    ctx.route_a_outcome = ra_outcome
++    if ra_outcome is not None:
++        info['route_a']['outcome'] = ra_outcome
++    # C2V007 (b): a route A computed by this call (run mode) must carry the solver it was launched with in its IDENTITY.
++    # Simulate on saved outputs and admitted route A: the solver is recorded (custody.solver_code), not required.
++    expected_solver = solver_pin if (info['route_a']['mode'] == 'computed' and ctx.mode == 'run') else None
+     if (Path(cp) / 'IDENTITY.json').is_file():
+         # c2v005: route_a_custody reads the converged final iteration by the strict rule (no literal 4)
+-        cust = route_a_custody(cp, seed_sha, coeff_path, call_phys)
++        cust = route_a_custody(cp, seed_sha, coeff_path, call_phys, outcome=ra_outcome, expected_solver=expected_solver)
+         if 'route_a' in adm and cust['identity_sha256'] != adm['route_a']['identity_sha256']:
+             raise Refusal('admitted checkpoint identity differs from declared')
+         if ngc and cust['identity_sha256'] != sp['route_a_inputs']['identity_sha256']:
+             raise Refusal('NGC route-A checkpoint identity differs from route_a_inputs.identity_sha256')
+-    elif ngc and not route_a_inputs_pending(sp['route_a_inputs']):  # c2v006: a supplied NGC route A must have its checkpoint
+-        raise Refusal('NGC route-A checkpoint IDENTITY.json missing under %s' % cp)
+     else:
++        if ra_outcome is not None:  # C2V007 (a) F1 (c2v003c): no checkpoint but a returned result -> outcome first
++            require_route_a_fixed_point(ra_outcome)
++        if ngc and not route_a_inputs_pending(sp['route_a_inputs']):  # c2v006: a supplied NGC route A must have its checkpoint
++            raise Refusal('NGC route-A checkpoint IDENTITY.json missing under %s' % cp)
+         cust = {'identity_sha256': '%s(custody.checkpoint_identity_sha256)' % PENDING_ROUTE_A if ngc else 'PENDING(route_a identity)',
+                 'iteration': '%s(route_a.accepted_iteration)' % PENDING_ROUTE_A if ngc else 'PENDING(route_a iteration)',
+                 'start_payload_sha256': 'PENDING', 'g4_ref': {'file_sha256': 'PENDING'}, 'waves_ref': None}
+     info['route_a']['custody'] = cust
+-    att_res = Path(att) / 'result.json'
+-    if att_res.is_file():
+-        ra = json.loads(att_res.read_text())
++    if ra is not None:
+         info['route_a']['route_a_rows'] = ra['result']['result']['rows']
+     ident = cust['identity_sha256']
+     it = cust['iteration']
+@@ -2108,6 +2340,9 @@
+     for path, sha in list(SCRIPTS.values()) + list(AUX.values()):
+         pins[str(path)] = verify_pin(path, sha, 'code')
+     pins[str(PREP_V008_REVIEW[0])] = verify_pin(PREP_V008_REVIEW[0], PREP_V008_REVIEW[1], 'prep V008 review')  # c2v003
++    if route_a_column_workers(nspec) > 1:  # C2V007 (b): the parallel route-A worker and solver, only when used
++        for key, (path, sha) in PARALLEL_ROUTE_A.items():
++            pins[str(path)] = verify_pin(path, sha, 'parallel route-A ' + key)
+     g = GALAXIES[nspec['galaxy']]
+     for key in ('base_seed', 'profile', 'monotone_source', 'column_mean_binding', 'solver_template', 'monotone_source_pin'):
+         if g.get(key) is None:  # c2v006: NGC3198 has no base seed; its slot pin (D3) and A4 binding are pinned here
+@@ -2185,7 +2420,10 @@
+ 
+ 
+ def cmd_run(spec_path, outdir):
+-    out = Path(outdir)
++    # C2V007 (a) F2 (c2v003c hunk @@ -1653): absolute outdir (stage children run with cwd=<stage dir>).  os.path.abspath
++    # is lexical: it normalizes '.', '..', '//' and a trailing '/', and resolves no symlink.  A relative monitor/campaign
++    # outdir resolves against the driver's inherited cwd, which is the monitor's.
++    out = Path(os.path.abspath(outdir))
+     if out.exists():
+         print('REFUSED: outdir exists', file=sys.stderr)
+         return 2
+@@ -2267,6 +2505,9 @@
+     except Blocked as exc:
+         status = 'BLOCKED'
+         result['reasons'].append(str(exc))
++    except RouteANoFixedPoint as exc:  # C2V007 (a) F1 (c2v003c hunk @@ -1715): a model outcome, not BLOCKED
++        status = 'ROUTE_A_NO_FIXED_POINT'
++        result['reasons'].append(str(exc))
+     except StageFailed as exc:
+         status = 'FAILED_AT_STAGE'
+         result['reasons'].append(str(exc))
+@@ -2276,6 +2517,8 @@
+         result['reasons'].append('%s: %s' % (type(exc).__name__, exc))
+         result['traceback'] = traceback.format_exc()
+     if ctx is not None:
++        if ctx.route_a_outcome is not None:  # C2V007 (a) F1 (c2v003c hunk @@ -1724): outcome + converged iteration, every status
++            result['route_a_outcome'] = ctx.route_a_outcome
+         result['stage_records'] = ctx.records
+         if ctx.spec.get('reference_compare'):
+             result['reference_comparison'] = reference_comparison(ctx.records, GALAXIES[ctx.spec['galaxy']].get('saved_runs', {}))
+@@ -2376,7 +2619,7 @@
+ 
+ 
+ def cmd_dry_run(spec_path, report_dir):
+-    rd = Path(report_dir)
++    rd = Path(os.path.abspath(report_dir))  # C2V007 (a) F2 (c2v003c hunk @@ -1812): planned paths absolute, as in a run
+     if rd.exists():
+         print('REFUSED: report dir exists', file=sys.stderr)
+         return 2
+@@ -2389,7 +2632,9 @@
+     report = {'schema': 'UNT_GALAXY_M0_FORWARD_DRYRUN_C2V001', 'call_spec': str(spec_path), 'call_spec_sha256': sha256_bytes(raw),
+               'driver_sha256': sha256_file(__file__), 'normalized_spec': nspec, 'executed_stages': 0}
+     report['static_pins'] = all_static_pins(nspec)
+-    report['transitive_pins'] = transitive_pins_and_scipy()
++    # C2V007 (b): with a parallel route A the scan also covers the parallel worker (its LOCAL pins) and solver.
++    report['transitive_pins'] = (transitive_pins_and_scipy() if route_a_column_workers(nspec) == 1 else
++                                 transitive_pins_and_scipy(list(SCRIPTS.values()) + list(AUX.values()) + list(PARALLEL_ROUTE_A.values())))
+     report['coefficient_npz_headers'] = _npz_headers(nspec['coefficients']['path'])
+     if nspec['galaxy'] == 'DDO154':
+         seed_obj, changed, reusable = per_call_seed(nspec)

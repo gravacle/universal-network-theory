@@ -1,0 +1,611 @@
+{
+  "bytepins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/seal_steps_c3sa_c3v012.py",
+      "sha256": "b13483966fcb8755608d73e05c0e70dc94e39a2b07635f54efc0c86849748bac"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/selected_publication_v003/seal_steps_c3sa_c3v011.py",
+      "sha256": "7caad125be19160c6e431dcf6be8f038cb9bba172c95f1f8059ebcdd938a0aff"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/0643_2026-10-18_claude4_claude3_codex1_A106_final_V005.md",
+      "sha256": "2926f7ab57cac05168d079807224f05317d2b71e0f0a86e7a78b92e98005172e"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/review_c02_freeze_cx1v001.py",
+      "sha256": "dc158c663571b2ee4f9855aed42818cfefeca358414ba625a4b9b8a8ef4d5a60"
+    }
+  ],
+  "checks": [
+    {
+      "detail": {
+        "_sealed_bytes": "added",
+        "_selected_names": "added",
+        "_tor_unsealed": "added",
+        "c_check_tor": "added",
+        "c_freeze": "changed",
+        "c_selected_names": "added",
+        "dumps": "unchanged",
+        "pin": "unchanged",
+        "pinref": "unchanged",
+        "read_nofollow": "unchanged",
+        "write_x": "unchanged"
+      },
+      "finding": null,
+      "id": "AST_unchanged_pin_and_IO_dependencies",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": true,
+        "result": {
+          "bytes": 36,
+          "final_v005": {
+            "bytes": 36,
+            "sha256": "e19638d782fa8652d52a38ce801654d936cf6152a51398a0d3756bf75a9c8c05"
+          },
+          "frozen": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/positive_V005_ADDENDUM_FROZEN.md",
+            "sha256": "e19638d782fa8652d52a38ce801654d936cf6152a51398a0d3756bf75a9c8c05"
+          }
+        }
+      },
+      "finding": null,
+      "id": "freeze_exact_sha_and_length_copies",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "PIN_BYTES_MISMATCH open_v005: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/open_inert.md has e19638d782fa8652d52a38ce801654d936cf6152a51398a0d3756bf75a9c8c05, pinned 0000000000000000000000000000000000000000000000000000000000000000",
+        "output_absent": true,
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "freeze_wrong_sha_refuses_prewrite",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "OPEN_V005_LENGTH 36 != 37 (A106: the FINAL V005 bytes; nothing was copied)",
+        "output_absent": true,
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "freeze_wrong_length_refuses_prewrite",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "OUTPUT_ROOT_ARG_NOT_AN_INTEGER open-bytes: '-1'",
+        "output_absent": true,
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "freeze_negative_length_refuses_prewrite",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "FROZEN_NAME (0576: ..._V005_ADDENDUM_FROZEN.md)",
+        "output_absent": true,
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "freeze_bad_suffix_refuses_prewrite",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "OUTPUT_EXISTS frozen: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/existing_V005_ADDENDUM_FROZEN.md",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "freeze_existing_destination_refuses",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "finding": null,
+      "id": "freeze_existing_bytes_preserved",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "FROZEN_COPY_REHASH_DIFFERS",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "freeze_copy_recheck_refuses_injected_read",
+      "passed": true
+    },
+    {
+      "detail": {
+        "file_not_mutated": true,
+        "injected_observation_only": true
+      },
+      "finding": null,
+      "id": "freeze_copy_recheck_retains_exclusive_copy",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "OPEN_V005_CHANGED_DURING_FREEZE",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "freeze_open_after_copy_refuses_injected_read",
+      "passed": true
+    },
+    {
+      "detail": {
+        "file_not_mutated": true,
+        "injected_observation_only": true
+      },
+      "finding": null,
+      "id": "freeze_open_after_copy_retains_exclusive_copy",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "finding": null,
+      "id": "sealed_bytes_matches_independent_slot_only_recipe",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": true,
+        "result": {
+          "c02": {
+            "named_by_selected": {
+              "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_good.json",
+              "sha256": "b7452184b06e1e2dfaf8f56e671d88b998afe93e23521ef32822e5b604a203e2"
+            },
+            "text_of_record": {
+              "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+              "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+            },
+            "unsealed": true
+          }
+        }
+      },
+      "finding": null,
+      "id": "C02_exact_selected_unsealed_TOR_accepts",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": true,
+        "result": {
+          "c02": {
+            "named_by_selected": {
+              "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_good.json",
+              "sha256": "b7452184b06e1e2dfaf8f56e671d88b998afe93e23521ef32822e5b604a203e2"
+            },
+            "sealed_prereg": {
+              "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/sealed_inert.json",
+              "rederived_byte_equal": true,
+              "sha256": "2bdf9d5ba247b32de378fa0afc6352981abfca7bd5e5495196926704a2a71a85"
+            },
+            "text_of_record": {
+              "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+              "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+            },
+            "unsealed": true
+          }
+        }
+      },
+      "finding": null,
+      "id": "C02_exact_slot_only_sealed_bytes_accept",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "C02_ARGS (give --sealed-prereg, --sealed-prereg-sha, --slots and --slots-sha together)",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "C02_partial_sealed_args_refuse",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "C02_SEALED_PREREG_IS_THE_TEXT_OF_RECORD",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "C02_same_TOR_as_sealed_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "C02_SEALED_PREREG_NOT_THE_TEXT_OF_RECORD_PLUS_SLOT_VALUES",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "C02_outside_slot_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "C02_SEALED_PREREG_NOT_THE_TEXT_OF_RECORD_PLUS_SLOT_VALUES",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "C02_wrong_slot_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "C02_SEALED_PREREG_NOT_THE_TEXT_OF_RECORD_PLUS_SLOT_VALUES",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "C02_slot_metadata_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "C02_SEALED_PREREG_NOT_THE_TEXT_OF_RECORD_PLUS_SLOT_VALUES",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "C02_different_serialization_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "C02_TEXT_OF_RECORD_HAS_FILLED_SLOTS ['certificates', 'compare', 'driver', 'frozen_addendum', 'identity_comparator', 'identity_gate_records', 'launch_packet', 'producer_registry'] (a sealed or edited prereg named as its own text of record)",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "C02_filled_slots_cannot_be_TOR",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": true,
+        "result": {
+          "names_verified": 1,
+          "selected": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_good.json",
+            "sha256": "b7452184b06e1e2dfaf8f56e671d88b998afe93e23521ef32822e5b604a203e2"
+          }
+        }
+      },
+      "finding": null,
+      "id": "selected_names_exact_pair_and_actual_bytes_accept",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "PIN_BYTES_MISMATCH selected pin: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json has ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e, pinned 0000000000000000000000000000000000000000000000000000000000000000",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "selected_names_actual_bytes_mismatch_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "SELECTED_NAMES_NO_PINS",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "selected_names_no_pins_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "SELECTED_NAMES_ANOTHER_SHA_FOR /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json: 0000000000000000000000000000000000000000000000000000000000000000",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "selected_names_structured_contradiction_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "SELECTED_DOES_NOT_NAME /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "selected_names_missing_path_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "accepted": false,
+        "message": "SELECTED_DOES_NOT_NAME /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e",
+        "type": "Refuse"
+      },
+      "finding": null,
+      "id": "selected_names_missing_sha_refuses",
+      "passed": true
+    },
+    {
+      "detail": {
+        "observed": {
+          "accepted": true,
+          "result": {
+            "c02": {
+              "named_by_selected": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_unassociated_strings.json",
+                "sha256": "99ecdf24a2f4cd45fc303c97e7ceaabe194b6aadc3495f3e43a421edab77efd7"
+              },
+              "text_of_record": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+                "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+              },
+              "unsealed": true
+            }
+          }
+        },
+        "selected_fixture": {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_unassociated_strings.json",
+          "sha256": "99ecdf24a2f4cd45fc303c97e7ceaabe194b6aadc3495f3e43a421edab77efd7"
+        }
+      },
+      "finding": "C02-SEL-ASSOCIATION",
+      "id": "C02_selected_unassociated_strings_must_refuse",
+      "passed": false
+    },
+    {
+      "detail": {
+        "observed": {
+          "accepted": true,
+          "result": {
+            "c02": {
+              "named_by_selected": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_different_selected_path_prefix.json",
+                "sha256": "b49b6fdf53e52aa6ba34eb0c20720063c13566aee2586d546977099bfca303db"
+              },
+              "text_of_record": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+                "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+              },
+              "unsealed": true
+            }
+          }
+        },
+        "selected_fixture": {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_different_selected_path_prefix.json",
+          "sha256": "b49b6fdf53e52aa6ba34eb0c20720063c13566aee2586d546977099bfca303db"
+        }
+      },
+      "finding": "C02-SEL-ASSOCIATION",
+      "id": "C02_selected_different_selected_path_prefix_must_refuse",
+      "passed": false
+    },
+    {
+      "detail": {
+        "observed": {
+          "accepted": true,
+          "result": {
+            "c02": {
+              "named_by_selected": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_duplicate_json_keys.json",
+                "sha256": "9b9142c8927aff01929346de6057e370b33f421923ac7f113b0e867953c46ced"
+              },
+              "text_of_record": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+                "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+              },
+              "unsealed": true
+            }
+          }
+        },
+        "selected_fixture": {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_duplicate_json_keys.json",
+          "sha256": "9b9142c8927aff01929346de6057e370b33f421923ac7f113b0e867953c46ced"
+        }
+      },
+      "finding": "C02-SEL-STRICT",
+      "id": "C02_selected_duplicate_json_keys_must_refuse",
+      "passed": false
+    },
+    {
+      "detail": {
+        "observed": {
+          "accepted": true,
+          "result": {
+            "c02": {
+              "named_by_selected": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_invalid_json_trailing.json",
+                "sha256": "b0be1ce44c988201588bdd5e9842faebbed2d4b055fac349af86d5b0a2155492"
+              },
+              "text_of_record": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+                "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+              },
+              "unsealed": true
+            }
+          }
+        },
+        "selected_fixture": {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_invalid_json_trailing.json",
+          "sha256": "b0be1ce44c988201588bdd5e9842faebbed2d4b055fac349af86d5b0a2155492"
+        }
+      },
+      "finding": "C02-SEL-STRICT",
+      "id": "C02_selected_invalid_json_trailing_must_refuse",
+      "passed": false
+    },
+    {
+      "detail": {
+        "observed": {
+          "accepted": true,
+          "result": {
+            "c02": {
+              "named_by_selected": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_nonfinite_json.json",
+                "sha256": "7d7f00fe4117f8fbc943a880094ea4c3cc7a28d712aca29d52f20c4115ab9167"
+              },
+              "text_of_record": {
+                "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+                "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+              },
+              "unsealed": true
+            }
+          }
+        },
+        "selected_fixture": {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_nonfinite_json.json",
+          "sha256": "7d7f00fe4117f8fbc943a880094ea4c3cc7a28d712aca29d52f20c4115ab9167"
+        }
+      },
+      "finding": "C02-SEL-STRICT",
+      "id": "C02_selected_nonfinite_json_must_refuse",
+      "passed": false
+    },
+    {
+      "detail": 10,
+      "finding": null,
+      "id": "actual_nice10",
+      "passed": true
+    }
+  ],
+  "date_u": "Sun Oct 18 23:21:34 UTC 2026",
+  "findings": [
+    "C02-SEL-ASSOCIATION",
+    "C02-SEL-STRICT"
+  ],
+  "fixtures": [
+    {
+      "bytes": 36,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/open_inert.md",
+      "sha256": "e19638d782fa8652d52a38ce801654d936cf6152a51398a0d3756bf75a9c8c05"
+    },
+    {
+      "bytes": 19,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/existing_V005_ADDENDUM_FROZEN.md",
+      "sha256": "714aba297c52cc97fde3e747316afe05915dc7c807add08ca007e6d02b7f5ff7"
+    },
+    {
+      "bytes": 1276,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/tor_inert.json",
+      "sha256": "ed447116457ae7999ae419f00923a7f234cf1a80f9582eee06fd9825cc2ac27e"
+    },
+    {
+      "bytes": 499,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/slots_inert.json",
+      "sha256": "9f6ea461d319531243f3f162e8bec5bb3b2bcf3fbc2786cbffb58eb347e7bb36"
+    },
+    {
+      "bytes": 1167,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/sealed_inert.json",
+      "sha256": "2bdf9d5ba247b32de378fa0afc6352981abfca7bd5e5495196926704a2a71a85"
+    },
+    {
+      "bytes": 264,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_good.json",
+      "sha256": "b7452184b06e1e2dfaf8f56e671d88b998afe93e23521ef32822e5b604a203e2"
+    },
+    {
+      "bytes": 1153,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/sealed_outside_slot.json",
+      "sha256": "a288efc57b52b2637f94d3226717267a915671311f8059e438b47241860f7ede"
+    },
+    {
+      "bytes": 1155,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/sealed_wrong_slot.json",
+      "sha256": "e7fc328876a233e199d6a1035871a2883e1eb61c130475092dd6dcf07f63dda2"
+    },
+    {
+      "bytes": 1160,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/sealed_slot_metadata.json",
+      "sha256": "d4b634e8686133c0ad8361d5e947aeaefb617f817086ca1c49f64b811f58e88a"
+    },
+    {
+      "bytes": 1045,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/sealed_other_format.json",
+      "sha256": "0494a725d0f7cac2a965a90b22bc2e14e999405f3d79d26feabbd0f8378a4464"
+    },
+    {
+      "bytes": 240,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_filled_tor.json",
+      "sha256": "05fb38d9ae8f93d50d0ed34b52ffdc931c5b999f39d2f90e4fc4163c87d8ccdf"
+    },
+    {
+      "bytes": 254,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_unassociated_strings.json",
+      "sha256": "99ecdf24a2f4cd45fc303c97e7ceaabe194b6aadc3495f3e43a421edab77efd7"
+    },
+    {
+      "bytes": 270,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_different_selected_path_prefix.json",
+      "sha256": "b49b6fdf53e52aa6ba34eb0c20720063c13566aee2586d546977099bfca303db"
+    },
+    {
+      "bytes": 332,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_duplicate_json_keys.json",
+      "sha256": "9b9142c8927aff01929346de6057e370b33f421923ac7f113b0e867953c46ced"
+    },
+    {
+      "bytes": 349,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_invalid_json_trailing.json",
+      "sha256": "b0be1ce44c988201588bdd5e9842faebbed2d4b055fac349af86d5b0a2155492"
+    },
+    {
+      "bytes": 330,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/selected_nonfinite_json.json",
+      "sha256": "7d7f00fe4117f8fbc943a880094ea4c3cc7a28d712aca29d52f20c4115ab9167"
+    },
+    {
+      "bytes": 36,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/copy_recheck_V005_ADDENDUM_FROZEN.md",
+      "sha256": "e19638d782fa8652d52a38ce801654d936cf6152a51398a0d3756bf75a9c8c05"
+    },
+    {
+      "bytes": 36,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/open_after_copy_V005_ADDENDUM_FROZEN.md",
+      "sha256": "e19638d782fa8652d52a38ce801654d936cf6152a51398a0d3756bf75a9c8c05"
+    },
+    {
+      "bytes": 36,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c02_freeze_cx1v001/fixtures/positive_V005_ADDENDUM_FROZEN.md",
+      "sha256": "e19638d782fa8652d52a38ce801654d936cf6152a51398a0d3756bf75a9c8c05"
+    }
+  ],
+  "label": "PROVISIONAL_A106_C02_FREEZE_SOURCE_DELTA",
+  "limitations": [
+    "Only copied helper buffer under non-main identity executed",
+    "No original script, comparator, seal, watchdog, scientific, production or protected data accesses",
+    "Freeze recheck failures use injected read observations, no file overwrite",
+    "No final v003/r6 schema published in this snapshot; exact selected schema remains author-owned integration"
+  ],
+  "passed": 29,
+  "scoped_AST_delta": {
+    "_sealed_bytes": "added",
+    "_selected_names": "added",
+    "_tor_unsealed": "added",
+    "c_check_tor": "added",
+    "c_freeze": "changed",
+    "c_selected_names": "added",
+    "dumps": "unchanged",
+    "pin": "unchanged",
+    "pinref": "unchanged",
+    "read_nofollow": "unchanged",
+    "write_x": "unchanged"
+  },
+  "total": 34,
+  "verdict": "FAIL_SELECTED_ASSOCIATION_AND_STRICT_PARSE"
+}

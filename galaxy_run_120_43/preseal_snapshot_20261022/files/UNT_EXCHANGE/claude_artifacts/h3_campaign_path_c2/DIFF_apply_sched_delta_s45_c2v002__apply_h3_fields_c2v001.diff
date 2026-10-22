@@ -1,0 +1,214 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v002/apply_sched_delta_s45_c2v002.py	2026-10-19 06:24:58.111142063 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_h3_fields_c2v001.py	2026-10-19 20:34:59.489288186 -0500
+@@ -1,31 +1,51 @@
+-"""Apply the sched_s45 scheduling delta to a DDO154 calibration RUN_CONFIG (Claude2 sched_s45_c2, c2v002).
++"""Apply the H3 gate fields to a DDO154 calibration RUN_CONFIG (Claude2 h3_campaign_path_c2, c2v001; V006 A188 item 4).
+ 
+-c2v002 = apply_sched_delta_s45_c2v001 with one change (verifier 1 B3): `notes` can no longer be SET (v001's delta carried
+-R9's whole notes text, so applied to C2 at H3 it replaced C2's notes with R9's).  A delta may only APPEND to notes:
+-  {"set": {path: value, ...}, "append": {"notes": " s45 ..."}}
+-so the successor keeps the predecessor's notes byte-for-byte as a prefix, whatever the predecessor is.
+-
+-Root uses it twice: once here on R9 (721c7230) to publish RUN_CONFIG_DDO154_CX2V006R9_S45_C2V002.json, and at H3 on
+-C2 (R9's H3 successor), so the C2 successor carries exactly the same scheduling change and nothing else.
+-  * Only the paths in ALLOWED_SET may be set and only the paths in ALLOWED_APPEND appended to; any other path refuses.
+-    Physics inputs (numerics, driver, coordinate spec and addendum, taxonomy, anchor, observation region, deciding test,
+-    tail_readiness, u_i carrier, work dir, python, monitor, process_budget, stage_aware_budget, n_cores,
+-    campaign_wall_cap_s, ...) cannot change.
+-  * The campaign pin's sha256 is recomputed from the file's bytes and must equal the delta's.
+-  * The output keeps the predecessor's serialization (json, indent 1, sorted keys, trailing newline) and is written by
+-    exclusive create.  The report lists every changed path and the canonical sha256 of every unchanged top-level key.
+-usage: python3 -I -B apply_sched_delta_s45_c2v002.py PREDECESSOR.json DELTA.json OUT.json [REPORT.json]
++c2v001 = apply_sched_delta_s45_c2v002 (2a18b280) with the allowed set replaced: v002 may set only scheduling leaves, so it
++cannot set any gate field (its ALLOWED_SET L25-26).  This successor may set ONLY the fields the five H3 gates and the numerics
++gate read (parent c75a889f, core r9/r10_c4, wrapper q5b1), and append to notes:
++  {"set": {path: value, ...}, "append": {"notes": " h3 ..."}}
++  * numerics gate (policy check_numerics L46-138): numerics.{verdict_artifact, block_source, compare, sealed_prereg,
++    adopted_result, source_results}.  numerics.block can NOT change.  With --seal-record (the one record root fills at the
++    verdict, regenerate_h3_c2v001.py) verdict_artifact, compare and sealed_prereg are DERIVED from it: the report pin, the
++    sealed compare pin, and the report's own prereg object (the policy compares it exactly, L63); a delta that also sets
++    them must give the same values;
++  * deciding (core L114-197): deciding_test; anchor.{result, receipt, spec_sha256} (anchor.use stays false, L101-102);
++  * capability (core L313-340): capability_evidence;
++  * certificate policy (wrapper q5b1 L59-77): tail_readiness.{certificate_registry, certificate_policy_review,
++    approved_certificate_producers, state_enumerator, custody_deriver};
++  * adoption (parent L1828-1926, q5b1 L213-227): adoption_derivation, disk_guard.measured_per_call_bytes;
++  * u_i carrier (parent L1797-1826): u_i_carrier.{carrier, declared_by, basis, note}.
++Every other path refuses (physics, scheduling, campaign, driver, work dir, ...).  Value rules, all before anything is
++written: no null; a pin is exactly {path, sha256} with an absolute path whose bytes hash to sha256 (sealed_prereg may carry
++the report's extra keys); approved_certificate_producers is a non-empty list of pins; source_results is a list of
++{case_id, result: pin}; anchor.spec_sha256 is 64 lowercase hex; carrier is NOT_CARRIED_DECLARED or FROZEN_BANDS_ONLY
++(parent L148-149: ADMISSION_RECTANGLES refuses); declared_by / basis are non-empty text; measured_per_call_bytes is an int > 0.
++The output keeps the predecessor's serialization (json, indent 1, sorted keys, trailing newline) and is written by exclusive
++create.  The report lists every changed path, the canonical sha256 of every unchanged top-level key, and whether a changed
++path is in the wrapper cache key (tail_readiness, q5b1 L52-55: then the cache id changes).
++usage: python3 -I -B apply_h3_fields_c2v001.py PREDECESSOR.json DELTA.json OUT.json [REPORT.json]
++                                              [--seal-record SEAL.json --seal-record-sha256 H]
+ """
+ import copy
+ import hashlib
+ import json
++import os
++import re
+ import sys
+ from pathlib import Path
+ 
+-ALLOWED_SET = ('campaign', 'max_concurrent', 'per_call.wall_cap_s', 'per_call.rss_cap_bytes', 'per_call.output_cap_bytes',
+-               'disk_guard.per_call_bytes', 'disk_guard.reserve_bytes', 'orphan_wait.cap_s')
++PIN_PATHS = ('numerics.verdict_artifact', 'numerics.block_source', 'numerics.compare', 'numerics.sealed_prereg',
++             'numerics.adopted_result', 'deciding_test', 'anchor.result', 'anchor.receipt', 'capability_evidence',
++             'tail_readiness.certificate_registry', 'tail_readiness.certificate_policy_review',
++             'tail_readiness.state_enumerator', 'tail_readiness.custody_deriver', 'adoption_derivation')
++ALLOWED_SET = PIN_PATHS + ('numerics.source_results', 'anchor.spec_sha256', 'tail_readiness.approved_certificate_producers',
++                           'disk_guard.measured_per_call_bytes', 'u_i_carrier.carrier', 'u_i_carrier.declared_by',
++                           'u_i_carrier.basis', 'u_i_carrier.note')
+ ALLOWED_APPEND = ('notes',)
+ ALLOWED = ALLOWED_SET + ALLOWED_APPEND
++CACHE_KEY_PREFIXES = ('tail_readiness',)                 # wrapper q5b1 L52-55; the parent key reads none of ALLOWED_SET
++SEAL_SCHEMA = 'H3_V007_SEAL_TUPLE_RECORD_C2V001'
++HEX = re.compile(r'[0-9a-f]{64}')
+ 
+ 
+ def canon(o):
+@@ -60,26 +80,96 @@
+     return {pre[:-1]: o}
+ 
+ 
+-def apply(pred_bytes, delta):
++def pin_problem(v, extra_keys_ok=False):
++    if not isinstance(v, dict) or not {'path', 'sha256'} <= set(v) or (not extra_keys_ok and set(v) != {'path', 'sha256'}):
++        return 'must be {path, sha256}'
++    if not isinstance(v['path'], str) or not os.path.isabs(v['path']) or not isinstance(v['sha256'], str) \
++            or HEX.fullmatch(v['sha256']) is None:
++        return 'needs an absolute path and a 64-hex sha256'
++    try:
++        if sha_b(Path(v['path']).read_bytes()) != v['sha256']:
++            return 'sha256 differs from the file bytes'
++    except OSError as exc:
++        return 'unreadable: %s' % exc
++    return None
++
++
++def value_problems(p, v):
++    if v is None:
++        return ['%s: null (every H3 field must be filled; pending fields are not applied)' % p]
++    if p in PIN_PATHS:
++        bad = pin_problem(v, extra_keys_ok=(p == 'numerics.sealed_prereg'))
++        return ['%s: %s' % (p, bad)] if bad else []
++    if p == 'tail_readiness.approved_certificate_producers':
++        if not isinstance(v, list) or not v:
++            return ['%s: a non-empty list of pins' % p]
++        return ['%s[%d]: %s' % (p, i, b) for i, b in enumerate(pin_problem(x) for x in v) if b]
++    if p == 'numerics.source_results':
++        if not isinstance(v, list):
++            return ['%s: a list of {case_id, result}' % p]
++        out = []
++        for i, x in enumerate(v):
++            if not isinstance(x, dict) or set(x) != {'case_id', 'result'} or not isinstance(x.get('case_id'), str):
++                out.append('%s[%d]: must be {case_id, result}' % (p, i))
++            elif pin_problem(x['result']):
++                out.append('%s[%d].result: %s' % (p, i, pin_problem(x['result'])))
++        return out
++    if p == 'anchor.spec_sha256':
++        return [] if isinstance(v, str) and HEX.fullmatch(v) else ['%s: 64 lowercase hex' % p]
++    if p == 'u_i_carrier.carrier':
++        return [] if v in ('NOT_CARRIED_DECLARED', 'FROZEN_BANDS_ONLY') else ['%s: NOT_CARRIED_DECLARED or FROZEN_BANDS_ONLY' % p]
++    if p in ('u_i_carrier.declared_by', 'u_i_carrier.basis', 'u_i_carrier.note'):
++        return [] if isinstance(v, str) and v.strip() else ['%s: non-empty text' % p]
++    if p == 'disk_guard.measured_per_call_bytes':
++        return [] if type(v) is int and v > 0 else ['%s: an int > 0' % p]
++    return []
++
++
++def seal_derived(seal_raw, seal_sha):
++    """numerics.{verdict_artifact, compare, sealed_prereg} from the root-filled seal tuple record (regenerate_h3_c2v001)."""
++    if sha_b(seal_raw) != seal_sha:
++        return None, ['seal record bytes do not hash to --seal-record-sha256']
++    rec = json.loads(seal_raw)
++    if rec.get('schema') != SEAL_SCHEMA or rec.get('status') != 'ROOT_FILLED':
++        return None, ['seal record must be %s with status ROOT_FILLED (EMPTY_TUPLE)' % SEAL_SCHEMA]
++    t, rp, cp = rec.get('tuple') or {}, rec.get('report') or {}, rec.get('compare') or {}
++    reasons = [x for x in (pin_problem(rp), pin_problem(cp)) if x]
++    if reasons:
++        return None, ['seal record report/compare pin: %s' % reasons]
++    if rp['sha256'] != t.get('verdict_sha256') or cp['sha256'] != t.get('compare_sha256'):
++        return None, ['seal record pins differ from its tuple (TUPLE_NOT_REPORT_BYTES)']
++    rep = json.loads(Path(rp['path']).read_bytes())
++    pre = rep.get('prereg')
++    if not isinstance(pre, dict) or pre.get('sha256') != t.get('prereg_sha256') or pin_problem(pre, extra_keys_ok=True):
++        return None, ['the report prereg object is not the tuple P / does not verify']
++    return {'numerics.verdict_artifact': {'path': rp['path'], 'sha256': rp['sha256']},
++            'numerics.compare': {'path': cp['path'], 'sha256': cp['sha256']},
++            'numerics.sealed_prereg': copy.deepcopy(pre)}, []
++
++
++def apply(pred_bytes, delta, seal_raw=None, seal_sha=None):
+     pred = json.loads(pred_bytes)
+     reasons = []
+-    sets = delta.get('set') or {}
++    sets = dict(delta.get('set') or {})
+     appends = delta.get('append') or {}
++    if seal_raw is not None:
++        derived, why = seal_derived(seal_raw, seal_sha)
++        reasons += why
++        for p, v in (derived or {}).items():
++            if p in sets and canon(sets[p]) != canon(v):
++                reasons.append('%s differs from the value derived from the seal record' % p)
++            sets[p] = v
+     for p in sets:
+         if p not in ALLOWED_SET:
+-            reasons.append('path not allowed to be set (scheduling only; notes are append-only): %s' % p)
++            reasons.append('path not allowed to be set (H3 gate fields only; notes are append-only): %s' % p)
+     for p, v in appends.items():
+         if p not in ALLOWED_APPEND:
+             reasons.append('path not allowed to be appended to: %s' % p)
+         elif not isinstance(v, str) or not v:
+             reasons.append('append value must be a non-empty string: %s' % p)
+-    camp = sets.get('campaign')
+-    if camp is not None:
+-        try:
+-            if sha_b(Path(camp['path']).read_bytes()) != camp['sha256']:
+-                reasons.append('campaign sha256 differs from the file bytes')
+-        except (OSError, KeyError, TypeError) as exc:
+-            reasons.append('campaign pin unreadable: %s' % exc)
++    for p, v in sets.items():
++        if p in ALLOWED_SET:
++            reasons.extend(value_problems(p, v))
+     if reasons:
+         return None, {'ok': False, 'reasons': reasons}
+     new = copy.deepcopy(pred)
+@@ -108,13 +198,22 @@
+            'predecessor_serialization_roundtrips': (json.dumps(pred, indent=1, sort_keys=True) + '\n').encode() == pred_bytes,
+            'changed_paths': {k: {'from': fp.get(k), 'to': fn.get(k)} for k in changed},
+            'appended_paths_keep_predecessor_prefix': kept_prefix,
+-           'unchanged_top_level_canonical_sha256': top_same}
++           'unchanged_top_level_canonical_sha256': top_same,
++           'seal_record_sha256': seal_sha,
++           'changed_paths_in_wrapper_cache_key': sorted(k for k in changed if k.split('.')[0] in CACHE_KEY_PREFIXES)}
+     return out_bytes, rep
+ 
+ 
+ def main(argv):
++    seal_p = seal_s = None
++    if '--seal-record' in argv:
++        i = argv.index('--seal-record')
++        seal_p, argv = argv[i + 1], argv[:i] + argv[i + 2:]
++        j = argv.index('--seal-record-sha256')
++        seal_s, argv = argv[j + 1], argv[:j] + argv[j + 2:]
+     pred_p, delta_p, out_p = argv[:3]
+-    out_bytes, rep = apply(Path(pred_p).read_bytes(), json.loads(Path(delta_p).read_text()))
++    out_bytes, rep = apply(Path(pred_p).read_bytes(), json.loads(Path(delta_p).read_text()),
++                           Path(seal_p).read_bytes() if seal_p else None, seal_s)
+     if out_bytes is None:
+         print(json.dumps(rep, indent=1))
+         return 2
+@@ -125,7 +224,8 @@
+             json.dump(rep, f, indent=1)
+             f.write('\n')
+     print(json.dumps({k: rep[k] for k in ('ok', 'predecessor_sha256', 'successor_sha256', 'changed_paths',
+-                                          'appended_paths_keep_predecessor_prefix')}, indent=1))
++                                          'appended_paths_keep_predecessor_prefix', 'changed_paths_in_wrapper_cache_key')},
++                     indent=1))
+     return 0
+ 
+ 

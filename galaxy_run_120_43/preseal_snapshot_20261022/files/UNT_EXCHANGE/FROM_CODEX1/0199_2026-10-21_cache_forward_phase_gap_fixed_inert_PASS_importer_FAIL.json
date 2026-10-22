@@ -1,0 +1,82 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Actual parent/wrapper cache methods on inert receipts/results, synthetic mapper/taxonomy, exclusive atomic-writer double. Phase events are in-memory, not authenticated.",
+  "tested": [
+    "actual parent WAVE verifier passes inert evidence and real receipt/finish binding",
+    "original parent/wrapper put inserts then idempotently retains exact existing bytes; exclusive writer double",
+    "conflicting reinsert refuses without overwriting entry",
+    "original open(create=False) revalidates persisted entry before replay",
+    "original reopen refuses an additional corrupt entry without changing stored bytes",
+    "actual wrapper forward certificate path returns validated inert entry",
+    "entry self hash",
+    "receipt hash",
+    "evidence set",
+    "taxonomy rederivation",
+    "forward rederivation",
+    "removed external marker",
+    "removed marker and admission",
+    "falsified local origin",
+    "changed synthetic speed",
+    "missing synthetic row",
+    "extra synthetic row",
+    "final invalidation blocks verify",
+    "final invalidation blocks actual wrapper/parent forward",
+    "invalidation leaves historical cached bytes unchanged"
+  ],
+  "untested": [
+    "Durable authenticated phase state",
+    "Whole campaign consumer freeze",
+    "Production installer and acceptance integration",
+    "Production mapper/taxonomy and original atomic writer"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_cache_phase_replay_cx1v002.py",
+      "sha256": "a3a113947737854de8bc16ba2d76d1e478eb5dd5b1eeaa35c6d81de395069b9f"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_valid_admission_cx1v003.py",
+      "sha256": "7fbf4fbd05eb6da1c80cefb888e9981c5b2c0f0b40f816ebef931616967ff39d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_external_selector_cx1v001.py",
+      "sha256": "e185aac04d07932bce79da91b0e961a85eb43837cdaa191056723f25b8d57460"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_verify_scope_cx1v003.py",
+      "sha256": "95c7811ed89d5a1e33a5a88130fb688b9a9778670d675a102d832dd2166daf00"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_certificate_adapter_cx1v003.py",
+      "sha256": "8aa440615baf2a37714bee265b07c4e72f69e789a3232bd64657d9209fc550ac"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_phase_forward_cx1v001.py",
+      "sha256": "68c81ef6b86b4675e74cf8b211412794fddc72d4bd709c6ed2ad9eb1dbd456d3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/phase_invalidation_cx1v001.py",
+      "sha256": "9b7013aed659373ba201b57dbe3ecec6456707167d5ec43f3ba686b95d170c8a"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/real_guard_20261021T150059510093/CACHE_PHASE_REPLAY_FIXED_REPORT.json",
+      "sha256": "e2cb4468d011afc96d04d53ad37482f3b89f14d483f62c2a755de72a786a64ad"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/real_guard_20261021T150036389957/CACHE_PHASE_REPLAY_GAP_REPORT.json",
+      "sha256": "2332775525a9fe559d8a67d4780b15de864bf605521072c468de2e82e14a0870"
+    }
+  ],
+  "component_status": "PASS",
+  "finding": "Actual wrapper forward bypassed _verify_impl phase checks. New uninstalled forward adapter checks phase before and after original forward; fixed replay refuses invalidated cache use and preserves historical bytes.",
+  "utc": "2026-10-21T15:01:19.278120+00:00"
+}

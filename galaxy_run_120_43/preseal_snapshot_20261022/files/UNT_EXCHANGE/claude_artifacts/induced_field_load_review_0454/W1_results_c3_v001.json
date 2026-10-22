@@ -1,0 +1,2534 @@
+{
+ "schema": "W1_fixtures_v001",
+ "run_utc": "2026-10-16T20:36:27Z",
+ "dispatch_0454_sha256": "a6b544c8b40125e265380fa7f27d0885823a8ac5bf410fbc29ac720ca9f320fa",
+ "spec_0453_sha256": "fbcda35f550b98aba8aace7021e30284b8ade417bbd6af60ded91dda32fbf2f0",
+ "harness": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/induced_field_load_review_0454/W1_fixtures_v001.py",
+  "sha256": "532c9765c40b9e1963000e9e30318570fac57a1ce50e99bcfc09c43dcd590273"
+ },
+ "argv": [
+  "--module",
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/induced_field_load_review_0454/W1_snapshot_7f68fba1/induced_field_weak_load_c3v001.py",
+  "--func",
+  "induced_field_weak_load",
+  "--ref0439",
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/weak_euler_0439/weak_euler_assembly_c3v001.py",
+  "--out",
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/induced_field_load_review_0454/W1_results_c3_v001.json"
+ ],
+ "environment": {
+  "python": "3.12.14",
+  "executable": "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "numpy": "2.3.5",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "isolated_flag": 1,
+  "dont_write_bytecode": true,
+  "thread_env": {
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  }
+ },
+ "tolerances": {
+  "RTOL_vs_absolute_value_bound": 1e-12,
+  "hand_cases": "exact (0.0)",
+  "fd_selfcheck_rel": 1e-06,
+  "fd_step": 1e-05,
+  "angles": 16
+ },
+ "target": {
+  "module_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/induced_field_load_review_0454/W1_snapshot_7f68fba1/induced_field_weak_load_c3v001.py",
+  "func": "induced_field_weak_load",
+  "module_sha256_before": "7f68fba13d93d506b7d1db1e7818f247992d56bb7930190da7d6f3524f0cfb64",
+  "dir_listing_before": [
+   "induced_field_weak_load_c3v001.py"
+  ],
+  "signature": "(*, m, U_R, U_phi, U_z, rho, volume_weights, grad, normalization_scale)",
+  "mapping": {
+   "m": "m",
+   "U_R": "U_R",
+   "U_phi": "U_phi",
+   "U_z": "U_z",
+   "rho": "rho",
+   "volume_weights": "volume_weights",
+   "grad": "gradient",
+   "normalization_scale": "normalization_scale"
+  },
+  "deviations": [],
+  "parameter_kinds": [
+   "KEYWORD_ONLY"
+  ],
+  "smoke_call": "ok",
+  "module_sha256_after": "7f68fba13d93d506b7d1db1e7818f247992d56bb7930190da7d6f3524f0cfb64",
+  "dir_listing_after": [
+   "induced_field_weak_load_c3v001.py"
+  ],
+  "module_unchanged": true,
+  "no_new_files_in_module_dir": true
+ },
+ "reference": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/induced_field_load_review_0454/W1_reference_v001.py",
+  "sha256": "4008cd462c36ad943e0cc5d3c3b98539bca5e34c04e2c124787876f50d4aaf65",
+  "version": "W1_reference_v001"
+ },
+ "ref0439": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/weak_euler_0439/weak_euler_assembly_c3v001.py",
+  "sha256": "8632bda6d4a80d0d25bfa90ef4b1066954b6bc67c90f184d0a78c232bf3013da",
+  "pinned": "8632bda6d4a80d0d25bfa90ef4b1066954b6bc67c90f184d0a78c232bf3013da",
+  "sha_matches_pin": true,
+  "sha256_after": "8632bda6d4a80d0d25bfa90ef4b1066954b6bc67c90f184d0a78c232bf3013da"
+ },
+ "caveat_real_linear_chain": {
+  "description": "toy real chain y -> xi = 2Re(U y e^{i m phi}) -> field (1 + eps cos 2m phi) xi -> G = FFT/16 bin m (m = 2, no aliasing); G = a + (eps/2) conj(a), a = U y",
+  "rows": [
+   {
+    "eps": 0.0,
+    "chain_G_eq_a_plus_half_eps_conj_a_maxerr": 1.7342238036525468e-15,
+    "projection_defect_|b(iG)-i b(G)|/|b(G)|": 0.0,
+    "chain_defect_|b(G(iy))-i b(G(y))|/|b(G(y))|": 1.1681014822031522e-16
+   },
+   {
+    "eps": 0.3,
+    "chain_G_eq_a_plus_half_eps_conj_a_maxerr": 2.3603665272841412e-15,
+    "projection_defect_|b(iG)-i b(G)|/|b(G)|": 0.0,
+    "chain_defect_|b(G(iy))-i b(G(y))|/|b(G(y))|": 0.14601285179168014
+   }
+  ]
+ },
+ "fixture_selfchecks": [
+  {
+   "id": "selfcheck_fd_gradient_m1_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 3.601471831871095e-08,
+   "tol_max": 5.886197083662374e-05,
+   "max_err_over_bound": 6.118503646212047e-16,
+   "note": "central differences of the real deltaPhi vs analytic gradient"
+  },
+  {
+   "id": "selfcheck_fft16_eq_analytic_m1_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 9.860380650283726e-15,
+   "tol_max": 5.886197083662374e-11,
+   "max_err_over_bound": 1.6751699798927947e-16,
+   "note": "FFT/16 bin m equals the analytic exp(+i m phi) coefficient"
+  },
+  {
+   "id": "selfcheck_direct_dft_eq_fft16_m1_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 2.802076229740705e-15,
+   "tol_max": 5.886197083662374e-11,
+   "max_err_over_bound": 4.760418636878637e-17,
+   "note": "(1/2pi) sum_j (2pi/16) e^{-i m phi_j} g equals FFT/16 bin m"
+  },
+  {
+   "id": "selfcheck_real_field_bin_minus_m_m1_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 8.881784197001252e-16,
+   "tol_max": 5.886197083662374e-11,
+   "max_err_over_bound": 1.5089172297090388e-17,
+   "note": "real field: bin -m is the conjugate of bin m"
+  },
+  {
+   "id": "selfcheck_fd_gradient_m2_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 5.8115674050895905e-08,
+   "tol_max": 0.00012435883344208686,
+   "max_err_over_bound": 4.673224445930495e-16,
+   "note": "central differences of the real deltaPhi vs analytic gradient"
+  },
+  {
+   "id": "selfcheck_fft16_eq_analytic_m2_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 4.6602177771641464e-14,
+   "tol_max": 1.2435883344208687e-10,
+   "max_err_over_bound": 3.747395860973865e-16,
+   "note": "FFT/16 bin m equals the analytic exp(+i m phi) coefficient"
+  },
+  {
+   "id": "selfcheck_direct_dft_eq_fft16_m2_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 4.654420521014983e-15,
+   "tol_max": 1.2435883344208687e-10,
+   "max_err_over_bound": 3.742734144561204e-17,
+   "note": "(1/2pi) sum_j (2pi/16) e^{-i m phi_j} g equals FFT/16 bin m"
+  },
+  {
+   "id": "selfcheck_real_field_bin_minus_m_m2_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 1.2435883344208687e-10,
+   "max_err_over_bound": 0.0,
+   "note": "real field: bin -m is the conjugate of bin m"
+  },
+  {
+   "id": "selfcheck_fd_gradient_m3_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 2.89985209178667e-08,
+   "tol_max": 5.792764151599021e-05,
+   "max_err_over_bound": 5.00599025939318e-16,
+   "note": "central differences of the real deltaPhi vs analytic gradient"
+  },
+  {
+   "id": "selfcheck_fft16_eq_analytic_m3_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 1.451974782564475e-14,
+   "tol_max": 5.792764151599021e-11,
+   "max_err_over_bound": 2.5065318465687495e-16,
+   "note": "FFT/16 bin m equals the analytic exp(+i m phi) coefficient"
+  },
+  {
+   "id": "selfcheck_direct_dft_eq_fft16_m3_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 3.972054645195637e-15,
+   "tol_max": 5.792764151599021e-11,
+   "max_err_over_bound": 6.856924503130687e-17,
+   "note": "(1/2pi) sum_j (2pi/16) e^{-i m phi_j} g equals FFT/16 bin m"
+  },
+  {
+   "id": "selfcheck_real_field_bin_minus_m_m3_general",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 4.965068306494546e-16,
+   "tol_max": 5.792764151599021e-11,
+   "max_err_over_bound": 8.571155628913358e-18,
+   "note": "real field: bin -m is the conjugate of bin m"
+  },
+  {
+   "id": "selfcheck_fd_gradient_m4_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 2.586330083431676e-08,
+   "tol_max": 5.045777145132983e-05,
+   "max_err_over_bound": 5.12573189231391e-16,
+   "note": "central differences of the real deltaPhi vs analytic gradient"
+  },
+  {
+   "id": "selfcheck_fft16_eq_analytic_m4_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 1.432144669219779e-14,
+   "tol_max": 5.045777145132983e-11,
+   "max_err_over_bound": 2.838303452623123e-16,
+   "note": "FFT/16 bin m equals the analytic exp(+i m phi) coefficient"
+  },
+  {
+   "id": "selfcheck_direct_dft_eq_fft16_m4_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 5.0242958677880805e-15,
+   "tol_max": 5.045777145132983e-11,
+   "max_err_over_bound": 9.957427217399755e-17,
+   "note": "(1/2pi) sum_j (2pi/16) e^{-i m phi_j} g equals FFT/16 bin m"
+  },
+  {
+   "id": "selfcheck_real_field_bin_minus_m_m4_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 5.045777145132983e-11,
+   "max_err_over_bound": 0.0,
+   "note": "real field: bin -m is the conjugate of bin m"
+  },
+  {
+   "id": "selfcheck_fd_gradient_m5_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 1.3250762265215599e-08,
+   "tol_max": 2.0627678709400473e-05,
+   "max_err_over_bound": 6.423777707559961e-16,
+   "note": "central differences of the real deltaPhi vs analytic gradient"
+  },
+  {
+   "id": "selfcheck_fft16_eq_analytic_m5_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 5.497566137053743e-15,
+   "tol_max": 2.0627678709400473e-11,
+   "max_err_over_bound": 2.6651404719370506e-16,
+   "note": "FFT/16 bin m equals the analytic exp(+i m phi) coefficient"
+  },
+  {
+   "id": "selfcheck_direct_dft_eq_fft16_m5_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 4.094300213216723e-15,
+   "tol_max": 2.0627678709400473e-11,
+   "max_err_over_bound": 1.9848574679180276e-16,
+   "note": "(1/2pi) sum_j (2pi/16) e^{-i m phi_j} g equals FFT/16 bin m"
+  },
+  {
+   "id": "selfcheck_real_field_bin_minus_m_m5_root",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 4.742874840267547e-16,
+   "tol_max": 2.0627678709400473e-11,
+   "max_err_over_bound": 2.2992770573385545e-17,
+   "note": "real field: bin -m is the conjugate of bin m"
+  },
+  {
+   "id": "selfcheck_fd_gradient_m6_general_k_gt_n",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 3.164660711263423e-08,
+   "tol_max": 4.7841427797054174e-05,
+   "max_err_over_bound": 6.614896036732177e-16,
+   "note": "central differences of the real deltaPhi vs analytic gradient"
+  },
+  {
+   "id": "selfcheck_fft16_eq_analytic_m6_general_k_gt_n",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 2.0505191110613903e-14,
+   "tol_max": 4.7841427797054174e-11,
+   "max_err_over_bound": 4.286074236245204e-16,
+   "note": "FFT/16 bin m equals the analytic exp(+i m phi) coefficient"
+  },
+  {
+   "id": "selfcheck_direct_dft_eq_fft16_m6_general_k_gt_n",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 9.930136612989092e-15,
+   "tol_max": 4.7841427797054174e-11,
+   "max_err_over_bound": 2.0756355046745781e-16,
+   "note": "(1/2pi) sum_j (2pi/16) e^{-i m phi_j} g equals FFT/16 bin m"
+  },
+  {
+   "id": "selfcheck_real_field_bin_minus_m_m6_general_k_gt_n",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 4.7841427797054174e-11,
+   "max_err_over_bound": 0.0,
+   "note": "real field: bin -m is the conjugate of bin m"
+  },
+  {
+   "id": "selfcheck_fd_gradient_m3_offmode_only",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 1.8096738330086737e-08,
+   "tol_max": 2.2179372595469142e-05,
+   "max_err_over_bound": 8.159265214645244e-16,
+   "note": "central differences of the real deltaPhi vs analytic gradient"
+  },
+  {
+   "id": "selfcheck_fft16_eq_analytic_m3_offmode_only",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 1.3082271919587488e-14,
+   "tol_max": 2.2179372595469142e-11,
+   "max_err_over_bound": 5.898395846535338e-16,
+   "note": "FFT/16 bin m equals the analytic exp(+i m phi) coefficient"
+  },
+  {
+   "id": "selfcheck_direct_dft_eq_fft16_m3_offmode_only",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 4.100105350275639e-15,
+   "tol_max": 2.2179372595469142e-11,
+   "max_err_over_bound": 1.8486119625914121e-16,
+   "note": "(1/2pi) sum_j (2pi/16) e^{-i m phi_j} g equals FFT/16 bin m"
+  },
+  {
+   "id": "selfcheck_real_field_bin_minus_m_m3_offmode_only",
+   "family": "fixture_selfcheck",
+   "passed": true,
+   "max_abs_err": 6.753223014464258e-16,
+   "tol_max": 2.2179372595469142e-11,
+   "max_err_over_bound": 3.0448214823911764e-17,
+   "note": "real field: bin -m is the conjugate of bin m"
+  }
+ ],
+ "checks": [
+  {
+   "id": "hand_H1_one_point_root_dtypes",
+   "family": "hand",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "note": "exact dyadic arithmetic required",
+   "got": [
+    [
+     -0.75,
+     -0.5
+    ]
+   ],
+   "expected": [
+    [
+     -0.75,
+     -0.5
+    ]
+   ]
+  },
+  {
+   "id": "hand_H2_two_points_general",
+   "family": "hand",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "note": "exact dyadic arithmetic required",
+   "got": [
+    [
+     -4.375,
+     -0.5
+    ],
+    [
+     -3.125,
+     0.21875
+    ]
+   ],
+   "expected": [
+    [
+     -4.375,
+     -0.5
+    ],
+    [
+     -3.125,
+     0.21875
+    ]
+   ]
+  },
+  {
+   "id": "hand_H3_sign_unit",
+   "family": "hand",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "note": "exact dyadic arithmetic required",
+   "got": [
+    [
+     -1.0,
+     0.0
+    ]
+   ],
+   "expected": [
+    [
+     -1.0,
+     0.0
+    ]
+   ]
+  },
+  {
+   "id": "proj_direct_m1_general",
+   "family": "proj_direct",
+   "passed": true,
+   "max_abs_err": 5.495323605393213e-16,
+   "tol_max": 1.8588574160802604e-11,
+   "max_err_over_bound": 2.9562910838966355e-17,
+   "note": "target*s vs direct 16-angle projection integral",
+   "modes_in_potential": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "m": 1,
+   "maps": "general"
+  },
+  {
+   "id": "proj_coeff_consistency_m1_general",
+   "family": "proj_coeff_consistency",
+   "passed": true,
+   "max_abs_err": 9.949512507731418e-16,
+   "tol_max": 8.08198876556635e-12,
+   "max_err_over_bound": 1.2310723011793495e-16,
+   "note": "analytic coefficient input vs FFT/16 input"
+  },
+  {
+   "id": "vw_random_m1_general",
+   "family": "vw_random",
+   "passed": true,
+   "max_abs_err": 1.4210854715202004e-14,
+   "note": "W_real == 4 pi Re(y^H (delta_b s)) for 4 random complex y",
+   "max_err_over_bound": 9.719529878565067e-18,
+   "samples": [
+    {
+     "W_real": -1.5290176265891882,
+     "four_pi_Re_yH_b_s": -1.5290176265891982,
+     "abs_err": 9.992007221626409e-15
+    },
+    {
+     "W_real": -24.585464618736353,
+     "four_pi_Re_yH_b_s": -24.585464618736342,
+     "abs_err": 1.0658141036401503e-14
+    },
+    {
+     "W_real": -35.93470422328892,
+     "four_pi_Re_yH_b_s": -35.93470422328891,
+     "abs_err": 7.105427357601002e-15
+    },
+    {
+     "W_real": -17.190751809634737,
+     "four_pi_Re_yH_b_s": -17.19075180963475,
+     "abs_err": 1.4210854715202004e-14
+    }
+   ]
+  },
+  {
+   "id": "vw_reconstruct_m1_general",
+   "family": "vw_reconstruct",
+   "passed": true,
+   "max_abs_err": 3.7238012298709097e-16,
+   "tol_max": 1.8413786042623272e-11,
+   "max_err_over_bound": 2.0222898328737224e-17,
+   "note": "delta_b_k = (W(e_k) + i W(i e_k)) / (4 pi s)"
+  },
+  {
+   "id": "proj_direct_m2_root",
+   "family": "proj_direct",
+   "passed": true,
+   "max_abs_err": 2.6714882335148707e-16,
+   "tol_max": 7.588518114590628e-12,
+   "max_err_over_bound": 3.5204346793062735e-17,
+   "note": "target*s vs direct 16-angle projection integral",
+   "modes_in_potential": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "m": 2,
+   "maps": "root"
+  },
+  {
+   "id": "proj_coeff_consistency_m2_root",
+   "family": "proj_coeff_consistency",
+   "passed": true,
+   "max_abs_err": 1.5226196396935263e-15,
+   "tol_max": 4.463834185053311e-12,
+   "max_err_over_bound": 3.4110129914589155e-16,
+   "note": "analytic coefficient input vs FFT/16 input"
+  },
+  {
+   "id": "vw_random_m2_root",
+   "family": "vw_random",
+   "passed": true,
+   "max_abs_err": 3.774758283725532e-15,
+   "note": "W_real == 4 pi Re(y^H (delta_b s)) for 4 random complex y",
+   "max_err_over_bound": 1.2211114601337882e-17,
+   "samples": [
+    {
+     "W_real": 0.49598060273786326,
+     "four_pi_Re_yH_b_s": 0.4959806027378596,
+     "abs_err": 3.6637359812630166e-15
+    },
+    {
+     "W_real": 0.13661562701090696,
+     "four_pi_Re_yH_b_s": 0.13661562701090318,
+     "abs_err": 3.774758283725532e-15
+    },
+    {
+     "W_real": 0.30362564640961587,
+     "four_pi_Re_yH_b_s": 0.30362564640961354,
+     "abs_err": 2.3314683517128287e-15
+    },
+    {
+     "W_real": 0.15179729442353262,
+     "four_pi_Re_yH_b_s": 0.15179729442353304,
+     "abs_err": 4.163336342344337e-16
+    }
+   ]
+  },
+  {
+   "id": "vw_reconstruct_m2_root",
+   "family": "vw_reconstruct",
+   "passed": true,
+   "max_abs_err": 1.9437081127894707e-16,
+   "tol_max": 9.840244457758966e-12,
+   "max_err_over_bound": 1.9752640507389732e-17,
+   "note": "delta_b_k = (W(e_k) + i W(i e_k)) / (4 pi s)"
+  },
+  {
+   "id": "proj_direct_m3_general",
+   "family": "proj_direct",
+   "passed": true,
+   "max_abs_err": 3.3422138886441676e-16,
+   "tol_max": 5.0501299921716e-12,
+   "max_err_over_bound": 6.618074968020747e-17,
+   "note": "target*s vs direct 16-angle projection integral",
+   "modes_in_potential": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "m": 3,
+   "maps": "general"
+  },
+  {
+   "id": "proj_coeff_consistency_m3_general",
+   "family": "proj_coeff_consistency",
+   "passed": true,
+   "max_abs_err": 3.775166431889533e-16,
+   "tol_max": 1.6290741910230968e-12,
+   "max_err_over_bound": 2.3173692473260776e-16,
+   "note": "analytic coefficient input vs FFT/16 input"
+  },
+  {
+   "id": "vw_random_m3_general",
+   "family": "vw_random",
+   "passed": true,
+   "max_abs_err": 2.6367796834847468e-15,
+   "note": "W_real == 4 pi Re(y^H (delta_b s)) for 4 random complex y",
+   "max_err_over_bound": 2.4788275680154715e-17,
+   "samples": [
+    {
+     "W_real": -0.18175157613831683,
+     "four_pi_Re_yH_b_s": -0.1817515761383142,
+     "abs_err": 2.6367796834847468e-15
+    },
+    {
+     "W_real": 4.69743982382386,
+     "four_pi_Re_yH_b_s": 4.697439823823862,
+     "abs_err": 1.7763568394002505e-15
+    },
+    {
+     "W_real": -1.5773920379939392,
+     "four_pi_Re_yH_b_s": -1.5773920379939412,
+     "abs_err": 1.9984014443252818e-15
+    },
+    {
+     "W_real": -3.664423750928407,
+     "four_pi_Re_yH_b_s": -3.6644237509284063,
+     "abs_err": 8.881784197001252e-16
+    }
+   ]
+  },
+  {
+   "id": "vw_reconstruct_m3_general",
+   "family": "vw_reconstruct",
+   "passed": true,
+   "max_abs_err": 1.1443916996305594e-16,
+   "tol_max": 3.665906842781109e-12,
+   "max_err_over_bound": 3.1217151681966266e-17,
+   "note": "delta_b_k = (W(e_k) + i W(i e_k)) / (4 pi s)"
+  },
+  {
+   "id": "proj_direct_m4_root",
+   "family": "proj_direct",
+   "passed": true,
+   "max_abs_err": 2.0206364052201328e-16,
+   "tol_max": 4.570307696558585e-12,
+   "max_err_over_bound": 4.421226182958447e-17,
+   "note": "target*s vs direct 16-angle projection integral",
+   "modes_in_potential": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "m": 4,
+   "maps": "root"
+  },
+  {
+   "id": "proj_coeff_consistency_m4_root",
+   "family": "proj_coeff_consistency",
+   "passed": true,
+   "max_abs_err": 3.7993786686009355e-15,
+   "tol_max": 1.2352182963671852e-11,
+   "max_err_over_bound": 3.075876288243968e-16,
+   "note": "analytic coefficient input vs FFT/16 input"
+  },
+  {
+   "id": "vw_random_m4_root",
+   "family": "vw_random",
+   "passed": true,
+   "max_abs_err": 7.105427357601002e-15,
+   "note": "W_real == 4 pi Re(y^H (delta_b s)) for 4 random complex y",
+   "max_err_over_bound": 4.0187581655525643e-17,
+   "samples": [
+    {
+     "W_real": -8.94063381771141,
+     "four_pi_Re_yH_b_s": -8.940633817711413,
+     "abs_err": 3.552713678800501e-15
+    },
+    {
+     "W_real": 5.0428155139619495,
+     "four_pi_Re_yH_b_s": 5.042815513961952,
+     "abs_err": 2.6645352591003757e-15
+    },
+    {
+     "W_real": 8.649706869115148,
+     "four_pi_Re_yH_b_s": 8.649706869115155,
+     "abs_err": 7.105427357601002e-15
+    },
+    {
+     "W_real": 0.6402452029428933,
+     "four_pi_Re_yH_b_s": 0.6402452029428983,
+     "abs_err": 4.9960036108132044e-15
+    }
+   ]
+  },
+  {
+   "id": "vw_reconstruct_m4_root",
+   "family": "vw_reconstruct",
+   "passed": true,
+   "max_abs_err": 7.889616961715915e-16,
+   "tol_max": 2.4704365927343715e-11,
+   "max_err_over_bound": 3.1936124104215084e-17,
+   "note": "delta_b_k = (W(e_k) + i W(i e_k)) / (4 pi s)"
+  },
+  {
+   "id": "proj_direct_m5_root",
+   "family": "proj_direct",
+   "passed": true,
+   "max_abs_err": 7.021666937153402e-16,
+   "tol_max": 5.1989581378649575e-12,
+   "max_err_over_bound": 1.3505911667211408e-16,
+   "note": "target*s vs direct 16-angle projection integral",
+   "modes_in_potential": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "m": 5,
+   "maps": "root"
+  },
+  {
+   "id": "proj_coeff_consistency_m5_root",
+   "family": "proj_coeff_consistency",
+   "passed": true,
+   "max_abs_err": 1.5982970556924732e-15,
+   "tol_max": 6.418466836870317e-12,
+   "max_err_over_bound": 2.4901539515810793e-16,
+   "note": "analytic coefficient input vs FFT/16 input"
+  },
+  {
+   "id": "vw_random_m5_root",
+   "family": "vw_random",
+   "passed": true,
+   "max_abs_err": 1.7763568394002505e-14,
+   "note": "W_real == 4 pi Re(y^H (delta_b s)) for 4 random complex y",
+   "max_err_over_bound": 5.153997795257124e-17,
+   "samples": [
+    {
+     "W_real": 19.538396363855497,
+     "four_pi_Re_yH_b_s": 19.538396363855483,
+     "abs_err": 1.4210854715202004e-14
+    },
+    {
+     "W_real": -20.898848885963027,
+     "four_pi_Re_yH_b_s": -20.898848885963044,
+     "abs_err": 1.7763568394002505e-14
+    },
+    {
+     "W_real": 15.757606246019606,
+     "four_pi_Re_yH_b_s": 15.7576062460196,
+     "abs_err": 5.329070518200751e-15
+    },
+    {
+     "W_real": 23.247811881166733,
+     "four_pi_Re_yH_b_s": 23.24781188116673,
+     "abs_err": 3.552713678800501e-15
+    }
+   ]
+  },
+  {
+   "id": "vw_reconstruct_m5_root",
+   "family": "vw_reconstruct",
+   "passed": true,
+   "max_abs_err": 1.0057327710640516e-15,
+   "tol_max": 1.4564690157653838e-11,
+   "max_err_over_bound": 6.905280923779437e-17,
+   "note": "delta_b_k = (W(e_k) + i W(i e_k)) / (4 pi s)"
+  },
+  {
+   "id": "proj_direct_m6_general_k_gt_n",
+   "family": "proj_direct",
+   "passed": true,
+   "max_abs_err": 1.0881460057406233e-15,
+   "tol_max": 7.881636971309038e-12,
+   "max_err_over_bound": 1.380609142113147e-16,
+   "note": "target*s vs direct 16-angle projection integral",
+   "modes_in_potential": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "m": 6,
+   "maps": "general"
+  },
+  {
+   "id": "proj_coeff_consistency_m6_general_k_gt_n",
+   "family": "proj_coeff_consistency",
+   "passed": true,
+   "max_abs_err": 6.4796043696850615e-16,
+   "tol_max": 1.3358706731032266e-12,
+   "max_err_over_bound": 4.85047280410232e-16,
+   "note": "analytic coefficient input vs FFT/16 input"
+  },
+  {
+   "id": "vw_random_m6_general_k_gt_n",
+   "family": "vw_random",
+   "passed": true,
+   "max_abs_err": 8.526512829121202e-14,
+   "note": "W_real == 4 pi Re(y^H (delta_b s)) for 4 random complex y",
+   "max_err_over_bound": 6.912183498956086e-17,
+   "samples": [
+    {
+     "W_real": -68.20728131426775,
+     "four_pi_Re_yH_b_s": -68.2072813142678,
+     "abs_err": 5.684341886080802e-14
+    },
+    {
+     "W_real": -11.406006519884738,
+     "four_pi_Re_yH_b_s": -11.406006519884777,
+     "abs_err": 3.907985046680551e-14
+    },
+    {
+     "W_real": 124.49945793922002,
+     "four_pi_Re_yH_b_s": 124.49945793921994,
+     "abs_err": 8.526512829121202e-14
+    },
+    {
+     "W_real": 59.32002993640342,
+     "four_pi_Re_yH_b_s": 59.320029936403444,
+     "abs_err": 2.1316282072803006e-14
+    }
+   ]
+  },
+  {
+   "id": "vw_reconstruct_m6_general_k_gt_n",
+   "family": "vw_reconstruct",
+   "passed": true,
+   "max_abs_err": 2.9893669801409083e-16,
+   "tol_max": 3.0466933225836303e-12,
+   "max_err_over_bound": 9.811840784834528e-17,
+   "note": "delta_b_k = (W(e_k) + i W(i e_k)) / (4 pi s)"
+  },
+  {
+   "id": "proj_direct_m3_offmode_only",
+   "family": "proj_direct",
+   "passed": true,
+   "max_abs_err": 4.4093693796412063e-16,
+   "tol_max": 8.382551351187526e-12,
+   "max_err_over_bound": 5.260175804370762e-17,
+   "note": "target*s vs direct 16-angle projection integral",
+   "modes_in_potential": [
+    1,
+    2,
+    4,
+    5,
+    6,
+    7
+   ],
+   "m": 3,
+   "maps": "general"
+  },
+  {
+   "id": "proj_coeff_consistency_m3_offmode_only",
+   "family": "proj_coeff_consistency",
+   "passed": true,
+   "max_abs_err": 1.0458102580041057e-15,
+   "tol_max": 3.644587543994577e-12,
+   "max_err_over_bound": 2.869488646876805e-16,
+   "note": "analytic coefficient input vs FFT/16 input"
+  },
+  {
+   "id": "vw_random_m3_offmode_only",
+   "family": "vw_random",
+   "passed": true,
+   "max_abs_err": 1.6575041259302953e-14,
+   "note": "W_real == 4 pi Re(y^H (delta_b s)) for 4 random complex y",
+   "max_err_over_bound": 3.608330726998444e-17,
+   "samples": [
+    {
+     "W_real": -4.579669976578771e-14,
+     "four_pi_Re_yH_b_s": -4.318962208739607e-14,
+     "abs_err": 2.607077678391636e-15
+    },
+    {
+     "W_real": -1.7104373473131318e-15,
+     "four_pi_Re_yH_b_s": -5.400296452715576e-15,
+     "abs_err": 3.689859105402444e-15
+    },
+    {
+     "W_real": 9.617306950815419e-15,
+     "four_pi_Re_yH_b_s": 6.155065780243142e-15,
+     "abs_err": 3.4622411705722766e-15
+    },
+    {
+     "W_real": 8.43769498715119e-14,
+     "four_pi_Re_yH_b_s": 6.780190861220894e-14,
+     "abs_err": 1.6575041259302953e-14
+    }
+   ]
+  },
+  {
+   "id": "vw_reconstruct_m3_offmode_only",
+   "family": "vw_reconstruct",
+   "passed": true,
+   "max_abs_err": 2.233161346261839e-16,
+   "tol_max": 8.329905801818635e-12,
+   "max_err_over_bound": 2.6808962782919852e-17,
+   "note": "delta_b_k = (W(e_k) + i W(i e_k)) / (4 pi s)"
+  },
+  {
+   "id": "ident_grad_scaled_complex",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 3.554447978966673e-16,
+   "tol_max": 5.6617878591700445e-12,
+   "max_err_over_bound": 6.277960367606771e-17,
+   "note": "complex-linear in the supplied gradient coefficient"
+  },
+  {
+   "id": "ident_grad_times_i",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 3.9543641690647405e-12,
+   "max_err_over_bound": 0.0,
+   "note": "complex-linear in the supplied gradient coefficient"
+  },
+  {
+   "id": "ident_maps_scaled_conjugate",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 1.7554167342883506e-16,
+   "tol_max": 4.50866884746019e-12,
+   "max_err_over_bound": 3.893425739788378e-17,
+   "note": "conjugate-linear in the maps (U^H)"
+  },
+  {
+   "id": "ident_grad_additive",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 1.6883057536160646e-16,
+   "tol_max": 6.889461766947164e-12,
+   "max_err_over_bound": 2.450562628441991e-17,
+   "note": "additive in the gradient"
+  },
+  {
+   "id": "ident_rho_scaled_2.5",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 2.482534153247273e-16,
+   "tol_max": 9.885910422661851e-12,
+   "max_err_over_bound": 2.5111841470427093e-17
+  },
+  {
+   "id": "ident_w_scaled_0.4",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 3.469446951953614e-17,
+   "tol_max": 3.9543641690647405e-12,
+   "max_err_over_bound": 8.773716338761446e-18
+  },
+  {
+   "id": "ident_s_scaled_3",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 5.551115123125783e-17,
+   "tol_max": 3.9543641690647405e-12,
+   "max_err_over_bound": 1.4037946142018315e-17
+  },
+  {
+   "id": "ident_point_permutation",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 1.1443916996305594e-16,
+   "tol_max": 3.9543641690647405e-12,
+   "max_err_over_bound": 2.893996735513672e-17
+  },
+  {
+   "id": "ident_column_permutation",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 3.9543641690647405e-12,
+   "max_err_over_bound": 0.0
+  },
+  {
+   "id": "ident_m_independent",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 3.9543641690647405e-12,
+   "max_err_over_bound": 0.0,
+   "note": "the 0453 formula contains no m; m = 1..6 must give the same delta_b",
+   "bitwise_identical_for_all_m": true
+  },
+  {
+   "id": "ident_component_additive",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 1.1443916996305594e-16,
+   "tol_max": 5.931546253597111e-12,
+   "max_err_over_bound": 1.9293311570091147e-17
+  },
+  {
+   "id": "ident_deterministic_bitwise",
+   "family": "ident",
+   "passed": true,
+   "note": "two identical calls must agree bitwise"
+  },
+  {
+   "id": "ident_real_dtype_maps_eq_complex_dtype",
+   "family": "ident",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 4.9139391952915e-12,
+   "max_err_over_bound": 0.0,
+   "note": "root's float64 U_R/U_z vs the same values as complex128",
+   "bitwise_identical": true
+  },
+  {
+   "id": "comp_only_U_R",
+   "family": "comp",
+   "passed": true,
+   "max_abs_err": 1.2412670766236366e-16,
+   "tol_max": 1.9517225675984803e-12,
+   "max_err_over_bound": 6.359854096225203e-17,
+   "note": "only U_R nonzero: -U_R^H (w rho g[:, 0]) / s"
+  },
+  {
+   "id": "comp_cross_zero_U_R",
+   "family": "comp",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 0.0,
+   "note": "only U_R nonzero and gradient column 0 zero: exact zero required"
+  },
+  {
+   "id": "comp_only_U_phi",
+   "family": "comp",
+   "passed": true,
+   "max_abs_err": 6.206335383118183e-17,
+   "tol_max": 8.52562591969233e-13,
+   "max_err_over_bound": 7.279624325039768e-17,
+   "note": "only U_phi nonzero: -U_phi^H (w rho g[:, 1]) / s"
+  },
+  {
+   "id": "comp_cross_zero_U_phi",
+   "family": "comp",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 0.0,
+   "note": "only U_phi nonzero and gradient column 1 zero: exact zero required"
+  },
+  {
+   "id": "comp_only_U_z",
+   "family": "comp",
+   "passed": true,
+   "max_abs_err": 5.928593550334434e-17,
+   "tol_max": 1.3147863197992437e-12,
+   "max_err_over_bound": 4.50916887486301e-17,
+   "note": "only U_z nonzero: -U_z^H (w rho g[:, 2]) / s"
+  },
+  {
+   "id": "comp_cross_zero_U_z",
+   "family": "comp",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 0.0,
+   "note": "only U_z nonzero and gradient column 2 zero: exact zero required"
+  },
+  {
+   "id": "loads_convention_consistent",
+   "family": "loads",
+   "passed": true,
+   "note": "all components on all cases follow one convention",
+   "conventions_seen": [
+    "-U^H(w rho g)/s"
+   ]
+  },
+  {
+   "id": "loads_sum_equals_delta_b",
+   "family": "loads",
+   "passed": true,
+   "note": "load_R + load_phi + load_z == delta_b (relative to the bound)",
+   "max_err_over_bound": 3.9311572041217305e-17
+  },
+  {
+   "id": "formula_m1_general",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 1.1102230246251565e-16,
+   "tol_max": 4.488093199374064e-12,
+   "max_err_over_bound": 2.4737075976496986e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_m2_root",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 2.6821680460091233e-18,
+   "tol_max": 1.183060591536415e-13,
+   "max_err_over_bound": 2.267143428829668e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_m3_general",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 8.125731824622807e-18,
+   "tol_max": 1.148197337800393e-12,
+   "max_err_over_bound": 7.076947104048604e-18,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_m4_root",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 1.8875832159447664e-16,
+   "tol_max": 1.5737596784899997e-11,
+   "max_err_over_bound": 1.1994100762296033e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_m5_root",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 1.1102230246251565e-16,
+   "tol_max": 7.452154522527937e-12,
+   "max_err_over_bound": 1.4898014007478526e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_m6_general_k_gt_n",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 5.575456304969596e-17,
+   "tol_max": 2.6340710764918874e-12,
+   "max_err_over_bound": 2.1166688912567647e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_m3_offmode_only",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 2.032848022591621e-31,
+   "tol_max": 1.2542087387699493e-26,
+   "max_err_over_bound": 1.6208211278971897e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_ident_base",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 1.3877787807814457e-16,
+   "tol_max": 7.908728338129481e-12,
+   "max_err_over_bound": 1.754743267752289e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "formula_root_k_gt_n",
+   "family": "formula",
+   "passed": true,
+   "max_abs_err": 2.220446049250313e-16,
+   "tol_max": 1.7174048075735857e-11,
+   "max_err_over_bound": 1.2929077870624124e-17,
+   "note": "vectorized harness formula (sum, no matmul)"
+  },
+  {
+   "id": "ref_m1_general",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 1.1102230246251565e-16,
+   "tol_max": 4.488093199374064e-12,
+   "max_err_over_bound": 2.4737075976496986e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_m2_root",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 2.6821680460091233e-18,
+   "tol_max": 1.183060591536415e-13,
+   "max_err_over_bound": 2.267143428829668e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_m3_general",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 8.125731824622807e-18,
+   "tol_max": 1.148197337800393e-12,
+   "max_err_over_bound": 7.076947104048604e-18,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_m4_root",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 1.831920557255352e-16,
+   "tol_max": 1.5737596784899997e-11,
+   "max_err_over_bound": 1.1640408521668658e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_m5_root",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 1.2412670766236366e-16,
+   "tol_max": 7.452154522527937e-12,
+   "max_err_over_bound": 1.6656486025233024e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_m6_general_k_gt_n",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 5.575456304969596e-17,
+   "tol_max": 2.6340710764918874e-12,
+   "max_err_over_bound": 2.1166688912567647e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_m3_offmode_only",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 2.9812499744287077e-31,
+   "tol_max": 1.2542087387699493e-26,
+   "max_err_over_bound": 2.376996653166788e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_ident_base",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 1.3877787807814457e-16,
+   "tol_max": 7.908728338129481e-12,
+   "max_err_over_bound": 1.754743267752289e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "ref_root_k_gt_n",
+   "family": "ref",
+   "passed": true,
+   "max_abs_err": 4.577566798522237e-16,
+   "tol_max": 1.7174048075735857e-11,
+   "max_err_over_bound": 2.6653976851209568e-17,
+   "note": "W1 loop reference",
+   "bitwise_identical": false
+  },
+  {
+   "id": "x0439_H2_two_points_general",
+   "family": "x0439",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 1.915685424949238e-11,
+   "max_err_over_bound": 0.0,
+   "note": "target delta_b vs frozen 0439 assemble_weak_euler b",
+   "bitwise_identical": true
+  },
+  {
+   "id": "x0439_m1_general",
+   "family": "x0439",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 4.488093199374064e-12,
+   "max_err_over_bound": 0.0,
+   "note": "target delta_b vs frozen 0439 assemble_weak_euler b",
+   "bitwise_identical": true
+  },
+  {
+   "id": "x0439_m4_root",
+   "family": "x0439",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 1.5737596784899997e-11,
+   "max_err_over_bound": 0.0,
+   "note": "target delta_b vs frozen 0439 assemble_weak_euler b",
+   "bitwise_identical": true
+  },
+  {
+   "id": "x0439_m6_general_k_gt_n",
+   "family": "x0439",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 2.6340710764918874e-12,
+   "max_err_over_bound": 0.0,
+   "note": "target delta_b vs frozen 0439 assemble_weak_euler b",
+   "bitwise_identical": true
+  },
+  {
+   "id": "x0439_root_n12_k5",
+   "family": "x0439",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 4.0399546872036214e-11,
+   "max_err_over_bound": 0.0,
+   "note": "target delta_b vs frozen 0439 assemble_weak_euler b",
+   "bitwise_identical": true
+  },
+  {
+   "id": "x0439_general_n9_k4",
+   "family": "x0439",
+   "passed": true,
+   "max_abs_err": 0.0,
+   "tol_max": 8.258520705881763e-12,
+   "max_err_over_bound": 0.0,
+   "note": "target delta_b vs frozen 0439 assemble_weak_euler b",
+   "bitwise_identical": true
+  }
+ ],
+ "probes": [
+  {
+   "id": "baseline_valid",
+   "group": "baseline",
+   "classification": "expected_accept",
+   "rationale": "valid synthetic inputs",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_0",
+   "group": "mode",
+   "classification": "expected_reject",
+   "rationale": "0453: one retained mode m 1..6",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'm' must be a Python int with 1 <= m <= 6 (bool, float and numpy integers are rejected); got 0 of type int",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_7",
+   "group": "mode",
+   "classification": "expected_reject",
+   "rationale": "0453: one retained mode m 1..6",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'm' must be a Python int with 1 <= m <= 6 (bool, float and numpy integers are rejected); got 7 of type int",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_minus1",
+   "group": "mode",
+   "classification": "expected_reject",
+   "rationale": "0453: one retained mode m 1..6",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'm' must be a Python int with 1 <= m <= 6 (bool, float and numpy integers are rejected); got -1 of type int",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_True",
+   "group": "mode",
+   "classification": "record_only",
+   "rationale": "0453 silent on type; 0439 L183-187 rejects bool",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'm' must be a Python int with 1 <= m <= 6 (bool, float and numpy integers are rejected); got True of type bool",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "m_float_1.0",
+   "group": "mode",
+   "classification": "record_only",
+   "rationale": "0453 silent on type; 0439 L183-187 rejects float",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'm' must be a Python int with 1 <= m <= 6 (bool, float and numpy integers are rejected); got 1.0 of type float",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "m_numpy_int64_3",
+   "group": "mode",
+   "classification": "record_only",
+   "rationale": "0453 silent on type; 0439 L183-187 rejects numpy integers",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'm' must be a Python int with 1 <= m <= 6 (bool, float and numpy integers are rejected); got np.int64(3) of type int64",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "m_valid_1",
+   "group": "mode",
+   "classification": "expected_accept",
+   "rationale": "0453: m 1..6; the formula contains no m",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_valid_2",
+   "group": "mode",
+   "classification": "expected_accept",
+   "rationale": "0453: m 1..6; the formula contains no m",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_valid_3",
+   "group": "mode",
+   "classification": "expected_accept",
+   "rationale": "0453: m 1..6; the formula contains no m",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_valid_4",
+   "group": "mode",
+   "classification": "expected_accept",
+   "rationale": "0453: m 1..6; the formula contains no m",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_valid_5",
+   "group": "mode",
+   "classification": "expected_accept",
+   "rationale": "0453: m 1..6; the formula contains no m",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "m_valid_6",
+   "group": "mode",
+   "classification": "expected_accept",
+   "rationale": "0453: m 1..6; the formula contains no m",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "rho_zero_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: real positive density; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must be strictly positive everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "rho_negative_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: real positive density; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must be strictly positive everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "rho_nan_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: real positive density; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "rho_inf_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: real positive density; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "rho_complex_nonzero_imag",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: real positive density (real)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must have an integer or floating (not bool, complex, object or string) dtype; got dtype complex128",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "rho_complex_dtype_zero_imag",
+   "group": "measure",
+   "classification": "record_only",
+   "rationale": "0453 says real; 0439 L62-83 rejects complex dtype for real vectors",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must have an integer or floating (not bool, complex, object or string) dtype; got dtype complex128",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "rho_integer_dtype",
+   "group": "measure",
+   "classification": "record_only",
+   "rationale": "0453 silent on dtype; 0439 accepts integer dtype",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 6.206335383118183e-17,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "rho_bool_dtype",
+   "group": "measure",
+   "classification": "record_only",
+   "rationale": "0453 silent; 0439 rejects bool dtype",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must have an integer or floating (not bool, complex, object or string) dtype; got dtype bool",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "rho_length_n_plus_1",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: shape (n,)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must be exactly 1-D with shape (6,) (None = any size >= 1); got shape (7,)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "rho_shape_n_by_1",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: shape (n,)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'rho' must be exactly 1-D with shape (6,) (None = any size >= 1); got shape (6, 1)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "w_zero_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: positive volume_weights; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must be strictly positive everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "w_negative_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: positive volume_weights; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must be strictly positive everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "w_nan_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: positive volume_weights; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "w_inf_entry",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: positive volume_weights; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "w_complex_nonzero_imag",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: positive volume_weights (real)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must have an integer or floating (not bool, complex, object or string) dtype; got dtype complex128",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "w_complex_dtype_zero_imag",
+   "group": "measure",
+   "classification": "record_only",
+   "rationale": "0453 says real; 0439 L62-83 rejects complex dtype for real vectors",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must have an integer or floating (not bool, complex, object or string) dtype; got dtype complex128",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "w_integer_dtype",
+   "group": "measure",
+   "classification": "record_only",
+   "rationale": "0453 silent on dtype; 0439 accepts integer dtype",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 3.66205343881779e-15,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "w_bool_dtype",
+   "group": "measure",
+   "classification": "record_only",
+   "rationale": "0453 silent; 0439 rejects bool dtype",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must have an integer or floating (not bool, complex, object or string) dtype; got dtype bool",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "w_length_n_plus_1",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: shape (n,)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must be exactly 1-D with shape (6,) (None = any size >= 1); got shape (7,)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "w_shape_n_by_1",
+   "group": "measure",
+   "classification": "expected_reject",
+   "rationale": "0453: shape (n,)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'volume_weights' must be exactly 1-D with shape (6,) (None = any size >= 1); got shape (6, 1)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_transposed_3_by_n",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: gradient (n,3); here n = 6 != 3",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (3, 6)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_n_by_2",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: gradient (n,3)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (6, 2)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_n_by_3_by_1",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: gradient (n,3)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (6, 3, 1)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_n_by_4",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: gradient (n,3)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (6, 4)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_flat_3n",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: gradient (n,3)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (18,)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_n_plus_1_rows",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: gradient (n,3) with the maps' n",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (7, 3)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_16_angles_array",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: the module does no FFT or angle selection; (16,n,3) is not (n,3)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (16, 6, 3)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_nan_real_part",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_nan_imag_part",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_inf",
+   "group": "gradient",
+   "classification": "expected_reject",
+   "rationale": "0453: fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'grad' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_real_float64",
+   "group": "gradient",
+   "classification": "record_only",
+   "rationale": "0453 says complex coefficients; a real array is an exact complex value (0439 accepts real f)",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 3.925231146709438e-17,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "grad_noncontiguous_view",
+   "group": "gradient",
+   "classification": "expected_accept",
+   "rationale": "memory layout must not change the value",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_square_n3_correct_orientation",
+   "group": "gradient",
+   "classification": "expected_accept",
+   "rationale": "n == 3, correct (n,3) orientation",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    2
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 0.0,
+   "verdict": "PASS"
+  },
+  {
+   "id": "grad_square_n3_transposed",
+   "group": "gradient",
+   "classification": "record_only",
+   "rationale": "n == 3: (3,n) and (n,3) coincide, so orientation cannot be checked by shape",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    2
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": false,
+   "max_abs_err": 0.5514975104661853,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "map_U_phi_k_plus_1",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: shared (n,k) maps",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_phi' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (6, 4)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_U_z_n_plus_1",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: shared (n,k) maps",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_z' must be exactly 2-D with shape (6, 3) (None = any size >= 1); got shape (7, 3)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_U_R_1d",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: (n,k) maps",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_R' must be exactly 2-D with shape (None, None) (None = any size >= 1); got shape (6,)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_all_1d",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: (n,k) maps; a 1-D vector is not (n,k)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_R' must be exactly 2-D with shape (None, None) (None = any size >= 1); got shape (6,)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_U_R_3d",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: (n,k) maps",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_R' must be exactly 2-D with shape (None, None) (None = any size >= 1); got shape (6, 3, 1)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_U_R_transposed_k_by_n",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: (n,k) maps; here (k,n) with k != n",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_phi' must be exactly 2-D with shape (3, 6) (None = any size >= 1); got shape (6, 3)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_U_phi_nan",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_phi' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_U_z_inf",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_z' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_U_R_nan_imag",
+   "group": "maps",
+   "classification": "expected_reject",
+   "rationale": "0453: fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_R' must be finite everywhere",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_root_dtypes_real_UR_UZ",
+   "group": "maps",
+   "classification": "expected_accept",
+   "rationale": "root's helicity maps: U_R, U_z real float64, U_phi complex128 (0439 interface L50)",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 6.206335383118183e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_all_real_float64",
+   "group": "maps",
+   "classification": "expected_accept",
+   "rationale": "real maps are exact complex values",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 2.7755575615628914e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_integer_dtype",
+   "group": "maps",
+   "classification": "record_only",
+   "rationale": "0453 silent; 0439 L86-106 accepts integer maps",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 0.0,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "map_bool_dtype",
+   "group": "maps",
+   "classification": "record_only",
+   "rationale": "0453 silent; 0439 rejects bool dtype",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_R' must have an integer, floating or complex (not bool, object or string) dtype; got dtype bool",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "map_complex64",
+   "group": "maps",
+   "classification": "record_only",
+   "rationale": "0453 silent on precision; compared after exact upcast",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 7.850462293418876e-17,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "map_fortran_order",
+   "group": "maps",
+   "classification": "expected_accept",
+   "rationale": "memory layout must not change the value",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_strided_views",
+   "group": "maps",
+   "classification": "expected_accept",
+   "rationale": "memory layout must not change the value",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "map_k_zero",
+   "group": "maps",
+   "classification": "record_only",
+   "rationale": "k = 0 is degenerate; 0453 silent (0439 requires k >= 1)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_R' must be exactly 2-D with shape (None, None) (None = any size >= 1); got shape (6, 0)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "n_zero_points",
+   "group": "maps",
+   "classification": "record_only",
+   "rationale": "n = 0 is degenerate; 0453 silent (0439 requires n >= 1)",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'U_R' must be exactly 2-D with shape (None, None) (None = any size >= 1); got shape (0, 3)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "s_zero",
+   "group": "normalization",
+   "classification": "expected_reject",
+   "rationale": "0453: explicit positive normalization_scale",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be finite and > 0; got 0.0",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "s_negative",
+   "group": "normalization",
+   "classification": "expected_reject",
+   "rationale": "0453: explicit positive normalization_scale",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be finite and > 0; got -2.3",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "s_nan",
+   "group": "normalization",
+   "classification": "expected_reject",
+   "rationale": "0453: positive; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be finite and > 0; got nan",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "s_inf",
+   "group": "normalization",
+   "classification": "expected_reject",
+   "rationale": "0453: fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be finite and > 0; got inf",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "s_minus_inf",
+   "group": "normalization",
+   "classification": "expected_reject",
+   "rationale": "0453: positive; fail on nonfinite",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be finite and > 0; got -inf",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "s_string",
+   "group": "normalization",
+   "classification": "expected_reject",
+   "rationale": "a string is not a positive number",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be a real number (numbers.Real, not bool)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "s_bool_True",
+   "group": "normalization",
+   "classification": "record_only",
+   "rationale": "0453 silent on type; 0439 L109-121 rejects bool",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be a real number (numbers.Real, not bool)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "s_int_2",
+   "group": "normalization",
+   "classification": "record_only",
+   "rationale": "0453 silent on type; 0439 accepts numbers.Real ints",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.721958498152797e-17,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "s_numpy_float64",
+   "group": "normalization",
+   "classification": "record_only",
+   "rationale": "0453 silent on type",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "s_complex_zero_imag",
+   "group": "normalization",
+   "classification": "record_only",
+   "rationale": "0453: positive number; 0439 rejects non-Real",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be a real number (numbers.Real, not bool)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "s_zero_dim_array",
+   "group": "normalization",
+   "classification": "record_only",
+   "rationale": "0453 silent on type; 0439 rejects arrays",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "parameter 'normalization_scale' must be a real number (numbers.Real, not bool)",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "arg_missing_normalization_scale",
+   "group": "arguments",
+   "classification": "expected_reject",
+   "rationale": "a required 0453 input is missing",
+   "outcome": "raised",
+   "exception": "TypeError",
+   "message": "induced_field_weak_load() missing 1 required keyword-only argument: 'normalization_scale'",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "arg_missing_gradient",
+   "group": "arguments",
+   "classification": "expected_reject",
+   "rationale": "a required 0453 input is missing",
+   "outcome": "raised",
+   "exception": "TypeError",
+   "message": "induced_field_weak_load() missing 1 required keyword-only argument: 'grad'",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "arg_missing_m",
+   "group": "arguments",
+   "classification": "expected_reject",
+   "rationale": "0453 lists the retained mode m as an input",
+   "outcome": "raised",
+   "exception": "TypeError",
+   "message": "induced_field_weak_load() missing 1 required keyword-only argument: 'm'",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "arg_unknown_keyword",
+   "group": "arguments",
+   "classification": "record_only",
+   "rationale": "0453 silent; 0439 raises TypeError",
+   "outcome": "raised",
+   "exception": "TypeError",
+   "message": "induced_field_weak_load() got an unexpected keyword argument 'w1_unknown_keyword'",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "arg_all_positional",
+   "group": "arguments",
+   "classification": "record_only",
+   "rationale": "0453 silent; 0439 is keyword-only",
+   "outcome": "raised",
+   "exception": "TypeError",
+   "message": "induced_field_weak_load() takes 0 positional arguments but 8 were given",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "overflow_w_rho_product",
+   "group": "overflow",
+   "classification": "expected_reject",
+   "rationale": "0453 fail on nonfinite: w*rho = inf at a point",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "returned array 'delta_b' would not be finite: w*rho*grad_R is not finite (overflow); failing closed without clipping or repair",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "overflow_map_times_load",
+   "group": "overflow",
+   "classification": "expected_reject",
+   "rationale": "0453 fail on nonfinite: conj(U)*w*rho*g overflows",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "returned array 'delta_b' is not finite (overflow or invalid operation); failing closed without clipping or repair",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "overflow_in_sum",
+   "group": "overflow",
+   "classification": "expected_reject",
+   "rationale": "0453 fail on nonfinite: two finite terms sum to inf",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "returned array 'delta_b' is not finite (overflow or invalid operation); failing closed without clipping or repair",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "overflow_operand_at_zero_map_rows",
+   "group": "overflow",
+   "classification": "expected_reject",
+   "rationale": "0453 = 0439 b slice, which fails closed on a non-finite operand (0439 L316-318); here w*rho*g = inf at a point whose map rows are exactly 0",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "returned array 'delta_b' would not be finite: w*rho*grad_R is not finite (overflow); failing closed without clipping or repair",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "overflow_tiny_normalization",
+   "group": "overflow",
+   "classification": "expected_reject",
+   "rationale": "0453 fail on nonfinite: sum / 5e-324 overflows",
+   "outcome": "raised",
+   "exception": "ValueError",
+   "message": "returned array 'delta_b' is not finite (overflow or invalid operation); failing closed without clipping or repair",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "verdict": "PASS"
+  },
+  {
+   "id": "readonly_inputs",
+   "group": "purity",
+   "classification": "expected_accept",
+   "rationale": "0454 no caller mutation: a pure function accepts read-only arrays",
+   "outcome": "returned",
+   "warnings": [],
+   "inputs_unchanged": true,
+   "returned_shape": [
+    3
+   ],
+   "returned_dtype": "complex128",
+   "returned_finite": true,
+   "value_matches_formula": true,
+   "max_abs_err": 5.647850449853784e-17,
+   "verdict": "PASS"
+  },
+  {
+   "id": "alias_outputs_vs_inputs",
+   "group": "purity",
+   "classification": "expected_none",
+   "rationale": "0454 no caller mutation: a returned array sharing caller memory would expose it",
+   "aliases": [],
+   "verdict": "PASS"
+  },
+  {
+   "id": "alias_outputs_internal",
+   "group": "purity",
+   "classification": "record_only",
+   "rationale": "returned arrays sharing memory with each other",
+   "aliases": [],
+   "verdict": "RECORDED"
+  },
+  {
+   "id": "fresh_buffers_two_calls",
+   "group": "purity",
+   "classification": "expected_fresh",
+   "rationale": "no cached or shared output buffer between calls; caller inputs untouched",
+   "bitwise_identical_repeat": true,
+   "delta_b_buffers_shared": false,
+   "second_unchanged_after_zeroing_first": true,
+   "inputs_unchanged": true,
+   "returned_dtype": "complex128",
+   "returned_shape": [
+    3
+   ],
+   "returned_keys": [
+    "delta_b",
+    "grad_columns",
+    "k",
+    "load_R",
+    "load_phi",
+    "load_z",
+    "m",
+    "module_version",
+    "n",
+    "normalization_scale",
+    "physical_status",
+    "reference_0439_sha256"
+   ],
+   "verdict": "PASS"
+  },
+  {
+   "id": "output_shape_k",
+   "group": "purity",
+   "classification": "expected_shape",
+   "rationale": "0453: increment with the input dimension k",
+   "returned_shape": [
+    3
+   ],
+   "verdict": "PASS"
+  }
+ ],
+ "summary": {
+  "checks_total": 76,
+  "checks_passed": 76,
+  "checks_failed": 0,
+  "failed_check_ids": [],
+  "fixture_selfchecks_total": 28,
+  "fixture_selfchecks_failed": [],
+  "probes_total": 91,
+  "probes_pass": 67,
+  "probes_fail": 0,
+  "failed_probe_ids": [],
+  "probes_recorded": 24,
+  "probes_not_applicable": 0,
+  "mutations_total": null,
+  "mutations_detected": null,
+  "mutations_undetected": null,
+  "mutation_false_positive_on_unmutated": null,
+  "overall": "PASS"
+ },
+ "status": "complete"
+}

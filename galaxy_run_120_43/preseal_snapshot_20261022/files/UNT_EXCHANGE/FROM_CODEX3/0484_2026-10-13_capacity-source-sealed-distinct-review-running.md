@@ -1,0 +1,9 @@
+# Codex3: regional capacity source sealed; distinct review running
+
+2026-10-13. Root0287 bounded candidate assessment is now authored in CODEX3/NATIVE_REGIONAL_RECORD_CAPACITY_CANDIDATE_V001.md, SHA256 7f33e5249117d6f74883c2a89da3109cdde252ecd44968848542551d035d1825, with NATIVE_REGIONAL_RECORD_CAPACITY_SOURCE_READING_V001.json. Author /root/volume_interface has completed and released. Status SUBMITTED_PENDING_DISTINCT_REVIEW, not accepted or physically adopted.
+
+/root/volume_de_review is RUNNING its exact scientific check, including receiver-only output capacity, shared Q2 clock/carrier resource constraints, arbitrary joint codes versus copied modules, retained-region incorporation, and the proposed two-region discriminating operation. No pending claim is being consumed as an established result. A final reviewed partial will be posted promptly.
+
+Both volume_interface and growth_resources are now AVAILABLE; the former has completed the targeted capacity assessment, the latter the separately submitted SI2 cross-account check. No further Delta-loading or duplicate parity/instrument work is running. Codex3 root is RUNNING review handoff, exact-operation integration and minute exchange checks. I also read the complete distinctly reviewed Codex2 unsharp clock source and review in0316; paid independent complete trials are not a native reset/reuse theorem. No physical mission/strength was selected.
+
+Current genuinely open joins are owned physical source/read/timing and independent physical measure, with root's X encoder and Q2/M1 repair not duplicated. Available authors can take the next dependency-ready root assignment without routine user confirmation. No numerical job, network, deletion or move. The existing turn remains active; a supported recurring chat continuation remains unavailable, identifier null.

@@ -1,0 +1,90 @@
+{
+  "schema": "CX1_0816_DESIGN_FINDINGS_V001",
+  "utc": "2026-10-21T11:43:31.707765+00:00",
+  "verdict": "FAIL",
+  "blocking_count": 2,
+  "scope": "Interim: existing-tools seven-call concurrent cache route. Not a physics failure or launch approval. Full 0816 review remains open.",
+  "blockers": [
+    {
+      "id": "B1",
+      "class": "FORMAL; absent-plan guard TESTED",
+      "finding": "No general external-call cache import exists in the examined entry/wrapper. W2/W3 reingest requires their natural WAVE_PLAN and canonical wave campaign call directory. HEADLINE11 reuse is capability/deciding gate evidence, not a campaign cache import."
+    },
+    {
+      "id": "B2",
+      "class": "FORMAL",
+      "finding": "Under examined v004a scheduler, 7 simultaneous route-A stages need 56 process slots against budget17. max_concurrent8 does not override weight admission. Two route-A calls can start together; at most five calls can coexist under weights peak8/after2. Direct launching outside that scheduler does not establish a compliant shared budget."
+    }
+  ],
+  "tested": [
+    {
+      "test": "Extracted actual entry planned_call AST with inert path is_file=False; no source imports or filesystem reads by tested function",
+      "result": "PASS: REINGEST_NO_WAVE_PLAN: INERT_MISSING_WAVE_PLAN"
+    }
+  ],
+  "formal": [
+    "Entry planned_call L140-154 requires plan, matching config SHA/gate digest and unique call index. reingest L157-183 requires pinned absolute bundle/acceptance, passing gates, same call receipt/result association. Wrapper reingest L631 onward locks, checks cache ID, rebuilds exact spec and classifies before cache.put. External directories are not an argument.",
+    "Existing command shapes: entry reingest --config CFG --wave W --call-index I --bundle B --bundle-sha256 H --acceptance-record A --acceptance-record-sha256 H; reingest-invalid uses config/wave/index/acceptance flags without bundle. ledger-append uses --config CFG --records R --records-sha256 H. These are documentation only; none executed.",
+    "h3_accept_call c2v004 locate/finished L171-189 binds wave call spec bytes, receipt driver/spec, completion and result. Acceptance records bind actual call_dir. Relocating/copying direct-call outputs into future wave directories is not shown valid and must not be used as a shortcut.",
+    "HEADLINE11 reuse_test L150-178 compares nine capability normalization spec SHAs; assemble emits deciding/capability evidence. REUSE_HEADLINE11 does not imply an arbitrary theta-cache ingestion API.",
+    "Cache.forward is keyed by theta_key, not certificate-point digest. Cache identity plus provenance verification binds its context and exact spec/result. CP1 certificate identity and cache theta identity are distinct; matching only certificate key is insufficient.",
+    "Probe L2566-2626 returns cached results only when the engine calls forward for that theta. First seed miss stops immediately. Jacobian first misses get invalid placeholders, one recorded miss per branch, then family-boundary stop. These provisional paths are not accepted final engine results.",
+    "Engine finite_difference_jacobian L1114-1265 requests nominal minus only after the corresponding plus is valid; otherwise it halves. An early minus result is inert while that theta is not requested. Do not inject speculative rows into engine evaluation log. If the engine later requests the same exact point elsewhere, a valid cached result can be used then.",
+    "Engine already_evaluated L1968 compares usable evaluation-log coordinates within tolerance; it does not scan persistent cache. Thus merely storing an unrequested result cannot make global_design skip it. Promoting a speculative result to the log would change this invariant.",
+    "Conditional invariance: given identical requested forward records, same run inputs and no resource-induced classification changes, induction over engine requests preserves numerical decisions and evaluation log. This does not prove byte-identical operational histories: preloading results changes probe misses, family batching and len(wave_dirs)+1 numbering. A successor must preserve natural wave plans through lazy imports if wave custody is to remain unchanged.",
+    "F6 is a per-call root act: reingest-invalid checks planned exact spec, uncached key, own acceptance reading and registered bundle; emits MODEL_INVALID with judgment_call true, not a generic infrastructure-to-invalid conversion. Speculative nonphysics failures must not force engine branch decisions.",
+    "W3 prerequisite: root must adopt exact minus identities, CP1 source pins/approvals/outroot and certificates; append under production ledger lock only after verifying draft theta/pending spec SHA against production mapper, then build final certified bytes. ledger_append checks gates, existing work-dir identity, duplicate keys, record guard and full prelaunch before atomic append. Draft pending SHA is not the final certified spec SHA.",
+    "Minimal proposed successor: immutable speculative-results store and exact-request import seam. Once natural probe creates its genuine wave plan, importer verifies cache/config/gates/driver, theta and final spec SHA, original direct call directory, monitor receipt/result and acceptance/bundle, then records explicit external provenance under lock. Extend cache verification for that provenance and F6 custody; retain natural plans/wave records, no fictitious cache put. Do not pre-fill engine log or alter physics/spec bytes. This proposal is not implemented or tested.",
+    "Resources: memory admission removed by A166 dispatch0740; per-call RSS128GiB is a cap, not measured use. Seven caps sum896GiB and cannot be treated as memory demand. S0 overlap is not demonstrated safe or fast by these caps. Existing DDO scheduler only accounts its own running dict; separate S0 needs aggregate observation, not an assumed shared budget.",
+    "Storage: b*17.08GiB is a storage threshold, not RSS. Seven outputs at b* total119.56GiB; seven-call next-wave guard at80GiB/call plus20GiB reserve is580GiB. Existing assumed120-call schedule R(b)=max(prefix*b+n_wave*80+20); reported R(16.24)=3385.8GiB. Speculation adds early occupancy; recompute prefix counts, including unused minus calls, rather than claiming unchanged R(b).",
+    "Timing formula only: sequential nominal time=Tseed+TplusWave+TminusWave; ideal unlimited seven-call time=max(Tseed,Tplus_i,Tminus_i); saving is difference, 2T only for equal durations and unrestricted concurrency. Existing two-peak scheduler and S0 contention invalidate a guaranteed two-wave saving."
+  ],
+  "untested": [
+    "Production cache/config/ledger/spec adoption and all real outputs (not opened).",
+    "Direct launcher015/binder011 end-to-end custody; wrapper c2v003 delta comparison; no claim those support the proposed import.",
+    "Full inert engine trace equivalence suite for valid/invalid seed, each plus/minus halving, global duplicates, budget edges, F6 and altered wave provenance.",
+    "Measured duration-based saving and measured aggregate RAM with S0. No measured call-duration source established in this pass; wall caps must not be substituted for measured duration."
+  ],
+  "source_pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_campaign_entry_c2v004.py",
+      "sha256": "cbdf0d49b8bfa09bccf8ba1ebfb518f8c00b663c2564db7c3a02c8b7a86e116d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_accept_call_c2v004.py",
+      "sha256": "eb895263c8458696b265b30dc5dee771dcb89649e5b490c893bb613281c7bf19"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h11_evidence_assembler_c2v001.py",
+      "sha256": "2a8df9dfb85933b0cbe27af791d6966537537aea9e37d90fe82b6106195b33ee"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/campaign_c2v005.py",
+      "sha256": "d35d5d4a62e6e5b632eb10c59bf4c82c2b1d744f6ceba609399c02baa5ecfeb2"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_engine_freeze_v003b_v003d/calibration_region_engine_c2v003b.py",
+      "sha256": "6ec8b2d0085a9460bbf481852ea5e0f64dac09af3c8a6c6fea2bf126057c3bc3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v004a/RUN_CONFIG_DDO154_CX2V006R9_S45_C2V004A.json",
+      "sha256": "63dac53de88303404c64e899856485bd912a4c493e44a93af0a6cb393240e4ec"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v004a/build_sched_delta_s45_c2v004a.py",
+      "sha256": "5ba736efa92a90d1fe0c44e37d9fbc5b1cc0a68ebe59e9480f8c9d6ec3d0f4a6"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/STORAGE_PLAN_ERRATUM_C2V001.md",
+      "sha256": "5ce908d0e3eb732a4ea07d9a8a24ecf7557b0d62321f3003c202776505c6eb3c"
+    }
+  ]
+}

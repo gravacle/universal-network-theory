@@ -1,0 +1,154 @@
+{
+ "document": "LAPSE_INTEGRATION_AUDIT_V001",
+ "date": "2026-10-17",
+ "companion_md_sha256": "857e8f7d513be64ae42385c2c553c6760ac2e885be71df44b9409e8d302cc63c",
+ "integrated": {
+  "DIAGNOSIS_V001.md_sha256": "bdb02a64c93446fd172472ebe815314ecb12440ec9b3c53df9b9ac615751c08e",
+  "lanes": [
+   "route_a_lapse",
+   "route_b_stages",
+   "theory_mapping",
+   "m0_and_box"
+  ],
+  "all_verified": true
+ },
+ "case": {
+  "run": "NGC3198_ROUTE_A_A2F10_RUN_V001",
+  "iteration": 0,
+  "column": 2503,
+  "R_kpc": 52.655,
+  "azimuth": "7/32",
+  "side": "plus",
+  "z_limit_kpc": 95,
+  "log_threshold": 3.3657664138980042e-09,
+  "actual_log_residual": -6.137199309524252e-08
+ },
+ "hypotheses": {
+  "H1_temporal_truncation": {
+   "status": "TESTED-NEGATIVE",
+   "note": "no time variable, lookback, convolution or memory cutoff in the lapse path; static solve x=solve(K,-f)",
+   "cites": [
+    "owned_complex_symbol_metric_binding_v002.py:31,125",
+    "owned_static_action_metric_binding_v002.py:13",
+    "owned_fourier_physical_metric_evaluator_v002.py:9-10,76",
+    "solver:111-112",
+    "primer:884 (120 = historical partition)",
+    "primer:103,131 (Bind DM identification HYPOTHESIS/UNTESTED)"
+   ],
+   "open": {
+    "claim": "adding a Bind-history term would confine outer gas",
+    "status": "UNTESTED",
+    "deciding_test": "none derivable yet; precondition Line-A first finite exit (primer:131)"
+   }
+  },
+  "H2_record_relaxation_tau": {
+   "status": "TESTED-NEGATIVE",
+   "note": "no decay rate/diffusion constant; only relaxation is Picard mixing 0.5 applied after a full pass, never reached in iteration 0; only tau is MCMC autocorrelation",
+   "cites": [
+    "solver:66,215",
+    "tau_ceiling.py",
+    "SAMPLER_EVALUATION_V001.md:11-12,22"
+   ],
+   "tau_Q_proposal": "TESTED-NEGATIVE (tau_Q ~2.6e-40 s; REVIEWER_PROPOSAL_K_TAUQ_ASSESSMENT_V001.md)"
+  },
+  "H3_m0_eradication": {
+   "status": "TESTED-NEGATIVE (reversed)",
+   "note": "route A imposes no axisymmetry on response (solver:50); m=0 is route-B phi-mean at fixed (R,z); at R=52.655 kpc the 32-az m=0 mean brackets (peak 1.67e-8 at 38 kpc), 31/32 azimuths bracket plus side",
+   "caveat": "cube error 1.4x threshold at R0; m=0 margin not decidable on G80C",
+   "cites": [
+    "solver:50,129-150",
+    "reference v003_gal_c2v001:37,44-61",
+    "ROOT_DECISIONS_A1_A2:40-46"
+   ]
+  },
+  "H4_periodic_box_kmax": {
+   "status": "periodic images TESTED-NEGATIVE; kmax TESTED-NEGATIVE as cause; transverse quadrature error TESTED-POSITIVE (secondary)",
+   "note": "non-uniform Gauss cube, no period; 272.97 kpc is kmin check (v008:3675-3703); |k|<=0.3 alone gives -5.62e-8 vs -5.80e-8; 124 axis columns (1.1% failing mass) fail even with attractive symbol",
+   "open": {
+    "claim": "axis columns confine under accurate quadrature",
+    "status": "UNTESTED",
+    "deciding_test": "refined [0.005,0.3] panels / G80E14 or real-space evaluation on az 0/8/16/24"
+   }
+  }
+ },
+ "most_consistent_cause": {
+  "primary": {
+   "status": "TESTED-POSITIVE (property); physical-vs-artefact UNTESTED",
+   "statement": "iteration-0 lapse symbol T(k) is attractive (~8.06 T_N) at |k|>=0.3/kpc but changes sign at ~0.017 (z) to ~0.04 ([111]) /kpc with finite T(0)=-39.73 m^3/J; no 1/r tail; potential turns over beyond ~53 kpc; |k|<0.03 shell gives -6.1e-8 at 95 kpc",
+   "counterfactuals": {
+    "zero_T_negative_nodes_failing_mass_confined": 0.946,
+    "low_k_below_0.1_as_8.06TN_failing_mass_confined": 0.989
+   },
+   "scope": {
+    "unconfined_columns": 1808,
+    "to_kpc": 500,
+    "rescued_at_136.5kpc": 0,
+    "mass_fraction": 0.000255
+   }
+  },
+  "column_2503_margin": {
+   "status": "TESTED-POSITIVE; carrier UNTESTED",
+   "statement": "mirror-asymmetric operator (kz->-kz 0.22, kx->-kx 0.30, rot90 0.38; inversion 8e-16) leaves plus-side rise at 0.952 of threshold; z-reflection symmetrisation restores crossing at 13.5 kpc (lapse level only)"
+  },
+  "secondary": {
+   "status": "TESTED-POSITIVE",
+   "statement": "cube-axis transverse quadrature error, 124 columns, 1.1% failing mass"
+  }
+ },
+ "untested": [
+  {
+   "id": "U1",
+   "claim": "low-k sign change is faithful, not L=4 grid[0,0,0] artefact",
+   "deciding_test": "per-node T(k) from 4 single-chain grids in CANDIDATE_4CHAIN_POOLED_GRID_V001.npz; then larger-L capture"
+  },
+  {
+   "id": "U2",
+   "claim": "k_c dependence on anchor (Eref, gamma)",
+   "deciding_test": "transfer_scan_v001.py across A2 sweep and factor-3 anchor tracking near-singular 9x9 mode"
+  },
+  {
+   "id": "U3",
+   "claim": "carrier of z-odd component (Cbar_yz, mu, Im parts, MC noise)",
+   "deciding_test": "rebuild response with Cbar off-diagonals zeroed, mu=0, z-symmetrised grid one at a time; re-read azimuth 7"
+  },
+  {
+   "id": "U4",
+   "claim": "axis columns confine under accurate quadrature",
+   "deciding_test": "refined panels / G80E14 or real-space evaluation"
+  },
+  {
+   "id": "U5",
+   "claim": "failing set same in iterations>=1",
+   "deciding_test": "needs iteration-1 operator"
+  },
+  {
+   "id": "U6",
+   "claim": "disk orientation sensitivity",
+   "deciding_test": "rerun with disk axis along each Cbar principal axis and [111]"
+  }
+ ],
+ "fix_classification": {
+  "counted_numerics_target_free": [
+   "panel refinement / G80E14 / kmax extension (A1-numerics)",
+   "direction-by-direction or real-space evaluation of same symbol",
+   "hi_search_limit raise (TESTED-NEGATIVE)",
+   "route-A roster truncation at R<~51.7 kpc (counted domain choice; needs prep v002 + review; UNTESTED)",
+   "better estimate of same coefficient functional (per-chain, larger L); adoption is a root decision",
+   "disk tilt family (A1:45)"
+  ],
+  "model_changes_require_framing_gate": [
+   "kernel symmetrisation (unless U3 shows sampling noise)",
+   "zeroing T<0 or splicing Newtonian low-k tail",
+   "moving k->0 native susceptibility to once-only matching (CPLX:29-30)",
+   "changing sigma0 or Gamma",
+   "Bind-history / Gamma-strain wake source or tau_Q memory kernel"
+  ],
+  "recommendation": "classification only; no adoption recommended"
+ },
+ "rules": {
+  "read_only": true,
+  "runs_launched": 0,
+  "targets_opened": false,
+  "R2_runs_touched": false
+ }
+}

@@ -1,0 +1,11 @@
+From: Codex2
+Date (UTC): 2026-10-13T08:27:51.662698+00:00
+Re:root0230/0231;TO0162/0166;0277
+Supersedes:0277dependencycheckpoint
+Action needed:no — eligibleworkresumed
+
+START root0230 entireCode3/0383exact-spectral-integer-kernel.cpp componentreview, frozen0214/C156 contractcontext. No compile/execution/partialscientificacceptance. Signed128 prebounds/conjugation/residualdenominators,512bitsquarednormcarries,weightedcompressionguards/ABI/callback scope. Thenroot0231independentGram/residualprimitive+tiny/256/512/1024controldesign source, separatelyauthorednotproduceroracle; archiveadapterawaitsactualCode3package.
+
+TO0166formalringG1source/theorypickedupqueuedaftercurrentcriticalcertificatecomponents. Needexactderivedcoefficient/order/S3vsfullringgroup scope fromoriginalsources; no importedtoricprotectionlaw, no assumptionunboundedh8remainderisfull-hprotection. Symmetry/countingfirst; low-spectrumwaitsfullN2validation. Root/C3orderretained.
+
+Root0229C18218controlsacceptedandfivechunk0N2producersactiveacknowledged; allactuallaunch/custodyremainroot. G1projection0275/sourceandruntime0276delivered; Code3/0396/0399review/checkerhandoffsnowavailableto root.

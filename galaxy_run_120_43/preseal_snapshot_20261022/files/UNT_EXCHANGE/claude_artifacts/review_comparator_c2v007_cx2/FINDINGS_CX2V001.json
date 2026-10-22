@@ -1,0 +1,278 @@
+{
+  "blocking_proposed_families": 1,
+  "date_u": "Sun Oct 18 18:51:00 UTC 2026",
+  "findings": [
+    {
+      "actual": "Both r4 and r5 return PASS_BITWISE_EQUAL with no failing checks when identity_sha256 or caller.sha256 is removed from both sides and payload wrappers are recomputed.",
+      "attribution": "A76 B-ID explicitly names identity_sha256 among all compared fields, but has no separate mandatory-presence sentence. Mandatory fields are inferred from the pinned checkpoint producer: caller.sha256 L312, identity_sha256 L489-490; resume indexes identity_sha256 L498-500. Candidate BUILD L63 deliberately says present. This is an integrity/schema gap, not the old unequal-body bypass.",
+      "evidence": [
+        {
+          "actual": "PASS_BITWISE_EQUAL",
+          "driver": "r4",
+          "exception": null,
+          "expectation_met": true,
+          "expected": "PASS",
+          "failing": [],
+          "name": "P00_full_identity_positive",
+          "owner": null,
+          "owner_detail": null,
+          "report": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r4_P00_full_identity_positive/REPORT.json",
+            "sha256": "4308a137c7fd7ee46885ac1fe58baa210fdfef3b9c9fb9609a95b5cbae1e82b3"
+          }
+        },
+        {
+          "actual": "PASS_BITWISE_EQUAL",
+          "driver": "r4",
+          "exception": null,
+          "expectation_met": false,
+          "expected": "FAIL",
+          "failing": [],
+          "name": "I_missing_identity_both",
+          "owner": "RA_IDENTITY",
+          "owner_detail": {
+            "detail": {
+              "compared": "the whole checkpoint identity body (caller decoded; code, controls, environment, fixed_source, format, inputs, shapes); identity_sha256 and caller.sha256 verified per side as the checkpoint module digests of that body",
+              "declared_new_only_pins": [
+                {
+                  "at": "IDENTITY/identity/caller/code_pins",
+                  "declared_new_only": [
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/owned_uv_tail_lapse_v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001.py",
+                    "<RUN>/inputs/uv_tail_route_a_request.json"
+                  ]
+                }
+              ],
+              "differing": [],
+              "digests": {
+                "new": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                },
+                "reference": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                }
+              },
+              "masked_key_paths_equal": true,
+              "pin_violations": []
+            },
+            "pass": true
+          },
+          "report": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r4_I_missing_identity_both/REPORT.json",
+            "sha256": "d35899e51228ab7d076a6603527bea702efa593de9a18e0a5484a71141401b8b"
+          }
+        },
+        {
+          "actual": "PASS_BITWISE_EQUAL",
+          "driver": "r4",
+          "exception": null,
+          "expectation_met": false,
+          "expected": "FAIL",
+          "failing": [],
+          "name": "I_missing_caller_digest_both",
+          "owner": "RA_IDENTITY",
+          "owner_detail": {
+            "detail": {
+              "compared": "the whole checkpoint identity body (caller decoded; code, controls, environment, fixed_source, format, inputs, shapes); identity_sha256 and caller.sha256 verified per side as the checkpoint module digests of that body",
+              "declared_new_only_pins": [
+                {
+                  "at": "IDENTITY/identity/caller/code_pins",
+                  "declared_new_only": [
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/owned_uv_tail_lapse_v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001.py",
+                    "<RUN>/inputs/uv_tail_route_a_request.json"
+                  ]
+                }
+              ],
+              "differing": [],
+              "digests": {
+                "new": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                },
+                "reference": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                }
+              },
+              "masked_key_paths_equal": true,
+              "pin_violations": []
+            },
+            "pass": true
+          },
+          "report": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r4_I_missing_caller_digest_both/REPORT.json",
+            "sha256": "b12d5f72eeb359db5bcffaa5e09be2ecc22b07c9dcef67ef37a2e8f3dbf987d2"
+          }
+        },
+        {
+          "actual": "PASS_BITWISE_EQUAL",
+          "driver": "r5",
+          "exception": null,
+          "expectation_met": true,
+          "expected": "PASS",
+          "failing": [],
+          "name": "P00_full_identity_positive",
+          "owner": null,
+          "owner_detail": null,
+          "report": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r5_P00_full_identity_positive/REPORT.json",
+            "sha256": "68229f24513615992eacc2f85cb04384824f3e20b6fd922b8b40ec56ec1d7773"
+          }
+        },
+        {
+          "actual": "PASS_BITWISE_EQUAL",
+          "driver": "r5",
+          "exception": null,
+          "expectation_met": false,
+          "expected": "FAIL",
+          "failing": [],
+          "name": "I_missing_identity_both",
+          "owner": "RA_IDENTITY",
+          "owner_detail": {
+            "detail": {
+              "compared": "the whole checkpoint identity body (caller decoded; code, controls, environment, fixed_source, format, inputs, shapes); identity_sha256 and caller.sha256 verified per side as the checkpoint module digests of that body",
+              "declared_new_only_pins": [
+                {
+                  "at": "IDENTITY/identity/caller/code_pins",
+                  "declared_new_only": [
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001_r5.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+                    "<RUN>/inputs/uv_tail_route_a_request.json"
+                  ]
+                }
+              ],
+              "differing": [],
+              "digests": {
+                "new": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                },
+                "reference": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                }
+              },
+              "masked_key_paths_equal": true,
+              "pin_violations": []
+            },
+            "pass": true
+          },
+          "report": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r5_I_missing_identity_both/REPORT.json",
+            "sha256": "c136fc03db47af7eda30638003c7f0137b8f6fa2edd84ce939fd3d66e226aa7c"
+          }
+        },
+        {
+          "actual": "PASS_BITWISE_EQUAL",
+          "driver": "r5",
+          "exception": null,
+          "expectation_met": false,
+          "expected": "FAIL",
+          "failing": [],
+          "name": "I_missing_caller_digest_both",
+          "owner": "RA_IDENTITY",
+          "owner_detail": {
+            "detail": {
+              "compared": "the whole checkpoint identity body (caller decoded; code, controls, environment, fixed_source, format, inputs, shapes); identity_sha256 and caller.sha256 verified per side as the checkpoint module digests of that body",
+              "declared_new_only_pins": [
+                {
+                  "at": "IDENTITY/identity/caller/code_pins",
+                  "declared_new_only": [
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001_r5.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+                    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+                    "<RUN>/inputs/uv_tail_route_a_request.json"
+                  ]
+                }
+              ],
+              "differing": [],
+              "digests": {
+                "new": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                },
+                "reference": {
+                  "caller_keys_registered_and_equal_both_sides": true,
+                  "caller_sha256_is_digest_of_caller": true,
+                  "identity_sha256_is_digest_of_identity": true,
+                  "top_level_keys_registered_and_equal_both_sides": true
+                }
+              },
+              "masked_key_paths_equal": true,
+              "pin_violations": []
+            },
+            "pass": true
+          },
+          "report": {
+            "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v007_cx2/identity_paths_selftest/whole_20261018T184812_47351/r5_I_missing_caller_digest_both/REPORT.json",
+            "sha256": "de704b3b58ff8ea5858de5cc6983cd8823696b67dc1a190ca5fa16858b93dbb9"
+          }
+        }
+      ],
+      "expected": "Require producer-schema integrity fields and verify their digests before accepting checkpoint identity.",
+      "id": "B1",
+      "limitations": "All bodies are invented protocol fixtures. No production run or scientific result was reviewed.",
+      "severity": "BLOCKING_PROPOSED",
+      "source_lines": [
+        2409,
+        2410,
+        2411,
+        2412,
+        2427,
+        2428
+      ],
+      "status": "TESTED",
+      "title": "Both checkpoint integrity digests can be omitted symmetrically without refusal"
+    },
+    {
+      "closure": "Wrong-owner MUST_FAIL, exception-only and owner-plus-unrelated-exception are correctly rejected. Current saved selftest has unique rows, all child exit0 and all saved MUST_FAIL rows satisfy their named owners.",
+      "faults": [
+        "MUST_PASS verdict with nonempty failing list passes judge.",
+        "An expected case omitted from nonempty observed rows is not noticed.",
+        "Duplicate observed case replacing a second expected case is not noticed.",
+        "A child suite exit code 1 is explicitly accepted."
+      ],
+      "id": "S2",
+      "limitation": "Fault-injection resilience finding. No claim that the saved 835-row report actually dropped/duplicated a case or falsified its verdict.",
+      "method": "Exact supplied judge and exact final-aggregation AST executed with inert synthetic observations; no supplied selftest suite run.",
+      "severity": "SHOULD_FIX",
+      "source_lines": [
+        110,
+        111,
+        282,
+        305,
+        306,
+        317
+      ],
+      "status": "TESTED",
+      "title": "Selftest final aggregation can falsely report PASS on incomplete/contradictory observations"
+    }
+  ],
+  "review_scope": "Codex2 complete c2v007 comparator review",
+  "should_fix_families": 1,
+  "verdict": "FAIL"
+}

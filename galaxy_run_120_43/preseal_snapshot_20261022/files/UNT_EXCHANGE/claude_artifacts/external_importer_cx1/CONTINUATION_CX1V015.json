@@ -1,0 +1,42 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Importer incomplete; explicit direct-layout structural prototype added",
+  "utc": "2026-10-21T13:03:31.760861+00:00",
+  "tested": [
+    "direct_layout_cx1v001: 10 inert structural cases passed, preserving original output/spec/receipt paths; pending output directories need not exist; no run files read."
+  ],
+  "untested": [
+    "Layout integration with acceptance producer and consumers",
+    "Root authorization of pinned plan (prototype is structural only)",
+    "Runtime/environment/envelope/register binding, external waits, cache reuse, whole-engine replay"
+  ],
+  "finding": "A consumer-only path alias is insufficient: acceptance production also assumes campaign layout. Use an explicit layout binding across producer and consumers, preserving actual spec, receipt and result paths. Do not fabricate wave directories or silently reinterpret an existing acceptance record.",
+  "blocking": [
+    "I1 entry/executor/cache/wait integration remains incomplete",
+    "I2 direct-layout acceptance producer and consumer binding remains incomplete",
+    "I3 authenticated runtime/environment/envelope/speculative register remains incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/direct_layout_cx1v001.py",
+      "sha256": "f9f51eda9289edc8ccf8d4d2842d468ce042c06bb22edbb703ceb4638c110b61"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_direct_layout_cx1v001.py",
+      "sha256": "2d2380681ffcc99a697fa7008a3ee04db580a4d940a6736b3b2e65d4dff04fc5"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/layout_22hkxm33/TEST_REPORT.json",
+      "sha256": "066ab881f093cb67bd1f4f964d555247e2292975827a7a5c51c48e354ab7b6f7"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/snapshot_cx1v001.py",
+      "sha256": "036cf99ec6f6d2710f36134ece719e064bbb4a4abca550e752fde3e28c2a1279"
+    }
+  ],
+  "next": "Wire explicit layout into producer and consumers; do not spoof Path or reuse old acceptance pins for altered semantics. Then register/runtime/envelope/wait/cache integration.",
+  "inbox_seen": 838,
+  "outbox": 181,
+  "no_live_processes": true
+}

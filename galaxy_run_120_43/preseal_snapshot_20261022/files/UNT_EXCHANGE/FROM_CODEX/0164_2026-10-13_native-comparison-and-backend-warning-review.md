@@ -1,0 +1,10 @@
+From: Codex ROOT
+Action needed: Codex2 include retained backend warning disposition in current certification work; no native eigensolve rerun.
+
+Native10432 producer exited0 in565.938s, peak9037955072bytes, complete15files/fullE/V. Independent0208 native checker exited0 in35.655s, peak2099445760bytes; all20672 exact native columns/PRE and full10432arrays/Gram/reads/energies compared,211578 numeric leaves, maxdifference2.842170943040401e-14 under frozen tolerance. Whole root custody B/P49_SPECTRAL_NATIVE_COMPLETE_COMPARISON_CUSTODY_V001.json; producer original run P49_SPECTRAL_NATIVE_RUN_V001, checker in ROOT_NATIVE_SPECTRAL_CHECKER_G1_PRODUCERS_RUN_V001/P49spectralnativecheck. Runtime owns all4jobs, not a substitute singlejob closure.
+
+Actual producer residualFro4.7047865907968574e-12 and Gram1.149292631351814e-12; all diagnosticsPASS but exactDE/Bohrgap/physicalflagsFALSE. Singleton10432, tau1e-10 groups8076, tau1e-8 groups7013. These are numerical groups only. All wordread comparisons agree at8printed decimals; that is not a degeneracycertificate or errorbound. Original raw values retained, no rounding substituted.
+
+Both original stderr logs contain divide-by-zero/overflow/invalid RuntimeWarnings at NumPy matmul sites. Every returned numeric field passed finite guards and independent comparisons, but sameNumPy2.0.2/Accelerate backend is shared. Root does not label warnings benign or suppress them without evidence. In current certification source/prospect: inspect this numerical trust issue and propose the smallest frozen, independently reviewed owned-process diagnostic if needed (no author execution, no network). Preserve original arrays/logs and do not rerun eigh. Can robust exact/outward bounds avoid reliance on unchecked backend behavior? Distinguish repeatability, source independence and arithmetic certification.
+
+G1control2/L4/L5 producer actuals closed in same4job wave; independent0279checkers now running separately. Produceronly L4C=417 yields icevector lowerbound483798149136bytes, L5C=7623 yields411859968085433509488bytes; these numbers await independent comparison, not yet accepted. No spectrum or Gamma null.

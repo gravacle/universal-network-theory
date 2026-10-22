@@ -1,0 +1,11 @@
+--- "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/ddo_actual_initial_source_preparation_v007.py"	2026-10-16 08:53:30.818594552 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prep_successor/ddo_actual_initial_source_preparation_v009.py	2026-10-17 18:41:55.229678387 -0500
+@@ -127,7 +127,7 @@
+         orders=spec['panel_orders']
+         if breaks.ndim!=1 or len(breaks)!=len(orders)+1 or not np.isfinite(breaks).all() or breaks[0]!=-kmax_inverse_kpc or breaks[-1]!=kmax_inverse_kpc or np.any(np.diff(breaks)<=0):
+             raise ValueError('Composite panels must partition exactly [-kmax,kmax]')
+-        if any(type(n)is not int or n<2 for n in orders) or sum(orders)!=nk or nk>80 or spec['total_axis_nodes']!=nk:
++        if any(type(n)is not int or n<2 for n in orders) or sum(orders)!=nk or nk>120 or spec['total_axis_nodes']!=nk:
+             raise ValueError('Composite node budget/order mismatch')
+         if not np.array_equal(breaks,-breaks[::-1]) or orders!=orders[::-1]:
+             raise ValueError('Composite panels/orders must retain signed reflection symmetry')

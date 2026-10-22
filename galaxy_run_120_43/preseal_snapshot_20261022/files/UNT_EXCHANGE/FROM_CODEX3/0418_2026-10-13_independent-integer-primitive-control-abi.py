@@ -1,0 +1,82 @@
+"""SOURCE ONLY: root-control ABI to separately authored Code2 integer primitives.
+No scientific run at import. Input row-major reference is separately packed from
+full control fixture, never aliased to producer's column-major W. Root authenticates
+compiler/library gate, all source pins and full runtime before constructing this.
+"""
+from array import array
+import ctypes as C
+I64,U64,U32,I32=C.c_int64,C.c_uint64,C.c_uint32,C.c_int32
+HOOK=C.CFUNCTYPE(C.c_int,U32,U32,U32)
+
+
+def need(ok,why):
+    if not ok:
+        raise ValueError(why)
+
+
+class Independent:
+    def __init__(self,libpin,authenticate,fixture,guard):
+        self.guard=guard
+        self.exception=None
+        self.n=len(fixture['w'])
+        n=self.n
+        need(1<=n<=10432 and array('q').itemsize==8,'full independent ABI shape')
+        self.storage=array('q',(x for row in fixture['w'] for z in row for x in z))
+        need(len(self.storage)==2*n*n,'complete row-major reference')
+        self.w=(I64*len(self.storage)).from_buffer(self.storage)
+        self.l=(I64*n)(*fixture['lam'])
+        offsets,indices,values=[0],[],[]
+        for row in fixture['rows']:
+            for i,z in row:
+                indices.append(i);values.extend(z)
+            offsets.append(len(indices))
+        self.nnz=len(indices)
+        self.offsets=(U64*(n+1))(*offsets)
+        # Distinct nonnull one-element dummies for empty CSR are contractual.
+        self.indices=(U32*max(1,len(indices)))(*indices)
+        self.values=(I64*max(1,len(values)))(*values)
+        self.hook=HOOK(self._tick)
+        authenticate(libpin,retain=False)
+        self.lib=C.CDLL(libpin['path'])
+        self.g=self.lib.p49i_gram_column
+        self.g.argtypes=[U32,U32,C.POINTER(I64),C.POINTER(U64),C.POINTER(I32),C.POINTER(U64),C.POINTER(U64),HOOK]
+        self.g.restype=C.c_int
+        self.r=self.lib.p49i_residual_column
+        self.r.argtypes=[U32,U32,C.POINTER(I64),C.POINTER(I64),U64,C.POINTER(U64),C.POINTER(U32),C.POINTER(I64),
+                         C.POINTER(U64),C.POINTER(I32),C.POINTER(U64),C.POINTER(U64),HOOK]
+        self.r.restype=C.c_int
+        authenticate(libpin,retain=False)
+
+    def _tick(self,phase,column,position):
+        try:
+            self.guard()
+            return 0
+        except BaseException as error:
+            self.exception=error
+            return 1
+
+    def column(self,j,kind):
+        need(type(j)is int and 0<=j<self.n and kind in ('gram','residual'),'complete independent column domain')
+        n=self.n
+        mag,sign,norm=(U64*(4*n))(),(I32*(2*n))(),(U64*8)()
+        meta=(U64*(3*n if kind=='gram' else n))()
+        self.exception=None
+        self.guard()
+        if kind=='gram':
+            status=self.g(n,j,self.w,mag,sign,norm,meta,self.hook)
+        else:
+            status=self.r(n,j,self.w,self.l,self.nnz,self.offsets,self.indices,self.values,mag,sign,norm,meta,self.hook)
+        if self.exception is not None:
+            raise self.exception
+        need(status==0,'independent compiled column refused status '+str(status))
+        values=[]
+        for i in range(n):
+            z=[]
+            for part in (0,1):
+                q=2*i+part;m=int(mag[2*q])+(int(mag[2*q+1])<<64);s=int(sign[q])
+                need(s in (-1,0,1) and ((s==0)==(m==0)),'canonical independent signed magnitude')
+                z.append(s*m)
+            values.append(z)
+        return {'column':j,'kind':kind,'entries':values,
+                'squared_norm':sum(int(norm[k])<<(64*k) for k in range(8)),
+                'metadata':list(meta),'status':status}

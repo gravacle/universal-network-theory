@@ -1,0 +1,444 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/placeholder_chain_c2v002/v006r12_c4/calibration_orchestrator_cx2v006r12_c4_q5b1.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/placeholder_chain_c2v003/v006r12_c4/calibration_orchestrator_cx2v006r12_c4_q5b1.py
+@@ -9,6 +9,7 @@
+ for _key in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','VECLIB_MAXIMUM_THREADS'):
+     os.environ[_key]='1'
+ import argparse
++import copy
+ import hashlib
+ import importlib.util
+ import json
+@@ -38,6 +39,42 @@
+ OldCache=O.Cache
+ OldExecutor=O.CampaignExecutor
+ POLICY_SCHEMA='DDO154_CERTIFICATE_POLICY_REVIEW_CX2V001'
++# c2v003 (Claude2 h3_campaign_path_c2; V006 A192 items 2-3; CAMPAIGN_CERT_DESIGN_MAP_C2V001 sections 3.3 and 5): the q5b1
++# wrapper 7a6af535 plus the two blocks marked c2v003 below, and nothing else.  The core is untouched: the mapper is re-patched
++# here, the way the core patches the parent's.  No physics value, threshold or reading changes.
++#  L1 R-C8 certificate ledger (Claude4 ROOT_ITEMS_FINAL_C4V004 L263-269).  tail_readiness.certificate_ledger = {schema
++#     LEDGER_SCHEMA, path <work_dir>/CERTIFICATE_LEDGER.jsonl} carries no head sha, so the cache id (Context.__init__ below),
++#     the policy gate, the adoption binding and the gate digest do not move as the ledger grows; the policy review binds it.
++#     One lookup, certificate_record = genesis registry U ledger, used by the mapper, certificate_check and write_acceptance
++#     (and by the c2v003 acceptance step).  The ledger is append-only and hash-chained from a genesis digest of {registry
++#     pin, ledger policy}; a key already in the genesis or earlier in the ledger is refused; every entry's bundle passes the
++#     b1 guard's prelaunch check whenever the ledger is read, and the full prelaunch_check (the check a genesis record gets at
++#     plan) at append (Orchestrator.ledger_append, under the work-dir lock) and at every use.  A defective ledger closes the
++#     certificate policy gate.  Without tail_readiness.certificate_ledger the lookup is the genesis registry alone (q5b1).
++#  F6 certified MODEL_INVALID (V006 A192 item 3).  Orchestrator.reingest_invalid caches a call MODEL_INVALID only from the
++#     adopted handoff's record (acceptance_q2 v004, A158) of THIS call reading NON_LAPSE_TAIL_MATERIAL or BOUND_INSUFFICIENT
++#     (rows_are_model_output false), with its FINISHED receipt and its registered point; no forward call.  Cache source
++#     TAIL_ACCEPTANCE_CERTIFIED, re-verified from bytes at every put, open and reuse.  resolve --decision invalid stays
++#     disabled; every other reading stays a halt for root.
++LEDGER_SCHEMA='DDO154_CERTIFICATE_LEDGER_C2V003'
++LEDGER_ENTRY_SCHEMA='DDO154_CERTIFICATE_LEDGER_ENTRY_C2V003'
++LEDGER_NAME='CERTIFICATE_LEDGER.jsonl'
++LEDGER_RECORD_KEYS=('identity','bundle','eps_certificate','lo_certificate')
++ACCEPTANCE_HANDOFF={'path':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/acceptance_handoff_c2v004.py',
++                    'sha256':'5ff464cc866d3e69ef83ab7542701b211afaae29d7be14e69b10fb09f16692d8'}
++ACCEPTANCE_RECORD_SCHEMA='DDO154_TAIL_ACCEPTANCE_RECORD_C2V001'
++TAIL_INVALID_SOURCE='TAIL_ACCEPTANCE_CERTIFIED'
++TAIL_INVALID_READINGS=('NON_LAPSE_TAIL_MATERIAL','BOUND_INSUFFICIENT')
++TAIL_INVALID_RULE='V006_A192_F6_CERTIFIED_MODEL_INVALID'
++
++def is_exact_pin(x):
++    return isinstance(x,dict) and set(x)=={'path','sha256'} and isinstance(x['path'],str) and isinstance(x['sha256'],str)
++
++def tail_invalid_forward(reading,record_ref):
++    """c2v003 F6: the engine-facing forward record of a certified tail-acceptance MODEL_INVALID (a pure function)."""
++    return {'valid':False,'speeds_km_s':{},
++            'reasons':['MODEL_INVALID TAIL_ACCEPTANCE_%s (V006 A192 F6; acceptance_q2 v004 record %s; no forward call; '
++                       'the rows are not model output)'%(reading,record_ref['sha256'][:16])]}
+ 
+ class Context(OldContext):
+     def __init__(self,config):
+@@ -64,6 +101,8 @@
+         if not isinstance(producers,list) or not producers:
+             missing.append('approved_certificate_producers')
+         if missing:return M.gate_pending('CERTIFICATE_POLICY_PENDING: '+','.join(missing))
++        bad=self.ledger_policy_problems()                                    # c2v003 L1
++        if bad:return M.gate_pending(bad[0])
+         try:
+             for k in required:O.read_pinned(r[k],k)
+             for p in producers:O.read_pinned(p,'approved certificate producer')
+@@ -72,7 +111,9 @@
+                  'state_enumerator':r['state_enumerator'],'approved_certificate_producers':producers,
+                  'guard_sha256':O.sha256_file(G.__file__),
+                  'driver_slot_rule':'POINT_EPS_AND_REGISTERED_RHO_SLOT_PER_STATE_LO_ACCEPTANCE',
+-                 'post_state_handoff':'TAIL_CERTIFICATE_ACCEPTANCE_CX2V001'},'certificate policy review')
++                 'post_state_handoff':'TAIL_CERTIFICATE_ACCEPTANCE_CX2V001',
++                 'certificate_ledger':r.get('certificate_ledger')},'certificate policy review')      # c2v003 L1
++            if g['ok']:self.ledger_entries()                                # c2v003 L1: a defective ledger closes the gate
+             return g
+         except (Error,ValueError,OSError) as exc:return M.gate_pending(str(exc))
+ 
+@@ -84,8 +125,8 @@
+         if spec['numerics']['uv_tail']['outer']['K_big_inverse_kpc'] != self.numerics['uv_tail']['outer']['K_big_inverse_kpc']:
+             return {'ok':False,'blockers':['CERTIFICATE_BLOCK_K_MISMATCH']}
+         r=self.cfg['tail_readiness'];ident=point_identity(spec)
+-        registry=M.pin_doc(r['certificate_registry'],'certificate registry')
+-        rec=registry.get('points',{}).get(M.digest(ident))
++        try:rec=self.certificate_record(ident)                               # c2v003 L1: genesis U ledger
++        except (Error,OSError,ValueError,KeyError,TypeError) as exc:return {'ok':False,'blockers':['CERTIFICATE_LOOKUP: '+str(exc)]}
+         if not isinstance(rec,dict) or rec.get('identity')!=ident:
+             return {'ok':False,'blockers':['CERTIFICATE_POINT_MISSING_OR_MISMATCHED']}
+         try:
+@@ -234,8 +275,8 @@
+         directory=Path(call_dir)
+         spec=O.load_json_file(directory/'spec.json','campaign spec')
+         result=O.load_json_file(directory/'out/result.json','result')
+-        registry=M.pin_doc(self.cfg['tail_readiness']['certificate_registry'],'registry')
+-        rec=registry['points'][M.digest(point_identity(spec))]
++        rec=self.certificate_record(point_identity(spec))                    # c2v003 L1: genesis U ledger
++        if not isinstance(rec,dict):raise Error('CERTIFICATE_POINT_MISSING_OR_MISMATCHED')
+         handoff={'schema':'TAIL_CERTIFICATE_ACCEPTANCE_CX2V001',
+                  'result_sha256':O.sha256_file(directory/'out/result.json'),
+                  'call_spec_sha256':O.sha256_file(directory/'spec.json'),
+@@ -258,6 +299,7 @@
+ 
+     def check_cached_certificate(self,entry):
+         if entry.get('classification') not in O.CACHED_CLASSES:return
++        if entry.get('source')==TAIL_INVALID_SOURCE:return self.check_tail_invalid(entry)   # c2v003 F6
+         if not isinstance(entry.get('provenance'),dict) or not all(k in entry['provenance'] for k in ('result_path','result_sha256','call_dir')):
+             raise Error('CERTIFICATE_UNCERTIFIED_CACHEABLE_RESULT')
+         b=self.mapper.build(entry['theta'])
+@@ -271,6 +313,175 @@
+         if any(previous.get(k)!=g.get(k) for k in ('acceptance_handoff','certificate_bundle')):
+             raise Error('CERTIFICATE_ACCEPTANCE_EVIDENCE_CHANGED')
+ 
++    # ---------------------------------------------------------------- c2v003 L1: the R-C8 certificate ledger
++    def ledger_policy_problems(self):
++        r=self.cfg['tail_readiness'];led=r.get('certificate_ledger')
++        if led is None:return []
++        want={'schema':LEDGER_SCHEMA,'path':str(self.work_dir/LEDGER_NAME)}
++        if led!=want:return ['CERTIFICATE_LEDGER_POLICY: tail_readiness.certificate_ledger must be %r'%(want,)]
++        if not isinstance(r.get('certificate_registry'),dict):return ['CERTIFICATE_LEDGER_WITHOUT_GENESIS_REGISTRY']
++        return []
++
++    def ledger_genesis_sha256(self):
++        r=self.cfg['tail_readiness']
++        return M.digest({'schema':LEDGER_SCHEMA+'_GENESIS','certificate_registry':r['certificate_registry'],
++                         'certificate_ledger':r['certificate_ledger']})
++
++    def genesis_points(self):
++        pts=M.pin_doc(self.cfg['tail_readiness']['certificate_registry'],'certificate registry').get('points',{})
++        if not isinstance(pts,dict):raise Error('certificate registry points must be an object')
++        return pts
++
++    def ledger_record_problems(self,rec):
++        """A ledger record's structure and the b1 guard's prelaunch check of its bundle (custody as the bundle states it;
++        certificate_check re-derives custody from the spec at append and at every use).  [] when it passes."""
++        try:
++            if not isinstance(rec,dict) or set(rec)!=set(LEDGER_RECORD_KEYS):
++                return ['record keys must be exactly %s'%(LEDGER_RECORD_KEYS,)]
++            if not all(is_exact_pin(rec[k]) for k in ('bundle','eps_certificate','lo_certificate')):
++                return ['record bundle and slots must be exact {path, sha256} pins']
++            ident=rec['identity']
++            if not isinstance(ident,dict) or ident.get('driver_sha256')!=DRIVER_SHA:
++                return ['record identity is not of the pinned driver']
++            bundle=M.pin_doc(rec['bundle'],'ledger point bundle')
++            if bundle.get('identity')!=ident:return ['bundle identity differs from the record identity']
++            if bundle.get('driver_certificate_bindings')!={k:rec[k] for k in ('eps_certificate','lo_certificate')}:
++                return ['bundle does not bind the record slots']
++            producers=self.cfg['tail_readiness'].get('approved_certificate_producers')
++            if not isinstance(producers,list) or not producers:return ['approved_certificate_producers pending']
++            g=G.verify_bundle(rec['bundle'],ident,expected_custody=bundle.get('custody'),
++                              approved_producer_sha256=[p['sha256'] for p in producers],phase='prelaunch',required_states=[])
++            return [] if g.get('ok') is True else ['b1 guard: '+'; '.join(str(x) for x in g.get('blockers') or ['refused'])]
++        except (Error,OSError,ValueError,KeyError,TypeError,AttributeError) as exc:
++            return [type(exc).__name__+': '+str(exc)]
++
++    def ledger_entries(self):
++        """The verified ledger: [] without a configured ledger or before its first append.  Error on any defect."""
++        r=self.cfg['tail_readiness']
++        if r.get('certificate_ledger') is None:return []
++        bad=self.ledger_policy_problems()
++        if bad:raise Error(bad[0])
++        p=Path(r['certificate_ledger']['path'])
++        if not p.exists():return []
++        raw=p.read_bytes();h=O.sha256_bytes(raw)
++        hit=getattr(self,'_ledger_verified',None)
++        if hit is not None and hit[0]==h:return hit[1]
++        if raw and not raw.endswith(b'\n'):raise Error('CERTIFICATE_LEDGER_TORN: the last line has no newline')
++        genesis=self.genesis_points();prev=self.ledger_genesis_sha256();seen=set();out=[]
++        for i,line in enumerate(raw.split(b'\n')[:-1] if raw else []):
++            where='line %d'%(i+1)
++            try:e=json.loads(line)
++            except ValueError:raise Error('CERTIFICATE_LEDGER_UNREADABLE: '+where)
++            if not isinstance(e,dict) or M.canonical(e)!=line:raise Error('CERTIFICATE_LEDGER_NOT_CANONICAL: '+where)
++            if e.get('schema')!=LEDGER_ENTRY_SCHEMA or e.get('seq')!=i+1:raise Error('CERTIFICATE_LEDGER_SCHEMA_OR_SEQ: '+where)
++            if e.get('prev_sha256')!=prev:raise Error('CERTIFICATE_LEDGER_CHAIN_BREAK: '+where)
++            if M.digest({k:v for k,v in e.items() if k!='entry_sha256'})!=e.get('entry_sha256'):
++                raise Error('CERTIFICATE_LEDGER_ENTRY_HASH: '+where)
++            rec=e.get('record')
++            if not isinstance(rec,dict) or not isinstance(rec.get('identity'),dict) or M.digest(rec['identity'])!=e.get('key'):
++                raise Error('CERTIFICATE_LEDGER_KEY_IS_NOT_THE_IDENTITY_DIGEST: '+where)
++            if e['key'] in genesis or e['key'] in seen:raise Error('CERTIFICATE_LEDGER_KEY_ALREADY_REGISTERED: '+where)
++            bad=self.ledger_record_problems(rec)
++            if bad:raise Error('CERTIFICATE_LEDGER_ENTRY_INVALID: %s: %s'%(where,bad))
++            seen.add(e['key']);out.append(e);prev=e['entry_sha256']
++        self._ledger_verified=(h,out)
++        return out
++
++    def ledger_head(self):
++        e=self.ledger_entries()
++        configured=self.cfg['tail_readiness'].get('certificate_ledger') is not None
++        return {'configured':configured,'n_entries':len(e),'head_sha256':e[-1]['entry_sha256'] if e else None,
++                'genesis_sha256':self.ledger_genesis_sha256() if configured else None}
++
++    def certificate_record(self,ident):
++        """The one lookup (V006 A192 F5): the genesis registry, then the append-time candidates, then the ledger."""
++        key=M.digest(ident)
++        rec=self.genesis_points().get(key)
++        if rec is not None:return rec
++        cand=getattr(self,'_ledger_candidates',None) or {}
++        if key in cand:return cand[key]
++        for e in self.ledger_entries():
++            if e['key']==key:return e['record']
++        return None
++
++    # ---------------------------------------------------------------- c2v003 F6: certified MODEL_INVALID
++    def tail_invalid_problems(self,spec,spec_sha256,call_dir,acceptance_ref,rec):
++        """-> (problems, record).  [] iff acceptance_ref is the adopted handoff's record of THIS call (its directory, its
++        FINISHED receipt and result, its registered point) reading NON_LAPSE_TAIL_MATERIAL or BOUND_INSUFFICIENT."""
++        if not is_exact_pin(acceptance_ref) or not os.path.isabs(acceptance_ref['path']):
++            return ['TAIL_INVALID_RECORD_PIN_REQUIRED: an absolute {path, sha256}'],None
++        acc=json.loads(O.read_pinned(acceptance_ref,'tail acceptance record'))
++        if not isinstance(acc,dict):return ['TAIL_INVALID_RECORD_SCHEMA: not an object'],None
++        bad=[]
++        if acc.get('schema')!=ACCEPTANCE_RECORD_SCHEMA:bad.append('TAIL_INVALID_RECORD_SCHEMA: %r'%(acc.get('schema'),))
++        if acc.get('handoff')!=ACCEPTANCE_HANDOFF:bad.append('TAIL_INVALID_HANDOFF_NOT_A158: %r'%(acc.get('handoff'),))
++        if (acc.get('reading') not in TAIL_INVALID_READINGS or acc.get('rows_are_model_output') is not False
++                or acc.get('outputs_are_evidence') is not False or acc.get('step4_stop_for_root_ruling') is not False):
++            bad.append('TAIL_INVALID_READING_NOT_CERTIFIABLE: reading %r, rows_are_model_output %r, outputs_are_evidence %r, '
++                       'step4 stop %r'%(acc.get('reading'),acc.get('rows_are_model_output'),acc.get('outputs_are_evidence'),
++                                        acc.get('step4_stop_for_root_ruling')))
++        here=Path(call_dir).resolve()
++        if acc.get('call_dir')!=str(here):bad.append('TAIL_INVALID_RECORD_OTHER_CALL: record %s; this call %s'%(acc.get('call_dir'),here))
++        sp=here/'spec.json'
++        if not sp.is_file() or O.sha256_file(sp)!=spec_sha256 or O.load_json_file(sp,'campaign spec')!=spec:
++            bad.append('TAIL_INVALID_SPEC_NOT_THE_PLANNED_SPEC')
++        rp,res=here/'RECEIPT.json',(here/'out'/'result.json').resolve()
++        if not rp.is_file():
++            bad.append('TAIL_INVALID_RECEIPT_NOT_FINISHED: no RECEIPT.json')
++        else:
++            v=self.M.verify_receipt(rp,spec_sha256=spec_sha256,driver_sha256=DRIVER_SHA)
++            rc=v.get('receipt') or {}
++            rsha=(rc.get('result') or {}).get('sha256')
++            if not v.get('ok') or rc.get('status')!='FINISHED' or rc.get('driver_status')!='COMPLETED':
++                bad.append('TAIL_INVALID_RECEIPT_NOT_FINISHED: %s/%s, verifies %s'%(rc.get('status'),rc.get('driver_status'),v.get('ok')))
++            if acc.get('result')!={'path':str(res),'sha256':rsha} or not res.is_file() or O.sha256_file(res)!=rsha:
++                bad.append('TAIL_INVALID_RECORD_OTHER_RECEIPT')
++            else:
++                result=O.load_json_file(res,'result')
++                if result.get('call_spec_sha256')!=spec_sha256 or result.get('driver_sha256')!=DRIVER_SHA:
++                    bad.append('TAIL_INVALID_RESULT_NOT_BOUND_TO_SPEC_OR_DRIVER')
++                _,why=O.finish_binding(res,rsha)
++                if why:bad.append('TAIL_INVALID_'+why)
++        ident=point_identity(spec)
++        if acc.get('point_sha256')!=M.digest(ident):bad.append('TAIL_INVALID_RECORD_OTHER_POINT')
++        if not isinstance(rec,dict) or rec.get('identity')!=ident:bad.append('TAIL_INVALID_POINT_NOT_REGISTERED')
++        r=self.cfg['tail_readiness'];pins=acc.get('pins') if isinstance(acc.get('pins'),dict) else {}
++        if pins.get('enumerator')!=r.get('state_enumerator'):bad.append('TAIL_INVALID_ENUMERATOR_NOT_THE_CONFIG_ENUMERATOR')
++        if (pins.get('guard') or {}).get('sha256')!=O.sha256_file(G.__file__):bad.append('TAIL_INVALID_GUARD_NOT_THE_WRAPPER_GUARD')
++        return bad,acc
++
++    def check_tail_invalid(self,entry):
++        """Every put, open and reuse of a TAIL_ACCEPTANCE_CERTIFIED entry: reingest_invalid's checks again, from bytes."""
++        p=entry.get('provenance') if isinstance(entry.get('provenance'),dict) else {}
++        ta=p.get('tail_acceptance') if isinstance(p.get('tail_acceptance'),dict) else {}
++        reading=ta.get('reading')
++        if (entry.get('classification')!='MODEL_INVALID' or reading not in TAIL_INVALID_READINGS
++                or entry.get('failure_class')!='TAIL_ACCEPTANCE_'+str(reading) or ta.get('rule')!=TAIL_INVALID_RULE
++                or not is_exact_pin(ta.get('record'))):
++            raise Error('CERTIFICATE_TAIL_INVALID_ENTRY_MALFORMED')
++        if O.canonical(entry.get('forward'))!=O.canonical(tail_invalid_forward(reading,ta['record'])):
++            raise Error('CERTIFICATE_TAIL_INVALID_FORWARD_NOT_DERIVED')
++        b=self.mapper.build(entry['theta'])
++        self.prelaunch_check(b['spec'])
++        if b['sha256']!=p.get('spec_sha256'):raise Error('CERTIFICATE_TAIL_INVALID_SPEC_MISMATCH')
++        rec=self.certificate_record(point_identity(b['spec']))
++        bad,acc=self.tail_invalid_problems(b['spec'],b['sha256'],p.get('call_dir'),ta['record'],rec)
++        if acc is not None and acc.get('reading')!=reading:bad.append('TAIL_INVALID_READING_DIFFERS_FROM_THE_RECORD')
++        if acc is not None and acc.get('result')!={'path':p.get('result_path'),'sha256':p.get('result_sha256')}:
++            bad.append('TAIL_INVALID_RESULT_PIN_DIFFERS_FROM_THE_RECORD')
++        if not isinstance(rec,dict) or rec.get('bundle')!=ta.get('registered_bundle'):
++            bad.append('TAIL_INVALID_REGISTERED_BUNDLE_CHANGED')
++        if bad:raise Error('CERTIFICATE_TAIL_INVALID_REFUSED: '+repr(bad))
++
++    def verify_tail_invalid_entry(self,e,stem):
++        """Cache._verify_impl for source TAIL_ACCEPTANCE_CERTIFIED: the parent's generic entry checks, then check_tail_invalid."""
++        body={k:v for k,v in e.items() if k!='entry_sha256'}
++        if O.sha256_bytes(O.canonical(body))!=e.get('entry_sha256'):raise Error('cache entry %s self-hash mismatch'%stem)
++        if e.get('schema')!=O.SCHEMA_CACHE_ENTRY or e.get('cache_id')!=self.cache_id or e.get('key')!=stem:
++            raise Error('cache entry %s does not belong to this cache'%stem)
++        if O.theta_key(e['theta'])!=e['key']:raise Error('cache entry %s key does not hash its theta'%stem)
++        self.check_tail_invalid(e)
++
+ class CertificateRefusal(BaseException):
+     """Escapes engine Exception guards and surfaces as exit 3."""
+ 
+@@ -284,11 +495,15 @@
+         return super().forward(key)
+ 
+     def _verify_impl(self,e,stem):
++        if isinstance(e,dict) and e.get('source')==TAIL_INVALID_SOURCE:     # c2v003 F6: not a WAVE entry
++            self.ctx.verify_tail_invalid_entry(e,stem)
++            return
+         super()._verify_impl(e,stem)
+         self.ctx.check_cached_certificate(e)
+ 
+     def put(self,*,key,theta,classification,failure_class,source,provenance,forward):
+-        self.ctx.check_cached_certificate(dict(theta=theta,classification=classification,provenance=provenance))
++        self.ctx.check_cached_certificate(dict(theta=theta,classification=classification,provenance=provenance,
++                                               source=source,failure_class=failure_class,forward=forward))  # c2v003: + source
+         return super().put(key=key,theta=theta,classification=classification,failure_class=failure_class,
+                            source=source,provenance=provenance,forward=forward)
+ 
+@@ -305,7 +520,30 @@
+         except (Error,OSError,ValueError,KeyError,TypeError) as exc:
+             return 'INFRA','CERTIFICATE_ACCEPTANCE_REFUSED: '+str(exc),None,prov
+ 
++OldMapper=O.Mapper
++class Mapper(OldMapper):
++    """c2v003 L1: the core mapper plus the ledger.  A point the genesis registry lacks gets its slots from its verified
++    ledger record (the fill of core L256-259); raw, sha256 and changed_paths are then recomputed as core L261-263."""
++    def build(self,theta,recovery=None):
++        built=super().build(theta,recovery=recovery)
++        ctx=self.ctx;r=ctx.cfg['tail_readiness']
++        if r.get('certificate_registry') is None or r.get('certificate_ledger') is None or not hasattr(ctx,'certificate_record'):
++            return built
++        if built['certificate_point_key'] in ctx.genesis_points():return built
++        rec=ctx.certificate_record(built['certificate_identity'])
++        if rec is None:return built
++        if rec.get('identity')!=built['certificate_identity']:raise Error('certificate identity collision/mismatch')
++        spec=built['spec']
++        for field in ('eps_certificate','lo_certificate'):
++            ref=rec[field]
++            O.read_pinned(ref,field)
++            spec['numerics']['uv_tail'][field]=copy.deepcopy(ref)
++        raw=O.json_bytes(spec)
++        built.update(raw=raw,sha256=O.sha256_bytes(raw),changed_paths=O.diff_paths(ctx.base,spec))
++        return built
++
+ O.DECLARED_CHANGED_PATHS=O.DECLARED_CHANGED_PATHS+tuple('numerics.uv_tail.'+slot+'.'+leaf for slot in ('eps_certificate','lo_certificate') for leaf in ('path','sha256'))
++O.Mapper=Mapper                                                             # c2v003 L1
+ O.Cache=Cache
+ O.CampaignExecutor=CampaignExecutor
+ O.Context=Context
+@@ -357,6 +595,116 @@
+                     'wave':int(wave),'call_index':int(call_index),'tail_certificates':prov['tail_certificates']}
+         finally:lock.release()
+ 
++    # ---------------------------------------------------------------- c2v003 F6 and L1
++    def reingest_invalid(self,wave,call_index,acceptance_ref):
++        """V006 A192 item 3: certified MODEL_INVALID from the call's own acceptance_q2 v004 record reading
++        NON_LAPSE_TAIL_MATERIAL or BOUND_INSUFFICIENT.  No solver call.  Root's act, call by call."""
++        lock=O.Lock(self.ctx.work_dir)
++        if not lock.acquire():return {'status':'LOCKED'}
++        try:
++            self.prepare(create=False)
++            bad=self.check_identity_now()
++            if bad:raise Error('REINGEST_INVALID_IDENTITY: '+repr(bad))
++            wd=self.waves_dir/('wave_%04d'%int(wave))
++            plan=O.load_json_file(wd/'WAVE_PLAN.json','wave plan')
++            if plan.get('cache_id')!=self.ctx.cache_id:raise Error('REINGEST_INVALID_CACHE_ID_MISMATCH')
++            calls=[c for c in plan['calls'] if c['call_index']==int(call_index)]
++            if len(calls)!=1:raise Error('REINGEST_INVALID_CALL_INDEX_REQUIRED')
++            c=calls[0];b=self.ctx.mapper.build(c['theta'])
++            if b['sha256']!=c['spec_sha256'] or b['spec']!=c['spec']:raise Error('REINGEST_INVALID_SPEC_MISMATCH')
++            if c['key'] in self.cache.entries:
++                raise Error('REINGEST_INVALID_ALREADY_CACHED: key %s is cached %s'%(c['key'][:16],self.cache.entries[c['key']].get('classification')))
++            directory=wd/'campaign'/('call_%04d'%int(call_index))
++            rec=self.ctx.certificate_record(point_identity(c['spec']))
++            bad,acc=self.ctx.tail_invalid_problems(c['spec'],c['spec_sha256'],directory,acceptance_ref,rec)
++            if bad:raise Error('REINGEST_INVALID_REFUSED: '+repr(bad))
++            reading=acc['reading'];rp=directory/'RECEIPT.json'
++            ref={'path':acceptance_ref['path'],'sha256':acceptance_ref['sha256']}
++            prov={'call_dir':str(directory),'spec_sha256':c['spec_sha256'],'wave':int(wave),'call_index':int(call_index),
++                  'receipt_path':str(rp),'receipt_file_sha256':O.sha256_file(rp),
++                  'result_path':acc['result']['path'],'result_sha256':acc['result']['sha256'],
++                  'tail_acceptance':{'record':ref,'reading':reading,'all_readings':acc.get('all_readings'),
++                                     'registered_bundle':rec['bundle'],'rule':TAIL_INVALID_RULE,'handoff':ACCEPTANCE_HANDOFF},
++                  'taxonomy':{'rule':TAIL_INVALID_RULE,'code':'TAIL_ACCEPTANCE_'+reading,'class':'MODEL_INVALID',
++                              'judgment_call':True,'taxonomy_sha256':None,
++                              'detail':'root act per call (A192 item 3); recorded as a judgment call, so a run that uses '
++                                       'it never meets the D5 TESTED-NEGATIVE condition'},
++                  'recovery':c.get('recovery'),'authorized_by':c.get('authorized_by')}
++            _,new=self.cache.put(key=c['key'],theta=c['theta'],classification='MODEL_INVALID',
++                                 failure_class='TAIL_ACCEPTANCE_'+reading,source=TAIL_INVALID_SOURCE,provenance=prov,
++                                 forward=tail_invalid_forward(reading,ref))
++            return {'status':'OK','classification':'MODEL_INVALID','failure_class':'TAIL_ACCEPTANCE_'+reading,
++                    'new_cache_entry':new,'launches_performed':0,'wave':int(wave),'call_index':int(call_index),
++                    'acceptance_record':ref,'registered_bundle':rec['bundle']}
++        finally:lock.release()
++
++    def ledger_append(self,items,source):
++        """V006 A192 item 2: append certified points to the R-C8 ledger under the work-dir lock (no run may hold it).
++        items: [{key, theta, record, wave, pending_spec_sha256}].  Every check runs before one append of all lines."""
++        ctx=self.ctx;r=ctx.cfg['tail_readiness']
++        if r.get('certificate_ledger') is None:raise Error('LEDGER_NOT_CONFIGURED: tail_readiness.certificate_ledger is null')
++        if not ctx.gates_ok():
++            raise Error('LEDGER_APPEND_GATES_NOT_PASSED: %s'%sorted(k for k,g in ctx.gates.items() if not g.get('ok')))
++        if not isinstance(items,list) or not items:raise Error('LEDGER_APPEND_NOTHING_TO_APPEND')
++        if not ctx.work_dir.is_dir():raise Error('LEDGER_APPEND_WORK_DIR_NOT_CREATED (the campaign has not started)')
++        lock=O.Lock(ctx.work_dir)
++        if not lock.acquire():return {'status':'LOCKED'}
++        try:
++            if self.check_work_dir_json(False)!='MATCHES':raise Error('LEDGER_APPEND_WORK_DIR_JSON_REQUIRED')
++            bad=self.check_identity_now()
++            if bad:raise Error('LEDGER_APPEND_IDENTITY: '+repr(bad))
++            self.check_plan_cache_ids()
++            path=Path(r['certificate_ledger']['path'])
++            size0=path.stat().st_size if path.exists() else 0
++            ctx._ledger_verified=None
++            entries=ctx.ledger_entries()
++            known=set(ctx.genesis_points())|{e['key'] for e in entries}
++            cand={}
++            for it in items:
++                if not isinstance(it,dict) or set(it)!={'key','theta','record','wave','pending_spec_sha256'}:
++                    raise Error('LEDGER_ITEM_KEYS: {key, theta, record, wave, pending_spec_sha256} required')
++                key,rec=it['key'],it['record']
++                if key in known or key in cand:raise Error('LEDGER_KEY_ALREADY_REGISTERED: %s'%str(key)[:16])
++                if (not isinstance(rec,dict) or set(rec)!=set(LEDGER_RECORD_KEYS) or not isinstance(rec.get('identity'),dict)
++                        or M.digest(rec['identity'])!=key):
++                    raise Error('LEDGER_RECORD_NOT_THIS_POINT: %s'%str(key)[:16])
++                b0=ctx.mapper.build(it['theta'])
++                if b0['certificate_point_key']!=key or b0['sha256']!=it['pending_spec_sha256']:
++                    raise Error('LEDGER_THETA_OR_PENDING_SPEC_IS_NOT_THIS_POINT: %s'%key[:16])
++                bad=ctx.ledger_record_problems(rec)
++                if bad:raise Error('LEDGER_RECORD_GUARD_REFUSED: %s: %s'%(key[:16],bad))
++                cand[key]=rec
++            planned={}
++            ctx._ledger_candidates=cand
++            try:
++                for it in items:
++                    b=ctx.mapper.build(it['theta'])
++                    ctx.prelaunch_check(b['spec'])         # the certificate_check a genesis record gets at plan
++                    planned[it['key']]=b['sha256']
++            finally:ctx._ledger_candidates=None
++            prev=entries[-1]['entry_sha256'] if entries else ctx.ledger_genesis_sha256()
++            seq=len(entries);blob=b''
++            for it in items:
++                seq+=1
++                e={'schema':LEDGER_ENTRY_SCHEMA,'seq':seq,'prev_sha256':prev,'key':it['key'],'record':it['record'],
++                   'wave':it['wave'],'planned_spec_sha256':planned[it['key']],'source':source,'appended_utc':O.utc()}
++                e['entry_sha256']=M.digest(e)
++                blob+=M.canonical(e)+b'\n';prev=e['entry_sha256']
++            fd=os.open(str(path),os.O_WRONLY|os.O_APPEND|os.O_CREAT,0o644)
++            try:
++                if os.fstat(fd).st_size!=size0:raise Error('LEDGER_CHANGED_DURING_APPEND')
++                if os.write(fd,blob)!=len(blob):raise Error('LEDGER_SHORT_WRITE (root inspects the last line)')
++                os.fsync(fd)
++            finally:os.close(fd)
++            ctx._ledger_verified=None
++            after=ctx.ledger_entries()
++            if len(after)!=len(entries)+len(items) or after[-1]['entry_sha256']!=prev:raise Error('LEDGER_REVERIFY_FAILED')
++            return {'status':'OK','appended':[{'seq':e['seq'],'key':e['key'],'planned_spec_sha256':e['planned_spec_sha256']}
++                                              for e in after[len(entries):]],
++                    'n_entries':len(after),'head_sha256':prev,'genesis_sha256':ctx.ledger_genesis_sha256(),
++                    'ledger':{'path':str(path),'sha256':O.sha256_file(path)},'launches_performed':0}
++        finally:lock.release()
++
+ O.Orchestrator=Orchestrator
+ def planning_context(config):return Context(config)
+ 

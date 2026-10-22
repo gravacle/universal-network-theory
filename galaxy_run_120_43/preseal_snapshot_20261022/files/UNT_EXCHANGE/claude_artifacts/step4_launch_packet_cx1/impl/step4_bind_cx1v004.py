@@ -1,0 +1,36 @@
+"""Prepare immutable step-4 plan/admission/command. Never publish authority or spawn.
+Input admission is a ROOT-authorized candidate. Output needs independent root
+publication of its byte hash; merely running this binder grants no authority.
+"""
+import argparse,copy,hashlib,importlib.util,json,os,shlex
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sp=importlib.util.spec_from_file_location('_step4_guard',HERE/'step4_guard_cx1v005.py');G=importlib.util.module_from_spec(sp);sp.loader.exec_module(G)
+PYTHON='/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3'
+def bind(final_plan,admission_candidate,plan_out,admission_out,command_out):
+    inp=G.pin(final_plan);plan=G.doc(inp);cfg=G.doc(G.pin(admission_candidate))
+    G.require(cfg.get('plan') is None,'BINDER_REQUIRES_UNBOUND_ADMISSION_CANDIDATE')
+    probe=copy.deepcopy(cfg);probe['plan']=inp
+    G.validate(inp,plan['launcher']['path'],_candidate_config=probe)
+    outs=[G.safe_path(str(x)) for x in (plan_out,admission_out,command_out)]
+    G.require(len(set(outs))==3,'DISTINCT_NEW_OUTPUTS_REQUIRED')
+    for p in outs:
+        G.require(p.is_relative_to(HERE.parent) and not os.path.lexists(p),'EXCLUSIVE_PACKET_OUTPUT_REQUIRED')
+        for q in outs:G.require(p==q or not p.is_relative_to(q),'NESTED_OUTPUT_REFUSED')
+    plan_bytes=G.raw(final_plan);plan_ref={'path':str(outs[0]),'sha256':hashlib.sha256(plan_bytes).hexdigest()}
+    cfg['plan']=plan_ref;cfg_bytes=json.dumps(cfg,sort_keys=True,indent=2,allow_nan=False).encode()+b'\n'
+    cfg_ref={'path':str(outs[1]),'sha256':hashlib.sha256(cfg_bytes).hexdigest()}
+    argv=['env','OPENBLAS_NUM_THREADS=1','OMP_NUM_THREADS=1','MKL_NUM_THREADS=1','VECLIB_MAXIMUM_THREADS=1','nice','-n','10',PYTHON,'-I','-B',plan['launcher']['path'],str(outs[0]),'--execute-root-only']
+    command=('# Claude2 only, after independent review and published exact admission digest.\n'
+             '# Set UNT_STEP4_ADMISSION_PATH and UNT_STEP4_ADMISSION_SHA256 from the independent publication.\n'
+             '# This file does not export or self-authenticate those variables.\n'+shlex.join(argv)+'\n').encode()
+    # All serialization and gates finish before the first exclusive write. Failures
+    # preserve any prefix of the three outputs; no retry, cleanup or overwrite.
+    for p,b in zip(outs,(plan_bytes,cfg_bytes,command)):
+        with p.open('xb') as f:f.write(b)
+    return {'label':'TESTED binding; production UNTESTED; root publication still required','plan':plan_ref,'admission':cfg_ref,'command':G.pin(outs[2])}
+def main():
+    a=argparse.ArgumentParser()
+    for name in ('final-plan','admission-candidate','plan-out','admission-out','command-out'):a.add_argument('--'+name,required=True)
+    x=a.parse_args();print(json.dumps(bind(x.final_plan,x.admission_candidate,x.plan_out,x.admission_out,x.command_out),indent=2))
+if __name__=='__main__':main()

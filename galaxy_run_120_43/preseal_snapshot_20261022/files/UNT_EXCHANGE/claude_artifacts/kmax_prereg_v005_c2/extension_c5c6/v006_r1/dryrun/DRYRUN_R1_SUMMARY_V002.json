@@ -1,0 +1,315 @@
+{
+ "schema": "UNT_KMAX_EXT_DRYRUN_V006_R1_SUMMARY_V002",
+ "supersedes": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/dryrun/DRYRUN_R1_SUMMARY.json",
+  "sha256": "a08bcfe13fe5e51d42dc5cebab0fb80b3a92486c462f1e2b1db8327953831795",
+  "defect": "summary fields read from the wrong level; seed sha not substituted"
+ },
+ "jobs": {
+  "v008_C5_N8_M32": {
+   "name": "v008_C5_N8_M32",
+   "driver": "v008",
+   "driver_sha256": "f8e4770106abb83df5e658e91edc5593198fe87f0600ee5d1946f22415902f28",
+   "spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N8_M32_C2V009.json",
+   "spec_sha256": "09ff5a96c02b0428f121138f5ebc23072333c743506a93774af9f496d7fc51e8",
+   "expect": "expect_refused",
+   "exit": 1,
+   "seconds": 0.51,
+   "guard_denied": [],
+   "guard_velocity_like_opened": [],
+   "refusal_text": [
+    "{\"exit\": \"EXCEPTION Refusal: composite grid with 108 nodes/axis > 80 is accepted only as a declared P-88 grid ['G3', 'G4', 'GR']\", \"denied\": [], \"n_writes\": 2, \"n_opened\": 29}",
+    "    raise Refusal('composite grid with %d nodes/axis > %d is accepted only as a declared P-88 grid %s'",
+    "Refusal: composite grid with 108 nodes/axis > 80 is accepted only as a declared P-88 grid ['G3', 'G4', 'GR']"
+   ],
+   "report_exists": false,
+   "as_expected": true
+  },
+  "v009_C5_N1_M32": {
+   "name": "v009_C5_N1_M32",
+   "driver": "v009",
+   "driver_sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+   "spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N1_M32_C2V009.json",
+   "spec_sha256": "16774734d607bc0f21e931cf8e5c987598610d8a98c8fea58553cf1c645d8abf",
+   "expect": "expect_ok",
+   "exit": 0,
+   "seconds": 0.51,
+   "guard_denied": [],
+   "guard_velocity_like_opened": [],
+   "report_sha256": "950711d6f5eca2f45deb34223231a259c93b521ab23b6f8df63cc5434f79ee58",
+   "stages_planned": 12,
+   "binding_blockers": [],
+   "unexplained_refusals": [],
+   "refusals_beyond_pending_inputs": [],
+   "pin_problems": [],
+   "remaining_refusals_by_class": {
+    "PRODUCED_BY_THIS_CALL": [
+     "custody.checkpoint_identity_sha256",
+     "custody.offset_finish_sha256",
+     "custody.reference_run",
+     "route_a.accepted_iteration"
+    ]
+   },
+   "route_a_prep": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prep_successor/ddo_actual_initial_source_preparation_v009.py",
+    "sha256": "b4b27a1deb68a2ec24e9bd3700de3a23537fd14b7029e124aab0f7b50bcac8bc",
+    "axis_nodes": 108,
+    "rule": "V007 for <=80 nodes/axis (unchanged); V008 for 81..96 (review aa12d69f4119983f); V009 for 97..120 (declared G5/G6 only; review: separate, named by prereg V006)",
+    "role": "used by this call"
+   },
+   "overrides_wording": "0 of 19 identity overrides are no-ops",
+   "top_level_binding_blockers": [],
+   "seed": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/dryrun/dry/v009_C5_N1_M32/simulated_call/inputs/seed_c2v001.json",
+    "sha256": "18eb99dc0e34c4e53761233b685b5eaefd6b56771bd11bf6127bdee43bba7a7d",
+    "max_iterations": 32,
+    "fourier_points_per_axis": 108,
+    "M16_seed": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/dryrun_b2/dry/v009_C5_N1/simulated_call/inputs/seed_c2v001.json",
+     "sha256": "c8d32557acc831efef49a868458782e57fc6e8cae0455d363a6c5da9cef0bfdc",
+     "max_iterations": 16
+    },
+    "leaf_diff_vs_M16_seed": [
+     "/c2_changed_fields/changed",
+     "/numerical_inputs/max_iterations"
+    ],
+    "changed_fields_equal_except_max_iterations": true,
+    "numerical_inputs_equal_except_max_iterations": true
+   },
+   "other_simulated_inputs_equal_M16_after_report_dir_and_seed_sha_substitution": {
+    "fs_controls_00.json": true,
+    "fs_controls_01.json": true,
+    "fs_controls_02.json": true,
+    "fs_controls_03.json": true,
+    "fs_manifest.json": true,
+    "galaxy_config_body_PENDING_PROBE.json": true,
+    "galaxy_config_columns_v001_PENDING_PROBE.json": true,
+    "galaxy_config_feedback_v002_PENDING_PROBE.json": true,
+    "galaxy_config_offset_PENDING_PROBE.json": true,
+    "galaxy_config_reference_PENDING_PROBE.json": true,
+    "galaxy_config_rotation_v001_PENDING_PROBE.json": true
+   },
+   "as_expected": true
+  },
+  "v009_C5_N8_M32": {
+   "name": "v009_C5_N8_M32",
+   "driver": "v009",
+   "driver_sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+   "spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N8_M32_C2V009.json",
+   "spec_sha256": "09ff5a96c02b0428f121138f5ebc23072333c743506a93774af9f496d7fc51e8",
+   "expect": "expect_ok",
+   "exit": 0,
+   "seconds": 0.51,
+   "guard_denied": [],
+   "guard_velocity_like_opened": [],
+   "report_sha256": "0a0622ff62f7d85a98060fdae2883303da6dacaa09f6140feb8a1a2433208d8e",
+   "stages_planned": 12,
+   "binding_blockers": [],
+   "unexplained_refusals": [],
+   "refusals_beyond_pending_inputs": [],
+   "pin_problems": [],
+   "remaining_refusals_by_class": {
+    "PRODUCED_BY_THIS_CALL": [
+     "custody.checkpoint_identity_sha256",
+     "custody.offset_finish_sha256",
+     "custody.reference_run",
+     "route_a.accepted_iteration"
+    ]
+   },
+   "route_a_prep": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prep_successor/ddo_actual_initial_source_preparation_v009.py",
+    "sha256": "b4b27a1deb68a2ec24e9bd3700de3a23537fd14b7029e124aab0f7b50bcac8bc",
+    "axis_nodes": 108,
+    "rule": "V007 for <=80 nodes/axis (unchanged); V008 for 81..96 (review aa12d69f4119983f); V009 for 97..120 (declared G5/G6 only; review: separate, named by prereg V006)",
+    "role": "used by this call"
+   },
+   "overrides_wording": "0 of 19 identity overrides are no-ops",
+   "top_level_binding_blockers": [],
+   "seed": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/dryrun/dry/v009_C5_N8_M32/simulated_call/inputs/seed_c2v001.json",
+    "sha256": "18eb99dc0e34c4e53761233b685b5eaefd6b56771bd11bf6127bdee43bba7a7d",
+    "max_iterations": 32,
+    "fourier_points_per_axis": 108,
+    "M16_seed": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/dryrun_b2/dry/v009_C5_N8/simulated_call/inputs/seed_c2v001.json",
+     "sha256": "c8d32557acc831efef49a868458782e57fc6e8cae0455d363a6c5da9cef0bfdc",
+     "max_iterations": 16
+    },
+    "leaf_diff_vs_M16_seed": [
+     "/c2_changed_fields/changed",
+     "/numerical_inputs/max_iterations"
+    ],
+    "changed_fields_equal_except_max_iterations": true,
+    "numerical_inputs_equal_except_max_iterations": true
+   },
+   "other_simulated_inputs_equal_M16_after_report_dir_and_seed_sha_substitution": {
+    "fs_controls_00.json": true,
+    "fs_controls_01.json": true,
+    "fs_controls_02.json": true,
+    "fs_controls_03.json": true,
+    "fs_manifest.json": true,
+    "galaxy_config_body_PENDING_PROBE.json": true,
+    "galaxy_config_columns_v001_PENDING_PROBE.json": true,
+    "galaxy_config_feedback_v002_PENDING_PROBE.json": true,
+    "galaxy_config_offset_PENDING_PROBE.json": true,
+    "galaxy_config_reference_PENDING_PROBE.json": true,
+    "galaxy_config_rotation_v001_PENDING_PROBE.json": true
+   },
+   "as_expected": true
+  },
+  "v009_C6_N1_M32": {
+   "name": "v009_C6_N1_M32",
+   "driver": "v009",
+   "driver_sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+   "spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N1_M32_C2V009.json",
+   "spec_sha256": "d222348ba310ee0ec0a2dbc3203a13a4c2f2550b7eb69155f5e87e14c5336d8b",
+   "expect": "expect_ok",
+   "exit": 0,
+   "seconds": 0.51,
+   "guard_denied": [],
+   "guard_velocity_like_opened": [],
+   "report_sha256": "0d27390f8d4f5c095fa79149d18665f326de1236bf9d99952e1d8e0f66301231",
+   "stages_planned": 12,
+   "binding_blockers": [],
+   "unexplained_refusals": [],
+   "refusals_beyond_pending_inputs": [],
+   "pin_problems": [],
+   "remaining_refusals_by_class": {
+    "PRODUCED_BY_THIS_CALL": [
+     "custody.checkpoint_identity_sha256",
+     "custody.offset_finish_sha256",
+     "custody.reference_run",
+     "route_a.accepted_iteration"
+    ]
+   },
+   "route_a_prep": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prep_successor/ddo_actual_initial_source_preparation_v009.py",
+    "sha256": "b4b27a1deb68a2ec24e9bd3700de3a23537fd14b7029e124aab0f7b50bcac8bc",
+    "axis_nodes": 120,
+    "rule": "V007 for <=80 nodes/axis (unchanged); V008 for 81..96 (review aa12d69f4119983f); V009 for 97..120 (declared G5/G6 only; review: separate, named by prereg V006)",
+    "role": "used by this call"
+   },
+   "overrides_wording": "0 of 19 identity overrides are no-ops",
+   "top_level_binding_blockers": [],
+   "seed": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/dryrun/dry/v009_C6_N1_M32/simulated_call/inputs/seed_c2v001.json",
+    "sha256": "95ac9b447dad66578dd36ca4e85183389cf3e2f03ef5656f7d2bc17d1baa0983",
+    "max_iterations": 32,
+    "fourier_points_per_axis": 120,
+    "M16_seed": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/dryrun_b2/dry/v009_C6_N1/simulated_call/inputs/seed_c2v001.json",
+     "sha256": "cabd6ad49eca3b1787600365b00966c07a7e3bd6f6d4b00c29f296524862e5b4",
+     "max_iterations": 16
+    },
+    "leaf_diff_vs_M16_seed": [
+     "/c2_changed_fields/changed",
+     "/numerical_inputs/max_iterations"
+    ],
+    "changed_fields_equal_except_max_iterations": true,
+    "numerical_inputs_equal_except_max_iterations": true
+   },
+   "other_simulated_inputs_equal_M16_after_report_dir_and_seed_sha_substitution": {
+    "fs_controls_00.json": true,
+    "fs_controls_01.json": true,
+    "fs_controls_02.json": true,
+    "fs_controls_03.json": true,
+    "fs_manifest.json": true,
+    "galaxy_config_body_PENDING_PROBE.json": true,
+    "galaxy_config_columns_v001_PENDING_PROBE.json": true,
+    "galaxy_config_feedback_v002_PENDING_PROBE.json": true,
+    "galaxy_config_offset_PENDING_PROBE.json": true,
+    "galaxy_config_reference_PENDING_PROBE.json": true,
+    "galaxy_config_rotation_v001_PENDING_PROBE.json": true
+   },
+   "as_expected": true
+  },
+  "v009_C6_N8_M32": {
+   "name": "v009_C6_N8_M32",
+   "driver": "v009",
+   "driver_sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+   "spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N8_M32_C2V009.json",
+   "spec_sha256": "8f28f5b6ce2b48fa417fb3248267d568604fbcd1c149df54222ec7bb398007fd",
+   "expect": "expect_ok",
+   "exit": 0,
+   "seconds": 0.51,
+   "guard_denied": [],
+   "guard_velocity_like_opened": [],
+   "report_sha256": "af94f88ab5d9759894e468a4bbfaf45855bf9913c15a9d4e795bd1d43568a16f",
+   "stages_planned": 12,
+   "binding_blockers": [],
+   "unexplained_refusals": [],
+   "refusals_beyond_pending_inputs": [],
+   "pin_problems": [],
+   "remaining_refusals_by_class": {
+    "PRODUCED_BY_THIS_CALL": [
+     "custody.checkpoint_identity_sha256",
+     "custody.offset_finish_sha256",
+     "custody.reference_run",
+     "route_a.accepted_iteration"
+    ]
+   },
+   "route_a_prep": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prep_successor/ddo_actual_initial_source_preparation_v009.py",
+    "sha256": "b4b27a1deb68a2ec24e9bd3700de3a23537fd14b7029e124aab0f7b50bcac8bc",
+    "axis_nodes": 120,
+    "rule": "V007 for <=80 nodes/axis (unchanged); V008 for 81..96 (review aa12d69f4119983f); V009 for 97..120 (declared G5/G6 only; review: separate, named by prereg V006)",
+    "role": "used by this call"
+   },
+   "overrides_wording": "0 of 19 identity overrides are no-ops",
+   "top_level_binding_blockers": [],
+   "seed": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/dryrun/dry/v009_C6_N8_M32/simulated_call/inputs/seed_c2v001.json",
+    "sha256": "95ac9b447dad66578dd36ca4e85183389cf3e2f03ef5656f7d2bc17d1baa0983",
+    "max_iterations": 32,
+    "fourier_points_per_axis": 120,
+    "M16_seed": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/dryrun_b2/dry/v009_C6_N8/simulated_call/inputs/seed_c2v001.json",
+     "sha256": "cabd6ad49eca3b1787600365b00966c07a7e3bd6f6d4b00c29f296524862e5b4",
+     "max_iterations": 16
+    },
+    "leaf_diff_vs_M16_seed": [
+     "/c2_changed_fields/changed",
+     "/numerical_inputs/max_iterations"
+    ],
+    "changed_fields_equal_except_max_iterations": true,
+    "numerical_inputs_equal_except_max_iterations": true
+   },
+   "other_simulated_inputs_equal_M16_after_report_dir_and_seed_sha_substitution": {
+    "fs_controls_00.json": true,
+    "fs_controls_01.json": true,
+    "fs_controls_02.json": true,
+    "fs_controls_03.json": true,
+    "fs_manifest.json": true,
+    "galaxy_config_body_PENDING_PROBE.json": true,
+    "galaxy_config_columns_v001_PENDING_PROBE.json": true,
+    "galaxy_config_feedback_v002_PENDING_PROBE.json": true,
+    "galaxy_config_offset_PENDING_PROBE.json": true,
+    "galaxy_config_reference_PENDING_PROBE.json": true,
+    "galaxy_config_rotation_v001_PENDING_PROBE.json": true
+   },
+   "as_expected": true
+  },
+  "v009_NEG_MAXIT_33": {
+   "name": "v009_NEG_MAXIT_33",
+   "driver": "v009",
+   "driver_sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+   "spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/dryrun/negative/NEG_MAXIT_33_FROM_C5_N8_M32.json",
+   "spec_sha256": "53a10ebbd8cdadf490ed21ac54018794ad534679ba2460f68c84633157dba046",
+   "expect": "expect_refused",
+   "exit": 1,
+   "seconds": 0.51,
+   "guard_denied": [],
+   "guard_velocity_like_opened": [],
+   "refusal_text": [
+    "{\"exit\": \"EXCEPTION Refusal: numerics.route_a.max_iterations must be an int in 1..32, not 33\", \"denied\": [], \"n_writes\": 2, \"n_opened\": 29}",
+    "    raise Refusal('numerics.route_a.max_iterations must be an int in 1..%d, not %r' % (ROUTE_A_MAX_ITERATIONS_MAX, m))",
+    "Refusal: numerics.route_a.max_iterations must be an int in 1..32, not 33"
+   ],
+   "report_exists": false,
+   "as_expected": true
+  }
+ },
+ "n_jobs": 6,
+ "n_as_expected": 6,
+ "all_as_expected": true
+}

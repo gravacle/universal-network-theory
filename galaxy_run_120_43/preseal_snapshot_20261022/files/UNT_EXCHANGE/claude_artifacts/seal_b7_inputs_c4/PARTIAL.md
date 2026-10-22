@@ -1,0 +1,35 @@
+# PARTIAL - dispatch 0650 / A113 P6 (seal B7 inputs, helper of Claude4)
+
+- 2026-10-19T03:13:18Z start: folder created; reading tool 4 and inputs
+- 2026-10-19T03:15:13Z tool 4 9787cf58 read (FORMAL: build passes pt[key_equivalence_map] from tool 3 = case block top-level key, slots[compare_reviewed_source].sha256, slots[driver].sha256); fence c993d34c / runner fe904509 hashed
+- 2026-10-19T03:16:04Z TESTED case block 76309ae3 top-level key_equivalence_map == [] (r13 validate_case_block L1557 cb.get); prereg r6 d28c95f5 binding_inputs.case_block pins it; slots read (driver r5 b5cc62af, comparator c2v007r2 052da0fe, records R5_V001)
+- 2026-10-19T03:16:52Z FORMAL comparator c2v007r2 052da0fe: SCRIPT_CUSTODY (A59 raw, L2327-2347) per new stage with request.json, report by exclusive create, stdout {verdict, failing}; reading Z2 record B1_R5_C2V007 83e7b067
+- 2026-10-19T03:18:38Z TESTED A113 P6 text (V006 addendum ca5d7ae3): custody record produced by c2v007r2 own tool from R5_V001 identity runs, root runs it; Z2 record names run runs_ext/UVT_Z2_A2F10_R5_RUN_V001 (path only, not opened); listing gates_v007/r2/tools
+- 2026-10-19T03:21:30Z FORMAL: report structure from comparator source (head keys, checks.SCRIPT_CUSTODY.detail.stages rows, STAGE_SET.detail.order_new, NEW_DRIVER_PIN.detail); record writer ties run.path=report.new; reading driver r5 UVT_TAIL_KINDS
+- 2026-10-19T03:23:43Z FORMAL: driver r5 tables SCRIPTS_UVT (8 UVT kinds), RO1_ROUTE_A, AUX_UVT manifest_writer; converter design fixed (AST-only, no driver code executed); now reading disclosures c08_table and compare IMPLs
+- 2026-10-19T03:24:32Z TESTED disclosures V002 a0284ece c08_table = 19 ids; IMPL files listed and hashed (V001, r1-r8, r10-r14; r9 has none); grepping NEW- ids per named IMPL
+- 2026-10-19T03:26:09Z reading IMPLs: r2 (NEW-4 declared stricter, no disposition), r3 (NEW-7, root to say), r4 (NEW-13/16/17/19, none adopts), r5 (A53 implemented: NEW-7/13/16/17/19); checking ranges
+- 2026-10-19T03:26:35Z read r6 (A58 RI-10 dispositions NEW-21..29: NEW-21 Adopted), r7 (NEW-42..51 for root, no dispositions); reading r8
+- 2026-10-19T03:26:44Z read r8 (A67 implemented: NEW-31 Accepted as implemented; NEW-52..60 for root); reading r10
+- 2026-10-19T03:26:59Z read r10 (NEW-52 implemented per A75.7; NEW-61..70 for root; NEW-64 root to accept); reading r11 RI-20 table
+- 2026-10-19T03:27:57Z read r11 RI-20 table (NEW-71 stricter where silent; NEW-73 minimal properties; NEW-64 accepted in A79); now reading V005 A58 RI-10 / A75 / A81 RI-20 text
+- 2026-10-19T03:29:21Z TESTED V005 c01b3c51 A58 RI-10 / A81 RI-20 / A59 text; grepping V005 for C-08 ids (root rulings, supporting evidence)
+- 2026-10-19T03:31:27Z NOTE: V006 moved to 63e7802f (A114 r14 replaces r13 in compare slot; A115 blocking criterion); collecting per-id IMPL lines
+- 2026-10-19T03:33:31Z classifying 19 ids: explicit IMPL disposition (11), RI-10 from declared stricter (4), root-ruled plan items (2), open (NEW-30, NEW-44); checking V005 for unnamed rulings
+- 2026-10-19T03:35:27Z extracting r13 suite (71c7b516) check() tags per id and matching IMPL-named tests (AST only)
+- 2026-10-19T03:39:02Z TESTED r13 run of record TEST_SUMMARY cad67c41 (706/706, script f5adfd11): IMPL-named tests resolve; checking r14 (A114) folder
+- 2026-10-19T03:40:30Z r14 (A114) SELECTED_FOR_REVIEW f3f9ba7e, IMPL CX1V002 2ba6d12e names it; root V003_DRAFT C-08 on r14 (same 19 ids). Plan: file 2 of record on r13 IMPL (dispatch) + R14 variant. Writing generators now
+- 2026-10-19T03:42:33Z WROTE KEY_EQUIVALENCE_MAP_V007.json (exclusive create, dry-run first)
+- 2026-10-19T03:43:39Z writing tools/make_new_items_c4v001.py (evidence table, quotes verified from bytes, tests resolved in r13/r14 runs)
+- 2026-10-19T03:46:24Z dry-run of file 2 generator (r13)
+- 2026-10-19T03:48:47Z WROTE NEW_ITEM_DISPOSITIONS_V007.json (r13) and _R14_VARIANT.json (17 items each; NEW-30, NEW-44 pending root)
+- 2026-10-19T03:50:25Z TESTED no symlinks in comparator/tokens/driver paths; writing converter tools/make_custody_record_c4v001.py
+- 2026-10-19T03:54:26Z running synthetic converter tests (fixtures/custody_synth_v001)
+- 2026-10-19T03:54:56Z v001 synthetic run: 31/31 cases ok but harness regex missed SCRIPTS_UVT[reference] (trailing comment in driver line) -> all_ok false; v001 kept; successor v002 (regex fix, new fixtures dir/results)
+- 2026-10-19T03:55:57Z v002 synthetic tests all_ok (31/31, AST==regex); CLI dry-run/pass/must-fail TESTED; next: tool 4 validation under fence
+- 2026-10-19T03:57:14Z ran tool 4 validation under the fence (VALIDATION_TOOL4_B7_C4V001.json)
+- 2026-10-19T03:58:18Z FORMAL: comparator guard lists runs_ext (scandir) to read the C5H dir inode -> a re-run conflicts with root A105 no-further-C5H-metadata; spec recommends converting the report of record; writing spec
+- 2026-10-19T04:01:08Z WROTE CUSTODY_SPEC_FOR_ROOT_V001.md (exclusive)
+- 2026-10-19T04:01:54Z TESTED r14 source carries the same case-block key-map read line; drafting README
+- 2026-10-19T04:02:58Z WROTE README_SEAL_B7_INPUTS_C4V001.md (exclusive; r13 and r14 item lists TESTED equal)
+- 2026-10-19T04:03:20Z writing HASHES_SEAL_B7_INPUTS_C4V001.txt last (sha, path rows of every file here); no file here is modified after it

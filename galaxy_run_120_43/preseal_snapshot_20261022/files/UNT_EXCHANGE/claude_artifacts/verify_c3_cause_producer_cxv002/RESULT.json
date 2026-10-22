@@ -1,0 +1,86 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0813 item 3 / 0826 item 4b: cause producer cxv002 (cross-family)",
+ "reviewer_lane": "Claude3",
+ "utc": "2026-10-21T12:32:56Z",
+ "object": {
+  "folder": "claude_artifacts/cause_record_cx1/cxv002/",
+  "producer_sha256": "4271da4422c40faf...",
+  "vocabulary_sha256": "839c75774c28c6c8...",
+  "reader_sha256": "86a71335a13457ce...",
+  "unchanged_start_to_end": true
+ },
+ "rulings_checked": [
+  "V006 A249, A251, A252 via 0805, 0806, 0807"
+ ],
+ "verdict": "PASS",
+ "blocking": 0,
+ "findings": [
+  {
+   "id": "N1",
+   "class": "NOTE (hardening; not reachable from honest pinned producers)",
+   "label": "TESTED (synthetic) / FORMAL (reachability)",
+   "title": "A missing, None or unknown route_a_outcome.outcome with driver status ROUTE_A_NO_FIXED_POINT is counted as a model outcome",
+   "evidence": "cause_record_cxv002.py L81, L95-105: token = status unless outcome is ITERATION_BUDGET_EXHAUSTED; only FAILED_SOURCE_PREPARATION is excluded (L82). My probe on the builder's fixtures: outcome key absent, outcome None, route_a_outcome absent and outcome 'NONCONVERGENCE' all give model_outcome true. The driver site L1916 (classification ROUTE_A_NO_FIXED_POINT) also fires for FAILED_SOURCE_PREPARATION, so an absent outcome cannot be told apart from that excluded case. Not reachable from honest producers: every route-A request passes --checkpoint-module and --checkpoint-directory (driver r5 L2839-2841), and every iterator _finish writes checkpoint.outcome, which is always one of CONVERGED_FINITE_FIXED_POINT, FAILED_SOURCE_PREPARATION or ITERATION_BUDGET_EXHAUSTED (all 5 pinned iterators).",
+   "fix": "One line: if outcome is None or not one of the pinned iterator tokens, return no('ROUTE_A_OUTCOME_MISSING_OR_UNKNOWN'). This matches current behavior on every honest record. Separately, the builder's positive fixture uses outcome 'NONCONVERGENCE' (test L17), a token no pinned iterator emits; the positive cases should use ITERATION_BUDGET_EXHAUSTED."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "Receipt schema matches root_monitor_c2v001 (ba031c23): status CHILD_FAILED iff stop None and exit not 0; pins.driver.{path,sha256} and pins.spec.sha256 (L141-142, L192-197). Driver exit 3 for a non-COMPLETED status (r5 L3597)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "finish.json keys status/result_path/result_sha256 (r5 L3594-3595; r008 L3594, L6135); result.status (L3591); result.route_a_outcome.outcome (L1898, L3578)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "stage_records in run mode carry name and exit_code (run_stages L1850-1858) and no status key, which the producer accepts. The route-A stage is named 'route_a' in both drivers (r5 L2851; r008 L2851, L5577, L7311, L8632), matching the producer regex. The worker exits 0 for every returned solver outcome (r5 L1885-1886)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "RouteANoFixedPoint is raised only by require_route_a_fixed_point (L1964) from conv_flag classification, in both drivers",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "The ITERATION_BUDGET_EXHAUSTED sites are the iteration-budget loop exit with converged false, a model outcome under an unchanged budget (spot-checked 7667025b L349-360 and c91c5051 L176-185); _finish tokens in all 5 iterators are exactly CONVERGED_FINITE_FIXED_POINT, FAILED_SOURCE_PREPARATION and ITERATION_BUDGET_EXHAUSTED",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Vocabulary 839c7577: both drivers complete=true (NGC 144 modules, DDO 121); every listed site has model_outcome=true",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Nonphysics ends are uncounted: STOPPED_* gives NONPHYSICS_OR_NOT_FAILED (L72); exit codes <=0, 137 and 143 are uncounted (L74, L88); FAILED_SOURCE_PREPARATION is excluded (L82)",
+   "result": "CONFIRMED",
+   "label": "FORMAL"
+  },
+  {
+   "claim": "NGC needs a root post-seal attestation pin before any finish or result read (L66-71; A251)",
+   "result": "CONFIRMED",
+   "label": "FORMAL"
+  },
+  {
+   "claim": "Pair helper: identical stage, code, class and site; distinct receipts; equal spec and driver; solo bound (L110-124)",
+   "result": "CONFIRMED",
+   "label": "FORMAL"
+  },
+  {
+   "claim": "Builder suite on my scratch copy: 43/43 tests pass; 7/7 mutants killed; mutant sha256 values identical to the builder's; the tests JSON differs only in a temp-dir name",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Whitelist selector content (ALLOWED key paths) beyond what the builder's forbidden-key tests show",
+   "result": "NOT_CHECKED",
+   "note": "left to Codex3 0672"
+  }
+ ],
+ "reads_not_done": "No real run directories, receipts, NGC3198 data, V007_POSTSEAL_RECORDS or ~/.codex. Driver and iterator code were read as source only."
+}

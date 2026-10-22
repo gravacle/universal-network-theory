@@ -1,0 +1,87 @@
+{
+  "schema": "CX1_0820_EARLIEST_START_V001",
+  "utc": "2026-10-21T12:03:43.870043+00:00",
+  "verdict": "FAIL",
+  "blocking_count": 2,
+  "scope": "Read-only early/speculative-call design; current software cannot deliver the requested end-to-end external reuse. A258 timing-first/no-throttle policy is recognized; code restrictions are implementation gaps, not recommendations to retain throttling.",
+  "blockers": [
+    {
+      "id": "B1",
+      "finding": "External-result importer with exact-request custody remains missing. Campaign cannot currently ingest direct calls on External1 outside its work dir on the new drive."
+    },
+    {
+      "id": "B2",
+      "finding": "Admitted early direct-call path must be reviewed for all selected per-point certificates and A258 scheduling. Existing guard014 max_active<=6, ramp, fixed batch families and campaign budget17 remain enforced in bytes; no-throttle authorization alone does not change them. No successor implemented here."
+    }
+  ],
+  "earliest_start": {
+    "classification": "FORMAL",
+    "five_fields": [
+      "deciding_test",
+      "capability_evidence",
+      "anchor.result",
+      "anchor.receipt",
+      "anchor.spec_sha256"
+    ],
+    "spec_dependency": "h11 assembler L275 onward writes exactly these fields. Parent Mapper builds from base(template plus numerics), theta, fixed coordinates and label; core adds certificate slots from registry; ledger mapper adds certified slots for non-genesis points. None of the five H11 fields is inserted into the call spec. Holding template/numerics/certificate pins/label recipe and theta fixed therefore preserves all seven raw specs before and after these five field updates. This does NOT cover other H3 updates to numerics or tail_readiness certificates.",
+    "earliest_conditional": "At the adopted verdict, once each exact final call spec, certificate/prelaunch policy and direct admission are valid, calls can in principle be computed without waiting for these five evidence fields. Do not launch pending-cert draft bytes: certified slots change SHA. Existing production ledger_append requires initialized workdir and passing gates; pre-certification by itself is not pre-H11 production-ledger admission. Root needs a reviewed direct certificate lookup for these non-genesis points and a later importer.",
+    "volumes": "A direct receipt and acceptance bind the original call/result locations. External1 can be the proposed early output volume only under root-reviewed direct admission and capacity checks; leave those directories in place. Current campaign reingest accepts no external call-dir argument and requires work_dir/waves/wave_N/campaign/call_I. Thus no existing compliant early External1-to-new-drive reuse path exists. A successor should retain original external custody and import by reference after natural wave planning, not copy/move and pretend the call ran in a wave directory. New-drive availability need not delay computation in that future design, but it still delays normal campaign initialization."
+  },
+  "hedge": {
+    "classification": "FORMAL cost; expected gain UNTESTED",
+    "calls": "Nominal seed+plus+minus =7. Two halving levels across3axes produce6 extra plus candidates; all halving sides produce12 extra. The12global points bring all conditional extras to24 and total campaign candidates31. With H11, respective totals18,24,30,42.",
+    "cpu_workers": "Configured route-A workers: base7=56; six extra halved-plus=48; all24extras=192; H11+all31=336 workers. Worker count is not measured simultaneous CPU demand.",
+    "disk_GiB_at_b_star_17_08": {
+      "nominal7": 119.56,
+      "extra_halved_plus6": 102.48,
+      "nominal_plus_halved_plus13": 222.04,
+      "all_conditional24_extra": 409.92,
+      "campaign_candidates31": 529.48,
+      "including_H11_42": 717.36
+    },
+    "disk_caveat": "b* is the prior capacity threshold, not a bound. At80GiB output cap,31calls can consume2480GiB before reserve,42calls3360GiB. R(b) must include early unused outputs; no deletion assumed.",
+    "gain": "If a nominal plus fails, having its valid half-plus result ready can remove that one forward wait; the corresponding half-minus is still needed and may require another wait unless also hedged. If half-plus fails again, quarter-plus is useful; never assume a valid seed, a valid minus, or a reached global_design. If all nominal plus/minus are valid, these extras save no engine latency and consume resources. Expected gain cannot be numeric without branch probabilities and stage/service-time measurements. Computation alone must not add evaluation-log rows or F6 judgments."
+  },
+  "cpu_estimate": {
+    "classification": "ILLUSTRATIVE DERIVED; not benchmarked",
+    "basis": "Dispatch0820 reports A247 H11 about24h with11overlapping calls. Accepted as coordinator-reported measurement; raw runs were not opened. This replaces the older11.7h model as the stated overlap basis.",
+    "assumptions": "All calls have equal remaining CPU work; fixed aggregate throughput; already CPU-saturated; perfectly fair sharing; no memory/I/O nonlinearities. These assumptions are deliberately explicit and unverified.",
+    "18_calls": "18/11=1.636: H11 completion and comparable early calls about39.27h, about15.27h later H11. This is not a prediction; adding workers cannot create CPU capacity.",
+    "24_calls_with_six_half_plus": "24/11=2.182: about52.36h under the same model.",
+    "42_calls_with_all24extras": "42/11=3.818: about91.64h under the same model.",
+    "ordering": "No unique fastest order is provable from one H11 makespan and no branch probabilities. Under the equal-work saturated model, H11 then all7 costs24+7*24/11=39.27h, the same total as fair simultaneous18; concurrent launch does not itself improve that lower bound and delays gate readiness. With variable stages/spare resources, overlap may improve it. A conditional starting order is H11 first (required evidence), then seed and nominal Jacobian calls as soon as the reviewed early path exists; place branch-dependent halves/global last. This is an information-priority order, not a cap or scheduling throttle. A claim that it minimizes real u_A time needs stage-aware simulation and validity probabilities; label that UNTESTED.",
+    "principal_priority": "More total processing is acceptable under A258; that does not imply every speculative job reduces makespan. Preserve quality and exact engine decisions while comparing strategies."
+  },
+  "TESTED": "No new execution test in this extension. Prior inert tests remain separately scoped in0816 reports. No science launched.",
+  "UNTESTED": [
+    "Pre-H11 direct admission for non-genesis records",
+    "External importer and full production custody",
+    "Real slowdown, RAM/I/O pressure, branch probabilities and earliest calendar time to u_A"
+  ],
+  "source_pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h11_evidence_assembler_c2v001.py",
+      "sha256": "2a8df9dfb85933b0cbe27af791d6966537537aea9e37d90fe82b6106195b33ee"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_fields_c2v006/apply_h3_fields_c2v006.py",
+      "sha256": "0ed72837684f345b311401ea90b9889cd46b8431753a4e0697225e9849aff951"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py",
+      "sha256": "dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_guard_c2v014.py",
+      "sha256": "6efdca016416a919b25a1e23d46a415b75fe2b5e60145ba098f864730975165d"
+    }
+  ]
+}

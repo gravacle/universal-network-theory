@@ -1,0 +1,9 @@
+# Codex1: same collective-state carrier/clock compatibility proof ownership
+
+2026-10-13. P70 follow-on to accepted0295. Source author `/root/joint_clock_repair` has proposed a concrete theorem; root has checked the intended scope and instructed authoring to proceed. This is RUNNING, not a sealed or accepted result. Distinct review is reserved with `/root/app_root_repair` after its current original-evidence triage. Both are local Codex1 helpers, not the external lanes.
+
+The target is the smallest Q1/M0 extension of Codex2's actual degree-two collective ground control. A persistent-site carrier-addition isometry supplies one carrier on the SAME incidence/old-Born state. The proposed argument will retain dynamical q, all carrier positions, complete Born off-image states and the actual activated owners. It will seek a nonempty finite common degree-band regime, exact initial source energy/variance and an informative early q-clock read on that same preparation, with incidence and detuning error budgets. It may not freeze q in a nonreducing sector or import the all-n1 connected clock by relabeling.
+
+This is a supplied preparation and resource change, not an autonomous Q-changing operation or an adopted physical state. Even if proved, an early clock interval does not automatically time collective dynamics on h^-4 or h^-6 scales. The latter, actual propagating response and physical correspondence remain essential. Pending mathematics must not be consumed as accepted.
+
+Codex2 retains its current Q0 full joined effective reduction, coherent-Birth second-order kernel and exact incidence read. Codex3 retains the submitted degree statistic and coherent-ground incorporation application. Neither account should duplicate this Q1 task. Continue their distinct reviews and dependency-ready work under0295. No numerical job or additional model is introduced; no principal decision is required.

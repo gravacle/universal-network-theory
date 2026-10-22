@@ -1,0 +1,253 @@
+--- "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/admission_integration/owned_capture_adiabatic_resume_root_v001.py"	2026-10-16 17:33:35.258069470 -0500
++++ owned_capture_adiabatic_admissible_root_v001.py	2026-10-17 11:46:33.716436600 -0500
+@@ -1,8 +1,23 @@
+-"""Root-only bounded saved-state continuation with reviewed V003 representation fix.
+-Same capture, native thermodynamics, volume and physical seed. No refit or DE claim.
++"""Root-only bounded capture-adiabatic continuation on an ADMISSIBLE same-target capture.
++Derived from owned_capture_adiabatic_resume_root_v001.py (8c6c84d2), the root of the
++stalled CAPTURE_ADIABATIC_EXACT_RESUME_RUN_V001. Same stepper, RHS, evaluator, statistics,
++static binding, factorization, physical seed and step-control law. Deltas, and only these:
++ D1 capture input: pooled admission+cycle+worm captures (pinned result.json bytes), pooled
++    by expansion_convexity_gate_v001.pool_captures (chains relabelled, rows unchanged).
++    Capture-derived start: tau=0 initial normal root re-typed from the ancestor stepper
++    owned_capture_adiabatic_continuation_v001.py L107-L111 (instead of the saved accepted74
++    snapshot, which is an output of the inadmissible capture), hence controls V002
++    'integration' verbatim (the resume-only restart delta at old root L60-L63 was the
++    old trajectory's last attempted dt).
++ D2 estimator-convexity gate on every estimate the RHS consumes, run BEFORE the RHS and
++    BEFORE the THERMAL_BRANCH_SIGN_GUARD; violation raises RuntimeError (terminal: the
++    stepper's reject-and-halve catches ValueError only, resume stepper L138) and the run
++    status is ESTIMATOR_CONVEXITY_VIOLATION. No reject-and-halve, no PSD repair.
++ D3 fresh output directory.
++No refit, no DE claim, no physical acceptance. Failed mixing of every source retained.
+ """
+ import argparse
+-from datetime import datetime,timezone
++import gc
+ import hashlib
+ import importlib.util
+ import json
+@@ -10,7 +25,8 @@
+ import signal
+ import numpy as np
+ 
+-B=Path(__file__).resolve().parents[2];C=B/'CODEX1';H=B/'helpers/admission_integration'
++B=Path('/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13');C=B/'CODEX1'
++LANE=Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2')
+ PINS={
+  'old_worker':('helpers/recovered_packet_audit/owned_capture_adiabatic_root_worker_v001.py','1f1e4cfa1fdb03fbd6399f5e96581456e063afde14a56882a68d41035b08a65d'),
+  'evaluator':('helpers/recovered_packet_audit/owned_uniform_capture_thermodynamics_v001.py','df80228a91f93c297a192f00f6dc6efd9e5e0d15aa8e431c954cc36b67d3246a'),
+@@ -20,15 +36,25 @@
+  'factor':('helpers/coefficient_method/owned_saved_adiabatic_tangent_factorization_v001.py','56b83898c61aeeb8cccd3bbea45d86d079e003f4ec9a7e3f8bb0899dbe36d628'),
+  'resume':('helpers/admission_integration/owned_capture_adiabatic_resume_v001.py','ef3d22cebaab7a5abe44bbf96ec4b9834a73a514257a7267086b785293a0894a'),
+ }
++GATE=(LANE/'expansion_convexity_gate_v001.py','c425936134f93d04f9c8a4fcd3c1f65be7fbac821798502dac975ba654c3d16d')
+ INPUTS={
+- 'capture':('OWNED_L4_RAW_REWEIGHT_CAPTURE_RUN_V001/result.json','ea70f393e07e71ce29a5bbf214edfe56cd34f8fd7399806d8a585d0107d089a3'),
+  'controls':('OWNED_CAPTURE_ADIABATIC_ROOT_CONTROLS_V002.json','953d4693d79d227d85e767a98a8bfdc9f3f310f021dcd7b16cda898eb30bfb24'),
+  'inputs':('CAPTURE_ADIABATIC_CONTINUATION_RUN_V001/trajectory/inputs.json','2bcea57d1924eb122912df1bc9577c0fcdb54c2484ff64b4ec7b6f602f76c27c'),
++ 'factor_final':('SAVED_BACKGROUND_TANGENT_FACTORIZATION_RUN_V001/factorization/final.json','10e19b51e10b4c53ac6ff8081db8e4159c11229b9b08346ee48d841c1e05aa15')}
++# Used ONLY by start='resume_saved_accepted74' (the replay check); never by main().
++RESUME_INPUTS={
+  'initial':('CAPTURE_ADIABATIC_CONTINUATION_RUN_V001/trajectory/accepted_000000.json','9c38b587369a301292f591216b6ce34a4b4de0739976fdbffcda8e501f1b4f3e'),
+  'saved':('CAPTURE_ADIABATIC_CONTINUATION_RUN_V001/trajectory/accepted_000074.json','da19bf7c943fcc88e0c2d96c1e19329ab087335ff310b522e12bc3e8ec8c806b'),
+- 'finish':('CAPTURE_ADIABATIC_CONTINUATION_RUN_V001/trajectory/finish.json','a7faa7d5020382eefd778832d9c55a8c7ff387f53d9bae80bc6e3128ca04b1cc'),
+- 'factor_final':('SAVED_BACKGROUND_TANGENT_FACTORIZATION_RUN_V001/factorization/final.json','10e19b51e10b4c53ac6ff8081db8e4159c11229b9b08346ee48d841c1e05aa15')}
++ 'finish':('CAPTURE_ADIABATIC_CONTINUATION_RUN_V001/trajectory/finish.json','a7faa7d5020382eefd778832d9c55a8c7ff387f53d9bae80bc6e3128ca04b1cc')}
+ REVIEW=(B/'helpers/response_packet_audit/ADIABATIC_RHS_V003_SYMMETRIC_GROUPING_DELTA_REVIEW_V001.json','83508fdf219fabadcfbfd638feef171c2e7b478eb4504dd462e72c1e571f7911')
++# D1: the admissible same-target capture (gate PASS pooled, per chain, all jackknife
++# replicates at beta=1,j=0 and at the stalled initial state; r02_gate_eval_v001.json).
++CAPTURE_SOURCES=(
++ ('admission','OWNED_L4_ADMISSION_RESIDENCE_RUN_V001/result.json','3c82d2be7993669cab01430e0eea34eeb603985a8533fc72ed804f93ddb88d19'),
++ ('cycle','OWNED_L4_CURRENT_GRAPH_CYCLE_RUN_V001/result.json','6377a9bc71b05d9fb288e9260e83b4237daf1c487f30bd59d6a168e0894aea8f'),
++ ('worm','OWNED_L4_WORM_LOOP_RUN_V001/result.json','440f0efb7813ebc9dbf56facad6ab27a966e051ca03020f19dfe0695c71bb3e3'))
++WALL_SECONDS=7080
++STATUS_GATE='ESTIMATOR_CONVEXITY_VIOLATION'
+ 
+ 
+ def checked(path,pin):
+@@ -38,43 +64,89 @@
+ 
+ 
+ def load(name,rel,pin):
+-    p=B/rel;checked(p,pin);s=importlib.util.spec_from_file_location('resume_'+name,p)
++    p=B/rel;checked(p,pin);s=importlib.util.spec_from_file_location('admissible_'+name,p)
+     m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+ 
+ 
+-def main():
+-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--outdir',required=True);args=p.parse_args()
+-    signal.signal(signal.SIGALRM,lambda signum,frame:(_ for _ in ()).throw(TimeoutError('58 second worker wall cap')));signal.alarm(58)
++def load_gate():
++    checked(*GATE);s=importlib.util.spec_from_file_location('admissible_gate',GATE[0])
++    m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
++
++
++def run(*,capture_sources,start,outdir,gate_enforced=True):
++    """start: 'tau0_initial_root' (the launch) or 'resume_saved_accepted74' (replay only).
++    gate_enforced=False is reachable only by direct call (replay of the old run); main() never uses it."""
++    if start not in ('tau0_initial_root','resume_saved_accepted74'):raise ValueError('Unknown start')
+     docs={name:json.loads(checked(C/rel,pin)) for name,(rel,pin) in INPUTS.items()}
+-    checked(*REVIEW);mods={name:load(name,*spec) for name,spec in PINS.items()}
+-    ctl=docs['controls'];old=docs['inputs'];saved=docs['saved'];initial=docs['initial'];end=docs['finish']
+-    if saved['tau']!=end['tau'] or saved['state']!=end['last_accepted_state'] or end['accepted_steps']!=74:
+-        raise ValueError('Saved/terminal custody mismatch')
+-    if saved['h0']!=initial['h0'] or ctl['physical']!=old['physical']:raise ValueError('Physical/rate custody mismatch')
++    if start=='resume_saved_accepted74':
++        docs.update({name:json.loads(checked(C/rel,pin)) for name,(rel,pin) in RESUME_INPUTS.items()})
++    checked(*REVIEW);mods={name:load(name,*spec) for name,spec in PINS.items()};gate_mod=load_gate()
++    ctl=docs['controls'];old=docs['inputs']
++    if start=='resume_saved_accepted74':
++        saved=docs['saved'];initial=docs['initial'];end=docs['finish']
++        if saved['tau']!=end['tau'] or saved['state']!=end['last_accepted_state'] or end['accepted_steps']!=74:
++            raise ValueError('Saved/terminal custody mismatch')
++        if saved['h0']!=initial['h0']:raise ValueError('Physical/rate custody mismatch')
++    if ctl['physical']!=old['physical']:raise ValueError('Physical/rate custody mismatch')
+     seed=ctl['physical_source_pin'];checked(seed['path'],seed['sha256'])
+     for pin in ctl['review_pins']:checked(pin['path'],pin['sha256'])
+-    cap=docs['capture']['sampler_result'];meta=cap['reweighting_statistics']['metadata']
++    # D1: pinned capture bytes -> one pooled capture document (rows unchanged).
++    sources=[];source_custody={}
++    for label,rel,pin in capture_sources:
++        p=C/rel;raw=checked(p,pin);doc=json.loads(raw);del raw
++        sources.append((label,gate_mod.reduce_capture(doc)));del doc;gc.collect()
++        source_custody[label]={'path':str(p),'sha256':pin}
++    capture=gate_mod.pool_captures(sources);del sources;gc.collect()
++    cap=capture['sampler_result'];meta=cap['reweighting_statistics']['metadata']
+     candidate={key:meta[key] for key in ('theta','amplitudes','beta','lapse','j_mandel')}
+     if cap['status']!='complete' or candidate!=old['initial_candidate']:raise ValueError('Capture/reference custody mismatch')
+     physical=ctl['physical'];numerical=dict(ctl['integration'])
+-    # Restart with the actual last attempted dt, then permit further local-error
+-    # refinement. Only time-step/budget controls change, no acceptance tolerance.
+-    numerical.update(initial_step=1.2188497808586542e-12,minimum_step=1e-16,
+-                     max_attempts=128,max_evaluations=640)
++    if start=='resume_saved_accepted74':
++        # Old root L60-L63 verbatim (resume-only restart controls).
++        numerical.update(initial_step=1.2188497808586542e-12,minimum_step=1e-16,
++                         max_attempts=128,max_evaluations=640)
+     rhs_controls=dict(ctl['rhs']);atol=rhs_controls.pop('dimensionless_absolute_residual_tolerance')
+     proxy=mods['old_worker'].StageScaledRHS(mods['rhs'],physical['Eref'],atol)
+     schur0=docs['factor_final']['conditional_thermal_schur']['scaled_entropy_schur']
+     if not np.isfinite(schur0) or schur0==0:raise ValueError('No nonsingular saved thermal sign')
+-    sign0=float(np.sign(schur0));out=Path(args.outdir).resolve();out.mkdir(exist_ok=False)
+-    custody={'saved_trajectory':{name:{'path':str(C/rel),'sha256':pin} for name,(rel,pin) in INPUTS.items()},
++    sign0=float(np.sign(schur0));out=Path(outdir).resolve();out.mkdir(exist_ok=False)
++    subs=gate_mod.subcaptures(capture)
++    custody={'capture_sources':source_custody,'capture_pooling':'expansion_convexity_gate_v001.pool_captures; chains relabelled source-offset+chain; rows unchanged',
++             'pooled_rows':sum(len(s['features']) for s in cap['reweighting_statistics']['series']),
++             'pooled_chains':[s['chain'] for s in cap['reweighting_statistics']['series']],
++             'jackknife_replicates':len(subs['jackknife']),
++             'saved_inputs':{name:{'path':str(C/rel),'sha256':pin} for name,(rel,pin) in INPUTS.items()},
+              'code_pins':{name:{'path':str(B/rel),'sha256':pin} for name,(rel,pin) in PINS.items()},
++             'gate_module':{'path':str(GATE[0]),'sha256':GATE[1]},'gate_enforced':bool(gate_enforced),
+              'rhs_correction_review':{'path':str(REVIEW[0]),'sha256':REVIEW[1]},'physical_source_pin':seed,
+-             'scope':'Exact accepted74 state resume. Original h0,C0, entropy anchor, capture and provisional physical seed retained. Failed source mixing and unavailable uncertainty unchanged.',
+-             'numerical_delta':{'initial_step':numerical['initial_step'],'minimum_step':numerical['minimum_step'],'max_attempts':128,'max_evaluations':640,
+-                'reason':'Last two old rejections were representation guard repaired by reviewed RHS V003. Smaller dt tests the near-thermal-fold approach; no tolerance relaxation or branch jump.'}}
++             'start':start,'thermal_sign_anchor':{'source':'factor_final conditional_thermal_schur (unchanged pinned input)','sign':sign0},
++             'scope':'Same physics/RHS/stepper/step-control law as CAPTURE_ADIABATIC_EXACT_RESUME_RUN_V001. Capture replaced by the admissible pooled same-target capture; estimator-convexity gate terminal before every RHS/sign test. Failed source mixing retained; no DE claim.'}
++    if start=='resume_saved_accepted74':
++        custody['resume_inputs']={name:{'path':str(C/rel),'sha256':pin} for name,(rel,pin) in RESUME_INPUTS.items()}
++        custody['numerical_delta']={'initial_step':numerical['initial_step'],'minimum_step':numerical['minimum_step'],'max_attempts':128,'max_evaluations':640}
+     (out/'preparation.json').write_text(json.dumps(custody,indent=2)+'\n')
++    gate_log=(out/'convexity_gate.jsonl').open('x')
++    state_g={'last':None,'gated':None,'violation':None,'records':0}
++    def apply_gate(cand,data,where):
++        rec=gate_mod.gate(evaluator=mods['evaluator'],statistics=mods['statistics'],capture=capture,subs=subs,candidate=cand,pooled_data=data)
++        state_g['records']+=1;rec['record']=state_g['records'];rec['where']=where
++        gate_log.write(json.dumps(rec,allow_nan=False)+'\n');gate_log.flush()
++        state_g['gated']=data
++        if rec['status']!=gate_mod.STATUS_PASS and gate_enforced:
++            state_g['violation']=rec
++            with (out/'convexity_violation.json').open('x') as f:json.dump(rec,f,allow_nan=False)
++            raise RuntimeError(STATUS_GATE+': '+','.join(rec['violators'][:8])+' max_lambda=%r'%rec['max_lambda_max'])
++        return rec
++    class GatedEvaluator:
++        # Pinned evaluator, unchanged; remembers the estimate the stepper will hand to the RHS.
++        def evaluate(self,*,capture,candidate,statistics):
++            data=mods['evaluator'].evaluate(capture=capture,candidate=candidate,statistics=statistics)
++            state_g['last']=(dict(candidate),data);return data
+     class RecordedRHS:
+         def rhs(self,**kw):
++            cand,data=state_g['last']
++            if kw['y'] is not data['native_per_cell']['y']:raise RuntimeError('GATE_BINDING: RHS input is not the last evaluated estimate')
++            apply_gate(cand,data,'before_rhs')  # D2: before RHS and before the sign guard
+             try:return proxy.rhs(**kw)
+             except ValueError as exc:
+                 if 'Singular equilibrium isentrope' not in str(exc):raise
+@@ -86,10 +158,46 @@
+                      'scope':'Evaluated stage failed the unchanged scaled singular floor. Not a mathematical proof that the exact or sampled thermodynamics is singular.'}
+                 with (out/'singular_stage.json').open('x') as f:json.dump(rec,f,allow_nan=False)
+                 raise RuntimeError('THERMODYNAMIC_STAGE_RANK_FAILURE: '+str(exc)) from exc
++    evaluator=GatedEvaluator()
++    def finish_initial(status,failure):
++        rec={'status':status,'failure':failure,'tau':0.0,'accepted_for_physics':False,'start':start}
++        with (out/'initial_root_failure.json').open('x') as f:json.dump(rec,f,allow_nan=False)
++        gate_log.close()
++        return {'status':status,'tau':0.0,'accepted_steps':0,'evaluations':1}
++    if start=='tau0_initial_root':
++        # Ancestor stepper L107-L111 re-typed (initial expanding normal root, zero shear,
++        # j=0, L=C0); thermo L69-L77 checks re-typed. The gate runs before h0 is formed.
++        p=np.concatenate(([float(candidate['beta'])],np.asarray(candidate['j_mandel'],float)))
++        lo=np.asarray(numerical['parameter_lower'],float);hi=np.asarray(numerical['parameter_upper'],float)
++        if p[0]<=0 or np.any(p<lo) or np.any(p>hi) or not np.isfinite(p).all():return finish_initial('STOPPED','PARAMETER_DOMAIN')
++        cand0=dict(candidate);cand0.update(beta=float(p[0]),j_mandel=p[1:].tolist(),lapse=1.)
++        data0=evaluator.evaluate(capture=capture,candidate=cand0,statistics=mods['statistics'])
++        try:apply_gate(cand0,data0,'initial_root')
++        except RuntimeError as exc:return finish_initial(STATUS_GATE,str(exc))
++        q=data0['weight_concentration']
++        if q['ESS']<numerical['minimum_ESS_fraction']*data0['path_count'] or q['max_weight']>numerical['maximum_path_weight']:
++            return finish_initial('STOPPED','WEIGHT_CONCENTRATION_LIMIT')
++        C0=np.asarray(data0['native_per_cell']['C'],dtype=float)
++        if C0.shape!=(3,3) or not np.isfinite(C0).all() or not np.array_equal(C0,C0.T) or np.min(np.linalg.eigvalsh(C0))<=0:
++            return finish_initial('STOPPED','SPD_C')
++        U=physical['Eref']*data0['native_per_cell']['U_F_n']
++        V=physical['coordinate_weight']*physical['ell_F']**3*np.sqrt(np.linalg.det(C0))
++        h02=physical['c']*physical['c']*U/(6*physical['gamma']*V)
++        if not np.isfinite(h02) or h02<=0:return finish_initial('STOPPED','NO_REAL_POSITIVE_EXPANDING_NORMAL_ROOT')
++        h0=float(np.sqrt(h02));state0=np.concatenate((p,mods['static'].mandel_vector(C0)))
++        snapshot={'tau':0.0,'h0':h0,'state':state0.tolist(),'original_C0':C0.tolist(),'ancestor_accepted_steps':0}
++        custody['initial_root']={'h0':h0,'state':state0.tolist(),'U_F_n':data0['native_per_cell']['U_F_n'],
++            'method':'ancestor owned_capture_adiabatic_continuation_v001.py L107-L111 re-typed on the pooled capture'}
++        with (out/'initial_root.json').open('x') as f:json.dump(custody['initial_root'],f,allow_nan=False)
++    else:
++        saved=docs['saved'];initial=docs['initial']
++        snapshot={'tau':saved['tau'],'h0':saved['h0'],'state':saved['state'],
++                  'original_C0':initial['diagnostics']['C'],'ancestor_accepted_steps':74}
+     count=0
+     with (out/'stage_thermal.jsonl').open('x') as log:
+         def observe(x,data,r):
+             nonlocal count
++            if state_g['gated'] is not data:raise RuntimeError('GATE_NOT_APPLIED_BEFORE_SIGN_TEST')
+             count+=1
+             # Reuse reviewed algebraic factorization, with no field/evaluator call.
+             # Stage time is not supplied to RHS; leave it null, never invent one.
+@@ -110,15 +218,22 @@
+             if t['status']!='DEFINED':raise RuntimeError('THERMAL_SOURCE_BLOCK_RANK_FAILURE')
+             if not guard:raise ValueError('THERMAL_BRANCH_SIGN_GUARD')
+             return row
+-        answer=mods['resume'].integrate(capture=docs['capture'],initial_candidate=candidate,
+-            evaluator=mods['evaluator'],statistics=mods['statistics'],rhs_module=RecordedRHS(),static_module=mods['static'],
++        answer=mods['resume'].integrate(capture=capture,initial_candidate=candidate,
++            evaluator=evaluator,statistics=mods['statistics'],rhs_module=RecordedRHS(),static_module=mods['static'],
+             rhs_controls=rhs_controls,output_directory=out/'trajectory',input_custody=custody,
+-            resume_snapshot={'tau':saved['tau'],'h0':saved['h0'],'state':saved['state'],
+-                             'original_C0':initial['diagnostics']['C'],'ancestor_accepted_steps':74},
+-            tangent_observer=observe,**physical,**numerical)
++            resume_snapshot=snapshot,tangent_observer=observe,**physical,**numerical)
++    gate_log.close()
++    if state_g['violation'] is not None:answer=dict(answer,status=STATUS_GATE)
++    return answer
++
++
++def main():
++    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--outdir',required=True);args=p.parse_args()
++    signal.signal(signal.SIGALRM,lambda signum,frame:(_ for _ in ()).throw(TimeoutError('%d second worker wall cap'%WALL_SECONDS)));signal.alarm(WALL_SECONDS)
++    answer=run(capture_sources=CAPTURE_SOURCES,start='tau0_initial_root',outdir=args.outdir,gate_enforced=True)
+     signal.alarm(0)
+     print(json.dumps({'status':answer['status'],'tau':answer['tau'],'new_accepted_steps':answer['accepted_steps'],
+-        'evaluations':answer['evaluations'],'accepted_for_physics':False,'output':str(out)}),flush=True)
++        'evaluations':answer['evaluations'],'accepted_for_physics':False,'output':str(Path(args.outdir).resolve())}),flush=True)
+ 
+ 
+ if __name__=='__main__':main()

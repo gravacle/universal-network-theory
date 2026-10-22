@@ -1,0 +1,61 @@
+--- regenerate_h3_c2v001.py
++++ regenerate_h3_c2v002.py
+@@ -1,4 +1,9 @@
+-"""Regenerate the campaign adoption cascade at the step-3 verdict (Claude2 h3_campaign_path_c2, c2v001; V006 A126/A129/A188).
++"""Regenerate the campaign adoption cascade at the step-3 verdict (Claude2 h3_campaign_path_c2, c2v002; V006 A126/A129/A188).
++
++c2v002 (V006 A191 B2) against regenerate_h3_c2v001 (1706da77), and nothing else: it pins the generator
++make_campaign_cascade_c2v002 (entry template h3_campaign_entry_c2v002, whose reingest takes the acceptance record); the
++regenerate record schema is H3_REGENERATE_RECORD_C2V002.  The seal tuple record (schema H3_V007_SEAL_TUPLE_RECORD_C2V001)
++and every refusal rule are c2v001's.  Text below is c2v001's with the c2v002 names.
+ 
+ Root fills ONE record, the seal tuple record (template SEAL_TUPLE_RECORD_H3_C2V001_PLACEHOLDER.json), and runs this script.
+ It refuses, before anything is written, unless the tuple IS the sealed compare's report bytes:
+@@ -10,7 +15,7 @@
+     (else REPORT_NOT_SEALED_ADOPT_TAIL; the policy refuses any other report anyway, policy L84-85: this only stops a
+     non-adopting tuple from being registered);
+   * record.compare is the generator's SEALED_COMPARE path with sha C (else COMPARE_PIN_MISMATCH);
+-  * then the pinned generator make_campaign_cascade_c2v001 cross-checks C, P, A and SCHEMA against the sealed compare,
++  * then the pinned generator make_campaign_cascade_c2v002 cross-checks C, P, A and SCHEMA against the sealed compare,
+     prereg and addendum bytes (generator check_tuple) and builds the cascade with the tuple.
+ It writes <out>/<SUB>/ (policy, core, q5b1 wrapper, entry; exclusive mkdir) and <out>/REGENERATE_RECORD_<SUB>.json, and
+ verifies from the written bytes: the policy registers exactly this tuple, the core pins that policy, the wrapper pins that
+@@ -22,9 +27,9 @@
+ own V007_PREREG_SHA256 / PIN_ADDENDUM_V005 / SCHEMA_REPORT (read as the generator reads them), V = sha256(report bytes).
+ It applies every refusal rule above before it writes (exclusive create); `build` re-checks the record from bytes.
+ 
+-usage: python3 -I -B regenerate_h3_c2v001.py fill  --report REPORT.json --filled-by TEXT --ruling TEXT --out NEW_RECORD.json
++usage: python3 -I -B regenerate_h3_c2v002.py fill  --report REPORT.json --filled-by TEXT --ruling TEXT --out NEW_RECORD.json
+                                                    [--sub v006r12_c4] [--publish-root DIR]
+-       python3 -I -B regenerate_h3_c2v001.py build --seal-record SEAL.json --seal-record-sha256 H --out-dir OUT [--dry-run]
++       python3 -I -B regenerate_h3_c2v002.py build --seal-record SEAL.json --seal-record-sha256 H --out-dir OUT [--dry-run]
+ exit: 0 written (or dry-run passed), 2 refused.
+ """
+ import argparse
+@@ -39,7 +44,7 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-GENERATOR = (HERE / 'make_campaign_cascade_c2v001.py', '65a701449bd72d654ec3ad59b01e30d3c89c8025988c9d0ce435c25ca1fa5358')
++GENERATOR = (HERE / 'make_campaign_cascade_c2v002.py', 'bbb9d6568894f615ab798003ddd285defed10c5ef9dc95d4dd5444f55ac1ab28')
+ RECORD_SCHEMA = 'H3_V007_SEAL_TUPLE_RECORD_C2V001'
+ PLACEHOLDER_STATUS = 'PLACEHOLDER_EMPTY_UNTIL_THE_V007_VERDICT'
+ FILLED_STATUS = 'ROOT_FILLED'
+@@ -170,7 +175,7 @@
+     if n_changed != expect:
+         raise Refused('UNEXPECTED_DIFF_SIZE vs the no-tuple build of %s: %s (expected %s)' % (sub, n_changed, expect))
+     out = Path(out_dir)
+-    doc = {'schema': 'H3_REGENERATE_RECORD_C2V001', 'seal_record': {'path': str(Path(seal_record).resolve()),
++    doc = {'schema': 'H3_REGENERATE_RECORD_C2V002', 'seal_record': {'path': str(Path(seal_record).resolve()),
+                                                                    'sha256': seal_record_sha256},
+            'tuple': dict(zip(TUPLE_KEYS, tup)), 'report': rec['report'], 'compare': rec['compare'], 'sub': sub,
+            'publish_root': publish_root, 'generator': {'path': str(GENERATOR[0]), 'sha256': GENERATOR[1]},
+@@ -206,7 +211,7 @@
+                                           sha(rraw)))),
+            'report': {'path': os.path.abspath(report_path), 'sha256': sha(rraw)},
+            'compare': {'path': G.SEALED_COMPARE, 'sha256': csha}, 'filled_by': filled_by, 'ruling': ruling,
+-           'filled_from': 'regenerate_h3_c2v001 fill: sealed compare constants + report bytes'}
++           'filled_from': 'regenerate_h3_c2v002 fill: sealed compare constants + report bytes'}
+     check_record(rec, G)
+     raw = (json.dumps(rec, indent=1, sort_keys=True) + '\n').encode()
+     with open(out, 'xb') as f:

@@ -1,0 +1,38 @@
+--- placeholder_chain_c2v003/v006r12_c4/h3_campaign_entry_cx2v006r12_c4.py
++++ placeholder_chain_c2v004/v006r12_c4/h3_campaign_entry_cx2v006r12_c4.py
+@@ -1,4 +1,13 @@
+-"""H3 campaign entry (Claude2 h3_campaign_path_c2, c2v003; V006 A192 items 2-3): successor of h3_campaign_entry_c2v002 (75b4cafa).
++"""H3 campaign entry (Claude2 h3_campaign_path_c2, c2v004; V006 A192 item 3, verifier B1): successor of h3_campaign_entry_c2v003 (5710e1fa).
++
++c2v004 against c2v003, and nothing else: WRAPPER / WRAPPER_SHA pin the c2v004 wrapper source
++calibration_orchestrator_q5b1_ledger_c2v004.py (c2v003 plus B1: a reingest record must be of the call's latest acceptance
++pass; reingest_invalid also refuses while the call dir holds TAIL_CERTIFICATE_ACCEPTANCE.json); ENTRY_NAME names this
++successor; `reingest` hands its acceptance record to the wrapper's reingest, which refuses under the work-dir lock, before
++anything is written, a record that is not of the latest pass.  The generator make_campaign_cascade_c2v004 rewrites exactly
++the WRAPPER and WRAPPER_SHA lines when it re-pins the chain.  Text below is c2v003's.
++
++H3 campaign entry (Claude2 h3_campaign_path_c2, c2v003; V006 A192 items 2-3): successor of h3_campaign_entry_c2v002 (75b4cafa).
+ 
+ What it is.  The launch entry of the DDO154 calibration campaign.  It loads the wrapper from its bytes after a sha256 check; the
+ wrapper pins its core, the core pins the adoption policy and the parent c75a889f, and the wrapper/core replace the parent's
+@@ -49,9 +58,9 @@
+ from pathlib import Path
+ 
+ WRAPPER = Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r12_c4/calibration_orchestrator_cx2v006r12_c4_q5b1.py')
+-WRAPPER_SHA = 'e5aadc029831b38d835f8c6010465715d15ead32a6264936c94c18cedade1404'
++WRAPPER_SHA = '381fa2957edabf18032afba9a8ff026744f6cc1d933efb5f3d30f289ea9decb9'
+ PARENT_SHA = 'c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d'
+-ENTRY_NAME = 'h3_campaign_entry_c2v003'
++ENTRY_NAME = 'h3_campaign_entry_c2v004'
+ REINGEST_EXIT = {'OK': 0, 'REFUSED': 3, 'LOCKED': 8}
+ HANDOFF = {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/acceptance_handoff_c2v004.py',
+            'sha256': '5ff464cc866d3e69ef83ab7542701b211afaae29d7be14e69b10fb09f16692d8'}          # A158
+@@ -168,7 +177,7 @@
+     bad = acceptance_problems(M, ctx, call, wd / 'campaign' / ('call_%04d' % int(call_index)), bundle_ref, acceptance_ref)
+     if bad:
+         return {'status': 'REFUSED', 'reasons': bad}
+-    return M.Orchestrator(ctx).reingest(int(wave), int(call_index), bundle_ref)
++    return M.Orchestrator(ctx).reingest(int(wave), int(call_index), bundle_ref, acceptance_ref)   # c2v004 B1: latest pass
+ 
+ 
+ def reingest_invalid(M, config, wave, call_index, acceptance_ref):

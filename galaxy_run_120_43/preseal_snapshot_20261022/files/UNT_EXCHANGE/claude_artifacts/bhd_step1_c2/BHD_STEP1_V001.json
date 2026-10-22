@@ -1,0 +1,56 @@
+{
+  "schema": "BHD_STEP1_V001",
+  "date": "2026-10-17/18",
+  "lane": "Claude2 BH-D workflow, step 1",
+  "authority": {"A29": "ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V004_ADDENDUM.md (open; cited by name)", "A10": "ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V003_ADDENDUM.md sha256 5bef6552b92b0939405ae6d6cefd12c1df95f2d57097589439fa37aa78b9b468"},
+  "framing": {"BIND_HISTORY_FRAMING_V001": "1bbdb88c", "CHECK_V001": "3cd8a0eb"},
+  "prereg": {"file": "PREREG_BHD_STEP1_V001.md", "sha256": "2cd25b3d4e57b53a949545dcf1dc5a6fe3de6db890c6b1614e9f3de9d455142d", "sealed_utc": "2026-10-18T01:10:53Z", "sealed_before_evaluation": true},
+  "verdict": "BHD1-NONZERO",
+  "verdict_class": "FORMAL-RESULT",
+  "definitions": {
+    "qualified_loop_observable": {"requirement": "LR:23", "response": "LR:25", "references_H0_H1": "LR:27; MSD:15-19", "exit": "LR:29", "instance": "complete-domain hex read F_C, HXR:15-28; review PASS_SCOPED HXRR:12; direct commutators HXC:7-13", "protection": "not claimed; contractible (HXR:36, 44)", "class": "DECLARED-PREMISE"},
+    "both_complete_sectors": {"text": "old block and one-Born block of Hjoin including all Born off-image states; any offset identical on both sectors and complements", "cites": ["V005:4", "V005:11-12", "V005:15", "PC1 Packet A Sectors", "HXR:28", "P26T:7"]},
+    "retained_preparation": {"cites": ["WR2:17-26", "A1:7-20"]}
+  },
+  "existing_code": {
+    "verdict": "cannot evaluate finite-coupling Delta_C at any admissible L",
+    "class": "FORMAL-RESULT",
+    "owned_parent_operator_v003": {"sha256": "a04f87954b68bb2dcc5a1af42a465b1d554ed1fc14d9b22d43e05e3e664f7f07", "reads": "diagonal only (UN:113)", "domain": "populated M_v=1, no I cells (UN:23); V005 W/C not representable", "dimension_lower_bound_K0": {"K44": 215922769920, "diamond_L2": 1.6918908877648203e23, "diamond_L4_log10": 191.36}},
+    "owned_retained_source_columns_v002": {"sha256": "173f608d9b4effdf61c3ea0bfb147aaf5528a742c3ec2501d41f5397b36bbe81", "role": "fixed-preparation real-time Taylor provider (UN:27)", "status": "UNTESTED, never executed (FC:15,167)"},
+    "static_worldline_sampler": "no time axis (ASM:57-59; TM:16); mixing TESTED-NEGATIVE (PRIMER:128)",
+    "P49_krylov_N2": "10432-state component; word/diagonal reads only; predates owned parent (CHECK_V001:72)"
+  },
+  "controls": {
+    "K1_A1_reproduction": {"value": "1/448", "pass": true, "L": [4, 3, 2]},
+    "K2_g0": {"exposure_kappa2_coeff": "1", "q_v_g0_coeffs_all_zero": true, "Phi_g0_all_zero": true},
+    "K3_lamR0_all_zero": true, "K4_unitarity": true, "K5_reality": true,
+    "K6_bruteforce": {"abs_diff_W": 2.78e-22, "abs_diff_C": 2.78e-22, "delta_both_methods": -2.1629001492489246e-10, "pass": true},
+    "K6b_supplementary_not_preregistered": {"delta_factorized": -1.1882083254266822e-06, "delta_brute": -1.1882083254264653e-06}
+  },
+  "P1": {
+    "L4": {"cycles": 58, "W_source_nonzero": 36, "through_v_nonzero": "12/12", "C_arm_nonzero": 36},
+    "L3": {"cycles": 84, "winding": 28, "W_source_nonzero": 54, "through_v_nonzero": "18/18", "winding_nonzero": 18},
+    "L2": {"cycles": 128, "winding": 96, "W_source_nonzero": 102, "through_v_nonzero": "48/48", "winding_nonzero": 74},
+    "examples_L4": [
+      {"edges": [81, 144, 147, 85, 84, 83], "m_min": 16, "h16_lR2_k2_g2": "2/7", "h18_lR2_k2_g2": "-316/81", "C_arm_h16_lR2_g2": "-64/45"},
+      {"edges": [25, 87, 86, 37, 39, 26], "m_min": 16, "h16_lR2_k2_g2": "-1/7", "h18_lR2_k2_g2": "1268/567"}
+    ],
+    "observed_exact_nulls": ["lambda_R-odd coefficients at all computed orders", "kappa- or g-odd coefficients"],
+    "class": "FORMAL-RESULT",
+    "reading": "Delta_C and its g-dependent part are not identically zero; nonzero on an open unlocated subset of the declared family (A1:79-85 argument); no margin, no sign at a member"
+  },
+  "P2_lambdaJ_competing": {"nonzero_same_orders": true, "example_first_cycle": {"h16_lJ2": "-16/3", "h16_lJ2_k2": "128/45"}, "class": "FORMAL-RESULT"},
+  "P3_Gamma_retained_q": {"T0": "1", "r_values": ["1/4", "1", "4"], "leading_h16_lR2_k2_g2_r1": {"cycles_through_v_and_a": "1048576/3", "other_m16_v_cycles": "-524288/3"}, "C_arm_cancels_exactly": true, "class": "FORMAL-RESULT", "not": "MSD:39-45 certificate (no exposure margin evaluated)"},
+  "untested": [
+    {"id": "U1", "what": "LR:29 finite margin with controlled error at a declared member", "deciding_test": "writer-style analytic certificate |Gamma|-eps_W-eps_C-remainder>0 on a framing-gate-declared neighbourhood (WR2:73-125; MSD:29-45)"},
+    {"id": "U2", "what": "Born-sector |eps_B|^2 monomials", "deciding_test": "same exact extraction with Tjoin; Born-level F_C block per PREREG section 1"},
+    {"id": "U3", "what": "U_d, Delta, t, eps_r monomials; strong-coupling regime h/U_d=1/5", "deciding_test": "linked-cluster coefficient extraction; join to populated J(lambda,g)"},
+    {"id": "U4", "what": "owned-parent transfer (ASM:203)", "deciding_test": "framing-gate owned-parent W/C analog, repeat extraction"},
+    {"id": "U5", "what": "Gamma-protection", "deciding_test": "G1-G3 (P-60)"},
+    {"id": "U6", "what": "work/tension", "deciding_test": "LPW work comparator; EVJ second jet"},
+    {"id": "U7", "what": "baryon-to-record map and R^(chi) plug", "deciding_test": "BIND_HISTORY_FRAMING_V001 section 3 steps 3-6"}
+  ],
+  "next_step": "U2 + U3 t^2 monomials in the same exact machinery, pre-registered",
+  "imports": "none",
+  "runtime": {"cpu_seconds_total_approx": 50, "processes": 1, "nice": 10, "production_launch": false}
+}

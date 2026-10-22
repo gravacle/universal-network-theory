@@ -1,0 +1,1 @@
+- 2026-10-19T18:07:38Z lead: the lens is done (17:42Z); the adversarial verifier is active, with its transcript updated at 18:05:16Z after its 17:55:23Z line. It is re-deriving from bytes. Synthetic only, nothing launched.

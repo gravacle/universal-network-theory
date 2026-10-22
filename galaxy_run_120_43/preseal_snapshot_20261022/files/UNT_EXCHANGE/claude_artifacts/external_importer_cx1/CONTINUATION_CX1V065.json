@@ -1,0 +1,31 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "assignment": "0843 runtime producer",
+  "utc": "2026-10-21T14:23:17.125172+00:00",
+  "tested": [
+    "Byte identities of all 12 pinned driver SCRIPTS sources match; AST-only audit found 24 dynamic loading calls",
+    "Driver exec_verified lines 577-586 constructs ModuleType and executes pinned bytes without sys.modules registration"
+  ],
+  "finding": "Entry v003 sys.modules snapshot cannot establish complete driver runtime identity: dynamically executed scientific modules are absent. audit_complete=true supplied by inventory is not sufficient evidence. Producer remains uninstalled; do not use its coverage_complete claim as launch readiness.",
+  "next": "Build source-only transitive code-pin closure for the selected specs and explicit dynamic-module identity records; bind these to the runtime inventory and producer. Preserve unresolved_dynamic until closure and runtime version definition reviewed.",
+  "untested": [
+    "Complete spec-selected dependency closure and resolved package imports",
+    "Launch capture and root authentication",
+    "Acceptance/lifecycle/cache integration"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/RUNTIME_STAGE_SOURCE_AUDIT_CX1V001.json",
+      "sha256": "a4b8e52021b89e749aca60aedeaf1b10991ae389a7899c480b84ebabedc0f226"
+    }
+  ],
+  "inbox_seen": 844,
+  "outbox": 192,
+  "report": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0192_2026-10-21_dynamic_runtime_coverage_gap_FAIL.json"
+}

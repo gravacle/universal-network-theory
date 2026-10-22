@@ -1,0 +1,52 @@
+--- s1_launch_root_c2v002a.py	2026-10-19 13:26:11
++++ s1_launch_root_c2v002c.py	2026-10-19 18:34:12
+@@ -1,17 +1,18 @@
+-"""S1 root launch path (s1_successors_c2, c2v002a). Root only.
++"""S1 root launch path (s1_successors_c2, c2v002c). Root only.
+ 
+-Loads s1_path_lib_c2v002a.py from this folder by its sha256 and refuses on any mismatch. Order, all fail closed:
++Loads s1_path_lib_c2v002c.py from this folder by its sha256 and refuses on any mismatch. c2v002c changes only the
++library pin (lib c2v002c, V006 A182: context module KS5'', sources_to_add for the S1 fence, default params C2V004B; lib
++c2v002b, A172: guard014 / launcher015, no machine gate, no memory condition). Order, all fail closed:
+   1. S1 checks: registration C2V002 (67b4bd78) named on root's V006 entry line at the constant V006 path, launch config
+-     (campaign state; with ACTIVE, root's campaign-window attestation), POST_S1 one-call plan on guard012/launcher013,
+-     driver r5, tail ON, spec = the filled spec, template replay byte-equal, and (c2v002a, BLK-1) u_A re-bound to the
+-     Phase-1 primary anchor and every consumed fill-record field (branch, theta_key, physical_u_A, ...) re-derived;
+-  2. the four 0620 controls through guard012 (spec_structure + allowlist, adoption, validate with native preflight; for
+-     an overlap admission guard012 also runs its live gate), before any process;
+-  3. machine gate v003: hold_check, then Gate.decide for the S1 head after the warm-up; the r5 route-A snapshot check;
+-     A133's root memory rule; memory_pressure free >= 25 % (evaluated at hand-off);
+-  4. --launch only: the exclusive pre-launch record, then launcher013 (which re-validates and detaches its worker), then
++     (campaign state; with ACTIVE, root's campaign-window attestation), POST_S1 one-call plan on guard014/launcher015,
++     driver r5, tail ON, spec = the filled spec, template replay byte-equal, u_A re-bound to the Phase-1 primary anchor
++     and every consumed fill-record field (branch, theta_key, physical_u_A, static_pins, ...) re-derived;
++  2. the four 0620 controls through guard014 (spec_structure + allowlist, adoption, validate with native preflight),
++     before any process;
++  3. with the campaign attested INACTIVE: the process table (/bin/ps, read-only) shows no campaign route-A tree;
++  4. --launch only: the exclusive pre-launch record, then launcher015 (which re-validates and detaches its worker), then
+      the exclusive outcome record <record>.outcome.json.
+-The published admission is read from UNT_STEP4_ADMISSION_PATH / UNT_STEP4_ADMISSION_SHA256 (as launcher013).
++The published admission is read from UNT_STEP4_ADMISSION_PATH / UNT_STEP4_ADMISSION_SHA256 (as launcher015).
+ Default mode is dry: nothing is launched. --launch also needs --confirm <plan sha256> and --record PATH.
+   --plan P@S --registration P@S --v6 P@S --launch-config P@S [--record PATH] [--launch --confirm SHA]
+ Exit 0: admitted (dry) or launched; 3: refused (the code and stage are printed).
+@@ -25,8 +26,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB = HERE / 's1_path_lib_c2v002a.py'
+-LIB_SHA = 'f961839b2dd1ef27c6225badedcc199db3f6515776b5e7e5c08ecede3e769a9e'
++LIB = HERE / 's1_path_lib_c2v002c.py'
++LIB_SHA = '99e2be175e546992c70984435bc480e1eddb90b052fda65ddcbfe8780bdbd27e'
+ 
+ 
+ def lib():
+@@ -34,7 +35,7 @@
+     if hashlib.sha256(raw).hexdigest() != LIB_SHA:
+         print(json.dumps({'refused': 'LIB_BYTES_CHANGED'}))
+         raise SystemExit(3)
+-    m = types.ModuleType('s1_path_lib_c2v002a')
++    m = types.ModuleType('s1_path_lib_c2v002c')
+     m.__file__ = str(LIB)
+     exec(compile(raw, str(LIB), 'exec'), m.__dict__)
+     return m

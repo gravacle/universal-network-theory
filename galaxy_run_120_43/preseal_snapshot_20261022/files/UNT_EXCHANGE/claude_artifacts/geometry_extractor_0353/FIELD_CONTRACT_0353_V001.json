@@ -1,0 +1,406 @@
+{
+ "schema": "CLAUDE2_0353_SPARC_GEOMETRY_FIELD_CONTRACT_V001",
+ "task": "0353-impl",
+ "extractor": {
+  "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_extractor_0353/extract_sparc_geometry_metadata_v003.py",
+  "sha256": "4dc8e3874a2908260194870ebb6900965f969993c98417dbaabe684b7d392dd0"
+ },
+ "output_name": "SPARC_ALLOWED_GEOMETRY_METADATA_CANDIDATE_V002.json",
+ "output_schema_label": "SPARC_ALLOWED_GEOMETRY_METADATA_CANDIDATE_V002",
+ "nature": "catalogue-literal candidate; not physical geometry adoption; quarantined V001 output untouched (never read or written)",
+ "pins": {
+  "source": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt",
+   "sha256": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243"
+  },
+  "cds_readme": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_ReadMe.html",
+   "sha256": "457f61cd8e63dd7b8f8ce0052a458294fa1a5acc2b5b23bb951a2c40d69f9666"
+  },
+  "manifest_anchor": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json",
+   "sha256": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494",
+   "key": "crosscheck_massmodels/reference_distance_texts[0]",
+   "use": "C10 booleans only; never emitted"
+  }
+ },
+ "rows": [
+  "NGC3198",
+  "DDO154"
+ ],
+ "emitted_fields": [
+  "D",
+  "e_D",
+  "f_D",
+  "Inc",
+  "e_Inc"
+ ],
+ "validated_not_emitted": [
+  "Galaxy",
+  "T"
+ ],
+ "type_rule": {
+  "token_regex": "^(?:[0-9]|1[01])$",
+  "observed_token_end_byte_C9": 14,
+  "note": "Note (1) codes 0..11 verified in header lines 30-32; validated only"
+ },
+ "fields": {
+  "D": {
+   "ordinal_position": 3,
+   "header": {
+    "line": 12,
+    "bytes_as_written": "14-19",
+    "regex": "\\s*14-\\s*19\\s+F6\\.2\\s+Mpc\\s+D\\s+Distance\\s*"
+   },
+   "cds": {
+    "line": 150,
+    "bytes_as_written": "16-21",
+    "range": "[0.98/127.8]",
+    "regex": "\\s*16-\\s*21\\s+F6\\.2\\s+Mpc\\s+Dist\\s+\\[0\\.98/127\\.8\\] Assumed distance\\s*"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]{0,2})\\.[0-9]{2}$",
+   "observed_token_end_byte_C9": 21,
+   "guard_C8": [
+    0.98,
+    127.8
+   ],
+   "emitted_documentation": {
+    "format": "F6.2",
+    "units": "Mpc",
+    "header": "Distance (line 12)",
+    "cds": "Assumed distance (line 150)",
+    "kind": "catalogue distance literal"
+   }
+  },
+  "e_D": {
+   "ordinal_position": 4,
+   "header": {
+    "line": 13,
+    "bytes_as_written": "20-24",
+    "regex": "\\s*20-\\s*24\\s+F5\\.2\\s+Mpc\\s+e_D\\s+Mean error on D\\s*"
+   },
+   "cds": {
+    "line": 151,
+    "bytes_as_written": "23-27",
+    "range": "[0.05/12.8]",
+    "regex": "\\s*23-\\s*27\\s+F5\\.2\\s+Mpc\\s+e_Dist\\s+\\[0\\.05/12\\.8\\] Mean error on Dist\\s*"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]?)\\.[0-9]{2}$",
+   "observed_token_end_byte_C9": 27,
+   "guard_C8": [
+    0.05,
+    12.8
+   ],
+   "emitted_documentation": {
+    "format": "F5.2",
+    "units": "Mpc",
+    "header": "Mean error on D (line 13)",
+    "cds": "Mean error on Dist (line 151)",
+    "kind": "catalogue mean error; a catalogue quantity, not a Gaussian sigma; no covariance, no joint region"
+   }
+  },
+  "f_D": {
+   "ordinal_position": 5,
+   "header": {
+    "line": 14,
+    "bytes_as_written": "25-26",
+    "regex": "\\s*25-\\s*26\\s+I2\\s+---\\s+f_D\\s+Distance Method \\(2\\)\\s*"
+   },
+   "cds": {
+    "line": 152,
+    "bytes_as_written": "29",
+    "range": "[1/5]",
+    "regex": "\\s*29\\s+I1\\s+---\\s+f_Dist\\s+\\[1/5\\] Flag giving the distance method \\(2\\)\\s*"
+   },
+   "token_regex": "^[1-5]$",
+   "observed_token_end_byte_C9": 30,
+   "guard_C8": null,
+   "emitted_documentation": {
+    "format": "I2 (header) / I1 (CDS)",
+    "units": "---",
+    "header": "Distance Method (2) (line 14)",
+    "cds": "Flag giving the distance method (2) (line 152)",
+    "kind": "distance-method code; meaning from header Note (2), lines 34-38"
+   },
+   "code_meanings_source": "header Note (2), lines 34-38, verified verbatim"
+  },
+  "Inc": {
+   "ordinal_position": 6,
+   "header": {
+    "line": 15,
+    "bytes_as_written": "27-30",
+    "regex": "\\s*27-\\s*30\\s+F4\\.1\\s+deg\\s+Inc\\s+Inclination\\s*"
+   },
+   "cds": {
+    "line": 153,
+    "bytes_as_written": "31-34",
+    "range": "[15/90]",
+    "regex": "\\s*31-\\s*34\\s+F4\\.1\\s+deg\\s+i\\s+\\[15/90\\] Assumed inclination angle \\(3\\)\\s*"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]?)\\.[0-9]$",
+   "observed_token_end_byte_C9": 35,
+   "guard_C8": [
+    15.0,
+    90.0
+   ],
+   "emitted_documentation": {
+    "format": "F4.1",
+    "units": "deg",
+    "header": "Inclination (line 15)",
+    "cds": "Assumed inclination angle (3) (line 153)",
+    "kind": "catalogue inclination literal; CDS Note (3): the mean value of i in the outer parts of the HI disk (in some cases fixed to the optical value)"
+   }
+  },
+  "e_Inc": {
+   "ordinal_position": 7,
+   "header": {
+    "line": 16,
+    "bytes_as_written": "31-34",
+    "regex": "\\s*31-\\s*34\\s+F4\\.1\\s+deg\\s+e_Inc\\s+Mean error on Inc\\s*"
+   },
+   "cds": {
+    "line": 154,
+    "bytes_as_written": "36-39",
+    "range": "[1/10]",
+    "regex": "\\s*36-\\s*39\\s+F4\\.1\\s+deg\\s+e_i\\s+\\[1/10\\] Mean error on i\\s*"
+   },
+   "token_regex": "^(?:0|[1-9][0-9]?)\\.[0-9]$",
+   "observed_token_end_byte_C9": 40,
+   "guard_C8": [
+    1.0,
+    10.0
+   ],
+   "emitted_documentation": {
+    "format": "F4.1",
+    "units": "deg",
+    "header": "Mean error on Inc (line 16)",
+    "cds": "Mean error on i (line 154)",
+    "kind": "catalogue mean error; a catalogue quantity, not a Gaussian sigma; no covariance, no joint region"
+   }
+  }
+ },
+ "conditions": {
+  "C0": {
+   "rule": "source sha pin; header lines 1-98, line 98 dash separator, separator search over header lines only (K5); header lines 10-17 and Notes lines 30-38 verified; CDS sha pin, lines 148-155, no \"?\" in lines 144-216, Note (3) lines 200-206; manifest sha pin and one numeric anchor text",
+   "codes": [
+    "E_PIN_SOURCE",
+    "E_HEADER_STRUCTURE",
+    "E_HEADER_ORDER",
+    "E_HEADER_NOTES",
+    "E_PIN_CDS",
+    "E_CDS_ORDER",
+    "E_CDS_NULL_FLAG",
+    "E_CDS_NOTE3",
+    "E_PIN_MANIFEST",
+    "E_JSON_MANIFEST",
+    "E_JSON_DUPLICATE_KEY",
+    "E_JSON_NONFINITE_TOKEN",
+    "E_ANCHOR_TEXT"
+   ],
+   "basis": "DOCUMENTED + pins"
+  },
+  "C1": {
+   "rule": "exactly one data line whose bytes 1-11, blank-stripped, equal the target name; target name has no blank; no aliases",
+   "codes": [
+    "<target>:E_ROW_NOT_UNIQUE",
+    "E_NAME_MISMATCH",
+    "E_NAME_INTERNAL_BLANK"
+   ],
+   "basis": "DOCUMENTED (name 1-11) + OBSERVED"
+  },
+  "C2": {
+   "rule": "bytes 1-41 exist; each 0x20 or 0x21-0x7E",
+   "codes": [
+    "E_SHORT_ROW",
+    "E_NON_PRINTABLE"
+   ]
+  },
+  "C3": {
+   "rule": "byte 41 is 0x20",
+   "codes": [
+    "E_BYTE41_NOT_BLANK"
+   ],
+   "basis": "OBSERVED 175/175"
+  },
+  "C4": {
+   "rule": "exactly 7 blank-delimited tokens in bytes 1-41",
+   "codes": [
+    "E_TOKEN_COUNT_n"
+   ]
+  },
+  "C5": {
+   "rule": "token 1 == target, ends <= 11, only token in bytes 1-11",
+   "codes": [
+    "E_NAME_NOT_CONFINED"
+   ]
+  },
+  "C6": {
+   "rule": "ordered token regexes (see fields and type_rule)",
+   "codes": [
+    "E_SHAPE_<field>"
+   ],
+   "basis": "DOCUMENTED formats and Notes (1)/(2)"
+  },
+  "C7": {
+   "rule": "D > 0; 0 <= Inc <= 90",
+   "codes": [
+    "E_DOMAIN_D",
+    "E_DOMAIN_Inc"
+   ]
+  },
+  "C8": {
+   "rule": "reject-only CDS guards {\"D\": [0.98, 127.8], \"e_D\": [0.05, 12.8], \"Inc\": [15.0, 90.0], \"e_Inc\": [1.0, 10.0]}",
+   "codes": [
+    "E_RANGE_<field>"
+   ],
+   "basis": "DOCUMENTED (CDS); depends on A3 (K6); never identification"
+  },
+  "C9": {
+   "rule": "token end bytes == [11, 14, 21, 27, 30, 35, 40]",
+   "codes": [
+    "E_SPAN_ENDS"
+   ],
+   "basis": "OBSERVED (K4), not published; load-bearing rejector (K2)"
+  },
+  "C10": {
+   "rule": "NGC3198 only: token 3 float-equals the anchor text and no other token 2-7 does",
+   "codes": [
+    "E_ANCHOR_T3_NOT_EQUAL",
+    "E_ANCHOR_OTHER_TOKEN_EQUAL"
+   ],
+   "basis": "OBSERVED same-author anchor"
+  }
+ },
+ "corrections_bound": {
+  "K1": {
+   "binding": "T<->f_D transposition: A1b declared; A1b status from token-2 width only",
+   "where": "assumption_status(): A1b from token-2 width; ASSUMPTIONS[\"A1b\"]"
+  },
+  "K2": {
+   "binding": "C9 kept and load-bearing (only rejector of R2, R2c, R3)",
+   "where": "check_prefix() C9; tests G3 R2/R2c/R3 fail only by E_SPAN_ENDS"
+  },
+  "K3": {
+   "binding": "A1 and A2 are plausible, not excluded; carried as declared assumptions",
+   "where": "ASSUMPTIONS; output assumptions_declared_not_discharged"
+  },
+  "K4": {
+   "binding": "the H+1 slot invariant (C9) is OBSERVED, not documented",
+   "where": "C9 basis OBSERVED"
+  },
+  "K5": {
+   "binding": "separator search restricted to header lines 1-98; data lines sliced to bytes 1-41 before interpretation",
+   "where": "load_source(), verify_header(); tests G4 slice log and dash data lines"
+  },
+  "K6": {
+   "binding": "A3 carried as load-bearing",
+   "where": "ASSUMPTIONS[\"A3\"]; C8 basis"
+  }
+ },
+ "assumptions_declared_not_discharged": {
+  "A1": "no D<->e_D cell transposition in the DDO154 row (catalogue integrity); NGC3198 is closed for its row by the C10 anchor",
+  "A1b": "no T<->f_D cell transposition in the NGC3198 row (catalogue integrity, K1); excluded by bytes when token 2 has two digits",
+  "A2": "no null e_Inc collapsed into a later F.1 field (narrowed by C9; rests on the cited CDS null-flag convention plus A3)",
+  "A3": "the CDS table1 content equals the SPARC-site file (K6; load-bearing for C8 and A2; CDS table1.dat not in evidence)"
+ },
+ "assumption_status_rules": {
+  "A1": "NGC3198 CLOSED_FOR_THIS_ROW_BY_C10_ANCHOR; DDO154 DECLARED_NOT_DISCHARGED",
+  "A1b": "token 2 two digits -> EXCLUDED_BY_BYTES_TOKEN2_TWO_DIGITS; one digit -> DECLARED_NOT_DISCHARGED (T value never used)",
+  "A2": "DECLARED_NOT_DISCHARGED for both",
+  "A3": "DECLARED_NOT_DISCHARGED for both"
+ },
+ "success_output_keys": [
+  "schema",
+  "status",
+  "contract_status",
+  "nature",
+  "extractor",
+  "lineage",
+  "source",
+  "documentation",
+  "anchor",
+  "objects",
+  "emitted_fields",
+  "literal_rule",
+  "conditions",
+  "corrections_bound",
+  "assumptions_declared_not_discharged",
+  "interpretation",
+  "exposure",
+  "exposure_correction",
+  "not_established"
+ ],
+ "object_keys": [
+  "source_line_number",
+  "fields",
+  "validated_not_emitted",
+  "checks",
+  "assumptions",
+  "exposure_label"
+ ],
+ "field_keys": [
+  "literal",
+  "byte_span",
+  "format",
+  "units",
+  "header",
+  "cds",
+  "kind",
+  "code_meaning (f_D only)"
+ ],
+ "failure_stdout": {
+  "FAILED_VALIDATION": [
+   "status",
+   "code",
+   "codes",
+   "checks (per target: booleans or null)",
+   "phase",
+   "candidate_written",
+   "success_claimed",
+   "values_emitted"
+  ],
+  "note": "no literal, span, mask or value is printed on failure"
+ },
+ "exit_codes": {
+  "0": "published",
+  "2": "validation failure, no file created",
+  "4": "publication failure, candidate may remain, never removed",
+  "3": "unexpected exception",
+  "130": "interrupt"
+ },
+ "publication": "publish() from 0348 adapter V005 (fc9cdcfa..., CLAUDE2 helper 0348): exclusive <output>.candidate mode 0444, write, flush, fsync, re-read compare, exclusive hard link, directory fsync, output re-read, same-file check, guarded post-link steps; never unlink, move or overwrite",
+ "exposure": "Source: whole file read into memory once and hashed; line boundaries found by find(LF). Header: bytes up to and including the 98th LF sliced and split into lines 1-98; every header line blank-stripped and matched as bytes against the dash-separator pattern (header only, K5); lines 10-17 and 30-38 ASCII-decoded and regex-checked. Data lines 99 onward: only bytes 1-41 sliced, before any interpretation; the LF position bounds the slice and decides the boolean \"line has at least 41 bytes\"; bytes >= 42 touched only by the hash and the LF search, never sliced, decoded, stripped, compared, measured or emitted. Bytes 1-11 of every data line blank-stripped and compared with the two target names; only the two target prefixes tokenized; tokens decoded only after their shape regex matched or, for emission, after every condition passed. CDS ReadMe read, hashed, decoded, tag-stripped; lines 144-216 checked. Manifest read, hashed, JSON-parsed in full; only crosscheck_massmodels.reference_distance_texts accessed; its single string compared by float equality with tokens 2-7 of NGC3198, never emitted or printed. Emitted on success only: five literal tokens per target with byte spans, source line, documented units/semantics, check booleans, assumption states. Never emitted: T, the anchor text, any other row, any byte >= 42. On failure: codes and booleans only.",
+ "exposure_correction": "Corrects earlier wording. V002 split the whole file into lines (materialising every byte of every data line), searched lines 1-200 for the separator by stripping and matching whole data lines 99-200, and only afterwards kept bytes 1-41 of the target lines; its statement that bytes beyond 41 were never decoded, compared or measured was inaccurate for that separator search. The 0349 census and checker had the same separator search (K5). V003 never materialises a data-line slice longer than 41 bytes and searches for the separator in header lines 1-98 only.",
+ "not_established": [
+  "fixed-offset provenance (no document states the observed byte positions)",
+  "the serialization of fields 8-19 (bytes >= 42 never inspected)",
+  "physical geometry of either galaxy",
+  "validity for any bytes other than the pinned source",
+  "a DDO154-specific anchor for D vs e_D (A1)",
+  "an independent record of the NGC3198 Type or distance-method code (A1b)"
+ ],
+ "lineage": {
+  "extractor_v002": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_schema_repair_0344/extract_sparc_geometry_metadata_v002.py",
+   "sha256": "9ac0275b583b5014062006ddc05638766ed25ea060f39efd26b501edcfb0c297"
+  },
+  "checker_0349": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sparc_prefix_audit_0349/prefix_contract_checker_0349.py",
+   "sha256": "46799b8ffbcf19eccf29ece7b1a6527fda7966e8c86c15b76d660d92ed3f5400"
+  },
+  "audit_correction_0349": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sparc_prefix_audit_0349/AUDIT_CORRECTION_0349_V001.json",
+   "sha256": "eb2e3b58c8c62aa4c8c092fcd2b5e325941d881195094a8c614a5c0e8de9dc8a"
+  },
+  "publish_from": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/source_adapter_write_0348/ngc3198_source_bundle_adapter_v005.py",
+   "sha256": "fc9cdcfa1c530792dfaae70588bba1c45d0f2581bd382163d4b39d24d010fae3",
+   "author": "CLAUDE2 helper 0348",
+   "functions": [
+    "candidate_path",
+    "publish"
+   ]
+  }
+ },
+ "interpretation": "e_D and e_Inc are catalogue mean errors: no Gaussian, no covariance, no joint region. Inc is the CDS Note (3) outer-HI-disk mean, in some cases fixed to the optical value."
+}

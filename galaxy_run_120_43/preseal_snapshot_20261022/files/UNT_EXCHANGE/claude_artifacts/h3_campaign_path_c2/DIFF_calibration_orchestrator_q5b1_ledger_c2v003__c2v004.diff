@@ -1,0 +1,98 @@
+--- calibration_orchestrator_q5b1_ledger_c2v003.py
++++ calibration_orchestrator_q5b1_ledger_c2v004.py
+@@ -13,6 +13,7 @@
+ import hashlib
+ import importlib.util
+ import json
++import re
+ import sys
+ from pathlib import Path
+ 
+@@ -66,6 +67,20 @@
+ TAIL_INVALID_SOURCE='TAIL_ACCEPTANCE_CERTIFIED'
+ TAIL_INVALID_READINGS=('NON_LAPSE_TAIL_MATERIAL','BOUND_INSUFFICIENT')
+ TAIL_INVALID_RULE='V006_A192_F6_CERTIFIED_MODEL_INVALID'
++# c2v004 (Claude2; V006 A192 item 3: INCOMPLETE reruns once and failure readings are frozen; verifier B1, ADV rows C03 and
++# C04): the c2v003 source 5ea1780a plus the lines marked c2v004 B1, and nothing else.  One more q5b1 line is replaced (the
++# reingest signature).  No physics value, threshold or reading changes.
++#  B1  An acceptance pass is one ACCEPTANCE_TAILSTATES_C2V002_A<nnn> directory the adopted handoff makes in the call dir
++#      (v004 L90, L219-233; a pass that refuses before its state export makes none).  A record is of the call's LATEST pass
++#      when its tailstate_dir is the highest-numbered one.  The passes must be A001..A<n> with no gap (the handoff takes the
++#      first free number, so then the highest is the newest); a gap or any other ACCEPTANCE_TAILSTATES_* entry refuses.
++#      reingest_invalid (and every put, open and reuse of its entry) refuses a record that is not of the latest pass, and
++#      refuses while the call dir holds TAIL_CERTIFICATE_ACCEPTANCE.json (written only by the VALID reingest of an ACCEPTED
++#      pass).  The VALID reingest takes the record and refuses, under the work-dir lock and before anything is written, a
++#      record that is not of the latest pass.  The c2v004 acceptance step allows a second pass only after a first pass read
++#      INCOMPLETE, and never a third.
++TAILSTATES_PREFIX='ACCEPTANCE_TAILSTATES_'
++TAILSTATES_RE=re.compile(r'ACCEPTANCE_TAILSTATES_C2V002_A([0-9]{3})')       # c2v004 B1: handoff v004 L90-91 (A%03d, <= 999)
+ 
+ def is_exact_pin(x):
+     return isinstance(x,dict) and set(x)=={'path','sha256'} and isinstance(x['path'],str) and isinstance(x['sha256'],str)
+@@ -75,6 +90,38 @@
+     return {'valid':False,'speeds_km_s':{},
+             'reasons':['MODEL_INVALID TAIL_ACCEPTANCE_%s (V006 A192 F6; acceptance_q2 v004 record %s; no forward call; '
+                        'the rows are not model output)'%(reading,record_ref['sha256'][:16])]}
++
++def acceptance_passes(call_dir):
++    """c2v004 B1: the handoff's acceptance passes in a call dir, oldest first (names).  Error on any other
++    ACCEPTANCE_TAILSTATES_* entry (not a plain directory of the handoff's name) and on a gap in A001..A<n>."""
++    out=[]
++    for p in Path(call_dir).iterdir():
++        if p.name.startswith(TAILSTATES_PREFIX):
++            m=TAILSTATES_RE.fullmatch(p.name)
++            if m is None or p.is_symlink() or not p.is_dir():raise Error('ACCEPTANCE_PASS_ENTRY_UNRECOGNISED: '+p.name)
++            out.append((int(m.group(1)),p.name))
++    out.sort()
++    if [n for n,_ in out]!=list(range(1,len(out)+1)):
++        raise Error('ACCEPTANCE_PASSES_NOT_CONTIGUOUS: %s (the handoff numbers passes A001, A002, ...)'%[x for _,x in out])
++    return [x for _,x in out]
++
++def latest_pass_problems(call_dir,acc,tag):
++    """c2v004 B1: [] iff the acceptance record acc is of the call's latest acceptance pass (its tailstate_dir)."""
++    here=Path(call_dir).resolve()
++    try:passes=acceptance_passes(here)
++    except (Error,OSError) as exc:return ['%s_ACCEPTANCE_PASSES_UNREADABLE: %s'%(tag,exc)]
++    got=acc.get('tailstate_dir') if isinstance(acc,dict) else None
++    if not passes or got!=str(here/passes[-1]):
++        return ['%s_RECORD_NOT_THE_LATEST_PASS: record pass %s; the call dir holds %d passes, latest %s'
++                %(tag,got,len(passes),passes[-1] if passes else None)]
++    return []
++
++def reingest_record_problems(call_dir,acceptance_ref):
++    """c2v004 B1: the VALID reingest's acceptance record must be an absolute exact pin of the call's latest pass."""
++    if not is_exact_pin(acceptance_ref) or not os.path.isabs(acceptance_ref['path']):
++        return ['REINGEST_ACCEPTANCE_RECORD_REQUIRED: an absolute {path, sha256} of the latest acceptance pass']
++    acc=json.loads(O.read_pinned(acceptance_ref,'acceptance record'))
++    return latest_pass_problems(call_dir,acc,'REINGEST')
+ 
+ class Context(OldContext):
+     def __init__(self,config):
+@@ -422,6 +469,9 @@
+                                         acc.get('step4_stop_for_root_ruling')))
+         here=Path(call_dir).resolve()
+         if acc.get('call_dir')!=str(here):bad.append('TAIL_INVALID_RECORD_OTHER_CALL: record %s; this call %s'%(acc.get('call_dir'),here))
++        if os.path.lexists(here/'TAIL_CERTIFICATE_ACCEPTANCE.json'):                                   # c2v004 B1
++            bad.append('TAIL_INVALID_CALL_HOLDS_TAIL_CERTIFICATE_ACCEPTANCE: an ACCEPTED pass of this call was reingested')
++        bad+=latest_pass_problems(here,acc,'TAIL_INVALID')                                               # c2v004 B1
+         sp=here/'spec.json'
+         if not sp.is_file() or O.sha256_file(sp)!=spec_sha256 or O.load_json_file(sp,'campaign spec')!=spec:
+             bad.append('TAIL_INVALID_SPEC_NOT_THE_PLANNED_SPEC')
+@@ -570,7 +620,7 @@
+         return O.resolve(self,wave,decision,reason,tokens=tokens,all_items=all_items,
+                          halt_sha256=halt_sha256,recovery_path=recovery_path)
+ 
+-    def reingest(self,wave,call_index,bundle_ref):
++    def reingest(self,wave,call_index,bundle_ref,acceptance_ref=None):       # c2v004 B1: + the acceptance record
+         """No solver call: re-read completed saved result after post-state certificates arrive."""
+         lock=O.Lock(self.ctx.work_dir)
+         if not lock.acquire():return {'status':'LOCKED'}
+@@ -586,6 +636,8 @@
+             c=calls[0];b=self.ctx.mapper.build(c['theta'])
+             if b['sha256']!=c['spec_sha256'] or b['spec']!=c['spec']:raise Error('REINGEST_SPEC_MISMATCH')
+             directory=wd/'campaign'/('call_%04d'%int(call_index))
++            bad=reingest_record_problems(directory,acceptance_ref)            # c2v004 B1: under the lock, before any write
++            if bad:raise Error('REINGEST_RECORD_REFUSED: '+repr(bad))
+             self.ctx.write_acceptance(directory,bundle_ref)
+             cls,code,fwd,prov=self.executor.classify(c,{'call_dir':str(directory),'status':'OK'})
+             if cls not in O.CACHED_CLASSES:raise Error('REINGEST_REFUSED: '+str(code))

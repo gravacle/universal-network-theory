@@ -1,0 +1,857 @@
+{
+ "schema": "CLAUDE2_0353_SYNTHETIC_TEST_RECEIPT_V001",
+ "extractor": {
+  "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_extractor_0353/extract_sparc_geometry_metadata_v003.py",
+  "sha256": "4dc8e3874a2908260194870ebb6900965f969993c98417dbaabe684b7d392dd0"
+ },
+ "harness": {
+  "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_extractor_0353/test_extract_v003_synthetic.py",
+  "sha256": "0e9a583c6acb127068eedd32db50f80ccfc9367a806b681db1d5a166dd07ff6a"
+ },
+ "reused_evidence": {
+  "fixtures_0349": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sparc_prefix_audit_0349/ADVERSARIAL_FIXTURES_0349_V001.json",
+   "sha256": "1c4f22f39f4af966ad14130e14fc3503654d0ed16e854e050f79234c44d4b53e"
+  },
+  "results_0349": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sparc_prefix_audit_0349/TEST_RESULTS_0349_V001.json",
+   "sha256": "f0dd0be8ceb44eb890e2e7fa1ed07b4277e0e4763784e48726aa4b8832f81188"
+  },
+  "audit_correction_0349": {
+   "file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sparc_prefix_audit_0349/AUDIT_CORRECTION_0349_V001.json",
+   "sha256": "eb2e3b58c8c62aa4c8c092fcd2b5e325941d881195094a8c614a5c0e8de9dc8a"
+  }
+ },
+ "run_dir": "/private/tmp/claude-501/-Users-bgm-MB-Work/573ea246-f21c-48d3-b8cc-d28a1f8b2c42/scratchpad/helper0353/runs/run03_final",
+ "synthetic_only": true,
+ "real_extraction_run": false,
+ "real_documentation_preflight": "real MRT and manifest hashed only; real header lines 1-98 and real CDS ReadMe checked; no real data row sliced",
+ "exposure_statement_v003": "Source: whole file read into memory once and hashed; line boundaries found by find(LF). Header: bytes up to and including the 98th LF sliced and split into lines 1-98; every header line blank-stripped and matched as bytes against the dash-separator pattern (header only, K5); lines 10-17 and 30-38 ASCII-decoded and regex-checked. Data lines 99 onward: only bytes 1-41 sliced, before any interpretation; the LF position bounds the slice and decides the boolean \"line has at least 41 bytes\"; bytes >= 42 touched only by the hash and the LF search, never sliced, decoded, stripped, compared, measured or emitted. Bytes 1-11 of every data line blank-stripped and compared with the two target names; only the two target prefixes tokenized; tokens decoded only after their shape regex matched or, for emission, after every condition passed. CDS ReadMe read, hashed, decoded, tag-stripped; lines 144-216 checked. Manifest read, hashed, JSON-parsed in full; only crosscheck_massmodels.reference_distance_texts accessed; its single string compared by float equality with tokens 2-7 of NGC3198, never emitted or printed. Emitted on success only: five literal tokens per target with byte spans, source line, documented units/semantics, check booleans, assumption states. Never emitted: T, the anchor text, any other row, any byte >= 42. On failure: codes and booleans only.",
+ "exposure_correction": "Corrects earlier wording. V002 split the whole file into lines (materialising every byte of every data line), searched lines 1-200 for the separator by stripping and matching whole data lines 99-200, and only afterwards kept bytes 1-41 of the target lines; its statement that bytes beyond 41 were never decoded, compared or measured was inaccurate for that separator search. The 0349 census and checker had the same separator search (K5). V003 never materialises a data-line slice longer than 41 bytes and searches for the separator in header lines 1-98 only.",
+ "harness_exposure": "the harness hashes the real MRT and manifest, slices the real MRT only up to its 98th LF (header lines 1-98) and references the real CDS ReadMe; it never slices a real data row and never parses the real manifest",
+ "groups": {
+  "G1": [
+   15,
+   15
+  ],
+  "G2": [
+   61,
+   61
+  ],
+  "G3": [
+   6,
+   6
+  ],
+  "G4": [
+   8,
+   8
+  ],
+  "G5": [
+   7,
+   7
+  ],
+  "G6": [
+   12,
+   12
+  ],
+  "G7": [
+   18,
+   18
+  ],
+  "R0": [
+   4,
+   4
+  ]
+ },
+ "n_cases": 131,
+ "n_pass": 131,
+ "all_pass": true,
+ "cases": [
+  {
+   "group": "R0",
+   "case": "real MRT sha equals pin (hash only)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "R0",
+   "case": "real header lines 1-98 pass verify_header (order, formats, units, explanations, Notes 1-2, separator 98)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "R0",
+   "case": "real CDS ReadMe passes verify_cds (pin, lines 148-155, no ? in 144-216, Note 3)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "R0",
+   "case": "real manifest sha equals pin (hash only; not parsed)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "exit 0; candidate and output exist and are the same file",
+   "pass": true,
+   "detail": "rc=0"
+  },
+  {
+   "group": "G1",
+   "case": "no write bits on the published file; reported mode equals actual",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "stdout carries no literal and no anchor text",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "output does not contain the anchor text",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "exactly the two frozen rows",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "exactly the five emitted fields per row; T and Galaxy listed as validated_not_emitted",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "literal token strings and 1-based byte spans exact",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "exact source line numbers",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "f_D code meaning taken from header Note (2)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "documented units and semantics (Inc = outer-HI-disk mean per CDS Note 3; e_* catalogue mean errors, no Gaussian)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "declared assumptions A1, A1b, A2, A3 present and not discharged; A1b by token-2 width only",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "all check booleans true; C10 evaluated for NGC3198 only",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "no float anywhere in the output; integers only under byte_span, source_line_number, bytes, data_lines_from",
+   "pass": true,
+   "detail": "[('byte_span', 'int'), ('bytes', 'int'), ('data_lines_from', 'int'), ('source_line_number', 'int')]"
+  },
+  {
+   "group": "G1",
+   "case": "K1-K6 recorded and V001 quarantine untouched statement present",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G1",
+   "case": "output carries the corrected exact exposure statement and the correction note",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G2",
+   "case": "F01_baseline_T_one_digit (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=False"
+  },
+  {
+   "group": "G2",
+   "case": "F02_baseline_T_two_digit (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=False"
+  },
+  {
+   "group": "G2",
+   "case": "F03_eInc_two_integer_digits (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=False"
+  },
+  {
+   "group": "G2",
+   "case": "F04_D_three_integer_digits (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=False"
+  },
+  {
+   "group": "G2",
+   "case": "F05_Type_zero (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=False"
+  },
+  {
+   "group": "G2",
+   "case": "F06_D_one_decimal (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_D"
+  },
+  {
+   "group": "G2",
+   "case": "F07_D_three_decimals (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_D"
+  },
+  {
+   "group": "G2",
+   "case": "F08_eD_three_decimals (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_D"
+  },
+  {
+   "group": "G2",
+   "case": "F09_eD_one_decimal (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_D"
+  },
+  {
+   "group": "G2",
+   "case": "F10_Inc_two_decimals (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_SHAPE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F11_Inc_integer (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_Inc"
+  },
+  {
+   "group": "G2",
+   "case": "F12_eInc_two_decimals (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_Inc"
+  },
+  {
+   "group": "G2",
+   "case": "F13_T_decimal (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_T,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F14_eD_negative (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_D"
+  },
+  {
+   "group": "G2",
+   "case": "F15_D_exponent (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_D"
+  },
+  {
+   "group": "G2",
+   "case": "F59_D_leading_zero (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_D"
+  },
+  {
+   "group": "G2",
+   "case": "F60_Inc_leading_zero (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_Inc"
+  },
+  {
+   "group": "G2",
+   "case": "F16_blank_T_fixed_column (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_TOKEN_COUNT_6"
+  },
+  {
+   "group": "G2",
+   "case": "F17_blank_D_fixed_column (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_TOKEN_COUNT_6"
+  },
+  {
+   "group": "G2",
+   "case": "F18_blank_fD_fixed_column (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_TOKEN_COUNT_6"
+  },
+  {
+   "group": "G2",
+   "case": "F19_blank_eInc_fixed_column (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_TOKEN_COUNT_6"
+  },
+  {
+   "group": "G2",
+   "case": "F20_missing_T_L_slides_in (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_T,E_SHAPE_e_D,E_SHAPE_f_D,E_SHAPE_e_Inc,E_RANGE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F21_missing_D_L_slides_in (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_D,E_SHAPE_f_D,E_SHAPE_e_Inc,E_RANGE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F22_missing_eD_L_slides_in (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_D,E_SHAPE_f_D,E_SHAPE_e_Inc,E_RANGE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F23_missing_fD_L_slides_in (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_f_D,E_SHAPE_e_Inc,E_RANGE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F24_missing_Inc_L_slides_in (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_Inc,E_RANGE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F25_missing_eInc_L_slides_in (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_e_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F26_blank_in_name_not_located (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_NAME_MISMATCH,E_TOKEN_COUNT_8"
+  },
+  {
+   "group": "G2",
+   "case": "F27_blank_in_name_target_with_blank (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_NAME_INTERNAL_BLANK,E_TOKEN_COUNT_8"
+  },
+  {
+   "group": "G2",
+   "case": "F28_blank_in_name_plus_blank_T_compensates (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_NAME_INTERNAL_BLANK,E_NAME_NOT_CONFINED,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F29_row_shifted_right_1 (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_NAME_MISMATCH,E_BYTE41_NOT_BLANK,E_NAME_NOT_CONFINED,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F30_row_shifted_left_1_smallL (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F31_row_shifted_left_1_bigL (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_TOKEN_COUNT_8"
+  },
+  {
+   "group": "G2",
+   "case": "F32_tokens_3_7_shifted_right_1 (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F33_eInc_overruns_to_41 (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_RANGE_e_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F34_eInc_abuts_L (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_SHAPE_e_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F35_D_eD_swapped_no_anchor (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=True"
+  },
+  {
+   "group": "G2",
+   "case": "F36_D_eD_swapped_with_anchor (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_ANCHOR_T3_NOT_EQUAL,E_ANCHOR_OTHER_TOKEN_EQUAL"
+  },
+  {
+   "group": "G2",
+   "case": "F37_D_eD_swap_outside_overlap (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_RANGE_e_D"
+  },
+  {
+   "group": "G2",
+   "case": "F38_Inc_eInc_swapped (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_RANGE_Inc,E_RANGE_e_Inc"
+  },
+  {
+   "group": "G2",
+   "case": "F39_anchor_correct (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=False"
+  },
+  {
+   "group": "G2",
+   "case": "F40_anchor_equal_text_variant (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=False"
+  },
+  {
+   "group": "G2",
+   "case": "F41_fD_6 (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_f_D"
+  },
+  {
+   "group": "G2",
+   "case": "F42_fD_0 (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_f_D"
+  },
+  {
+   "group": "G2",
+   "case": "F43_fD_two_digit (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_f_D"
+  },
+  {
+   "group": "G2",
+   "case": "F44_fD_leading_zero (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_f_D"
+  },
+  {
+   "group": "G2",
+   "case": "F45_T_12 (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_T"
+  },
+  {
+   "group": "G2",
+   "case": "F46_T_leading_zero (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHAPE_T"
+  },
+  {
+   "group": "G2",
+   "case": "F47_T_three_digit_merges_name (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_TOKEN_COUNT_6"
+  },
+  {
+   "group": "G2",
+   "case": "F48_T_two_digit_abuts_11char_name (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_TOKEN_COUNT_6"
+  },
+  {
+   "group": "G2",
+   "case": "F49_T_one_digit_header_slot (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F50_header_as_written (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_SHAPE_f_D,E_SHAPE_e_Inc,E_RANGE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F51_cds_layout_smallL (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F52_cds_layout_bigL (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_TOKEN_COUNT_8"
+  },
+  {
+   "group": "G2",
+   "case": "F53_free_format_all_present (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_BYTE41_NOT_BLANK,E_TOKEN_COUNT_8"
+  },
+  {
+   "group": "G2",
+   "case": "F54_tab_separator (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_NON_PRINTABLE,E_SHAPE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F55_cr_in_prefix (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_NON_PRINTABLE,E_SHAPE_Inc,E_SPAN_ENDS"
+  },
+  {
+   "group": "G2",
+   "case": "F56_short_row (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_SHORT_ROW,E_BYTE41_NOT_BLANK"
+  },
+  {
+   "group": "G2",
+   "case": "F57_non_ascii (expect FAIL, 0349 codes reproduced)",
+   "pass": true,
+   "detail": "E_NAME_MISMATCH,E_NON_PRINTABLE,E_NAME_NOT_CONFINED"
+  },
+  {
+   "group": "G2",
+   "case": "F58_null_collapse_eVflat_into_eInc_slot (expect PASS, 0349 codes reproduced)",
+   "pass": true,
+   "detail": " misread=True"
+  },
+  {
+   "group": "G2",
+   "case": "all 60 0349 fixtures give identical status and fail codes under V003",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G3",
+   "case": "R1 T<->f_D swap: full contract PASS (misread: T token reads f_D and vice versa) -> documents A1b",
+   "pass": true,
+   "detail": "codes=[]"
+  },
+  {
+   "group": "G3",
+   "case": "R2 fails ONLY by C9 (K2: C9 load-bearing)",
+   "pass": true,
+   "detail": "codes=['E_SPAN_ENDS']"
+  },
+  {
+   "group": "G3",
+   "case": "R2c fails ONLY by C9 (K2: C9 load-bearing)",
+   "pass": true,
+   "detail": "codes=['E_SPAN_ENDS']"
+  },
+  {
+   "group": "G3",
+   "case": "R3 fails ONLY by C9 (K2: C9 load-bearing)",
+   "pass": true,
+   "detail": "codes=['E_SPAN_ENDS']"
+  },
+  {
+   "group": "G3",
+   "case": "R1 end-to-end in the NGC3198 row: exit 0, f_D literal is the swapped token, A1b DECLARED (PASS-as-misread)",
+   "pass": true,
+   "detail": "rc=0"
+  },
+  {
+   "group": "G3",
+   "case": "R2 end-to-end in the NGC3198 row: exit 2, code NGC3198:E_SPAN_ENDS only, no files, no literals in stdout",
+   "pass": true,
+   "detail": "[\"NGC3198:E_SPAN_ENDS\"]"
+  },
+  {
+   "group": "G4",
+   "case": "bytes >= 42 of every data row hostile (0xFF, NUL, TAB, CR, target names, dashes, nan): exit 0 and identical objects to G1 -> never decoded/compared",
+   "pass": true,
+   "detail": "rc=0 None"
+  },
+  {
+   "group": "G4",
+   "case": "every slice of the source buffer is the header (lines 1-98) or bytes 1-41 of one data line (12 slices logged)",
+   "pass": true,
+   "detail": "bad=[]"
+  },
+  {
+   "group": "G4",
+   "case": "no whole-buffer method other than find(LF) is called on the source buffer",
+   "pass": true,
+   "detail": "methods=[]"
+  },
+  {
+   "group": "G4",
+   "case": "K5: dash-only data lines 100 and 103: header end stays line 98; targets found at their true lines (V002 rule would pick line 103)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G4",
+   "case": "header line 98 not a separator -> exit 2 E_HEADER_STRUCTURE, no files",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G4",
+   "case": "NGC3198 row shorter than 41 bytes -> exit 2 E_SHORT_ROW + E_BYTE41_NOT_BLANK, codes/booleans only",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G4",
+   "case": "duplicate DDO154 row -> exit 2 DDO154:E_ROW_NOT_UNIQUE",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G4",
+   "case": "alias \"NGC 3198\" is not located -> exit 2 NGC3198:E_ROW_NOT_UNIQUE",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G5",
+   "case": "G5_ddo_D_one_decimal -> exit 2 ['DDO154:E_SHAPE_D']; stdout codes/booleans only; no literal; no files",
+   "pass": true,
+   "detail": "[\"DDO154:E_SHAPE_D\"]"
+  },
+  {
+   "group": "G5",
+   "case": "G5_ngc_fD_6 -> exit 2 ['NGC3198:E_SHAPE_f_D']; stdout codes/booleans only; no literal; no files",
+   "pass": true,
+   "detail": "[\"NGC3198:E_SHAPE_f_D\"]"
+  },
+  {
+   "group": "G5",
+   "case": "G5_ngc_eInc_overrun_41 -> exit 2 ['NGC3198:E_BYTE41_NOT_BLANK']; stdout codes/booleans only; no literal; no files",
+   "pass": true,
+   "detail": "[\"NGC3198:E_BYTE41_NOT_BLANK\", \"NGC3198:E_RANGE_e_Inc\", \"NGC3198:E_SPAN_ENDS\"]"
+  },
+  {
+   "group": "G5",
+   "case": "G5_anchor_mismatch -> exit 2 ['NGC3198:E_ANCHOR_T3_NOT_EQUAL']; stdout codes/booleans only; no literal; no files",
+   "pass": true,
+   "detail": "[\"NGC3198:E_ANCHOR_T3_NOT_EQUAL\"]"
+  },
+  {
+   "group": "G5",
+   "case": "G5_anchor_equals_eD -> exit 2 ['NGC3198:E_ANCHOR_OTHER_TOKEN_EQUAL']; stdout codes/booleans only; no literal; no files",
+   "pass": true,
+   "detail": "[\"NGC3198:E_RANGE_e_D\", \"NGC3198:E_ANCHOR_OTHER_TOKEN_EQUAL\"]"
+  },
+  {
+   "group": "G5",
+   "case": "G5_inc_einc_swapped -> exit 2 ['DDO154:E_RANGE_Inc', 'DDO154:E_RANGE_e_Inc']; stdout codes/booleans only; no literal; no files",
+   "pass": true,
+   "detail": "[\"DDO154:E_RANGE_Inc\", \"DDO154:E_RANGE_e_Inc\"]"
+  },
+  {
+   "group": "G5",
+   "case": "G5_blank_type -> exit 2 ['DDO154:E_TOKEN_COUNT_6']; stdout codes/booleans only; no literal; no files",
+   "pass": true,
+   "detail": "[\"DDO154:E_TOKEN_COUNT_6\"]"
+  },
+  {
+   "group": "G6",
+   "case": "G6_source_pin -> exit 2 E_PIN_SOURCE",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_PIN_SOURCE\", \"codes\": [\"E_PIN_SOURCE\"], \"checks\": null, \"phase\": \"VALIDATION\""
+  },
+  {
+   "group": "G6",
+   "case": "G6_cds_pin -> exit 2 E_PIN_CDS",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_PIN_CDS\", \"codes\": [\"E_PIN_CDS\"], \"checks\": null, \"phase\": \"VALIDATION\", \"can"
+  },
+  {
+   "group": "G6",
+   "case": "G6_manifest_pin -> exit 2 E_PIN_MANIFEST",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_PIN_MANIFEST\", \"codes\": [\"E_PIN_MANIFEST\"], \"checks\": null, \"phase\": \"VALIDAT"
+  },
+  {
+   "group": "G6",
+   "case": "G6_manifest_duplicate_key -> exit 2 E_JSON_DUPLICATE_KEY",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_JSON_DUPLICATE_KEY\", \"codes\": [\"E_JSON_DUPLICATE_KEY\"], \"checks\": null, \"phas"
+  },
+  {
+   "group": "G6",
+   "case": "G6_manifest_nan -> exit 2 E_JSON_NONFINITE_TOKEN",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_JSON_NONFINITE_TOKEN\", \"codes\": [\"E_JSON_NONFINITE_TOKEN\"], \"checks\": null, \""
+  },
+  {
+   "group": "G6",
+   "case": "G6_anchor_two_texts -> exit 2 E_ANCHOR_TEXT",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_ANCHOR_TEXT\", \"codes\": [\"E_ANCHOR_TEXT\"], \"checks\": null, \"phase\": \"VALIDATIO"
+  },
+  {
+   "group": "G6",
+   "case": "G6_anchor_not_numeric -> exit 2 E_ANCHOR_TEXT",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_ANCHOR_TEXT\", \"codes\": [\"E_ANCHOR_TEXT\"], \"checks\": null, \"phase\": \"VALIDATIO"
+  },
+  {
+   "group": "G6",
+   "case": "G6_header_D_eD_lines_swapped -> exit 2 E_HEADER_ORDER",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_HEADER_ORDER\", \"codes\": [\"E_HEADER_ORDER\"], \"checks\": null, \"phase\": \"VALIDAT"
+  },
+  {
+   "group": "G6",
+   "case": "G6_header_note2_altered -> exit 2 E_HEADER_NOTES",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_HEADER_NOTES\", \"codes\": [\"E_HEADER_NOTES\"], \"checks\": null, \"phase\": \"VALIDAT"
+  },
+  {
+   "group": "G6",
+   "case": "G6_cds_dist_range_altered -> exit 2 E_CDS_ORDER",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_CDS_ORDER\", \"codes\": [\"E_CDS_ORDER\"], \"checks\": null, \"phase\": \"VALIDATION\", "
+  },
+  {
+   "group": "G6",
+   "case": "G6_cds_null_flag_in_table1_note4 -> exit 2 E_CDS_NULL_FLAG",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_CDS_NULL_FLAG\", \"codes\": [\"E_CDS_NULL_FLAG\"], \"checks\": null, \"phase\": \"VALID"
+  },
+  {
+   "group": "G6",
+   "case": "G6_cds_note3_altered -> exit 2 E_CDS_NOTE3",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_VALIDATION\", \"code\": \"E_CDS_NOTE3\", \"codes\": [\"E_CDS_NOTE3\"], \"checks\": null, \"phase\": \"VALIDATION\", "
+  },
+  {
+   "group": "G7",
+   "case": "pre-existing output -> exit 2 E_OUTPUT_EXISTS; byte-identical; no candidate",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G7",
+   "case": "pre-existing candidate -> exit 2 E_CANDIDATE_EXISTS; old candidate byte-identical; no output",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G7",
+   "case": "any other output name (e.g. the V001 name) -> exit 2 E_OUTPUT_NAME, no files",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G7",
+   "case": "no argument -> exit 2 E_USAGE",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G7",
+   "case": "relative argument: published at the absolute preflight path and reported absolute",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G7",
+   "case": "race_output_created_before_link -> exit 4 E_OUTPUT_EXISTS_AT_PUBLICATION (candidate complete, output racer, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_OUTPUT_EXISTS_AT_PUBLICATION\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/priva"
+  },
+  {
+   "group": "G7",
+   "case": "link_unsupported -> exit 4 E_PUBLICATION_LINK (candidate complete, output absent, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_PUBLICATION_LINK\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/claud"
+  },
+  {
+   "group": "G7",
+   "case": "partial_write -> exit 4 E_CANDIDATE_WRITE (candidate partial, output absent, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_CANDIDATE_WRITE\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/claude"
+  },
+  {
+   "group": "G7",
+   "case": "candidate_verify_mismatch -> exit 4 E_CANDIDATE_VERIFY (candidate complete, output absent, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_CANDIDATE_VERIFY\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/claud"
+  },
+  {
+   "group": "G7",
+   "case": "candidate_create_denied -> exit 4 E_CANDIDATE_CREATE (candidate absent, output absent, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_CANDIDATE_CREATE\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/claud"
+  },
+  {
+   "group": "G7",
+   "case": "candidate_appears_before_create -> exit 4 E_CANDIDATE_EXISTS (candidate other, output absent, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_CANDIDATE_EXISTS\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/claud"
+  },
+  {
+   "group": "G7",
+   "case": "directory_fsync_fails -> exit 4 E_DIRECTORY_FSYNC (candidate complete, output published_not_claimed, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_DIRECTORY_FSYNC\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/claude"
+  },
+  {
+   "group": "G7",
+   "case": "post_link_samefile_raises -> exit 4 E_POST_PUBLICATION_CHECK (candidate complete, output published_not_claimed, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_POST_PUBLICATION_CHECK\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp"
+  },
+  {
+   "group": "G7",
+   "case": "post_link_samefile_false -> exit 4 E_OUTPUT_NOT_SAME_FILE (candidate complete, output published_not_claimed, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_OUTPUT_NOT_SAME_FILE\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/c"
+  },
+  {
+   "group": "G7",
+   "case": "post_link_output_reread_differs -> exit 4 E_OUTPUT_VERIFY (candidate complete, output published_not_claimed, nothing removed, no literal in stdout)",
+   "pass": true,
+   "detail": "{\"status\": \"FAILED_PUBLICATION\", \"code\": \"E_OUTPUT_VERIFY\", \"phase\": \"PUBLICATION\", \"publication\": {\"candidate_path\": \"/private/tmp/claude-5"
+  },
+  {
+   "group": "G7",
+   "case": "interrupt during validation -> exit 130 FAILED_INTERRUPTED phase VALIDATION, no files",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G7",
+   "case": "interrupt during publication -> exit 130 FAILED_INTERRUPTED phase PUBLICATION, candidate retained, no output",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "group": "G7",
+   "case": "unexpected exception in validation -> exit 3 E_UNEXPECTED phase VALIDATION, no files",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}

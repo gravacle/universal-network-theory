@@ -1,0 +1,208 @@
+"""KS1 (ks_k3_chain_c2 c2v001; root A160): custody_cx2v002 (6810b7c3) plus ONE allowance, for S1_UA_C3T only.
+
+S1_UA_C3T = the S1 template's C3T label (s1k3 c2v001 L40) AND composite_grid_spec equal to CB C3T's (case block
+76309ae3) bitwise. For it, derive_details accepts the +-3 cube (kept K 3); every other line it runs is 6810b7c3's, so
+grid_sha256 still includes the composite grid (the C3T custody differs from u_A's) and modules_sha256 names this file.
+Every other spec is handed to the unchanged 6810b7c3 module object, loaded below by path and sha (P), so its custody,
+modules_sha256 included (it names the custody file, L133), is 6810b7c3's own. The label is checked first: no other
+spec reads the case block. Edits: this docstring head, `import re`, HERE (the predecessor's folder), the block after
+libraries(), the first line of derive_details and its cube check.
+
+Inert, byte-pinned DDO154 point custody. No launch or run-directory discovery.
+
+Aggregate encoding: SHA256 of UTF-8 canonical JSON (sorted keys, compact
+separators, finite numbers); arrays: dtype/shape plus C-order bytes digest.
+This derives scope, not scientific approval. The speed/uncertainty policy is
+explicitly unresolved until separately reviewed in the LO coverage object.
+"""
+import copy
+import hashlib
+import importlib.util
+import json
+import math
+from pathlib import Path
+import re
+import sys
+import numpy as np
+
+ART = Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts')
+HERE = ART/'calib_tail_readiness_cx2/certificates_per_point'   # KS1: 6810b7c3's folder (COMMON below; write_new scope)
+DRIVER = ART/'tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py'
+DRIVER_SHA = 'b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6'
+COMMON = HERE/'certs_common_r5_cx2v001.py'
+COMMON_SHA = 'c75aaa5a197efe7bde1014269d74aa37810ccce6f95b7eec1078352f09ffb3b7'
+A2_SHA = '2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7'
+
+def canonical(obj):
+    return json.dumps(obj,sort_keys=True,separators=(',',':'),allow_nan=False).encode()
+
+def digest(obj):
+    return hashlib.sha256(canonical(obj)).hexdigest()
+
+def allowed_path(path):
+    p=Path(path).resolve(strict=True)
+    parts=p.parts
+    if '.codex' in parts or 'KMAX_A2F10_C5H_RUN_V001' in parts:
+        raise ValueError('forbidden input')
+    if 'runs_ext' in parts and any(x.startswith('UVT_') for x in parts):
+        raise ValueError('forbidden UVT run')
+    if not any(p.is_relative_to(Path(r)) for r in ('/Users/bgm/Research','/Volumes/External1')):
+        raise ValueError('outside research input roots')
+    return p
+
+def sha(path):
+    p=allowed_path(path);h=hashlib.sha256()
+    with p.open('rb') as f:
+        for block in iter(lambda:f.read(1048576),b''):h.update(block)
+    return h.hexdigest()
+
+def pin(path):
+    return {'path':str(Path(path)), 'sha256':sha(path)}
+
+def read_pin(ref, document=True):
+    if not isinstance(ref,dict) or set(ref)!= {'path','sha256'}:
+        raise ValueError('exact byte reference required')
+    p=allowed_path(ref['path'])
+    raw=p.read_bytes()
+    if hashlib.sha256(raw).hexdigest()!=ref['sha256']:raise ValueError('byte pin mismatch')
+    return json.loads(raw) if document else raw
+
+def module(path,name,expected):
+    if sha(path)!=expected:raise ValueError('module pin mismatch')
+    sp=importlib.util.spec_from_file_location(name,path)
+    obj=importlib.util.module_from_spec(sp);sys.modules[name]=obj
+    sp.loader.exec_module(obj);return obj
+
+def libraries():
+    return (module(DRIVER,'cx2pc_driver',DRIVER_SHA),
+            module(COMMON,'cx2pc_common',COMMON_SHA))
+
+# KS1: the predecessor, unchanged, by path and sha. Every spec that is not S1_UA_C3T runs its code (P).
+PREDECESSOR = (HERE/'custody_cx2v002.py', '6810b7c3614e219f6e059208fbe59e905d01aa3a115e3c723079b579a027a377')
+P = module(PREDECESSOR[0], 'ks1_predecessor_custody_cx2v002', PREDECESSOR[1])
+# KS1: the S1_UA_C3T identity, as the wrapper successor s1k3 c2v001 reads it (L38-41, L72-86, L89-92).
+CB_PIN = {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/case_block/CASE_BLOCK_V007_C4V001.json',
+          'sha256': '76309ae39f23060cc662c4e218a41e1f95c56a26992402218a6198625f85ee71'}
+S1_C3T_LABEL = re.compile(r'S1 transfer test C3T at u_A theta [0-9a-f]{16}; base [0-9a-f]{8}')
+S1_C3T_KEPT_K = 3
+_CB = {}
+
+def cb_grid(case):
+    """CB `cases.<case>.normalized_spec_equal./numerics.composite_grid_spec`, from the pinned bytes (read once)."""
+    if not _CB:
+        raw = Path(CB_PIN['path']).read_bytes()
+        if hashlib.sha256(raw).hexdigest() != CB_PIN['sha256']:
+            raise ValueError('CB case block: sha256 mismatch')
+        doc = json.loads(raw)
+        for c in ('C3T', 'C4T'):
+            _CB[c] = doc['cases'][c]['normalized_spec_equal']['/numerics']['composite_grid_spec']
+    return copy.deepcopy(_CB[case])
+
+def s1_c3t_label(spec):
+    lab = spec.get('label') if isinstance(spec, dict) else None
+    return isinstance(lab, str) and S1_C3T_LABEL.fullmatch(lab) is not None
+
+def s1_c3t_grid(numerics):
+    """composite_grid_spec == CB C3T bitwise (canonical JSON). A grid whose last break is not 3 never reads CB."""
+    try:
+        grid = numerics.get('composite_grid_spec')
+        if grid['breaks_inverse_kpc'][-1] != S1_C3T_KEPT_K:
+            return False
+        return canonical(grid) == canonical(cb_grid('C3T'))
+    except (AttributeError, KeyError, IndexError, TypeError, ValueError):
+        return False
+
+def s1_c3t_spec(spec):
+    """The KS gate: S1_UA_C3T label AND CB C3T grid. Every K=3 allowance of the chain is behind it."""
+    return s1_c3t_label(spec) and s1_c3t_grid(spec.get('numerics'))
+
+def production_scope(spec):
+    uv=spec['numerics']['uv_tail']
+    if uv.get('enabled') is not True or uv.get('source_rule')!='continuum_v001':
+        raise ValueError('PRODUCTION_CONTINUUM_TAIL_REQUIRED')
+    if uv.get('outer')!={'shape':'cylinder','K_big_inverse_kpc':128.0}:
+        raise ValueError('PRODUCTION_K128_REQUIRED')
+    gas=uv.get('gas',{})
+    if gas.get('interp')!='lagrange3_s_gl4' or type(gas.get('M_s')) is not int or gas['M_s']!=128:
+        raise ValueError('PRODUCTION_GAS_MS128_REQUIRED')
+    return {'driver_sha256':DRIVER_SHA,'K_big_inverse_kpc':128.0,'gas_M_s':128}
+
+def identity(spec):
+    production_scope(spec)
+    if spec.get('galaxy')!='DDO154':raise ValueError('DDO154 only')
+    n=copy.deepcopy(spec['numerics'])
+    for k in ('eps_certificate','lo_certificate'):n['uv_tail'].pop(k,None)
+    return {'driver_sha256':DRIVER_SHA,'physical':copy.deepcopy(spec['physical']),
+            'coefficients':copy.deepcopy(spec['coefficients']),'numerics':n}
+
+def array_record(a):
+    a=np.ascontiguousarray(a)
+    if a.dtype.hasobject or not np.isfinite(a).all():raise ValueError('invalid coefficient array')
+    return {'dtype':a.dtype.str,'shape':list(a.shape),'bytes_sha256':hashlib.sha256(a.tobytes()).hexdigest()}
+
+def point_geometry(spec,driver=None):
+    d=driver or libraries()[0]
+    p=spec['physical']
+    if spec.get('galaxy')!='DDO154' or p['inclination_deg']!=66.0:raise ValueError('unsupported geometry')
+    if not all(type(v) in (int,float) and math.isfinite(v) and v>0 for v in p.values()):
+        raise ValueError('invalid physical value')
+    profile,mono,binding,record=d.derive_geometry('DDO154',float(p['distance_Mpc']),66.0)
+    # derive_geometry supplies the same radial data at the registered distance.
+    return profile,mono,binding,record
+
+def derive_details(*,spec,driver_sha256=DRIVER_SHA):
+    if not s1_c3t_spec(spec):return P.derive_details(spec=spec,driver_sha256=driver_sha256)   # KS1: 6810b7c3's own code
+    if driver_sha256!=DRIVER_SHA:raise ValueError('unsupported driver')
+    ident=identity(spec);d,cc=libraries()
+    uv=spec['numerics']['uv_tail']
+    if uv.get('source_rule')!='continuum_v001' or uv.get('enabled') is not True:
+        raise ValueError('production continuum point required')
+    if uv['outer'] != {'shape':'cylinder','K_big_inverse_kpc':128.0}:
+        raise ValueError('unsupported outer domain')
+    grid=spec['numerics']['composite_grid_spec']
+    if spec['numerics']['truncation']!={'shape':'cube'} or max(grid['breaks_inverse_kpc'])!=S1_C3T_KEPT_K or min(grid['breaks_inverse_kpc'])!=-S1_C3T_KEPT_K:
+        raise ValueError('K3 cube required (S1_UA_C3T)')   # KS1: the kept K is 3 (CB C3T grid); 6810b7c3 L112-113 required 4
+    ref=spec['coefficients']
+    if ref['sha256']!=A2_SHA or sha(ref['path'])!=A2_SHA:raise ValueError('coefficient custody')
+    with np.load(allowed_path(ref['path']),allow_pickle=False) as f:
+        arrays={k:array_record(f[k]) for k in ('source_hessian_grid','background_C','background_mu')}
+    profile,mono,binding,record=point_geometry(spec,d)
+    prereg=read_pin(cc.pin('prereg_v005'))
+    rows=binding['query_rows'];ids=[x['id'] for x in rows]
+    if ids!=prereg['row_ids'] or len(set(ids))!=len(ids):raise ValueError('ordered row contract mismatch')
+    tau=prereg['tau_km_s']
+    if len(tau)!=len(ids) or any(not math.isfinite(x) or x<=0 for x in tau):raise ValueError('invalid tau')
+    row={'schema':'DDO154_POINT_ROWS_CX2V001','rows':rows,'tau_km_s':tau,
+         'distance_Mpc':spec['physical']['distance_Mpc'],
+         'speed_reference_policy':'PENDING_REVIEWED_LO_COVERAGE_OBJECT',
+         'uncertainty_carrier_policy':'PREREG_V005_TAU; CALIBRATION_CARRIER_PENDING_ROOT',
+         'prereg':cc.pin('prereg_v005')}
+    modules=d.uvt_static_pins(False)
+    for name,(path,want) in d.GEOMETRY_PINS.items():
+        if sha(path)!=want:raise ValueError('geometry input pin mismatch '+name)
+        modules[str(path)]=want
+    modules.update({str(DRIVER):DRIVER_SHA,str(COMMON):COMMON_SHA,str(Path(__file__)):sha(__file__)})
+    geo={'schema':'DDO154_DERIVED_GEOMETRY_CX2V001','profile':profile['galaxies']['DDO154'],
+         'monotone':mono,'binding':binding,'derivation':record}
+    custody={
+      'grid_sha256':digest({'encoding':'ARRAY_C_ORDER_V1','coefficient_file':ref,'grid':arrays['source_hessian_grid'],'composite_grid':grid}),
+      'background_sha256':digest({'C':arrays['background_C'],'mu':arrays['background_mu'],'physical':spec['physical']}),
+      'geometry_sha256':digest(geo),'modules_sha256':digest(modules),'row_contract_sha256':digest(row)}
+    return {'schema':'DDO154_POINT_CUSTODY_CX2V001','identity':ident,'point_sha256':digest(ident),
+            'custody':custody,'custody_sha256':digest(custody),'arrays':arrays,'geometry':geo,'row_contract':row,'modules':modules}
+
+def derive_custody(*,spec,driver_sha256):
+    return derive_details(spec=spec,driver_sha256=driver_sha256)['custody']
+
+def write_new(path,obj):
+    p=Path(path)
+    if not p.parent.resolve().is_relative_to(HERE):raise ValueError('output outside certificate directory')
+    raw=json.dumps(obj,sort_keys=True,indent=2,allow_nan=False).encode()+b'\n'
+    with p.open('xb') as f:f.write(raw)
+    return {'path':str(p),'sha256':hashlib.sha256(raw).hexdigest()}
+
+if __name__=='__main__':
+    import argparse
+    a=argparse.ArgumentParser();a.add_argument('--spec',required=True);a.add_argument('--out',required=True)
+    ns=a.parse_args();s=json.loads(allowed_path(ns.spec).read_bytes())
+    print(json.dumps(write_new(ns.out,derive_details(spec=s))))

@@ -1,0 +1,115 @@
+{
+  "date_u": "Sun Oct 18 20:48:26 UTC 2026",
+  "verdict": "FAIL_CURRENT_VERSIONED_PACKAGE_SLICES",
+  "label": "TESTED_SOURCE_AND_INERT_CONTROLS",
+  "blocking_findings": [
+    {
+      "id": "S4-GUARD-METADATA-1",
+      "detail": "safe_path resolves before rejecting lexical protected components; forbidden metadata may be touched before refusal. Inert Path tests establish order; no actual protected path accessed."
+    },
+    {
+      "id": "S4-BINDER-PIN-1",
+      "detail": "Binder and launcher execute adjacent guard through unchecked module loader at top level before any expected guard hash check. Later admission cannot prevent already executed code. Four versioned inert bootstrap controls confirm."
+    },
+    {
+      "id": "S4-BINDER-REREAD-1",
+      "detail": "Binder emits a later raw plan reread without comparing it to validated digest. Own in-memory change produces different emitted/validated plan bytes under TESTED binding. This is not a demonstrated bypass of later launcher admission."
+    },
+    {
+      "id": "S4-NATIVE-LOADER-1",
+      "detail": "Native certificate custody loader uses SourceFileLoader, which probes .pyc even under -B. Source fence rejects that probe with UNPINNED_PREFLIGHT_SOURCE. Owned inert module reproduces; exact hashed-byte compile passes. Current empty policy registrations stop earlier; this defect blocks the otherwise compatible-policy path."
+    }
+  ],
+  "should_fix_findings": [
+    {
+      "id": "S4-TRANSITIVE-PIN-1",
+      "detail": "Source fence checks transitive .py membership, not the stored hash at import time; prehash plus explicit load rehash narrow but do not close later-change exposure. No wrong-byte native execution shown."
+    },
+    {
+      "id": "CX2-S4-LIFETIME-1",
+      "detail": "Injected worker interruption closes machine lock and ends worker-tied sleep assertion while detached monitors may remain active; live OS behavior untested."
+    },
+    {
+      "id": "CX2-S4-LIFETIME-2",
+      "detail": "Lost assertion stops new starts but existing monitors drain without replacement sleep protection."
+    },
+    {
+      "id": "S4-SCHEMA-DOC-1",
+      "detail": "Stale mode-versus-enabled comment remains although enabled/runtime schema behavior is fixed."
+    }
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_cx1v005.py",
+      "sha256": "11a31edd2cbbb0adb6738360bacecc6363b5cada4f91c0cd976276fd72c7e2d8",
+      "bytes": 15028
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_bind_cx1v004.py",
+      "sha256": "7f7add8545f95f4a3f0881dada86259911e8f43b0aa2073abeb186dff29613cd",
+      "bytes": 2914
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_launcher_cx1v005.py",
+      "sha256": "f9e4888dc8fc5c638581730651a7e19f0945fd7fa89a7f32391298f20dd0a66b",
+      "bytes": 8647
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_direct_preflight_cx1v001.py",
+      "sha256": "eee61ac61ff93a11c97b9fdd3d6340661f17a92394653e524ac1cd8648d20fd1",
+      "bytes": 2487
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_step4_readiness_cx2/guard_binder_v004/REVIEW_GUARD_BINDER_CX2V001.md",
+      "sha256": "c3531e39f032ff2f6b5d29f23dfc8f8593efac8258eaefd1eb1f36dc7c034313",
+      "bytes": 6322
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_step4_readiness_cx2/native_interfaces_v005/NATIVE_INTERFACE_REVIEW_CX2V001.md",
+      "sha256": "1131f3d1ae99dc2254e653c0578cdfd333ca22c5e57c1091d336fdce47d87bbb",
+      "bytes": 7085
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_step4_readiness_cx2/launcher_v004/REVIEW_CX2V001.md",
+      "sha256": "1ce35e6ad69e628b82e5fed1f510034dbd4a24c840fe33e8271c13afa30abfbd",
+      "bytes": 3941
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_step4_readiness_cx2/launcher_v005/ADDENDUM_CX2V001.md",
+      "sha256": "48c922fe329d25f60e866b7d8a0003bcd216b1f432e79ff93610b05d5b8024ef",
+      "bytes": 1990
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_step4_readiness_cx2/guard/step4_v004_schema/REVIEW_CX2V002.md",
+      "sha256": "45f2b614ad9b42b89fb662137e476e495da5c2483cc23ce57d8c948ff264059e",
+      "bytes": 10438
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_step4_readiness_cx2/package_v005/MANIFEST_VERIFICATION_CX2V001.json",
+      "sha256": "d8cf25739f0e250c6d4e0d02e91ea13c74a1ea4039df19cce24137fca097254a",
+      "bytes": 21386
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0623_2026-10-18_codex1_step4_guard_schema.md",
+      "sha256": "3cf31cd8299d75aac555eefa6591ab306f48aec0a9b8205c3d43369df1267cc1",
+      "bytes": 512
+    }
+  ],
+  "validation": {
+    "guard_binder_controls": 64,
+    "native_interface_assertions": 38,
+    "launcher_controls": 97,
+    "launcher_inert_scenarios": 13,
+    "launcher_functions_ast_identical_v004_v005": 11,
+    "schema_controls_v004": 186,
+    "parent_manifest_entries_verified": 82
+  },
+  "untested": [
+    "Full native execution",
+    "Real policy registrations/certificates/configuration",
+    "Final full package admission",
+    "Actual OS process/priority/signal/lock behavior",
+    "Scientific launch/readiness"
+  ],
+  "scientific_launches": 0
+}

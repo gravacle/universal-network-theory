@@ -1,0 +1,2724 @@
+{
+ "artifact_dir_listing_changed_by_import": false,
+ "cases": [
+  {
+   "checks": [
+    {
+     "detail": [],
+     "label": "artifact directory listing unchanged by importing both modules",
+     "ok": true
+    },
+    {
+     "detail": "",
+     "label": "no stdout/stderr output at import",
+     "ok": true
+    },
+    {
+     "label": "engine: no __main__ block",
+     "ok": true
+    },
+    {
+     "label": "engine: no scipy import",
+     "ok": true
+    },
+    {
+     "label": "engine: no subprocess/threading/multiprocessing/concurrent import",
+     "ok": true
+    },
+    {
+     "label": "engine: no network/socket import",
+     "ok": true
+    },
+    {
+     "label": "freeze: no __main__ block",
+     "ok": true
+    },
+    {
+     "label": "freeze: no scipy import",
+     "ok": true
+    },
+    {
+     "label": "freeze: no subprocess/threading/multiprocessing/concurrent import",
+     "ok": true
+    },
+    {
+     "label": "freeze: no network/socket import",
+     "ok": true
+    },
+    {
+     "label": "engine exposes load_observation_region",
+     "ok": true
+    },
+    {
+     "label": "engine exposes make_coordinate_spec",
+     "ok": true
+    },
+    {
+     "label": "engine exposes to_natural",
+     "ok": true
+    },
+    {
+     "label": "engine exposes to_unit",
+     "ok": true
+    },
+    {
+     "label": "engine exposes classify_prediction",
+     "ok": true
+    },
+    {
+     "label": "engine exposes finite_difference_jacobian",
+     "ok": true
+    },
+    {
+     "label": "engine exposes identifiability_report",
+     "ok": true
+    },
+    {
+     "label": "engine exposes explore_region",
+     "ok": true
+    },
+    {
+     "label": "engine exposes run_calibration_region",
+     "ok": true
+    },
+    {
+     "label": "freeze exposes load_query_manifest",
+     "ok": true
+    },
+    {
+     "label": "freeze exposes select_representative_points",
+     "ok": true
+    },
+    {
+     "label": "freeze exposes evaluate_envelopes",
+     "ok": true
+    },
+    {
+     "label": "freeze exposes write_freeze_manifest",
+     "ok": true
+    },
+    {
+     "label": "freeze exposes verify_freeze_manifest",
+     "ok": true
+    },
+    {
+     "label": "freeze exposes score_after_freeze",
+     "ok": true
+    },
+    {
+     "label": "engine functions are keyword-only (positional call raises TypeError)",
+     "ok": true
+    },
+    {
+     "label": "freeze functions are keyword-only (positional call raises TypeError)",
+     "ok": true
+    },
+    {
+     "label": "missing keyword argument raises TypeError (no defaults)",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "X0",
+   "n_checks": 28,
+   "n_failed": 0,
+   "name": "import inertness, static source checks, API surface",
+   "notes": [],
+   "numbers": {},
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [],
+     "label": "spec ok",
+     "ok": true
+    },
+    {
+     "detail": [
+      "amp_scale",
+      "tilt",
+      "distance_Mpc",
+      "dead_knob"
+     ],
+     "label": "varying_names ordered as given",
+     "ok": true
+    },
+    {
+     "detail": [
+      "held_constant"
+     ],
+     "label": "fixed_names",
+     "ok": true
+    },
+    {
+     "detail": [
+      "distance_Mpc"
+     ],
+     "label": "nuisance_names",
+     "ok": true
+    },
+    {
+     "detail": "COMPUTATIONAL_TRIAL_BOX_NOT_EMPIRICAL_BOUNDS",
+     "label": "bounds_semantics constant",
+     "ok": true
+    },
+    {
+     "detail": [
+      "coordinates[0] (amp_scale): log transform requires 0 < lower < upper"
+     ],
+     "label": "log coordinate with lower=0 refused (ok False, no raise)",
+     "ok": true
+    },
+    {
+     "detail": [
+      "coordinates[1] (tilt): linear transform requires lower < upper",
+      "coordinates[1] (tilt): trial_value must lie in [lower, upper]"
+     ],
+     "label": "linear coordinate with lower==upper refused",
+     "ok": true
+    },
+    {
+     "detail": [
+      "coordinates[2] (distance_Mpc): role must be one of ('free', 'fixed', 'nuisance')"
+     ],
+     "label": "unknown role refused",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "to_natural ok",
+     "ok": true
+    },
+    {
+     "detail": [
+      "amp_scale",
+      "dead_knob",
+      "distance_Mpc",
+      "held_constant",
+      "tilt"
+     ],
+     "label": "theta_natural carries all 5 coordinates",
+     "ok": true
+    },
+    {
+     "detail": 1.0,
+     "label": "fixed coordinate inserted at trial_value",
+     "ok": true
+    },
+    {
+     "detail": 31.622776601683803,
+     "label": "log coordinate at u=0.5 is geometric mean",
+     "ok": true
+    },
+    {
+     "detail": 0.0,
+     "label": "linear coordinate at u=0.5 is midpoint",
+     "ok": true
+    },
+    {
+     "label": "theta_internal is a list",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "to_unit ok",
+     "ok": true
+    },
+    {
+     "detail": [
+      0.5,
+      0.5,
+      0.5000000000000002,
+      0.5
+     ],
+     "label": "to_unit round trip within 1e-12",
+     "ok": true
+    },
+    {
+     "detail": {
+      "admitted": true,
+      "ok": true,
+      "reasons": [],
+      "valid": true
+     },
+     "label": "classify: centre admitted",
+     "ok": true
+    },
+    {
+     "detail": {
+      "DDO154_SPARC12_01": true,
+      "DDO154_SPARC12_02": true,
+      "DDO154_SPARC12_03": true,
+      "DDO154_SPARC12_04": true,
+      "DDO154_SPARC12_05": true,
+      "DDO154_SPARC12_06": true,
+      "DDO154_SPARC12_07": true,
+      "DDO154_SPARC12_08": true,
+      "DDO154_SPARC12_09": true,
+      "DDO154_SPARC12_10": true,
+      "DDO154_SPARC12_11": true,
+      "DDO154_SPARC12_12": true
+     },
+     "label": "classify: row_inside all True at centre",
+     "ok": true
+    },
+    {
+     "detail": {
+      "admitted": false,
+      "valid": true
+     },
+     "label": "classify: one row above high -> not admitted, valid",
+     "ok": true
+    },
+    {
+     "detail": {
+      "DDO154_SPARC12_01": true,
+      "DDO154_SPARC12_02": true,
+      "DDO154_SPARC12_03": true,
+      "DDO154_SPARC12_04": false,
+      "DDO154_SPARC12_05": true,
+      "DDO154_SPARC12_06": true,
+      "DDO154_SPARC12_07": true,
+      "DDO154_SPARC12_08": true,
+      "DDO154_SPARC12_09": true,
+      "DDO154_SPARC12_10": true,
+      "DDO154_SPARC12_11": true,
+      "DDO154_SPARC12_12": true
+     },
+     "label": "classify: row_inside flags that row only",
+     "ok": true
+    },
+    {
+     "detail": true,
+     "label": "classify: closed interval (value == high admitted)",
+     "ok": true
+    },
+    {
+     "detail": {
+      "admitted": null,
+      "reasons": [
+       "row 'DDO154_SPARC12_08': speed missing or not a finite number"
+      ],
+      "valid": false
+     },
+     "label": "classify: NaN -> valid False, not admitted",
+     "ok": true
+    },
+    {
+     "detail": {
+      "admitted": null,
+      "reasons": [
+       "row 'DDO154_SPARC12_10': speed missing or not a finite number"
+      ],
+      "valid": false
+     },
+     "label": "classify: missing id -> valid False, not admitted",
+     "ok": true
+    },
+    {
+     "detail": {
+      "admitted": null,
+      "valid": false
+     },
+     "label": "classify: valid False flag honoured",
+     "ok": true
+    },
+    {
+     "detail": {
+      "admitted": null,
+      "ok": true,
+      "valid": false
+     },
+     "label": "classify: wrong type -> valid False, no raise",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "load_observation_region ok",
+     "ok": true
+    },
+    {
+     "detail": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d",
+     "label": "region sha256 reported",
+     "ok": true
+    },
+    {
+     "detail": [
+      "DDO154_SPARC12_01",
+      "DDO154_SPARC12_02",
+      "DDO154_SPARC12_03",
+      "DDO154_SPARC12_04",
+      "DDO154_SPARC12_05",
+      "DDO154_SPARC12_06",
+      "DDO154_SPARC12_07",
+      "DDO154_SPARC12_08",
+      "DDO154_SPARC12_09",
+      "DDO154_SPARC12_10",
+      "DDO154_SPARC12_11",
+      "DDO154_SPARC12_12"
+     ],
+     "label": "row_ids in file order (12)",
+     "ok": true
+    },
+    {
+     "label": "rectangles bound exactly",
+     "ok": true
+    },
+    {
+     "detail": {
+      "DDO154_SPARC12_01": 1.6,
+      "DDO154_SPARC12_02": 0.8,
+      "DDO154_SPARC12_03": 0.7,
+      "DDO154_SPARC12_04": 0.5,
+      "DDO154_SPARC12_05": 0.4,
+      "DDO154_SPARC12_06": 0.2,
+      "DDO154_SPARC12_07": 0.2,
+      "DDO154_SPARC12_08": 0.2,
+      "DDO154_SPARC12_09": 0.3,
+      "DDO154_SPARC12_10": 0.6,
+      "DDO154_SPARC12_11": 0.7,
+      "DDO154_SPARC12_12": 1.3
+     },
+     "label": "sigmas bound exactly",
+     "ok": true
+    },
+    {
+     "detail": {
+      "DDO154_SPARC12_01": 13.8,
+      "DDO154_SPARC12_02": 21.6,
+      "DDO154_SPARC12_03": 28.9,
+      "DDO154_SPARC12_04": 34.3,
+      "DDO154_SPARC12_05": 38.2,
+      "DDO154_SPARC12_06": 42.0,
+      "DDO154_SPARC12_07": 44.6,
+      "DDO154_SPARC12_08": 46.3,
+      "DDO154_SPARC12_09": 47.4,
+      "DDO154_SPARC12_10": 48.2,
+      "DDO154_SPARC12_11": 47.4,
+      "DDO154_SPARC12_12": 45.5
+     },
+     "label": "observed bound exactly",
+     "ok": true
+    },
+    {
+     "detail": {
+      "DDO154_SPARC12_01": 0.49,
+      "DDO154_SPARC12_02": 0.99,
+      "DDO154_SPARC12_03": 1.48,
+      "DDO154_SPARC12_04": 1.97,
+      "DDO154_SPARC12_05": 2.47,
+      "DDO154_SPARC12_06": 2.96,
+      "DDO154_SPARC12_07": 3.46,
+      "DDO154_SPARC12_08": 3.95,
+      "DDO154_SPARC12_09": 4.44,
+      "DDO154_SPARC12_10": 4.94,
+      "DDO154_SPARC12_11": 5.43,
+      "DDO154_SPARC12_12": 5.92
+     },
+     "label": "reference_radius_kpc bound",
+     "ok": true
+    },
+    {
+     "label": "statistical_choice carried",
+     "ok": true
+    },
+    {
+     "label": "distance_summary and forward_coordinates carried",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E0",
+   "n_checks": 34,
+   "n_failed": 0,
+   "name": "engine helpers: spec, to_natural/to_unit, classify_prediction, load_observation_region",
+   "notes": [],
+   "numbers": {
+    "roundtrip_u": [
+     0.5,
+     0.5,
+     0.5000000000000002,
+     0.5
+    ]
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [],
+     "label": "ok True",
+     "ok": true
+    },
+    {
+     "detail": "COMPLETE",
+     "label": "status COMPLETE",
+     "ok": true
+    },
+    {
+     "detail": "NONE",
+     "label": "ngc3198_access == 'NONE'",
+     "ok": true
+    },
+    {
+     "detail": "COMPUTATIONAL_TRIAL_BOX_NOT_EMPIRICAL_BOUNDS",
+     "label": "bounds_semantics constant on run",
+     "ok": true
+    },
+    {
+     "detail": [
+      121,
+      121
+     ],
+     "label": "evaluations_used == toy call count",
+     "ok": true
+    },
+    {
+     "detail": 121,
+     "label": "evaluation_log length == evaluations_used",
+     "ok": true
+    },
+    {
+     "detail": 400,
+     "label": "budget echoed",
+     "ok": true
+    },
+    {
+     "detail": [
+      0,
+      0
+     ],
+     "label": "fixed coordinate always passed at trial value",
+     "ok": true
+    },
+    {
+     "detail": {
+      "ok": true,
+      "reasons": [],
+      "seed_admitted": true,
+      "seed_valid": true
+     },
+     "label": "jacobian ok, seed valid and admitted",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "no failed columns",
+     "ok": true
+    },
+    {
+     "detail": 1.3100631690576847e-13,
+     "label": "jacobian_u is 12x4 and matches the affine map within 1e-6",
+     "ok": true
+    },
+    {
+     "detail": 0.0,
+     "label": "null column entries |.| < 1e-8",
+     "ok": true
+    },
+    {
+     "label": "f0 equals observed speeds (seed at rectangle centres) within 1e-9",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "identifiability ok",
+     "ok": true
+    },
+    {
+     "detail": [
+      0,
+      1,
+      2
+     ],
+     "label": "identified count == 3",
+     "ok": true
+    },
+    {
+     "detail": [
+      3
+     ],
+     "label": "exactly one near-null direction",
+     "ok": true
+    },
+    {
+     "detail": [
+      48.497422611928116,
+      41.56921938165351,
+      34.64101615137757
+     ],
+     "label": "identified singular values == alpha*sqrt(12) within 1e-6",
+     "ok": true
+    },
+    {
+     "detail": [
+      0.0
+     ],
+     "label": "null singular value < 1e-6 * s_max",
+     "ok": true
+    },
+    {
+     "detail": 1.0,
+     "label": "near-null direction aligned with the zero column (|dot| > 0.999)",
+     "ok": true
+    },
+    {
+     "detail": "inf",
+     "label": "null condition number is 'inf' string or > 1e6",
+     "ok": true
+    },
+    {
+     "detail": 0.0,
+     "label": "scaled_jacobian == diag(1/sigma) J within 1e-9",
+     "ok": true
+    },
+    {
+     "detail": {
+      "empty_region": false,
+      "ok": true,
+      "stage_reached": "summary",
+      "status": "COMPLETE"
+     },
+     "label": "exploration ok, COMPLETE, not empty",
+     "ok": true
+    },
+    {
+     "detail": true,
+     "label": "anchor admitted (seed is admitted)",
+     "ok": true
+    },
+    {
+     "detail": [
+      0.5,
+      0.5,
+      0.5000000000000002,
+      0.5
+     ],
+     "label": "anchor u == trial u (0.5 each) within 1e-12",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E1: every admitted point satisfies all 12 rectangles (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E1: every rejected point violates >= 1 rectangle (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E1: every log entry labelled admitted is admitted (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": 54,
+     "label": "admitted points non-empty and anchor among them",
+     "ok": true
+    },
+    {
+     "detail": 0,
+     "label": "log_index unique across admitted+rejected",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "hull_box extents match analytic boundary within 2*bisection resolution (all identified directions)",
+     "ok": true
+    },
+    {
+     "label": "no box edge binds in E1 (fixture design)",
+     "ok": true
+    },
+    {
+     "detail": 1,
+     "label": "exactly one unidentified direction carried",
+     "ok": true
+    },
+    {
+     "detail": 3,
+     "label": "unidentified index == near_null index",
+     "ok": true
+    },
+    {
+     "detail": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "label": "unidentified vector aligned with e3",
+     "ok": true
+    },
+    {
+     "detail": 0.0,
+     "label": "sensitivity ~ 0 (< 1e-6)",
+     "ok": true
+    },
+    {
+     "detail": [
+      0.5,
+      0.5
+     ],
+     "label": "trial_projection finite and equal to u_trial.v or (u_trial-anchor).v",
+     "ok": true
+    },
+    {
+     "detail": 0.0,
+     "label": "singular_value carried on unidentified direction",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "every evaluation_log entry has the 10 interface keys",
+     "ok": true
+    },
+    {
+     "detail": 121,
+     "label": "evaluations_used <= budget",
+     "ok": true
+    },
+    {
+     "label": "run result is canonical-JSON serialisable (no NaN/inf, no numpy)",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E1",
+   "n_checks": 40,
+   "n_failed": 0,
+   "name": "analytic toy: known admitted cross-polytope and exact null direction",
+   "notes": [],
+   "numbers": {
+    "E1_admitted_count": 54,
+    "E1_rejected_count": 59,
+    "condition_numbers": [
+     1.0,
+     1.166666666666643,
+     1.3999999999999861,
+     "inf"
+    ],
+    "evaluations_used": 121,
+    "forward_calls_counted_by_toy": 121,
+    "hull_vs_analytic": [
+     {
+      "analytic_t_max": 0.20466144560943555,
+      "analytic_t_min": -0.20466144560943558,
+      "boundary_minus": 0.20437500000000003,
+      "boundary_plus": 0.20437500000000003,
+      "box_binding": [
+       false,
+       false
+      ],
+      "direction_index": 0,
+      "hull_max": 0.20437499999999995,
+      "hull_min": -0.20437499999999995,
+      "ok": true,
+      "tolerance_max": 0.00125,
+      "tolerance_min": 0.00125,
+      "vector_u": [
+       0.0,
+       1.3100631690576847e-14,
+       0.9999999999999999,
+       0.0
+      ]
+     },
+     {
+      "analytic_t_max": 0.2387716865443407,
+      "analytic_t_min": -0.2387716865443407,
+      "boundary_minus": 0.23875,
+      "boundary_plus": 0.23875,
+      "box_binding": [
+       false,
+       false
+      ],
+      "direction_index": 1,
+      "hull_max": 0.23874999999999982,
+      "hull_min": -0.23874999999999982,
+      "ok": true,
+      "tolerance_max": 0.00125,
+      "tolerance_min": 0.00125,
+      "vector_u": [
+       0.0,
+       0.9999999999999997,
+       -1.2685298256818909e-14,
+       0.0
+      ]
+     },
+     {
+      "analytic_t_max": 0.286526023853213,
+      "analytic_t_min": -0.286526023853213,
+      "boundary_minus": 0.28625,
+      "boundary_plus": 0.28625,
+      "box_binding": [
+       false,
+       false
+      ],
+      "direction_index": 2,
+      "hull_max": 0.28625,
+      "hull_min": -0.28625,
+      "ok": true,
+      "tolerance_max": 0.00125,
+      "tolerance_min": 0.00125,
+      "vector_u": [
+       1.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     }
+    ],
+    "identified": [
+     0,
+     1,
+     2
+    ],
+    "jacobian_max_abs_error": 1.3100631690576847e-13,
+    "jacobian_null_column_max_abs": 0.0,
+    "log_purposes": [
+     "bisection",
+     "design",
+     "jacobian",
+     "march",
+     "seed"
+    ],
+    "near_null": [
+     3
+    ],
+    "null_direction_abs_dot_e3": 1.0,
+    "singular_values": [
+     48.497422611928116,
+     41.56921938165351,
+     34.64101615137757,
+     0.0
+    ],
+    "singular_values_expected_identified": [
+     48.49742261192856,
+     41.569219381653056,
+     34.64101615137754
+    ],
+    "trial_projection_convention": "u_trial.v",
+    "unidentified_directions": [
+     {
+      "admitted_anchor_projection": 0.5,
+      "index": 3,
+      "sensitivity": 0.0,
+      "singular_value": 0.0,
+      "trial_projection": 0.5,
+      "vector_u": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    ]
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "label": "fixture: shifted seed is not admitted under the toy",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "ok True",
+     "ok": true
+    },
+    {
+     "detail": "COMPLETE",
+     "label": "status COMPLETE",
+     "ok": true
+    },
+    {
+     "detail": false,
+     "label": "empty_region False",
+     "ok": true
+    },
+    {
+     "detail": false,
+     "label": "anchor reported not admitted",
+     "ok": true
+    },
+    {
+     "detail": false,
+     "label": "seed_admitted False in jacobian",
+     "ok": true
+    },
+    {
+     "detail": 54,
+     "label": "repair found >= 1 admitted point",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E2: every admitted point satisfies all 12 rectangles (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E2: every rejected point violates >= 1 rectangle (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E2: every log entry labelled admitted is admitted (toy recompute)",
+     "ok": true
+    },
+    {
+     "label": "first admitted point lies in the box",
+     "ok": true
+    },
+    {
+     "detail": 0.5,
+     "label": "repair did not move the null coordinate (|u3-0.5|<1e-9)",
+     "ok": true
+    },
+    {
+     "detail": 122,
+     "label": "evaluation_log length == evaluations_used",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E2",
+   "n_checks": 13,
+   "n_failed": 0,
+   "name": "seed not admitted, region nonempty: repair finds an admitted point",
+   "notes": [],
+   "numbers": {
+    "E2_admitted_count": 54,
+    "E2_rejected_count": 60,
+    "evaluations_used": 122,
+    "first_admitted_log_index": 9,
+    "first_admitted_u": [
+     0.5000000000000007,
+     0.5000000000000002,
+     0.5000000000000017,
+     0.5
+    ],
+    "repair_log_entries": 1
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "label": "fixture: conflicting rows 0 and 2 have identical pattern rows",
+     "ok": true
+    },
+    {
+     "detail": "NO_ADMITTED_POINT",
+     "label": "E3a_asymmetric: status NO_ADMITTED_POINT",
+     "ok": true
+    },
+    {
+     "detail": true,
+     "label": "E3a_asymmetric: empty_region True",
+     "ok": true
+    },
+    {
+     "detail": 0,
+     "label": "E3a_asymmetric: no admitted points",
+     "ok": true
+    },
+    {
+     "detail": [
+      10,
+      10,
+      10
+     ],
+     "label": "E3a_asymmetric: evaluation_log length == evaluations_used == toy calls",
+     "ok": true
+    },
+    {
+     "label": "E3a_asymmetric: no log entry labelled admitted",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E3a_asymmetric: toy recompute: no evaluated point is admitted",
+     "ok": true
+    },
+    {
+     "detail": 2,
+     "label": "E3a_asymmetric: rejected_points preserved (>=1)",
+     "ok": true
+    },
+    {
+     "label": "E3a_asymmetric: evaluations_used <= budget",
+     "ok": true
+    },
+    {
+     "detail": 10,
+     "label": "E3a_asymmetric: jacobian stage completed (9 evaluations) before the repair",
+     "ok": true
+    },
+    {
+     "detail": 1,
+     "label": "E3a_asymmetric: repair steps were evaluated (>=1 repair-purpose entry, <= repair_iterations)",
+     "ok": true
+    },
+    {
+     "label": "E3a_asymmetric: every repair point lies in the box",
+     "ok": true
+    },
+    {
+     "label": "E3a_asymmetric: repair never moved the null coordinate (|u3-0.5|<1e-9)",
+     "ok": true
+    },
+    {
+     "detail": "NO_ADMITTED_POINT",
+     "label": "E3b_symmetric_zero_step: status NO_ADMITTED_POINT",
+     "ok": true
+    },
+    {
+     "detail": true,
+     "label": "E3b_symmetric_zero_step: empty_region True",
+     "ok": true
+    },
+    {
+     "detail": 0,
+     "label": "E3b_symmetric_zero_step: no admitted points",
+     "ok": true
+    },
+    {
+     "detail": [
+      9,
+      9,
+      9
+     ],
+     "label": "E3b_symmetric_zero_step: evaluation_log length == evaluations_used == toy calls",
+     "ok": true
+    },
+    {
+     "label": "E3b_symmetric_zero_step: no log entry labelled admitted",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E3b_symmetric_zero_step: toy recompute: no evaluated point is admitted",
+     "ok": true
+    },
+    {
+     "detail": 1,
+     "label": "E3b_symmetric_zero_step: rejected_points preserved (>=1)",
+     "ok": true
+    },
+    {
+     "label": "E3b_symmetric_zero_step: evaluations_used <= budget",
+     "ok": true
+    },
+    {
+     "detail": 9,
+     "label": "E3b_symmetric_zero_step: jacobian stage completed (9 evaluations) before the repair",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E3",
+   "n_checks": 22,
+   "n_failed": 0,
+   "name": "empty region: two rows forced to conflict",
+   "notes": [
+    "E3a_asymmetric: ok=True for the empty-region result (interface does not fix ok for a registered empty region; not judged)",
+    "E3b_symmetric_zero_step: Gauss-Newton step is exactly zero by construction (S^T r = 0); repair-purpose entries = 0 (not judged)",
+    "E3b_symmetric_zero_step: ok=True for the empty-region result (interface does not fix ok for a registered empty region; not judged)"
+   ],
+   "numbers": {
+    "E3a_asymmetric": {
+     "empty_region": true,
+     "evaluations_used": 10,
+     "offsets_in_sigma_units": {
+      "DDO154_SPARC12_01": 13.753249144954246,
+      "DDO154_SPARC12_03": -10.028410834862468
+     },
+     "ok": true,
+     "rejected_points": 2,
+     "repair_log_entries": 1,
+     "stage_reached": "repair",
+     "status": "NO_ADMITTED_POINT"
+    },
+    "E3b_symmetric_zero_step": {
+     "empty_region": true,
+     "evaluations_used": 9,
+     "offsets_in_sigma_units": {
+      "DDO154_SPARC12_01": 13.753249144954246,
+      "DDO154_SPARC12_03": -6.017046500917481
+     },
+     "ok": true,
+     "rejected_points": 1,
+     "repair_log_entries": 0,
+     "stage_reached": "repair",
+     "status": "NO_ADMITTED_POINT"
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [
+      true,
+      "COMPLETE",
+      []
+     ],
+     "label": "run completes: ok True, status COMPLETE",
+     "ok": true
+    },
+    {
+     "detail": [
+      3,
+      1,
+      1
+     ],
+     "label": "fixture exercised: >=1 raise, >=1 NaN, >=1 missing id",
+     "ok": true
+    },
+    {
+     "detail": [
+      121,
+      121
+     ],
+     "label": "evaluation_log length == toy calls (raising calls logged too)",
+     "ok": true
+    },
+    {
+     "detail": [
+      5,
+      5
+     ],
+     "label": "invalid log entries == raised + nan + dropped",
+     "ok": true
+    },
+    {
+     "label": "no invalid entry is admitted",
+     "ok": true
+    },
+    {
+     "label": "every invalid entry has reasons or exception text",
+     "ok": true
+    },
+    {
+     "detail": [
+      "FixtureForwardError: fixture forward raised deliberately at u=[0.82, 0.5, 0.5, 0.5]",
+      "FixtureForwardError: fixture forward raised deliberately at u=[0.74, 0.5, 0.5, 0.5]",
+      "FixtureForwardError: fixture forward raised deliberately at u=[0.72, 0.5, 0.5, 0.5]"
+     ],
+     "label": "exception entries == raised, text mentions FixtureForwardError or its message",
+     "ok": true
+    },
+    {
+     "label": "exception entries have prediction None and valid False",
+     "ok": true
+    },
+    {
+     "detail": [
+      1,
+      1
+     ],
+     "label": "NaN-row evaluations logged valid False with a reason",
+     "ok": true
+    },
+    {
+     "detail": [
+      1,
+      1
+     ],
+     "label": "missing-id evaluations logged valid False with a reason",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "admitted points all truly admitted under the toy",
+     "ok": true
+    },
+    {
+     "label": "invalid evaluations never appear in admitted_points",
+     "ok": true
+    },
+    {
+     "label": "result JSON-serialisable",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E4",
+   "n_checks": 13,
+   "n_failed": 0,
+   "name": "forward failures: exception, NaN row, missing id",
+   "notes": [],
+   "numbers": {
+    "admitted_count": 58,
+    "evaluations_used": 121,
+    "exception_entries": 3,
+    "invalid_log_entries": 5,
+    "rejected_count": 55,
+    "toy_dropped": 1,
+    "toy_nan_returned": 1,
+    "toy_raised": 3
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": "BUDGET_EXHAUSTED",
+     "label": "budget30: status BUDGET_EXHAUSTED",
+     "ok": true
+    },
+    {
+     "detail": 30,
+     "label": "budget30: evaluations_used == budget",
+     "ok": true
+    },
+    {
+     "detail": 30,
+     "label": "budget30: evaluation_log length == budget",
+     "ok": true
+    },
+    {
+     "detail": 30,
+     "label": "budget30: toy never called more than budget",
+     "ok": true
+    },
+    {
+     "detail": "bisection",
+     "label": "budget30: stage_reached present (non-empty)",
+     "ok": true
+    },
+    {
+     "detail": 12,
+     "label": "budget30: partial admitted list preserved (anchor admitted, >=1)",
+     "ok": true
+    },
+    {
+     "label": "budget30: partial admitted/rejected points have log_index < budget",
+     "ok": true
+    },
+    {
+     "label": "budget30: admitted points match admitted log entries",
+     "ok": true
+    },
+    {
+     "label": "budget30: rejected points match non-admitted log entries",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E5b30: every admitted point satisfies all 12 rectangles (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E5b30: every rejected point violates >= 1 rectangle (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E5b30: every log entry labelled admitted is admitted (toy recompute)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "budget30: jacobian completed before exhaustion (9 evaluations)",
+     "ok": true
+    },
+    {
+     "detail": "BUDGET_EXHAUSTED",
+     "label": "budget5: status BUDGET_EXHAUSTED",
+     "ok": true
+    },
+    {
+     "detail": 5,
+     "label": "budget5: evaluations_used == budget",
+     "ok": true
+    },
+    {
+     "detail": 5,
+     "label": "budget5: evaluation_log length == budget",
+     "ok": true
+    },
+    {
+     "detail": 5,
+     "label": "budget5: toy never called more than budget",
+     "ok": true
+    },
+    {
+     "detail": "jacobian",
+     "label": "budget5: stage_reached present (non-empty)",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E5",
+   "n_checks": 18,
+   "n_failed": 0,
+   "name": "budget exhaustion with partial results preserved",
+   "notes": [],
+   "numbers": {
+    "E5b30_admitted_count": 12,
+    "E5b30_rejected_count": 10,
+    "budget30": {
+     "admitted": 12,
+     "evaluations_used": 30,
+     "log_len": 30,
+     "ok": false,
+     "rejected": 10,
+     "stage_reached": "bisection",
+     "status": "BUDGET_EXHAUSTED",
+     "toy_calls": 30
+    },
+    "budget5": {
+     "admitted": 0,
+     "evaluations_used": 5,
+     "log_len": 5,
+     "ok": false,
+     "rejected": 0,
+     "stage_reached": "jacobian",
+     "status": "BUDGET_EXHAUSTED",
+     "toy_calls": 5
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "label": "two identical configurations give byte-identical canonical JSON",
+     "ok": true
+    },
+    {
+     "detail": [
+      121,
+      121
+     ],
+     "label": "same evaluation count both runs",
+     "ok": true
+    },
+    {
+     "label": "E1 run equals E6 runs (same configuration)",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E6",
+   "n_checks": 3,
+   "n_failed": 0,
+   "name": "determinism: identical canonical JSON on repeat",
+   "notes": [],
+   "numbers": {
+    "len_json_run1": 285567,
+    "len_json_run2": 285567,
+    "sha256_run1": "e121aefabff8bee9912dae30d9073faf3a665398b7c65976837b2a1f127e4417",
+    "sha256_run2": "e121aefabff8bee9912dae30d9073faf3a665398b7c65976837b2a1f127e4417"
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [
+      "observation region failed to load",
+      "SHA256 mismatch between file bytes and expected_sha256; file not parsed"
+     ],
+     "label": "wrong region hash -> ok False",
+     "ok": true
+    },
+    {
+     "detail": [
+      "observation region failed to load",
+      "SHA256 mismatch between file bytes and expected_sha256; file not parsed"
+     ],
+     "label": "reasons non-empty",
+     "ok": true
+    },
+    {
+     "detail": 0,
+     "label": "forward never called",
+     "ok": true
+    },
+    {
+     "detail": 0,
+     "label": "evaluations_used is 0 or absent",
+     "ok": true
+    },
+    {
+     "detail": 0,
+     "label": "evaluation_log empty or absent",
+     "ok": true
+    },
+    {
+     "detail": [
+      "SHA256 mismatch between file bytes and expected_sha256; file not parsed"
+     ],
+     "label": "load_observation_region refuses wrong hash",
+     "ok": true
+    },
+    {
+     "detail": [
+      "cannot read observation-region file: FileNotFoundError: [Errno 2] No such file or directory: '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json.does_not_exist'"
+     ],
+     "label": "load_observation_region on a missing file -> ok False, no raise",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "E7",
+   "n_checks": 7,
+   "n_failed": 0,
+   "name": "hash guard: wrong region sha256 -> ok False, no evaluation",
+   "notes": [],
+   "numbers": {
+    "evaluations_used": 0,
+    "ok": false,
+    "toy_calls": 0
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [],
+     "label": "ok True with the correct hash",
+     "ok": true
+    },
+    {
+     "detail": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494",
+     "label": "sha256 reported",
+     "ok": true
+    },
+    {
+     "detail": [
+      "NGC3198-Q01",
+      "NGC3198-Q02",
+      "NGC3198-Q03",
+      "NGC3198-Q04",
+      "NGC3198-Q05"
+     ],
+     "label": "43 ids in order Q01..Q43",
+     "ok": true
+    },
+    {
+     "label": "query_ids equal my own parse of the manifest",
+     "ok": true
+    },
+    {
+     "detail": [
+      "0.32",
+      "44.08"
+     ],
+     "label": "radii_text bound (Q01 -> '0.32', Q43 -> '44.08')",
+     "ok": true
+    },
+    {
+     "detail": "kpc",
+     "label": "rad_unit kpc",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "no velocity-like key in the load result",
+     "ok": true
+    },
+    {
+     "detail": [
+      "sha256 mismatch: expected 0000000000000000000000000000000000000000000000000000000000000000, actual a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494"
+     ],
+     "label": "wrong hash refused (ok False)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "wrong hash: no query_ids returned",
+     "ok": true
+    },
+    {
+     "detail": [
+      "unreadable file '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json.missing': FileNotFoundError: [Errno 2] No such file or directory: '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json.missing'"
+     ],
+     "label": "missing file -> ok False, no raise",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "F1",
+   "n_checks": 10,
+   "n_failed": 0,
+   "name": "load_query_manifest: real target-free manifest, wrong hash refused",
+   "notes": [],
+   "numbers": {},
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [],
+     "label": "ok True (interior_count=2)",
+     "ok": true
+    },
+    {
+     "detail": [
+      10,
+      12,
+      14,
+      16
+     ],
+     "label": "all four hull vertices present with role hull_vertex",
+     "ok": true
+    },
+    {
+     "detail": 4,
+     "label": "hull_vertex_count == 4",
+     "ok": true
+    },
+    {
+     "label": "anchor present with role anchor",
+     "ok": true
+    },
+    {
+     "detail": [
+      2,
+      2
+     ],
+     "label": "interior count respected (2 interior points)",
+     "ok": true
+    },
+    {
+     "detail": [
+      20,
+      30
+     ],
+     "label": "interior points drawn from the remaining admitted points",
+     "ok": true
+    },
+    {
+     "label": "interior points in ascending log_index",
+     "ok": true
+    },
+    {
+     "detail": [
+      12,
+      10,
+      16,
+      14,
+      9,
+      20,
+      30
+     ],
+     "label": "no duplicate log_index",
+     "ok": true
+    },
+    {
+     "detail": 7,
+     "label": "total points == 7",
+     "ok": true
+    },
+    {
+     "detail": [
+      "hull_vertex",
+      "hull_vertex",
+      "hull_vertex",
+      "hull_vertex",
+      "anchor",
+      "interior",
+      "interior"
+     ],
+     "label": "order: hull vertices, then anchor, then interior",
+     "ok": true
+    },
+    {
+     "label": "each point carries u and theta_natural",
+     "ok": true
+    },
+    {
+     "detail": [
+      9,
+      4
+     ],
+     "label": "interior_count=100 -> all 4 remaining points used (9 total)",
+     "ok": true
+    },
+    {
+     "detail": 5,
+     "label": "interior_count=0 -> hull vertices + anchor only (5)",
+     "ok": true
+    },
+    {
+     "detail": [
+      12,
+      40,
+      16,
+      9,
+      20,
+      30
+     ],
+     "label": "shared extreme point: ok, no duplicate log_index",
+     "ok": true
+    },
+    {
+     "detail": [
+      12,
+      40,
+      16,
+      9,
+      20,
+      30
+     ],
+     "label": "shared extreme point appears once as hull_vertex",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "E1 exploration: ok",
+     "ok": true
+    },
+    {
+     "label": "E1 exploration: no duplicate log_index",
+     "ok": true
+    },
+    {
+     "detail": [
+      {
+       "has_max": true,
+       "has_min": true,
+       "k": 0,
+       "pmax": 0.20437499999999995,
+       "pmin": -0.20437499999999995
+      },
+      {
+       "has_max": true,
+       "has_min": true,
+       "k": 1,
+       "pmax": 0.23874999999999982,
+       "pmin": -0.23874999999999982
+      },
+      {
+       "has_max": true,
+       "has_min": true,
+       "k": 2,
+       "pmax": 0.28625,
+       "pmin": -0.28625
+      }
+     ],
+     "label": "E1 exploration: returned hull vertices attain min and max projection per identified direction",
+     "ok": true
+    },
+    {
+     "label": "E1 exploration: anchor present",
+     "ok": true
+    },
+    {
+     "detail": 5,
+     "label": "E1 exploration: interior_count_used <= 5",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "F2",
+   "n_checks": 20,
+   "n_failed": 0,
+   "name": "select_representative_points on a synthetic exploration (and the E1 exploration)",
+   "notes": [],
+   "numbers": {
+    "E1_hull_check": [
+     {
+      "has_max": true,
+      "has_min": true,
+      "k": 0,
+      "pmax": 0.20437499999999995,
+      "pmin": -0.20437499999999995
+     },
+     {
+      "has_max": true,
+      "has_min": true,
+      "k": 1,
+      "pmax": 0.23874999999999982,
+      "pmin": -0.23874999999999982
+     },
+     {
+      "has_max": true,
+      "has_min": true,
+      "k": 2,
+      "pmax": 0.28625,
+      "pmin": -0.28625
+     }
+    ],
+    "E1_layout_accepted": "run_result",
+    "hull_vertex_count": 4,
+    "interior_count_used": 2,
+    "layout_accepted": "run_result",
+    "log_indices": [
+     12,
+     10,
+     16,
+     14,
+     9,
+     20,
+     30
+    ],
+    "roles": [
+     "hull_vertex",
+     "hull_vertex",
+     "hull_vertex",
+     "hull_vertex",
+     "anchor",
+     "interior",
+     "interior"
+    ],
+    "shared_extreme_hull_vertex_count_reported": 3
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [
+      true,
+      "COMPLETE",
+      []
+     ],
+     "label": "F3a ok, COMPLETE",
+     "ok": true
+    },
+    {
+     "detail": [
+      5,
+      5
+     ],
+     "label": "F3a evaluations_used == 5 == toy calls",
+     "ok": true
+    },
+    {
+     "detail": 5,
+     "label": "F3a evaluation_log length 5",
+     "ok": true
+    },
+    {
+     "detail": [
+      [
+       0,
+       true
+      ],
+      [
+       1,
+       true
+      ],
+      [
+       2,
+       true
+      ],
+      [
+       3,
+       true
+      ],
+      [
+       4,
+       true
+      ]
+     ],
+     "label": "F3a per_point: 5 entries, point_index 0..4, all valid",
+     "ok": true
+    },
+    {
+     "detail": 43,
+     "label": "F3a envelopes cover exactly the 43 query ids",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "F3a per-query min/max/central(median)/n_points/n_valid/valid match recomputation",
+     "ok": true
+    },
+    {
+     "detail": [
+      "COMPLETE",
+      1,
+      []
+     ],
+     "label": "F3b run completes (status COMPLETE), toy raised once",
+     "ok": true
+    },
+    {
+     "detail": {
+      "exception": "FixtureForwardError: fixture forward_ngc raised deliberately at a=0.25",
+      "point_index": 2,
+      "reasons": [
+       "exception raised by forward_ngc: FixtureForwardError: fixture forward_ngc raised deliberately at a=0.25"
+      ],
+      "speeds_km_s": null,
+      "valid": false
+     },
+     "label": "F3b per_point[2] valid False with exception text",
+     "ok": true
+    },
+    {
+     "detail": [
+      [
+       0,
+       true
+      ],
+      [
+       1,
+       true
+      ],
+      [
+       2,
+       false
+      ],
+      [
+       3,
+       true
+      ],
+      [
+       4,
+       true
+      ],
+      [
+       5,
+       true
+      ]
+     ],
+     "label": "F3b other points valid",
+     "ok": true
+    },
+    {
+     "detail": [
+      [
+       "NGC3198-Q01",
+       false
+      ],
+      [
+       "NGC3198-Q02",
+       false
+      ],
+      [
+       "NGC3198-Q03",
+       false
+      ]
+     ],
+     "label": "F3b every query valid False (a raising point invalidates every query)",
+     "ok": true
+    },
+    {
+     "detail": {
+      "central": 153.94096805054346,
+      "max": 155.931200608683,
+      "min": 150.95561921333416,
+      "n_points": 6,
+      "n_valid": 5,
+      "valid": false
+     },
+     "label": "F3b n_valid == 5, n_points == 6 for every query",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "F3b numbers, where reported, are over the 5 valid points",
+     "ok": true
+    },
+    {
+     "detail": [
+      "COMPLETE",
+      7,
+      []
+     ],
+     "label": "F3c completes",
+     "ok": true
+    },
+    {
+     "detail": {
+      "central": 152.9047663703393,
+      "max": 156.11418497499045,
+      "min": 150.61232450987418,
+      "n_points": 7,
+      "n_valid": 6,
+      "valid": false
+     },
+     "label": "F3c Q17 valid False",
+     "ok": true
+    },
+    {
+     "detail": [
+      [
+       "NGC3198-Q01",
+       true
+      ],
+      [
+       "NGC3198-Q02",
+       true
+      ],
+      [
+       "NGC3198-Q03",
+       true
+      ]
+     ],
+     "label": "F3c other queries uniformly valid (per-query reading) or uniformly invalid (per-point reading)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "F3c numbers for the other queries match recomputation under the reported reading",
+     "ok": true
+    },
+    {
+     "detail": {
+      "central": 152.9047663703393,
+      "max": 156.11418497499045,
+      "min": 150.61232450987418,
+      "n_points": 7,
+      "n_valid": 6,
+      "valid": false
+     },
+     "label": "F3c Q17 n_valid == 6 (NaN point excluded)",
+     "ok": true
+    },
+    {
+     "detail": {
+      "central": 152.9047663703393,
+      "max": 156.11418497499045,
+      "min": 150.61232450987418,
+      "n_points": 7,
+      "n_valid": 6,
+      "valid": false
+     },
+     "label": "F3c Q17 numbers, if reported, are over the 6 finite values",
+     "ok": true
+    },
+    {
+     "detail": "BUDGET_EXHAUSTED",
+     "label": "F3d status BUDGET_EXHAUSTED",
+     "ok": true
+    },
+    {
+     "detail": [
+      3,
+      3
+     ],
+     "label": "F3d evaluations_used == 3 == toy calls",
+     "ok": true
+    },
+    {
+     "label": "F3d partial results preserved: >=3 per_point entries, 3 log entries, envelopes present",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "F3d partial min/max (where reported) are over the 3 evaluated points",
+     "ok": true
+    },
+    {
+     "detail": [
+      [
+       "NGC3198-Q01",
+       {
+        "central": 151.95073549240394,
+        "max": 152.9458517714737,
+        "min": 150.95561921333416,
+        "n_points": 3,
+        "n_valid": 3,
+        "valid": true
+       }
+      ],
+      [
+       "NGC3198-Q02",
+       {
+        "central": 152.01464871341284,
+        "max": 153.00488127155236,
+        "min": 151.02441615527331,
+        "n_points": 3,
+        "n_valid": 3,
+        "valid": true
+       }
+      ]
+     ],
+     "label": "F3d per-query n_valid == 3 and valid True ('every evaluated point' rule) for all queries",
+     "ok": true
+    },
+    {
+     "detail": [
+      {
+       "exception": null,
+       "point_index": 0,
+       "reasons": [
+        "forward_ngc returned str, not a dict"
+       ],
+       "speeds_km_s": null,
+       "valid": false
+      },
+      {
+       "exception": null,
+       "point_index": 1,
+       "reasons": [
+        "forward_ngc returned str, not a dict"
+       ],
+       "speeds_km_s": null,
+       "valid": false
+      }
+     ],
+     "label": "F3e forward returning a non-dict -> points invalid, no raise",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "F3",
+   "n_checks": 24,
+   "n_failed": 0,
+   "name": "evaluate_envelopes: all valid, raise, NaN, budget exhaustion",
+   "notes": [
+    "F3d: under BUDGET_EXHAUSTED the per-query valid flag is True whenever every *evaluated* point was finite (interface wording); callers must gate on status, not on valid"
+   ],
+   "numbers": {
+    "F3a_example_Q01": {
+     "central": 152.9458517714737,
+     "max": 154.93608432961324,
+     "min": 150.95561921333416,
+     "n_points": 5,
+     "n_valid": 5,
+     "valid": true
+    },
+    "F3b_example_Q01": {
+     "central": 153.94096805054346,
+     "max": 155.931200608683,
+     "min": 150.95561921333416,
+     "n_points": 6,
+     "n_valid": 5,
+     "valid": false
+    },
+    "F3c_point4": {
+     "exception": null,
+     "point_index": 4,
+     "reasons": [
+      "non-finite or non-real value for NGC3198-Q17: nan"
+     ],
+     "speeds_km_s": {
+      "NGC3198-Q01": 154.93608432961324,
+      "NGC3198-Q02": 154.98534638783144,
+      "NGC3198-Q03": 154.61660651565785,
+      "NGC3198-Q04": 154.18299410118325,
+      "NGC3198-Q05": 154.09728204871493,
+      "NGC3198-Q06": 154.45238527415634,
+      "NGC3198-Q07": 154.9359351598245,
+      "NGC3198-Q08": 155.11746982098612,
+      "NGC3198-Q09": 154.8441987775046,
+      "NGC3198-Q10": 154.38147781664833,
+      "NGC3198-Q11": 154.16884210602697,
+      "NGC3198-Q12": 154.4158995875114,
+      "NGC3198-Q13": 154.90961840213424,
+      "NGC3198-Q14": 155.21018739877766,
+      "NGC3198-Q15": 155.05537647821808,
+      "NGC3198-Q16": 154.6016297370163,
+      "NGC3198-Q17": null,
+      "NGC3198-Q18": 154.4007854463816,
+      "NGC3198-Q19": 154.86656651180823,
+      "NGC3198-Q20": 155.26344936954985,
+      "NGC3198-Q21": 155.24065340066338,
+      "NGC3198-Q22": 154.83324876395946,
+      "NGC3198-Q23": 154.42991305372635,
+      "NGC3198-Q24": 154.41558291201994,
+      "NGC3198-Q25": 154.81754505518367,
+      "NGC3198-Q26": 155.28034899268167,
+      "NGC3198-Q27": 155.3926065688534,
+      "NGC3198-Q28": 155.0652203360144,
+      "NGC3198-Q29": 154.61329933696328,
+      "NGC3198-Q30": 154.46644930423264,
+      "NGC3198-Q31": 154.77379513082684,
+      "NGC3198-Q32": 155.26687613131853,
+      "NGC3198-Q33": 155.5064675579606,
+      "NGC3198-Q34": 155.2864018081763,
+      "NGC3198-Q35": 154.8231179675775,
+      "NGC3198-Q36": 154.55666871281332,
+      "NGC3198-Q37": 154.74613791006567,
+      "NGC3198-Q38": 155.2314401033082,
+      "NGC3198-Q39": 155.58050234430482,
+      "NGC3198-Q40": 155.48651006861178,
+      "NGC3198-Q41": 155.04999099117904,
+      "NGC3198-Q42": 154.68639038883288,
+      "NGC3198-Q43": 154.74411262868568
+     },
+     "valid": false
+    },
+    "F3c_reading": "per-query (other queries valid, 7 points)",
+    "F3d": {
+     "evaluations_used": 3,
+     "log_len": 3,
+     "ok": true,
+     "per_point_len": 3,
+     "status": "BUDGET_EXHAUSTED",
+     "toy_calls": 3
+    },
+    "F3d_n_points_reported": 3
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [],
+     "label": "write ok",
+     "ok": true
+    },
+    {
+     "detail": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final/FREEZE_MANIFEST_FIXTURE_A.json",
+     "label": "path echoed",
+     "ok": true
+    },
+    {
+     "label": "file exists",
+     "ok": true
+    },
+    {
+     "detail": [
+      10281,
+      10281
+     ],
+     "label": "bytes_written == file size",
+     "ok": true
+    },
+    {
+     "label": "file is canonical JSON bytes",
+     "ok": true
+    },
+    {
+     "detail": "FREEZE_MANIFEST_C3V001",
+     "label": "schema FREEZE_MANIFEST_C3V001",
+     "ok": true
+    },
+    {
+     "detail": [
+      "km/s",
+      "TOTAL_OBSERVABLE"
+     ],
+     "label": "units km/s, semantics TOTAL_OBSERVABLE",
+     "ok": true
+    },
+    {
+     "detail": false,
+     "label": "target_velocities_included False",
+     "ok": true
+    },
+    {
+     "detail": "valid and |velocity - observed| <= quoted sigma (central value); band overlap is reported separately and is not the headline",
+     "label": "within_error_rule string present",
+     "ok": true
+    },
+    {
+     "label": "query_ids in manifest order",
+     "ok": true
+    },
+    {
+     "detail": [
+      "NGC3198-Q01",
+      "NGC3198-Q02",
+      "NGC3198-Q03"
+     ],
+     "label": "43 predictions ordered by query_ids",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "prediction fields equal the envelopes (velocity=central, band=min/max, counts, valid)",
+     "ok": true
+    },
+    {
+     "label": "manifest_sha256 == sha256(canonical JSON without that key)",
+     "ok": true
+    },
+    {
+     "detail": "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287",
+     "label": "returned manifest_sha256 equals recorded",
+     "ok": true
+    },
+    {
+     "detail": {
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/calibration_region_engine_c3v001.py": "f5613832fcb6e452b4490d56453cce37fb8846e802442407e794f80a6ec84e0b",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/prediction_freeze_c3v001.py": "ed6b5a3e1d02f6f5c506c9af839e25faae120b14ba4a8466beca7fba30c09200"
+     },
+     "label": "code pins hashed from bytes",
+     "ok": true
+    },
+    {
+     "detail": {
+      "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d",
+      "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494"
+     },
+     "label": "input pins hashed from bytes",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "no forbidden key anywhere in the manifest",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "parameter_region, alternatives, observation_rule, notes, created_utc present",
+     "ok": true
+    },
+    {
+     "detail": [
+      "REFUSED: out_path already exists (no overwrite): /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final/FREEZE_MANIFEST_FIXTURE_A.json"
+     ],
+     "label": "refuses when out_path exists",
+     "ok": true
+    },
+    {
+     "label": "existing file untouched",
+     "ok": true
+    },
+    {
+     "detail": [
+      "REFUSED: forbidden target field name(s) present: ['notes.detail.vobs']"
+     ],
+     "label": "refuses forbidden key 'vobs' nested in notes",
+     "ok": true
+    },
+    {
+     "label": "no file written on refusal",
+     "ok": true
+    },
+    {
+     "detail": [
+      "REFUSED: forbidden target field name(s) present: ['parameter_region.nested.deeper.Target_Rows']"
+     ],
+     "label": "refuses forbidden key 'Target_Rows' (case-insensitive) nested in parameter_region",
+     "ok": true
+    },
+    {
+     "detail": [
+      "REFUSED: envelopes do not cover exactly query_ids (missing ['NGC3198-Q43'], extra [])"
+     ],
+     "label": "refuses envelopes missing one query",
+     "ok": true
+    },
+    {
+     "detail": [
+      "REFUSED: envelopes do not cover exactly query_ids (missing [], extra ['NGC3198-Q44'])"
+     ],
+     "label": "refuses envelopes with an extra query",
+     "ok": true
+    },
+    {
+     "detail": [
+      "code_files[1]: unreadable file '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final/no_such_code_file.py': FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final/no_such_code_file.py'"
+     ],
+     "label": "refuses an unreadable listed code file",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "manifest with an invalid query (Q17) is writable",
+     "ok": true
+    },
+    {
+     "detail": {
+      "band_high": 156.11418497499045,
+      "band_low": 150.61232450987418,
+      "id": "NGC3198-Q17",
+      "n_points": 7,
+      "n_valid": 6,
+      "valid": false,
+      "velocity": 152.9047663703393
+     },
+     "label": "manifest C: Q17 prediction carries valid False",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "manifest P written with a scratch pinned input",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "F4",
+   "n_checks": 29,
+   "n_failed": 0,
+   "name": "write_freeze_manifest: content, hash, ordering, refusals",
+   "notes": [
+    "observation (not judged): write_freeze_manifest accepted a manifest built from BUDGET_EXHAUSTED envelopes (3 of 7 points evaluated, every query valid True); reasons=[]"
+   ],
+   "numbers": {
+    "manifest_sha256_recomputed": "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287",
+    "manifest_sha256_recorded": "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287",
+    "partial_envelopes_manifest_accepted": true
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": [],
+     "label": "verify ok on the untouched manifest",
+     "ok": true
+    },
+    {
+     "detail": [
+      "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287",
+      "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287"
+     ],
+     "label": "verify: recomputed == recorded == my recomputation",
+     "ok": true
+    },
+    {
+     "detail": [
+      {
+       "actual": "f5613832fcb6e452b4490d56453cce37fb8846e802442407e794f80a6ec84e0b",
+       "ok": true,
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/calibration_region_engine_c3v001.py",
+       "recorded": "f5613832fcb6e452b4490d56453cce37fb8846e802442407e794f80a6ec84e0b"
+      },
+      {
+       "actual": "ed6b5a3e1d02f6f5c506c9af839e25faae120b14ba4a8466beca7fba30c09200",
+       "ok": true,
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/prediction_freeze_c3v001.py",
+       "recorded": "ed6b5a3e1d02f6f5c506c9af839e25faae120b14ba4a8466beca7fba30c09200"
+      },
+      {
+       "actual": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d",
+       "ok": true,
+       "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+       "recorded": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+      },
+      {
+       "actual": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494",
+       "ok": true,
+       "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json",
+       "recorded": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494"
+      }
+     ],
+     "label": "verify: 4 pins verified, all ok, recorded == actual",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      false,
+      []
+     ],
+     "label": "score ok, not refused",
+     "ok": true
+    },
+    {
+     "detail": [
+      43,
+      43
+     ],
+     "label": "n_rows 43 and 43 row entries",
+     "ok": true
+    },
+    {
+     "detail": "CONDITIONAL_QUOTED_SIGMA_DIAGONAL_ONLY",
+     "label": "error_model string",
+     "ok": true
+    },
+    {
+     "detail": "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287",
+     "label": "manifest_sha256 reported equals the manifest's",
+     "ok": true
+    },
+    {
+     "detail": [
+      20,
+      20
+     ],
+     "label": "within_error_count == my recomputation (20 within on all-valid manifest)",
+     "ok": true
+    },
+    {
+     "detail": [
+      42,
+      42,
+      42
+     ],
+     "label": "band_overlap_count reported separately and equals my recomputation",
+     "ok": true
+    },
+    {
+     "detail": 0,
+     "label": "invalid_count == 0",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "per-row: all 12 fields present for all 43 rows",
+     "ok": true
+    },
+    {
+     "label": "per-row ids in manifest order",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "per-row numbers: residual, sigma_ratio, fractional_error (None at observed 0), within, overlap all match",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: target_rows rejected",
+       "target_rows[0] id 'NGC3198-Q02' does not match manifest query_ids[0] 'NGC3198-Q01'",
+       "target_rows[1] id 'NGC3198-Q01' does not match manifest query_ids[1] 'NGC3198-Q02'"
+      ]
+     ],
+     "label": "refuses id order mismatch",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: target_rows rejected",
+       "target_rows[5].sigma is not a finite real > 0"
+      ]
+     ],
+     "label": "refuses sigma == 0",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: target_rows rejected",
+       "target_rows[6].sigma is not a finite real > 0"
+      ]
+     ],
+     "label": "refuses sigma < 0",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: target_rows rejected",
+       "target_rows[7].velocity is not a finite real"
+      ]
+     ],
+     "label": "refuses non-finite velocity",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: target_rows rejected",
+       "target_rows[8].sigma is not a finite real > 0"
+      ]
+     ],
+     "label": "refuses non-finite sigma",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: target_rows must be a list of exactly 43 rows"
+      ]
+     ],
+     "label": "refuses 42 rows",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: target_rows rejected",
+       "target_rows[3] id 'NGC3198-Q99' does not match manifest query_ids[3] 'NGC3198-Q04'"
+      ]
+     ],
+     "label": "refuses a wrong id",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      false
+     ],
+     "label": "refuses a missing manifest path (no raise)",
+     "ok": true
+    },
+    {
+     "detail": [],
+     "label": "manifest C verifies",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      false,
+      []
+     ],
+     "label": "manifest C scored (ok, not refused)",
+     "ok": true
+    },
+    {
+     "detail": {
+      "band_high_km_s": 156.11418497499045,
+      "band_low_km_s": 150.61232450987418,
+      "band_overlaps_error_bar": false,
+      "fractional_error": 0.0,
+      "id": "NGC3198-Q17",
+      "observed_speed_km_s": 152.9047663703393,
+      "predicted_speed_km_s": 152.9047663703393,
+      "quoted_sigma_km_s": 1000000.0,
+      "sigma_ratio": 0.0,
+      "signed_residual_km_s": 0.0,
+      "valid": false,
+      "within_error": false
+     },
+     "label": "invalid Q17 row: valid False and within_error False although |residual| << sigma",
+     "ok": true
+    },
+    {
+     "detail": [
+      19,
+      19
+     ],
+     "label": "manifest C within_error_count == my recomputation from the manifest's valid flags",
+     "ok": true
+    },
+    {
+     "detail": 1,
+     "label": "manifest C invalid_count == number of invalid predictions",
+     "ok": true
+    },
+    {
+     "detail": [
+      41,
+      41,
+      42
+     ],
+     "label": "manifest C band_overlap_count reported and equals a recomputation",
+     "ok": true
+    },
+    {
+     "label": "manifest C rows: within_error False for every invalid row",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "F5",
+   "n_checks": 28,
+   "n_failed": 0,
+   "name": "verify + score: refusals, per-row fields, within-error and band-overlap counts, invalid never within",
+   "notes": [],
+   "numbers": {
+    "expected_A": {
+     "band_overlap_all": 42,
+     "band_overlap_valid_only": 42,
+     "within": 20
+    },
+    "expected_C": {
+     "band_overlap_all": 42,
+     "band_overlap_valid_only": 41,
+     "n_invalid_predictions": 1,
+     "within": 19
+    },
+    "score_A": {
+     "band_overlap_count": 42,
+     "error_model": "CONDITIONAL_QUOTED_SIGMA_DIAGONAL_ONLY",
+     "invalid_count": 0,
+     "manifest_sha256": "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287",
+     "n_rows": 43,
+     "ok": true,
+     "refused": false,
+     "within_error_count": 20
+    },
+    "score_C": {
+     "band_overlap_count": 41,
+     "invalid_count": 1,
+     "n_rows": 43,
+     "ok": true,
+     "refused": false,
+     "within_error_count": 19
+    }
+   },
+   "status": "PASS"
+  },
+  {
+   "checks": [
+    {
+     "detail": 3110,
+     "label": "found a velocity field to tamper",
+     "ok": true
+    },
+    {
+     "label": "tampered copy still parses as JSON (one digit changed)",
+     "ok": true
+    },
+    {
+     "label": "tampered copy differs from the original in exactly one byte",
+     "ok": true
+    },
+    {
+     "detail": [
+      "manifest_sha256 mismatch: recorded '431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287', recomputed 73c3b885d650c837b74724f4e1f083909c4a13a5d514324aa3445f3f3a117428"
+     ],
+     "label": "verify ok False on the tampered copy",
+     "ok": true
+    },
+    {
+     "label": "recomputed != recorded",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: freeze manifest did not verify",
+       "manifest_sha256 mismatch: recorded '431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287', recomputed 73c3b885d650c837b74724f4e1f083909c4a13a5d514324aa3445f3f3a117428"
+      ]
+     ],
+     "label": "score refused True on the tampered copy",
+     "ok": true
+    },
+    {
+     "detail": [
+      0,
+      null
+     ],
+     "label": "score on the tampered copy returns no rows and no within_error_count",
+     "ok": true
+    },
+    {
+     "label": "pin tamper: manifest hash still recomputes equal",
+     "ok": true
+    },
+    {
+     "detail": [
+      {
+       "actual": "d8af3b41a8d38102a0bdeb289450eda6d5f121b54f656dd05632d3e3909bfb9d",
+       "ok": false,
+       "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final/pinned_input_fixture.txt",
+       "recorded": "f785c885bf091fffd99b6e40fa267dafbd71eb1f3b9efab9d4b34862dccfbc90"
+      }
+     ],
+     "label": "pin tamper: verify ok False with the pinned file flagged",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: freeze manifest did not verify",
+       "pin mismatch for '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final/pinned_input_fixture.txt': recorded 'f785c885bf091fffd99b6e40fa267dafbd71eb1f3b9efab9d4b34862dccfbc90', actual 'd8af3b41a8d38102a0bdeb289450eda6d5f121b54f656dd05632d3e3909bfb9d'"
+      ]
+     ],
+     "label": "pin tamper: score refused True",
+     "ok": true
+    },
+    {
+     "detail": [
+      "manifest_sha256 mismatch: recorded '431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287', recomputed b62720aa49d1f2a3da58883d54e32b19e8b5de0f2646a6b1f1726fd2b6c58535"
+     ],
+     "label": "edited notes (canonical re-dump, old hash kept): verify ok False",
+     "ok": true
+    },
+    {
+     "detail": [
+      true,
+      [
+       "REFUSED: freeze manifest did not verify",
+       "manifest_sha256 mismatch: recorded '431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287', recomputed b62720aa49d1f2a3da58883d54e32b19e8b5de0f2646a6b1f1726fd2b6c58535"
+      ]
+     ],
+     "label": "edited notes: score refused True",
+     "ok": true
+    }
+   ],
+   "error": null,
+   "failed_checks": [],
+   "id": "F6",
+   "n_checks": 12,
+   "n_failed": 0,
+   "name": "tamper detection: one byte flipped, pinned input changed, notes edited",
+   "notes": [],
+   "numbers": {
+    "pin_tamper_verify": {
+     "bad_pins": [
+      {
+       "actual": "d8af3b41a8d38102a0bdeb289450eda6d5f121b54f656dd05632d3e3909bfb9d",
+       "ok": false,
+       "path": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final/pinned_input_fixture.txt",
+       "recorded": "f785c885bf091fffd99b6e40fa267dafbd71eb1f3b9efab9d4b34862dccfbc90"
+      }
+     ],
+     "ok": false,
+     "recomputed_eq_recorded": true
+    },
+    "tamper_byte_offset": 3125,
+    "tamper_old_new": [
+     "9",
+     "4"
+    ],
+    "tampered_verify": {
+     "manifest_sha256_recomputed": "73c3b885d650c837b74724f4e1f083909c4a13a5d514324aa3445f3f3a117428",
+     "manifest_sha256_recorded": "431b1fc75f8ffb299f869a48f32e2ac6094dae6b8d8a31ca31d51d3cb3bec287",
+     "ok": false
+    }
+   },
+   "status": "PASS"
+  }
+ ],
+ "fixture_script": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/fixtures_0462_c3v001.py",
+  "sha256": "670891a66f820d81e7df0bbc5b3fbaba585071f14b3bf9c6ad86f8231b83b24c"
+ },
+ "inputs": {
+  "query_manifest": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json",
+   "sha256": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494"
+  },
+  "region": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+   "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+  }
+ },
+ "modules": {
+  "engine": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/calibration_region_engine_c3v001.py",
+   "sha256": "f5613832fcb6e452b4490d56453cce37fb8846e802442407e794f80a6ec84e0b"
+  },
+  "freeze": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_freeze_0462/prediction_freeze_c3v001.py",
+   "sha256": "ed6b5a3e1d02f6f5c506c9af839e25faae120b14ba4a8466beca7fba30c09200"
+  }
+ },
+ "ngc3198_target_velocities_read": false,
+ "project_runs": 0,
+ "runtime": {
+  "numpy": "2.3.5",
+  "python": "3.12.14",
+  "threads_env": {
+   "MKL_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1"
+  }
+ },
+ "schema": "FIXTURE_RESULTS_0462_V001",
+ "scratch_dir": "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/fixtures/final",
+ "summary": {
+  "ERROR": 0,
+  "FAIL": 0,
+  "PASS": 15,
+  "SKIP": 0
+ }
+}

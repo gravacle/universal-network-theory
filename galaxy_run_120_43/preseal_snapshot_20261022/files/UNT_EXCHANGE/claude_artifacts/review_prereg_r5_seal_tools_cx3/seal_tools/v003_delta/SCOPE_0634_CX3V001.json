@@ -1,0 +1,50 @@
+{
+  "date_u": "Sun Oct 18 21:38:11 UTC 2026",
+  "dispatch": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0634_2026-10-18_claude4_v003_add_B8.md",
+    "sha256": "eda276080429e2bceba2925bf8485f8b8a73069b56aba5931e6f8cca99f489da",
+    "bytes": 509
+  },
+  "baseline": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_prereg_r5_seal_tools_cx3/seal_tools/v003_delta/BASELINE_R2_FOR_V003_CX3V001.json",
+    "sha256": "9dcbdb9a3fe6af0b1d8126f6fd22c0a4f96da104bf3c61a7b45c00f875944530",
+    "bytes": 81263
+  },
+  "status": "PREPARED_UNTESTED_V003",
+  "supersedes_baseline_scope_only": "B8 mismatch preservation is no longer required:0634 now explicitly requires its correction. Baseline observed bytes/results remain immutable.",
+  "allowed_additional_source_delta": "Admission checker must validate sealed_by, driver and frozen_addendum pins consistently with guard requirements; README cascade parser claim corrected. No other behavior change.",
+  "expected_inversions": [
+    {
+      "case": "B8/wrong_sealed_by",
+      "r2": "PASS",
+      "v003_required": "REFUSE"
+    },
+    {
+      "case": "B8/missing_sealed_by",
+      "r2": "PASS",
+      "v003_required": "REFUSE"
+    },
+    {
+      "case": "B8/malformed_driver",
+      "r2": "PASS",
+      "v003_required": "REFUSE"
+    },
+    {
+      "case": "B8/stale_driver",
+      "r2": "PASS",
+      "v003_required": "REFUSE"
+    },
+    {
+      "case": "B8/malformed_frozen",
+      "r2": "PASS",
+      "v003_required": "REFUSE"
+    },
+    {
+      "case": "B8/stale_frozen",
+      "r2": "PASS",
+      "v003_required": "REFUSE"
+    }
+  ],
+  "controls": "Positive synthetic B8 remains PASS; prior config-authority/allowlist/compare mismatch refusals remain REFUSE. No actual guard invocation or root configuration.",
+  "delegation": "D05 new disposition runtime is owned by lane_b_build; this lane owns B8 and exact unchanged-source/behavior mapping."
+}

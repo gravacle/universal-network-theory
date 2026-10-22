@@ -1,0 +1,262 @@
+{
+ "schema": "NGC3198_SOURCE_BUNDLE_FIELD_CONTRACT_V003",
+ "task": "0345-A",
+ "adapter": {
+  "file": "ngc3198_source_bundle_adapter_v002.py",
+  "sha256": "3e6ca15a3fd54b8566a5aaf5980a3cfdee7815527b765cfa7bb01baeb72d8d87"
+ },
+ "status": "INERT CANDIDATE; synthetic-only execution by the author; root executes after admission",
+ "basis": {
+  "crosswalk": "SOURCE_CROSSWALK_V001.json 691483835e9d5201957a2b7183deaa1e8d994efeaa2644c3374d8e59f2450c72",
+  "query_manifest": "NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494"
+ },
+ "pinned_inputs": {
+  "query_manifest": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494",
+  "s1_table (P53 01_TABLE_FULL.json)": "4cf4b4b386f7a129fceaa4da7b5eede9f2c528e518f058ed71603ff667e29d24",
+  "s2_results (PLANAR_SOURCE_RESULTS.json)": "44b359abbcae5c0c61b26d3adc515a716fd6d45795fcecff3004189814230b2c",
+  "crosswalk": "691483835e9d5201957a2b7183deaa1e8d994efeaa2644c3374d8e59f2450c72",
+  "crosswalk_correction (SOURCE_CROSSWALK_CORRECTION_0346_V001.json)": "988e871acc0e6f3c1e3b91abec7143cb5b69241d6894b140f15369a6f29fca24",
+  "ledger (UNCERTAINTY_MISSING_INPUT_LEDGER_V001.json)": "07dd4aa300b8b818a2b962646dffd3711f461cccfa87052f7f9d760e4fdb29e0"
+ },
+ "allowlist": {
+  "queries": {
+   "pointers": [
+    "/rows/{i}/query_id",
+    "/rows/{i}/Rad_text",
+    "/rows/{i}/Rad_unit"
+   ],
+   "checks": [
+    "exactly 43",
+    "IDs NGC3198-Q01..Q43 in order, no duplicates",
+    "Rad_text decimal > 0, strictly increasing",
+    "unit kpc"
+   ]
+  },
+  "S1": {
+   "pointers": [
+    "/value/rows/{i}/original_line_number",
+    "/value/rows/{i}/radius_kpc",
+    "/value/rows/{i}/{gas_helium,helium_multiplier_applied,stellar_ML_applied_again,units}",
+    "/value/rows/{i}/{HI,H2,stars}/{published_value,published_error_field,interpretation}",
+    "/value/{whole_table_sha256,whole_covariance,raw_to_native_map,source_selected,physical_prediction_released}"
+   ],
+   "checks": [
+    "status RETURN; representation MASS_SURFACE_DENSITY",
+    "table level: whole_table_sha256 64 lowercase hex; whole_covariance is None; raw_to_native_map is None; source_selected is False; physical_prediction_released is False (identity checks, no pass-through of other content)",
+    "23 rows, original lines 320-342 in order",
+    "radius exact-rational string (ASCII fullmatch), > 0, increasing",
+    "units Msun/pc^2; gas_helium ALREADY_INCLUDED; helium_multiplier_applied is False; stellar_ML_applied_again is False (0 / 0.0 rejected)",
+    "interpretation in {VALUE_WITH_PUBLISHED_RMS, UPPER_LIMIT_NOTE3, MISSING}",
+    "MISSING => value and error null; otherwise both exact-rational strings (ASCII fullmatch); error not negative",
+    "(error literal \"1\" on HI/stars) if and only if interpretation UPPER_LIMIT_NOTE3",
+    "H2 present/missing rows are computed and emitted in OPEN-4 (V001 hard-coded check removed)"
+   ],
+   "literal_format": "exact rational strings as P53 recorded them; not converted"
+  },
+  "S2": {
+   "settings_enumerated": [
+    "HI_atoms_cm2_per_Msun_pc2",
+    "bin_arcsec",
+    "center_dec_deg",
+    "center_ra_deg",
+    "center_source",
+    "column_conversion_from_history",
+    "distance_pc",
+    "geometry",
+    "helium_factor",
+    "inclination_deg",
+    "orientation_source",
+    "pa_deg",
+    "rebin"
+   ],
+   "pixel_categories": [
+    "finite",
+    "negative",
+    "nonfinite",
+    "positive",
+    "total",
+    "zero_or_replaced_mask"
+   ],
+   "orders": "/orders/{0,1} with subpixels_per_axis exactly [4, 8]",
+   "profile_arrays": [
+    "r_lo_kpc",
+    "r_hi_kpc",
+    "complete_by_conservative_chord_bound"
+   ],
+   "profiles": {
+    "profile_40arcsec": 237,
+    "profile_120arcsec": 79
+   },
+   "groups": [
+    "full",
+    "X_negative",
+    "X_nonnegative"
+   ],
+   "group_fields": {
+    "mass_Msun": "never null",
+    "positive_mass_Msun": "never null",
+    "negative_mass_Msun": "never null (signed, preserved)",
+    "effective_HI_Msun_pc2_complete_only": "null iff incomplete",
+    "effective_HI_plus_He_Msun_pc2_complete_only": "null iff incomplete; label refers to /settings/helium_factor (PROGRAM-DECLARED, C5); no numeric factor in the label",
+    "zero_fraction_of_footprint": "never null (mask fraction)",
+    "finite_fraction_of_footprint": "never null",
+    "positive_fraction_of_footprint": "never null",
+    "negative_fraction_of_footprint": "never null",
+    "nominal_disk_area_pc2": "never null",
+    "plane_pc2": "never null",
+    "cosi_times_finite_sky_weighted_LOS_sigma_rms_Msun_pc2_not_measurement_error": "null allowed (descriptive scatter, NOT a measurement error)",
+    "missing_footprint_fraction_raw": "never null; may be negative; label source: PLANAR_EXTRACTION_PREFLIGHT.md lines 79-80 (\"Area fractions are quadrature estimates and their unclipped raw missing fractions must not be mistaken for a noise model\")"
+   },
+   "checks": [
+    "status COMPLETE, failed_checks []",
+    "widths 40/120",
+    "r_lo[0]=0, r_hi>r_lo, contiguous edges (1e-9 relative)",
+    "completeness flags a contiguous prefix",
+    "numbers finite (no NaN/inf, no bool)",
+    "width_arcsec read from the source (finite number equal to 40 or 120) and emitted with its pointer"
+   ],
+   "addition_vs_0341": "descriptive-scatter field (scatter labelled distinctly from measurement error) and missing_footprint_fraction_raw (carry geometric missingness) are added beyond the 0341 list, as 0345 requires; S1 H2 rows 10-22 are emitted as MISSING nulls (0341 listed rows 0-9)"
+  },
+  "conventions": "pinned Claude-authored METADATA: crosswalk texts must be strings / string-keyed objects / lists (no numbers or booleans); correction \"now\" the same plus booleans; correction must bind crosswalk sha, file name and unchanged=true; ids unique; pointers must start with \"/\", no empty segment, no \"~\" escapes, and resolve; item-level, source-level and not-in-bundle corrections filed separately"
+ },
+ "excluded": [
+  "S1 raw_line_ascii (contains non-allowlisted columns)",
+  "S1 radius_over_r25 (r25 from table4)",
+  "S2 settings chunk_rows, tolerances and subsamples",
+  "every key not allowlisted (velocity, response, force or any other field) by construction",
+  "S2 los_sigma2_sky_integral, half_effective_HI_difference_complete_only, direct_map_totals, jacobian bounds, solid-angle and column-integral fields, assignment_comparison, checks"
+ ],
+ "value_kinds": {
+  "S1 error_kind": [
+   "PUBLISHED_PER_RING_RMS_FIELD (measurement-vs-descriptive meaning OPEN-8)",
+   "PUBLISHED_FIELD_1_NOTE3_UPPER_LIMIT_MARKER_QUARANTINED (HI/stars only; iff P53 interpretation UPPER_LIMIT_NOTE3)",
+   "LITERAL_ZERO_MEANING_UNRESOLVED (literal \"0\")",
+   "MISSING"
+  ],
+  "S2 kinds": "per field (mask_fraction_*, descriptive_scatter_not_measurement_error, retained mass, effective density, geometry_area, geometric_completeness_flag)",
+  "S2 measurement_uncertainty": "UNKNOWN (never zero)"
+ },
+ "provenance": "every observational value carries a JSON pointer (query items: one row-level pointer per item whose keys match the source keys); file and sha256 once per input block; array element i = pointer/i. Adapter-added observational-level labels use adapter_label or derived_count (adapter_constant is not used). Structural fields added by the adapter (kind, null_rule, row_index, order_index, note, literal_format, unknown_uncertainty, measurement_uncertainty.state, open_issues text) are descriptive structure, not observational values.",
+ "failure_policy": "any violation -> coded failure, exit 2, no bundle written; unexpected exception -> exit 3; existing output refused",
+ "open_issues": "OPEN-1..OPEN-10 under /open_issues/items; ref_files pins the ledger and correction; ledger refs are item indices checked in range",
+ "provenance_classes_0346": {
+  "PRIMARY-STATED": "stated in a primary source document (e.g. Leroy ReadMe Note 2 \"Including helium.\")",
+  "SECONDARY": "value taken from a secondary local note, program freeze or audit; primary verification OPEN",
+  "PROGRAM-DECLARED": "convention declared by a program protocol (e.g. 1.25e20 per Msun/pc^2; S2 working plane)"
+ },
+ "supersedes": "SOURCE_BUNDLE_FIELD_CONTRACT_V002.json (preserved). Contract-only revision after the distinct re-review (PASS_WITH_NOTES); adapter V002 unchanged.",
+ "parsing": "JSON parsed with duplicate-key rejection (E_JSON_DUPLICATE_KEY) and NaN/Infinity rejection (E_JSON_NONFINITE_TOKEN); all regexes ASCII fullmatch",
+ "write": "bundle fully built in memory; written to an exclusive temp file in the output dir, fsynced, hard-linked to the output name (fails if it exists), temp removed; no partial bundle under the output name",
+ "failure_codes": {
+  "static": [
+   "E_CORR_BINDING_FILE",
+   "E_CORR_BINDING_SHA",
+   "E_CORR_DUPLICATE",
+   "E_CORR_NOW_TYPE",
+   "E_JSON_DUPLICATE_KEY",
+   "E_JSON_NONFINITE_TOKEN",
+   "E_LEDGER_REF",
+   "E_OUTPUT_EXISTS",
+   "E_Q_COUNT",
+   "E_Q_DUPLICATE",
+   "E_Q_ID_ORDER",
+   "E_Q_RAD_DOMAIN",
+   "E_Q_RAD_ORDER",
+   "E_Q_UNIT_VALUE",
+   "E_S1_CONV_VALUE",
+   "E_S1_COUNT",
+   "E_S1_INTERP_MISMATCH",
+   "E_S1_INTERP_UNKNOWN",
+   "E_S1_LINE_ORDER",
+   "E_S1_LITERAL_FORMAT",
+   "E_S1_MISSING_NOT_NULL",
+   "E_S1_NEGATIVE_ERROR",
+   "E_S1_RADIUS_DOMAIN",
+   "E_S1_RADIUS_FORMAT",
+   "E_S1_REPR_VALUE",
+   "E_S1_STATUS_VALUE",
+   "E_S1_TABLE_SHA_FORMAT",
+   "E_S1_UNITS_VALUE",
+   "E_S2_COMPLETE_NOT_PREFIX",
+   "E_S2_GRID",
+   "E_S2_NOT_COMPLETE",
+   "E_S2_ORDER_SET",
+   "E_S2_PIXEL_DOMAIN",
+   "E_S2_WIDTH_VALUE",
+   "E_USAGE"
+  ],
+  "prefix_families (suffixes _TYPE, _LENGTH, _NULL, _VALUE_ON_INCOMPLETE, _<key>)": [
+   "E_CORR_BINDING",
+   "E_CORR_BINDING_FILE",
+   "E_CORR_BINDING_UNCHANGED",
+   "E_CORR_ID",
+   "E_CORR_LIST",
+   "E_CORR_NOW",
+   "E_CORR_POINTER",
+   "E_CW_",
+   "E_CW_SOURCES",
+   "E_CW_TYPE_",
+   "E_JSON_",
+   "E_LEDGER_ITEMS",
+   "E_PIN_",
+   "E_Q_ID",
+   "E_Q_RAD",
+   "E_Q_ROWS",
+   "E_Q_UNIT",
+   "E_S1_",
+   "E_S1_LINE",
+   "E_S1_RADIUS",
+   "E_S1_REPR",
+   "E_S1_ROWS",
+   "E_S1_STATUS",
+   "E_S1_TABLE_SHA",
+   "E_S1_TL_",
+   "E_S1_TL_VALUE_",
+   "E_S1_UNITS",
+   "E_S1_VALUE",
+   "E_S2_COMPLETE",
+   "E_S2_FAILED",
+   "E_S2_FIELD_",
+   "E_S2_GROUPS",
+   "E_S2_GROUP_",
+   "E_S2_INTERP",
+   "E_S2_ORDERS",
+   "E_S2_PIXELS",
+   "E_S2_PIXEL_",
+   "E_S2_PROFILE",
+   "E_S2_RHI",
+   "E_S2_RLO",
+   "E_S2_SETTINGS",
+   "E_S2_SETTING_",
+   "E_S2_SETTING_TYPE_",
+   "E_S2_STATUS",
+   "E_S2_SUBPIX",
+   "E_S2_WIDTH"
+  ],
+  "exit": {
+   "0": "bundle written",
+   "2": "coded failure, no bundle",
+   "3": "unexpected exception (E_UNEXPECTED), no bundle"
+  },
+  "suffixes": [
+   "_TYPE",
+   "_LENGTH",
+   "_NULL",
+   "_VALUE_ON_INCOMPLETE",
+   "_SYNTAX",
+   "_UNRESOLVED",
+   "_<key>"
+  ],
+  "unexpected": "E_UNEXPECTED (exit 3): e.g. filesystem without hard links, missing/read-only output directory, oversized integer literal"
+ },
+ "known_notes_not_changed_in_adapter_V002": {
+  "V2": "corrects.unchanged false raises E_CORR_BINDING_FILE (E_CORR_BINDING_UNCHANGED only when the key is absent)",
+  "V3": "corrects.file compared by basename; the sha binding is the guard",
+  "V4": "ledger refs checked by index range (ids fixed by the ledger sha pin and verified by harness case R); crosswalk/correction refs in OPEN text not resolved at run time",
+  "V5": "OPEN-1/3/5/7 numbers are fixed text matching the pinned crosswalk; only OPEN-4 is computed",
+  "V6": "rational literals not checked for canonical form; real P53 literals checked by the author: 135/135 canonical",
+  "V7": "no directory fsync after link/unlink; SIGKILL may leave <name>.tmp-PID (never under the output name)",
+  "V11": "real P53 interpretation vocabulary checked by the author: exactly {MISSING, UPPER_LIMIT_NOTE3, VALUE_WITH_PUBLISHED_RMS}",
+  "V12": "query items use a row-level pointer"
+ }
+}

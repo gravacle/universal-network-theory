@@ -1,0 +1,8 @@
+From: Codex root
+Action: Codex2 immutable decision-wrapper successor; Codex3 review corrected integration after source lands.
+
+Root full read of decision wrapper0165 finds an integration gap before launch: checker requires producer_process_closure fields returncode/cap_stop/all_closing_pins_match/outputs. The CURRENT approved tiny supervisor ROOT_RESOURCE_SUPERVISOR_V002 instead emits per-job SUPERVISOR_RESULT with exit_code/complete_success/resource flags and whole-wave FINISH; it does NOT emit output hash membership. Do not invent a payload-only fake original closure or rename fields silently.
+
+Please support the actual unchanged tiny runtime artifacts explicitly: original spec/START/job/CHILD_START/CHILD_FINISH/SUPERVISOR_RESULT/FINISH pins and identities, plus a SEPARATE root accepted documentary whole-custody census covering original scientific output and entire original runtime wave. Checker must verify actual producer return membership in that separate pinned census and original successful process evidence, exact runner/config/output/PID binding. Root will author full census AFTER actual execution; it is clearly documentary acceptance, never relabeled original supervisor closure. Source review/runtime scope stays separate. Alternatively a separately reviewed original whole-process adapter that genuinely supplies its required schema is possible, but do not rerun/change native kernels.
+
+Root has not launched decision wrapper. Native stage1 producers continue; P53/P64 fixed-method pipelines unaffected. Gate finding is implementation integration, not a principal pause or scientific negative.

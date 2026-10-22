@@ -1,0 +1,573 @@
+{
+ "admission_constraint": "An admitted case must run under the same driver as the cube call it admits. At the anchor the per-call seed is not the base seed; v003 adds the c2_changed_fields annotation, so a v003 call computes a different seed sha than a v001 call and route_a_custody() returns BLOCKED on the seed sha (v003 check correction 3). Hence S2 and Y2 (admitting C2 = F3, v001) run under v001; S3/Y3 and S4/Y4 run under v003. A BLOCKED admission fails loudly and is covered by the V1 next step.",
+ "anchor": {
+  "base_spec": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/specs/CALL_A2_ANCHOR_F10_C2V001.json",
+   "sha256": "a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b"
+  },
+  "brackets": {
+   "mode": "rule",
+   "rule": {
+    "fs_absolute_overrides": {
+     "45": [
+      302500000.0,
+      317625000.0
+     ],
+     "46": [
+      302500000.0,
+      317625000.0
+     ],
+     "47": [
+      302500000.0,
+      317625000.0
+     ],
+     "48": [
+      302500000.0,
+      317625000.0
+     ],
+     "49": [
+      302500000.0,
+      317625000.0
+     ],
+     "5": [
+      302500000.0,
+      317625000.0
+     ],
+     "50": [
+      302500000.0,
+      317625000.0
+     ],
+     "6": [
+      302500000.0,
+      317625000.0
+     ],
+     "7": [
+      302500000.0,
+      317625000.0
+     ],
+     "8": [
+      302500000.0,
+      317625000.0
+     ],
+     "9": [
+      302500000.0,
+      317625000.0
+     ]
+    },
+    "le_factor_overrides": {},
+    "le_first_factors": [
+     0.4,
+     0.9
+    ],
+    "le_next_factors": [
+     0.8,
+     1.1
+    ],
+    "rfs_factor_overrides": {
+     "71": [
+      0.8,
+      1.01
+     ]
+    },
+    "rfs_factors": [
+     0.8,
+     1.2
+    ]
+   }
+  },
+  "coefficients": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/CRITICAL_PATH_EVALUATION_2026-10-17_V001/sampler_eval/CANDIDATE_4CHAIN_POOLED_GRID_V001.npz",
+   "sha256": "2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7"
+  },
+  "column_workers": 2,
+  "definition": "A2 seed-scan factor-10 point (declared alternative; gamma factor 10.0, rule c2v001, sweep stable), adopted because the factor-3 anchor full route-B call A2_ANCHOR_F3_RUN_V001 FAILED: rfs_columns_01 column 70 NO_TWO_SAMPLED_FREE_SURFACES (numerical search limit is not an edge); registered result, not a tooling choice",
+  "physical": {
+   "Eref_J": 1.4642919592009638e+58,
+   "common_scale_s": 0.10154172268068731,
+   "distance_Mpc": 4.04,
+   "ell_F_m": 9.905025036587288e+19,
+   "entropy_K_factor": 0.5289256198347108,
+   "gamma": 2.941048894067774e+42,
+   "inclination_deg": 66.0
+  },
+  "picard": {
+   "observe_every_pass": true,
+   "passes": 6,
+   "speed_change_bound_km_s": 0.01
+  },
+  "picard_note": "passes 6 in every newly generated spec (CHECK D6). The bound 0.01 is unchanged. The driver stops at the first pass whose max |change| <= bound, and through pass 4 its control flow does not depend on passes when a bound is set (serial and observed every pass), so a passes-4 call that stopped by the bound is the same computation as passes 6.",
+  "source": "physical and brackets verbatim from anchor_base_spec (fe1ad000); identical blocks in every case."
+ },
+ "binding_inputs": {
+  "a2_coefficients": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/CRITICAL_PATH_EVALUATION_2026-10-17_V001/sampler_eval/CANDIDATE_4CHAIN_POOLED_GRID_V001.npz",
+   "sha256": "2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7"
+  },
+  "anchor_base_spec": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_SEED_SCAN_G2_RUN_V001/route_b_specs/CALL_A2_SEEDSCAN_NEXT_C2V001.json",
+   "sha256": "a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b"
+  },
+  "base_seed": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_STABLE_CACHED_COUPLED_TRIAL_SEED_V002.json",
+   "sha256": "694eaaaab38547a369ac85c3c3d0b5550d8878753ccafe7bc0e5cdcb79be6680"
+  },
+  "driver_equivalence_evidence": {
+   "plan_compare_kmax_c2": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/dryrun/PLAN_COMPARE_KMAX_C2_V001.json",
+    "sha256": "bb3a73dfbf75d3cc6cc6632124a4cfe6e009ee188606982e3ebbd56a852b5186"
+   },
+   "plan_compare_repro_admit_prefix": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/dryrun/PLAN_COMPARE_REPRO_PINNED_ADMIT_PREFIX_V001.json",
+    "sha256": "66d469ddf7c236803ecf8550708cf10b0da4b6174b5a1eea82829b1ed10f9427"
+   },
+   "plan_compare_repro_full": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/dryrun/PLAN_COMPARE_REPRO_PINNED_FULL_V001.json",
+    "sha256": "8cecc69aae511bb8b2106bdc122a8770de6329b822ee17dfcdcca77d3f75d012"
+   },
+   "v003_independent_check": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/check_v003/CHECK_V001.md",
+    "sha256": "f54bab8776f7e366b925221c87b8eee3293000ed55975e4b895e1b24553e17a2"
+   },
+   "what_it_shows": "For grids <= 80 nodes/axis v003 and v001 produce identical simulated stage plans (every stage row, argv, stage_globals, module_patches, mask), identical DRYRUN_PLAN.txt and identical simulated rows (v003 check s3: REPRO_PINNED_ADMIT_PREFIX 19/19, REPRO_PINNED_FULL 22/22, REPRO_RULE_FULL 20/20, KMAX_C2 12/12). The report fields that differ are not stage inputs. One computational-identity difference exists and is registered under admission_constraint below: at non-base parameters v003 annotates the per-call seed (c2_changed_fields), so the seed sha, and with it the route-A identity, differs between v001 and v003 (v003 check, correction 3). It changes no stage computation (no stage reads the annotation; v003 check s7)."
+  },
+  "drivers": {
+   "v001": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/galaxy_m0_forward_c2v001.py",
+    "sha256": "75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22"
+   },
+   "v003": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/galaxy_m0_forward_c2v003.py",
+    "sha256": "b052e3ae43fcf8782cc9cca99dec2cdc8f7fcbf479af7b92738feb196c00033b"
+   }
+  },
+  "independent_check": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_prep_c2_0470/kmax_convergence/CHECK_V001.md",
+   "sha256": "705b82bf0e6439ba31ace16b76670bda10f9d5560d65b0890a09e426ca1b4be6"
+  },
+  "root_decisions": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_A1_A2_2026-10-17_V001.md",
+   "sha256": "c8bf13d3beb5d833c308936b54c993deb684aa8949e79d7692d5e8eded740e36"
+  },
+  "row_binding": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_COLUMN_MEAN_REFERENCE_BINDING_V001.json",
+   "sha256": "f42c7c657cd9b8bcef6b88e980918ff2570b1fc0a5480784d8bf3b8bb2a3c600"
+  },
+  "sigma_source": {
+   "fields_used": "rows[*].id and rows[*].quoted_random_sigma_km_s only",
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+   "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+  }
+ },
+ "cases": [
+  {
+   "drivers_allowed": [
+    "v003"
+   ],
+   "grid": "G4",
+   "id": "C4",
+   "kmax_inverse_kpc": null,
+   "prefix": "compute",
+   "priority": 1,
+   "shape": "cube",
+   "wave": 1
+  },
+  {
+   "drivers_allowed": [
+    "v003"
+   ],
+   "grid": "G4",
+   "id": "S4",
+   "kmax_inverse_kpc": 4.0,
+   "prefix": "admit:C4",
+   "priority": 1,
+   "shape": "sphere",
+   "wave": 2
+  },
+  {
+   "drivers_allowed": [
+    "v003"
+   ],
+   "grid": "G4",
+   "id": "Y4",
+   "kmax_inverse_kpc": 4.0,
+   "prefix": "admit:C4",
+   "priority": 1,
+   "shape": "cylinder",
+   "wave": 2
+  },
+  {
+   "drivers_allowed": [
+    "v003"
+   ],
+   "grid": "G3",
+   "id": "C3",
+   "kmax_inverse_kpc": null,
+   "prefix": "compute",
+   "priority": 2,
+   "shape": "cube",
+   "wave": 1
+  },
+  {
+   "drivers_allowed": [
+    "v003"
+   ],
+   "grid": "G3",
+   "id": "S3",
+   "kmax_inverse_kpc": 3.0,
+   "prefix": "admit:C3",
+   "priority": 2,
+   "shape": "sphere",
+   "wave": 2
+  },
+  {
+   "drivers_allowed": [
+    "v003"
+   ],
+   "grid": "G3",
+   "id": "Y3",
+   "kmax_inverse_kpc": 3.0,
+   "prefix": "admit:C3",
+   "priority": 2,
+   "shape": "cylinder",
+   "wave": 2
+  },
+  {
+   "bound_call": {
+    "call_spec_sha256": "a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b",
+    "driver": "v001",
+    "launch_file": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001.receipt.json.launch.json",
+    "launch_utc": "2026-10-17T14:35:58Z",
+    "outdir": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001",
+    "picard_passes": 4,
+    "verified": "launch.json pins.spec sha256 = fe1ad000... = sha256 of anchor_base_spec bytes = sha256 of the call's inputs/call_spec.json; pins.driver = v001 75b0c08a...; caps rss 3 GiB, wall 14400 s, output 8 GiB."
+   },
+   "drivers_allowed": [
+    "v001",
+    "v003"
+   ],
+   "grid": "G2",
+   "id": "C2",
+   "kmax_inverse_kpc": null,
+   "prefix": "compute",
+   "priority": 3,
+   "shape": "cube",
+   "wave": 1
+  },
+  {
+   "drivers_allowed": [
+    "v001",
+    "v003"
+   ],
+   "grid": "G2",
+   "id": "S2",
+   "kmax_inverse_kpc": 2.0,
+   "prefix": "admit:C2",
+   "priority": 3,
+   "shape": "sphere",
+   "wave": 2
+  },
+  {
+   "drivers_allowed": [
+    "v001",
+    "v003"
+   ],
+   "grid": "G2",
+   "id": "Y2",
+   "kmax_inverse_kpc": 2.0,
+   "prefix": "admit:C2",
+   "priority": 3,
+   "shape": "cylinder",
+   "wave": 2
+  },
+  {
+   "control_for": "C2",
+   "drivers_allowed": [
+    "v003"
+   ],
+   "grid": "GR",
+   "id": "R",
+   "kmax_inverse_kpc": null,
+   "prefix": "compute",
+   "priority": 4,
+   "shape": "cube",
+   "wave": 1
+  }
+ ],
+ "change_log_v003": "Only the anchor changed (factor 3 -> declared alternative factor 10) and the C2 run binding (A2_ANCHOR_F10_RUN_V001, driver v001, spec a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b). All criteria, thresholds, gates, D1-D8/D13 and root decisions (a),(c),(e) are unchanged from V002. Sealed before any factor-10 result exists.",
+ "criterion": {
+  "bracket_precondition_P6": {
+   "deciding_test": "the FS (then RFS, LE) column passes of the first anchor call, C2 = A2_ANCHOR_F10_RUN_V001 (running).",
+   "declared_recovery": "On a bracket miss (FAILED_AT_STAGE in a column pass: bracket failure or 'no bracket source'): (1) widen only the missed columns' entries in the rule override block, recorded with the failed call's column enthalpies as evidence; (2) write a corrected base spec = anchor base spec with that one block changed; (3) rerun the failed call admitting its OWN route-A checkpoint, reference and body (admission checks parameters, not brackets); (4) regenerate EVERY case with --base-spec <corrected base spec> so the brackets block stays identical across cases (completed cases are rerun admitting their own prefixes). The corrected block, its sha and the reason are passed to the comparison with --bracket-recovery and recorded in the report. No threshold or rule changes.",
+   "status": "UNTESTED: the FS absolute bracket [1.5125e8, 3.025e8] rule and its 11 overrides were derived on the V004 chain; INTERFACE s6 warns the rule may not bracket elsewhere; A2 and the anchor change the route-A state."
+  },
+  "decision_rule": [
+   "1. Any registered case invalid or missing -> INCOMPLETE (name each case and failed gate, with that gate's pre-named next step; no threshold or rule change).",
+   "2. Dhat_R > 1 -> INNER_UNRESOLVED (next step: raise inner panel orders on the adopted grid; needs a reviewed prep successor with node budget >= 116 and its own review).",
+   "3. No shape passes -> NOT_CONVERGED (next step: extend the shape with the smallest Dhat_A(3,4) to 5 and 6 /kpc with the same order-6 unit outer panels, 108/120 nodes per axis; needs a prep successor with node budget >= 120 and a per-call cap >= 6 GiB, under separate review).",
+   "4. Two or more shapes pass but some passing pair differs at K=4 by more than 2*tau_i on any row -> NOT_CONVERGED (SHAPE_DISAGREEMENT; same next step, shape with the smallest Dhat_A(3,4) among the passing shapes).",
+   "5. Otherwise ADOPT A*: let m = the m4_statistic of each passing shape at K=4. If any passing shape's m is null, candidates = all passing shapes. Else candidates = passing shapes with m <= 1.10 * min m. A* = the candidate with the smallest Dhat_A(3,4); exact ties go to the registered order cube, sphere, cylinder. Adopted at k_max = 4 /kpc on grid G4.",
+   "6. Carried numerical uncertainty per row: u_i = |v_i(A*,4) - v_i(A*,3)| + |v_i(R) - v_i(C2)| + max over passing shapes A of |v_i(A,4) - v_i(A*,4)| km/s, reported with the adoption (with u_i/tau_i and u_i/sigma_i)."
+  ],
+  "gate_next_steps": {
+   "V1": "Read the case's status and reasons. (i) monitor stop (wall/RSS/output cap): rerun the same spec in a fresh outdir with the cap raised under a separate approval; (ii) FAILED_AT_STAGE with a bracket miss in a column pass: the D7 recovery; (iii) BLOCKED ROUTE_A_ITERATION_NOT_4 or ROUTE_A_NOT_CONVERGED_AT_ITERATION_4 (deterministic): the matrix stops as BLOCKED_ROUTE_A at that grid; next step is a reviewed route-B successor that accepts the converged route-A iteration, under separate review; (iv) BLOCKED on admission (seed/identity): regenerate the admitted spec from the cube outdir under the cube's driver and rerun; (v) any other FAILED or REFUSED: one rerun of the same spec; a second identical failure is reported as a deterministic defect for review.",
+   "V2": "Deterministic Picard non-convergence within 6 passes: rerun that case with picard.passes 12 (driver maximum, bound unchanged) admitting its own route-A, reference and body; if it still fails, report PICARD_NOT_CONVERGED for that case as a measured property of the forward map at that grid and stop the matrix for review.",
+   "V3": "Custody mismatch: regenerate the spec from the registered block (generator or the hand-patch recipe in this directory) and rerun that case. For C2 with PICARD_CAP_NOT_EQUIVALENT: run C2' = anchor base spec with picard.passes 6 under v001, admitting F3's own route-A, reference and body; C2' replaces C2 and S2/Y2 admit the same prefix.",
+   "V4": "Grid/prep defect: stop the matrix; review the prep v008 / composite-grid path of the driver; no rerun before that review.",
+   "V5": "Mask defect (leak or over-masking): stop the matrix; review truncation_mask/apply_mask in the driver that ran the case (v001 has no runtime mask assertion; v003 has mask_fired_check); no rerun before that review.",
+   "V6": "Admission mismatch: regenerate the admitted case from its cube outdir (generator admission_from_cube_out, from bytes) under the cube's driver and rerun."
+  },
+  "inner_control": "Dhat_R = max_i |v_i(R) - v_i(C2)| / tau_i <= 1",
+  "m4_statistic": "For the case (A,4): max of residual_diagnostics.azimuthal_harmonics.per_radius_max[j].m4 over radial nodes j with 0.4 <= R_j/kpc <= 6.0 (the 12-row window 0.49-5.92 kpc). Missing -> the case's m4 is null.",
+  "per_case_validity_gates": {
+   "V1": "driver status COMPLETED, valid true, exactly the 12 registered row ids with finite speeds",
+   "V2": "final-pass max_abs_change_km_s present and <= tau_picard",
+   "V3": "normalized_spec matches the registered case (grid block equal to the registered composite_grid_spec, truncation shape and kmax) AND galaxy, physical, coefficients sha, brackets and picard (bound, observe_every_pass, passes 6 or the picard_equivalence exception) equal the REGISTERED anchor block (or the D7 recovery block, as a whole, for every case) AND driver_sha256 is in the case's drivers_allowed set. Each case is compared with the registration, not with another case; the modal block across present cases is reported for diagnosis.",
+   "V4": "final field packet wavevector axis equals the registered grid axis bitwise (prep formula) and holds axis_nodes^3 nodes",
+   "V5": "final field packet rows outside the registered mask are exactly zero AND nonzero_rows_in_packet == mask_kept_expected (the count from the registered axis and the registered mask)",
+   "V6": "admitted cases: route-A identity_sha256 equals that of the cube case they admit, and the admitted case ran under the same driver sha as that cube case"
+  },
+  "picard_equivalence": "A case with normalized picard.passes = 4 is admitted only if it is the bound call C2 and its final-pass max_abs_change_km_s <= speed_change_bound_km_s (0.01), i.e. the driver stopped by the bound, not by the pass cap; then its trajectory equals the passes-6 trajectory. Otherwise C2 fails V3 with reason PICARD_CAP_NOT_EQUIVALENT.",
+  "relative_equivalent": "reported per row alongside (d_i / v_i), not used for the decision",
+  "scope_untested": [
+   "S1 transfer across parameter space: adoption is measured at the anchor only; deciding test = rerun the adopted shape at K=3 and K=4 at the calibrated point before prediction.",
+   "S2 NGC3198: not covered; deciding test = the same matrix on the NGC route once it exists.",
+   "S3 outer-panel order: [2,4] panel order uncontrolled; deciding test = adopted shape with order-8 outer panels (104 nodes).",
+   "S4 route-A source azimuths (8; m8 bias -10.6% to +5.5%) held fixed, outside P-88.",
+   "D14 noise-floor non-contraction (both D23 and D34 near the Picard floor) is not given a floor clause; such a shape fails the pass test and lands in NOT_CONVERGED with the per-row diagnostic showing it."
+  ],
+  "shape_pass": "Pass(A) iff cases (A,2),(A,3),(A,4) are valid AND Dhat_A(3,4) <= 1 AND Dhat_A(3,4) <= 0.5 * Dhat_A(2,3). With contraction ratio q <= 1/2 the geometric tail Dhat34*q/(1-q) <= Dhat34 <= 1, i.e. each row's remaining tail is at most tau_i; no tail is adopted.",
+  "statistic": "Dhat_A(K1,K2) = max over the 12 rows of |v_i(A,K2) - v_i(A,K1)| / tau_i (dimensionless), A in {cube, sphere, cylinder}; absolute km/s differences are reported alongside",
+  "tail_diagnostic": "Reported, never adopted: per row q_i = |d34_i|/|d23_i| and tail_i = |d34_i|*q_i/(1-q_i) when q_i < 1 (else null, flagged non-contracting), plus the sequence-level Dhat34*q/(1-q).",
+  "tau_definition": "tau_i = 0.25 * sigma_i per row (sigma_i = quoted random sigma of row i); root decision (a)",
+  "tau_inner": "tau_i per row",
+  "tau_picard_definition": "0.25 * min_i tau_i, absolute, on the driver's final-pass max_abs_change_km_s (unchanged from V001)",
+  "tau_picard_km_s": 0.0125,
+  "tau_shape_agreement": "2 * tau_i per row",
+  "why_tau": [
+   "Measured Picard floor of the saved chain is 0.0095 km/s (pass 2->3); the smallest tau_i (0.05 km/s, rows 06-08) is 5.3x that floor, so every row is decidable; the Picard gate 0.0125 = min tau_i / 4 keeps iteration error below a quarter of every tau_i.",
+   "A bias b_i with |b_i| <= tau_i = 0.25 sigma_i moves row i by at most 8.7% of the half-width z*sigma_i of the frozen 12-row Bonferroni band (z = 2.865), on every row.",
+   "The same bound gives sum_i (b_i/sigma_i)^2 <= 12 * 0.0625 = 0.75. This bounds only the bias-squared term of a 12-row chi-square; the cross term 2*sum_i r_i*b_i/sigma_i^2 depends on the residuals r_i and is not bounded by it (it reaches +6.0 at r_i = +sigma_i on all rows).",
+   "Per-row thresholds follow the quantity calibration uses (residual/sigma per row): relative to V001's uniform 0.05 km/s they are equal at rows 06-08, 1.5x at row 09 and 2-8x looser at rows 01-05 and 10-12, without loosening the per-row band shift or the bias-squared bound above."
+  ]
+ },
+ "fixed_across_all_cases": {
+  "brackets": "anchor.brackets, identical in every case (unless replaced as a whole by the declared D7 recovery block)",
+  "coefficients": "anchor.coefficients (A2 4-chain pooled grid 2e3a36d8...)",
+  "observation": "column-mean V004 rows (HI-weighted mean of R*Omega, binding f42c7c65...)",
+  "physical": "anchor.physical, identical in every case",
+  "picard": "anchor.picard; the only admitted exception is the bound call C2 (passes 4) under criterion.picard_equivalence",
+  "what_fixed_source_means": "Observed Sigma, fixed analytic stars, the sigma0=11 km/s K0 rule and the 64/121 entropy factor are fixed. The gas state is re-solved self-consistently in every case (that is the forward map calibration will use). Route A (and so K0, body, roots) is cube-truncated at each case's grid edge by driver design (INTERFACE_C2_0466 s5); reference and body are also unmasked (driver lines 918-944), so sphere/cylinder cases are cube-prefix plus masked offset and downstream stages (v003 identity.truncation.scope). K0 drift between grids is reported, not hidden. Route A on G3/G4/GR uses prep v008 (byte-identical to v007 except the node-budget literal), on G2 prep v007."
+ },
+ "grids": {
+  "G2": {
+   "axis_nodes": 72,
+   "breaks_inverse_kpc": [
+    -2,
+    -1,
+    -0.3,
+    -0.1,
+    -0.03,
+    -0.01,
+    0,
+    0.01,
+    0.03,
+    0.1,
+    0.3,
+    1,
+    2
+   ],
+   "composite_grid_spec": null,
+   "panel_orders": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "role": "existing seed grid (kmax 2/kpc)"
+  },
+  "G3": {
+   "axis_nodes": 84,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -3,
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2,
+     3
+    ],
+    "panel_orders": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-3,-2],[2,3] order 6; full signed cube; k_max convergence test P-88 only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 84,
+    "version": "DIRECT_LAPSE_PANELS84_KMAX3_OUTER6_C2_0470_V001"
+   },
+   "role": "G2 panels unchanged + one outer panel [2,3] per side, order 6 (same width and order as the existing [1,2] panel)"
+  },
+  "G4": {
+   "axis_nodes": 96,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -4,
+     -3,
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2,
+     3,
+     4
+    ],
+    "panel_orders": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-4,-3],[-3,-2],[2,3],[3,4] order 6; full signed cube; k_max convergence test P-88 only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 96,
+    "version": "DIRECT_LAPSE_PANELS96_KMAX4_OUTER6_C2_0470_V001"
+   },
+   "role": "G3 + one more outer panel [3,4] per side, order 6"
+  },
+  "GR": {
+   "axis_nodes": 92,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2
+    ],
+    "panel_orders": [
+     6,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     6
+    ],
+    "scope": "Seed V002 breaks to 2/kpc; inner ten panels order 8, outer [1,2] panels order 6; inner-refinement control for P-88 only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 92,
+    "version": "DIRECT_LAPSE_PANELS92_INNER8_C2_0470_V001"
+   },
+   "role": "inner-refinement control: G2 breaks, the 10 panels inside |k|<=1/kpc raised from order 6 to 8, outer [1,2] panels unchanged"
+  }
+ },
+ "grids_note": "Grid blocks are byte-for-byte the V001 values; driver v003 DECLARED_LARGE_GRIDS was checked against them (v003 check s4).",
+ "plan_item": "P-88 (A1-numerics): k_max / truncation-shape convergence of route-B DDO154 at fixed source and fixed parameters, at the A2 seed-scan anchor (gamma factor 3)",
+ "quoted_sigma_km_s": [
+  1.6,
+  0.8,
+  0.7,
+  0.5,
+  0.4,
+  0.2,
+  0.2,
+  0.2,
+  0.3,
+  0.6,
+  0.7,
+  1.3
+ ],
+ "row_ids": [
+  "DDO154_SPARC12_01",
+  "DDO154_SPARC12_02",
+  "DDO154_SPARC12_03",
+  "DDO154_SPARC12_04",
+  "DDO154_SPARC12_05",
+  "DDO154_SPARC12_06",
+  "DDO154_SPARC12_07",
+  "DDO154_SPARC12_08",
+  "DDO154_SPARC12_09",
+  "DDO154_SPARC12_10",
+  "DDO154_SPARC12_11",
+  "DDO154_SPARC12_12"
+ ],
+ "schema": "UNT_KMAX_CONVERGENCE_PREREG_C2_V003",
+ "status": "PREREGISTERED_BEFORE_ANY_ANCHOR_RESULT. Sealed (SEAL_RECORD.json) while the C2 case (A2_ANCHOR_F10_RUN_V001) is still running and before any other case is launched. Thresholds, gates and the decision rule are fixed here and must not change after any result exists; a change is a new version with its reason recorded.",
+ "supersedes": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v002_c2/KMAX_MATRIX_PREREG_V002.json",
+  "sha256": "0024b63ecf9c4c4aa3b4ae88db3084b956c12760696b69963f4fa514354c9e10"
+ },
+ "tau_km_s": [
+  0.4,
+  0.2,
+  0.175,
+  0.125,
+  0.1,
+  0.05,
+  0.05,
+  0.05,
+  0.075,
+  0.15,
+  0.175,
+  0.325
+ ]
+}

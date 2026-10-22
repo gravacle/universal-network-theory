@@ -1,0 +1,94 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_guard_c2v014.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_pair_concurrent_cx3/v001/step4_guard_c2v014_s1pair_cx3v001.py
+@@ -1,3 +1,4 @@
++"""CX3V001 S1 pair successor, A274/0838. Two calls, separate pinned C1s, one batch lock. HEADLINE11 uses unchanged guard014."""
+ """Build-only step-4 admission. No import-time I/O or processes.
+ Root publishes the exact admission bytes independently; an environment hash is a
+ custody anchor, not a cryptographic identity. Native preflight is always repeated.
+@@ -233,6 +234,7 @@
+ def globals_api():return types.SimpleNamespace(**{k:globals()[k] for k in ('require','R5_SHA','admitted_source','doc','load')})
+ 
+ def native_preflight(cfg,call):
++    cfg=pair_case_admission(cfg,call)
+     """Actual native policy/certificate/sensitivity calls, not acceptance of a PASS string."""
+     spec=doc(call['spec']);spec_structure(call,spec)
+     with fence(cfg['sources']):
+@@ -326,30 +328,64 @@
+ MEMORY_ADMISSION_FIELDS=frozenset({'minimum_free_percent','source','first_case_memory_exemption'})
+ 
+ def core_priority_admission(plan,cfg):
+-    """guard011 L333 for every admission whose core_priority is the inactive dict (returns None: unchanged path).
+-    Otherwise only the S1 overlap form passes: POST_S1, one S1 call, tail ON on r5, the plan's fill record equal to
+-    the admission's, and the call's spec equal to the replay of that fill record by the admitted replay module."""
++    # S1-specific successor: never admits a HEADLINE/DIII/sensitivity batch.
++    require(plan.get('batch')=='POST_S1','S1_PAIR_POST_S1_REQUIRED')
+     cp=cfg.get('core_priority')
+-    if cp==CORE_PRIORITY_INACTIVE:return None
+-    require(cp==CORE_PRIORITY_S1_OVERLAP and plan.get('batch')=='POST_S1','CORE_PRIORITY_ATTESTATION_REQUIRED')
++    require(cp in (CORE_PRIORITY_INACTIVE,CORE_PRIORITY_S1_OVERLAP),'CORE_PRIORITY_ATTESTATION_REQUIRED')
++    calls=plan.get('calls')
++    require(isinstance(calls,list) and len(calls)==2 and all(isinstance(c,dict) for c in calls),'S1_PAIR_TWO_CALLS_REQUIRED')
++    require([c.get('case') for c in calls]==list(S1_OVERLAP_CASES),'S1_PAIR_EXACT_ORDER_REQUIRED')
++    require(type(plan.get('route_a_admission',{}).get('max_active')) is int and plan['route_a_admission']['max_active']==2,'S1_PAIR_MAX_ACTIVE_TWO_REQUIRED')
++    require(plan.get('s1_pair_admissions')==cfg.get('s1_pair_admissions'),'S1_PAIR_PLAN_ADMISSION_BINDING')
+     ov=cfg.get('s1_overlap')
+     require(isinstance(ov,dict),'S1_OVERLAP_ADMISSION_REQUIRED')
+     require(set(ov)=={'schema','replay_module','fill_record'} and ov.get('schema')==S1_OVERLAP_SCHEMA,'S1_OVERLAP_ADMISSION_SCHEMA')
+-    calls=plan.get('calls')
+-    require(isinstance(calls,list) and len(calls)==1 and isinstance(calls[0],dict),'S1_OVERLAP_ONE_CALL_REQUIRED')
+-    call=calls[0]
+-    require(call.get('case') in S1_OVERLAP_CASES,'S1_OVERLAP_S1_CASE_REQUIRED')
+-    require(call.get('tail_on') is True and isinstance(call.get('driver'),dict) and call['driver'].get('sha256')==R5_SHA,'S1_OVERLAP_TAIL_ON_R5_REQUIRED')
+     require(isinstance(plan.get('s1'),dict) and plan['s1'].get('fill_record')==ov['fill_record'],'S1_OVERLAP_FILL_RECORD_BINDING')
+     verify(ov['fill_record'])
+     m=load(ov['replay_module'],cfg,'_step4_s1_replay')
+     require(getattr(m,'S1_REPLAY_API',None)==S1_REPLAY_API,'S1_OVERLAP_REPLAY_API')
+     try:rep=m.guard_replay(ov['fill_record'])
+     except Exception as e:raise Refusal('S1_OVERLAP_REPLAY_REFUSED',str(getattr(e,'code',None) or type(e).__name__)) from e
+-    got=(rep.get('cases') or {}).get(call['case']) if isinstance(rep,dict) else None
+-    require(isinstance(got,dict) and got.get('spec')==call.get('spec'),'S1_OVERLAP_SPEC_NOT_FILLED_SPEC')
+-    require(got.get('bytes')==verify(call['spec']),'S1_OVERLAP_REPLAY_MISMATCH')
+-    return call
++    configs=[]
++    for call in calls:
++        require(call.get('tail_on') is True and isinstance(call.get('driver'),dict) and call['driver'].get('sha256')==R5_SHA,'S1_OVERLAP_TAIL_ON_R5_REQUIRED')
++        got=(rep.get('cases') or {}).get(call['case']) if isinstance(rep,dict) else None
++        require(isinstance(got,dict) and got.get('spec')==call.get('spec'),'S1_OVERLAP_SPEC_NOT_FILLED_SPEC')
++        require(got.get('bytes')==verify(call['spec']),'S1_OVERLAP_REPLAY_MISMATCH')
++        configs.append(pair_case_admission(cfg,call)['config'])
++    require(configs[0]!=configs[1],'S1_PAIR_DISTINCT_C1_REQUIRED')
++    return calls
++
++
++# CX3V001 / A274: exactly two immutable legacy single-call admissions feed one batch.
++# Each retains its own C1/context. Parent source review covers the union and these successors.
++S1_PAIR_PARENT_GUARD={'path':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_guard_c2v014.py','sha256':'6efdca016416a919b25a1e23d46a415b75fe2b5e60145ba098f864730975165d'}
++S1_PAIR_PARENT_LAUNCHER={'path':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_launcher_c2v015.py','sha256':'cd987edd097323999847208d7b5fdfd93dadecb8a10beb6feaf91a0c53b68e0b'}
++def pair_case_admission(cfg,call):
++    refs=cfg.get('s1_pair_admissions')
++    require(isinstance(refs,dict) and set(refs)==set(S1_OVERLAP_CASES),'S1_PAIR_ADMISSIONS_REQUIRED')
++    case=call.get('case');require(case in S1_OVERLAP_CASES,'S1_PAIR_CASE_REQUIRED')
++    child=doc(refs[case])
++    require(child.get('schema')=='UNT_STEP4_ADMISSION_CX1V001' and child.get('authority')==AUTHORITY and child.get('status')=='ROOT_AUTHORIZED','S1_PAIR_CHILD_ROOT_AUTHORITY')
++    require('s1_pair_admissions' not in child,'S1_PAIR_NESTED_ADMISSION_REFUSED')
++    source_map(child);check_review(child)
++    require(all(cfg['sources'].get(p)==h for p,h in child['sources'].items()),'S1_PAIR_SOURCE_UNION_REQUIRED')
++    require(child.get('v007')==cfg.get('v007'),'S1_PAIR_VERDICT_MISMATCH')
++    require(child.get('core_priority')==cfg.get('core_priority'),'S1_PAIR_CORE_PRIORITY_MISMATCH')
++    require(child.get('case_order')==[case],'S1_PAIR_CHILD_ORDER')
++    require(child.get('calls')=={case:{'spec':call['spec'],'driver':call['driver'],'prelaunch':call.get('prelaunch')}},'S1_PAIR_CHILD_CALL_BINDING')
++    require(child.get('caps')=={case:{k:call.get(k) for k in ('wall_cap_s','rss_cap_bytes','output_cap_bytes')}},'S1_PAIR_CHILD_CAP_BINDING')
++    original=doc(child.get('plan'))
++    require(original.get('schema')=='UNT_STEP4_LAUNCH_PLAN_CX1V001' and original.get('binding_status')=='ROOT_BOUND' and original.get('batch')=='POST_S1','S1_PAIR_CHILD_PLAN_REQUIRED')
++    require(original.get('guard')==S1_PAIR_PARENT_GUARD and original.get('launcher')==S1_PAIR_PARENT_LAUNCHER,'S1_PAIR_CHILD_LINEAGE')
++    require(original.get('calls')==[call],'S1_PAIR_CHILD_CALL_BYTES')
++    require(original.get('s1',{}).get('fill_record')==cfg.get('s1_overlap',{}).get('fill_record'),'S1_PAIR_CHILD_FILL_BINDING')
++    rule=dict(cfg['route_a_admission'],max_active=1)
++    require(original.get('route_a_admission')==rule and child.get('route_a_admission')==rule,'S1_PAIR_CHILD_RAMP_BINDING')
++    if child.get('core_priority')==CORE_PRIORITY_S1_OVERLAP:
++        require(child.get('s1_overlap')==cfg.get('s1_overlap'),'S1_PAIR_CHILD_OVERLAP_BINDING')
++    for k in ('config','context_module','adoption_policy','direct_context'):verify(child.get(k))
++    return child
+ 
+ def validate(plan_ref,producer,*,check_outputs=True,execute_native=True,config_ref=None,_candidate_config=None,_plan_bytes=None,disk_batch=True):
+     """No process creation; validation precedes worker, sleep assertion and every monitor."""

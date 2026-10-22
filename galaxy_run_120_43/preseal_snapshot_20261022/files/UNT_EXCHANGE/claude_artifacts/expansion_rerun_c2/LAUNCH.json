@@ -1,0 +1,202 @@
+{
+  "name": "CAPTURE_ADIABATIC_ADMISSIBLE_RUN_V001",
+  "built_utc": "2026-10-17T16:50:33.190614+00:00",
+  "built_by": "Claude2 lane expansion_rerun_c2 (packet only; nothing launched by the builder)",
+  "launch_owner": "Claude2, after check",
+  "outdir": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/CAPTURE_ADIABATIC_ADMISSIBLE_RUN_V001",
+  "outdir_absent_at_build": true,
+  "command": [
+    "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-I",
+    "-B",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/owned_capture_adiabatic_admissible_monitor_v001.py",
+    "--diagnostic-review",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_continuation_0469/XV_check/XV_CHECK_V001.md",
+    "--diagnostic-review-sha256",
+    "aac0369f3905f3a885d5bb380b7d9e5305de933a3f38f99196dff376d0c3e941",
+    "--outdir",
+    "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/CAPTURE_ADIABATIC_ADMISSIBLE_RUN_V001"
+  ],
+  "env": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1"
+  },
+  "env_note": "monitor sets these for the worker itself (monitor L46-L49 unchanged)",
+  "caps": {
+    "monitor_wall_seconds": 7200,
+    "worker_alarm_seconds": 7080,
+    "rss_bytes": 2147483648,
+    "output_bytes": 536870912,
+    "BLAS_threads": 1,
+    "integration_budgets_from_controls_V002": {
+      "tau_end": 0.01,
+      "initial_step": 1e-07,
+      "minimum_step": 1e-12,
+      "maximum_step": 0.0001,
+      "max_attempts": 750,
+      "max_evaluations": 3000
+    },
+    "semantics": "monitor samples RSS/output every 0.1 s and kills on cap (unchanged monitor logic); not OS hard quotas"
+  },
+  "cost_estimate": {
+    "per_stage_seconds": "~1.1-1.2 (pooled evaluation + gate: 1 pooled + 6 chain + 48 jackknife evaluator calls on 6144 rows; r02 timing)",
+    "upper_bound_seconds": "~3600 at max_evaluations=3000",
+    "peak_rss_bytes_measured_in_replay": 894550016,
+    "output_bytes_upper_bound": "~0.28 MB per accepted state x <=750 + ~5 KB gate record per stage"
+  },
+  "pins": {
+    "monitor": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/owned_capture_adiabatic_admissible_monitor_v001.py",
+      "sha256": "260511de7cfbfa94bac49b94ca268d75fd576c7ad72f25992c9c94a7c02c8956"
+    },
+    "root_worker": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/owned_capture_adiabatic_admissible_root_v001.py",
+      "sha256": "be2998c2d8fbc220ed6e9a914e272c671d953e2112a01d58d260e21c4eae17af"
+    },
+    "gate_module": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/expansion_convexity_gate_v001.py",
+      "sha256": "c425936134f93d04f9c8a4fcd3c1f65be7fbac821798502dac975ba654c3d16d"
+    },
+    "code": {
+      "old_worker": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/recovered_packet_audit/owned_capture_adiabatic_root_worker_v001.py",
+        "sha256": "1f1e4cfa1fdb03fbd6399f5e96581456e063afde14a56882a68d41035b08a65d"
+      },
+      "evaluator": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/recovered_packet_audit/owned_uniform_capture_thermodynamics_v001.py",
+        "sha256": "df80228a91f93c297a192f00f6dc6efd9e5e0d15aa8e431c954cc36b67d3246a"
+      },
+      "statistics": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/owned_uniform_reweighting_statistics_v001.py",
+        "sha256": "85f4c638eb28361f806421048d9adbebff3ea0f1e02237029d7e0b947342638a"
+      },
+      "rhs_v003": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/owned_adiabatic_equilibrium_bianchi_rhs_v003.py",
+        "sha256": "d7b81d450655fdb0f9d5fa6b2500ab31bcd82eaea8f3da1a8ce862f2d93086d1"
+      },
+      "static": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/response_packet_audit/owned_static_action_metric_binding_v002.py",
+        "sha256": "7130a277ca59b07c8ce788eb20bcb50c996a3575f6fa0e644e971b0d766aee1f"
+      },
+      "factor": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/owned_saved_adiabatic_tangent_factorization_v001.py",
+        "sha256": "56b83898c61aeeb8cccd3bbea45d86d079e003f4ec9a7e3f8bb0899dbe36d628"
+      },
+      "resume_stepper": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/admission_integration/owned_capture_adiabatic_resume_v001.py",
+        "sha256": "ef3d22cebaab7a5abe44bbf96ec4b9834a73a514257a7267086b785293a0894a"
+      },
+      "rhs_v003_review": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/response_packet_audit/ADIABATIC_RHS_V003_SYMMETRIC_GROUPING_DELTA_REVIEW_V001.json",
+        "sha256": "83508fdf219fabadcfbfd638feef171c2e7b478eb4504dd462e72c1e571f7911"
+      }
+    },
+    "inputs": {
+      "controls_V002": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_CAPTURE_ADIABATIC_ROOT_CONTROLS_V002.json",
+        "sha256": "953d4693d79d227d85e767a98a8bfdc9f3f310f021dcd7b16cda898eb30bfb24"
+      },
+      "ancestor_inputs": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/CAPTURE_ADIABATIC_CONTINUATION_RUN_V001/trajectory/inputs.json",
+        "sha256": "2bcea57d1924eb122912df1bc9577c0fcdb54c2484ff64b4ec7b6f602f76c27c"
+      },
+      "factor_final_sign_anchor": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/SAVED_BACKGROUND_TANGENT_FACTORIZATION_RUN_V001/factorization/final.json",
+        "sha256": "10e19b51e10b4c53ac6ff8081db8e4159c11229b9b08346ee48d841c1e05aa15"
+      },
+      "capture_admission": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_L4_ADMISSION_RESIDENCE_RUN_V001/result.json",
+        "sha256": "3c82d2be7993669cab01430e0eea34eeb603985a8533fc72ed804f93ddb88d19"
+      },
+      "capture_cycle": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_L4_CURRENT_GRAPH_CYCLE_RUN_V001/result.json",
+        "sha256": "6377a9bc71b05d9fb288e9260e83b4237daf1c487f30bd59d6a168e0894aea8f"
+      },
+      "capture_worm": {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/OWNED_L4_WORM_LOOP_RUN_V001/result.json",
+        "sha256": "440f0efb7813ebc9dbf56facad6ab27a966e051ca03020f19dfe0695c71bb3e3"
+      }
+    },
+    "physical_source_pin": {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_COMPOSITE_COUPLED_TRIAL_SEED_V001.json",
+      "sha256": "d3941a9e44ba737e8b380414786b1da5a3d63b304e12b615f3d9948c7741c847"
+    },
+    "review_pins": [
+      {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/response_packet_audit/CAPTURE_ADIABATIC_CONTINUATION_V001_DISTINCT_REVIEW_V001.json",
+        "sha256": "628328e6ea79306c818c7ca19f0d867cc53adfee663589df688abdb6837bf7d8"
+      },
+      {
+        "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/response_packet_audit/CAPTURE_THERMODYNAMICS_V001_DISTINCT_REVIEW_V001.json",
+        "sha256": "e0a810926885eae71273df5df29b3780332553e767b0c8f3543705523f52e09d"
+      }
+    ],
+    "diagnostic_review": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_continuation_0469/XV_check/XV_CHECK_V001.md",
+      "sha256": "aac0369f3905f3a885d5bb380b7d9e5305de933a3f38f99196dff376d0c3e941"
+    }
+  },
+  "derived_from": {
+    "stalled_run": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/CAPTURE_ADIABATIC_EXACT_RESUME_RUN_V001",
+    "stalled_launch": {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/CAPTURE_ADIABATIC_EXACT_RESUME_RUN_V001/launch.json",
+      "sha256": "b71148b538a810d79c0f5903dee1011a40ea679a46ece0f03f036dfaf27c64f7"
+    },
+    "stalled_receipt": {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/CAPTURE_ADIABATIC_EXACT_RESUME_RUN_V001/receipt.json",
+      "sha256": "cf0a7ae1f8c7a8c2487131eafb891d95414b1f098a3c103be26e991307fffa8c"
+    },
+    "stalled_root": {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/admission_integration/owned_capture_adiabatic_resume_root_v001.py",
+      "sha256": "8c6c84d2a613873fc82d6b907f5c70f701785ca6fb731c81939f5026ee086b49"
+    },
+    "stalled_monitor": {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/admission_integration/owned_capture_adiabatic_resume_monitor_v001.py",
+      "sha256": "bbc4f900ab7b898738ff6abafbaad361e34f28be862e53c3cbf6fec86e626124"
+    },
+    "root_delta_diff": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/DELTA_owned_capture_adiabatic_admissible_root_v001.diff",
+      "sha256": "da0185af2f454dbc55b70ea25e877479a7593f6365a00ccf57abb0095bc9c1f8"
+    },
+    "monitor_delta_diff": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/DELTA_owned_capture_adiabatic_admissible_monitor_v001.diff",
+      "sha256": "1df622b2911f3b9c6d41cfd2d0b0c347a947faf9e35bd9a85aa82884e3a44764"
+    }
+  },
+  "deltas_vs_stalled_run": [
+    "D1 capture: pooled admission+cycle+worm (6 chains, 6144 rows, 48 jackknife replicates) replaces OWNED_L4_RAW_REWEIGHT_CAPTURE_RUN_V001; start = tau=0 initial normal root re-typed from ancestor continuation_v001 L107-L111 on the new capture; controls V002 integration verbatim (resume-only delta old root L60-L63 dropped)",
+    "D2 estimator-convexity gate before every RHS call and every THERMAL_BRANCH_SIGN_GUARD, and at the initial root; terminal ESTIMATOR_CONVEXITY_VIOLATION (RuntimeError, never reject-and-halve); no PSD repair",
+    "D3 fresh outdir; worker wall alarm 58 -> 7080 s; monitor caps 60 s/1 GiB/64 MiB -> 7200 s/2 GiB/512 MiB; monitor reads convexity_violation.json / initial_root_failure.json into scientific_status"
+  ],
+  "unchanged": "resume stepper ef3d22ce, RHS V003 d7b81d45 via StageScaledRHS (worker 1f1e4cfa), evaluator df80228a, statistics 85f4c638, static 7130a277, factorization 56b83898, physical controls and seed, rhs controls, sign anchor (factor_final), step-control law and its controls V002 parameters",
+  "replay_evidence": {
+    "r03": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/results/r03_replay_v001.json",
+      "sha256": "0a9c9690e4f7ec62bc1496d61f87895bada35d0bcc2f716cf0b33c23411eae79"
+    },
+    "r02": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/results/r02_gate_eval_v002.json",
+      "sha256": "7fce0c2544a3a46380b630aebfc306b607ff2edbe6575b30debb16e45fab9d61"
+    },
+    "r05": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/expansion_rerun_c2/results/r05_gate_fixtures_v001.json",
+      "sha256": "741750c59e688d9edc81286d32fdd6a58570db541fc0f58728deddddd94999f9"
+    }
+  },
+  "terminal_statuses": [
+    "ESTIMATOR_CONVEXITY_VIOLATION",
+    "STOPPED (stepper failure.json: MINIMUM_STEP_REACHED, ATTEMPT_BUDGET, EVALUATION_BUDGET, THERMAL_SOURCE_BLOCK_RANK_FAILURE, THERMODYNAMIC_STAGE_RANK_FAILURE, NORMAL_RESIDUAL at start, TimeoutError)",
+    "FINITE_ADIABATIC_CAPTURE_PATH_COMPLETED"
+  ],
+  "no_retry": "Single launch. Any terminal status is a result; no relaunch, no timestep-only shrinking, no tolerance relaxation, no capture swap without a new versioned packet.",
+  "not_used": [
+    "OWNED_L4_WORM_BIRTHK_RUN_V001 (completed during build; gate PASS recorded in r02; outside the dispatch-enumerated admissible set; inclusion = a V002 packet)",
+    "OWNED_L4_RAW_REWEIGHT_CAPTURE_RUN_V001 (gate fails at tau=0)"
+  ],
+  "forbidden_absent": "No .30/.70, no Omega budgets, no imposed w(z), no Lambda substitute, no timestep-only shrinking, no PSD repair.",
+  "accepted_for_physics": false
+}

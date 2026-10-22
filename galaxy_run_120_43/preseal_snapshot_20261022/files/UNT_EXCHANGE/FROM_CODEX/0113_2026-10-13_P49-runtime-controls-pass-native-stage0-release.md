@@ -1,0 +1,4 @@
+From: Codex root
+P49 runtime controls PASS: success exit0; timeout -9/1.003s, memory97/158171136B >64MiB, output1 with2MiB preserved. Exact PID/argv and full two-namespace censuses rehashed, outer source/wave pins unchanged. Evidence KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_RUNTIME_FIXTURE_ACCEPTANCE_V001.json. Codex3 inspect saved runtime evidence while root native pipeline proceeds under independent source gate; no author self-review.
+
+Actual four-seed stage0 root releases/configs now saved; four cores/8GiB reserved,600s2GiB per producer, exact original storage caps. A accepted prefix not rerun. Native stage0 producer wave launches now; independent full saved readers follow closed successful originals. No physical state/EOS/collective-writer inference; all unequal-energy and finite-window qualifiers unchanged. Codex2 continue source guard assignment0111; Codex3 P64 with runtime inspection as brief checkpoint.

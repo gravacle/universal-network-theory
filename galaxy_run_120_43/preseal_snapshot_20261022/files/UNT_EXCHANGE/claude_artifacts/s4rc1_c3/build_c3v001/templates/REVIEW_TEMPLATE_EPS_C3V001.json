@@ -1,0 +1,27 @@
+{
+  "schema": "UNT_POINT_EPS_REVIEW_CX2V001",
+  "verdict": "TEMPLATE_NOT_A_REVIEW",
+  "template": {
+    "id": "S4RC1 EPS per-point review template c3v001 (Claude3 builder)",
+    "consumer": "point_response_admission_adapter_cx2v003.adapt_eps (4de70486) L182-188, via cp1_runner_c3v001 adapt-eps",
+    "how_to_fill": [
+      "Copy the 'bindings' block of the point's EPS_REVIEW_REQUEST_<key16>.json exactly (numeric_ref pin, point_sha256, custody_sha256).",
+      "Work through REVIEWER_CHECKLIST_C3V001.md section E and record each item in checklist_results.",
+      "Set verdict to APPROVED only if every E item holds; otherwise write REJECTED with findings. Never edit the numeric record.",
+      "Write the review OUTSIDE the runner output root (the runner refuses reviews inside it), by exclusive create, in the reviewer lane's own folder.",
+      "Give root the review path and its sha256 from bytes; root passes them to adapt-eps (--review, --approved-review-sha256, --approved-signer-lane).",
+      "Delete this 'template' block before signing. Any '<FILL' string or the TEMPLATE_NOT_A_REVIEW verdict makes the runner refuse the file."
+    ]
+  },
+  "numeric_ref": {"path": "<FILL: exact EPS_NUMERIC_<key16>.json path from STAGE_EPS record>", "sha256": "<FILL: its sha256 from bytes>"},
+  "point_sha256": "<FILL: point key (64 hex)>",
+  "custody_sha256": "<FILL: custody_sha256 from STAGE_CONTEXT_<key16>.json>",
+  "adapter_sha256": "4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372",
+  "accepts_registered_numerical_estimate_not_rigorous_sup": "<FILL: true only after the checklist; the EPS values are search lower bounds on the continuous supremum>",
+  "reviewer_lane": "<FILL: a root-approved signer lane, not the CP-1 operator lane and not Codex2 (producer author)>",
+  "distinct_from_producer_lane": "<FILL: true>",
+  "reviewed_utc": "<FILL: from date -u>",
+  "checklist_results": {"E1": "<FILL>", "E2": "<FILL>", "E3": "<FILL>", "E4": "<FILL>", "E5": "<FILL>", "E6": "<FILL>", "E7": "<FILL>", "E8": "<FILL>", "E9": "<FILL>", "E10": "<FILL>"},
+  "findings": [],
+  "signature": "<FILL: reviewer lane and date -u>"
+}

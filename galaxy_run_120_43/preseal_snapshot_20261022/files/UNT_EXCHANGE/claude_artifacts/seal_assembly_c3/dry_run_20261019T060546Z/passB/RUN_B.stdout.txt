@@ -1,0 +1,86 @@
+STEP 0 preflight (writes nothing)
+  text of record /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json d28c95f56321f566b444c3e0bfbbe0ecdac564cbc03a8583ecd5f8d0ae40c0a9; its table bytes /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1
+  PASS  preflight
+STEP 1 freeze the FINAL V005 addendum c01b3c51, 143081 bytes (A106.3; 0643 A; SEAL_CHECKLIST_R5 L23 B1; r5 srr[4](1); A81 RI-26 V005@27b62183 L1270; A82 V005@27b62183 L1255; FORMAT_V005 L14)
+  PASS  STEP_01_FREEZE.json
+  >>> From now on root writes NOTHING to /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md; later entries go to a V006 addendum (A82; A99.6).
+STEP 2 tool 1 check_frozen_addendum + dispositions + entry-table re-hash (README_SEAL_TOOLS v002 L35 / v001 L11; SEAL_CHECKLIST_R5 L23; r5 srr[11]; 0633; 0640)
+  PASS  STEP_02_DISPOSITIONS.json
+  PASS  STEP_02_TOOL1.json
+  PASS  STEP_02_REHASH.json
+STEP 2a v003 tool 5 print_driver_build_record -> exclusive driver BUILD record, re-checked (README_SEAL_TOOLS_V003 B2a; SEAL_CHECKLIST_R5 L24-L25 B2/B2a; r5 srr[8]; A72; A96)
+  PASS  STEP_02A_TOOL5.json
+  PASS  STEP_02A_COPY.json
+  PASS  STEP_02A_DRIVER_BUILD.json
+STEP 3 the step-2 output root (RP-S1, A105.2) + build-only binder: bound plan and command (SEAL_CHECKLIST_R5 L26 B3; A81 RI-25 V005@27b62183 L1269; RUNBOOK_V008 L19, L37)
+  PASS  STEP_03_OUTPUT_ROOT.json
+  RECORD output root /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_internal/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007: st_dev 16777232 (= /System/Volumes/Data), st_ino 14992104, empty, free 402.15 GiB (copy into the root launch record)
+  PASS  STEP_03_BINDER.json
+  PASS  STEP_03_C05_C06.json
+STEP 3a fill SLOT_VALUES_FINAL from the draft (P3, P4 ruled in it, A111; compare slot r14, A116) + run-time pins (README_SEAL_TOOLS L27 mapping, L33 'Slot JSON')
+  PASS  STEP_03A_FILL_SLOTS.json
+STEP 3b C-04 (A106.2, A107): every slot record but the two A107 exclusions, through r13's own load_producer_registry against V009, with its gate's pass verdict
+  PASS  STEP_03B_C04.json
+STEP 4 sealed prereg = r5 with every seal_slots.<k>.value filled (SEAL_CHECKLIST_R5 L27 B4; README_SEAL_TOOLS L26; r5 srr[4](3))
+  PASS  STEP_04_SEALED_PREREG.json
+STEP 4a tool 3 check_slot_fill, after B4 (README_SEAL_TOOLS v002 L37 / v001 L12)
+  PASS  STEP_04A_C02.json
+  PASS  STEP_04A_TOOL3.json
+STEP 5 sealed compare: exactly the five seal-time pins set (SEAL_CHECKLIST_R5 L28 B5; A82 V005@27b62183 L1245; README_SEAL_TOOLS L28; r5 srr[4](4), srr[8])
+  PASS  STEP_05_SEALED_COMPARE.json
+STEP 5a tool 2 check_sealed_compare, after B5 (README_SEAL_TOOLS v002 L38 / v001 L13)
+  PASS  STEP_05A_TOOL2.json
+STEP 8 sealed compare --gates-only, fenced (SEAL_CHECKLIST_R5 L29 B6; r5 srr[0], srr[1]; A46 RA13; A47 I3)
+  PASS  STEP_08_MANIFEST_CHECK.json
+  PASS  STEP_08_GATES_ONLY.json (fence refused 0)
+  PASS  STEP_08_ROW_SCAN.json
+  PASS  STEP_08_C03.json
+STEP 9 STUBBED (dry run): the sealed compare is NOT executed; no C5H path is opened, stat'ed or resolved
+  STUB  E_SEAL1_VALIDITY_ONLY_C5H.stdout.txt = booleans fixture
+  PASS  STEP_09_ROW_SCAN.json
+  STUB  VALIDITY_ONLY.json = labelled B6-form fixture (cases C5H, valid false)
+STEP 10 build_seal_record v004: record bytes to stdout, sha to stderr; root's manual disclosures INSIDE the record (A110; README_SEAL_TOOLS L14, L16-L22; SEAL_CHECKLIST_R5 L30 B7)
+  PASS  STEP_10_C02.json
+  PASS  STEP_10_TOOL4_CHECK.json
+STEP 11 exclusive-create the SEAL_RECORD (0561 1.1; A81 RI-19 V005@27b62183 L1263; README_SEAL_TOOLS L16-L22)
+  PASS  STEP_11_SEAL_RECORD.json
+  PASS  STEP_11_DISCLOSURES_VERBATIM.json
+  PASS  SEAL_RECORD e661b6ff25351159250533cd92452c5ce03c924fddcad7b2ddd93148cb5b272d (= tool 4 stderr)
+STEP 12 exclusive-create the ROOT_SEAL_ADMISSION config; producer_allowlist = BUILD_V007's 15 rows exactly (W7-S1, A105.1; 0561 1.2; A81 RI-19; FORMAT_V005 L7; SEAL_CHECKLIST_R5 L31 B8; r5 srr[10])
+  PASS  STEP_12_CONFIG.json
+  PASS  STEP_12_CONFIG_W7_S1.json
+  PASS  STEP_12_TOOL4_ADMISSION.json (tool 4, B8)
+STEP 13 exclusive-create the SEAL_ADMISSION_RECEIPT (0561 1.3; A81 RI-19; FORMAT_V005 L8; SEAL_CHECKLIST_R5 L32 B9)
+  PASS  STEP_13_RECEIPT.json
+{
+ "schema": "C3SA_ROOT_SEAL_ASSEMBLY_SUMMARY_V002",
+ "pins": {
+  "frozen_addendum": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM_FROZEN.md c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1",
+  "driver_build_record": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/DRIVER_BUILD_RECORD_R5_V007_SEAL.json 25b4ff697748ae23c0d1322228c8bdd689b4b378a70035ab89f5de03b2ba79fb",
+  "bound_plan": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_pkt/P128/LAUNCH_PLAN_V011_CX3V001_BOUND_R5_V007_SEAL.json afd056da1145865e22fdfd32372c4cc1583cdeef14167f166082f241d3aa98c0",
+  "bound_command": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_pkt/P128/LAUNCH_COMMAND_V011_CX3V001_BOUND_R5_V007_SEAL.txt f73742f5c06ac822ce4c5ad6ef1130a5fb04de57f5756d0d5032abb7a921cbc2",
+  "slots_final": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/SLOT_VALUES_FINAL_V007.json dfbee45828fa69f3fadf02d23c9a2dc54cb18559f35ebccf6c1273b049753dd6",
+  "sealed_prereg": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/KMAX_TAIL_PREREG_V007_SEALED.json 3a2d1072ab586e6e9933cf81dbc86d21c208c4fdb79c35f3d3786800e2e874ee",
+  "sealed_compare": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/kmax_tail_compare_c2v007_r14_cx1v001_SEALED_V007.py 3aa8da887624363bffeb92c06d1a51787bc049165c530874e6ea611509e94f06",
+  "e_seal1_gates_only": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/E_SEAL1_GATES_ONLY.stdout.txt 2a15fec82346903929157241f03f71275ab30dea1a443323a43e018ea36dfa2f",
+  "e_seal1_validity_only_C5H": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/E_SEAL1_VALIDITY_ONLY_C5H.stdout.txt b4e84612934bbd5d810fae7e2bf017515295cb970b4e867d884ce114f9679c1c",
+  "seal_record": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/SEAL_RECORD_V007.json e661b6ff25351159250533cd92452c5ce03c924fddcad7b2ddd93148cb5b272d",
+  "config": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_pkt/ROOT_SEAL_ADMISSION_V001.json ada83fd2ac5d909583b9faf2c76f9400e9fe7a45ea8f16e84b6d56f9442dbc71",
+  "receipt": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_ctrl/V007_SEAL_ASSEMBLY/SEAL_ADMISSION_RECEIPT_V001.json 9fe1575fda6caeca90774b14c7ecd20f510f46017a40817a5d032128887e9ed3",
+  "output_root": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T060546Z/passB/scratch_internal/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007 st_dev=16777232 st_ino=14992104 free_gib_at_creation=402.15",
+  "text_of_record": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json d28c95f56321f566b444c3e0bfbbe0ecdac564cbc03a8583ecd5f8d0ae40c0a9 (SELECTED_R6_C4V001 7200acd996755730573ad72d876ff632b8ef59bf86f2b0cf176ae3fceb4403b0)",
+  "manual_disclosures": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/root_inputs/SEAL_MANUAL_DISCLOSURES_V006.json 8dc28480a588f3ef7bd47ebe673767ac79745178a36141cdf50e69e8a040872a (the disclosures file of record, V006 per root 0665; verbatim inside the SEAL_RECORD through tool 4 v004; A110)",
+  "manual_disclosures_in_record": "manual_disclosures (pin_content_raw_text; record schema UNT_V007_SEAL_RECORD_C4V004), checked at step 11 (R-02)"
+ },
+ "root_next": [
+  "publish receipt, config and SEAL_RECORD full shas in a numbered root packet (FORMAT_V005 L8)",
+  "export UNT_ROOT_ADMISSION_SHA256 from the PUBLISHED config sha, never from the local file (FORMAT_V005 L10)",
+  "verify the bound plan and command shas from bytes immediately before running the command (A81 RI-25; SEAL_CHECKLIST_R5 C2)",
+  "copy the output-root record (logs/STEP_03_OUTPUT_ROOT.json: st_dev, realpath, free space) into the root launch record and re-check that the root is still empty just before the launch (RP-S1, A105.2)",
+  "start step2_disk_watch.sh at the launch (A105.3; a convenience, not part of the seal)",
+  "C-08 (A106.2, A110, A116): the root manual check against the IMPL of record r14 COMPARE_V007_IMPL_R14_CX1V002.md 2ba6d12e is recorded in c08_table and c08_confirmation of the disclosures file of record (root V006, 0665; pins.manual_disclosures; its rows state the C-02 to C-08 split, R-05, and the erratum E_R6_2), which tool 4 v004 carried verbatim INSIDE the SEAL_RECORD (checked at step 11, R-02): nothing to publish separately",
+  "erratum E_R6_1 (A110): INSIDE the SEAL_RECORD (e_r6_1_text of the disclosures file, byte-equal to basis.erratum_E_R6_1 of the r6 SELECTED file, checked in step 0): no separate statement",
+  "write nothing more to the open V005 file; later entries go to a V006 addendum (A82; A99.6)"
+ ]
+}
+ROOT_SEAL_STEPS: ALL STEPS PASS

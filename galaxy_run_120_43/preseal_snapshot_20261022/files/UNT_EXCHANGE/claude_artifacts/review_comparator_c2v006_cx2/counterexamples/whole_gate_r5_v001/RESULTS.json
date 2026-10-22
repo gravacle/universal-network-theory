@@ -1,0 +1,955 @@
+{
+  "actual_run_reads": 0,
+  "before_after_source_hash_equal": true,
+  "blocked_attempts": [],
+  "date_u": "Sun Oct 18 16:17:01 UTC 2026",
+  "execution_note": "nice unavailable (sandbox); 0514 waiver",
+  "passed": 20,
+  "rows": [
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_baseline",
+      "owner": "NORM_INJECTIVE",
+      "owner_detail": {
+        "detail": {
+          "hexmap_shared_sha_joined": {
+            "new": 0,
+            "reference": 0
+          },
+          "n": [
+            1,
+            1
+          ],
+          "new": [
+            {
+              "at": "result.json/extra/<key>",
+              "kind": "RAW_TEXT_CONTAINS_NORMALIZER_TOKEN",
+              "markers": [
+                "<RUN>"
+              ],
+              "raw": "<RUN>/x"
+            }
+          ],
+          "partial_after_exception": false,
+          "reference": [
+            {
+              "at": "result.json/extra/<key>",
+              "kind": "RAW_TEXT_CONTAINS_NORMALIZER_TOKEN",
+              "markers": [
+                "<RUN>"
+              ],
+              "raw": "<RUN>/x"
+            }
+          ],
+          "rule": "normalization must be injective on each side (CX2-V5-B1): no two raw keys to one key, no raw normalizer text, no many-to-one hexmap token (NPZ content tokens excepted), one-to-one token pairing",
+          "tokens": []
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_baseline/REPORT.json",
+        "sha256": "399fea20bb167ac281b15bbccf51f083c1176538a2fce6d5815244a535831bd3"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "RESULT",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_ordinary_result_change",
+      "owner": "RESULT",
+      "owner_detail": {
+        "detail": {
+          "declared_rules_applied": [
+            {
+              "ok": true,
+              "path": "/normalized_spec/label",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "MASK",
+              "values": [
+                null,
+                null
+              ],
+              "why": "spec label (custody text)"
+            },
+            {
+              "covered_by": "STAGE_RECORDS + REQUEST",
+              "ok": true,
+              "path": "/stage_records",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "COVERED",
+              "why": "request copies plus execution fields"
+            },
+            {
+              "ok": true,
+              "path": "/route_a_outcome/ro1",
+              "present": [
+                true,
+                true
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1)"
+            },
+            {
+              "ok": true,
+              "path": "/identity/route_a/outcome/ro1",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1; equals route_a_outcome.ro1)"
+            }
+          ],
+          "differing": [
+            [
+              "/extra/<RUN>/x",
+              "str:same",
+              "str:tampered"
+            ]
+          ],
+          "pin_violations": [],
+          "ro1_blocks_equal": true,
+          "rule_violations": [],
+          "status": [
+            "COMPLETED",
+            "COMPLETED"
+          ]
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_ordinary_result_change/REPORT.json",
+        "sha256": "fd2bcfae2e8719fd23810de257e31c46e8299908229faed440cbf0dee396830d"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "RESULT",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_ordinary_result_extra",
+      "owner": "RESULT",
+      "owner_detail": {
+        "detail": {
+          "declared_rules_applied": [
+            {
+              "ok": true,
+              "path": "/normalized_spec/label",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "MASK",
+              "values": [
+                null,
+                null
+              ],
+              "why": "spec label (custody text)"
+            },
+            {
+              "covered_by": "STAGE_RECORDS + REQUEST",
+              "ok": true,
+              "path": "/stage_records",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "COVERED",
+              "why": "request copies plus execution fields"
+            },
+            {
+              "ok": true,
+              "path": "/route_a_outcome/ro1",
+              "present": [
+                true,
+                true
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1)"
+            },
+            {
+              "ok": true,
+              "path": "/identity/route_a/outcome/ro1",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1; equals route_a_outcome.ro1)"
+            }
+          ],
+          "differing": [
+            [
+              "/extra/extra_leaf",
+              "ONLY_NEW"
+            ]
+          ],
+          "pin_violations": [],
+          "ro1_blocks_equal": true,
+          "rule_violations": [],
+          "status": [
+            "COMPLETED",
+            "COMPLETED"
+          ]
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_ordinary_result_extra/REPORT.json",
+        "sha256": "26fb94496d819d2bd8d9311b92047fc1970779e4914331cc4dfdff9346338f90"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "RESULT",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_key_collision",
+      "owner": "NORM_INJECTIVE",
+      "owner_detail": {
+        "detail": {
+          "hexmap_shared_sha_joined": {
+            "new": 0,
+            "reference": 0
+          },
+          "n": [
+            1,
+            2
+          ],
+          "new": [
+            {
+              "at": "result.json/extra/<key>",
+              "kind": "RAW_TEXT_CONTAINS_NORMALIZER_TOKEN",
+              "markers": [
+                "<RUN>"
+              ],
+              "raw": "<RUN>/x"
+            },
+            {
+              "at": "result.json/extra",
+              "kind": "KEY_COLLISION",
+              "normalized_key": "<RUN>/x",
+              "raw_keys": [
+                "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_key_collision/new/x",
+                "<RUN>/x"
+              ]
+            }
+          ],
+          "partial_after_exception": false,
+          "reference": [
+            {
+              "at": "result.json/extra/<key>",
+              "kind": "RAW_TEXT_CONTAINS_NORMALIZER_TOKEN",
+              "markers": [
+                "<RUN>"
+              ],
+              "raw": "<RUN>/x"
+            }
+          ],
+          "rule": "normalization must be injective on each side (CX2-V5-B1): no two raw keys to one key, no raw normalizer text, no many-to-one hexmap token (NPZ content tokens excepted), one-to-one token pairing",
+          "tokens": []
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_key_collision/REPORT.json",
+        "sha256": "bc3f01f29d4366e6c77d8026709852b7cbe7f582afe77ad5ece928fbcbf90d9b"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_structured_npz",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npz",
+              "NPZ_CONTENT",
+              [
+                "state"
+              ]
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_structured_npz/REPORT.json",
+        "sha256": "6ac9755e4d8ac692fa495ac4bdcb68652a4863b820b14635ba12bef577cd452c"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_structured_npy",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npy",
+              "NPY_CONTENT",
+              null
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_structured_npy/REPORT.json",
+        "sha256": "f6fa5c7b098202d1f3a03a653f5b0ec094cecb89b77e0c8390c661414dff1672"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_npz_storage_order",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npz",
+              "NPZ_CONTENT",
+              [
+                "state"
+              ]
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_npz_storage_order/REPORT.json",
+        "sha256": "9e655d2b68d0a20b040300691e4fe5bc7ae4f2ce56d68fd3f6157bcc43f6e8ed"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_npy_storage_order",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npy",
+              "NPY_CONTENT",
+              null
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_npy_storage_order/REPORT.json",
+        "sha256": "54abb53cbba8d5ff05c6b5a71e6d27c8c9b53ececf6f777c02fa157401de16a1"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "NEW_DRIVER_PIN",
+        "RESULT",
+        "STRAY_UV_TAIL",
+        "RO1",
+        "STRICT_PARSE",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_duplicate_json_key",
+      "owner": "STRICT_PARSE",
+      "owner_detail": {
+        "detail": {
+          "files_parsed": [
+            4,
+            4
+          ],
+          "n": [
+            0,
+            1
+          ],
+          "new": [
+            {
+              "error": "DuplicateKey: DUPLICATE_JSON_KEY 'valid': first bool:False, second bool:True",
+              "file": "result.json",
+              "side": "new"
+            }
+          ],
+          "partial_after_exception": false,
+          "reference": [],
+          "rule": "duplicate JSON members, duplicate / non-.npy NPZ members, unparseable JSON / JSONL / NPZ / NPY all FAIL (CX2-V5-S2, S3)"
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_duplicate_json_key/REPORT.json",
+        "sha256": "5e59c977cdab66cfbb90b6e42923e9d2d07c9c800642e99c8b065126e466a206"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES",
+        "STRICT_PARSE",
+        "NORM_INJECTIVE"
+      ],
+      "name": "exact_original_duplicate_npz_member",
+      "owner": "STRICT_PARSE",
+      "owner_detail": {
+        "detail": {
+          "files_parsed": [
+            5,
+            5
+          ],
+          "n": [
+            0,
+            1
+          ],
+          "new": [
+            {
+              "error": "ValueError: DUPLICATE_NPZ_MEMBER 'state.npy' (central-directory entries 0 and 1)",
+              "file": "stages/00_body/state.npz",
+              "side": "new"
+            }
+          ],
+          "partial_after_exception": false,
+          "reference": [],
+          "rule": "duplicate JSON members, duplicate / non-.npy NPZ members, unparseable JSON / JSONL / NPZ / NPY all FAIL (CX2-V5-S2, S3)"
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/exact_original_duplicate_npz_member/REPORT.json",
+        "sha256": "b653bf53cf7b108a8669a5a448cb2df231a6126aff7f839e955b56f1f439829d"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": true,
+      "clean_norm_ok": true,
+      "exit_code": 0,
+      "expectation_met": true,
+      "failing": [],
+      "name": "clean_baseline_baseline",
+      "owner": null,
+      "owner_detail": {},
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_baseline/REPORT.json",
+        "sha256": "2be81ac158e35f6b6492fde9140d38ffc930086a793ad135e5bb51154fd9be0c"
+      },
+      "should_pass": true
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "RESULT"
+      ],
+      "name": "clean_baseline_ordinary_result_change",
+      "owner": "RESULT",
+      "owner_detail": {
+        "detail": {
+          "declared_rules_applied": [
+            {
+              "ok": true,
+              "path": "/normalized_spec/label",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "MASK",
+              "values": [
+                null,
+                null
+              ],
+              "why": "spec label (custody text)"
+            },
+            {
+              "covered_by": "STAGE_RECORDS + REQUEST",
+              "ok": true,
+              "path": "/stage_records",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "COVERED",
+              "why": "request copies plus execution fields"
+            },
+            {
+              "ok": true,
+              "path": "/route_a_outcome/ro1",
+              "present": [
+                true,
+                true
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1)"
+            },
+            {
+              "ok": true,
+              "path": "/identity/route_a/outcome/ro1",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1; equals route_a_outcome.ro1)"
+            }
+          ],
+          "differing": [
+            [
+              "/extra/plain/x",
+              "str:same",
+              "str:tampered"
+            ]
+          ],
+          "pin_violations": [],
+          "ro1_blocks_equal": true,
+          "rule_violations": [],
+          "status": [
+            "COMPLETED",
+            "COMPLETED"
+          ]
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_ordinary_result_change/REPORT.json",
+        "sha256": "38a403476400b302bd5849d284d84d61b67866aeb57e4ea83639666b2c16fd58"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "RESULT"
+      ],
+      "name": "clean_baseline_ordinary_result_extra",
+      "owner": "RESULT",
+      "owner_detail": {
+        "detail": {
+          "declared_rules_applied": [
+            {
+              "ok": true,
+              "path": "/normalized_spec/label",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "MASK",
+              "values": [
+                null,
+                null
+              ],
+              "why": "spec label (custody text)"
+            },
+            {
+              "covered_by": "STAGE_RECORDS + REQUEST",
+              "ok": true,
+              "path": "/stage_records",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "COVERED",
+              "why": "request copies plus execution fields"
+            },
+            {
+              "ok": true,
+              "path": "/route_a_outcome/ro1",
+              "present": [
+                true,
+                true
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1)"
+            },
+            {
+              "ok": true,
+              "path": "/identity/route_a/outcome/ro1",
+              "present": [
+                false,
+                false
+              ],
+              "rule": "NEW_ONLY_OR_EQUAL",
+              "why": "RO1 block (checked by RO1; equals route_a_outcome.ro1)"
+            }
+          ],
+          "differing": [
+            [
+              "/extra/extra_leaf",
+              "ONLY_NEW"
+            ]
+          ],
+          "pin_violations": [],
+          "ro1_blocks_equal": true,
+          "rule_violations": [],
+          "status": [
+            "COMPLETED",
+            "COMPLETED"
+          ]
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_ordinary_result_extra/REPORT.json",
+        "sha256": "5989a4cf77d2655e035645d4f80c3ea598a63598ed4bc04b6007320f980e828c"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "RESULT",
+        "NORM_INJECTIVE"
+      ],
+      "name": "clean_baseline_key_collision",
+      "owner": "NORM_INJECTIVE",
+      "owner_detail": {
+        "detail": {
+          "hexmap_shared_sha_joined": {
+            "new": 0,
+            "reference": 0
+          },
+          "n": [
+            0,
+            2
+          ],
+          "new": [
+            {
+              "at": "result.json/extra/<key>",
+              "kind": "RAW_TEXT_CONTAINS_NORMALIZER_TOKEN",
+              "markers": [
+                "<RUN>"
+              ],
+              "raw": "<RUN>/x"
+            },
+            {
+              "at": "result.json/extra",
+              "kind": "KEY_COLLISION",
+              "normalized_key": "<RUN>/x",
+              "raw_keys": [
+                "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_key_collision/new/x",
+                "<RUN>/x"
+              ]
+            }
+          ],
+          "partial_after_exception": false,
+          "reference": [],
+          "rule": "normalization must be injective on each side (CX2-V5-B1): no two raw keys to one key, no raw normalizer text, no many-to-one hexmap token (NPZ content tokens excepted), one-to-one token pairing",
+          "tokens": []
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_key_collision/REPORT.json",
+        "sha256": "feb50751c3b2b9d23c00c6f5a913f3ae678466d1b1e9d2c73064d0bcedde1197"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES"
+      ],
+      "name": "clean_baseline_structured_npz",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npz",
+              "NPZ_CONTENT",
+              [
+                "state"
+              ]
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_structured_npz/REPORT.json",
+        "sha256": "e5a856ed88db95f41f5a4f3ae5c3d36e4c61b4f58285c64d1d33882c741f302a"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES"
+      ],
+      "name": "clean_baseline_structured_npy",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npy",
+              "NPY_CONTENT",
+              null
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_structured_npy/REPORT.json",
+        "sha256": "b546c02ac40675e0dead249fe3f8315594020c22b0f327fd6b87a8e4433e442a"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES"
+      ],
+      "name": "clean_baseline_npz_storage_order",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npz",
+              "NPZ_CONTENT",
+              [
+                "state"
+              ]
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_npz_storage_order/REPORT.json",
+        "sha256": "6fb0fef559bb663aa02da6e23c908d3c55d7f07c7c95bd429381bce33e2546cc"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES"
+      ],
+      "name": "clean_baseline_npy_storage_order",
+      "owner": "STAGES",
+      "owner_detail": {
+        "detail": {
+          "compared": 1,
+          "differing": [
+            [
+              "stages/body/state.npy",
+              "NPY_CONTENT",
+              null
+            ]
+          ],
+          "n_differing": 1
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_npy_storage_order/REPORT.json",
+        "sha256": "d6bcf90715b4ebfd435e77429c3d3dee8b67211dbe656ef44c1f6db9aa5cb993"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "NEW_DRIVER_PIN",
+        "RESULT",
+        "STRAY_UV_TAIL",
+        "RO1",
+        "STRICT_PARSE"
+      ],
+      "name": "clean_baseline_duplicate_json_key",
+      "owner": "STRICT_PARSE",
+      "owner_detail": {
+        "detail": {
+          "files_parsed": [
+            4,
+            4
+          ],
+          "n": [
+            0,
+            1
+          ],
+          "new": [
+            {
+              "error": "DuplicateKey: DUPLICATE_JSON_KEY 'valid': first bool:False, second bool:True",
+              "file": "result.json",
+              "side": "new"
+            }
+          ],
+          "partial_after_exception": false,
+          "reference": [],
+          "rule": "duplicate JSON members, duplicate / non-.npy NPZ members, unparseable JSON / JSONL / NPZ / NPY all FAIL (CX2-V5-S2, S3)"
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_duplicate_json_key/REPORT.json",
+        "sha256": "57d6a9837fae71f89c32022bc792fa7c3ad9512e8c0d2a26695b9881af8c20ba"
+      },
+      "should_pass": false
+    },
+    {
+      "actual_pass": false,
+      "clean_norm_ok": true,
+      "exit_code": 1,
+      "expectation_met": true,
+      "failing": [
+        "STAGES",
+        "STRICT_PARSE"
+      ],
+      "name": "clean_baseline_duplicate_npz_member",
+      "owner": "STRICT_PARSE",
+      "owner_detail": {
+        "detail": {
+          "files_parsed": [
+            5,
+            5
+          ],
+          "n": [
+            0,
+            1
+          ],
+          "new": [
+            {
+              "error": "ValueError: DUPLICATE_NPZ_MEMBER 'state.npy' (central-directory entries 0 and 1)",
+              "file": "stages/00_body/state.npz",
+              "side": "new"
+            }
+          ],
+          "partial_after_exception": false,
+          "reference": [],
+          "rule": "duplicate JSON members, duplicate / non-.npy NPZ members, unparseable JSON / JSONL / NPZ / NPY all FAIL (CX2-V5-S2, S3)"
+        },
+        "pass": false
+      },
+      "report": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/whole_gate_r5_v001/clean_baseline_duplicate_npz_member/REPORT.json",
+        "sha256": "c935b46f1c860d28065101a5a566e9fa6708f3781ab6d5d69140c98102256900"
+      },
+      "should_pass": false
+    }
+  ],
+  "schema": "COMPARATOR_V006_INDEPENDENT_COUNTEREXAMPLES_CX2V001",
+  "scientific_launches": 0,
+  "scope": "Original 0553 source-audit fixture logic with exact-original and clean-key controls. No builder port imported. Actual scientific run comparisons UNTESTED",
+  "script": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/counterexamples/test_whole_gate_counterexamples_cx2v002.py",
+    "sha256": "73aeca5ffd9fe0e5ea06c3110243fe9eb22472c45c2f0d75eacc7acbf60ab6c0"
+  },
+  "selected_driver": "r5",
+  "source": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/run_identity_compare_c2v006.py",
+    "sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48"
+  },
+  "status": "TESTED",
+  "total": 20,
+  "utc": "2026-10-18T16:17:04.935495+00:00"
+}

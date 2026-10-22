@@ -1,0 +1,50 @@
+{
+  "dispatch": "0788",
+  "verdict": "PASS",
+  "blocking_count": 0,
+  "closes": [
+    "CX1-ENV-01"
+  ],
+  "pins_verified_before_and_after": {
+    "pinned_input_envelope_c2v003.py": "9d531381615f7b68f2f33bfc19f0aa2bcfe97a4e6f5c0e93187ea8eb35ce8d9a",
+    "tests/test_pinned_input_envelope_c2v003.py": "2bcfc1b8a78319b1162aa546ab9a39994f6e1cacef8e4e4b344a201a79067e9b",
+    "tests/mutation_check_c2v003.py": "7d94e191986793289bb5d3a0e0c2c975b877df66235f9ff7871e42561fcc080a",
+    "tests/ast_delta_c2v003.py": "a05c67e42a57c30bc5ca2c18c157ffbd5b9a28d80052cafd59353b484f472c99",
+    "README_PINNED_INPUT_ENVELOPE_C2V003.md": "3f0a63f9a79cb3bd572a2d84e417e56d32b5200aa7ebe2d96cf5047f27de7ccb",
+    "HASHES_PINNED_INPUT_ENVELOPE_C2V003.txt": "5f1af111eda78d34780697667eb1465648650124b0bb7227ac398edce75eb6d7"
+  },
+  "TESTED": {
+    "suite": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V003_REVIEW_CX1_V001/test_runs/RUN_20261020T200758Z_88558/TEST_RESULTS.json",
+      "sha256": "97428f8efff080c126994889d86894f995494ec393d2dfa1ab3a6ed0f98e2c38"
+    },
+    "mutations": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V003_REVIEW_CX1_V001/mutation_runs/RUN_20261020T200801Z_88605/MUTATION_RESULTS.json",
+      "sha256": "e75acb18da0850231b7759677f6e61940a8758455422937a9df72add23692805"
+    },
+    "AST_delta": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V003_REVIEW_CX1_V001/ast_delta/RUN_20261020T201117Z_90205/AST_DELTA.json",
+      "sha256": "21d4282f565591818dca8b56571dc7658b8884a6c6ba14f18aa1b0496f0758c6"
+    },
+    "independent": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V003_REVIEW_CX1_V001/OWN_CHECKS.json",
+      "sha256": "bc36a5c28cb9f1652793d280c6c4109e9a4f92e3134863db559ff1b0d10584ff"
+    }
+  },
+  "findings": [
+    "Independent snapshot and collect hard-link fixtures each perform exactly one content read and one open per inode.",
+    "Forced descriptor-identity fallback opens twice but reads content only once.",
+    "Independent metadata disagreement check produces changed_during_read with no buffer.",
+    "Reviewed source delta and AST checker: changes limited to read/cache paths, alias bookkeeping and version identifiers; 68 existing top-level nodes unchanged.",
+    "Stricter alias metadata equality is conservative and appropriate: any disagreement invalidates rather than accepting a stale cached result."
+  ],
+  "UNTESTED": [
+    "Real collect, real snapshots and gate-file hashing.",
+    "Production seal, launch, phase execution or real phase invalidation."
+  ],
+  "limitations": [
+    "Endpoint snapshots do not prove continuous immutability; prior D4 and parent-folder race limitations remain.",
+    "Name-based content guard and root prohibition on creating hardlinks remain; no broadened guard claim.",
+    "Use c2v003 artifacts consistently end to end; prior-version schemas are refused."
+  ]
+}

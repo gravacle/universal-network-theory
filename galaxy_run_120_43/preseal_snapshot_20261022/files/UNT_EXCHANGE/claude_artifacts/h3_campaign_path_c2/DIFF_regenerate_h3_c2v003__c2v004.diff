@@ -1,0 +1,43 @@
+--- regenerate_h3_c2v003.py
++++ regenerate_h3_c2v004.py
+@@ -1,4 +1,12 @@
+-"""Regenerate the campaign adoption cascade at the step-3 verdict (Claude2 h3_campaign_path_c2, c2v003; V006 A126/A129/A188/A192).
++"""Regenerate the campaign adoption cascade at the step-3 verdict (Claude2 h3_campaign_path_c2, c2v004; V006 A126/A129/A188/A192).
++
++c2v004 (V006 A192 item 3, verifier B1) against regenerate_h3_c2v003 (1a17239d), and nothing else: it pins the generator
++make_campaign_cascade_c2v004 (wrapper source calibration_orchestrator_q5b1_ledger_c2v004: c2v003 plus the B1 latest-pass
++rule; entry template h3_campaign_entry_c2v004); the regenerate record schema is H3_REGENERATE_RECORD_C2V004.  Every
++refusal rule and the expected diff sizes (policy 2, core 1, wrapper 1, entry 1) are c2v003's.  Text below is c2v003's.
++usage: python3 -I -B regenerate_h3_c2v004.py fill|build <c2v003 arguments>
++
++Regenerate the campaign adoption cascade at the step-3 verdict (Claude2 h3_campaign_path_c2, c2v003; V006 A126/A129/A188/A192).
+ 
+ c2v003 (V006 A192 items 2-3) against regenerate_h3_c2v002 (0fc614f5), and nothing else: it pins the generator
+ make_campaign_cascade_c2v003 (wrapper source calibration_orchestrator_q5b1_ledger_c2v003: the R-C8 ledger and the certified
+@@ -50,7 +58,7 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-GENERATOR = (HERE / 'make_campaign_cascade_c2v003.py', 'd7e6d77a8894687cd249a97daaef3c1286782586693af9d01774385e8a32e37a')
++GENERATOR = (HERE / 'make_campaign_cascade_c2v004.py', '5014b04f0de3cf2fc0289dcabe519e0056f9395302cfd1b9b4082b4d045b228a')
+ RECORD_SCHEMA = 'H3_V007_SEAL_TUPLE_RECORD_C2V001'
+ PLACEHOLDER_STATUS = 'PLACEHOLDER_EMPTY_UNTIL_THE_V007_VERDICT'
+ FILLED_STATUS = 'ROOT_FILLED'
+@@ -181,7 +189,7 @@
+     if n_changed != expect:
+         raise Refused('UNEXPECTED_DIFF_SIZE vs the no-tuple build of %s: %s (expected %s)' % (sub, n_changed, expect))
+     out = Path(out_dir)
+-    doc = {'schema': 'H3_REGENERATE_RECORD_C2V003', 'seal_record': {'path': str(Path(seal_record).resolve()),
++    doc = {'schema': 'H3_REGENERATE_RECORD_C2V004', 'seal_record': {'path': str(Path(seal_record).resolve()),
+                                                                    'sha256': seal_record_sha256},
+            'tuple': dict(zip(TUPLE_KEYS, tup)), 'report': rec['report'], 'compare': rec['compare'], 'sub': sub,
+            'publish_root': publish_root, 'generator': {'path': str(GENERATOR[0]), 'sha256': GENERATOR[1]},
+@@ -217,7 +225,7 @@
+                                           sha(rraw)))),
+            'report': {'path': os.path.abspath(report_path), 'sha256': sha(rraw)},
+            'compare': {'path': G.SEALED_COMPARE, 'sha256': csha}, 'filled_by': filled_by, 'ruling': ruling,
+-           'filled_from': 'regenerate_h3_c2v003 fill: sealed compare constants + report bytes'}
++           'filled_from': 'regenerate_h3_c2v004 fill: sealed compare constants + report bytes'}
+     check_record(rec, G)
+     raw = (json.dumps(rec, indent=1, sort_keys=True) + '\n').encode()
+     with open(out, 'xb') as f:

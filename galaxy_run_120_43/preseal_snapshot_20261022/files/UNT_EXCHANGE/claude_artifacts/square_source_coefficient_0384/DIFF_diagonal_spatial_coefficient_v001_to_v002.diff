@@ -1,0 +1,60 @@
+--- diagonal_spatial_coefficient_v001.py
++++ diagonal_spatial_coefficient_v002.py
+@@ -1,4 +1,4 @@
+-# UNT support task 0387 -- inert author implementation, v001.
++# UNT support task 0387 -- inert author implementation, v002 (task 0390: |r2| gate removed).
+ # One public function, diagonal_spatial_coefficient, plus private helpers.
+ # Helpers are copied (not imported) from the 0384/0385 modules in this directory,
+ # so this module is self-contained. Module-level code is limited to the numpy
+@@ -339,6 +339,10 @@
+         "subsets": None,
+         "declared_inputs": None,
+         "declared_tolerances": None,
++        "ref_tol_note": (
++            "ref_tol is a legacy admitted argument (V002, task 0390): validated finite and "
++            ">= 0 but no longer restricts r2 = epsilon_r - 2 lambda_R, which is reported only"
++        ),
+         "units": {
+             "d": "E^-3",
+             "dprime": "E^-4",
+@@ -367,7 +371,8 @@
+             "counts, global sums over edges or pairs, galaxy sums.",
+         ],
+         "scope": (
+-            "local finite-order (h^4) pure-flip diagonal coefficient only; no physical "
++            "exact-r pure-flip reference coefficients only (local finite-order (h^4) "
++            "pure-flip diagonal), not full-parent validity; no physical "
+             "ground, geometry or calibration selected; the complete spatial response also "
+             "contains lower-order contacts, state response, the separate square and Birth "
+             "operators, all separately retained terms and a controlled remainder"
+@@ -431,7 +436,10 @@
+     sigma must be a tuple of length 1 or 2 with integer entries exactly +1 or -1.
+     j_vec and c_vec must be finite real lists, tuples or 1-D arrays of length
+     len(sigma) + 1 (site order 0, 1[, 2]); nothing is broadcast.
+-    Tolerances: ref_tol (|r2| <= ref_tol, r2 = epsilon_r - 2 lambda_R), pos_tol
++    Tolerances: ref_tol (legacy admitted argument since V002, task 0390: validated
++    finite and >= 0, but it no longer restricts r2 = epsilon_r - 2 lambda_R, which
++    is reported only; exact-r basis: response_packet_audit/POPULATED_EXACT_R_LOCAL_
++    GROUND_DEFECT_HEX_AND_CONTACT_EXTENSION_PROPOSED_V001.md), pos_tol
+     (local H(2) gap, every M_S denominator and every retained R0 denominator must
+     exceed it), herm_tol (max |H - H^dagger|), resid_tol (max |H U - U diag(w)|
+     and max |U^dagger U - I| over every computed block), imag_tol
+@@ -450,7 +458,8 @@
+     basis transforms use numpy.einsum(..., optimize=False); the 4x4 blocks use
+     numpy.linalg.eigh.
+ 
+-    Scope: local finite-order coefficient only; no physical ground, geometry or
++    Scope: exact-r pure-flip reference coefficients only (local finite-order
++    diagonal), not full-parent validity; no physical ground, geometry or
+     calibration; not the complete spatial response.
+     """
+     result = _new_result()
+@@ -530,8 +539,6 @@
+     result["delta"] = delta
+     if not (np.isfinite(r2) and np.isfinite(mu0) and np.isfinite(delta)):
+         failures.append("reference: r2, mu0 or delta is not finite")
+-    if not abs(r2) <= ref_tol:
+-        failures.append(f"reference: |r2| = {abs(r2)!r} exceeds ref_tol = {ref_tol!r}")
+     if not g > 0.0:
+         failures.append(f"reference: g = {g!r} is not > 0")
+     if kappa == 0:

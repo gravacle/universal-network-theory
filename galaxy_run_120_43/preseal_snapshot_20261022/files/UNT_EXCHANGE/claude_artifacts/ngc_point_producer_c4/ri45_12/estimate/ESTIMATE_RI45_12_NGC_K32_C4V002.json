@@ -1,0 +1,118 @@
+{
+  "schema": "UNT_RI45_12_NGC_K32_ESTIMATE_CORRECTED_C4V002",
+  "written_utc": "2026-10-19T11:26:23Z",
+  "supersedes": {
+    "path": "claude_artifacts/ngc_point_producer_c4/ri45_12/estimate/ESTIMATE_RI45_12_NGC_K32_C4V001.json",
+    "sha256": "a3498b307741ed7c785451bdb7fb027b070a28a4b04ed1edec9d923b004483e1",
+    "reason": "pre-C1: it omits the stage-01 43-query readout and carries the old caps"
+  },
+  "corrections_from": [
+    {
+      "what": "verifier C1-C5",
+      "path": "claude_artifacts/ngc_point_producer_c4/ri45_12/verify/VERIFY_RI45_12_C4V001.md",
+      "sha256": "4c902975d11af72885009a9fe7b491ff04b00c07a55b430b64e0525323d802a6"
+    },
+    {
+      "what": "Claude4 post 0174",
+      "path": "FROM_CLAUDE4/0174_2026-10-19_RI45-12-NGC-K32-estimate-verified-serial-point-E31.9h-U84.8h-cw8-gain-10.3-32.9h-identity-test-caps-32GiB-381500s.md",
+      "sha256": "7aa2f73fbe9262c2f7b6176cc4d7238399ca4cd077505276ce09d1bc86723cf9"
+    },
+    {
+      "what": "Claude3 review of record 0181",
+      "path": "claude_artifacts/review_ri45_12_c3/REVIEW_RI45_12_RESULT_C3V001.txt",
+      "sha256": "cc25da63b1f0b5521a458d524bfd67a6cce3ed3ab5022de6fab97c98538005d9"
+    }
+  ],
+  "units": "h = hours, s = seconds, GB = 1e9 B, GiB = 2^30 B; E/U = expected/upper",
+  "serial": {
+    "route_a_tree_h": {
+      "E": 19.06,
+      "U": 55.33
+    },
+    "route_a_tree_s": {
+      "E": 68608,
+      "U": 199204
+    },
+    "readout_after_convergence_s": {
+      "E": 10427,
+      "U": 17635
+    },
+    "route_b_h_unknown_bracket": {
+      "E": 12.85,
+      "U": 29.43,
+      "note": "U is not an upper bound (verifier N7; route-B evaluations excluded)"
+    },
+    "point_h": {
+      "E": 31.90,
+      "U": 84.77
+    },
+    "point_s": {
+      "E": 114855,
+      "U": 305162
+    },
+    "peak_footprint_GB": {
+      "E": 7.73,
+      "U_code_terms": 14.06,
+      "U_with_DDO_excess": 20.11
+    },
+    "steady_footprint_GB": {
+      "E": 3.12,
+      "U": 3.72
+    }
+  },
+  "column_workers_8": {
+    "route_a_tree_h": {
+      "E": 8.74,
+      "U": 22.42
+    },
+    "gain_h": {
+      "E": 10.32,
+      "U": 32.92
+    },
+    "speedup": {
+      "E": 2.18,
+      "U": 2.47
+    },
+    "point_h": {
+      "E": 21.58,
+      "U": 51.85
+    },
+    "transfer_peak_GB": {
+      "E": 45.2,
+      "U": 61.3
+    },
+    "a61_rss_min_GB": 91.9,
+    "note": "needs a reviewed template successor and a TESTED serial = parallel identity"
+  },
+  "identity_test": {
+    "piggyback_replica_to_iteration_1_h": {
+      "E": 1.98,
+      "U": 3.16
+    },
+    "verdict_after_launch_h": {
+      "E": 4.93,
+      "U": 7.27
+    }
+  },
+  "caps_first_serial_point": {
+    "rss": {
+      "value_bytes": 34359738368,
+      "value": "32 GiB physical footprint of the process tree",
+      "a61_min_GB": 30.17,
+      "condition": "seed hi_panels_per_side 8 and source_azimuth_count 32 (N4; root to confirm)"
+    },
+    "wall_options_s": {
+      "one_point_25_x_U": 381452,
+      "two_x_E": 229710,
+      "two_x_U": 610324,
+      "note": "A133 sec 1.4 asks for at least 2x the forecast; Claude3 0181 recommends 2x U because root_monitor fixes the cap at launch and enforces a hard group kill. Root rules."
+    },
+    "output_bytes": {
+      "note": "Claude3 0181: 32 GiB total_output_bytes binds on the U path (2.3-2.6 GB per iteration, 37-41.5 GB at I = 16); set at least 64 GiB or measure at iterations 0-1 first. Root rules."
+    }
+  },
+  "errata": [
+    "Claude4 0175 wrote 2x E as 229,680 s and 2x U as 610,330 s (from rounded hours); the exact values are 229,710 s (2 x 114,855) and 610,324 s (2 x 305,162)."
+  ],
+  "watch_units_note": "Claude3 0181: the root memory watch prints GiB labelled GB, so R2 83.2 is 89.3 GB; a serial point beside R2 is 97.1 GB (E) / 109.4 GB (U) in GB"
+}

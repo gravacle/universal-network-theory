@@ -1,0 +1,45 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "tested": [
+    "pinned local import resolves privately",
+    "modules cached privately without global sys.modules changes",
+    "wrong hash refuses before helper execution",
+    "unlisted nonstdlib import refuses during preflight",
+    "whole inventory compiles before execution"
+  ],
+  "untested": [
+    "Full actual helper graph loading",
+    "Separate root-authenticated entry",
+    "Dynamic private parent loaders and producer IO"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_pinned_helper_loader_cx1v001.py",
+      "sha256": "687175edbb1d8201953ea1c3c1baf6abd77d119471eca53cbba8c9227e4b76c9"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/pinned_helper_loader_cx1v001.py",
+      "sha256": "8be6c013c1710654c904b0d8f116dde3604cfbab76e48fb04e35ecc6438183f0"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/helper_loader_fr9j1d5p/TEST_REPORT.json",
+      "sha256": "3938c1e42bd6de35a3038fe56a211aa7b1c4d39d45e268c85e6ba280b61cc2a8"
+    }
+  ],
+  "component_status": "PASS",
+  "scope": "Pinned-helper bootstrap, five inert tests under selected Python3.12. No production graph loaded.",
+  "limitations": [
+    "Initial system python3 test failed because sys.stdlib_module_names is unavailable; supported pinned Python3.12 rerun passed. Loader not portable to system interpreter.",
+    "Not a sandbox: trusted helper code can invoke other loaders; full graph/IO audit still pending."
+  ],
+  "utc": "2026-10-21T15:19:45.721809+00:00",
+  "prior": "CONTINUATION_CX1V098.json",
+  "report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0210_2026-10-21_pinned_helper_bootstrap_inert_PASS_FAIL.json",
+    "sha256": "5b2e8660e1060e7dbbace3f7b593aae3db0d30be474d13aa2493010250f82d38"
+  },
+  "inbox_seen": 851,
+  "outbox": 210,
+  "next": "pinned_helper_loaderv001 prechecks all hashes/ASTimports/compiles before exec, private custom import and modulecache, no globalsysmodules insertions. Five inert testsPASS on pinnedPy3.12; initial systemPy3 unsupported stdlib_module_names failure retained fixture. Not sandbox. Next actual helpergraph bootstrap/joint check through loader and separateentry. Policydraftv003 currently lacks rootbindingguard/loader; create successor later. V098pins verified. FAIL3 unchanged."
+}

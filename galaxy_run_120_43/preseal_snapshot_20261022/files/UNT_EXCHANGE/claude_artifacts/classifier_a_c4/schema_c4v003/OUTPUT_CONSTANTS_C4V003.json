@@ -1,0 +1,1122 @@
+{
+  "schema": "OUTPUT_CONSTANTS_C4V003",
+  "describes": {
+    "file": "claude_artifacts/classifier_a_c4/build_c4v003/classifier_a_c4v003.py",
+    "sha256": "394a8b6116b4cbb795de303a7a51778b671b39599cd7df5e032cadc97f7946e5"
+  },
+  "rule": "Schema-only supplement to OUTPUT_SCHEMA_C4V003.json: every literal string the output of classifier_a_c4v003 can carry, grouped by the field that carries it, each group with the code location (function, and module constant where there is one) it comes from. It carries no implementation and no expected case output. Values written with %s or %d are the code's own format templates: the marked part is formatted in at run time from an input or a computed value (Python's str() of it, so None prints as None). A value printed by more than one field is listed under each field group that carries it. Echoed input content (marked ECHO in the schema) is not listed: its words are the producer's.",
+  "groups": [
+    {
+      "field": "schema (every form)",
+      "from": "module constant OUT_SCHEMA; classify_bundle, Run.run, Run.prescore_output, Run.score_output",
+      "values": [
+        "CLASSIFIER_A_OUTPUT_C4V001"
+      ]
+    },
+    {
+      "field": "classifier (every form)",
+      "from": "module constant NAME; classify_bundle, Run.run, Run.prescore_output, Run.score_output",
+      "values": [
+        "classifier_a_c4v003"
+      ]
+    },
+    {
+      "field": "reason (form_refused_bundle)",
+      "from": "Run.load_bundle (BundleError), printed by classify_bundle",
+      "values": [
+        "BUNDLE_UNREADABLE:%s",
+        "BUNDLE_SCHEMA",
+        "BUNDLE_KEYS:%s",
+        "BUNDLE_MODE",
+        "BUNDLE_INPUT_ROLES",
+        "BUNDLE_PIN:%s",
+        "BUNDLE_ROSTERS",
+        "BUNDLE_SEALED",
+        "BUNDLE_SEALED_PINS",
+        "BUNDLE_PHASE1_TOOL",
+        "BUNDLE_MODULE_SHA"
+      ],
+      "note": "BUNDLE_UNREADABLE:%s carries the OSError text or a strict-loader word (group 'strict loader words'); BUNDLE_KEYS:%s the Python list repr of the sorted symmetric difference with the seven bundle keys; BUNDLE_PIN:%s an input role name (module constant INPUT_ROLES)."
+    },
+    {
+      "field": "reason (form_refused_internal_error)",
+      "from": "classify_bundle",
+      "values": [
+        "INTERNAL_ERROR: %s: %s"
+      ],
+      "note": "The exception class name and the first 300 characters of its message (Python's text)."
+    },
+    {
+      "field": "strict loader words (inside BUNDLE_UNREADABLE:, JSON_DEFECT:)",
+      "from": "strict_loads, _pairs, _const, _float (StrictJSONError)",
+      "values": [
+        "NOT_UTF8",
+        "DUPLICATE_KEY:%s",
+        "NON_FINITE_CONSTANT:%s",
+        "NON_FINITE_NUMBER:%s",
+        "JSON_SYNTAX:%s"
+      ],
+      "note": "NON_FINITE_CONSTANT takes NaN, Infinity or -Infinity (the json module's constant names); NON_FINITE_NUMBER the overflowing literal; JSON_SYNTAX the Python exception class name (JSONDecodeError, RecursionError, or ValueError for an integer beyond Python's 4300-digit limit, OC-31)."
+    },
+    {
+      "field": "load status words (prescore not_stop_inputs.*; agreement.agree_record_defect; inside stop details)",
+      "from": "Run.load_inputs, Run.read_pinned (load_err); Run.prescore_output prints load_err or 'READ'",
+      "values": [
+        "READ",
+        "NOT_SUPPLIED",
+        "UNREADABLE",
+        "SHA_MISMATCH",
+        "JSON_DEFECT:%s"
+      ]
+    },
+    {
+      "field": "mode",
+      "from": "the bundle's mode, checked by Run.load_bundle; printed by Run.run, Run.prescore_output, Run.score_output",
+      "values": [
+        "score",
+        "prescore"
+      ]
+    },
+    {
+      "field": "phase; header.phase; manifest_phase_derived; header.manifest_phase_derived (phase words)",
+      "from": "module constants PHASE1, PHASE2; Run.check_phase",
+      "values": [
+        "PHASE_1",
+        "PHASE_2"
+      ]
+    },
+    {
+      "field": "status",
+      "from": "Run.score_output (CLASSIFIED, NOT_READ); Run.run (NO_CLASSIFICATION)",
+      "values": [
+        "CLASSIFIED",
+        "NOT_READ",
+        "NO_CLASSIFICATION"
+      ]
+    },
+    {
+      "field": "status_code (form_no_classification): run statuses",
+      "from": "Run.run (Run.RUN_STATUS_PHASES keys other than SCORED)",
+      "values": [
+        "NO_NGC_CALL",
+        "AT0A_FAILED",
+        "HALTED"
+      ]
+    },
+    {
+      "field": "note (form_no_classification)",
+      "from": "Run.run",
+      "values": [
+        "no NGC call: no classification (engine terminal status or NO_IDENTIFIED_DIRECTION; A133 1.3)",
+        "AGREEMENT_DEFECT (prefix): no Phase-1 classification",
+        "Phase 2 reported HALTED (A133 3 rule (c))"
+      ]
+    },
+    {
+      "field": "result (form_prescore)",
+      "from": "Run.prescore_output",
+      "values": [
+        "PASS",
+        "CLASSIFICATION_INPUT_DEFECT"
+      ]
+    },
+    {
+      "field": "field_map (form_prescore); header.field_map",
+      "from": "Run.load_inputs (field_map_status)",
+      "values": [
+        "NOT_SUPPLIED",
+        "APPLIED",
+        "FIELD_MAP_DEFECT_NOT_APPLIED",
+        "FIELD_MAP_DEFECT_PARTIAL"
+      ]
+    },
+    {
+      "field": "stops[].code and status_code: class ALL stop codes",
+      "from": "Run.check_seal (SEAL_SHA_MISMATCH); Run.check_phase (PHASE_MISMATCH); Run.check_zone_table (ZONE_TABLE_MISMATCH); Run.check_gate_list, Run.check_score, Run.run, Run.check_manifest_schema (FIELD_DEFECT_OUTSIDE_ROWS); Run.check_score (REFERENCE_MEMBER_MISMATCH, QUERY_ID_DEFECT); Run.check_envelope (ENVELOPE_LABEL_MISMATCH); Run.run (REFERENCE_ROW_UNEVALUATED_OR_REFUSED)",
+      "values": [
+        "SEAL_SHA_MISMATCH",
+        "PHASE_MISMATCH",
+        "ZONE_TABLE_MISMATCH",
+        "FIELD_DEFECT_OUTSIDE_ROWS",
+        "REFERENCE_MEMBER_MISMATCH",
+        "QUERY_ID_DEFECT",
+        "ENVELOPE_LABEL_MISMATCH",
+        "REFERENCE_ROW_UNEVALUATED_OR_REFUSED"
+      ]
+    },
+    {
+      "field": "stops[].code and status_code: the other stop codes, with their class",
+      "from": "Run.check_tsr (TSR_FLAG_TABLE_MISMATCH, class TSR); Run.check_gate_list and Run.run (GATE_STATUS_LIST_DEFECT, class GATE); Run.check_envelope (FIELD_DEFECT_ENVELOPE, class ENVELOPE); Run.check_sensitivity (FIELD_DEFECT_SENSITIVITY, class SENSITIVITY); Run.run over Run.build_rows (FIELD_DEFECT_ROW, class ROW); Run.check_alternatives, Run.prepare_alternatives (FIELD_DEFECT_ALTERNATIVE, class ALT)",
+      "values": [
+        "TSR_FLAG_TABLE_MISMATCH",
+        "GATE_STATUS_LIST_DEFECT",
+        "FIELD_DEFECT_ENVELOPE",
+        "FIELD_DEFECT_SENSITIVITY",
+        "FIELD_DEFECT_ROW",
+        "FIELD_DEFECT_ALTERNATIVE"
+      ]
+    },
+    {
+      "field": "stops[].class",
+      "from": "the Run.stop call sites",
+      "values": [
+        "ALL",
+        "TSR",
+        "GATE",
+        "ENVELOPE",
+        "SENSITIVITY",
+        "ROW",
+        "ALT"
+      ]
+    },
+    {
+      "field": "stops[].alternative (class ALT; null otherwise)",
+      "from": "Run.check_alternatives, Run.prepare_alternatives (module constants ALT_ORDER, DISTANCE_ALT)",
+      "values": [
+        "ORIGINAL_K",
+        "ML_3p6_0.4",
+        "ML_3p6_0.6",
+        "GL10_SOURCE_GAUSS_ORDER",
+        "STAGE0_GRID_OUTER",
+        "DDO154_DISTANCE_NUISANCE"
+      ]
+    },
+    {
+      "field": "stops[].detail words for the refused phase inputs (PHASE_MISMATCH)",
+      "from": "Run._phase_inputs_check (the refusal word), Run.check_phase (the detail)",
+      "values": [
+        "PHASE1_HEADER_MISSING",
+        "RUN_STATUS_NOT_OF_PHASE"
+      ],
+      "note": "No new stop code (F5's list is closed); the word is printed in the PHASE_MISMATCH detail (OC-29). The record's named phase is kept as the run's phase (OC-27)."
+    },
+    {
+      "field": "stops[].detail templates: SEAL_SHA_MISMATCH",
+      "from": "Run.check_seal",
+      "values": [
+        "%s unreadable",
+        "%s bytes do not hash to the sealed sha",
+        "stage0_successor bytes do not hash to the sealed sha",
+        "stage0_successor unreadable",
+        "tsr_flag_record bytes do not hash to the sealed sha"
+      ],
+      "note": "%s is text or classifier."
+    },
+    {
+      "field": "stops[].detail templates: PHASE_MISMATCH",
+      "from": "Run.check_phase",
+      "values": [
+        "phase inputs record: PHASE1_HEADER_MISSING (a scored Phase 1 needs phase1_header, which carries the L1 sha logged at the Phase-1 freeze; C-1.1 L1 map row; V-F4)",
+        "phase inputs record: RUN_STATUS_NOT_OF_PHASE (%s is not a run status of %s; C-I7; V-F5)",
+        "phase inputs record missing or malformed (%s)",
+        "manifest input_bindings.calibration_record.path missing or not absolute",
+        "Phase-1 and Phase-2 registry roots are not disjoint",
+        "score entry names %s; manifest calibration record gives %s"
+      ],
+      "note": "RUN_STATUS_NOT_OF_PHASE takes the run status (AT0A_FAILED or HALTED) and the named phase; 'missing or malformed' takes the phase inputs' load status or None; the last template takes two phase words."
+    },
+    {
+      "field": "stops[].detail templates: ZONE_TABLE_MISMATCH",
+      "from": "Run.check_zone_table",
+      "values": [
+        "slots query block: %s",
+        "query block is not 43 rows",
+        "row %d id/unit/text",
+        "row %d radius",
+        "%s computes to %s, table says %s"
+      ],
+      "note": "The first is the template; the others are the code's own messages formatted into it; a TypeError, KeyError or float() ValueError raised by Python formats its own text instead."
+    },
+    {
+      "field": "stops[].detail templates: TSR_FLAG_TABLE_MISMATCH",
+      "from": "Run.check_tsr",
+      "values": [
+        "the N-test compare is not 6f095f64",
+        "compare unreadable (%s)",
+        "compare schema or failing ring list",
+        "failing TRUNCATION_SHAPE rings are not exactly {ordinal 15}",
+        "failing non-TRUNCATION_SHAPE rings are not empty",
+        "manifest pins.input_files unreadable",
+        "flag record missing or malformed (%s)",
+        "flag record %s is not %s",
+        "%s not pinned among the freeze input files",
+        "flag record not pinned among the freeze input files",
+        "flag record scope, rule or ring",
+        "flag record flags are not 43 booleans in manifest order",
+        "flag record flags are not exactly {NGC3198-Q25}",
+        "support record missing or malformed (%s)",
+        "support record scope or compare pin",
+        "support record is not one ring entry",
+        "support record native_ring is not the compare ordinal-15 record verbatim",
+        "support record bounds are not (r_14, r_16) exclusive"
+      ],
+      "note": "'flag record %s is not %s' and '%s not pinned among ...' take the pin key (ntest_compare_pin, n1_record_pin, gl_node_record_pin) and the first 8 hex of its sha (6f095f64, 8867c376, ec1dcca5); '(%s)' takes a load status or None."
+    },
+    {
+      "field": "stops[].detail templates: GATE_STATUS_LIST_DEFECT",
+      "from": "Run.check_gate_list; Run.run over Run.build_rows (row level)",
+      "values": [
+        "gate-status list missing or malformed (%s)",
+        "root-listed gate %s of roster %s not on the list",
+        "%s: %s",
+        "gate %s of this INVALID row is not on the gate-status list"
+      ],
+      "note": "Gate shas print as their first 12 lower-case hex; the row-level detail is '<query id>: gate <12 hex> of this INVALID row is not on the gate-status list'."
+    },
+    {
+      "field": "stops[].detail templates: FIELD_DEFECT_OUTSIDE_ROWS",
+      "from": "Run.check_gate_list, Run.check_score, Run.run, Run.check_manifest_schema",
+      "values": [
+        "roster %s missing or malformed (%s)",
+        "no PRIMARY roster supplied",
+        "score output missing or malformed (%s)",
+        "headline.reference_member_id / reference_member_log_index",
+        "members[].member_id / log_index",
+        "members[].member_id repeated",
+        "reference member not among members[]",
+        "manifest reference member not unique among manifest members",
+        "manifest reference_member / members unreadable",
+        "reference member member_valid",
+        "freeze_status / incomplete_reasons",
+        "freeze manifest missing or malformed (%s)",
+        "freeze manifest schema %r is not %s, the schema of the freeze module the seal names for %s (M-5 addition 2; A154)",
+        "synthetic score could not be built from the frozen manifest: %s"
+      ],
+      "note": "'freeze manifest schema %r ...' (Run.check_manifest_schema) takes the manifest's schema value in Python's repr (a quoted string, None, or another value's repr), the schema the phase needs (FREEZE_MANIFEST_C2V003G; FREEZE_MANIFEST_C2V003G_STAGE0_C2V002 in successor mode) and the phase (PHASE_1 or PHASE_2; in successor mode the text 'PHASE_2 with the STAGE0 successor pinned'). The last takes a Python exception class name (prescore)."
+    },
+    {
+      "field": "stops[].detail templates: REFERENCE_MEMBER_MISMATCH, QUERY_ID_DEFECT, ENVELOPE_LABEL_MISMATCH, REFERENCE_ROW_UNEVALUATED_OR_REFUSED",
+      "from": "Run.check_score, Run.check_envelope, Run.run",
+      "values": [
+        "reference member log_index differs from the headline",
+        "score names %s/%s; frozen manifest names %s/%s",
+        "reference member ids are not NGC3198-Q01..Q43 in order without repeat",
+        "pointwise_envelope.label prefix differs or is missing",
+        "a reference-member row has status UNEVALUATED_OR_REFUSED"
+      ]
+    },
+    {
+      "field": "stops[].detail templates: FIELD_DEFECT_ENVELOPE, FIELD_DEFECT_SENSITIVITY",
+      "from": "Run.check_envelope, Run.check_sensitivity",
+      "values": [
+        "pointwise_envelope.rows is not 43 rows",
+        "%s envelope row field",
+        "sensitivity.rows is not 43 rows",
+        "%s sensitivity row field"
+      ]
+    },
+    {
+      "field": "stops[].detail templates: FIELD_DEFECT_ROW ('<query id>: <messages joined by \"; \">')",
+      "from": "Run.run over Run.build_rows",
+      "values": [
+        "%s: %s",
+        "%s missing",
+        "score_status wrong type",
+        "within_error wrong type",
+        "sigma_ratio wrong type or non-finite",
+        "registered_reason wrong type",
+        "status wrong type",
+        "registered_reason missing on an INVALID_AS_MISS row",
+        "sigma_ratio null on a within-error row (finite value required)",
+        "gate registration of an INVALID_AS_MISS row not readable from the frozen manifest"
+      ],
+      "note": "'%s missing' takes score_status, within_error, sigma_ratio, registered_reason or status."
+    },
+    {
+      "field": "stops[].detail templates: FIELD_DEFECT_ALTERNATIVE ('<alternative>: ...')",
+      "from": "Run.check_alternatives, Run.prepare_alternatives, Run.twin_rows",
+      "values": [
+        "%s: alternatives list missing",
+        "%s: declared alternative missing",
+        "%s: repeated",
+        "%s: %s",
+        "STAGE0_GRID_OUTER: STAGE0 status record missing or malformed",
+        "STAGE0_GRID_OUTER: the frozen stage0_status block of the STAGE0 successor is not bound or malformed (%s)",
+        "STAGE0_GRID_OUTER: evaluated by the receipt rule but not scored",
+        "members field",
+        "no unique twin with the reference log_index",
+        "twin member_valid"
+      ],
+      "note": "'%s: %s' takes the alternative and either the comma-joined failing fields (kind, status, role, scored, scoring_scope, members, in that order) or a twin message (the last three values, or the twin's row messages '<query id>: <message>' joined by '; ', with the FIELD_DEFECT_ROW and GATE_STATUS_LIST_DEFECT row messages). The frozen-block template (Run.prepare_alternatives, successor mode) takes the block defect word (group 'STAGE0 block defect words')."
+    },
+    {
+      "field": "labels[].label",
+      "from": "Run.labels (module constants LABEL_P1, LABEL_INCOMPLETE, LABEL_NGATE, LABEL_EXPLORATORY_P2; the last two values are the fallback record's classification_label, checked against this closed pair)",
+      "values": [
+        "PROVISIONAL (PHASE-1, FREEZE_INCOMPLETE)",
+        "PROVISIONAL (FREEZE_INCOMPLETE)",
+        "PROVISIONAL (N_GATE_NOT_OPEN)",
+        "EXPLORATORY (PHASE 2 NOT AS COMMITTED)",
+        "EXPLORATORY (post-prediction)",
+        "POST-PREDICTION (CLASSIFIER)"
+      ]
+    },
+    {
+      "field": "labels[].gate (when not ECHO); labels[].code",
+      "from": "Run.labels (module constant NA_KEY); Run.commitment",
+      "values": [
+        "NOT_AVAILABLE",
+        "COMMITMENT_STATUS_DEFECT"
+      ]
+    },
+    {
+      "field": "header.disclosures_D1_D3",
+      "from": "Run.header",
+      "values": [
+        "D-1: stage-0 outcome S0-FAIL-RHAT; the sealed k = 0 drift reading is SUPPORTED; its causal gloss is UNTESTED (A63; A65.4)",
+        "D-2: the coefficient-grid difference (A65): a counted uncertainty for every row",
+        "D-3: N1 fails strictly at TRUNCATION_SHAPE ordinal 15; the one flagged row is NGC3198-Q25 (A66; 0550; A90)"
+      ]
+    },
+    {
+      "field": "header.tsr_records.n1_record_sha256, header.tsr_records.gl_node_record_sha256",
+      "from": "Run.header (module constants N1_SHA, NODE_SHA)",
+      "values": [
+        "8867c3766cc08585286ca969d4aa3fdec47fd9b15a8fe815d466346119c95c70",
+        "ec1dcca572f295dab24e343650a519b6c96e3557e6ccc603f453dea490cb717d"
+      ]
+    },
+    {
+      "field": "header.phase1.label; header.attestation_scope",
+      "from": "Run.header (module constants LABEL_P1, P1_ATTEST_NOTE)",
+      "values": [
+        "PROVISIONAL (PHASE-1, FREEZE_INCOMPLETE)",
+        "Phase 2 attestation covers only the Phase-2-only output values (the calls not re-bound from Phase 1)"
+      ]
+    },
+    {
+      "field": "header.freeze_status (checked words of the echo; bare absent word)",
+      "from": "Run.check_score (the two words), Run.header (NA_KEY)",
+      "values": [
+        "FREEZE_COMPLETE",
+        "FREEZE_INCOMPLETE",
+        "NOT_AVAILABLE"
+      ]
+    },
+    {
+      "field": "header.commitment_status.status; header.commitment_status.code",
+      "from": "Run.commitment",
+      "values": [
+        "COMMITTED",
+        "EXPLORATORY",
+        "COMMITMENT_STATUS_DEFECT"
+      ]
+    },
+    {
+      "field": "header.gate_status_list[].status; rows[].gate_status; invalid_list.per_reason[][].gate_status",
+      "from": "Run.check_gate_list (the list's closed status words), Run.build_rows, Run.invalid_list",
+      "values": [
+        "ON-TIME",
+        "LATE"
+      ]
+    },
+    {
+      "field": "header.score_echo.*, headline.* (a key the input lacks); header.phase1.phase1_header (unreachable fallback)",
+      "from": "Run.header, Run.headline_out (module constant NA_KEY)",
+      "values": [
+        "NOT_AVAILABLE"
+      ]
+    },
+    {
+      "field": "STAGE0 statuses: header.stage0_status.status, stage0.status, alternatives[STAGE0_GRID_OUTER].status",
+      "from": "Run.stage0_status (NOT_AVAILABLE is module constant NA_KEY)",
+      "values": [
+        "EVALUATED_BEFORE_FREEZE",
+        "EVALUATED_REFUSED",
+        "NOT_EVALUATED_BEFORE_FREEZE",
+        "NOT_AVAILABLE"
+      ]
+    },
+    {
+      "field": "STAGE0 reasons: header.stage0_status.reasons, stage0.reasons, alternatives[STAGE0_GRID_OUTER].reasons, readings[R-DRIFT].part2.reasons",
+      "from": "Run.stage0_status, Run._stage0_facts (module constants S0_RNF, S0_NSS, S0_RA4), Run.stage0_block",
+      "values": [
+        "NOT_IN_PHASE_1",
+        "STAGE0_STATUS_RECORD_DEFECT",
+        "STAGE0_STATUS_BLOCK_DEFECT",
+        "STAGE0_RECEIPT_NOT_FINISHED",
+        "NO_SEALED_SUCCESSOR",
+        "RECEIPTS_AFTER_STEP4"
+      ]
+    },
+    {
+      "field": "STAGE0 source: header.stage0_status.source, stage0.source",
+      "from": "Run.stage0_status (module constants STAGE0_SOURCE_RECORD, STAGE0_SOURCE_BLOCK)",
+      "values": [
+        "STAGE0_STATUS_RECORD_C4V003",
+        "FREEZE_MANIFEST_STAGE0_STATUS_BLOCK"
+      ],
+      "note": "FREEZE_MANIFEST_STAGE0_STATUS_BLOCK in a Phase 2 that the seal runs under the STAGE0 successor (Run.successor_mode), STAGE0_STATUS_RECORD_C4V003 otherwise. Not printed in Phase 1, for a record defect, or in the STAGE0 entry of alternatives."
+    },
+    {
+      "field": "STAGE0 block defect words: header.stage0_status.defect, stage0.defect; inside the FIELD_DEFECT_ALTERNATIVE detail of STAGE0_GRID_OUTER",
+      "from": "Run._stage0_block_facts, Run._stage0_facts (the word of the ValueError raised), printed by Run.stage0_status and Run.prepare_alternatives",
+      "values": [
+        "STAGE0_SUCCESSOR_PIN_NOT_BOUND",
+        "MANIFEST_SCHEMA_NOT_SUCCESSOR",
+        "BLOCK_KEYS",
+        "BLOCK_MODULE",
+        "BLOCK_SUCCESSOR_SHA",
+        "BLOCK_STATUS_RECORD",
+        "BLOCK_DIAGNOSTICS",
+        "PHASE",
+        "STEP4_START_UTC",
+        "SEALED_SUCCESSOR",
+        "MEMBERS",
+        "MEMBER_ROW",
+        "MEMBER_WRITTEN_UTC",
+        "MEMBER_FINISHED",
+        "MEMBER_BEFORE_STEP4",
+        "RULE_FLAGS",
+        "LISTS",
+        "RULE_A",
+        "RULE_B",
+        "RECEIPTS_BEFORE_STEP4",
+        "REASONS",
+        "EVALUATION_REFUSALS",
+        "READING",
+        "POST_SCORE_EXPLORATORY",
+        "BLOCK_MEMBER",
+        "BLOCK_MEMBERS_NOT_THE_PRIMARY_MEMBERS",
+        "STAGE0_STATUS_RECORD_NOT_THE_BLOCK_PROJECTION"
+      ],
+      "note": "Successor mode only; listed in the order the checks run. A record defect prints no word (its words, RECORD_KEYS and the fact words, are not printed)."
+    },
+    {
+      "field": "stage0.twin; alternatives[STAGE0_GRID_OUTER].twin; readings[R-DRIFT].part2.code (part)",
+      "from": "Run.stage0_block (states from Run.twin_rows, Run.prepare_alternatives)",
+      "values": [
+        "TWIN_INPUT_DEFECT",
+        "TWIN_INVALID"
+      ]
+    },
+    {
+      "field": "stage0.twin_detail; alternatives[].detail",
+      "from": "Run.twin_rows (the reachable word); Run.stage0_block (its default 'absent', not reachable from Run.prepare_alternatives)",
+      "values": [
+        "twin ids differ from its scope",
+        "absent"
+      ]
+    },
+    {
+      "field": "stage0.label; alternatives[STAGE0_GRID_OUTER].label",
+      "from": "Run.stage0_block",
+      "values": [
+        "SENSITIVITY: coefficient-grid sensitivity at fixed calibrated parameters (A65), not a recalibration"
+      ]
+    },
+    {
+      "field": "stage0.comparison.result",
+      "from": "Run.s0g_compare, Run.stage0_block",
+      "values": [
+        "CONSISTENT",
+        "AGAINST",
+        "NOT_DECIDED"
+      ]
+    },
+    {
+      "field": "UNDEFINED (a value, not an absent marker): zones[].m, zones[].S, outer_trend.delta_out, outer_trend.far_half_median, rows[].sign, stage0.comparison.A_P/A_S, e3_line.S_OUTER, e3_line.delta_out",
+      "from": "Run.engine, Run.sign_of, Run.s0g_compare",
+      "values": [
+        "UNDEFINED"
+      ]
+    },
+    {
+      "field": "rows[].tier; twin rows tier; flagged_rows[].tier; a15.E1.a.Q03_Q15[].tier (tier names)",
+      "from": "Run.score_output, Run.twin_row_out",
+      "values": [
+        "HIT",
+        "MISS",
+        "INVALID_AS_MISS"
+      ]
+    },
+    {
+      "field": "rows[].reading_kind; twin rows reading_kind",
+      "from": "module constant KIND_NAME; Run.score_output, Run.twin_row_out",
+      "values": [
+        "HIT",
+        "MISS_SIGNED",
+        "MISS_NULL_RATIO",
+        "INVALID_AS_MISS",
+        "LATE_GATE_MISS"
+      ]
+    },
+    {
+      "field": "rows[].sign (string values; the others are the integers -1, 0, 1)",
+      "from": "Run.sign_of",
+      "values": [
+        "UNDEFINED",
+        "NONE"
+      ]
+    },
+    {
+      "field": "rows[].tier_key; agreement.cross_phase.rows_whose_tier_changed[].phase2",
+      "from": "Run.score_output",
+      "values": [
+        "WITHIN_ERROR",
+        "MISS_WORST_TIER",
+        "LATE_GATE_MISS",
+        "INVALID_AS_MISS:"
+      ],
+      "note": "INVALID_AS_MISS: is followed by the row's registered reason."
+    },
+    {
+      "field": "built-in INVALID reasons: rows[].invalid_reason, I_per_reason keys, invalid_list.per_reason keys, tier_key suffix",
+      "from": "module constant BUILTIN_REASONS (Run.build_rows); a gate row carries its gate reason (ECHO)",
+      "values": [
+        "QUERY_INSIDE_INNERMOST_NODE",
+        "QUERY_BEYOND_OUTER_GAS_CUT",
+        "QUERY_OUTSIDE_RETAINED_SUPPORT"
+      ]
+    },
+    {
+      "field": "rows[].notes",
+      "from": "module constant D2_NOTE; Run.score_output",
+      "values": [
+        "D-2/A65.4: counted coefficient-grid uncertainty; not converted into a number; widens no sigma; changes no tier"
+      ]
+    },
+    {
+      "field": "rows[].near_label; a15.E1.a.near_label",
+      "from": "module constant NEAR_LABEL; Run.score_output, Run.a15",
+      "values": [
+        "envelope overlaps the error bar"
+      ]
+    },
+    {
+      "field": "rows[].sensitivity_band_overlap; rows[].sensitivity_band_label",
+      "from": "Run.score_output (module constant SENS_LABEL)",
+      "values": [
+        "yes",
+        "no",
+        "invalid",
+        "conditional on trial values"
+      ]
+    },
+    {
+      "field": "rows[].phase1_band.label; .condition; .overlaps",
+      "from": "Run.band_column (module constants PHASE1_BAND_LABEL, PHASE1_BAND_CONDITION)",
+      "values": [
+        "PHASE1_LINEARISED_ADMITTED_SET_PROJECTION_TRUNCATED_LOWER_BOUND_ON_SPREAD_NOT_A_TIER",
+        "conditional on A13 (the fixed DDO154 distance 4.04 Mpc and inclination 66 deg)",
+        "yes",
+        "no"
+      ]
+    },
+    {
+      "field": "zone words: rows[].zone and the keys of zones, minority_miss, P0_per_zone_per_reason, P8_reported_with.I/N; readings[].scope_zones",
+      "from": "module constant ZONES, ZONE_TABLE; Run.engine, Run.score_output; TRIGGER_SCOPE adds ALL and FLAGGED for scope_zones",
+      "values": [
+        "INNER",
+        "TRANSITION",
+        "OUTER",
+        "ALL",
+        "FLAGGED"
+      ]
+    },
+    {
+      "field": "zones[].S; e3_line.S_OUTER; a15.E2.S_OUTER; patterns.P13_sign_class (sign classes)",
+      "from": "Run.engine",
+      "values": [
+        "DEFICIT",
+        "EXCESS",
+        "CENTERED",
+        "UNDEFINED"
+      ]
+    },
+    {
+      "field": "e3_line.value; readings[R-MF].part2.status; agreement.cross_phase.e3_lines.phase2",
+      "from": "Run.engine (module constant E3_NEGATIVE for the first, V-F2)",
+      "values": [
+        "TESTED-NEGATIVE (A15 E3 scope)",
+        "NOT_NEGATIVE_AT_OUTER",
+        "NOT_TESTABLE"
+      ]
+    },
+    {
+      "field": "pattern names: patterns keys, patterns_holding items, cross-phase pattern_classifications.phase2",
+      "from": "module constant PATTERN_IDS; Run.score_output, Run.classify_twin",
+      "values": [
+        "P0",
+        "P1",
+        "P1g",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7",
+        "P8",
+        "P9",
+        "P10",
+        "P11",
+        "P11g",
+        "P12",
+        "P13",
+        "P14",
+        "P15"
+      ]
+    },
+    {
+      "field": "patterns.names (values)",
+      "from": "module constant PATTERN_NAMES; Run.score_output",
+      "values": [
+        "INVALID rows",
+        "OUTER_DEFICIT",
+        "P1 flag GROWING",
+        "OUTER_EXCESS",
+        "INNER_EXCESS",
+        "INNER_DEFICIT",
+        "TRANSITION_ONSET",
+        "GLOBAL_OFFSET",
+        "SCATTERED",
+        "NO_MISS_AMONG_VALID_ROWS",
+        "OUTER_UNTESTABLE",
+        "TSR_MISS",
+        "OUTER_MIXED",
+        "P11 flag CROSSING",
+        "INNER_MIXED",
+        "TRANSITION_MISS",
+        "OUTER_UNSIGNED",
+        "INNER_UNSIGNED"
+      ]
+    },
+    {
+      "field": "patterns.P10 of a twin; patterns.P8_reported_with.note",
+      "from": "Run.engine (twin=True); Run.score_output",
+      "values": [
+        "NOT_EVALUATED_FOR_ALTERNATIVE",
+        "never \"all hit\": INVALID rows still score as misses (C-4)"
+      ]
+    },
+    {
+      "field": "reading names: readings[].reading",
+      "from": "module constant READINGS (C-3.2 order); Run.readings",
+      "values": [
+        "R-MF",
+        "R-UT1",
+        "R-REACH",
+        "R-HIST",
+        "R-DRIFT",
+        "R-S1",
+        "R-GRID",
+        "R-NAX",
+        "R-GEFF",
+        "R-ML",
+        "R-SPEC",
+        "R-GEO",
+        "R-TSR"
+      ]
+    },
+    {
+      "field": "readings[].triggers_holding[].trigger",
+      "from": "module constant TRIGGERS ('OF' = OUTER_FAILURE, 'MM:Z' = MINORITY_MISS(Z)); Run.readings",
+      "values": [
+        "OF",
+        "P2",
+        "P3",
+        "P4",
+        "P6",
+        "P7",
+        "P10",
+        "P11",
+        "P12",
+        "P13",
+        "P14",
+        "P15",
+        "MM:INNER",
+        "MM:TRANSITION",
+        "MM:OUTER"
+      ]
+    },
+    {
+      "field": "readings[].part1.relation; readings[].part1.code",
+      "from": "Run.readings",
+      "values": [
+        "NOT_ADDRESSED",
+        "CONSISTENT",
+        "INCONSISTENT",
+        "PATTERN_NOT_HELD",
+        "SIGN_SCOPE_EXCESS",
+        "SIGN_SCOPE_UNSIGNED",
+        "SIGN_SCOPE_NO_DEFICIT_MISS"
+      ]
+    },
+    {
+      "field": "readings[].part2.status; readings[R-MF].part2.test; readings[R-DRIFT].part2.test",
+      "from": "Run.readings, Run.drift_part2",
+      "values": [
+        "OPEN",
+        "CONSISTENT",
+        "AGAINST",
+        "E3_VERDICT_LINE",
+        "DT-S0G"
+      ]
+    },
+    {
+      "field": "readings[].part2.test and test_status (the other readings)",
+      "from": "module constant DECIDING; Run.readings",
+      "values": [
+        "DT-UT1",
+        "DT-U12",
+        "DT-BHD",
+        "DT-S1",
+        "NONE_REGISTERED",
+        "DT-NAX",
+        "DT-ALT",
+        "DT-T1a",
+        "DT-GEO",
+        "DT-TSR",
+        "NOT SCHEDULED",
+        "UNTESTED",
+        "none registered",
+        "not run",
+        "NOT_EVALUATED_BEFORE_FREEZE (M/L); DT-T1a diagnostic",
+        "diagnostic; never changes part 2",
+        "NOT_EVALUATED_BEFORE_FREEZE"
+      ]
+    },
+    {
+      "field": "readings[R-DRIFT].part2.code",
+      "from": "Run.drift_part2 (the STAGE0 state from Run.stage0_block)",
+      "values": [
+        "NOT_EVALUATED_BEFORE_FREEZE",
+        "EVALUATED_REFUSED",
+        "TWIN_INPUT_DEFECT",
+        "TWIN_INVALID",
+        "NOT_DECIDED"
+      ]
+    },
+    {
+      "field": "readings[].part3_prior_evidence",
+      "from": "module constant PRIOR; Run.readings",
+      "values": [
+        "for: A15 E2, which expected an outer deficit",
+        "for: A41",
+        "against: A41 item 3 (FORMAL + TESTED): no gate-consistent typing gives an attractive tail, and the spec-compliant T(0+) is finite and repulsive on current estimates",
+        "for: the sealed k = 0 drift reading is SUPPORTED (A63)",
+        "against: its causal gloss is UNTESTED (A65 check R-3)",
+        "against: T120L passes C2, C3, C4 and C1' (A27)",
+        "against: the production N-tests N0, NQ, N2 and N3' pass (A90)",
+        "the ML_3p6 alternatives are NOT_EVALUATED_BEFORE_FREEZE (slots V003)",
+        "against: route B consumes the azimuthal mean, so the phi-spread S enters no row directly (A66.2; A42 TESTED)"
+      ]
+    },
+    {
+      "field": "readings[].sign_scope",
+      "from": "module constant SIGN_SCOPE (Run.readings prints '-' for a reading not in it)",
+      "values": [
+        "sign-free",
+        "deficit-type",
+        "-"
+      ]
+    },
+    {
+      "field": "descriptive.onset_radius (no onset row); descriptive.onset_comparison; descriptive.DT_T1a_trend",
+      "from": "Run.score_output",
+      "values": [
+        "NONE",
+        "k* (A12: wavelengths of tens of kpc), comparison only",
+        "NOT_COMPUTED"
+      ]
+    },
+    {
+      "field": "a15",
+      "from": "Run.a15",
+      "values": [
+        "COMPARISON with A15 E1",
+        "COMPARISON with A15 E2",
+        "OUTER_NO_MISS runs against the A15 E2 expectation",
+        "see e3_line"
+      ]
+    },
+    {
+      "field": "alternatives[].name",
+      "from": "Run.alternatives_out (module constants ALT_ORDER, DISTANCE_ALT)",
+      "values": [
+        "ORIGINAL_K",
+        "ML_3p6_0.4",
+        "ML_3p6_0.6",
+        "GL10_SOURCE_GAUSS_ORDER",
+        "DDO154_DISTANCE_NUISANCE",
+        "STAGE0_GRID_OUTER"
+      ]
+    },
+    {
+      "field": "alternatives[].status",
+      "from": "Run.alternatives_out (the score's status ECHO among the first two after Run.check_alternatives; NOT_AVAILABLE is NA_KEY; STAGE0 statuses as in the STAGE0 group)",
+      "values": [
+        "EVALUATED_BEFORE_FREEZE",
+        "NOT_EVALUATED_BEFORE_FREEZE",
+        "NOT_AVAILABLE",
+        "TWIN_INPUT_DEFECT",
+        "TWIN_INVALID",
+        "EVALUATED_REFUSED"
+      ]
+    },
+    {
+      "field": "alternatives[].reason; alternatives[].note; alternatives[].codes; alternatives[].member_within_error_counts",
+      "from": "Run.alternatives_out (module constant NOT_EVAL_NOTE)",
+      "values": [
+        "ORIGINAL_K_NOT_AVAILABLE_IN_PHASE_1 (I-4; budget 0)",
+        "ORIGINAL_K changed to NOT_EVALUATED (A16.2): NOT_AVAILABLE",
+        "NOT_EVALUATED_BEFORE_FREEZE: sensitivity only, never scored as the headline",
+        "never triggers, confirms or refutes a PRIMARY reading (C-6.1)",
+        "FIELD_DEFECT_ALTERNATIVE",
+        "NOT_AVAILABLE"
+      ]
+    },
+    {
+      "field": "p8_report",
+      "from": "Run.p8_report",
+      "values": [
+        "changes neither the headline nor any status",
+        "A27: formally provisional until aggregate_v003 is reviewed",
+        "the same record reads C1_effective_PASS false on 12 TRUNCATION_SHAPE rings (D-3)"
+      ]
+    },
+    {
+      "field": "agreement.outcome (item-11 outcome words)",
+      "from": "Run.parse_agree (module constant AGREE_OUTCOMES), Run.agreement",
+      "values": [
+        "COVERED",
+        "SUPERSEDED",
+        "AGREEMENT_DEFECT"
+      ]
+    },
+    {
+      "field": "agreement.phase1_consequence; agreement.withdrawn.*",
+      "from": "Run.agreement",
+      "values": [
+        "STANDING_AS_EARLY_STATEMENT_OF_THE_SCORE_OF_RECORD",
+        "WITHDRAWN",
+        "PHASE_2_STANDS_ROOT_INVESTIGATES",
+        "PHASE_1_KEEPS_PROVISIONAL_LABEL_NEITHER_STANDING_NOR_WITHDRAWN",
+        "WITHDRAWN_REPLACED_BY_PHASE_2",
+        "WITHDRAWN_NOT_REPLACED"
+      ]
+    },
+    {
+      "field": "agreement.agree_schema",
+      "from": "Run.parse_agree",
+      "values": [
+        "PHASE1_AT1_C2V001",
+        "PHASE1_AT0A_C2V001",
+        "PHASE1_AT0B_C2V001"
+      ]
+    },
+    {
+      "field": "agreement.agree_record_defect (besides the load status words)",
+      "from": "Run.parse_agree, Run._reported_v003a_defect, Run._extent_list_defect (prefixed BAND_REGION_ by Run._reported_v003a_defect)",
+      "values": [
+        "PHASE1_TOOL_PIN_DEFECT",
+        "MODULE",
+        "AT0_RECORD",
+        "AT0B_MEMBERS_SHA256",
+        "AT0B_VALUES_SHA256",
+        "SCHEMA",
+        "OUTCOME",
+        "MISSING:%s",
+        "NON_DISCRIMINATING_ROWS",
+        "FAILING",
+        "FAILING_ENTRY",
+        "FAILING_KEYS_V003A",
+        "CATEGORY",
+        "REGION_ROWS_VIOLATED",
+        "CATEGORY_MAPPING",
+        "REGION_MAX_VIOLATION",
+        "PARTS",
+        "FLAG_OR_FLAG_REASON",
+        "FAILING_KEYS_V002",
+        "FAILING_VALUES",
+        "SUPERSEDED_WITHOUT_FAILING",
+        "COVERED_WITH_FAILING",
+        "REPORTED_KEYS",
+        "E_Q_PER_MEMBER_ROW",
+        "E_Q_PER_MEMBER_ROW_VALUES",
+        "PAIRS_MEMBER_POINT_NOISE_NOT_BOUNDED",
+        "BAND_REGION_EXTENT_LIST",
+        "BAND_REGION_EXTENT_ENTRY",
+        "BAND_REGION_EXTENT_VALUE",
+        "BAND_REGION_DIRECTIONS",
+        "BAND_REGION_SINGLE_POINT",
+        "BAND_REGION_SINGLE_POINT_REASON"
+      ],
+      "note": "MISSING:%s takes failing, non_discriminating_rows or reported."
+    },
+    {
+      "field": "agreement.failing_member_rows[].category",
+      "from": "Run.parse_agree (module constants AGREE_V002_CATEGORIES, AGREE_V003A_CATEGORIES)",
+      "values": [
+        "OUTSIDE_TRUST_RADIUS",
+        "OUTSIDE_BOX_SLICE",
+        "OUTSIDE_LINEAR_DDO_REGION",
+        "NGC_NONLINEAR"
+      ],
+      "note": "OUTSIDE_BOX_SLICE only under the 7d891ff7 pin (phase1_c2v003b, which keeps the phase1_c2v003a encoding)."
+    },
+    {
+      "field": "flag words: agreement.failing_member_rows[].flag; target_free_always_reported.e_q_per_member_row[].flag and its e_q",
+      "from": "Run.parse_agree, Run._flag_pair_ok, Run._reported_v003a_defect (module constants FLAG_FD, FLAG_MPN)",
+      "values": [
+        "FD_NOISE_NOT_BOUNDED",
+        "MEMBER_POINT_NOISE_NOT_BOUNDED"
+      ]
+    },
+    {
+      "field": "agreement.failing_member_rows[].flag_reason; target_free_always_reported.e_q_per_member_row[].flag_reason; pairs_member_point_noise_not_bounded[].flag_reason",
+      "from": "Run._flag_pair_ok (module constants REASON_NO_ROW_EPS, MEMBER_EPS_REASONS)",
+      "values": [
+        "NO_ROW_EPS_Q",
+        "MEMBER_EPS_LIST_MISSING",
+        "MEMBER_EPS_NONE",
+        "MEMBER_EPS_BOOL",
+        "MEMBER_EPS_NOT_A_NUMBER",
+        "MEMBER_EPS_NON_FINITE",
+        "MEMBER_EPS_NEGATIVE"
+      ]
+    },
+    {
+      "field": "agreement.failing_member_rows[].region_rows_violated items and region_max_violation keys",
+      "from": "Run.parse_agree (module constant AGREE_V003A_FAMILIES)",
+      "values": [
+        "TRUST_RADIUS",
+        "BOX",
+        "LINEAR_DDO"
+      ]
+    },
+    {
+      "field": "agreement.target_free_always_reported (checked words of the 7d891ff7 echo)",
+      "from": "Run._reported_v003a_defect, Run._extent_list_defect",
+      "values": [
+        "OPTIMAL",
+        "NOT_AVAILABLE",
+        "BOX_CORNER",
+        "OTHER_ROWS"
+      ],
+      "note": "OPTIMAL in lp_status; NOT_AVAILABLE as an extent bound and as band_region_single_point; BOX_CORNER, OTHER_ROWS as band_region_single_point_reason."
+    },
+    {
+      "field": "agreement.no_phase1_classification_reason",
+      "from": "Run.agreement (ECHO of the phase inputs' closed word, checked by Run._phase_inputs_check)",
+      "values": [
+        "AT0A_FAILURE",
+        "NO_PHASE_1_SCORE"
+      ]
+    },
+    {
+      "field": "fallback (echoed record's checked schema)",
+      "from": "Run.fallback_out",
+      "values": [
+        "FALLBACK_RECORD_C4V001"
+      ]
+    },
+    {
+      "field": "the NOT_AVAILABLE key and bare word",
+      "from": "module constant NA_KEY; na()",
+      "values": [
+        "NOT_AVAILABLE"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes: rows (defective row), zones, outer_trend, outer_failure, patterns, minority_miss, readings, e3_line, descriptive, a15, flagged_rows tier, stage0.comparison, R-DRIFT part2",
+      "from": "Run.engine, Run.zone_out, Run.readings, Run.score_output, Run.stage0_block (codes_d = Run.codes('ROW', 'GATE'))",
+      "values": [
+        "FIELD_DEFECT_ROW",
+        "GATE_STATUS_LIST_DEFECT"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes: every blanked item under an 'every other' stop",
+      "from": "Run.score_output (Run.codes('ALL'))",
+      "values": [
+        "SEAL_SHA_MISMATCH",
+        "PHASE_MISMATCH",
+        "ZONE_TABLE_MISMATCH",
+        "FIELD_DEFECT_OUTSIDE_ROWS",
+        "REFERENCE_MEMBER_MISMATCH",
+        "QUERY_ID_DEFECT",
+        "ENVELOPE_LABEL_MISMATCH",
+        "REFERENCE_ROW_UNEVALUATED_OR_REFUSED"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes: rows[].near, zones[].N, e3_line.N, a15.E1.a.N, Q03_Q15 near",
+      "from": "Run.score_output",
+      "values": [
+        "ENVELOPE_ROW_INVALID",
+        "FIELD_DEFECT_ENVELOPE",
+        "FIELD_DEFECT_ROW",
+        "GATE_STATUS_LIST_DEFECT"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes: rows[].tsr_flag, patterns.P10, flagged_rows, readings[R-TSR]; rows[].sensitivity_band_overlap",
+      "from": "Run.score_output, Run.readings",
+      "values": [
+        "TSR_FLAG_TABLE_MISMATCH",
+        "FIELD_DEFECT_SENSITIVITY"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes: rows[].phase1_band.overlaps (exactly one)",
+      "from": "Run.band_column",
+      "values": [
+        "L1_SHA_MISMATCH",
+        "L1_RECORD_DEFECT",
+        "PHASE1_TOOL_PIN_DEFECT",
+        "Q01_Q02_ALWAYS_NOT_AVAILABLE",
+        "L1_ROW_DEFECT",
+        "L1_ROW_NOT_AVAILABLE",
+        "TARGET_PAIR_DEFECT"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes: readings[R-DRIFT].part1 (codes_d with the STAGE0 state's codes)",
+      "from": "Run.readings",
+      "values": [
+        "FIELD_DEFECT_ROW",
+        "GATE_STATUS_LIST_DEFECT",
+        "NOT_IN_PHASE_1",
+        "STAGE0_STATUS_RECORD_DEFECT",
+        "STAGE0_STATUS_BLOCK_DEFECT",
+        "FIELD_DEFECT_ALTERNATIVE",
+        "STAGE0_RECEIPT_NOT_FINISHED",
+        "NO_SEALED_SUCCESSOR",
+        "RECEIPTS_AFTER_STEP4"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes, one per field: header.gate_status_list; headline and labels[].incomplete_reasons; header.root_disclosures; fallback; header.commitment_status.stops_or_changes; invalid_list.outer_gas_cut_report; a15.E1.b",
+      "from": "Run.header, Run.headline_out, Run.labels, Run.fallback_out, Run.commitment, Run.invalid_list, Run.a15",
+      "values": [
+        "GATE_STATUS_LIST_DEFECT",
+        "FIELD_DEFECT_OUTSIDE_ROWS",
+        "ROOT_DISCLOSURES_NOT_SUPPLIED",
+        "FALLBACK_RECORD_DEFECT",
+        "COMMITMENT_STATUS_DEFECT",
+        "CUT_REPORT_NOT_SUPPLIED",
+        "NO_PRE_FREEZE_BARYONIC_NEWTONIAN_CARRIER_M11"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes, one per field: p8_report.ORIGINAL_K_twin_OUTER; p8_report.T120L_C3_record",
+      "from": "Run.p8_report",
+      "values": [
+        "ORIGINAL_K_NOT_AVAILABLE_IN_PHASE_1",
+        "ORIGINAL_K_TWIN_NOT_CLASSIFIED",
+        "C3_RECORD_NOT_AVAILABLE_M13"
+      ]
+    },
+    {
+      "field": "NOT_AVAILABLE codes, one per field: agreement.outcome; agreement.target_free_always_reported; agreement.cross_phase",
+      "from": "Run.agreement",
+      "values": [
+        "AGREE_RECORD_DEFECT",
+        "NOT_RUN_UNDER_AGREEMENT_DEFECT",
+        "NO_PHASE_1_CLASSIFICATION",
+        "PHASE1_CLASSIFICATION_INPUT_DEFECT"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "scope": "Actual guard.validate and launcher.worker with synthetic native adapters, stub disk readings and mocked all subprocess creation. No scientific process; production integration UNTESTED.",
+  "checks": [
+    {
+      "name": "positive",
+      "passed": true,
+      "detail": "rc=0 mocked monitors=1",
+      "worker_log": "{\"event\": \"step4_admission_decision\", \"case\": \"SYNTH\", \"free_percent\": 80, \"active_route_a\": 0, \"previous_first_iteration\": true, \"admitted\": true}\n{\"event\": \"step4_finished\", \"finished\": [{\"case\": \"SYNTH\", \"passed\": true, \"monitor_exit\": 0, \"receipt_status\": \"FINISHED\"}], \"failures\": [], \"retry\": \"NONE\"}\n"
+    },
+    {
+      "name": "batch_low",
+      "passed": true,
+      "detail": "rc=1 mocked monitors=0",
+      "worker_log": ""
+    },
+    {
+      "name": "start_low",
+      "passed": true,
+      "detail": "rc=1 mocked monitors=0",
+      "worker_log": "{\"event\": \"step4_finished\", \"finished\": [], \"failures\": [{\"reason\": \"WORKER_INTERRUPTED_OR_ERROR\", \"case\": null, \"detail\": \"Refusal: DISK_START_BOUND\"}], \"retry\": \"NONE\"}\n"
+    },
+    {
+      "name": "unreadable",
+      "passed": true,
+      "detail": "rc=1 mocked monitors=0",
+      "worker_log": "{\"event\": \"step4_finished\", \"finished\": [], \"failures\": [{\"reason\": \"WORKER_INTERRUPTED_OR_ERROR\", \"case\": null, \"detail\": \"Refusal: DISK_READING_UNAVAILABLE\"}], \"retry\": \"NONE\"}\n"
+    },
+    {
+      "name": "wrong_volume",
+      "passed": true,
+      "detail": "rc=1 mocked monitors=0",
+      "worker_log": "{\"event\": \"step4_finished\", \"finished\": [], \"failures\": [{\"reason\": \"WORKER_INTERRUPTED_OR_ERROR\", \"case\": null, \"detail\": \"Refusal: OUTPUT_ROOT_MISSING\"}], \"retry\": \"NONE\"}\n"
+    }
+  ],
+  "passed": 5,
+  "total": 5,
+  "hashes": {
+    "/private/tmp/unt_a122_cx1_build/test_disk_integration_v001.py": "b4b8426384a8a0fd8293cae5994ef7ea85a9324dd4185776d62e2d7b492f626a",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_launcher_cx1v009.py": "722d9898d52ec092283f42aa9c4e33bff2d9bae2b13378fb9a9ea6c917268373",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_cx1v008.py": "f27a48686b7b2f9048542dcd7614e84322a81758bd4c28d2fa0bc5ffe64314bc",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/test_step4_cx1v007.py": "0df4d723fb3f3cb0fab3cb91a0d71f4a6c5ac0f918beb66b558a949be7309163"
+  }
+}

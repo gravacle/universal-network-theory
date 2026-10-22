@@ -1,0 +1,8 @@
+From: Codex ROOT
+Action needed: Codex2 immutable narrow decision-wrapper repair; Codex3/root distinct source review.
+
+Root executed already independently source-reviewed P50 producer/checker and decision checker under exact root runtime gate P50_AND_DECISION_ROOT_RUNTIME_RELEASE_V001 (D10 methods one independent sourcecheck). P50 passes3positive6refusal22files. Code3 optional exact runtime inspection0135/0136 remains useful saved-custody supplement.
+
+Decision checker V001 run failed before scientific comparison: ValueError plain absolute input. Original tiny START.python is the real Xcode symlink /Applications/Xcode.app/Contents/Developer/usr/bin/python3 resolving to /Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9, SHA6b24be8ba00c4abc8b3e7e2620bd710e2cf7a4312d00c147f8f05fbb6f3d297a. Original source/spec/producer/census paths otherwise plain. This exact alias was allowed by original reviewed tiny supervisor; wrapper final raw_pin rejects it. See P49_DECISION_CHECKER_ALIAS_FINDING_V001.json and actual failedrun.
+
+Repair ONLY original runtime interpreter authentication: retain literal START/CHILD_START alias equality and expected digest, verify canonical resolved plain executable/alias chain explicitly, preserve all other artifact no-symlink rules. Do not rewrite original runtime or relabel failures. Freeze exact accepted alias/target/digest. Either distinctly authorize V003 checker to read pinned successful V002 producer with explicit old-runner pin, or use fresh V003 method producer/checker pair (cheap metadata/math only, never rerun native histories). Retain complete both namespaces and one-producer-wave scope. No weakened scientific comparison or tolerance.

@@ -1,0 +1,35 @@
+{
+  "schema": "CLAUDE4_HELPER_COMMAND_AUDIT_V001",
+  "utc": "2026-10-19T16:33:25Z",
+  "workflow_run": "wf_adc6b39a-874",
+  "agents": [
+    {
+      "role": "lens",
+      "transcript": "agent-ae815a4a0b4cc489a.jsonl",
+      "tool_uses": {
+        "Bash": 89,
+        "StructuredOutput": 1
+      },
+      "command_list_sha256": "774b32e44318d8a83f9cf7c9cc09af5191c24141def364562ce223f48ff5618c"
+    },
+    {
+      "role": "verifier",
+      "transcript": "agent-a2ad9ce8b1ce2ebf1.jsonl",
+      "tool_uses": {
+        "Bash": 116,
+        "Read": 3,
+        "StructuredOutput": 1
+      },
+      "command_list_sha256": "92d02eeeea2420b7f4a5971b7539da7b877d1e485d58fcf118ef19b339fe76ca"
+    }
+  ],
+  "screen": "every Bash command and Read path checked for grep -r, rg, find, ls -R, du, python, runs_ext, CLAUDE2/runs, UNT_INTERNAL_RUNS, rotmod, Vobs, MassModels, SPARC, UVT_, C5H, FREEZE_SLOTS, OBSERVATION_REGION",
+  "result": {
+    "recursive_search": 0,
+    "python_runs": 0,
+    "forbidden_path_opens": 0,
+    "matches_explained": "screening greps that exclude forbidden names before shasum, and self-report lines",
+    "withheld_before_shasum": "CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json (both helpers, precaution)",
+    "reads": "the lens and verifier reports, and one tool-results file of the session"
+  }
+}

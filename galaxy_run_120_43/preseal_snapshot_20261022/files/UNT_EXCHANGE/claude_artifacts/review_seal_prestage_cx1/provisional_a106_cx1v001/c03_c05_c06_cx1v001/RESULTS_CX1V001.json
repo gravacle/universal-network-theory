@@ -1,0 +1,758 @@
+{
+ "actual_candidate_functions": [
+  "DuplicateKey",
+  "Refuse",
+  "_build_table",
+  "_lexical_veto",
+  "_nonfinite",
+  "_pairs",
+  "c_bound_check",
+  "c_gates_provenance",
+  "nofollow_walk",
+  "path_policy",
+  "pin",
+  "read_nofollow",
+  "sha_bytes",
+  "sjson",
+  "str_int"
+ ],
+ "audit_denials": [],
+ "checks": [
+  {
+   "detail": {
+    "actual": "PASS",
+    "detail": {
+     "c05": {
+      "exact_build_rows": true,
+      "guard": {
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/sources/producer_guard_cx1v008.py",
+       "sha256": "2c74fd89c3648987c7d13a679deb258685424a409f62e6801e2486a863292018"
+      },
+      "launcher": {
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/sources/route_a_token_launcher_cx1v007.py",
+       "sha256": "9e37f72efd9b323de3b898240552dd3bb7d3760cd8718bdb422248f209ad6bcf"
+      },
+      "plan_names_exactly_them": true
+     },
+     "c06": {
+      "bound_command": {
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/bound/valid/INERT_COMMAND.txt",
+       "sha256": "618cc9567e41d2fdd4d1c35789196d41b810590cfbc5a22b59ba1d63807e669d"
+      },
+      "byte_equal_to_the_binder_output": true,
+      "lines": 2
+     }
+    },
+    "expected": "PASS"
+   },
+   "name": "BOUND/valid",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C05_LAUNCHER_NAME 'inert_support_02.py' (want route_a_token_launcher_cx1v007.py)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/allowlisted_other_launcher",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C05_GUARD_NAME 'inert_support_02.py' (want producer_guard_cx1v008.py)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/allowlisted_other_guard",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C05_LAUNCHER_NOT_THE_BUILD_ROW ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/bound/same_name_outside_build/outside/route_a_token_launcher_cx1v007.py', 'b3e0a388f3cf9841629edd40d6196d514de15536f5408b622c0cc9de8da8a264') (BUILD_V007 row ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/sources/route_a_token_launcher_cx1v007.py', '9e37f72efd9b323de3b898240552dd3bb7d3760cd8718bdb422248f209ad6bcf'))",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/same_name_outside_build",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C05_LAUNCHER_BUILD_ROWS_NAMED_route_a_token_launcher_cx1v007.py 2 (want exactly one)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/duplicate_exact_basename",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C05_LAUNCHER_BUILD_ROWS_NAMED_route_a_token_launcher_cx1v007.py 0 (want exactly one)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/missing_exact_basename",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "PIN_BYTES_MISMATCH launcher: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/sources/route_a_token_launcher_cx1v007.py has 9e37f72efd9b323de3b898240552dd3bb7d3760cd8718bdb422248f209ad6bcf, pinned 0000000000000000000000000000000000000000000000000000000000000000",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/launcher_stale_bytes",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C05_PLAN_LAUNCHER_NOT_EXACT {'extra': True, 'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/sources/route_a_token_launcher_cx1v007.py', 'sha256': '9e37f72efd9b323de3b898240552dd3bb7d3760cd8718bdb422248f209ad6bcf'}",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/plan_launcher_extra_key",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C05_PLAN_GUARD_NOT_EXACT {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/sources/inert_support_02.py', 'sha256': '38a9c1d8279ce4fc7564f5fe486d7d508441897660e709987b80957b8a622d1a'}",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/plan_guard_substitution",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "PIN_BYTES_MISMATCH bound_plan: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/bound/plan_stale_hash/INERT_PLAN.json has 55f89b0c1b0bcdc6c46d96fc5bf4c3de2dfc812b7ac4468bf725bc6ee3ffc2f1, pinned 0000000000000000000000000000000000000000000000000000000000000000",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/plan_stale_hash",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 643 bytes, want 619)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_prefix_comment",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 652 bytes, want 619)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_prefix_command",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 456 bytes, want 617)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_drop_comment",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 3; 629 bytes, want 618)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_trailing_line",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 611 bytes, want 609)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_CRLF",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 3; 625 bytes, want 626)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_missing_final_newline",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 619 bytes, want 618)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_leading_space",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 2; 619 bytes, want 619)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_changed_python",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 2; 610 bytes, want 617)",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/command_changed_flag",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BINDER_SOURCE_FORM \"cmd=shlex.join([PYTHON,'-I','-B',plan['launcher']['path'],str(outs[0].\"",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/binder_missing_form",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C06_BINDER_SOURCE_FORM \"f.write('# Claude2 only after root seal/config/receipt publication, in\"",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/binder_duplicate_form",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "PIN_BYTES_MISMATCH binder: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/INERT_BINDER_FORM.py has 3edc07b0ad9dd1305cf6ad6bb0cd3f07a9c456f9adddec71c14cc2d7a678f276, pinned 0000000000000000000000000000000000000000000000000000000000000000",
+    "expected": "REFUSE"
+   },
+   "name": "BOUND/binder_wrong_pin",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "detail": {
+     "c03": {
+      "gates_only_json": {
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/valid/INERT_GATES_ONLY.json",
+       "sha256": "7f2383d8b692d04123f21a58bcbd39ca49ed6c8a006b87871abe6b6a52f8ed93"
+      },
+      "not_gates_only_records": [
+       "certificates.EPS_NGC",
+       "certificates.I1T_NGC"
+      ],
+      "slotted_records_evaluated": {
+       "certificates.DOUBLING": {
+        "gate": "DOUBLING",
+        "record_sha256": "d4abb3bcafd763fcd604366581d8eea8c91927fac1bb689b1bba58910c7aeb29",
+        "status": "PASS"
+       },
+       "certificates.EPS": {
+        "gate": "EPS",
+        "record_sha256": "622c34984e4c5c958f5cf14fe4abccf6da39389ccb4acbc3ca25c6807b991e01",
+        "status": "PASS"
+       },
+       "certificates.GQ": {
+        "gate": "GQ",
+        "record_sha256": "723376a94e40cfc35eb6255dbb180c6cb7470d6cdefee9eb9f64d15d3bd001c9",
+        "status": "PASS"
+       },
+       "certificates.LO": {
+        "gate": "LO",
+        "record_sha256": "0a73de59dbc585ddebc06bf22ad0b072875ca51848612247b119eaba09b1c9de",
+        "status": "PASS"
+       },
+       "certificates.LO_NGC": {
+        "gate": "LO_NGC",
+        "record_sha256": "69235d38575fe980ac85268ca82dd594c6cfb3049315aec4199fc757e2e6ba1c",
+        "status": "PASS"
+       },
+       "identity_gate_records.B0prime_RERUN": {
+        "gate": "B0prime_RERUN",
+        "record_sha256": "8909d3a54324c5b50cdf36ca463e916869355dcf24f5dac55d1096fa087e2215",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2": {
+        "gate": "B1",
+        "record_sha256": "9f01f7ca3b9ed8f058312e39873f5f10ce28a24c0dd706b5267b4af321834508",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2_OFF_RO1": {
+        "gate": "B1_OFF",
+        "record_sha256": "ea2a4c52b54488fedbd2f29204dcb82904d5b5c3575edb8f1acfc07a6feaaea5",
+        "status": "PASS"
+       }
+      }
+     }
+    },
+    "expected": "PASS"
+   },
+   "name": "C03/valid",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:certificates.EPS:EPS",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_EPS",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:certificates.EPS:EPS",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_EPS",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:certificates.LO:LO",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_LO",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:certificates.LO:LO",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_LO",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:certificates.GQ:GQ",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_GQ",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:certificates.GQ:GQ",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_GQ",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:certificates.DOUBLING:DOUBLING",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_DOUBLING",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:certificates.DOUBLING:DOUBLING",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_DOUBLING",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:certificates.LO_NGC:LO_NGC",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_LO_NGC",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:certificates.LO_NGC:LO_NGC",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_LO_NGC",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:identity_gate_records.Z2:B1",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_Z2",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:identity_gate_records.Z2:B1",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_Z2",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:identity_gate_records.Z2_OFF_RO1:B1_OFF",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_Z2_OFF_RO1",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:identity_gate_records.Z2_OFF_RO1:B1_OFF",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_Z2_OFF_RO1",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:identity_gate_records.B0prime_RERUN:B0prime_RERUN",
+    "expected": "REFUSE"
+   },
+   "name": "C03/wrong_record_B0prime_RERUN",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_STATUS_FAIL:identity_gate_records.B0prime_RERUN:B0prime_RERUN",
+    "expected": "REFUSE"
+   },
+   "name": "C03/status_not_pass_B0prime_RERUN",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_NOT_IN_THE_BODY:certificates.EPS:EPS",
+    "expected": "REFUSE"
+   },
+   "name": "C03/missing_gate",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03 C03_SLOT_GATE_NOT_IN_THE_BODY:certificates.EPS:EPS",
+    "expected": "REFUSE"
+   },
+   "name": "C03/missing_slot",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03_GATES_ONLY_BODY_NOT_SEALED_MODE",
+    "expected": "REFUSE"
+   },
+   "name": "C03/test_mode",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03_GATES_ONLY_BODY_NOT_SEALED_MODE",
+    "expected": "REFUSE"
+   },
+   "name": "C03/missing_test_mode",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "detail": "C03_GATES_ONLY_BODY_NOT_SEALED_MODE",
+    "expected": "REFUSE"
+   },
+   "name": "C03/bad_gates_shape",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "detail": {
+     "c03": {
+      "gates_only_json": {
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/null_sha/INERT_GATES_ONLY.json",
+       "sha256": "784694215633bfb255f190904fe18b4085a68ca6b1ca548decf2204bb2460b1e"
+      },
+      "not_gates_only_records": [
+       "certificates.EPS_NGC",
+       "certificates.I1T_NGC"
+      ],
+      "slotted_records_evaluated": {
+       "certificates.DOUBLING": {
+        "gate": "DOUBLING",
+        "record_sha256": "d4abb3bcafd763fcd604366581d8eea8c91927fac1bb689b1bba58910c7aeb29",
+        "status": "PASS"
+       },
+       "certificates.EPS": {
+        "gate": "EPS",
+        "record_sha256": null,
+        "status": "PASS"
+       },
+       "certificates.GQ": {
+        "gate": "GQ",
+        "record_sha256": "723376a94e40cfc35eb6255dbb180c6cb7470d6cdefee9eb9f64d15d3bd001c9",
+        "status": "PASS"
+       },
+       "certificates.LO": {
+        "gate": "LO",
+        "record_sha256": "0a73de59dbc585ddebc06bf22ad0b072875ca51848612247b119eaba09b1c9de",
+        "status": "PASS"
+       },
+       "certificates.LO_NGC": {
+        "gate": "LO_NGC",
+        "record_sha256": "69235d38575fe980ac85268ca82dd594c6cfb3049315aec4199fc757e2e6ba1c",
+        "status": "PASS"
+       },
+       "identity_gate_records.B0prime_RERUN": {
+        "gate": "B0prime_RERUN",
+        "record_sha256": "8909d3a54324c5b50cdf36ca463e916869355dcf24f5dac55d1096fa087e2215",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2": {
+        "gate": "B1",
+        "record_sha256": "9f01f7ca3b9ed8f058312e39873f5f10ce28a24c0dd706b5267b4af321834508",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2_OFF_RO1": {
+        "gate": "B1_OFF",
+        "record_sha256": "ea2a4c52b54488fedbd2f29204dcb82904d5b5c3575edb8f1acfc07a6feaaea5",
+        "status": "PASS"
+       }
+      }
+     }
+    },
+    "expected": "REFUSE"
+   },
+   "name": "C03/null_sha",
+   "passed": false
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "detail": {
+     "c03": {
+      "gates_only_json": {
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/empty_sha/INERT_GATES_ONLY.json",
+       "sha256": "57aa113bdda5523b3f47e72530d32d13cdefb26da35d5894e88d6d89b2755f1e"
+      },
+      "not_gates_only_records": [
+       "certificates.EPS_NGC",
+       "certificates.I1T_NGC"
+      ],
+      "slotted_records_evaluated": {
+       "certificates.DOUBLING": {
+        "gate": "DOUBLING",
+        "record_sha256": "d4abb3bcafd763fcd604366581d8eea8c91927fac1bb689b1bba58910c7aeb29",
+        "status": "PASS"
+       },
+       "certificates.EPS": {
+        "gate": "EPS",
+        "record_sha256": "",
+        "status": "PASS"
+       },
+       "certificates.GQ": {
+        "gate": "GQ",
+        "record_sha256": "723376a94e40cfc35eb6255dbb180c6cb7470d6cdefee9eb9f64d15d3bd001c9",
+        "status": "PASS"
+       },
+       "certificates.LO": {
+        "gate": "LO",
+        "record_sha256": "0a73de59dbc585ddebc06bf22ad0b072875ca51848612247b119eaba09b1c9de",
+        "status": "PASS"
+       },
+       "certificates.LO_NGC": {
+        "gate": "LO_NGC",
+        "record_sha256": "69235d38575fe980ac85268ca82dd594c6cfb3049315aec4199fc757e2e6ba1c",
+        "status": "PASS"
+       },
+       "identity_gate_records.B0prime_RERUN": {
+        "gate": "B0prime_RERUN",
+        "record_sha256": "8909d3a54324c5b50cdf36ca463e916869355dcf24f5dac55d1096fa087e2215",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2": {
+        "gate": "B1",
+        "record_sha256": "9f01f7ca3b9ed8f058312e39873f5f10ce28a24c0dd706b5267b4af321834508",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2_OFF_RO1": {
+        "gate": "B1_OFF",
+        "record_sha256": "ea2a4c52b54488fedbd2f29204dcb82904d5b5c3575edb8f1acfc07a6feaaea5",
+        "status": "PASS"
+       }
+      }
+     }
+    },
+    "expected": "REFUSE"
+   },
+   "name": "C03/empty_sha",
+   "passed": false
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "detail": {
+     "c03": {
+      "gates_only_json": {
+       "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/malformed_sha/INERT_GATES_ONLY.json",
+       "sha256": "902545f1681e2d56206a94b752b0202c1fe17847ff3176a1fb3b71f00712ce61"
+      },
+      "not_gates_only_records": [
+       "certificates.EPS_NGC",
+       "certificates.I1T_NGC"
+      ],
+      "slotted_records_evaluated": {
+       "certificates.DOUBLING": {
+        "gate": "DOUBLING",
+        "record_sha256": "d4abb3bcafd763fcd604366581d8eea8c91927fac1bb689b1bba58910c7aeb29",
+        "status": "PASS"
+       },
+       "certificates.EPS": {
+        "gate": "EPS",
+        "record_sha256": "not-a-sha",
+        "status": "PASS"
+       },
+       "certificates.GQ": {
+        "gate": "GQ",
+        "record_sha256": "723376a94e40cfc35eb6255dbb180c6cb7470d6cdefee9eb9f64d15d3bd001c9",
+        "status": "PASS"
+       },
+       "certificates.LO": {
+        "gate": "LO",
+        "record_sha256": "0a73de59dbc585ddebc06bf22ad0b072875ca51848612247b119eaba09b1c9de",
+        "status": "PASS"
+       },
+       "certificates.LO_NGC": {
+        "gate": "LO_NGC",
+        "record_sha256": "69235d38575fe980ac85268ca82dd594c6cfb3049315aec4199fc757e2e6ba1c",
+        "status": "PASS"
+       },
+       "identity_gate_records.B0prime_RERUN": {
+        "gate": "B0prime_RERUN",
+        "record_sha256": "8909d3a54324c5b50cdf36ca463e916869355dcf24f5dac55d1096fa087e2215",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2": {
+        "gate": "B1",
+        "record_sha256": "9f01f7ca3b9ed8f058312e39873f5f10ce28a24c0dd706b5267b4af321834508",
+        "status": "PASS"
+       },
+       "identity_gate_records.Z2_OFF_RO1": {
+        "gate": "B1_OFF",
+        "record_sha256": "ea2a4c52b54488fedbd2f29204dcb82904d5b5c3575edb8f1acfc07a6feaaea5",
+        "status": "PASS"
+       }
+      }
+     }
+    },
+    "expected": "REFUSE"
+   },
+   "name": "C03/malformed_sha",
+   "passed": false
+  },
+  {
+   "detail": null,
+   "name": "execution/nice10_isolated_no_bytecode",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "execution/single_blas",
+   "passed": true
+  },
+  {
+   "detail": [],
+   "name": "execution/zero_audit_denials",
+   "passed": true
+  }
+ ],
+ "count": 50,
+ "date_u": "Sun Oct 18 23:22:48 UTC 2026",
+ "findings": [
+  {
+   "actual": "PASS",
+   "case": "null_sha",
+   "expected": "REFUSE",
+   "gates_body": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/null_sha/INERT_GATES_ONLY.json",
+    "sha256": "784694215633bfb255f190904fe18b4085a68ca6b1ca548decf2204bb2460b1e"
+   },
+   "id": "A106-C03-S1",
+   "severity": "SHOULD_FIX_LOCAL_HELPER",
+   "slots": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/null_sha/INERT_SLOTS.json",
+    "sha256": "cb37ffea0c4e1b6ba5e3d185ba4d01fe5756bc800b0041ebb8679a80400a8bc8"
+   },
+   "summary": "C03 accepts matching non-SHA values as record_sha256. Earlier C04/T3 validation may prevent this malformed input in the full script; no integrated bypass established."
+  },
+  {
+   "actual": "PASS",
+   "case": "empty_sha",
+   "expected": "REFUSE",
+   "gates_body": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/empty_sha/INERT_GATES_ONLY.json",
+    "sha256": "57aa113bdda5523b3f47e72530d32d13cdefb26da35d5894e88d6d89b2755f1e"
+   },
+   "id": "A106-C03-S1",
+   "severity": "SHOULD_FIX_LOCAL_HELPER",
+   "slots": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/empty_sha/INERT_SLOTS.json",
+    "sha256": "78a4e090bd956a1878fc093107f1bbf105dfa30e1037605a038aae0adbb12665"
+   },
+   "summary": "C03 accepts matching non-SHA values as record_sha256. Earlier C04/T3 validation may prevent this malformed input in the full script; no integrated bypass established."
+  },
+  {
+   "actual": "PASS",
+   "case": "malformed_sha",
+   "expected": "REFUSE",
+   "gates_body": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/malformed_sha/INERT_GATES_ONLY.json",
+    "sha256": "902545f1681e2d56206a94b752b0202c1fe17847ff3176a1fb3b71f00712ce61"
+   },
+   "id": "A106-C03-S1",
+   "severity": "SHOULD_FIX_LOCAL_HELPER",
+   "slots": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/malformed_sha/INERT_SLOTS.json",
+    "sha256": "e57b1804a7c36a37d1a6461e076a54eca4c483d567b851dd050ad937420c4a4a"
+   },
+   "summary": "C03 accepts matching non-SHA values as record_sha256. Earlier C04/T3 validation may prevent this malformed input in the full script; no integrated bypass established."
+  }
+ ],
+ "harness": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/review_controls_cx1v001.py",
+  "sha256": "2fc8a57fb658046f24ab02035b7082dede6a0fe2cb7e99dc7a525d414a7e3669"
+ },
+ "mocked_candidate_functions": [],
+ "passed": 47,
+ "scope": "Exact checked helper AST including actual no-follow pin reads and strict JSON. All runtime inputs are invented owned fixtures. No root script, full helper main, binder, launcher, guard, comparator or real gates body executed. C03 non-SHA controls are local malformed-input findings; full-script exploitability is not established.",
+ "source": {
+  "bytes": 85799,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/seal_steps_c3sa_c3v012.py",
+  "sha256": "b13483966fcb8755608d73e05c0e70dc94e39a2b07635f54efc0c86849748bac"
+ },
+ "status": "TESTED_PROVISIONAL_C03_C05_C06_AST_ONLY"
+}

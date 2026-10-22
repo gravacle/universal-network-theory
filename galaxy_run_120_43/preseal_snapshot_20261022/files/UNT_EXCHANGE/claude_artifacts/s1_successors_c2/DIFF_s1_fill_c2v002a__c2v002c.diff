@@ -1,0 +1,43 @@
+--- s1_fill_c2v002a.py	2026-10-19 13:26:11
++++ s1_fill_c2v002c.py	2026-10-19 18:34:12
+@@ -1,7 +1,8 @@
+-"""S1 template CLI for root (s1_successors_c2, c2v002a): fill | dry-plan | plan.
++"""S1 template CLI for root (s1_successors_c2, c2v002c): fill | dry-plan | plan.
+ 
+-Loads s1_path_lib_c2v002a.py from this folder by its sha256 and refuses on any mismatch. c2v002a changes only the
+-library pin (BLK-1: the library's replay re-derives every consumed fill-record field). Writes only the named outputs,
++Loads s1_path_lib_c2v002c.py from this folder by its sha256 and refuses on any mismatch. c2v002c changes only the
++library pin (lib c2v002c, V006 A182: context module KS5'', sources_to_add for the S1 fence, and plan without --params
++uses DIRECT_BATCH_PARAMS_S45_C2V004B). Writes only the named outputs,
+ by exclusive create; dry-plan writes nothing. Starts no process. Pins are given as PATH@SHA256.
+   fill      --u-a P@S --base-spec P@S --campaign-config P@S --c3t-registry P@S --out-dir DIR
+   dry-plan  --u-a P@S --base-spec P@S --campaign-config P@S [--c3t-registry P@S]
+@@ -10,7 +11,7 @@
+   c3t-cp1-spec --u-a P@S --base-spec P@S --campaign-config P@S (--out-dir DIR | --dry)
+             the S1_UA_C3T spec in CP-1's input form (certificate slots PENDING), for the CP-1 point extension
+ The u_A point file pins the Phase-1 snapshot (phase1_snapshot); --c3t-registry is the certificate registry that holds
+-point_identity(S1_UA_C3T) (note 10). --overlap writes guard012's S1 overlap admission fields into the plan sidecar.
++point_identity(S1_UA_C3T) (note 10). --overlap writes the S1 overlap admission fields (guard014's core_priority_admission) into the plan sidecar.
+ Exit 0: done; 3: refused (the code is printed; an unexpected error prints INTERNAL_ERROR).
+ """
+ import argparse
+@@ -21,8 +22,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB = HERE / 's1_path_lib_c2v002a.py'
+-LIB_SHA = 'f961839b2dd1ef27c6225badedcc199db3f6515776b5e7e5c08ecede3e769a9e'
++LIB = HERE / 's1_path_lib_c2v002c.py'
++LIB_SHA = '99e2be175e546992c70984435bc480e1eddb90b052fda65ddcbfe8780bdbd27e'
+ 
+ 
+ def lib():
+@@ -30,7 +31,7 @@
+     if hashlib.sha256(raw).hexdigest() != LIB_SHA:
+         print(json.dumps({'refused': 'LIB_BYTES_CHANGED'}))
+         raise SystemExit(3)
+-    m = types.ModuleType('s1_path_lib_c2v002a')
++    m = types.ModuleType('s1_path_lib_c2v002c')
+     m.__file__ = str(LIB)
+     exec(compile(raw, str(LIB), 'exec'), m.__dict__)
+     return m

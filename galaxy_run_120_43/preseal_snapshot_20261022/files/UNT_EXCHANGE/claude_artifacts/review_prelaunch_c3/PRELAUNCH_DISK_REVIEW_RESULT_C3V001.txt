@@ -1,0 +1,299 @@
+{
+  "summary": "Claude3 review of record (A115) of Codex1 S4-R-B4a PRELAUNCH tool and the A124 disk guard; adversarial verify",
+  "agentCount": 4,
+  "logs": [],
+  "result": [
+    {
+      "lens": "prelaunch",
+      "review": {
+        "lens": "PRELAUNCH (S4-R-B4a, option (a)), batch mode (0130), and the A124 successor PRELAUNCH002 feeding guard008, binder007 and launcher009",
+        "verdict": "PASS, 0 blocking under A115. Both PRELAUNCH v001 (c821121f) and v002 (403d642b) call guard007's native_preflight(admission, call) unchanged, under guard007's own fence, which is nested inside the native's internal fence. They write the exact native returns by exclusive create, write the manifest last, and pin {case, spec, driver, prelaunch} for each call. In the tested scope no honest call is wrongly refused, wrongly admitted or mis-recorded. Every divergence I could construct fails closed at the guard's replay; none admits. A refused native return cannot be recorded as PASS, because native_preflight raises on every refusal and the tool never catches. PRELAUNCH002 is the only version that serves the A124 packet. 7 NOTEs, none blocking.",
+        "blocking": 0,
+        "findings": [
+          {
+            "id": "PL-N1",
+            "cls": "NOTE",
+            "title": "The PRELAUNCH run's interpreter and flags are not pinned; running without -B (or without -I) can refuse an honest call",
+            "evidence": "INTERFACE_V001 and INTERFACE_V002 give only the CLI arguments. Under guard007's fence, the first import of an uncached module makes Python try to write a .pyc, and the fence refuses that write. TESTED on copies: an unmanaged import passes under -I -B and is refused with PREFLIGHT_WRITE_REFUSED under -I -X pycache_prefix=<scratch> without -B, leaving no outputs (MY_RESULTS_nob_B/nob_noB.json). Without -I, PYTHONPATH or user site-packages could change which numpy the tail library loads compared with the launcher's -I -B run, which would only fail the launch replay closed (FORMAL). Exposure is low: the pinned runtime ships stdlib and numpy caches, and native sources are compiled from verified bytes and never cached. Fix: document the invocation as <launcher PYTHON> -I -B step4_prelaunch_cx1v002.py ..., the same interpreter and flags as binder007 and launcher009.",
+            "label": "TESTED"
+          },
+          {
+            "id": "PL-N2",
+            "cls": "NOTE",
+            "title": "Native code that reads call-stack source files would be refused under PRELAUNCH but not at launch",
+            "evidence": "guard007's fence refuses to open any .py under '/Research/' that is not in FENCE_SOURCES. During PRELAUNCH the call stack contains the tool file and guard007. At launch it contains launcher009 and guard008, which are both admitted sources; at bind time it contains binder007. TESTED with an inert native that calls traceback.format_stack(), using a byte-identical copy of the tool under a scratch path containing 'Research': PRELAUNCH is refused with UNPINNED_PREFLIGHT_SOURCE when the tool and guard007 are missing from cfg.sources, and passes, with guard008 replay also passing, when both are listed. Not reachable today: in the 9 native sources, traceback, inspect and _getframe appear only in the drivers' cmd_run and in v005's campaign fwd(), and there is no logging or warnings use on the preflight path. Fails closed. Fix: keep the PRELAUNCH tool, guard007 and binder007 in the admission 'sources', not only in the inventory; the V002 inventory already lists all three.",
+            "label": "TESTED"
+          },
+          {
+            "id": "PL-N3",
+            "cls": "NOTE",
+            "title": "Version scope: v001 cannot serve the A124 packet, and v002 also accepts guard007 plans",
+            "evidence": "v001 refuses a guard008 plan with GUARD_IDENTITY (TESTED), so PRELAUNCH002 (403d642b) is the only usable tool for the A124 packet. v002 also accepts a guard007 plan (TESTED, and it replays under guard007). So the A124 disk bound is enforced by root's plan pins together with binder007 and launcher009, not by PRELAUNCH. Records are identical under either guard: all 40 nodes above validate are AST-identical between guard007 and guard008, and native_preflight's transitive closure is source-identical (FORMAL). Optional defense in depth: a successor could accept only guard008.",
+            "label": "TESTED"
+          },
+          {
+            "id": "PL-N4",
+            "cls": "NOTE",
+            "title": "Codex1's MUST_FAIL controls were one variant per category; my added controls close the gaps",
+            "evidence": "Codex1's controls cover: pass_label as an input in the plan call only; wrong_driver as sha 0*64 only; changed_spec as a path swap only; DIII with a null policy only. My added inert controls, run on both v001 and v002, all refuse from the expected layer and leave no outputs. PASS label: in the admission call; as a pinned label file; a gate returning 'PASS'; a gate returning ok:'PASS'; ok with blockers. At launch: a PASS-label record file, and a record with one check replaced by 'PASS', are both refused with PRELAUNCH_REPLAY_MISMATCH. Wrong driver: REF on a tail-on call (TAIL_ON_R5_REQUIRED); R5 bytes at a non-allowlisted path; plan and admission drivers differing; R5 sha claimed for REF bytes. Changed spec: one byte flipped in place; re-specified in the plan only; spec changed after PRELAUNCH (refused at launch with PIN_BYTES_CHANGED). DIII: case not bound by the policy; other driver bound; policy UNTESTED; not post_adoption_only; wrong authority; a uv_tail block present; a non-DIII tail-off family. An absent tail_off_policy key surfaces as a raw KeyError from guard007's unchanged native code: fails closed, cosmetic only.",
+            "label": "TESTED"
+          },
+          {
+            "id": "PL-N5",
+            "cls": "NOTE",
+            "title": "Real certificate registry and adoption policy remain UNTESTED; the unregistered-point controls are inert",
+            "evidence": "Codex1's and my unregistered-point controls both use inert registry-sensitive adapters (mine include a registered positive control). The real path, read from code: the guard verifies the registry pin (null gives PIN_REQUIRED); v006r9 certificate_check looks up digest(point_identity) and returns ok False with CERTIFICATE_POINT_MISSING_OR_MISMATCHED; positive_gate(cg, 'blockers') then refuses. This waits on S4-R-C1 and B1/R-A2, as A124 notes; both inventory drafts list these selections as unresolved.",
+            "label": "FORMAL"
+          },
+          {
+            "id": "PL-N6",
+            "cls": "NOTE",
+            "title": "SENS_LO and SENS_HI batches will refuse at PRELAUNCH until an A68 comparator successor lands (expected)",
+            "evidence": "v006r9 hard-pins sensitivity policy r8 v002 (8fb06600), which sets COMPARATOR_A68_REVIEWED=False. Every distance other than 4.04 therefore gets NATIVE_GATE_REFUSED. This is a correct, upstream refusal (IMPLEMENTATION_INTERFACE_CX1V003 already states it). HEADLINE calls at 4.04 are HEADLINE_NOT_GATED, and DIII calls additionally need only the tail_off_policy. Caution for the successor: its comparator reads DIII run trees by raw bytes inside guard007's fence, and the A124 run root contains '/Research/', so any .py or .pyc in a run tree would be refused, at PRELAUNCH and at launch alike.",
+            "label": "FORMAL"
+          },
+          {
+            "id": "PL-N7",
+            "cls": "NOTE",
+            "title": "SOURCE_INVENTORY_DRAFT_V002 keeps a stale bootstrap edge",
+            "evidence": "SOURCE_INVENTORY_DRAFT_V002 (07f3546b) still carries V001's first edge, 'PRELAUNCH/binder/launcher -> guard007 pinned bootstrap', alongside the correct new edges (PRELAUNCH002 -> guard007; binder007/launcher009 -> guard008). The draft is self-labelled INCOMPLETE_NOT_ADMISSIBLE, and its 15 source hashes all recheck from bytes. Correct the edge in the next draft.",
+            "label": "FORMAL"
+          }
+        ],
+        "checked": [
+          "Custody: every sha posted in 0129-0132 was recomputed from bytes at the start and again at the end, and all match. guard007 is claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_cx1v007.py (42bf0ce9). The published directories are unchanged, and this review wrote nothing under /Users/bgm/Research.",
+          "Codex1's suites re-run on scratch copies with the pinned python 3.12.14 under -I -B: test_prelaunch_v001 8/8, test_prelaunch_batch_v001 4/4, test_prelaunch_v002 8/8, test_disk_v001 10/10, test_disk_integration_v001 5/5. The two disk suites ran inside a blocking audit-hook wrapper (my_tests/safe_run.py), which recorded 0 hits.",
+          "Native call unchanged, from the tool's AST (v001 and v002): the only attribute store is g.__file__; there is no setattr, eval, addaudithook or mock; the bootstrap is exactly read, sha check, ModuleType, exec(compile(bytes)); the single native call is g.native_preflight(cfg, call), alone inside with g.fence(cfg['sources']).",
+          "Runtime code identity: all 27 guard functions in the tool's guard module (native_preflight, fence.__wrapped__ with its nested exact_code, _audit, load, adoption, positive_gate, spec_structure, and the rest) match an independent compile of the guard007 bytes on co_code, consts, names and linetable, and all module constants match.",
+          "In-native frame probe, with no patching: the executing native_preflight code object is the tool's g.native_preflight, its globals are g.__dict__, and FENCE is True. The fences are nested two deep (exact_code wraps exact_code, which wraps the real get_code). cfg and call are the same objects emit passed, and FENCE_SOURCES equals canonical(cfg.sources). The guard008 launch replay runs with a single fence and no outer frame.",
+          "guard007 vs guard008: all 40 top-level nodes above validate are AST-identical. guard008 adds only the 6 disk nodes, validate differs only by disk_batch, and native_preflight's transitive closure is source-identical.",
+          "Exclusive create and manifest: the only write is p.open('xb'). All native calls finish before the first write, and the manifest is written last. Existing names, including a dangling symlink and an existing manifest, are refused before any native call, with bytes preserved. Manifest entries are exactly {case, spec, driver, prelaunch}; each prelaunch sha equals its record's bytes; each record is byte-equal to json.dumps of an independent guard008 native_preflight return.",
+          "MUST_FAIL on both v001 and v002 with inert fixtures, 38 controls per version, all refused from the expected layer with no outputs: null registry or policy (10, including registry bytes changed and a non-Refusal exception); unregistered point and null points (2, plus a passing registered control); PASS labels (6, plus 2 at launch); changed spec (3, plus 1 at launch, plus 2 spec-structure guards); wrong driver (5); DIII without or with an unbound tail_off_policy (9).",
+          "Honest-call physics: v002 records from a guard008 plan replay under a separately loaded guard008.validate (execute_native=True, check_outputs=True, disk_batch=False); v001 records replay under guard007. A HEADLINE11-shaped batch gives 11 records mapped 1:1 in plan order, all replaying. A SENS-distance positive control replays. Output-directory spellings (trailing '/', '/./', a symlink alias, '..' after a symlink) all resolve to canonical record paths and replay. Two fresh CLI processes write byte-identical records; a CLI refusal exits 1 with no outputs.",
+          "Batch mode (0130): a native refusal in the first or the third call leaves no outputs. A case-order mismatch and a duplicate case are refused. Swapped records are refused at launch with PRELAUNCH_REPLAY_MISMATCH. With harness-modified constants (stub drivers only, so no real driver runs), the DIII4 shape (two shared specs, two drivers each) and a mixed tail-on plus DIII batch both give distinct per-case records that pin the tail_off_policy and replay.",
+          "Actual consumer: an unmodified copy of binder007 in scratch, with disk checks stubbed as in Codex1's tests, binds PRELAUNCH002 pins, including its own internal native replay, and guard008.validate passes the bound admission.",
+          "Real-stack determinism and JSON fidelity (FORMAL, from code): checked_gate, verify_bundle and sensitivity_gate return dicts of JSON-native types; r5 normalize_spec and normalize_uv_tail are lexical and canonical, with no time, cwd, environment or pid input. A characterization run showed that tuple or int-key native values would only fail the launch replay closed (TESTED).",
+          "Safety: the real R5, REF and monitor files were only pinned, never executed. A harness audit hook blocked their compilation, all process creation, writes outside the lens scratch directory, and protected paths; it recorded 0 hits across 123/123 harness checks. External1 was never touched.",
+          "Harness and results: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/prelaunch_rev/prelaunch/my_tests/review_prelaunch.py and MY_RESULTS_{main,extra,clicheck,nob_B,nob_noB}.json in the same directory."
+        ]
+      },
+      "verify": {
+        "lens": "PRELAUNCH (S4-R-B4a option (a)), batch mode (0130), and the A124 successor PRELAUNCH002 feeding guard008, binder007 and launcher009. Base: guard007 (42bf0ce9) native_preflight.",
+        "holds": false,
+        "corrections": [
+          "The verdict 'PASS, 0 blocking under A115' does not hold for honest step-4 calls. The review missed R1, an (a) BLOCKING defect in guard008 (a reviewed object) and in the guard007 fence that v001 and v002 run inside. Mechanism: the honest custody deriver calib_tail_readiness_cx2/certificates_per_point/custody_cx2v002.py (6810b7c3) runs derive_details, which calls r5 uvt_static_pins(False), which calls verify_pin on AUX_UVT 'route_b_binding' at .../driver_r5/cascade/tail_scheme_impl_c2/route_b/uvt_route_b_binding_c2v001_r5.py (1e27430c, r5 L326). Inside the fence, the open hook's safe_path→lexical_path refuses any path component that starts with 'uvt_' (PROTECTED_PATH_REFUSED). r9 certificate_check catches it as a ValueError and returns blockers, and positive_gate then raises NATIVE_GATE_REFUSED. Result: every registered honest tail-ON point (all of HEADLINE11 and the SENS batches) is wrongly refused, at PRELAUNCH v001/v002 and again at the guard008 replay in binder007 and launcher009. The admission cannot fix this: putting the file in sources makes source_map and fence entry refuse too. TESTED on both guards without reading the uvt_ file (/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/prelaunch_rev/prelaunch_adv/adv/ADV3_R1_RESULTS.json). The call chain is FORMAL from code. Claude3 0164 (07:41Z) raised it, root 0674 Q7 ruled the fix is a guard successor, and Codex1 0137 reports it TESTED end to end; its candidate is guard010/PRELAUNCH004/launcher011/binder009, review pending.",
+          "Owner contract (A126 0670 07:08Z; A129 0675 07:48Z): the ruled step-4 wrapper is v006r10_c4/calibration_orchestrator_cx2v006r10_c4.py (ef3d3d69). guard007 and guard008 bind GENERATED_COMPILE_CONTRACT only to owner 24abe3bc. Compiling the wrapper's literal (79e8936d) under their fences gives PREFLIGHT_COMPILE_HASH_MISMATCH; guard009 accepts it (TESTED, compile only: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/prelaunch_rev/prelaunch_adv/adv/ADV2_OWNER_RESULTS.json). native_preflight loads context_module for every call, so v001, v002 and guard008 refuse every honest call under the ruled wrapper, tail-ON and DIII alike. Codex1 0135 (07:17Z) published guard009/PRELAUNCH003 before the review's results were written (07:25–07:30Z). This is supersession by design, not a code defect, but it is class (a) for using these objects at H1.",
+          "So 'PRELAUNCH002 is the only version that serves the A124 packet' (verdict and PL-N3) is wrong. Under current rulings, neither PRELAUNCH002 nor guard008/binder007/launcher009 can serve any honest step-4 call; the successor chain is the operative one. The review's tool-level results still stand and transfer as a delta base: unchanged native call, exclusive create, manifest written last, MUST_FAIL, replay equality. PRELAUNCH003/004 reportedly change only the guard bootstrap and pins (FORMAL, from 0135/0137). I diffed only guard009 against guard008: just the owner line differs (TESTED).",
+          "Minor, PL-N3: v001 refuses only a PRELAUNCH plan that pins guard008. The records carry no plan guard pin, so v001 records made from a guard007-pinned candidate replay under guard008.validate in a guard008/launcher009 bound plan (TESTED, ADV1_RESULTS.json case A).",
+          "Wording: the verdict inverts the fence nesting. The tool's fence is the OUTER one, and native_preflight's own fence is nested inside it (TESTED probe: get_code chain is 2 deep under the tool and 1 deep for native alone).",
+          "PL-N1 detail: the pinned runtime does not ship caches for all of stdlib. About 76 .py files have no .pyc, argparse among them, and a run without -B tries to write argparse.cpython-312.pyc. The NOTE still stands at low exposure: the tool imports argparse before the fence, and every module imported inside the fence, plus numpy 2.3.5, is cached (TESTED probe). Also, INTERFACE_V002 gives no PRELAUNCH CLI arguments at all.",
+          "PL-N2 detail: in the drivers, inspect appears in ngc_seed and ngc_caller_contract_check, not in cmd_run. The conclusion is unchanged, and none of the 15 sources raises a compile-time SyntaxWarning (TESTED).",
+          "Confirmed: every posted sha recomputes from bytes, at the start and at the end. Codex1's suites reproduce on scratch copies under a blocking audit hook with 0 hits: 8/8, 4/4, 8/8, 10/10, 5/5. In guard007 and guard008 the first 40 top-level nodes are AST-identical, and guard008 adds 6 disk nodes plus the disk_batch line. The tool AST stores only g.__file__, has no try blocks, and makes a single g.native_preflight call under g.fence. Records do not depend on the admission sources map (TESTED). Real r9 returns (pg/cg/sg/digest) are JSON-derived and round-trip exactly, with no tuples or int keys. No wrongful admission path was found."
+        ],
+        "reclassified": [
+          "PL-N5 NOTE → (a) BLOCKING. The real certificate path is not merely UNTESTED: code plus guard tests show guard007's and guard008's fence refuses the honest custody derivation for every registered tail-ON point (R1). The fix exists only in a successor (guard010/PRELAUNCH004, 0137), which still needs Claude3's review.",
+          "NEW (a), applies only to use at H1: under A126/A129 (wrapper ef3d3d69), PRELAUNCH v001/v002 and guard008/binder007/launcher009 refuse every honest call with PREFLIGHT_COMPILE_HASH_MISMATCH. They are superseded by guard009/PRELAUNCH003 (0135).",
+          "PL-N3 stays a NOTE, but its conclusion that PRELAUNCH002 is the only usable tool for the A124 packet is withdrawn (see corrections)."
+        ]
+      }
+    },
+    {
+      "lens": "disk",
+      "review": {
+        "lens": "disk guard (A124): guard008 batch-admission bound, launcher009 per-start bound, binder007 inheritance, G7-SCOPE-1 inventory coverage",
+        "verdict": "PASS: 0 blocking under A115, with 8 NOTEs. guard008 enforces sum(declared output_cap_bytes) + 20 GiB on the declared volume at batch admission. That sum equals calls x cap when caps are uniform. The check is validate's default disk_batch=True, which runs in launcher009 main() for both the root and --worker invocations, and also in binder007 at bind time. launcher009 enforces one cap + 20 GiB twice per start: beside memory_free at L120, and again just before Popen at L127. Free space is statvfs f_bavail x f_frsize, which equals df, in GiB. The diffs show nothing else changed. An honest HEADLINE11-shaped batch (11 x 96 GiB) was admitted and every call started at the exact bound. On the real volume, External1 has 3273.2 GiB free against a 1076 GiB bound. No honest call is wrongly refused, wrongly admitted or mis-recorded. Every NOTE is about procedure, custody or test labelling.",
+        "blocking": 0,
+        "findings": [
+          {
+            "id": "N1",
+            "cls": "NOTE",
+            "title": "Disk refusals are recorded under a generic reason, with no case name and no df reading",
+            "evidence": "W6 and W7 ran the actual launcher009.worker on scratch copies. A per-start DISK_START_BOUND drains the batch under reason WORKER_INTERRUPTED_OR_ERROR with case null. The free/required dict returned at L120 (disk=G.disk_admission(plan,pending[0])) is never used, and validate() discards the batch reading, so no df reading is kept at admission or at any start. When the L127 pre-Popen recheck refuses, the log already holds step4_admission_decision admitted:true for a case that never started (W7: SYNTH0 admitted:true, 0 monitors, finished []). A batch refusal in the worker's own main() leaves only a traceback in launcher_log (W3). Entries for completed calls stay correct (W6: SYNTH0 and SYNTH1 passed True). This is a custody gap, not a physics mis-record. A successor could name the case, use the DISK_* code as the reason and log free/required. Until then, root records a df reading at admission, as the D17 interim said.",
+            "label": "TESTED"
+          },
+          {
+            "id": "N2",
+            "cls": "NOTE",
+            "title": "binder007 also enforces the run root and the batch bound at bind time",
+            "evidence": "binder006 to binder007 changes only GUARD_PATH and GUARD_SHA256 (AST check S4). bind() therefore calls guard008.validate with default disk_batch=True. K1: refused with OUTPUT_ROOT_MISSING and 0 outputs written. K2: refused with DISK_BATCH_BOUND at 20 GiB + 3 GiB - 1 B, 0 outputs written. K3: binds at the exact bound. A124 has root create V007_STEP4_DIRECT_V001 at T0, and /Volumes/External1/Research/UNT_STEP4_RUNS is absent now, so binding must follow root's mkdir. INTERFACE_V002 does not say this. It fails closed; this is sequencing only.",
+            "label": "TESTED"
+          },
+          {
+            "id": "N3",
+            "cls": "NOTE",
+            "title": "The root runbook and templates still point at the path that has no disk guard",
+            "evidence": "RUNBOOK_CX1V003 pins guard007 42bf0ce9, launcher008 bf2d535f and binder006 3db8c72a, and its step 6 says 'root-selected internal-SSD placement'. templates_v004 were generated from guard007, launcher008 and binder006 (prepare_step4_templates_cx1v004.py L5). INTERFACE_V001 says to copy manifest entries 'for binder006'. The disk-guarded path needs a final plan with these properties: (1) it is re-pinned to guard008 f27a4868 and launcher009 722d9898, otherwise binder007 refuses with LAUNCHER_GUARD_IDENTITY; (2) every outdir, receipt, .launch.json, monitor_log and the launcher_log is a distinct descendant of the declared root, which is stricter than A124's 'distinct output directory per call' (INTERFACE_V002 states it); (3) root has created the monitor_log parent directories, because the launcher opens monitor_log with 'xb'. guard007 with launcher008 is still a valid admitted path and has no disk check, so a runbook successor should name the A124 chain. Every failure here refuses before launch, with no physics effect.",
+            "label": "FORMAL"
+          },
+          {
+            "id": "N4",
+            "cls": "NOTE",
+            "title": "Two Codex1 controls are mislabelled; the branches they missed are now tested",
+            "evidence": "The integration test's 'wrong_volume' mode patches OUTPUT_ROOT to a path that does not exist, so it reaches OUTPUT_ROOT_MISSING, not a device mismatch. The unit test 'nested_other_volume' changes the root's own st_dev, so it hits the root-level check. Neither exercised the per-call-path device branch in disk_output_volume, and neither ran the batch check in launcher main(); the integration batch_low case calls validate directly. Claude3 closed both gaps. B6: WRONG_OUTPUT_VOLUME with real devices (declared volume /dev on devfs, root on the internal APFS group). B7a: a real call path that crosses into /dev below the root gives WRONG_OUTPUT_VOLUME. B7b: a stubbed parent-directory device gives the same. W1 and W3: main() root and --worker invocations refuse with DISK_BATCH_BOUND and 0 spawns.",
+            "label": "TESTED"
+          },
+          {
+            "id": "N5",
+            "cls": "NOTE",
+            "title": "The INTERFACE_V002 reproduction recipe fails on a verbatim copy",
+            "evidence": "After cp -R of v002, test_disk_v001.py runs its checks and then raises FileExistsError on DISK_TEST_RESULTS_V001.json, because the published result file is inside the copied directory and is opened in 'x' mode. test_disk_integration_v001.py hard-codes BASE to the published impl directory, so it loads the published bytes rather than copies. On copies with the result files left out and BASE redirected to the copy (the only edit), 10/10 and 5/5 reproduced.",
+            "label": "TESTED"
+          },
+          {
+            "id": "N6",
+            "cls": "NOTE",
+            "title": "Darwin statvfs block counts are 32-bit: exact below 16 TiB free, and overflow can only under-report",
+            "evidence": "The SDK's sys/_types.h has 'typedef unsigned int __darwin_fsblkcnt_t', used by statvfs. Wrapping was observed: External1 f_ffree 4257235968 = df ifree 34322007040 mod 2^32. External1 has f_blocks 976703436 < 2^32 (3.73 TiB), so f_bavail x f_frsize = 858050176 x 4096 = 3273.202 GiB, exactly df -k Available. The internal volume reads 396.291 GiB both ways (B14a). Wrapping can only under-report, which fails closed. On APFS f_bsize is 1 MiB and would over-report 256x; the code correctly uses f_frsize (B1). f_bavail equals f_bfree on both volumes.",
+            "label": "TESTED"
+          },
+          {
+            "id": "N7",
+            "cls": "NOTE",
+            "title": "Bytes written outside the declared caps come out of the 20 GiB reserve",
+            "evidence": "The monitor (ba031c23) caps only dir_bytes(outdir): apparent st_size, polled every 2 s. The receipt, .launch.json, .stdout.txt/.stderr.txt (driver output, uncapped), monitor_log and launcher_log all sit outside output_cap_bytes. When admission is at the exact bound and each call writes its full cap, the last start has zero slack: the W4 slack list ends 0, 0, and the chain's minimum free was 116 GiB = 96 + 20. These extra files could therefore trip DISK_START_BOUND only if free space at admission were within a few such bytes of the bound. The real margin is 3273.2 GiB free against 1076 GiB for HEADLINE11 at 96 GiB caps. It fails closed.",
+            "label": "TESTED"
+          },
+          {
+            "id": "N8",
+            "cls": "NOTE",
+            "title": "Bound semantics: sum of caps, one cap per start, other External1 writers, volume identity",
+            "evidence": "(1) sum(caps) + 20 GiB equals calls x cap when caps are uniform. The 96 GiB cap recommended in S4-R-D8 is uniform; I found no ruling on it in the posts I read. With mixed caps the guard uses the exact sum, not calls x max. (2) The per-start bound reserves only the next call's cap. The remaining output of calls already running is covered by the batch bound only if nothing else writes to External1. core_priority attests that the campaign and step 2 are inactive, but not other lanes' External1 moves; CURRENT_INSTRUCTIONS lists .git (350 GiB) and 289 GiB of dark-sector files as pending. (3) Later direct batches will be refused, by design, if the campaign (3.25 TiB on the typical model) fills External1; this falls to root's D3 retention ruling. (4) Volume identity is the mount path /Volumes/External1 plus st_dev equality. There is no VolumeUUID pin, but an impostor volume would also need the run root on it.",
+            "label": "FORMAL"
+          }
+        ],
+        "checked": [
+          "Read 0666 (A122), 0668 (A124), Codex1 0128-0135, root 0669-0670, CURRENT_INSTRUCTIONS, Claude4 ROOT_ITEMS_STEP45_V002 (417de6fe) S4-R-D17/D8/B6, RUNBOOK_CX1V003, IMPLEMENTATION_HASHES_CX1V003, and the monitor ba031c23 cap logic.",
+          "Recomputed byte hashes for every assigned object, and all match the posts. v001: c821121f, 982cbcc5, a5079345, 34b228d2, 72c27c37, f5277fdb, a99bdfe0. v002: 0acebe2c, 0495003f, 3912c5e0, b4b84263, 97290dac, 07f3546b, 403d642b, 94bb2600. Successors: binder007 54b7641b, guard008 f27a4868, launcher009 722d9898, with the impl copies byte-identical to v002/disk_v001. Base guard007 is 42bf0ce9. Every entry in PUBLICATION_HASHES_V001 and V002 matches.",
+          "Diff guard007 to guard008. Added: OUTPUT_VOLUME, OUTPUT_ROOT, DISK_RESERVE_BYTES, disk_free_bytes, disk_output_volume, disk_admission, the validate kwarg disk_batch=True, and one 'if disk_batch:disk_admission(plan)' before the return. AST: validate minus these additions equals guard007's validate. native_preflight, fence, _audit and safe_path are unchanged, and the imports are identical.",
+          "Diff launcher008 to launcher009. Changes: the guard bootstrap pin; disk_batch=False on the 4 worker revalidations (L62, L83, L100, L126); and 2 disk_admission statements (L120 beside memory_free, L127 just before Popen). main() is AST-identical, so the root and --worker invocations both keep the batch check. Diff binder006 to binder007: guard pin only.",
+          "Units and fields. DISK_RESERVE_BYTES = 21474836480 = 20 GiB; free space of 20 GB (decimal) plus the caps is refused (B2a). free = f_bavail x f_frsize; a stub with distinct bavail, bfree and bsize confirms the field (B1). The bound uses declared caps only: required bytes are unchanged with 1 MiB already in an outdir and os.walk/os.scandir set to raise (B3). Caps are bound to root caps by ROOT_CAPS_BINDING before disk_admission runs.",
+          "Re-ran Codex1's disk tests on scratch copies: test_disk_v001 10/10 and test_disk_integration_v001 5/5. The only edit was redirecting BASE to the copied impl.",
+          "Claude3 independent controls, 38/38 PASS: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/prelaunch_rev/disk_guard/review/REVIEW_DISK_RESULTS_C3V001.json (script review_disk_c3v001.py in the same folder). Admission is refused 1 byte below the bound and admitted exactly at it, through the actual validate. Start is likewise refused 1 byte below and admitted at the bound. Unreadable df: EIO, EACCES, ENOENT and a non-integer reading. Wrong volume: a real devfs-versus-internal mismatch, a real per-call device crossing, a stubbed parent device, a path outside the root, '..', a symlink below the root, a symlinked root ancestor, a declared volume that is really not a mount, and a missing root. Real statvfs admits a small batch and refuses a 10 TiB batch. Launcher main(): the root invocation refuses before any spawn when low, and otherwise spawns exactly one detached worker; the --worker invocation refuses when low. Worker: an honest batch at the exact bound with each call writing its full cap starts every call, including with concurrency. An external writer mid-batch drains the batch after 2 starts. The pre-Popen recheck catches a 1-byte drop. A mid-batch check with disk_batch=True would double-count, and the worker correctly passes False. binder007 refuses at bind time when the root is missing or space is low, and binds at the exact bound.",
+          "Honest end-to-end chain on inert fixtures: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/prelaunch_rev/disk_guard/chain/CHAIN_RESULTS_C3V001.json. PRELAUNCH002 (guard007's native_preflight) ran on a guard008-pinned plan shaped like HEADLINE11 (11 x 96 GiB). binder007 then bound it at exactly 1076 GiB free, and launcher009 main and worker started 11/11 mocked monitors with rc 0/0, 0 failures, and minimum free 116 GiB.",
+          "Real configuration, read-only metadata only. /Volumes/External1: ismount True, st_dev 16777240. /Volumes/External1/Research is a real directory, not a symlink. UNT_STEP4_RUNS does not exist yet (root creates it at T0). statvfs gives 3273.202 GiB, equal to df Available (3432200704 KiB). At 96 GiB caps the HEADLINE11 bound is 1076 GiB, and even all 33 direct calls at cap (3168 GiB + 20 GiB) fit.",
+          "G7-SCOPE-1 inventory. SOURCE_INVENTORY_DRAFT_V002 lists guard008, launcher009, binder007, guard007 and PRELAUNCH002; all 15 hashes were re-verified from bytes. It carries the edge 'binder007/launcher009 -> guard008 including A124 disk checks'. V001 predates A124 and lists the disk guard as unresolved. Both drafts are honestly labelled INCOMPLETE_NOT_ADMISSIBLE. NORMALIZATION_SOURCE_TRACE_V001.json is in v002 but was not listed in the posts, and this lens did not review it.",
+          "Physics check (A115). The guard only gates starts. Specs, drivers, native_preflight and results are untouched. A refusal leaves calls unstarted, so they produce no result, and the records of completed calls stay intact. No (a) or (b) defect was found.",
+          "Carry-forward, by diff only (FORMAL, not executed). guard009 5986c4c5, launcher010 867b2eb1 and binder008 26914fe5 appeared during this review (Codex1 0135, A126). They differ from guard008, launcher009 and binder007 only in the GENERATED_COMPILE_CONTRACT owner key and the bootstrap pins. The A124 disk code is byte-identical, so these findings carry over by diff. The A126 owner-contract review itself is out of this lens.",
+          "Hard rules held. All execution used scratch copies with python3 -I -B on the codex runtime, inert adapters, mocked processes and stub statvfs; B6, B7a, B11 and B14 used real read-only stat/statvfs on /, /dev and scratch. A find -newer on the published dirs shows only Codex1's own later files: no lock file and no new __pycache__ came from me. No launches. On External1 I touched only the mount point, one lstat of Research and one ls of the absent UNT_STEP4_RUNS. No runs_ext, UVT_* or NGC3198 target was read."
+        ]
+      },
+      "verify": {
+        "lens": "disk (A124) adversarial verify: guard008 batch bound, launcher009 per-start bound, binder007 bind-time check, statvfs semantics, the real External1 path and volume, G7 inventory coverage",
+        "holds": true,
+        "corrections": [
+          "Correction (precision, NOTE): L120's per-start check runs on every 60 s poll while calls are pending and the worker is not draining. That includes polls where the memory gate or ramp logs admitted:false, so it is not only 'twice per start'. A below-bound reading on a waiting poll drains the rest of the batch. Re-derived on scratch copies (R1: 11 x 96 GiB, starting free exactly 1076 GiB, calls writing gradually up to their caps, 5 gated polls): all 11 started, rc 0, minimum free 116 GiB. The finding that no honest call is wrongly refused stands.",
+          "Correction (arithmetic, N6): f_blocks 976703436 x 4096 B = 4,000,577,273,856 B, which is 3.64 TiB (diskutil reports 4.0 TB), not 3.73 TiB. It is still far below the 16 TiB point where the 32-bit count wraps. Re-observed: f_bavail x f_frsize = 858050176 x 4096 = 3514573520896 B, which equals df -k Available x 1024 = 3273.2017 GiB. f_ffree 4257235968 = 34322007040 mod 2^32. The SDK's sys/_types.h L70 has 'typedef unsigned int __darwin_fsblkcnt_t'.",
+          "Correction (attribution, N8(3)): D17's 3.25 TiB typical (8.73 TiB worst) covers all step-4 calls, of which the 33 direct calls are about 709.5 GiB. It is not the campaign alone. Supporting arithmetic: with no other External1 writer, even full 96 GiB outputs let HEADLINE11, DIII4, SENS_LO9 and SENS_HI9 clear their bounds in sequence (SENS_HI9 needs 884 GiB with about 969 GiB left of 3273.2). So refusing an honest direct batch takes an extra writer: a campaign wave, the storage moves, or the POST_S1 batch, whose size is not yet registered. That agrees with N8(2)/(3).",
+          "Completeness (N8(2)): CURRENT_INSTRUCTIONS lists three pending moves: 90 GiB of dark-sector subfolders, .git at 350 GiB and 289 GiB of loose files, 729 GiB in all. That still leaves about 2544 GiB, at least 1076 GiB.",
+          "Currency (N3): Codex1 0135's A126 chain (guard009 5986c4c5, launcher010 867b2eb1, binder008 26914fe5) carries the A124 disk code byte for byte. The diffs change only the GENERATED_COMPILE_CONTRACT owner and the guard bootstrap pins, so this verdict transfers to that chain. The runbook and template successor should name whichever chain root adopts, which may not be guard008/launcher009.",
+          "Addition (re-derived on the real volume, read-only, nothing created): I ran the actual guard008.disk_admission with only OUTPUT_ROOT patched to the existing /Volumes/External1/Research. It used the real ismount, the real st_dev 16777240 and the real statvfs. It admits 11 x 96 GiB at 3273.2017 GiB free, refuses 40 x 96 GiB with DISK_BATCH_BOUND, and gives a 116 GiB per-start requirement. The unpatched OUTPUT_ROOT refuses today with OUTPUT_ROOT_MISSING, which confirms N2. /, /Volumes, /Volumes/External1 and /Volumes/External1/Research are real directories, not symlinks, so the symlink checks will not refuse an honest plan under the A124 root.",
+          "Confirmed independently. N1: in R5, SYNTH10 was logged admitted:true, then the L127 recheck refused it with DISK_START_BOUND and no monitor started; Codex1's own start_low log shows reason WORKER_INTERRUPTED_OR_ERROR, case null, detail 'Refusal: DISK_START_BOUND'. N4: confirmed from the test sources. N5: a verbatim cp -R gives rc 1 with FileExistsError; with the result files removed the unit test passes 10/10, and the integration test with only BASE redirected passes 5/5. N7: in R4, 1 B of uncapped extra per start at an exact-bound admission refuses the 11th start, and a 10 B margin admits all 11. The batch check in main() for both the root and --worker invocations: in R2b and R3a, 1 B below the bound refuses before the launcher_log, any spawn or the loop. Mixed caps use the exact sum (R6). Both WRONG_OUTPUT_VOLUME branches refuse with real devices: a per-call path into devfs, and a root on another device. Results: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/prelaunch_rev/disk/adv_verify/AV_DISK_RESULTS_V002.json (35dcafa8), 14/14.",
+          "Out of lens (not a disk finding; it does not change holds): the step-4 monitor ba031c23, whose sha the step-2 V011 bound plan also carries, caps RSS as a per-process ps RSS sum over the process tree. A127 found that metric over-counting shared pages: KHI stopped on its RSS cap at 47.29 GB while 85% of system memory was free. S4-R-D8's recommended step-4 cap of 29 GiB rests on the same metric, so an honest step-4 call could be stopped the same way. Route this to the caps/RSS review before root rules D8."
+        ],
+        "reclassified": []
+      }
+    }
+  ],
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review:prelaunch",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "ac7d189b8fd0d6e6f",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792393171471,
+      "queuedAt": 1792393171463,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "PRELAUNCH (S4-R-B4a, option (a)), batch mode (0130), and th…",
+      "promptPreview": "You review, for the UNT program's Claude3 lane (the assigned reviewer of record), objects Codex1 built under root rulings A122 (FROM_CODEX/0666) and A124 (FROM_CODEX/0668) in /Users/bgm/Research/UNT_EXCHANGE. Read 0666, 0668 and Codex1's posts FROM_CODEX1/0128, 0129, 0130, 0131, 0132 first.\nObjects: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_prelaunch_cx1/v001/ (step4_prelaunch_cx1v00…",
+      "promptFramed": true,
+      "lastProgressAt": 1792395195264,
+      "tokens": 372265,
+      "toolCalls": 63,
+      "durationMs": 2023793,
+      "resultPreview": "{\"lens\":\"PRELAUNCH (S4-R-B4a, option (a)), batch mode (0130), and the A124 successor PRELAUNCH002 feeding guard008, binder007 and launcher009\",\"verdict\":\"PASS, 0 blocking under A115. Both PRELAUNCH v001 (c821121f) and v002 (403d642b) call guard007's native_preflight(admission, call) unchanged, under guard007's own fence, which is nested inside the native's internal fence. They write the exact nati…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "review:disk",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "aea3f1b13e6bb14de",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792393171471,
+      "queuedAt": 1792393171463,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "disk guard (A124): guard008 batch-admission bound, launcher…",
+      "promptPreview": "You review, for the UNT program's Claude3 lane (the assigned reviewer of record), objects Codex1 built under root rulings A122 (FROM_CODEX/0666) and A124 (FROM_CODEX/0668) in /Users/bgm/Research/UNT_EXCHANGE. Read 0666, 0668 and Codex1's posts FROM_CODEX1/0128, 0129, 0130, 0131, 0132 first.\nObjects: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_prelaunch_cx1/v001/ (step4_prelaunch_cx1v00…",
+      "promptFramed": true,
+      "lastProgressAt": 1792394582825,
+      "tokens": 269450,
+      "toolCalls": 59,
+      "durationMs": 1409481,
+      "resultPreview": "{\"lens\":\"disk guard (A124): guard008 batch-admission bound, launcher009 per-start bound, binder007 inheritance, G7-SCOPE-1 inventory coverage\",\"verdict\":\"PASS: 0 blocking under A115, with 8 NOTEs. guard008 enforces sum(declared output_cap_bytes) + 20 GiB on the declared volume at batch admission. That sum equals calls x cap when caps are uniform. The check is validate's default disk_batch=True, wh…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "verify:disk",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a416183f6f9605848",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792394585246,
+      "queuedAt": 1792394585225,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "disk (A124) adversarial verify: guard008 batch bound, launc…",
+      "promptPreview": "You review, for the UNT program's Claude3 lane (the assigned reviewer of record), objects Codex1 built under root rulings A122 (FROM_CODEX/0666) and A124 (FROM_CODEX/0668) in /Users/bgm/Research/UNT_EXCHANGE. Read 0666, 0668 and Codex1's posts FROM_CODEX1/0128, 0129, 0130, 0131, 0132 first.\nObjects: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_prelaunch_cx1/v001/ (step4_prelaunch_cx1v00…",
+      "promptFramed": true,
+      "lastProgressAt": 1792395672624,
+      "tokens": 249100,
+      "toolCalls": 52,
+      "durationMs": 1087378,
+      "resultPreview": "{\"lens\":\"disk (A124) adversarial verify: guard008 batch bound, launcher009 per-start bound, binder007 bind-time check, statvfs semantics, the real External1 path and volume, G7 inventory coverage\",\"holds\":true,\"corrections\":[\"Correction (precision, NOTE): L120's per-start check runs on every 60 s poll while calls are pending and the worker is not draining. That includes polls where the memory gate…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "verify:prelaunch",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a68fc4d755905584a",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792395201830,
+      "queuedAt": 1792395201827,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "PRELAUNCH (S4-R-B4a option (a)), batch mode (0130), and the…",
+      "promptPreview": "You review, for the UNT program's Claude3 lane (the assigned reviewer of record), objects Codex1 built under root rulings A122 (FROM_CODEX/0666) and A124 (FROM_CODEX/0668) in /Users/bgm/Research/UNT_EXCHANGE. Read 0666, 0668 and Codex1's posts FROM_CODEX1/0128, 0129, 0130, 0131, 0132 first.\nObjects: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_prelaunch_cx1/v001/ (step4_prelaunch_cx1v00…",
+      "promptFramed": true,
+      "lastProgressAt": 1792396770691,
+      "tokens": 366100,
+      "toolCalls": 82,
+      "durationMs": 1568860,
+      "resultPreview": "{\"lens\":\"PRELAUNCH (S4-R-B4a option (a)), batch mode (0130), and the A124 successor PRELAUNCH002 feeding guard008, binder007 and launcher009. Base: guard007 (42bf0ce9) native_preflight.\",\"holds\":false,\"corrections\":[\"The verdict 'PASS, 0 blocking under A115' does not hold for honest step-4 calls. The review missed R1, an (a) BLOCKING defect in guard008 (a reviewed object) and in the guard007 fence…"
+    }
+  ],
+  "totalTokens": 1256915,
+  "totalToolCalls": 256
+}

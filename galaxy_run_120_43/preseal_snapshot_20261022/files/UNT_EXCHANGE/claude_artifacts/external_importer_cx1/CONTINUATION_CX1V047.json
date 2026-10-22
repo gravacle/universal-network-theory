@@ -1,0 +1,50 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Wait orchestration only: authenticated-observer and clock doubles, real fixture flock.",
+  "utc": "2026-10-21T13:54:52.566702+00:00",
+  "tested": [
+    "running to acceptance pending to exact validation",
+    "CAP_UNCOUNTED fallback only after terminal observation",
+    "INFRA_UNCOUNTED fallback only after terminal observation",
+    "poll exhaustion holds without fallback",
+    "unknown liveness holds",
+    "speculative invalid retained for root",
+    "failed acceptance retained for root",
+    "registration disappearance refuses",
+    "lost lock during wait refuses before another observation"
+  ],
+  "finding": "Previous prototype selected extra validation solely from the declared origin marker. New selector also checks WAVE call-directory location and presence of external_admission, so deleting or changing the marker cannot select the ordinary path. This is defense hardening; no successful production admission bypass was demonstrated.",
+  "untested": [
+    "Authenticated observer construction",
+    "Actual waiting or external run polling",
+    "Executor integration and fallback launch"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_wait_registered_cx1v001.py",
+      "sha256": "7148996b3beb679e9a44e5d21ec5be8a71d869d8478091ec3ca3105b30d301be"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/wait_registered_cx1v001.py",
+      "sha256": "672e51170333c0d5f91c5bcb3fa34c554024ba29d201f50d973677237f86c1f3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inflight_policy_cx1v001.py",
+      "sha256": "ce10181262e540e3b04300a0518f86393931eef87e880e839651398048020f44"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/wait_tzblkyjc/TEST_REPORT.json",
+      "sha256": "16044018fcabb8ff14b27f49515f94f6f9c162dbff6ed0bcfddd834f0aa705be"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 189,
+  "no_live_processes": true,
+  "next": "wait_registered_cx1v001 has 9 inert observer/clock-double tests. Actual observer must authenticate before returning policy inputs; utility intentionally has no default observer/sleep/scheduler. Poll bound => HOLD, never fallback; lock checked before/after observation and pause. Not wired into executor. Need authenticated observation construction and acceptance producer integration. Cache selection versions remain v003 certificate/v002 scope/v001 selector."
+}

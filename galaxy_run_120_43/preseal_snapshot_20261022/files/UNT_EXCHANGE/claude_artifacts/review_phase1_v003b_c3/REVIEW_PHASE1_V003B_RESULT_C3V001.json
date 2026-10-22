@@ -1,0 +1,195 @@
+{
+ "filed_by": "Claude3 lead from workflow wf_026104dc-e8a hand-back",
+ "result": {
+  "review": {
+   "verdict": "0 blocking. phase1_c2v003b (7d891ff7) is v003a plus the 0725 values binding and nothing else. I checked the AST: only the docstring, MODULE, cmd_at0b (one statement inserted) and cmd_at1 (two statements inserted) changed; all 80 other top-level items are identical, and v003b's docstring ends with v003a's whole docstring. Every hunk from v002 through v003b maps to a named source: A144 R1/R2/R3, the A144 L1 custody, A135 item 10, A149 items 1-3, 0725 V1/V2, or docs and version strings. I rebuilt the values-unbound attack: v003b refuses it with VALUES and writes no out-dir, while v003a on the same inputs reads COVERED with rc 0. An honest at0b/at1 pair is never refused (FORMAL, plus 9 TESTED variants with mixed hex case, SUPERSEDED and AGREEMENT_DEFECT). The members binding still holds, and no file swap satisfies both bindings. e_q matches the E_A133_2(b) formula exactly: max relative error 3.2e-16 against exact rationals over 319 synthetic pairs, and bitwise equal to an independent float evaluation. eps_m is each member's own entry. The OverflowError and bad-entry flags are per pair and keep the bounded terms, and no honest entry is flagged. The A144 R1/R2 prints behave as ruled, including box-corner and other-rows cases at m_id 1 and 2, and OUTSIDE_BOX_SLICE is label only. 168/168 pass on a scratch copy. I sampled 19 distinct mutants (including B01, B02, N02 and N03) and none is vacuous; the full-suite kill lists for B01, B02 and M12 match root's exactly. v003b changes no computed value or reading on honest inputs. All findings are NOTEs. Process disclosures: (1) I listed and hashed the explicitly named test_runs_v003b subfolders. Root's suite, run on my copy, also hashes the six test_runs_v003a files (T45(a)) and reads the pinned coordinate spec, its call-spec template and the distance_summary of the pinned DDO154 calibration region, as root's synthetic region builder does. The in-process audit refused 0 opens. No NGC3198/uvt_/c5h path and no campaign run tree was opened. (2) Some scratch setup steps (mkdir, cp, heredoc writes, echo appends to PARTIAL_lens.md, tail) ran without the taskpolicy -b prefix. Every python, test and mutation run used taskpolicy -b and the codex python with -I -B. (3) fixtures_lens was not needed, because the suite ran from scratch. My only write under /Users/bgm/Research is /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_phase1_v003b_c3/PARTIAL_lens.md, created exclusively and then appended to. Evidence root: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/phase1v3b_review/lens/",
+   "blocking": 0,
+   "findings": [
+    {
+     "id": "N1",
+     "cls": "NOTE",
+     "title": "The values binding compares exact bytes: a re-serialised copy of the Phase-1 values file is refused at at1",
+     "evidence": "VALUES_C1 was re-serialised with indent=2 (same JSON, different sha). at0b on it reads PASS (rc 0); at1 with L1_C1 then refuses VALUES (rc 3, no out-dir). This is the ruled behaviour (0725/0732: refuse unless equal to L1.values_sha256). It fails closed and is recoverable by re-running the target-free at0b on the logged bytes. Suggest the RUNBOOK take at0b's --values and --values-sha256 from the values_sha256 logged in the L1 at the Phase-1 freeze. Evidence: LENS_BINDING_RESULTS.json key A2_reserialised_values (d16ffb97), at /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/phase1v3b_review/lens/probes_fx/test_runs_v003b/RUN_20261019T183838Z_9436/LENS/LENS_BINDING_RESULTS.json",
+     "label": "TESTED"
+    },
+    {
+     "id": "N2",
+     "cls": "NOTE",
+     "title": "Hex case is handled inconsistently (present since v001): at1 compares the snapshot, fdplan and Phase-2 record shas case-sensitively, while the values and members checks lowercase",
+     "evidence": "The v003b V2 check and A149.2 lowercase both sides. Two other comparisons are exact strings: l1.get('snapshot_sha256') != a.snapshot_sha256 (and fdplan_sha256), which refuses L1; and at0_ok's at0[1].get('phase2_record_sha256') == a.phase2_record_sha256 (and the snapshot sha). These statements are unchanged since v001 (v001 L935/L953, v003b L1257/L1285). TESTED on the same synthetic files: at0b given an uppercase --phase2-record-sha256 and at1 a lowercase one reads AGREEMENT_DEFECT (rc 10); the all-lowercase control reads COVERED (rc 0). An uppercase --snapshot-sha256 at at1, with lowercase at band, is refused L1. This is not reachable from the pinned producers (shasum and the tool and engine records emit lowercase hexdigests), so it is not blocking under A115. Suggest lowercase-only shas in the RUNBOOK, or a successor that lowercases both sides. Evidence: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/phase1v3b_review/lens/probes/case_stdout.txt (0d0aa6a0)",
+     "label": "TESTED"
+    },
+    {
+     "id": "N3",
+     "cls": "NOTE",
+     "title": "L1 module custody ties band and at1 to one module, so an at1 successor after the Phase-1 freeze forces a band re-run with a new L1 sha (process, present since v003)",
+     "evidence": "at1 refuses any L1 whose module is not MODULE (A144 custody, adopted 0716). v003b refuses v003a-written L1s (T45(b) passes in my run). If an at1 successor is needed between the Phase-1 freeze (band, L1 sha logged per A133 1.6) and Phase-2 AT-1, it will refuse the logged v003b L1. Band would then have to be re-run under the successor; its rows would be identical except module (R01), but its L1 sha would differ from the logged one. Root may want to settle this before the seal, for example by having at1 accept a declared list of band-identical modules, or by a rule that a re-run L1 is logged next to the original.",
+     "label": "FORMAL"
+    },
+    {
+     "id": "N4",
+     "cls": "NOTE",
+     "title": "Where eps_km_s comes from (the member's own certificate, A152 srb_rot) is enforced only by the members writer; at1 requires the 43-entry list on member_valid=false points too",
+     "evidence": "at1 reads eps_km_s as given. check_member_eps enforces only that every member point of the file has a list of exactly 43 entries, including member_valid=false points (v003 CHOICE 5, adopted), and member_eps checks each entry. Nothing in at1 links the entries to the member's own certificate. The ruled requirement (A144 R3, 43 entries from the member's own point certificate; A152 W-3) therefore rests on the values/members writer: it must also emit a 43-entry list for failed-member points, or at1 refuses MEMBERS (fails closed, no out-dir). A cross-check for Claude4's values-writer review; not checkable from the named paths.",
+     "label": "FORMAL"
+    },
+    {
+     "id": "N5",
+     "cls": "NOTE",
+     "title": "at0b does not schema-check --values (present since v001); after V2 this is harmless, and no file swap satisfies both bindings",
+     "evidence": "at0b given MEMBERS_C1 as --values writes AGREEMENT_DEFECT (rc 10) and records that file's sha; at1 then refuses VALUES. Swapping the other way (values file as --members) is refused MEMBERS at at0b ('member None is not a Phase-2 admitted point'). at1 given the values file as --members is refused MEMBERS (members_sha256 check). A wrong members file together with a wrong values file is refused MEMBERS first (the order README CHOICE 1 states). An AT-0b of the true values with an in-place forged members file reads AGREEMENT_DEFECT, because the re-bind now runs against the band's values. Evidence: LENS_BINDING_RESULTS.json keys S1-S8 (d16ffb97)",
+     "label": "TESTED"
+    },
+    {
+     "id": "N6",
+     "cls": "NOTE",
+     "title": "The shipped test diff uses a different alignment from GNU diff but applies byte-exact; the tool diffs regenerate byte-for-byte",
+     "evidence": "DIFF_TEST_PHASE1_C2V003A_TO_V003B.diff (d03525a1) is +350/-93, as the README says. GNU diff -u gives +351/-94 with different hunk alignment, so its body is not byte-regenerable, but patch applies it to test v003a (5354d7d8) and yields test v003b (c24a7976) byte-exact. All six shipped diffs, v002->v003->v003a->v003b for tool and tests, apply byte-exact. All three tool diffs (2ca7859c, 1870f43b, fd095be9, the last +19/-2) and the v002->v003 and v003->v003a test diffs regenerate byte-for-byte. Wording only.",
+     "label": "TESTED"
+    }
+   ],
+   "checked": [
+    {
+     "claim": "Object shas from bytes equal HASHES_V003B (4ef119a7, not self-listed)",
+     "result": "CONFIRMED",
+     "note": "28 of 28 non-test_runs_v003a lines verified from bytes, including the v003b tool, tests, README, both diffs, both record RESULTS and SHADOW files, MUTATION_RESULTS a4ba5da7, driver e46f3ccf, and v001-v003a. The 6 test_runs_v003a lines were verified by root's T45(a) in my run. Spec cd92ef91, engine 6ec8b2d0 and orchestrator c75a889f also match."
+    },
+    {
+     "claim": "Lens 1: every hunk v002->v003->v003a->v003b maps to A144 R1/R2/R3, custody, A135 item 10, A149 items 1-3, 0725 V1/V2, or docs/version",
+     "result": "CONFIRMED",
+     "note": "v002->v003: docstring, MODULE, E_Q_READING (R3 text), REGION_* (R1), CERT_MAPS/cmd_handoff/certificate_maps (A135.10), band_region/region_violation (R1), band_region_extent (R2), member_eps/check_member_eps and at1_rows coef/e_q/flags (R3), cmd_at1 L1 custody plus R3 contract. v003->v003a: member_eps OverflowError (A149.1), at0b members_sha256 and the at1 check (A149.2), band_region_box_only_extent and its print (A149.3). v003a->v003b: V1 and V2 only. Unchanged since v002 (AST): band_rows, cmd_band, linear_model, check_values, members_values, cmd_at0a, phase2_record, snapshot and fdplan."
+    },
+    {
+     "claim": "AST v003a vs v003b outside the binding hunk is identical",
+     "result": "CONFIRMED",
+     "note": "Name-keyed and positional AST compare, 84 of 84 top-level items: only <docstring>, MODULE, cmd_at0b (+1 statement after the members_sha256 dict) and cmd_at1 (+2 statements after the A149 members check) differ; args and decorators are equal; v003b's docstring ends with v003a's whole docstring."
+    },
+    {
+     "claim": "Lens 2: the values-unbound attack is refused by v003b (v003a read COVERED)",
+     "result": "CONFIRMED",
+     "note": "Rebuilt independently: V' and M' with the same changed u_A result_pin. at0b reads PASS on both tools. v003b at1 on L1_C1 refuses VALUES (rc 3, no out-dir); v003a at1 on its own L1 of VALUES_C1 reads COVERED (rc 0). Control: an L1 banded from V' itself is bound and reads COVERED."
+    },
+    {
+     "claim": "Lens 2: an honest at0b/at1 pair (members and values bound to the same L1) is never refused",
+     "result": "CONFIRMED",
+     "note": "FORMAL: band records the verified sha (any case), at0b records sha.lower(), and at1 lowercases both, so they are always equal; the members check works the same way. TESTED with 9 variants: H1 COVERED; L1 uppercase with AT-0b lowercase; at0b given uppercase args; uppercase members sha at at1; Q1 SUPERSEDED with 301 pairs; an honest defect AT-0b reading AGREEMENT_DEFECT (rc 10, 294 pairs); a fresh chain with per-member eps reading SUPERSEDED. None was refused."
+    },
+    {
+     "claim": "Lens 2: members_sha256 binding still holds; the two bindings cannot be satisfied by swapping files",
+     "result": "CONFIRMED",
+     "note": "S1-S8 in LENS_BINDING_RESULTS.json; root's T37 passes in my run; the N02/N03 CLI probes show the members check is what refuses."
+    },
+    {
+     "claim": "Lens 3: e_q = eps_m + eps_q(|1 - sum Delta_k/du_k| + sum |Delta_k|/h_k) exactly, with eps_m the member's own eps_km_s entry",
+     "result": "CONFIRMED",
+     "note": "319 synthetic pairs with a signed minus-side du: max relative error 3.2e-16 against exact rationals, and 0 pairs differ from an independent float64 evaluation. With du = fl(F - u_A), the u_A and F-point members read exactly eps_m + eps_q. After permuting the members' lists, eps_m still follows each member's own entry. The AT-1 inequality uses the printed e_q (335 pairs, 0 mismatches)."
+    },
+    {
+     "claim": "Lens 3: OverflowError and bad entries give a per-pair flag, and no honest member is flagged",
+     "result": "CONFIRMED",
+     "note": "10**400, -10**400, nan, +-inf -> MEMBER_EPS_NON_FINITE; None, bool, str, list, dict, -1, -1e-300 -> their own reasons; each flagged MEMBER_POINT_NOISE_NOT_BOUNDED with e_q = eps_q*coef kept (M11 shows 0.0 instead). Entries 0, 0.0, 1, 3, 1e-300, 5e-324, 1e300 and -0.0 are not flagged. Invalid member rows and Phase-1 NOT_AVAILABLE rows are skipped. Rows with no eps_q read FD_NOISE_NOT_BOUNDED (NO_ROW_EPS_Q, e = 0)."
+    },
+    {
+     "claim": "Lens 3: one certificate map per member (A135 item 10)",
+     "result": "CONFIRMED",
+     "note": "In-process certificate_maps: own maps plus a shared custody pin are accepted, and each member gets its own map. Refused CERTIFICATE_MAP: another member's certificate, a pin binding a non-member admitted point, another member's spec sha, a missing member key, and a non-object map. A pin hash mismatch is refused PIN_MISMATCH. Theta keys are 64-hex sha256, so a substring false positive is negligible. Root's T34 and T40 pass."
+    },
+    {
+     "claim": "Lens 4: R1 row test (A c)_i - max(b_i,0) > E._LP_EPS on the band LP's own rows, print order and category",
+     "result": "CONFIRMED",
+     "note": "The engine's _lp_max sets its RHS to np.maximum(b,0) and _LP_EPS is 1e-12. Hand-placed cases read: trust+box [TRUST_RADIUS,BOX] -> OUTSIDE_TRUST_RADIUS; box only -> OUTSIDE_BOX_SLICE; DDO only -> OUTSIDE_LINEAR_DDO_REGION; box+DDO -> OUTSIDE_BOX_SLICE; b<0 row with c=0 -> []. On a b=0 row a violation of exactly 1e-12 reads [] and nextafter(1e-12) reads BOX. On the e_q fixture the categories match an independent re-implementation, and excess = geometric_part + residual_part, with residual_part = -+rho - a_q - e_q (253 lower and 4 upper failures, 0 mismatches)."
+    },
+    {
+     "claim": "Lens 4: OUTSIDE_BOX_SLICE is label only (band and L1 unchanged)",
+     "result": "CONFIRMED",
+     "note": "With region_violation replaced to read every family violated, or none, the failing set, excess, norm_n, flag, geometric_part and e_q rows are identical; only the category changes. band_rows, cmd_band and linear_model are AST-identical to v002."
+    },
+    {
+     "claim": "Lens 4: band_region_extent, single_point, reason and box_only_extent",
+     "result": "CONFIRMED",
+     "note": "Box corner at m_id 1 (u_A=(1,0,0.5)) and m_id 2 (sum-0 plane at the origin): [0,0], true, BOX_CORNER, box-only [0,0]. Other rows at m_id 1 and 2: [0,0], true, OTHER_ROWS, box-only [-0.5,0.5]. Interior: false, null. A non-OPTIMAL program: NOT_AVAILABLE, null, with the side printed NOT_AVAILABLE. All extents equal an independent vertex enumeration."
+    },
+    {
+     "claim": "Lens 5: root's 168 tests pass on a copy",
+     "result": "CONFIRMED",
+     "note": "168/168, MUST_FAIL 68/68, MUST_PASS 100/100, audit_denied 0, 64 shadow calls; ids and results identical to root's RUN_20261019T175548Z_11222. My RESULTS.json sha is 06fbb435."
+    },
+    {
+     "claim": "Lens 5: sampled mutants are non-vacuous, including the binding mutants",
+     "result": "CONFIRMED",
+     "note": "Full suite: B01 (3 behavioural T44 fails), B02 (141 recorded, 21 fails) and M12 (7) give kill lists identical to root's MUTATION_RESULTS. CLI: B01 accepts my attack as COVERED and a v003a AT-0b; B02 refuses my honest pair VALUES; N03 refuses the honest pair MEMBERS; N02 bypasses the members-sha refusal (the refusal moves to the later role check). In process, each mutant differs from the original on its probe: M01 M02 M03 M04 M08 M09 M10 M11 M12 N01 N04 N05 X08 X10 X19."
+    },
+    {
+     "claim": "Lens 6: v003b makes nothing newly reachable on honest inputs and changes no computed value or reading",
+     "result": "CONFIRMED",
+     "note": "at1_rows and every value path are AST-identical to v003a. The only new behaviour is a fail-closed VALUES refusal for mismatched values. R01 (in my run) shows at0b/at1 bytes identical to v003a except module and values_sha256. The pre-existing hex-case and custody-coupling observations are NOTEs N2 and N3."
+    },
+    {
+     "claim": "README_PHASE1_C2V003B factual claims (counts, B02 141/21, N03 141/24, four at1 outcomes 0/301/294/320, CHOICES 1-6)",
+     "result": "CONFIRMED",
+     "note": "Each claim was re-observed in my run or probes. The CORNER count of 320 comes from root's R01, which passes in my run."
+    },
+    {
+     "claim": "How the members writer derives eps_km_s (A152), and real campaign or NGC values",
+     "result": "NOT_CHECKED",
+     "note": "Outside the named paths; synthetic only by rule. The tool trusts eps_km_s as given (N4)."
+    }
+   ],
+   "shas": [
+    "HASHES_V003B.txt 4ef119a70707e4b3f955161b323c3e3e76dd5ac9dd30937de84960f4e7aa746c",
+    "phase1_c2v003b.py 7d891ff7d81b0e9d103707d79c7a057cedc6dc1e893a0f4e9372a51d0b796dd4",
+    "test_phase1_c2v003b.py c24a797620eabd0be58e002b9f899bb07bc615286f46f465f8268d53bb1f31a1",
+    "README_PHASE1_C2V003B.md cf3a4de73067529308c3f744261e641aa7f9d61b0b21e45338a60a22ad6ae3b0",
+    "DIFF_PHASE1_C2V003A_TO_V003B.diff fd095be92179c51757e97a7b21f1c502c4aecce68880416d11b64667fbecd4a0",
+    "DIFF_TEST_PHASE1_C2V003A_TO_V003B.diff d03525a1fd925ee20182086c6f9eedae59b6ed84240bb2643d4c511db20d1965",
+    "test_runs_v003b/RUN_20261019T175548Z_11222/RESULTS.json b6f5a245bc5d978c1d3422866a1f42f2f333d067eda4073807d1594c83b5b18a",
+    "test_runs_v003b/RUN_20261019T175703Z_18731/RESULTS.json d30c623f3528594f2090a334a0704841c97f8a92f9d785d3740989778fde9ff9",
+    "test_runs_v003b/RUN_20261019T175548Z_11222/SHADOW_REGRESSION_V003A_V003B.json 5b5aeeba725675c19418179664bb479658f9fdfb7fa24bac5900d9b12fa24227",
+    "test_runs_v003b/RUN_20261019T175703Z_18731/SHADOW_REGRESSION_V003A_V003B.json 419614ca55875556235274a1b13239a3c1184371cb5c6d970c404cc15f6cbe58",
+    "test_runs_v003b/MUTATION_20261019T175829Z_27393/MUTATION_RESULTS.json a4ba5da7b4468f3cc57cff865e9a2888f6deb14e9ece51cda5973559425a1ba9",
+    "test_runs_v003b/MUTATION_20261019T175829Z_27393/mutation_phase1_c2v003b.py e46f3ccf6a8c8622232abb03fa0ed5e814918a331d5e23f0892d9a69ba34fc05",
+    "phase1_c2v003a.py 385b287c68c3e4bbbcc2fa954cbba9bb7565846b1462dea32de9c79f36552d7d",
+    "phase1_c2v003.py 149ed4cbe1ad96e941ce01ad4cff46369dd559a9eee4356e155ad069f4a7b406",
+    "phase1_c2v002.py d64351ecc06c61e99e2d7253c5d4311617fc1f64d34d37523102ed32720a6754",
+    "DIFF_PHASE1_C2V002_TO_V003.diff 2ca7859c2edd0ea1a6c4c37ff6604d95be664f0763408a73375c0745be7497e9",
+    "DIFF_PHASE1_C2V003_TO_V003A.diff 1870f43b5938b705c97c0b48c5ab9ba75b36da34192f1e7a0c5d0a543b3ab1c3",
+    "README_PHASE1_C2V003.md 52432afec3df76b6680f600ebc41c6147e2a473871d5d5296adb1d908e76a9a3",
+    "README_PHASE1_C2V003A.md f85eec922ce739f1a8b082e277866869d75371c47383bf6b0e4eeeaf848d0b41",
+    "A133_TWO_PHASE_PROTOCOL_V001.md cd92ef914a0d562f0392080ebf709b5fdb1d85ef7f7b4493ee143fe782cfac17",
+    "engine calibration_region_engine_c2v003b.py 6ec8b2d0085a9460bbf481852ea5e0f64dac09af3c8a6c6fea2bf126057c3bc3",
+    "orchestrator calibration_orchestrator_c2v005.py c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d",
+    "lens evidence: run168a RESULTS.json 06fbb435da2d1b40daf06a9a597e2de3979340ea75f6646ae2f4b272e45db757",
+    "lens evidence: LENS_BINDING_RESULTS.json d16ffb97bc1cc7f542f3b5a8bd2560e4760bd57e4ae2af7b382a3d4c8760a559",
+    "lens evidence: eq_region_out.json 9548b2d023a80d6749980701e759139894e09be4aaa4ecda8537f67ff26ec193",
+    "lens evidence: mut_inproc_out.json 2fff9fcaa31c4c260b0dde6985a53c216b8e88c62bd2b837658be59870699ec5",
+    "lens evidence: LENS_MUTANT_CLI.json f49f5d31a7e0a4716612f794fe11787ff53a56e3d9e252d284c958d06dd5a64f",
+    "lens evidence: mutant B01 RESULTS.json c8457ec7e5347a7ba220d8f80c1e5118163ccc93ee2f7378ac2344d2cb072c11",
+    "lens evidence: mutant B02 RESULTS.json 24950393cfd6d1e91cb83f72a2a3043cd8d94b0c41138f655a6b27449b1eb360",
+    "lens evidence: mutant M12 RESULTS.json 95592115a4fd80325cd20e87a1160a4a91499d1957befdec6e91fbf5ef32c5a7",
+    "lens evidence: case_stdout.txt 0d0aa6a0a7dd6c511e4e5067581c840a3ddadf59027f1fc3ede0847ccc96c0c2"
+   ]
+  },
+  "verify": {
+   "holds": true,
+   "corrections": [
+    "Minor precision on the lens's process disclosure (1), not on any finding. Root's synthetic region builder (test_phase1_c2v003b.py L206: json.loads(Path(SPEC['observation_region']['path']).read_text())['distance_summary']) opens and parses the whole pinned DDO154 calibration observation-region JSON, which holds real DDO154 rows. It then keeps only distance_summary. So the lens's suite run read that entire file, not just its distance_summary. No value from it reaches any probe result, and the verdict is unaffected."
+   ],
+   "reclassified": [],
+   "own_checks": [
+    "HASHES (TESTED, from bytes). All 28 HASHES_V003B lines outside test_runs_v003a match; those six files were not opened. HASHES_V003B is 4ef119a7 and does not list itself. Spec cd92ef91, engine 6ec8b2d0 and orchestrator c75a889f also match. Tool diffs are 2ca7859c, 1870f43b and fd095be9 (+19/-2). Root's two RESULTS.json (b6f5a245, d30c623f) read 168/168, MUST_FAIL 68/68, MUST_PASS 100/100, audit_denied [], tool 7d891ff7, tests c24a7976. MUTATION_RESULTS (a4ba5da7) reads 27/27 killed. B01 is killed by the 3 T44 checks; B02 recorded 141 checks with 21 failing, and N03 141 with 24, as the README states.",
+    "DIFF MAP (TESTED, AST and line-by-line diff reading). v003a->v003b: 84/84 top-level items; only <docstring>, MODULE, cmd_at0b (+1 statement after the res dict) and cmd_at1 (+2 statements after the A149 members check) differ, and v003b's docstring ends with v003a's whole docstring. v002->v003b by name: only the docstring, MODULE, E_Q_READING, cmd_handoff, cmd_at0b, at1_rows and cmd_at1 differ, plus 10 new items. band_rows, cmd_band, linear_model, check_values, members_values, cmd_at0a, phase2_record, cmd_snapshot, cmd_fdplan and lp_pair are AST-identical to v002, so band and L1 are unchanged. Every hunk v002->v003->v003a->v003b maps to A144 R1/R2/R3, the L1 custody, A135 item 10, A149.1-3, V1/V2 or docs. v001 cmd_at0b differs from v003b only in the res dict and the V1 statement, so N5's 'present since v001' holds.",
+    "DIFFS (TESTED). Five of the six shipped diffs regenerate byte-for-byte with GNU diff -u. For DIFF_TEST v003a->v003b (d03525a1) the body differs: GNU gives +351/-94, the shipped file is +350/-93. All six diffs patch base to target byte-exact (N6 confirmed).",
+    "E_Q, E_A133_2(b) (TESTED in-process with the pinned engine). Five synthetic geometries: m_id 1/2/3; interior, corner and near-face; signed minus-side du. Over 8,990 bounded pairs the max relative error against exact rationals is 3.19e-16. 2,000 brute-force checks over the 32 sign vertices show the formula equals the exact max of |delta_m - delta_A(1 - sum Delta/du) - sum delta_Fk Delta_k/du_k|, so E_Q_READING's 'exact worst case' holds. eps_m equals the member's own eps_km_s[q] on every pair. The u_A and F-point members read exactly eps_m + eps_q (326 pairs, including minus-side du). R3 differs from the v002 formula on every bounded pair, in both directions; this is the ruled physics-reading change. Mutants M03 and M10 are detected in all geometries; M12 only where some du_k < 0.",
+    "AT-1 AND R1 (TESTED). An independent recomputation of lo/hi ± a_q ± e_q + K V_N^T n reproduces the failing set exactly in all 5 geometries: 1,267 failures (OUTSIDE_BOX_SLICE 1,257, OUTSIDE_TRUST_RADIUS 9, NGC_NONLINEAR 1). category and region_rows_violated match an independent row test, (A c)_i - max(b_i,0) > 1e-12. excess = geometric_part + residual_part, with residual = ∓rho - a_q - e_q. A violation of exactly 1e-12 reads [] and nextafter reads BOX. A b<0 row with c=0 reads []. A DDO-binding case reads LINEAR_DDO. band_region's arrays are bitwise equal to the band LP inputs band_rows passes.",
+    "LABEL-ONLY OUTSIDE_BOX_SLICE (TESTED). With region_violation replaced to read every family violated, or none, the failing list (minus category and region fields) and the whole reported dict are identical in all 5 geometries.",
+    "R2 (TESTED). An m_id 1 corner reads true/BOX_CORNER. An m_id 1 interior with two DDO rows at ±zrow reads true/OTHER_ROWS, with a non-degenerate box-only extent. BOX_CORNER is reachable at m_id 2 full box vertices (6 of 16 orientations). An m_id 2 face corner and interior read false.",
+    "A149.1 AND R3 FLAGS (TESTED). Entries 10**400, -10**400, nan, inf, None, False, 'x', [1.0], {}, -1 and -1e-300 are flagged on that pair only, with e_q = eps_q*coef. Entries 0, 0.0, 1, 3, 1e-300, 5e-324, 1e300 and -0.0 are not flagged, and e_q = eps_m + bounded. Other members are unchanged. A row with no eps_q reads FD_NOISE_NOT_BOUNDED/NO_ROW_EPS_Q with e = 0.",
+    "VALUES BINDING (TESTED through the real CLI main in-process). Real read_pinned, Out, the A149 check, V2, members_values with the real theta_key, check_member_eps and at1_rows run unmodified. Only load_snapshot, phase2_record, linear_model, Campaign, v003g_members and tau_check are SYNTHETIC stubs; the snapshot and record files stay sha-pinned. (1) The honest chain reads COVERED. An L1 recording an uppercase values sha, at0b given uppercase args, and an uppercase members sha at at1 are all admitted, with byte-identical AT1. (2) Attack: v003b refuses VALUES, rc 3, no out-dir; v003a on the same inputs reads COVERED, rc 0. The control L1 banded from V' reads COVERED. (3) An AT-0b written by v003a, or one whose values_sha256 is deleted, null, an int or a list, is refused VALUES. A v003a L1 is refused L1. (4) Swaps: values=members at at0b reads AGREEMENT_DEFECT, then at1 refuses VALUES; members=values at at0b is refused MEMBERS; members=values at at1 is refused MEMBERS; wrong members plus wrong values is refused MEMBERS first; true values with forged members reads AGREEMENT_DEFECT rc 10 at both steps; a members file at0b did not read is refused MEMBERS. (5) An honest AGREEMENT_DEFECT AT-0b gives AGREEMENT_DEFECT rc 10, never a refusal. (6) Shadow on the honest chain: AT1 differs from v003a only in module, L1 only in module, AT0B only in module and values_sha256. (7) Mutants B01, B02, N02 and N03 are each non-vacuous. FORMAL: band records the verified sha as given, at0b records sha.lower(), and at1 lowercases both, so at1 admits if and only if at0b and band read the same bytes.",
+    "FINDINGS N1-N6 (A115). N1 and N2 are reproduced exactly: re-indented values pass at0b then are refused VALUES; an uppercase phase2 sha at at0b gives rc 10; an uppercase snapshot sha at at1 is refused L1. N5 is reproduced and N6 is confirmed. N3 is confirmed from the code (cmd_at1 L1259 custody). N4 is confirmed from the code (check_member_eps covers all mv, at1_rows only member_valid True) and from README v003 CHOICE 5, adopted in 0716. All are NOTEs; the TESTED/FORMAL labels are right. Caveat on N4: it is NOTE only while the pinned members writer emits a 43-entry eps_km_s list (nulls pass check_member_eps) for member_valid=false points. If the writer omits it, the first at1 with a failed member is refused on honest inputs, class (a). This cannot be decided from the named paths and belongs in the writer review.",
+    "A135 ITEM 10 (TESTED). Own maps plus a shared custody pin are accepted. CERTIFICATE_MAP refuses: another member's certificate, a pin binding a non-member admitted point, another member's theta key alone or spec sha alone, missing or extra keys, a non-object map. A hash mismatch is refused PIN_MISMATCH. Observation outside v003b's scope: a certificate naming another point's key in uppercase hex is not caught, because the match is an exact token. That form is not produced by the pinned producers, so NOTE-level.",
+    "PROCESS. Reads beyond the explicitly named list: the pinned coordinate spec DDO154_CALIBRATION_COORDINATE_SPEC_V002.json (89e7d33e), from which only the template, region and engine path fields were printed, to vet the suite's opens. The pinned engine and orchestrator sources were hashed, grepped and imported read-only; their existing __pycache__ .pyc files were read and nothing was written. Also read: README_PHASE1_C2V003.md CHOICE lines, PARTIAL_lens.md, and the FROM_CLAUDE3 listing. Not opened: the call-spec template, the DDO154 region, test_runs_v003a files, any NGC3198/c5h/uvt_/runs path. Root's suite was not run. The audit hook denied 0 opens. Some scratch-only steps ran without taskpolicy -b: heredoc cat writes of probe scripts, cd, and variable assignments. Every python, diff/patch and hash command, and every PARTIAL_verify.md write, used it. The only write under /Users/bgm/Research is /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_phase1_v003b_c3/PARTIAL_verify.md (exclusive create, then appends); fixtures_verify was not needed. In out/probe_bind.json the key SHADOW_at1_diff_keys=[] is a glob artefact of my probe (it compared v003a with itself); the corrected exact-name comparison gives ['module'].",
+    "EVIDENCE ROOT: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/phase1v3b_review/verify/. Probes: probes/probe_eq.py 61b77ab0, probe_bind.py a75d3e1e, probe_r1r2.py ab058637, probe_certmaps.py 16581aa8, probe_small.py 5ca24fcc, synth.py 3f6a940f, audit.py b4309f19, ast_compare.py 4c54dca0, regen_diffs.sh 58ed14fa. Outputs: out/probe_eq.json a3f0d29a, out/probe_r1r2.json 50d389b8, out/probe_bind.json 3cf22379, out/mut_bind_{B01,B02,N02,N03}.json, out/mut_eq_{M03,M10,M12}.json."
+   ]
+  }
+ }
+}

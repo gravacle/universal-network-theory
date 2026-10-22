@@ -1,0 +1,1924 @@
+{
+  "changes_made": "Report and evidence only; no implementation or reviewed source changes.",
+  "date_u": "Wed Oct 21 17:30:42 UTC 2026",
+  "intended_record_contract": {
+    "accepted_shell_new_fields": {
+      "acceptance": "ACCEPTED_NEGLIGIBLE",
+      "accepted_negligible": true,
+      "eps": "10 * preserved original eps",
+      "eps_measured_before_negligible_substitution": "preserved original eps"
+    },
+    "accepted_shell_original_history": {
+      "certified": false,
+      "refinements": 2
+    },
+    "other_rules": "Exactly one accepted discrete-failed shell; all other shells original-certified; eps_max/max_shell unchanged; new producer pin and predecessor/original producer disclosed.",
+    "registered_discrete_verdict": "EPS_UNCERTIFIED",
+    "successor_rule_verdict": "ACCEPTED_NEGLIGIBLE",
+    "verdict": "NUMERICAL_RULE_PASSED_NEGLIGIBLE_SHELLS_NOTED_REVIEW_REQUIRED"
+  },
+  "schema": "CX2_A296_ADMISSION_IMPACT_CXV001",
+  "selected_source_spans": {
+    "B1_GUARD": [
+      {
+        "line": 133,
+        "text": "        eps = proof(doc['prelaunch']['EPS'], 'EPS')"
+      },
+      {
+        "line": 134,
+        "text": "        if eps.get('envelope_rule') != ENVELOPE:"
+      },
+      {
+        "line": 135,
+        "text": "            raise ValueError('EPS lacks cardinal-torus envelope')"
+      },
+      {
+        "line": 136,
+        "text": "        for s in shells(eps, 'EPS'):"
+      },
+      {
+        "line": 137,
+        "text": "            if type(s.get('refinement_failures')) is not int or s['refinement_failures'] not in (0, 1):"
+      },
+      {
+        "line": 138,
+        "text": "                raise ValueError('EPS refinement failures')"
+      },
+      {
+        "line": 139,
+        "text": "            if not _number(s.get('eps')) or not _number(s.get('eps_envelope')) or s['eps'] < s['eps_envelope']:"
+      },
+      {
+        "line": 140,
+        "text": "                raise ValueError('EPS must carry the conservative envelope')"
+      }
+    ],
+    "BASE_GUARD": [
+      {
+        "line": 133,
+        "text": "        eps = proof(doc['prelaunch']['EPS'], 'EPS')"
+      },
+      {
+        "line": 134,
+        "text": "        if eps.get('envelope_rule') != ENVELOPE:"
+      },
+      {
+        "line": 135,
+        "text": "            raise ValueError('EPS lacks cardinal-torus envelope')"
+      },
+      {
+        "line": 136,
+        "text": "        for s in shells(eps, 'EPS'):"
+      },
+      {
+        "line": 137,
+        "text": "            if type(s.get('refinement_failures')) is not int or s['refinement_failures'] not in (0, 1):"
+      },
+      {
+        "line": 138,
+        "text": "                raise ValueError('EPS refinement failures')"
+      },
+      {
+        "line": 139,
+        "text": "            if not _number(s.get('eps')) or not _number(s.get('eps_envelope')) or s['eps'] < s['eps_envelope']:"
+      },
+      {
+        "line": 140,
+        "text": "                raise ValueError('EPS must carry the conservative envelope')"
+      }
+    ],
+    "C1": {
+      "approved_certificate_producers": [
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/point_response_admission_adapter_cx2v003.py",
+          "sha256": "4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372"
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/gq_producer_cx2v005.py",
+          "sha256": "2832ceb95e1f4c4065963a50475b42cdb176744b824ae6a06f15c30db76441bd"
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/lo_slot_proof_c3v003.py",
+          "sha256": "cd10cd59df44d7b79f3c3aa7ba88998d94c7292c4c2656e09bbbe16ded01bca3"
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/lo_state_proof_adapter_c3v003.py",
+          "sha256": "211a3220f015f8410f81e981f73355d9975d9b738a42a9d1092c28c4ae1c336c"
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/srb_rot_adapter_c3v003.py",
+          "sha256": "08e9ac0a12cf1829f79f6df8a82c9ec6a7d174fc4bb25be76d3c049525dfae6a"
+        },
+        {
+          "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/current_source_evidence_b1_c2v001.py",
+          "sha256": "7044e1310bb0b8cde08f7839b88b949409d15219fb24756f418224a0e7c0ddce"
+        }
+      ],
+      "certificate_policy_review": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cert_policy_reviews_cx3/DDO154_CERTIFICATE_POLICY_REVIEW_C1_H1_CX3V001.json",
+        "sha256": "f848888f7778124414302b8f216813f44dcdf89c594a4a3c066c17da887b6bdc"
+      },
+      "certificate_registry": {
+        "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/registry_c2v001/REGISTRY_31pts_20261020T140004Z.json",
+        "sha256": "2dea408ff698e265a41bac1ef2562737ae98ffd4583477632e7a79507a15e319"
+      }
+    },
+    "COMMON": [
+      {
+        "line": 59,
+        "text": "PINS = {"
+      },
+      {
+        "line": 60,
+        "text": "    'custody': (CERT + '/custody_cx2v002.py', '6810b7c3614e219f6e059208fbe59e905d01aa3a115e3c723079b579a027a377'),"
+      },
+      {
+        "line": 61,
+        "text": "    'response_producer': (CERT + '/point_response_producer_cx2v002.py', 'a1dcdea8deba5bc9667f0ea36d6b94c3cc20fb1d2d95d637cc9e7ea26b478231'),"
+      },
+      {
+        "line": 62,
+        "text": "    'eps_adapter': (CERT + '/point_response_admission_adapter_cx2v003.py', '4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372'),"
+      },
+      {
+        "line": 63,
+        "text": "    'gq_producer': (CERT + '/gq_producer_cx2v005.py', '2832ceb95e1f4c4065963a50475b42cdb176744b824ae6a06f15c30db76441bd'),"
+      },
+      {
+        "line": 64,
+        "text": "    'lo_core': (CERT + '/lo_core_r5_cx2v001.py', '12d36305e09651fcb0dca0b76f85c755ff063c9d9e3ce0dd1e1baacf7b3d430e'),"
+      },
+      {
+        "line": 65,
+        "text": "    'lo_facade_v004': (CERT + '/lo_producer_cx2v004.py', '5db60d0f6db6d481e2f748b19bef08ce425f19a0e463d58727c184d633e03d51'),"
+      },
+      {
+        "line": 66,
+        "text": "    'guard_v003': (CERT + '/certificate_guard_cx2v003.py', '5f1e49e689a859c003b137c45c07f887423443ef2c726182616b41bf290c9c2f'),"
+      },
+      {
+        "line": 67,
+        "text": "    'state_enumerator': (ART + '/s4_acceptance_c2/offset_b1/consumed_states_b1_c2v001.py', '4ca7f3640bff6adc13d181a8045bec750681362595a9a9e71e643fa521af60f0'),   # c3v004 V02 (b1)"
+      },
+      {
+        "line": 68,
+        "text": "    'gq_record_c000': (CERT + '/GQ_P128_MS128_C000_R5_CX2V001.json', 'a785ccca92349515356fdd565848ef6bd7bc1bb31b792defb85b1a843f963a7f'),"
+      },
+      {
+        "line": 69,
+        "text": "    'wrapper_r10_c4': (ART + '/calib_tail_readiness_cx2/v006r10_c4/calibration_orchestrator_cx2v006r10_c4.py', 'ef3d3d69e01999dcfa255a75c98bcdee31a9512f0e284053139ea190ef9445c3'),"
+      },
+      {
+        "line": 70,
+        "text": "    'core_r10_c4': (ART + '/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py', 'dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6'),"
+      },
+      {
+        "line": 71,
+        "text": "    # c3v003 (0697): root's wrapper v002, L30 b1 guard, L74 slot rule, L148-191 LO_RHO_SLOT. Its core is dc895f8a above."
+      },
+      {
+        "line": 72,
+        "text": "    # c3v004 (V09, A138/A139): the published path beside core dc895f8a (root publishes it with cp -n); the same sha."
+      },
+      {
+        "line": 73,
+        "text": "    'wrapper_q5b1': (ART + '/calib_tail_readiness_cx2/v006r10_c4/calibration_orchestrator_cx2v006r10_c4_q5b1.py', '7a6af535805399d49ec3f1c1cbe9e4911d98f6fae0ad50b69a0641214fcd5d4d'),"
+      },
+      {
+        "line": 74,
+        "text": "    # c3v003 (0696): the A134 Q5 LO slot-proof producer (proof side c3v002), imported by this canonical path (R4)."
+      },
+      {
+        "line": 75,
+        "text": "    # c3v004 (A138): its erratum successor, proof side c3v003 (V03: wrapper v002's 10-key canonical rho comparison)."
+      },
+      {
+        "line": 76,
+        "text": "    'lo_slot_proof': (LANE_ROOT + '/proof_side_c3v003/lo_slot_proof_c3v003.py', 'cd10cd59df44d7b79f3c3aa7ba88998d94c7292c4c2656e09bbbe16ded01bca3'),"
+      },
+      {
+        "line": 77,
+        "text": "    'lo_state_adapter': (LANE_ROOT + '/proof_side_c3v003/lo_state_proof_adapter_c3v003.py', '211a3220f015f8410f81e981f73355d9975d9b738a42a9d1092c28c4ae1c336c'),   # c3v005 (A209): C1 producer 4"
+      },
+      {
+        "line": 78,
+        "text": "    'srb_rot_adapter': (LANE_ROOT + '/proof_side_c3v003/srb_rot_adapter_c3v003.py', '08e9ac0a12cf1829f79f6df8a82c9ec6a7d174fc4bb25be76d3c049525dfae6a'),   # c3v005 (A209): C1 producer 5"
+      },
+      {
+        "line": 79,
+        "text": "    'b1_evidence': (ART + '/s4_acceptance_c2/offset_b1/current_source_evidence_b1_c2v001.py', '7044e1310bb0b8cde08f7839b88b949409d15219fb24756f418224a0e7c0ddce'),   # c3v005 (A209): C1 producer 6"
+      },
+      {
+        "line": 88,
+        "text": "# F3/F7: the canonical approved-producer pins of the GQ/EPS phase. The offline verifier fails closed unless"
+      },
+      {
+        "line": 89,
+        "text": "# every C1 approved producer equals one of these whole dicts. No LO_ENVELOPE producer is canonical while"
+      },
+      {
+        "line": 90,
+        "text": "# FROM_CODEX/0679 holds LO; a successor adds one only after root rules LO."
+      },
+      {
+        "line": 91,
+        "text": "# c3v003 (0696/0697): A134 ruled LO (Q5): the LO_RHO_SLOT producer, lo_slot_proof_c3v002, is canonical too."
+      },
+      {
+        "line": 92,
+        "text": "# c3v004 (A138): that producer is now lo_slot_proof_c3v003 (the 'lo_slot_proof' pin above)."
+      },
+      {
+        "line": 93,
+        "text": "CANONICAL_APPROVED_PRODUCERS = ('eps_adapter', 'gq_producer', 'lo_slot_proof', 'lo_state_adapter', 'srb_rot_adapter', 'b1_evidence')   # c3v005 (A209 ruling 1): the six C1 producers, in C1 order"
+      },
+      {
+        "line": 480,
+        "text": "def distinct_review_problems(review, *, approved_signer_lanes, excluded_lanes):"
+      },
+      {
+        "line": 481,
+        "text": "    \"\"\"Distinct-lane rule shared by every review check (the tool never approves its own output).\"\"\""
+      },
+      {
+        "line": 482,
+        "text": "    bad = []"
+      },
+      {
+        "line": 483,
+        "text": "    if contains_template_marker(review):"
+      },
+      {
+        "line": 484,
+        "text": "        bad.append('REVIEW_IS_AN_UNFILLED_TEMPLATE')"
+      },
+      {
+        "line": 485,
+        "text": "    lane = review.get('reviewer_lane')"
+      },
+      {
+        "line": 486,
+        "text": "    if not isinstance(lane, str) or not lane.strip():"
+      },
+      {
+        "line": 487,
+        "text": "        bad.append('REVIEWER_LANE_MISSING')"
+      },
+      {
+        "line": 488,
+        "text": "    elif lane in set(excluded_lanes):"
+      },
+      {
+        "line": 489,
+        "text": "        bad.append('REVIEW_NOT_DISTINCT: reviewer lane ' + lane + ' is a producer/operator lane')"
+      },
+      {
+        "line": 490,
+        "text": "    elif lane not in set(approved_signer_lanes):"
+      },
+      {
+        "line": 491,
+        "text": "        bad.append('REVIEWER_LANE_NOT_ROOT_APPROVED_SIGNER: ' + lane)"
+      },
+      {
+        "line": 492,
+        "text": "    if review.get('distinct_from_producer_lane') is not True:"
+      },
+      {
+        "line": 493,
+        "text": "        bad.append('REVIEW_DOES_NOT_ASSERT_DISTINCT_LANE')"
+      },
+      {
+        "line": 494,
+        "text": "    if not approved_signer_lanes:"
+      },
+      {
+        "line": 495,
+        "text": "        bad.append('NO_ROOT_APPROVED_SIGNER_LANES (brief section 6 Q8)')"
+      },
+      {
+        "line": 496,
+        "text": "    return bad"
+      }
+    ],
+    "CP1_RUNNER": [
+      {
+        "line": 296,
+        "text": "def check_eps(eps, key, custody):"
+      },
+      {
+        "line": 297,
+        "text": "    shells = eps.get('shells') or []"
+      },
+      {
+        "line": 298,
+        "text": "    want = [[float(n), float(n + 1)] for n in range(4, C.SHELL_END)]"
+      },
+      {
+        "line": 299,
+        "text": "    return {"
+      },
+      {
+        "line": 300,
+        "text": "        'schema_gate': eps.get('schema') == 'UNT_POINT_EPS_NUMERICAL_CX2V001' and eps.get('gate') == 'EPS',"
+      },
+      {
+        "line": 301,
+        "text": "        'registered_full_search': eps.get('settings') == 'registered' and eps.get('full_registered_search_executed') is True"
+      },
+      {
+        "line": 302,
+        "text": "                                  and eps.get('coverage_complete') is True,"
+      },
+      {
+        "line": 303,
+        "text": "        'registered_discrete_CERTIFIED': eps.get('registered_discrete_verdict') == 'CERTIFIED',"
+      },
+      {
+        "line": 304,
+        "text": "        'verdict_review_required': eps.get('verdict') == 'NUMERICAL_RULE_PASSED_REVIEW_REQUIRED',"
+      },
+      {
+        "line": 305,
+        "text": "        'point_sha256_is_key': eps.get('point_sha256') == key,"
+      },
+      {
+        "line": 306,
+        "text": "        'custody_matches_context': eps.get('custody') == custody,"
+      },
+      {
+        "line": 307,
+        "text": "        'producer_pin_canonical_R4': eps.get('producer') == C.canonical_pin('response_producer'),"
+      },
+      {
+        "line": 308,
+        "text": "        'shells_4_to_182_unit': [s.get('range_inverse_kpc') for s in shells] == want,"
+      },
+      {
+        "line": 309,
+        "text": "        'dense_audits_14': len(eps.get('envelope_audit') or []) == EPS_AUDITS,"
+      },
+      {
+        "line": 310,
+        "text": "    }"
+      },
+      {
+        "line": 889,
+        "text": "def adapt_point(row, out_root, *, review_path, approved_review_sha256, approved_signer_lanes,"
+      },
+      {
+        "line": 890,
+        "text": "                attempt=1, adapter_loader=real_adapter, require_env=True, review_roots=(C.EXCHANGE,)):"
+      },
+      {
+        "line": 891,
+        "text": "    \"\"\"Distinct-lane review first, then adapter v003 adapt_eps, then the proof (exclusive create).\"\"\""
+      },
+      {
+        "line": 892,
+        "text": "    if require_env:"
+      },
+      {
+        "line": 893,
+        "text": "        require_compute_environment()"
+      },
+      {
+        "line": 894,
+        "text": "    spec, spec_pin = load_spec(row)"
+      },
+      {
+        "line": 895,
+        "text": "    key, k16 = row['key'], row['key'][:16]"
+      },
+      {
+        "line": 896,
+        "text": "    pdir = find_point_dir(out_root, row, attempt)"
+      },
+      {
+        "line": 897,
+        "text": "    start = read_stage(pdir, out_root, 'POINT_START_%s.json' % k16)"
+      },
+      {
+        "line": 898,
+        "text": "    st = read_stage(pdir, out_root, 'STAGE_EPS_%s.json' % k16)"
+      },
+      {
+        "line": 899,
+        "text": "    ctx = read_stage(pdir, out_root, 'STAGE_CONTEXT_%s.json' % k16)"
+      },
+      {
+        "line": 900,
+        "text": "    if st.get('ok') is not True:"
+      },
+      {
+        "line": 901,
+        "text": "        raise Refusal('EPS_STAGE_NOT_OK')"
+      },
+      {
+        "line": 902,
+        "text": "    numeric_ref = st['record']"
+      },
+      {
+        "line": 903,
+        "text": "    C.read_bytes_pinned(numeric_ref, (out_root,), 'EPS numeric record', max_bytes=None)"
+      },
+      {
+        "line": 904,
+        "text": "    if os.path.exists(os.path.join(pdir, 'EPS_PROOF_%s.json' % k16)):"
+      },
+      {
+        "line": 905,
+        "text": "        raise Refusal('EPS_PROOF_EXISTS for this attempt (one proof per point attempt; never overwritten)')"
+      },
+      {
+        "line": 906,
+        "text": "    if not review_path:"
+      },
+      {
+        "line": 907,
+        "text": "        raise Refusal('EPS_REVIEW_MISSING (distinct-lane review required before adapt_eps)')"
+      },
+      {
+        "line": 908,
+        "text": "    rp = C.require_policy(review_path, review_roots, 'review')"
+      },
+      {
+        "line": 909,
+        "text": "    if not os.path.isfile(rp):"
+      },
+      {
+        "line": 910,
+        "text": "        raise Refusal('EPS_REVIEW_MISSING: ' + rp)"
+      },
+      {
+        "line": 911,
+        "text": "    C.require_canonical(rp)"
+      },
+      {
+        "line": 912,
+        "text": "    if rp.startswith(out_root.rstrip('/') + '/'):"
+      },
+      {
+        "line": 913,
+        "text": "        raise Refusal('REVIEW_INSIDE_RUNNER_OUTPUT_ROOT (the tool never holds or writes approvals)')"
+      },
+      {
+        "line": 914,
+        "text": "    with open(rp, 'rb') as f:"
+      },
+      {
+        "line": 915,
+        "text": "        raw = f.read()"
+      },
+      {
+        "line": 916,
+        "text": "    sha = C.sha256_bytes(raw)"
+      },
+      {
+        "line": 917,
+        "text": "    if not C.is_sha(approved_review_sha256) or sha != approved_review_sha256:"
+      },
+      {
+        "line": 918,
+        "text": "        raise Refusal('EPS_REVIEW_SHA_NOT_ROOT_APPROVED')"
+      },
+      {
+        "line": 919,
+        "text": "    review = json.loads(raw)"
+      },
+      {
+        "line": 920,
+        "text": "    problems = C.distinct_review_problems(review, approved_signer_lanes=approved_signer_lanes,"
+      },
+      {
+        "line": 921,
+        "text": "                                          excluded_lanes={start.get('operator_lane'), C.CODEX2_PRODUCER_LANE})"
+      },
+      {
+        "line": 922,
+        "text": "    want = {'schema': REVIEW_SCHEMA_EPS, 'verdict': 'APPROVED', 'numeric_ref': numeric_ref, 'point_sha256': key,"
+      },
+      {
+        "line": 923,
+        "text": "            'custody_sha256': ctx.get('custody_sha256'), 'adapter_sha256': C.PINS['eps_adapter'][1],"
+      },
+      {
+        "line": 924,
+        "text": "            'accepts_registered_numerical_estimate_not_rigorous_sup': True}"
+      },
+      {
+        "line": 925,
+        "text": "    problems += ['EPS_REVIEW_FIELD_MISMATCH: ' + k for k, v in want.items() if review.get(k) != v]"
+      },
+      {
+        "line": 926,
+        "text": "    if problems:"
+      },
+      {
+        "line": 927,
+        "text": "        raise Refusal('EPS_REVIEW_REFUSED: ' + '; '.join(problems))"
+      },
+      {
+        "line": 928,
+        "text": "    review_ref = {'path': rp, 'sha256': sha}"
+      },
+      {
+        "line": 929,
+        "text": "    ad = adapter_loader()"
+      },
+      {
+        "line": 930,
+        "text": "    res = ad.adapt_eps(spec, numeric_ref, review_ref=review_ref,"
+      },
+      {
+        "line": 931,
+        "text": "                       approved_producer_sha256=ADAPT_EPS_APPROVED_PRODUCERS,"
+      },
+      {
+        "line": 932,
+        "text": "                       approved_review_sha256=(sha,))"
+      },
+      {
+        "line": 933,
+        "text": "    res_pin = C.write_new(os.path.join(pdir, 'EPS_ADAPTER_RESULT_%s_r%s.json' % (k16, sha[:12])), res, out_root)"
+      },
+      {
+        "line": 934,
+        "text": "    if res.get('verdict') != 'READY_FOR_MANIFEST' or not isinstance(res.get('proof'), dict):"
+      },
+      {
+        "line": 935,
+        "text": "        return 3, {'adapter_result': res_pin, 'blockers': res.get('blockers')}"
+      },
+      {
+        "line": 936,
+        "text": "    proof = res['proof']"
+      },
+      {
+        "line": 937,
+        "text": "    checks = {'producer_pin_canonical_R4': proof.get('producer') == C.canonical_pin('eps_adapter'),"
+      },
+      {
+        "line": 938,
+        "text": "              'driver_certificate_is_numeric_ref': proof.get('driver_certificate') == numeric_ref,"
+      },
+      {
+        "line": 939,
+        "text": "              'point_sha256': proof.get('point_sha256') == key,"
+      },
+      {
+        "line": 940,
+        "text": "              'custody_sha256': proof.get('custody_sha256') == ctx.get('custody_sha256'),"
+      },
+      {
+        "line": 941,
+        "text": "              'tested_pass': proof.get('status') == 'TESTED' and proof.get('verdict') == 'PASS'}"
+      },
+      {
+        "line": 942,
+        "text": "    if not all(checks.values()):"
+      },
+      {
+        "line": 943,
+        "text": "        return 3, {'adapter_result': res_pin, 'checks': checks}"
+      },
+      {
+        "line": 944,
+        "text": "    proof_pin = C.write_new(os.path.join(pdir, 'EPS_PROOF_%s.json' % k16), proof, out_root)"
+      }
+    ],
+    "DIRECT_LOOKUP": [
+      {
+        "line": 284,
+        "text": "         'genesis_registry', 'approved_producers'}, 'REQUEST_FIELDS')"
+      },
+      {
+        "line": 285,
+        "text": "    need(req['schema'] == REQUEST_SCHEMA, 'REQUEST_SCHEMA')"
+      },
+      {
+        "line": 286,
+        "text": "    need(req['c1'] == C1 and req['genesis_registry'] == GENESIS, 'FROZEN_C1_AND_GENESIS_REQUIRED')"
+      },
+      {
+        "line": 287,
+        "text": "    c1, gen = s.doc(C1), s.doc(GENESIS)"
+      },
+      {
+        "line": 288,
+        "text": "    approved = s.doc(req['approved_producers'])"
+      },
+      {
+        "line": 289,
+        "text": "    if isinstance(approved, dict):"
+      },
+      {
+        "line": 290,
+        "text": "        approved = approved.get('approved_certificate_producers')"
+      },
+      {
+        "line": 291,
+        "text": "    tr = c1['tail_readiness']"
+      },
+      {
+        "line": 292,
+        "text": "    need(approved == tr['approved_certificate_producers'] and isinstance(approved, list)"
+      },
+      {
+        "line": 293,
+        "text": "         and len(approved) == 6, 'FROZEN_SIX_APPROVED_PRODUCERS_REQUIRED')"
+      },
+      {
+        "line": 294,
+        "text": "    need(tr['certificate_registry'] == GENESIS, 'C1_GENESIS_MISMATCH')"
+      },
+      {
+        "line": 295,
+        "text": "    for p in approved:"
+      },
+      {
+        "line": 296,
+        "text": "        s.read(p)"
+      },
+      {
+        "line": 297,
+        "text": "    records, verification = s.doc(req['records']), s.doc(req['verification'])"
+      },
+      {
+        "line": 298,
+        "text": "    need(records.get('schema') == 'CP1_POINTS_LEDGER_RECORDS_C2V001', 'RECORDS_SCHEMA')"
+      },
+      {
+        "line": 299,
+        "text": "    need(records.get('generator') in (ASSEMBLER, OLD_ASSEMBLER), 'RECORDS_GENERATOR')"
+      },
+      {
+        "line": 300,
+        "text": "    expected_assembler = C3V005 if records['generator'] == ASSEMBLER else C3V004"
+      },
+      {
+        "line": 301,
+        "text": "    need(records.get('c3v004_assembler') == expected_assembler, 'RECORDS_ASSEMBLER_BINDING')"
+      },
+      {
+        "line": 302,
+        "text": "    s.read(records['generator'])"
+      },
+      {
+        "line": 303,
+        "text": "    s.read(expected_assembler)"
+      },
+      {
+        "line": 304,
+        "text": "    need(records.get('genesis_registry') == GENESIS, 'RECORDS_GENESIS_MISMATCH')"
+      },
+      {
+        "line": 305,
+        "text": "    need(records.get('approved_certificate_producers') == approved, 'RECORDS_PRODUCERS_MISMATCH')"
+      },
+      {
+        "line": 306,
+        "text": "    need(is_sha(gen.get('eps_source_pins_digest')) and"
+      },
+      {
+        "line": 307,
+        "text": "         records.get('eps_source_pins_digest') == gen['eps_source_pins_digest'], 'GENESIS_EPS_SOURCE_DRIFT')"
+      },
+      {
+        "line": 308,
+        "text": "    need(verification.get('schema') == 'CP1_POINTS_OFFLINE_VERIFY_C2V001'"
+      },
+      {
+        "line": 309,
+        "text": "         and verification.get('generator') == ASSEMBLER, 'VERIFY_SCHEMA_OR_GENERATOR')"
+      },
+      {
+        "line": 310,
+        "text": "    s.read(ASSEMBLER)"
+      },
+      {
+        "line": 363,
+        "text": "        eps = s.doc(rec['eps_certificate'])"
+      },
+      {
+        "line": 364,
+        "text": "        need(digest({'dependencies': eps.get('dependencies'), 'producer': eps.get('producer')})"
+      },
+      {
+        "line": 365,
+        "text": "             == gen['eps_source_pins_digest'], 'POINT_EPS_SOURCE_DRIFT')"
+      },
+      {
+        "line": 366,
+        "text": "        for gate in ('EPS', 'GQ', 'LO_RHO_SLOT'):"
+      },
+      {
+        "line": 367,
+        "text": "            proof = s.doc(bundle['prelaunch'][gate])"
+      },
+      {
+        "line": 368,
+        "text": "            need(proof.get('schema') == 'UNT_CALIBRATION_POINT_PROOF_CX2V001'"
+      },
+      {
+        "line": 369,
+        "text": "                 and proof.get('gate') == gate and proof.get('status') == 'TESTED'"
+      },
+      {
+        "line": 370,
+        "text": "                 and proof.get('verdict') == 'PASS' and proof.get('point_sha256') == key"
+      },
+      {
+        "line": 371,
+        "text": "                 and proof.get('custody_sha256') == digest(bundle.get('custody'))"
+      },
+      {
+        "line": 372,
+        "text": "                 and proof.get('producer') in approved, 'PROOF_SCOPE_OR_PRODUCER: '+gate)"
+      },
+      {
+        "line": 373,
+        "text": "            if gate in ('EPS', 'LO_RHO_SLOT'):"
+      },
+      {
+        "line": 374,
+        "text": "                field = 'eps_certificate' if gate == 'EPS' else 'lo_certificate'"
+      },
+      {
+        "line": 375,
+        "text": "                need(proof.get('driver_certificate') == rec[field], 'PROOF_SLOT_BINDING: '+gate)"
+      }
+    ],
+    "DIRECT_PREFLIGHT": [
+      {
+        "line": 34,
+        "text": "    frozen=s.doc(L.C1)['tail_readiness']"
+      },
+      {
+        "line": 35,
+        "text": "    for field in ('certificate_registry','certificate_policy_review','approved_certificate_producers',"
+      },
+      {
+        "line": 36,
+        "text": "                  'custody_deriver','state_enumerator'):"
+      },
+      {
+        "line": 37,
+        "text": "        SG.require(config.get('tail_readiness',{}).get(field)==frozen[field],'DIRECT_CERT_C1_POLICY_MISMATCH')"
+      },
+      {
+        "line": 38,
+        "text": "    original=SG.load(BASE_ADAPTER,admission,'_direct_preflight_original')"
+      },
+      {
+        "line": 39,
+        "text": "    with s.reads():"
+      },
+      {
+        "line": 40,
+        "text": "        base=original.build(C,config,guard=SG,admission=admission)"
+      },
+      {
+        "line": 41,
+        "text": "    O=C.O;M=C.M;G=C.G;Error=C.Error;DRIVER_SHA=C.DRIVER_SHA"
+      },
+      {
+        "line": 140,
+        "text": "                        raise Error(gate_name+' proof schema/gate/custody mismatch')"
+      },
+      {
+        "line": 141,
+        "text": "                    if proof.get('driver_certificate')!=slots[slot]:"
+      },
+      {
+        "line": 142,
+        "text": "                        raise Error(gate_name+' proof differs from attached driver certificate')"
+      },
+      {
+        "line": 143,
+        "text": "                    O.read_pinned(slots[slot],slot)"
+      },
+      {
+        "line": 144,
+        "text": "                    if proof.get('point_sha256')!=M.digest(ident) or proof.get('status')!='TESTED' or proof.get('verdict')!='PASS':"
+      },
+      {
+        "line": 145,
+        "text": "                        raise Error(gate_name+' slot proof is not TESTED PASS for this point')"
+      },
+      {
+        "line": 146,
+        "text": "                    producer=proof['producer'];O.read_pinned(producer,gate_name+' producer')"
+      },
+      {
+        "line": 147,
+        "text": "                    if producer not in r['approved_certificate_producers']:"
+      },
+      {
+        "line": 148,
+        "text": "                        raise Error(gate_name+' producer is not approved')"
+      },
+      {
+        "line": 179,
+        "text": "                                if not isinstance(got,dict) or M.canonical({k:got.get(k) for k in keys})!=want:"
+      },
+      {
+        "line": 180,
+        "text": "                                    raise Error('recomputed rho differs from the lo slot rho (bitwise)')"
+      },
+      {
+        "line": 181,
+        "text": "                verified=G.verify_bundle(bundle_ref,ident,expected_custody=custody,"
+      },
+      {
+        "line": 182,
+        "text": "                    approved_producer_sha256=[p['sha256'] for p in r['approved_certificate_producers']],"
+      },
+      {
+        "line": 183,
+        "text": "                    phase=phase,required_states=states)"
+      },
+      {
+        "line": 184,
+        "text": "                if phase=='acceptance':"
+      }
+    ],
+    "EPS_ADAPTER": [
+      {
+        "line": 82,
+        "text": "def validate_numeric_candidates(obj,required,edge):"
+      },
+      {
+        "line": 83,
+        "text": "    \"\"\"Validate complete search metadata before constructing any proof.\"\"\""
+      },
+      {
+        "line": 84,
+        "text": "    _finite_tree(obj)"
+      },
+      {
+        "line": 85,
+        "text": "    rows=obj.get('shells',[])"
+      },
+      {
+        "line": 86,
+        "text": "    if not isinstance(rows,list) or [r.get('range_inverse_kpc') for r in rows]!=required:"
+      },
+      {
+        "line": 87,
+        "text": "        raise ValueError('EPS_ACTUAL_SHELL_COVERAGE_GAP')"
+      },
+      {
+        "line": 88,
+        "text": "    audits=obj.get('envelope_audit',[])"
+      },
+      {
+        "line": 89,
+        "text": "    wanted=[float(n) for n in PR.AUDIT_LO if 4<=n<edge]"
+      },
+      {
+        "line": 90,
+        "text": "    if not isinstance(audits,list) or len(audits)!=len(wanted):"
+      },
+      {
+        "line": 91,
+        "text": "        raise ValueError('EPS_DENSE_AUDIT_COUNT_OR_DUPLICATE')"
+      },
+      {
+        "line": 92,
+        "text": "    audit={}"
+      },
+      {
+        "line": 93,
+        "text": "    for entry in audits:"
+      },
+      {
+        "line": 94,
+        "text": "        pair=entry.get('range_inverse_kpc')"
+      },
+      {
+        "line": 95,
+        "text": "        if not isinstance(pair,list) or len(pair)!=2:"
+      },
+      {
+        "line": 96,
+        "text": "            raise ValueError('EPS_DENSE_AUDIT_RANGE_INVALID')"
+      },
+      {
+        "line": 97,
+        "text": "        lo,hi=pair"
+      },
+      {
+        "line": 98,
+        "text": "        _number(lo,'audit lo');_number(hi,'audit hi')"
+      },
+      {
+        "line": 99,
+        "text": "        if lo in audit:raise ValueError('EPS_DENSE_AUDIT_DUPLICATE')"
+      },
+      {
+        "line": 100,
+        "text": "        if hi!=lo+1 or lo not in wanted:"
+      },
+      {
+        "line": 101,
+        "text": "            raise ValueError('EPS_DENSE_AUDIT_RANGE_INVALID')"
+      },
+      {
+        "line": 102,
+        "text": "        audit[lo]=entry"
+      },
+      {
+        "line": 103,
+        "text": "    if set(audit)!=set(wanted):raise ValueError('EPS_DENSE_AUDIT_COVERAGE_INCOMPLETE')"
+      },
+      {
+        "line": 104,
+        "text": "    proofrows=[]"
+      },
+      {
+        "line": 105,
+        "text": "    for index,(row,(lo,hi)) in enumerate(zip(rows,required)):"
+      },
+      {
+        "line": 106,
+        "text": "        if row.get('lo_inverse_kpc')!=lo or row.get('hi_inverse_kpc')!=hi:"
+      },
+      {
+        "line": 107,
+        "text": "            raise ValueError('DRIVER_FIELD_BOUND_SHELL_KEYS_MISMATCH')"
+      },
+      {
+        "line": 108,
+        "text": "        nf=row.get('refinements')"
+      },
+      {
+        "line": 109,
+        "text": "        if type(nf) is not int or nf not in (0,1) or row.get('certified') is not True:"
+      },
+      {
+        "line": 110,
+        "text": "            raise ValueError('EPS_REFINEMENT_FAILURE')"
+      },
+      {
+        "line": 111,
+        "text": "        eps,base,ref,env=(_number(row.get(k),k) for k in ('eps','eps_base','eps_refined','eps_envelope'))"
+      },
+      {
+        "line": 112,
+        "text": "        if ref>1.1*base:raise ValueError('EPS_REFINEMENT_RULE_FAILED')"
+      },
+      {
+        "line": 113,
+        "text": "        levels=row.get('levels',{})"
+      },
+      {
+        "line": 114,
+        "text": "        keys={'0','1'} if nf==0 else {'0','1','2'}"
+      },
+      {
+        "line": 115,
+        "text": "        if set(levels)!=keys:raise ValueError('EPS_DISCRETE_LEVELS_MISMATCH')"
+      },
+      {
+        "line": 157,
+        "text": "        if env<max(envelope_candidates) or eps<max(candidates):"
+      },
+      {
+        "line": 158,
+        "text": "            raise ValueError('EPS_REPORTED_VALUE_UNDERESTIMATES_RECORDED_CANDIDATE')"
+      },
+      {
+        "line": 159,
+        "text": "        proofrows.append({'range_inverse_kpc':[lo,hi],'eps':eps,'eps_envelope':env,'refinement_failures':nf})"
+      },
+      {
+        "line": 160,
+        "text": "    maximum=_number(obj.get('eps_max'),'eps_max')"
+      },
+      {
+        "line": 161,
+        "text": "    if maximum!=max(r['eps'] for r in rows):raise ValueError('EPS_MAX_INCONSISTENT')"
+      },
+      {
+        "line": 162,
+        "text": "    if obj.get('eps_max_shell')!=max(rows,key=lambda r:r['eps'])['range_inverse_kpc']:"
+      },
+      {
+        "line": 163,
+        "text": "        raise ValueError('EPS_MAX_SHELL_INCONSISTENT')"
+      },
+      {
+        "line": 164,
+        "text": "    return proofrows"
+      },
+      {
+        "line": 165,
+        "text": ""
+      },
+      {
+        "line": 166,
+        "text": ""
+      },
+      {
+        "line": 167,
+        "text": "def adapt_eps(spec,numeric_ref,*,review_ref=None,approved_producer_sha256=(),approved_review_sha256=()):"
+      },
+      {
+        "line": 168,
+        "text": "    out={'schema':'UNT_POINT_EPS_ADAPTER_RESULT_CX2V002','utc':PR.utc(),'status':'TESTED',"
+      },
+      {
+        "line": 169,
+        "text": "         'verdict':'BLOCKED','blockers':[],'proof':None,'driver_certificate':None}"
+      },
+      {
+        "line": 170,
+        "text": "    try:"
+      },
+      {
+        "line": 171,
+        "text": "        details=CU.derive_details(spec=spec);obj=CU.read_pin(numeric_ref)"
+      },
+      {
+        "line": 172,
+        "text": "        if obj.get('schema')!=PR.EPS_SCHEMA or obj.get('gate')!='EPS':raise ValueError('EPS_NUMERICAL_SCHEMA_MISMATCH')"
+      },
+      {
+        "line": 173,
+        "text": "        if obj.get('identity')!=details['identity'] or obj.get('custody')!=details['custody']:raise ValueError('EPS_NUMERICAL_POINT_CUSTODY_MISMATCH')"
+      },
+      {
+        "line": 174,
+        "text": "        if obj.get('status')!='TESTED' or obj.get('settings')!='registered' or obj.get('full_registered_search_executed') is not True:"
+      },
+      {
+        "line": 175,
+        "text": "            raise ValueError('FULL_REGISTERED_POINT_EPS_UNTESTED')"
+      },
+      {
+        "line": 176,
+        "text": "        if obj.get('coverage_complete') is not True or obj.get('registered_discrete_verdict')!='CERTIFIED':raise ValueError('EPS_DISCRETE_RULE_OR_COVERAGE_FAILED')"
+      },
+      {
+        "line": 177,
+        "text": "        approved=set(approved_producer_sha256)"
+      },
+      {
+        "line": 178,
+        "text": "        if obj.get('producer',{}).get('sha256') not in approved or CU.sha(__file__) not in approved:"
+      },
+      {
+        "line": 179,
+        "text": "            raise ValueError('NUMERICAL_PRODUCER_OR_ADAPTER_NOT_INDEPENDENTLY_APPROVED')"
+      },
+      {
+        "line": 180,
+        "text": "        CU.read_pin(obj['producer'],document=False)"
+      },
+      {
+        "line": 181,
+        "text": "        if obj['producer']['sha256']!=RESPONSE_SHA:raise ValueError('UNSUPPORTED_NUMERICAL_PRODUCER')"
+      },
+      {
+        "line": 182,
+        "text": "        if not review_ref or review_ref.get('sha256') not in set(approved_review_sha256):raise ValueError('INDEPENDENT_NUMERICAL_EPS_REVIEW_MISSING')"
+      },
+      {
+        "line": 183,
+        "text": "        review=CU.read_pin(review_ref)"
+      },
+      {
+        "line": 184,
+        "text": "        if review.get('schema')!='UNT_POINT_EPS_REVIEW_CX2V001' or review.get('verdict')!='APPROVED':raise ValueError('EPS_REVIEW_NOT_APPROVED')"
+      },
+      {
+        "line": 185,
+        "text": "        if review.get('numeric_ref')!=numeric_ref or review.get('point_sha256')!=details['point_sha256'] or review.get('custody_sha256')!=details['custody_sha256']:"
+      },
+      {
+        "line": 186,
+        "text": "            raise ValueError('EPS_REVIEW_EXACT_BYTES_OR_SCOPE_MISMATCH')"
+      },
+      {
+        "line": 187,
+        "text": "        if review.get('accepts_registered_numerical_estimate_not_rigorous_sup') is not True:raise ValueError('EPS_REVIEW_NUMERICAL_CONVENTION_UNRESOLVED')"
+      },
+      {
+        "line": 188,
+        "text": "        if review.get('adapter_sha256')!=CU.sha(__file__):raise ValueError('EPS_REVIEW_ADAPTER_MISMATCH')"
+      },
+      {
+        "line": 189,
+        "text": "        required,_,edge=PR.shell_plan(spec)"
+      },
+      {
+        "line": 190,
+        "text": "        proofrows=validate_numeric_candidates(obj,required,edge)"
+      },
+      {
+        "line": 191,
+        "text": "        proof={'schema':'UNT_CALIBRATION_POINT_PROOF_CX2V001','gate':'EPS','utc':PR.utc(),'status':'TESTED','verdict':'PASS',"
+      },
+      {
+        "line": 192,
+        "text": "            'point_sha256':details['point_sha256'],'custody_sha256':details['custody_sha256'],'producer':CU.pin(__file__),"
+      },
+      {
+        "line": 193,
+        "text": "            'driver_certificate':numeric_ref,'numeric_evidence':numeric_ref,'independent_review':review_ref,"
+      },
+      {
+        "line": 194,
+        "text": "            'envelope_rule':'A52_5_SUP_OVER_DIRECTION_TIMES_CARDINAL_TORUS','shells':proofrows,'rigorous_supremum':False,"
+      },
+      {
+        "line": 195,
+        "text": "            'scope':'Independently approved registered numerical convention, not rigorous continuous supremum'}"
+      }
+    ],
+    "LIST_ASSEMBLER": [
+      {
+        "line": 79,
+        "text": "        eps_rec = C.read_json_pinned(slots['eps_certificate'], roots, 'EPS numeric record', max_bytes=None)"
+      },
+      {
+        "line": 80,
+        "text": "        deps[key] = C.digest({'dependencies': eps_rec.get('dependencies'), 'producer': eps_rec.get('producer')})"
+      },
+      {
+        "line": 81,
+        "text": "        for gate in ('EPS', 'GQ', A.SLOT_GATE):"
+      },
+      {
+        "line": 82,
+        "text": "            proof = C.read_json_pinned(b['prelaunch'][gate], roots, gate + ' proof')"
+      },
+      {
+        "line": 83,
+        "text": "            if proof.get('producer') not in approved:"
+      },
+      {
+        "line": 84,
+        "text": "                raise Refusal(gate + '_PRODUCER_NOT_APPROVED')"
+      },
+      {
+        "line": 85,
+        "text": "        recs.append({'key': key, 'label': row['label'], 'row': row['row'], 'wave': row['wave'], 'theta': row['theta'],"
+      },
+      {
+        "line": 86,
+        "text": "                     'pending_spec_sha256': row['pending_spec_sha256'],"
+      },
+      {
+        "line": 87,
+        "text": "                     'record': {'identity': ident, 'bundle': pin, 'eps_certificate': slots['eps_certificate'],"
+      },
+      {
+        "line": 88,
+        "text": "                                'lo_certificate': slots['lo_certificate']}})"
+      },
+      {
+        "line": 89,
+        "text": "    missing = [r['label'] for r in rows if r['key'] not in seen]"
+      },
+      {
+        "line": 90,
+        "text": "    if missing:"
+      },
+      {
+        "line": 91,
+        "text": "        raise Refusal('POINTS_WITHOUT_A_BUNDLE (a wave is registered whole): %s' % missing)"
+      },
+      {
+        "line": 92,
+        "text": "    if len(set(deps.values())) != 1:"
+      },
+      {
+        "line": 93,
+        "text": "        raise Refusal('EPS_SOURCE_PINS_DIFFER_ACROSS_POINTS (upstream code or data drifted during CP-1)')"
+      },
+      {
+        "line": 94,
+        "text": "    eps_digest = next(iter(deps.values()))"
+      },
+      {
+        "line": 95,
+        "text": "    gen = None"
+      },
+      {
+        "line": 96,
+        "text": "    if genesis_ref is not None:"
+      },
+      {
+        "line": 97,
+        "text": "        gen = C.read_json_pinned(genesis_ref, roots, 'genesis registry')"
+      },
+      {
+        "line": 98,
+        "text": "        gd = gen.get('eps_source_pins_digest')"
+      },
+      {
+        "line": 99,
+        "text": "        if gd is not None and gd != eps_digest:"
+      },
+      {
+        "line": 100,
+        "text": "            raise Refusal('EPS_SOURCE_PINS_DIFFER_FROM_THE_GENESIS_REGISTRY (upstream code or data drifted since CP-1)')"
+      },
+      {
+        "line": 101,
+        "text": "        clash = [r['key'][:16] for r in recs if r['key'] in (gen.get('points') or {})]"
+      },
+      {
+        "line": 102,
+        "text": "        if clash:"
+      },
+      {
+        "line": 103,
+        "text": "            raise Refusal('POINT_ALREADY_IN_THE_GENESIS_REGISTRY: %s' % clash)"
+      },
+      {
+        "line": 104,
+        "text": "    order = {r['key']: i for i, r in enumerate(rows)}"
+      },
+      {
+        "line": 105,
+        "text": "    recs.sort(key=lambda x: order[x['key']])"
+      },
+      {
+        "line": 106,
+        "text": "    out = {'schema': P.RECORDS_SCHEMA, 'utc': C.utc(), 'points_list': dict(list_ref), 'wave': doc['wave'], 'count': len(recs),"
+      },
+      {
+        "line": 107,
+        "text": "           'records': recs, 'eps_source_pins_digest': eps_digest, 'genesis_registry': genesis_ref,"
+      },
+      {
+        "line": 108,
+        "text": "           'approved_certificate_producers': approved, 'generator': self_pin(),"
+      }
+    ],
+    "LIST_COMMON": [
+      {
+        "line": 26,
+        "text": "ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts'"
+      },
+      {
+        "line": 27,
+        "text": "BUILD = ART + '/s4rc1_c3/build_c3v004'"
+      },
+      {
+        "line": 28,
+        "text": "RUNNER = (BUILD + '/cp1_runner_c3v004.py', '3f5e5c188d4a6967afdb3bfab805d1cc8650e9c26793895096be55ca8f4f1a48')"
+      },
+      {
+        "line": 29,
+        "text": "COMMON = (BUILD + '/s4rc1_common_c3v004.py', '53f10e6eeef62518d7ac9cb21089331b797c5c25efeaa6df3664ff9fbbe51083')"
+      },
+      {
+        "line": 30,
+        "text": "ASSEMBLER = (ART + '/s4rc1_c3/build_c3v005_c2/registry_assembler_c3v005.py', '7df1c4813865b9e1245f5a91d827591a6d87963b6413ab53c50d2a542d211310')"
+      },
+      {
+        "line": 31,
+        "text": "LIST_SCHEMA = 'H3_CAMPAIGN_POINTS_LIST_C2V003'           # h3_campaign_entry_c2v003 points-manifest"
+      },
+      {
+        "line": 32,
+        "text": "RECORDS_SCHEMA = 'CP1_POINTS_LEDGER_RECORDS_C2V001'      # cp1_points_assembler_c2v001 records -> entry ledger-append"
+      }
+    ],
+    "REGISTRY_ASSEMBLER": [
+      {
+        "line": 243,
+        "text": "    if eps_rec.get('schema') != EPS_NUMERIC_SCHEMA or eps_rec.get('identity') != ident:"
+      },
+      {
+        "line": 244,
+        "text": "        raise Refusal('EPS_RECORD_SCHEMA_OR_POINT_MISMATCH')"
+      },
+      {
+        "line": 245,
+        "text": "    if eps_rec.get('settings') != 'registered' or eps_rec.get('full_registered_search_executed') is not True:"
+      },
+      {
+        "line": 246,
+        "text": "        raise Refusal('SMOKE_OR_PARTIAL_EPS_RECORD_REFUSED')"
+      },
+      {
+        "line": 247,
+        "text": "    if lo_rec.get('schema') != RHO_SCHEMA or lo_rec.get('gate') != 'RHO_G' or lo_rec.get('identity') != ident:"
+      },
+      {
+        "line": 248,
+        "text": "        raise Refusal('LO_SLOT_RECORD_IS_NOT_THIS_POINTS_RHO_RECORD')"
+      },
+      {
+        "line": 249,
+        "text": "    if lo_rec.get('settings') != 'registered' or lo_rec.get('full_registered_search_executed') is not True \\"
+      },
+      {
+        "line": 250,
+        "text": "            or lo_rec.get('coverage_complete') is not True:"
+      },
+      {
+        "line": 251,
+        "text": "        raise Refusal('SMOKE_OR_PARTIAL_RHO_RECORD_REFUSED')"
+      },
+      {
+        "line": 252,
+        "text": "    custody = eps_rec.get('custody')"
+      },
+      {
+        "line": 253,
+        "text": "    if not isinstance(custody, dict) or set(custody) != {'grid_sha256', 'background_sha256', 'geometry_sha256',"
+      },
+      {
+        "line": 254,
+        "text": "                                                          'modules_sha256', 'row_contract_sha256'}:"
+      },
+      {
+        "line": 255,
+        "text": "        raise Refusal('CUSTODY_FIVE_KEYS_REQUIRED')"
+      },
+      {
+        "line": 256,
+        "text": "    if lo_rec.get('custody') != custody:"
+      },
+      {
+        "line": 257,
+        "text": "        raise Refusal('CUSTODY_MISMATCH_BETWEEN_SLOT_RECORDS')"
+      },
+      {
+        "line": 258,
+        "text": "    csha = C.digest(custody)"
+      },
+      {
+        "line": 259,
+        "text": "    for gate, doc in (('EPS', eps), ('GQ', gq), (SLOT_GATE, lo)):"
+      },
+      {
+        "line": 260,
+        "text": "        if doc.get('point_sha256') != key:"
+      },
+      {
+        "line": 261,
+        "text": "            raise Refusal(gate + '_POINT_MISMATCH')"
+      },
+      {
+        "line": 262,
+        "text": "        if doc.get('custody_sha256') != csha:"
+      },
+      {
+        "line": 263,
+        "text": "            raise Refusal(gate + '_CUSTODY_MISMATCH')"
+      },
+      {
+        "line": 264,
+        "text": "        if doc.get('producer') not in approved:"
+      },
+      {
+        "line": 265,
+        "text": "            raise Refusal(gate + '_PRODUCER_NOT_APPROVED (whole-dict pin, wrapper r10_c4 L158)')"
+      },
+      {
+        "line": 352,
+        "text": "    deriver and every approved producer must equal the canonical pins, and the C1 must name the registry being"
+      },
+      {
+        "line": 353,
+        "text": "    verified. Returns (tail_readiness or None, blockers); no blockers means the gate passed. canonical_producers"
+      },
+      {
+        "line": 354,
+        "text": "    defaults to the canonical GQ/EPS pins (common CANONICAL_APPROVED_PRODUCERS); the CLI never overrides it."
+      },
+      {
+        "line": 355,
+        "text": "    \"\"\""
+      },
+      {
+        "line": 356,
+        "text": "    try:"
+      },
+      {
+        "line": 357,
+        "text": "        doc = C.read_json_pinned(c1_ref, roots, 'C1 document')"
+      },
+      {
+        "line": 358,
+        "text": "        r = doc.get('tail_readiness') if isinstance(doc, dict) else None"
+      },
+      {
+        "line": 359,
+        "text": "        if not isinstance(r, dict):"
+      },
+      {
+        "line": 360,
+        "text": "            return None, ['TAIL_READINESS_CONFIG_REQUIRED']                                      # L45-46"
+      },
+      {
+        "line": 361,
+        "text": "        missing = [k for k in C1_REQUIRED_PINS if not isinstance(r.get(k), dict)]                  # L61-62"
+      },
+      {
+        "line": 362,
+        "text": "        producers = r.get('approved_certificate_producers')"
+      },
+      {
+        "line": 363,
+        "text": "        if not isinstance(producers, list) or not producers:                                      # L63-65"
+      },
+      {
+        "line": 364,
+        "text": "            missing.append('approved_certificate_producers')"
+      },
+      {
+        "line": 365,
+        "text": "        if missing:"
+      },
+      {
+        "line": 366,
+        "text": "            return r, ['CERTIFICATE_POLICY_PENDING: ' + ','.join(missing)]                        # L66"
+      },
+      {
+        "line": 367,
+        "text": "        canon = ([C.canonical_pin(n) for n in C.CANONICAL_APPROVED_PRODUCERS] if canonical_producers is None"
+      },
+      {
+        "line": 368,
+        "text": "                 else list(canonical_producers))"
+      },
+      {
+        "line": 369,
+        "text": "        bad = ([] if r['custody_deriver'] == C.canonical_pin('custody') else"
+      },
+      {
+        "line": 370,
+        "text": "               ['C1_CUSTODY_DERIVER_NOT_CANONICAL: %r' % (r['custody_deriver'],)])"
+      },
+      {
+        "line": 371,
+        "text": "        bad += ['C1_APPROVED_PRODUCER_NOT_CANONICAL: %r' % (p,) for p in producers if p not in canon]"
+      },
+      {
+        "line": 372,
+        "text": "        if r['certificate_registry'] != registry_ref:"
+      },
+      {
+        "line": 373,
+        "text": "            bad.append('C1_CERTIFICATE_REGISTRY_IS_NOT_THE_VERIFIED_REGISTRY (wrapper L87 reads the C1 pin)')"
+      },
+      {
+        "line": 374,
+        "text": "        if bad:"
+      },
+      {
+        "line": 375,
+        "text": "            return r, bad"
+      },
+      {
+        "line": 376,
+        "text": "        for k in C1_REQUIRED_PINS:                                                                # L68"
+      },
+      {
+        "line": 377,
+        "text": "            C.read_bytes_pinned(r[k], roots, 'C1 ' + k)"
+      },
+      {
+        "line": 378,
+        "text": "        for p in producers:                                                                       # L69"
+      },
+      {
+        "line": 379,
+        "text": "            C.read_bytes_pinned(p, roots, 'C1 approved certificate producer')"
+      },
+      {
+        "line": 380,
+        "text": "        rv = C.read_json_pinned(r['certificate_policy_review'], roots, 'certificate policy review')  # L70-75"
+      },
+      {
+        "line": 381,
+        "text": "        want = {'driver_sha256': C.DRIVER_SHA, 'custody_deriver': r['custody_deriver'],"
+      },
+      {
+        "line": 382,
+        "text": "                'state_enumerator': r['state_enumerator'], 'approved_certificate_producers': producers,"
+      },
+      {
+        "line": 383,
+        "text": "                'guard_sha256': wrapper_l30_guard_pin()['sha256'], 'driver_slot_rule': SLOT_RULE,"
+      },
+      {
+        "line": 384,
+        "text": "                'post_state_handoff': 'TAIL_CERTIFICATE_ACCEPTANCE_CX2V001'}"
+      },
+      {
+        "line": 385,
+        "text": "        bad = [] if rv.get('schema') == POLICY_SCHEMA else ['wrong evidence schema']              # core L72-78"
+      },
+      {
+        "line": 386,
+        "text": "        if rv.get('status') != 'TESTED' or rv.get('ok') is not True:"
+      },
+      {
+        "line": 387,
+        "text": "            bad.append('evidence is not TESTED ok')"
+      },
+      {
+        "line": 388,
+        "text": "        return r, bad + ['binding mismatch: ' + k for k, v in want.items() if rv.get(k) != v]"
+      },
+      {
+        "line": 428,
+        "text": "            fn(filled, bundle, custody, ident, {'approved_certificate_producers': approved}, rec, 'prelaunch', M, O, guard, Error)"
+      },
+      {
+        "line": 429,
+        "text": "        except Exception as exc:"
+      },
+      {
+        "line": 430,
+        "text": "            raise Refusal('WRAPPER_V002_L145_L191: %s: %s' % (type(exc).__name__, exc))"
+      },
+      {
+        "line": 431,
+        "text": "        res['wrapper_replica']['ok'] = True"
+      },
+      {
+        "line": 432,
+        "text": "        kw = {} if guard_roots is None else {'allowed_roots': guard_roots}"
+      },
+      {
+        "line": 433,
+        "text": "        res['guard_b1'] = guard.verify_bundle(bundle_ref, ident, expected_custody=custody,       # L192-194"
+      },
+      {
+        "line": 434,
+        "text": "                                              approved_producer_sha256=[p['sha256'] for p in approved],"
+      },
+      {
+        "line": 435,
+        "text": "                                              phase='prelaunch', required_states=[], **kw)"
+      }
+    ],
+    "ROOT_A296": [
+      {
+        "line": 5141,
+        "text": "## A296: A295 final text. The negligible-shell EPS rule is ruled (Claude3 0309, R1–R4, conservative substitution); adoption is conditional on Codex2's independent analysis (UTC 2026-10-21 17:26:47Z)"
+      },
+      {
+        "line": 5142,
+        "text": ""
+      },
+      {
+        "line": 5143,
+        "text": "**Analysis of record:** Claude3 `w3_row302_eps_c3/ANALYSIS_C3V001.md` `f80c9a3e`. Escalation 0309."
+      },
+      {
+        "line": 5144,
+        "text": "- **Consumption (FORMAL):** per-shell eps is read only by the post-run SRB-ROT bound. It is per shell (each ε_s × B_s), with a gate at τ_i/10. No tail, lapse or rotation value reads eps inside a call."
+      },
+      {
+        "line": 5145,
+        "text": "- **The value consumed is converged:** 672/672 dense audits show dense/production ≤ 1.0000."
+      },
+      {
+        "line": 5146,
+        "text": "- **The failing shells are negligible:** eps/eps_max is 7.6e-3 (row 302), 2.8e-3 (row 501) and 3.0e-3 (row 504)."
+      },
+      {
+        "line": 5147,
+        "text": "- **Without a rule, W3 refuses as a whole** at CERTIFICATE_PREFLIGHT, and S6 stalls (Case A)."
+      },
+      {
+        "line": 5148,
+        "text": ""
+      },
+      {
+        "line": 5149,
+        "text": "**Ruled (final text):**"
+      },
+      {
+        "line": 5150,
+        "text": "- **R1. ACCEPTED_NEGLIGIBLE.** An EPS shell whose discrete rule gives refinements = 2 is accepted only if all of these hold:"
+      },
+      {
+        "line": 5151,
+        "text": "  - (a) M·ε_s ≤ f·eps_max(point), with **M = 10 and f = 0.1** (ε_s ≤ 1 % of eps_max);"
+      },
+      {
+        "line": 5152,
+        "text": "  - (b) |L2 − L1| ≤ **1e-6** (relative-response units);"
+      },
+      {
+        "line": 5153,
+        "text": "  - (c) the producer's dense envelope audit on that shell gives audit/production ≤ **1.05**;"
+      },
+      {
+        "line": 5154,
+        "text": "  - (d) every other shell certifies under the 1.1× rule, with registered settings, full coverage [4, 182] and status TESTED."
+      },
+      {
+        "line": 5155,
+        "text": "- **R2. Conservative substitution.** For each accepted shell the successor record writes **ε := M·ε_s** and keeps the measured value in a disclosed field."
+      },
+      {
+        "line": 5156,
+        "text": "  - The SRB-ROT adapter is unchanged, so the per-call gate evaluates the worst case with that call's exact B_s."
+      },
+      {
+        "line": 5157,
+        "text": "  - eps_max and eps_max_shell are unchanged."
+      },
+      {
+        "line": 5158,
+        "text": "- **R3.** A distinct verdict, `NUMERICAL_RULE_PASSED_NEGLIGIBLE_SHELLS_NOTED_REVIEW_REQUIRED`, lists the accepted shells. Approved-signer review is required."
+      },
+      {
+        "line": 5159,
+        "text": "- **R4.** The rule is uniform for every CP-1 point and only adds passes; the 31 genesis points have no refinements = 2 shell (TESTED). It is set before any NGC read."
+      },
+      {
+        "line": 5160,
+        "text": "  - Rows 302, 501 and 504 are re-evaluated under the reviewed successor."
+      },
+      {
+        "line": 5161,
+        "text": "  - A shell above 1 % of eps_max stays EPS_UNCERTIFIED, and root rules on it."
+      },
+      {
+        "line": 5162,
+        "text": ""
+      },
+      {
+        "line": 5163,
+        "text": "**Condition.** Final adoption of the successor requires that Codex2's independent analysis (0854 a, a separate lineage) contradicts none of these points:"
+      },
+      {
+        "line": 5164,
+        "text": "- the per-shell SRB-only consumption;"
+      },
+      {
+        "line": 5165,
+        "text": "- the converged consumed value;"
+      },
+      {
+        "line": 5166,
+        "text": "- the margins."
+      },
+      {
+        "line": 5167,
+        "text": ""
+      },
+      {
+        "line": 5168,
+        "text": "Codex2 starts the build (0854 b) now with these constants. Review: Claude3."
+      },
+      {
+        "line": 5169,
+        "text": ""
+      },
+      {
+        "line": 5170,
+        "text": "**Open gap (Claude3 A3, FORMAL): F5 has no branch for a requested point that cannot be certified**, even outside R1. Root rules this after its reset (Thu 18:00Z), on a proposal Claude3 prepares as deputy analysis."
+      },
+      {
+        "line": 5171,
+        "text": ""
+      },
+      {
+        "line": 5172,
+        "text": "**L2:** 6 calls (R28–R31, R300, R301). R302 returns as the 7th only if its successor, re-evaluation, bundle, ρ, slot proof and final spec are all complete before the batch binds. The ell_F plus at 0.025 hedge is not added."
+      },
+      {
+        "line": 5173,
+        "text": ""
+      }
+    ],
+    "SRB_ADAPTER": [
+      {
+        "line": 265,
+        "text": "def format_eps(eps_rec, details):"
+      },
+      {
+        "line": 266,
+        "text": "    \"\"\"Thin format adapter: the point's cx2 EPS record -> library eps_certificate over exactly [4,182], field 'eps'.\"\"\""
+      },
+      {
+        "line": 267,
+        "text": "    if not isinstance(eps_rec, dict) or eps_rec.get('schema') != EPS_SCHEMA or eps_rec.get('gate') != 'EPS':"
+      },
+      {
+        "line": 268,
+        "text": "        raise Refusal('EPS_RECORD_SCHEMA')"
+      },
+      {
+        "line": 269,
+        "text": "    if eps_rec.get('identity') != details['identity'] or eps_rec.get('custody') != details['custody'] \\"
+      },
+      {
+        "line": 270,
+        "text": "            or eps_rec.get('point_sha256') != details['point_sha256']:"
+      },
+      {
+        "line": 271,
+        "text": "        raise Refusal('EPS_RECORD_POINT_CUSTODY_MISMATCH')"
+      },
+      {
+        "line": 272,
+        "text": "    if eps_rec.get('status') != 'TESTED' or eps_rec.get('settings') != 'registered' \\"
+      },
+      {
+        "line": 273,
+        "text": "            or eps_rec.get('full_registered_search_executed') is not True or eps_rec.get('coverage_complete') is not True:"
+      },
+      {
+        "line": 274,
+        "text": "        raise Refusal('EPS_RECORD_NOT_REGISTERED_FULL')"
+      },
+      {
+        "line": 275,
+        "text": "    if eps_rec.get('required_coverage_inverse_kpc') != list(EPS_COVERAGE):"
+      },
+      {
+        "line": 276,
+        "text": "        raise Refusal('EPS_COVERAGE_NOT_4_TO_182')"
+      },
+      {
+        "line": 277,
+        "text": "    shells = eps_rec.get('shells')"
+      },
+      {
+        "line": 278,
+        "text": "    if not isinstance(shells, list) or not shells:"
+      },
+      {
+        "line": 279,
+        "text": "        raise Refusal('EPS_SHELLS_MISSING')"
+      },
+      {
+        "line": 280,
+        "text": "    cursor, out = EPS_COVERAGE[0], []"
+      },
+      {
+        "line": 281,
+        "text": "    for s in shells:"
+      },
+      {
+        "line": 282,
+        "text": "        lo, hi = _float(s.get('lo_inverse_kpc'), 'lo'), _float(s.get('hi_inverse_kpc'), 'hi')"
+      },
+      {
+        "line": 283,
+        "text": "        if s.get('range_inverse_kpc') != [lo, hi] or lo != cursor or hi != lo + 1:"
+      },
+      {
+        "line": 284,
+        "text": "            raise Refusal('EPS_SHELLS_NOT_CONTIGUOUS_UNIT_SHELLS_FROM_4')"
+      },
+      {
+        "line": 285,
+        "text": "        eps, env = _float(s.get('eps'), 'eps'), _float(s.get('eps_envelope'), 'eps_envelope')"
+      },
+      {
+        "line": 286,
+        "text": "        if eps < 0 or env < 0 or eps < env:"
+      },
+      {
+        "line": 287,
+        "text": "            raise Refusal('EPS_FIELD_NOT_THE_LARGER_VALUE (guard v003 L139: eps >= eps_envelope)')"
+      },
+      {
+        "line": 288,
+        "text": "        out.append({'lo_inverse_kpc': lo, 'hi_inverse_kpc': hi, 'eps': eps})"
+      },
+      {
+        "line": 289,
+        "text": "        cursor = hi"
+      },
+      {
+        "line": 290,
+        "text": "    if cursor != EPS_COVERAGE[1]:"
+      },
+      {
+        "line": 291,
+        "text": "        raise Refusal('EPS_COVERAGE_NOT_4_TO_182')"
+      },
+      {
+        "line": 292,
+        "text": "    return {'shells': out}"
+      },
+      {
+        "line": 418,
+        "text": "        if (bundle.get('driver_certificate_bindings') or {}).get('eps_certificate') != eps_pin:"
+      },
+      {
+        "line": 419,
+        "text": "            raise Refusal('EPS_SLOT_NOT_BOUND_BY_REGISTERED_BUNDLE')"
+      },
+      {
+        "line": 420,
+        "text": "        ep = env.read_pin((bundle.get('prelaunch') or {}).get('EPS'))"
+      },
+      {
+        "line": 421,
+        "text": "        if (ep.get('schema') != PROOF_SCHEMA or ep.get('gate') != 'EPS' or ep.get('status') != 'TESTED'"
+      },
+      {
+        "line": 422,
+        "text": "                or ep.get('verdict') != 'PASS' or ep.get('driver_certificate') != eps_pin"
+      },
+      {
+        "line": 423,
+        "text": "                or ep.get('point_sha256') != details['point_sha256'] or ep.get('custody_sha256') != details['custody_sha256']):"
+      },
+      {
+        "line": 424,
+        "text": "            raise Refusal('EPS_PROOF_NOT_TESTED_PASS_FOR_THIS_SLOT')"
+      },
+      {
+        "line": 425,
+        "text": "        if not _is_pin(ep.get('producer')) or ep['producer']['sha256'] not in approved:"
+      },
+      {
+        "line": 426,
+        "text": "            raise Refusal('EPS_PROOF_PRODUCER_NOT_APPROVED')"
+      },
+      {
+        "line": 427,
+        "text": "        eps_cert = format_eps(env.read_pin(eps_pin), details)"
+      }
+    ]
+  },
+  "sources": {
+    "B1_GUARD": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/certificate_guard_b1_c2v001.py",
+      "sha256": "9e3fc109621a9e600e2ea4aa8346c3e2baf002ac3df759238f7d8efcb3809677"
+    },
+    "BASE_GUARD": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/certificate_guard_cx2v003.py",
+      "sha256": "5f1e49e689a859c003b137c45c07f887423443ef2c726182616b41bf290c9c2f"
+    },
+    "C1": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/c1_h1_c2/C1_H1_C2V001.json",
+      "sha256": "4015932226dcfbf9783b96de1daa512ef5c7a397ac4ca093d701ead362ed92c1"
+    },
+    "COMMON": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/build_c3v005_c2/s4rc1_common_c3v005.py",
+      "sha256": "2308a47ce3c758b6befa0aa954fa7e2b6ad7f4cb41ed73d4b8cd1d257021e7c5"
+    },
+    "CP1_RUNNER": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/build_c3v004/cp1_runner_c3v004.py",
+      "sha256": "3f5e5c188d4a6967afdb3bfab805d1cc8650e9c26793895096be55ca8f4f1a48"
+    },
+    "DIRECT_LOOKUP": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/direct_cert_lookup_cx3/direct_cert_lookup_cx3v001.py",
+      "sha256": "1cb5039ef380f7472191f40d1293f45b98cbc4e301efb06d9ea9ccc5b59de7e5"
+    },
+    "DIRECT_PREFLIGHT": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/direct_cert_lookup_cx3/direct_preflight_cert_cx3v001.py",
+      "sha256": "586391ecd15453608956347ecafd4f61f6dea77a33ec71a61435a7a714e39a8f"
+    },
+    "DISPATCH_0855": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0855_2026-10-21_codex2_claude3_A296_final_text_build_now_and_F5_gap_proposal.md",
+      "sha256": "1541dad07b9d14d994fc7f595c8276f2f0555f38b67f1c8fd1142d883fa36b5a"
+    },
+    "EPS_ADAPTER": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/point_response_admission_adapter_cx2v003.py",
+      "sha256": "4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372"
+    },
+    "LIST_ASSEMBLER": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/direct_cert_lookup_cx2/cp1_points_assembler_cx2v002.py",
+      "sha256": "1b701591714c11856d525631f946d19a64f76f28041da21c6e9f1a62863b0e88"
+    },
+    "LIST_COMMON": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/direct_cert_lookup_cx2/cp1_points_common_cx2v002.py",
+      "sha256": "658593278f428a1937daa0a40837cd3d8e10e6ad7acf0e479508bdbb04362934"
+    },
+    "REGISTRY_ASSEMBLER": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/build_c3v005_c2/registry_assembler_c3v005.py",
+      "sha256": "7df1c4813865b9e1245f5a91d827591a6d87963b6413ab53c50d2a542d211310"
+    },
+    "ROOT_A296": {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md",
+      "sha256": "1655124f7605a791c39ab0450a3096dabd9cde0447e9e5259d421f6a6a3a41a9"
+    },
+    "SRB_ADAPTER": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/srb_rot_adapter_c3v003.py",
+      "sha256": "08e9ac0a12cf1829f79f6df8a82c9ec6a7d174fc4bb25be76d3c049525dfae6a"
+    }
+  },
+  "status": "FORMAL integration blockers; static checks TESTED; runtime UNTESTED",
+  "tested_literal_checks": {
+    "adapter_raw_discrete_failure_rejected": true,
+    "adapter_refinements2_rejected": true,
+    "b1_guard_proof_refinements2_rejected": true,
+    "c1_old_adapter_pin": true,
+    "cp1_runner_old_verdict_only": true,
+    "direct_frozen_producers": true,
+    "direct_source_digest_fixed_to_genesis": true,
+    "srb_formatter_has_no_discrete_verdict_or_refinement_test": true
+  }
+}

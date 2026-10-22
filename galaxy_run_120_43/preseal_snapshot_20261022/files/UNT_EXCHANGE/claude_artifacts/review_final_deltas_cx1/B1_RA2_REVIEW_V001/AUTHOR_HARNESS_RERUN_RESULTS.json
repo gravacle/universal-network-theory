@@ -1,0 +1,293 @@
+{
+ "pins": {
+  "sealed_compare": [
+   "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/V007_SEAL_ASSEMBLY/kmax_tail_compare_c2v007_r14_cx1v001_SEALED_V007.py",
+   "a99105a19b582c68d961e0ee12be3a2efa79dbd1e65d63682c3d2d8daa55f0ab"
+  ],
+  "sealed_prereg": [
+   "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/V007_SEAL_ASSEMBLY/KMAX_TAIL_PREREG_V007_SEALED.json",
+   "b2989012c92161a7da3dd10d0148e1607422416d369fc4ebe164217758b5c695"
+  ],
+  "addendum": [
+   "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md",
+   "c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1"
+  ],
+  "case_block": [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/case_block/CASE_BLOCK_V007_C4V001.json",
+   "76309ae39f23060cc662c4e218a41e1f95c56a26992402218a6198625f85ee71"
+  ],
+  "c4t_spec": [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/P128/specs/C4T_P128_MS128_R5_CX1V004.FILLED.json",
+   "de6d7d77d053d9c983f15eca11468fe8520d025ff2ad1f643b2a517a915b1738"
+  ],
+  "policy_r7": [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r7/adoption_policy_cx2v006r7.py",
+   "7c726fa2ad3f3e0fbcfcf36353901f970cde1eff3f76321327e5a8a5fbc29b1d"
+  ],
+  "core_r9": [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/calibration_core_cx2v006r9.py",
+   "a595c5c0929fc0a8313bcdff3b79241f1e3ba8f77dc3749adc06b2a982b43605"
+  ],
+  "policy_r8": [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/adoption_policy_cx2v006r10_c4.py",
+   "93d9c0acdb3e9fd40ec63ed0db7c1356b6d2b025eeb5bcde57a2ffebdbd04ba3"
+  ],
+  "core_r10": [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py",
+   "dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6"
+  ],
+  "wrapper_r10": [
+   "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/calibration_orchestrator_cx2v006r10_c4.py",
+   "ef3d3d69e01999dcfa255a75c98bcdee31a9512f0e284053139ea190ef9445c3"
+  ]
+ },
+ "tests": [
+  {
+   "name": "MP1_r8_real_sealed_compare_empty_allowlist",
+   "why": "real sealed compare: every check passes except the empty allowlist (finalization pending, A126)",
+   "expect_ok": false,
+   "expect_reasons": [
+    "V007_SEAL_NOT_IN_REVIEWED_ALLOWLIST"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "V007_SEAL_NOT_IN_REVIEWED_ALLOWLIST"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MP2_r8_real_sealed_compare_tuple_in_memory",
+   "why": "stand-in for the finalized r8: the sealed tuple registered in memory",
+   "expect_ok": true,
+   "expect_reasons": [],
+   "got_ok": true,
+   "got_reasons": [],
+   "pass": true
+  },
+  {
+   "name": "CTRL1_r7_real_sealed_compare",
+   "why": "B1 reproduced: r7 refuses the genuine bare-sha pin even with the tuple registered",
+   "expect_ok": false,
+   "expect_reasons": [
+    "ValueError: V007_ADDENDUM_EXACT_BYTE_PIN_REQUIRED"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "ValueError: V007_ADDENDUM_EXACT_BYTE_PIN_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MP3_core_r10_path_empty_allowlist",
+   "why": "core r10 loads r8 from pinned bytes",
+   "expect_ok": false,
+   "expect_reasons": [
+    "V007_SEAL_NOT_IN_REVIEWED_ALLOWLIST"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "V007_SEAL_NOT_IN_REVIEWED_ALLOWLIST"
+   ],
+   "pass": true
+  },
+  {
+   "name": "CTRL2_core_r9_path",
+   "why": "core r9 runs r7: B1 on the core path",
+   "expect_ok": false,
+   "expect_reasons": [
+    "ValueError: V007_ADDENDUM_EXACT_BYTE_PIN_REQUIRED"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "ValueError: V007_ADDENDUM_EXACT_BYTE_PIN_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF1_report_addendum_pin_pair_form",
+   "why": "report must carry the bare sha",
+   "expect_ok": false,
+   "expect_reasons": [
+    "V007_REPORT_ADDENDUM_PIN_MISMATCH"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "V007_REPORT_ADDENDUM_PIN_MISMATCH"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MP4_lookalike_compare_same_form",
+   "why": "a minimal compare in the sealed form is accepted (harness control)",
+   "expect_ok": true,
+   "expect_reasons": [],
+   "got_ok": true,
+   "got_reasons": [],
+   "pass": true
+  },
+  {
+   "name": "MF2_compare_pin_pair_form",
+   "why": "pair form refused by r8",
+   "expect_ok": false,
+   "expect_reasons": [
+    "ValueError: V007_ADDENDUM_BARE_SHA_PIN_REQUIRED"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "ValueError: V007_ADDENDUM_BARE_SHA_PIN_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF3_wrong_bare_sha",
+   "why": "the cited bytes do not hash to the pinned bare sha",
+   "expect_ok": false,
+   "expect_reasons": null,
+   "got_ok": false,
+   "got_reasons": [
+    "OrchestratorError: sealed V005 addendum: sha256 mismatch for /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF4_altered_addendum_bytes",
+   "why": "a cited file whose bytes differ from the pinned sha",
+   "expect_ok": false,
+   "expect_reasons": null,
+   "got_ok": false,
+   "got_reasons": [
+    "OrchestratorError: sealed V005 addendum: sha256 mismatch for /private/tmp/unt_b1_review_cx1_v001/work/sandbox/MF4_ADDENDUM_ALTERED.md"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF5_cited_path_not_name_plus_literal",
+   "why": "only NAME + literal is evaluated",
+   "expect_ok": false,
+   "expect_reasons": [
+    "ValueError: V007_ADDENDUM_CITED_PATH_REQUIRED"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "ValueError: V007_ADDENDUM_CITED_PATH_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF6_cited_path_relative",
+   "why": "absolute path required",
+   "expect_ok": false,
+   "expect_reasons": [
+    "ValueError: V007_ADDENDUM_CITED_PATH_REQUIRED"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "ValueError: V007_ADDENDUM_CITED_PATH_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF7_cited_binop_unknown_name",
+   "why": "unknown left name",
+   "expect_ok": false,
+   "expect_reasons": [
+    "ValueError: V007_ADDENDUM_CITED_PATH_REQUIRED"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "ValueError: V007_ADDENDUM_CITED_PATH_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF8_superseded_r13_compare",
+   "why": "the superseded compare (unsealed pins) is refused",
+   "expect_ok": false,
+   "expect_reasons": null,
+   "got_ok": false,
+   "got_reasons": [
+    "V007_COMPARE_NOT_SEALED",
+    "V007_SEALED_PREREG_MISMATCH",
+    "ValueError: V007_ADDENDUM_BARE_SHA_PIN_REQUIRED"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF9_report_script_sha_mismatch",
+   "why": "report must name the sealed compare",
+   "expect_ok": false,
+   "expect_reasons": [
+    "V007_COMPARE_SHA_MISMATCH"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "V007_COMPARE_SHA_MISMATCH"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF10_outcome_not_adopt_tail",
+   "why": "only a sealed ADOPT_TAIL adopts",
+   "expect_ok": false,
+   "expect_reasons": [
+    "V007_READING_NOT_SEALED_ADOPT_TAIL"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "V007_READING_NOT_SEALED_ADOPT_TAIL"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF11_report_test_mode",
+   "why": "a test-mode reading never adopts",
+   "expect_ok": false,
+   "expect_reasons": [
+    "V007_READING_NOT_SEALED_ADOPT_TAIL"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "V007_READING_NOT_SEALED_ADOPT_TAIL"
+   ],
+   "pass": true
+  },
+  {
+   "name": "MF12_tuple_not_registered",
+   "why": "a different tuple in the allowlist",
+   "expect_ok": false,
+   "expect_reasons": [
+    "V007_SEAL_NOT_IN_REVIEWED_ALLOWLIST"
+   ],
+   "got_ok": false,
+   "got_reasons": [
+    "V007_SEAL_NOT_IN_REVIEWED_ALLOWLIST"
+   ],
+   "pass": true
+  }
+ ],
+ "units": {
+  "chain": {
+   "wrapper_loaded": true,
+   "core_file": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py",
+   "core_sha_from_bytes": "dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6",
+   "O_check_numerics_is_core10": true
+  },
+  "constants": {
+   "r8_minus_r7_keys": [
+    "ADDENDUM_V005_CITED",
+    "DRIVER_R5_DIR",
+    "DRIVER_R6_DIR",
+    "NODES_DIR",
+    "R5_CASCADE",
+    "RO1_DIR"
+   ],
+   "r7_minus_r8_keys": [],
+   "common_keys_equal": true,
+   "ADDENDUM_V005_CITED": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md",
+   "PIN_ADDENDUM_V005": "c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1",
+   "cited_equals_real_path": true
+  }
+ },
+ "all_pass": true,
+ "n_tests": 18
+}

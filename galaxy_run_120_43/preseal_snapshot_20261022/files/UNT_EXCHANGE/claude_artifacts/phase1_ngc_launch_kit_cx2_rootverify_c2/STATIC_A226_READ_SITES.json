@@ -1,0 +1,723 @@
+{
+ "defects": [
+  "DEFECT_A226_B1: launch.json is checked on one read (wait_launch_json L1980 / stop_launch_failure L1925) and the LAUNCH/MISLAUNCH record pins sha256, utc and child_pid from a later read (L1956, L1960)",
+  "DEFECT_A226_B2: the monitor receipt is parsed and classified OFF_SPEC/NO_RUN_DIRECTORY from read L1469, but the non-attempt pin (status, assembly record) is hashed from a second read L1474",
+  "DEFECT_A226_B3: --verify byte-compares read L1771 and reports the registry pin hashed from read L1773"
+ ],
+ "rule": "V006 A226 ruling 1 (single-read binding on P-112) as stated in A222: read once, hash that buffer against its pin, parse that same buffer. A226's assessment scopes the class to two reads inside one process; cross-process execution by path is listed as NOTE_CROSS_PROCESS.",
+ "schema": "P112_ROOTVERIFY_STATIC_A226_C2V001",
+ "sites": [
+  {
+   "call": "open",
+   "class": "WRITE_EXCLUSIVE",
+   "function": "write_x_bytes",
+   "line": 190,
+   "source": "path.open(\"xb\")"
+  },
+  {
+   "call": "open",
+   "class": "DIR_FSYNC",
+   "function": "write_x_bytes",
+   "line": 196,
+   "source": "os.open(path.parent, os.O_RDONLY)"
+  },
+  {
+   "call": "read_bytes",
+   "class": "OK_SINGLE_READ: read_pin hashes the buffer it parses",
+   "function": "read_pin",
+   "line": 255,
+   "source": "Path(pin[\"path\"]).read_bytes()"
+  },
+  {
+   "call": "read_bytes",
+   "class": "PIN_SOURCE: hash-only read (followed by read_pin where parsed)",
+   "function": "pin_of",
+   "line": 262,
+   "source": "Path(path).read_bytes()"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ_EXEC: load_verified execs the hashed buffer",
+   "function": "load_verified",
+   "line": 266,
+   "source": "read_pin(pin, decode=False)"
+  },
+  {
+   "call": "read_bytes",
+   "class": "OK_SINGLE_READ: V006 bytes feed gate, pin parse and RESIDUAL_RETRY lines from one buffer",
+   "function": "read_v006",
+   "line": 715,
+   "source": "Path(path).read_bytes()"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "__init__",
+   "line": 726,
+   "source": "read_pin(config_pin)"
+  },
+  {
+   "call": "pin_of",
+   "class": "NOTE_INHERENT: own-bytes hash is a second read of the executing script (0444)",
+   "function": "__init__",
+   "line": 754,
+   "source": "pin_of(str(Path(__file__).resolve()))"
+  },
+  {
+   "call": "read_v006",
+   "class": "OK_SINGLE_READ",
+   "function": "__init__",
+   "line": 755,
+   "source": "read_v006(c[\"v006\"])"
+  },
+  {
+   "call": "load_verified",
+   "class": "OK_SINGLE_READ_EXEC",
+   "function": "__init__",
+   "line": 757,
+   "source": "load_verified(self.pins[\"writer\"], \"_p112_verified_pin_parser\")"
+  },
+  {
+   "call": "load_verified",
+   "class": "OK_SINGLE_READ_EXEC",
+   "function": "__init__",
+   "line": 759,
+   "source": "load_verified(self.pins[\"builder\"], \"_p112_verified_builder\")"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "records",
+   "line": 803,
+   "source": "pin_of(row[\"path\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "records",
+   "line": 804,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "seed_check",
+   "line": 815,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "seed_check",
+   "line": 816,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "kit_entries",
+   "line": 829,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "kit_entries",
+   "line": 830,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 845,
+   "source": "read_pin(c[\"plan_output_primary\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 846,
+   "source": "read_pin(c[\"plan_build_record\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 847,
+   "source": "read_pin(c[\"selection\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 848,
+   "source": "read_pin(c[\"fdplan\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 849,
+   "source": "read_pin(c[\"at0a_pass\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_HASH_CHECK_ONLY",
+   "function": "calls",
+   "line": 854,
+   "source": "read_pin(c[\"spec_of_record\"], decode=False)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 866,
+   "source": "read_pin(kit[\"S0_SEED_SERIAL\"][0][\"spec\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 872,
+   "source": "read_pin(cfg[\"handoff\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 873,
+   "source": "read_pin(handoff[\"source_export_pin\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 885,
+   "source": "read_pin(cfg[\"handoff\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 894,
+   "source": "read_pin(cfg[certificate])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "calls",
+   "line": 906,
+   "source": "read_pin(entry[\"spec\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ (point.key re-read later via finish_call L928, also verified)",
+   "function": "read_fill",
+   "line": 919,
+   "source": "read_pin(cfg[k])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_HASH_CHECK_ONLY",
+   "function": "read_fill",
+   "line": 920,
+   "source": "read_pin(self.pins[\"lo\"], decode=False)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "read_fill",
+   "line": 921,
+   "source": "pin_of(Path(folder) / name)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "read_fill",
+   "line": 922,
+   "source": "read_pin(pins[name])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "finish_call",
+   "line": 928,
+   "source": "read_pin(cfg[certificate])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "finish_call",
+   "line": 939,
+   "source": "read_pin(entry[\"spec\"])"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED: argv file hash for the declared-list match (no pin is recorded from it)",
+   "function": "identify",
+   "line": 1050,
+   "source": "Path(path).read_bytes()"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED_READER (no guard_read: follows a symlink alias; see blinding finding)",
+   "function": "try_launch_json",
+   "line": 1123,
+   "source": "Path(path).read_bytes()"
+  },
+  {
+   "call": "try_launch_json",
+   "class": "SEE B1 (checked read)",
+   "function": "wait_launch_json",
+   "line": 1136,
+   "source": "try_launch_json(path)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "enforce_solo",
+   "line": 1186,
+   "source": "pin_of(path)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "enforce_solo",
+   "line": 1186,
+   "source": "read_pin(pin_of(path))"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "enforce_solo",
+   "line": 1201,
+   "source": "pin_of(sample_start)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "enforce_solo",
+   "line": 1201,
+   "source": "read_pin(pin_of(sample_start))"
+  },
+  {
+   "call": "try_launch_json",
+   "class": "UNPINNED: sampler liveness read",
+   "function": "sampler",
+   "line": 1234,
+   "source": "try_launch_json(launch_path)"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED: sampler reads utc_start/utc_end (no guard_read)",
+   "function": "sampler",
+   "line": 1266,
+   "source": "Path(receipt).read_bytes()"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED: work file",
+   "function": "sampler",
+   "line": 1290,
+   "source": "mp.read_bytes()"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED: work file",
+   "function": "sampler",
+   "line": 1295,
+   "source": "inv.read_bytes()"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "registered_entry",
+   "line": 1317,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "registered_entry",
+   "line": 1318,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "refusal_records",
+   "line": 1370,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "refusal_records",
+   "line": 1371,
+   "source": "read_pin(rec_pin)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "refusal_records",
+   "line": 1381,
+   "source": "read_pin(rec[\"plan\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_HASH_CHECK_ONLY: 0782 per-invocation log re-hash",
+   "function": "refusal_records",
+   "line": 1400,
+   "source": "read_pin(rec[key], decode=False)"
+  },
+  {
+   "call": "read_bytes",
+   "class": "DEFECT_A226_B2: the monitor receipt is parsed and classified OFF_SPEC/NO_RUN_DIRECTORY from read L1469, but the non-attempt pin (status, assembly record) is hashed from a second read L1474 (first read; no guard_read)",
+   "function": "history",
+   "line": 1469,
+   "source": "Path(receipt_path).read_bytes()"
+  },
+  {
+   "call": "pin_of",
+   "class": "DEFECT_A226_B2: the monitor receipt is parsed and classified OFF_SPEC/NO_RUN_DIRECTORY from read L1469, but the non-attempt pin (status, assembly record) is hashed from a second read L1474 (second read)",
+   "function": "history",
+   "line": 1474,
+   "source": "pin_of(receipt_path)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "history",
+   "line": 1481,
+   "source": "pin_of(path)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "history",
+   "line": 1484,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "record_monitor_refused",
+   "line": 1515,
+   "source": "read_pin(plan_pin)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_HASH_ONLY: refusal-invocation logs, after every absent check",
+   "function": "record_monitor_refused",
+   "line": 1533,
+   "source": "pin_of(str(Path(work) / \"monitor.stdout.txt\"))"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_HASH_ONLY",
+   "function": "record_monitor_refused",
+   "line": 1534,
+   "source": "pin_of(str(Path(work) / \"monitor.stderr.txt\"))"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "bound_stop_record",
+   "line": 1581,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "bound_stop_record",
+   "line": 1582,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "close_attempt",
+   "line": 1610,
+   "source": "pin_of(record[\"receipt\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "close_attempt",
+   "line": 1611,
+   "source": "read_pin(receipt_pin, decode=False)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "close_attempt",
+   "line": 1628,
+   "source": "pin_of(launch_path)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "close_attempt",
+   "line": 1629,
+   "source": "read_pin(launch_pin)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "close_attempt",
+   "line": 1641,
+   "source": "pin_of(sp)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "close_attempt",
+   "line": 1642,
+   "source": "read_pin(sample_pin)"
+  },
+  {
+   "call": "read_v006",
+   "class": "NOTE: V006 re-read for the cutoff copy; the copy records the digest of this same buffer (V006 is unpinned and grows)",
+   "function": "write_cutoff",
+   "line": 1692,
+   "source": "read_v006(ctx.cfg[\"v006\"])"
+  },
+  {
+   "call": "read_bytes",
+   "class": "OK_COPY_VERIFY",
+   "function": "write_cutoff",
+   "line": 1698,
+   "source": "p.read_bytes()"
+  },
+  {
+   "call": "read_bytes",
+   "class": "OK_COPY_VERIFY",
+   "function": "write_cutoff",
+   "line": 1701,
+   "source": "p.read_bytes()"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_HASH_ONLY",
+   "function": "maybe_cutoff",
+   "line": 1712,
+   "source": "pin_of(cutoff_path(ctx))"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "outside_stop_records",
+   "line": 1726,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "outside_stop_records",
+   "line": 1727,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "read_bytes",
+   "class": "DEFECT_A226_B3: --verify byte-compares read L1771 and reports the registry pin hashed from read L1773 (compared read)",
+   "function": "assemble_registry",
+   "line": 1771,
+   "source": "p.read_bytes()"
+  },
+  {
+   "call": "pin_of",
+   "class": "DEFECT_A226_B3: --verify byte-compares read L1771 and reports the registry pin hashed from read L1773 (pinned read)",
+   "function": "assemble_registry",
+   "line": 1773,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "open",
+   "class": "WRITE_EXCLUSIVE",
+   "function": "new_log",
+   "line": 1810,
+   "source": "open(path, \"xb\", buffering=0)"
+  },
+  {
+   "call": "read_pin",
+   "class": "NOTE_CROSS_PROCESS: hash check, then the dry harness/driver are executed by path in a child",
+   "function": "run_dry",
+   "line": 1819,
+   "source": "read_pin(ctx.pins[key], decode=False)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "run_dry",
+   "line": 1829,
+   "source": "pin_of(log)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "run_dry",
+   "line": 1829,
+   "source": "pin_of(report / \"NGC_SOURCE_BUILD_READINESS.json\")"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "run_dry",
+   "line": 1830,
+   "source": "read_pin(lp)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "run_dry",
+   "line": 1830,
+   "source": "read_pin(rp)"
+  },
+  {
+   "call": "read_pin",
+   "class": "NOTE_CROSS_PROCESS: hash check of the memory watch; liveness by ps",
+   "function": "watch_check",
+   "line": 1837,
+   "source": "read_pin(pin, decode=False)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "register_call",
+   "line": 1872,
+   "source": "pin_of(path)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "register_call",
+   "line": 1873,
+   "source": "read_pin(old_pin)"
+  },
+  {
+   "call": "read_pin",
+   "class": "NOTE_CROSS_PROCESS: hash check, then kit kill-target executed by path",
+   "function": "kit_kill_target",
+   "line": 1899,
+   "source": "read_pin(ctx.pins[\"kit\"], decode=False)"
+  },
+  {
+   "call": "try_launch_json",
+   "class": "DEFECT_A226_B1: launch.json is checked on one read (wait_launch_json L1980 / stop_launch_failure L1925) and the LAUNCH/MISLAUNCH record pins sha256, utc and child_pid from a later read (L1956, L1960) (MISLAUNCH path: stop decision read)",
+   "function": "stop_launch_failure",
+   "line": 1925,
+   "source": "try_launch_json(plan[\"launch_json\"])"
+  },
+  {
+   "call": "try_launch_json",
+   "class": "DEFECT_A226_B1: launch.json is checked on one read (wait_launch_json L1980 / stop_launch_failure L1925) and the LAUNCH/MISLAUNCH record pins sha256, utc and child_pid from a later read (L1956, L1960) (record read)",
+   "function": "write_launch_record",
+   "line": 1956,
+   "source": "try_launch_json(plan[\"launch_json\"])"
+  },
+  {
+   "call": "read_bytes",
+   "class": "DEFECT_A226_B1: launch.json is checked on one read (wait_launch_json L1980 / stop_launch_failure L1925) and the LAUNCH/MISLAUNCH record pins sha256, utc and child_pid from a later read (L1956, L1960) (third read when the file did not parse)",
+   "function": "write_launch_record",
+   "line": 1960,
+   "source": "Path(plan[\"launch_json\"]).read_bytes()"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: m15 record re-read against the plan's pin",
+   "function": "finish_launch",
+   "line": 1979,
+   "source": "read_pin(plan[\"m15_record\"])"
+  },
+  {
+   "call": "wait_launch_json",
+   "class": "DEFECT_A226_B1: launch.json is checked on one read (wait_launch_json L1980 / stop_launch_failure L1925) and the LAUNCH/MISLAUNCH record pins sha256, utc and child_pid from a later read (L1956, L1960) (checked read)",
+   "function": "finish_launch",
+   "line": 1980,
+   "source": "wait_launch_json(plan[\"launch_json\"], ctx.system)"
+  },
+  {
+   "call": "read_pin",
+   "class": "NOTE_CROSS_PROCESS: hash check, then twin kill watch executed by path",
+   "function": "finish_launch",
+   "line": 1985,
+   "source": "read_pin(ctx.pins[\"twin_watch\"], decode=False)"
+  },
+  {
+   "call": "pin_of",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "launch_resume",
+   "line": 2018,
+   "source": "pin_of(p)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_VERIFIED_REREAD: pin_of hashes read 1; read_pin re-reads, hashes that buffer against the pin, parses it (fail-closed)",
+   "function": "launch_resume",
+   "line": 2019,
+   "source": "read_pin(pin)"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED: invocation.json / monitor_pid.json (bound to the plan pin by value)",
+   "function": "launch_resume",
+   "line": 2023,
+   "source": "inv.read_bytes()"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED: invocation.json / monitor_pid.json (bound to the plan pin by value)",
+   "function": "launch_resume",
+   "line": 2023,
+   "source": "mp.read_bytes()"
+  },
+  {
+   "call": "read_pin",
+   "class": "NOTE_CROSS_PROCESS: driver/monitor hash check; executed by path (monitor re-attests both pins in launch.json)",
+   "function": "launch",
+   "line": 2058,
+   "source": "read_pin(ctx.pins[key], decode=False)"
+  },
+  {
+   "call": "read_bytes",
+   "class": "UNPINNED: sampler first-sample work file",
+   "function": "launch",
+   "line": 2083,
+   "source": "first_path.read_bytes()"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ (verify only)",
+   "function": "stop_outside_set",
+   "line": 2142,
+   "source": "read_pin(entry[\"spec\"])"
+  },
+  {
+   "call": "pin_of",
+   "class": "NOTE_CROSS_PROCESS: stop record pins launch.json after kit kill-target read it in its own process",
+   "function": "stop_outside_set",
+   "line": 2149,
+   "source": "pin_of(plan[\"launch_json\"])"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "cli",
+   "line": 2180,
+   "source": "read_pin(synthetic_pin)"
+  },
+  {
+   "call": "read_pin",
+   "class": "OK_SINGLE_READ",
+   "function": "cli",
+   "line": 2207,
+   "source": "read_pin({\"path\": args.plan, \"sha256\": args.plan_sha256})"
+  }
+ ],
+ "tool": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2/phase1_ngc_launch_cx2v001.py",
+  "sha256": "a72d96c150ca1c638474cddba23f5264374c7ae9aa285c3d38ebfb3e61519bb1"
+ },
+ "unclassified": []
+}

@@ -1,0 +1,58 @@
+NO_FIX_NEEDED - phase1_c2v002 (A137 successor of phase1_c2v001; A133 Phase-1 tool)
+written 2026-10-19T13:38:45Z by ROOT (Claude2) fix step; exclusive-create; v002 and v001 not edited. No v003 written.
+
+VERDICT (independent verifier): PASS. 0 blocking findings (A115 scope).
+Ruling of record: A137 in ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md; review FROM_CLAUDE3/0191 (L5, N-B);
+text A133_TWO_PHASE_PROTOCOL_V001.md.
+
+OBJECT OF RECORD (sha256 recomputed from bytes at write time)
+  d64351ecc06c61e99e2d7253c5d4311617fc1f64d34d37523102ed32720a6754  phase1_c2v002.py
+  b1aedebc4573cdd64b882400305c57203a4f3ad1e82aad242b04eafac0a32372  test_phase1_c2v002.py
+  af8509bbaaad4ca34add684499e3cf21b4acad01ddb634b023175b2f9813993d  HASHES_V002.txt (build manifest; every listed sha re-checked OK at write time)
+  02de502243c92c182d8b573c0427848701b1eeb48fa61375a4180b90545aab59  README_PHASE1_C2V002.md
+v001 objects unchanged:
+  34eaef36586aec77b3436d6bcd96d0a2948aef699d612077e2d6f9f32e4cd99c  phase1_c2v001.py
+  156f0bef3a9962774257f3737eaa61c7d7df26a2d3fdb7ebb5de81847ee83fac  test_phase1_c2v001.py
+  0e9099ae5c495421712d72562f1061ca07065a842af9f4c00bb9d3bd56e3d862  HASHES.txt
+  ae1afc956210ae00e744dcf861690a5b7bdcb6328388b7f04fd270fbc522deec  NO_FIX_NEEDED.txt
+
+TEST COUNTS (TESTED)
+  build runs test_runs_v002/RUN_20261019T132307Z_43825 and RUN_20261019T132349Z_46255: 103/103 each, MUST_FAIL 43/43,
+    audit_denied 0, shadow CLI calls 48.
+  verifier independent re-runs (scratch, outside this dir) x2: 103/103, MUST_FAIL 43/43, 0 audit denials; per-id outcomes
+    identical across all four runs. v001 suite in same scratch: 71/71, MUST_FAIL 33/33. All v001 test ids present in v002
+    in order; no ported assertion weakened.
+  scope: full tool diff read; every hunk is L5 or N-B. Independent comparator over 31 output-dir pairs x2: byte-identical
+    except module/tool_sha256, engine-record created_utc and shas over it, at1 N-B fields, and SNAP_NOID's
+    prefix_waves/first_non_prefix_wave/b_p1_rule (status and exit 20 unchanged). 17 refusing calls: equal exit+stdout.
+    at1 outcomes unchanged (C1 COVERED; Q1 SUPERSEDED, same 301 failing pairs; defect fixture AGREEMENT_DEFECT).
+  L5 corner: T27 passes; verifier extra seeds (0,1,0.5),(1,0,0),(0,1,1): v001 refuses FAMILY_design_BEFORE_MARCH0,
+    v002 B_P1 = 5,4,4 = independent Probe-family oracle; boundary = design at global_design; at0a passes.
+  N-B: AT-1 recomputed from raw files: Q1 516, C1 516, corner 430 e_q values match (max rel diff 5.6e-17); failing sets
+    and excesses bitwise equal (Q1 301, corner 316, C1 0).
+
+RULING NEEDED BEFORE FIRST at1 (not a build defect; root)
+  R1 eps_k definition. v002 sets eps_k = row L1 eps_q = max certificate eps over u_A and the three F points (README [D]).
+     A137 writes eps_k without defining it; A133 s1.5 uses per-row eps_q. Tighter per-axis reading
+     eps_k = max(eps(u_A), eps(F_k)) can flip a verdict (TESTED by verifier: eps(F2)=1, others 0.01, member displaced on
+     axis 0 only -> v002 e_q 0.80 PASS vs per-axis 0.008 FAIL). eps_q is a valid bound but the more lenient choice.
+     No fixture verdict differs (uniform eps). Root to ratify eps_k = eps_q, or commission per-axis (L1 carries per-axis
+     eps, or at1 reads the values file) as v003 before the first at1.
+
+NOTES (non-blocking; numbering = verifier's)
+  1 DOC CORRECTION: tool diff is +142 / -53 (1000 -> 1089 lines; git diff --numstat, re-counted here), not +133 / -53 as
+    README_PHASE1_C2V002.md line 18 and the build report state. README not edited; this line is the correction of record.
+  2 Forged/tampered inputs: self-consistent forged record at B_P1+1 still loads in fdplan/band (carried from v001,
+    disclosed). A prefix wave plan edited to a non-prefix family -> snapshot NOT_READY exit 4 PREFIX_MISS, writes nothing
+    (fails closed). Probe families 'unknown'/'explore_*' would be taken as boundary, unreachable with engine c2v003b
+    (run_calibration_region always passes anchor_entry=seed_entry).
+  3 Harness R01 substitutes v001 at1 outcome/failing list before comparing; alone it would not catch an outcome change.
+    Verifier's independent comparator confirms outcomes identical.
+  4 Boundary in stage 8 (lp/axis) refuses B_P1_WRONG; requires global_design_count = 0, V002 sets 12. Disclosed.
+  5 Corner-case snapshot has march0_wave: null. Later readers of the snapshot (roster builder, RUNBOOK_V002) must accept
+    the first_non_prefix_wave form; no top-level step5_path_c2 file reads that field today.
+  Carried open from NO_FIX_NEEDED.txt (v001) and not in A137 scope: v001 notes 1, 3-12 unchanged; v001 note 2 (e_q
+    reading) is closed by N-B.
+
+LABELS: tool behaviour on synthetic fixtures TESTED; eps_k choice = DECLARED pending root ruling; real-data behaviour
+UNTESTED (no campaign exists; none run here). No run tree, C5H, UVT_* or NGC3198 target opened.

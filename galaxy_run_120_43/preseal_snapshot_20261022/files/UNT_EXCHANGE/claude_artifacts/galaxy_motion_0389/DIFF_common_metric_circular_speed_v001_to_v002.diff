@@ -1,0 +1,93 @@
+--- common_metric_circular_speed_v001.py
++++ common_metric_circular_speed_v002.py
+@@ -1,4 +1,4 @@
+-# UNT support task 0389 -- inert author implementation, v001.
++# UNT support task 0389 -- inert author implementation, v002 (task 0391: sign/underflow safeguards).
+ # Standard library only (math, numbers). Module level: imports and function
+ # definitions only; no I/O, no CLI, no work at import, no physical constants.
+ # Written statically; never executed or imported by its author.
+@@ -27,9 +27,11 @@
+     implementation.md; equation from CODEX1/GALAXY_COLLECTIVE_MODEL_ASSEMBLY_2026-10-15.md,
+     sections "Existing geometry, gravity and motion" and "Direction-dependent extension".
+ 
+-    Equation (stationary axisymmetric, negligible-shift, equatorial circular branch;
+-    R = sqrt(h_phi_phi) circumferential radius, N > 0 lapse, both differentiated with
+-    respect to the SAME declared radial coordinate r):
++    Equation (stationary axisymmetric, equatorial circular branch; EXACT for zero
++    shift, while a negligible nonzero shift is an explicitly bounded approximation
++    handled at the higher level, not here; R = sqrt(h_phi_phi) circumferential radius,
++    N > 0 lapse, both differentiated with respect to the SAME declared radial
++    coordinate r, whose identity stays in the higher-level provider context):
+         ratio        = dlogN_dr / dlogR_dr        (= v_local^2 / c^2, coordinate invariant)
+         v_local_km_s = c_km_s * sqrt(ratio)
+     In a circumferential coordinate (r = R) this is v^2 = c^2 R d_R ln N.
+@@ -43,7 +45,10 @@
+ 
+     Raises ValueError (first violation, with row index and id) unless: every value is
+     finite real and not bool; c_km_s > 0; R_kpc > 0; N > 0; dlogR_dr != 0; ids are
+-    unique non-empty strings; 0 <= ratio < 1. Nothing is clipped, sorted, replaced,
++    unique non-empty strings; dlogN_dr and dlogR_dr do not have opposite nonzero signs
++    (checked by comparison before dividing, never by multiplying; -0.0 counts as zero);
++    the ratio does not underflow to 0 for a nonzero dlogN_dr; 0 <= ratio < 1; the speed
++    does not underflow to 0 for ratio > 0. Nothing is clipped, sorted, replaced,
+     dropped or inferred; output rows keep input order and ids.
+ 
+     Returns a dict: "rows" (one dict per input row: id, v_local_km_s, ratio, R_kpc,
+@@ -55,6 +60,8 @@
+     normalization, state and error metadata belong to the existing higher-level
+     provider. No gravity law, Poisson solver, mass, halo or Birth-deficit force is
+     inserted; no weak-field approximation and no observer/light correction is applied.
++    The equation is exact for zero shift; bounding a negligible shift and fixing the
++    radial-coordinate identity belong to the higher-level provider.
+     """
+     c = _finite_real("c_km_s", c_km_s)
+     if not c > 0.0:
+@@ -91,22 +98,36 @@
+             raise ValueError(f"{where}: lapse N must be > 0, got {N!r}")
+         if dlogR == 0.0:
+             raise ValueError(f"{where}: dlogR_dr is zero (dR/dr = 0); the circular read is undefined")
++        if dlogN != 0.0 and (dlogN > 0.0) != (dlogR > 0.0):
++            raise ValueError(
++                f"{where}: dlogN_dr and dlogR_dr have opposite nonzero signs; the ratio is "
++                "negative and this branch has no circular orbit"
++            )
+         try:
+             ratio = dlogN / dlogR
+         except OverflowError:
+             raise ValueError(f"{where}: dlogN_dr / dlogR_dr overflows") from None
+         if not math.isfinite(ratio):
+             raise ValueError(f"{where}: dlogN_dr / dlogR_dr is not finite ({ratio!r})")
++        if dlogN != 0.0 and ratio == 0.0:
++            raise ValueError(
++                f"{where}: dlogN_dr / dlogR_dr underflows to zero although dlogN_dr is nonzero"
++            )
+         if not 0.0 <= ratio < 1.0:
+             raise ValueError(
+                 f"{where}: ratio dlogN_dr/dlogR_dr = {ratio!r} is outside [0, 1): "
+                 "a negative ratio has no circular orbit on this branch and a ratio >= 1 "
+                 "is not subluminal"
+             )
++        speed = c * math.sqrt(ratio)
++        if ratio > 0.0 and speed == 0.0:
++            raise ValueError(
++                f"{where}: speed c_km_s * sqrt(ratio) underflows to zero although ratio > 0"
++            )
+         rows.append(
+             {
+                 "id": rid,
+-                "v_local_km_s": c * math.sqrt(ratio),
++                "v_local_km_s": speed,
+                 "ratio": ratio,
+                 "R_kpc": R,
+                 "inputs": {"R_kpc": R, "N": N, "dlogN_dr": dlogN, "dlogR_dr": dlogR},
+@@ -125,6 +146,9 @@
+             "TOTAL_OBSERVABLE or a full prediction; observational projection, "
+             "normalization, state and error belong to the existing higher-level "
+             "provider; no gravity law, Poisson solver, mass, halo or force insertion; "
+-            "no weak-field or observer/light correction"
++            "no weak-field or observer/light correction; the equation is exact for zero "
++            "shift, a negligible shift is an explicitly bounded approximation handled at "
++            "the higher level, and the radial-coordinate identity stays in the "
++            "higher-level provider context"
+         ),
+     }

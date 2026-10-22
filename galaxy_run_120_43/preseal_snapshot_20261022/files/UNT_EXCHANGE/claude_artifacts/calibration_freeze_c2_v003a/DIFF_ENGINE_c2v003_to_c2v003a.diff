@@ -1,0 +1,126 @@
+--- calibration_freeze_c2_v003/final/calibration_region_engine_c2v003.py	2026-10-17 09:33:18.727692810 -0500
++++ calibration_freeze_c2_v003a/calibration_region_engine_c2v003a.py	2026-10-17 09:55:56.412666903 -0500
+@@ -1,4 +1,9 @@
+-"""calibration_region_engine_c2v003 -- Module 1, version 003 (Claude2 lane).
++"""calibration_region_engine_c2v003a -- Module 1, version 003a (Claude2 lane).
++
++v003a (CHECK_V001 X1, line map in DELTA_V003_V003A.md): write_calibration_record and
++verify_calibration_record RECOMPUTE the exploration fingerprint from the run content (exploration.admitted_points
++and region.sha256) instead of copying run['exploration_fingerprint']; a run whose reported fingerprint is set
++and differs from the recomputed one is refused. Everything else is v003 (sha256 ec509648...51fcc7).
+ 
+ Successor of calibration_region_engine_c2v002 (sha256 248ba5f9...c994c02e05), itself the successor of
+ calibration_region_engine_c3v001 (sha256 f5613832...0e84e0b).
+@@ -90,8 +95,9 @@
+     'verify_calibration_record',
+ ]
+ 
+-MODULE_NAME = 'calibration_region_engine_c2v003'
+-PREDECESSOR = ('calibration_region_engine_c2v002 sha256 248ba5f909adfce589b11e6e52227b5ce182edd3ce01317b1d063fd994c02e05; '
++MODULE_NAME = 'calibration_region_engine_c2v003a'
++PREDECESSOR = ('calibration_region_engine_c2v003 sha256 ec509648cd7324692fac57d1c710e261555b540c82dddec72aa2384fff51fcc7; '
++               'calibration_region_engine_c2v002 sha256 248ba5f909adfce589b11e6e52227b5ce182edd3ce01317b1d063fd994c02e05; '
+                'calibration_region_engine_c3v001 sha256 f5613832fcb6e452b4490d56453cce37fb8846e802442407e794f80a6ec84e0b')
+ CALIBRATION_RECORD_SCHEMA = 'CALIBRATION_RUN_RECORD_C2V003'
+ CALIBRATION_REGISTRY_SCHEMA = 'CALIBRATION_RUN_REGISTRY_LINE_C2V003'
+@@ -2739,6 +2745,26 @@
+     return out
+ 
+ 
++def _run_fingerprint(run):
++    """X1 (v003a): (fingerprint, None) recomputed from the run CONTENT -- exploration.admitted_points and
++    region.sha256 -- or (None, None) when the run has no exploration (INPUT_INVALID, SEED_INVALID, ...), or
++    (None, reason) when an exploration is present but cannot be fingerprinted. run['exploration_fingerprint']
++    is never read here."""
++    ex = run.get('exploration')
++    if ex is None:
++        return None, None
++    if not isinstance(ex, dict) or not isinstance(ex.get('admitted_points'), list):
++        return None, 'run.exploration is present but carries no admitted_points list'
++    region = run.get('region')
++    rsha = region.get('sha256') if isinstance(region, dict) else None
++    if not _is_hex64(rsha):
++        return None, 'run.exploration is present but run.region.sha256 is not 64-hex'
++    fp = exploration_fingerprint(exploration=ex, region_sha256=rsha)
++    if not fp.get('ok'):
++        return None, 'exploration fingerprint not computable from the run content: %s' % (fp.get('reasons'),)
++    return fp['fingerprint'], None
++
++
+ def _read_regular_file(path):
+     """(bytes, None) or (None, reason); regular files only, non-blocking open (A4 lesson)."""
+     if not isinstance(path, str) or not path:
+@@ -2780,6 +2806,10 @@
+     status, exploration_fingerprint, registry_prefix_sha256 (sha256 of the registry bytes before this line),
+     line_sha256}; the prefix hash chains every earlier run, so a deleted or edited earlier line is detectable.
+     Log record_file_sha256 externally (FROM_ message) together with the freeze registration.
++    v003a (X1): exploration_fingerprint is RECOMPUTED from the run content (exploration.admitted_points and
++    region.sha256), never copied from run['exploration_fingerprint']; a run whose reported fingerprint is not
++    None and differs from the recomputed one was edited after the engine returned it and is refused.
++    The freeze module pins this record (mandatory in prediction_freeze_c2v003a) and recomputes it again.
+     """
+     out = {'ok': False, 'record_path': None, 'record_file_sha256': None, 'record_sha256': None,
+            'registry_path': None, 'registry_line_sha256': None, 'registry_prefix_sha256': None,
+@@ -2793,6 +2823,16 @@
+             reasons.append(f'{label} must be a non-empty str')
+     if reasons:
+         return out
++    # X1 (v003a): recompute the fingerprint from the run content; never copy the run's own field
++    fp_recomputed, fp_err = _run_fingerprint(run)
++    if fp_err is not None:
++        reasons.append(f'REFUSED (P34-16/X1): {fp_err}')
++        return out
++    fp_reported = run.get('exploration_fingerprint')
++    if fp_reported is not None and fp_reported != fp_recomputed:
++        reasons.append(f'REFUSED (P34-16/X1): run exploration_fingerprint {_safe_str(fp_reported)} differs from the '
++                       f'fingerprint {fp_recomputed} recomputed from the run content (run edited after the engine)')
++        return out
+     rp, gp = os.path.abspath(record_path), os.path.abspath(registry_path)
+     if rp == gp:
+         reasons.append('record_path and registry_path must differ')
+@@ -2823,7 +2863,7 @@
+         'ok': bool(run.get('ok') is True),
+         'stage_reached': _safe_str(run.get('stage_reached')),
+         'region_sha256': region.get('sha256'),
+-        'exploration_fingerprint': run.get('exploration_fingerprint'),
++        'exploration_fingerprint': fp_recomputed,
+         'ngc3198_access': NGC3198_ACCESS,
+         'run': run,
+     }
+@@ -2876,9 +2916,12 @@
+ @_fail_closed
+ def verify_calibration_record(*, record_path, registry_path):
+     """Verify a calibration record (canonical bytes, self-hash) and, when registry_path is a str, that the
+-    registry is an unbroken hash chain containing exactly one line for this record's file hash."""
++    registry is an unbroken hash chain containing exactly one line for this record's file hash.
++    v003a (X1): the exploration fingerprint is recomputed from the recorded run content and must equal the
++    stored exploration_fingerprint."""
+     out = {'ok': False, 'record_file_sha256': None, 'record_sha256': None, 'status': None,
+-           'exploration_fingerprint': None, 'region_sha256': None, 'registry_lines': None,
++           'exploration_fingerprint': None, 'exploration_fingerprint_recomputed': None,
++           'region_sha256': None, 'registry_lines': None,
+            'registry_chain_ok': None, 'reasons': []}
+     reasons = out['reasons']
+     raw, err = _read_regular_file(record_path)
+@@ -2902,6 +2945,21 @@
+     out.update({'record_sha256': doc.get('record_sha256'), 'status': doc.get('status'),
+                 'exploration_fingerprint': doc.get('exploration_fingerprint'),
+                 'region_sha256': doc.get('region_sha256')})
++    # X1 (v003a): recompute the fingerprint from the recorded run content and compare with the stored one
++    run = doc.get('run')
++    if not isinstance(run, dict):
++        reasons.append('record carries no run object')
++    else:
++        fp_recomputed, fp_err = _run_fingerprint(run)
++        out['exploration_fingerprint_recomputed'] = fp_recomputed
++        if fp_err is not None:
++            reasons.append(f'record run content cannot be fingerprinted: {fp_err}')
++        elif fp_recomputed != doc.get('exploration_fingerprint'):
++            reasons.append(f'record exploration_fingerprint {_safe_str(doc.get("exploration_fingerprint"))} differs '
++                           f'from the fingerprint {fp_recomputed} recomputed from the recorded run content (X1)')
++        region = run.get('region')
++        if (region.get('sha256') if isinstance(region, dict) else None) != doc.get('region_sha256'):
++            reasons.append('record region_sha256 differs from the recorded run.region.sha256')
+     if registry_path is not None:
+         g, gerr = _read_regular_file(registry_path)
+         if g is None:

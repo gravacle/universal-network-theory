@@ -1,0 +1,167 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0834/0835: cw8 Phase-1 package, combined verdict on v002 (v001 lenses by helper; v001->v002 delta by lead, RESULT_V002_DELTA 9fa758db)",
+ "reviewer_lane": "Claude3",
+ "utc": "2026-10-21T13:24:38Z",
+ "object": {
+  "v002": {
+   "launcher": "6de0d06a",
+   "roster_builder": "a2d8dc00",
+   "g26": "332253d2"
+  },
+  "v001": {
+   "launcher": "04dfc429",
+   "roster_builder": "e6102ba1",
+   "g26": "e0e31398",
+   "manifest": "e6d238aa",
+   "unchanged_start_to_end": true
+  }
+ },
+ "verdict": "FAIL",
+ "blocking": 1,
+ "findings": [
+  {
+   "id": "F2",
+   "class": "BLOCKING (A115 (a): an honest pinned call refused; custody regression versus cx2v004)",
+   "label": "TESTED (helper probe on v001) + lead re-verified in v002 bytes",
+   "title": "The cw8 raw-spec check compares the whole spec dict, path included, and refuses honest S0-kit relaunch history",
+   "evidence": "v002 phase1_ngc_launch_cx3cw8v002.py L3401: need(record.get('spec', call['spec']) == call['spec'], 'CW8_ATTEMPT_RAW_SPEC'). It is called for every record, KIT origin included, in history (L1698), close_attempt (L1882) and verify_closed_receipt (L2894). For a KIT call, call['spec'] = entry['spec'], the kit registry entry (L1012). On a kit relaunch, s0_kit_c2v003a cmd_register keeps the existing entry when the spec sha matches (ALREADY_REGISTERED_SAME_SPEC, L636-644). But every serial invocation fills into a fresh $WORK/fill (launch_s0_serial_root_c2v003a.sh L138-141), and the launch record carries that new path (kit L1130). So identical bytes come with a different path. Helper probe (v001; the same line is in v002): base cx2v004 close_attempt gives FINISHED and accepts the attempt, the cw8 successor refuses CW8_ATTEMPT_RAW_SPEC, and with an identical path both accept.",
+   "effect": "After any kit relaunch (its own MISLAUNCH relaunch or the D7 relaunch after a monitor refusal, A223 G25), that S0 serial call cannot be closed, rerun or assembled into the Phase-1 registry by the single Phase-1/2 launcher (0835). The twin is unaffected: its fill dir comes from the seed registry.",
+   "fix": "Compare the spec sha256 only, record['spec']['sha256'] == call['spec']['sha256']. Serial and cw8 specs differ in sha, so the raw-spec discrimination still holds (old_raw_spec_receipt_refuses). Add a kit-relaunch-path test."
+  },
+  {
+   "id": "F1",
+   "class": "BLOCKING in v001; FIXED in v002",
+   "label": "TESTED",
+   "title": "Inherited Phase-1-ceiling admission refusal",
+   "evidence": "v001 next_attempt :520, fresh_launch_plan :2710, _commit_plan_check :2746; helper probe: refused on 2026-11-07 with 2,051,940 s of Phase-2 wall left. v002 removes all three (lead delta review 0277: 29/29 controls, 6/6 mutants)."
+  },
+  {
+   "id": "N1",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "select_workers catches only Refusal, OSError, ValueError, KeyError and TypeError (:3359)",
+   "evidence": "A non-dict forecast (:3353) or comparator record (:3100) raises AttributeError and no fallback record is written. Fail-closed, but not a durable fallback."
+  },
+  {
+   "id": "N2",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "A later V006 CW8_LICENSE_PIN line makes every Context.calls() refuse after a selection (:3015, :3017, :3226)",
+   "evidence": "Before a selection, the same lines silently force a permanent serial fallback."
+  },
+  {
+   "id": "N3",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "Any changed config scope field refuses globally (CW8_CHOICE_SCOPE, :3197)",
+   "evidence": "With the single Phase-1/2 launcher (A270), Phase-2 continuity needs a defined rule."
+  },
+  {
+   "id": "N4",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "One call with unlabelled preparation refuses the whole cohort selection (:3324 via :3343)"
+  },
+  {
+   "id": "N5",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "cw8_ensure_default (:2389, :3395) writes a permanent serial choice before the history, disk, watch and solo checks",
+   "evidence": "A launch refused afterwards (probe: MEMORY_WATCH_NOT_RUNNING) has still fixed the role."
+  },
+  {
+   "id": "N6",
+   "class": "NOTE (test gaps)",
+   "label": "TESTED",
+   "title": "Of 24 helper-built cw8 mutants, the selector suite kills 14 and the custody and CLI suites kill 0",
+   "evidence": "Survivors include root-pin equality, the write-time watcher guard, legacy-role widening, the history-level check, license re-authentication on restore, prediction re-derivation, the choice producer, skipping the default serial choice and the full-cw8 spec root pin. The real code refuses an unlicensed restored choice (probe P9), but no release suite tests 'never self-granted'."
+  },
+  {
+   "id": "N7",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "Mixing cx2v004 and cw8 on one launch root is unsafe once a choice exists",
+   "evidence": "v002's builder accepts only v002 (0835), which resolves this for the adopted line."
+  },
+  {
+   "id": "N8",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "Nothing locks choice creation; two concurrent selections could cause CW8_CHOICE_DUPLICATE"
+  },
+  {
+   "id": "N9",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "The G26 and combined suites depend on another session's /private/tmp fixtures and read FREEZE_EXPECTED_INPUTS_C2V004.json",
+   "evidence": "Root preserved the G26 fixture folder (0833, 39d7e512); a test successor should point there."
+  },
+  {
+   "id": "N10",
+   "class": "NOTE; FIXED in v002",
+   "label": "TESTED",
+   "title": "A270 F2/F3 (status holds; unknown-reason release) were inherited in v001 and are fixed in v002 (0277)"
+  },
+  {
+   "id": "N11",
+   "class": "NOTE (from the c2v007 review, 0279 F2)",
+   "label": "FORMAL",
+   "title": "The cw8 v002 roster builder keeps _ceiling_or_hold unchanged, so an unclassified HELD_FOR_CAUSE pair closes as SCHEDULE_CEILING at the ceiling unless root runs the cause producer first",
+   "recommendation": "A snapshot precondition requiring a bound cause row for every eligible solo FAILED attempt."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "Diff confined to the worker role (v001 vs bases)",
+   "result": "PARTIAL",
+   "note": "P112: 22 changed and 30 added nodes, each worker-role, role custody or non-physics plumbing; builder: 6 nodes plus 1 function; G26: builder pin only; F2 adds strictness on KIT records beyond the worker role; no physics field, status map or model list changed"
+  },
+  {
+   "claim": "Raw spec differs only at column_workers 1 -> 8",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Selector authentication: seed-pair attestation, exact pins, EQUAL / bitwise_equal / [0,1]; all 7 source pins re-hashed",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Anything else gives a durable serial fallback",
+   "result": "PARTIAL",
+   "note": "N1"
+  },
+  {
+   "claim": "Role fixed before the first attempt; no reassignment after history; no cross-worker reuse",
+   "result": "CONFIRMED"
+  },
+  {
+   "claim": "Existing serial custody intact",
+   "result": "REFUTED",
+   "note": "F2"
+  },
+  {
+   "claim": "RSS 11xRAM only under license; full output cap; A244 escalation; Phase-2 wall; no twin watcher",
+   "result": "CONFIRMED"
+  },
+  {
+   "claim": "Integrated chain registry -> builder -> PASS_ONE/PASS_K -> step 7 -> G26 (synthetic; single-read asserted; FREEZE_INCOMPLETE)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "392 checks + 12 S0 cases reproduced (selector 61, custody 3, P112 inherited 75, commit 16, inherited 174, G26 47, combined 1, CLI 15)",
+   "result": "CONFIRMED",
+   "label": "TESTED",
+   "note": "run read-only with WORK in scratch under an audit fence that never tripped"
+  },
+  {
+   "claim": "v002 delta exactly F1-F3; 29/29 F1-F3 controls; 6/6 mutants",
+   "result": "CONFIRMED",
+   "label": "TESTED",
+   "note": "lead, RESULT_V002_DELTA 9fa758db"
+  }
+ ],
+ "reads_not_done": "No run trees, run outputs, NGC data, V007 or ~/.codex; templates read by key path only."
+}

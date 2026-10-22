@@ -1,0 +1,301 @@
+{
+ "schema": "UNT_FREEZE_SELFCHECK_RESULTS_C2V004",
+ "date_u": "Mon Oct 19 19:39:42 UTC 2026",
+ "status_checker": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/build/selfcheck_freeze_c2v004.py",
+  "sha256": "03c3619a4a4d9472cebecc5dab105d40c5ecd9c7d6923a7f9ca867487cf6519a"
+ },
+ "predecessor_status_checker": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/build/selfcheck_freeze_c2v003.py",
+  "sha256": "1875c6978db66d05ac73436f7d7ab26af72409e2485465abcf39c9c4255e3102"
+ },
+ "contract_checker": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/build/selfcheck_contract_c2v004.py",
+  "sha256": "0179295447207d992ea6a00c2295bb63632d8140d1f1f83d6f8b91d9465fd741"
+ },
+ "target": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/FREEZE_EXPECTED_INPUTS_C2V004.json",
+  "sha256": "54997f946b85150ea76cf14485c26ccd5d67227d80ddb7c2aaa05011c887a3ce"
+ },
+ "c2v003": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/FREEZE_EXPECTED_INPUTS_C2V003.json",
+  "sha256": "454dd3ccb6f9d1056981aa44b24237e12066c43ef8a37753606b783fa3383e9d"
+ },
+ "contract_rows_on_target": [
+  {
+   "id": "K1",
+   "ok": true,
+   "reasons": []
+  },
+  {
+   "id": "K2",
+   "ok": true,
+   "reasons": []
+  },
+  {
+   "id": "K3",
+   "ok": true,
+   "reasons": []
+  },
+  {
+   "id": "K4",
+   "ok": true,
+   "reasons": []
+  },
+  {
+   "id": "K5",
+   "ok": true,
+   "reasons": []
+  },
+  {
+   "id": "K6",
+   "ok": true,
+   "reasons": []
+  }
+ ],
+ "rows": [
+  {
+   "row": "F-C4-00",
+   "checker": "status C2V003 (1875c697)",
+   "kind": "MUST_FAIL_ONLY_INSIDE_VERBATIM_NOTES",
+   "what": "the predecessor checker on the C2V004 content: refuses only at leaves of the verbatim notes value",
+   "result_ok": false,
+   "violations": [
+    {
+     "string_key": "write_freeze_manifest_inputs[14].value.ngc3198_slot_sensitivity.manifest_reading_note",
+     "alias": "slots",
+     "item": "slots",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "NOT_EVALUATED_BEFORE_FREEZE"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C4-01",
+   "checker": "status",
+   "kind": "MUST_PASS",
+   "what": "FREEZE_EXPECTED_INPUTS_C2V004 content as written",
+   "result_ok": true,
+   "violations": [],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C4-02",
+   "checker": "status",
+   "kind": "MUST_FAIL",
+   "what": "an appended stale claim: interior_count with the C2V003 status word",
+   "result_ok": false,
+   "violations": [
+    {
+     "string_key": "open_items[10]",
+     "item": "interior_count",
+     "item_status": "ROOT_DECLARED_IN_V006",
+     "claimed": "NO_REGISTERED_VALUE"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C4-03",
+   "checker": "status",
+   "kind": "MUST_FAIL",
+   "what": "the structured interior_count status put back to C2V003's while the prose keeps C2V004's",
+   "result_ok": false,
+   "violations": [
+    {
+     "string_key": "changes_from_cx3v002[5]",
+     "item": "interior_count",
+     "item_status": "NO_REGISTERED_VALUE",
+     "claimed": "ROOT_DECLARED_IN_V006"
+    },
+    {
+     "string_key": "open_items[0]",
+     "item": "interior_count",
+     "item_status": "NO_REGISTERED_VALUE",
+     "claimed": "ROOT_DECLARED_IN_V006"
+    },
+    {
+     "string_key": "changes_from_c2v003[3]",
+     "item": "interior_count",
+     "item_status": "NO_REGISTERED_VALUE",
+     "claimed": "ROOT_DECLARED_IN_V006"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C4-04",
+   "checker": "status",
+   "kind": "MUST_FAIL",
+   "what": "the new code_files item given another status in prose",
+   "result_ok": false,
+   "violations": [
+    {
+     "string_key": "open_items[10]",
+     "item": "code_files[6]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C4-05",
+   "checker": "status",
+   "kind": "MUST_PASS",
+   "what": "control: a true interior_count status claim",
+   "result_ok": true,
+   "violations": [],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C4-06",
+   "checker": "status",
+   "kind": "MUST_PASS",
+   "what": "control: the successor checker on C2V003 (454dd3cc), which its predecessor passed",
+   "result_ok": true,
+   "violations": [],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C4-07",
+   "checker": "status",
+   "kind": "MUST_FAIL",
+   "what": "the same sentence shape outside the verbatim subtree is still read and refused",
+   "result_ok": false,
+   "violations": [
+    {
+     "string_key": "open_items[10]",
+     "item": "slots",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "NOT_EVALUATED_BEFORE_FREEZE"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-01",
+   "checker": "contract",
+   "kind": "MUST_PASS",
+   "what": "FREEZE_EXPECTED_INPUTS_C2V004 content as written",
+   "result_ok": true,
+   "failing_k_rows": [],
+   "first_reasons": [],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-02",
+   "checker": "contract",
+   "kind": "MUST_FAIL",
+   "what": "FREEZE_EXPECTED_INPUTS_C2V003 (454dd3cc) as written",
+   "result_ok": false,
+   "failing_k_rows": [
+    "K1",
+    "K2",
+    "K3",
+    "K4",
+    "K5",
+    "K6"
+   ],
+   "first_reasons": [
+    "EXCEPTION KeyError: 'spec_of_record'",
+    "K2c: recorded engine_coordinates_canonical_sha256 differs",
+    "K3: notes lacks the slots block key coefficient_grid_sensitivity",
+    "K4: with the spec of record the notes refuse (expected pass): ['REFUSED (A16.1): coordinate mode DDO154_DISTANCE_FIXED_AT_REGISTERED requires notes.ngc3198_slot_sensitivity (the slot b', 'REFUSED (A10",
+    "K5: interior_count.value is not the int 5",
+    "K6: Phase 2 does not carry the V-N1 rule with its dispositions and deciding record"
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-03",
+   "checker": "contract",
+   "kind": "MUST_FAIL",
+   "what": "C2V004 with the A18 entry removed from the notes",
+   "result_ok": false,
+   "failing_k_rows": [
+    "K3",
+    "K4"
+   ],
+   "first_reasons": [
+    "K3: structural_assumptions must add exactly A18-ROOT-V004",
+    "K4: with the spec of record the notes refuse (expected pass): ['REFUSED (A18): notes.structural_assumptions must carry an entry with section A18 and a non-empty text_verbatim (the A2 i']"
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-04",
+   "checker": "contract",
+   "kind": "MUST_FAIL",
+   "what": "C2V004 with the spec inclination trial set to the placeholder 70.0",
+   "result_ok": false,
+   "failing_k_rows": [
+    "K1"
+   ],
+   "first_reasons": [
+    "K1: spec_of_record is not the recipe rebuilt from the pinned bytes"
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-05",
+   "checker": "contract",
+   "kind": "MUST_FAIL",
+   "what": "C2V004 with notes.ngc3198_slot_sensitivity removed",
+   "result_ok": false,
+   "failing_k_rows": [
+    "K3",
+    "K4"
+   ],
+   "first_reasons": [
+    "K3: notes lacks the slots block key ngc3198_slot_sensitivity",
+    "K4: with the spec of record the notes refuse (expected pass): ['REFUSED (A16.1): coordinate mode DDO154_DISTANCE_FIXED_AT_REGISTERED requires notes.ngc3198_slot_sensitivity (the slot b', 'REFUSED (A16"
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-06",
+   "checker": "contract",
+   "kind": "MUST_FAIL",
+   "what": "C2V004 with interior_count 6",
+   "result_ok": false,
+   "failing_k_rows": [
+    "K5"
+   ],
+   "first_reasons": [
+    "K5: interior_count.value is not the int 5"
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-07",
+   "checker": "contract",
+   "kind": "MUST_FAIL",
+   "what": "C2V004 with the C2V003 fixed Phase-2 False",
+   "result_ok": false,
+   "failing_k_rows": [
+    "K6"
+   ],
+   "first_reasons": [
+    "K6: Phase 2 does not carry the V-N1 rule with its dispositions and deciding record"
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "K-C4-08",
+   "checker": "contract",
+   "kind": "MUST_FAIL",
+   "what": "C2V004 with the A18 text_verbatim one character short",
+   "result_ok": false,
+   "failing_k_rows": [
+    "K3"
+   ],
+   "first_reasons": [
+    "K3: A18-ROOT-V004 is not {section A18, text_verbatim = V004 A18 from bytes}"
+   ],
+   "outcome": "AS_EXPECTED"
+  }
+ ],
+ "all_as_expected": true
+}

@@ -1,0 +1,139 @@
+{
+ "schema": "CLAUDE2_0349_EVIDENCE_CLASSIFICATION_V001",
+ "legend": {
+  "DOCUMENTED": "stated by the in-file header and/or the CDS ReadMe",
+  "DERIVED_FROM_DOCUMENTS": "computed from the two documents alone, not stated by either",
+  "OBSERVED_IN_PINNED_BYTES": "verified exhaustively in the sha-pinned file (all 175 rows or the two target rows)",
+  "ASSUMED": "not established by documents or bytes; the evidence and its consequence are given"
+ },
+ "properties": [
+  {
+   "id": "P1",
+   "property": "semantic order Galaxy,T,D,e_D,f_D,Inc,e_Inc, then L[3.6]",
+   "class": "DOCUMENTED (twice)",
+   "evidence": "header lines 10-17; CDS lines 148-155; same order and corresponding labels for all 19 fields"
+  },
+  {
+   "id": "P2",
+   "property": "formats: I vs F, decimal precision, widths",
+   "class": "DOCUMENTED",
+   "evidence": "identical in both documents except f_D (header I2, CDS I1)"
+  },
+  {
+   "id": "P3",
+   "property": "code domains: Type 0..11, f_D 1..5",
+   "class": "DOCUMENTED",
+   "evidence": "Note (1) and Note (2) in both documents"
+  },
+  {
+   "id": "P4",
+   "property": "[min/max] for D, e_D, Inc, e_Inc",
+   "class": "DOCUMENTED (CDS only, for its rendition)",
+   "use": "reject-only guards; never used to assign a token to a field"
+  },
+  {
+   "id": "P5",
+   "property": "fields 1-7 are never null",
+   "class": "DOCUMENTED (CDS convention) + OBSERVED_IN_PINNED_BYTES",
+   "evidence": "no table1 field carries the CDS \"?\" null flag (ReadMe line 256 cites the Standard Description); 7 non-blank conforming tokens in 175/175 rows"
+  },
+  {
+   "id": "P6",
+   "property": "name occupies bytes 1-11 as one token",
+   "class": "DOCUMENTED + OBSERVED_IN_PINNED_BYTES",
+   "evidence": "both documents 1-11 A11; one token in bytes 1-11 ending at 11 and byte 12 blank in 175/175; no name has an internal blank"
+  },
+  {
+   "id": "P7",
+   "property": "fields are blank-separated in the data rows",
+   "class": "OBSERVED_IN_PINNED_BYTES (CDS documents separators only for its own rendition; the header says the fields abut)",
+   "evidence": "H+1 separator bytes 12,15,22,28,31,36,41 blank in 175/175 rows"
+  },
+  {
+   "id": "P8",
+   "property": "the same column holds the same field in every row (row-invariant fixed-column layout)",
+   "class": "DOCUMENTED (as a property of any byte-by-byte description) + OBSERVED_IN_PINNED_BYTES",
+   "evidence": "token end bytes 11,14,21,27,30,35,40 identical and right-justified in 175/175 rows"
+  },
+  {
+   "id": "P9",
+   "property": "byte 41 blank; field 8 has no byte at or before 41",
+   "class": "OBSERVED_IN_PINNED_BYTES + DERIVED_FROM_DOCUMENTS (H+1 puts a separator at 41); stated by neither document",
+   "evidence": "byte 41 blank in 175/175 rows with exactly 7 tokens in 1-41; this also refutes the header L range 35-41, whose F7.3 would always have a digit at 41"
+  },
+  {
+   "id": "P10",
+   "property": "token 7 is complete",
+   "class": "OBSERVED_IN_PINNED_BYTES",
+   "evidence": "ends at 40 in 175/175"
+  },
+  {
+   "id": "P11",
+   "property": "all six tokens match their ordered shapes (no leading zeros, exact decimals)",
+   "class": "OBSERVED_IN_PINNED_BYTES",
+   "evidence": "structural contract (C2-C6, C9) passes for every row under its own name: 175/175"
+  },
+  {
+   "id": "P12",
+   "property": "Type always present, one or two digits",
+   "class": "OBSERVED_IN_PINNED_BYTES",
+   "evidence": {
+    "1": 131,
+    "2": 44
+   }
+  },
+  {
+   "id": "P13",
+   "property": "f_D always one digit in 1..5",
+   "class": "OBSERVED_IN_PINNED_BYTES",
+   "evidence": "single digit 1-5 at byte 30 in 175/175"
+  },
+  {
+   "id": "P14",
+   "property": "the bytes are the distributor bytes",
+   "class": "DOCUMENTED (download sidecar, per 0345-B) + sha pin"
+  },
+  {
+   "id": "P15",
+   "property": "NGC3198 token 3 is D",
+   "class": "OBSERVED_IN_PINNED_BYTES (anchor boolean)",
+   "evidence": "token 3 float-equal to the root manifest same-author MassModels distance text: True; any other token equal: False"
+  },
+  {
+   "id": "P16",
+   "property": "DDO154 token 3 is D (not e_D)",
+   "class": "DOCUMENTED order + OBSERVED column invariance (P8) + P15 on the same column; no DDO154-specific anchor",
+   "residual": "A1"
+  }
+ ],
+ "assumptions": [
+  {
+   "id": "A1",
+   "assumption": "no row-specific transposition of D and e_D (data integrity of the DDO154 row)",
+   "why_needed": "same shape and overlapping guard ranges; byte-identical in 1-41 to a correct row",
+   "affects_any_parser": true,
+   "addressed_by_author_whitespace_certification": false
+  },
+  {
+   "id": "A2",
+   "assumption": "the writer does not drop a null e_Inc and slide a later F.1 field (Vflat or e_Vflat) into its slot",
+   "why_needed": "the fault enumeration finds this as the only full-contract misread family (needs e_Inc and L..RHI all null); byte-identical in 1-41 to a correct row",
+   "evidence_against": "CDS non-nullability (P5); the fixed-column writer (P8) leaves a null slot blank, which would give 6 tokens; no row in the file has a blank slot in 1-41",
+   "byte_level_discharge_not_done_here": "a whole-row token count of 19 for the two target rows (bytes >= 42 were out of scope)",
+   "affects_any_parser": true,
+   "addressed_by_author_whitespace_certification": false
+  },
+  {
+   "id": "A3",
+   "assumption": "the CDS rendition and the SPARC-site file carry the same catalogue content (needed for P4 guards and P5)",
+   "evidence": "same authors and journal table; 175 records each; same 19 fields; the CDS layout equals the header widths with one-blank separators"
+  }
+ ],
+ "not_established": [
+  "fixed-offset provenance: no document states the observed byte positions; the contract uses none of them for identification",
+  "the authors serialization intent for fields 8-19 (bytes >= 42 not inspected)",
+  "any physical geometry: values are catalogue literals; e_D and e_Inc are catalogue mean errors; Inc is the outer-HI-disk mean (CDS Note 3)",
+  "validity for any other bytes: a different sha fails C0",
+  "a DDO154-specific anchor for D vs e_D"
+ ]
+}

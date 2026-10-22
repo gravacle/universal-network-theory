@@ -1,0 +1,32 @@
+--- s1_fill_c2v002.py	2026-10-19 12:50:47.683477252 -0500
++++ s1_fill_c2v002a.py	2026-10-19 13:26:11.822669114 -0500
+@@ -1,6 +1,7 @@
+-"""S1 template CLI for root (s1_successors_c2, c2v002): fill | dry-plan | plan.
++"""S1 template CLI for root (s1_successors_c2, c2v002a): fill | dry-plan | plan.
+ 
+-Loads s1_path_lib_c2v002.py from this folder by its sha256 and refuses on any mismatch. Writes only the named outputs,
++Loads s1_path_lib_c2v002a.py from this folder by its sha256 and refuses on any mismatch. c2v002a changes only the
++library pin (BLK-1: the library's replay re-derives every consumed fill-record field). Writes only the named outputs,
+ by exclusive create; dry-plan writes nothing. Starts no process. Pins are given as PATH@SHA256.
+   fill      --u-a P@S --base-spec P@S --campaign-config P@S --c3t-registry P@S --out-dir DIR
+   dry-plan  --u-a P@S --base-spec P@S --campaign-config P@S [--c3t-registry P@S]
+@@ -20,8 +21,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB = HERE / 's1_path_lib_c2v002.py'
+-LIB_SHA = 'e3ca4d80fee093456117a6fe3401861c8166f5015c9ad99e7b04feae7410bc1c'
++LIB = HERE / 's1_path_lib_c2v002a.py'
++LIB_SHA = 'f961839b2dd1ef27c6225badedcc199db3f6515776b5e7e5c08ecede3e769a9e'
+ 
+ 
+ def lib():
+@@ -29,7 +30,7 @@
+     if hashlib.sha256(raw).hexdigest() != LIB_SHA:
+         print(json.dumps({'refused': 'LIB_BYTES_CHANGED'}))
+         raise SystemExit(3)
+-    m = types.ModuleType('s1_path_lib_c2v002')
++    m = types.ModuleType('s1_path_lib_c2v002a')
+     m.__file__ = str(LIB)
+     exec(compile(raw, str(LIB), 'exec'), m.__dict__)
+     return m

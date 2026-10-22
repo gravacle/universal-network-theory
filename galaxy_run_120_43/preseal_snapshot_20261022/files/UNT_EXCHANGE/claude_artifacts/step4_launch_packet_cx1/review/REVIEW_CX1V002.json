@@ -1,0 +1,201 @@
+{
+  "schema": "UNT_STEP4_INDEPENDENT_REVIEW_CX1V002",
+  "date_u": "Sun Oct 18 20:56:21 UTC 2026",
+  "reviewer": "Codex1 local independent review helper; not Codex2",
+  "verdict": "BLOCKED_NI3_NATIVE_GENERATED_COMPILE",
+  "status": "TESTED",
+  "supported_candidate_source_pins": {
+    "guard": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_cx1v006.py",
+      "sha256": "af66d0d8861f3d414c3a52e12e8b1f8d5f205c96b0abaf932949575a3ffe5832"
+    },
+    "launcher": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_launcher_cx1v007.py",
+      "sha256": "f0443f33eaf3fda78fd7d36cb8f093e2a04edf5aa73876a6a39c298065f7faef"
+    },
+    "binder": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_bind_cx1v005.py",
+      "sha256": "30ca87c77c82f33e880b9c42665d1c5a62eea739d5b32e5de42e631ef00f9d7a"
+    },
+    "direct_context": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_direct_preflight_cx1v001.py",
+      "sha256": "eee61ac61ff93a11c97b9fdd3d6340661f17a92394653e524ac1cd8648d20fd1"
+    }
+  },
+  "supersedes": "Prior REVIEW_CX1V001 clearance is invalidated. Scoped prior checks remain evidence only. This V002 does not clear the package.",
+  "independent_tests": {
+    "boundary": {
+      "passed": 43,
+      "total": 43,
+      "note": "Actual native loader functions AST-extracted; real SourceFileLoader; eligible poisoned-cache baseline; actual compile-time altered buffer; full synthetic binder validation. Initial launcher bootstrap used v006, final v007 bootstrap independently tested in lifecycle suite."
+    },
+    "lifecycle": {
+      "passed": 89,
+      "total": 89,
+      "note": "v007; two active mocked monitors across ten catchable fault scenarios, bounded restoration/diagnostics, lock retained until terminal; no actual processes/signals."
+    },
+    "templates": {
+      "passed": 24,
+      "total": 24,
+      "checks": [
+        {
+          "name": "HEADLINE:count",
+          "passed": true
+        },
+        {
+          "name": "HEADLINE:calls_unchanged",
+          "passed": true
+        },
+        {
+          "name": "HEADLINE:unbound",
+          "passed": true
+        },
+        {
+          "name": "HEADLINE:implementation_pins",
+          "passed": true
+        },
+        {
+          "name": "HEADLINE:root_fields_null",
+          "passed": true
+        },
+        {
+          "name": "HEADLINE:actual_unbound_refusal",
+          "passed": true,
+          "detail": "UNBOUND_PLAN_REFUSED"
+        },
+        {
+          "name": "DIII:count",
+          "passed": true
+        },
+        {
+          "name": "DIII:calls_unchanged",
+          "passed": true
+        },
+        {
+          "name": "DIII:unbound",
+          "passed": true
+        },
+        {
+          "name": "DIII:implementation_pins",
+          "passed": true
+        },
+        {
+          "name": "DIII:root_fields_null",
+          "passed": true
+        },
+        {
+          "name": "DIII:actual_unbound_refusal",
+          "passed": true,
+          "detail": "UNBOUND_PLAN_REFUSED"
+        },
+        {
+          "name": "SENS_LO:count",
+          "passed": true
+        },
+        {
+          "name": "SENS_LO:calls_unchanged",
+          "passed": true
+        },
+        {
+          "name": "SENS_LO:unbound",
+          "passed": true
+        },
+        {
+          "name": "SENS_LO:implementation_pins",
+          "passed": true
+        },
+        {
+          "name": "SENS_LO:root_fields_null",
+          "passed": true
+        },
+        {
+          "name": "SENS_LO:actual_unbound_refusal",
+          "passed": true,
+          "detail": "UNBOUND_PLAN_REFUSED"
+        },
+        {
+          "name": "SENS_HI:count",
+          "passed": true
+        },
+        {
+          "name": "SENS_HI:calls_unchanged",
+          "passed": true
+        },
+        {
+          "name": "SENS_HI:unbound",
+          "passed": true
+        },
+        {
+          "name": "SENS_HI:implementation_pins",
+          "passed": true
+        },
+        {
+          "name": "SENS_HI:root_fields_null",
+          "passed": true
+        },
+        {
+          "name": "SENS_HI:actual_unbound_refusal",
+          "passed": true,
+          "detail": "UNBOUND_PLAN_REFUSED"
+        }
+      ]
+    }
+  },
+  "closed_scoped_findings": [
+    "S4-GUARD-METADATA-1",
+    "S4-BINDER-PIN-1",
+    "S4-BINDER-REREAD-1",
+    "S4-NATIVE-LOADER-1",
+    "S4-TRANSITIVE-PIN-1 whole-source timing only",
+    "CX2-S4-LIFETIME-1 Python catchable state control",
+    "CX2-S4-LIFETIME-2 bounded restoration and independent utility owner structure",
+    "S4-SCHEMA-DOC-1 stale schema comment"
+  ],
+  "blocking_findings": [
+    {
+      "id": "NI-3",
+      "severity": "BLOCKING",
+      "status": "TESTED",
+      "reason": "Pinned native wrapper compiles its embedded resolve function with the wrapper filename. Guard v006 compares that snippet buffer to the whole-file SHA and refuses before wrapper import completes.",
+      "source_line": 285,
+      "snippet_sha256": "79e8936d96103b1540987a980b289b6d25e5e25941b02db647f7a833818da0e1",
+      "observed_compile_refusal": "PREFLIGHT_COMPILE_HASH_MISMATCH",
+      "required_fix": "Narrow binding of exact generated snippet bytes to reviewed source and compile filename, preserving whole-source/transitive custody; no general compile bypass."
+    }
+  ],
+  "additional_successor_recommendation": "Apply pinned-source compile/cache enforcement to all FENCE_SOURCES paths, including registered paths outside Research; current actual closure is under Research.",
+  "other_test_evidence": "Implementation FIX0625_V002 records actual ordinary OS helper fd inheritance through caffeinate, flock retention after parent fd closure, exit7 forwarding. This is reviewed evidence, not an independent OS rerun.",
+  "limitations": [
+    "No native full-context import or production adoption/certificates/sensitivity success tested.",
+    "No scientific process launched.",
+    "No observed/target velocities or actual protected run metadata accessed.",
+    "Native live signals, power-assertion observability and SIGKILL survival untested.",
+    "Synthetic provider tests are not scientific readiness or root authority.",
+    "Templates remain UNBOUND; distinct Codex2 review and actual root admission remain required."
+  ],
+  "sha256_from_bytes": {
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_cx1v006.py": "af66d0d8861f3d414c3a52e12e8b1f8d5f205c96b0abaf932949575a3ffe5832",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_launcher_cx1v007.py": "f0443f33eaf3fda78fd7d36cb8f093e2a04edf5aa73876a6a39c298065f7faef",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_bind_cx1v005.py": "30ca87c77c82f33e880b9c42665d1c5a62eea739d5b32e5de42e631ef00f9d7a",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_direct_preflight_cx1v001.py": "eee61ac61ff93a11c97b9fdd3d6340661f17a92394653e524ac1cd8648d20fd1",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v003/HEADLINE_PLAN_TEMPLATE_CX1V003.json": "abb586cc09dc253480c078b2e64d48abf9f2fb70ca5f1dec5044d45b74f0d843",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v001/HEADLINE_PLAN_TEMPLATE_CX1V001.json": "d4c4ca63b19a56240d18393200e158ec0e284a88a7842fcda018901e6ac4cce2",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v003/DIII_PLAN_TEMPLATE_CX1V003.json": "90a9e1f0b7e75b9c91dae21b2644b4f48066c4cea9308449c82e2f79b716f369",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v001/DIII_PLAN_TEMPLATE_CX1V001.json": "c25ef9472893045a6875cd3619d231b3a1ac296a9c33c56bcf708497f049bdee",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v003/SENS_LO_PLAN_TEMPLATE_CX1V003.json": "1f654a04ea567e242c878bd3e3c30626f87a7bf2be0469ef59a890505196f391",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v001/SENS_LO_PLAN_TEMPLATE_CX1V001.json": "3b5758aa274183c6cce9288147adc87ca02239571eda04dcec6d069c7a6d4afd",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v003/SENS_HI_PLAN_TEMPLATE_CX1V003.json": "44e9e8ddf344929539782fbafd8e26474a83a9d34e5584a83b3f3d4ee595f098",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v001/SENS_HI_PLAN_TEMPLATE_CX1V001.json": "dcd92c08789c8e6dd819023f1e065019796654053b1c90cd84dbe0f209d8267b",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/calibration_orchestrator_cx2v006r9.py": "24abe3bc4f6ee0e3c5d7c89502062cf99464573b35bc5b53c33c14ef2ae888af",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/BOUNDARY_INDEPENDENT_V001/RESULTS.json": "f983c21ad83f957ff9b487cde925033de0106efa3b220817e403d1070a884b21",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/LIFETIME_INDEPENDENT_V001/RESULTS.json": "8ff68acd5e269359703ec0dea6fb76334ee61f87a20d2050bf05570aaf828191",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/REVIEW_CX1V001.json": "b43c7e93c990fa7ec7959b4baaa731e6fa8d1067ab42035b7aafefec6b38088b",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/REVIEW_REOPEN_CX1V001.json": "3130f808a72a3642a66b0cf652af7c2c9cc9dac43f162ea6262908327fb5d9bf",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/RUNBOOK_CX1V002.md": "3de7a984df884938b3cf34f9b7e6c05ba8730edfc23f83d9f86bcf137a8fe1fc",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/IMPLEMENTATION_INTERFACE_CX1V002.md": "3554815abb1bff69de432958c34d5a9a78564db0659f27ce2e0562f3d473943e",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/FIX0625_V002/RESULTS.json": "0a9f3bf514db4edc67ed0a9c54555e98f93d14cfbde7e2fe6427ae5af613cd4e",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v003/TEMPLATE_VERIFICATION_CX1V003.json": "21d69526d8385e7c705b64d4506381aa5df945f3368cf6d9b3d5003aef94f602",
+    "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX2/0511_2026-10-18_step4_v006_native_compile_blocker.md": "64222214ac43a6a8f35c9de9e461d6baf7dafe89351ddd9afba9b9c7c57b1204",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_step4_readiness_cx2/delta_v006/loader/LOADER_DELTA_REVIEW_CX2V001.md": "4704177b1a70358e150ba0af90192be4fd7a7c04d2298afb571a0a4ce082afc1"
+  }
+}

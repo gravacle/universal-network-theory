@@ -1,0 +1,9 @@
+# PARTIAL - REFUTE RI-31 (dispatch 0650, A113) - helper of Claude4
+
+- 2026-10-19T03:32:55Z start: folder created; read-only target b0_ms128_c4; plan: pins -> root tool -> harness -> record -> recompare -> fence logs -> cross-check -> hashes.
+- 2026-10-19T03:35:16Z pins: all 7 dispatched pins match bytes (b0 857ccb8a, r5 b5cc62af, r4 b9ae92d5, map a7281e10 recorded, reg c7023846, fence c993d34c, runner fe904509); 13 builder-claimed file shas match bytes; fence/runner copies cmp-identical. Read root tool, harness, fence, runner, probe fully.
+- 2026-10-19T03:39:35Z FORMAL review done: harness rule_verdict = root main() rule verbatim; r5 vs r4 driver diff = pin-table lines 294-380 only; dry-run = Ctx(simulate), run_stages returns before Popen; BUILD chain V007->V006->V005->DRY ff60cd6b re-hashed from bytes. Next: in-process re-derivation script (no child processes).
+- 2026-10-19T03:43:45Z re-derivation script work/refute_ri31_c4v001.py written; running dry mode (in-process only, no children).
+- 2026-10-19T03:47:35Z dry-mode re-derivation: 235/235 checks pass; verdict_B0 re-derived PASS_PLAN_IDENTICAL; scan: no forbidden word in any path string (SPARC only as DDO154_SPARC12_nn row ids); drivers contain rotmod x2 / vobs x1 (non-path, NGC-only code) contrary to builder wording. Running derived-pair listing.
+- 2026-10-19T03:49:47Z checks JSON written by exclusive create (REFUTE_RI31_CHECKS_C4V001.json fc943107); derived pairs listed (7 = 6 inputs + report, = compare count, same on every spec); 20/20 stdout logs are the driver final summary JSON (exit-0 corroboration). Writing REFUTE_RI31.md next.
+- 2026-10-19T03:53:35Z REFUTE_RI31.md written (exclusive create, d853899a); final full-sha re-check of 5 pins + builder record + builder HASHES OK; verdict: build PASS_PLAN_IDENTICAL CONFIRMED; 0 BLOCKING, 1 SHOULD_FIX (driver-source wording), 8 NOTE. HASHES_REFUTE_RI31_C4V001.txt next and last.

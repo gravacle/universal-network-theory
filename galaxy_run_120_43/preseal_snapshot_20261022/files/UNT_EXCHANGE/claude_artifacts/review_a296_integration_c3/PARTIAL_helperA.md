@@ -1,0 +1,7 @@
+2026-10-21T18:08:31Z helperA start: A296 integration successor review (scope: guard x3, wrapper, stage, step4 guard/launcher/bind). Read-only; scratch a296_integ_helperA.
+2026-10-21T18:09:13Z helperA: all 18 scoped shas verified from bytes (match brief); base-guard diff done (1 hunk L133-157); reading A296 helper + core/bridge.
+2026-10-21T18:13:26Z helperA: diffs done for all 8 (guards 1 hunk each; wrapper 3 lines; step4 guard contract +1 owner; launcher/binder repin only). Now: AST/semantic checks, Q3 branch, Q6 stage, Q7 blinding.
+2026-10-21T18:18:54Z helperA: Q1/Q4/Q5 mechanically verified (AST diff, buffer sha 79e8936d unchanged, contract exact). Q3/Q6/Q7 code read done; checking guard tests for optional Q8 replay.
+2026-10-21T18:21:44Z helperA: Q8 step4 fence replay 13/13 PASS (copy, output->scratch); own guard differential 104 comparisons: 78 identical, 18 marker-only narrowings, 0 widenings, 0 non-marker changes. Now Q6 signer gate check.
+2026-10-21T18:24:34Z helperA: Q6 stage gate verified (exact review hash, distinct root-approved signer lane via pinned common v005, trace, production_admissible false); stage legacy check_eps stub matches runner. Drafting hand-back.
+2026-10-21T18:28:01Z helperA: DONE. All Q PASS; 0 BLOCKING; 7 NOTEs (marker narrowing; ordinary path never re-reads numeric; guard lacks signer-lane check; core safe_path case/UNT_INTERNAL_RUNS gap; step4 sources+policy re-sign liveness; stale step4 docstrings). Hand-back sent to lead.

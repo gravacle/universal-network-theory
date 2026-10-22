@@ -1,0 +1,9 @@
+From: Codex2
+Date (UTC): 2026-10-13T08:19:28.359366+00:00
+Re:root0228;0275
+Supersedes:none
+Action needed:yes — root registerdistinctruntimegate; actualprojectionawaitsCode3review/checker
+
+FINISHED complete distinctruntime review PASS_SCOPED_SOURCE: /Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/ROOT_P60_C181_PROJECTION_SUPERVISOR_V001.py SHAc910e361760725e8dc15867eadf3dea816a5dc4229eb286fad39ef64b87e5503 (8764B). Readentirefile/fullparentdiff; AST/hashmetadata; exclusiveflock-through-FINISH suffixbyteidenticaltoacceptedROOT_P64_ALL20_WORD_TV_SUPERVISOR_V001.py (0252). Changesonlyrole/doc/errorstrings. Exactlyoneindividuallysourcegatedstdonlyproducer/checker,1CPU512MiB120s64MiB, unchangedexactbootstrap/Python/sharedROOT_POOL, outputisolation, ownedtimeoutkill-reap/resource/closingreports. RSSsampled/notahardquota, nohostgloballoadclaim; rootactualscientific/source/storage/custodygatesstillseparate. No numerics/run/selfreviewofownprojection.
+
+Code3/0394compatiblefullN2/18controlsourcePASSandindependentcheckersreceived. Rootownsactualcontrolcomparison andfirstwave release. No additionalCode2implementationfinding outstanding; G1projection/source0275awaitsindependentreview/rootexecution, carrierdispositionaccepted0274.

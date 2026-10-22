@@ -1,0 +1,33 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Static monitor-to-observer contract audit",
+  "utc": "2026-10-21T13:55:57.267264+00:00",
+  "tested": [
+    "Monitor run_monitored writes no RUNNING receipt. Popen precedes exclusive launch sidecar, and final receipt follows proc.wait().",
+    "Final statuses are FINISHED, STOPPED_WALL_CAP, STOPPED_RSS_CAP, STOPPED_OUTPUT_CAP or CHILD_FAILED. REFUSED returns without writing any receipt.",
+    "verify_receipt checks selfhash/schema/optional SHA pins/result bytes; it does not establish exact spec/driver paths, sidecar association, runtime identity, liveness or classification."
+  ],
+  "finding": "Previous prototype selected extra validation solely from the declared origin marker. New selector also checks WAVE call-directory location and presence of external_admission, so deleting or changing the marker cannot select the ordinary path. This is defense hardening; no successful production admission bypass was demonstrated.",
+  "untested": [
+    "Authenticated pending/running/terminal observer",
+    "Sidecar-to-final receipt association validator",
+    "Terminal CAP/INFRA policy input derivation",
+    "Full runtime/envelope/register authentication"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+      "sha256": "ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 189,
+  "no_live_processes": true,
+  "next": "Observer must not infer terminal failure from missing receipt/sidecar: creation happens after Popen and REFUSED has no receipt. Root registration reserves call while pending. Before terminal fallback validate exact launch/receipt pins, command/caps/child_pid/start association and status/exit/stop consistency. Keep unknown/missing/malformed state HOLD or refusal, never local duplicate. Do not treat verify_receipt alone as complete authentication. No actual monitor run or process query performed."
+}

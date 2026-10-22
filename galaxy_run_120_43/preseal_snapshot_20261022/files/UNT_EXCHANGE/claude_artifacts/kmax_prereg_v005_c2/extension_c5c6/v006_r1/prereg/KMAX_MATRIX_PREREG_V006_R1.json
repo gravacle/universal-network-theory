@@ -1,0 +1,955 @@
+{
+ "schema": "KMAX_MATRIX_PREREG_V006",
+ "status": "DRAFT_FOR_REVIEW R1 (not sealed).  Written 2026-10-17 as the successor of the V006 draft f90ab96c, applying exactly the findings M1, L1, L2, L3, L4 of the independent check CHECK_V001 (849d1b8d); still before any C5/C6 call exists (no outdir KMAX_A2F10_C5R3_RUN_V001 / KMAX_A2F10_C6R3_RUN_V001 / KMAX_A2F10_C5R3_N1_RUN_V001 / KMAX_A2F10_C6R3_N1_RUN_V001 under runs or runs_ext; predates_state).  The seal (SEAL_RECORD_V006_R1: this file sha + the compare successor kmax_compare_ext_c2v006_r1.py sha) is a separate act after review and before any C5/C6 launch (SEAL_READY_V006_R1.json lists its preconditions).  Thresholds, statistics and gates are V005's unchanged.",
+ "plan_item": "P-88 (A1-numerics) k_max extension of the cube at the A2 factor-10 anchor: K = 5 and 6 /kpc",
+ "extends": {
+  "prereg_v005": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/KMAX_MATRIX_PREREG_V005.json",
+   "sha256": "dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174"
+  },
+  "v005_decision_rule_3": "3. No shape passes -> NOT_CONVERGED (next step: extend the shape with the smallest Dhat_A(3,4) to 5 and 6 /kpc with the same order-6 unit outer panels, 108/120 nodes per axis; needs a prep successor with node budget >= 120 and a per-call cap >= 6 GiB, under separate review).",
+  "why_v006": "V005 decision rule 3 names the extension and its resources but no rule that decides after it; a rule chosen after C5/C6 exist would be post hoc.  V006 registers it now with V005's statistics.",
+  "r3_verdict": {
+   "comparison": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/verdict_r3/COMPARE_R3_V001/KMAX_COMPARISON.json",
+    "sha256": "4ea21d902cfb4e8cd3b5aa61d29b8c3bbc05cab9a56c49f3af2913c32ae66433"
+   },
+   "stdout": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/verdict_r3/COMPARE_R3_V001.stdout.txt",
+    "sha256": "721e7bdf25c8ca65f4e707901055d8622a99b54ec0065cb3250ec0ce4d6b2458"
+   },
+   "table": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/verdict_r3/COMPARE_R3_V001/KMAX_COMPARISON_TABLE.txt",
+    "sha256": "9d4517288b8dec51a09501d47d6eb056898e219f74a45f078b66ecccf99e202a"
+   },
+   "decision": {
+    "outcome": "NOT_CONVERGED",
+    "reasons": [
+     "cube: Dhat_3_4=12.47 (<=1: False), Dhat_2_3=31.45, q=0.3965 (<=0.5: True)",
+     "sphere: Dhat_3_4=17.57 (<=1: False), Dhat_2_3=30.35, q=0.5791 (<=0.5: False)",
+     "cylinder: Dhat_3_4=16.66 (<=1: False), Dhat_2_3=35.21, q=0.4732 (<=0.5: True)"
+    ],
+    "next_step": "Extend cube to 5 and 6 /kpc with order-6 unit outer panels (108/120 nodes per axis); needs a prep successor with node budget >= 120 and a per-call cap >= 6 GiB, under separate review.",
+    "extend_shape": "cube"
+   }
+  }
+ },
+ "carried_from_r3": {
+  "extend_shape": "cube",
+  "cube_Dhat_2_3": 31.4471152693244,
+  "cube_Dhat_3_4": 12.46987453080872,
+  "sphere_Dhat_3_4": 17.573646716542157,
+  "cylinder_Dhat_3_4": 16.662474077710765,
+  "inner_control": {
+   "pass": true,
+   "Dhat_R": 0.0003753154085472943,
+   "D_R_km_s": 5.22406721046309e-05,
+   "delta": {
+    "DDO154_SPARC12_01": 1.8533903123341133e-07,
+    "DDO154_SPARC12_02": 1.5652377527430872e-07,
+    "DDO154_SPARC12_03": -3.203751006708444e-07,
+    "DDO154_SPARC12_04": -1.5594536435514783e-06,
+    "DDO154_SPARC12_05": -3.850034246966061e-06,
+    "DDO154_SPARC12_06": -7.322709997481525e-06,
+    "DDO154_SPARC12_07": -1.2357187344491649e-05,
+    "DDO154_SPARC12_08": -1.8765770427364714e-05,
+    "DDO154_SPARC12_09": -2.723469551568769e-05,
+    "DDO154_SPARC12_10": -3.7221961008526705e-05,
+    "DDO154_SPARC12_11": -4.4944316741180046e-05,
+    "DDO154_SPARC12_12": -5.22406721046309e-05
+   },
+   "cases": [
+    "C2",
+    "R"
+   ],
+   "scope": "measured at G2 vs GR (inner panels order 8) in R3; carried, not re-measured at G5/G6"
+  }
+ },
+ "unchanged_from_v005": "row_ids, quoted_sigma_km_s, tau_km_s (tau_i = 0.25 sigma_i), tau_picard 0.0125 km/s, anchor (physical, coefficients 2e3a36d8, picard passes 6 / bound 0.01 / observe every pass), statistic Dhat, the contraction test q <= 1/2, the per-row tail diagnostic (reported, never adopted), gates V1-V5, the D7 widening rule W1 and its later_invocations; all read from the pinned V005 file by the compare script",
+ "binding_inputs": {
+  "prereg_v005": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/KMAX_MATRIX_PREREG_V005.json",
+   "sha256": "dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174"
+  },
+  "v005_compare": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/kmax_compare_c2v005.py",
+   "sha256": "49404bc4b0d558c93113ed650802d9009f03be64c364f0d862213783389786f5"
+  },
+  "r3_recovery": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r3/KMAX_D7_RECOVERY_R3.json",
+   "sha256": "7946b8575a2f95fb093c55e35bfffba48f4a8b5daf5e75d89132446b2b9c7453"
+  },
+  "drivers": {
+   "v001": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/galaxy_m0_forward_c2v001.py",
+    "sha256": "75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22"
+   },
+   "v005": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_impl_c2/binding/galaxy_m0_forward_c2v005.py",
+    "sha256": "2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f"
+   },
+   "v008": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/driver_v008_c2/galaxy_m0_forward_c2v008.py",
+    "sha256": "f8e4770106abb83df5e658e91edc5593198fe87f0600ee5d1946f22415902f28"
+   },
+   "v009": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/driver_v009/galaxy_m0_forward_c2v009.py",
+    "sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6"
+   }
+  },
+  "prep_v009": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prep_successor/ddo_actual_initial_source_preparation_v009.py",
+   "sha256": "b4b27a1deb68a2ec24e9bd3700de3a23537fd14b7029e124aab0f7b50bcac8bc"
+  },
+  "v009_admissibility": {
+   "driver_sha256": "999331afd604dd9829aa8f389f43cdb87603d03412d52ba09712226787f18db6",
+   "prep_sha256": "b4b27a1deb68a2ec24e9bd3700de3a23537fd14b7029e124aab0f7b50bcac8bc",
+   "review": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/check/REVIEW_V009_PREP_V009_V001.json",
+    "accepted_verdicts": [
+     "PASS",
+     "PASS_SCOPED"
+    ],
+    "required_fields": "verdict, driver_sha256, prep_sha256 (the separate review writes this file)"
+   },
+   "evidence": [
+    {
+     "name": "prep_repro_C2",
+     "required_verdict": "PASS_BITWISE",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/prep_repro/C2/PREP_V009_REPRO.json",
+     "sha256": "bd3a6ded9f15b24fa6d337f4c84068c0decd9ca4e18d10a7b818d7947d381d0d"
+    },
+    {
+     "name": "prep_repro_C3",
+     "required_verdict": "PASS_BITWISE",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/prep_repro/C3/PREP_V009_REPRO.json",
+     "sha256": "9bd0687d516803c1b5164c700305ef58fc88efa7de509e590b7e3aed77713f09"
+    },
+    {
+     "name": "prep_repro_C4",
+     "required_verdict": "PASS_BITWISE",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/prep_repro/C4/PREP_V009_REPRO.json",
+     "sha256": "bd407d398e27d5575441c66dbcdfe3f9feddd799e851f01b7112cee27985170f"
+    },
+    {
+     "name": "prep_smoke_C5",
+     "required_verdict": "PASS",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/prep_smoke/C5/PREP_V009_SMOKE.json",
+     "sha256": "9b585caa96f8d5699246a568e88a3d12f8a927c50bfb98dc0d46c05ef3c63539"
+    },
+    {
+     "name": "prep_smoke_C6",
+     "required_verdict": "PASS",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/prep_smoke/C6/PREP_V009_SMOKE.json",
+     "sha256": "db1ca765974801b425768d3a14e62f04f6097d0375b58f6f23de04c6521265d1"
+    }
+   ],
+   "condition": "A case whose driver_sha256 is v009 is admissible (gate V3 driver term) only if, at comparison time, the review record exists with an accepted verdict and pins exactly this driver and prep sha, and every evidence file has its pinned sha and required verdict.  Otherwise V3 fails with V009_INADMISSIBLE:<reason>.",
+   "inadmissible_next_step": "V009_INADMISSIBLE: complete the separate review of prep v009 + driver v009 (record at the named path); the comparison is then rerun on the same results (no case rerun is implied)."
+  },
+  "driver_equivalence_evidence": {
+   "v008_deciding_i": {
+    "result": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/DDO154_ROUTE_B_C2V008_DECIDING_ADMIT_PREFIX_RUN_V001/result.json",
+     "sha256": "b76f7afc272a98e65a61df9294fd0db324fa60b0e47ee10a000afb79751de11f"
+    },
+    "verdict": "PASS_BITWISE_EQUAL"
+   },
+   "v008_deciding_ii_N8": {
+    "compare": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/DDO154_A2F10_ROUTE_A_PARALLEL_N8_C2V008_DECIDING_RUN_V001.COMPARE_DECIDING_II_C2V008.json",
+     "sha256": "e1d3c072fd7449f75f26c3da9ce092f9aba5916d5069b11577b4b89e700dc4d0"
+    },
+    "verdict": "PASS_BITWISE_EQUAL (route-A blobs/records/identity, route-B rows and speeds vs A2_ANCHOR_F10_RUN_V001 under v001)"
+   },
+   "v008_vs_v009_dry_byte_identity": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/dryrun_b2/BYTE_IDENTITY_V008_V009_B2_V001.json",
+    "sha256": "03f447bf4d90ac57e29b02201558a2a822284abc07d4547c36f3ddbf2be366e8"
+   },
+   "what_it_shows": "TESTED-POSITIVE: v008 = v001/v005 chain bitwise at G2 (deciding i, ii incl. N=8 parallel route A); v009 = v008 byte-identical dry-run plans/inputs on 8 registered <=96-node specs (G2, G3, G4, GR; serial and N=8; compute and admitted); prep v009 reproduces the saved route-A IDENTITY inputs and iteration-0 START blobs of the C2, C3, C4 prefixes bitwise.  UNTESTED: v009 (gal_c2v004 stages) vs v005 (gal_c2v003 stages) run-mode equality at G4; deciding test S5 below."
+  },
+  "v005_admissibility": {
+   "condition": "A case whose driver_sha256 is v005 is admissible (gate V3 driver term) only if binding_inputs.v005_deciding_test.result_path exists at comparison time, its finish.json result_sha256 equals the sha256 of its bytes, its driver_sha256 and call_spec_sha256 equal the pinned values, and its deciding_test.verdict is PASS_BITWISE_EQUAL. Otherwise every v005 case fails V3 with reason V005_INADMISSIBLE:<reason> and the matrix is INCOMPLETE (rule 1). Executed by kmax_compare_c2v005.py, which reads that file only at comparison time.",
+   "condition_source": "V005 amendment_v005.driver.admissibility_condition (prereg_v005 dbddc02c), carried verbatim",
+   "executed_by": "v005_admissibility(V005 prereg) of the pinned V005 compare (binding_inputs.v005_compare 49404bc4), called by the compare successor at comparison time",
+   "deciding_test": {
+    "result_path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/DDO154_ROUTE_B_C2V005_DECIDING_ADMIT_PREFIX_RUN_V001/result.json",
+    "finish_path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/DDO154_ROUTE_B_C2V005_DECIDING_ADMIT_PREFIX_RUN_V001/finish.json",
+    "required": {
+     "deciding_test.verdict": "PASS_BITWISE_EQUAL",
+     "driver_sha256": "2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f",
+     "call_spec_sha256": "4ac5527ad1731353d798c2648adc1033335a12102ec071b3ae6a619334313cb7",
+     "finish.result_sha256": "equals sha256 of result.json bytes"
+    }
+   },
+   "applies_to": "every case whose driver_sha256 is v005 (C4, C3, R)",
+   "inadmissible_next_step": "V005_INADMISSIBLE: the >80-node cases have no admissible driver; gate V1 (iii) applies (matrix stops as BLOCKED_ROUTE_A at those grids; next step is a reviewed route-B successor that accepts the converged route-A iteration and passes the DDO deciding reproduction, under separate review). No v005 case result is used.",
+   "state_at_r1_build": {
+    "admissible": true,
+    "verdict": "PASS_BITWISE_EQUAL",
+    "result_sha256": "01bc95574fc7b532a4f959a9a2c8817825dca6c307b73791dabe13bc31f29e16",
+    "finish_sha256": "2aa72616a3f94476f2e046627b72e29eab8abb480ffa267e1c2d09f865e3aaa7",
+    "reason": "PASS_BITWISE_EQUAL with pinned driver and spec; finish custody verified",
+    "scope": "TESTED at build time; the binding evaluation is the one at comparison time"
+   }
+  }
+ },
+ "grids": {
+  "G2": {
+   "axis_nodes": 72,
+   "breaks_inverse_kpc": [
+    -2,
+    -1,
+    -0.3,
+    -0.1,
+    -0.03,
+    -0.01,
+    0,
+    0.01,
+    0.03,
+    0.1,
+    0.3,
+    1,
+    2
+   ],
+   "composite_grid_spec": null,
+   "panel_orders": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+   ],
+   "role": "existing seed grid (kmax 2/kpc)"
+  },
+  "G3": {
+   "axis_nodes": 84,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -3,
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2,
+     3
+    ],
+    "panel_orders": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-3,-2],[2,3] order 6; full signed cube; k_max convergence test P-88 only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 84,
+    "version": "DIRECT_LAPSE_PANELS84_KMAX3_OUTER6_C2_0470_V001"
+   },
+   "role": "G2 panels unchanged + one outer panel [2,3] per side, order 6 (same width and order as the existing [1,2] panel)"
+  },
+  "G4": {
+   "axis_nodes": 96,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -4,
+     -3,
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2,
+     3,
+     4
+    ],
+    "panel_orders": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-4,-3],[-3,-2],[2,3],[3,4] order 6; full signed cube; k_max convergence test P-88 only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 96,
+    "version": "DIRECT_LAPSE_PANELS96_KMAX4_OUTER6_C2_0470_V001"
+   },
+   "role": "G3 + one more outer panel [3,4] per side, order 6"
+  },
+  "GR": {
+   "axis_nodes": 92,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2
+    ],
+    "panel_orders": [
+     6,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     8,
+     6
+    ],
+    "scope": "Seed V002 breaks to 2/kpc; inner ten panels order 8, outer [1,2] panels order 6; inner-refinement control for P-88 only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 92,
+    "version": "DIRECT_LAPSE_PANELS92_INNER8_C2_0470_V001"
+   },
+   "role": "inner-refinement control: G2 breaks, the 10 panels inside |k|<=1/kpc raised from order 6 to 8, outer [1,2] panels unchanged"
+  },
+  "G5": {
+   "axis_nodes": 108,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "panel_orders": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-5,-4],[-4,-3],[-3,-2],[2,3],[3,4],[4,5] order 6 (G4 plus [4,5] per side); full signed cube; k_max extension of P-88 (prereg V006) only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 108,
+    "version": "DIRECT_LAPSE_PANELS108_KMAX5_OUTER6_C2EXT_V001"
+   },
+   "role": "G4 plus one more unit outer panel [4,5] per side, order 6 (V005 decision rule 3: order-6 unit outer panels)"
+  },
+  "G6": {
+   "axis_nodes": 120,
+   "composite_grid_spec": {
+    "breaks_inverse_kpc": [
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     -0.3,
+     -0.1,
+     -0.03,
+     -0.01,
+     0,
+     0.01,
+     0.03,
+     0.1,
+     0.3,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "panel_orders": [
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6,
+     6
+    ],
+    "scope": "Seed V002 twelve panels to 2/kpc bitwise unchanged plus outer panels [-6,-5],[-5,-4],[-4,-3],[-3,-2],[2,3],[3,4],[4,5],[5,6] order 6 (G5 plus [5,6] per side); full signed cube; k_max extension of P-88 (prereg V006) only; no continuum or cutoff error certificate.",
+    "total_axis_nodes": 120,
+    "version": "DIRECT_LAPSE_PANELS120_KMAX6_OUTER6_C2EXT_V001"
+   },
+   "role": "G5 plus one more unit outer panel [5,6] per side, order 6 (V005 decision rule 3: order-6 unit outer panels)"
+  }
+ },
+ "cases": [
+  {
+   "id": "C4",
+   "role": "extension K=4 member (decision)",
+   "grid": "G4",
+   "drivers_allowed": [
+    "v005"
+   ],
+   "prefix": "bound",
+   "bound": {
+    "outdir": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C4R3_D7R3_RUN_V001",
+    "result": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C4R3_D7R3_RUN_V001/result.json",
+     "sha256": "aac01962dc7bf08a7486179bc5674af520f7ea38d73b004154cdd2ff25fa8dee"
+    },
+    "finish": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C4R3_D7R3_RUN_V001/finish.json",
+     "sha256": "499563b73e67738fafe151a95b17fc4698172151b0f905f71d912725a679d57b"
+    },
+    "r3_verdict_input_sha256": "aac01962dc7bf08a7486179bc5674af520f7ea38d73b004154cdd2ff25fa8dee",
+    "result_sha256_enforced": "V3 term when --bracket-recovery equals the registered R3 block (CHECK_V001 L1); reported only under a later R(n)"
+   },
+   "note": "the R3 cube C4R3 (admits KMAX_A2F10_C4_V005_RUN_V001 under v005); under a later D7 R(n) it is rerun as C4R(n) under v005 admitting the same prefix (V005 admission_constraint: same driver as the prefix)"
+  },
+  {
+   "id": "C5",
+   "role": "extension K=5 (decision)",
+   "grid": "G5",
+   "drivers_allowed": [
+    "v009"
+   ],
+   "prefix": "compute",
+   "route_a_numerics": {
+    "max_iterations": 32,
+    "column_workers_allowed": [
+     1,
+     8
+    ]
+   },
+   "specs": {
+    "primary_N8": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N8_M32_C2V009.json",
+     "sha256": "09ff5a96c02b0428f121138f5ebc23072333c743506a93774af9f496d7fc51e8",
+     "grid": "G5",
+     "route_a_column_workers": 8,
+     "route_a_max_iterations": 32,
+     "override_key_lint": "PASS",
+     "leaf_diff_vs_C4R3": [
+      "/admit",
+      "/admit/body/directory",
+      "/admit/body/finish_sha256",
+      "/admit/reference/directory",
+      "/admit/reference/finish_sha256",
+      "/admit/reference/start_sha256",
+      "/admit/route_a/attempt_directory",
+      "/admit/route_a/checkpoint_directory",
+      "/admit/route_a/identity_sha256",
+      "/admit/route_a/result_sha256",
+      "/label",
+      "/numerics/composite_grid_spec/breaks_inverse_kpc",
+      "/numerics/composite_grid_spec/panel_orders",
+      "/numerics/composite_grid_spec/scope",
+      "/numerics/composite_grid_spec/total_axis_nodes",
+      "/numerics/composite_grid_spec/version",
+      "/numerics/route_a/column_workers",
+      "/numerics/route_a/max_iterations"
+     ],
+     "brackets_equal_R3": true,
+     "supersedes": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/specs/CALL_KMAX_C5R3_A2F10_EXT_N8_M16_C2V009.json",
+      "sha256": "c8321156cafb0867260883ecae5de03680e2f71b194b7ff23533710d3f6a2f3a"
+     },
+     "leaf_diff_vs_superseded_M16": [
+      "/label",
+      "/numerics/route_a/max_iterations"
+     ],
+     "dry_run_v009": {
+      "job": "v009_C5_N8_M32",
+      "as_expected": true,
+      "stages_planned": 12,
+      "binding_blockers": [],
+      "per_call_seed_sha256": "18eb99dc0e34c4e53761233b685b5eaefd6b56771bd11bf6127bdee43bba7a7d"
+     }
+    },
+    "alternate_N1": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C5R3_A2F10_EXT_N1_M32_C2V009.json",
+     "sha256": "16774734d607bc0f21e931cf8e5c987598610d8a98c8fea58553cf1c645d8abf",
+     "grid": "G5",
+     "route_a_column_workers": 1,
+     "route_a_max_iterations": 32,
+     "override_key_lint": "PASS",
+     "leaf_diff_vs_C4R3": [
+      "/admit",
+      "/admit/body/directory",
+      "/admit/body/finish_sha256",
+      "/admit/reference/directory",
+      "/admit/reference/finish_sha256",
+      "/admit/reference/start_sha256",
+      "/admit/route_a/attempt_directory",
+      "/admit/route_a/checkpoint_directory",
+      "/admit/route_a/identity_sha256",
+      "/admit/route_a/result_sha256",
+      "/label",
+      "/numerics/composite_grid_spec/breaks_inverse_kpc",
+      "/numerics/composite_grid_spec/panel_orders",
+      "/numerics/composite_grid_spec/scope",
+      "/numerics/composite_grid_spec/total_axis_nodes",
+      "/numerics/composite_grid_spec/version",
+      "/numerics/route_a/column_workers",
+      "/numerics/route_a/max_iterations"
+     ],
+     "brackets_equal_R3": true,
+     "supersedes": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/specs/CALL_KMAX_C5R3_A2F10_EXT_N1_M16_C2V009.json",
+      "sha256": "c7d6b7223e43d362d4306c4fa967e02600e19babfaadca3236a238488e311c1e"
+     },
+     "leaf_diff_vs_superseded_M16": [
+      "/label",
+      "/numerics/route_a/max_iterations"
+     ],
+     "dry_run_v009": {
+      "job": "v009_C5_N1_M32",
+      "as_expected": true,
+      "stages_planned": 12,
+      "binding_blockers": [],
+      "per_call_seed_sha256": "18eb99dc0e34c4e53761233b685b5eaefd6b56771bd11bf6127bdee43bba7a7d"
+     }
+    }
+   },
+   "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001",
+   "outdirs": {
+    "primary_N8": {
+     "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001",
+     "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_RUN_V001.receipt.json",
+     "spec": "specs.primary_N8"
+    },
+    "alternate_N1": {
+     "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001",
+     "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C5R3_N1_RUN_V001.receipt.json",
+     "spec": "specs.alternate_N1"
+    },
+    "note": "External1 real path (CLAUDE2/runs_ext is a symlink to it).  Exactly one result per case enters the CASES map; the compare reports which registered outdir it lies in (CHECK_V001 L4) and does not decide on it."
+   }
+  },
+  {
+   "id": "C6",
+   "role": "extension K=6 (decision)",
+   "grid": "G6",
+   "drivers_allowed": [
+    "v009"
+   ],
+   "prefix": "compute",
+   "route_a_numerics": {
+    "max_iterations": 32,
+    "column_workers_allowed": [
+     1,
+     8
+    ]
+   },
+   "specs": {
+    "primary_N8": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N8_M32_C2V009.json",
+     "sha256": "8f28f5b6ce2b48fa417fb3248267d568604fbcd1c149df54222ec7bb398007fd",
+     "grid": "G6",
+     "route_a_column_workers": 8,
+     "route_a_max_iterations": 32,
+     "override_key_lint": "PASS",
+     "leaf_diff_vs_C4R3": [
+      "/admit",
+      "/admit/body/directory",
+      "/admit/body/finish_sha256",
+      "/admit/reference/directory",
+      "/admit/reference/finish_sha256",
+      "/admit/reference/start_sha256",
+      "/admit/route_a/attempt_directory",
+      "/admit/route_a/checkpoint_directory",
+      "/admit/route_a/identity_sha256",
+      "/admit/route_a/result_sha256",
+      "/label",
+      "/numerics/composite_grid_spec/breaks_inverse_kpc",
+      "/numerics/composite_grid_spec/panel_orders",
+      "/numerics/composite_grid_spec/scope",
+      "/numerics/composite_grid_spec/total_axis_nodes",
+      "/numerics/composite_grid_spec/version",
+      "/numerics/route_a/column_workers",
+      "/numerics/route_a/max_iterations"
+     ],
+     "brackets_equal_R3": true,
+     "supersedes": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/specs/CALL_KMAX_C6R3_A2F10_EXT_N8_M16_C2V009.json",
+      "sha256": "b7bf831fbf0b7d1aac6ea5c31e2ff45e20e18f8730618f35a878a16d024a71ef"
+     },
+     "leaf_diff_vs_superseded_M16": [
+      "/label",
+      "/numerics/route_a/max_iterations"
+     ],
+     "dry_run_v009": {
+      "job": "v009_C6_N8_M32",
+      "as_expected": true,
+      "stages_planned": 12,
+      "binding_blockers": [],
+      "per_call_seed_sha256": "95ac9b447dad66578dd36ca4e85183389cf3e2f03ef5656f7d2bc17d1baa0983"
+     }
+    },
+    "alternate_N1": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/specs/CALL_KMAX_C6R3_A2F10_EXT_N1_M32_C2V009.json",
+     "sha256": "d222348ba310ee0ec0a2dbc3203a13a4c2f2550b7eb69155f5e87e14c5336d8b",
+     "grid": "G6",
+     "route_a_column_workers": 1,
+     "route_a_max_iterations": 32,
+     "override_key_lint": "PASS",
+     "leaf_diff_vs_C4R3": [
+      "/admit",
+      "/admit/body/directory",
+      "/admit/body/finish_sha256",
+      "/admit/reference/directory",
+      "/admit/reference/finish_sha256",
+      "/admit/reference/start_sha256",
+      "/admit/route_a/attempt_directory",
+      "/admit/route_a/checkpoint_directory",
+      "/admit/route_a/identity_sha256",
+      "/admit/route_a/result_sha256",
+      "/label",
+      "/numerics/composite_grid_spec/breaks_inverse_kpc",
+      "/numerics/composite_grid_spec/panel_orders",
+      "/numerics/composite_grid_spec/scope",
+      "/numerics/composite_grid_spec/total_axis_nodes",
+      "/numerics/composite_grid_spec/version",
+      "/numerics/route_a/column_workers",
+      "/numerics/route_a/max_iterations"
+     ],
+     "brackets_equal_R3": true,
+     "supersedes": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/specs/CALL_KMAX_C6R3_A2F10_EXT_N1_M16_C2V009.json",
+      "sha256": "19b651bf6507de3933f596b3f0e9a8779173cee8ed5234b39c98ab975fa47ab2"
+     },
+     "leaf_diff_vs_superseded_M16": [
+      "/label",
+      "/numerics/route_a/max_iterations"
+     ],
+     "dry_run_v009": {
+      "job": "v009_C6_N1_M32",
+      "as_expected": true,
+      "stages_planned": 12,
+      "binding_blockers": [],
+      "per_call_seed_sha256": "95ac9b447dad66578dd36ca4e85183389cf3e2f03ef5656f7d2bc17d1baa0983"
+     }
+    }
+   },
+   "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001",
+   "outdirs": {
+    "primary_N8": {
+     "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001",
+     "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_RUN_V001.receipt.json",
+     "spec": "specs.primary_N8"
+    },
+    "alternate_N1": {
+     "outdir": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001",
+     "receipt": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/KMAX_A2F10_C6R3_N1_RUN_V001.receipt.json",
+     "spec": "specs.alternate_N1"
+    },
+    "note": "External1 real path (CLAUDE2/runs_ext is a symlink to it).  Exactly one result per case enters the CASES map; the compare reports which registered outdir it lies in (CHECK_V001 L4) and does not decide on it."
+   }
+  },
+  {
+   "id": "C3",
+   "role": "diagnostic only (Dhat_3_4 consistency with R3)",
+   "grid": "G3",
+   "drivers_allowed": [
+    "v005"
+   ],
+   "prefix": "bound",
+   "bound": {
+    "outdir": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R3_D7R3_RUN_V001",
+    "result": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R3_D7R3_RUN_V001/result.json",
+     "sha256": "c9c802f44854d4f41f9e119707235899aba75a8bd42e89c19983f9ca9b817674"
+    },
+    "finish": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R3_D7R3_RUN_V001/finish.json",
+     "sha256": "56bff835cb150c16e0de44b8e484f7e3d6e4e98df9ae1986217b80951afa1af3"
+    },
+    "r3_verdict_input_sha256": "c9c802f44854d4f41f9e119707235899aba75a8bd42e89c19983f9ca9b817674",
+    "result_sha256_enforced": "V3 term when --bracket-recovery equals the registered R3 block (CHECK_V001 L1); reported only under a later R(n)"
+   }
+  },
+  {
+   "id": "C2",
+   "role": "diagnostic only (K-sequence table)",
+   "grid": "G2",
+   "drivers_allowed": [
+    "v001"
+   ],
+   "prefix": "bound",
+   "bound": {
+    "outdir": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R3_D7R3_RUN_V001",
+    "result": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R3_D7R3_RUN_V001/result.json",
+     "sha256": "1f6b32a4edd0dd28438536165bdb10e13c8125eb5ccafb60ceb17315eba8c169"
+    },
+    "finish": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R3_D7R3_RUN_V001/finish.json",
+     "sha256": "a7b6f260045ae63f984dc9ae2c1f83ce3aee2f014d4c0e80e403a0e1f671ecfb"
+    },
+    "r3_verdict_input_sha256": "1f6b32a4edd0dd28438536165bdb10e13c8125eb5ccafb60ceb17315eba8c169",
+    "result_sha256_enforced": "V3 term when --bracket-recovery equals the registered R3 block (CHECK_V001 L1); reported only under a later R(n)"
+   }
+  },
+  {
+   "id": "R",
+   "role": "diagnostic only (inner control carried from R3)",
+   "grid": "GR",
+   "drivers_allowed": [
+    "v005"
+   ],
+   "prefix": "bound",
+   "bound": {
+    "outdir": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_RR3_D7R3_RUN_V001",
+    "result": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_RR3_D7R3_RUN_V001/result.json",
+     "sha256": "a83d69bcec642335ca8652875a73b7fc54ec842310db5df0df7a83bc27153ffc"
+    },
+    "finish": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_RR3_D7R3_RUN_V001/finish.json",
+     "sha256": "637671abd1bdd78e6397ed9b3239b58a387d16c53f002381cecdd777dd24295e"
+    },
+    "r3_verdict_input_sha256": "a83d69bcec642335ca8652875a73b7fc54ec842310db5df0df7a83bc27153ffc",
+    "result_sha256_enforced": "V3 term when --bracket-recovery equals the registered R3 block (CHECK_V001 L1); reported only under a later R(n)"
+   }
+  }
+ ],
+ "route_a_expected_inputs": {
+  "C5": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/prep_smoke/C5/PREP_V009_SMOKE.json",
+   "sha256": "9b585caa96f8d5699246a568e88a3d12f8a927c50bfb98dc0d46c05ef3c63539"
+  },
+  "C6": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/analysis/prep_smoke/C6/PREP_V009_SMOKE.json",
+   "sha256": "db1ca765974801b425768d3a14e62f04f6097d0375b58f6f23de04c6521265d1"
+  },
+  "max_iterations_independence": {
+   "claim": "the registered expectations (made from the max_iterations-16 per-call seed) are the expectations for the R1 max_iterations-32 seed: prep v009 names max_iterations only in the prepare_inputs signature (line 41) and never uses it; the R1 per-call seed differs from the M16 seed only in numerical_inputs.max_iterations and its c2_changed_fields mirror (dry-run seed leaf diff, DRYRUN_R1_SUMMARY_V002.json)",
+   "dry_run_summary": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/dryrun/DRYRUN_R1_SUMMARY_V002.json",
+    "sha256": "f3a4e3f8185595a4192658a9eae4b93e6417e347576b4384e1b3356c26e34ee4"
+   },
+   "operator_evaluation_on_M32_seed": {
+    "C5": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/analysis/prep_smoke_m32/C5/PREP_V009_SMOKE.json",
+     "sha256": "c4ed7e92fa61616cc4456625a3cc9ae42d4c3afb2f8646bff4cda6d1638b5fad",
+     "seed_sha256": "18eb99dc0e34c4e53761233b685b5eaefd6b56771bd11bf6127bdee43bba7a7d",
+     "max_iterations": 32,
+     "verdict": "PASS",
+     "digests_equal_registered_expectation": true,
+     "status": "TESTED-POSITIVE"
+    },
+    "C6": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/v006_r1/analysis/prep_smoke_m32/C6/PREP_V009_SMOKE.json",
+     "sha256": "d50581126372a2d526f38a41ecec2aeaa281d27baaadb02d8ac297dad11e0928",
+     "seed_sha256": "95ac9b447dad66578dd36ca4e85183389cf3e2f03ef5656f7d2bc17d1baa0983",
+     "max_iterations": 32,
+     "verdict": "PASS",
+     "digests_equal_registered_expectation": true,
+     "status": "TESTED-POSITIVE"
+    }
+   }
+  }
+ },
+ "fixed_across_extension_cases": {
+  "brackets": "the R3 block 7946b857 (identical to C3R3/C4R3), or as a whole a later cumulative D7 block R(n)",
+  "physical_coefficients_picard": "V005 anchor (unchanged)",
+  "route_a_max_iterations": "32 for C5 and C6 (seed numerical_inputs.max_iterations; base seed 8; 32 = the c2v009 ceiling).  The solvers use it only as the loop bound (for iteration in range(start_iteration, max_iterations), serial 44d9c23c:110, parallel aed4dd59:196), so a route A converging at iteration n computes the same arrays with any budget > n.  Reason for 32 (CHECK_V001 M1): measured prefixes converged at iterations 4/5/6 (K=2/3/4) with the late contraction ratio rising (G4: 0.45 -> 0.66; signed step projection mu 0.45 -> 0.57, cos 0.95: a monotone slow mode, analysis/ROUTE_A_MODE_V001.json); the pessimistic G6 projection (analysis/ESTIMATES_V001.json) reaches residual/bound 1.14 at index 13 with ratios about 0.95, i.e. about 1.03 at index 15, not converged within 16; a 16-iteration checkpoint cannot be resumed with a larger budget (max_iterations is in the checkpoint identity controls), so the budget is set to the ceiling before the first call.  Superseded value: 16 (V006 draft f90ab96c).",
+  "route_a_column_workers": "8 (primary) or 1 (alternate): bitwise-equal by the parallel route-A design, TESTED-POSITIVE at G2 (deciding ii)"
+ },
+ "criterion": {
+  "statistic": "Dhat_cube(K1,K2) = max over the 12 rows of |v_i(C_K2) - v_i(C_K1)| / tau_i (V005 statistic, tau_i from V005)",
+  "gates": "V1-V5 exactly as V005 per_case_validity_gates (V3 against the registered block: V005 anchor physical/coefficients/picard, the recovery block for every extension case, the registered grid, cube truncation, the case drivers_allowed with the v009 admissibility condition for v009 cases and V005's v005 admissibility condition (binding_inputs.v005_admissibility) for v005 cases, for every prefix-bound case under the R3 block its registered bound result sha256, and for C5/C6 numerics.route_a.max_iterations 32 and column_workers in {1, 8}); V6 not applicable (no admitted extension case); V7 (C5, C6): the route-A checkpoint IDENTITY.inputs_sha256 entries and the iteration_0000/START digests equal route_a_expected_inputs (prep v009 operator evaluation of the registered per-call seed).",
+  "decision_rule": [
+   "X1. Any of C4, C5, C6 invalid or missing -> INCOMPLETE (name each case and failed gate with its gate_next_steps entry; no threshold or rule change).",
+   "X2. The carried R3 inner control (Dhat_R = 0.0003753, PASS) is not re-decided; if it were not PASS the outcome would be INNER_UNRESOLVED with V005 rule 2 next step.",
+   "X3. Dhat_cube(5,6) <= 1 AND Dhat_cube(5,6) <= 0.5 * Dhat_cube(4,5) -> ADOPT cube at k_max = 6 /kpc on grid G6 (driver v009); carried numerical uncertainty per row u_i = |v_i(C6) - v_i(C5)| + |v_i(R) - v_i(C2)| km/s (R3 inner delta), reported with u_i/tau_i and u_i/sigma_i; the V005 shape-spread term is UNTESTED (reported null, not zero).",
+   "X4. Otherwise NOT_CONVERGED_EXT with subtype (a) CONTRACTING_ABOVE_TAU if Dhat(5,6) <= 0.5 Dhat(4,5) (so Dhat(5,6) > 1); (c) FLOOR_LIKE if not contracting and Dhat(4,5) <= 1 and Dhat(5,6) <= 1; (b) NOT_CONTRACTING otherwise; each with its pre-named next step below.  Diagnostics always reported: Dhat(3,4) from C3/C4 (must equal the registered 12.46987453), the K = 2..6 cube rows, per-row q and tail (never adopted), m4 row window of C4-C6, route-A accepted iteration of C5/C6, K0_max_rel_diff_vs_C2 and field_diagnostic (criterion.diagnostics_reported)."
+  ],
+  "shape_spread_untested": "S-shape: only the cube is extended (V005 rule 3).  Deciding test: sphere and cylinder at K = 5, 6 on G5/G6 admitting the C5/C6 prefixes under v009, the V005 shape-agreement test (2 tau_i) at K = 6.",
+  "adopt_next_step": "Run calibration calls with the cube at K = 6 on G6 (120/axis, driver v009, prep v009); carry u_i; before prediction: S-shape (above) and V005 S1 (rerun the adopted grid at K = 5, 6 at the calibrated point).",
+  "next_step_contracting": "CONTRACTING_ABOVE_TAU: extend the cube to 7 and 8 /kpc with order-6 unit outer panels (132/144 nodes per axis); needs a prep successor with node budget >= 144 and per-call caps from the measured C6 peaks x (144/120)^3 = 1.728, under separate review.  The V005-style geometric tail diagnostic is reported, not adopted.",
+  "next_step_not_contracting": "NOT_CONTRACTING: separate outer-panel quadrature from the cutoff (V005 scope S3): C4O8 = G4 with its four outer panels at order 8 (104 nodes) and C5O8 = G5 with its six outer panels at order 8 (120 nodes, inside the prep v009 budget), each against C4/C5 with Dhat <= 1; needs a driver successor declaring those two grids and its own prereg version, under separate review.",
+  "next_step_floor_like": "FLOOR_LIKE: both increments are within tau_i but q > 1/2.  V005 has no floor clause (D14); a floor clause needs a new prereg version with its reason, decided before any further case is run.",
+  "gate_next_steps": {
+   "V1": "(i) monitor stop (wall/RSS/output cap): rerun the same spec in a fresh outdir with the cap raised, separate approval; (ii) FAILED_AT_STAGE with a column-pass bracket miss: D7 per V005 later_invocations from the failed call's evidence: R(n) = previous block + W1 widenings; C5/C6 rerun admitting their own route A, reference and body under v009 with the same route_a.max_iterations; C4 rerun as C4R(n) under v005 admitting KMAX_A2F10_C4_V005_RUN_V001; the comparison takes --bracket-recovery R(n); (iii) route A without a converged fixed point within 32 iterations, the c2v009 ceiling (ROUTE_A_NO_FIXED_POINT / ITERATION_BUDGET_EXHAUSTED): registered as a measured property of the route-A relaxation at that grid; next step: if the saved residual history contracts over its last 3 iterations, a driver successor raising the route-A ceiling and its own prereg version (under separate review), else a reviewed study of the route-A relaxation (a relaxation change is a new prereg version); no rerun under V006 R1; (iv) BLOCKED admission (C4R(n), admitted reruns): regenerate the admitted spec from the cube outdir under the cube's driver and rerun; (v) any other FAILED or REFUSED: one rerun of the same spec; a second identical failure is reported as a deterministic defect for review.",
+   "V2": "Picard non-convergence within 6 passes: rerun that case with picard.passes 12 admitting its own route A, reference and body (same driver, same route_a.max_iterations); if it still fails, PICARD_NOT_CONVERGED at that grid, stop for review.",
+   "V3": "Custody mismatch: regenerate the spec with v006_r1/tools/make_specs_r1.py from the registered block and rerun that case; a bound-result sha mismatch (C4, C3, C2, R under R3): restore the registered R3 result path in the CASES map (no rerun).  V005_INADMISSIBLE / V009_INADMISSIBLE: the respective inadmissible_next_step.",
+   "V4": "Grid/prep defect: stop; review the prep v009 / composite-grid path of driver v009; no rerun before that review.",
+   "V5": "Mask defect: stop; review truncation_mask/apply_mask of the driver that ran the case; no rerun before that review.",
+   "V7": "Route-A prepared inputs differ from the registered expectation: stop; review prep v009, the per-call seed and the checkpoint; no rerun before that review."
+  },
+  "diagnostics_reported": "Carried from V005 (CHECK_V001 L3; V005: K0 drift between grids is reported, not hidden): K0_max_rel_diff_vs_C2 (max_i |K0_i(case)/K0_i(C2) - 1| of the final rotation stage base_K_values_SI) and field_diagnostic (V005 ring_diagnostic: the gravity-only ring indicator of each final field packet at the 12 row radii); both reported for every present case, neither used by X1-X4.  --no-field-diagnostic disables the ring diagnostic only."
+ },
+ "scope_untested": [
+  "S-shape: sphere/cylinder at K >= 5 (see criterion.shape_spread_untested).",
+  "S1, S2, S4 of V005 unchanged (transfer across parameter space; NGC3198; route-A source azimuths).",
+  "S3 of V005 (outer-panel order) unchanged unless X4 (b) runs it.",
+  "S5 cross-driver term: C4 ran under v005 (gal_c2v003 stages), C5/C6 under v009 (gal_c2v004 stages).  TESTED-POSITIVE at G2 (v008 deciding i and ii, bitwise) and plan-identical v008 = v009 at G3/G4/GR (dry run); UNTESTED in run mode at G4.  Deciding test: C4V9 = the C4 cube computed under v009 (N8, max_iterations 16) with rows compared bitwise to C4R3; not required by X1-X4 (a mismatch would be registered as a cross-driver defect for review).",
+  "S6 inner control at G5/G6: carried from G2/GR (R3); deciding test: an inner-order-8 control on G6 (the ten panels inside |k| <= 1/kpc at order 8: 140 nodes per axis, needs prep budget >= 140)."
+ ],
+ "resources_note": "V005 rule 3 names a per-call cap >= 6 GiB.  Estimates (analysis/ESTIMATES_V001.json, models stated there, measured under load 10-14): route-A serial peak 3.9-4.2 GiB (G5), 5.4-5.9 GiB (G6); route-A N=8 peak about 15 GiB (G5), 21 GiB (G6); route-B peak 3.8-4.0 / 5.1-5.5 GiB.  Caps are launch parameters (v006_r1/LAUNCH_EXT_V002.json, route-A budget 32: output C5 96 GiB, C6 128 GiB; wall caps from ESTIMATES_V001 at 32 iterations), not part of the rule.",
+ "context_not_used_by_the_decision": "A21 (qinf_dependence_c2/QINF_DEPENDENCE_V001.md): the lapse response Q(k) = T k^2 c^4/(4 pi G) tends to Qinf = c^4/(16 pi G gamma_eff) with ~1/k^2 corrections (Q(0.3)=7.955, Q(1)=8.053, Q(2)=8.0598, limit 8.0623), so above k ~ 2/kpc the response itself is flat to < 0.04%; the K dependence measured here is carried by what the outer panels add to the field, not by a changing response.  Reported for reading the outcome; not used by X1-X4.",
+ "row_ids": [
+  "DDO154_SPARC12_01",
+  "DDO154_SPARC12_02",
+  "DDO154_SPARC12_03",
+  "DDO154_SPARC12_04",
+  "DDO154_SPARC12_05",
+  "DDO154_SPARC12_06",
+  "DDO154_SPARC12_07",
+  "DDO154_SPARC12_08",
+  "DDO154_SPARC12_09",
+  "DDO154_SPARC12_10",
+  "DDO154_SPARC12_11",
+  "DDO154_SPARC12_12"
+ ],
+ "tau_km_s": [
+  0.4,
+  0.2,
+  0.175,
+  0.125,
+  0.1,
+  0.05,
+  0.05,
+  0.05,
+  0.075,
+  0.15,
+  0.175,
+  0.325
+ ],
+ "quoted_sigma_km_s": [
+  1.6,
+  0.8,
+  0.7,
+  0.5,
+  0.4,
+  0.2,
+  0.2,
+  0.2,
+  0.3,
+  0.6,
+  0.7,
+  1.3
+ ],
+ "revision": "R1",
+ "supersedes_draft": {
+  "prereg_v006_draft": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prereg_v006/KMAX_MATRIX_PREREG_V006.json",
+   "sha256": "f90ab96cc1640cb2bc4204489f3e44e9165eb1aaead9875e7a8e754c9e02eb79"
+  },
+  "compare_v006_draft": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prereg_v006/kmax_compare_ext_c2v006.py",
+   "sha256": "e6475f3843e1b73a76ccaf8c9324cced6f9fe162d6b73c75c7ad61c6aeba261c"
+  },
+  "tests_v006_draft": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/prereg_v006/tests_kmax_compare_ext_c2v006.py",
+   "sha256": "87506f45d834855d33ebc57f6b131d51311af59cfb93c2b76950b21f0aa951af"
+  },
+  "note": "the V006 draft was never sealed; R1 replaces it as the text to seal"
+ },
+ "predates_state": {
+  "utc": "2026-10-18T00:56:49Z",
+  "entries_naming_C5_or_C6": [],
+  "roots_listed": [
+   "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs",
+   "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext",
+   "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext"
+  ]
+ },
+ "revision_r1": {
+  "check": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/extension_c5c6/check/CHECK_V001.md",
+   "sha256": "849d1b8d1671fc01cd7e695fd1982c5d3f2124f9dcd3fae3a2a430f5884bb1b0",
+   "verdict": "PASS_WITH_DEFECTS (0 MAJOR, 1 MEDIUM, 4 LOW, 3 INFO)"
+  },
+  "applied": {
+   "M1": "cases[C5,C6].route_a_numerics.max_iterations 16 -> 32 (the c2v009 ceiling ROUTE_A_MAX_ITERATIONS_MAX), so the V3 gate admits the budget the specs carry; specs regenerated with max_iterations 32 (v006_r1/specs, CALL_*_M32_C2V009.json; leaf diff vs the superseded _M16 specs: /label and /numerics/route_a/max_iterations only); criterion.gates and fixed_across_extension_cases.route_a_max_iterations restated; gate_next_steps.V1 (iii) restated for a budget that is already the ceiling (the \"rerun with max_iterations 32\" branch is gone: it is the registered budget); launch caps (LAUNCH_EXT_V002.json): output C5 96 GiB, C6 128 GiB, wall caps re-derived from ESTIMATES_V001 for 32 iterations.",
+   "L1": "V3 for every prefix-bound case requires result sha256 == cases[].bound.result.sha256 when --bracket-recovery is the R3 block (compare successor).",
+   "L2": "V005's v005-admissibility condition is executed by the compare successor (binding_inputs.v005_admissibility); a v005 case (C4, C3, R) not admissible fails V3 with V005_INADMISSIBLE and V005's inadmissible_next_step.",
+   "L3": "V005's K0_max_rel_diff_vs_C2 and field_diagnostic are carried (criterion.diagnostics_reported; reported, not decided); --no-field-diagnostic disables the ring diagnostic.",
+   "L4": "cases[C5,C6].outdirs registers the primary N8 and alternate N1 outdirs (+ receipts) on the External1 real path."
+  },
+  "not_applied": {
+   "I1, I2, I3": "INFO findings; no change requested",
+   "M1 (b)": "the alternative fix (b) was not taken; fix (a) is applied"
+  }
+ }
+}

@@ -1,0 +1,201 @@
+- 2026-10-19T21:28:23Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a (0250, 0252).
+- 2026-10-19T21:37:21Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T21:47:22Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T21:57:22Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T22:07:22Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T22:17:22Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T22:27:25Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T22:37:22Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T22:47:22Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T22:57:22Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T23:07:23Z Claude3 heartbeat: no open review; waiting for the G-wave, the packet A166 set and r3a.
+- 2026-10-19T23:20:22Z Claude3 heartbeat: no open review (KS1-KS6 0252 and G-wave 0254 posted); waiting for the S1 launch path, the packet A166 set and r3a.
+- 2026-10-19T23:30:22Z Claude3 heartbeat: no open review; waiting for the S1 launch path, the packet A166 set and r3a.
+- 2026-10-19T23:40:21Z Claude3 heartbeat: no open review; waiting for the S1 launch path, the packet A166 set and r3a.
+- 2026-10-19T23:49:23Z Claude3 heartbeat: no open review; waiting for the S1 launch path, the packet A166 set and r3a.
+- 2026-10-20T00:05:23Z Claude3 heartbeat: no open review (0256 posted); waiting for r3a and the NGC acceptance stack; nothing due before the reset (0760).
+- 2026-10-20T00:14:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T00:23:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T00:32:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T00:41:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T00:50:25Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T00:59:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T01:08:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T01:17:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T01:26:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T01:35:25Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T01:44:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T01:53:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T02:02:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T02:11:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T02:20:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T02:29:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T02:38:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T02:47:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T02:54:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T03:03:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T03:12:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T03:21:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T03:30:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T03:39:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T03:48:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T03:57:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T04:06:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T04:15:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T04:23:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T04:37:23Z Claude3 heartbeat: no open review (0258 S4T R3 PASS posted, record sha 1675ec57); waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T04:38:31Z Claude3: posted 0259 (erratum to 0258: record sha 1675ec57).
+- 2026-10-20T04:47:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T04:57:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T05:06:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T05:15:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T05:24:24Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T05:33:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T05:42:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T05:51:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T06:00:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T06:09:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T06:18:25Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T06:27:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T06:36:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T06:45:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T06:54:24Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T07:03:24Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T07:12:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T07:21:33Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T07:30:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T07:39:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T07:48:20Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T07:57:20Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T08:06:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T08:15:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T08:24:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T08:33:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T08:42:20Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T08:51:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T09:00:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T09:09:24Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T09:18:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T09:27:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T09:36:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T09:45:24Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T09:53:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T10:02:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T10:11:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T10:20:25Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T10:29:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T10:38:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T10:47:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T10:55:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T11:04:25Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T11:13:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T11:21:25Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T11:30:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T11:39:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T11:48:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T11:56:23Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T12:05:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T12:14:24Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T12:17:35Z Claude3: posted 0260 (standby ack of 0762; CP-1 rows 3-9 EPS batch only if root routes it here).
+- 2026-10-20T12:23:31Z Claude3 heartbeat: Claude4 0252 closed the CP-1 rows 3-9 EPS batch; 0260 standby released; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T12:32:27Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T12:41:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T12:50:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T12:59:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T13:08:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T13:16:14Z Claude3 heartbeat: 0763 (Codex3) and 0764 (Codex2) read; neither names Claude3; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T13:24:22Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T13:33:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T13:41:28Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T13:50:33Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T13:59:21Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T14:08:24Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-20T14:17:25Z Claude3 heartbeat: no open review; waiting for r3a and the NGC acceptance stack.
+- 2026-10-21T12:17:01Z Claude3: lane resumed after stall (10-20 14:21Z to 10-21 12:15Z); posted 0261; working 0814 item 1.
+- 2026-10-21T12:22:42Z Claude3: posted 0262 (item 1 PASS); starting 0822 audit.
+- 2026-10-21T12:44:40Z Claude3 heartbeat: 6 items posted today (0262 0265 0266 0267 0268 0269); helpers on items 2, 3, 4a; 4c queued.
+- 2026-10-21T13:03:11Z Claude3 heartbeat: posted 0261-0276 today; running helpers: RUNBOOK c2v007 (4c), cw8 v001; queued: cw8 v002 delta, cause cxv003, 0827/0828/0831/0837 reviews.
+- 2026-10-21T13:34:27Z Claude3 heartbeat: S1-pair helper running; waiting for Codex3 cw8 v003 (0842) for the lead delta review.
+- 2026-10-21T13:51:37Z alive; 0283 posted (cw8 v003 delta PASS); monitor ba84j7ejk re-armed 13:47Z (13:48Z false NEW flood after expiry hand-over, baseline whole again); S1-pair helper running.
+- 2026-10-21T14:06:28Z alive; 0843 acked (0284); waiting on S1-pair helper (mutant matrix, last fixture 13:58Z) and Codex1 runtime-capture producer.
+- 2026-10-21T14:16:12Z alive; 0285 posted (S1 pair PASS); pending: Codex1 runtime-capture producer (0843), cause producer cxv003, C2V004C Codex2 review (due Thu 08:00Z).
+- 2026-10-21T14:26:17Z alive; 0287 (C2V004D built, ready for review) and 0288 (runtime-capture notes under 0845) posted; monitor b6w1fida2 to ~14:48Z.
+- 2026-10-21T14:33:42Z alive; 0290 acked 0848/0849; cxv003 verify pre-staged (totality probe ready); waiting on Codex2 unit 3 + cxv003, Codex3 wall review, Codex1 producer.
+- 2026-10-21T14:59:03Z alive; posted 0293 (D001/D002), 0294, 0295 (cxv003 PASS); runbook draft generated + self-checked; helpers running: importer incremental, unit 2, unit 3.
+- 2026-10-21T15:04:57Z alive; 0296 (importer pass-1 + D004) posted; helpers: unit2, unit3, runbook verifier; next: seal S7 pre-stage helper when a slot frees.
+- 2026-10-21T15:14:26Z alive; 0297 (D005), 0298 (unit2 FAIL + D006), 0299 (unit3 PASS, D007) posted; helpers: runbook verifier, seal S7 pre-stage.
+- 2026-10-21T15:33:44Z alive; 0300 runbook posted (553a0e2c); helpers: seal S7 pre-stage, u_A chain pre-stage.
+- 2026-10-21T15:45:41Z alive; 0301 (seal S7 pre-stage summary + R1-R7) posted; u_A chain helper running.
+- 2026-10-21T15:55:08Z alive; 0302 (u_A chain draft) posted; all 0850 items delivered; waiting: Codex3 unit-2 fix, runbook narrow check.
+- 2026-10-21T16:22:28Z alive; runbook final C3V002 (0305); waiting: Codex3 unit-2 fix (0298), importer pass 2 when Codex1 posts review-ready.
+- 2026-10-21T16:33:29Z alive; quiet inbox; waiting on Codex3 (0298) and Codex1 importer review-ready.
+- 2026-10-21T16:48:29Z alive; 0852 row-302 analysis in progress (2 helpers); halvings 404/405 pending.
+- 2026-10-21T16:58:26Z alive; 0852: halvings 404/405 certify; 408/411 running; campaign_helper writing; Codex3 silent since 0702.
+- 2026-10-21T17:10:59Z alive; monitor re-armed b511cdrc5; 0853 analysis in progress; 0308 posted (rows 501/504 uncertified).
+- 2026-10-21T17:25:32Z alive; 0309 ROOT_ESCALATION posted; waiting: P408/P411, Codex3 unit-2 fix, Codex2 successor build (review), Codex1 importer.
+- 2026-10-21T17:35:30Z alive; 0312 F5 proposal posted; waiting: Codex2 successor build (review), P408/P411 (~22Z), Codex3 unit-2 fix, Codex1 importer.
+- 2026-10-21T17:38:19Z alive; 0856/A297/A298 acked (0313); A296 adoption = Claude3 review PASS of Codex2 chain (target Thu 23:00Z); F5 R1/R3/R5 adopted, R2 deferred pending 408/411.
+- 2026-10-21T17:53:22Z alive; 0315 A297 review PASS posted (Codex2 A296 numerical successor); next: 0856 chain review, P408/P411 ~22Z.
+- 2026-10-21T18:00:27Z alive; quiet; waiting: Codex2 0856 full handoff (review), P408/P411 ~22Z, Codex3 unit-2 fix, Codex1 importer.
+- 2026-10-21T18:14:26Z alive; reviewing Codex2 0591 A296 integration (lead part done; helpers A/B running); monitor bkz2kfxa2.
+- 2026-10-21T18:30:08Z alive; 0591 review in progress: lead part PASS; helper B TESTED inherited unit-2 defect (runs refusal) in a296 lookup/registry successors (BLOCKING candidate); helper A on Q7/Q8.
+- 2026-10-21T18:38:04Z alive; 0317 posted: A296 integration review FAIL (3 blocking, inherited unit-2 runs refusal); fix per D006; re-review on delta.
+- 2026-10-21T18:45:40Z alive; Codex3 0704 (EPS 300/301 APPROVED) and 0706 (runbook C3V002 2nd narrow PASS) noted; waiting Codex2 F1-F3 fix delta.
+- 2026-10-21T18:58:03Z alive; 0320 posted: A296 integration delta PASS; overall integration ready for root adoption.
+- 2026-10-21T19:07:26Z alive; quiet; awaiting root adoption of A296 chain; P408/P411 EPS ~126/122 of 178 shells at 19:00Z, 0 ref2; monitor bo0p93b0w.
+- 2026-10-21T19:17:27Z alive; quiet; awaiting root adoption (A296 chain) and P408/P411 STAGE_EPS; monitor b266rhqsn.
+- 2026-10-21T19:27:29Z alive; quiet; awaiting root adoption and P408/P411 STAGE_EPS.
+- 2026-10-21T19:37:26Z alive; quiet; awaiting root adoption and P408/P411 STAGE_EPS (~20Z).
+- 2026-10-21T19:47:28Z alive; quiet; monitor btva6j9nr; awaiting root adoption and P408/P411 STAGE_EPS.
+- 2026-10-21T19:57:28Z alive; quiet; P408 177/178, P411 170/178 EPS shells.
+- 2026-10-21T20:07:28Z alive; P408 certified (20:02Z); P411 177/178; quiet inbox.
+- 2026-10-21T20:17:31Z alive; quiet; 0321 posted (halvings certify); waiting P509/P511 + root adoption; monitor b5uq11y30.
+- 2026-10-21T20:27:28Z alive; quiet; all 58 CP-1 EPS records in (0322); awaiting root adoption of A296 chain; monitor b5uq11y30.
+- 2026-10-21T20:37:29Z alive; quiet; awaiting root adoption (A296 chain); monitor b5uq11y30.
+- 2026-10-21T20:47:27Z alive; quiet; awaiting root adoption (A296 chain); monitor b023xi6bq.
+- 2026-10-21T20:57:28Z alive; quiet; awaiting root adoption (A296 chain); monitor b023xi6bq.
+- 2026-10-21T21:07:27Z alive; quiet; awaiting root adoption (A296 chain).
+- 2026-10-21T21:17:27Z alive; quiet; awaiting root adoption (A296 chain); monitor blc8giuna.
+- 2026-10-21T21:27:26Z alive; quiet; awaiting root adoption (A296 chain); monitor blc8giuna.
+- 2026-10-21T21:37:28Z alive; quiet; awaiting root adoption (A296 chain); monitor blc8giuna.
+- 2026-10-21T21:47:30Z alive; quiet; awaiting root adoption (A296 chain); monitor b3tiqzjlz.
+- 2026-10-21T21:57:27Z alive; quiet; awaiting root adoption (A296 chain); monitor b3tiqzjlz.
+- 2026-10-21T22:07:28Z alive; quiet; awaiting root adoption (A296 chain); monitor b3tiqzjlz.
+- 2026-10-21T22:17:30Z alive; quiet; awaiting root adoption (A296 chain); monitor bdfi339bq.
+- 2026-10-21T22:27:27Z alive; quiet; awaiting root adoption (A296 chain); monitor bdfi339bq.
+- 2026-10-21T22:37:28Z alive; quiet; awaiting root adoption (A296 chain); monitor bdfi339bq.
+- 2026-10-21T22:47:27Z alive; quiet; awaiting root adoption (A296 chain); monitor b0yskdz3b.
+- 2026-10-21T22:57:27Z alive; quiet; awaiting root adoption (A296 chain); monitor b0yskdz3b.
+- 2026-10-21T23:11:04Z alive; posted 0324 (D016, R3 signer reviews to Codex3); writing A296 chain checklist for root (0857); monitor b0yskdz3b.
+- 2026-10-21T23:20:16Z alive; posted 0325 (R3 PASS both gates; F4 accept-call gap; D017 to Codex2); writing A296 chain checklist; monitor b8rsve8g9.
+- 2026-10-21T23:25:22Z alive; C1 successor draft built (387b1b35, digest 3c03bae3); building fill v003; Codex2 on D017 (0595); monitor b8rsve8g9.
+- 2026-10-21T23:28:58Z alive; posted 0326 (F4 PASS); next: Codex3 C1-tail re-sign request, then checklist; monitor b8rsve8g9.
+- 2026-10-21T23:33:01Z alive; root binding tool + tests done; writing checklist; monitor b8rsve8g9.
+- 2026-10-21T23:36:58Z alive; posted 0328 (0857 checklist C3V002 delivered); waiting on Codex3 C1 re-sign (0327); monitor b8rsve8g9.
+- 2026-10-21T23:43:08Z alive; quiet; awaiting Codex3 C1 re-sign (0327); monitor b07wogxmg (re-armed).
+- 2026-10-21T23:52:26Z alive; quiet; awaiting Codex3 C1 re-sign (0327, no ack yet); monitor b07wogxmg.
+- 2026-10-22T00:00:22Z alive; quiet; awaiting Codex3 C1 re-sign (0327, no ack 30+ min); monitor b07wogxmg.
+- 2026-10-22T00:09:26Z alive; quiet; awaiting Codex3 C1 re-sign (0327, no ack ~40 min); monitor b07wogxmg.
+- 2026-10-22T00:19:22Z alive; quiet; awaiting Codex3 C1 re-sign (0327, no ack ~50 min); monitor b6pfwyznp.
+- 2026-10-22T00:29:22Z alive; quiet; awaiting Codex3 C1 re-sign (0327, no ack ~1 h); monitor b6pfwyznp.
+- 2026-10-22T00:38:25Z alive; quiet; Codex3 silent on 0327/0329; monitor b6pfwyznp.
+- 2026-10-22T00:48:21Z alive; quiet; Codex3 silent on 0327/0329; monitor b80mvznx8.
+- 2026-10-22T00:58:21Z alive; quiet; Codex3 silent on 0327/0329; monitor b80mvznx8.
+- 2026-10-22T01:07:22Z alive; quiet; Codex3 silent on 0327/0329; monitor b80mvznx8.
+- 2026-10-22T01:17:22Z alive; quiet; Codex3 silent on 0327/0329; monitor baudfa4lz.
+- 2026-10-22T01:27:22Z alive; quiet; Codex3 silent on 0327/0329; monitor baudfa4lz.
+- 2026-10-22T01:37:21Z alive; quiet; Codex3 silent on 0327/0329; monitor baudfa4lz.
+- 2026-10-22T01:47:21Z alive; quiet; Codex3 silent on 0327/0329; monitor boc4gd3p5.
+- 2026-10-22T01:57:21Z alive; quiet; Codex3 silent on 0327/0329; monitor boc4gd3p5.
+- 2026-10-22T02:07:23Z alive; quiet; Codex3 silent on 0327/0329; monitor boc4gd3p5.
+- 2026-10-22T02:17:22Z alive; quiet; Codex3 silent on 0327/0329; monitor b0ob01vb1.
+- 2026-10-22T02:27:22Z alive; quiet; Codex3 silent on 0327/0329; monitor b0ob01vb1.
+- 2026-10-22T02:37:25Z alive; quiet; Codex3 silent on 0327/0329; monitor b0ob01vb1.
+- 2026-10-22T02:47:22Z alive; quiet; Codex3 silent on 0327/0329; monitor bc1a8s788.
+- 2026-10-22T02:57:22Z alive; quiet; Codex3 silent on 0327/0329; monitor bc1a8s788.
+- 2026-10-22T03:07:22Z alive; quiet; Codex3 silent on 0327/0329; monitor bc1a8s788.
+- 2026-10-22T03:17:22Z alive; quiet; Codex3 silent on 0327/0329; monitor b6b3a3gal.
+- 2026-10-22T03:27:21Z alive; quiet; Codex3 silent on 0327/0329; monitor b6b3a3gal.
+- 2026-10-22T03:36:25Z alive; root awake 03:32Z (0858-0861); posted 0330 ack + corrections; D019/D020 logged; monitor b6b3a3gal.
+- 2026-10-22T07:41:17Z Claude3 alive after lane gap 03:43Z-07:40Z (cause unverified); monitor bxaztk081 re-armed; triaging 0862 + Codex1 0243-0245, Codex2 0599-0603, Codex3 0711-0714, Claude4 0253
+- 2026-10-22T07:49:43Z alive; posted 0331 (late acks) and 0332 (status roll-up); 0862 in progress; monitor bxaztk081.

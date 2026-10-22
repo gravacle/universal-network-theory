@@ -1,0 +1,3147 @@
+{
+ "lines": [
+  {
+   "block": "P0",
+   "kind": "FIXED",
+   "line": 101,
+   "ref": "V:L1 (\"Source this at the S4T R3 receipt: `source <this file>`\")",
+   "text": "source \"/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/VERDICT_DAY_VARS_C2V001.sh\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 102,
+   "ref": "S:L16",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 103,
+   "ref": "S:L17",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 104,
+   "ref": "S:L18",
+   "text": "CTRL='/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2'"
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 105,
+   "ref": "S:L19",
+   "text": "PKT=\"$ART/v007_launch_packet_cx1\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 106,
+   "ref": "S:L20",
+   "text": "H3=\"$ART/h3_campaign_path_c2\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 107,
+   "ref": "S:L21",
+   "text": "C4=\"$ART/b1_policy_successor_c4\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 108,
+   "ref": "S:L22",
+   "text": "C1=\"$ART/c1_h1_c2/C1_H1_C2V001.json\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 109,
+   "ref": "S:L23",
+   "text": "REG=\"$ART/s4rc1_c3/registry_c2v001/REGISTRY_31pts_20261020T140004Z.json\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 110,
+   "ref": "S:L24",
+   "text": "COMPARE=\"$CTRL/V007_SEAL_ASSEMBLY/kmax_tail_compare_c2v007_r14_cx1v001_SEALED_V007.py\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 111,
+   "ref": "S:L25",
+   "text": "PREREG=\"$CTRL/V007_SEAL_ASSEMBLY/KMAX_TAIL_PREREG_V007_SEALED.json\""
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 112,
+   "ref": "S:L28",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "P0",
+   "kind": "VERBATIM",
+   "line": 113,
+   "ref": "S:L29",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B1",
+   "kind": "PASTE",
+   "line": 125,
+   "ref": "S:L36",
+   "text": "S4T_R3_RECEIPT=   # PASTE: receipt path from the registered R3 launch record, not R2; outdir ends KMAX_V007_P128_S4T_MS128_CX1_RUN_V011_CX3V001_R3"
+  },
+  {
+   "block": "B1",
+   "kind": "PASTE_GUARD",
+   "line": 126,
+   "ref": "J:L53 guard form",
+   "text": ": \"${S4T_R3_RECEIPT:?PASTE S4T_R3_RECEIPT}\""
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 127,
+   "ref": "S:L39",
+   "text": "\"$PY\" -I -B - \"$S4T_R3_RECEIPT\" <<'CHECK'"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 128,
+   "ref": "S:L40",
+   "text": "from pathlib import Path"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 129,
+   "ref": "S:L41",
+   "text": "import json,hashlib,sys"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 130,
+   "ref": "S:L42",
+   "text": "p=Path(sys.argv[1]); raw=p.read_bytes(); r=json.loads(raw)"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 131,
+   "ref": "S:L43",
+   "text": "print('receipt_sha256',hashlib.sha256(raw).hexdigest())"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 132,
+   "ref": "S:L44",
+   "text": "for k in ('schema','utc_start','utc_end','status','driver_status','exit_code','stop_reason','command','pins','caps','result'):"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 133,
+   "ref": "S:L45",
+   "text": "    print(k,json.dumps(r.get(k),sort_keys=True))"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 134,
+   "ref": "S:L46",
+   "text": "assert r.get('status')=='FINISHED' and type(r.get('exit_code')) is int and r['exit_code']==0"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 135,
+   "ref": "S:L47",
+   "text": "assert r.get('stop_reason') is None and r.get('driver_status')=='COMPLETED'"
+  },
+  {
+   "block": "B1",
+   "kind": "VERBATIM",
+   "line": 136,
+   "ref": "S:L48",
+   "text": "CHECK"
+  },
+  {
+   "block": "B3a",
+   "kind": "PASTE",
+   "line": 159,
+   "ref": "S:L32",
+   "text": "export UNT_ROOT_ADMISSION_SHA256=   # PASTE: from the independent root publication; producer_guard_cx1v008 has no path override"
+  },
+  {
+   "block": "B3a",
+   "kind": "PASTE_GUARD",
+   "line": 160,
+   "ref": "J:L53 guard form",
+   "text": ": \"${UNT_ROOT_ADMISSION_SHA256:?PASTE UNT_ROOT_ADMISSION_SHA256}\""
+  },
+  {
+   "block": "B3a",
+   "kind": "PASTE",
+   "line": 161,
+   "ref": "S:L61",
+   "text": "CASE_RUN=   # PASTE: the registered run of this case (R3 for S4T)"
+  },
+  {
+   "block": "B3a",
+   "kind": "PASTE_GUARD",
+   "line": 162,
+   "ref": "J:L53 guard form",
+   "text": ": \"${CASE_RUN:?PASTE CASE_RUN}\""
+  },
+  {
+   "block": "B3a",
+   "kind": "PASTE",
+   "line": 163,
+   "ref": "S:L61",
+   "text": "CASE_LABEL=   # PASTE: one exact base label from B2"
+  },
+  {
+   "block": "B3a",
+   "kind": "PASTE_GUARD",
+   "line": 164,
+   "ref": "J:L53 guard form",
+   "text": ": \"${CASE_LABEL:?PASTE CASE_LABEL}\""
+  },
+  {
+   "block": "B3a",
+   "kind": "QOS_DROPPED",
+   "line": 165,
+   "ref": "S:L64 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$PKT/ea_replay_cx1v012.py\" \"$CASE_RUN\" \"$CASE_LABEL\" \"$PS/EA_${CASE_LABEL}.json\""
+  },
+  {
+   "block": "B3a",
+   "kind": "QOS_DROPPED",
+   "line": 166,
+   "ref": "S:L65 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$PKT/ra10_checkpoint_cx1v012.py\" \"$CASE_RUN\" \"$CASE_LABEL\" \"$PS/HARMONICS_${CASE_LABEL}.json\""
+  },
+  {
+   "block": "B3b",
+   "kind": "PASTE",
+   "line": 176,
+   "ref": "S:L32",
+   "text": "export UNT_ROOT_ADMISSION_SHA256=   # PASTE: as in B3a"
+  },
+  {
+   "block": "B3b",
+   "kind": "PASTE_GUARD",
+   "line": 177,
+   "ref": "J:L53 guard form",
+   "text": ": \"${UNT_ROOT_ADMISSION_SHA256:?PASTE UNT_ROOT_ADMISSION_SHA256}\""
+  },
+  {
+   "block": "B3b",
+   "kind": "PASTE",
+   "line": 178,
+   "ref": "S:L55",
+   "text": "RESULT_MANIFEST=   # PASTE: the B2 result manifest path"
+  },
+  {
+   "block": "B3b",
+   "kind": "PASTE_GUARD",
+   "line": 179,
+   "ref": "J:L53 guard form",
+   "text": ": \"${RESULT_MANIFEST:?PASTE RESULT_MANIFEST}\""
+  },
+  {
+   "block": "B3b",
+   "kind": "QOS_DROPPED",
+   "line": 180,
+   "ref": "S:L67 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$PKT/postseal_records_cx1v006_cx3v001.py\" MT \"$RESULT_MANIFEST\" \"$PS/MT.json\""
+  },
+  {
+   "block": "B3b",
+   "kind": "QOS_DROPPED",
+   "line": 181,
+   "ref": "S:L68 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$PKT/postseal_records_cx1v006_cx3v001.py\" I1T \"$RESULT_MANIFEST\" \"$PS/I1T.json\""
+  },
+  {
+   "block": "B3b",
+   "kind": "QOS_DROPPED",
+   "line": 182,
+   "ref": "S:L69 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$PKT/postseal_records_cx1v006_cx3v001.py\" FLAG_RULINGS \"$RESULT_MANIFEST\" \"$PS/FLAG_RULINGS.json\""
+  },
+  {
+   "block": "B3c",
+   "kind": "PASTE",
+   "line": 192,
+   "ref": "S:L32",
+   "text": "export UNT_ROOT_ADMISSION_SHA256=   # PASTE: as in B3a"
+  },
+  {
+   "block": "B3c",
+   "kind": "PASTE_GUARD",
+   "line": 193,
+   "ref": "J:L53 guard form",
+   "text": ": \"${UNT_ROOT_ADMISSION_SHA256:?PASTE UNT_ROOT_ADMISSION_SHA256}\""
+  },
+  {
+   "block": "B3c",
+   "kind": "PASTE",
+   "line": 194,
+   "ref": "S:L72",
+   "text": "EA_COMPONENT_MANIFEST=   # PASTE: label \u2192 component-byte-pin manifest (not `runs`), including the registered C5H component; that component is solely root's existing blinded procedure"
+  },
+  {
+   "block": "B3c",
+   "kind": "PASTE_GUARD",
+   "line": 195,
+   "ref": "J:L53 guard form",
+   "text": ": \"${EA_COMPONENT_MANIFEST:?PASTE EA_COMPONENT_MANIFEST}\""
+  },
+  {
+   "block": "B3c",
+   "kind": "QOS_DROPPED",
+   "line": 196,
+   "ref": "S:L66 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$PKT/aggregate_records_cx1v008.py\" EA \"$EA_COMPONENT_MANIFEST\" \"$PS/EA.json\""
+  },
+  {
+   "block": "B4",
+   "kind": "PASTE",
+   "line": 208,
+   "ref": "S:L55",
+   "text": "CASES=   # PASTE: the B2 cases manifest path"
+  },
+  {
+   "block": "B4",
+   "kind": "PASTE_GUARD",
+   "line": 209,
+   "ref": "J:L53 guard form",
+   "text": ": \"${CASES:?PASTE CASES}\""
+  },
+  {
+   "block": "B4",
+   "kind": "PASTE",
+   "line": 210,
+   "ref": "S:L13 (all new paths must be unused)",
+   "text": "VERDICT_DIR=   # PASTE: a new, unused folder for the comparison report"
+  },
+  {
+   "block": "B4",
+   "kind": "PASTE_GUARD",
+   "line": 211,
+   "ref": "J:L53 guard form",
+   "text": ": \"${VERDICT_DIR:?PASTE VERDICT_DIR}\""
+  },
+  {
+   "block": "B4",
+   "kind": "QOS_DROPPED",
+   "line": 212,
+   "ref": "S:L79 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$COMPARE\" --prereg \"$PREREG\" --manifest \"$CASES\" --outdir \"$VERDICT_DIR\""
+  },
+  {
+   "block": "B4",
+   "kind": "VERBATIM",
+   "line": 213,
+   "ref": "S:L80",
+   "text": "VERDICT=\"$VERDICT_DIR/KMAX_TAIL_COMPARISON.json\""
+  },
+  {
+   "block": "B4",
+   "kind": "VERBATIM",
+   "line": 214,
+   "ref": "S:L81",
+   "text": "VERDICT_SHA=$(shasum -a 256 \"$VERDICT\" | cut -c1-64)"
+  },
+  {
+   "block": "B4",
+   "kind": "DERIVED",
+   "line": 215,
+   "ref": "D2: display for publication (S:L84 \"publish verdict path and byte SHA\"); printf form of J:L63",
+   "text": "printf 'VERDICT %s %s\\n' \"$VERDICT_SHA\" \"$VERDICT\""
+  },
+  {
+   "block": "B5a",
+   "kind": "PASTE",
+   "line": 229,
+   "ref": "S:L79",
+   "text": "VERDICT_DIR=   # PASTE: the B4 folder"
+  },
+  {
+   "block": "B5a",
+   "kind": "PASTE_GUARD",
+   "line": 230,
+   "ref": "J:L53 guard form",
+   "text": ": \"${VERDICT_DIR:?PASTE VERDICT_DIR}\""
+  },
+  {
+   "block": "B5a",
+   "kind": "REDERIVED",
+   "line": 231,
+   "ref": "S:L80",
+   "text": "VERDICT=\"$VERDICT_DIR/KMAX_TAIL_COMPARISON.json\""
+  },
+  {
+   "block": "B5a",
+   "kind": "REDERIVED",
+   "line": 232,
+   "ref": "S:L81",
+   "text": "VERDICT_SHA=$(shasum -a 256 \"$VERDICT\" | cut -c1-64)"
+  },
+  {
+   "block": "B5a",
+   "kind": "VERBATIM",
+   "line": 233,
+   "ref": "S:L89",
+   "text": "cd \"$C4\""
+  },
+  {
+   "block": "B5a",
+   "kind": "QOS_DROPPED",
+   "line": 234,
+   "ref": "S:L90 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B tools/run_fenced_c4st2.py tools/make_b1_cascade_c4v002.py \"$C4/final\" v006r11_c4 --dry-run --policy-only --seal-tuple a99105a19b582c68d961e0ee12be3a2efa79dbd1e65d63682c3d2d8daa55f0ab b2989012c92161a7da3dd10d0148e1607422416d369fc4ebe164217758b5c695 c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1 UNT_KMAX_TAIL_COMPARISON_C2V007_R11 \"$VERDICT_SHA\""
+  },
+  {
+   "block": "B5b",
+   "kind": "PASTE",
+   "line": 244,
+   "ref": "S:L79",
+   "text": "VERDICT_DIR=   # PASTE: the B4 folder"
+  },
+  {
+   "block": "B5b",
+   "kind": "PASTE_GUARD",
+   "line": 245,
+   "ref": "J:L53 guard form",
+   "text": ": \"${VERDICT_DIR:?PASTE VERDICT_DIR}\""
+  },
+  {
+   "block": "B5b",
+   "kind": "REDERIVED",
+   "line": 246,
+   "ref": "S:L80",
+   "text": "VERDICT=\"$VERDICT_DIR/KMAX_TAIL_COMPARISON.json\""
+  },
+  {
+   "block": "B5b",
+   "kind": "REDERIVED",
+   "line": 247,
+   "ref": "S:L81",
+   "text": "VERDICT_SHA=$(shasum -a 256 \"$VERDICT\" | cut -c1-64)"
+  },
+  {
+   "block": "B5b",
+   "kind": "REDERIVED",
+   "line": 248,
+   "ref": "S:L89",
+   "text": "cd \"$C4\""
+  },
+  {
+   "block": "B5b",
+   "kind": "QOS_DROPPED",
+   "line": 249,
+   "ref": "S:L92 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B tools/run_fenced_c4st2.py tools/make_b1_cascade_c4v002.py \"$C4/final\" v006r11_c4 --write --policy-only --seal-tuple a99105a19b582c68d961e0ee12be3a2efa79dbd1e65d63682c3d2d8daa55f0ab b2989012c92161a7da3dd10d0148e1607422416d369fc4ebe164217758b5c695 c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1 UNT_KMAX_TAIL_COMPARISON_C2V007_R11 \"$VERDICT_SHA\""
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 250,
+   "ref": "S:L98",
+   "text": "SRC=\"$C4/final/v006r11_c4/adoption_policy_cx2v006r11_c4.py\""
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 251,
+   "ref": "S:L99",
+   "text": "DST=\"$ART/calib_tail_readiness_cx2/v006r11_c4/adoption_policy_cx2v006r11_c4.py\""
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 252,
+   "ref": "S:L100",
+   "text": "cp -n \"$SRC\" \"$DST\""
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 253,
+   "ref": "S:L101",
+   "text": "\"$PY\" -I -B - \"$SRC\" \"$DST\" <<'CHECK'"
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 254,
+   "ref": "S:L102",
+   "text": "from pathlib import Path"
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 255,
+   "ref": "S:L103",
+   "text": "import hashlib,sys"
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 256,
+   "ref": "S:L104",
+   "text": "a,b=(Path(x).read_bytes() for x in sys.argv[1:]); assert a==b"
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 257,
+   "ref": "S:L105",
+   "text": "print(hashlib.sha256(b).hexdigest())"
+  },
+  {
+   "block": "B5b",
+   "kind": "VERBATIM",
+   "line": 258,
+   "ref": "S:L106",
+   "text": "CHECK"
+  },
+  {
+   "block": "B6",
+   "kind": "PASTE",
+   "line": 276,
+   "ref": "S:L79",
+   "text": "VERDICT_DIR=   # PASTE: the B4 folder"
+  },
+  {
+   "block": "B6",
+   "kind": "PASTE_GUARD",
+   "line": 277,
+   "ref": "J:L53 guard form",
+   "text": ": \"${VERDICT_DIR:?PASTE VERDICT_DIR}\""
+  },
+  {
+   "block": "B6",
+   "kind": "REDERIVED",
+   "line": 278,
+   "ref": "S:L80",
+   "text": "VERDICT=\"$VERDICT_DIR/KMAX_TAIL_COMPARISON.json\""
+  },
+  {
+   "block": "B6",
+   "kind": "PASTE",
+   "line": 279,
+   "ref": "S:L114",
+   "text": "VERDICT_RULING=   # PASTE: root's ruling argument for the fill"
+  },
+  {
+   "block": "B6",
+   "kind": "PASTE_GUARD",
+   "line": 280,
+   "ref": "J:L53 guard form",
+   "text": ": \"${VERDICT_RULING:?PASTE VERDICT_RULING}\""
+  },
+  {
+   "block": "B6",
+   "kind": "VERBATIM",
+   "line": 281,
+   "ref": "S:L114",
+   "text": "\"$PY\" -I -B \"$H3/regenerate_h3_c2v004.py\" fill --report \"$VERDICT\" --filled-by 'root (Claude2)' --ruling \"$VERDICT_RULING\" --out \"$R/SEAL_TUPLE_RECORD_H3_FILLED.json\""
+  },
+  {
+   "block": "B6",
+   "kind": "VERBATIM",
+   "line": 282,
+   "ref": "S:L115",
+   "text": "SEAL_RECORD=\"$R/SEAL_TUPLE_RECORD_H3_FILLED.json\""
+  },
+  {
+   "block": "B6",
+   "kind": "VERBATIM",
+   "line": 283,
+   "ref": "S:L116",
+   "text": "SEAL_SHA=$(shasum -a 256 \"$SEAL_RECORD\" | cut -c1-64)"
+  },
+  {
+   "block": "B6",
+   "kind": "VERBATIM",
+   "line": 284,
+   "ref": "S:L117",
+   "text": "\"$PY\" -I -B \"$H3/regenerate_h3_c2v004.py\" build --seal-record \"$SEAL_RECORD\" --seal-record-sha256 \"$SEAL_SHA\" --out-dir \"$R/chain\""
+  },
+  {
+   "block": "B8a",
+   "kind": "PASTE",
+   "line": 302,
+   "ref": "S:L136",
+   "text": "H1_PREDECESSOR=   # PASTE: root's H1 predecessor from the frozen C1 tail_readiness and the adopted r11 bindings"
+  },
+  {
+   "block": "B8a",
+   "kind": "PASTE_GUARD",
+   "line": 303,
+   "ref": "J:L53 guard form",
+   "text": ": \"${H1_PREDECESSOR:?PASTE H1_PREDECESSOR}\""
+  },
+  {
+   "block": "B8a",
+   "kind": "COMMENT",
+   "line": 304,
+   "ref": "",
+   "text": "# H1_DELTA and H1_CONFIG are set by VARS (V:L12-13); root writes the delta file before this call (S:L136)"
+  },
+  {
+   "block": "B8a",
+   "kind": "REDERIVED",
+   "line": 305,
+   "ref": "S:L115",
+   "text": "SEAL_RECORD=\"$R/SEAL_TUPLE_RECORD_H3_FILLED.json\""
+  },
+  {
+   "block": "B8a",
+   "kind": "REDERIVED",
+   "line": 306,
+   "ref": "S:L116",
+   "text": "SEAL_SHA=$(shasum -a 256 \"$SEAL_RECORD\" | cut -c1-64)"
+  },
+  {
+   "block": "B8a",
+   "kind": "VERBATIM",
+   "line": 307,
+   "ref": "S:L139",
+   "text": "BLOCK_SOURCE=\"$PKT/P128/specs/C4T_P128_MS128_R5_CX1V004.FILLED.json\""
+  },
+  {
+   "block": "B8a",
+   "kind": "VERBATIM",
+   "line": 308,
+   "ref": "S:L140",
+   "text": "\"$PY\" -I -B \"$H3/apply_fields_c2v006/apply_h3_fields_c2v006.py\" \"$H1_PREDECESSOR\" \"$H1_DELTA\" \"$H1_CONFIG\" \"$R/H1_APPLY_REPORT.json\" --seal-record \"$SEAL_RECORD\" --seal-record-sha256 \"$SEAL_SHA\" --block-source \"$BLOCK_SOURCE\" --block-source-sha256 de6d7d77d053d9c983f15eca11468fe8520d025ff2ad1f643b2a517a915b1738"
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE",
+   "line": 316,
+   "ref": "S:L141; S:L33",
+   "text": "STEP4_SEAL=   # PASTE: root's registered step-4 seal path"
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE_GUARD",
+   "line": 317,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP4_SEAL:?PASTE STEP4_SEAL}\""
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE",
+   "line": 318,
+   "ref": "S:L141; S:L33",
+   "text": "STEP4_SEAL_SHA=   # PASTE: its byte sha256"
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE_GUARD",
+   "line": 319,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP4_SEAL_SHA:?PASTE STEP4_SEAL_SHA}\""
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE",
+   "line": 320,
+   "ref": "S:L105, L109",
+   "text": "R11_POLICY_SHA=   # PASTE: the digest printed by B5b"
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE_GUARD",
+   "line": 321,
+   "ref": "J:L53 guard form",
+   "text": ": \"${R11_POLICY_SHA:?PASTE R11_POLICY_SHA}\""
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE",
+   "line": 322,
+   "ref": "S:L141; S:L13",
+   "text": "FINAL_SPECS_DIR=   # PASTE: a new, unused output folder"
+  },
+  {
+   "block": "B8b",
+   "kind": "PASTE_GUARD",
+   "line": 323,
+   "ref": "J:L53 guard form",
+   "text": ": \"${FINAL_SPECS_DIR:?PASTE FINAL_SPECS_DIR}\""
+  },
+  {
+   "block": "B8b",
+   "kind": "FIXED",
+   "line": 324,
+   "ref": "S:L144 (the comma-separated string given there)",
+   "text": "HEADLINE_CASES='TAIL_REANCHOR,WORKERS_8_CANDIDATE_ANCHOR,HEADLINE_TRIAL,HEADLINE_CORNER_000,HEADLINE_CORNER_001,HEADLINE_CORNER_010,HEADLINE_CORNER_011,HEADLINE_CORNER_100,HEADLINE_CORNER_101,HEADLINE_CORNER_110,HEADLINE_CORNER_111'"
+  },
+  {
+   "block": "B8b",
+   "kind": "REDERIVED",
+   "line": 325,
+   "ref": "S:L99",
+   "text": "DST=\"$ART/calib_tail_readiness_cx2/v006r11_c4/adoption_policy_cx2v006r11_c4.py\""
+  },
+  {
+   "block": "B8b",
+   "kind": "DERIVED",
+   "line": 326,
+   "ref": "D3: S:L144 \"Compute H1_CONFIG_SHA from the newly written bytes before the producer call\"; form of S:L81",
+   "text": "H1_CONFIG_SHA=$(shasum -a 256 \"$H1_CONFIG\" | cut -c1-64)"
+  },
+  {
+   "block": "B8b",
+   "kind": "VERBATIM",
+   "line": 327,
+   "ref": "S:L141",
+   "text": "\"$PY\" -I -B \"$ART/step4_launch_readiness_c4/handoff_v004/tools/produce_final_step4_specs_c4v004.py\" final --config \"$H1_CONFIG\" --config-sha \"$H1_CONFIG_SHA\" --seal \"$STEP4_SEAL\" --seal-sha \"$STEP4_SEAL_SHA\" --adoption-policy \"$DST\" --adoption-policy-sha \"$R11_POLICY_SHA\" --cases \"$HEADLINE_CASES\" --outdir \"$FINAL_SPECS_DIR\" --utc \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\""
+  },
+  {
+   "block": "B7H",
+   "kind": "REDERIVED",
+   "line": 353,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B7H",
+   "kind": "REDERIVED",
+   "line": 354,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE",
+   "line": 355,
+   "ref": "S:L132",
+   "text": "DRIVER=   # PASTE: the call's registered driver path (DDO r5 b5cc62af\u2026 or NGC r008 577f8c94\u2026, per the annex and the call)"
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE_GUARD",
+   "line": 356,
+   "ref": "J:L53 guard form",
+   "text": ": \"${DRIVER:?PASTE DRIVER}\""
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE",
+   "line": 357,
+   "ref": "S:L132",
+   "text": "DRIVER_SHA=   # PASTE: its full sha256"
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE_GUARD",
+   "line": 358,
+   "ref": "J:L53 guard form",
+   "text": ": \"${DRIVER_SHA:?PASTE DRIVER_SHA}\""
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE",
+   "line": 359,
+   "ref": "S:L126",
+   "text": "FILLED_SPEC=   # PASTE: one FINAL spec from B8b"
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE_GUARD",
+   "line": 360,
+   "ref": "J:L53 guard form",
+   "text": ": \"${FILLED_SPEC:?PASTE FILLED_SPEC}\""
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE",
+   "line": 361,
+   "ref": "S:L132",
+   "text": "FILLED_SPEC_SHA=   # PASTE: its sha256 from bytes"
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE_GUARD",
+   "line": 362,
+   "ref": "J:L53 guard form",
+   "text": ": \"${FILLED_SPEC_SHA:?PASTE FILLED_SPEC_SHA}\""
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE",
+   "line": 363,
+   "ref": "S:L126; J:L36",
+   "text": "NEW_DRY_REPORT_DIR=   # PASTE: a new path; the driver creates its report folder"
+  },
+  {
+   "block": "B7H",
+   "kind": "PASTE_GUARD",
+   "line": 364,
+   "ref": "J:L53 guard form",
+   "text": ": \"${NEW_DRY_REPORT_DIR:?PASTE NEW_DRY_REPORT_DIR}\""
+  },
+  {
+   "block": "B7H",
+   "kind": "REDERIVED",
+   "line": 365,
+   "ref": "J:L90",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7H",
+   "kind": "DERIVED",
+   "line": 366,
+   "ref": "D4: S:L132 \"Hash driver and filled spec before it\"; form of J:L91",
+   "text": "[ \"$(sha \"$FILLED_SPEC\")\" = \"$FILLED_SPEC_SHA\" ]"
+  },
+  {
+   "block": "B7H",
+   "kind": "QOS_DROPPED",
+   "line": 367,
+   "ref": "S:L129 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$DRIVER\" dry-run --spec \"$FILLED_SPEC\" --report-dir \"$NEW_DRY_REPORT_DIR\""
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE",
+   "line": 379,
+   "ref": "S:L151",
+   "text": "ADMISSION_CANDIDATE=   # PASTE: the admission candidate path"
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE_GUARD",
+   "line": 380,
+   "ref": "J:L53 guard form",
+   "text": ": \"${ADMISSION_CANDIDATE:?PASTE ADMISSION_CANDIDATE}\""
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE",
+   "line": 381,
+   "ref": "S:L151",
+   "text": "ADMISSION_CANDIDATE_SHA=   # PASTE: its sha256"
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE_GUARD",
+   "line": 382,
+   "ref": "J:L53 guard form",
+   "text": ": \"${ADMISSION_CANDIDATE_SHA:?PASTE ADMISSION_CANDIDATE_SHA}\""
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE",
+   "line": 383,
+   "ref": "S:L151; S:L11",
+   "text": "GUARD011_CANDIDATE=   # PASTE: the guard011 candidate plan (emission only, A218)"
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE_GUARD",
+   "line": 384,
+   "ref": "J:L53 guard form",
+   "text": ": \"${GUARD011_CANDIDATE:?PASTE GUARD011_CANDIDATE}\""
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE",
+   "line": 385,
+   "ref": "S:L151",
+   "text": "GUARD011_CANDIDATE_SHA=   # PASTE: its sha256"
+  },
+  {
+   "block": "B9a",
+   "kind": "PASTE_GUARD",
+   "line": 386,
+   "ref": "J:L53 guard form",
+   "text": ": \"${GUARD011_CANDIDATE_SHA:?PASTE GUARD011_CANDIDATE_SHA}\""
+  },
+  {
+   "block": "B9a",
+   "kind": "COMMENT",
+   "line": 387,
+   "ref": "",
+   "text": "# PRELAUNCH_OUT is set by VARS (V:L11): new and empty; use a fresh folder for any re-emission"
+  },
+  {
+   "block": "B9a",
+   "kind": "VERBATIM",
+   "line": 388,
+   "ref": "S:L151",
+   "text": "\"$PY\" -I -B \"$ART/step4_prelaunch_cx1/v005/step4_prelaunch_c2v005.py\" --admission \"$ADMISSION_CANDIDATE\" --admission-sha256 \"$ADMISSION_CANDIDATE_SHA\" --plan \"$GUARD011_CANDIDATE\" --plan-sha256 \"$GUARD011_CANDIDATE_SHA\" --output-dir \"$PRELAUNCH_OUT\""
+  },
+  {
+   "block": "B9b",
+   "kind": "VERBATIM",
+   "line": 403,
+   "ref": "M:L34",
+   "text": "DBP_C=\"$ART/h11_wall_ceiling_c3/C2V004C_FILL_20261022T093000Z/DIRECT_BATCH_PARAMS_S45_C2V004C.json\""
+  },
+  {
+   "block": "B9b",
+   "kind": "VERBATIM",
+   "line": 404,
+   "ref": "M:L35",
+   "text": "DBP_C_SHA=ce9cbef8caaef8120377f302647c71d80387353d192d25d7d0b7e13e5872e809"
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE",
+   "line": 405,
+   "ref": "S:L152",
+   "text": "GUARD014_FINAL_PLAN=   # PASTE: the root-written final plan"
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE_GUARD",
+   "line": 406,
+   "ref": "J:L53 guard form",
+   "text": ": \"${GUARD014_FINAL_PLAN:?PASTE GUARD014_FINAL_PLAN}\""
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE",
+   "line": 407,
+   "ref": "S:L152",
+   "text": "FINAL_ADMISSION_CANDIDATE=   # PASTE: the root-written final admission candidate"
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE_GUARD",
+   "line": 408,
+   "ref": "J:L53 guard form",
+   "text": ": \"${FINAL_ADMISSION_CANDIDATE:?PASTE FINAL_ADMISSION_CANDIDATE}\""
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE",
+   "line": 409,
+   "ref": "S:L152; V:L14",
+   "text": "BOUND_PLAN=   # PASTE: a new path under $PACKET"
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE_GUARD",
+   "line": 410,
+   "ref": "J:L53 guard form",
+   "text": ": \"${BOUND_PLAN:?PASTE BOUND_PLAN}\""
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE",
+   "line": 411,
+   "ref": "S:L152; V:L14",
+   "text": "BOUND_ADMISSION=   # PASTE: a new path under $PACKET"
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE_GUARD",
+   "line": 412,
+   "ref": "J:L53 guard form",
+   "text": ": \"${BOUND_ADMISSION:?PASTE BOUND_ADMISSION}\""
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE",
+   "line": 413,
+   "ref": "S:L152; V:L14",
+   "text": "BOUND_COMMAND=   # PASTE: a new path under $PACKET"
+  },
+  {
+   "block": "B9b",
+   "kind": "PASTE_GUARD",
+   "line": 414,
+   "ref": "J:L53 guard form",
+   "text": ": \"${BOUND_COMMAND:?PASTE BOUND_COMMAND}\""
+  },
+  {
+   "block": "B9b",
+   "kind": "VERBATIM",
+   "line": 415,
+   "ref": "S:L152",
+   "text": "\"$PY\" -I -B \"$ART/s1_successors_c2/step4_bind_c2v011.py\" --final-plan \"$GUARD014_FINAL_PLAN\" --admission-candidate \"$FINAL_ADMISSION_CANDIDATE\" --plan-out \"$BOUND_PLAN\" --admission-out \"$BOUND_ADMISSION\" --command-out \"$BOUND_COMMAND\""
+  },
+  {
+   "block": "B9b",
+   "kind": "VERBATIM",
+   "line": 416,
+   "ref": "M:L45",
+   "text": "\"$PY\" -I -B \"$ART/h11_wall_ceiling_c3/check_headline_caps_c3v001.py\" \"$DBP_C\" \"$DBP_C_SHA\" \"$BOUND_PLAN\" \"$BOUND_ADMISSION\""
+  },
+  {
+   "block": "B10H",
+   "kind": "FIXED",
+   "line": 428,
+   "ref": "S:L157 (each phase separately)",
+   "text": "PHASE=HEADLINE11"
+  },
+  {
+   "block": "B10H",
+   "kind": "FIXED",
+   "line": 429,
+   "ref": "V:L10",
+   "text": "E=\"$E_H11\""
+  },
+  {
+   "block": "B10H",
+   "kind": "FIXED",
+   "line": 430,
+   "ref": "S:L167",
+   "text": "PHASE_SOURCE_ARGS=(   # PASTE: --doc-pin SHA PATH entries for the final run configs, plans, admission records and registered inputs, including the C1 pin with --scope \"$C1\" /tail_readiness and the registry pin"
+  },
+  {
+   "block": "B10H",
+   "kind": "FIXED",
+   "line": 431,
+   "ref": "S:L167",
+   "text": ")"
+  },
+  {
+   "block": "B10H",
+   "kind": "DERIVED",
+   "line": 432,
+   "ref": "D5: S:L167 \"an empty array is not a phase envelope\"",
+   "text": "[ \"${#PHASE_SOURCE_ARGS[@]}\" -gt 0 ]"
+  },
+  {
+   "block": "B10H",
+   "kind": "VERBATIM",
+   "line": 433,
+   "ref": "S:L160",
+   "text": "T=\"$ART/pinned_input_envelope_c2v003/pinned_input_envelope_c2v003.py\""
+  },
+  {
+   "block": "B10H",
+   "kind": "VERBATIM",
+   "line": 434,
+   "ref": "S:L161",
+   "text": "V006=\"$CTRL/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md\""
+  },
+  {
+   "block": "B10H",
+   "kind": "VERBATIM",
+   "line": 435,
+   "ref": "S:L162",
+   "text": "\"$PY\" -I -B \"$T\" collect --phase \"$PHASE\" --max-depth 0 \"${PHASE_SOURCE_ARGS[@]}\" --v006 \"$V006\" --out \"$E/PINSET.json\""
+  },
+  {
+   "block": "B10H",
+   "kind": "VERBATIM",
+   "line": 436,
+   "ref": "S:L163",
+   "text": "PINSET_SHA=$(shasum -a 256 \"$E/PINSET.json\" | cut -c1-64)"
+  },
+  {
+   "block": "B10H",
+   "kind": "VERBATIM",
+   "line": 437,
+   "ref": "S:L164",
+   "text": "\"$PY\" -I -B \"$T\" snapshot --pins \"$E/PINSET.json\" --pins-sha256 \"$PINSET_SHA\" --label start --out \"$E/START.json\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 457,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 458,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 459,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 460,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 461,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 462,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 463,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 464,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 465,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 466,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 467,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 468,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 469,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 470,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 471,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 472,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B7S1",
+   "kind": "DERIVED",
+   "line": 473,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 474,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7S1",
+   "kind": "PASTE",
+   "line": 475,
+   "ref": "J:L50",
+   "text": "ROOT_FIELDS=   # PASTE: root's actual \u00a77 root-fields path (schema PHASE1_POINT_HANDOFF_ROOT_FIELDS_C2V001)"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 476,
+   "ref": "J:L53",
+   "text": ": \"${ROOT_FIELDS:?root must supply actual root-fields path}\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "PASTE",
+   "line": 477,
+   "ref": "J:L50",
+   "text": "ROOT_FIELDS_SHA=   # PASTE: its byte sha256"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 478,
+   "ref": "J:L54",
+   "text": ": \"${ROOT_FIELDS_SHA:?root must supply actual root-fields byte SHA}\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 479,
+   "ref": "J:L55",
+   "text": "[ \"$(sha \"$ROOT_FIELDS\")\" = \"$ROOT_FIELDS_SHA\" ]"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 480,
+   "ref": "J:L56",
+   "text": "\"$PY\" -I -B \"$HANDOFF_TOOL\"   --source \"$ART/phase1_c2/S0_RECORD_ROOT_V001/S0_C2V001.json\"   --source-sha256 1be5ed709cdb49106652beb76baaafc1c257e760d8cda2c62c18ea6fb2e88143   --root-fields \"$ROOT_FIELDS\" --root-fields-sha256 \"$ROOT_FIELDS_SHA\"   --out-dir \"$S0_STAGE/handoffs\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 481,
+   "ref": "J:L57",
+   "text": "J0_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_0_3d7785669b549d6f_C2V001.json\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 482,
+   "ref": "J:L58",
+   "text": "J1_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_1_ab7bf95317b37652_C2V001.json\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 483,
+   "ref": "J:L59",
+   "text": "J2_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_2_4b9b4ec88eb2d94c_C2V001.json\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 484,
+   "ref": "J:L60",
+   "text": "J0_HANDOFF_SHA=$(sha \"$J0_HANDOFF\")"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 485,
+   "ref": "J:L61",
+   "text": "J1_HANDOFF_SHA=$(sha \"$J1_HANDOFF\")"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 486,
+   "ref": "J:L62",
+   "text": "J2_HANDOFF_SHA=$(sha \"$J2_HANDOFF\")"
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 487,
+   "ref": "J:L63",
+   "text": "printf 'HANDOFF_PIN S0_J0 %s %s\\n' \"$J0_HANDOFF_SHA\" \"$J0_HANDOFF\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 488,
+   "ref": "J:L64",
+   "text": "printf 'HANDOFF_PIN S0_J1 %s %s\\n' \"$J1_HANDOFF_SHA\" \"$J1_HANDOFF\""
+  },
+  {
+   "block": "B7S1",
+   "kind": "VERBATIM",
+   "line": 489,
+   "ref": "J:L65",
+   "text": "printf 'HANDOFF_PIN S0_J2 %s %s\\n' \"$J2_HANDOFF_SHA\" \"$J2_HANDOFF\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 503,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 504,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 505,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 506,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 507,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 508,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 509,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 510,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 511,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 512,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 513,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 514,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 515,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 516,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 517,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 518,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "DERIVED",
+   "line": 519,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 520,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "REDERIVED",
+   "line": 521,
+   "ref": "J:L57",
+   "text": "J0_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_0_3d7785669b549d6f_C2V001.json\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "REDERIVED",
+   "line": 522,
+   "ref": "J:L58",
+   "text": "J1_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_1_ab7bf95317b37652_C2V001.json\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "REDERIVED",
+   "line": 523,
+   "ref": "J:L59",
+   "text": "J2_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_2_4b9b4ec88eb2d94c_C2V001.json\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "REDERIVED",
+   "line": 524,
+   "ref": "J:L60",
+   "text": "J0_HANDOFF_SHA=$(sha \"$J0_HANDOFF\")"
+  },
+  {
+   "block": "B7S2",
+   "kind": "REDERIVED",
+   "line": 525,
+   "ref": "J:L61",
+   "text": "J1_HANDOFF_SHA=$(sha \"$J1_HANDOFF\")"
+  },
+  {
+   "block": "B7S2",
+   "kind": "REDERIVED",
+   "line": 526,
+   "ref": "J:L62",
+   "text": "J2_HANDOFF_SHA=$(sha \"$J2_HANDOFF\")"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 527,
+   "ref": "J:L81",
+   "text": "\"$PY\" -I -B \"$FILLER\" --handoff \"$J0_HANDOFF\" --expected-sha256 \"$J0_HANDOFF_SHA\" --output-dir \"$S0_STAGE/fills/J0\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 528,
+   "ref": "J:L82",
+   "text": "\"$PY\" -I -B \"$FILLER\" --handoff \"$J1_HANDOFF\" --expected-sha256 \"$J1_HANDOFF_SHA\" --output-dir \"$S0_STAGE/fills/J1\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 529,
+   "ref": "J:L83",
+   "text": "\"$PY\" -I -B \"$FILLER\" --handoff \"$J2_HANDOFF\" --expected-sha256 \"$J2_HANDOFF_SHA\" --output-dir \"$S0_STAGE/fills/J2\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 530,
+   "ref": "J:L84",
+   "text": "J0_SPEC=\"$S0_STAGE/fills/J0/CALL_A_K32_A2_HEADLINE_C2V001.json\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 531,
+   "ref": "J:L85",
+   "text": "J1_SPEC=\"$S0_STAGE/fills/J1/CALL_A_K32_A2_HEADLINE_C2V001.json\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 532,
+   "ref": "J:L86",
+   "text": "J2_SPEC=\"$S0_STAGE/fills/J2/CALL_A_K32_A2_HEADLINE_C2V001.json\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 533,
+   "ref": "J:L87",
+   "text": "J0_SPEC_SHA=$(sha \"$J0_SPEC\")"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 534,
+   "ref": "J:L88",
+   "text": "J1_SPEC_SHA=$(sha \"$J1_SPEC\")"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 535,
+   "ref": "J:L89",
+   "text": "J2_SPEC_SHA=$(sha \"$J2_SPEC\")"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 536,
+   "ref": "J:L90",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 537,
+   "ref": "J:L91",
+   "text": "[ \"$(sha \"$J0_SPEC\")\" = \"$J0_SPEC_SHA\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 538,
+   "ref": "J:L92",
+   "text": "\"$PY\" -I -B \"$DRIVER\" dry-run --spec \"$J0_SPEC\" --report-dir \"$S0_STAGE/driver_plans/J0\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 539,
+   "ref": "J:L93",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 540,
+   "ref": "J:L94",
+   "text": "[ \"$(sha \"$J1_SPEC\")\" = \"$J1_SPEC_SHA\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 541,
+   "ref": "J:L95",
+   "text": "\"$PY\" -I -B \"$DRIVER\" dry-run --spec \"$J1_SPEC\" --report-dir \"$S0_STAGE/driver_plans/J1\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 542,
+   "ref": "J:L96",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 543,
+   "ref": "J:L97",
+   "text": "[ \"$(sha \"$J2_SPEC\")\" = \"$J2_SPEC_SHA\" ]"
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 544,
+   "ref": "J:L98",
+   "text": "\"$PY\" -I -B \"$DRIVER\" dry-run --spec \"$J2_SPEC\" --report-dir \"$S0_STAGE/driver_plans/J2\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 545,
+   "ref": "J:L106",
+   "text": "printf 'SPEC_PIN S0_J0_SERIAL %s %s\\n' \"$J0_SPEC_SHA\" \"$J0_SPEC\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 546,
+   "ref": "J:L107",
+   "text": "printf 'SPEC_PIN S0_J1_SERIAL %s %s\\n' \"$J1_SPEC_SHA\" \"$J1_SPEC\""
+  },
+  {
+   "block": "B7S2",
+   "kind": "VERBATIM",
+   "line": 547,
+   "ref": "J:L108",
+   "text": "printf 'SPEC_PIN S0_J2_SERIAL %s %s\\n' \"$J2_SPEC_SHA\" \"$J2_SPEC\""
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 561,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 562,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 563,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 564,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 565,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 566,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 567,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 568,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 569,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 570,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 571,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 572,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 573,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 574,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 575,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 576,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B7S3",
+   "kind": "DERIVED",
+   "line": 577,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 578,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7S3",
+   "kind": "PASTE",
+   "line": 579,
+   "ref": "S:L176; J:L130",
+   "text": "STEP2_LAST_RECEIPT=   # PASTE: the actual last step-2 receipt (see gap G3)"
+  },
+  {
+   "block": "B7S3",
+   "kind": "PASTE_GUARD",
+   "line": 580,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP2_LAST_RECEIPT:?PASTE STEP2_LAST_RECEIPT}\""
+  },
+  {
+   "block": "B7S3",
+   "kind": "VERBATIM",
+   "line": 581,
+   "ref": "S:L176",
+   "text": "/bin/bash \"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\" seed --launch-root \"$S0_LAUNCH_ROOT\" --run-root /Volumes/External1/NGC_S0_PHASE1_V001 --attempt 1 --step2-receipt \"$STEP2_LAST_RECEIPT\""
+  },
+  {
+   "block": "B7X",
+   "kind": "REDERIVED",
+   "line": 593,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B7X",
+   "kind": "REDERIVED",
+   "line": 594,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE",
+   "line": 595,
+   "ref": "S:L132; J:L22",
+   "text": "DRIVER=   # PASTE: the NGC r008 driver path (S0 calls)"
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE_GUARD",
+   "line": 596,
+   "ref": "J:L53 guard form",
+   "text": ": \"${DRIVER:?PASTE DRIVER}\""
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE",
+   "line": 597,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=   # PASTE: 577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE_GUARD",
+   "line": 598,
+   "ref": "J:L53 guard form",
+   "text": ": \"${DRIVER_SHA:?PASTE DRIVER_SHA}\""
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE",
+   "line": 599,
+   "ref": "S:L126",
+   "text": "FILLED_SPEC=   # PASTE: the seed serial spec, or the seed twin spec"
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE_GUARD",
+   "line": 600,
+   "ref": "J:L53 guard form",
+   "text": ": \"${FILLED_SPEC:?PASTE FILLED_SPEC}\""
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE",
+   "line": 601,
+   "ref": "S:L132",
+   "text": "FILLED_SPEC_SHA=   # PASTE: its sha256 from bytes"
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE_GUARD",
+   "line": 602,
+   "ref": "J:L53 guard form",
+   "text": ": \"${FILLED_SPEC_SHA:?PASTE FILLED_SPEC_SHA}\""
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE",
+   "line": 603,
+   "ref": "S:L126",
+   "text": "NEW_DRY_REPORT_DIR=   # PASTE: a new path"
+  },
+  {
+   "block": "B7X",
+   "kind": "PASTE_GUARD",
+   "line": 604,
+   "ref": "J:L53 guard form",
+   "text": ": \"${NEW_DRY_REPORT_DIR:?PASTE NEW_DRY_REPORT_DIR}\""
+  },
+  {
+   "block": "B7X",
+   "kind": "REDERIVED",
+   "line": 605,
+   "ref": "J:L90",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7X",
+   "kind": "DERIVED",
+   "line": 606,
+   "ref": "D4 (as in B7H)",
+   "text": "[ \"$(sha \"$FILLED_SPEC\")\" = \"$FILLED_SPEC_SHA\" ]"
+  },
+  {
+   "block": "B7X",
+   "kind": "QOS_DROPPED",
+   "line": 607,
+   "ref": "S:L129 minus its taskpolicy/nice prefix (A274 item 1)",
+   "text": "\"$PY\" -I -B \"$DRIVER\" dry-run --spec \"$FILLED_SPEC\" --report-dir \"$NEW_DRY_REPORT_DIR\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 617,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 618,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 619,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 620,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 621,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 622,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 623,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 624,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 625,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 626,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 627,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 628,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 629,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 630,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 631,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 632,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B7S4",
+   "kind": "DERIVED",
+   "line": 633,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 634,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B7S4",
+   "kind": "PASTE",
+   "line": 635,
+   "ref": "S:L177",
+   "text": "STEP2_LAST_RECEIPT=   # PASTE: as in B7S3"
+  },
+  {
+   "block": "B7S4",
+   "kind": "PASTE_GUARD",
+   "line": 636,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP2_LAST_RECEIPT:?PASTE STEP2_LAST_RECEIPT}\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "PASTE",
+   "line": 637,
+   "ref": "S:L177",
+   "text": "SEED_DRY_FILL_DIR=   # PASTE: the seed DRY fill folder from B7S3"
+  },
+  {
+   "block": "B7S4",
+   "kind": "PASTE_GUARD",
+   "line": 638,
+   "ref": "J:L53 guard form",
+   "text": ": \"${SEED_DRY_FILL_DIR:?PASTE SEED_DRY_FILL_DIR}\""
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 639,
+   "ref": "J:L116",
+   "text": "/bin/bash \"$SERIAL_KIT\" j0 --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 640,
+   "ref": "J:L117",
+   "text": "/bin/bash \"$SERIAL_KIT\" j1 --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 641,
+   "ref": "J:L118",
+   "text": "/bin/bash \"$SERIAL_KIT\" j2 --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1"
+  },
+  {
+   "block": "B7S4",
+   "kind": "VERBATIM",
+   "line": 642,
+   "ref": "S:L177",
+   "text": "/bin/bash \"$ART/s0_launch_kit_c2/launch_twin_root_c2v003a.sh\" --launch-root \"$S0_LAUNCH_ROOT\" --run-root /Volumes/External1/NGC_S0_PHASE1_V001 --attempt 1 --step2-receipt \"$STEP2_LAST_RECEIPT\" --dry-fill-dir \"$SEED_DRY_FILL_DIR\" --watch-poll-s 30"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 654,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 655,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 656,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 657,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 658,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 659,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 660,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 661,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 662,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 663,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 664,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 665,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 666,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 667,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 668,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 669,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B10S",
+   "kind": "DERIVED",
+   "line": 670,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 671,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 672,
+   "ref": "J:L57",
+   "text": "J0_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_0_3d7785669b549d6f_C2V001.json\""
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 673,
+   "ref": "J:L58",
+   "text": "J1_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_1_ab7bf95317b37652_C2V001.json\""
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 674,
+   "ref": "J:L59",
+   "text": "J2_HANDOFF=\"$S0_STAGE/handoffs/HANDOFF_jacobian_first_attempt_2_4b9b4ec88eb2d94c_C2V001.json\""
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 675,
+   "ref": "J:L60",
+   "text": "J0_HANDOFF_SHA=$(sha \"$J0_HANDOFF\")"
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 676,
+   "ref": "J:L61",
+   "text": "J1_HANDOFF_SHA=$(sha \"$J1_HANDOFF\")"
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 677,
+   "ref": "J:L62",
+   "text": "J2_HANDOFF_SHA=$(sha \"$J2_HANDOFF\")"
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 678,
+   "ref": "J:L84",
+   "text": "J0_SPEC=\"$S0_STAGE/fills/J0/CALL_A_K32_A2_HEADLINE_C2V001.json\""
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 679,
+   "ref": "J:L85",
+   "text": "J1_SPEC=\"$S0_STAGE/fills/J1/CALL_A_K32_A2_HEADLINE_C2V001.json\""
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 680,
+   "ref": "J:L86",
+   "text": "J2_SPEC=\"$S0_STAGE/fills/J2/CALL_A_K32_A2_HEADLINE_C2V001.json\""
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 681,
+   "ref": "J:L87",
+   "text": "J0_SPEC_SHA=$(sha \"$J0_SPEC\")"
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 682,
+   "ref": "J:L88",
+   "text": "J1_SPEC_SHA=$(sha \"$J1_SPEC\")"
+  },
+  {
+   "block": "B10S",
+   "kind": "REDERIVED",
+   "line": 683,
+   "ref": "J:L89",
+   "text": "J2_SPEC_SHA=$(sha \"$J2_SPEC\")"
+  },
+  {
+   "block": "B10S",
+   "kind": "FIXED",
+   "line": 684,
+   "ref": "S:L157; J:L121",
+   "text": "PHASE=S0_SEED"
+  },
+  {
+   "block": "B10S",
+   "kind": "FIXED",
+   "line": 685,
+   "ref": "V:L9; J:L121",
+   "text": "E=\"$E_S0\""
+  },
+  {
+   "block": "B10S",
+   "kind": "FIXED",
+   "line": 686,
+   "ref": "S:L167",
+   "text": "PHASE_SOURCE_ARGS=("
+  },
+  {
+   "block": "B10S",
+   "kind": "DERIVED",
+   "line": 687,
+   "ref": "D6: J:L121 form with n=0",
+   "text": "  --doc-pin \"$J0_HANDOFF_SHA\" \"$J0_HANDOFF\" --doc-pin \"$J0_SPEC_SHA\" \"$J0_SPEC\""
+  },
+  {
+   "block": "B10S",
+   "kind": "DERIVED",
+   "line": 688,
+   "ref": "D6: J:L121 form with n=1",
+   "text": "  --doc-pin \"$J1_HANDOFF_SHA\" \"$J1_HANDOFF\" --doc-pin \"$J1_SPEC_SHA\" \"$J1_SPEC\""
+  },
+  {
+   "block": "B10S",
+   "kind": "DERIVED",
+   "line": 689,
+   "ref": "D6: J:L121 form with n=2",
+   "text": "  --doc-pin \"$J2_HANDOFF_SHA\" \"$J2_HANDOFF\" --doc-pin \"$J2_SPEC_SHA\" \"$J2_SPEC\""
+  },
+  {
+   "block": "B10S",
+   "kind": "PASTE",
+   "line": 690,
+   "ref": "S:L167 (gate document sha); envelope README L91 (path)",
+   "text": "  # PASTE: --doc-pin 5e688882451824931f964e610cf17597d82ee0eb246fb0dce528ec0c6e148042 /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/GATE_DOCUMENT_PINS_V002.json"
+  },
+  {
+   "block": "B10S",
+   "kind": "PASTE",
+   "line": 691,
+   "ref": "J:L121; S:L167",
+   "text": "  # PASTE: the seed handoff and serial spec, the seed-twin spec, the actual verdict binding, final metadata/plans/admissions, referenced inputs and the dry-report/plan pins"
+  },
+  {
+   "block": "B10S",
+   "kind": "FIXED",
+   "line": 692,
+   "ref": "S:L167",
+   "text": ")"
+  },
+  {
+   "block": "B10S",
+   "kind": "DERIVED",
+   "line": 693,
+   "ref": "D5",
+   "text": "[ \"${#PHASE_SOURCE_ARGS[@]}\" -gt 0 ]"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 694,
+   "ref": "S:L160",
+   "text": "T=\"$ART/pinned_input_envelope_c2v003/pinned_input_envelope_c2v003.py\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 695,
+   "ref": "S:L161",
+   "text": "V006=\"$CTRL/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 696,
+   "ref": "S:L162",
+   "text": "\"$PY\" -I -B \"$T\" collect --phase \"$PHASE\" --max-depth 0 \"${PHASE_SOURCE_ARGS[@]}\" --v006 \"$V006\" --out \"$E/PINSET.json\""
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 697,
+   "ref": "S:L163",
+   "text": "PINSET_SHA=$(shasum -a 256 \"$E/PINSET.json\" | cut -c1-64)"
+  },
+  {
+   "block": "B10S",
+   "kind": "VERBATIM",
+   "line": 698,
+   "ref": "S:L164",
+   "text": "\"$PY\" -I -B \"$T\" snapshot --pins \"$E/PINSET.json\" --pins-sha256 \"$PINSET_SHA\" --label start --out \"$E/START.json\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 708,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 709,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 710,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 711,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 712,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 713,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 714,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 715,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 716,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 717,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 718,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 719,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 720,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 721,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 722,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 723,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B11.1",
+   "kind": "DERIVED",
+   "line": 724,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 725,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B11.1",
+   "kind": "PASTE",
+   "line": 726,
+   "ref": "J:L130",
+   "text": "STEP2_LAST_RECEIPT=   # PASTE: the actual last step-2 receipt"
+  },
+  {
+   "block": "B11.1",
+   "kind": "PASTE_GUARD",
+   "line": 727,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP2_LAST_RECEIPT:?PASTE STEP2_LAST_RECEIPT}\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 728,
+   "ref": "J:L130",
+   "text": ": \"${STEP2_LAST_RECEIPT:?root must supply the actual last step-2 receipt}\""
+  },
+  {
+   "block": "B11.1",
+   "kind": "VERBATIM",
+   "line": 729,
+   "ref": "J:L131",
+   "text": "/bin/bash \"$SERIAL_KIT\" seed --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1 --step2-receipt \"$STEP2_LAST_RECEIPT\" --launch"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 743,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 744,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 745,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 746,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 747,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 748,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 749,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 750,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 751,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 752,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 753,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 754,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 755,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 756,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 757,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 758,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B11.2",
+   "kind": "DERIVED",
+   "line": 759,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 760,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B11.2",
+   "kind": "PASTE",
+   "line": 761,
+   "ref": "J:L130",
+   "text": "STEP2_LAST_RECEIPT=   # PASTE: the actual last step-2 receipt"
+  },
+  {
+   "block": "B11.2",
+   "kind": "PASTE_GUARD",
+   "line": 762,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP2_LAST_RECEIPT:?PASTE STEP2_LAST_RECEIPT}\""
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 763,
+   "ref": "J:L130",
+   "text": ": \"${STEP2_LAST_RECEIPT:?root must supply the actual last step-2 receipt}\""
+  },
+  {
+   "block": "B11.2",
+   "kind": "VERBATIM",
+   "line": 764,
+   "ref": "J:L132",
+   "text": "/bin/bash \"$SERIAL_KIT\" j0 --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1 --step2-receipt \"$STEP2_LAST_RECEIPT\" --launch"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 778,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 779,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 780,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 781,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 782,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 783,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 784,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 785,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 786,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 787,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 788,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 789,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 790,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 791,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 792,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 793,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B11.3",
+   "kind": "DERIVED",
+   "line": 794,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 795,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B11.3",
+   "kind": "PASTE",
+   "line": 796,
+   "ref": "J:L130",
+   "text": "STEP2_LAST_RECEIPT=   # PASTE: the actual last step-2 receipt"
+  },
+  {
+   "block": "B11.3",
+   "kind": "PASTE_GUARD",
+   "line": 797,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP2_LAST_RECEIPT:?PASTE STEP2_LAST_RECEIPT}\""
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 798,
+   "ref": "J:L130",
+   "text": ": \"${STEP2_LAST_RECEIPT:?root must supply the actual last step-2 receipt}\""
+  },
+  {
+   "block": "B11.3",
+   "kind": "VERBATIM",
+   "line": 799,
+   "ref": "J:L133",
+   "text": "/bin/bash \"$SERIAL_KIT\" j1 --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1 --step2-receipt \"$STEP2_LAST_RECEIPT\" --launch"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 813,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 814,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 815,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 816,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 817,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 818,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 819,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 820,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 821,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 822,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 823,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 824,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 825,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 826,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 827,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 828,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B11.4",
+   "kind": "DERIVED",
+   "line": 829,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 830,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B11.4",
+   "kind": "PASTE",
+   "line": 831,
+   "ref": "J:L130",
+   "text": "STEP2_LAST_RECEIPT=   # PASTE: the actual last step-2 receipt"
+  },
+  {
+   "block": "B11.4",
+   "kind": "PASTE_GUARD",
+   "line": 832,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP2_LAST_RECEIPT:?PASTE STEP2_LAST_RECEIPT}\""
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 833,
+   "ref": "J:L130",
+   "text": ": \"${STEP2_LAST_RECEIPT:?root must supply the actual last step-2 receipt}\""
+  },
+  {
+   "block": "B11.4",
+   "kind": "VERBATIM",
+   "line": 834,
+   "ref": "J:L134",
+   "text": "/bin/bash \"$SERIAL_KIT\" j2 --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1 --step2-receipt \"$STEP2_LAST_RECEIPT\" --launch"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 848,
+   "ref": "J:L12",
+   "text": "set -euo pipefail"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 849,
+   "ref": "J:L13",
+   "text": "set -o noclobber"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 850,
+   "ref": "J:L14",
+   "text": "PY=/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 851,
+   "ref": "J:L15",
+   "text": "ART=/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 852,
+   "ref": "J:L16",
+   "text": "S0_LAUNCH_ROOT=/Users/bgm/Research/UNT_S0_LAUNCH_C2V003A"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 853,
+   "ref": "J:L17",
+   "text": "S0_RUN_ROOT=/Volumes/External1/NGC_S0_PHASE1_V001"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 854,
+   "ref": "J:L18",
+   "text": "S0_STAGE=\"$S0_LAUNCH_ROOT/prestage_J_CX3V001\""
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 855,
+   "ref": "J:L19",
+   "text": "FILLER=\"$ART/step5_path_c2/tools/fill_step5_c2v001.py\""
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 856,
+   "ref": "J:L20",
+   "text": "HANDOFF_TOOL=\"$ART/step5_path_c2/tools/phase1_point_handoffs_c2v001.py\""
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 857,
+   "ref": "J:L21",
+   "text": "SERIAL_KIT=\"$ART/s0_launch_kit_c2/launch_s0_serial_root_c2v003a.sh\""
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 858,
+   "ref": "J:L22",
+   "text": "DRIVER=\"$ART/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py\""
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 859,
+   "ref": "J:L23",
+   "text": "DRIVER_SHA=577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 860,
+   "ref": "J:L24",
+   "text": "sha() { shasum -a 256 \"$1\" | awk '{print $1}'; }"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 861,
+   "ref": "J:L25",
+   "text": "export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 862,
+   "ref": "J:L26",
+   "text": "export VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 863,
+   "ref": "J:L27",
+   "text": "[ -d \"$S0_LAUNCH_ROOT\" ]"
+  },
+  {
+   "block": "B11.5",
+   "kind": "DERIVED",
+   "line": 864,
+   "ref": "D1: replaces J:L28-29 mkdir (A276 pre-created these folders; J:L27 check form)",
+   "text": "[ -d \"$S0_STAGE\" ] && [ -d \"$S0_STAGE/fills\" ] && [ -d \"$S0_STAGE/driver_plans\" ]"
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 865,
+   "ref": "J:L30",
+   "text": "[ \"$(sha \"$DRIVER\")\" = \"$DRIVER_SHA\" ]"
+  },
+  {
+   "block": "B11.5",
+   "kind": "PASTE",
+   "line": 866,
+   "ref": "J:L130",
+   "text": "STEP2_LAST_RECEIPT=   # PASTE: the actual last step-2 receipt"
+  },
+  {
+   "block": "B11.5",
+   "kind": "PASTE_GUARD",
+   "line": 867,
+   "ref": "J:L53 guard form",
+   "text": ": \"${STEP2_LAST_RECEIPT:?PASTE STEP2_LAST_RECEIPT}\""
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 868,
+   "ref": "J:L130",
+   "text": ": \"${STEP2_LAST_RECEIPT:?root must supply the actual last step-2 receipt}\""
+  },
+  {
+   "block": "B11.5",
+   "kind": "VERBATIM",
+   "line": 869,
+   "ref": "J:L135",
+   "text": "/bin/bash \"$ART/s0_launch_kit_c2/launch_twin_root_c2v003a.sh\" --launch-root \"$S0_LAUNCH_ROOT\" --run-root \"$S0_RUN_ROOT\" --attempt 1 --step2-receipt \"$STEP2_LAST_RECEIPT\" --watch-poll-s 30 --launch"
+  }
+ ],
+ "runbook_sha256": "bdad34c35bab38519182f200be9df2b8721b62df0eb4a19b4eb4fa5a55d7a42d",
+ "schema": "RUNBOOK_XREF_C3V001",
+ "sources": {
+  "J": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_sheet_addendum_cx3/S0_J_ADDENDUM_CX3V001.md",
+   "sha256": "d6bdd5fe8563bfd378ad6cd083d5bfc719f67b5c6c018796f5cee0a2d6251320"
+  },
+  "M": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE3/0276_2026-10-21_0836-built-DBP-C2V004C-HEADLINE11-wall-to-phase2-ceiling-data-only-sheet-amendment-review-request.md",
+   "sha256": "314ef346d6911725c0cb636cd3a7f6b5077af2ead889cad75d169c16a571f0a1"
+  },
+  "S": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verdict_day_sheet_cx1/VERDICT_DAY_COMMAND_SHEET_CX1V001.md",
+   "sha256": "f2a5eec4f00a36a6982833a5611e9fe4d4e008ca3736caef4fa30b2aff80242c"
+  },
+  "V": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/VERDICT_DAY_VARS_C2V001.sh",
+   "sha256": "49607ea4a8660f296516e610718bb26db303ad19c6c517a9f409ba11be56eff5"
+  }
+ },
+ "utc": "2026-10-21T14:58:05Z"
+}

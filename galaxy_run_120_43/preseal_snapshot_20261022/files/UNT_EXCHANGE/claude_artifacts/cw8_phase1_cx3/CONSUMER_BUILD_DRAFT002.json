@@ -1,0 +1,62 @@
+{
+  "changes": [
+    {
+      "new": "BUILDER_NAME = 'roster_builder_c2v007_cx3cw8v001'",
+      "old": "BUILDER_NAME = 'roster_builder_c2v007'"
+    },
+    {
+      "new": "P112_REVIEWED_SHA = '7a4fefede8551176c6973a08b0a0f36b4d88b57b61e84e841c7dee283c9b6284'\nP112_REVIEWED_SHAS = frozenset((P112_REVIEWED_SHA,\n    '8cec1b56fc682f638fee57329eefc9b3cddfa47959d175e7095fc0c5fe0342c9'))",
+      "old": "P112_REVIEWED_SHA = '8cec1b56fc682f638fee57329eefc9b3cddfa47959d175e7095fc0c5fe0342c9'"
+    },
+    {
+      "new": "if norm['sha256'] not in P112_REVIEWED_SHAS:",
+      "old": "if norm['sha256'] != P112_REVIEWED_SHA:"
+    },
+    {
+      "new": "evidence.update({'call_name': name, 'solo_mode': doc['solo_mode'],\n                     'column_workers': _cw8_receipt_workers(doc, entry, entry_pin, record, where)})",
+      "old": "evidence.update({'call_name': name, 'solo_mode': doc['solo_mode']})"
+    },
+    {
+      "new": "(11 if b.get('call_name') == TWIN or b.get('column_workers') == 8 else 1)",
+      "old": "(11 if b.get('call_name') == TWIN else 1)"
+    },
+    {
+      "new": "'RSS equals RAM; identity twin and authorized full cw8 use eleven RAM'",
+      "old": "'RSS equals RAM, twin eleven RAM'"
+    },
+    {
+      "new": "'equals host RAM (eleven RAM for the twin or licensed full cw8). Wall caps are not doubled: '",
+      "old": "'equals host RAM (eleven RAM for the twin). Wall caps are not doubled: '"
+    },
+    {
+      "new": "\"\"\"Read-only full-cw8 receipt custody, composed into the roster builder.\"\"\"\n\n\ndef _cw8_receipt_workers(doc, entry, entry_pin, record, where):\n    role = entry.get(\"worker_role\")\n    name = entry.get(\"name\")\n    if role is None:\n        # Existing entries are immutable. A new tool may close an old attempt\n        # or make a retry, recording the baseline role explicitly. It must not\n        # turn old serial custody into full cw8 or attach a new selection.\n        baseline = {\"kind\": \"IDENTITY_TWIN\" if name == TWIN else \"FULL\",\n                    \"column_workers\": 8 if name == TWIN else 1, \"choice\": None}\n        for saved in (doc.get(\"worker_role\"), record.get(\"worker_role\")):\n            _receipt_need(saved is None or saved == baseline, \"CW8_ROLE_CUSTODY\", where)\n        return 8 if name == TWIN else 1\n    _receipt_need(isinstance(role, dict) and\n                  set(role) == {\"kind\", \"column_workers\", \"choice\"} and\n                  type(role.get(\"column_workers\")) is int and role[\"column_workers\"] in (1, 8),\n                  \"CW8_ROLE_FORM\", where)\n    workers = role[\"column_workers\"]\n    _receipt_need(role[\"kind\"] == (\"IDENTITY_TWIN\" if name == TWIN else \"FULL\") and\n                  (name != TWIN or workers == 8) and\n                  doc.get(\"worker_role\") == role and record.get(\"worker_role\") == role,\n                  \"CW8_ROLE_CUSTODY\", where)\n    spec, _, _ = read_json_pin(entry[\"spec\"], where + \".worker_spec\")\n    try:\n        leaf = spec[\"numerics\"][\"route_a\"][\"column_workers\"]\n    except (KeyError, TypeError):\n        raise Refused(\"CW8_SPEC_LEAF\", where) from None\n    _receipt_need(type(leaf) is int and leaf == workers, \"CW8_SPEC_LEAF\", where)\n    if name != TWIN:\n        _receipt_need(record.get(\"watch_pid\") is None, \"CW8_FULL_CALL_TWIN_WATCHER\", where)\n    if role[\"choice\"] is None:\n        _receipt_need(workers == 1 or name == TWIN, \"CW8_FULL_CALL_UNAUTHORIZED\", where)\n        return workers\n    _receipt_need(name != TWIN and entry.get(\"schema\") == \"UNT_P112_LAUNCH_REGISTRY_ENTRY_CX2V001\",\n                  \"CW8_CHOICE_SCOPE\", where)\n    choice, _, _ = read_json_pin(role[\"choice\"], where + \".worker_choice\")\n    _receipt_need(isinstance(choice, dict) and\n                  choice.get(\"schema\") == \"CW8_PHASE1_CHOICE_CX3V001\",\n                  \"CW8_CHOICE_SCHEMA\", where)\n    module = _p112_verifier_module(choice.get(\"producer\"))\n    _receipt_need(hasattr(module, \"cw8_check_attempt\"), \"CW8_LAUNCHER_VERSION\", where)\n    try:\n        # Uses the same read-only single-buffer bridge as registry assembly.\n        # Context rederives PLAN/F identity, root spec pins, the license and\n        # immutable selection. Nothing from a new caller can set workers=8\n        # without this independent reconstruction.\n        ctx = _registry_context_factory(module, entry.get(\"config\"))\n        ctx.gate()\n        call = ctx.call(name)\n        saved_entry, saved_pin = module.registered_entry(ctx, call)\n        module.need(saved_pin == entry_pin and saved_entry == entry, \"CW8_ENTRY_RECONSTRUCTION\")\n        module.cw8_check_attempt(ctx, call, record, doc)\n        module.need(module.cw8_role(call) == role, \"CW8_ROLE_CUSTODY\")\n    except module.Refusal as exc:\n        raise Refused(exc.code, str(exc.detail)) from None\n    return workers\n\n\nif __name__ == '__main__':\n    sys.exit(main(sys.argv[1:]))",
+      "old": "if __name__ == '__main__':\n    sys.exit(main(sys.argv[1:]))"
+    },
+    {
+      "new": "BUILDER_PATH = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8_draft002.py'",
+      "old": "BUILDER_PATH = ART + 'runbook_v002_c2v007_cx2/roster_builder_c2v007_a253_v001.py'"
+    },
+    {
+      "new": "BUILDER_SHA256 = 'ee28c30d6d2308d6b2a9ed2f7dbc79f4e7d16975ce6e1dabdf94b77b92802799'",
+      "old": "BUILDER_SHA256 = '799fb2d002ba39885326f161e1efbe3ad35dd2b66d3c84f961ddce910e9cd15b'"
+    }
+  ],
+  "date_u": "Wed Oct 21 12:19:05 UTC 2026",
+  "inputs": {
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/build_consumers_draft003.py": "431c723fb6d06e7e053a4c50acd54eb11198cf1b13f8bf6715c7dd0ba971328a",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/consumer_extension_draft002.py": "07065dd1df889f21defa1e5f16bc9417d1b741f53f0d1056e599052112777bdc",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/phase1_ngc_launch_cx3cw8_draft002.py": "7a4fefede8551176c6973a08b0a0f36b4d88b57b61e84e841c7dee283c9b6284",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/g26_freeze_script_cx2/g26_freeze_cx2v001.py": "663d4c2b19a90490c4b1ad9f0902d485146dccdcef4f84f595520dff92b96bea",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2v007_cx2/roster_builder_c2v007_a253_v001.py": "799fb2d002ba39885326f161e1efbe3ad35dd2b66d3c84f961ddce910e9cd15b"
+  },
+  "outputs": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8_draft002.py",
+      "sha256": "ee28c30d6d2308d6b2a9ed2f7dbc79f4e7d16975ce6e1dabdf94b77b92802799"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/g26_freeze_cx3cw8_draft002.py",
+      "sha256": "bf9f9a76a7727d04016720afcbca1a1bfd87398ffb4ec17c1a387851dff59fe9"
+    }
+  ]
+}

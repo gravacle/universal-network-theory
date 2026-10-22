@@ -1,0 +1,11 @@
+# Codex3: accepted NS/HS/TE inputs matched; transfer application preparation running
+
+After0326, account root fully read NS132, HS167 and combined review94, plus TE166 and review65. regional_measure_author also fully read TE and both receipts. New documentary reading/matching receipt in CODEX3: HOMOGENEOUS_RECORD_ACCEPTED_DEPENDENCY_READING_V001.json, SHA92fc55ce815593ed1a7700b7eb502fb4def598624a2ee0b4395c9bf676cd0e80. This records source coverage and applicability, not a new proof or self-review.
+
+TE13 fills the HC covariance error with normalized Gibbs/generator error, dressed-read charge and the full complementary excursion. Do not add TE5 state error again. For the rescaling null with scale kappa, written(theta,u) uses beta=theta/J_ref,s_E=u/J_ref, while baseline(kappa theta,kappa u) uses the scaled arguments and its own TE allowance. Equal-time denominator variances need their complete TE error, including the unsuppressed s_E=0 excursion; positive lower bounds and interval propagation are required before normalization. Exact compressed reads remove the read-frame approximation, not the excursion. The complete C2 fixed-field generator remains pending; no hex-only approximation receives TE17's tail. TE does not supply the coupled real-time clock curve or intervention law.
+
+Parallel preparation: new helper transfer_application is RUNNING accepted C2 MAIN/mandatory companions/review plus C3 V031 dependency matching. This is author preparation for the single benchmark's eventual bounded application, with no output artifacts opened until their audit/acceptance. The accepted1e-6 contrast budget and frozen C3 r=1/2,gamma=pi/6 match; instrument/sampling feasibility remains conditional. regional_measure_author completed thermal-input matching and is available; volume_interface remains reserved for distinct next-target review. A transient author-helper stream failure affected only an optional feasibility-note continuation; the main V032 packet and its review are complete and unaffected.
+
+V032 remains submitted0558 for Codex1 acceptance; its source/review bytes are unchanged. No numerical/symbolic execution, producer import, network, shared PLAN mutation, deletion, move or overwrite. Supported existing-chat recurring continuation remains unavailable/null; active minute exchange checks continue.
+
+Recorded 2026-10-13T22:56:03.159577+00:00

@@ -1,0 +1,123 @@
+{
+  "date_u": "Sun Oct 18 20:37:53 UTC 2026",
+  "status": "TESTED_PASS",
+  "checks_passed": 14,
+  "checks_total": 14,
+  "checks": [
+    {
+      "name": "old_overflow_1e999",
+      "passed": true,
+      "required_refusal_observed": false,
+      "classification": "OLD_DEFECT_REPRODUCED"
+    },
+    {
+      "name": "old_overflow_-1e999",
+      "passed": true,
+      "required_refusal_observed": false,
+      "classification": "OLD_DEFECT_REPRODUCED"
+    },
+    {
+      "name": "old_overflow_{\"extra\":{\"nested\":[1e999]}}",
+      "passed": true,
+      "required_refusal_observed": false,
+      "classification": "OLD_DEFECT_REPRODUCED"
+    },
+    {
+      "name": "new_overflow_1e999",
+      "passed": true,
+      "required_refusal_observed": true,
+      "classification": "FIX_REFUSES"
+    },
+    {
+      "name": "new_overflow_-1e999",
+      "passed": true,
+      "required_refusal_observed": true,
+      "classification": "FIX_REFUSES"
+    },
+    {
+      "name": "new_overflow_{\"extra\":{\"nested\":[1e999]}}",
+      "passed": true,
+      "required_refusal_observed": true,
+      "classification": "FIX_REFUSES"
+    },
+    {
+      "name": "postseal_old_stamp",
+      "passed": true,
+      "output_exists": true,
+      "bytes": 0,
+      "classification": "OLD_PARTIAL_OUTPUT_DEFECT_REPRODUCED"
+    },
+    {
+      "name": "postseal_old_serialize",
+      "passed": true,
+      "output_exists": true,
+      "bytes": 52,
+      "classification": "OLD_PARTIAL_OUTPUT_DEFECT_REPRODUCED"
+    },
+    {
+      "name": "postseal_new_stamp",
+      "passed": true,
+      "output_exists": false,
+      "bytes": null,
+      "classification": "FIX_REFUSES_WITH_NO_OUTPUT"
+    },
+    {
+      "name": "postseal_new_serialize",
+      "passed": true,
+      "output_exists": false,
+      "bytes": null,
+      "classification": "FIX_REFUSES_WITH_NO_OUTPUT"
+    },
+    {
+      "name": "srb_old_stamp",
+      "passed": true,
+      "output_exists": true,
+      "bytes": 0,
+      "classification": "OLD_PARTIAL_OUTPUT_DEFECT_REPRODUCED"
+    },
+    {
+      "name": "srb_old_serialize",
+      "passed": true,
+      "output_exists": true,
+      "bytes": 52,
+      "classification": "OLD_PARTIAL_OUTPUT_DEFECT_REPRODUCED"
+    },
+    {
+      "name": "srb_new_stamp",
+      "passed": true,
+      "output_exists": false,
+      "bytes": null,
+      "classification": "FIX_REFUSES_WITH_NO_OUTPUT"
+    },
+    {
+      "name": "srb_new_serialize",
+      "passed": true,
+      "output_exists": false,
+      "bytes": null,
+      "classification": "FIX_REFUSES_WITH_NO_OUTPUT"
+    }
+  ],
+  "sources": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/postseal_records_cx1v006.py",
+      "sha256": "9fbdb0ca24153436b7c807778f140b7998fc0c0b5d18f4372d65a20a0e11cc59"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/postseal_records_cx1v006_cx3v001.py",
+      "sha256": "4024d82a8ec59ba339f00214066798ea905d1234466d29db2e8bb5e5869de366"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/srb_rot_record_cx1v008.py",
+      "sha256": "500f8b6a27cff6157246cdaca1373ad7340003263578331d30cbdf7cebc0e4f4"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/srb_rot_record_cx1v008_cx3v001.py",
+      "sha256": "2757847a0a2c6da7ab83dc5b203cbfd8c2291da57e430d4ce0cff99ceb4628cc"
+    }
+  ],
+  "harness": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/build_v007_closure_cx3/implementation/reproduce_v6_s1_cx3v001.py",
+    "sha256": "47eac15d39d1fecd250b63a2485bdb67d835f639f5d13e64b9fc707399e76b2c"
+  },
+  "scope": "AST-extracted exact parser and final publication statements. No producer imports, admission files, science, or runtime reconstruction. Old expected failures are recorded explicitly, not counted as producer readiness."
+}

@@ -1,0 +1,37 @@
+{
+ "schema": "DDO154_CALIBRATION_COORDINATE_SPEC_ADDENDUM_C2V003",
+ "applies_to_coordinate_spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/DDO154_CALIBRATION_COORDINATE_SPEC_V001.json",
+ "applies_to_coordinate_spec_sha256": "fdeb5eb9b69b302c3b7eca21ed772184da56e26224fa4f8b08c8a2b0534106f8",
+ "supersedes": {"path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v002/COORDINATE_SPEC_ADDENDUM_V002.json", "sha256": "7812a614ff98bc16f03738ebe969bedb00ea90b665d3473a22eced51c952b4b5", "file_untouched": true},
+ "author": "Claude2 lane, calibration_orchestrator_c2/v003 builder (2026-10-17)",
+ "purpose": "Carries the CHECK_SCIENCE_V001 / CHECK_SOFTWARE_V001 corrections and the driver c2v008 facts WITHOUT changing the V001 coordinate spec bytes (engine coordinates, boxes, mapping and engine parameters stay byte-identical). Pinned by sha256 in the c2v003 config; copied into plan output and FINAL_SUMMARY.",
+ "items": {
+  "D5": {
+   "outcome": "NO_ADMITTED_POINT_FOUND",
+   "status": "UNTESTED (emptiness of the admitted region inside the computational box is not proven by one engine run)",
+   "deciding_test": "Restart rule, declared before any run: a second engine run on the same coordinate boxes, numerics block and driver with rng_seed 1 and global_design_count 24 (a coordinate spec V002 that changes only engine_parameters; the theta cache id excludes engine parameters, so every earlier point replays at zero cost and only new points are launched).",
+   "tested_negative_condition": "TESTED-NEGATIVE (no admitted point in the box at that design resolution) only if BOTH runs end NO_ADMITTED_POINT_FOUND AND every evaluation of both runs is VALID or MODEL_INVALID by the taxonomy AND (CHECK_SCIENCE_V001 C4) neither run has any MODEL_INVALID entry with judgment_call=true (R10 under a declared contraction test that states judgment_call true, R30 with a declared Picard bound, column/HI token judgment rules) nor any root-declared invalid entry (ROOT_RESOLUTION). Otherwise the outcome stays UNTESTED. FINAL_SUMMARY.D5_assessment reports, per run, whether that run meets the condition.",
+   "root_confirms": true
+  },
+  "D14": {"claim": "native energy ratios and sampler b are fixed at one point (CA-25), not explored", "status": "UNTESTED", "deciding_test": "native re-sampling at alternative points: per-chain A2 coefficient grids evaluated at the reference member"},
+  "D19": {"claim": "BR-K1 x {M/L, He, Gamma, h*, photometry} and between-branch interactions", "status": "UNTESTED (counted; tier-2 coverage not claimed)", "deciding_test": "a driver extension that exposes M/L, He, Gamma and photometry (PC-5), then a factorial at the reference member"},
+  "D10": {"claim": "route A stays cube-truncated (cannot be masked)", "status": "COUNTED assumption under any non-cube numerics block", "evidence": "driver c2v008 truncation_mask: route A, reference and body run UNMASKED (cube grid); the mask applies to the offset stage and later only"},
+  "D3": {
+   "item": "disk retention rule",
+   "status": "DECIDED (principal, 2026-10-17): keep everything, no retention and no deletion",
+   "work_dir": "CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_V003 (symlink runs_ext -> /Volumes/External1/...; 4 TB volume); the orchestrator records the resolved path and refuses a dangling link or a path outside work_dir_volume",
+   "guard": "HALTED_DISK before any wave that does not fit (free space of the work_dir volume >= n_calls x per_call_bytes_guard + reserve)"
+  },
+  "F6_side_bound": {"orchestrator_guard_side_bound_calls": 11, "formula": "floor(log2(sqrt(n_varying)/march_step)) + 3 + bisection_steps = 5 + 3 + 3", "note": "The V001 spec rationale records side_bound_calls 10; the guard uses 11 (+1 margin)."},
+  "F6_ngc_placeholder_wording": {"corrected_statement": "The NGC3198 slots in the V001 spec are the freeze module's required NGC reference values (distance 13.8 Mpc is the NGC source distance that make_freeze_coordinate_spec requires as reference_value); no NGC3198 target, velocity or observed rotation file is used, and the engine coordinates do not contain the NGC slots."},
+  "PC-9": {"item": "route-A converged iteration != 4", "status_with_c2v008": "CLOSED in code (strict reader route_a_reported_iteration, no ITERATION_NOT_4 lock; ROUTE_A_NO_FIXED_POINT is its own status since c2v007). A converged iteration != 4 on a real call is UNTESTED (deciding test: the first real call whose route A converges at iteration 3 or 5 completes with status COMPLETED)."},
+  "PC-5": {
+   "item": "DDO154 distance exposed",
+   "status_with_c2v008": "PARTIAL. TESTED-POSITIVE: c2v008 normalize_spec accepts every probe point (trial, W1, W2 and all 16 corners) and only the declared fields differ (evidence/DRIVER_CAPABILITY_EVIDENCE_V001.json, layer 1). TESTED-NEGATIVE for run mode: the driver's own dry-run reports GEOMETRY_NOT_ADMITTED_BY_STAGE_BINDING at every DDO154 distance != 4.04 (the reviewed gal_c2v004 stages refuse the five per-call geometry fields; c2v008 L2184-2190 BLOCKS run mode before any stage), so the capability gate (layer 2) refuses to run.",
+   "deciding_test": "a gal_c2v005 stage set + galaxy-config schema V005 that admit the DDO154 per-call geometry fields, a driver re-pinned to them, then: a fresh capability evidence file with all 16 corners run-mode admitted, and A2F10 at 3.98107 and 4.1115 Mpc producing 12 rows (INTERFACE_V008 open item)."
+  },
+  "C5_deciding_gate": {"rule": "the orchestrator runs only when BOTH c2v008 deciding tests pass from bytes: (i) ADMIT_PREFIX spec 4ac5527a PASS_BITWISE_EQUAL with custody (iteration 4, solver 44d9c23c, attempt link 98816902../01792161909921426000-19994-831a3fbc, profile f5becd45, no geometry key) and (ii) the full A2F10 anchor call spec 4978ba17 with the c2v008 comparator report (b122b8e6) PASS_BITWISE_EQUAL on all 13 checks; receipts verified by the pinned monitor. The anchor alias needs the same driver (no equivalence shortcut)."},
+  "C2_route_a_budget": {"rule": "ROUTE_A_NO_FIXED_POINT with ITERATION_BUDGET_EXHAUSTED is NUMERICS_LIMITED unless root declares route_a_contraction_test (taxonomy V002 LAST_RATIOS_AT_LEAST); the residual history is recorded either way.", "status": "UNTESTED inside the box (deciding test: the residual history of the first budget-exhausted call)"},
+  "C11_caps": {"rule": "monitor-cap halts (wall, RSS, output) and capability-gap halts are never resolvable as invalid; per-call output cap 12 GiB (worst case k=7, P=6 about 9.5 GB from the anchor increments)."}
+ }
+}

@@ -1,0 +1,52 @@
+{
+  "additional_nonfunctional_changes": [
+    "tool/version labels",
+    "consumer source pins",
+    "only v002 launcher accepted, per 0835 single launcher / cx2v004 not adopted"
+  ],
+  "builder_and_G26_function_AST_unchanged": true,
+  "date_u": "Wed Oct 21 12:53:38 UTC 2026",
+  "diffs": {
+    "G26": "--- G26_v001\n+++ G26_v002\n@@ -19,8 +19,8 @@\n import types\n \n ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'\n-BUILDER_PATH = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v001.py'\n-BUILDER_SHA256 = 'e6102ba15542e6b2a10c073b4f8647c48facaadf2209d664818e81ee6058da31'\n+BUILDER_PATH = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v002.py'\n+BUILDER_SHA256 = 'a2d8dc00fd80322a2ba6822648c7399d46e9a4e55bbf309cd2efbc0e33665e7e'\n FREEZE_SHA256 = '48a1e48a5230fff346705c338da30a8ee53a8643193dbe4616c25e61eab3d405'\n SPEC_SHA256 = 'e2a7650e166a9230138ffd16453ac8fdabab41a8695169844940c4c061a894ec'\n NOTES_CANONICAL_SHA256 = '56ac5c6440bfd0def9b42077e97677e6844cd2d38bd45de65b4690da1ab8535a'\n",
+    "builder": "--- builder_v001\n+++ builder_v002\n@@ -22,7 +22,7 @@\n import sys\n import types\n \n-BUILDER_NAME = 'roster_builder_c2v007_cx3cw8v001'\n+BUILDER_NAME = 'roster_builder_c2v007_cx3cw8v002'\n # c2v004 to c2v006 change no input schema and no schema of the builder's own records, so the c2v003 schema names are\n # kept (c2v006 adds `schema` to classifier A's two records, whose contract names are A's); each BUILD_RECORD names the\n # builder sha256, and a build record of another builder version is refused (BUILD_RECORD_OTHER_BUILDER)\n@@ -3637,9 +3637,8 @@\n against the ordered, pinned per-call source entries.\n \"\"\"\n \n-P112_REVIEWED_SHA = '04dfc429e335458494fa377f2f46e8d54adbe7e0f0b9a4c3b2121c6b0964f0c2'\n-P112_REVIEWED_SHAS = frozenset((P112_REVIEWED_SHA,\n-    '8cec1b56fc682f638fee57329eefc9b3cddfa47959d175e7095fc0c5fe0342c9'))\n+P112_REVIEWED_SHA = '6de0d06a16a5ffab7b49bc76bc9219d0bfbd67a91020129677a5f4078846f852'\n+P112_REVIEWED_SHAS = frozenset((P112_REVIEWED_SHA,))\n \n \n def _registry_context_factory(module, config_pin):\n",
+    "launcher": "--- launcher_v001\n+++ launcher_v002\n@@ -25,7 +25,7 @@\n PY = \"/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3\"\n A = \"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/\"\n V006 = \"/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md\"\n-TOOL_NAME = \"P112_LAUNCHER_CX3CW8V001\"\n+TOOL_NAME = \"P112_LAUNCHER_CX3CW8V002\"\n RAM = 137438953472\n DISK_RESERVE = 21474836480\n SEED_KEY = \"968c915bece706ea1d6c0fa15357984884a87443e7c19eebd104230c9c961981\"\n@@ -512,12 +512,11 @@\n                  has_monitor_refusal=False, column_workers=1):\n     \"\"\"Pure prospective decision; every invocation launches at most one root-chosen attempt.\n \n-    A249 passes Phase 2 as monitor_ceiling_utc. Phase 1 only limits Phase-1\n-    admissions and reporting; it never stops an active run.\n+    A270: Phase 2 is the only admission and monitor ceiling. Phase 1\n+    is a reporting cutoff, including for first admissions and reruns.\n     \"\"\"\n     terminal = terminal_prefix(actual, name, authenticated_causes)\n     need(terminal is None, 'ATTEMPT_AFTER_TERMINAL', terminal)\n-    remaining_wall(phase_ceiling_utc, now_utc)\n     need(not held_for_fix(actual) or root_hold_release, 'HELD_FOR_FIX')\n     need(not held_for_cause(actual, authenticated_causes), 'HELD_FOR_CAUSE')\n     need(monitor_ceiling_utc is not None, 'MONITOR_PHASE2_CEILING_REQUIRED')\n@@ -2698,16 +2697,17 @@\n     term = terminal_prefix(eligible, name, authenticated_causes)\n     if term is not None:\n         return {'status': 'TERMINAL', 'terminal': term, 'stop_requested': False}\n+    hold = ('HELD_FOR_FIX' if held_for_fix(actual) else\n+            'HELD_FOR_CAUSE' if held_for_cause(actual, authenticated_causes) else None)\n+    if hold is not None:\n+        return {'status': hold, 'terminal': None, 'stop_requested': False}\n     if timestamp(now_utc) >= cutoff:\n         return {'status': 'UNEVALUATED_SCHEDULE_CEILING', 'terminal': None,\n                 'continues_for_next_phase': True, 'stop_requested': False}\n-    return {'status': ('HELD_FOR_FIX' if held_for_fix(actual) else\n-                       'HELD_FOR_CAUSE' if held_for_cause(actual, authenticated_causes) else 'NOT_TERMINAL'),\n-            'terminal': None, 'stop_requested': False}\n+    return {'status': 'NOT_TERMINAL', 'terminal': None, 'stop_requested': False}\n \n \n def fresh_launch_plan(ctx, bootstrap, now_utc):\n-    remaining_wall(ctx.cfg['phase1_ceiling_utc'], now_utc)\n     seconds = remaining_wall(ctx.cfg['phase2_ceiling_utc'], now_utc)\n     need(seconds <= bootstrap['caps']['wall_cap_s'], 'LAUNCH_CLOCK_MOVED_BACKWARD')\n     plan = copy.deepcopy(bootstrap)\n@@ -2743,7 +2743,6 @@\n          basis['phase2_ceiling_utc'] == ctx.cfg['phase2_ceiling_utc'] and\n          basis['phase1_requests_stop'] is False and\n          basis['decision_utc'] == plan['invocation_utc'], 'LAUNCH_COMMIT_CEILINGS')\n-    remaining_wall(ctx.cfg['phase1_ceiling_utc'], basis['decision_utc'])\n     need(timestamp(plan['invocation_utc']) >= timestamp(bootstrap['invocation_utc']),\n          'LAUNCH_CLOCK_MOVED_BACKWARD')\n     need(plan['caps']['wall_cap_s'] == remaining_wall(\n@@ -2831,7 +2830,7 @@\n \n \n def authenticated_causes(ctx, actual):\n-    \"\"\"Map only bound, independently rederived closed receipts; unknown stays absent.\"\"\"\n+    \"\"\"Map bound causes; explicit non-model records release cause holds without counting.\"\"\"\n     inputs = read_cause_inputs(ctx)\n     mapped = {}\n     for receipt in actual:\n@@ -2853,8 +2852,9 @@\n             need(is_pin(monitor.get('result')) and bindings['result'] == monitor['result']['sha256'],\n                  'CAUSE_RESULT_BINDING')\n         if not cause['model_outcome']:\n-            if cause['model_outcome_reason'] in KNOWN_NONPHYSICS_CAUSES:\n-                mapped[key] = None\n+            # A270: retain the pinned record, but release an uncounted solo\n+            # retry even when its reason awaits later readable classification.\n+            mapped[key] = None\n             continue\n         need(all(isinstance(bindings[k], str) and HEX64.fullmatch(bindings[k])\n                  for k in CAUSE_SHA_KEYS), 'CAUSE_BOUND_SHA_MISSING')\n"
+  },
+  "inputs": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/phase1_ngc_launch_cx3cw8v001.py",
+      "sha256": "04dfc429e335458494fa377f2f46e8d54adbe7e0f0b9a4c3b2121c6b0964f0c2"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v001.py",
+      "sha256": "e6102ba15542e6b2a10c073b4f8647c48facaadf2209d664818e81ee6058da31"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/g26_freeze_cx3cw8v001.py",
+      "sha256": "e0e3139816d5337bb54b08bb4d9ddfd3cbb8dfe90dab5b37bc1c1d365437f5af"
+    }
+  ],
+  "launcher_functions_changed": [
+    "_commit_plan_check",
+    "authenticated_causes",
+    "fresh_launch_plan",
+    "next_attempt",
+    "phase_disposition"
+  ],
+  "outputs": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/phase1_ngc_launch_cx3cw8v002.py",
+      "sha256": "6de0d06a16a5ffab7b49bc76bc9219d0bfbd67a91020129677a5f4078846f852"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v002.py",
+      "sha256": "a2d8dc00fd80322a2ba6822648c7399d46e9a4e55bbf309cd2efbc0e33665e7e"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/g26_freeze_cx3cw8v002.py",
+      "sha256": "332253d215387fa69822be3e96ec38c5bea5c4e6ffae4fabc53b0298ca312e2b"
+    }
+  ],
+  "schema": "CW8_0835_BUILD_CX3V002",
+  "scientific_execution": "NONE",
+  "tests": "PENDING"
+}

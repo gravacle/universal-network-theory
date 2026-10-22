@@ -1,0 +1,53 @@
+{
+ "schema": "DDO154_CALIBRATION_COORDINATE_SPEC_ADDENDUM_C2V002",
+ "applies_to_coordinate_spec": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/DDO154_CALIBRATION_COORDINATE_SPEC_V001.json",
+ "applies_to_coordinate_spec_sha256": "fdeb5eb9b69b302c3b7eca21ed772184da56e26224fa4f8b08c8a2b0534106f8",
+ "author": "Claude2 lane, calibration_orchestrator_c2/v002 builder (2026-10-17)",
+ "purpose": "Carries the orchestrator CHECK_V001 F5/F6 items and the c2v006 retarget facts WITHOUT changing the V001 coordinate spec bytes (engine coordinates, boxes, mapping and engine parameters stay byte-identical). Pinned by sha256 in the c2v002 config; copied into plan output and FINAL_SUMMARY.",
+ "items": {
+  "D5": {
+   "outcome": "NO_ADMITTED_POINT_FOUND",
+   "status": "UNTESTED (emptiness of the admitted region inside the computational box is not proven by one engine run)",
+   "deciding_test": "Restart rule, declared before any run: a second engine run on the same coordinate boxes, numerics block and driver with rng_seed 1 and global_design_count 24 (a coordinate spec V002 that changes only engine_parameters; the theta cache id excludes engine parameters, so every earlier point replays at zero cost and only new points are launched).",
+   "tested_negative_condition": "TESTED-NEGATIVE (no admitted point in the box at that design resolution) only if BOTH runs end NO_ADMITTED_POINT_FOUND AND every evaluation of both runs is VALID or MODEL_INVALID by the taxonomy (no NUMERICS_LIMITED or INFRA halt resolved as invalid by root). Otherwise the outcome stays UNTESTED.",
+   "root_confirms": true
+  },
+  "D14": {
+   "claim": "native energy ratios and sampler b are fixed at one point (CA-25), not explored",
+   "status": "UNTESTED",
+   "deciding_test": "native re-sampling at alternative points: per-chain A2 coefficient grids evaluated at the reference member"
+  },
+  "D19": {
+   "claim": "BR-K1 x {M/L, He, Gamma, h*, photometry} and between-branch interactions",
+   "status": "UNTESTED (counted; tier-2 coverage not claimed)",
+   "deciding_test": "a driver extension that exposes M/L, He, Gamma and photometry (PC-5), then a factorial at the reference member"
+  },
+  "D10": {
+   "claim": "route A stays cube-truncated (cannot be masked)",
+   "status": "COUNTED assumption under any non-cube numerics block",
+   "evidence": "driver c2v006 truncation_mask docstring L379-394: route A, reference and body run UNMASKED (cube grid); the mask applies to the offset stage and later only"
+  },
+  "D3": {
+   "item": "disk retention rule",
+   "status": "OPEN (root/principal decision; deletion is not authorized)",
+   "guard": "HALTED_DISK before any wave that does not fit (free >= n_calls x per_call_bytes_guard + reserve); see DISK_OPTIONS_V001.md for measured bytes and non-deletion options"
+  },
+  "F6_side_bound": {
+   "orchestrator_guard_side_bound_calls": 11,
+   "formula": "floor(log2(sqrt(n_varying)/march_step)) + 3 + bisection_steps = floor(log2(2/0.05)) + 3 + 3 = 5 + 3 + 3",
+   "note": "The V001 spec rationale records side_bound_calls 10 (the real maximum, CHECK_V001 section 2). The guard uses 11 (+1 margin at the box edge). 11 is the value in force."
+  },
+  "F6_ngc_placeholder_wording": {
+   "corrected_statement": "The NGC3198 slots in the V001 spec are the freeze module's required NGC reference values (distance 13.8 Mpc is the NGC source distance that make_freeze_coordinate_spec requires as reference_value); no NGC3198 target, velocity or observed rotation file is used, and the engine coordinates do not contain the NGC slots (verified, CHECK_V001 section 5)."
+  },
+  "PC-9": {
+   "item": "route-A converged iteration != 4",
+   "status_with_c2v006": "CLOSED in code (driver c2v006 reads the converged final iteration by the strict rule, L1291-1338 and L1686-1708; no ITERATION_NOT_4 lock). TESTED-POSITIVE only after the c2v006 DDO154 deciding reproduction (PASS_BITWISE_EQUAL) is pinned; a converged iteration != 4 on a real call is UNTESTED (deciding test: the first real call whose route A converges at iteration 3 or 5 completes with status COMPLETED)."
+  },
+  "PC-5": {
+   "item": "DDO154 distance exposed",
+   "status_with_c2v006": "REGRESSION / BLOCKING: c2v006 normalize_spec refuses any DDO154 distance_Mpc other than the registered 4.04 (L626-630); the v003b derive_geometry path (c2v003c L722-873) is absent from c2v006. distance_Mpc is a varying coordinate of this spec (box [3.98107, 4.11150] Mpc), so every theta off D = 4.04 is refused before launch.",
+   "evidence": "v002/evidence/V006_SPEC_ACCEPTANCE_V001.json"
+  }
+ }
+}

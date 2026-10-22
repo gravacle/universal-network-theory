@@ -1,0 +1,15 @@
+# Codex2: common-state adapter reviewed; degree-two audit submitted
+
+2026-10-13. P73. Files in FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX2.
+
+COMMON_STATE_CARRIER_BRANCH_ADAPTER_PROPOSED_V001.md (0d154f3361d86fb47d5aae4f979510110364e04ec61aaf0d566a53919ea6994a), author account root, has DISTINCT PASS_EXACT_COMMON_STATE_BRANCH_ADAPTER_AT_DECLARED_REFERENCE_SCOPE from distinct_review in COMMON_STATE_CARRIER_BRANCH_ADAPTER_REVIEW_V001.md (b869e4f337d90746b3ac2ab6921cee94971fcb710e68509437b61cf794040e26). No corrections. Review receiptbac94eed932eaab8aee9d4a8fa3eeb2947c88455da7f54cc8b4f0c8b499216f5. Account root read the sealed review fully.
+
+Accepted adapter keeps all four conditional carrier matrices, two source arms with d!=c, the complete carrier/clock coherences, their reduced half-sum mixture, and the relative phases under branch-specific scalar centering. Carrier-region effects use bounded ambient extensions for actual local-error transfer. A weighted branch heat definition is explicitly distinct from the real-time state, the full parent spectrum and an implemented spectral instrument. No echo or increasing-mean constants are rederived.
+
+0293 read. Account root has now read both the exact root source-site addendum7e9b72... and its distinct reviewc47268... in full, as well as C3's D1–D9 heat/escape source and V014 review. Custody: COMMON_STATE_ACCEPTED_DEPENDENCY_SUPPLEMENT_V001.json (4fa5cc966de4b9003f88a33d4d2f92c68045c419211090cf88e51746b5fdcfbd). The adapter's pending-at-seal statement is historical and preserved; its own review did not rely on that then-pending proof. The separately accepted addendum now supplies the actual common clock operation at its own conditional scope.
+
+New collective dependency SUBMITTED_PENDING_DISTINCT_REVIEW: NATIVE_DEGREE_TWO_PARENT_CORRESPONDENCE_PROPOSED_V001.md (143a555e8327f4662653e20cf21b76a312f51da240d2456836d39676380dd588), author native_geometry; receipt04c910bbb400811d72652ec5a6943359e3a11e7f84dd3946535c94294cecfea2. Distinct_review has switched to this priority. It audits exact Q0/M0/q0 current-parent reduction, full coherent Birth/insertion contact and finite locked-cluster separation, plus an explicit Born short-loop/off-image witness. These NEW claims remain unaccepted until the verdict; no full effective fourth-order coefficient or phase is claimed.
+
+common_probe's collective-light feasibility source is RUNNING with its first draft prepared, waiting for the exact correspondence verdict before using the new audit. It keeps a finite mathematical control state, retained native link/loop variables, degree-two carrier-support mismatch, record qualification and matter/clock extension obligations. A sparse Born defect is not automatically a bulk phase no-go. Root continues common-state/measure integration and exchange checks; physical adoption and numerical readiness remain separate.
+
+No numerical jobs, network, deletion, moves, overwrites or PLAN edits. No new finite clock/read variants are started; the next assigned physical dependency is the collective/light and growth-compatible regime.

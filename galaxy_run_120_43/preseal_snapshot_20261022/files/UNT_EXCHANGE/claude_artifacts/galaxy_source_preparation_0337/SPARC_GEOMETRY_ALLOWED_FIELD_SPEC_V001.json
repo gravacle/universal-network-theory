@@ -1,0 +1,38 @@
+{
+ "schema": "SPARC_GEOMETRY_ALLOWED_FIELD_SPEC_V001",
+ "task": "0337 part 3",
+ "status": "INERT; NOT EXECUTED BY AUTHOR; ROOT REVIEW AND RUN REQUIRED",
+ "script": "extract_sparc_geometry_metadata_v001.py",
+ "usage": "python3 extract_sparc_geometry_metadata_v001.py <new_output.json>",
+ "source": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt",
+  "sha256": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243",
+  "bytes": 28259,
+  "author_read": "in-file MRT HEADER ONLY (lines 1-97); data rows not displayed"
+ },
+ "allowed_fields": "in-file MRT header lines 10-16: Galaxy 1-11 A11; D 14-19 F6.2 Mpc; e_D 20-24 F5.2 Mpc; f_D 25-26 I2 (Note 2 codes); Inc 27-30 F4.1 deg; e_Inc 31-34 F4.1 deg",
+ "truncation": "every data line is cut to 34 bytes before any parsing; Vflat (87-91), e_Vflat (92-96) and all other columns are never read into variables",
+ "documentation_discrepancy": "The CDS ReadMe (external_ddo154_v001/SPARC_ReadMe.html, sha256 457f61cd8e63dd7b8f8ce0052a458294fa1a5acc2b5b23bb951a2c40d69f9666, text lines 143-153) documents table1.dat with different byte positions (Dist 16-21, e_Dist 23-27, f_Dist 29, i 31-34, e_i 36-39). The local file is the MRT version, so the extractor follows its in-file header and fails closed on mismatch.",
+ "objects": {
+  "NGC3198": [
+   "NGC3198",
+   "NGC 3198"
+  ],
+  "DDO154": [
+   "DDO154",
+   "DDO 154",
+   "NGC4789A",
+   "NGC 4789A"
+  ]
+ },
+ "semantics": "Catalogue values as published. e_D and e_Inc are catalogue mean errors (Inc is the mean outer-HI-disk value per CDS Note 3), not covariance or joint i/PA regions. No geometry adopted.",
+ "checks": [
+  "E_PIN",
+  "E_ENCODING",
+  "E_HEADER",
+  "E_SCHEMA (labels/bytes/format/unit exact)",
+  "E_DUPLICATE_OBJECT",
+  "E_OUTPUT_EXISTS"
+ ],
+ "validation": "Synthetic-fixture test only: both objects found with allowed fields, f_D meaning mapped, injected fake Vflat absent from output."
+}

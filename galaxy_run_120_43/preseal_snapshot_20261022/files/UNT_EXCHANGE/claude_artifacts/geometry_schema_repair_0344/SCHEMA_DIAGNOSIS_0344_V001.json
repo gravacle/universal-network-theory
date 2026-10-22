@@ -1,0 +1,261 @@
+{
+ "schema": "CLAUDE2_SPARC_GEOMETRY_SCHEMA_DIAGNOSIS_V001",
+ "task": "0344",
+ "source": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt",
+  "sha256": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243"
+ },
+ "quarantined_output_preserved": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/SPARC_ALLOWED_GEOMETRY_METADATA_V001.json",
+  "sha256": "c2d709ffa93f0684f57ec3d99ab97c704acf1ad754dbc385e29f9cb7b0d463aa"
+ },
+ "original_script_preserved": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_source_preparation_0337/extract_sparc_geometry_metadata_v001.py",
+  "sha256": "418e9793a5133dfe41f4da521450d5150612ba406683f558f4d1ad44d8a081af"
+ },
+ "inspection_scope": "Bytes 1-39 of source lines 104 (DDO154) and 152 (NGC3198) only. The CDS ReadMe documents bytes 1-39 as Name, Type, Dist, e_Dist, f_Dist, i, e_i (no velocity field). Reported as character-class masks and token spans; no field values are reproduced here. Also checked: line terminator of the two rows (LF, no CR).",
+ "documentation": {
+  "MRT_INFILE_HEADER": {
+   "where": "source lines 10-16",
+   "fields": {
+    "Galaxy": "1-11 A11",
+    "T": "12-13 I2",
+    "D": "14-19 F6.2 Mpc",
+    "e_D": "20-24 F5.2 Mpc",
+    "f_D": "25-26 I2",
+    "Inc": "27-30 F4.1 deg",
+    "e_Inc": "31-34 F4.1 deg"
+   },
+   "separators": "none (fields abut)",
+   "record_length_implied": 113
+  },
+  "CDS_TABLE1_README": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_ReadMe.html",
+   "sha256": "457f61cd8e63dd7b8f8ce0052a458294fa1a5acc2b5b23bb951a2c40d69f9666",
+   "where": "tag-stripped text lines 144-160 (table1.dat byte-by-byte); Lrecl 130 (File Summary)",
+   "fields": {
+    "Name": "1-11 A11",
+    "Type": "13-14 I2 [0/11]",
+    "Dist": "16-21 F6.2 Mpc [0.98/127.8]",
+    "e_Dist": "23-27 F5.2 Mpc [0.05/12.8]",
+    "f_Dist": "29 I1 [1/5]",
+    "i": "31-34 F4.1 deg [15/90]",
+    "e_i": "36-39 F4.1 deg [1/10]"
+   },
+   "blank_separator_bytes": [
+    12,
+    15,
+    22,
+    28,
+    30,
+    35,
+    40
+   ]
+  }
+ },
+ "specimen_prefix": {
+  "ruler": "123456789012345678901234567890123456789",
+  "DDO154_line104": {
+   "class_mask": "_____AAAAAA_99___9.99__9.99__9_99.9__9.",
+   "non_blank_token_spans_bytes_12_39": [
+    [
+     13,
+     14
+    ],
+    [
+     18,
+     21
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     30,
+     30
+    ],
+    [
+     32,
+     35
+    ],
+    [
+     38,
+     39
+    ]
+   ],
+   "name": "right-justified in 1-11"
+  },
+  "NGC3198_line152": {
+   "class_mask": "____AAAAAAA__9__99.99__9.99__9_99.9__9.",
+   "non_blank_token_spans_bytes_12_39": [
+    [
+     14,
+     14
+    ],
+    [
+     17,
+     21
+    ],
+    [
+     24,
+     27
+    ],
+    [
+     30,
+     30
+    ],
+    [
+     32,
+     35
+    ],
+    [
+     38,
+     39
+    ]
+   ],
+   "name": "right-justified in 1-11"
+  },
+  "mask_legend": "_ blank, A name character, 9 digit, . decimal point; the token at 38-39 continues past byte 39 (byte 40 not inspected)"
+ },
+ "reconciliation": {
+  "MRT_INFILE_HEADER": "DOES NOT MATCH. In both rows a non-blank token straddles a field boundary for D, e_D, f_D, Inc and e_Inc (and T in DDO154); every one of those five slices fails its declared format. V001 sliced these ranges and emitted the malformed literals.",
+  "CDS_TABLE1_README": "MATCHES BYTES 1-27 ONLY. Type, Dist and e_Dist tokens lie inside their documented spans, right-justified and format-valid, with blank bytes 12, 15, 22. From byte 28 on, every token sits one byte to the right of its documented span: f_Dist token at byte 30 (documented 29, so 29 is blank and the documented blank byte 30 is not); i token at 32-35 (documented 31-34); e_i token starts at 38 and runs past 39 (documented 36-39).",
+  "conclusion": "The actual rows follow neither documented layout. No local documentation reproduces the observed boundaries. Offsets are NOT guessed: V002 accepts only a documented layout that validates or a root-declared layout pinned by sha256.",
+  "observed_token_end_bytes": [
+   14,
+   21,
+   27,
+   30,
+   35,
+   ">=40 (not inspected beyond 39)"
+  ],
+  "hypothesis_not_adopted": "Observed ends equal the in-file MRT header field ends shifted so that each field after Galaxy is one byte wider (a leading blank): T 12-14, D 15-21, e_D 22-27, f_D 28-30, Inc 31-35, e_Inc 36-40. This is an inference from token boundaries, not documentation; the e_Inc end (40) and a blank at 41 are unverified.",
+  "prior_program_reading": "sparc_effective_transfer_v001.py (sha 5500b1c8…, parsing lines only read; not imported or executed) read this table by whitespace splitting (line.split()), not byte positions, so the byte-layout discrepancy was never exercised before V001.",
+  "searched_for_other_documentation": [
+   "/Users/bgm/Research/Universal Network Theory/ (find: *Lelli2016c*, table1.dat, *sparc*readme*)",
+   "/Users/bgm/Research/UNT_EXCHANGE/"
+  ],
+  "found": [
+   "SPARC_Lelli2016c.mrt",
+   "SPARC_MassModels_Lelli2016c.mrt",
+   "SPARC_ReadMe.html (all in external_ddo154_v001/)"
+  ],
+  "absence_scope": "No other SPARC table1 documentation found within the searched paths; the SPARC website Table1 documentation is not local."
+ },
+ "why_V001_returned_OK": "V001 checked only that the in-file header text matched its schema and then sliced bytes; it had no numeric or format validation, so malformed slices were emitted as strings with status OK. The 0337 synthetic fixture was built to the declared header schema, so it could not expose the mismatch.",
+ "predicted_V002_real_run": {
+  "status": "FAILED_SCHEMA_VALIDATION (no values emitted)",
+  "per_field_pass_from_replica_with_identical_bytes_1_39_class_mask": {
+   "MRT_INFILE_HEADER": {
+    "DDO154": {
+     "Type": true,
+     "D": false,
+     "e_D": false,
+     "f_D": false,
+     "Inc": false,
+     "e_Inc": false,
+     "blank_bytes_ok": {}
+    },
+    "NGC3198": {
+     "Type": false,
+     "D": false,
+     "e_D": false,
+     "f_D": false,
+     "Inc": false,
+     "e_Inc": false,
+     "blank_bytes_ok": {}
+    }
+   },
+   "CDS_TABLE1_README": {
+    "DDO154": {
+     "Type": true,
+     "D": true,
+     "e_D": true,
+     "f_D": false,
+     "Inc": false,
+     "e_Inc": false,
+     "blank_bytes_ok": {
+      "12": true,
+      "15": true,
+      "22": true,
+      "28": true,
+      "30": false,
+      "35": false,
+      "40": false
+     }
+    },
+    "NGC3198": {
+     "Type": true,
+     "D": true,
+     "e_D": true,
+     "f_D": false,
+     "Inc": false,
+     "e_Inc": false,
+     "blank_bytes_ok": {
+      "12": true,
+      "15": true,
+      "22": true,
+      "28": true,
+      "30": false,
+      "35": false,
+      "40": false
+     }
+    }
+   }
+  },
+  "caveat": "Format and blank-byte results depend only on byte classes, which the replica reproduces for bytes 1-39. The CDS blank-byte-40 result assumes byte 40 is non-blank, as the e_i token pattern implies. Root's real run decides."
+ },
+ "conditional_repair": {
+  "route": "If root (or the principal) declares a layout for these rows, root authors a declaration JSON and runs V002 with --declared-layout PATH SHA256. V002 then reports PASS_DECLARED_LAYOUT only if every strict check passes for both rows and no documented layout passes.",
+  "draft_for_root_NOT_A_DECLARATION": {
+   "name": "OBSERVED_TOKEN_BOUNDARIES",
+   "declared_by": "<root fills>",
+   "evidence": "<root fills: e.g. this diagnosis sha + any external documentation>",
+   "fields": {
+    "Galaxy": [
+     1,
+     11,
+     "A11"
+    ],
+    "Type": [
+     12,
+     14,
+     "I3"
+    ],
+    "D": [
+     15,
+     21,
+     "F7.2"
+    ],
+    "e_D": [
+     22,
+     27,
+     "F6.2"
+    ],
+    "f_D": [
+     28,
+     30,
+     "I3"
+    ],
+    "Inc": [
+     31,
+     35,
+     "F5.1"
+    ],
+    "e_Inc": [
+     36,
+     40,
+     "F5.1"
+    ]
+   },
+   "blank_bytes": [
+    41
+   ]
+  },
+  "alternative": "Obtain a documented layout (e.g. the SPARC website Table1 description or a CDS table1.dat copy) and verify it reproduces the observed boundaries before use."
+ },
+ "exposure_wording_correction": "V001's docstring/spec said excluded bytes are 'never read into a variable'. That was inaccurate: V001 read the whole file into memory, hashed it, decoded it to ASCII and split it into lines; only the 34-byte truncations were interpreted and emitted. V002's statement: the whole file is read into memory, hashed and split into byte lines; bytes 1-11 of each post-header row are compared with target names; for target rows only bytes 1-41 are kept, decoded and interpreted; bytes beyond 41 are never decoded, parsed, compared, measured or emitted.",
+ "incidental_exposure_this_task": "While locating earlier parsers, a grep displayed one code line from subbin_sensitivity_v001.py that asserts the DDO154 MassModels distance column value (a distance, not a velocity) and one line of audit_rotation_comparison.py naming MassModels column slices (code, no values). No velocity values were displayed or used.",
+ "no_geometry_adopted": true,
+ "no_real_source_execution_by_claude": true
+}

@@ -1,0 +1,46 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/stages/ddo_saved_root_body_array_root_v002_gal_c2v005.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_b/stages/ddo_saved_root_body_array_root_v002_gal_c2v005_uvt_c2v001.py
+@@ -11,2 +11,9 @@
+ import numpy as np
++# UVT_C2V001 (Claude2 tail_scheme_impl_c2/route_b): successor of ddo_saved_root_body_array_root_v002_gal_c2v005.py (sha256 7387493b6e2e153afd0e2352cf630edd32944d641dc563a706381983add0b1e3).
++# uvt_c2v001 change (TAIL_SCHEME_DESIGN_V002 sec 1.1/1.3/2.2/3.6 with V002_R1; stage kind body): the UV-tail lapse enters only
++#   through the reviewed additive boundary slots, via the pinned shared binding uvt_route_b_binding_c2v001.py. Required argv
++#   --uv-tail-config/--uv-tail-config-sha256 (certificates are config fields, verified from bytes at build; R1 IA6).
++#   enabled=false: the binding returns the reviewed zero literals and adds no record; the reviewed body runs unchanged.
++#   enabled=true with an empty domain (O inside C): the same zero literals (no addition anywhere), plus the uv_tail record.
++#   slots: boundary closure L248-249 (tail jets; K0 via the reference logN0 and the body angular reads, CHECK F1); bind after prepared L220 (route-A manifest state == reference state).
+ # GAL_C2V005 (Claude2 stage_successor_gal_c2v005): successor of ddo_saved_root_body_array_root_v002_gal_c2v004.py (sha256 0bf1c4cbd1e768f7b0ab461c5cb439d8e40ebe64cf91fedccc5254603f8c0dd7).
+@@ -188,2 +195,12 @@
+ 
++# ---- uvt_c2v001 shared UV-tail binding loader (tail_scheme_impl_c2/route_b): identical text in every gal_c2v005_uvt_c2v001 stage ----
++UVT_BINDING=(Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_b/uvt_route_b_binding_c2v001.py'),'7288a5d17976cc0267316e16f6a15aab2ca5c87d810c7d498f2a3787fe571651')
++def uvt_load():
++ """The pinned shared UV-tail binding (bytes checked before and after exec; inert at import)."""
++ path,pin=UVT_BINDING
++ if hashlib.sha256(path.read_bytes()).hexdigest()!=pin:raise ValueError('UV_TAIL_PIN_MISMATCH '+str(path))
++ s=importlib.util.spec_from_file_location('uvt_route_b_binding_c2v001',str(path));m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
++ if hashlib.sha256(path.read_bytes()).hexdigest()!=pin:raise ValueError('UV_TAIL_PIN_CHANGED_AFTER_IMPORT '+str(path))
++ return m
++# ---- end of uvt block ----
+ def main():
+@@ -192,3 +209,3 @@
+  for k in ('galaxy-config','galaxy-config-sha256'):p.add_argument('--'+k,required=True)
+- a=p.parse_args()
++ UVT=uvt_load();UVT.add_argv(p,'body');a=p.parse_args()
+  G=galaxy_config(a.galaxy_config,a.galaxy_config_sha256);GK,NG,NC,NPHI,NETA=G['galaxy.key'],G['radial.source_gauss_order'],G['radial.n_columns'],G['mesh.n_phi'],G['mesh.eta_order']
+@@ -220,2 +237,3 @@
+   prepared={k:cm._get(str(cp),start['prepared_'+k]) for k in ('wavevectors','weighted_responses')}
++  uvt=UVT.open_binding(a,'body').bind(ni=ni,phys=phys,galaxy=GK,profile=(reuse.PROFILE,reuse.PROFILE_SHA),identity=reuse.IDENTITY,iteration=IT,start=start,prepared=prepared,reference_start=refstart,reference_finish=finish)
+   # Preserve exact old gas blob provenance; do not replace it with a new quadrature of old density.
+@@ -246,4 +264,5 @@
+   pins={str(path):pin for path,pin in PINS.values()};pins.update({str(path):pin for path,pin in DATA_PINS.items()});pins.update({str(path):pin for path,pin in reuse.PINS.values() if path in [reuse.PINS[k][0] for k in mods]})
+-  write('start.json',dict(worker_sha256=sha(__file__),input_pins=pins,seed_sha256=reuse.SEED_SHA,prepared_custody=custody,old_source_references=oldrefs,checkpoint_directory=str(cp.resolve()),shape=[NC,NPHI,NETA],status='OLD_FIELD_NEW_NORMALIZED_SOURCE',action_successor='Not imported or accepted by this assembler'))
++  write('start.json',dict(worker_sha256=sha(__file__),input_pins=pins,seed_sha256=reuse.SEED_SHA,prepared_custody=custody,old_source_references=oldrefs,checkpoint_directory=str(cp.resolve()),shape=[NC,NPHI,NETA],status='OLD_FIELD_NEW_NORMALIZED_SOURCE',action_successor='Not imported or accepted by this assembler',**uvt.record()))
+   def boundary(pos):
++   if uvt.enabled:return uvt.jets(pos)
+    n=len(pos);return dict(boundary_fields=np.zeros((n,10,1)),boundary_gradient=np.zeros((n,10,1,3)),boundary_hessian=np.zeros((n,10,1,3,3)))
+@@ -270,3 +289,3 @@
+   np.savez(out/'body_arrays.npz',**arrays)
+-  write('finish.json',dict(status='EVALUATED_REFERENCE_ARRAYS_NOT_FLOW_SOLUTION',completed=completed,array_file=str(out/'body_arrays.npz'),array_sha256=sha(out/'body_arrays.npz'),arrays={k:dict(shape=list(v.shape),dtype=str(v.dtype)) for k,v in arrays.items()},elapsed_seconds=time.monotonic()-t0,accepted_for_calibration=False,source_self_consistent=False,source_offset=dict(equation='h_total=h_G4+G(f_base_new-f_G4)+G(-c^2 delta_rho)',old_gas=oldrefs['gas_fourier_J'],fixed_stars_cancel_only_if_identical=True,new_base='Fourier transform physical_positions_m and base_integrated_source_J with exp(-ik.x); no additional quadrature factor',implementation='Offset not evaluated here. Before action solve add it once to complete base field, recompute Phi0/angular split and same-discrete r0. Offset may contain m0 and must not be put in angular-only forcing.',source_scope='Leading Euclidean rest-energy density convention; all 10 response fields retained by subsequent full response. Current fields remain old G4.'),limitations=['Failed native coefficient mixing retained','Natural-cubic/GL8 finite discretization; no continuum error bound','No new roots, source equilibration, boundary solve or final action import']))
++  write('finish.json',dict(status='EVALUATED_REFERENCE_ARRAYS_NOT_FLOW_SOLUTION',completed=completed,array_file=str(out/'body_arrays.npz'),array_sha256=sha(out/'body_arrays.npz'),arrays={k:dict(shape=list(v.shape),dtype=str(v.dtype)) for k,v in arrays.items()},elapsed_seconds=time.monotonic()-t0,accepted_for_calibration=False,source_self_consistent=False,source_offset=dict(equation='h_total=h_G4+G(f_base_new-f_G4)+G(-c^2 delta_rho)',old_gas=oldrefs['gas_fourier_J'],fixed_stars_cancel_only_if_identical=True,new_base='Fourier transform physical_positions_m and base_integrated_source_J with exp(-ik.x); no additional quadrature factor',implementation='Offset not evaluated here. Before action solve add it once to complete base field, recompute Phi0/angular split and same-discrete r0. Offset may contain m0 and must not be put in angular-only forcing.',source_scope='Leading Euclidean rest-energy density convention; all 10 response fields retained by subsequent full response. Current fields remain old G4.'),limitations=['Failed native coefficient mixing retained','Natural-cubic/GL8 finite discretization; no continuum error bound','No new roots, source equilibration, boundary solve or final action import'],**uvt.record(final=True)))
+  except Exception as exc:

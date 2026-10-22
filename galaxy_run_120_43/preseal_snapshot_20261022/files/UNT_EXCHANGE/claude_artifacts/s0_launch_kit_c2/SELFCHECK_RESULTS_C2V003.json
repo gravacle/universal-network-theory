@@ -1,0 +1,342 @@
+{
+ "schema": "UNT_FREEZE_SELFCHECK_RESULTS_C2V003",
+ "date_u": "Mon Oct 19 17:58:16 UTC 2026",
+ "checker": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/build/selfcheck_freeze_c2v003.py",
+  "sha256": "1875c6978db66d05ac73436f7d7ab26af72409e2485465abcf39c9c4255e3102"
+ },
+ "target": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/FREEZE_EXPECTED_INPUTS_C2V003.json",
+  "sha256": "454dd3ccb6f9d1056981aa44b24237e12066c43ef8a37753606b783fa3383e9d"
+ },
+ "c2v002": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/FREEZE_EXPECTED_INPUTS_C2V002.json",
+  "sha256": "dc0d6ec718be5d24570391a89feb2d9d3b31525d2d00558e406b8d3f1877a5da"
+ },
+ "rows": [
+  {
+   "row": "F-C3-01",
+   "kind": "MUST_PASS",
+   "what": "FREEZE_EXPECTED_INPUTS_C2V003.json as written (sha256 454dd3ccb6f9d1056981aa44b24237e12066c43ef8a37753606b783fa3383e9d)",
+   "result_ok": true,
+   "refused_string_keys": [],
+   "violations": [],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-02",
+   "kind": "MUST_FAIL",
+   "what": "FREEZE_EXPECTED_INPUTS_C2V002.json (dc0d6ec7) as written: exactly the three named strings",
+   "result_ok": false,
+   "refused_string_keys": [
+    "changes_from_c2v001[1]",
+    "changes_from_cx3v002[3]",
+    "changes_from_cx3v002[4]"
+   ],
+   "violations": [
+    {
+     "string_key": "changes_from_cx3v002[3]",
+     "item": "input_files[3]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "code_files[4]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "code_files[9]",
+     "item_status": "TESTED_FROM_BYTES",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "input_files[9]",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "slots",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "input_files[3]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "referenced_not_input_files[3]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "code_files[4]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "not built"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "code_files[5]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-03",
+   "kind": "MUST_FAIL",
+   "what": "C2V003 with changes_from_cx3v002[3] put back to its C2V002 text",
+   "result_ok": false,
+   "refused_string_keys": [
+    "changes_from_cx3v002[3]"
+   ],
+   "violations": [
+    {
+     "string_key": "changes_from_cx3v002[3]",
+     "item": "input_files[3]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-04",
+   "kind": "MUST_FAIL",
+   "what": "C2V003 with changes_from_cx3v002[4] put back to its C2V002 text",
+   "result_ok": false,
+   "refused_string_keys": [
+    "changes_from_cx3v002[4]"
+   ],
+   "violations": [
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "code_files[4]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "code_files[9]",
+     "item_status": "TESTED_FROM_BYTES",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "input_files[9]",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_cx3v002[4]",
+     "item": "slots",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "PENDING"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-05",
+   "kind": "MUST_FAIL",
+   "what": "C2V003 with changes_from_c2v001[1] put back to its C2V002 text",
+   "result_ok": false,
+   "refused_string_keys": [
+    "changes_from_c2v001[1]"
+   ],
+   "violations": [
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "input_files[3]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "referenced_not_input_files[3]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "code_files[4]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "not built"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "code_files[5]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-06",
+   "kind": "MUST_FAIL",
+   "what": "an appended prose claim: the TSR flag record as PENDING",
+   "result_ok": false,
+   "refused_string_keys": [
+    "open_items[8]"
+   ],
+   "violations": [
+    {
+     "string_key": "open_items[8]",
+     "item": "input_files[3]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-07",
+   "kind": "MUST_FAIL",
+   "what": "the structured TSR flag status changed to PENDING while the prose keeps the bytes status",
+   "result_ok": false,
+   "refused_string_keys": [
+    "a66_residual_disclosure.row_mapping",
+    "changes_from_c2v001[1]",
+    "changes_from_cx3v002[3]",
+    "open_items[3]"
+   ],
+   "violations": [
+    {
+     "string_key": "a66_residual_disclosure.row_mapping",
+     "item": "input_files[3]",
+     "item_status": "PENDING",
+     "claimed": "EXISTS_NOT_ADOPTED"
+    },
+    {
+     "string_key": "changes_from_cx3v002[3]",
+     "item": "input_files[3]",
+     "item_status": "PENDING",
+     "claimed": "EXISTS_NOT_ADOPTED"
+    },
+    {
+     "string_key": "changes_from_c2v001[1]",
+     "item": "input_files[3]",
+     "item_status": "PENDING",
+     "claimed": "EXISTS_NOT_ADOPTED"
+    },
+    {
+     "string_key": "open_items[3]",
+     "item": "input_files[3]",
+     "item_status": "PENDING",
+     "claimed": "EXISTS_NOT_ADOPTED"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-08",
+   "kind": "MUST_FAIL",
+   "what": "a verbal absence claim for an existing file",
+   "result_ok": false,
+   "refused_string_keys": [
+    "open_items[8]"
+   ],
+   "violations": [
+    {
+     "string_key": "open_items[8]",
+     "item": "referenced_not_input_files[2]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "not built"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-09",
+   "kind": "MUST_PASS",
+   "what": "control: a true claim plus a modal \"must exist\" (no claim)",
+   "result_ok": true,
+   "refused_string_keys": [],
+   "violations": [],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-10",
+   "kind": "MUST_FAIL",
+   "what": "an ambiguous bare version word bound to a status",
+   "result_ok": false,
+   "refused_string_keys": [
+    "open_items[8]"
+   ],
+   "violations": [
+    {
+     "string_key": "open_items[8]",
+     "item": "code_files[4]",
+     "item_status": "EXISTS_NOT_ADOPTED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "open_items[8]",
+     "item": "code_files[9]",
+     "item_status": "TESTED_FROM_BYTES",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "open_items[8]",
+     "item": "input_files[9]",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "PENDING"
+    },
+    {
+     "string_key": "open_items[8]",
+     "item": "slots",
+     "item_status": "RECORDED_PIN_NOT_REHASHED",
+     "claimed": "PENDING"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-11",
+   "kind": "MUST_FAIL",
+   "what": "an interior_count status word different from the structured one",
+   "result_ok": false,
+   "refused_string_keys": [
+    "open_items[8]"
+   ],
+   "violations": [
+    {
+     "string_key": "open_items[8]",
+     "item": "interior_count",
+     "item_status": "NO_REGISTERED_VALUE",
+     "claimed": "PENDING_ROOT_FIXES"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  },
+  {
+   "row": "F-C3-12",
+   "kind": "MUST_FAIL",
+   "what": "an alternative given the other evaluation status",
+   "result_ok": false,
+   "refused_string_keys": [
+    "open_items[8]"
+   ],
+   "violations": [
+    {
+     "string_key": "open_items[8]",
+     "item": "exact_alternative_declarations.declared[1]",
+     "item_status": "EVALUATED_BEFORE_FREEZE",
+     "claimed": "NOT_EVALUATED_BEFORE_FREEZE"
+    }
+   ],
+   "outcome": "AS_EXPECTED"
+  }
+ ],
+ "all_as_expected": true
+}

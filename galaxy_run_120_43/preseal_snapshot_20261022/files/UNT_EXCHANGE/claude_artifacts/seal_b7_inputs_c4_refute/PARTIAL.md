@@ -1,0 +1,15 @@
+# PARTIAL refute_p6 (dispatch 0650, A113 P6 REFUTE)
+
+- 2026-10-19T04:05:14Z folder created; starting byte re-derivation of build_p6 claims.
+- 2026-10-19T04:08:37Z TESTED builder HASHES 731ff01a: 106/106 rows verify, 107 files = table + itself, all 18 reported shas equal bytes; fence copies c993d34c/fe904509 made
+- 2026-10-19T04:10:18Z TESTED V006 addendum now 8ac68396 (17598 B; builder saw 63e7802f): new A116 (r14 in slot), A117 (r14 compare of record, SELECTED 6b650ece), A118 (NEW-30, NEW-44 ADOPTED; Option A with converter 1b097cba). V005 in CLAUDE2 == copy c01b3c51. Converter now on root's path: prioritising its review
+- 2026-10-19T04:13:06Z FORMAL driver r5 L3139-3277: route B always runs fs_feedback (feedback_v002) and le<p>_feedback (feedback_v004) between LE passes, and le<P>_column_mean (column_mean_v004) - kinds outside UVT_TAIL_KINDS; checking A59 meaning and converter classify (STAGE_KIND_HAS_NO_SUCCESSOR)
+- 2026-10-19T04:16:59Z FORMAL: comparator planned_script plans base SCRIPTS[kind] for feedback_v002/feedback_v004/column_mean_v004 on Z2; converter classify refuses those kinds; builder STAGES fixture omits them (F14 makes that real case a must-fail); VERIFY.md (r4 Z2) L23/L42/L57 names le1/le2 feedback and le1_column_mean stages. Writing synthetic test with the driver-derived stage set
+- 2026-10-19T04:18:08Z TESTED (synthetic, fixtures/real_stage_set_v001): converter 1b097cba refuses STAGE_KIND_HAS_NO_SUCCESSOR on the driver-planned 22/24-stage Z2 set; builder 18-stage control passes. -> BLOCKING for A118 Option A. Next: r14 selection, NEW items
+- 2026-10-19T04:22:38Z TESTED generator dry runs reproduce 9a9ee6cf (r13) and 6bd8fa95 (r14) byte for byte; running tool-4 validation + A118 completion in memory
+- 2026-10-19T04:22:58Z TESTED VALIDATION_TOOL4_REFUTE_R6V001.json b8e0e81b: 21/21 calls as expected (key map, NEW items r13/r14, custody control, must-fails); A118 completion r14 and r13 in memory -> 19/19 C-08 ids, tool 4 no failure; tool 4 accepts NEW-999 and an empty list
+- 2026-10-19T04:26:07Z TESTED C-08 table (V002 r13, V003_DRAFT r14) = the 19 bare NEW ids of the source with first lines, 0 mismatch; all MUST_FAIL names resolve to PASS tests in both runs; some families include ADOPT_TAIL controls (NEW-4/13/16/60; NEW-16 A53_ROUTE_A_BRANCH_UNCHANGED resolves only to a control)
+- 2026-10-19T04:28:00Z FORMAL: A54 B4/S9 rulings match NEW-34's declared boundary; A53 R3-4 refines the NEW-4 worker-kind check; r14 allow-list adds I4 (A114) not cited in R14-variant NEW-52 reason; R5 comparisons invoked comparator/tokens by non-symlink paths (report pins equal record pins)
+- 2026-10-19T04:29:26Z TESTED key-map generator dry run reproduces 72a21888; builder harness --check-only AST==regex 6/6; saved classification and builder-hash outputs (exclusive create); writing REFUTE_P6.md
+- 2026-10-19T04:31:57Z WROTE REFUTE_P6.md (exclusive create, dry run first); next HASHES_REFUTE_P6.txt last
+- 2026-10-19T04:32:06Z final: writing HASHES_REFUTE_P6.txt last; no file here is modified after it

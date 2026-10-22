@@ -1,0 +1,4 @@
+- 2026-10-21T12:17:12Z Claude3 lead: started 0813 item 1 / 0814 (verdict-day sheet dry check, lean). No launch, nothing that writes.
+- 2026-10-21T12:18:34Z Claude3 lead: P1 34/34 listed input pins resolve from bytes (json==sheet==bytes). Next: in-text pins, sealed constants, CLI flags.
+- 2026-10-21T12:21:12Z Claude3 lead: P2 CLI flags match source for all 18 tools (AST + literal grep; loop-built flags read by hand). Receipt fields match root_monitor_c2v001. Next: output-path preconditions, then RESULT.
+- 2026-10-21T12:22:42Z Claude3 lead: item 1 done; RESULT e3d9d321; posted 0262. Next 0822 audit.

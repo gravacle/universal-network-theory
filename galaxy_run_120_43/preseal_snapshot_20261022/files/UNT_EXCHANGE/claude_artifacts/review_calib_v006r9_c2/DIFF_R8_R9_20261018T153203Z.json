@@ -1,0 +1,171 @@
+{
+ "anchor_equal": true,
+ "config": [
+  {
+   "path": ".notes",
+   "r8": "0554 candidate: exact registered A2F10 template physical/coefficient anchor; no log/exp tolerance or old alias. Actual tail reanchor result, receipt and spec identity remain pending. Distinct sensitivity review SHA requires immutable root registration; A68 comparator successor remains blocked. 0540 candidate only. Driver v010 r5, production P128 and gas M_s128. Fresh calls only; missing scientific evidence blocks launch/admission. Each registered D!=4.04 requires its own reviewed tail-OFF r5/v009-GEO deciding-iii pair. Root-invalid resolution is disabled for tail-ON; MODEL_INVALID needs a later certified successor. Per-call caps remain unmeasured pending ADOPT_TAIL C4-6 evidence. No old anchor alias.",
+   "r9": "0554 candidate: exact registered A2F10 template physical/coefficient anchor; no log/exp tolerance or old alias. Actual tail reanchor result, receipt and spec identity remain pending. Distinct sensitivity review SHA requires immutable root registration; A68 comparator successor remains blocked. 0540 candidate only. Driver v010 r5, production P128 and gas M_s128. Fresh calls only; missing scientific evidence blocks launch/admission. Each registered D!=4.04 requires its own reviewed tail-OFF r5/v009-GEO deciding-iii pair. Root-invalid resolution is disabled for tail-ON; MODEL_INVALID needs a later certified successor. Per-call caps remain unmeasured pending ADOPT_TAIL C4-6 evidence. No old anchor alias. 0557 r9: each named deciding row binds exact config numerics excluding only the two per-point EPS/LO certificate slots. Scientific evidence remains pending."
+  },
+  {
+   "path": ".tail_readiness.deciding_numerics_rule",
+   "r8": "<absent>",
+   "r9": "EXACT_CONFIG_BLOCK_EXCEPT_UV_TAIL_EPS_CERTIFICATE_AND_LO_CERTIFICATE"
+  },
+  {
+   "path": ".work_dir",
+   "r8": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R8_P128_MS128",
+   "r9": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R9_P128_MS128"
+  },
+  {
+   "path": ".work_dir_identity.resolved",
+   "r8": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R8_P128_MS128",
+   "r9": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R9_P128_MS128"
+  }
+ ],
+ "manifests": {
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/HASHES.txt": {
+   "bad": 0,
+   "bad_paths": [],
+   "ok": 25
+  },
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/HASHES_FINAL_CX2V006R8.txt": {
+   "bad": 0,
+   "bad_paths": [],
+   "ok": 90
+  },
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/HASHES_FINAL_CX2V006R9.txt": {
+   "bad": 0,
+   "bad_paths": [],
+   "ok": 272
+  },
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/independent_review/HASHES_CX2V001.txt": {
+   "bad": 0,
+   "bad_paths": [],
+   "ok": 133
+  }
+ },
+ "numerics_block_canonical_equal": true,
+ "r8_file_count": 91,
+ "r8_files_mtime_after_r9_start": [],
+ "schema": "C2_DIFF_R8_R9_V001",
+ "sources": {
+  "core": {
+   "changed_lines": 36,
+   "diff": [
+    "--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_core_cx2v006r8_v003.py",
+    "+++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/calibration_core_cx2v006r9.py",
+    "@@ -31,0 +32 @@",
+    "+DECIDING_NUMERICS_CONTEXT = contextvars.ContextVar('cx2r9_deciding_numerics', default=None)",
+    "@@ -104 +105,10 @@",
+    "-def check_deciding(dt, driver_sha256, mon, synthetic=False, *, anchor=None):",
+    "+def deciding_numerics_identity(block):",
+    "+    \"\"\"0557: remove exactly the two per-point certificate slots, as point_identity.\"\"\"",
+    "+    if not isinstance(block, dict) or not isinstance(block.get('uv_tail'), dict):",
+    "+        raise Error('DECIDING_CONFIG_NUMERICS_BLOCK_REQUIRED')",
+    "+    numerical_identity = copy.deepcopy(block)",
+    "+    for slot in ('eps_certificate', 'lo_certificate'):",
+    "+        numerical_identity['uv_tail'].pop(slot, None)",
+    "+    return numerical_identity",
+    "+",
+    "+def check_deciding(dt, driver_sha256, mon, synthetic=False, *, anchor=None, numerics_block=None):",
+    "@@ -113,0 +124,2 @@",
+    "+            numerics_block = DECIDING_NUMERICS_CONTEXT.get() if numerics_block is None else numerics_block",
+    "+            expected_numerics = canonical(deciding_numerics_identity(numerics_block))",
+    "@@ -134,0 +147,2 @@",
+    "+                if canonical(deciding_numerics_identity(sp['numerics'])) != expected_numerics:",
+    "+                    raise Error('DECIDING_NUMERICS_NOT_CONFIG_BLOCK: ' + row['name'])",
+    "@@ -260 +274,5 @@",
+    "-        token = ANCHOR_CONTEXT.set(copy.deepcopy(cfg['anchor']))",
+    "+        bound_anchor = copy.deepcopy(cfg['anchor'])",
+    "+        bound_numerics = copy.deepcopy(cfg['numerics']['block'])",
+    "+        canonical(deciding_numerics_identity(bound_numerics))",
+    "+        anchor_token = ANCHOR_CONTEXT.set(bound_anchor)",
+    "+        numerics_token = DECIDING_NUMERICS_CONTEXT.set(bound_numerics)",
+    "@@ -264 +282,2 @@",
+    "-            ANCHOR_CONTEXT.reset(token)",
+    "+            DECIDING_NUMERICS_CONTEXT.reset(numerics_token)",
+    "+            ANCHOR_CONTEXT.reset(anchor_token)",
+    "@@ -268 +287 @@",
+    "-        # Bind this instance's anchor for that complete call, and always restore.",
+    "+        # Bind this instance's anchor and numerics for the complete call, then restore.",
+    "@@ -270 +289,5 @@",
+    "-        token = ANCHOR_CONTEXT.set(copy.deepcopy(self.cfg['anchor']))",
+    "+        bound_anchor = copy.deepcopy(self.cfg['anchor'])",
+    "+        bound_numerics = copy.deepcopy(self.cfg['numerics']['block'])",
+    "+        canonical(deciding_numerics_identity(bound_numerics))",
+    "+        anchor_token = ANCHOR_CONTEXT.set(bound_anchor)",
+    "+        numerics_token = DECIDING_NUMERICS_CONTEXT.set(bound_numerics)",
+    "@@ -274 +297,2 @@",
+    "-            ANCHOR_CONTEXT.reset(token)",
+    "+            DECIDING_NUMERICS_CONTEXT.reset(numerics_token)",
+    "+            ANCHOR_CONTEXT.reset(anchor_token)"
+   ],
+   "r8": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_core_cx2v006r8_v003.py",
+    "sha256": "603ab460fb039494659f5b0e03998b28ff2a7f124d9ae7fd7491340523929e08"
+   },
+   "r9": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/calibration_core_cx2v006r9.py",
+    "sha256": "a595c5c0929fc0a8313bcdff3b79241f1e3ba8f77dc3749adc06b2a982b43605"
+   }
+  },
+  "static_dry_check": {
+   "changed_lines": 14,
+   "diff": [
+    "--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/check_static_dry_cx2v006r8.py",
+    "+++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/check_static_dry_cx2v006r9.py",
+    "@@ -1 +1 @@",
+    "-\"\"\"0554 final candidate: normalization, closed gates and one zero-stage dry plan.\"\"\"",
+    "+\"\"\"0557 final candidate: normalization, closed gates and one zero-stage dry plan.\"\"\"",
+    "@@ -20,3 +20,3 @@",
+    "-wp=R/'calibration_orchestrator_cx2v006r8_v004.py';raw=wp.read_bytes()",
+    "-spec=importlib.util.spec_from_file_location('_cx2r8_final_static',wp);M=importlib.util.module_from_spec(spec);sys.modules[spec.name]=M;exec(compile(raw,str(wp),'exec'),M.__dict__)",
+    "-cfgpath=R/'RUN_CONFIG_DDO154_CX2V006R8_P128_MS128.json';cfg=json.loads(cfgpath.read_bytes());local=copy.deepcopy(cfg)",
+    "+wp=R/'calibration_orchestrator_cx2v006r9.py';raw=wp.read_bytes()",
+    "+spec=importlib.util.spec_from_file_location('_cx2r9_final_static',wp);M=importlib.util.module_from_spec(spec);sys.modules[spec.name]=M;exec(compile(raw,str(wp),'exec'),M.__dict__)",
+    "+cfgpath=R/'RUN_CONFIG_DDO154_CX2V006R9_P128_MS128.json';cfg=json.loads(cfgpath.read_bytes());local=copy.deepcopy(cfg)",
+    "@@ -55 +55 @@",
+    "-out=R/'static_dry_v001';out.mkdir();s=copy.deepcopy(template);s['physical']=copy.deepcopy(cfg['anchor']['physical']);s['numerics']=copy.deepcopy(cfg['numerics']['block']);s['label']='0554 final r8 registered anchor static/dry only'",
+    "+out=R/'static_dry_v001';out.mkdir();s=copy.deepcopy(template);s['physical']=copy.deepcopy(cfg['anchor']['physical']);s['numerics']=copy.deepcopy(cfg['numerics']['block']);s['label']='0557 final r9 registered anchor static/dry only'",
+    "@@ -60,2 +60,2 @@",
+    "-result={'schema':'DDO154_FINAL_R8_STATIC_DRY_CX2V001','status':'TESTED','launches_performed':0,'passed':sum(c['pass'] for c in checks),'total':len(checks),'normalizations':len(plans),'actual_dry_plans':1,'executed_stages':d['executed_stages'],'checks':checks,'candidate':pin(wp),'core':pin(M.M.__file__),'sensitivity_policy':pin(M.S.__file__),'config':pin(cfgpath),'source':pin(__file__),'dry_spec':p,'dry_report':pin(rp),'max_rss_bytes_macos':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'limits':['No solver or scientific certificate execution.','Synthetic contexts use local workdir identity; real config unchanged.','All scientific gates remain closed; A68 successor and actual anchor evidence pending.']}",
+    "-jx(R/'STATIC_DRY_RESULTS_CX2V006R8.json',result);print(json.dumps({k:result[k] for k in ('passed','total','normalizations','actual_dry_plans','executed_stages','max_rss_bytes_macos')}))",
+    "+result={'schema':'DDO154_FINAL_R9_STATIC_DRY_CX2V001','status':'TESTED','launches_performed':0,'passed':sum(c['pass'] for c in checks),'total':len(checks),'normalizations':len(plans),'actual_dry_plans':1,'executed_stages':d['executed_stages'],'checks':checks,'candidate':pin(wp),'core':pin(M.M.__file__),'sensitivity_policy':pin(M.S.__file__),'config':pin(cfgpath),'source':pin(__file__),'dry_spec':p,'dry_report':pin(rp),'max_rss_bytes_macos':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'limits':['No solver or scientific certificate execution.','Synthetic contexts use local workdir identity; real config unchanged.','All scientific gates remain closed; A68 successor and actual anchor evidence pending.']}",
+    "+jx(R/'STATIC_DRY_RESULTS_CX2V006R9.json',result);print(json.dumps({k:result[k] for k in ('passed','total','normalizations','actual_dry_plans','executed_stages','max_rss_bytes_macos')}))"
+   ],
+   "r8": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/check_static_dry_cx2v006r8.py",
+    "sha256": "2e06be57806ee108d59e48dc9a6f9e55e8e184d2b9fcbfbfcf9c1e902563fdff"
+   },
+   "r9": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/check_static_dry_cx2v006r9.py",
+    "sha256": "8de49717aa9df12aead3f3a809debf2d342a779dddbd27a5f31278de0a65d1e6"
+   }
+  },
+  "wrapper": {
+   "changed_lines": 6,
+   "diff": [
+    "--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_orchestrator_cx2v006r8_v004.py",
+    "+++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/calibration_orchestrator_cx2v006r9.py",
+    "@@ -27 +27 @@",
+    "-M=load(HERE/'calibration_core_cx2v006r8_v003.py','_cx2v006r1',expected='603ab460fb039494659f5b0e03998b28ff2a7f124d9ae7fd7491340523929e08')",
+    "+M=load(HERE/'calibration_core_cx2v006r9.py','_cx2v006r1',expected='a595c5c0929fc0a8313bcdff3b79241f1e3ba8f77dc3749adc06b2a982b43605')",
+    "@@ -29 +29 @@",
+    "-S=load(HERE/'sensitivity_policy_cx2v006r8_v002.py','_cx2r7_sensitivity',expected='8fb0660077d56ddc787ac67386f8def72e6f5a04fd14e44eb20ed9facf19de4f')",
+    "+S=load(HERE.parent/'v006r8/sensitivity_policy_cx2v006r8_v002.py','_cx2r7_sensitivity',expected='8fb0660077d56ddc787ac67386f8def72e6f5a04fd14e44eb20ed9facf19de4f')",
+    "@@ -48 +48 @@",
+    "-            raise Error('v006r8 requires pinned v010 r5')",
+    "+            raise Error('v006r9 requires pinned v010 r5')"
+   ],
+   "r8": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_orchestrator_cx2v006r8_v004.py",
+    "sha256": "1ddbe6da1b34e84a9a419a0c72e2933a74cd3021cbdb68c91f5691193b9ce488"
+   },
+   "r9": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r9/calibration_orchestrator_cx2v006r9.py",
+    "sha256": "24abe3bc4f6ee0e3c5d7c89502062cf99464573b35bc5b53c33c14ef2ae888af"
+   }
+  }
+ },
+ "unlisted_r9_files": []
+}

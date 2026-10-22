@@ -1,0 +1,103 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0813 item 4 / 0826 item 4c: RUNBOOK c2v007 roster builder (cross-family)",
+ "reviewer_lane": "Claude3 (helper lens; the lead re-read _ceiling_or_hold L4763-4790 from bytes)",
+ "utc": "2026-10-21T13:14:15Z",
+ "object": {
+  "builder": "runbook_v002_c2v007_cx2/roster_builder_c2v007_a253_v001.py 799fb2d002ba39885326f161e1efbe3ad35dd2b66d3c84f961ddce910e9cd15b",
+  "runbook": "12917ba9",
+  "readme": "0a39359e",
+  "evidence": "89f86f14",
+  "unchanged_start_to_end": true,
+  "evidence_pins_verified": 57
+ },
+ "verdict": "PASS",
+ "blocking": 0,
+ "context_answer": "c2v007 does not have P112's Phase-1-ceiling defect. It never stops or launches anything, and it calls only read-only P112 functions (history, calls, registered_entry, assemble_registry verify=True), never next_attempt, fresh_launch_plan or _commit_plan_check. The Phase-1 ceiling only filters Phase-1 evidence (PHASE1_RECEIPT_AFTER_CEILING L4816-4817 under PHASE_1 only). Phase-2 builds accept attempts and reruns after 2026-11-06T05:59Z (helper probes, TESTED).",
+ "findings": [
+  {
+   "id": "F1",
+   "class": "NOTE (schedule dependency)",
+   "label": "FORMAL",
+   "title": "c2v007 is pinned to P112 cx2v004 only",
+   "evidence": "P112_REVIEWED_SHA 8cec1b56 (L3639) and the REGISTRY_VERIFIER_PIN refusal (L3648); snapshot capture and verify run the cx2v004 Context (config schema P112_CONFIG_CX2V004, TOOL_PIN P112_LAUNCHER_CX2V004). Resolved downstream: under 0835 the cw8 v002 roster builder (a2d8dc00) pins only the v002 launcher and drops cx2v004."
+  },
+  {
+   "id": "F2",
+   "class": "NOTE (A249 item 2/4 integrity depends on root procedure)",
+   "label": "FORMAL + TESTED; lead re-read",
+   "title": "An unclassified HELD_FOR_CAUSE pair is closed at the ceiling as SCHEDULE_CEILING (UNEVALUATED)",
+   "evidence": "_ceiling_or_hold (L4763-4782) returns a present closure before any hold check; the cause producer may be null (L4606, L4620); phase1_snapshot does not require cause rows for eligible FAILED attempts. Probe P10 and suite case ceiling_time_is_boundary: two identical solo CHILD_FAILED|ROUTE_A_NO_FIXED_POINT attempts with no causes become SCHEDULE_CEILING. So the guard holds only if root runs the cause producer before the snapshot. The cw8 v002 roster builder keeps this function unchanged, so it inherits the same ordering.",
+   "recommendation": "A precondition before the snapshot: every eligible solo FAILED attempt has a bound cause row; refuse otherwise. Apply it to the cw8 v002 roster builder, the adopted line."
+  },
+  {
+   "id": "F3",
+   "class": "NOTE",
+   "label": "FORMAL + TESTED",
+   "title": "check_cutoff checks a record's own T only for successors",
+   "evidence": "L3573-3618 compares T with the derived T only for successors (L3601-3607); a probe accepted first records with wrong T values. Builder outputs use the derived T, and honest producers (snapshot L5736-5742, P112 write_cutoff) write the correct T."
+  },
+  {
+   "id": "F4",
+   "class": "NOTE (forged/operator-input class, A115)",
+   "label": "FORMAL + TESTED",
+   "title": "Phase-1 closures are accepted outside snapshot mode",
+   "evidence": "Exact attempt-list binding applies only in P112_SAVED_PHASE1_SNAPSHOT mode (L4955, L4789-4791). In legacy READ_ONLY_VERIFY mode, a truncated list plus a matching closure gives SCHEDULE_CEILING. Phase 2 has the same exposure."
+  },
+  {
+   "id": "F5",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "Phase-2 interface limits (refusals, not wrong records)",
+   "evidence": "A zero-attempt Phase-2 call refuses CALL_ATTEMPTS_REQUIRED (L4793-4794); Phase-2 registry verify accepts only P112 entries (L3764); there is no Phase-2 after-ceiling receipt exclusion."
+  },
+  {
+   "id": "F6",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "Test coverage gaps",
+   "evidence": "The release synthetic clocks start 2026-01-01, so no release case puts Phase-2 attempts after the Phase-1 ceiling (the helper's probes P1-P4 cover this). There is no end-to-end snapshot-to-FULL test; the README discloses the seam."
+  },
+  {
+   "id": "F7",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "The evidence JSON omits three hash-checked test dependencies",
+   "evidence": "test_core_a246_draft002.py 52745e24; phase1_ngc_launch_kit_cx2v003/test_phase1_ngc_launch_cx2v003.py a3cdbdc6; runbook_v002_c2/test_runbook_v002_c2v006.py 88d79035."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "Counting: only authenticated exact solo pairs of ROUTE_A_NO_FIXED_POINT or ITERATION_BUDGET_EXHAUSTED count; CAP, OUTPUT_CAP, INFRA, root stops and FAILED_SOURCE_PREPARATION never count (_receipt L4650-4725, _rule_c_problem L4731-4760)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Every STATUS_CLASSES row (L2551-2605) against the monitor L192-197 and driver r5 L3555-3597 (11 combinations probed)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "HELD_FOR_CAUSE / HELD_FOR_FIX before the ceiling",
+   "result": "CONFIRMED",
+   "note": "F2 at the ceiling"
+  },
+  {
+   "claim": "Snapshot captures all planned calls, including never-launched ones, with nothing fabricated; T definition with creation time separate; unfinished calls FREEZE_INCOMPLETE with stop_requested False; frozen V006 used and no Phase-2 rescan",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Closures and the null-last-receipt rule; receipt projection; custody ledger re-derivation; never launches; single read (A226 item 1); value-free cause path only; both adopted ceilings enforced",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Suites on scratch copies: 338/338 functional, 6/6 document plus 3/3 document mutants, 48/48 mutants killed; 10/10 own phase-boundary and counting probes as predicted",
+   "result": "CONFIRMED",
+   "label": "TESTED",
+   "note": "copies prepend one __file__ line to keep HERE on the object folder; WORK in scratch; nothing written to the object folder"
+  }
+ ],
+ "reads_not_done": "No NGC data, run trees, receipts or ~/.codex."
+}

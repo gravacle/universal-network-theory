@@ -1,0 +1,232 @@
+{
+ "base_c2v004b_sha256": "e239d21e8f29e4711ec20c28c335bc25340fb8780253ceb1e57f037624e99205",
+ "base_c2v004c_sha256": "ce9cbef8caaef8120377f302647c71d80387353d192d25d7d0b7e13e5872e809",
+ "builder_checks": 18,
+ "builder_failures": [],
+ "builder_sha256": "1e16b718003154b061d2969ba95914f461212c48aa0bf430e3e94cb93b3e8e84",
+ "checker_cases": {
+  "c2v004c_given_as_dbp": "DBP_SCHEMA",
+  "child_admission_pin_sha_refused": "PIN_SHA",
+  "dbp_sha_mismatch": "DBP_C2V004D_PIN",
+  "old_wall_in_child_admission": "CHILD_ADMISSION_CAPS",
+  "old_wall_in_child_plan": "CHILD_PLAN_CAPS",
+  "old_wall_in_parent_admission": "PARENT_ADMISSION_CAPS",
+  "old_wall_in_plan": "PLAN_CAPS",
+  "pair_filled_from_c2v004c_refused": "PLAN_CAPS",
+  "plan_not_bound_by_parent": "PARENT_PLAN_BINDING",
+  "positive_d_caps_pass": "PASS",
+  "rss_changed_in_plan": "PLAN_CAPS",
+  "wrong_case_order": "PLAN_CASE_ORDER"
+ },
+ "checker_sha256": "5f24c6bf37e3fd2ae04cd300cd9a11835356967e13b0f7b983377c9319cb72ce",
+ "fill_utc": "2026-10-22T09:30:00Z",
+ "mutants": {
+  "K1_child_plan_caps_unchecked": {
+   "by": [
+    "old_wall_in_child_plan"
+   ],
+   "killed": true
+  },
+  "K2_parent_admission_caps_unchecked": {
+   "by": [
+    "old_wall_in_parent_admission"
+   ],
+   "killed": true
+  },
+  "K3_pin_sha_unchecked": {
+   "by": [
+    "child_admission_pin_sha_refused"
+   ],
+   "killed": true
+  },
+  "K4_parent_plan_binding_unchecked": {
+   "by": [
+    "plan_not_bound_by_parent"
+   ],
+   "killed": true
+  },
+  "K5_wall_only_compared": {
+   "by": [
+    "positive_d_caps_pass",
+    "rss_changed_in_plan",
+    "old_wall_in_child_admission",
+    "old_wall_in_child_plan"
+   ],
+   "killed": true
+  },
+  "M1_scope_checks_removed_and_DIII_wall_changed": {
+   "by": [
+    "vs_c2v004c_exactly_2_post_s1_walls_plus_provenance",
+    "vs_c2v004b_exactly_13_walls_plus_provenance",
+    "rss_output_and_other_walls_unchanged",
+    "leaf_diff_record_consistent"
+   ],
+   "killed": true
+  },
+  "M2_shorter_wall_allowed": {
+   "by": [
+    "fill_too_late_refused",
+    "fill_after_ceiling_refused"
+   ],
+   "killed": true
+  },
+  "M3_c2v004c_pin_skipped": {
+   "by": [
+    "tampered_c2v004c_refused"
+   ],
+   "killed": true
+  },
+  "M4_wall_rounded_up_a_day": {
+   "by": [
+    "reference_build_raised REFUSED FILL_BEFORE_C2V004C_FILL"
+   ],
+   "killed": true
+  },
+  "M5_headline_walls_refilled_from_new_fill": {
+   "by": [
+    "later_exact_fill_moves_only_post_s1_walls"
+   ],
+   "killed": true
+  },
+  "M6_fill_before_c2v004c_allowed": {
+   "by": [
+    "fill_before_c2v004c_fill_refused"
+   ],
+   "killed": true
+  }
+ },
+ "n": 8,
+ "passed": 8,
+ "reference_c2v004d_sha256": "5d3f4bb84c35adee296048264ed306102ae51267f7da7ba2595cce561698f7a2",
+ "results": [
+  {
+   "detail": [],
+   "id": "builder_suite_all_pass",
+   "pass": true
+  },
+  {
+   "detail": "{\"dbp_c2v004d\": {\"path\": \"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_wall_ceiling_cx3/D_AUTHOR_RERUN_CX3V001/run1/DIRECT_BATCH_PARAMS_S45_C2V004D.json\", \"sha256\": \"5d3f4bb84c35adee296048264ed306102ae51267f7da7ba2595cce561698f7a2\"}, \"leaf_diff\": {\"path\": \"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_wall_ceiling_cx3/D_AUTHOR_RERUN_CX3V001/run1/LEAF_DIFF_S45_C2V004D.json\", \"sha256\": \"971575dd5f315a8087107b568a47de25b41c47c1ff98753a21750d561abed899\"}, \"post_s1_wall_cap_s\": 3443340}\n",
+   "id": "cli_writes_two_files",
+   "pass": true
+  },
+  {
+   "detail": null,
+   "id": "cli_bytes_equal_build",
+   "pass": true
+  },
+  {
+   "detail": null,
+   "id": "cli_existing_out_dir_refused",
+   "pass": true
+  },
+  {
+   "detail": null,
+   "id": "cli_relative_out_dir_refused",
+   "pass": true
+  },
+  {
+   "detail": {
+    "c2v004c_given_as_dbp": "DBP_SCHEMA",
+    "child_admission_pin_sha_refused": "PIN_SHA",
+    "dbp_sha_mismatch": "DBP_C2V004D_PIN",
+    "old_wall_in_child_admission": "CHILD_ADMISSION_CAPS",
+    "old_wall_in_child_plan": "CHILD_PLAN_CAPS",
+    "old_wall_in_parent_admission": "PARENT_ADMISSION_CAPS",
+    "old_wall_in_plan": "PLAN_CAPS",
+    "pair_filled_from_c2v004c_refused": "PLAN_CAPS",
+    "plan_not_bound_by_parent": "PARENT_PLAN_BINDING",
+    "positive_d_caps_pass": "PASS",
+    "rss_changed_in_plan": "PLAN_CAPS",
+    "wrong_case_order": "PLAN_CASE_ORDER"
+   },
+   "id": "checker_suite_all_pass",
+   "pass": true
+  },
+  {
+   "detail": "{\"checked\": \"pair plan, parent admission, 2 child admissions, 2 child plans\", \"status\": \"PASS\", \"wall_cap_s\": {\"S1_UA_C3T\": 3443340, \"S1_UA_C4T\": 3443340}}\n",
+   "id": "checker_reports_both_walls_W",
+   "pass": true
+  },
+  {
+   "detail": {
+    "K1_child_plan_caps_unchecked": {
+     "by": [
+      "old_wall_in_child_plan"
+     ],
+     "killed": true
+    },
+    "K2_parent_admission_caps_unchecked": {
+     "by": [
+      "old_wall_in_parent_admission"
+     ],
+     "killed": true
+    },
+    "K3_pin_sha_unchecked": {
+     "by": [
+      "child_admission_pin_sha_refused"
+     ],
+     "killed": true
+    },
+    "K4_parent_plan_binding_unchecked": {
+     "by": [
+      "plan_not_bound_by_parent"
+     ],
+     "killed": true
+    },
+    "K5_wall_only_compared": {
+     "by": [
+      "positive_d_caps_pass",
+      "rss_changed_in_plan",
+      "old_wall_in_child_admission",
+      "old_wall_in_child_plan"
+     ],
+     "killed": true
+    },
+    "M1_scope_checks_removed_and_DIII_wall_changed": {
+     "by": [
+      "vs_c2v004c_exactly_2_post_s1_walls_plus_provenance",
+      "vs_c2v004b_exactly_13_walls_plus_provenance",
+      "rss_output_and_other_walls_unchanged",
+      "leaf_diff_record_consistent"
+     ],
+     "killed": true
+    },
+    "M2_shorter_wall_allowed": {
+     "by": [
+      "fill_too_late_refused",
+      "fill_after_ceiling_refused"
+     ],
+     "killed": true
+    },
+    "M3_c2v004c_pin_skipped": {
+     "by": [
+      "tampered_c2v004c_refused"
+     ],
+     "killed": true
+    },
+    "M4_wall_rounded_up_a_day": {
+     "by": [
+      "reference_build_raised REFUSED FILL_BEFORE_C2V004C_FILL"
+     ],
+     "killed": true
+    },
+    "M5_headline_walls_refilled_from_new_fill": {
+     "by": [
+      "later_exact_fill_moves_only_post_s1_walls"
+     ],
+     "killed": true
+    },
+    "M6_fill_before_c2v004c_allowed": {
+     "by": [
+      "fill_before_c2v004c_fill_refused"
+     ],
+     "killed": true
+    }
+   },
+   "id": "all_mutants_killed",
+   "pass": true
+  }
+ ],
+ "schema": "TEST_RECORD_C2V004D_C3V001",
+ "wall_cap_s": 3443340
+}

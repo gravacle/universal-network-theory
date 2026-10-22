@@ -1,0 +1,130 @@
+{
+  "utc": "2026-10-18 12:11:35 UTC",
+  "status": "TESTED_EXTRACTION_AND_ARITHMETIC_UNTESTED_PRODUCTION_PROJECTION",
+  "waiver": "nice unavailable (sandbox); 0514 waiver",
+  "timings": {
+    "64": {
+      "route_A_cold_s": 79.32,
+      "route_A_warm_s": 31.96,
+      "route_B_rotation_cold_s": 60.62,
+      "route_A_later_lapse_pair_s": 0.0002920561344126327,
+      "route_A_first_line_s": 0.01813033319922397,
+      "route_A_peak_rss_bytes_measured": 1613053952,
+      "route_B_peak_rss_bytes_measured": 829997056,
+      "projection_A_build_only": [
+        {
+          "iterations": 6,
+          "calls": 1,
+          "seconds": 271.08
+        },
+        {
+          "iterations": 6,
+          "calls": 7,
+          "seconds": 1897.56
+        },
+        {
+          "iterations": 6,
+          "calls": 12,
+          "seconds": 3252.96
+        },
+        {
+          "iterations": 32,
+          "calls": 1,
+          "seconds": 1102.04
+        },
+        {
+          "iterations": 32,
+          "calls": 7,
+          "seconds": 7714.28
+        },
+        {
+          "iterations": 32,
+          "calls": 12,
+          "seconds": 13224.48
+        }
+      ]
+    },
+    "128": {
+      "route_A_cold_s": 284.82,
+      "route_A_warm_s": 103.43,
+      "route_B_rotation_cold_s": 232.75,
+      "route_A_later_lapse_pair_s": 0.0005766802253219794,
+      "route_A_first_line_s": 0.017646534062805586,
+      "route_A_peak_rss_bytes_measured": 2903900160,
+      "route_B_peak_rss_bytes_measured": 1265123328,
+      "projection_A_build_only": [
+        {
+          "iterations": 6,
+          "calls": 1,
+          "seconds": 905.4000000000001
+        },
+        {
+          "iterations": 6,
+          "calls": 7,
+          "seconds": 6337.800000000001
+        },
+        {
+          "iterations": 6,
+          "calls": 12,
+          "seconds": 10864.800000000001
+        },
+        {
+          "iterations": 32,
+          "calls": 1,
+          "seconds": 3594.5800000000004
+        },
+        {
+          "iterations": 32,
+          "calls": 7,
+          "seconds": 25162.06
+        },
+        {
+          "iterations": 32,
+          "calls": 12,
+          "seconds": 43134.96000000001
+        }
+      ]
+    }
+  },
+  "formula": "T_call = T_kept_cube_and_other + A_cold + I*A_warm + sum_j B_build_j + T_tail_evaluations + T_serialization_IO + T_certificates",
+  "measured_B_proxy": "n_B * measured le_rotation cold build; applicability to other stages UNTESTED",
+  "wave_formula": "sum over cache misses of per-call costs; q in {7,12} is a scenario, not an executed plan; cache hits retain validation costs",
+  "limitations": [
+    "No complete tail-on call timed",
+    "No 8-worker tail serialization/IPC or aggregate RSS timing",
+    "Warm sample repeats same saved state; later changing sources and >6 iterations are unmeasured",
+    "n_B depends on actual consuming stages and process lifetime; not assumed one per Picard pass",
+    "Current account 2-process limit is for replays, not a production scheduling authorization",
+    "No production K_big selected; no comparison with forbidden C5H/UVT runs"
+  ],
+  "sources": {
+    "S13_A_controller": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001.py",
+      "sha256": "51d32e7b2b8c83c7544c24d64ea3161007fbec35769a64a869972efac055cb68"
+    },
+    "S14_B_binding": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_b/uvt_route_b_binding_c2v001.py",
+      "sha256": "7288a5d17976cc0267316e16f6a15aab2ca5c87d810c7d498f2a3787fe571651"
+    },
+    "S15_timing_A64": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/kbig_proxy_v002/out/timing/TIMING_route_a_KB0064_n6_V002.json",
+      "sha256": "34481edf97ffe489676c3c2863554f02c5f38a17ae8b85ec079f1e0422f2e7c6"
+    },
+    "S16_timing_A128": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/kbig_proxy_v002/out/timing/TIMING_route_a_KB0128_n6_V002.json",
+      "sha256": "e4e6d217832697a360141aca382b1e169b5af73e186f04a31dfcac50bdbdac5b"
+    },
+    "S17_timing_A128_initial": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/kbig_proxy_v002/out/timing/TIMING_route_a_KB0128_n0_V002.json",
+      "sha256": "24701f38de4f180c44396cf1530f890eb07336938fe577a010dc20d52a870122"
+    },
+    "S18_timing_B64": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/kbig_proxy_v002/out/timing/TIMING_route_b_KB0064_V002.json",
+      "sha256": "02ddb9be18ef356b9ed901744f135cbb271b6770189615fe9658bbbe660f0ce1"
+    },
+    "S19_timing_B128": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/kbig_proxy_v002/out/timing/TIMING_route_b_KB0128_V002.json",
+      "sha256": "0d1365b9a39b7d84223fd10b52eb779203d25acb337e092368f228f64eb32b7a"
+    }
+  }
+}

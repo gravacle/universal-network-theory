@@ -1,0 +1,39 @@
+{
+  "date_u": "Wed Oct 21 17:23:36 UTC 2026",
+  "formal": {
+    "admission_only_change": "If all numeric EPS entries, state and row inputs stay fixed, only a certification flag/rule change produces zero numerical delta in F_a and the computed tail/lapse; acceptance and custody may change.",
+    "field": "F_a = sum_i e_i B_i^(a), where e_i is max EPS among certificate intervals overlapping state shell i",
+    "gate_margin": "Existing SRB-ROT compares RBound_j <= tau_j/10; adapter contract tau_j=0.25 sigma_j, so modelled budget=0.025 sigma_j, conditional on the numerical bound assumptions. This is not an independently established total-error guarantee.",
+    "one_interval_delta": "For aligned unit shell s, Delta F_a = Delta e_s B_s^(a); for multiple overlapping state cells, sum Delta e_i B_i^(a).",
+    "relative_sensitivity": "For e_s>0, F_a>0, e_s_new=m e_s: F_a_new/F_a=1+(m-1) alpha_s^(a), alpha=e_s B_s^(a)/F_a in [0,1]. No upper bound on alpha from e_s/eps_max alone.",
+    "row_bound": "RBound_j = beta_j F_1, beta_j = max_{k in row j} R_k c^2/(2 N_min v_k * 1000), fixed state and positive valid rows",
+    "true_error_limit": "Finite sample/refinement/search records do not provide an upper bound on the unsampled supremum. The measured refinement increment is not a worst-case error bound. A rigorous finite worst case needs an independent enclosure/regularity bound; a numerical km/s sensitivity also needs the actual state B and row factors, not available in certification-only inputs."
+  },
+  "inputs_sha256": {
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/point_response_producer_cx2v002.py": "a1dcdea8deba5bc9667f0ea36d6b94c3cc20fb1d2d95d637cc9e7ea26b478231",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/cp1_run_c3v004b/P302_6f4604efe6d7fe34_W0003_P02_a1/EPS_NUMERIC_6f4604efe6d7fe34.json": "3babf8f45719220ac161b5e784cb86e2684129e94be5715848088ae61910dc72",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/srb_rot_adapter_c3v003.py": "08e9ac0a12cf1829f79f6df8a82c9ec6a7d174fc4bb25be76d3c049525dfae6a",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py": "2026f2b6e21eba661ef97a5a2b6a8b73d0f8a2d5c3b995611c705f3dc6746a54"
+  },
+  "no_rule_change": "No final A295 constants inferred or implemented; build remains standby.",
+  "row302": {
+    "decisive_ratio": 1.122661233412251,
+    "discrete_base": 1.086706276298699e-06,
+    "discrete_refined": 1.2200030085063318e-06,
+    "eps_max": 0.0002524697669156195,
+    "eps_max_shell": [
+      4.0,
+      5.0
+    ],
+    "observed_refinement_increment_NOT_upper_bound": 1.3329673220763283e-07,
+    "shell": [
+      46.0,
+      47.0
+    ],
+    "stored_eps_over_discrete_refined": 1.5647965941037696,
+    "stored_eps_over_eps_max": 0.007561525389077993,
+    "stored_shell_eps": 1.90905655250706e-06
+  },
+  "schema": "EPS_BOUND_SENSITIVITY_CX2V001",
+  "scope": "TESTED saved certification-record arithmetic; FORMAL symbolic sensitivity; actual state/rows and true supremum UNTESTED"
+}

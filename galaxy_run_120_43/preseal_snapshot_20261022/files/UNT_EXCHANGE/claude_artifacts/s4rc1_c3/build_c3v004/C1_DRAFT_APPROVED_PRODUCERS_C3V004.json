@@ -1,0 +1,33 @@
+{
+  "author_lane": "Claude3 (builder); review by Codex1, single pass (FROM_CODEX/0696; A138 FROM_CODEX/0703)",
+  "basis": "A134 Q9(a) prelaunch producers: the EPS adapter v003, the GQ producer v005 and the A134 Q5 LO slot-proof producer lo_slot_proof_c3v003 (proof side c3v003; A138 V03: wrapper v002's 10-key rho comparison).",
+  "notes": [
+    "Whole-dict pins with canonical absolute paths: wrapper v002 (7a6af535) L157-159 compares producer pins as whole dicts (brief R4).",
+    "The key is deliberately not approved_certificate_producers: root writes the real C1 list after review (brief 6 Q9).",
+    "No LO_ENVELOPE entry: A134 Q1/Q5 retired the envelope route; the c3v004 assembler and verifier refuse LO_ENVELOPE proofs.",
+    "Q9(a) acceptance producers (the per-state LO adapter c3v003, the SRB-ROT adapter c3v003 and evidence b1 7044e131) are root additions after their reviews. The offline verifier c3v004 refuses a C1 that lists a producer outside the canonical set (the c3v002 F3 rule, unchanged), so a successor adds their canonical pins first.",
+    "C1 also needs certificate_policy_review (DDO154_CERTIFICATE_POLICY_REVIEW_CX2V001, wrapper v002 L70-75) bound to driver_slot_rule POINT_EPS_AND_REGISTERED_RHO_SLOT_PER_STATE_LO_ACCEPTANCE and guard_sha256 9e3fc109 (the guard wrapper v002 L30 loads), and the certificate_registry pin.",
+    "C1 state_enumerator: the b1 enumerator consumed_states_b1_c2v001 (4ca7f364), as the c3v004 registry manifest's c1_tail_readiness_fields carry it (A138 V02)."
+  ],
+  "proposed_approved_certificate_producers": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/point_response_admission_adapter_cx2v003.py",
+      "sha256": "4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/gq_producer_cx2v005.py",
+      "sha256": "2832ceb95e1f4c4065963a50475b42cdb176744b824ae6a06f15c30db76441bd"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/lo_slot_proof_c3v003.py",
+      "sha256": "cd10cd59df44d7b79f3c3aa7ba88998d94c7292c4c2656e09bbbe16ded01bca3"
+    }
+  ],
+  "schema": "S4RC1_C1_DRAFT_APPROVED_PRODUCERS_C3V004",
+  "status": "DRAFT_PROPOSAL_FOR_ROOT_NOT_AN_APPROVAL",
+  "supersedes": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/build_c3v003/C1_DRAFT_APPROVED_PRODUCERS_C3V003.json",
+    "sha256": "4969a76f223b6fdc9cca477678cbb553092b1abf09a06eb2e48d05d2a8a70310",
+    "why": "A138: the LO_RHO_SLOT producer is lo_slot_proof_c3v003 (V03)"
+  }
+}

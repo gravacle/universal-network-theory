@@ -1,0 +1,67 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Original cache methods with two nonempty synthetic speed rows",
+  "utc": "2026-10-21T13:51:46.817439+00:00",
+  "tested": [
+    "actual parent WAVE verifier passes inert evidence and real receipt/finish binding",
+    "original parent/wrapper put inserts then idempotently retains exact existing bytes; exclusive writer double",
+    "conflicting reinsert refuses without overwriting entry",
+    "original open(create=False) revalidates persisted entry before replay",
+    "original reopen refuses an additional corrupt entry without changing stored bytes",
+    "actual wrapper forward certificate path returns validated inert entry",
+    "entry self hash",
+    "receipt hash",
+    "evidence set",
+    "taxonomy rederivation",
+    "forward rederivation",
+    "changed synthetic speed",
+    "missing synthetic row",
+    "extra synthetic row"
+  ],
+  "finding": "Do not attach external_cache_guard directly as check_cached_certificate: it expects a complete key-bearing entry, whereas wrapper pre-put deliberately passes a partial entry. The adapter must derive the key from theta when absent, validate any supplied key, retain the original certificate check and restore the explicit original-spec resolver on every exit. Scope snapshot reads to validation; parent put writes must remain outside ReadOnlyScope.",
+  "untested": [
+    "Production mapper/taxonomy",
+    "Cache header creation and original atomic writer (temp unlink forbidden by user)",
+    "Authenticated importer installation"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_cache_nonempty_cx1v001.py",
+      "sha256": "489b46dc1d9f14061623c601425aa39f9c65db37cb0069ba668229180c203eb1"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_valid_admission_cx1v003.py",
+      "sha256": "7fbf4fbd05eb6da1c80cefb888e9981c5b2c0f0b40f816ebef931616967ff39d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_verify_scope_cx1v001.py",
+      "sha256": "cb0607b437a7529de39caf5c81780eb47973bad749049a43a98b94f307139cf4"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/cache_certificate_adapter_cx1v002.py",
+      "sha256": "30b4881885e959253a58a495d1bae46056860c998ee8c5dc2ab353715929b51c"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/real_guard_20261021T135134843699/CACHE_NONEMPTY_TEST_REPORT.json",
+      "sha256": "c27898f4f2ddb1c5802f65919998f36b21a40527caf8f3c6edfaf3a83a874375"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 188,
+  "no_live_processes": true,
+  "next": "14 nonempty-row cache lifecycle checks PASS: INERT_A=10, INERT_B=11 only synthetic fixture. Original parent/wrapper verifier/put/open/forward with certificate adapters, declared synthetic mapper/taxonomy and exclusive writer substitute. Changed speed/missing row/extra row refuse after selfhash recomputation. Still no installer or full acceptance/authentication/wait; overall blockers unchanged."
+}

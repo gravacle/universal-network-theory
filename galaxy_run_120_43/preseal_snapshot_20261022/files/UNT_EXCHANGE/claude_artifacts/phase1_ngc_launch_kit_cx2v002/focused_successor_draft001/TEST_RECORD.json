@@ -1,0 +1,591 @@
+{
+ "cases": [
+  {
+   "name": "B1_RV01_checked_launch_buffer",
+   "status": "PASS"
+  },
+  {
+   "name": "B2_RV02_classified_receipt_buffer",
+   "status": "PASS"
+  },
+  {
+   "name": "B3_RV03_verified_registry_buffer",
+   "status": "PASS"
+  },
+  {
+   "name": "CLEANUP_RV04_single_guarded_read",
+   "status": "PASS"
+  },
+  {
+   "name": "F1_RV05_RV06_record_alias_blinding",
+   "status": "PASS"
+  },
+  {
+   "name": "F2_RV08_actual_line_grammar",
+   "status": "PASS"
+  },
+  {
+   "name": "B4_RV11_real_apostrophe_ps",
+   "status": "PASS"
+  },
+  {
+   "name": "B4_RV12_transient_apostrophe",
+   "status": "PASS"
+  },
+  {
+   "name": "B4_RV13_persistent_apostrophe",
+   "status": "PASS"
+  },
+  {
+   "name": "B4_RV14_first_apostrophe",
+   "status": "PASS"
+  },
+  {
+   "name": "F3_missing_monitor_pid_recovery",
+   "status": "PASS"
+  },
+  {
+   "name": "F4_RV19_kit_exit_one_semantics",
+   "status": "PASS"
+  },
+  {
+   "name": "F5_RV24_production_V006_constant",
+   "status": "PASS"
+  },
+  {
+   "name": "F6_postseal_component_guard",
+   "status": "PASS"
+  },
+  {
+   "name": "0785_immutable_audit_MUST_PASS",
+   "status": "PASS"
+  },
+  {
+   "name": "0785_volatile_audit_MUST_PASS",
+   "status": "PASS"
+  },
+  {
+   "name": "0785_cutoff_audit_MUST_PASS",
+   "status": "PASS"
+  },
+  {
+   "name": "CLEANUP_fill_single_read_MUST_PASS",
+   "status": "PASS"
+  },
+  {
+   "name": "F3_RV21_actual_inert_Popen_interruption_resume_close",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_B1_launch_reread",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_B2_receipt_reread",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_B3_registry_reread",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_B4_command_parse_refusal",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F1_unguarded_launch_observation",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F1_allow_record_alias",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F2_tool_splitlines",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F2_residual_splitlines",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F3_require_monitor_pid_file",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F4_any_exit_one_ended",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F5_configured_V006",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_F6_postseal_guard_removed",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_cleanup_pin_then_reread",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_0785_immutable_cache_bypassed",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_0785_volatile_pin_reread",
+   "status": "PASS"
+  },
+  {
+   "name": "CX2V002_MUTANT_0785_cutoff_copy_reread",
+   "status": "PASS"
+  }
+ ],
+ "date_u": "Tue Oct 20 19:23:30 UTC 2026",
+ "date_u_meaning": "Common actual suite-start date -u; each execution has separate date -u metadata.",
+ "interfaces": {
+  "RV21_interruption": "TESTED an actual forked synthetic invocation exiting after inert monitor Popen and before monitor_pid.json. Resume and close use the saved invocation and exact launch bytes.",
+  "cx2v002_regressions": "TESTED synthetic saved states and inert processes only. The per-operation audit checks spelled paths and realpaths in this process; it cannot observe executable reopening inside child processes. Child executable integrity remains the root envelope's responsibility.",
+  "cx2v002_restoring_mutants": [
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "write_launch_record",
+    "imported": true,
+    "name": "B1_launch_reread",
+    "replace": "raw, lj = snapshot",
+    "source_sha256": "a4c219631cca13ebbdfc6b5055e852a1a72840df47e3561c4b04fb1fbdc88447",
+    "status": "KILLED",
+    "with": "raw, lj = try_launch_json(plan[\"launch_json\"])"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "history",
+    "imported": true,
+    "name": "B2_receipt_reread",
+    "replace": "\"monitor_receipt\": monitor_pin",
+    "source_sha256": "3366ee8514b12358b2ca363155619bcbfaf61a13abe6f815c6dd88dec30d4e58",
+    "status": "KILLED",
+    "with": "\"monitor_receipt\": {\"path\": receipt_path, \"sha256\": sha(Path(receipt_path).read_bytes())}"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "assemble_registry",
+    "imported": true,
+    "name": "B3_registry_reread",
+    "replace": "\"registry\": registry_pin",
+    "source_sha256": "66283a8764c60de44bd0bd1204cd80898a638e60c9afcb9d5cf0f012acf8dda1",
+    "status": "KILLED",
+    "with": "\"registry\": {\"path\": str(p), \"sha256\": sha(p.read_bytes())}"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "command_argv",
+    "imported": true,
+    "name": "B4_command_parse_refusal",
+    "replace": "return row[\"command\"].split()",
+    "source_sha256": "97350f34bb1216a498fd604422a7c6b58d610d5fb1b08439932e5fabf1ac1ac6",
+    "status": "KILLED",
+    "with": "raise Refusal(\"PS_COMMAND_PARSE\")"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "observe_file",
+    "imported": true,
+    "name": "F1_unguarded_launch_observation",
+    "replace": "guard_record(path)",
+    "source_sha256": "2f2dab78ef8aae011ec52a5e91452fafb9c8f6017b592ce46fb986b22f3ec1be",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "guard_record",
+    "imported": true,
+    "name": "F1_allow_record_alias",
+    "replace": "need(os.path.realpath(path) == path, \"RECORD_SYMLINK\", path)",
+    "source_sha256": "ae8ebdecf41565a57ff7934540ae0cf430655e24e621f5009107bd62832bd1ab",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "tool_gate",
+    "imported": true,
+    "name": "F2_tool_splitlines",
+    "replace": "text.split(\"\\n\")",
+    "source_sha256": "8cd00eca83433b9049f6c15b01df2fa5daf45694b6e2039bccab11aa12ddda86",
+    "status": "KILLED",
+    "with": "text.splitlines()"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "residual_lines",
+    "imported": true,
+    "name": "F2_residual_splitlines",
+    "replace": "text.split(\"\\n\")",
+    "source_sha256": "23df5479187c563396344a9cf45c23162bfb85fe61e84d476a178d3b8fa998d4",
+    "status": "KILLED",
+    "with": "text.splitlines()"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "launch_resume",
+    "imported": true,
+    "name": "F3_require_monitor_pid_file",
+    "replace": "and inv.is_file():",
+    "source_sha256": "99c28c36b89958062d1e9ddb520e7495d56f3dd5e2a2883c786c6415384c5f49",
+    "status": "KILLED",
+    "with": "and inv.is_file() and mp.is_file():"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "kit_kill_target",
+    "imported": true,
+    "name": "F4_any_exit_one_ended",
+    "replace": "if type(failure) is dict and failure.get(\"alive\") is False:",
+    "source_sha256": "4613e76e942e8bf3a669e0396e06fdfcbd4a3f30cefd4fc39938b44a741b3b06",
+    "status": "KILLED",
+    "with": "if True:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "imported": true,
+    "name": "F5_configured_V006",
+    "replace": "need(self.synthetic or c[\"v006\"] == V006, \"V006_CONFIG_PATH\")",
+    "source_sha256": "54acf71a4f5744997e4c8c4f32e491bc4f679282034a060e213f41fdd78628ec",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "path_rules",
+    "imported": true,
+    "name": "F6_postseal_guard_removed",
+    "replace": "need(not any(p.lower() == \"v007_postseal_records\" for p in parts), \"PATH_V007_POSTSEAL\", where)",
+    "source_sha256": "dba2b6feae04d3b82ccdd59bdcf8d1a9f035a553d697fcdf0ba65a5b8172b373",
+    "status": "KILLED",
+    "with": "pass"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "read_record",
+    "imported": true,
+    "name": "cleanup_pin_then_reread",
+    "replace": "return read_and_pin(guard_record(path), decode=decode)",
+    "source_sha256": "619a9ebb32bde3aef3d567780198fa79e3dc65045fa065aac5cfadc69adf94fb",
+    "status": "KILLED",
+    "with": "pin, raw = read_and_pin(guard_record(path), decode=False)\n    raw = Path(path).read_bytes()\n    return pin, strict_json(raw) if decode else raw"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "read_and_pin",
+    "imported": true,
+    "name": "0785_immutable_cache_bypassed",
+    "replace": "if snapshots is not None and cache_key in snapshots:",
+    "source_sha256": "94073b443bd68aebc84e1c4c85ad75273e437c6e3f6609f32593441bba1b3284",
+    "status": "KILLED",
+    "with": "if False:"
+   },
+   {
+    "control": "PASS",
+    "detection": "AssertionError",
+    "function": "observe_file",
+    "imported": true,
+    "name": "0785_volatile_pin_reread",
+    "replace": "pin = {\"path\": path, \"sha256\": sha(raw)}",
+    "source_sha256": "eb0257143b7cf1e388a4b5232d2dc57268f4f58c1b42b98c353d0c7278cff156",
+    "status": "KILLED",
+    "with": "pin = {\"path\": path, \"sha256\": sha(Path(path).read_bytes())}"
+   },
+   {
+    "control": "PASS",
+    "detection": "Refusal",
+    "function": "write_cutoff",
+    "imported": true,
+    "name": "0785_cutoff_copy_reread",
+    "replace": "write_x_bytes(p, raw)",
+    "source_sha256": "d38f0af42d3de6ad001bacae0e9b3e190742e2a63ec7a6aef4c3df4d5e0fd7e8",
+    "status": "KILLED",
+    "with": "write_x_bytes(p, read_v006(ctx.cfg[\"v006\"], kind=\"v006_cutoff\"))"
+   }
+  ]
+ },
+ "refusal_coverage": {
+  "FORBIDDEN_RESULT_READ": [
+   "CX2V002_MUTANT_F1_allow_record_alias",
+   "CX2V002_MUTANT_F1_unguarded_launch_observation",
+   "F1_RV05_RV06_record_alias_blinding"
+  ],
+  "JSON_PARSE": [
+   "CX2V002_MUTANT_F4_any_exit_one_ended",
+   "F4_RV19_kit_exit_one_semantics"
+  ],
+  "PATH_V007_POSTSEAL": [
+   "CX2V002_MUTANT_F6_postseal_guard_removed",
+   "F6_postseal_component_guard"
+  ],
+  "RECORD_SYMLINK": [
+   "CX2V002_MUTANT_F1_allow_record_alias",
+   "CX2V002_MUTANT_F1_unguarded_launch_observation",
+   "F1_RV05_RV06_record_alias_blinding"
+  ],
+  "SYNTHETIC_REAL_V006": [
+   "CX2V002_MUTANT_F5_configured_V006",
+   "F5_RV24_production_V006_constant"
+  ],
+  "TOOL_PIN_MISSING": [
+   "CX2V002_MUTANT_F2_residual_splitlines",
+   "CX2V002_MUTANT_F2_tool_splitlines",
+   "F2_RV08_actual_line_grammar"
+  ],
+  "V006_CONFIG_PATH": [
+   "CX2V002_MUTANT_F5_configured_V006",
+   "F5_RV24_production_V006_constant"
+  ]
+ },
+ "refusal_not_exercised": [
+  "ALREADY_LAUNCHED",
+  "ASSEMBLY_ALREADY_EXISTS",
+  "AT0A_NOT_PASS",
+  "ATTEMPT_ACTIVE",
+  "ATTEMPT_AFTER_TERMINAL",
+  "ATTEMPT_ALREADY_CLOSED",
+  "ATTEMPT_ALREADY_RECORDED",
+  "ATTEMPT_FILENAME_BINDING",
+  "ATTEMPT_LAUNCH_JSON_PATH",
+  "ATTEMPT_NEEDS_CLOSE",
+  "ATTEMPT_NUMBER",
+  "ATTEMPT_PATH_BINDING",
+  "ATTEMPT_RECEIPT_BINDING",
+  "ATTEMPT_RECORD_MISSING",
+  "ATTEMPT_RECORD_NOT_UNIQUE",
+  "ATTEMPT_RECORD_SCHEMA",
+  "ATTEMPT_REQUIRED",
+  "CALL_NOT_IN_ACTUAL_SET",
+  "CAP_FORM",
+  "CERTIFICATE_POINT_KEY",
+  "CONFIG_PYTHON",
+  "CONFIG_RAM",
+  "CONFIG_SCHEMA",
+  "CONFIG_SYMLINK",
+  "CUTOFF_ALREADY_WRITTEN",
+  "CUTOFF_COPY_DIR",
+  "CUTOFF_COPY_EXISTS_DIFFERENT",
+  "CUTOFF_COPY_IN_RUN_TREE",
+  "CUTOFF_COPY_VERIFY",
+  "DISK_FREE",
+  "DRIVER_STATUS_FORM",
+  "DRY_COMMAND",
+  "DRY_HARNESS_EXIT",
+  "DRY_VERDICT_REFUSED",
+  "DUPLICATE_MEMBER_POINT",
+  "EXACT_KEYS",
+  "EXIT_CODE_FORM",
+  "EXPORT_MEMBER_NOT_UNIQUE",
+  "FDPLAN_MEMBER_IDENTITY",
+  "FDPLAN_MEMBER_ORDER",
+  "FDPLAN_POINT_KEY",
+  "FDPLAN_SCHEMA",
+  "FDPLAN_THETA_HEX",
+  "FDPLAN_THETA_KEY_SET",
+  "FILL_DIR_REAL",
+  "FILL_HANDOFF_PIN",
+  "FILL_LAUNCH_AUTHORIZED",
+  "FILL_PENDING_CERTIFICATES",
+  "FILL_POINT_KEY",
+  "FILL_SCHEMA",
+  "FORBIDDEN_OUTDIR_READ",
+  "FORBIDDEN_READ_PATH",
+  "FORBIDDEN_SEALED_READ",
+  "F_COUNT",
+  "F_IDENTITY",
+  "F_LABELS",
+  "F_POINT_KEY",
+  "F_SOURCE_FDPLAN",
+  "HANDOFF_CERTIFICATES",
+  "HANDOFF_DRIVER_BRANCH",
+  "HANDOFF_MEMBER_IDENTITY",
+  "HANDOFF_MODE",
+  "HANDOFF_SCHEMA",
+  "HANDOFF_V006_PIN",
+  "HOST_RAM_MISMATCH",
+  "INFLIGHT_PLAN_UNREADABLE",
+  "INVOCATION_ALREADY_ACTIVE",
+  "INVOCATION_PROCESS_NOT_VISIBLE",
+  "JSON_DUPLICATE_KEY",
+  "JSON_NONFINITE",
+  "KIT_PHYSICAL_KEYS",
+  "KIT_POINT_DUPLICATE",
+  "KIT_REGISTRY_SCHEMA",
+  "KIT_RELAUNCH_OWNS",
+  "KIT_SPEC_V006",
+  "LAUNCH_JSON_FORM",
+  "LAUNCH_JSON_RECORD_PIN",
+  "LAUNCH_RECORD_MISSING",
+  "LAUNCH_ROOT_EXTERNAL",
+  "LAUNCH_ROOT_REAL",
+  "LAUNCH_SUBDIR_REAL",
+  "M15_SCHEMA",
+  "MEMBER_COUNT",
+  "MEMBER_IDENTITY",
+  "MEMBER_ORDER",
+  "MEMORY_WATCH_NOT_RUNNING",
+  "MISLAUNCH_NOT_BOUND",
+  "MISSING_FIELD",
+  "MONITOR_ARGV",
+  "MONITOR_CHILD_BINDING",
+  "MONITOR_ENDED_NO_RECEIPT",
+  "MONITOR_RECEIPT_MISSING",
+  "MONITOR_RECEIPT_SCHEMA",
+  "MONITOR_RECEIPT_SELF_HASH",
+  "MONITOR_REFUSED_ABSENT_EXISTS",
+  "MONITOR_REFUSED_ABSENT_PATHS",
+  "MONITOR_REFUSED_LAUNCHER",
+  "MONITOR_REFUSED_LOG_PATH",
+  "MONITOR_REFUSED_LOG_PIN_FORM",
+  "MONITOR_REFUSED_PLAN",
+  "MONITOR_REFUSED_RECORD_BINDING",
+  "MONITOR_REFUSED_TWICE",
+  "MONITOR_REFUSED_WORK",
+  "MONITOR_REFUSED_WRITER",
+  "MONITOR_STARTED_NO_LAUNCH_JSON",
+  "MONITOR_STILL_ALIVE",
+  "MONITOR_TOOL_PINS",
+  "MULTIPLE_MONITORS",
+  "NAME_ATTEMPT",
+  "NAME_REQUIRED",
+  "NOT_AN_ATTEMPT",
+  "NOT_GROUP_LEADER",
+  "NO_MISLAUNCH_WITHOUT_LAUNCH_JSON",
+  "OTHER_NGC_PROCESS_ALIVE",
+  "OUTPUT_ABSOLUTE",
+  "OUTPUT_EXISTS",
+  "OUTPUT_PARENT_SYMLINK",
+  "OUTSIDE_SET_STOP_REQUIRED",
+  "OUTSIDE_STOP_ATTEMPT",
+  "OUTSIDE_STOP_IN_ACTUAL_SET",
+  "OUTSIDE_STOP_MAPPING_PINS",
+  "OUTSIDE_STOP_NAME",
+  "OUTSIDE_STOP_NO_RECORD",
+  "OUTSIDE_STOP_SCHEMA",
+  "OUTSIDE_STOP_SPEC_PIN",
+  "OUTSIDE_STOP_TARGET_REFUSED",
+  "PATH_ABSOLUTE_NORMALIZED",
+  "PATH_CODEX",
+  "PATH_NGC3198",
+  "PATH_PROTECTED_TREE",
+  "PATH_RUNS_EXT",
+  "PATH_UVT",
+  "PIN_FORM",
+  "PIN_SHA_MISMATCH",
+  "PLANNED_STOP_NOT_TWIN",
+  "PLAN_BUILD_RECORD",
+  "PLAN_CONFIG_BINDING",
+  "PLAN_NOT_BUDGET_ZERO",
+  "PLAN_NOT_VALUE_FREE",
+  "PLAN_NUISANCE_FIELD",
+  "PLAN_OUTDIR_BINDING",
+  "PLAN_SCHEMA",
+  "PLAN_THETA_NGC_EXACT_FLOAT",
+  "PROCESS_ROLE",
+  "PROCESS_STILL_ALIVE_AFTER_STOP",
+  "PS_DUPLICATE_PID",
+  "PS_FAILED",
+  "PS_PARSE",
+  "RECEIPT_STATUS_UNMAPPED",
+  "RECORD_DATE_U",
+  "REFUSAL_ARGUMENTS",
+  "REFUSAL_ATTEMPT_MISMATCH",
+  "REGISTRY_BYTE_VERIFY",
+  "REGISTRY_CALL_BINDING",
+  "REGISTRY_ENTRY_EXISTS_FOR_ANOTHER_SPEC",
+  "REGISTRY_ENTRY_MISSING",
+  "REGISTRY_SCHEMA",
+  "RESIDUAL_ATTEMPT_PROCESS_ALIVE",
+  "RESIDUAL_RETRY_MALFORMED",
+  "RESIDUAL_RETRY_NOT_RESIDUAL",
+  "RESUME_ARGUMENTS",
+  "RESUME_COMMAND",
+  "RESUME_INVOCATION_ALIVE",
+  "RESUME_INVOCATION_COMMAND_MISSING",
+  "RESUME_INVOCATION_MISSING",
+  "RESUME_LAUNCH_JSON_MISSING",
+  "RESUME_PLAN_BINDING",
+  "RESUME_SPEC_BINDING",
+  "RETRY_REGISTRY_ENTRY_MISSING",
+  "RSS_CAP_NOT_CALL_CAP",
+  "RUN_ROOT_LAYOUT",
+  "RUN_VOLUME_NOT_MOUNTED",
+  "SAMPLER_ARGUMENTS",
+  "SAMPLER_CONFIG_BINDING",
+  "SAMPLER_FIRST_SAMPLE_FAILED",
+  "SAMPLER_FIRST_SAMPLE_MISSING",
+  "SAMPLER_OUTDIR",
+  "SAMPLER_POLL",
+  "SAMPLER_STILL_ALIVE",
+  "SAMPLE_COUNT",
+  "SAMPLE_GAP",
+  "SAMPLE_N",
+  "SAMPLE_POLL",
+  "SEED_REGISTRY_MISSING",
+  "SEED_SERIAL_NOT_LAUNCHED_FIRST",
+  "SELECTION_IDENTITY",
+  "SELECTION_MEMBERS",
+  "SOLO_RERUN_ACTIVE",
+  "SOLO_SAMPLE_BINDING",
+  "SPEC_EPS_PIN",
+  "SPEC_LABEL_KEY",
+  "SPEC_LEAF",
+  "SPEC_LO_PIN",
+  "SPEC_OF_RECORD",
+  "SPEC_PAIR_DIFFERENCE",
+  "SPEC_V006_PIN",
+  "SYNTHETIC_PINS_REQUIRED",
+  "SYNTHETIC_PIN_FORM",
+  "SYNTHETIC_REAL_MONITOR_NAME",
+  "SYNTHETIC_REAL_TOOL",
+  "SYNTHETIC_SCHEMA",
+  "SYNTHETIC_SHA_WITHOUT_FILE",
+  "SYNTHETIC_SYSTEM_REQUIRED",
+  "SYNTHETIC_VOLUMES",
+  "TERMINAL_SET_EMPTY",
+  "THETA_BITS_MISMATCH",
+  "THETA_KEY_SET",
+  "THETA_NONFINITE",
+  "THETA_NOT_NUMERIC",
+  "TOOL_PIN_DUPLICATE",
+  "TOOL_PIN_MISMATCH",
+  "TWIN_REGISTRY_BINDING",
+  "TWIN_REGISTRY_MISSING",
+  "TWIN_SPEC_V006",
+  "TWIN_STOP_NOT_BOUND",
+  "TWIN_STOP_NOT_UNIQUE",
+  "TWIN_WATCH_DUPLICATE",
+  "TWIN_WATCH_STILL_ALIVE",
+  "UTC_FORMAT",
+  "V006_PATH",
+  "V006_PIN_MISSING",
+  "VERIFY_COMMAND",
+  "WORK_LOG_MISSING",
+  "WRITE_KIT_LAUNCHES",
+  "WRITE_SCOPE"
+ ],
+ "run_stamp_sha256": "b1c94e9709e297ac4895ee05fda347ee423b66e267fbaf8f10b0b570f94af15f",
+ "schema": "P112_TEST_RECORD_CX2V002",
+ "test_sha256": "8cb34f6239835ba03db7ec62c9710a6ea1681b6bd6cc0537d94e075ddea6d6c4",
+ "tool_sha256": "3dc1332d34a62d6f7bf5705640691145b69f9d41eaeeef2521ee81b40df2a05a"
+}

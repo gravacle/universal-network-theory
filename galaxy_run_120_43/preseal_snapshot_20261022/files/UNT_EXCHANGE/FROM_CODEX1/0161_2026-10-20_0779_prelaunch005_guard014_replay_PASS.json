@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "blocking_count": 0,
+  "dispatch": 779,
+  "result": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/PRELAUNCH_G14_REVIEW_CX1_V001/REVIEW_RESULT.json",
+    "sha256": "10b07e907fa4abddbd0a6c2f35d7343b98b86b26f11d41f72bdf63a96a294cc7"
+  },
+  "T1_T8": {
+    "T1": "GUARD_IDENTITY refusal",
+    "T2": "Successor emits on guard014 candidate",
+    "T3": "guard014 validates successor record",
+    "T4": "Tamper refused PRELAUNCH_REPLAY_MISMATCH",
+    "T5": "PRELAUNCH005 emits on guard011 candidate; exact record bytes equal T2",
+    "T6": "Successor on guard011 candidate refused GUARD_IDENTITY",
+    "T7": "guard014 validates original PRELAUNCH005 record with native replay",
+    "T8": "Missing prelaunch refused PIN_REQUIRED"
+  },
+  "diff": {
+    "result": "Entire module prefix after docstring through native_preflight is AST-identical, including imports, constants, functions/classes and audit fence. All local native helper definitions are in that prefix. globals_api exports only unchanged require/R5_SHA/admitted_source/doc/load. HERE/PACKET differ by location but are unused by native preflight/helpers. Dynamic adapter/context/policy/driver calls use admitted input pins, not guard version.",
+    "identical_definitions": [
+      "r1_verified_read",
+      "Refusal",
+      "require",
+      "lexical_path",
+      "safe_path",
+      "raw",
+      "sha",
+      "pin",
+      "verify",
+      "_pairs",
+      "_finite_float",
+      "decode",
+      "doc",
+      "canonical",
+      "digest",
+      "source_map",
+      "admitted_source",
+      "check_review",
+      "_managed_source",
+      "_registered_cache",
+      "_audit",
+      "fence",
+      "load",
+      "positive_gate",
+      "adoption",
+      "spec_structure",
+      "globals_api",
+      "native_preflight"
+    ],
+    "changed_behavior_outside_native": "guard014 adds core_priority_admission and changes validate route admission; this is not whole-guard equivalence."
+  },
+  "notes": [
+    "Unchanged harness first failed T2/T5 with UNPINNED_PREFLIGHT_SOURCE when scratch was under /Research/: syn_compare.py is omitted from sources. T3/T4/T7 were consequently unexecuted in that run, and harness exit was still 0. Preserved initial RESULT.json. Fresh /private/tmp scratch with byte-identical harness gives all eight expected outcomes. Harness portability/exit-status limitation, not a replay defect.",
+    "Records omit guard identity; emitter manifests do carry guard/producer identity and are not claimed byte-equal.",
+    "No production successor needed for this ruling. Original PRELAUNCH005 unchanged; successor exists only as synthetic test fixture."
+  ],
+  "UNTESTED": [
+    "Real production inputs, binder CLI invocation, real certificate/policy/sensitivity calculations: harness uses synthetic adapter/context/policy.",
+    "Scientific launch and production seal."
+  ]
+}

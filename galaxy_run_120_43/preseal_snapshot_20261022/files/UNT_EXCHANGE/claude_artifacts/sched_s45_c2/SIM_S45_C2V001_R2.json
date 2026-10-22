@@ -1,0 +1,8473 @@
+{
+ "schema": "SCHED_S45_SIM_C2V001",
+ "utc": "2026-10-19T10:20:36Z",
+ "label": "Projections (UNTESTED as forecasts); the arithmetic is TESTED (deterministic replay of stated inputs)",
+ "inputs": {
+  "measured_basis": {
+   "path": "measured/MEASURED_BASIS_S45_C2V001.json",
+   "sha256": "e59436f814799c586d50815891ebb1e778d3429a252cb7d08460fa4325c86701"
+  },
+  "gate": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/machine_gate_s45_c2v001.py",
+   "sha256": "6d0c45f8948d54d208809671af6ffa96197f5079aa73100991c7fa9d04cb93fa"
+  },
+  "extra_live_footprint": [
+   {
+    "path": "measured/LIVE_MEASURE_20261019T094945Z.json",
+    "sha256": "3c8368ebd3715a9002aa540a6f40d814bdc17f6713f8f1b9951b3993784a88da"
+   }
+  ]
+ },
+ "model": {
+  "cores": 18.0,
+  "dt_s": 30.0,
+  "poll_s": 60.0,
+  "wave_cap_s": 172800.0,
+  "per_call_tables": {
+   "low": {
+    "w_ra": 3.25,
+    "w_rb": 1.5,
+    "ra_steady_gb": 11.8,
+    "spike_gb": 18.73,
+    "spike_start_s": 30.0,
+    "spike_len_s": 60.0,
+    "vf_gb_per_iter": 0.2228,
+    "rb_gb": 4.4,
+    "setup_s": 540.9,
+    "iterations": 6,
+    "cycle_s": 107.4,
+    "post_s": 1048.7,
+    "route_b_s": 14400.0
+   },
+   "expected": {
+    "w_ra": 3.25,
+    "w_rb": 1.5,
+    "ra_steady_gb": 11.8,
+    "spike_gb": 18.73,
+    "spike_start_s": 30.0,
+    "spike_len_s": 60.0,
+    "vf_gb_per_iter": 0.2228,
+    "rb_gb": 4.4,
+    "setup_s": 899.55,
+    "iterations": 7,
+    "cycle_s": 243.9,
+    "post_s": 1559.6,
+    "route_b_s": 16322.45
+   },
+   "high": {
+    "w_ra": 3.25,
+    "w_rb": 1.5,
+    "ra_steady_gb": 11.8,
+    "spike_gb": 18.73,
+    "spike_start_s": 30.0,
+    "spike_len_s": 60.0,
+    "vf_gb_per_iter": 0.2228,
+    "rb_gb": 4.4,
+    "setup_s": 1293.1,
+    "iterations": 32,
+    "cycle_s": 450.2,
+    "post_s": 2400.3,
+    "route_b_s": 24026.76
+   }
+  },
+  "labels": {
+   "setup_s": "MEASURED: low/expected = min/median of the K128 runs; high = max over every R2 run (KHI included)",
+   "iterations": "MEASURED low = min seen (route A ended); expected 7 (median of 6-8 seen); high 32 = spec max (FORMAL)",
+   "cycle_s": "MEASURED iteration_prepared to iteration_prepared: min/median of K128 runs; high = max of K128 + C6T",
+   "post_s": "MEASURED post-loop + tail manifest (a running stage counts as a lower bound)",
+   "route_b_s": "DERIVED (no tail-ON route B has finished): TIMING_V003 E 16,322 s and U 24,027 s (the LAUNCH_ORDER route-B segments); low 4.0 h ASSUMED",
+   "w_ra": "the gate constant 3.25 (MEASURED iterating mean, C4T/S4T; re-measured 2.77 on C3T, 10 min)",
+   "w_rb": "DERIVED 1.5 (LAUNCH_ORDER fluid P; MEASURED reference stage 0.8-1.0 is lower)",
+   "ra_steady_gb": "MEASURED max iterating footprint outside transfer windows, K_big-128 runs",
+   "spike_gb": "MEASURED largest K_big-128 peak footprint (watch, fast sampler, live sampler) minus ra_steady_gb",
+   "spike window": "ASSUMED 30-90 s after iteration_prepared (MEASURED single 30-45 s samples)",
+   "vf_gb_per_iter": "DERIVED u4 (32 x 51,200 x 136 B) beyond the 6 measured iterations",
+   "rb_gb": "DERIVED model 4.095 GiB (route B not measured)"
+  },
+  "basis_provenance": {
+   "k128_runs": [
+    "C4T",
+    "S4T",
+    "C4T_A",
+    "C4T_D5"
+   ],
+   "k128_plus_c6t": [
+    "C4T",
+    "S4T",
+    "C4T_A",
+    "C4T_D5",
+    "C6T"
+   ],
+   "setup_s": [
+    949.1,
+    959.1,
+    850.0,
+    540.9
+   ],
+   "setup_s_all_runs": [
+    381.2,
+    694.5,
+    681.2,
+    850.0,
+    540.9,
+    1293.1,
+    949.1,
+    1027.7,
+    959.1
+   ],
+   "cycle_s_k128": [
+    250.5,
+    320.4,
+    240.1,
+    301.7,
+    253.0,
+    231.1,
+    248.8,
+    235.3,
+    247.5,
+    263.6,
+    277.5,
+    259.2,
+    234.8,
+    243.9,
+    295.7,
+    115.3,
+    131.0,
+    142.8,
+    107.4,
+    129.3,
+    140.6
+   ],
+   "cycle_s_k128_c6t": [
+    250.5,
+    320.4,
+    240.1,
+    301.7,
+    253.0,
+    231.1,
+    248.8,
+    235.3,
+    247.5,
+    263.6,
+    277.5,
+    259.2,
+    234.8,
+    243.9,
+    295.7,
+    115.3,
+    131.0,
+    142.8,
+    107.4,
+    129.3,
+    140.6,
+    393.2,
+    319.3,
+    399.1,
+    446.0,
+    386.0,
+    389.6,
+    450.2
+   ],
+   "iterations_seen": [
+    6,
+    6,
+    6,
+    7,
+    8
+   ],
+   "post_plus_manifest_s": [
+    2400.3,
+    2312.0,
+    1117.0,
+    1559.6,
+    1048.7
+   ],
+   "iterating_median_gb": [
+    9.65,
+    9.65,
+    9.8,
+    4.55
+   ],
+   "steady_max_gb_outside_spike_windows": 11.8,
+   "spike_increments_gb_watch_30_40s": [
+    16.4,
+    12.8,
+    11.6,
+    11.8,
+    3.3,
+    5.7,
+    20.6,
+    5.0,
+    18.4,
+    5.3,
+    18.6,
+    10.9,
+    7.1,
+    2.3,
+    2.3,
+    1.8,
+    1.4,
+    3.8,
+    1.0,
+    1.5,
+    3.3,
+    23.1,
+    11.0,
+    14.3,
+    16.0,
+    16.9,
+    5.3,
+    18.0,
+    16.0
+   ],
+   "k128_peak_footprint_gb_by_source": {
+    "watch_iterating_max": 28.3,
+    "fast_sampler_peak": 27.651,
+    "live_0_route_a_footprint_max": 30.528
+   },
+   "spike_gb_used": 18.73,
+   "live_pooled_route_a_cores_means_10min_incl_setup_postloop": [
+    2.427,
+    2.771,
+    0.79
+   ],
+   "w_route_a_used": 3.25
+  },
+  "diii_table_DERIVED": {
+   "low": {
+    "setup_s": 300.0,
+    "iterations": 7,
+    "cycle_s": 105.0,
+    "route_b_s": 14085.0,
+    "w_ra": 3.25,
+    "w_rb": 1.5
+   },
+   "expected": {
+    "setup_s": 300.0,
+    "iterations": 7,
+    "cycle_s": 150.0,
+    "route_b_s": 15642.0,
+    "w_ra": 3.25,
+    "w_rb": 1.5
+   },
+   "high": {
+    "setup_s": 300.0,
+    "iterations": 32,
+    "cycle_s": 96.0,
+    "route_b_s": 20424.0,
+    "w_ra": 3.25,
+    "w_rb": 1.5
+   }
+  },
+  "ngc_T_h_DERIVED_root": {
+   "low": 11.7,
+   "expected": 17.6,
+   "high": 56.3
+  },
+  "ngc_model": {
+   "route_a_fraction": 0.7,
+   "iterations": 16,
+   "setup_s": 960.0,
+   "steady_gb": 5.0,
+   "vf_gb_per_n": 0.6367,
+   "vf_s_per_n": 27.3,
+   "w_rb": 1.5
+  },
+  "ngc_res_route_a_gb_after_measurement": 10.41,
+  "gate_params": {
+   "n_cores": 18,
+   "mem_total_bytes": 137438953472,
+   "core_limit": 24.0,
+   "route_a_cap": 4,
+   "w_route_a_8": 3.25,
+   "w_serial": 1.0,
+   "w_after_default": 1.0,
+   "mem_limit_gb": 100.0,
+   "res_route_a_gb": 11.0,
+   "res_after_gb": 4.4,
+   "spike_headroom_gb": 20.0,
+   "swap_stop_gb": 8.0,
+   "spacing_s": 120.0,
+   "warmup_s": 60.0,
+   "window_s": 60.0,
+   "sample_min_interval_s": 10.0,
+   "ps_to_footprint_max": 1.27,
+   "pooled_min_procs": 4
+  },
+  "gate_spike_headroom_covers_measured_spike": true
+ },
+ "cross_check_launch_order": {
+  "E": {
+   "makespan_h": 209.75,
+   "launch_order_h": 209.75,
+   "reproduced": true,
+   "first_wave_spans_h": [
+    5.2,
+    10.4,
+    10.4
+   ]
+  },
+  "U": {
+   "makespan_h": 356.49,
+   "launch_order_h": 356.49,
+   "reproduced": true,
+   "first_wave_spans_h": [
+    8.76,
+    17.52,
+    17.52
+   ]
+  }
+ },
+ "campaign": {
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|OLD_max_concurrent1_budget17": {
+   "makespan_h": 555.83,
+   "wave_spans_h": [
+    4.62,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    27.79,
+    23.16
+   ],
+   "max_start_offset_in_wave_h": 23.17,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    23.17,
+    18.53
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 30.53,
+   "max_busy_demand": 3.25,
+   "max_route_a_pooled": 1,
+   "max_running": 1,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 27522
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|OLD_max_concurrent6_budget17": {
+   "makespan_h": 187.06,
+   "wave_spans_h": [
+    4.62,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    9.26,
+    6.53
+   ],
+   "max_start_offset_in_wave_h": 4.63,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    4.63,
+    1.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 61.06,
+   "max_busy_demand": 9.25,
+   "max_route_a_pooled": 2,
+   "max_running": 5,
+   "time_ge2_spikes_h": 2.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 5396
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|NEW_gate_max_concurrent12": {
+   "makespan_h": 104.42,
+   "wave_spans_h": [
+    4.62,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.96
+   ],
+   "max_start_offset_in_wave_h": 0.37,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 122.12,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.27,
+   "time_ge3_spikes_h": 1.17,
+   "time_mem_over_100_h": 0.83,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 279,
+    "MEMORY_LIMIT": 139
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|VARIANT_gate_two_spike_headroom": {
+   "makespan_h": 105.09,
+   "wave_spans_h": [
+    4.62,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    5.03,
+    4.99
+   ],
+   "max_start_offset_in_wave_h": 0.4,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 122.12,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.27,
+   "time_ge3_spikes_h": 1.17,
+   "time_mem_over_100_h": 0.83,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 260,
+    "MEMORY_LIMIT": 219
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|VARIANT_gate_route_a_cap4": {
+   "makespan_h": 104.42,
+   "wave_spans_h": [
+    4.62,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.96
+   ],
+   "max_start_offset_in_wave_h": 0.37,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 122.12,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.27,
+   "time_ge3_spikes_h": 1.17,
+   "time_mem_over_100_h": 0.83,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 279,
+    "MEMORY_LIMIT": 139
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|VARIANT_gate_route_a_cap5": {
+   "makespan_h": 104.22,
+   "wave_spans_h": [
+    4.62,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.76
+   ],
+   "max_start_offset_in_wave_h": 0.37,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 133.92,
+   "max_busy_demand": 16.25,
+   "max_route_a_pooled": 5,
+   "max_running": 6,
+   "time_ge2_spikes_h": 2.83,
+   "time_ge3_spikes_h": 1.67,
+   "time_mem_over_100_h": 1.49,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 209,
+    "MEMORY_LIMIT": 190
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|VARIANT_gate_route_a_cap6": {
+   "makespan_h": 100.74,
+   "wave_spans_h": [
+    4.62,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.81,
+    4.76
+   ],
+   "max_start_offset_in_wave_h": 0.18,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 137.72,
+   "max_busy_demand": 17.25,
+   "max_route_a_pooled": 6,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.31,
+   "time_ge3_spikes_h": 1.82,
+   "time_mem_over_100_h": 1.81,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "MEMORY_LIMIT": 19
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low|NEW_gate_max_concurrent12+NGC_probe": {
+   "makespan_h": 104.46,
+   "wave_spans_h": [
+    4.62,
+    5.03,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.99,
+    4.96
+   ],
+   "max_start_offset_in_wave_h": 0.4,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.4,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.37,
+    0.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 127.12,
+   "max_busy_demand": 14.5,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.32,
+   "time_ge3_spikes_h": 1.21,
+   "time_mem_over_100_h": 0.85,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 278,
+    "MEMORY_LIMIT": 144
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|OLD_max_concurrent1_budget17": {
+   "makespan_h": 683.83,
+   "wave_spans_h": [
+    5.69,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    34.19,
+    28.49
+   ],
+   "max_start_offset_in_wave_h": 28.5,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    28.5,
+    22.8
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 30.53,
+   "max_busy_demand": 3.25,
+   "max_route_a_pooled": 1,
+   "max_running": 1,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 33858
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|OLD_max_concurrent6_budget17": {
+   "makespan_h": 231.32,
+   "wave_spans_h": [
+    5.69,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    11.39,
+    9.19
+   ],
+   "max_start_offset_in_wave_h": 5.7,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    5.7,
+    3.5
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 61.06,
+   "max_busy_demand": 9.25,
+   "max_route_a_pooled": 2,
+   "max_running": 5,
+   "time_ge2_spikes_h": 2.33,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 6708
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|NEW_gate_max_concurrent12": {
+   "makespan_h": 134.82,
+   "wave_spans_h": [
+    5.69,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.42
+   ],
+   "max_start_offset_in_wave_h": 0.77,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 84.66,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.67,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 759,
+    "MEMORY_LIMIT": 240
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|VARIANT_gate_two_spike_headroom": {
+   "makespan_h": 135.16,
+   "wave_spans_h": [
+    5.69,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.47,
+    6.44
+   ],
+   "max_start_offset_in_wave_h": 0.78,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.78,
+    0.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 84.66,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.67,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 740,
+    "MEMORY_LIMIT": 319
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|VARIANT_gate_route_a_cap4": {
+   "makespan_h": 134.82,
+   "wave_spans_h": [
+    5.69,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.42
+   ],
+   "max_start_offset_in_wave_h": 0.77,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 84.66,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.67,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 759,
+    "MEMORY_LIMIT": 240
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|VARIANT_gate_route_a_cap5": {
+   "makespan_h": 133.91,
+   "wave_spans_h": [
+    5.69,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    6.44,
+    5.83
+   ],
+   "max_start_offset_in_wave_h": 0.75,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.75,
+    0.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 115.19,
+   "max_busy_demand": 16.25,
+   "max_route_a_pooled": 5,
+   "max_running": 6,
+   "time_ge2_spikes_h": 4.0,
+   "time_ge3_spikes_h": 1.5,
+   "time_mem_over_100_h": 1.5,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 665,
+    "MEMORY_LIMIT": 285
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|VARIANT_gate_route_a_cap6": {
+   "makespan_h": 123.46,
+   "wave_spans_h": [
+    5.69,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.89,
+    5.83
+   ],
+   "max_start_offset_in_wave_h": 0.17,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.72
+   ],
+   "max_total_mem_gb": 126.99,
+   "max_busy_demand": 19.5,
+   "max_route_a_pooled": 6,
+   "max_running": 6,
+   "time_ge2_spikes_h": 4.32,
+   "time_ge3_spikes_h": 2.61,
+   "time_mem_over_100_h": 3.4,
+   "gate_wait_reasons": {
+    "SPACING": 99
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected|NEW_gate_max_concurrent12+NGC_probe": {
+   "makespan_h": 134.84,
+   "wave_spans_h": [
+    5.69,
+    6.47,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.46,
+    6.42
+   ],
+   "max_start_offset_in_wave_h": 0.78,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.78,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.77,
+    0.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 95.39,
+   "max_busy_demand": 14.5,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.72,
+   "time_ge3_spikes_h": 0.04,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 758,
+    "MEMORY_LIMIT": 244
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|OLD_max_concurrent1_budget17": {
+   "makespan_h": 1405.83,
+   "wave_spans_h": [
+    11.71,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    70.29,
+    58.58
+   ],
+   "max_start_offset_in_wave_h": 58.58,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    58.58,
+    46.87
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 19,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 36.1,
+   "max_busy_demand": 3.25,
+   "max_route_a_pooled": 1,
+   "max_running": 1,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 69597
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|OLD_max_concurrent6_budget17": {
+   "makespan_h": 643.51,
+   "wave_spans_h": [
+    11.71,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    31.84,
+    26.81
+   ],
+   "max_start_offset_in_wave_h": 20.13,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    20.13,
+    15.1
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 72.2,
+   "max_busy_demand": 7.75,
+   "max_route_a_pooled": 2,
+   "max_running": 4,
+   "time_ge2_spikes_h": 10.67,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 23858
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|NEW_gate_max_concurrent12": {
+   "makespan_h": 333.84,
+   "wave_spans_h": [
+    11.71,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.07
+   ],
+   "max_start_offset_in_wave_h": 4.4,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 88.21,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 5119,
+    "MEMORY_LIMIT": 1780
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|VARIANT_gate_two_spike_headroom": {
+   "makespan_h": 334.51,
+   "wave_spans_h": [
+    11.71,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.14,
+    16.11
+   ],
+   "max_start_offset_in_wave_h": 4.43,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.43,
+    4.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 88.21,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 5100,
+    "MEMORY_LIMIT": 4219
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|VARIANT_gate_route_a_cap4": {
+   "makespan_h": 333.84,
+   "wave_spans_h": [
+    11.71,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.07
+   ],
+   "max_start_offset_in_wave_h": 4.4,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 88.21,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 5119,
+    "MEMORY_LIMIT": 1780
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|VARIANT_gate_route_a_cap5": {
+   "makespan_h": 329.61,
+   "wave_spans_h": [
+    11.71,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    11.84
+   ],
+   "max_start_offset_in_wave_h": 4.4,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    0.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 123.42,
+   "max_busy_demand": 16.25,
+   "max_route_a_pooled": 5,
+   "max_running": 6,
+   "time_ge2_spikes_h": 5.17,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 10.33,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 4807,
+    "MEMORY_LIMIT": 3686
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|VARIANT_gate_route_a_cap6": {
+   "makespan_h": 255.19,
+   "wave_spans_h": [
+    11.71,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    12.19,
+    11.84
+   ],
+   "max_start_offset_in_wave_h": 0.17,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    12.03
+   ],
+   "max_total_mem_gb": 140.79,
+   "max_busy_demand": 19.5,
+   "max_route_a_pooled": 6,
+   "max_running": 6,
+   "time_ge2_spikes_h": 9.44,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 34.56,
+   "gate_wait_reasons": {
+    "SPACING": 99
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high|NEW_gate_max_concurrent12+NGC_probe": {
+   "makespan_h": 333.84,
+   "wave_spans_h": [
+    11.71,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.11,
+    16.07
+   ],
+   "max_start_offset_in_wave_h": 4.4,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.4,
+    4.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 102.12,
+   "max_busy_demand": 14.5,
+   "max_route_a_pooled": 4,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.23,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.06,
+   "gate_wait_reasons": {
+    "SPACING": 99,
+    "ROUTE_A_CAP": 5119,
+    "MEMORY_LIMIT": 2007
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|OLD_max_concurrent1_budget17": {
+   "makespan_h": 555.87,
+   "wave_spans_h": [
+    4.62,
+    37.06,
+    9.26,
+    4.62,
+    4.62,
+    4.62,
+    46.33,
+    46.33,
+    111.19,
+    37.06,
+    9.26,
+    4.62,
+    46.33,
+    46.33,
+    111.19,
+    32.42
+   ],
+   "max_start_offset_in_wave_h": 106.57,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    32.43,
+    4.63,
+    0.0,
+    0.0,
+    0.0,
+    41.7,
+    41.7,
+    106.57,
+    32.43,
+    4.63,
+    0.0,
+    41.7,
+    41.7,
+    106.57,
+    27.8
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 26,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 30.53,
+   "max_busy_demand": 3.25,
+   "max_route_a_pooled": 1,
+   "max_running": 1,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 28912
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|OLD_max_concurrent6_budget17": {
+   "makespan_h": 160.6,
+   "wave_spans_h": [
+    4.62,
+    10.53,
+    4.62,
+    4.62,
+    4.62,
+    4.62,
+    11.79,
+    11.79,
+    25.06,
+    10.53,
+    4.62,
+    4.62,
+    11.79,
+    11.79,
+    25.06,
+    9.89
+   ],
+   "max_start_offset_in_wave_h": 20.43,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    5.9,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    7.17,
+    7.17,
+    20.43,
+    5.9,
+    0.0,
+    0.0,
+    7.17,
+    7.17,
+    20.43,
+    5.27
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 61.06,
+   "max_busy_demand": 9.25,
+   "max_route_a_pooled": 2,
+   "max_running": 5,
+   "time_ge2_spikes_h": 1.1,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 5196
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|NEW_gate_max_concurrent12": {
+   "makespan_h": 97.03,
+   "wave_spans_h": [
+    4.62,
+    5.06,
+    4.66,
+    4.62,
+    4.62,
+    4.62,
+    5.36,
+    5.36,
+    14.01,
+    5.06,
+    4.66,
+    4.62,
+    5.36,
+    5.36,
+    14.01,
+    5.03
+   ],
+   "max_start_offset_in_wave_h": 9.38,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.43,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    0.73,
+    0.73,
+    9.38,
+    0.43,
+    0.03,
+    0.0,
+    0.73,
+    0.73,
+    9.38,
+    0.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.64
+   ],
+   "max_total_mem_gb": 137.92,
+   "max_busy_demand": 20.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.92,
+   "time_ge3_spikes_h": 1.14,
+   "time_mem_over_100_h": 1.17,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 221,
+    "MEMORY_LIMIT": 270,
+    "CORE_LIMIT": 1082
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|VARIANT_gate_two_spike_headroom": {
+   "makespan_h": 99.23,
+   "wave_spans_h": [
+    4.62,
+    5.33,
+    4.66,
+    4.62,
+    4.62,
+    4.62,
+    5.66,
+    5.66,
+    14.22,
+    5.33,
+    4.66,
+    4.62,
+    5.66,
+    5.66,
+    14.22,
+    5.06
+   ],
+   "max_start_offset_in_wave_h": 9.6,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.7,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    1.03,
+    1.03,
+    9.6,
+    0.7,
+    0.03,
+    0.0,
+    1.03,
+    1.03,
+    9.6,
+    0.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 122.12,
+   "max_busy_demand": 18.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.51,
+   "time_ge3_spikes_h": 0.84,
+   "time_mem_over_100_h": 0.69,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 117,
+    "MEMORY_LIMIT": 676,
+    "CORE_LIMIT": 916
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|VARIANT_gate_route_a_cap4": {
+   "makespan_h": 97.03,
+   "wave_spans_h": [
+    4.62,
+    5.06,
+    4.66,
+    4.62,
+    4.62,
+    4.62,
+    5.36,
+    5.36,
+    14.01,
+    5.06,
+    4.66,
+    4.62,
+    5.36,
+    5.36,
+    14.01,
+    5.03
+   ],
+   "max_start_offset_in_wave_h": 9.38,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.43,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    0.73,
+    0.73,
+    9.38,
+    0.43,
+    0.03,
+    0.0,
+    0.73,
+    0.73,
+    9.38,
+    0.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.64
+   ],
+   "max_total_mem_gb": 137.92,
+   "max_busy_demand": 20.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.92,
+   "time_ge3_spikes_h": 1.14,
+   "time_mem_over_100_h": 1.17,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 221,
+    "MEMORY_LIMIT": 270,
+    "CORE_LIMIT": 1082
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|VARIANT_gate_route_a_cap5": {
+   "makespan_h": 97.13,
+   "wave_spans_h": [
+    4.62,
+    5.06,
+    4.66,
+    4.62,
+    4.62,
+    4.62,
+    5.39,
+    5.39,
+    13.99,
+    5.06,
+    4.66,
+    4.62,
+    5.39,
+    5.39,
+    13.99,
+    5.03
+   ],
+   "max_start_offset_in_wave_h": 9.37,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.43,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    0.77,
+    0.77,
+    9.37,
+    0.43,
+    0.03,
+    0.0,
+    0.77,
+    0.77,
+    9.37,
+    0.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.63
+   ],
+   "max_total_mem_gb": 142.92,
+   "max_busy_demand": 20.0,
+   "max_route_a_pooled": 5,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.87,
+   "time_ge3_spikes_h": 1.3,
+   "time_mem_over_100_h": 1.39,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 99,
+    "MEMORY_LIMIT": 301,
+    "CORE_LIMIT": 1092
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|VARIANT_gate_route_a_cap6": {
+   "makespan_h": 97.07,
+   "wave_spans_h": [
+    4.62,
+    5.09,
+    4.66,
+    4.62,
+    4.62,
+    4.62,
+    5.36,
+    5.36,
+    13.99,
+    5.09,
+    4.66,
+    4.62,
+    5.36,
+    5.36,
+    13.99,
+    5.03
+   ],
+   "max_start_offset_in_wave_h": 9.37,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.47,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    0.73,
+    0.73,
+    9.37,
+    0.47,
+    0.03,
+    0.0,
+    0.73,
+    0.73,
+    9.37,
+    0.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 137.72,
+   "max_busy_demand": 18.25,
+   "max_route_a_pooled": 6,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.5,
+   "time_ge3_spikes_h": 1.02,
+   "time_mem_over_100_h": 1.02,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "MEMORY_LIMIT": 316,
+    "ROUTE_A_CAP": 72,
+    "CORE_LIMIT": 1078
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low|NEW_gate_max_concurrent12+NGC_probe": {
+   "makespan_h": 97.07,
+   "wave_spans_h": [
+    4.62,
+    5.09,
+    4.66,
+    4.62,
+    4.62,
+    4.62,
+    5.36,
+    5.36,
+    14.01,
+    5.06,
+    4.66,
+    4.62,
+    5.36,
+    5.36,
+    14.01,
+    5.03
+   ],
+   "max_start_offset_in_wave_h": 9.38,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.47,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    0.73,
+    0.73,
+    9.38,
+    0.43,
+    0.03,
+    0.0,
+    0.73,
+    0.73,
+    9.38,
+    0.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    4.62,
+    4.64
+   ],
+   "max_total_mem_gb": 150.52,
+   "max_busy_demand": 20.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.97,
+   "time_ge3_spikes_h": 1.16,
+   "time_mem_over_100_h": 1.19,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 218,
+    "MEMORY_LIMIT": 273,
+    "CORE_LIMIT": 1082
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|OLD_max_concurrent1_budget17": {
+   "makespan_h": 683.87,
+   "wave_spans_h": [
+    5.69,
+    45.59,
+    11.39,
+    5.69,
+    5.69,
+    5.69,
+    56.99,
+    56.99,
+    136.79,
+    45.59,
+    11.39,
+    5.69,
+    56.99,
+    56.99,
+    136.79,
+    39.89
+   ],
+   "max_start_offset_in_wave_h": 131.1,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    39.9,
+    5.7,
+    0.0,
+    0.0,
+    0.0,
+    51.3,
+    51.3,
+    131.1,
+    39.9,
+    5.7,
+    0.0,
+    51.3,
+    51.3,
+    131.1,
+    34.2
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 34,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 30.53,
+   "max_busy_demand": 3.25,
+   "max_route_a_pooled": 1,
+   "max_running": 1,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 35568
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|OLD_max_concurrent6_budget17": {
+   "makespan_h": 208.87,
+   "wave_spans_h": [
+    5.69,
+    13.72,
+    5.69,
+    5.69,
+    5.69,
+    5.69,
+    16.06,
+    16.06,
+    32.39,
+    13.72,
+    5.69,
+    5.69,
+    16.06,
+    16.06,
+    32.39,
+    12.56
+   ],
+   "max_start_offset_in_wave_h": 26.7,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    8.03,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    10.37,
+    10.37,
+    26.7,
+    8.03,
+    0.0,
+    0.0,
+    10.37,
+    10.37,
+    26.7,
+    6.87
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 61.06,
+   "max_busy_demand": 9.25,
+   "max_route_a_pooled": 2,
+   "max_running": 5,
+   "time_ge2_spikes_h": 1.28,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 7068
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|NEW_gate_max_concurrent12": {
+   "makespan_h": 123.13,
+   "wave_spans_h": [
+    5.69,
+    6.54,
+    5.72,
+    5.69,
+    5.69,
+    5.69,
+    7.25,
+    7.25,
+    17.32,
+    6.54,
+    5.72,
+    5.69,
+    7.25,
+    7.25,
+    17.32,
+    6.49
+   ],
+   "max_start_offset_in_wave_h": 11.62,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.83,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    1.55,
+    1.55,
+    11.62,
+    0.83,
+    0.03,
+    0.0,
+    1.55,
+    1.55,
+    11.62,
+    0.8
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.79
+   ],
+   "max_total_mem_gb": 103.66,
+   "max_busy_demand": 20.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 3.41,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 1.37,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 587,
+    "MEMORY_LIMIT": 390,
+    "CORE_LIMIT": 1418
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|VARIANT_gate_two_spike_headroom": {
+   "makespan_h": 128.18,
+   "wave_spans_h": [
+    5.69,
+    7.19,
+    5.72,
+    5.69,
+    5.69,
+    5.69,
+    7.92,
+    7.92,
+    17.84,
+    7.19,
+    5.72,
+    5.69,
+    7.92,
+    7.92,
+    17.84,
+    6.51
+   ],
+   "max_start_offset_in_wave_h": 12.15,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    1.5,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    2.23,
+    2.23,
+    12.15,
+    1.5,
+    0.03,
+    0.0,
+    2.23,
+    2.23,
+    12.15,
+    0.82
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.72
+   ],
+   "max_total_mem_gb": 98.06,
+   "max_busy_demand": 18.75,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.67,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 333,
+    "MEMORY_LIMIT": 1488,
+    "CORE_LIMIT": 982
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|VARIANT_gate_route_a_cap4": {
+   "makespan_h": 123.13,
+   "wave_spans_h": [
+    5.69,
+    6.54,
+    5.72,
+    5.69,
+    5.69,
+    5.69,
+    7.25,
+    7.25,
+    17.32,
+    6.54,
+    5.72,
+    5.69,
+    7.25,
+    7.25,
+    17.32,
+    6.49
+   ],
+   "max_start_offset_in_wave_h": 11.62,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.83,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    1.55,
+    1.55,
+    11.62,
+    0.83,
+    0.03,
+    0.0,
+    1.55,
+    1.55,
+    11.62,
+    0.8
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.79
+   ],
+   "max_total_mem_gb": 103.66,
+   "max_busy_demand": 20.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 3.41,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 1.37,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 587,
+    "MEMORY_LIMIT": 390,
+    "CORE_LIMIT": 1418
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|VARIANT_gate_route_a_cap5": {
+   "makespan_h": 122.98,
+   "wave_spans_h": [
+    5.69,
+    6.51,
+    5.72,
+    5.69,
+    5.69,
+    5.69,
+    7.24,
+    7.24,
+    17.31,
+    6.51,
+    5.72,
+    5.69,
+    7.24,
+    7.24,
+    17.31,
+    6.47
+   ],
+   "max_start_offset_in_wave_h": 11.6,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.82,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    1.55,
+    1.55,
+    11.6,
+    0.82,
+    0.03,
+    0.0,
+    1.55,
+    1.55,
+    11.6,
+    0.78
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.77
+   ],
+   "max_total_mem_gb": 115.19,
+   "max_busy_demand": 20.5,
+   "max_route_a_pooled": 5,
+   "max_running": 11,
+   "time_ge2_spikes_h": 2.93,
+   "time_ge3_spikes_h": 0.68,
+   "time_mem_over_100_h": 1.37,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 315,
+    "MEMORY_LIMIT": 496,
+    "CORE_LIMIT": 1426
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|VARIANT_gate_route_a_cap6": {
+   "makespan_h": 122.62,
+   "wave_spans_h": [
+    5.69,
+    6.51,
+    5.72,
+    5.69,
+    5.69,
+    5.69,
+    7.17,
+    7.17,
+    17.27,
+    6.51,
+    5.72,
+    5.69,
+    7.17,
+    7.17,
+    17.27,
+    6.45
+   ],
+   "max_start_offset_in_wave_h": 11.58,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.82,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    1.48,
+    1.48,
+    11.58,
+    0.82,
+    0.03,
+    0.0,
+    1.48,
+    1.48,
+    11.58,
+    0.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.75
+   ],
+   "max_total_mem_gb": 126.99,
+   "max_busy_demand": 20.5,
+   "max_route_a_pooled": 6,
+   "max_running": 11,
+   "time_ge2_spikes_h": 3.27,
+   "time_ge3_spikes_h": 1.25,
+   "time_mem_over_100_h": 1.92,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 322,
+    "MEMORY_LIMIT": 531,
+    "CORE_LIMIT": 1426
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected|NEW_gate_max_concurrent12+NGC_probe": {
+   "makespan_h": 123.17,
+   "wave_spans_h": [
+    5.69,
+    6.58,
+    5.72,
+    5.69,
+    5.69,
+    5.69,
+    7.25,
+    7.25,
+    17.32,
+    6.54,
+    5.72,
+    5.69,
+    7.25,
+    7.25,
+    17.32,
+    6.49
+   ],
+   "max_start_offset_in_wave_h": 11.62,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    0.85,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    1.55,
+    1.55,
+    11.62,
+    0.83,
+    0.03,
+    0.0,
+    1.55,
+    1.55,
+    11.62,
+    0.8
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    5.69,
+    5.79
+   ],
+   "max_total_mem_gb": 113.63,
+   "max_busy_demand": 20.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 3.42,
+   "time_ge3_spikes_h": 0.08,
+   "time_mem_over_100_h": 1.39,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 584,
+    "MEMORY_LIMIT": 394,
+    "CORE_LIMIT": 1418
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|OLD_max_concurrent1_budget17": {
+   "makespan_h": 1405.87,
+   "wave_spans_h": [
+    11.71,
+    93.72,
+    23.43,
+    11.71,
+    11.71,
+    11.71,
+    117.16,
+    117.16,
+    281.19,
+    93.72,
+    23.43,
+    11.71,
+    117.16,
+    117.16,
+    281.19,
+    82.01
+   ],
+   "max_start_offset_in_wave_h": 269.48,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    82.02,
+    11.72,
+    0.0,
+    0.0,
+    0.0,
+    105.45,
+    105.45,
+    269.48,
+    82.02,
+    11.72,
+    0.0,
+    105.45,
+    105.45,
+    269.48,
+    70.3
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 66,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 36.1,
+   "max_busy_demand": 3.25,
+   "max_route_a_pooled": 1,
+   "max_running": 1,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 73112
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|OLD_max_concurrent6_budget17": {
+   "makespan_h": 655.43,
+   "wave_spans_h": [
+    11.71,
+    41.91,
+    11.71,
+    11.71,
+    11.71,
+    11.71,
+    51.98,
+    51.98,
+    122.44,
+    41.91,
+    11.71,
+    11.71,
+    51.98,
+    51.98,
+    122.44,
+    36.88
+   ],
+   "max_start_offset_in_wave_h": 110.73,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    30.2,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    40.27,
+    40.27,
+    110.73,
+    30.2,
+    0.0,
+    0.0,
+    40.27,
+    40.27,
+    110.73,
+    25.17
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 26,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 72.2,
+   "max_busy_demand": 7.75,
+   "max_route_a_pooled": 2,
+   "max_running": 4,
+   "time_ge2_spikes_h": 5.87,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "OLD_BUDGET": 28086
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|NEW_gate_max_concurrent12": {
+   "makespan_h": 295.57,
+   "wave_spans_h": [
+    11.71,
+    16.38,
+    11.74,
+    11.71,
+    11.71,
+    11.71,
+    20.77,
+    20.77,
+    40.79,
+    16.38,
+    11.74,
+    11.71,
+    20.77,
+    20.77,
+    40.79,
+    16.14
+   ],
+   "max_start_offset_in_wave_h": 29.08,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.47,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    9.0,
+    9.0,
+    29.08,
+    4.47,
+    0.03,
+    0.0,
+    9.0,
+    9.0,
+    29.08,
+    4.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    12.57
+   ],
+   "max_total_mem_gb": 118.25,
+   "max_busy_demand": 20.5,
+   "max_route_a_pooled": 4,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.12,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 5.35,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 4825,
+    "MEMORY_LIMIT": 3759,
+    "CORE_LIMIT": 3984
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|VARIANT_gate_two_spike_headroom": {
+   "makespan_h": 324.03,
+   "wave_spans_h": [
+    11.71,
+    20.51,
+    11.74,
+    11.71,
+    11.71,
+    11.71,
+    23.49,
+    23.49,
+    45.42,
+    20.51,
+    11.74,
+    11.71,
+    23.49,
+    23.49,
+    45.42,
+    16.18
+   ],
+   "max_start_offset_in_wave_h": 33.72,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    8.8,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    11.78,
+    11.78,
+    33.72,
+    8.8,
+    0.03,
+    0.0,
+    11.78,
+    11.78,
+    33.72,
+    4.47
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 88.44,
+   "max_busy_demand": 17.25,
+   "max_route_a_pooled": 4,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 2295,
+    "MEMORY_LIMIT": 7642
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|VARIANT_gate_route_a_cap4": {
+   "makespan_h": 295.57,
+   "wave_spans_h": [
+    11.71,
+    16.38,
+    11.74,
+    11.71,
+    11.71,
+    11.71,
+    20.77,
+    20.77,
+    40.79,
+    16.38,
+    11.74,
+    11.71,
+    20.77,
+    20.77,
+    40.79,
+    16.14
+   ],
+   "max_start_offset_in_wave_h": 29.08,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.47,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    9.0,
+    9.0,
+    29.08,
+    4.47,
+    0.03,
+    0.0,
+    9.0,
+    9.0,
+    29.08,
+    4.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    12.57
+   ],
+   "max_total_mem_gb": 118.25,
+   "max_busy_demand": 20.5,
+   "max_route_a_pooled": 4,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.12,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 5.35,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 4825,
+    "MEMORY_LIMIT": 3759,
+    "CORE_LIMIT": 3984
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|VARIANT_gate_route_a_cap5": {
+   "makespan_h": 296.93,
+   "wave_spans_h": [
+    11.71,
+    16.18,
+    11.74,
+    11.71,
+    11.71,
+    11.71,
+    21.02,
+    21.02,
+    41.16,
+    16.18,
+    11.74,
+    11.71,
+    21.02,
+    21.02,
+    41.16,
+    16.14
+   ],
+   "max_start_offset_in_wave_h": 29.45,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.47,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    9.32,
+    9.32,
+    29.45,
+    4.47,
+    0.03,
+    0.0,
+    9.32,
+    9.32,
+    29.45,
+    4.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    12.7
+   ],
+   "max_total_mem_gb": 125.82,
+   "max_busy_demand": 20.5,
+   "max_route_a_pooled": 5,
+   "max_running": 10,
+   "time_ge2_spikes_h": 3.31,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 12.22,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 2277,
+    "MEMORY_LIMIT": 5071,
+    "CORE_LIMIT": 4118
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|VARIANT_gate_route_a_cap6": {
+   "makespan_h": 297.35,
+   "wave_spans_h": [
+    11.71,
+    16.49,
+    11.74,
+    11.71,
+    11.71,
+    11.71,
+    20.98,
+    20.98,
+    40.99,
+    16.49,
+    11.74,
+    11.71,
+    20.98,
+    20.98,
+    40.99,
+    16.46
+   ],
+   "max_start_offset_in_wave_h": 29.28,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.78,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    9.27,
+    9.27,
+    29.28,
+    4.78,
+    0.03,
+    0.0,
+    9.27,
+    9.27,
+    29.28,
+    4.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    12.57
+   ],
+   "max_total_mem_gb": 140.79,
+   "max_busy_demand": 20.75,
+   "max_route_a_pooled": 6,
+   "max_running": 10,
+   "time_ge2_spikes_h": 5.38,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 19.02,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 2430,
+    "MEMORY_LIMIT": 4958,
+    "CORE_LIMIT": 3968
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high|NEW_gate_max_concurrent12+NGC_probe": {
+   "makespan_h": 295.77,
+   "wave_spans_h": [
+    11.71,
+    16.57,
+    11.74,
+    11.71,
+    11.71,
+    11.71,
+    20.77,
+    20.77,
+    40.79,
+    16.38,
+    11.74,
+    11.71,
+    20.77,
+    20.77,
+    40.79,
+    16.14
+   ],
+   "max_start_offset_in_wave_h": 29.08,
+   "last_start_offset_per_wave_h": [
+    0.0,
+    4.47,
+    0.03,
+    0.0,
+    0.0,
+    0.0,
+    9.0,
+    9.0,
+    29.08,
+    4.47,
+    0.03,
+    0.0,
+    9.0,
+    9.0,
+    29.08,
+    4.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 120,
+   "call_wall_h_min_max": [
+    11.71,
+    12.57
+   ],
+   "max_total_mem_gb": 118.25,
+   "max_busy_demand": 20.5,
+   "max_route_a_pooled": 4,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.31,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 5.72,
+   "gate_wait_reasons": {
+    "SPACING": 104,
+    "ROUTE_A_CAP": 4825,
+    "MEMORY_LIMIT": 3846,
+    "CORE_LIMIT": 3984
+   }
+  }
+ },
+ "direct_batches": {
+  "HEADLINE11|low|OLD_cap3_ramp": {
+   "makespan_h": 6.71,
+   "wave_spans_h": [
+    6.71
+   ],
+   "max_start_offset_in_wave_h": 2.08,
+   "last_start_offset_per_wave_h": [
+    2.08
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 73.93,
+   "max_busy_demand": 17.75,
+   "max_route_a_pooled": 2,
+   "max_running": 11,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 115
+   }
+  },
+  "HEADLINE11|low|NEW_max_active4_ramp": {
+   "makespan_h": 6.46,
+   "wave_spans_h": [
+    6.46
+   ],
+   "max_start_offset_in_wave_h": 1.83,
+   "last_start_offset_per_wave_h": [
+    1.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 73.93,
+   "max_busy_demand": 17.75,
+   "max_route_a_pooled": 2,
+   "max_running": 11,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 100
+   }
+  },
+  "HEADLINE11|low|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 5.69,
+   "wave_spans_h": [
+    5.69
+   ],
+   "max_start_offset_in_wave_h": 1.07,
+   "last_start_offset_per_wave_h": [
+    1.07
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 137.92,
+   "max_busy_demand": 18.25,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 0.28,
+   "time_ge3_spikes_h": 0.12,
+   "time_mem_over_100_h": 0.11,
+   "gate_wait_reasons": {
+    "SPACING": 10,
+    "ROUTE_A_CAP": 29,
+    "MEMORY_LIMIT": 29,
+    "CORE_LIMIT": 33
+   }
+  },
+  "SENS9|low|OLD_cap3_ramp": {
+   "makespan_h": 6.26,
+   "wave_spans_h": [
+    6.26
+   ],
+   "max_start_offset_in_wave_h": 1.63,
+   "last_start_offset_per_wave_h": [
+    1.63
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 65.13,
+   "max_busy_demand": 14.75,
+   "max_route_a_pooled": 2,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 90
+   }
+  },
+  "SENS9|low|NEW_max_active4_ramp": {
+   "makespan_h": 6.09,
+   "wave_spans_h": [
+    6.09
+   ],
+   "max_start_offset_in_wave_h": 1.47,
+   "last_start_offset_per_wave_h": [
+    1.47
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 65.13,
+   "max_busy_demand": 14.75,
+   "max_route_a_pooled": 2,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 80
+   }
+  },
+  "SENS9|low|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 5.33,
+   "wave_spans_h": [
+    5.33
+   ],
+   "max_start_offset_in_wave_h": 0.7,
+   "last_start_offset_per_wave_h": [
+    0.7
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 137.92,
+   "max_busy_demand": 18.0,
+   "max_route_a_pooled": 4,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.22,
+   "time_ge3_spikes_h": 0.12,
+   "time_mem_over_100_h": 0.11,
+   "gate_wait_reasons": {
+    "SPACING": 8,
+    "ROUTE_A_CAP": 29,
+    "MEMORY_LIMIT": 19,
+    "CORE_LIMIT": 13
+   }
+  },
+  "DIII4|low|OLD_cap3_ramp": {
+   "makespan_h": 4.55,
+   "wave_spans_h": [
+    4.55
+   ],
+   "max_start_offset_in_wave_h": 0.35,
+   "last_start_offset_per_wave_h": [
+    0.35
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    4.2,
+    4.2
+   ],
+   "max_total_mem_gb": 26.94,
+   "max_busy_demand": 9.5,
+   "max_route_a_pooled": 3,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 18
+   }
+  },
+  "DIII4|low|NEW_max_active4_ramp": {
+   "makespan_h": 4.55,
+   "wave_spans_h": [
+    4.55
+   ],
+   "max_start_offset_in_wave_h": 0.35,
+   "last_start_offset_per_wave_h": [
+    0.35
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    4.2,
+    4.2
+   ],
+   "max_total_mem_gb": 26.94,
+   "max_busy_demand": 9.5,
+   "max_route_a_pooled": 3,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 18
+   }
+  },
+  "DIII4|low|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 4.3,
+   "wave_spans_h": [
+    4.3
+   ],
+   "max_start_offset_in_wave_h": 0.1,
+   "last_start_offset_per_wave_h": [
+    0.1
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    4.2,
+    4.2
+   ],
+   "max_total_mem_gb": 41.88,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 3
+   }
+  },
+  "POST_S1_2|low|OLD_cap3_ramp": {
+   "makespan_h": 4.81,
+   "wave_spans_h": [
+    4.81
+   ],
+   "max_start_offset_in_wave_h": 0.18,
+   "last_start_offset_per_wave_h": [
+    0.18
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 34.33,
+   "max_busy_demand": 4.25,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 10
+   }
+  },
+  "POST_S1_2|low|NEW_max_active2_ramp": {
+   "makespan_h": 4.81,
+   "wave_spans_h": [
+    4.81
+   ],
+   "max_start_offset_in_wave_h": 0.18,
+   "last_start_offset_per_wave_h": [
+    0.18
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 34.33,
+   "max_busy_demand": 4.25,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 10
+   }
+  },
+  "POST_S1_2|low|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 4.66,
+   "wave_spans_h": [
+    4.66
+   ],
+   "max_start_offset_in_wave_h": 0.03,
+   "last_start_offset_per_wave_h": [
+    0.03
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    4.62,
+    4.62
+   ],
+   "max_total_mem_gb": 61.06,
+   "max_busy_demand": 6.5,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.06,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 1
+   }
+  },
+  "HEADLINE11|expected|OLD_cap3_ramp": {
+   "makespan_h": 9.54,
+   "wave_spans_h": [
+    9.54
+   ],
+   "max_start_offset_in_wave_h": 3.83,
+   "last_start_offset_per_wave_h": [
+    3.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    5.71,
+    5.71
+   ],
+   "max_total_mem_gb": 100.66,
+   "max_busy_demand": 20.0,
+   "max_route_a_pooled": 3,
+   "max_running": 11,
+   "time_ge2_spikes_h": 0.17,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.02,
+   "gate_wait_reasons": {
+    "RAMP": 220
+   }
+  },
+  "HEADLINE11|expected|NEW_max_active4_ramp": {
+   "makespan_h": 9.04,
+   "wave_spans_h": [
+    9.04
+   ],
+   "max_start_offset_in_wave_h": 3.33,
+   "last_start_offset_per_wave_h": [
+    3.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    5.71,
+    5.71
+   ],
+   "max_total_mem_gb": 100.06,
+   "max_busy_demand": 19.5,
+   "max_route_a_pooled": 3,
+   "max_running": 11,
+   "time_ge2_spikes_h": 0.25,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.03,
+   "gate_wait_reasons": {
+    "RAMP": 190
+   }
+  },
+  "HEADLINE11|expected|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 7.98,
+   "wave_spans_h": [
+    7.98
+   ],
+   "max_start_offset_in_wave_h": 2.28,
+   "last_start_offset_per_wave_h": [
+    2.28
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    5.7,
+    5.72
+   ],
+   "max_total_mem_gb": 102.26,
+   "max_busy_demand": 19.0,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 0.37,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.15,
+   "gate_wait_reasons": {
+    "SPACING": 10,
+    "ROUTE_A_CAP": 78,
+    "MEMORY_LIMIT": 42,
+    "CORE_LIMIT": 83
+   }
+  },
+  "SENS9|expected|OLD_cap3_ramp": {
+   "makespan_h": 8.69,
+   "wave_spans_h": [
+    8.69
+   ],
+   "max_start_offset_in_wave_h": 3.0,
+   "last_start_offset_per_wave_h": [
+    3.0
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 91.26,
+   "max_busy_demand": 16.5,
+   "max_route_a_pooled": 3,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.15,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 172
+   }
+  },
+  "SENS9|expected|NEW_max_active4_ramp": {
+   "makespan_h": 8.36,
+   "wave_spans_h": [
+    8.36
+   ],
+   "max_start_offset_in_wave_h": 2.67,
+   "last_start_offset_per_wave_h": [
+    2.67
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 91.26,
+   "max_busy_demand": 16.5,
+   "max_route_a_pooled": 3,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.2,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 152
+   }
+  },
+  "SENS9|expected|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 7.19,
+   "wave_spans_h": [
+    7.19
+   ],
+   "max_start_offset_in_wave_h": 1.5,
+   "last_start_offset_per_wave_h": [
+    1.5
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    5.69,
+    5.71
+   ],
+   "max_total_mem_gb": 102.26,
+   "max_busy_demand": 19.0,
+   "max_route_a_pooled": 4,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.37,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.15,
+   "gate_wait_reasons": {
+    "SPACING": 8,
+    "ROUTE_A_CAP": 78,
+    "MEMORY_LIMIT": 27,
+    "CORE_LIMIT": 38
+   }
+  },
+  "DIII4|expected|OLD_cap3_ramp": {
+   "makespan_h": 5.12,
+   "wave_spans_h": [
+    5.12
+   ],
+   "max_start_offset_in_wave_h": 0.4,
+   "last_start_offset_per_wave_h": [
+    0.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    4.72,
+    4.72
+   ],
+   "max_total_mem_gb": 34.41,
+   "max_busy_demand": 11.25,
+   "max_route_a_pooled": 3,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 21
+   }
+  },
+  "DIII4|expected|NEW_max_active4_ramp": {
+   "makespan_h": 5.12,
+   "wave_spans_h": [
+    5.12
+   ],
+   "max_start_offset_in_wave_h": 0.4,
+   "last_start_offset_per_wave_h": [
+    0.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    4.72,
+    4.72
+   ],
+   "max_total_mem_gb": 34.41,
+   "max_busy_demand": 11.25,
+   "max_route_a_pooled": 3,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 21
+   }
+  },
+  "DIII4|expected|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 4.83,
+   "wave_spans_h": [
+    4.83
+   ],
+   "max_start_offset_in_wave_h": 0.1,
+   "last_start_offset_per_wave_h": [
+    0.1
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    4.72,
+    4.72
+   ],
+   "max_total_mem_gb": 41.88,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 3
+   }
+  },
+  "POST_S1_2|expected|OLD_cap3_ramp": {
+   "makespan_h": 6.03,
+   "wave_spans_h": [
+    6.03
+   ],
+   "max_start_offset_in_wave_h": 0.33,
+   "last_start_offset_per_wave_h": [
+    0.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 61.06,
+   "max_busy_demand": 6.5,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 19
+   }
+  },
+  "POST_S1_2|expected|NEW_max_active2_ramp": {
+   "makespan_h": 6.03,
+   "wave_spans_h": [
+    6.03
+   ],
+   "max_start_offset_in_wave_h": 0.33,
+   "last_start_offset_per_wave_h": [
+    0.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 61.06,
+   "max_busy_demand": 6.5,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 19
+   }
+  },
+  "POST_S1_2|expected|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 5.72,
+   "wave_spans_h": [
+    5.72
+   ],
+   "max_start_offset_in_wave_h": 0.03,
+   "last_start_offset_per_wave_h": [
+    0.03
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    5.69,
+    5.69
+   ],
+   "max_total_mem_gb": 42.33,
+   "max_busy_demand": 6.5,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 1
+   }
+  },
+  "HEADLINE11|high|OLD_cap3_ramp": {
+   "makespan_h": 27.32,
+   "wave_spans_h": [
+    27.32
+   ],
+   "max_start_offset_in_wave_h": 15.62,
+   "last_start_offset_per_wave_h": [
+    15.62
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    11.71,
+    11.72
+   ],
+   "max_total_mem_gb": 118.88,
+   "max_busy_demand": 18.75,
+   "max_route_a_pooled": 3,
+   "max_running": 9,
+   "time_ge2_spikes_h": 2.07,
+   "time_ge3_spikes_h": 1.2,
+   "time_mem_over_100_h": 0.95,
+   "gate_wait_reasons": {
+    "RAMP": 927
+   }
+  },
+  "HEADLINE11|high|NEW_max_active4_ramp": {
+   "makespan_h": 23.07,
+   "wave_spans_h": [
+    23.07
+   ],
+   "max_start_offset_in_wave_h": 11.2,
+   "last_start_offset_per_wave_h": [
+    11.2
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    11.87,
+    12.0
+   ],
+   "max_total_mem_gb": 156.65,
+   "max_busy_demand": 21.75,
+   "max_route_a_pooled": 4,
+   "max_running": 11,
+   "time_ge2_spikes_h": 1.73,
+   "time_ge3_spikes_h": 1.32,
+   "time_mem_over_100_h": 1.28,
+   "gate_wait_reasons": {
+    "RAMP": 662
+   }
+  },
+  "HEADLINE11|high|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 23.68,
+   "wave_spans_h": [
+    23.68
+   ],
+   "max_start_offset_in_wave_h": 11.97,
+   "last_start_offset_per_wave_h": [
+    11.97
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 11,
+   "call_wall_h_min_max": [
+    11.71,
+    11.97
+   ],
+   "max_total_mem_gb": 105.81,
+   "max_busy_demand": 19.0,
+   "max_route_a_pooled": 4,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.45,
+   "gate_wait_reasons": {
+    "SPACING": 10,
+    "ROUTE_A_CAP": 525,
+    "MEMORY_LIMIT": 343,
+    "CORE_LIMIT": 445
+   }
+  },
+  "SENS9|high|OLD_cap3_ramp": {
+   "makespan_h": 22.78,
+   "wave_spans_h": [
+    22.78
+   ],
+   "max_start_offset_in_wave_h": 11.07,
+   "last_start_offset_per_wave_h": [
+    11.07
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    11.72,
+    11.72
+   ],
+   "max_total_mem_gb": 118.88,
+   "max_busy_demand": 18.75,
+   "max_route_a_pooled": 3,
+   "max_running": 9,
+   "time_ge2_spikes_h": 1.6,
+   "time_ge3_spikes_h": 1.2,
+   "time_mem_over_100_h": 0.95,
+   "gate_wait_reasons": {
+    "RAMP": 656
+   }
+  },
+  "SENS9|high|NEW_max_active4_ramp": {
+   "makespan_h": 21.91,
+   "wave_spans_h": [
+    21.91
+   ],
+   "max_start_offset_in_wave_h": 10.2,
+   "last_start_offset_per_wave_h": [
+    10.2
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    11.71,
+    11.84
+   ],
+   "max_total_mem_gb": 156.65,
+   "max_busy_demand": 19.0,
+   "max_route_a_pooled": 4,
+   "max_running": 9,
+   "time_ge2_spikes_h": 1.2,
+   "time_ge3_spikes_h": 0.93,
+   "time_mem_over_100_h": 0.88,
+   "gate_wait_reasons": {
+    "RAMP": 604
+   }
+  },
+  "SENS9|high|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 20.68,
+   "wave_spans_h": [
+    20.68
+   ],
+   "max_start_offset_in_wave_h": 8.97,
+   "last_start_offset_per_wave_h": [
+    8.97
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 9,
+   "call_wall_h_min_max": [
+    11.71,
+    11.91
+   ],
+   "max_total_mem_gb": 105.81,
+   "max_busy_demand": 19.0,
+   "max_route_a_pooled": 4,
+   "max_running": 9,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.45,
+   "gate_wait_reasons": {
+    "SPACING": 8,
+    "ROUTE_A_CAP": 525,
+    "MEMORY_LIMIT": 299,
+    "CORE_LIMIT": 267
+   }
+  },
+  "DIII4|high|OLD_cap3_ramp": {
+   "makespan_h": 7.57,
+   "wave_spans_h": [
+    7.57
+   ],
+   "max_start_offset_in_wave_h": 0.95,
+   "last_start_offset_per_wave_h": [
+    0.95
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    6.62,
+    6.62
+   ],
+   "max_total_mem_gb": 34.41,
+   "max_busy_demand": 11.25,
+   "max_route_a_pooled": 3,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 54
+   }
+  },
+  "DIII4|high|NEW_max_active4_ramp": {
+   "makespan_h": 6.97,
+   "wave_spans_h": [
+    6.97
+   ],
+   "max_start_offset_in_wave_h": 0.35,
+   "last_start_offset_per_wave_h": [
+    0.35
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    6.62,
+    6.62
+   ],
+   "max_total_mem_gb": 41.88,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 18
+   }
+  },
+  "DIII4|high|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 6.72,
+   "wave_spans_h": [
+    6.72
+   ],
+   "max_start_offset_in_wave_h": 0.1,
+   "last_start_offset_per_wave_h": [
+    0.1
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 4,
+   "call_wall_h_min_max": [
+    6.62,
+    6.62
+   ],
+   "max_total_mem_gb": 41.88,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 4,
+   "max_running": 4,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 3
+   }
+  },
+  "POST_S1_2|high|OLD_cap3_ramp": {
+   "makespan_h": 12.21,
+   "wave_spans_h": [
+    12.21
+   ],
+   "max_start_offset_in_wave_h": 0.5,
+   "last_start_offset_per_wave_h": [
+    0.5
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 71.31,
+   "max_busy_demand": 6.5,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.47,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 29
+   }
+  },
+  "POST_S1_2|high|NEW_max_active2_ramp": {
+   "makespan_h": 12.21,
+   "wave_spans_h": [
+    12.21
+   ],
+   "max_start_offset_in_wave_h": 0.5,
+   "last_start_offset_per_wave_h": [
+    0.5
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 71.31,
+   "max_busy_demand": 6.5,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.47,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "RAMP": 29
+   }
+  },
+  "POST_S1_2|high|PLANNED_shared_gate_guard_v011": {
+   "makespan_h": 11.74,
+   "wave_spans_h": [
+    11.74
+   ],
+   "max_start_offset_in_wave_h": 0.03,
+   "last_start_offset_per_wave_h": [
+    0.03
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 2,
+   "call_wall_h_min_max": [
+    11.71,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 6.5,
+   "max_route_a_pooled": 2,
+   "max_running": 2,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 1
+   }
+  }
+ },
+ "step5": {
+  "M4_S2|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 0.83,
+   "last_start_offset_per_wave_h": [
+    0.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 6,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 30
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|low|serial_1": {
+   "makespan_h": 70.23,
+   "wave_spans_h": [
+    70.23
+   ],
+   "max_start_offset_in_wave_h": 58.53,
+   "last_start_offset_per_wave_h": [
+    58.53
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 1,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 2103
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|low|serial_2": {
+   "makespan_h": 46.85,
+   "wave_spans_h": [
+    46.85
+   ],
+   "max_start_offset_in_wave_h": 35.15,
+   "last_start_offset_per_wave_h": [
+    35.15
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 1.7,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 700
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|low|new": {
+   "makespan_h": 25.37,
+   "wave_spans_h": [
+    25.37
+   ],
+   "max_start_offset_in_wave_h": 13.67,
+   "last_start_offset_per_wave_h": [
+    13.67
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.27,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 37,
+    "SOLO_FIRST": 75
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S2|low|new+probe": {
+   "makespan_h": 24.27,
+   "wave_spans_h": [
+    24.27
+   ],
+   "max_start_offset_in_wave_h": 12.57,
+   "last_start_offset_per_wave_h": [
+    12.57
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 1.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 46,
+    "MEMORY_LIMIT": 3
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S6|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 0.83,
+   "last_start_offset_per_wave_h": [
+    0.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 10,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 30
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|low|serial_1": {
+   "makespan_h": 117.03,
+   "wave_spans_h": [
+    117.03
+   ],
+   "max_start_offset_in_wave_h": 105.33,
+   "last_start_offset_per_wave_h": [
+    105.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 5,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 4907
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|low|serial_2": {
+   "makespan_h": 70.25,
+   "wave_spans_h": [
+    70.25
+   ],
+   "max_start_offset_in_wave_h": 58.55,
+   "last_start_offset_per_wave_h": [
+    58.55
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 3.37,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 2100
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|low|new": {
+   "makespan_h": 26.03,
+   "wave_spans_h": [
+    26.03
+   ],
+   "max_start_offset_in_wave_h": 14.33,
+   "last_start_offset_per_wave_h": [
+    14.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.14,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 73,
+    "SOLO_FIRST": 75
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S6|low|new+probe": {
+   "makespan_h": 24.93,
+   "wave_spans_h": [
+    24.93
+   ],
+   "max_start_offset_in_wave_h": 13.23,
+   "last_start_offset_per_wave_h": [
+    13.23
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 3.89,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 82,
+    "MEMORY_LIMIT": 3
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S2|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 1.37,
+   "last_start_offset_per_wave_h": [
+    1.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 8,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 60
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|low|serial_1": {
+   "makespan_h": 93.63,
+   "wave_spans_h": [
+    93.63
+   ],
+   "max_start_offset_in_wave_h": 81.93,
+   "last_start_offset_per_wave_h": [
+    81.93
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 3,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 3505
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|low|serial_2": {
+   "makespan_h": 58.55,
+   "wave_spans_h": [
+    58.55
+   ],
+   "max_start_offset_in_wave_h": 46.85,
+   "last_start_offset_per_wave_h": [
+    46.85
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 2.53,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 1400
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|low|new": {
+   "makespan_h": 25.7,
+   "wave_spans_h": [
+    25.7
+   ],
+   "max_start_offset_in_wave_h": 14.0,
+   "last_start_offset_per_wave_h": [
+    14.0
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 2.02,
+   "time_ge3_spikes_h": 0.17,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 55,
+    "SOLO_FIRST": 75
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S2|low|new+probe": {
+   "makespan_h": 24.6,
+   "wave_spans_h": [
+    24.6
+   ],
+   "max_start_offset_in_wave_h": 12.9,
+   "last_start_offset_per_wave_h": [
+    12.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 2.93,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 64,
+    "MEMORY_LIMIT": 3
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 1.37,
+   "last_start_offset_per_wave_h": [
+    1.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 12,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 60
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|low|serial_1": {
+   "makespan_h": 140.43,
+   "wave_spans_h": [
+    140.43
+   ],
+   "max_start_offset_in_wave_h": 128.73,
+   "last_start_offset_per_wave_h": [
+    128.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 6309
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|low|serial_2": {
+   "makespan_h": 81.95,
+   "wave_spans_h": [
+    81.95
+   ],
+   "max_start_offset_in_wave_h": 70.25,
+   "last_start_offset_per_wave_h": [
+    70.25
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 4,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 4.2,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 2800
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|low|new": {
+   "makespan_h": 26.37,
+   "wave_spans_h": [
+    26.37
+   ],
+   "max_start_offset_in_wave_h": 14.67,
+   "last_start_offset_per_wave_h": [
+    14.67
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 4.89,
+   "time_ge3_spikes_h": 0.17,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 91,
+    "SOLO_FIRST": 75
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6|low|new+probe": {
+   "makespan_h": 25.27,
+   "wave_spans_h": [
+    25.27
+   ],
+   "max_start_offset_in_wave_h": 13.57,
+   "last_start_offset_per_wave_h": [
+    13.57
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 5.81,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 100,
+    "MEMORY_LIMIT": 3
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S2|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 1.9,
+   "last_start_offset_per_wave_h": [
+    1.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 10,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 90
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|low|serial_1": {
+   "makespan_h": 117.03,
+   "wave_spans_h": [
+    117.03
+   ],
+   "max_start_offset_in_wave_h": 105.33,
+   "last_start_offset_per_wave_h": [
+    105.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 5,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 4907
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|low|serial_2": {
+   "makespan_h": 70.25,
+   "wave_spans_h": [
+    70.25
+   ],
+   "max_start_offset_in_wave_h": 58.55,
+   "last_start_offset_per_wave_h": [
+    58.55
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 3.37,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 2100
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|low|new": {
+   "makespan_h": 32.02,
+   "wave_spans_h": [
+    32.02
+   ],
+   "max_start_offset_in_wave_h": 20.32,
+   "last_start_offset_per_wave_h": [
+    20.32
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 2.13,
+   "time_ge3_spikes_h": 0.57,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 73,
+    "SOLO_FIRST": 75,
+    "MEMORY_LIMIT": 377
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S2|low|new+probe": {
+   "makespan_h": 32.1,
+   "wave_spans_h": [
+    32.1
+   ],
+   "max_start_offset_in_wave_h": 20.4,
+   "last_start_offset_per_wave_h": [
+    20.4
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 2.99,
+   "time_ge3_spikes_h": 0.07,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 82,
+    "MEMORY_LIMIT": 451
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S6|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 1.9,
+   "last_start_offset_per_wave_h": [
+    1.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 14,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 90
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|low|serial_1": {
+   "makespan_h": 163.83,
+   "wave_spans_h": [
+    163.83
+   ],
+   "max_start_offset_in_wave_h": 152.13,
+   "last_start_offset_per_wave_h": [
+    152.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 7711
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|low|serial_2": {
+   "makespan_h": 93.65,
+   "wave_spans_h": [
+    93.65
+   ],
+   "max_start_offset_in_wave_h": 81.95,
+   "last_start_offset_per_wave_h": [
+    81.95
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 5.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 3500
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|low|new": {
+   "makespan_h": 32.68,
+   "wave_spans_h": [
+    32.68
+   ],
+   "max_start_offset_in_wave_h": 20.98,
+   "last_start_offset_per_wave_h": [
+    20.98
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 5.01,
+   "time_ge3_spikes_h": 0.57,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 109,
+    "SOLO_FIRST": 75,
+    "MEMORY_LIMIT": 377
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S6|low|new+probe": {
+   "makespan_h": 32.77,
+   "wave_spans_h": [
+    32.77
+   ],
+   "max_start_offset_in_wave_h": 21.07,
+   "last_start_offset_per_wave_h": [
+    21.07
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 5.87,
+   "time_ge3_spikes_h": 0.07,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 118,
+    "MEMORY_LIMIT": 451
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S2|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 2.43,
+   "last_start_offset_per_wave_h": [
+    2.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 12,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 120
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|low|serial_1": {
+   "makespan_h": 140.43,
+   "wave_spans_h": [
+    140.43
+   ],
+   "max_start_offset_in_wave_h": 128.73,
+   "last_start_offset_per_wave_h": [
+    128.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 6309
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|low|serial_2": {
+   "makespan_h": 81.95,
+   "wave_spans_h": [
+    81.95
+   ],
+   "max_start_offset_in_wave_h": 70.25,
+   "last_start_offset_per_wave_h": [
+    70.25
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 3,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 4.2,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 2800
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|low|new": {
+   "makespan_h": 33.9,
+   "wave_spans_h": [
+    33.9
+   ],
+   "max_start_offset_in_wave_h": 22.2,
+   "last_start_offset_per_wave_h": [
+    22.2
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 2.41,
+   "time_ge3_spikes_h": 0.57,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 91,
+    "SOLO_FIRST": 75,
+    "MEMORY_LIMIT": 488
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S2|low|new+probe": {
+   "makespan_h": 32.8,
+   "wave_spans_h": [
+    32.8
+   ],
+   "max_start_offset_in_wave_h": 21.1,
+   "last_start_offset_per_wave_h": [
+    21.1
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 2.99,
+   "time_ge3_spikes_h": 0.07,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 100,
+    "MEMORY_LIMIT": 491
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S6|low|proposed_caps": {
+   "makespan_h": 4.64,
+   "wave_spans_h": [
+    4.64
+   ],
+   "max_start_offset_in_wave_h": 2.43,
+   "last_start_offset_per_wave_h": [
+    2.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 16,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    0.27,
+    4.62
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 120
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|low|serial_1": {
+   "makespan_h": 187.23,
+   "wave_spans_h": [
+    187.23
+   ],
+   "max_start_offset_in_wave_h": 175.53,
+   "last_start_offset_per_wave_h": [
+    175.53
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 11,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 9113
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|low|serial_2": {
+   "makespan_h": 105.35,
+   "wave_spans_h": [
+    105.35
+   ],
+   "max_start_offset_in_wave_h": 93.65,
+   "last_start_offset_per_wave_h": [
+    93.65
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 5.87,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 4200
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|low|new": {
+   "makespan_h": 34.57,
+   "wave_spans_h": [
+    34.57
+   ],
+   "max_start_offset_in_wave_h": 22.87,
+   "last_start_offset_per_wave_h": [
+    22.87
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 5.28,
+   "time_ge3_spikes_h": 0.57,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 127,
+    "SOLO_FIRST": 75,
+    "MEMORY_LIMIT": 488
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S6|low|new+probe": {
+   "makespan_h": 33.47,
+   "wave_spans_h": [
+    33.47
+   ],
+   "max_start_offset_in_wave_h": 21.77,
+   "last_start_offset_per_wave_h": [
+    21.77
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 5.87,
+   "time_ge3_spikes_h": 0.07,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 136,
+    "MEMORY_LIMIT": 491
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6_ORIGINAL_K|low|serial_1": {
+   "makespan_h": 210.63,
+   "wave_spans_h": [
+    210.63
+   ],
+   "max_start_offset_in_wave_h": 198.93,
+   "last_start_offset_per_wave_h": [
+    198.93
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 13,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 11216
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6_ORIGINAL_K|low|serial_2": {
+   "makespan_h": 117.03,
+   "wave_spans_h": [
+    117.03
+   ],
+   "max_start_offset_in_wave_h": 105.33,
+   "last_start_offset_per_wave_h": [
+    105.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 6.7,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 701,
+    "K_AT_A_TIME": 5600
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6_ORIGINAL_K|low|new": {
+   "makespan_h": 33.73,
+   "wave_spans_h": [
+    33.73
+   ],
+   "max_start_offset_in_wave_h": 22.03,
+   "last_start_offset_per_wave_h": [
+    22.03
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 68.69,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 4.75,
+   "time_ge3_spikes_h": 1.67,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 145,
+    "SOLO_FIRST": 75,
+    "MEMORY_LIMIT": 1144
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6_ORIGINAL_K|low|new+probe": {
+   "makespan_h": 32.63,
+   "wave_spans_h": [
+    32.63
+   ],
+   "max_start_offset_in_wave_h": 20.93,
+   "last_start_offset_per_wave_h": [
+    20.93
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    4.62,
+    11.7
+   ],
+   "max_total_mem_gb": 66.06,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 5.33,
+   "time_ge3_spikes_h": 0.39,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 154,
+    "MEMORY_LIMIT": 1162
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S2|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 0.83,
+   "last_start_offset_per_wave_h": [
+    0.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 6,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 30
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|expected|serial_1": {
+   "makespan_h": 105.63,
+   "wave_spans_h": [
+    105.63
+   ],
+   "max_start_offset_in_wave_h": 88.03,
+   "last_start_offset_per_wave_h": [
+    88.03
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 3,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 3165
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|expected|serial_2": {
+   "makespan_h": 70.45,
+   "wave_spans_h": [
+    70.45
+   ],
+   "max_start_offset_in_wave_h": 52.85,
+   "last_start_offset_per_wave_h": [
+    52.85
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 1.67,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 1054
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|expected|new": {
+   "makespan_h": 37.68,
+   "wave_spans_h": [
+    37.68
+   ],
+   "max_start_offset_in_wave_h": 20.08,
+   "last_start_offset_per_wave_h": [
+    20.08
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.97,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.01,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 37,
+    "SOLO_FIRST": 106
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S2|expected|new+probe": {
+   "makespan_h": 36.08,
+   "wave_spans_h": [
+    36.08
+   ],
+   "max_start_offset_in_wave_h": 18.48,
+   "last_start_offset_per_wave_h": [
+    18.48
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 57.97,
+   "max_busy_demand": 10.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 46,
+    "MEMORY_LIMIT": 5
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S6|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 0.83,
+   "last_start_offset_per_wave_h": [
+    0.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 10,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 30
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|expected|serial_1": {
+   "makespan_h": 176.03,
+   "wave_spans_h": [
+    176.03
+   ],
+   "max_start_offset_in_wave_h": 158.43,
+   "last_start_offset_per_wave_h": [
+    158.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 7385
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|expected|serial_2": {
+   "makespan_h": 105.65,
+   "wave_spans_h": [
+    105.65
+   ],
+   "max_start_offset_in_wave_h": 88.05,
+   "last_start_offset_per_wave_h": [
+    88.05
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 3.33,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 3162
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|expected|new": {
+   "makespan_h": 38.35,
+   "wave_spans_h": [
+    38.35
+   ],
+   "max_start_offset_in_wave_h": 20.75,
+   "last_start_offset_per_wave_h": [
+    20.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 49.74,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.31,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 73,
+    "SOLO_FIRST": 106
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S6|expected|new+probe": {
+   "makespan_h": 36.75,
+   "wave_spans_h": [
+    36.75
+   ],
+   "max_start_offset_in_wave_h": 19.15,
+   "last_start_offset_per_wave_h": [
+    19.15
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 57.97,
+   "max_busy_demand": 10.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.32,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 82,
+    "MEMORY_LIMIT": 5
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S2|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 1.37,
+   "last_start_offset_per_wave_h": [
+    1.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 8,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 60
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|expected|serial_1": {
+   "makespan_h": 140.83,
+   "wave_spans_h": [
+    140.83
+   ],
+   "max_start_offset_in_wave_h": 123.23,
+   "last_start_offset_per_wave_h": [
+    123.23
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 5,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 5275
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|expected|serial_2": {
+   "makespan_h": 88.05,
+   "wave_spans_h": [
+    88.05
+   ],
+   "max_start_offset_in_wave_h": 70.45,
+   "last_start_offset_per_wave_h": [
+    70.45
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 3,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 2.5,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 2108
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|expected|new": {
+   "makespan_h": 38.02,
+   "wave_spans_h": [
+    38.02
+   ],
+   "max_start_offset_in_wave_h": 20.42,
+   "last_start_offset_per_wave_h": [
+    20.42
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 49.14,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.81,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 55,
+    "SOLO_FIRST": 106
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S2|expected|new+probe": {
+   "makespan_h": 36.42,
+   "wave_spans_h": [
+    36.42
+   ],
+   "max_start_offset_in_wave_h": 18.82,
+   "last_start_offset_per_wave_h": [
+    18.82
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 57.97,
+   "max_busy_demand": 10.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.44,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 64,
+    "MEMORY_LIMIT": 5
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 1.37,
+   "last_start_offset_per_wave_h": [
+    1.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 12,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 60
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|expected|serial_1": {
+   "makespan_h": 211.23,
+   "wave_spans_h": [
+    211.23
+   ],
+   "max_start_offset_in_wave_h": 193.63,
+   "last_start_offset_per_wave_h": [
+    193.63
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 9495
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|expected|serial_2": {
+   "makespan_h": 123.25,
+   "wave_spans_h": [
+    123.25
+   ],
+   "max_start_offset_in_wave_h": 105.65,
+   "last_start_offset_per_wave_h": [
+    105.65
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 4.17,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 4216
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|expected|new": {
+   "makespan_h": 38.68,
+   "wave_spans_h": [
+    38.68
+   ],
+   "max_start_offset_in_wave_h": 21.08,
+   "last_start_offset_per_wave_h": [
+    21.08
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 49.74,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 1.11,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 91,
+    "SOLO_FIRST": 106
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6|expected|new+probe": {
+   "makespan_h": 37.08,
+   "wave_spans_h": [
+    37.08
+   ],
+   "max_start_offset_in_wave_h": 19.48,
+   "last_start_offset_per_wave_h": [
+    19.48
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 57.97,
+   "max_busy_demand": 10.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.74,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 100,
+    "MEMORY_LIMIT": 5
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S2|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 1.9,
+   "last_start_offset_per_wave_h": [
+    1.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 10,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 90
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|expected|serial_1": {
+   "makespan_h": 176.03,
+   "wave_spans_h": [
+    176.03
+   ],
+   "max_start_offset_in_wave_h": 158.43,
+   "last_start_offset_per_wave_h": [
+    158.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 7385
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|expected|serial_2": {
+   "makespan_h": 105.65,
+   "wave_spans_h": [
+    105.65
+   ],
+   "max_start_offset_in_wave_h": 88.05,
+   "last_start_offset_per_wave_h": [
+    88.05
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 5,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 3.33,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 3162
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|expected|new": {
+   "makespan_h": 47.9,
+   "wave_spans_h": [
+    47.9
+   ],
+   "max_start_offset_in_wave_h": 30.3,
+   "last_start_offset_per_wave_h": [
+    30.3
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 67.41,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 1.53,
+   "time_ge3_spikes_h": 0.1,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 73,
+    "SOLO_FIRST": 106,
+    "MEMORY_LIMIT": 591
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S2|expected|new+probe": {
+   "makespan_h": 47.95,
+   "wave_spans_h": [
+    47.95
+   ],
+   "max_start_offset_in_wave_h": 30.35,
+   "last_start_offset_per_wave_h": [
+    30.35
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 57.97,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.8,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 82,
+    "MEMORY_LIMIT": 695
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S6|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 1.9,
+   "last_start_offset_per_wave_h": [
+    1.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 14,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 90
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|expected|serial_1": {
+   "makespan_h": 246.43,
+   "wave_spans_h": [
+    246.43
+   ],
+   "max_start_offset_in_wave_h": 228.83,
+   "last_start_offset_per_wave_h": [
+    228.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 11,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 11605
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|expected|serial_2": {
+   "makespan_h": 140.85,
+   "wave_spans_h": [
+    140.85
+   ],
+   "max_start_offset_in_wave_h": 123.25,
+   "last_start_offset_per_wave_h": [
+    123.25
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 5.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 5270
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|expected|new": {
+   "makespan_h": 48.57,
+   "wave_spans_h": [
+    48.57
+   ],
+   "max_start_offset_in_wave_h": 30.97,
+   "last_start_offset_per_wave_h": [
+    30.97
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 67.41,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 1.83,
+   "time_ge3_spikes_h": 0.1,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 109,
+    "SOLO_FIRST": 106,
+    "MEMORY_LIMIT": 591
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S6|expected|new+probe": {
+   "makespan_h": 48.62,
+   "wave_spans_h": [
+    48.62
+   ],
+   "max_start_offset_in_wave_h": 31.02,
+   "last_start_offset_per_wave_h": [
+    31.02
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 57.97,
+   "max_busy_demand": 11.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 1.1,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 118,
+    "MEMORY_LIMIT": 695
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S2|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 2.43,
+   "last_start_offset_per_wave_h": [
+    2.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 12,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 120
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|expected|serial_1": {
+   "makespan_h": 211.23,
+   "wave_spans_h": [
+    211.23
+   ],
+   "max_start_offset_in_wave_h": 193.63,
+   "last_start_offset_per_wave_h": [
+    193.63
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 9495
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|expected|serial_2": {
+   "makespan_h": 123.25,
+   "wave_spans_h": [
+    123.25
+   ],
+   "max_start_offset_in_wave_h": 105.65,
+   "last_start_offset_per_wave_h": [
+    105.65
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 4.17,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 4216
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|expected|new": {
+   "makespan_h": 50.35,
+   "wave_spans_h": [
+    50.35
+   ],
+   "max_start_offset_in_wave_h": 32.75,
+   "last_start_offset_per_wave_h": [
+    32.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 67.41,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 1.53,
+   "time_ge3_spikes_h": 0.1,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 91,
+    "SOLO_FIRST": 106,
+    "MEMORY_LIMIT": 736
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S2|expected|new+probe": {
+   "makespan_h": 48.75,
+   "wave_spans_h": [
+    48.75
+   ],
+   "max_start_offset_in_wave_h": 31.15,
+   "last_start_offset_per_wave_h": [
+    31.15
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 61.04,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 1.25,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 100,
+    "MEMORY_LIMIT": 741
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S6|expected|proposed_caps": {
+   "makespan_h": 5.71,
+   "wave_spans_h": [
+    5.71
+   ],
+   "max_start_offset_in_wave_h": 2.43,
+   "last_start_offset_per_wave_h": [
+    2.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 16,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    0.27,
+    5.69
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 120
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|expected|serial_1": {
+   "makespan_h": 281.63,
+   "wave_spans_h": [
+    281.63
+   ],
+   "max_start_offset_in_wave_h": 264.03,
+   "last_start_offset_per_wave_h": [
+    264.03
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 13,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 13715
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|expected|serial_2": {
+   "makespan_h": 158.45,
+   "wave_spans_h": [
+    158.45
+   ],
+   "max_start_offset_in_wave_h": 140.85,
+   "last_start_offset_per_wave_h": [
+    140.85
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 11,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 5.83,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 6324
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|expected|new": {
+   "makespan_h": 51.02,
+   "wave_spans_h": [
+    51.02
+   ],
+   "max_start_offset_in_wave_h": 33.42,
+   "last_start_offset_per_wave_h": [
+    33.42
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 67.41,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 1.83,
+   "time_ge3_spikes_h": 0.1,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 127,
+    "SOLO_FIRST": 106,
+    "MEMORY_LIMIT": 736
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S6|expected|new+probe": {
+   "makespan_h": 49.42,
+   "wave_spans_h": [
+    49.42
+   ],
+   "max_start_offset_in_wave_h": 31.82,
+   "last_start_offset_per_wave_h": [
+    31.82
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 61.04,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 1.55,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 136,
+    "MEMORY_LIMIT": 741
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6_ORIGINAL_K|expected|serial_1": {
+   "makespan_h": 316.83,
+   "wave_spans_h": [
+    316.83
+   ],
+   "max_start_offset_in_wave_h": 299.23,
+   "last_start_offset_per_wave_h": [
+    299.23
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 15,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 16880
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6_ORIGINAL_K|expected|serial_2": {
+   "makespan_h": 176.03,
+   "wave_spans_h": [
+    176.03
+   ],
+   "max_start_offset_in_wave_h": 158.43,
+   "last_start_offset_per_wave_h": [
+    158.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 13,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 47.33,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 6.67,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 1055,
+    "K_AT_A_TIME": 8432
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6_ORIGINAL_K|expected|new": {
+   "makespan_h": 50.18,
+   "wave_spans_h": [
+    50.18
+   ],
+   "max_start_offset_in_wave_h": 32.58,
+   "last_start_offset_per_wave_h": [
+    32.58
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 67.41,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 3.27,
+   "time_ge3_spikes_h": 0.25,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 145,
+    "SOLO_FIRST": 106,
+    "MEMORY_LIMIT": 1751
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6_ORIGINAL_K|expected|new+probe": {
+   "makespan_h": 48.58,
+   "wave_spans_h": [
+    48.58
+   ],
+   "max_start_offset_in_wave_h": 30.98,
+   "last_start_offset_per_wave_h": [
+    30.98
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    5.69,
+    17.6
+   ],
+   "max_total_mem_gb": 62.39,
+   "max_busy_demand": 13.0,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 3.12,
+   "time_ge3_spikes_h": 0.49,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 154,
+    "MEMORY_LIMIT": 1750
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S2|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 0.83,
+   "last_start_offset_per_wave_h": [
+    0.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 6,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 30
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|high|serial_1": {
+   "makespan_h": 337.83,
+   "wave_spans_h": [
+    337.83
+   ],
+   "max_start_offset_in_wave_h": 281.53,
+   "last_start_offset_per_wave_h": [
+    281.53
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 5,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 10131
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|high|serial_2": {
+   "makespan_h": 225.25,
+   "wave_spans_h": [
+    225.25
+   ],
+   "max_start_offset_in_wave_h": 168.95,
+   "last_start_offset_per_wave_h": [
+    168.95
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 5,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 1.68,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 3376
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S2|high|new": {
+   "makespan_h": 118.47,
+   "wave_spans_h": [
+    118.47
+   ],
+   "max_start_offset_in_wave_h": 62.17,
+   "last_start_offset_per_wave_h": [
+    62.17
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.01,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 37,
+    "SOLO_FIRST": 309
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S2|high|new+probe": {
+   "makespan_h": 113.47,
+   "wave_spans_h": [
+    113.47
+   ],
+   "max_start_offset_in_wave_h": 57.17,
+   "last_start_offset_per_wave_h": [
+    57.17
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 8,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 73.47,
+   "max_busy_demand": 10.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.04,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 46,
+    "MEMORY_LIMIT": 2
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S6|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 0.83,
+   "last_start_offset_per_wave_h": [
+    0.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 10,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 30
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|high|serial_1": {
+   "makespan_h": 563.03,
+   "wave_spans_h": [
+    563.03
+   ],
+   "max_start_offset_in_wave_h": 506.73,
+   "last_start_offset_per_wave_h": [
+    506.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 23639
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|high|serial_2": {
+   "makespan_h": 337.85,
+   "wave_spans_h": [
+    337.85
+   ],
+   "max_start_offset_in_wave_h": 281.55,
+   "last_start_offset_per_wave_h": [
+    281.55
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 3.35,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 10128
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M4_S6|high|new": {
+   "makespan_h": 119.13,
+   "wave_spans_h": [
+    119.13
+   ],
+   "max_start_offset_in_wave_h": 62.83,
+   "last_start_offset_per_wave_h": [
+    62.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.01,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 73,
+    "SOLO_FIRST": 309
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M4_S6|high|new+probe": {
+   "makespan_h": 114.13,
+   "wave_spans_h": [
+    114.13
+   ],
+   "max_start_offset_in_wave_h": 57.83,
+   "last_start_offset_per_wave_h": [
+    57.83
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 73.47,
+   "max_busy_demand": 10.5,
+   "max_route_a_pooled": 2,
+   "max_running": 6,
+   "time_ge2_spikes_h": 0.04,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 82,
+    "MEMORY_LIMIT": 2
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S2|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 1.37,
+   "last_start_offset_per_wave_h": [
+    1.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 8,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 60
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|high|serial_1": {
+   "makespan_h": 450.43,
+   "wave_spans_h": [
+    450.43
+   ],
+   "max_start_offset_in_wave_h": 394.13,
+   "last_start_offset_per_wave_h": [
+    394.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 16885
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|high|serial_2": {
+   "makespan_h": 281.55,
+   "wave_spans_h": [
+    281.55
+   ],
+   "max_start_offset_in_wave_h": 225.25,
+   "last_start_offset_per_wave_h": [
+    225.25
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 7,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 2.52,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 6752
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S2|high|new": {
+   "makespan_h": 118.8,
+   "wave_spans_h": [
+    118.8
+   ],
+   "max_start_offset_in_wave_h": 62.5,
+   "last_start_offset_per_wave_h": [
+    62.5
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.01,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 55,
+    "SOLO_FIRST": 309
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S2|high|new+probe": {
+   "makespan_h": 117.17,
+   "wave_spans_h": [
+    117.17
+   ],
+   "max_start_offset_in_wave_h": 60.87,
+   "last_start_offset_per_wave_h": [
+    60.87
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 10,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 78.47,
+   "max_busy_demand": 11.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.05,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 64,
+    "MEMORY_LIMIT": 215
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 1.37,
+   "last_start_offset_per_wave_h": [
+    1.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 12,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 60
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|high|serial_1": {
+   "makespan_h": 675.63,
+   "wave_spans_h": [
+    675.63
+   ],
+   "max_start_offset_in_wave_h": 619.33,
+   "last_start_offset_per_wave_h": [
+    619.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 11,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 30393
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|high|serial_2": {
+   "makespan_h": 394.15,
+   "wave_spans_h": [
+    394.15
+   ],
+   "max_start_offset_in_wave_h": 337.85,
+   "last_start_offset_per_wave_h": [
+    337.85
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 11,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 4.18,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 13504
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6|high|new": {
+   "makespan_h": 119.47,
+   "wave_spans_h": [
+    119.47
+   ],
+   "max_start_offset_in_wave_h": 63.17,
+   "last_start_offset_per_wave_h": [
+    63.17
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 9.0,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.01,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 91,
+    "SOLO_FIRST": 309
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6|high|new+probe": {
+   "makespan_h": 117.83,
+   "wave_spans_h": [
+    117.83
+   ],
+   "max_start_offset_in_wave_h": 61.53,
+   "last_start_offset_per_wave_h": [
+    61.53
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 78.47,
+   "max_busy_demand": 11.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.05,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 100,
+    "MEMORY_LIMIT": 215
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S2|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 1.9,
+   "last_start_offset_per_wave_h": [
+    1.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 10,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 90
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|high|serial_1": {
+   "makespan_h": 563.03,
+   "wave_spans_h": [
+    563.03
+   ],
+   "max_start_offset_in_wave_h": 506.73,
+   "last_start_offset_per_wave_h": [
+    506.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 23639
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|high|serial_2": {
+   "makespan_h": 337.85,
+   "wave_spans_h": [
+    337.85
+   ],
+   "max_start_offset_in_wave_h": 281.55,
+   "last_start_offset_per_wave_h": [
+    281.55
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 9,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 3.35,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 10128
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S2|high|new": {
+   "makespan_h": 152.38,
+   "wave_spans_h": [
+    152.38
+   ],
+   "max_start_offset_in_wave_h": 96.08,
+   "last_start_offset_per_wave_h": [
+    96.08
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 11.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 73,
+    "SOLO_FIRST": 309,
+    "MEMORY_LIMIT": 2013
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S2|high|new+probe": {
+   "makespan_h": 152.38,
+   "wave_spans_h": [
+    152.38
+   ],
+   "max_start_offset_in_wave_h": 96.08,
+   "last_start_offset_per_wave_h": [
+    96.08
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 12,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 78.47,
+   "max_busy_demand": 11.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.52,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 82,
+    "MEMORY_LIMIT": 2326
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S6|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 1.9,
+   "last_start_offset_per_wave_h": [
+    1.9
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 14,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 90
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|high|serial_1": {
+   "makespan_h": 788.23,
+   "wave_spans_h": [
+    788.23
+   ],
+   "max_start_offset_in_wave_h": 731.93,
+   "last_start_offset_per_wave_h": [
+    731.93
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 13,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 37147
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|high|serial_2": {
+   "makespan_h": 450.45,
+   "wave_spans_h": [
+    450.45
+   ],
+   "max_start_offset_in_wave_h": 394.15,
+   "last_start_offset_per_wave_h": [
+    394.15
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 13,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 5.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 16880
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M8_S6|high|new": {
+   "makespan_h": 153.05,
+   "wave_spans_h": [
+    153.05
+   ],
+   "max_start_offset_in_wave_h": 96.75,
+   "last_start_offset_per_wave_h": [
+    96.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 11.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 109,
+    "SOLO_FIRST": 309,
+    "MEMORY_LIMIT": 2013
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M8_S6|high|new+probe": {
+   "makespan_h": 153.05,
+   "wave_spans_h": [
+    153.05
+   ],
+   "max_start_offset_in_wave_h": 96.75,
+   "last_start_offset_per_wave_h": [
+    96.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 16,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 78.47,
+   "max_busy_demand": 11.5,
+   "max_route_a_pooled": 2,
+   "max_running": 8,
+   "time_ge2_spikes_h": 0.52,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 118,
+    "MEMORY_LIMIT": 2326
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S2|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 2.43,
+   "last_start_offset_per_wave_h": [
+    2.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 12,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 120
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|high|serial_1": {
+   "makespan_h": 675.63,
+   "wave_spans_h": [
+    675.63
+   ],
+   "max_start_offset_in_wave_h": 619.33,
+   "last_start_offset_per_wave_h": [
+    619.33
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 11,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 30393
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|high|serial_2": {
+   "makespan_h": 394.15,
+   "wave_spans_h": [
+    394.15
+   ],
+   "max_start_offset_in_wave_h": 337.85,
+   "last_start_offset_per_wave_h": [
+    337.85
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 11,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 4.18,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 13504
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S2|high|new": {
+   "makespan_h": 158.22,
+   "wave_spans_h": [
+    158.22
+   ],
+   "max_start_offset_in_wave_h": 101.92,
+   "last_start_offset_per_wave_h": [
+    101.92
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 13.5,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 91,
+    "SOLO_FIRST": 309,
+    "MEMORY_LIMIT": 2361
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S2|high|new+probe": {
+   "makespan_h": 156.67,
+   "wave_spans_h": [
+    156.67
+   ],
+   "max_start_offset_in_wave_h": 100.37,
+   "last_start_offset_per_wave_h": [
+    100.37
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 2,
+   "killed": 0,
+   "n_calls": 14,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 78.47,
+   "max_busy_demand": 13.5,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.52,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 100,
+    "MEMORY_LIMIT": 2581
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S6|high|proposed_caps": {
+   "makespan_h": 11.72,
+   "wave_spans_h": [
+    11.72
+   ],
+   "max_start_offset_in_wave_h": 2.43,
+   "last_start_offset_per_wave_h": [
+    2.43
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 0,
+   "killed": 16,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    0.27,
+    11.71
+   ],
+   "max_total_mem_gb": 53.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.0,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 15,
+    "K_AT_A_TIME": 120
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|high|serial_1": {
+   "makespan_h": 900.83,
+   "wave_spans_h": [
+    900.83
+   ],
+   "max_start_offset_in_wave_h": 844.53,
+   "last_start_offset_per_wave_h": [
+    844.53
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 15,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 43901
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|high|serial_2": {
+   "makespan_h": 506.75,
+   "wave_spans_h": [
+    506.75
+   ],
+   "max_start_offset_in_wave_h": 450.45,
+   "last_start_offset_per_wave_h": [
+    450.45
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 15,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 5.85,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 20256
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M10_S6|high|new": {
+   "makespan_h": 158.88,
+   "wave_spans_h": [
+    158.88
+   ],
+   "max_start_offset_in_wave_h": 102.58,
+   "last_start_offset_per_wave_h": [
+    102.58
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 13.5,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.03,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 127,
+    "SOLO_FIRST": 309,
+    "MEMORY_LIMIT": 2361
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M10_S6|high|new+probe": {
+   "makespan_h": 157.33,
+   "wave_spans_h": [
+    157.33
+   ],
+   "max_start_offset_in_wave_h": 101.03,
+   "last_start_offset_per_wave_h": [
+    101.03
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 6,
+   "killed": 0,
+   "n_calls": 18,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 78.47,
+   "max_busy_demand": 13.5,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.52,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 136,
+    "MEMORY_LIMIT": 2581
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6_ORIGINAL_K|high|serial_1": {
+   "makespan_h": 1013.43,
+   "wave_spans_h": [
+    1013.43
+   ],
+   "max_start_offset_in_wave_h": 957.13,
+   "last_start_offset_per_wave_h": [
+    957.13
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 17,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 0.02,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 54032
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6_ORIGINAL_K|high|serial_2": {
+   "makespan_h": 563.03,
+   "wave_spans_h": [
+    563.03
+   ],
+   "max_start_offset_in_wave_h": 506.73,
+   "last_start_offset_per_wave_h": [
+    506.73
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 17,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 7.5,
+   "max_route_a_pooled": 2,
+   "max_running": 3,
+   "time_ge2_spikes_h": 6.68,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SOLO_FIRST_TO_COMPLETION": 3377,
+    "K_AT_A_TIME": 27008
+   },
+   "res_route_a_gb_ngc": 11.0
+  },
+  "M6_S6_ORIGINAL_K|high|new": {
+   "makespan_h": 158.05,
+   "wave_spans_h": [
+    158.05
+   ],
+   "max_start_offset_in_wave_h": 101.75,
+   "last_start_offset_per_wave_h": [
+    101.75
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 8,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 58.47,
+   "max_busy_demand": 13.5,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.3,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 145,
+    "SOLO_FIRST": 309,
+    "MEMORY_LIMIT": 5693
+   },
+   "res_route_a_gb_ngc": 10.41
+  },
+  "M6_S6_ORIGINAL_K|high|new+probe": {
+   "makespan_h": 156.42,
+   "wave_spans_h": [
+    156.42
+   ],
+   "max_start_offset_in_wave_h": 100.12,
+   "last_start_offset_per_wave_h": [
+    100.12
+   ],
+   "late_starts_ge_48h_NOT_STARTED_in_campaign": 8,
+   "killed": 0,
+   "n_calls": 20,
+   "call_wall_h_min_max": [
+    11.71,
+    56.3
+   ],
+   "max_total_mem_gb": 78.47,
+   "max_busy_demand": 13.5,
+   "max_route_a_pooled": 2,
+   "max_running": 10,
+   "time_ge2_spikes_h": 0.68,
+   "time_ge3_spikes_h": 0.0,
+   "time_mem_over_100_h": 0.0,
+   "gate_wait_reasons": {
+    "SPACING": 154,
+    "MEMORY_LIMIT": 5706
+   },
+   "res_route_a_gb_ngc": 10.41
+  }
+ },
+ "disk_guard": {
+  "free0_GiB_External1_MEASURED": 3273.2,
+  "rows": {
+   "LAUNCH_ORDER|13.9GB_per_call|guard48GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1719.8
+   },
+   "LAUNCH_ORDER|13.9GB_per_call|guard48GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 1577.4
+   },
+   "LAUNCH_ORDER|13.9GB_per_call|guard56GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1719.8
+   },
+   "LAUNCH_ORDER|13.9GB_per_call|guard56GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 1577.4
+   },
+   "LAUNCH_ORDER|20.2GB_per_call|guard48GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1015.7
+   },
+   "LAUNCH_ORDER|20.2GB_per_call|guard48GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 808.7
+   },
+   "LAUNCH_ORDER|20.2GB_per_call|guard56GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1015.7
+   },
+   "LAUNCH_ORDER|20.2GB_per_call|guard56GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 808.7
+   },
+   "LAUNCH_ORDER|26.5GB_per_call|guard48GiB": {
+    "first_halt": null,
+    "final_free_GiB": 311.6
+   },
+   "LAUNCH_ORDER|26.5GB_per_call|guard48GiB|+HEADLINE11_on_External1": {
+    "first_halt": {
+     "wave": 21,
+     "n": 5,
+     "free_GiB": 163.5,
+     "need_GiB": 260.0,
+     "fits": false
+    },
+    "final_free_GiB": 40.1
+   },
+   "LAUNCH_ORDER|26.5GB_per_call|guard56GiB": {
+    "first_halt": null,
+    "final_free_GiB": 311.6
+   },
+   "LAUNCH_ORDER|26.5GB_per_call|guard56GiB|+HEADLINE11_on_External1": {
+    "first_halt": {
+     "wave": 20,
+     "n": 6,
+     "free_GiB": 311.6,
+     "need_GiB": 356.0,
+     "fits": false
+    },
+    "final_free_GiB": 40.1
+   },
+   "ENGINE_SHAPED|13.9GB_per_call|guard48GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1719.8
+   },
+   "ENGINE_SHAPED|13.9GB_per_call|guard48GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 1577.4
+   },
+   "ENGINE_SHAPED|13.9GB_per_call|guard56GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1719.8
+   },
+   "ENGINE_SHAPED|13.9GB_per_call|guard56GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 1577.4
+   },
+   "ENGINE_SHAPED|20.2GB_per_call|guard48GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1015.7
+   },
+   "ENGINE_SHAPED|20.2GB_per_call|guard48GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 808.7
+   },
+   "ENGINE_SHAPED|20.2GB_per_call|guard56GiB": {
+    "first_halt": null,
+    "final_free_GiB": 1015.7
+   },
+   "ENGINE_SHAPED|20.2GB_per_call|guard56GiB|+HEADLINE11_on_External1": {
+    "first_halt": null,
+    "final_free_GiB": 808.7
+   },
+   "ENGINE_SHAPED|26.5GB_per_call|guard48GiB": {
+    "first_halt": {
+     "wave": 15,
+     "n": 24,
+     "free_GiB": 1076.7,
+     "need_GiB": 1172.0,
+     "fits": false
+    },
+    "final_free_GiB": 311.6
+   },
+   "ENGINE_SHAPED|26.5GB_per_call|guard48GiB|+HEADLINE11_on_External1": {
+    "first_halt": {
+     "wave": 15,
+     "n": 24,
+     "free_GiB": 805.2,
+     "need_GiB": 1172.0,
+     "fits": false
+    },
+    "final_free_GiB": 40.1
+   },
+   "ENGINE_SHAPED|26.5GB_per_call|guard56GiB": {
+    "first_halt": {
+     "wave": 15,
+     "n": 24,
+     "free_GiB": 1076.7,
+     "need_GiB": 1364.0,
+     "fits": false
+    },
+    "final_free_GiB": 311.6
+   },
+   "ENGINE_SHAPED|26.5GB_per_call|guard56GiB|+HEADLINE11_on_External1": {
+    "first_halt": {
+     "wave": 15,
+     "n": 24,
+     "free_GiB": 805.2,
+     "need_GiB": 1364.0,
+     "fits": false
+    },
+    "final_free_GiB": 40.1
+   }
+  }
+ },
+ "end_to_end_M6_S6": {
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|low": {
+   "OLD_as_shipped_mc1_then_serial1_h": 703.0,
+   "OLD_proposed_mc6_then_serial2_h": 275.7,
+   "OLD_proposed_mc6_then_serial1_h": 334.2,
+   "NEW_h": 137.2,
+   "NEW_with_probe_h": 136.2,
+   "parts": {
+    "headline_old": 6.71,
+    "headline_new": 6.46,
+    "campaign_mc1": 555.83,
+    "campaign_mc6": 187.06,
+    "campaign_new": 104.42,
+    "campaign_new_probe": 104.46,
+    "step5_serial1": 140.43,
+    "step5_serial2": 81.95,
+    "step5_new": 26.37,
+    "step5_new_probe": 25.27
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|low": {
+   "OLD_as_shipped_mc1_then_serial1_h": 703.0,
+   "OLD_proposed_mc6_then_serial2_h": 249.3,
+   "OLD_proposed_mc6_then_serial1_h": 307.7,
+   "NEW_h": 129.9,
+   "NEW_with_probe_h": 128.8,
+   "parts": {
+    "headline_old": 6.71,
+    "headline_new": 6.46,
+    "campaign_mc1": 555.87,
+    "campaign_mc6": 160.6,
+    "campaign_new": 97.03,
+    "campaign_new_probe": 97.07,
+    "step5_serial1": 140.43,
+    "step5_serial2": 81.95,
+    "step5_new": 26.37,
+    "step5_new_probe": 25.27
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|expected": {
+   "OLD_as_shipped_mc1_then_serial1_h": 904.6,
+   "OLD_proposed_mc6_then_serial2_h": 364.1,
+   "OLD_proposed_mc6_then_serial1_h": 452.1,
+   "NEW_h": 182.5,
+   "NEW_with_probe_h": 181.0,
+   "parts": {
+    "headline_old": 9.54,
+    "headline_new": 9.04,
+    "campaign_mc1": 683.83,
+    "campaign_mc6": 231.32,
+    "campaign_new": 134.82,
+    "campaign_new_probe": 134.84,
+    "step5_serial1": 211.23,
+    "step5_serial2": 123.25,
+    "step5_new": 38.68,
+    "step5_new_probe": 37.08
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|expected": {
+   "OLD_as_shipped_mc1_then_serial1_h": 904.6,
+   "OLD_proposed_mc6_then_serial2_h": 341.7,
+   "OLD_proposed_mc6_then_serial1_h": 429.6,
+   "NEW_h": 170.8,
+   "NEW_with_probe_h": 169.3,
+   "parts": {
+    "headline_old": 9.54,
+    "headline_new": 9.04,
+    "campaign_mc1": 683.87,
+    "campaign_mc6": 208.87,
+    "campaign_new": 123.13,
+    "campaign_new_probe": 123.17,
+    "step5_serial1": 211.23,
+    "step5_serial2": 123.25,
+    "step5_new": 38.68,
+    "step5_new_probe": 37.08
+   }
+  },
+  "LAUNCH_ORDER_[1]+19x[6]+[5]|high": {
+   "OLD_as_shipped_mc1_then_serial1_h": 2108.8,
+   "OLD_proposed_mc6_then_serial2_h": 1065.0,
+   "OLD_proposed_mc6_then_serial1_h": 1346.5,
+   "NEW_h": 476.4,
+   "NEW_with_probe_h": 474.7,
+   "parts": {
+    "headline_old": 27.32,
+    "headline_new": 23.07,
+    "campaign_mc1": 1405.83,
+    "campaign_mc6": 643.51,
+    "campaign_new": 333.84,
+    "campaign_new_probe": 333.84,
+    "step5_serial1": 675.63,
+    "step5_serial2": 394.15,
+    "step5_new": 119.47,
+    "step5_new_probe": 117.83
+   }
+  },
+  "ENGINE_SHAPED_ASSUMED|high": {
+   "OLD_as_shipped_mc1_then_serial1_h": 2108.8,
+   "OLD_proposed_mc6_then_serial2_h": 1076.9,
+   "OLD_proposed_mc6_then_serial1_h": 1358.4,
+   "NEW_h": 438.1,
+   "NEW_with_probe_h": 436.7,
+   "parts": {
+    "headline_old": 27.32,
+    "headline_new": 23.07,
+    "campaign_mc1": 1405.87,
+    "campaign_mc6": 655.43,
+    "campaign_new": 295.57,
+    "campaign_new_probe": 295.77,
+    "step5_serial1": 675.63,
+    "step5_serial2": 394.15,
+    "step5_new": 119.47,
+    "step5_new_probe": 117.83
+   }
+  }
+ }
+}

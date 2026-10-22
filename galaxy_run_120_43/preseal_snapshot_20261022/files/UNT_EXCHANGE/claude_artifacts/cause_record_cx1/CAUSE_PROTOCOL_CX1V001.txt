@@ -1,0 +1,26 @@
+0805/0806 A251 producer — review candidate, not production approval
+
+CLI (absolute paths; SHA256 pins are lowercase hex):
+python3 cause_record_c2v001.py classify --receipt RECEIPT SHA --finish FINISH --out NEW_CAUSE [--post-seal ATTESTATION SHA]
+python3 cause_record_c2v001.py pair --first CAUSE1 SHA --second CAUSE2 SHA --solo-first SOLO1 SHA --solo-second SOLO2 SHA --out NEW_PAIR
+Outputs are exclusive-create. Exit 0 means record written, not model outcome accepted.
+Unknown, missing, malformed or inconsistent evidence emits model_outcome false.
+No launch, retry, science import, stderr or reasons parsing. Tests create and retain inert temporary fixtures.
+
+Receipt scalar paths: status, driver_status, exit_code, stop_reason, result.path/sha256, pins.spec.sha256, pins.driver.path/sha256.
+Finish: status, result_path, result_sha256. Its hash is computed; association is checked against the monitor, per A251. It has no independent authenticity claim.
+Result: status; route_a_outcome.outcome/classification; stage_records[*].name/status/exit_code. route_a_outcome is an object in the actual driver; only these scalar descendants are extracted. Scientific arrays/objects are traversed only for syntax, never materialized; unselected scalar strings/numbers are not decoded. Object keys must be decoded to enforce exact paths and detect duplicates. No scientific values are copied into output.
+Reader rejects selected containers, duplicate keys, invalid JSON delimiters, nonfinite selected metadata, leaf symlinks, changed files and over-16MiB files. It is NOT a general strict Unicode validator for skipped strings. Parent directory symlinks are permitted. Inputs must be stable under trusted root custody; this is not a hostile-filesystem sandbox. Hashing and parsing share one byte buffer per inode.
+
+Classification requires CHILD_FAILED, no monitor stop reason, positive nonsignal exit, matching finish/result/status, no FAILED_SOURCE_PREPARATION, exactly one route_a stage, all recorded stage exits zero and accepted stage statuses if present. Empty/nonobject stage records fail closed. Clean exhaustion additionally requires driver status ROUTE_A_NO_FIXED_POINT: a generic FAILED after exhaustion is not promoted to a model failure.
+Site vocabulary uses literal status/outcome assignments in the pinned driver, preserving all clones. A surrounding exception handler supplies exception_class; absent handler is NO_EXCEPTION_OUTCOME (an explicit sentinel, not an observed exception). The field raise_site denotes this assignment site per A251, not an executed traceback. No/multiple sites means false. Exhaustion has priority and cannot silently fall back to the broader status token.
+
+NGC attestation schema: status POST_SEAL_ATTESTED, authority Claude2, receipt_sha256, spec_sha256, driver_sha256. The pinned file is a trusted root declaration, not a signature or proof of seal execution. Receipt metadata is read first to identify the driver; finish and result are never opened without the matching attestation.
+Solo schema: receipt_sha256, spec_sha256, solo_mode true, other_ngc_processes_max integer 0. Caller must supply trusted pinned declarations and producer outputs. Pairing authenticates byte identity and association, not origin/signature. Pair needs distinct receipt hashes and equal spec/driver, status/stage/code/class/site. Pure-Python drivers injection is solely for inert fixture testing; CLI pins production drivers.
+
+TESTED: 37 inert checks, five independently killed mutants, audit-hook one read per input and hardlink alias, source-only AST scan with freshly computed driver hashes.
+UNTESTED: real ends, production CLI inputs, post-seal state, scientific classification adequacy, downstream consumers and Codex3/root acceptance. No real run was opened.
+
+INTEGRATION BLOCKER: A251 unique-site rule leaves NGC status uncounted (four literal assignment sites) and clean exhaustion uncounted in both pinned drivers (zero literal outcome assignment sites). DDO status has one site. Source inventory is CAUSE_SOURCE_SITES_CX1V001.json. Synthetic positives demonstrate mechanism only. Root must choose a new authoritative vocabulary/association rule or accept held-for-cause; do not relax uniqueness silently.
+
+Reproduction: run test_cause_cx1v001.py directly. run_checks_cx1v002.py is the original exclusive evidence builder; rerunning it in the published directory intentionally refuses existing evidence. Copy the three source/test files plus runner into a fresh inert directory to reproduce all mutant artifacts.

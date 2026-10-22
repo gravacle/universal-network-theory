@@ -1,0 +1,1283 @@
+{
+ "schema": "UNT_V003_REFUTER_PROBES_C4R001",
+ "run_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe/run_20261019T003722Z",
+ "probe_module_sha256": "b54e816d9f8f9d305eeae69678958de32550c5a4928eeba01810b6b736c3262a",
+ "r6": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json",
+  "sha256": "d28c95f56321f566b444c3e0bfbbe0ecdac564cbc03a8583ecd5f8d0ae40c0a9"
+ },
+ "r6_read_copy": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md",
+  "sha256": "c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1"
+ },
+ "selected_r6": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/SELECTED_R6_C4V001.json",
+  "sha256": "7200acd996755730573ad72d876ff632b8ef59bf86f2b0cf176ae3fceb4403b0"
+ },
+ "tools": {
+  "seal_common_c4v003.py": "101a3aeb9846a21c35993e8e7e4b50a8f1206ed4202b131afd12d7e496c5ab21",
+  "check_frozen_addendum_c4v003.py": "a56f8d793750151920b1b47e77b46aebbfadea71fe77730f360beb02af788fb4",
+  "check_sealed_compare_c4v003.py": "c2c5dfc5ddba1e44ff82811a38d4c05b0a669f2294b229efe3437623d596f9f1",
+  "check_slot_fill_c4v003.py": "316973a1abf5aa2151dc1a517733d970ce1004313395d05fe590f82ed439b0af",
+  "build_seal_record_c4v003.py": "de0ceb15ebfb95e04227730bd2785eb46af8cb5980012de91de98f34ea226b96",
+  "print_driver_build_record_c4v003.py": "e5bedffe3c91650d5dba7fbd1ed5476e228158679d8959dfea0e2eff436ebdea"
+ },
+ "probes": [
+  {
+   "id": "A1",
+   "lens": "bare names",
+   "what": "tool 4 API: covered_later is a bare string, not a list",
+   "expect": "REFUSE (no record)",
+   "verdict": "REFUSE",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED",
+    "T3:COVERED_LATER_BARE_NAMES_REFUSED",
+    "T3:T1:COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "A2",
+   "lens": "bare names",
+   "what": "tool 3 API: covered_later=(\"\",) (one empty name)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED",
+    "T1:COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "A3",
+   "lens": "bare names",
+   "what": "tool 1 CLI argv tail ['--covered-later']",
+   "expect": "REFUSE COVERED_LATER_BARE_NAMES_REFUSED",
+   "verdict": "REFUSE(rc=2)",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "A4",
+   "lens": "bare names",
+   "what": "tool 1 CLI argv tail ['--', '--covered-later', 'A106']",
+   "expect": "REFUSE COVERED_LATER_BARE_NAMES_REFUSED",
+   "verdict": "REFUSE(rc=2)",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "A5",
+   "lens": "bare names",
+   "what": "tool 1 CLI argv tail ['--covered-later=']",
+   "expect": "REFUSE COVERED_LATER_BARE_NAMES_REFUSED",
+   "verdict": "REFUSE(rc=2)",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "A6",
+   "lens": "bare names",
+   "what": "tool 4 admission-mode CLI with --covered-later",
+   "expect": "REFUSE (exit 2, stdout empty)",
+   "verdict": "rc=2 stdout=''",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "A7",
+   "lens": "bare names",
+   "what": "tool 3 CLI with --covered-later A1",
+   "expect": "REFUSE",
+   "verdict": "REFUSE(rc=2)",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "B1",
+   "lens": "changed_text",
+   "what": "C-01 A62 edit disposed no_change_after_change with the SHORTEST new excerpt 'Y' (1 bytes): a contentless fragment",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "README L61 / tool 1 header: \"a generic string never passes\"; the substring test accepts any new fragment"
+  },
+  {
+   "id": "B2",
+   "lens": "changed_text",
+   "what": "the NFC A62 edit disposed with changed_text = one character \"\\u00e9\" (absent from the old A62)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": ""
+  },
+  {
+   "id": "B3",
+   "lens": "changed_text",
+   "what": "a substantive A62 edit disposed with a WHITESPACE-ONLY changed_text '\\t' (non-empty, new, absent from old)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "0640/task rule: changed_text \"non-empty\"; whitespace-only is not refused (why_no_prereg_effect and reason are stripped, changed_text is not)"
+  },
+  {
+   "id": "B4",
+   "lens": "changed_text",
+   "what": "changed_text spanning the A62/A63 section boundary",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITION_CHANGED_TEXT_NOT_IN_NEW_SECTION"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "B5",
+   "lens": "changed_text",
+   "what": "changed_text in another case than the bytes",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITION_CHANGED_TEXT_NOT_IN_NEW_SECTION"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "B6",
+   "lens": "changed_text",
+   "what": "changed_text with NBSP for spaces (a whitespace normalization trick)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITION_CHANGED_TEXT_NOT_IN_NEW_SECTION"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "C1",
+   "lens": "reason",
+   "what": "L row A106 no_change whose reason is only ZERO WIDTH SPACE (U+200B, category Cf)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE"
+   ],
+   "bypass": true,
+   "detail": "Python str.strip() keeps it, so the reason is \"non-empty after strip\" yet empty to a reader"
+  },
+  {
+   "id": "C2",
+   "lens": "reason",
+   "what": "L row A106 no_change whose reason is only ZERO WIDTH NO-BREAK SPACE (U+FEFF, category Cf)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE"
+   ],
+   "bypass": true,
+   "detail": "Python str.strip() keeps it, so the reason is \"non-empty after strip\" yet empty to a reader"
+  },
+  {
+   "id": "C3",
+   "lens": "reason",
+   "what": "L row A106 no_change whose reason is only WORD JOINER (U+2060, category Cf)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE"
+   ],
+   "bypass": true,
+   "detail": "Python str.strip() keeps it, so the reason is \"non-empty after strip\" yet empty to a reader"
+  },
+  {
+   "id": "C4",
+   "lens": "reason",
+   "what": "L row A106 no_change whose reason is only NUL (U+0000, category Cc)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE"
+   ],
+   "bypass": true,
+   "detail": "Python str.strip() keeps it, so the reason is \"non-empty after strip\" yet empty to a reader"
+  },
+  {
+   "id": "C5",
+   "lens": "reason",
+   "what": "L row A106 no_change whose reason is only SOFT HYPHEN (U+00AD, category Cf)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE"
+   ],
+   "bypass": true,
+   "detail": "Python str.strip() keeps it, so the reason is \"non-empty after strip\" yet empty to a reader"
+  },
+  {
+   "id": "C6",
+   "lens": "reason",
+   "what": "control: reason NBSP + ideographic space (Unicode whitespace) refuses",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITION_REASON_EMPTY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "C7",
+   "lens": "reason",
+   "what": "CH row A62 no_change_after_change (correct changed_text) whose why_no_prereg_effect is only U+200B",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": ""
+  },
+  {
+   "id": "C8",
+   "lens": "reason",
+   "what": "tool 4 end to end: the L row reason is only U+200B",
+   "expect": "REFUSE (no record)",
+   "verdict": "RECORD_BUILT",
+   "codes": [],
+   "notes": [],
+   "bypass": true,
+   "detail": "record built; its later_entry_dispositions.content.entries[0].reason = '\\u200b'"
+  },
+  {
+   "id": "D1",
+   "lens": "prereg_revision",
+   "what": "revised A62 whose prereg_revision is the prereg under check plus one trailing newline (same JSON, new sha)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": ""
+  },
+  {
+   "id": "D2",
+   "lens": "prereg_revision",
+   "what": "revised A62 whose prereg_revision is the same prereg re-serialized (indent 2, sorted keys)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": ""
+  },
+  {
+   "id": "D3",
+   "lens": "prereg_revision",
+   "what": "tool 3: L row A106 revised whose prereg_revision is the TEXT OF RECORD itself (tool 1 there checks the sealed prereg)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [],
+   "bypass": true,
+   "detail": ""
+  },
+  {
+   "id": "D4",
+   "lens": "prereg_revision",
+   "what": "tool 4 end to end: L row revised, prereg_revision = the text of record (the sealed prereg's own text)",
+   "expect": "REFUSE (no record)",
+   "verdict": "RECORD_BUILT",
+   "codes": [],
+   "notes": [],
+   "bypass": true,
+   "detail": "record built; recorded prereg_revision {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe/run_20261019T003722Z/KMAX_TAIL_PREREG_V007_R5_STANDIN_C4ST2.json', 'sha256': 'd953b70250e5c51fecfea9e06b85053096f1cce7e917b245609593f622ec3b2b'} == text of record pin: True; record prereg = the sealed prereg 862c08fe"
+  },
+  {
+   "id": "D5",
+   "lens": "prereg_revision",
+   "what": "revised A62 whose prereg_revision is the frozen copy itself (a pinned file that is not a prereg)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "class disclosed by Codex1 0093 and README L65 (mechanical pin only)"
+  },
+  {
+   "id": "D6",
+   "lens": "prereg_revision",
+   "what": "revised A62 whose prereg_revision is the read copy (a pinned file that is not a prereg)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "class disclosed by Codex1 0093 and README L65 (mechanical pin only)"
+  },
+  {
+   "id": "D7",
+   "lens": "prereg_revision",
+   "what": "revised A62 whose prereg_revision is the open V005 addendum (a pinned file that is not a prereg)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "class disclosed by Codex1 0093 and README L65 (mechanical pin only)"
+  },
+  {
+   "id": "D8",
+   "lens": "prereg_revision",
+   "what": "control: prereg_revision is a symlink to the prereg (resolved path and sha both catch it)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITION_PREREG_REVISION_IS_THE_PREREG"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "E1",
+   "lens": "non-entry bytes",
+   "what": "frozen copy = read-copy bytes + a \"## A62 (correction): ...\" section inserted before \"## A63:\"; only the usual L row",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "changed_sections=[] dispositions_required=['A106']"
+  },
+  {
+   "id": "E2",
+   "lens": "non-entry bytes",
+   "what": "a later ruling under the near-miss heading '## A107 :' (no entry section changes); dispositions name only A106",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "later_entries=['A106'] dispositions_required=['A106'] changed_sections=[]"
+  },
+  {
+   "id": "E3",
+   "lens": "non-entry bytes",
+   "what": "a later ruling under the near-miss heading '## A107.' (no entry section changes); dispositions name only A106",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "later_entries=['A106'] dispositions_required=['A106'] changed_sections=[]"
+  },
+  {
+   "id": "E4",
+   "lens": "non-entry bytes",
+   "what": "a later ruling under the near-miss heading '##  A107:' (no entry section changes); dispositions name only A106",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "later_entries=['A106'] dispositions_required=['A106'] changed_sections=[]"
+  },
+  {
+   "id": "E5",
+   "lens": "non-entry bytes",
+   "what": "a later ruling under the near-miss heading '## a107:' (no entry section changes); dispositions name only A106",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "later_entries=['A106'] dispositions_required=['A106'] changed_sections=[]"
+  },
+  {
+   "id": "E6",
+   "lens": "non-entry bytes",
+   "what": "a later ruling under the near-miss heading '## A107 \u2014' (no entry section changes); dispositions name only A106",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "later_entries=['A106'] dispositions_required=['A106'] changed_sections=[]"
+  },
+  {
+   "id": "E2e",
+   "lens": "non-entry bytes",
+   "what": "the same appended at EOF (A106, an L entry, gains a newline; its row pins that section); the A107 text is in no section",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "ENTRY_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "later_entries=['A106'] dispositions_required=['A65', 'A106']"
+  },
+  {
+   "id": "E7",
+   "lens": "non-entry bytes",
+   "what": "a ruling added to the preamble (before \"## A47:\")",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "README L237 / build B-N2 disclose the preamble only"
+  },
+  {
+   "id": "E8",
+   "lens": "non-entry bytes",
+   "what": "tool 4 end to end: frozen = open V005 (modelled) with a \"## A107 :\" later ruling; dispositions name only A106",
+   "expect": "REFUSE (no record)",
+   "verdict": "RECORD_BUILT",
+   "codes": [],
+   "notes": [],
+   "bypass": true,
+   "detail": "record built: frozen_addendum de2fb911 (holds the A107 text); later_entry_dispositions rows ['A106']"
+  },
+  {
+   "id": "F1",
+   "lens": "TOCTOU",
+   "what": "tool 1: the frozen file (A62 edited, no A62 row) is swapped back to the unedited bytes after its first read (the sha read)",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "reads of the frozen path: 3; pinned frozen sha 059aecea (the edited file 059aecea); r2 has the same three reads"
+  },
+  {
+   "id": "F1c",
+   "lens": "TOCTOU",
+   "what": "control: the same call without the swap refuses (ENTRY_SECTION_CHANGED)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "ENTRY_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "F2",
+   "lens": "TOCTOU",
+   "what": "tool 4: the sealed prereg changes after tool 3 (and tool 1 inside it) verified it, before the record is built",
+   "expect": "REFUSE (no record)",
+   "verdict": "RECORD_BUILT",
+   "codes": [],
+   "notes": [],
+   "bypass": true,
+   "detail": "tool 3 verified sealed_prereg 862c08fe; the record pins prereg c2ca0485; the sealed compare pins V007_PREREG_SHA256 of the checked bytes, so the compare itself refuses the swapped prereg at run time (r13 L5674-5676, FORMAL)"
+  },
+  {
+   "id": "G1",
+   "lens": "strict JSON",
+   "what": "reason holds a lone-surrogate escape \"\\ud800 ...\" (valid JSON, no UTF-8 form): tool 1",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "ENTRY_TABLE"
+   ],
+   "bypass": true,
+   "detail": ""
+  },
+  {
+   "id": "G1b",
+   "lens": "strict JSON",
+   "what": "the same file through tool 4",
+   "expect": "REFUSE (no record)",
+   "verdict": "REFUSE",
+   "codes": [
+    "INTERNAL_EXCEPTION:UnicodeEncodeError"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "G2",
+   "lens": "strict JSON",
+   "what": "an invalid UTF-8 byte inside a string",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_JSON_ENCODING",
+    "UNCOVERED_LATER_ENTRY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "G3",
+   "lens": "strict JSON",
+   "what": "a UTF-8-encoded surrogate",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_JSON_ENCODING",
+    "UNCOVERED_LATER_ENTRY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "G4",
+   "lens": "strict JSON",
+   "what": "a duplicate key spelled with an escape",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_JSON_DUPLICATE_KEY",
+    "UNCOVERED_LATER_ENTRY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "G5",
+   "lens": "strict JSON",
+   "what": "trailing data after the object",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_JSON_SYNTAX",
+    "UNCOVERED_LATER_ENTRY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "G6",
+   "lens": "strict JSON",
+   "what": "UTF-32 bytes",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_JSON_ENCODING",
+    "UNCOVERED_LATER_ENTRY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "G7",
+   "lens": "strict JSON",
+   "what": "a reason that is an overflowing number (1e400 -> inf)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITION_REASON_EMPTY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I1",
+   "lens": "REAL r6",
+   "what": "tool 1 on prereg r6 with its read copy and a FROZEN-named copy of c01b3c51, no dispositions file (dry run only for path_to_be)",
+   "expect": "PASS",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "dispositions_required=[] changed_sections=[] later_entries=[] notes=['CITED_ENTRIES', 'DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE', 'ENTRY_TABLE', 'PREREG_SLOT_NOT_FILLED']"
+  },
+  {
+   "id": "I2",
+   "lens": "REAL r6",
+   "what": "the same without the dry-run flag: the only refusal is the CLAUDE2 path_to_be",
+   "expect": "REFUSE exactly FROZEN_PATH_NOT_PATH_TO_BE",
+   "verdict": "REFUSE",
+   "codes": [
+    "FROZEN_PATH_NOT_PATH_TO_BE"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "exact match: True"
+  },
+  {
+   "id": "I3",
+   "lens": "REAL r6",
+   "what": "r6 with --expect-frozen-sha c01b3c51 and a dispositions file with entries []",
+   "expect": "PASS",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I4",
+   "lens": "REAL r6",
+   "what": "r6 given r5's read copy 70a48f51",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "ADDENDUM_AT_TEXT_OF_RECORD_MISMATCH"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "LAYER_SKIPPED",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I5",
+   "lens": "REAL r6",
+   "what": "r6 with a bare covered_later A106",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "COVERED_LATER_BARE_NAMES_REFUSED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I6",
+   "lens": "REAL r6",
+   "what": "C-01 on r6: an edit inside A47 with no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_REQUIRED",
+    "ENTRY_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "codes ['DISPOSITIONS_REQUIRED', 'ENTRY_SECTION_CHANGED']"
+  },
+  {
+   "id": "I7",
+   "lens": "REAL r6",
+   "what": "C-01 on r6: an edit inside A62 with no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_REQUIRED",
+    "ENTRY_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "codes ['DISPOSITIONS_REQUIRED', 'ENTRY_SECTION_CHANGED']"
+  },
+  {
+   "id": "I7c",
+   "lens": "REAL r6",
+   "what": "control: that A62 edit with a correct no_change_after_change row passes",
+   "expect": "PASS",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DISPOSITIONS_VERIFIED",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I7p",
+   "lens": "REAL r6",
+   "what": "PV-D05-1 on r6: that A62 edit with plain no_change",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITION_PLAIN_NO_CHANGE_ON_CHANGED_ENTRY"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_SECTION_CHANGED_NOTED",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I8",
+   "lens": "REAL r6",
+   "what": "C-01 on r6: an edit inside A81 with no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_REQUIRED",
+    "ENTRY_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "codes ['DISPOSITIONS_REQUIRED', 'ENTRY_SECTION_CHANGED']"
+  },
+  {
+   "id": "I9",
+   "lens": "REAL r6",
+   "what": "C-01 on r6: an edit inside A106 with no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_REQUIRED",
+    "ENTRY_TABLE_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "codes ['DISPOSITIONS_REQUIRED', 'ENTRY_TABLE_SECTION_CHANGED']"
+  },
+  {
+   "id": "I10",
+   "lens": "REAL r6",
+   "what": "r6 vs a frozen copy = c01b3c51 + a \"## A62 (correction):\" section inserted before \"## A63:\", no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "frozen 923dabdb != c01b3c51; dispositions_required=[] changed_sections=[]"
+  },
+  {
+   "id": "I10x",
+   "lens": "REAL r6",
+   "what": "the same with --expect-frozen-sha c01b3c51 (root's A106.3 byte equality)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "FROZEN_SHA_MISMATCH"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I11",
+   "lens": "REAL r6",
+   "what": "r6 vs a frozen copy = c01b3c51 + a later ruling under \"## A107 :\" inserted before \"## A106:\", no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "frozen de2fb911 != c01b3c51; dispositions_required=[] changed_sections=[]"
+  },
+  {
+   "id": "I11x",
+   "lens": "REAL r6",
+   "what": "the same with --expect-frozen-sha c01b3c51 (root's A106.3 byte equality)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "FROZEN_SHA_MISMATCH"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I11e",
+   "lens": "REAL r6",
+   "what": "r6 vs a frozen copy = c01b3c51 + a later ruling under \"## A107 :\" appended at EOF (A106, a table row, gains a newline), no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "DISPOSITIONS_REQUIRED",
+    "ENTRY_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": "frozen 8413fb92 != c01b3c51; dispositions_required=['A65'] changed_sections=[{'entry': 'A65', 'table_row_section_sha256': None, 'frozen_section_sha256': '84e6d62a7547d9bb77413f6c0e195017ad5284f0b3706b03930632775a3997f8', 'text_of_record_section_sha256': '290eac4af1f43d01c2c66a5c5981d0f43d73a7a9bf06388821d5ffd2f6a24e9c'}]"
+  },
+  {
+   "id": "I11ex",
+   "lens": "REAL r6",
+   "what": "the same with --expect-frozen-sha c01b3c51 (root's A106.3 byte equality)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "FROZEN_SHA_MISMATCH",
+    "DISPOSITIONS_REQUIRED",
+    "ENTRY_SECTION_CHANGED"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I12",
+   "lens": "REAL r6",
+   "what": "r6 vs a frozen copy = c01b3c51 + a preamble ruling, no dispositions file",
+   "expect": "REFUSE",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": true,
+   "detail": "frozen a8ed43c4 != c01b3c51; dispositions_required=[] changed_sections=[]"
+  },
+  {
+   "id": "I12x",
+   "lens": "REAL r6",
+   "what": "the same with --expect-frozen-sha c01b3c51 (root's A106.3 byte equality)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "FROZEN_SHA_MISMATCH"
+   ],
+   "notes": [
+    "CITED_ENTRIES",
+    "DRY_RUN_FROZEN_PATH_NOT_PATH_TO_BE",
+    "ENTRY_TABLE",
+    "PREREG_SLOT_NOT_FILLED"
+   ],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I13",
+   "lens": "REAL r6",
+   "what": "tool 3 on r6x (r6 with path_to_be moved into the run folder), r13 reviewed source, read copy c01b3c51, no dispositions file",
+   "expect": "PASS",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [
+    "TEXT_OF_RECORD_FROM_ROOT_ARGUMENT"
+   ],
+   "bypass": false,
+   "detail": "codes []; passthrough dispositions_required=[] later_entry_dispositions=None"
+  },
+  {
+   "id": "I14",
+   "lens": "REAL r6",
+   "what": "tool 3 on the real r6 bytes d28c95f5: refuses only because the frozen copy is not at the CLAUDE2 path_to_be",
+   "expect": "REFUSE exactly FROZEN_SLOT_NOT_PATH_TO_BE, T1:FROZEN_PATH_NOT_PATH_TO_BE",
+   "verdict": "REFUSE",
+   "codes": [
+    "FROZEN_SLOT_NOT_PATH_TO_BE",
+    "T1:FROZEN_PATH_NOT_PATH_TO_BE"
+   ],
+   "notes": [
+    "TEXT_OF_RECORD_FROM_ROOT_ARGUMENT"
+   ],
+   "bypass": false,
+   "detail": "exact match: True"
+  },
+  {
+   "id": "I15",
+   "lens": "REAL r6",
+   "what": "tool 4 on r6x with r13 (reviewed copy) and an r13-sealed compare, no dispositions file (key map and B6 bodies of the real case block, route-A mode 'parallel8')",
+   "expect": "RECORD_BUILT",
+   "verdict": "RECORD_BUILT",
+   "codes": [],
+   "notes": [],
+   "bypass": false,
+   "detail": "later_entry_dispositions='NOT_SUPPLIED_NONE_REQUIRED' addendum_at_text_of_record={'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md', 'sha256': 'c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1'} text_of_record={'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe/run_20261019T003722Z/refuter/R040_r6x_path_to_be_in_run_folder.json', 'sha256': 'bc70dd22a0ecbd4d8c6668aba07849bd6b079de756a9d560d10727ca767f0b96'}"
+  },
+  {
+   "id": "I16",
+   "lens": "REAL r6",
+   "what": "admission check on the r6x SEAL_RECORD (real BUILD_V007 15 rows)",
+   "expect": "PASS",
+   "verdict": "PASS",
+   "codes": [],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "I17",
+   "lens": "REAL r6",
+   "what": "the real guard v008 admission() on that config (CONFIG patched to the run folder; nothing started)",
+   "expect": "admitted",
+   "verdict": "admitted",
+   "codes": [],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "J1",
+   "lens": "W7-S1",
+   "what": "admission check, r6x record, config with 17 rows (+ the superseded writers 9fbdb0ca, 500f8b6a)",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "ADMISSION_ALLOWLIST_COUNT_NOT_15",
+    "ADMISSION_ALLOWLIST_NOT_THE_SEAL_RECORD_ALLOWLIST",
+    "ADMISSION_ALLOWLIST_NOT_THE_BUILD_ALLOWLIST"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "J2",
+   "lens": "W7-S1",
+   "what": "admission check, r6x record, config with BUILD_V006's 15 rows",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "ADMISSION_ALLOWLIST_NOT_THE_SEAL_RECORD_ALLOWLIST",
+    "ADMISSION_ALLOWLIST_NOT_THE_BUILD_ALLOWLIST"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "J3",
+   "lens": "B8",
+   "what": "a SEAL_RECORD with two sealed_by keys (first wrong, last = AUTHORITY): v003 check",
+   "expect": "REFUSE",
+   "verdict": "REFUSE",
+   "codes": [
+    "ADMISSION_INPUT_JSON"
+   ],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "J3g",
+   "lens": "B8",
+   "what": "the same record under the real guard v008 (json.loads keeps the last key)",
+   "expect": "admitted (guard is looser; v003 stricter)",
+   "verdict": "admitted",
+   "codes": [],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  },
+  {
+   "id": "Z1",
+   "lens": "environment",
+   "what": "the open V005 is still c01b3c51 after the refuter probes",
+   "expect": "c01b3c51",
+   "verdict": "c01b3c51",
+   "codes": [],
+   "notes": [],
+   "bypass": false,
+   "detail": ""
+  }
+ ],
+ "bypasses": [
+  "B1",
+  "B2",
+  "B3",
+  "C1",
+  "C2",
+  "C3",
+  "C4",
+  "C5",
+  "C7",
+  "C8",
+  "D1",
+  "D2",
+  "D3",
+  "D4",
+  "D5",
+  "D6",
+  "D7",
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6",
+  "E7",
+  "E8",
+  "F1",
+  "F2",
+  "G1",
+  "I10",
+  "I11",
+  "I12"
+ ]
+}

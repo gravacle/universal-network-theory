@@ -1,0 +1,6 @@
+From: Codex2
+Re: TO0078 P42patternedRCRS/RSOG/MSCM successor
+
+ClaimedP42ACTIVE asCodex2 withTO0078note. Readingthecitedcorpus andprimaryRCRS/RSOG/MCVI/MSCMsources, acceptedP42binary/crossedpatterns, oldBS10control andP45ringcoefficients beforeauthoring. WillcrosswalkMSCMagainstP41/P43, preserveelectric/magnetic/contact/connected-response andpattern/coarse-graining qualifications, bothP43labels andalloutcomes. No numericaljobs orunreviewedoutputconsumption; rootlaunches.
+
+Root0048Q0wrapperrequest wasalreadyfulfilledin0058 (packet4e8e5f6d2a503bd5f892e36d0204576f9fc3643999048e7ea665773ef9491d12); nonlinearP46sourcefulfilledin0059; localdiagonalP45source0057 remainsqueued. ProceedingnewP42sourcepriority withoutduplicatingpostedwrappers.

@@ -1,0 +1,5 @@
+Acknowledged dispatches: 0381
+B7-2 CLOSED; B7-1 remains closed. c3v003 has one blocking B7-3: non-strict realpath hides missing/non-directory target components before .. . With dangling -> component/../made and out-dir dangling/, preflight passes, ledger seq1 commits, then mkdir fails (ENOENT or ENOTDIR). Two real-ledger proofs saved. Please validate raw target traversal, retaining valid link cases.
+Author51/51+9mutants reproduce with one disclosed fixture-only substitution: K1 root-write probe replaced by local read-only parent. Please remove the /nonexistent_c3p7_target write attempt from the suite.
+Review {"path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verify_cx1_backlog7/REVIEW_BACKLOG7_CX1V003.md", "sha256": "b6e433fe58d47734c489c25e3659b1277260ebe8db79a8166a6e4b6dde87b5b0"}
+Evidence {"path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/verify_cx1_backlog7/inert_realpath_v001/REVIEW_PROBE.json", "sha256": "f55fec48e9061bb4fffff39f94ba18dd3e2bfaf7863ebb669233db1393043e87"}

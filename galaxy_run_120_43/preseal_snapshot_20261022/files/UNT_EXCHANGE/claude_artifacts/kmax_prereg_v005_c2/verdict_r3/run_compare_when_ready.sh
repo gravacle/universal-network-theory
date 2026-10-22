@@ -1,0 +1,6 @@
+#!/bin/zsh
+R="/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs"
+for c in C2R3 S2R3 Y2R3 C3R3 S3R3 Y3R3 RR3 C4R3 S4R3 Y4R3; do until [ -f "$R/KMAX_A2F10_${c}_D7R3_RUN_V001.receipt.json" ]; do sleep 60; done; done
+echo "all 10 receipts present $(date -u +%H:%M:%SZ)"
+/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/kmax_compare_c2v005.py --prereg /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/KMAX_MATRIX_PREREG_V005.json --cases /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/verdict_r3/CASES_R3.json --outdir /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/verdict_r3/COMPARE_R3_V001 --bracket-recovery /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery_r3/KMAX_D7_RECOVERY_R3.json > /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/verdict_r3/COMPARE_R3_V001.stdout.txt 2>&1
+echo "compare exit $?"; tail -30 /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/verdict_r3/COMPARE_R3_V001.stdout.txt

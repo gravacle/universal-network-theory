@@ -1,0 +1,125 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_c2/values_writer_c2v003a.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/values_writer_cx2/values_writer_c2v004_cx2v002.py
+@@ -1,19 +1,15 @@
+-"""values_writer_c2v003a -- the Phase-1 values / Phase-2 members writer (V006 A152; A148; A144 R3). Root build (Claude2).
++"""values_writer_c2v004_cx2v002 -- the Phase-1 values / Phase-2 members writer (V006 A152; A148; A144 R3). Codex2 build (A205 item 9).
+ Reviewer of record: Claude4 (lean; certificate-schema owner, did not build the writer). Nothing here is adopted until
+ root rules on this build and Claude4's review returns.
+ 
+-v003a = values_writer_c2v003 (dd9456bc) with one fix, and only it (review blocker B1, members path):
+-  member_valid's acceptance reading must be the NGC per-state acceptance of A136 G5 (route
+-  NGC_POINT_RHO_POST_RUN_PER_STATE_LO_ACCEPTANCE), whose adapter, enumerator and handoff A153 (V006 L1115-1117) gives
+-  its own root build; until then "no NGC member is valid" (A153, V006 L1113). v003 counted a reading of the DDO154
+-  handoff c2v004 record (5ff464cc; no G5 route string, no A153/A155 per-state quantity) toward member_valid.
+-  v003a admits NO acceptance producer for member_valid (MEMBER_ACCEPTANCE_PRODUCERS is empty), so member_valid is
+-  false for every member. A c2v004 record is still checked and bound to the call exactly as in v003 and its reading is
+-  printed (counts_for_member_valid false, with the basis); any other record schema or handoff is refused as in v003.
+-  Each member point prints member_valid_basis, the W-3 conjuncts that are not met (the producer gap reads UNTESTED,
+-  not a null). The successor pins the reviewed NGC handoff (schema and sha) and requires the G5 route string.
+-  Phase-1 values are unchanged (acceptance there is print-only, C-13); only the printed acceptance block changes.
+-  W-1, W-2, W-4, C-1..C-10 and every eps value are v003's.
++v004 = v003a (965ed282) plus A159/A211:
++  (1) the reviewed NGC handoff c2v005 schema/sha pair is admitted;
++  (2) every supplied acceptance record must carry the NGC per-state route;
++  (3) Phase-1 valid[q] additionally requires ACCEPTED or LO_UNCERTIFIED_TRANSIENT.
++The read whitelist now names the pinned NGC handoff instead of the DDO predecessor.
++O-1 keeps ACCEPTED_PASS_FLAGGED ineligible. O-3 prints, without applying, the inclination factor.
++A152's eps rule and section pin are unchanged. Source for schema and route is handoff L108/L112;
++P-106 review prose is not the source of those constants.
+ 
+ v003 = values_writer_c2v002 (38ac8c93) plus, and only plus:
+   (1) ROOT_RULING pinned to the A152 text: the V006 addendum path, the section 'A152', and the sha256 of the exact A152
+@@ -44,10 +40,9 @@
+ 
+ W-3 (A152), result to values:
+   speeds_km_s = the call's final rows (result.rows) in the values query_ids order, which must equal the row order (C-7);
+-  valid[q]     = row valid AND result.valid AND status COMPLETED;
++  valid[q]     = row valid AND result.valid AND status COMPLETED; in Phase 1, also the NGC acceptance gate;
+   member_valid = result.valid AND status COMPLETED AND the call's post-run per-state acceptance (A134 Q2/Q5, A136 G5)
+-                 reading in {ACCEPTED, LO_UNCERTIFIED_TRANSIENT}; v003a: the acceptance record must come from a pinned
+-                 G5 producer (MEMBER_ACCEPTANCE_PRODUCERS), and none is pinned (A153), so member_valid is false;
++                 reading in {ACCEPTED, LO_UNCERTIFIED_TRANSIENT} from the pinned G5 producer and exact NGC route;
+   result_pin   = {out/result.json path, finish.result_sha256} (A138 V01(b)); finish.result_sha256 must equal the sha of
+                  the result bytes read here.
+ """
+@@ -60,7 +55,7 @@
+ import sys
+ from pathlib import Path
+ 
+-MODULE = 'values_writer_c2v003a'
++MODULE = 'values_writer_c2v004_cx2v002'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts'
+ LIBRARY = (ART + '/tail_scheme_impl_c2/driver_r5/module/owned_uv_tail_lapse_v002.py',
+            '2026f2b6e21eba661ef97a5a2b6a8b73d0f8a2d5c3b995611c705f3dc6746a54')
+@@ -88,20 +83,16 @@
+                  'FAILED')                                          # driver L6031, L6099-6114 (L9002, L9058-9073 clone)
+ PHASE1_ROLES = ('u_A', 'F0', 'F1', 'F2')                            # phase1 fdplan roles u_A and F%d (n_varying 3)
+ KINDS = ('phase1_values', 'phase2_members')
+-ACCEPTANCE_SCHEMAS = ('DDO154_TAIL_ACCEPTANCE_RECORD_C2V001',)      # acceptance_handoff_c2v004 RECORD_SCHEMA (L50)
+-ACCEPTANCE_HANDOFFS = ('5ff464cc866d3e69ef83ab7542701b211afaae29d7be14e69b10fb09f16692d8',)   # handoff c2v004 (A151)
++ACCEPTANCE_SCHEMAS = ('UNT_NGC_LO_ACCEPTANCE_RECORD_C2V005',)  # handoff c2v005 RECORD_SCHEMA L108 (A211)
++ACCEPTANCE_HANDOFFS = ('7077ad9337d48b444bb724b3d0dca531e615bbb09656fa00ba453bacf2e634b1',)  # handoff c2v005 bytes (A211)
+ ACCEPTANCE_READINGS = ('NON_LAPSE_TAIL_MATERIAL', 'BOUND_INSUFFICIENT', 'UNDECIDABLE_FLAGGED', 'LO_UNCERTIFIED_TRANSIENT',
+                        'INCOMPLETE', 'ACCEPTED_PASS_FLAGGED', 'ACCEPTED')            # handoff c2v004 READINGS (L78-85)
+ MEMBER_ACCEPTANCE_READINGS = ('ACCEPTED', 'LO_UNCERTIFIED_TRANSIENT')                 # W-3 (A152), as A134 allows
+-# v003a (B1): the c2v004 record above is checked, bound and printed; it never counts toward member_valid. member_valid
+-# needs the A136 G5 NGC acceptance, built under A153 (V006 L1115-1117), and "no NGC member is valid" until then (L1113).
+-NGC_ACCEPTANCE_ROUTE = 'NGC_POINT_RHO_POST_RUN_PER_STATE_LO_ACCEPTANCE'             # A136 G5 (V006 L586)
+-MEMBER_ACCEPTANCE_PRODUCERS = ()      # (record schema, handoff sha256) pairs admitted for member_valid: none pinned.
+-#                                       The successor pins the reviewed NGC handoff and requires NGC_ACCEPTANCE_ROUTE.
+-PRODUCER_GAP = ('NGC_ACCEPTANCE_PRODUCER_NOT_PINNED: member_valid needs the A136 G5 per-state acceptance (route '
+-                + NGC_ACCEPTANCE_ROUTE + '); its handoff is an A153 root build not yet reviewed or pinned, so no NGC '
+-                'member is valid (A153). UNTESTED, not a null; deciding test: the reviewed NGC handoff pinned in a '
+-                'writer successor and its first record on a real call')
++# A159/A211: schema and route from handoff c2v005 L108/L112; sha256 from its bytes.
++NGC_ACCEPTANCE_ROUTE = 'NGC_POINT_RHO_POST_RUN_PER_STATE_LO_ACCEPTANCE'
++MEMBER_ACCEPTANCE_PRODUCERS = (('UNT_NGC_LO_ACCEPTANCE_RECORD_C2V005', '7077ad9337d48b444bb724b3d0dca531e615bbb09656fa00ba453bacf2e634b1'),)
++PRODUCER_GAP = ('NGC_ACCEPTANCE_PRODUCER_NOT_PINNED: the record schema/handoff pair is not the '
++                'A211-adopted NGC per-state producer; no value is accepted from it')
+ MANIFEST = {'path': '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/'
+                     'CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json',
+             'sha256': 'a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494'}   # driver NGC_DATA['manifest']
+@@ -117,9 +108,9 @@
+         'own row radii; tau inert (bound_km_s does not depend on it). W-3: a row with speed None or v <= 0 gets None '
+         'with the call reason; a call with no final rows gets 43 None with its status.')
+ W3_RULE = ('W-3 (V006 A152): speeds_km_s = result.rows in the values query_ids order (must equal the call row order, '
+-           'C-7); valid[q] = row valid AND result.valid AND status COMPLETED; member_valid = result.valid AND status '
+-           'COMPLETED AND the A136 G5 acceptance reading in {ACCEPTED, LO_UNCERTIFIED_TRANSIENT} (v003a: no G5 '
+-           'producer is pinned, A153, so member_valid is false); result_pin = {out/result.json '
++           'C-7); valid[q] = row valid AND result.valid AND status COMPLETED, and in Phase 1 the NGC acceptance gate; member_valid = result.valid AND status '
++           'COMPLETED AND the A136 G5 acceptance reading in {ACCEPTED, LO_UNCERTIFIED_TRANSIENT}, with the '
++           'A211-pinned NGC schema/handoff pair and exact route; result_pin = {out/result.json '
+            'path, finish.result_sha256} (A138 V01(b)); a row with speed None or v <= 0 gets eps None with the call '
+            'reason (C-2)')
+ ALTERNATIVES = ('A-1 v = speeds_km_s[q] in place of v_c from rotation_Omega_squared (not adopted, A152)',
+@@ -649,15 +640,16 @@
+ 
+ 
+ def check_acceptance(pin, c):
+-    """An acceptance record (v003's C-11 form: the handoff c2v004 record), bound to this call's own result pin and
+-    call directory. Returns the reading, printed. v003a (B1): it counts toward member_valid only when its (schema,
+-    handoff) pair is a pinned A136 G5 producer (MEMBER_ACCEPTANCE_PRODUCERS); none is pinned (A153)."""
++    """The pinned NGC acceptance record and route, bound to this call's result and directory.
++    A159 O-1: only ACCEPTED and LO_UNCERTIFIED_TRANSIENT count toward either acceptance gate."""
+     rec = json_from(read_pinned(pin, 'acceptance record'), 'acceptance record')
+     if not isinstance(rec, dict) or rec.get('schema') not in ACCEPTANCE_SCHEMAS:
+         raise Refused('ACCEPTANCE_SCHEMA', repr(rec.get('schema') if isinstance(rec, dict) else None))
+     h = rec.get('handoff')
+     if not is_pin(h) or h['sha256'] not in ACCEPTANCE_HANDOFFS:
+         raise Refused('ACCEPTANCE_PRODUCER_NOT_REVIEWED', repr(h))
++    if rec.get('route') != NGC_ACCEPTANCE_ROUTE:
++        raise Refused('ACCEPTANCE_ROUTE', repr(rec.get('route')))
+     if rec.get('result') != c['result_pin'] or rec.get('call_dir') != str(c['call']):
+         raise Refused('ACCEPTANCE_NOT_OF_THIS_CALL', 'acceptance result %r / call_dir %r' % (rec.get('result'),
+                                                                                           rec.get('call_dir')))
+@@ -684,7 +676,9 @@
+     acc = check_acceptance(acceptance, c) if acceptance is not None else None
+     p = {'role': role, 'theta_key': theta_key,
+          'speeds_km_s': speeds,
+-         'valid': [bool(v is True and c['valid'] is True and completed) for v in row_valid],
++         'valid': [bool(v is True and c['valid'] is True and completed
++                        and (kind != 'phase1_values' or (acc is not None and acc['counts_for_member_valid'] is True)))
++                   for v in row_valid],
+          'result_pin': dict(c['result_pin']),
+          'call': {'status': c['status'], 'result_valid': c['valid'], 'finish': c['finish_pin'],
+                   'call_spec_sha256': call_spec_sha256, 'driver_sha256': DRIVER_SHA256,

@@ -1,0 +1,84 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0813 item 2 / 0826 item 4a: P-112 cx2v004 (cross-family)",
+ "reviewer_lane": "Claude3 (helper lens; F1 independently re-verified by the lead from bytes)",
+ "utc": "2026-10-21T12:49:39Z",
+ "object": {
+  "folder": "claude_artifacts/phase1_ngc_launch_kit_cx2v004/",
+  "tool_sha256": "8cec1b56fc682f638fee57329eefc9b3cddfa47959d175e7095fc0c5fe0342c9",
+  "readme_sha256": "78b77cbf4e8790b7...",
+  "evidence_sha256": "e72288a03c3de8e6...",
+  "top_level_manifest_sha256_start_eq_end": "0a4954483bf992d9ffc74e2349f7c5bda64421678d1e2958ed21170beb95e7f2"
+ },
+ "verdict": "FAIL",
+ "blocking": 1,
+ "findings": [
+  {
+   "id": "F1",
+   "class": "BLOCKING (a model outcome hidden in Phase 2; reachable from honest inputs)",
+   "label": "TESTED (helper probes) + lead re-verified from bytes",
+   "title": "After the Phase-1 ceiling P-112 refuses every new attempt, reruns included",
+   "evidence": "phase1_ngc_launch_cx2v004.py L518: next_attempt calls remaining_wall(phase_ceiling_utc, now_utc), and decision_for (L2937-2944) passes cfg.phase1_ceiling_utc. fresh_launch_plan L2684 and the commit check L2720 also call remaining_wall(phase1_ceiling). All three refuse once now >= 2026-11-06T05:59Z. The design is deliberate (docstring L513-514: 'Phase 1 only limits Phase-1 admissions'). V006: A249 item 1 (L4279-4281) 'a reporting and freeze boundary only. No stop happens there'; A248 (L4262) 'It keeps running for Phase 2'; A245 item 5 (L4198) 'The schedule ceiling ... is the only stop'; A223 G25 (L3340-3341) makes every later attempt of a call P-112's, so no other lawful rerun path exists. Effect (helper probes): a model failure after Nov 6 cannot get its solo confirmation rerun and so can never be counted (the asymmetry A249 item 2 forbids); CAP and INFRA reruns are refused the same way. Honest timeline: S9 Phase-1 NGC launches about Oct 30 to Nov 2 (A247); serial first-attempt wall 610,324 s, so many ends and reruns fall after Nov 6.",
+   "timing": "Bites only after 2026-11-06T05:59Z. No effect on verdict night or on Phase-1 reruns before Nov 6. A fix is needed before Nov 6.",
+   "fix": "Remove the Phase-1 remaining_wall checks at L518, L2684 and L2720, leaving the Phase-2 wall as the only stop. Keep the Phase-1 cutoff only in phase_disposition and terminal_set. Invert the two builder tests (test_integrated_draft006 L332; test_launch_commit_integrated003 L122-124). Root rules whether first admissions are allowed after Nov 6.",
+   "contingency": "This becomes a NOTE only if root names a different Phase-2 rerun owner, which would supersede A223 G25."
+  },
+  {
+   "id": "F2",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "After the Phase-1 ceiling, status reports HELD_FOR_CAUSE and HELD_FOR_FIX calls as UNEVALUATED_SCHEDULE_CEILING",
+   "evidence": "phase_disposition checks the ceiling (L2675-2677) before the holds (L2678-2679); A249 item 4 says a held call is not UNEVALUATED. The status is advisory and the raw statuses are preserved."
+  },
+  {
+   "id": "F3",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "Held calls have no release path for non-model cause reasons",
+   "evidence": "Producer records with model_outcome false and a reason outside KNOWN_NONPHYSICS_CAUSES (L2573-2576), e.g. STATUS_NOT_MODEL_FAILURE, UNAUTHENTICATED_STAGE_FAILURE or NGC_POST_SEAL_ATTESTATION_REQUIRED, are ignored (L2829-2832), so the call stays HELD_FOR_CAUSE. A248 item 2 says such ends are uncounted and rerun. Conservative, but a call can stall."
+  },
+  {
+   "id": "F4",
+   "class": "NOTE (operator-input class, A115)",
+   "label": "FORMAL",
+   "title": "Cause-record custody is root trust",
+   "evidence": "Any record pinned in the config is accepted (README:32). A malformed or duplicate record for the same receipt refuses that call's whole decision (L2802, L2823-2842)."
+  },
+  {
+   "id": "F5",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "Suite scope",
+   "evidence": "The tests resolve the cx2v003 sibling folder (parent test a3cdbdc6, source af021071) and run draft003, which is byte-identical to the shipped tool; the parent's full subprocess suite was not run (README:48)."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "Walls are the time remaining to the Phase-2 ceiling 2026-12-01T05:59:00Z (L2579-2582, L522, L540, L2685-2688, L2723-2725)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "No stop at the Phase-1 boundary",
+   "result": "REFUTED",
+   "note": "active runs are not stopped, but every new attempt is refused (F1)"
+  },
+  {
+   "claim": "Counted list exactly ROUTE_A_NO_FIXED_POINT and clean ITERATION_BUDGET_EXHAUSTED; FAILED_SOURCE_PREPARATION uncounted; nonphysics never counted; unauthenticated FAILED reruns uncounted; repeated identical solo failures HELD_FOR_CAUSE (before the ceiling)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "No launch without the TOOL_PIN gate (L2370, L2733, L2319, L1851); single-read (A226 item 1); no blinding read (guards byte-identical to the parent; result/finish fence never fired)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Builder suites on a scratch copy: 221/221 functional; 21/21 mutants killed (14 policy, 4 commit, 3 raw-status); mutant shas match the evidence; the helper's 21 probes behaved as predicted",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  }
+ ],
+ "lead_reverification": "Lead read phase1_ngc_launch_cx2v004.py L505-548, L2670-2690, L2714-2728 and L2936-2944, and V006 L4279-4292, L4258-4264, L4196-4199 and L3338-3341, from bytes on 2026-10-21 about 12:47-12:49Z.",
+ "reads_not_done": "No NGC data, run outputs, V007 or ~/.codex."
+}

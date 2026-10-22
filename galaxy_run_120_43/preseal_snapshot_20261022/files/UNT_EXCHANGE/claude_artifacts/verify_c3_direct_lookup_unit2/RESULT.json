@@ -1,0 +1,101 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0846/0849 (0828 unit 2): Codex3 direct certificate lookup for non-genesis W3-minus points (FROM_CODEX3/0701)",
+ "reviewer_lane": "Claude3 (helper cross-family lens 14:45-15:08Z; lead re-verified both blocking findings from bytes)",
+ "utc": "2026-10-21T15:11:41Z",
+ "object": {
+  "builder": "direct_cert_lookup_cx3/direct_cert_lookup_cx3v001.py 1cb5039e",
+  "bridge": "direct_cert_lookup_cx3/direct_preflight_cert_cx3v001.py 586391ec",
+  "readme": "README_CX3V001.md 30b06cd5",
+  "manifest": "REVIEW_MANIFEST_CX3V001.json 33a1b6d3",
+  "start_equals_end": "28/28 files (helper)"
+ },
+ "verdict": "FAIL",
+ "blocking": 2,
+ "findings": [
+  {
+   "id": "B1",
+   "cls": "BLOCKING (A115 a)",
+   "label": "FORMAL (lead, from bytes) + TESTED (helper, synthetic seam probe P2)",
+   "title": "The builder's full-verify replay refuses every honest real request",
+   "evidence": "builder L392-403 replays verify_list with real custody (N.A.real_custody_fn) inside Snapshot.reads(). reads() (L205-217) routes every open under /Users/bgm/Research/ through raw() (L135) -> safe_path (L95) -> lexical (L83-93), whose bad list includes 'runs' (L87). The frozen C1 custody deriver calib_tail_readiness_cx2/certificates_per_point/custody_cx2v002.py 6810b7c3 L129 calls the driver's uvt_static_pins(False). Driver r5 b5cc62af L1215-1223 verify_pins UVT_MONITOR_PINS, whose 'a2f10_result' (L343) is .../CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json. The result is PROTECTED_PATH_REFUSED on every point, then FULL_VERIFY_REPLAY_MISMATCH at L403. The honest verify step outside the snapshot, guard014 lexical_path (L58-66) and the c3v005 path policy do not refuse this path. Codex3's suite injects a lambda custody, so it cannot see it."
+  },
+  {
+   "id": "B2",
+   "cls": "BLOCKING (A115 a)",
+   "label": "FORMAL (lead) + TESTED (helper P2)",
+   "title": "The preflight bridge refuses every call admitted through it",
+   "evidence": "bridge L64-68 runs _certificate_check_snapshot inside s.reads(). Custody comes from the pinned deriver (L80-82, the same uvt_static_pins read), and the except at L188-189 returns {'ok': False, 'blockers': ['Refusal: PROTECTED_PATH_REFUSED']}. guard014 then refuses with NATIVE_GATE_REFUSED (L258). Codex3's InertBaseContext and synthetic custody loader hide this."
+  },
+  {
+   "id": "N1",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "check_mapper_pending compares with == (L269-273), so an int passes where the mapper writes a float",
+   "evidence": "forged input only; the importer's exact sha check is the backstop"
+  },
+  {
+   "id": "N2",
+   "cls": "NOTE",
+   "label": "TESTED",
+   "title": "Symlink and hard-link aliases to allowed targets are accepted (safe_path L95-125 follows links after its lexical check; inode dedup L142-145)",
+   "evidence": "the bytes stay sha-pinned; a link to a runs target and a /./ path are refused"
+  },
+  {
+   "id": "N3",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The builder relies on -B without checking sys.dont_write_bytecode",
+   "evidence": "run without -B, the real custody import would write __pycache__ into reviewed source trees"
+  },
+  {
+   "id": "N4",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The wave is bound across records, list and entries, but not to the value 3",
+   "evidence": "root's admission binds the keys"
+  },
+  {
+   "id": "N5",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "The bridge compares the serialized spec dict with the prepared bytes; file byte and sha equality is left to the plan, launcher and importer (as the README says)",
+   "evidence": ""
+  }
+ ],
+ "checked": [
+  {
+   "claim": "Scope is the builder plus the bridge; unit 3 excluded; diff against Codex2's cx2v002 is the ASSEMBLER path line and the LOOKUP pin",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Same pending spec plus same slot pins give the same final bytes as the ledger Mapper",
+   "result": "CONFIRMED",
+   "label": "TESTED (helper property test 120/120)"
+  },
+  {
+   "claim": "Fail-closed on wrong, stale or duplicate certs, wrong slot, pins, wave, genesis key, 7th producer, row 31, foreign manifest",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "A226 single read: 45 physical reads, once each",
+   "result": "CONFIRMED (synthetic custody); UNTESTED with real custody (blocked by B1)",
+   "label": "TESTED"
+  },
+  {
+   "claim": "No honest real call is refused at the bridge's native boundaries",
+   "result": "REFUTED",
+   "label": "B2"
+  },
+  {
+   "claim": "Codex3's controls re-run on copies: 71/71; mutation/mapping 12/12; the helper's own 6 restoring mutants killed",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  }
+ ],
+ "fix": "Deputy ruling D006: inside replay() and the bridge's native-gate snapshot only, apply guard014's lexical_path set (refuse uvt_ except R1, kmax_a2f10_c5h_run_v001, ngc3198, .codex, v007_postseal_records), or an exact allowance of the custody deriver's pinned (path, sha) pairs. Keep the stricter bad list for request inputs and outputs. Keep the single read. Add a seam test with a real-path shape (a pinned file under a 'runs' component accepted, an unpinned runs path refused).",
+ "disposition": "review FAIL; not ready for root adoption; re-review of the fix delta by Claude3",
+ "reads_not_done": "No run tree, NGC or V007 file opened; the driver and custody sources were read as code only (constant tables); the helper's synthetic files under literal CLAUDE2/runs/ names are in its fixtures folder."
+}

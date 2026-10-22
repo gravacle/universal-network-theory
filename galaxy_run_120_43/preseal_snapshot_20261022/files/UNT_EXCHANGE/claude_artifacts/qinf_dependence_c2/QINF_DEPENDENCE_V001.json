@@ -1,0 +1,345 @@
+{
+ "schema": "QINF_DEPENDENCE_V001",
+ "date": "2026-10-17",
+ "question": "Is the audit Qinf = 8.059986 (T5) a parameter-free constant, or a function of the calibration coordinates?",
+ "verdict": {
+  "status": "TESTED",
+  "result": "Qinf is NOT parameter-free. It is a function of the calibration coordinates.",
+  "functional_form": "Qinf = c^4/(16 pi G gamma_eff), gamma_eff = s * (gamma/Eref) * Eref_base, Eref_base = 1.4642919592009638e58 J",
+  "anchor": "Qinf(limit) = 2.4077269433612114e42 / 2.9863917119177204e41 = 8.062328; T5 median over 1<=|k|<2/kpc = 8.059986 (finite-k deficit 2.9e-4)",
+  "independent_of": [
+   "ell_F (limit only; finite-k approach depends on it)",
+   "coefficient grid (A2, V004, worm, birthk give identical limits to 1e-15)",
+   "Cbar, mubar"
+  ],
+  "in_calibration_box": "gamma_eff spans [1.4932e40, 5.9728e42] over the s x gamma/Eref box => Qinf in [0.4031, 161.25]",
+  "along_seed_curve": "factors 1..100: gamma_eff 2.8185e41..3.0051e41 (the seed rule fixes s*gamma near 3e41), so Qinf 8.54..8.01; this is why ~8 recurs"
+ },
+ "analytic": {
+  "statement": "K_density(k) = (s Eref_base / v) J^T Gamma[F(k)] J + s gamma_GE k^2 E_hat(k_hat); F(k) is a convex combination of the 64 grid blocks (bounded); E_hat has rank 4, its null space has zero lapse component, so -[K_density^-1]_nn -> -[pinv E_hat]_nn/(gamma_eff k^2) with [pinv E_hat]_nn = -1/4 exactly, giving Q -> c^4/(16 pi G gamma_eff). s multiplies the whole kernel, so Q(k) is proportional to 1/s at every k.",
+  "lines": {
+   "complex_binding_v002": "L81-86 Gamma from F; L93 native=Eref*(J^T Gamma J + contact); L94-96 EH with gamma, ell_F, measure 1/4; L97-101 total/volume; L125 x=solve(K,-f)",
+   "static_binding_v002": "L187 k_phys=Cbar^-1/2 k_reg/ell_F; L192 volume=ell_F^3*(1/4)*sqrt(det Cbar); L194 tensors[0]=0 (lapse); L196-203 kernel=gamma*volume*value, value quadratic in k, lapse row n*(k2 tr t - k.t.k)",
+   "cardinal_v001": "L83-100 nonnegative Dirichlet-squared weights, partition of unity, periodic in k_primitive; L132 F=sum w*grid",
+   "driver_mapping": "coordinate spec V001 call_spec_mapping: gamma = gamma_over_Eref*Eref_base_J; driver c2v001:556-557 Eref_eff=s*Eref, gamma_eff=s*gamma (lwr_common_v001 L26-27, checked bitwise)"
+  },
+  "finite_k": "Q(k)/Qinf = 1 - O(Eref_eff/(gamma_eff ell_F^3 k^2)) with grid/direction-dependent coefficient: deficit at 0.3/kpc scales x10 when gamma/Eref drops x10 and x~7.8 when ell_F halves (TESTED on the points below)"
+ },
+ "EH_constant": {
+  "A2_pooled": {
+   "pinv_Ehat_nn_min": -0.25000000000000056,
+   "pinv_Ehat_nn_max": -0.24999999999999944,
+   "rank_Ehat": [
+    4
+   ],
+   "max_abs_lapse_component_of_null_vectors": 5.25611863217131e-17
+  },
+  "V004_pooled": {
+   "pinv_Ehat_nn_min": -0.2500000000000001,
+   "pinv_Ehat_nn_max": -0.2499999999999996,
+   "rank_Ehat": [
+    4
+   ],
+   "max_abs_lapse_component_of_null_vectors": 0.0
+  },
+  "worm_pooled": {
+   "pinv_Ehat_nn_min": -0.25000000000000006,
+   "pinv_Ehat_nn_max": -0.24999999999999944,
+   "rank_Ehat": [
+    4
+   ],
+   "max_abs_lapse_component_of_null_vectors": 1.232894629480525e-16
+  },
+  "birthk_pooled": {
+   "pinv_Ehat_nn_min": -0.25000000000000017,
+   "pinv_Ehat_nn_max": -0.24999999999999936,
+   "rank_Ehat": [
+    4
+   ],
+   "max_abs_lapse_component_of_null_vectors": 2.6640042162705305e-16
+  }
+ },
+ "validation": {
+  "audit_T5_Qinf": 8.059986027752249,
+  "recomputed_from_audit_T1_npz": 8.059986027752249,
+  "batched_vs_audit_T1_Q_max_rel": 4.408241601134654e-15,
+  "module_vs_batched_max_rel": 8.187909490044167e-16,
+  "independent_check_vs_T1_max_rel": 1.5425724990128515e-15,
+  "s_scaling": {
+   "s_box_lo": {
+    "Qinf_times_s_over_anchor": 1.0,
+    "Q0.3_times_s_over_anchor": 1.0,
+    "Q1.0_times_s_over_anchor": 1.0,
+    "Q2.0_times_s_over_anchor": 1.0
+   },
+   "s_box_hi": {
+    "Qinf_times_s_over_anchor": 1.0,
+    "Q0.3_times_s_over_anchor": 1.0,
+    "Q1.0_times_s_over_anchor": 1.0,
+    "Q2.0_times_s_over_anchor": 1.0
+   }
+  },
+  "grids": {
+   "A2_pooled": {
+    "grid_equal_pinned_source": true,
+    "background_equal_pinned_source": true,
+    "background_source": "pinned npz",
+    "grid_array_sha256": "5351fc4dfedd40e050dc75c4d69d1fe82a284067c43d8af8773d949254717b3b",
+    "h_NN_k0": -3.551023499886223,
+    "Cbar_diag": [
+     0.8818427276214583,
+     0.9533260486910227,
+     0.8869867248148879
+    ]
+   },
+   "V004_pooled": {
+    "grid_equal_pinned_source": true,
+    "background_equal_pinned_source": true,
+    "background_source": "pinned npz",
+    "grid_array_sha256": "8035385b489638abad54d38b45be1fbe67da749d992c2d0c62a67eef541eb6df",
+    "h_NN_k0": -0.7596486613618936,
+    "Cbar_diag": [
+     0.6129723877830271,
+     1.4617033552199337,
+     0.6303359646658206
+    ]
+   },
+   "worm_pooled": {
+    "grid_equal_pinned_source": true,
+    "background_equal_pinned_source": null,
+    "background_source": "long_wavelength_response_c2 t1 rebuild from blocks JSON (moments of chain means)",
+    "grid_array_sha256": "70f65c276c43a68bb4574158193b5f82dc3391f7466093933eed86864e6e39a3",
+    "h_NN_k0": -5.455775873200764,
+    "Cbar_diag": [
+     0.9069769880874833,
+     0.9051759654816054,
+     0.9175436716478738
+    ]
+   },
+   "birthk_pooled": {
+    "grid_equal_pinned_source": true,
+    "background_equal_pinned_source": null,
+    "background_source": "long_wavelength_response_c2 t1 rebuild from blocks JSON (moments of chain means)",
+    "grid_array_sha256": "e1c2c4648f49c4c991e1c11259e1d7c137ceb8a79452b5a082c35c75813faaf2",
+    "h_NN_k0": -1.346626683105569,
+    "Cbar_diag": [
+     0.8878496020401593,
+     0.8930798055376511,
+     0.9143884841246677
+    ]
+   }
+  }
+ },
+ "points": [
+  {
+   "point": "anchor_F10",
+   "grid": "A2_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.9863917119177204e+41,
+   "Qinf_T5def": 8.059986027752249,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.062327971755211,
+   "Q_0p3_dirmean": 7.955299777602911,
+   "Q_1_dirmean": 8.052749700999733,
+   "Q_2_dirmean": 8.059778683634542,
+   "Q_1000_over_limit": 0.9999999989202236
+  },
+  {
+   "point": "seedscan_F1",
+   "grid": "A2_pooled",
+   "s": 0.9583148263572233,
+   "gamma_over_Eref": 2.0085126300035468e-17,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.8184507602266624e+41,
+   "Qinf_T5def": 8.517918814248599,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.542731976511753,
+   "Q_0p3_dirmean": 7.416529061122177,
+   "Q_1_dirmean": 8.441295617163455,
+   "Q_2_dirmean": 8.515723474457118,
+   "Q_1000_over_limit": 0.9999999892022593
+  },
+  {
+   "point": "seedscan_F3",
+   "grid": "A2_pooled",
+   "s": 0.3332538300367979,
+   "gamma_over_Eref": 6.025537890010642e-17,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.9403474248207242e+41,
+   "Qinf_T5def": 8.18065118200586,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.188579767943642,
+   "Q_0p3_dirmean": 7.826881301730143,
+   "Q_1_dirmean": 8.156156680506125,
+   "Q_2_dirmean": 8.179949354588352,
+   "Q_1000_over_limit": 0.9999999964007517
+  },
+  {
+   "point": "seedscan_F30",
+   "grid": "A2_pooled",
+   "s": 0.034003266641648676,
+   "gamma_over_Eref": 6.025537890010642e-16,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 3.000158092533375e+41,
+   "Qinf_T5def": 8.024556492350904,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.025333562766017,
+   "Q_0p3_dirmean": 7.989803048491486,
+   "Q_1_dirmean": 8.022155331304829,
+   "Q_2_dirmean": 8.024487691340608,
+   "Q_1000_over_limit": 0.9999999996400726
+  },
+  {
+   "point": "seedscan_F100",
+   "grid": "A2_pooled",
+   "s": 0.010217773161650852,
+   "gamma_over_Eref": 2.008512630003547e-15,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 3.0050970456908625e+41,
+   "Qinf_T5def": 8.011910985205343,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.012143723656976,
+   "Q_0p3_dirmean": 8.001500185787366,
+   "Q_1_dirmean": 8.011191808199143,
+   "Q_2_dirmean": 8.011890378464672,
+   "Q_1000_over_limit": 0.9999999998920202
+  },
+  {
+   "point": "GE_box_lo@s0",
+   "grid": "A2_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.0085126300035468e-17,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.9863917119177203e+40,
+   "Qinf_T5def": 80.38910187756845,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 80.62327971755211,
+   "Q_0p3_dirmean": 69.99457535039815,
+   "Q_1_dirmean": 79.6659592730206,
+   "Q_2_dirmean": 80.36838303790796,
+   "Q_1000_over_limit": 0.9999999892022593
+  },
+  {
+   "point": "GE_box_hi@s0",
+   "grid": "A2_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.008512630003547e-15,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.986391711917721e+42,
+   "Qinf_T5def": 0.8062093775540887,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 0.806232797175521,
+   "Q_0p3_dirmean": 0.8051617767839218,
+   "Q_1_dirmean": 0.8061370093952822,
+   "Q_2_dirmean": 0.8062073039729414,
+   "Q_1000_over_limit": 0.9999999998920202
+  },
+  {
+   "point": "s_box_lo",
+   "grid": "A2_pooled",
+   "s": 0.050770861340343656,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 1.4931958559588602e+41,
+   "Qinf_T5def": 16.119972055504498,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 16.124655943510422,
+   "Q_0p3_dirmean": 15.910599555205822,
+   "Q_1_dirmean": 16.105499401999467,
+   "Q_2_dirmean": 16.119557367269085,
+   "Q_1000_over_limit": 0.9999999989202236
+  },
+  {
+   "point": "s_box_hi",
+   "grid": "A2_pooled",
+   "s": 0.20308344536137463,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 5.972783423835441e+41,
+   "Qinf_T5def": 4.029993013876124,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 4.031163985877606,
+   "Q_0p3_dirmean": 3.9776498888014555,
+   "Q_1_dirmean": 4.026374850499867,
+   "Q_2_dirmean": 4.029889341817271,
+   "Q_1000_over_limit": 0.9999999989202236
+  },
+  {
+   "point": "ellF_box_lo",
+   "grid": "A2_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 4.952512518293644e+19,
+   "gamma_eff": 2.9863917119177204e+41,
+   "Qinf_T5def": 8.043065385867868,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.062327971755211,
+   "Q_0p3_dirmean": 7.158502849459446,
+   "Q_1_dirmean": 7.988519123173218,
+   "Q_2_dirmean": 8.043172557233563,
+   "Q_1000_over_limit": 0.9999999910880044
+  },
+  {
+   "point": "ellF_box_hi",
+   "grid": "A2_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 1.9810050073174576e+20,
+   "gamma_eff": 2.9863917119177204e+41,
+   "Qinf_T5def": 8.062028228886117,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.062327971755211,
+   "Q_0p3_dirmean": 8.0495102465967,
+   "Q_1_dirmean": 8.061053318767948,
+   "Q_2_dirmean": 8.062035921468944,
+   "Q_1000_over_limit": 0.9999999998627006
+  },
+  {
+   "point": "grid_V004_pooled",
+   "grid": "V004_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.9863917119177204e+41,
+   "Qinf_T5def": 8.061268165830029,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.062327971755197,
+   "Q_0p3_dirmean": 8.038705042938883,
+   "Q_1_dirmean": 8.05934569562606,
+   "Q_2_dirmean": 8.061525991973758,
+   "Q_1000_over_limit": 0.9999999996157578
+  },
+  {
+   "point": "grid_worm_pooled",
+   "grid": "worm_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.9863917119177204e+41,
+   "Qinf_T5def": 8.06001552869661,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.062327971755195,
+   "Q_0p3_dirmean": 7.967568492397528,
+   "Q_1_dirmean": 8.053630121565378,
+   "Q_2_dirmean": 8.059997682020404,
+   "Q_1000_over_limit": 0.9999999988936318
+  },
+  {
+   "point": "grid_birthk_pooled",
+   "grid": "birthk_pooled",
+   "s": 0.10154172268068731,
+   "gamma_over_Eref": 2.008512630003547e-16,
+   "ell_F_m": 9.905025036587288e+19,
+   "gamma_eff": 2.9863917119177204e+41,
+   "Qinf_T5def": 8.059971185258481,
+   "Qinf_limit_c4_over_16piG_gamma_eff": 8.062327971755199,
+   "Q_0p3_dirmean": 7.969395337690246,
+   "Q_1_dirmean": 8.053542344031165,
+   "Q_2_dirmean": 8.06012869664495,
+   "Q_1000_over_limit": 0.9999999989721898
+  }
+ ],
+ "untested": [
+  {
+   "claim": "gamma_eff ~ 3e41 (hence ~8) encodes the DDO154 velocity normalization (v_cal 43300 m/s) against the Newtonian baryonic lapse, i.e. a mass-discrepancy number, not geometry",
+   "status": "UNTESTED",
+   "deciding_test": "compute the ratio of v_cal^2 to the Newtonian baryonic v^2 of the same DDO154 source at the seed-rule radii and compare with Qinf along the seed curve"
+  }
+ ],
+ "scope": "Symbol evaluations only (lapse transfer of the iteration-0 kernel with jbar=0). No route-A/forward run, no velocities, no NGC3198 targets, no forbidden result.json.",
+ "files": {
+  "tool": "tools/qinf_eval_v001.py",
+  "raw": "out/QINF_EVAL_V001.json",
+  "check": "check/check_qinf_v001.py",
+  "check_out": "check/CHECK_QINF_V001.json"
+ }
+}

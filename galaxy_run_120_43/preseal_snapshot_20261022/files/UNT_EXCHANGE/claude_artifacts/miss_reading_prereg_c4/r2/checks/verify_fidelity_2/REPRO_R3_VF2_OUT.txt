@@ -1,0 +1,18 @@
+sha ok  6f095f64a1f1acc2ad2910af12f645e18acdf16fb62bfd936386a61c47ef30e9  /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_COMPARE_COMPLETE_V001.json
+sha ok  8867c3766cc08585286ca969d4aa3fdec47fd9b15a8fe815d466346119c95c70  /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_RECORDS_COMPLETE_V001_N1.json
+sha ok  d3859b42390d75952b3f7942290fe1ae8b3044e4378dd4c92dbcfd2e7ee50969  /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/freeze_score_readiness_cx3/v003g/slots/NGC3198_FREEZE_SLOTS_CX3V003.json
+--- compare: failing TRUNCATION_SHAPE rings (ordinal, support kind, support keys, R_kpc)
+15	sampled_ring	R_kpc,kind	10.540847190215317
+--- compare: outcome, gate, reasons
+N_FAIL_N1	OPEN	TRUNCATION_SHAPE_RESIDUAL_ONLY_A66
+n failing TRUNCATION_SHAPE rings: 1 ; ordinal 15
+--- N1 record: ring_radii_kpc length 100; ring 14 9.901810628740723 ; ring 15 10.540847190215317 ; ring 16 10.911721936765339
+compare R_kpc == N1 record ring radius (string): yes
+--- N1 record keys that could carry an interval (any key containing lo/hi/edge/support/width):
+--- query block (id, Rad_text) piped to awk; rules evaluated in double precision
+RULE0 point [r_lo=r_hi=R]: [10.5408471902153, 10.5408471902153] flags: (none)
+bracketing queries: NGC3198-Q25 (10.04) and NGC3198-Q26 (11.04); R-lower=0.500847190, upper-R=0.499152810, R-midpoint=+0.000847190
+RULE1 ring-neighbour midpoints: [10.221328909, 10.726284563] flags: (none) ; nearest query outside by 0.181328909 kpc
+RULE2 bracketing rows by id: flags NGC3198-Q25 NGC3198-Q26 ; margins 0.500847190 / 0.499152810 kpc
+RULE3 query cell containing the ring: flags NGC3198-Q26 ; ring is 0.000847190 kpc inside the cell edge
+RULE4 ring +/- half local query spacing (1.0000): [10.040847190, 11.040847190] flags: NGC3198-Q26 ; edge margins -0.000847190 (lower end vs NGC3198-Q25) +0.000847190 (upper end vs NGC3198-Q26)

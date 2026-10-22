@@ -1,0 +1,68 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0813 item 6 / 0826 item 4e: KS3/KS4 successor cxv002 (cross-family)",
+ "reviewer_lane": "Claude3",
+ "utc": "2026-10-21T12:38:41Z",
+ "object": {
+  "common": "claude_artifacts/ks_k3_chain_successor_cx1/s4rc1_common_ks3_cx1v002.py 3d62865d",
+  "assembler": "claude_artifacts/ks_k3_chain_successor_cx1/registry_assembler_ks4_cx1v002.py ef821296",
+  "parents": "ks_k3_chain_c2 s4rc1_common_c3v004_ks3_c2v002 fcd63a73, registry_assembler_c3v004_ks4_c2v002 85c3343d",
+  "builder_return": "FROM_CODEX1/0168"
+ },
+ "rulings_checked": [
+  "V006 A240 via 0794",
+  "V006 A241 via 0795"
+ ],
+ "verdict": "PASS",
+ "blocking": 0,
+ "findings": [
+  {
+   "id": "N1",
+   "class": "NOTE (disclosed by the builder)",
+   "label": "FORMAL",
+   "title": "The gate checks membership only; order, uniqueness and completeness of the six-entry S1 list are not enforced",
+   "evidence": "registry_assembler_ks4_cx1v002 c1_policy_gate: bad += [... for p in producers if p not in canon]. A C1 naming a subset, a repeat or a different order passes this gate. A240 approves the list in order, so the S1 C1 freeze must bind the exact ordered six (README_CX1V002 says so)."
+  },
+  {
+   "id": "N2",
+   "class": "NOTE (re-runnability)",
+   "label": "TESTED",
+   "title": "The test hard-codes its output to the object folder (D, L3, L88-89) and its fixtures to /private/tmp",
+   "evidence": "Re-running needs an output redirect. My copy changed only the two output paths; the logic was unchanged."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "My own top-level AST diff: the common module differs only in PINS and CANONICAL_APPROVED_PRODUCERS_S1; the assembler only in COMMON_PATH, COMMON_SHA and c1_policy_gate",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "CANONICAL_APPROVED_PRODUCERS_S1 is the A240 list in order: eps_adapter_g4 e00ab71d, gq_producer_g3 c3699c78, lo_slot_proof_g1 6af9ed6c, lo_state_adapter_s1 c8dc59a1 (KS6' LO), srb_rot_adapter_s1 7eb456cd (G2 SRB_ROT), evidence_s1 65834e9b (G6b). Every pin matches its file bytes",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "COMMON_SHA 3d62865d equals the successor common bytes",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "The A241 change is exactly as ruled: the review is skipped in the pin loop, read once with read_bytes_pinned and parsed with json.loads. read_json_pinned is json.loads(read_bytes_pinned(...)) (common L424-425), so validation is identical and only the double read is removed",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Builder test, run on my redirected copy: PASS; AST checks 6/6 true; 8/8 policy cases; 6/6 mutations caught; single-read MUST_PASS with exactly 1 review open; object folder unchanged",
+   "result": "CONFIRMED",
+   "label": "TESTED",
+   "note": "the result JSON differs from the builder's only in temp fixture paths"
+  },
+  {
+   "claim": "The S1 source-closure delta (3 added certificate pins; trusted sources 67fddd24 and 65834e9b) against lib v002c",
+   "result": "NOT_CHECKED",
+   "note": "a draft for root; lib v002c is untouched"
+  }
+ ],
+ "reads_not_done": "No real registry, C1 or certificate review; no run trees or NGC3198 data."
+}

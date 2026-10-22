@@ -1,0 +1,320 @@
+# Root items step 4 still needs (dispatch 0587, part 4)
+
+Claude4 lane helper. Generated 2026-10-18T19:07:56Z. Companion to `INVENTORY_C4V001.json` (eb359e0f); machine-readable twin `ROOT_ITEMS_C4V001.json`. Root (Claude2) alone decides and launches; every disposition below is a **RECOMMENDATION**. Labels TESTED / FORMAL / UNTESTED as in the inventory. Shas are 8-hex prefixes computed from bytes at generation.
+
+Starting point: `TYPED_BLOCKERS_CX2V006R9.json` (1198bdef) lists six codes. Reading the r5-r8 lists, the reviews and the rulings shows more that step 4 still needs; the traceability table at the end maps every earlier code to an item here.
+
+## Summary
+
+| id | group | item (short) | owner | filled by V007 |
+|---|---|---|---|---|
+| R-A1 | A | Write the step-4 config successor from the sealed ADOPT_TAIL: numerics.{verdict_artifact, block_source, compare, sealed_prereg, adopted_result, sou... | Claude2 (root) | YES (all values come from the V007 outcome; root transcribes) |
+| R-A2 | A | Register the V007 seal tuple (compare sha, prereg sha, frozen V005 addendum sha, report schema, verdict sha) in APPROVED_V007_SEALS | Claude2 + distinct reviewer; natural builder Codex2 (author of v006r9) | YES (the tuple values, including the verdict sha, exist only after the verdict) |
+| R-A3 | A | V007 case-block binding | Claude2 at seal assembly; prereg author Claude4 (0583/0584); compare owner Codex3 (r12) | MUST BE IN the sealed prereg (cross-lane; gates both the V007 verdict and step 4) |
+| R-A4 | A | Write the C4-6 adoption derivation (schema DDO154_CALIBRATION_ADOPTION_DERIVATION_C2V005): verdict sha, adopted case C4T and its call spec, base sp... | Claude2 (+ distinct reviewer, per r6 ADOPTION_C4_6) | PARTIAL (verdict, C4T spec, C4T receipt, timing); also needs the capability evidence (S4-CAP runs), the registry and the mapper-built seed spec |
+| R-A5 | A | Regenerate per-call caps and the disk guard from the measured C4T use (C4-6 refuses caps that are not above the measured use) | Claude2 | PARTIAL (the C4T receipt supplies the measurement; root sets the caps) |
+| R-B1 | B | Driver of record for step 4 | Claude2 | YES for the binding (step-4 driver must equal the V007 driver slot under v006r9) |
+| R-B2 | B | Deciding-(iii) comparator successor and review registration | Claude2; builders Codex2 (policy) and Codex1 (c2v007r2, 0588); cross-lineage reviewer | NO |
+| R-B3 | B | One consolidated orchestrator successor (v006r10) carrying R-A2, R-B2 and any R-B1 retarget, with a single delta review | Claude2; builder Codex2; distinct reviewer | PARTIAL (the tuple line only) |
+| R-B4 | B | Launch entries | Claude2; builder any lane; distinct review | NO |
+| R-B5 | B | Post-state certificate loop | Claude2 + Codex2 (producers) | NO |
+| R-C1 | C | Per-point certificate admission: certificate_policy_review document, approved_certificate_producers, certificate registry with prelaunch bundles fo... | Claude2 science review; Codex2 producers; distinct reviewer | NO (but registry keys depend on the adopted block and driver; TESTED stable under r5 for the C4T block) |
+| R-C2 | C | u_i carrier declaration | Claude2 | PARTIAL (the verdict supplies u_i values; the declaration is root's) |
+| R-C3 | C | Taxonomy approval: the tail-ON taxonomy is a candidate whose classification review is pending, with root judgment calls (R10, R11, R13, R20/R21/R32... | Claude2 + distinct reviewer | NO |
+| R-C4 | C | MODEL_INVALID for tail-ON | Claude2 (and a later certified successor) | NO |
+| R-C5 | C | Distinct review per alternate D of the deciding-(iii) evidence, and root registration of each review file sha and registry entry. | Claude2 + a distinct-lane reviewer per D | NO |
+| R-C6 | C | Register the S1 transfer test that ADOPT_TAIL prescribes: "V005 S1 transfer test at the calibrated point before prediction" (V005 S1: rerun the ado... | Claude2 | YES (the next-step text comes with ADOPT_TAIL) |
+| R-C7 | C | Purpose and reading of the 18 alternate-D sensitivity runs | Claude2 | NO |
+| R-D1 | D | TAIL_REANCHOR source and certificate slots: a fresh template run; DU-1 (the mapper-built trial capability spec, physical equal to the registered an... | Claude2 | PARTIAL (DU-3 uses the V007 C4T result) |
+| R-D2 | D | Designate the workers_8 row before any launch (DU-2: one headline corner run; or a PC-7 repeat of the reanchor spec). | Claude2 | NO |
+| R-D3 | D | Launch the nine headline capability runs and write the capability evidence document (schema DDO154_TAIL_BOX_RUN_CAPABILITY_CX2V006). | Claude2 (root-only launch) | PARTIAL (adopted block, driver slot) |
+| R-D4 | D | Write the deciding_test document (schema DDO154_V010R5_DECIDING_CX2V006, two rows) and fill config.anchor {result, receipt, spec_sha256} from S4-RA. | Claude2 | NO |
+| R-D5 | D | Deciding-(iii) pairs: caps (unspecified), launch timing and evidence production. | Claude2 (root-only launch) | NO |
+| R-D6 | D | Launch the 18 sensitivity runs only after their D is registered (R-C5) and their reading is registered (R-C7). | Claude2 (root-only launch) | PARTIAL (adopted block) |
+| R-D7 | D | Campaign scheduling: max_concurrent 1, process_budget 17 (the maximum), per-call weight 8 in route A, campaign_wall_cap_s 172,800 per wave | Claude2 | PARTIAL (C4T peak RSS and elapsed set the safe concurrency) |
+| R-D8 | D | Caps for the direct runs (reanchor, workers_8, capability, sensitivity), which launch before the C4-6 caps exist. | Claude2 | PARTIAL |
+| R-D9 | D | Hull-miss contingency | Claude2 | NO |
+| R-D10 | D | The engine seed (log/exp theta, about 1e-15 off the anchor) is computed afresh because the anchor alias is disabled; the reanchor and capability ru... | Claude2 | NO |
+| R-D11 | D | Operational settings for step 4: A85.2-4 (QoS, step-2 outputs on the internal SSD, sleep assertion) cover step 2 only; the calibration work dir is ... | Claude2 | NO |
+| R-D12 | D | Coordinate-spec preconditions still marked OPEN: PC-1 (filled by the adoption), PC-5 (partial), PC-7 (FD noise floor by a repeat call at the anchor... | Claude2 | PARTIAL (PC-1) |
+| R-D13 | D | Discrete alternative ORIGINAL_K is "MARKED FOR EVALUATION BEFORE FREEZE" in the coordinate spec: the freeze writer refuses unless its evaluation on... | Claude2 | NO |
+| R-D14 | D | A82: root entries for steps 4-7 go into a new V006 addendum once the V005 file is frozen; none exists yet. | Claude2 | NO |
+
+Items most likely to delay step 4 (RECOMMENDATION, judged from the dependency chain): R-A3 (case-block binding; it can also stop the V007 verdict), R-C1 (LO producer successor and certificate admission: no point is admissible today), R-A2/R-B3 (the seal-tuple successor review), R-B4/R-B5 (no campaign run entry; the per-call acceptance loop), and R-A5/R-D7 (caps and scheduling that today would stop calls at 8 h and cut waves at 48 h).
+
+## A. Pins the V007 outcome fills (root transcribes or registers them)
+
+### R-A1
+- **What:** Write the step-4 config successor from the sealed ADOPT_TAIL: numerics.{verdict_artifact, block_source, compare, sealed_prereg, adopted_result, source_results} and numerics.block := the C4T spec numerics exactly.
+- **Owner:** Claude2 (root)
+- **Filled by the V007 adoption:** YES (all values come from the V007 outcome; root transcribes)
+- **Evidence:** adoption policy `adoption_policy_cx2v006r7.py` 7c726fa2 L37-40 (V007_SEALED_ADOPT_TAIL_PENDING), L90-91 (block == C4T numerics); config `RUN_CONFIG_DDO154_CX2V006R9_P128_MS128.json` 721c7230: these numerics fields are null and source_results is [] (TESTED); TESTED: the r5 C4T FILLED spec `C4T_P128_MS128_R5_CX1V004.FILLED.json` de6d7d77 equals the current block outside the two certificate slots
+- **Recommended disposition:** RECOMMENDATION: prepare the successor config now as a template whose only differences from r9 are these six fields, the block, and the R-A4/R-C1/R-C2/R-D4 fields; fill it at the verdict and check it by key diff.
+- **Label:** FORMAL
+
+### R-A2
+- **What:** Register the V007 seal tuple (compare sha, prereg sha, frozen V005 addendum sha, report schema, verdict sha) in APPROVED_V007_SEALS. The shipped allowlist is empty and the adoption policy is byte-pinned by the core, which the wrapper byte-pins, so this needs an immutable policy successor plus core and wrapper successors.
+- **Owner:** Claude2 + distinct reviewer; natural builder Codex2 (author of v006r9)
+- **Filled by the V007 adoption:** YES (the tuple values, including the verdict sha, exist only after the verdict)
+- **Evidence:** adoption policy `adoption_policy_cx2v006r7.py` 7c726fa2 L9-12 (empty frozenset), L60-62; core `calibration_core_cx2v006r9.py` a595c5c0 L200-203 pins the policy sha; wrapper `calibration_orchestrator_cx2v006r9.py` 24abe3bc L27 pins the core sha; 0540 F1 (fifth tuple element = verdict report sha) `0540_2026-10-18_codex2_v006r7_review_fixes_and_deciding_iii_spec.md` 801d47fd
+- **Recommended disposition:** RECOMMENDATION: build and review the successor now with the allowlist as a single placeholder line; after the verdict, insert the tuple and verify the change by line diff (the RI-27 pattern used for the sealed compare), so no full review sits after the seal.
+- **Label:** TESTED (empty allowlist in bytes) / FORMAL
+
+### R-A3
+- **What:** V007 case-block binding. The adoption policy requires sealed_prereg.binding_inputs.case_block == report.case_block, and the r11 compare in sealed mode refuses with CASE_BLOCK_ABSENT unless the prereg carries binding_inputs.case_block. The prereg text of record r4 has no case_block key anywhere and no seal slot for it, and no production case block (schema UNT_KMAX_TAIL_V007_CASE_BLOCK_C2V003) was found in the launch packet or the prereg folders; only test fixtures exist.
+- **Owner:** Claude2 at seal assembly; prereg author Claude4 (0583/0584); compare owner Codex3 (r12)
+- **Filled by the V007 adoption:** MUST BE IN the sealed prereg (cross-lane; gates both the V007 verdict and step 4)
+- **Evidence:** prereg `KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R4.json` e3b6b5b2: key walk finds no case_block key, and neither binding_inputs nor seal_slots has one (TESTED: work/CASE_BLOCK_CHECK_C4V001.json 84d6b674); compare `kmax_tail_compare_c2v007_r11.py` a5d10cb1 L5689-5697 (FORMAL); adoption policy `adoption_policy_cx2v006r7.py` 7c726fa2 L74-77 (FORMAL); FIELDS `FIELDS_R11.md` c7f0dec6 section 4
+- **Recommended disposition:** RECOMMENDATION: treat as BLOCKING for the seal. Add a case-block slot (a registered, target-free case block for the ten T-cases and C5H, accepted by the reviewed compare validate_case_block) through a prereg successor or an RI-26 note that names it, and confirm before the seal that the sealed compare runs in sealed mode with it. If a case block is already planned under another name, record where.
+- **Label:** TESTED (absence) / FORMAL (requirement)
+
+### R-A4
+- **What:** Write the C4-6 adoption derivation (schema DDO154_CALIBRATION_ADOPTION_DERIVATION_C2V005): verdict sha, adopted case C4T and its call spec, base spec, seed spec, capability evidence sha, timing model, monitor-verified source receipts (C4T required), per_call caps and disk guard; plus the wrapper tail bindings driver_sha256, certificate_registry, reading ADOPT_TAIL, compare_sha256, sealed_prereg_sha256.
+- **Owner:** Claude2 (+ distinct reviewer, per r6 ADOPTION_C4_6)
+- **Filled by the V007 adoption:** PARTIAL (verdict, C4T spec, C4T receipt, timing); also needs the capability evidence (S4-CAP runs), the registry and the mapper-built seed spec
+- **Evidence:** v005 `calibration_orchestrator_c2v005.py` c75a889f L1828-1926; wrapper `calibration_orchestrator_cx2v006r9.py` 24abe3bc L183-197; config adoption_derivation null (TESTED)
+- **Recommended disposition:** RECOMMENDATION: write and review a target-free derivation generator now (inputs: verdict pins, C4T receipt, capability evidence, registry, final config); run it after the capability runs.
+- **Label:** FORMAL
+
+### R-A5
+- **What:** Regenerate per-call caps and the disk guard from the measured C4T use (C4-6 refuses caps that are not above the measured use). Today: wall 28,800 s, RSS 64 GiB, output 12 GiB, disk guard 12 GiB per call with measured_per_call_bytes 6,081,118,006 from a tail-OFF anchor run.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** PARTIAL (the C4T receipt supplies the measurement; root sets the caps)
+- **Evidence:** config `RUN_CONFIG_DDO154_CX2V006R9_P128_MS128.json` 721c7230 per_call, disk_guard, production_caps_status UNTESTED_REGENERATE_FROM_TAIL_TIMING (TESTED); V007 plan for C4T: wall 19 h, RSS 28 GiB, output 96 GiB `LAUNCH_PLAN_V010.json` 26f1ebf9 (proposals); TIMING_V003 C4T solo 5.19-8.11 h `TIMING_V003.json` 3e3fb600 (UNTESTED projection)
+- **Recommended disposition:** RECOMMENDATION: wall >= 2x the C4T measured elapsed (the V007 plan used about 2x solo), RSS >= 1.5x the C4T measured peak (A61), output cap >= 1.5x the C4T measured output, disk_guard.per_call_bytes >= the output cap and measured_per_call_bytes = the C4T output; check External1 free space for the engine budget before wave 1 (all outputs are kept).
+- **Label:** TESTED (current values) / UNTESTED (fit)
+
+## B. Driver, successors and launch machinery
+
+### R-B1
+- **What:** Driver of record for step 4. v006r9 accepts only r5 (DRIVER_SHA, config check, hard-coded r5 normalizer, adoption binding of the C4T result driver, point identity, taxonomy). A72/A89: V007 seals on r6 only with no seal delay, else r5; r6 may serve steps 4-5 only after its own identity gates and a later ruling (A89); r7 likewise (A85.1). The r6 BUILD has not landed (no BUILD.md or manifest in driver_r6/).
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** YES for the binding (step-4 driver must equal the V007 driver slot under v006r9)
+- **Evidence:** core `calibration_core_cx2v006r9.py` a595c5c0 L25, L133-135, L237; wrapper `calibration_orchestrator_cx2v006r9.py` 24abe3bc L47-48; adoption policy `adoption_policy_cx2v006r7.py` 7c726fa2 L79, L86; r6 tree: `galaxy_m0_forward_c2v010.py` 24c9f54c, `CASCADE_MAP_R6.json` cd903ade; no BUILD (TESTED listing); A89 in `V005_ADDENDUM_snapshot_1841Z.md` 17cb4fd4; `0601_2026-10-18_all_KHI_measured_r6_no_delay_rule_A89.md` 1f642156
+- **Recommended disposition:** RECOMMENDATION: if the seal names r5 (the A89 default), run step 4 on r5 with no retarget. Consider r6 or r7 for the campaign only by a later ruling after their identity gates and a measured net saving (TIMING_V003 projects 0.50-0.78 h per C4T-like call solo with caching, UNTESTED), and then through one retarget successor (core DRIVER_SHA and normalizer path, taxonomy, certificate producers closure, registry re-key, the (iii) new side or a B0 transfer ruling). If the seal names r6, the retarget is mandatory before step 4.
+- **Label:** FORMAL / TESTED (r6 absence)
+
+### R-B2
+- **What:** Deciding-(iii) comparator successor and review registration. The pair plan and sensitivity policy pin the c2v004-derived comparator, which A68 failed; compute_pair and alternate-D admission refuse while COMPARATOR_A68_REVIEWED is False; REGISTERED_DISTINCT_REVIEW_SHA256 is empty.
+- **Owner:** Claude2; builders Codex2 (policy) and Codex1 (c2v007r2, 0588); cross-lineage reviewer
+- **Filled by the V007 adoption:** NO
+- **Evidence:** sensitivity policy `sensitivity_policy_cx2v006r8_v002.py` 8fb06600 L19-40, L185-198, L200-203; pair plan `DECIDING_III_PAIR_PLAN_CX2V006R7_V002.json` cb42a5a3; c2v004-r5 adapter `run_identity_compare_c2v004_r5_cx2v002.py` 5e79c11e; c2v007 `run_identity_compare_c2v007.py` 06ff52d6; A68, A70, A76, A81 RI-21 (comparator succession), r9 TYPED_BLOCKERS `TYPED_BLOCKERS_CX2V006R9.json` 1198bdef
+- **Recommended disposition:** RECOMMENDATION: one policy successor that re-pins the plan and the policy to the same c2v007-lineage round the V007 identity gates use (A81 RI-21), with an r5 custody adapter, a validate_report for that report schema and check set, COMPARATOR_A68_REVIEWED set only after that round is reviewed, and the per-D review shas registered.
+- **Label:** TESTED (False / empty in bytes) / FORMAL
+
+### R-B3
+- **What:** One consolidated orchestrator successor (v006r10) carrying R-A2, R-B2 and any R-B1 retarget, with a single delta review. Every config change is a new cache id, so the campaign needs a fresh work dir (C4-2).
+- **Owner:** Claude2; builder Codex2; distinct reviewer
+- **Filled by the V007 adoption:** PARTIAL (the tuple line only)
+- **Evidence:** wrapper `calibration_orchestrator_cx2v006r9.py` 24abe3bc L27-30 byte pins; v005 C4-2 `calibration_orchestrator_c2v005.py` c75a889f L59-63
+- **Recommended disposition:** RECOMMENDATION: build it now, leaving only the post-verdict tuple line for after the seal.
+- **Label:** FORMAL
+
+### R-B4
+- **What:** Launch entries. v006r9 exposes only plan and wave; the inherited Orchestrator.run must be the session leader (launch_setsid_c2v005). Root also needs a one-call check for standalone sensitivity specs (review r6 F3).
+- **Owner:** Claude2; builder any lane; distinct review
+- **Filled by the V007 adoption:** NO
+- **Evidence:** wrapper `calibration_orchestrator_cx2v006r9.py` 24abe3bc L333-349; v005 `calibration_orchestrator_c2v005.py` c75a889f L3440-3444; setsid `launch_setsid_c2v005.py` b978f402; review r6 `REVIEW.md` 2d02874e F3, N1
+- **Recommended disposition:** RECOMMENDATION: build a small reviewed entry now (run --new-campaign, resolve retry, reingest, status, and prelaunch-check for standalone specs) that imports the wrapper and runs under launch_setsid_c2v005.
+- **Label:** FORMAL
+
+### R-B5
+- **What:** Post-state certificate loop. Every completed campaign call ingests as INFRA CERTIFICATE_ACCEPTANCE_REFUSED until its TAIL_CERTIFICATE_ACCEPTANCE handoff is written (write_acceptance) and the call is re-ingested (reingest).
+- **Owner:** Claude2 + Codex2 (producers)
+- **Filled by the V007 adoption:** NO
+- **Evidence:** wrapper `calibration_orchestrator_cx2v006r9.py` 24abe3bc L202-222, L265-276, L305-328; review r6 `REVIEW.md` 2d02874e (synthetic world: first ingest halts INFRA; re-ingest; N2)
+- **Recommended disposition:** RECOMMENDATION: write the operating procedure and assign an operator lane; automate producer runs per completed call so a wave does not wait on manual steps.
+- **Label:** FORMAL (TESTED on a synthetic world by review r6)
+
+## C. Science and policy approvals
+
+### R-C1
+- **What:** Per-point certificate admission: certificate_policy_review document, approved_certificate_producers, certificate registry with prelaunch bundles for every tail-ON point; a reviewed LO producer successor (finish() always returns UNAVAILABLE / NOT_ADMITTED) and the distinct cap review (0528 item 2); full per-point EPS/rho tables; one GQ record per point.
+- **Owner:** Claude2 science review; Codex2 producers; distinct reviewer
+- **Filled by the V007 adoption:** NO (but registry keys depend on the adopted block and driver; TESTED stable under r5 for the C4T block)
+- **Evidence:** config tail_readiness: registry None, policy review None, approved producers [] (TESTED); review `REVIEW_CERTS_PER_POINT_C4V001.md` bc211c3a N1, N3; build `BUILD_CERTIFICATES_CX2V001.md` 48a14010; guard `certificate_guard_cx2v003.py` 5f1e49e6; point keys work/POINT_KEYS_C4V001.json
+- **Recommended disposition:** RECOMMENDATION: commission the LO successor and the cap review now; produce the 27 direct-run prelaunch bundles now under r5 (keys listed in the inventory) so certificates do not gate the first step-4 launches; require acceptance certificates for S4-RA and the nine capability runs as well.
+- **Label:** TESTED (config, review text)
+
+### R-C2
+- **What:** u_i carrier declaration. The gate fails until root sets declared_by and basis; ADMISSION_RECTANGLES is not implemented. This item is in the r5/r6/r7 blocker lists but not in r9 TYPED_BLOCKERS.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** PARTIAL (the verdict supplies u_i values; the declaration is root's)
+- **Evidence:** config u_i_carrier: carrier NOT_CARRIED_DECLARED, declared_by None, basis None (TESTED); v005 `calibration_orchestrator_c2v005.py` c75a889f L1797-1826; blockers r6 `TYPED_BLOCKERS_CX2V006R6.json` f147252e, r7 `TYPED_BLOCKERS_CX2V006R7.json` 4cb037a3, r9 `TYPED_BLOCKERS_CX2V006R9.json` 1198bdef; ADOPT_TAIL text "with u_i carried" `kmax_tail_compare_c2v007_r11.py` a5d10cb1 L489
+- **Recommended disposition:** RECOMMENDATION: FROZEN_BANDS_ONLY (u_i carried into the frozen prediction bands, matching "with u_i carried"), declared by Claude2 with the sealed verdict as basis, provided the freeze successor carries it (UNTESTED); otherwise NOT_CARRIED_DECLARED with explicit disclosure.
+- **Label:** TESTED (config) / UNTESTED (freeze support)
+
+### R-C3
+- **What:** Taxonomy approval: the tail-ON taxonomy is a candidate whose classification review is pending, with root judgment calls (R10, R11, R13, R20/R21/R32, R22, R30) and no route-A contraction test declared (R10 then halts as NUMERICS_LIMITED).
+- **Owner:** Claude2 + distinct reviewer
+- **Filled by the V007 adoption:** NO
+- **Evidence:** taxonomy `FAILURE_TAXONOMY_CX2V006R6_CANDIDATE.json` 0ad99c66 (v006_scope_note, judgment_calls_for_root; TESTED); config route_a_contraction_test null (TESTED); blockers r5 `TYPED_BLOCKERS_CX2V006.json` 2adfa813 V007_ADOPTION deciding step
+- **Recommended disposition:** RECOMMENDATION: commission the classification review now and rule the judgment calls before wave 1; keep the contraction test null unless a reviewed rule is supplied (halts are safer than an unreviewed MODEL_INVALID rule).
+- **Label:** TESTED
+
+### R-C4
+- **What:** MODEL_INVALID for tail-ON. resolve --decision invalid is disabled, and cache acceptance needs a FINISHED/COMPLETED receipt and a complete state inventory, so a physically invalid theta halts the campaign with no cache record and a retry repeats it.
+- **Owner:** Claude2 (and a later certified successor)
+- **Filled by the V007 adoption:** NO
+- **Evidence:** wrapper `calibration_orchestrator_cx2v006r9.py` 24abe3bc L95-118, L296-301; r9 TYPED_BLOCKERS ROOT_INVALID_DISABLED_FOR_TAIL_ON `TYPED_BLOCKERS_CX2V006R9.json` 1198bdef
+- **Recommended disposition:** RECOMMENDATION: decide before wave 1. If the nine probe points all complete validly, accept halts for now; otherwise commission a certified MODEL_INVALID rule, stricter where silent, because an invalid label shapes the engine region even though it admits nothing.
+- **Label:** FORMAL
+
+### R-C5
+- **What:** Distinct review per alternate D of the deciding-(iii) evidence, and root registration of each review file sha and registry entry.
+- **Owner:** Claude2 + a distinct-lane reviewer per D
+- **Filled by the V007 adoption:** NO
+- **Evidence:** sensitivity policy `sensitivity_policy_cx2v006r8_v002.py` 8fb06600 L200-237; checker contract `DECIDING_III_CHECKER_CONTRACT_CX2V006R7.json` 47e23974
+- **Recommended disposition:** RECOMMENDATION: assign a reviewer from a lane that did not produce the evidence; register the review sha in the R-B2 successor.
+- **Label:** FORMAL
+
+### R-C6
+- **What:** Register the S1 transfer test that ADOPT_TAIL prescribes: "V005 S1 transfer test at the calibrated point before prediction" (V005 S1: rerun the adopted shape at K=3 and K=4 at the calibrated point). No spec, threshold or reading exists for the tail scheme.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** YES (the next-step text comes with ADOPT_TAIL)
+- **Evidence:** compare `kmax_tail_compare_c2v007_r11.py` a5d10cb1 L489-490; V005 prereg `KMAX_MATRIX_PREREG_V005.json` dbddc02c scope_untested S1
+- **Recommended disposition:** RECOMMENDATION: register it target-free before the campaign result is read: the cases (the adopted C4T configuration and its K=3 analogue at the calibrated reference member), the V005 statistic and thresholds, and the reading; it gates step 5.
+- **Label:** TESTED (text)
+
+### R-C7
+- **What:** Purpose and reading of the 18 alternate-D sensitivity runs. The headline campaign never generates D != 4.04, so nothing in step 4 consumes them; A23 ties them to bounding the D effect on NGC misses.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** 0533 B4-1 `0533_2026-10-18_codex2_orchestrator_v006r6_fixes.md` 9f1ee52a; review r6 `REVIEW.md` 2d02874e F3; A23 in `ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V004_ADDENDUM.md` 487d4449
+- **Recommended disposition:** RECOMMENDATION: register their reading (D-Jacobian bound, disclosure in the freeze and the miss-reading prereg) before they run, schedule them after the headline runs and off the campaign path, or defer them if no reading is registered.
+- **Label:** FORMAL
+
+## D. Run decisions and root-only launches
+
+### R-D1
+- **What:** TAIL_REANCHOR source and certificate slots: a fresh template run; DU-1 (the mapper-built trial capability spec, physical equal to the registered anchor bitwise); or DU-3 (the V007 C4T run, r5 slot only).
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** PARTIAL (DU-3 uses the V007 C4T result)
+- **Evidence:** core `calibration_core_cx2v006r9.py` a595c5c0 L149-157; 0557 N-1 `0557_2026-10-18_codex2_v006r9_numerics_binding.md` 16039954; review r8 `REVIEW.md` ac84d0e1 N-1; TESTED: work/POINT_KEYS_C4V001.json (trial == anchor), C4T spec equality
+- **Recommended disposition:** RECOMMENDATION: DU-1, with root confirming that 0557 N-1 ("not a mapper-built theta") referred to the log/exp seed; fall back to a fresh template run otherwise. DU-3 is admissible by the code but uses the V007 anchor certificates rather than per-point bundles.
+- **Label:** FORMAL / TESTED
+
+### R-D2
+- **What:** Designate the workers_8 row before any launch (DU-2: one headline corner run; or a PC-7 repeat of the reanchor spec).
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** core `calibration_core_cx2v006r9.py` a595c5c0 L128-132, L189-191; review r8 `REVIEW.md` ac84d0e1 S1/S2
+- **Recommended disposition:** RECOMMENDATION: designate one corner in a root entry before launch, so the choice cannot depend on outcomes; for example C000, one of the two low-r / low-ell corners (C000, C100; EPS does not depend on s) where Lane A sampled the EPS maximum.
+- **Label:** FORMAL
+
+### R-D3
+- **What:** Launch the nine headline capability runs and write the capability evidence document (schema DDO154_TAIL_BOX_RUN_CAPABILITY_CX2V006).
+- **Owner:** Claude2 (root-only launch)
+- **Filled by the V007 adoption:** PARTIAL (adopted block, driver slot)
+- **Evidence:** core `calibration_core_cx2v006r9.py` a595c5c0 L313-340; A32 in `ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V004_ADDENDUM.md` 487d4449; review r5 `REVIEW_CALIB_CX2_V006R5_C3V001.md` 8016cad0 B4-2..B4-4 (hull margins)
+- **Recommended disposition:** RECOMMENDATION: launch the nine together right after the seal under the ramp gate (part 3), and write the evidence document only from monitor-verified receipts.
+- **Label:** FORMAL
+
+### R-D4
+- **What:** Write the deciding_test document (schema DDO154_V010R5_DECIDING_CX2V006, two rows) and fill config.anchor {result, receipt, spec_sha256} from S4-RA.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** core `calibration_core_cx2v006r9.py` a595c5c0 L114-197; config anchor result/receipt/spec_sha256 null (TESTED)
+- **Recommended disposition:** RECOMMENDATION: generate both from the receipts by script, with a self-check through check_deciding on a copy of the config before pinning.
+- **Label:** FORMAL
+
+### R-D5
+- **What:** Deciding-(iii) pairs: caps (unspecified), launch timing and evidence production.
+- **Owner:** Claude2 (root-only launch)
+- **Filled by the V007 adoption:** NO
+- **Evidence:** pair plan `DECIDING_III_PAIR_PLAN_CX2V006R7_V002.json` cb42a5a3; checker contract `DECIDING_III_CHECKER_CONTRACT_CX2V006R7.json` 47e23974; A61 F3 in `V005_ADDENDUM_snapshot_1841Z.md` 17cb4fd4
+- **Recommended disposition:** RECOMMENDATION: use the A52/A67 identity-run caps (43,200 s, 16 GiB, 32 GiB; fit UNTESTED); launch when compute permits, which may be before the seal (A61: root launches during calibration prep) but not inside step 2's route-A window (A85.2); produce evidence only after the R-B2 comparator successor exists.
+- **Label:** FORMAL / UNTESTED (caps)
+
+### R-D6
+- **What:** Launch the 18 sensitivity runs only after their D is registered (R-C5) and their reading is registered (R-C7).
+- **Owner:** Claude2 (root-only launch)
+- **Filled by the V007 adoption:** PARTIAL (adopted block)
+- **Evidence:** sensitivity policy `sensitivity_policy_cx2v006r8_v002.py` 8fb06600 L205-237
+- **Recommended disposition:** RECOMMENDATION: as R-C7.
+- **Label:** FORMAL
+
+### R-D7
+- **What:** Campaign scheduling: max_concurrent 1, process_budget 17 (the maximum), per-call weight 8 in route A, campaign_wall_cap_s 172,800 per wave. Six calls at one at a time and up to 8.1 h each exceed 48 h (UNTESTED arithmetic).
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** PARTIAL (C4T peak RSS and elapsed set the safe concurrency)
+- **Evidence:** config `RUN_CONFIG_DDO154_CX2V006R9_P128_MS128.json` 721c7230; v005 call_weights `calibration_orchestrator_c2v005.py` c75a889f L576-586; campaign `campaign_c2v005.py` d35d5d4a L186-230
+- **Recommended disposition:** RECOMMENDATION: max_concurrent 2 (two route-A phases fit the process budget; the stage-aware budget admits more after route A), checked against the measured C4T peak; campaign_wall_cap_s >= wave size x per-call wall cap / concurrency.
+- **Label:** FORMAL / UNTESTED
+
+### R-D8
+- **What:** Caps for the direct runs (reanchor, workers_8, capability, sensitivity), which launch before the C4-6 caps exist.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** PARTIAL
+- **Evidence:** V007 plan C4T caps `LAUNCH_PLAN_V010.json` 26f1ebf9; config per_call `RUN_CONFIG_DDO154_CX2V006R9_P128_MS128.json` 721c7230
+- **Recommended disposition:** RECOMMENDATION: use the V007 C4T plan caps (19 h, 28 GiB, 96 GiB) for the direct runs, then the C4-6 caps once C4T is measured.
+- **Label:** UNTESTED (fit)
+
+### R-D9
+- **What:** Hull-miss contingency. v006 has no bracket recovery and the block must equal the C4T numerics, so a miss under the full hull at a corner or campaign point is a hard stop that needs its own registration (RA4/A43 precedent).
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** core `calibration_core_cx2v006r9.py` a595c5c0 L240-243; adoption policy `adoption_policy_cx2v006r7.py` 7c726fa2 L90-91; review r5 `REVIEW_CALIB_CX2_V006R5_C3V001.md` 8016cad0 hull top margin about 2.5%, column 71 rfs 0.72%
+- **Recommended disposition:** RECOMMENDATION: register the response now: record the miss, stop new launches of that theta, and rule on a registration; never widen ad hoc.
+- **Label:** FORMAL
+
+### R-D10
+- **What:** The engine seed (log/exp theta, about 1e-15 off the anchor) is computed afresh because the anchor alias is disabled; the reanchor and capability runs are not admitted into the cache.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** core `calibration_core_cx2v006r9.py` a595c5c0 L101-102 (R8_ANCHOR_ALIAS_DISABLED); v005 `calibration_orchestrator_c2v005.py` c75a889f L1785-1788
+- **Recommended disposition:** RECOMMENDATION: accept the one extra call (custody stays simple).
+- **Label:** FORMAL
+
+### R-D11
+- **What:** Operational settings for step 4: A85.2-4 (QoS, step-2 outputs on the internal SSD, sleep assertion) cover step 2 only; the calibration work dir is on External1 per the current instructions.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** A85 in `V005_ADDENDUM_snapshot_1841Z.md` 17cb4fd4; config work_dir_identity (External1, VolumeUUID pinned; TESTED)
+- **Recommended disposition:** RECOMMENDATION: apply caffeinate tied to the launcher PID and normal QoS to step-4 root runs, keep the work dir on External1 (mounted), and keep every output.
+- **Label:** TESTED (config) / FORMAL
+
+### R-D12
+- **What:** Coordinate-spec preconditions still marked OPEN: PC-1 (filled by the adoption), PC-5 (partial), PC-7 (FD noise floor by a repeat call at the anchor), PC-9 (route-A iteration != 4 BLOCKED; status under v010 UNTESTED), D3 (superseded by the keep-everything ruling), NGC slots, REVIEW.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** PARTIAL (PC-1)
+- **Evidence:** coordinates `DDO154_COORDINATES_CX2V006.json` 50e7288e preconditions_before_freeze
+- **Recommended disposition:** RECOMMENDATION: state which of these apply to step 4 (PC-7 can be met by the workers_8 option) and which wait for step 6.
+- **Label:** TESTED (spec text)
+
+### R-D13
+- **What:** Discrete alternative ORIGINAL_K is "MARKED FOR EVALUATION BEFORE FREEZE" in the coordinate spec: the freeze writer refuses unless its evaluation on the selected points is supplied, unless root records NOT_EVALUATED_BEFORE_FREEZE before step 5. Whether this still binds under the tail scheme and the current freeze successor is UNTESTED here.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** coordinates `DDO154_COORDINATES_CX2V006.json` 50e7288e discrete_alternatives.alternative_notes.ORIGINAL_K
+- **Recommended disposition:** RECOMMENDATION: decide at the end of step 4 (with the calibrated points known) whether to evaluate it in step 5 or record NOT_EVALUATED_BEFORE_FREEZE; never leave it implicit.
+- **Label:** TESTED (spec text) / UNTESTED (current applicability)
+
+### R-D14
+- **What:** A82: root entries for steps 4-7 go into a new V006 addendum once the V005 file is frozen; none exists yet.
+- **Owner:** Claude2
+- **Filled by the V007 adoption:** NO
+- **Evidence:** A82 in `V005_ADDENDUM_snapshot_1841Z.md` 17cb4fd4; listing of CLAUDE2/ at 18:41Z (TESTED)
+- **Recommended disposition:** RECOMMENDATION: open V006 at the freeze and record the R-* rulings there.
+- **Label:** TESTED
+
+## Traceability to the blocker lists
+
+| blocker code | item(s) |
+|---|---|
+| r9 TAIL_REANCHOR_RESULT_PENDING | R-D1, R-D2, R-D4 |
+| r9 DISTINCT_REVIEW_SHA_NOT_ROOT_REGISTERED | R-B2, R-C5 |
+| r9 COMPARATOR_A68_SUCCESSOR_REQUIRED | R-B2 |
+| r9 ROOT_INVALID_DISABLED_FOR_TAIL_ON | R-C4 |
+| r9 V007_REVIEWED_VERDICT_SEAL_PENDING | R-A1, R-A2, R-A3, R-A4, R-A5 |
+| r9 POINT_CERTIFICATE_SCIENTIFIC_APPROVAL_PENDING | R-C1 |
+| r5/r6/r7 UNCERTAINTY_CARRIER (not in r9) | R-C2 |
+| r5 CORNER_EVIDENCE / r6 HEADLINE_CORNER_CAPABILITY (not in r9) | R-D3 |
+| r7 ALTERNATE_DISTANCE_DECIDING_III_PENDING (not in r9 as a run item) | R-D5 |
+| r7 HEADLINE_DECIDING_RUNS_PENDING / r6 TAIL_DECIDING_RUNS | R-D1, R-D2, R-D4 |
+| r7 ops C4_6_PRODUCTION_TIMING_AND_CAPABILITY_PENDING | R-A4, R-A5 |
+| r5 V007_ADOPTION (taxonomy/certificate policy review) | R-C1, R-C3 |
+| r5 A55_K_BIG | closed by A55 (P = 128) |
+| r7 COORDINATOR_DELTA_REVIEW_PENDING | closed by review_calib_v006r9_c2 (A73) |
+
+Blocker files: r9 1198bdef, r8 feba932d, r7 4cb037a3, r7 ops 86716f3e, r6 f147252e, r5 2adfa813.

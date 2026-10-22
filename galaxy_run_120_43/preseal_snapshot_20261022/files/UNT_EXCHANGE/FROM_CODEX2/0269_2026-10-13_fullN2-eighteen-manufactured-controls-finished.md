@@ -1,0 +1,11 @@
+From: Codex2
+Date (UTC): 2026-10-13T07:58:38.331316+00:00
+Re:root0221;0267/0268
+Supersedes:none
+Action needed:yes — Code3 distinctcontrols source/fullchecker; rootcontrols runtime/release
+
+FINISHED18manufacturedcontinuation/quadrature/refusalcontrols /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/krylov_full_n2_manufactured_controls_v001.py SHA6b39612be734f452b85251feb3fa3c48923bdb1e9773b8c70f0425873a08b46a; closedrootcaller /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/krylov_full_n2_manufactured_controls_root_caller_v001.py SHAaf5cf8db3f04328ccc10d658551d8b1d889f8ec7c616fcabd149ddd298beb915. Fullpins /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/KRYLOV_FULL_N2_MANUFACTURED_CONTROLS_HANDOFF_V001.json; contract /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/KRYLOV_FULL_N2_MANUFACTURED_CONTROLS_CONTRACT_V001.txt. AST/hashonly,noauthornumerics/selfreview.
+
+Actual productionincomingandmathfunctions exercisedbyroot: constant/linear/splitprefixtrapezoid, correlatedaveragedlawstatistics, missingaccumulator; equal/mismatchfullendpointanddisjointaverage; initial/acceptedchain andseven identity/raw/error/read/integral chain refusals. Explicitmanufacturedtoyfixturesnotrealnative/rootacceptances; allfullfixturesand36actualeventsretained. Knownclosedformtargets, no flag-only acceptance.44successfiles,1CPU256MiB60s16MiB/8science, newboundedrole. C179certificatecontrolsretained; thisaddsnewbinding/quadraturecoverage. Independentcompletecontrolcheckerandactualrootruntime/source/storage/wholecustody stillrequired.
+
+CriticalfullN2V002caller0268+helper+controls handedoff. Rootruntime/helperdistinctPASS0268. Resume preservedTO0160 documentaryaudit while awaitingreviewfeedback; TO0163projectionnextfreepriority, TO0162implementationreviewwhenavailable. No launches/reservations orG1physicalinference.

@@ -1,0 +1,324 @@
+{
+ "all_ok": true,
+ "build_call_sites": {
+  "custody": {
+   "present_once": true,
+   "text": "q = custody_codes(chk, obj, slots['driver']['sha256'])"
+  },
+  "inputs_read_by_strict_json": {
+   "present_once": true,
+   "text": "obj = C.strict_json(path)"
+  },
+  "key_map": {
+   "present_once": true,
+   "text": "q = key_map_codes(chk, obj, pt['key_equivalence_map'])"
+  },
+  "new_items": {
+   "present_once": true,
+   "text": "q = new_items_codes(chk, obj, slots['compare_reviewed_source']['sha256'])"
+  }
+ },
+ "c08_completeness": {
+  "r13": {
+   "c08_ids": 19,
+   "dispositions": [
+    "ADOPTED"
+   ],
+   "every_adopted_names_a_test": true,
+   "in_c08_order": true,
+   "items": 17,
+   "missing_from_file": [
+    "NEW-30",
+    "NEW-44"
+   ],
+   "not_in_c08": []
+  },
+  "r14_variant": {
+   "c08_ids": 19,
+   "dispositions": [
+    "ADOPTED"
+   ],
+   "every_adopted_names_a_test": true,
+   "in_c08_order": true,
+   "items": 17,
+   "missing_from_file": [
+    "NEW-30",
+    "NEW-44"
+   ],
+   "not_in_c08": []
+  }
+ },
+ "calls": [
+  {
+   "arg": "<case block map []>",
+   "call": "KEY_MAP_OF_RECORD",
+   "codes": [],
+   "details": [],
+   "exception": null,
+   "expected_codes": [],
+   "function": "key_map_codes",
+   "ok": true,
+   "pins_verified": [],
+   "returned_none": false
+  },
+  {
+   "arg": "<case block map []>",
+   "call": "MUST_FAIL_KEY_MAP_NOT_THE_CASE_BLOCK_MAP",
+   "codes": [
+    "KEY_MAP_NOT_THE_CASE_BLOCK_MAP"
+   ],
+   "details": [
+    "the SEAL_RECORD key map must equal the validated case block's key_equivalence_map (R-10)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "KEY_MAP_NOT_THE_CASE_BLOCK_MAP"
+   ],
+   "function": "key_map_codes",
+   "ok": true,
+   "pins_verified": [],
+   "returned_none": false
+  },
+  {
+   "arg": "<case block map []>",
+   "call": "MUST_FAIL_KEY_MAP_SCHEMA",
+   "codes": [
+    "KEY_MAP_SCHEMA"
+   ],
+   "details": [
+    "keys exactly schema = UNT_V007_SEAL_KEY_EQUIVALENCE_MAP_C4V002, key_equivalence_map (note optional)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "KEY_MAP_SCHEMA"
+   ],
+   "function": "key_map_codes",
+   "ok": true,
+   "pins_verified": [],
+   "returned_none": true
+  },
+  {
+   "arg": "f5adfd11ea7ecc982ba7650944f6a6d69eeff8be690bde6265a18d07d3bb2157",
+   "call": "NEW_ITEMS_OF_RECORD_R13_ON_THE_R13_REVIEWED_SHA",
+   "codes": [],
+   "details": [],
+   "exception": null,
+   "expected_codes": [],
+   "function": "new_items_codes",
+   "ok": true,
+   "pins_verified": [
+    "new_item_dispositions.compare_impl"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "f3f9ba7ec4439933ab88c7623a6ede5b04763b83f0610b1917393362f33c67d7",
+   "call": "NEW_ITEMS_R14_VARIANT_ON_THE_R14_REVIEWED_SHA",
+   "codes": [],
+   "details": [],
+   "exception": null,
+   "expected_codes": [],
+   "function": "new_items_codes",
+   "ok": true,
+   "pins_verified": [
+    "new_item_dispositions.compare_impl"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "f3f9ba7ec4439933ab88c7623a6ede5b04763b83f0610b1917393362f33c67d7",
+   "call": "MUST_FAIL_NEW_ITEMS_R13_FILE_WITH_THE_R14_SLOT",
+   "codes": [
+    "NEW_ITEMS_IMPL_NOT_THE_REVIEWED_SOURCE"
+   ],
+   "details": [
+    "the compare IMPL the list is taken from must name the reviewed source sha in full (A81 RI-20)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "NEW_ITEMS_IMPL_NOT_THE_REVIEWED_SOURCE"
+   ],
+   "function": "new_items_codes",
+   "ok": true,
+   "pins_verified": [
+    "new_item_dispositions.compare_impl"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "f5adfd11ea7ecc982ba7650944f6a6d69eeff8be690bde6265a18d07d3bb2157",
+   "call": "MUST_FAIL_NEW_ITEMS_ADOPTED_WITHOUT_MUST_FAIL",
+   "codes": [
+    "NEW_ITEMS_ADOPTED_WITHOUT_MUST_FAIL"
+   ],
+   "details": [
+    "items[0] NEW-4: an adopted item names its MUST_FAIL tests (A75, A81 RI-20)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "NEW_ITEMS_ADOPTED_WITHOUT_MUST_FAIL"
+   ],
+   "function": "new_items_codes",
+   "ok": true,
+   "pins_verified": [
+    "new_item_dispositions.compare_impl"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "f5adfd11ea7ecc982ba7650944f6a6d69eeff8be690bde6265a18d07d3bb2157",
+   "call": "MUST_FAIL_NEW_ITEMS_DUPLICATE_ID",
+   "codes": [
+    "NEW_ITEMS_DUPLICATE_ID"
+   ],
+   "details": [
+    "items[0] and items[17] carry one id (A71)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "NEW_ITEMS_DUPLICATE_ID"
+   ],
+   "function": "new_items_codes",
+   "ok": true,
+   "pins_verified": [
+    "new_item_dispositions.compare_impl"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "call": "CUSTODY_SYNTHETIC_ON_THE_DRIVER_SLOT_SHA",
+   "codes": [],
+   "details": [],
+   "exception": null,
+   "expected_codes": [],
+   "function": "custody_codes",
+   "ok": true,
+   "pins_verified": [
+    "raw_successor_custody.evidence[0]",
+    "raw_successor_custody.evidence[1]",
+    "raw_successor_custody.evidence[2]",
+    "raw_successor_custody.evidence[3]",
+    "raw_successor_custody.evidence[4]",
+    "raw_successor_custody.evidence[5]"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "b9ae92d5857951511437cf7632eb732c97b63592ed700e6810941c5f2d8d762b",
+   "call": "MUST_FAIL_CUSTODY_ON_THE_R4_DRIVER_SHA",
+   "codes": [
+    "CUSTODY_DRIVER_NOT_THE_SLOT"
+   ],
+   "details": [
+    "the checked run must be on the driver slot (A67 N1)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "CUSTODY_DRIVER_NOT_THE_SLOT"
+   ],
+   "function": "custody_codes",
+   "ok": true,
+   "pins_verified": [
+    "raw_successor_custody.evidence[0]",
+    "raw_successor_custody.evidence[1]",
+    "raw_successor_custody.evidence[2]",
+    "raw_successor_custody.evidence[3]",
+    "raw_successor_custody.evidence[4]",
+    "raw_successor_custody.evidence[5]"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "call": "MUST_FAIL_CUSTODY_A_STAGE_WITHOUT_ITS_SUCCESSOR",
+   "codes": [
+    "CUSTODY_STAGES"
+   ],
+   "details": [
+    "every stage must run its successor script: stages_successor = stages_total > 0 (A59)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "CUSTODY_STAGES"
+   ],
+   "function": "custody_codes",
+   "ok": true,
+   "pins_verified": [
+    "raw_successor_custody.evidence[0]",
+    "raw_successor_custody.evidence[1]",
+    "raw_successor_custody.evidence[2]",
+    "raw_successor_custody.evidence[3]",
+    "raw_successor_custody.evidence[4]",
+    "raw_successor_custody.evidence[5]"
+   ],
+   "returned_none": false
+  },
+  {
+   "arg": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "call": "MUST_FAIL_CUSTODY_NOT_Z2",
+   "codes": [
+    "CUSTODY_RUN"
+   ],
+   "details": [
+    "the raw successor-custody check is of the Z2 run (A59)"
+   ],
+   "exception": null,
+   "expected_codes": [
+    "CUSTODY_RUN"
+   ],
+   "function": "custody_codes",
+   "ok": true,
+   "pins_verified": [
+    "raw_successor_custody.evidence[0]",
+    "raw_successor_custody.evidence[1]",
+    "raw_successor_custody.evidence[2]",
+    "raw_successor_custody.evidence[3]",
+    "raw_successor_custody.evidence[4]",
+    "raw_successor_custody.evidence[5]"
+   ],
+   "returned_none": false
+  }
+ ],
+ "driver_slot_sha_is_r5_b5cc62af": true,
+ "inputs": {
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_b7_inputs_c4/KEY_EQUIVALENCE_MAP_V007.json": "72a21888eda617638df38ddd64a0e7981bfb6842a9f7f17b8c1a7d4b93e50ec4",
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_b7_inputs_c4/NEW_ITEM_DISPOSITIONS_V007.json": "9a9ee6cf5af0a85523a4111d62fd0e26ef0bc032398219580eb9527bea9f28bc",
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_b7_inputs_c4/NEW_ITEM_DISPOSITIONS_V007_R14_VARIANT.json": "6bd8fa9574e34245266436af88cc40459e0bcd95d606b1630f71e66f6ce9095a",
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_b7_inputs_c4/fixtures/custody_cli_v002/CUSTODY_CLI_PASS.json": "d9ad6da8920c8991c53e4ab3e7a0020aaea791d18faa858e545176cd6326121d"
+ },
+ "loaded": {
+  "CUSTODY_SCHEMA": "UNT_V007_SEAL_RAW_SUCCESSOR_CUSTODY_C4V002",
+  "KEY_MAP_SCHEMA": "UNT_V007_SEAL_KEY_EQUIVALENCE_MAP_C4V002",
+  "NEW_ITEMS_SCHEMA": "UNT_V007_SEAL_NEW_ITEM_DISPOSITIONS_C4V002",
+  "seal_common": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/seal_common_c4v003.py",
+  "tool4": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004/build_seal_record_c4v004.py"
+ },
+ "n_calls": 12,
+ "n_ok": 12,
+ "pins_verified": {
+  "build_seal_record_c4v004.py": {
+   "ok": true,
+   "sha256": "9787cf587ca3e9a92c24587a9c5ea56568b808f53c48acf739eea71b997ceb41"
+  },
+  "check_sealed_compare_c4v003.py": {
+   "ok": true,
+   "sha256": "c2c5dfc5ddba1e44ff82811a38d4c05b0a669f2294b229efe3437623d596f9f1"
+  },
+  "check_slot_fill_c4v003.py": {
+   "ok": true,
+   "sha256": "316973a1abf5aa2151dc1a517733d970ce1004313395d05fe590f82ed439b0af"
+  },
+  "seal_common_c4v003.py": {
+   "ok": true,
+   "sha256": "101a3aeb9846a21c35993e8e7e4b50a8f1206ed4202b131afd12d7e496c5ab21"
+  }
+ },
+ "prereg_r6_driver_slot_candidate": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+  "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+ },
+ "synthetic_custody_only": true,
+ "tool4_checks_completeness_against_c08": false,
+ "tool4_dir": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v004"
+}

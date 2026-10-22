@@ -1,0 +1,107 @@
+{
+ "note": "Verbatim copy of the v003 refuter stage structured result from the Claude4 workflow journal (wf_c5f51992-dfc), written by the Claude4 main loop because the refuter returned its report as a structured result; the stopped fix stage wrote nothing.",
+ "result": {
+  "files": [
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/probes/refute_probes_c4v003r.py",
+    "sha256": "b54e816d9f8f9d305eeae69678958de32550c5a4928eeba01810b6b736c3262a"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe/test_seal_tools_c4v003_with_refuter.py",
+    "sha256": "4a8c5c488885bd5145c898165a1bdaa84516d7f8967fed725a9d3701e7bae559"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe/run_20261019T003722Z/REFUTER_PROBES_C4R001.json",
+    "sha256": "fe0ff1d38133235ca0be6b9c26dbd5213584e361e0614e2278055560fcef22ae"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe/run_20261019T003722Z/TEST_RESULTS_C4V003.json",
+    "sha256": "227a2e49c164d7d3c39adc6867802211a9e9236786b2ff1c95bdcdacad1d4c7d"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/probe_run3.log",
+    "sha256": "b21fa1e80f6101702cfc02a7b0c9ca9dfa1d3e958941fe07aaedd474b314f10d"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests/run_20261019T001635Z/TEST_RESULTS_C4V003.json",
+    "sha256": "5e430c3aa0b05de380099161a9f8c871d45b4329a8fdffc9eeca71cbf4d5e332"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/suite_run1.log",
+    "sha256": "860c820b60e184018ed5d1765d2a8629870048bf5b45fe9554fa49072012803c"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/r2/tests/run_20261019T001635Z/TEST_RESULTS_C4V002.json",
+    "sha256": "ff15a24fdfcd6528e206b30e06d529a63158e633e694d770be9385773bfc459c"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/r2/suite_run1.log",
+    "sha256": "919f5a93c5e6dd64434d6dda65e1e2752f4aa4b7f4cd17208c607d2c92c026ab"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/probes/delta_crosscheck_c4v003r.py",
+    "sha256": "2faacc519c7326a59cd9d10a0b91d53b2f9281c8f8926d4ef4d44b8111b12595"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/probes/DELTA_CROSSCHECK_C4R001.txt",
+    "sha256": "72c6a152da8c0a2b1481308938f74af23756099ae0cd9f8f83486c316d9a68f8"
+   }
+  ],
+  "findings": [
+   {
+    "claim": "Tool 1 compares only '## A<n>:' sections, so frozen-copy bytes outside them are never compared with the read copy. Each of these passes tool 1 with no disposition (TESTED, E1-E7): a later or changed ruling under a near-miss heading ('## A107 :', '## A107.', '##  A107:', '## a107:', '## A107 \u2014'), a '## A62 (correction):' section, or preamble text. It also passes on REAL prereg r6 d28c95f5 with its read copy c01b3c51 (I10, I11, I12: PASS with dispositions_required [] and changed_sections []). Tool 4 builds a SEAL_RECORD when the open V005 holds the same bytes (E8; the open V005 is modelled by a SYNTHETIC r12 copy citing the variant). README L237 and build note B-N2 disclose only the preamble, and only for c01b3c51. For the r6 seal this is not reachable while root enforces A106.3 (frozen copy == c01b3c51, r6 checklist B1): with --expect-frozen-sha c01b3c51 tool 1 refuses FROZEN_SHA_MISMATCH (I10x-I12x), and tool 2 with the real compare ties the frozen sha to the open V005 bytes. But a tool 1 PASS with no dispositions does not show that the frozen copy equals the read copy, and the README's B1 command omits --expect-frozen-sha.",
+    "fix": "In tool 1, remove every '## A<n>:' section from both copies and refuse if the remaining bytes (the preamble and any non-entry '## ' section) differ, for example with NON_ENTRY_BYTES_CHANGED. Alternatively, refuse any '## ' heading line in either copy that is not an entry heading. For the r6 seal now: pass --expect-frozen-sha c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1 at B1, in the README command and in Claude3's script.",
+    "id": "R-01",
+    "reproduction": "cd /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/tests_probe && OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 /Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -I -B ../../tools/run_fenced_c4st2.py test_seal_tools_c4v003_with_refuter.py. Then read probes E1-E8 and I10-I12x in run_*/REFUTER_PROBES_C4R001.json (record: run_20261019T003722Z, fe0ff1d3). Minimal API form: T1.run(r6 JSON, F, None, (), True, None, '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md'), where F is a FROZEN-named copy of c01b3c51 with b'## A107 : <text>\\n\\n' inserted at the start of the '## A106:' line. Result: PASS.",
+    "severity": "SHOULD_FIX"
+   },
+   {
+    "claim": "The 0640 substring test accepts a changed_text with no content. On the suite's C-01 fixture (a substantive edit inside A62), a no_change_after_change row passes with each of these (TESTED): 'Y' (1 byte, the shortest new excerpt; B1), the single character U+00E9 (B2), and the whitespace-only '\\t' for an edit containing a tab (B3). This is the PV-D05-1 class: a nominal disposition of a changed entry. It contradicts three claims: tool 1's header ('so a generic string never passes'), the changed_text_codes docstring, and README L61 ('A generic string never satisfies changed_text'). It also contradicts the premise of 0640. The code follows the literal rule. Not reachable for the r6 seal, where CH is empty (I1, I13, I15).",
+    "fix": "Require changed_text to be non-blank and to contain the whole changed span of the new section: new[p:len(new)-s], where p and s are the common prefix and suffix of the old and new sections (or every inserted or replaced line of a line diff). For a pure deletion, require revised. Alternatively, ask root to rule a minimum. Then correct the three claims.",
+    "id": "R-02",
+    "reproduction": "Same run; probes B1-B3. B4-B6 are controls that refuse as intended. API form: T1.run('<run>/variant_tor_A62_edited.json', '<run>/variant_A62_edited/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM_FROZEN.md', None, dispositions=(F, sha(F)), text_of_record_addendum=RC0). The dispositions file F has rows [A106 no_change, {entry A62, disposition no_change_after_change, changed_text 'Y', why_no_prereg_effect <text>, section_sha256 <frozen A62 section>}]. Result: PASS.",
+    "severity": "SHOULD_FIX"
+   },
+   {
+    "claim": "The check that prereg_revision is not the prereg compares only the resolved path and the sha of the prereg that tool 1 is given. Through tools 3 and 4, that prereg is the SEALED prereg. So a revised row whose prereg_revision pins the TEXT OF RECORD (the same document before the slots are filled) passes tool 3 (D3), and tool 4 builds a SEAL_RECORD carrying it (D4). In tool 1 directly, two copies of the prereg also pass: the prereg plus one trailing newline (D1), and the prereg re-serialized (D2). Any other pinned file is accepted too: the frozen copy, the read copy, the open V005 (D5-D7; Codex1 0093 and README L65 disclose this class). A symlink to the prereg is refused (D8). Not reachable for the r6 seal, which needs no dispositions file. TESTED.",
+    "fix": "Tool 3 passes the text-of-record pin to tool 1 as a forbidden revision. Tool 1 also refuses a revision that parses as JSON whose content equals the prereg's once the seal_slots values are blanked. Optionally, require the revision to be a prereg (schema and revision fields) whose text differs.",
+    "id": "R-03",
+    "reproduction": "Same run; probes D1-D8. Tool 4 form: the suite's base args with a dispositions file whose only row is {entry A106, disposition revised, prereg_revision pin('<run>/KMAX_TAIL_PREREG_V007_R5_STANDIN_C4ST2.json'), reason <text>, section_sha256 <frozen A106 section>}. Result: RECORD_BUILT; the record's prereg is the sealed prereg, and its recorded prereg_revision is the text of record.",
+    "severity": "SHOULD_FIX"
+   },
+   {
+    "claim": "'Non-empty after strip' is implemented with Python's str.strip(), which keeps format and control characters. A reason made only of U+200B, U+FEFF, U+2060, U+0000 or U+00AD passes tool 1 (C1-C5). So does a why_no_prereg_effect made only of U+200B (C7). Tool 4 builds a SEAL_RECORD whose reason is '\u200b' (C8). A reason of NBSP plus U+3000 is refused (C6). Not reachable for the r6 seal. TESTED.",
+    "fix": "nonblank(x) requires at least one character whose unicodedata category does not start with Z or C. Apply the same test to changed_text.",
+    "id": "R-04",
+    "reproduction": "Same run; probes C1-C8. API form: T1.run(<sealed stand-in>, <FROZEN copy>, None, dispositions=(D0 with entries[0].reason = '\u200b', its sha), text_of_record_addendum=RC0). Result: PASS.",
+    "severity": "SHOULD_FIX"
+   },
+   {
+    "claim": "Two simulated races (TESTED). Tool 1 reads the frozen file three times: for its sha, its text and its sections (inherited from r2). Tool 4 pins a fresh sha of the sealed prereg, taken after tools 3 and 1 checked it. F1: the frozen file is swapped to unedited bytes after its first read; tool 1 then passes an undisposed A62 edit while pinning the edited file's sha 059aecea. F2: the sealed prereg is rewritten after tool 3; tool 4 then builds a record pinning prereg c2ca0485, while tool 3 verified 862c08fe. Downstream, both fail closed (FORMAL): the sealed compare refuses any prereg other than its V007_PREREG_SHA256 (r13 L5674-5676), and with the real compare, tool 2 ties the frozen sha to the open V005 bytes (r13 L1241). The dispositions file is already read once and re-verified (TESTED by the suite).",
+    "fix": "Read each input once, and hash, decode and section those same bytes. Tool 4 pins tool 3's verified sealed_prereg {path, sha256} and refuses if a re-hash differs, as DISPOSITIONS_CHANGED_AFTER_CHECK already does for the dispositions file.",
+    "id": "R-05",
+    "reproduction": "Same run. F1 patches Path.read_bytes for the frozen path from the second read on; F1c is the unpatched control, which refuses ENTRY_SECTION_CHANGED. F2 wraps T4.T3.run so that it rewrites the sealed-prereg fixture after returning.",
+    "severity": "NOTE"
+   },
+   {
+    "claim": "A dispositions reason holding the JSON escape \\ud800 parses, and tool 1 passes it (G1). Tool 4 then refuses only with INTERNAL_EXCEPTION:UnicodeEncodeError while serialising the record (G1b). That is fail-closed, but not a typed code. TESTED.",
+    "fix": "strict_json_typed, or the row checks, refuses any string with no UTF-8 form under a typed code.",
+    "id": "R-06",
+    "reproduction": "Same run; probes G1 and G1b.",
+    "severity": "NOTE"
+   },
+   {
+    "claim": "Build note B-N1 says 'r6/ has no prereg JSON yet', and README L36 and L238 say r6 was not published, so running the tools on it is UNTESTED. File times contradict this. r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json (d28c95f5) was written at 2026-10-18T23:36:50Z, before the final suite run (00:08Z) and the README (00:10:20Z). SELECTED_R6_C4V001.json (7200acd9) was written at 00:16:28Z. This refuter has now TESTED v003 on r6 (I1-I17, J1-J2). Tool 1 passes with dispositions_required [], changed_sections [] and later_entries []. Without the dry-run flag it refuses exactly FROZEN_PATH_NOT_PATH_TO_BE. Tool 3 passes on r6x (r6 with one leaf, path_to_be, moved into the run folder, using r13). Tool 4 builds a record on r6x with later_entry_dispositions NOT_SUPPLIED_NONE_REQUIRED and addendum_at_text_of_record c01b3c51. The admission check passes, the real guard v008 admits it, and both W7-S1 configs refuse. On the real r6 bytes, tool 3 refuses exactly FROZEN_SLOT_NOT_PATH_TO_BE and T1:FROZEN_PATH_NOT_PATH_TO_BE.",
+    "fix": "Change README L36 and L238, and the B-N1 note, to say v003 on r6 is TESTED, citing these probes.",
+    "id": "R-07",
+    "reproduction": "TZ=UTC stat -f '%Sm %N' -t '%Y-%m-%dT%H:%M:%SZ' on the two r6 files. Probes I1-I17 and J1-J2 are in REFUTER_PROBES_C4R001.json (fe0ff1d3).",
+    "severity": "NOTE"
+   }
+  ],
+  "stage": "refute",
+  "suite": "Published v003 suite under the fence: 352/352 at refute/v003/tests/run_20261019T001635Z (ENVIRONMENT 1/1, NEW 159/159, NEW_CONTROL 30/30, PORT 90/90, PORT_CHANGED 58/58, REAL_NEW 9/9, REPRO 5/5; every r2 case ported once). It passed 352/352 again inside the completed probe-hooked runs (run 3 of record: tests_probe/run_20261019T003722Z), so the probes left the suite's state intact. r2's suite against r2: 148/148 at refute/r2/tests/run_20261019T001635Z. In every fenced run that printed a summary: fence c993d34c (copied into the refute folder, so the review root is the refute folder), selftest 8/8, probes 15/15, BLOCKED after the selftest []. The open V005 stayed c01b3c51 throughout. TESTED.",
+  "summary": "REFUTE stage. Folder: claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute (new; no stopped run existed). seal_tools_v003 was only read.\n\nMethod (everything TESTED unless labelled):\n- All 13 build files and both tool pins re-hashed and equal the build result. The HASHES manifest re-verifies 442/442 by sha and size, after all my runs.\n- Copies of the six sources, the suite, r2 and the fence were made into the refute folder.\n- Bypass probes ran from a work copy of the suite: the published test plus five lines that call probes/refute_probes_c4v003r.py, which reuses main()'s fixtures. 78 probes; record REFUTER_PROBES_C4R001.json fe0ff1d3.\n\nHolds as specified:\n- Bare names: refused via the tool 4 API string form, the tool 3 empty-name form, tool 1 CLI forms (no value, after '--', '=' empty), tool 4 admission mode and the tool 3 CLI (A1-A7).\n- changed_text spanning the A62/A63 boundary, in another case, or with NBSP for spaces: refused (B4-B6).\n- A prereg_revision symlink to the prereg: refused (D8).\n- Strict-JSON defects (invalid UTF-8, encoded surrogate, escaped duplicate key, trailing data, UTF-32, 1e400): refused with typed codes (G2-G7).\n- Unicode-whitespace reason: refused (C6).\n- REAL r6: tool 1 passes with L u CH empty. C-01 edits at A47, A62, A81 and A106 refuse. Plain no_change on A62 refuses. r5's read copy refuses.\n- On r6x (r6 with one leaf, path_to_be, in the run folder), with r13 and the real case block 76309ae3: tool 3 passes; tool 4 builds a SEAL_RECORD with later_entry_dispositions NOT_SUPPLIED_NONE_REQUIRED; the admission check passes; the real guard v008 admits it; both W7-S1 configs refuse.\n- The real r6 bytes refuse only on the CLAUDE2 path_to_be.\n- B8: v003 is stricter than the guard. A record with duplicate sealed_by keys is refused by v003 and admitted by guard v008 (FORMAL from the guard source, TESTED in J3).\n- The CLAUDE2 control path has no symlink component, so D-10 holds once root creates the frozen copy there.\n- An independent section splitter confirms: r5 CH = [] and L = A102-A106; the r6 read copy equals the closed V005; c01b3c51 has no non-entry headings.\n- V005 stores entries out of numeric order (A47-A77, A106 down to A78, A76, A75, A65). An EOF append therefore changes A65, and tool 1 catches it (E2e, I11e).\n\nRegression (TESTED):\n- Every changed source line against r2 is header, rename, D-05 (0633, 0640, C-01) or B8. Tools 2 and 5 change only header and renames.\n- The DELTA hunk ranges equal difflib opcodes for all six sources, and its reason counts match (DELTA_CROSSCHECK_C4R001.txt).\n- Mutation record: all 78 results files re-hash and fail at least one case. 73 ran 352 cases. Five ran 345 (M54, M55, M58, M59, M66): the genuine build refused and the record-dependent block was skipped. They are still kills.\n- README and DELTA claims agree with the code, except the README claims in R-02 and R-07.\n\nUNTESTED: the real seal; root's frozen copy at CLAUDE2; Claude3's script wiring; whether any reason or revision is adequate; mutants were not re-run, only their records re-verified.\n\nProcess notes:\n- About 00:13Z: one `echo ==========` hit zsh `=` expansion (rule 4). It errored before running and wrote nothing.\n- Probe run 1 stopped on my own assertion (the closed V005 has no final newline), so it printed no fence summary. In run 2, I15 hit a fixture key-map mismatch. Both were fixed; run 3 is the record.\n- The harness captured two lines of background stdout (timestamps and rc) in the session's tasks/ directory, not in the scratchpad. All real output is in the refute folder.\n- At each start-up the fence probes call realpath on non-existent runs_ext and UVT probe paths (FORMAL, as the build disclosed). Nothing else touched runs_ext, C5H, UVT or target data.\n- No launch, no compare run, no --validity-only, no deletes, moves or network. Nothing was written outside the refute folder.",
+  "verdict": "REFUTE: 0 BLOCKING, 4 SHOULD_FIX, 3 NOTE. No bypass reaches the r6 seal path. With prereg r6 d28c95f5, its read copy c01b3c51 and a frozen copy equal to c01b3c51, L u CH is empty and these all pass (TESTED): v003 tools 1, 3 and 4, the admission check and the real guard v008. As specified, these all refuse: bare names by every entry point, PV-D05-1 as fixtured, C-01 (including A47, A62, A81 and A106 edits on r6), a wrong read copy, the strict-JSON defects, B8 and W7-S1. Still, 31 of 78 refuter probes pass where the intent of the D-05 rule says they must not. They group into four SHOULD_FIX findings: frozen-copy bytes outside entry sections are never compared (R-01); a one-character or whitespace changed_text passes (R-02); prereg_revision can point to the prereg itself in another byte form (R-03); a reason made only of invisible characters passes (R-04). R-01 and R-02 contradict published claims. The three NOTEs: a simulated TOCTOU (R-05), an untyped refusal for a lone surrogate (R-06), and stale \"r6 UNTESTED\" claims (R-07)."
+ },
+ "schema": "UNT_C4_WORKFLOW_STAGE_RESULT_COPY_V001"
+}

@@ -1,0 +1,25 @@
+--- postseal_records_cx1v006.py
++++ postseal_records_cx1v006_cx3v001.py
+@@ -36,7 +36,11 @@
+ @entry
+ def loads(raw):
+  def bad(x):raise ValueError('NONFINITE_JSON')
+- return json.loads(raw,object_pairs_hook=pairs,parse_constant=bad)
++ def finite_float(token):
++  value=float(token)
++  if not math.isfinite(value):raise ValueError('NONFINITE_JSON')
++  return value
++ return json.loads(raw,object_pairs_hook=pairs,parse_constant=bad,parse_float=finite_float)
+ 
+ @entry
+ def pin(p):
+@@ -178,7 +182,8 @@
+  for ref in list(man['runs'].values())+body.get('evidence',[])+([man['root_rulings']] if mode=='FLAG_RULINGS' else []):read(ref)
+  for path,digest in list(SNAPSHOTS.items()):
+   if pin(path)['sha256']!=digest:raise ValueError('INPUT_CHANGED_DURING_EXPORT')
++ serialized=json.dumps(G.stamp(rec,__file__),indent=1,allow_nan=False)
+  G.check_run_path(out,allow_registered=False)
+- with open(out,'x') as f:json.dump(G.stamp(rec,__file__),f,indent=1,allow_nan=False)
++ with open(out,'x') as f:f.write(serialized)
+ 
+ if __name__=='__main__':main()

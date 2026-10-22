@@ -1,0 +1,71 @@
+--- ngc3198_source_bundle_adapter_v004.py	2026-10-15 10:21:06.146459144 -0500
++++ ngc3198_source_bundle_adapter_v005.py	2026-10-15 10:26:47.576873015 -0500
+@@ -1,6 +1,7 @@
+-"""INERT candidate source-only bundle adapter V004 for NGC3198 (task 0348; = V003 f22cff00... plus the distinct 0348 review's
+-write-path fixes: guarded post-link checks, read-only candidate mode, absolute reported paths, errno recording, interrupt
+-status. Derived from V002 3e6ca15a..., 0345-A/0346).
++"""INERT candidate source-only bundle adapter V005 for NGC3198 (task 0348; = V004 1a06446c... plus the second 0348 review's
++fixes: the output path is made absolute ONCE, before preflight, so preflight and publication use the identical path;
++post-link steps catch every exception; the reported candidate mode is the actual on-disk mode. Lineage: V003 f22cff00...,
++V002 3e6ca15a..., 0345-A/0346).
+ ROOT runs it after admission; the author has run it only on synthetic fixtures. V003 changes ONLY the write/publication
+ behaviour (CURRENT_INSTRUCTIONS "Do not delete, move"): V002 unlinked its temporary file; V003 never unlinks, moves or
+ overwrites anything. Extraction, allowlists, validation, bundle content and bundle schema label are unchanged from V002.
+@@ -35,13 +36,15 @@
+ exclusive hard link to '<output>' (fails if it exists); the directory is then fsynced and the published file re-read
+ and checked. Candidate and output are two names of the same complete bytes; both paths and hashes are reported.
+ Nothing is ever unlinked, moved or overwritten.
+-V004: every step after the hard link (directory fsync, output re-read, same-file check) is guarded: any failure there is a
+-  PUBLICATION failure that reports output_published true with the output path, never an unexpected exit; the candidate is
+-  created read-only (0444), so neither name can be edited in place; paths are reported absolute; OS errors record errno;
+-  an interrupt prints a FAILED_INTERRUPTED status with its phase (success never claimed).
+-Usage: python3 -I -B ngc3198_source_bundle_adapter_v004.py <new_bundle.json>
++V004/V005: every step after the hard link (directory fsync, output re-read, same-file check) is guarded against ANY
++  exception: a failure there is a PUBLICATION failure that reports output_published true with the output path; the
++  candidate is created with mode 0444 (umask may narrow it; the actual mode is reported), which discourages in-place edits
++  (the owner or root can still change permissions; the reported sha256 is the integrity reference); the output path is
++  made absolute once in main() before preflight and the same path is used throughout; OS errors record errno; an
++  interrupt prints a FAILED_INTERRUPTED status with its phase (success never claimed).
++Usage: python3 -I -B ngc3198_source_bundle_adapter_v005.py <new_bundle.json>
+ """
+-import hashlib,json,math,os,re,sys
++import hashlib,json,math,os,re,stat,sys
+ from pathlib import Path
+ BASE='/Users/bgm/Research/Universal Network Theory/'
+ XW='/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/source_crosswalk_0341/'
+@@ -274,7 +277,7 @@
+ def candidate_path(outp):return outp.with_name(outp.name+'.candidate')
+ def publish(outp,b):
+  """Create, fsync and verify an exclusive candidate, then publish it by exclusive hard link. Never unlinks/moves/overwrites."""
+- outp=Path(os.path.abspath(outp));cand=candidate_path(outp);want=sha(b)
++ cand=candidate_path(outp);want=sha(b)  # outp is already absolute (main)
+  info={'candidate_path':str(cand),'candidate_created':False,'expected_sha256':want,'expected_bytes':len(b),'output_path':str(outp),'output_published':False}
+  try:fd=os.open(cand,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o444)
+  except FileExistsError:raise PublishFail('E_CANDIDATE_EXISTS',info)
+@@ -295,19 +298,21 @@
+   dfd=os.open(str(outp.parent),os.O_RDONLY)
+   try:os.fsync(dfd)
+   finally:os.close(dfd)
+- except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_DIRECTORY_FSYNC',info)
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_DIRECTORY_FSYNC',info)
+  try:ob=outp.read_bytes()
+- except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_OUTPUT_VERIFY',info)
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_OUTPUT_VERIFY',info)
+  info['output_sha256']=sha(ob);info['output_bytes']=len(ob)
+  if ob!=b:raise PublishFail('E_OUTPUT_VERIFY',info)
+  try:same=os.path.samefile(cand,outp)
+  except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_POST_PUBLICATION_CHECK',info)
+  if not same:raise PublishFail('E_OUTPUT_NOT_SAME_FILE',info)
+- return {'candidate':{'path':str(cand),'sha256':info['candidate_sha256'],'bytes':info['candidate_bytes'],'mode':'0444'},'output':{'path':str(outp),'sha256':info['output_sha256'],'bytes':info['output_bytes']},
+-  'same_file':True,'note':'candidate and output are two read-only names of the same complete bytes; neither is ever removed'}
++ try:mode=oct(stat.S_IMODE(os.stat(cand).st_mode))
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_POST_PUBLICATION_CHECK',info)
++ return {'candidate':{'path':str(cand),'sha256':info['candidate_sha256'],'bytes':info['candidate_bytes'],'mode':mode,'mode_requested':'0o444'},'output':{'path':str(outp),'sha256':info['output_sha256'],'bytes':info['output_bytes']},
++  'same_file':True,'note':'candidate and output are two names of the same complete bytes (created read-only); neither is ever removed; the reported sha256 is the integrity reference'}
+ def main(argv):
+  if len(argv)!=2:raise Fail('E_USAGE')
+- outp=Path(argv[1])
++ outp=Path(os.path.abspath(argv[1]))  # made absolute once; preflight and publication use this same path
+  if os.path.lexists(outp):raise Fail('E_OUTPUT_EXISTS')
+  if os.path.lexists(candidate_path(outp)):raise Fail('E_CANDIDATE_EXISTS')
+  m,pm=load('query_manifest');t,pt=load('s1_table');d,pd=load('s2_results');cw,pc=load('crosswalk');cc,pcc=load('crosswalk_correction');lg,plg=load('ledger')

@@ -1,0 +1,266 @@
+{
+ "schema": "ASSEMBLY_SEMANTICS_C2R_V001",
+ "drivers": {
+  "v009": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/driver/galaxy_m0_forward_c2v009.py",
+   "sha256": "237ef3d41daf4d99b0aafed3e90b27b095a741a9f66ea06ea34f3e44876d47bb"
+  },
+  "v010r4": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r4/galaxy_m0_forward_c2v010.py",
+   "sha256": "b9ae92d5857951511437cf7632eb732c97b63592ed700e6810941c5f2d8d762b"
+  },
+  "v011": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/galaxy_m0_forward_c2v011_cx3v003.py",
+   "sha256": "d120eead0e424d5ae0c2e4854377f2808f258646a7fefdaba5c66f105f5e610b"
+  }
+ },
+ "assembly_block_text_equal": {
+  "v009_eq_v010r4": true,
+  "v010r4_eq_v011": true
+ },
+ "cases": [
+  {
+   "case": "all_valid",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": true,
+   "v011_valid": true,
+   "v011_invalid_rows": [],
+   "v011_headline_rule": "N1/A4: rows valid=false (QUERY_INSIDE_INNERMOST_NODE) count as misses; invalid entries never pass; they do not invalidate the call",
+   "v011_reasons": [],
+   "v009_reasons": []
+  },
+  {
+   "case": "gl4_inner_Q01_Q02",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": true,
+   "v011_valid": true,
+   "v011_invalid_rows": [
+    "NGC3198-Q01",
+    "NGC3198-Q02"
+   ],
+   "v011_headline_rule": "N1/A4: rows valid=false (QUERY_INSIDE_INNERMOST_NODE) count as misses; invalid entries never pass; they do not invalidate the call",
+   "v011_reasons": [],
+   "v009_reasons": []
+  },
+  {
+   "case": "outer_cut_Q42_Q43",
+   "intended_v011_difference": true,
+   "differs_v009_v011": true,
+   "differs_v010r4_v011": true,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": true,
+   "v011_invalid_rows": [
+    "NGC3198-Q42",
+    "NGC3198-Q43"
+   ],
+   "v011_headline_rule": "N1/A4: rows valid=false (QUERY_INSIDE_INNERMOST_NODE) count as misses; invalid entries never pass; they do not invalidate the call",
+   "v011_reasons": [],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "inner_plus_outer",
+   "intended_v011_difference": true,
+   "differs_v009_v011": true,
+   "differs_v010r4_v011": true,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": true,
+   "v011_invalid_rows": [
+    "NGC3198-Q01",
+    "NGC3198-Q02",
+    "NGC3198-Q39",
+    "NGC3198-Q40",
+    "NGC3198-Q41",
+    "NGC3198-Q42",
+    "NGC3198-Q43"
+   ],
+   "v011_headline_rule": "N1/A4: rows valid=false (QUERY_INSIDE_INNERMOST_NODE) count as misses; invalid entries never pass; they do not invalidate the call",
+   "v011_reasons": [],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "outer_reason_on_interior_row_Q20_only",
+   "intended_v011_difference": true,
+   "differs_v009_v011": true,
+   "differs_v010r4_v011": true,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": true,
+   "v011_invalid_rows": [
+    "NGC3198-Q20"
+   ],
+   "v011_headline_rule": "N1/A4: rows valid=false (QUERY_INSIDE_INNERMOST_NODE) count as misses; invalid entries never pass; they do not invalidate the call",
+   "v011_reasons": [],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "all_rows_outer_cut",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": false,
+   "v011_invalid_rows": null,
+   "v011_headline_rule": null,
+   "v011_reasons": [
+    "final column mean did not return 43 rows: None"
+   ],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "outer_reason_with_finite_speed",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": false,
+   "v011_invalid_rows": null,
+   "v011_headline_rule": null,
+   "v011_reasons": [
+    "final column mean did not return 43 rows: None"
+   ],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "unregistered_reason",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": false,
+   "v011_invalid_rows": null,
+   "v011_headline_rule": null,
+   "v011_reasons": [
+    "final column mean did not return 43 rows: None"
+   ],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "valid_row_with_outer_reason",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": true,
+   "v011_valid": true,
+   "v011_invalid_rows": [],
+   "v011_headline_rule": "N1/A4: rows valid=false (QUERY_INSIDE_INNERMOST_NODE) count as misses; invalid entries never pass; they do not invalidate the call",
+   "v011_reasons": [],
+   "v009_reasons": []
+  },
+  {
+   "case": "outer_reason_valid_None",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": false,
+   "v011_invalid_rows": null,
+   "v011_headline_rule": null,
+   "v011_reasons": [
+    "final column mean did not return 43 rows: None"
+   ],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "42_rows",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": false,
+   "v011_invalid_rows": null,
+   "v011_headline_rule": null,
+   "v011_reasons": [
+    "final column mean did not return 43 rows: None"
+   ],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "mixed_ids_outer_cut",
+   "intended_v011_difference": false,
+   "differs_v009_v011": false,
+   "differs_v010r4_v011": false,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": false,
+   "v011_invalid_rows": null,
+   "v011_headline_rule": null,
+   "v011_reasons": [
+    "final column mean did not return 43 rows: None"
+   ],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  },
+  {
+   "case": "outer_cut_with_column_failure",
+   "intended_v011_difference": true,
+   "differs_v009_v011": true,
+   "differs_v010r4_v011": true,
+   "differs_v009_v010r4": false,
+   "as_intended": true,
+   "v009_valid": false,
+   "v011_valid": false,
+   "v011_invalid_rows": [
+    "NGC3198-Q42",
+    "NGC3198-Q43"
+   ],
+   "v011_headline_rule": "N1/A4: rows valid=false (QUERY_INSIDE_INNERMOST_NODE) count as misses; invalid entries never pass; they do not invalidate the call",
+   "v011_reasons": [
+    "final pass column failures or nonpositive rotation"
+   ],
+   "v009_reasons": [
+    "final column mean did not return 43 rows: None"
+   ]
+  }
+ ],
+ "all_as_intended": true,
+ "semantic_widening_accepted_by_v011": [
+  "outer_reason_on_interior_row_Q20_only"
+ ],
+ "tool": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_ngc_v011_c2/tools/assembly_semantics_c2r.py",
+  "sha256": "ef31958dffc56af048258bb8a1bec933cefed4d9ecef6b67fab1248daa89b6bf"
+ }
+}

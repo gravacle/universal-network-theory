@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "name": "trio_regression",
+      "passed": true,
+      "return": 0,
+      "detail": ""
+    },
+    {
+      "name": "policy_only_inert_verdict",
+      "passed": true,
+      "return": 0,
+      "detail": ""
+    },
+    {
+      "name": "occupied_output_preserved",
+      "passed": true,
+      "return": "exists",
+      "detail": ""
+    },
+    {
+      "name": "bad_tuple_0",
+      "passed": true,
+      "return": 2,
+      "detail": "REFUSED: C is not the sealed compare (a99105a19b582c68d961e0ee12be3a2efa79dbd1e65d63682c3d2d8daa55f0ab)"
+    },
+    {
+      "name": "bad_tuple_1",
+      "passed": true,
+      "return": 2,
+      "detail": "REFUSED: P is not the sealed prereg / the compare V007_PREREG_SHA256"
+    },
+    {
+      "name": "bad_tuple_2",
+      "passed": true,
+      "return": 2,
+      "detail": "REFUSED: A is not the compare PIN_ADDENDUM_V005 / the cited addendum bytes"
+    },
+    {
+      "name": "bad_tuple_3",
+      "passed": true,
+      "return": 2,
+      "detail": "REFUSED: SCHEMA is not the compare SCHEMA_REPORT ('UNT_KMAX_TAIL_COMPARISON_C2V007_R11')"
+    },
+    {
+      "name": "bad_tuple_4",
+      "passed": true,
+      "return": 2,
+      "detail": "REFUSED: verdict sha must be 64 lowercase hex: 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'"
+    },
+    {
+      "name": "bad_sub",
+      "passed": true,
+      "return": 2,
+      "detail": "REFUSED: SUB must look like v006rNN_c4: '../escape'"
+    },
+    {
+      "name": "short_args",
+      "passed": true,
+      "return": 2,
+      "detail": "REFUSED: usage: OUTDIR SUB (--dry-run|--write) [--policy-only] [--seal-tuple C P A SCHEMA V]"
+    }
+  ],
+  "passed": 10,
+  "total": 10,
+  "generator_sha256": "a7a5fe58d509b99f14cb000305633c6f192ac71f5093f4ec5fa1a2fa6f1a1f35",
+  "synthetic_policy_sha256": "f522e9640d1a781d16060ebf0e1cb70db5072eb6cab21704584b67990fedd137",
+  "diffs": [
+    [
+      "# No final V007 seal has been supplied. A root-reviewed immutable successor",
+      "# The V007 seal tuple below was registered at the A126 finalization, after the V007 verdict. A root-reviewed immutable successor"
+    ],
+    [
+      "APPROVED_V007_SEALS = frozenset()",
+      "APPROVED_V007_SEALS = frozenset({('a99105a19b582c68d961e0ee12be3a2efa79dbd1e65d63682c3d2d8daa55f0ab', 'b2989012c92161a7da3dd10d0148e1607422416d369fc4ebe164217758b5c695', 'c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1', 'UNT_KMAX_TAIL_COMPARISON_C2V007_R11', '0000000000000000000000000000000000000000000000000000000000000000')})"
+    ]
+  ],
+  "scope": "Inert verdict tuple; generator only. No finalized production policy or comparator execution."
+}

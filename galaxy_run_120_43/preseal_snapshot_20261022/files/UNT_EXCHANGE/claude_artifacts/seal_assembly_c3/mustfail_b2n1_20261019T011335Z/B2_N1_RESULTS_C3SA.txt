@@ -1,0 +1,15 @@
+# B2 + N1 MUST_FAIL suites c3v003 (Claude3 0644), helper seal_steps_c3sa_c3v016.py 21f0eb09e927722237459d65cf60eae79d92acf4c6a25bb4340f1519e66d28c0, runner run_pinned_c3sa_c3v003.py 2b040e94a2b74eae981485288471376b86be0784a0a50b59093312c4fd87bf73; contrast old runner run_pinned_c3sa_c3v002.py b57e4859c498bf57e05706dcd83d89db0f14102c33aec7359580c155d924861c
+B2-1 (reproduction) importlib exec_module, stale pyc planted, no prefix: UNPINNED_BYTECODE (expected UNPINNED_BYTECODE)
+B2-2 PASS  helper load_pinned with a stale pyc planted: PINNED_SOURCE
+B2-3 PASS  runner, pinned sibling with a stale pyc: main=PINNED_SOURCE sibling=PINNED_SOURCE
+B2-3t PASS  runner, tool-like main (sys.path insert) + pinned sibling with a stale pyc: main=PINNED_SOURCE sibling=PINNED_SOURCE
+B2-4 PASS  runner, plain main, unpinned sibling: not imported (ModuleNotFoundError: No module named 'synthetic_unpinned')
+B2-4t PASS  runner, tool-like main importing an unpinned sibling: ImportError: UNPINNED_SIBLING_IMPORT_REFUSED synthetic_unpinned (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_b2n1_2026
+B2-5 PASS  third-party importlib under -X pycache_prefix=<empty>: PINNED_SOURCE
+B2-5p PASS  the empty prefix stayed empty
+B2-6 PASS  importlib loader calls in the helper's code (comments excluded): 0
+N1-1 (reproduction) OLD runner, unpinned sibling regular package: IMPORTED SIBPKG_LOADED
+N1-2 (reproduction) OLD runner, unpinned sibling namespace package: IMPORTED NSPKG_MOD_LOADED
+N1-3 PASS  runner, unpinned sibling regular package: ImportError: UNPINNED_SIBLING_IMPORT_REFUSED sibpkg (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_b2n1_20261019T011335Z
+N1-4 PASS  runner, unpinned sibling namespace package: ImportError: UNPINNED_SIBLING_IMPORT_REFUSED nspkg (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_b2n1_20261019T011335Z/
+ALL_OK True

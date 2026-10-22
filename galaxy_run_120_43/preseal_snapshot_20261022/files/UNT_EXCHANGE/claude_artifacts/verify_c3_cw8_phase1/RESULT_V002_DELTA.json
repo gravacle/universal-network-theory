@@ -1,0 +1,49 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0835/0834: cw8 Phase-1 package v002, the v001 -> v002 delta (F1-F3), lead lens",
+ "reviewer_lane": "Claude3 (lead)",
+ "utc": "2026-10-21T13:04:51Z",
+ "object": {
+  "launcher_v002": "phase1_ngc_launch_cx3cw8v002.py 6de0d06a (from v001 04dfc429)",
+  "roster_v002": "roster_builder_c2v007_cx3cw8v002.py a2d8dc00 (from e6102ba1)",
+  "g26_v002": "g26_freeze_cx3cw8v002.py 332253d2 (from e0e31398)",
+  "builder_return": "FROM_CODEX3/0687"
+ },
+ "verdict": "PASS (delta)",
+ "blocking": 0,
+ "scope_note": "This covers only the v001 -> v002 delta. The 0834 lenses on what v002 keeps (worker-role confinement against the bases, selector authentication, custody, RSS/walls/no twin watcher, the integrated chain) are in the v001 review running now. The two together cover v002.",
+ "checked": [
+  {
+   "claim": "Diff confinement (my own top-level AST diff): the launcher changes only TOOL_NAME and next_attempt, phase_disposition, fresh_launch_plan, _commit_plan_check and authenticated_causes; the roster builder only BUILDER_NAME and P112_REVIEWED_SHA(S); G26 only BUILDER_PATH and BUILDER_SHA256",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "F1: the Phase-1 remaining_wall check is removed from next_attempt (v001 L520), fresh_launch_plan (v001 L2710) and the commit check (v001 L2745); the Phase-2 remaining_wall stays the only admission stop, including first admissions after Nov 6",
+   "result": "CONFIRMED",
+   "label": "TESTED (diff) + builder controls re-run"
+  },
+  {
+   "claim": "F2: phase_disposition reads HELD_FOR_FIX and HELD_FOR_CAUSE before the Phase-1 cutoff, so a held call never reads UNEVALUATED",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "F3: authenticated_causes maps every bound model_outcome=false record to None (released, uncounted), whatever its reason; the binding checks before it are unchanged; model outcomes still need model_outcome=true",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "The roster builder accepts only the v002 launcher (P112_REVIEWED_SHAS = {6de0d06a}); cx2v004 8cec1b56 is no longer accepted, per 0835",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "test_0835_F1_F3_cx3v002.py (ec08fbb3), re-run with WORK in claude_artifacts/verify_c3_cw8_phase1/fixtures_lead_v002/: 29/29 pass; all 6 mutants killed (F1 admission, commit and fresh-plan stops returned; F2 hold hidden again; F3 unknown reason held again; Phase-2 stop removed)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  }
+ ],
+ "findings": [],
+ "reads_not_done": "No run trees, run outputs or NGC data; synthetic fixtures only, written under the lane's own fixtures folder."
+}

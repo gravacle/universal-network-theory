@@ -1,0 +1,54 @@
+{
+  "claim_label": "TESTED",
+  "counts": {
+    "additional_rpair_controls": {
+      "passed": 13,
+      "total": 13
+    },
+    "blinding_leaks": 0,
+    "blinding_serialization_cases": 8,
+    "independent_noise_and_adoption_controls": {
+      "passed": 1122,
+      "total": 1122
+    },
+    "raw_reader_cases": 6
+  },
+  "date_u": "Sun Oct 18 12:40:42 UTC 2026",
+  "findings": [
+    {
+      "evidence": "BOUNDARY_RESULTS_CX2V001.json",
+      "id": "CX2-R5-B1",
+      "label": "TESTED",
+      "observed_cases": [
+        "duplicate_early_row",
+        "unknown_early_row",
+        "duplicate_last_row"
+      ],
+      "observed_outcome": "ADOPT_TAIL",
+      "reproducer": "probe_record_boundaries_cx2v002.py",
+      "required_fix": "Validate every raw pass rows list against the registered IDs, each exactly once, with finite numeric speeds before dict conversion; ambiguous duplicate rows must invalidate the record or force unresolved record status.",
+      "severity": "BLOCKING",
+      "source_lines": [
+        853,
+        868,
+        1019,
+        1354,
+        2399
+      ],
+      "title": "Duplicate/unknown pass row IDs silently collapse and can reach ADOPT_TAIL"
+    }
+  ],
+  "limitations": [
+    "Manufactured source/parameter context and gate records; no real scientific case evaluated.",
+    "Gate JSON reads virtualized in memory; raw run reader and inherited V005 adapter separately exercised on new synthetic JSON files.",
+    "Packet validity supplied as synthetic V4/V5 fixtures; no scientific packet computation.",
+    "Author fixture constructors AST-selected without executing their top-level saved-state reads, subprocess CLI or main.",
+    "No complete deployed CLI/sealed campaign test; frozen prereg/addendum/P pins remain pending in reviewed source."
+  ],
+  "reviewed_source": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r5/kmax_tail_compare_c2v007_r5.py",
+    "sha256": "78ac63b7a52a8746e96f390d0d5b46de4aa7ce5eaa27def6e54ef27330ce9755"
+  },
+  "schema": "UNT_CX2_COMPARE_R5_REVIEW_FINDINGS_V001",
+  "verdict": "FAIL"
+}

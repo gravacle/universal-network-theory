@@ -1,0 +1,21 @@
+--- build_c3v004/s4rc1_common_c3v004.py
++++ build_c3v005_c2/s4rc1_common_c3v005.py
+@@ -74,6 +74,9 @@
+     # c3v003 (0696): the A134 Q5 LO slot-proof producer (proof side c3v002), imported by this canonical path (R4).
+     # c3v004 (A138): its erratum successor, proof side c3v003 (V03: wrapper v002's 10-key canonical rho comparison).
+     'lo_slot_proof': (LANE_ROOT + '/proof_side_c3v003/lo_slot_proof_c3v003.py', 'cd10cd59df44d7b79f3c3aa7ba88998d94c7292c4c2656e09bbbe16ded01bca3'),
++    'lo_state_adapter': (LANE_ROOT + '/proof_side_c3v003/lo_state_proof_adapter_c3v003.py', '211a3220f015f8410f81e981f73355d9975d9b738a42a9d1092c28c4ae1c336c'),   # c3v005 (A209): C1 producer 4
++    'srb_rot_adapter': (LANE_ROOT + '/proof_side_c3v003/srb_rot_adapter_c3v003.py', '08e9ac0a12cf1829f79f6df8a82c9ec6a7d174fc4bb25be76d3c049525dfae6a'),   # c3v005 (A209): C1 producer 5
++    'b1_evidence': (ART + '/s4_acceptance_c2/offset_b1/current_source_evidence_b1_c2v001.py', '7044e1310bb0b8cde08f7839b88b949409d15219fb24756f418224a0e7c0ddce'),   # c3v005 (A209): C1 producer 6
+     'config_r9': (ART + '/calib_tail_readiness_cx2/v006r9/RUN_CONFIG_DDO154_CX2V006R9_P128_MS128.json', '721c7230f3f3efde6f8406f13a52995ae321248829ab1ee64a2f522ad5582b8e'),
+     'eps_cert_v006': (ART + '/tail_scheme_impl_c2/certificates_v002/gates/EPS_CERT_V006.json', '598c8fa34dc85113aa99dd3722f6b37f6625149995d7365c8cbd1b796f830192'),
+     'lo_cert_v004': (ART + '/tail_scheme_impl_c2/certificates_v004/gates/LO_CERT_V004_MS128.json', '1c384f763e663d85414f25ef8c02b4291efd88b63353a77961f2e88aca2e204a'),
+@@ -87,7 +90,7 @@
+ # FROM_CODEX/0679 holds LO; a successor adds one only after root rules LO.
+ # c3v003 (0696/0697): A134 ruled LO (Q5): the LO_RHO_SLOT producer, lo_slot_proof_c3v002, is canonical too.
+ # c3v004 (A138): that producer is now lo_slot_proof_c3v003 (the 'lo_slot_proof' pin above).
+-CANONICAL_APPROVED_PRODUCERS = ('eps_adapter', 'gq_producer', 'lo_slot_proof')
++CANONICAL_APPROVED_PRODUCERS = ('eps_adapter', 'gq_producer', 'lo_slot_proof', 'lo_state_adapter', 'srb_rot_adapter', 'b1_evidence')   # c3v005 (A209 ruling 1): the six C1 producers, in C1 order
+ 
+ # The 31 CP-1 points (brief section 3; keys recomputed from spec bytes with the core
+ # a595c5c0 L34-38/L233-238 recipe by the builder at 2026-10-19T07:47Z: all match).

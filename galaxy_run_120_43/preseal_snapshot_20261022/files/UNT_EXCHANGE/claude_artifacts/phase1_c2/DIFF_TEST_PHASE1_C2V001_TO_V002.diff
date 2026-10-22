@@ -1,0 +1,663 @@
+--- test_phase1_c2v001.py	2026-10-19 06:17:18.060641651 -0500
++++ test_phase1_c2v002.py	2026-10-19 08:21:48.059891036 -0500
+@@ -1,15 +1,25 @@
+-"""Tests for phase1_c2v001 (A133 section 5 MUST_FAIL list + MUST_PASS).  SYNTHETIC ONLY.
++"""Tests for phase1_c2v002 (A137 successor of phase1_c2v001: L5 and N-B only).  SYNTHETIC ONLY.
++
++Part 1 (T00-T26): every test of test_phase1_c2v001.py (156f0bef) ported against v002 (A133 section 5 MUST_FAIL list +
++MUST_PASS).  Part 2 (R01): regression -- every CLI call of part 1 is also run with v001 (34eaef36, untouched) on the same
++inputs and into the same out-dir path (v001's directory is moved aside to <out>.V001_SHADOW before v002 runs).  Exit
++codes, stdout and every output file must be byte-identical after substituting v001's value for exactly these fields:
++module, tool_sha256 (tool identity); the engine record's created_utc and the shas that hash it (record_sha256,
++record_file_sha256, registry line_sha256; they differ between any two v001 runs too); for at1 only, the N-B fields
++(outcome, failing, e_q_reading, reported.e_q_per_member_row).  The one v001 fixture whose first non-prefix family is
++not march0 (T10.NOID, m_id = 0 at the 'design' wave) may differ only in prefix_waves and the recorded wave.  Part 3
++(T27-T29): A137 L5 (corner anchor, MUST_PASS and MUST_FAIL) and N-B (e_q member-displacement reading).
+ 
+ Synthetic campaigns are built by the REAL orchestrator c2v005 (Context, Probe, make_plan, _commit_plan, run_wave,
+ ingest, finalise) with its in-process test executor, a toy forward and a synthetic 12-row region, on the real coordinate
+ spec V002 (engine c2v003b), the real addendum V005A (A13: 3 free coordinates) and the real taxonomy V003.  The tool runs
+ through its CLI as root would run it (a subprocess of the campaign interpreter), except where a test injects a fault in
+-process.  Oracle: a direct engine run with the same forward (its primary_anchor and the index of its first 'march' call).
+-No project forward, no NGC3198 data or targets: NGC values are a toy function of u.  Writes only under
+-phase1_c2/test_runs/RUN_<UTC>_<pid>/ (an audit hook refuses any other write, and any open of a path with an 'ngc3198'
+-or 'uvt_' component).
++process.  Oracle: a direct engine run with the same forward (its primary_anchor and the index of its first 'march' call;
++for L5 the first call whose Probe family is outside PREFIX_FAMILIES).  No project forward, no NGC3198 data or targets:
++NGC values are a toy function of u.  Writes only under phase1_c2/test_runs_v002/RUN_<UTC>_<pid>/ (an audit hook refuses
++any other write, and any open of a path with an 'ngc3198' or 'uvt_' component).
+ 
+-usage: <codex python3> -I -B test_phase1_c2v001.py
++usage: <codex python3> -I -B test_phase1_c2v002.py
+ """
+ import os
+ for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS',
+@@ -27,7 +37,9 @@
+ from pathlib import Path
+ 
+ HERE = Path(os.path.dirname(os.path.realpath(__file__)))
+-TOOL = HERE / 'phase1_c2v001.py'
++TOOL = HERE / 'phase1_c2v002.py'
++V001 = (HERE / 'phase1_c2v001.py', '34eaef36586aec77b3436d6bcd96d0a2948aef699d612077e2d6f9f32e4cd99c')
++V001_TESTS = (HERE / 'test_phase1_c2v001.py', '156f0bef3a9962774257f3737eaa61c7d7df26a2d3fdb7ebb5de81847ee83fac')
+ PY = '/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'
+ A133 = ('/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/'
+@@ -40,7 +52,7 @@
+            'sha256': 'ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107'}
+ CAMP_PATH = ART + 'calibration_orchestrator_c2/v005/campaign_c2v005.py'
+ STAMP = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+-RUN = HERE / 'test_runs' / ('RUN_%s_%d' % (STAMP, os.getpid()))
++RUN = HERE / 'test_runs_v002' / ('RUN_%s_%d' % (STAMP, os.getpid()))
+ FIX = RUN / 'fixtures'
+ RESULTS = []
+ Z = 2.865260238532134
+@@ -117,17 +129,24 @@
+             + 0.5 * a[0] ** 2 for r, rad in zip(ROWS, RADII)}
+ 
+ 
+-def forward_factory(invalid=None, const=False):
++def corner_speeds(a, const=False):
++    """SYNTHETIC toy for A137 L5 (Claude3 0191 verifier P7): depends on a0 + a1 only, so m_id = 1 along ~(1, 1, 0)."""
++    return {r: 40.0 + 8.0 * math.sqrt(rad) + (3.0 + 0.5 * rad) * (a[0] + a[1]) for r, rad in zip(ROWS, RADII)}
++
++
++def forward_factory(invalid=None, const=False, speeds=None):
++    sp = speeds or toy_speeds
++
+     def fwd(spec):
+         a = a_of_spec(spec)
+         if invalid is not None and invalid(a):
+             return {'valid': False, 'speeds_km_s': {}, 'reasons': ['TOY_INVALID']}
+-        return {'valid': True, 'speeds_km_s': toy_speeds(a, const), 'reasons': []}
++        return {'valid': True, 'speeds_km_s': sp(a, const), 'reasons': []}
+     return fwd
+ 
+ 
+-def write_region(path, truth, sigma, const=False):
+-    v = toy_speeds(truth, const)
++def write_region(path, truth, sigma, const=False, speeds=None):
++    v = (speeds or toy_speeds)(truth, const)
+     ds = json.loads(Path(SPEC['observation_region']['path']).read_text())['distance_summary']
+     rows = [{'id': r, 'reference_radius_kpc': rad, 'observed_speed_km_s': v[r], 'quoted_random_sigma_km_s': sigma,
+              'conditional_random_acceptance_low_km_s': v[r] - Z * sigma,
+@@ -170,16 +189,16 @@
+ class Camp:
+     """A synthetic campaign driven by the real orchestrator's wave machinery (no gates: in-process test executor)."""
+ 
+-    def __init__(self, tag, truth, sigma, invalid=None, const=False, override=None):
++    def __init__(self, tag, truth, sigma, invalid=None, const=False, override=None, speeds=None):
+         self.dir = RUN / tag
+         self.dir.mkdir(parents=True)
+-        region = write_region(self.dir / 'SYNTHETIC_REGION.json', truth, sigma, const)
++        region = write_region(self.dir / 'SYNTHETIC_REGION.json', truth, sigma, const, speeds)
+         cfg = make_config(self.dir / 'work', region, override)
+         self.cfg = self.dir / 'CONFIG.json'
+         with open(self.cfg, 'x') as fh:
+             json.dump(cfg, fh, indent=1)
+         self.cfg_sha = sha(self.cfg)
+-        self.fwd = forward_factory(invalid, const)
++        self.fwd = forward_factory(invalid, const, speeds)
+         self.ctx = O.Context(str(self.cfg))
+         self.orc = O.Orchestrator(self.ctx, O.InProcessExecutor(self.ctx, self.fwd), log=lambda m: None)
+         self.orc.prepare(create=True, init_work_dir=True)
+@@ -218,6 +237,13 @@
+                 return True
+             self.run_pending()
+ 
++    def peek(self):
++        """The families the probe would plan next (nothing committed); None when the probe is complete."""
++        pr = self.orc.probe.run(self.orc.cache, 'probe')
++        if pr['complete']:
++            return None
++        return sorted(set(tuple(m['family']) for m in self.orc._dedup(pr['misses'])))
++
+     def complete(self):
+         if getattr(self, 'pending', None):
+             self.run_pending()
+@@ -242,9 +268,14 @@
+ 
+ 
+ # ----------------------------------------------------------------------------------------------- tool CLI
+-def tool(*args):
++SHADOW = {'on': True, 'log': []}
++SNAP_RECORD_VOLATILE = ('record_file_sha256', 'record_sha256', 'registry_line_sha256')
++REGISTRY_VOLATILE = ('created_utc', 'record_file_sha256', 'line_sha256')
++
++
++def cli(path, args):
+     env = {k: v for k, v in os.environ.items() if not k.startswith('PYTHON')}
+-    p = subprocess.run([PY, '-I', '-B', str(TOOL)] + [str(x) for x in args], capture_output=True, text=True, env=env)
++    p = subprocess.run([PY, '-I', '-B', str(path)] + [str(x) for x in args], capture_output=True, text=True, env=env)
+     try:
+         out = json.loads(p.stdout)
+     except ValueError:
+@@ -252,6 +283,106 @@
+     return p.returncode, out
+ 
+ 
++def tool(*args):
++    """v002 through its CLI.  While SHADOW is on (part 1), v001 runs first on the same arguments; its out dir is moved
++    aside to <out>.V001_SHADOW, v002 then writes the same path, and the two results are compared (R01)."""
++    args = [str(x) for x in args]
++    if not SHADOW['on']:
++        return cli(TOOL, args)
++    od = args[args.index('--out-dir') + 1] if '--out-dir' in args else None
++    pre = od is not None and os.path.lexists(od)
++    rc1, o1 = cli(V001[0], args)
++    d1 = None
++    if od is not None and not pre and os.path.lexists(od):
++        d1 = od + '.V001_SHADOW'
++        os.rename(od, d1)
++    rc2, o2 = cli(TOOL, args)
++    d2 = od if (od is not None and not pre and os.path.lexists(od)) else None
++    SHADOW['log'].append(shadow_compare(args, rc1, o1, d1, rc2, o2, d2))
++    return rc2, o2
++
++
++def same_bytes(name, raw1, raw2):
++    """(identical after the named substitutions?, substituted fields, L5 non-march0 keys, N-B changed?)"""
++    if raw1 == raw2:
++        return True, [], None, False
++    if name.endswith('.jsonl'):
++        a_, b_ = raw1.split(b'\n'), raw2.split(b'\n')
++        if len(a_) != len(b_):
++            return False, [], None, False
++        rebuilt = []
++        for x, y in zip(a_, b_):
++            if not x or not y:
++                rebuilt.append(y)
++                continue
++            jx, jy = json.loads(x), json.loads(y)
++            for k in REGISTRY_VOLATILE:
++                if k in jx and k in jy:
++                    jy[k] = jx[k]
++            rebuilt.append(E._canonical_bytes(jy))
++        return b'\n'.join(rebuilt) == raw1, list(REGISTRY_VOLATILE), None, False
++    j1, j2 = json.loads(raw1), json.loads(raw2)
++    if name.startswith('PHASE1_CALIBRATION_RECORD_'):
++        for k in ('created_utc', 'record_sha256'):
++            j2[k] = j1.get(k)
++        return E._canonical_bytes(j2) == raw1, ['created_utc', 'record_sha256'], None, False
++    subst = [k for k in ('module', 'tool_sha256') if k in j1 and k in j2]
++    for k in subst:
++        j2[k] = j1[k]
++    if name == 'SNAPSHOT_C2V001.json' and isinstance(j1.get('record'), dict) and isinstance(j2.get('record'), dict):
++        for k in SNAP_RECORD_VOLATILE:
++            j2['record'][k] = j1['record'].get(k)
++        subst += ['record.' + k for k in SNAP_RECORD_VOLATILE]
++    if 'first_non_prefix_wave' in j2:   # L5: the first non-prefix family is not march0 (outside the identity scope)
++        return False, subst, sorted(k for k in set(j1) | set(j2) if j1.get(k) != j2.get(k)), False
++    nb = False
++    if name == 'AT1_C2V001.json':
++        nb = (j1.get('outcome'), j1.get('failing')) != (j2.get('outcome'), j2.get('failing'))
++        if nb:
++            p1 = set((x['log_index'], x['id']) for x in j1.get('failing') or [])
++            p2 = set((x['log_index'], x['id']) for x in j2.get('failing') or [])
++            nb = {'outcome': [j1.get('outcome'), j2.get('outcome')], 'n_failing': [len(p1), len(p2)],
++                  'only_v001': len(p1 - p2), 'only_v002': len(p2 - p1)}
++        j2['outcome'], j2['failing'] = j1.get('outcome'), j1.get('failing')
++        j2.pop('e_q_reading', None)
++        (j2.get('reported') or {}).pop('e_q_per_member_row', None)
++        subst += ['N-B: outcome, failing, e_q_reading, reported.e_q_per_member_row']
++    return P.jbytes(j2) == raw1, subst, None, nb
++
++
++def shadow_compare(args, rc1, o1, d1, rc2, o2, d2):
++    cmd = args[0] + (' ' + args[1] if args[0] == 'agree' and len(args) > 1 else '')
++    r = {'cmd': cmd, 'out': d2 or d1, 'rc': [rc1, rc2], 'diffs': [], 'subst': [], 'l5_non_march0': None,
++         'nb_changed': False}
++    if rc1 != rc2:
++        r['diffs'].append('exit code %s != %s' % (rc1, rc2))
++    s1, s2 = dict(o1), dict(o2)
++    for s in (s1, s2):
++        if isinstance(s.get('files'), dict):
++            s['files'] = sorted(s['files'])
++    if cmd == 'agree at1':
++        for k in ('outcome', 'n_failing'):
++            if k in s1 and s1.get(k) != s2.get(k):
++                r['nb_changed'] = True
++                s2[k] = s1[k]
++    if s1 != s2:
++        r['diffs'].append('stdout %s != %s' % (json.dumps(s1)[:300], json.dumps(s2)[:300]))
++    n1 = sorted(os.listdir(d1)) if d1 else []
++    n2 = sorted(os.listdir(d2)) if d2 else []
++    if n1 != n2:
++        r['diffs'].append('files %s != %s' % (n1, n2))
++    for name in sorted(set(n1) & set(n2)):
++        ok, subst, l5, nb = same_bytes(name, (Path(d1) / name).read_bytes(), (Path(d2) / name).read_bytes())
++        r['subst'] = sorted(set(r['subst']) | set(subst))
++        if nb:
++            r['nb_changed'] = nb
++        if l5 is not None:
++            r['l5_non_march0'] = {'file': name, 'differing_keys': l5}
++        elif not ok:
++            r['diffs'].append('%s differs beyond the named fields' % name)
++    return r
++
++
+ def snap(c, name):
+     out = RUN / ('SNAP_' + name)
+     rc, o = tool('snapshot', '--config', c.cfg, '--config-sha256', c.cfg_sha, '--out-dir', out)
+@@ -287,6 +418,9 @@
+           and SPEC['engine_parameters']['rel_step'] == 0.05 and SPEC['engine_parameters']['min_step'] == 0.005
+           and SPEC['engine_parameters']['hull_growth_tol'] == 0.02 and SPEC['engine_parameters']['max_repair_step'] == 0.25)
+     check('T00.pins_from_bytes_and_registered_parameters', ok, {'a133': A133[1][:16], 'engine': P.ENGINE_PIN[1][:16]})
++    check('T00.v001_tool_and_tests_untouched', sha(V001[0]) == V001[1] and sha(V001_TESTS[0]) == V001_TESTS[1] and
++          P.MODULE == 'phase1_c2v002' and P.PREFIX_FAMILIES == ('seed', 'jacobian', 'repair', 'gd_pre'),
++          {'v001': sha(V001[0])[:16], 'v001_tests': sha(V001_TESTS[0])[:16]})
+ 
+ 
+ def scenario_checks(tag, c, o_rc, o, out, orc_):
+@@ -891,6 +1025,7 @@
+     check('T21.agree_at1_COVERED (constant NGC toy, AT-0 PASS)', rcb == 0 and rc1 == 0 and doc.get('outcome') == 'COVERED',
+           {'at0b_rc': rcb, 'rc': rc1, 'outcome': doc.get('outcome'), 'reason': o1.get('reason')})
+     rcb, rc1, o1, doc, l1 = pair('quad', 'Q1')
++    S['at1_q1'] = (doc, l1, FIX / 'MEMBERS_Q1.json', run2)
+     import numpy as np
+     _d, rec = rec_of(out)
+     L = P.linear_model(E, rec['run'])
+@@ -1017,11 +1152,377 @@
+           rc == 10 and any('S0' in f for f in o.get('failures') or []), o.get('failures'))
+ 
+ 
++# ----------------------------------------------------------------------------------------------- R01 (regression)
++def r01_regression(S):
++    """Every part-1 CLI call ran under v001 and v002 on identical inputs into the same out-dir path."""
++    groups = {}
++    for r in SHADOW['log']:
++        groups.setdefault(r['cmd'], []).append(r)
++    for cmd in ('snapshot', 'fdplan', 'handoff', 'band', 'agree at0a', 'agree at0b', 'agree at1'):
++        rs = groups.get(cmd, [])
++        bad = [r for r in rs if r['diffs'] or (r['l5_non_march0'] and cmd != 'snapshot')]
++        ident = [r for r in rs if not r['diffs'] and r['l5_non_march0'] is None]
++        check('R01.regression_v001_shadow_%s_byte_identical_except_named_fields' % cmd.replace(' ', '_'),
++              bool(rs) and not bad,
++              {'calls': len(rs), 'identical': len(ident), 'exit_codes': sorted(set(r['rc'][1] for r in rs)),
++               'substituted_fields': sorted(set(f for r in rs for f in r['subst'])),
++               'at1_nb_changed_outcome_or_failing': [(os.path.basename(r['out'] or ''), r['nb_changed'])
++                                                      for r in rs if r['nb_changed']],
++               'bad': [(r['out'], r['diffs'][:2]) for r in bad][:4]})
++    other = sorted(set(groups) - {'snapshot', 'fdplan', 'handoff', 'band', 'agree at0a', 'agree at0b', 'agree at1'})
++    l5 = [r for r in SHADOW['log'] if r['l5_non_march0']]
++    ok = not other and len(l5) == 1 and l5[0]['out'].endswith('/SNAP_NOID') and \
++        set(l5[0]['l5_non_march0']['differing_keys']) == {'b_p1_rule', 'first_non_prefix_wave', 'prefix_waves'}
++    det = {'other_commands': other, 'l5_calls': [(r['out'], r['l5_non_march0']) for r in l5]}
++    if ok:
++        j1 = json.loads((Path(l5[0]['out'] + '.V001_SHADOW') / 'SNAPSHOT_C2V001.json').read_text())
++        j2 = json.loads((Path(l5[0]['out']) / 'SNAPSHOT_C2V001.json').read_text())
++        w0 = j2['first_non_prefix_wave']['wave']
++        ok = ([p for p in j1['prefix_waves'] if p['wave'] < w0] == j2['prefix_waves'] and j1['march0_wave'] is None
++              and j2['march0_wave'] is None and j2['first_non_prefix_wave']['families'] == [['design']] and
++              j2['phase1_status'] == j1['phase1_status'] == 'NO_IDENTIFIED_DIRECTION')
++        det.update(v001_prefix_waves=[p['wave'] for p in j1['prefix_waves']],
++                   v002_prefix_waves=[p['wave'] for p in j2['prefix_waves']], recorded_wave=w0)
++    check('R01.only_the_NOID_fixture_has_a_non_march0_first_non_prefix_family_and_differs_only_in_prefix_waves_and_the_'
++          'recorded_wave', ok, det)
++
++
++# ----------------------------------------------------------------------------------------------- L5 (A137; 0191 L5)
++def family_oracle(c):
++    """Direct engine run with the campaign forward, every call classified by the orchestrator's own Probe.context."""
++    probe = O.Probe(c.ctx)
++    fams = []
++
++    def fwd(theta):
++        f = sys._getframe(1)
++        fams.append((f.f_locals['entry']['index'], probe.context(f)['family'][0]))
++        return c.fwd(c.ctx.mapper.build(theta)['spec'])
++    run = c.ctx.E.run_calibration_region(forward=fwd, **c.ctx.run_kwargs())   # the engine instance the Probe reads
++    first = next((i for i, fm in fams if fm not in P.PREFIX_FAMILIES), None)
++    return {'first_non_prefix_index': first, 'first_non_prefix_family': dict(fams).get(first), 'families': fams,
++            'n_calls_before': sum(1 for i, _f in fams if first is not None and i < first), 'run': run,
++            'primary': (run.get('exploration') or {}).get('primary_anchor')}
++
++
++def band_cli_on(snap_dir, fd_path, vals, tag):
++    seal_p = FIX / 'SYNTHETIC_R3A_SEAL.json'
++    if not seal_p.exists():
++        seal_p.write_text('{"synthetic_seal": true}')
++    rc, o = tool('band', '--snapshot', snap_dir, '--snapshot-sha256', snap_sha(snap_dir), '--fdplan', fd_path,
++                 '--fdplan-sha256', sha(fd_path), '--values', vals, '--values-sha256', sha(vals), '--seal-path', seal_p,
++                 '--seal-sha256', sha(seal_p), '--out-dir', RUN / ('L1_' + tag))
++    return rc, o, RUN / ('L1_' + tag)
++
++
++def at0a_cli(c, snap_dir, s0, tag):
++    return tool('agree', 'at0a', '--snapshot', snap_dir, '--snapshot-sha256', snap_sha(snap_dir), '--config', c.cfg,
++                '--config-sha256', c.cfg_sha, '--s0', s0, '--s0-sha256', sha(s0), '--out-dir', RUN / ('AT0A_' + tag))
++
++
++def t27_corner(S):
++    """MUST_PASS (A137 L5; Claude3 0191 L5): corner seed u = (1, 0, 0.5), both round-0 march sides closed at a box
++    face, the campaign plans design then lp and never march0.  B_P1 = the calls before the 'design' family."""
++    c = Camp('CORNER', (1.0, -1.0, 0.0), 1.0, override={'u_seed': [1.0, 0.0, 0.5]}, speeds=corner_speeds)
++    S['corner'] = c
++    fams = []
++    while True:
++        nxt = c.peek()
++        if nxt is None or P.non_prefix_families(nxt):
++            break
++        fams.append(c.step())
++    rc, o, out = snap(c, 'CORNER_BEFORE_PLAN')
++    check('T27.MUST_FAIL_corner_B_P1_reached_but_the_first_non_prefix_wave_plan_not_written_NOT_READY',
++          rc == 4 and not out.exists() and 'first non-prefix-family WAVE_PLAN' in o.get('reason', ''), o.get('reason'))
++    fams.append(c.step(execute=False))
++    orc_ = family_oracle(c)
++    run = orc_['run']
++    causes = (run.get('exploration') or {}).get('boundary_cause') or {}
++    names = [f for _i, f in orc_['families']]
++    first = orc_['first_non_prefix_index']
++    log = run['evaluation_log']
++    check('T27.corner_fixture_round0_sides_closed_at_a_face_no_march0_waves_seed_jac_jac_design (oracle)',
++          fams == [[['seed']], [['jacobian']], [['jacobian']], [['design']]] and 'march0' not in names and
++          bool(causes) and all(v == 'COMPUTATIONAL_BOX_FACE_NO_EVALUATION' for x in causes.values() for v in x.values())
++          and orc_['first_non_prefix_family'] == 'design' and 'lp' in names and log[first]['purpose'] == 'global_design'
++          and run['exploration']['global_design']['run_before_march'] is False,
++          {'waves': fams, 'causes': causes, 'first_non_prefix': [first, orc_['first_non_prefix_family']],
++           'm_id': len(run['identifiability']['identified']), 'families_after': sorted(set(names[first:]))})
++    rcv, ov = cli(V001[0], ['snapshot', '--config', c.cfg, '--config-sha256', c.cfg_sha, '--out-dir',
++                            RUN / 'SNAP_CORNER_V001'])
++    check('T27.v001_refuses_the_corner_REPLAY_STOPPED_FAMILY_design_BEFORE_MARCH0 (0191 L5 reproduced)',
++          rcv == 3 and 'FAMILY_design_BEFORE_MARCH0' in ov.get('reason', '') and not (RUN / 'SNAP_CORNER_V001').exists(),
++          ov.get('reason'))
++    t0 = c.tree()
++    rc, o, out = snap(c, 'CORNER')
++    ok = rc == 0
++    det = {'rc': rc, 'reason': o.get('reason'), 'oracle_first_non_prefix': first, 'oracle_calls_before': orc_['n_calls_before']}
++    if ok:
++        d, rec = rec_of(out)
++        r1 = rec['run']
++        pa = r1['exploration']['primary_anchor']
++        v = E.verify_calibration_record(record_path=str(out / d['record']['file']),
++                                        registry_path=str(out / d['record']['registry_file']))
++        ok = (d['b_p1'] == first == orc_['n_calls_before'] == 5 and d['march0_wave'] is None and
++              d['first_non_prefix_wave']['wave'] == 4 and d['first_non_prefix_wave']['families'] == [['design']] and
++              d['boundary_call'] == {'log_index': 5, 'family': ['design'], 'stage_reached': 'global_design'} and
++              d['b_p1_rule'] == P.B_P1_RULE and [p['wave'] for p in d['prefix_waves']] == [1, 2, 3] and
++              r1['evaluation_log'] == log[:5] and rec['status'] == 'BUDGET_EXHAUSTED' and v['ok'] and
++              r1['exploration']['stage_reached'] == 'global_design' and
++              pa['log_index'] == orc_['primary']['log_index'] and pa['u'] == orc_['primary']['u'] and
++              [x['family'][0] for x in d['prefix_calls']] == names[:5] and c.tree() == t0)
++        det.update(b_p1=d['b_p1'], boundary_call=d['boundary_call'], u_A=[pa['log_index'], pa['source'], pa['u']],
++                   v003g_role=d['v003g_anchor_check']['role'])
++        S['corner_snap'] = out
++    check('T27.MUST_PASS_corner_snapshot_B_P1_is_the_calls_before_design_equal_to_the_Probe_family_oracle', ok, det)
++    rc0, o0 = tool('fdplan', '--s0-only', '--config', c.cfg, '--config-sha256', c.cfg_sha, '--out-dir', RUN / 'S0_CORNER')
++    S['corner_s0'] = RUN / 'S0_CORNER' / 'S0_C2V001.json'
++    rcf, of = tool('fdplan', '--config', c.cfg, '--config-sha256', c.cfg_sha, '--snapshot', out, '--snapshot-sha256',
++                   snap_sha(out), '--interior-count', 6, '--out-dir', RUN / 'FD_CORNER')
++    fdp = RUN / 'FD_CORNER' / 'FDPLAN_C2V001.json'
++    fd = json.loads(fdp.read_text()) if rcf == 0 else {}
++    check('T27.MUST_PASS_corner_fdplan_S0_and_F (face sides minus/plus/plus, F from the record when u_A is the seed)',
++          rc0 == 0 and rcf == 0 and [f['side'] for f in fd['F']] == ['minus', 'plus', 'plus'] and
++          (fd['u_A']['source'] != 'seed' or all('record_log_index' in f for f in fd['F'])),
++          {'rc': [rc0, rcf], 'sides': [f['side'] for f in fd.get('F') or []], 'source': (fd.get('u_A') or {}).get('source'),
++           'n_distinct': fd.get('n_distinct_calls'), 'reason': of.get('reason')})
++    S['corner_fd'] = fdp
++    rc, o = at0a_cli(c, out, S['corner_s0'], 'CORNER')
++    check('T27.MUST_PASS_corner_at0a_PASS (next requested thetas = the committed design plan)',
++          rc == 0 and o.get('failures') == [], {'rc': rc, 'failures': o.get('failures'), 'reason': o.get('reason')})
++    S['corner_at0a'] = RUN / 'AT0A_CORNER' / 'AT0A_C2V001.json'
++    pp, rp = provenance_fixture(c, out, 'CORNER')
++    rc, o, o_ = handoff(c, out, pp, rp, 'CORNER')
++    d, _rec = rec_of(out)
++    check('T27.MUST_PASS_corner_handoff (export, 10-field handoffs, u_A a member)',
++          rc == 0 and d['u_A']['log_index'] in (o.get('members') or []), {'rc': rc, 'members': o.get('members'),
++                                                                           'reason': o.get('reason')})
++    vals = values_file(FIX / 'VALUES_CORNER.json', fd, 'linear')
++    rc, o, l1d = band_cli_on(out, fdp, vals, 'CORNER')
++    l1 = json.loads((l1d / 'L1_C2V001.json').read_text()) if rc == 0 else {}
++    check('T27.MUST_PASS_corner_band_L1_written', rc == 0 and l1.get('n_available', 0) > 0,
++          {'rc': rc, 'n_available': l1.get('n_available'), 'reason': o.get('reason')})
++    # the whole campaign runs on (design, lp, ...); the snapshot and AT-0a do not move
++    final = c.complete()
++    rc, o, out2 = snap(c, 'CORNER_AFTER_COMPLETION')
++    d2 = rec_of(out2)[0] if rc == 0 else {}
++    check('T27.MUST_PASS_corner_snapshot_after_campaign_completion_equals_early_snapshot',
++          rc == 0 and all(d2.get(k) == d.get(k) for k in ('b_p1', 'u_A', 'boundary_call', 'first_non_prefix_wave',
++                                                           'prefix_calls', 'prefix_waves')) and
++          d2['replay']['run_canonical_sha256'] == d['replay']['run_canonical_sha256'],
++          {'rc': rc, 'reason': o.get('reason'), 'final_status': (final or {}).get('status')})
++    rc, o = at0a_cli(c, out, S['corner_s0'], 'CORNER_AFTER_COMPLETION')
++    check('T27.MUST_PASS_corner_at0a_still_PASS_after_campaign_completion', rc == 0 and o.get('failures') == [],
++          o.get('failures'))
++    rec2 = final['record']
++    run2 = json.loads(Path(rec2['record_path']).read_text())['run']
++    sel2 = P.v003g_members(c.ctx, run2, 6)
++    u1 = {p['role']: p for p in json.loads(vals.read_text())['points']}
++    pts = []
++    for m in sel2['points']:
++        if m['log_index'] == fd['u_A']['log_index']:
++            rp_ = u1['u_A']['result_pin']
++        else:
++            rf = FIX / ('CORNER_M%04d.json' % m['log_index'])
++            rf.write_text(json.dumps({'synthetic_toy_result': True, 'log_index': m['log_index']}))
++            rp_ = pin(rf)
++        pts.append({'role': 'member', 'log_index': m['log_index'], 'theta_key': O.theta_key(m['theta_natural']),
++                    'member_valid': True, 'result_pin': rp_, 'valid': [True] * 43, 'speeds_km_s': ngc_toy(m['u'], 'linear')})
++    mp = FIX / 'MEMBERS_CORNER.json'
++    mp.write_text(json.dumps({'schema': P.S_VALUES, 'query_ids': QIDS, 'points': pts}, indent=1))
++    rcb, ob = tool('agree', 'at0b', '--snapshot', out, '--snapshot-sha256', snap_sha(out), '--phase2-record',
++                   rec2['record_path'], '--phase2-record-sha256', rec2['record_file_sha256'], '--phase2-registry',
++                   rec2['registry_path'], '--values', vals, '--values-sha256', sha(vals), '--members', mp,
++                   '--members-sha256', sha(mp), '--out-dir', RUN / 'AT0B_CORNER')
++    a0b = RUN / 'AT0B_CORNER' / 'AT0B_C2V001.json'
++    l1p = l1d / 'L1_C2V001.json'
++    rc1, o1 = tool('agree', 'at1', '--snapshot', out, '--snapshot-sha256', snap_sha(out), '--l1', l1p, '--l1-sha256',
++                   sha(l1p), '--fdplan', fdp, '--fdplan-sha256', sha(fdp), '--at0a', S['corner_at0a'], '--at0a-sha256',
++                   sha(S['corner_at0a']), '--at0b', a0b, '--at0b-sha256', sha(a0b), '--phase2-record',
++                   rec2['record_path'], '--phase2-record-sha256', rec2['record_file_sha256'], '--phase2-registry',
++                   rec2['registry_path'], '--members', mp, '--members-sha256', sha(mp), '--config', c.cfg,
++                   '--config-sha256', c.cfg_sha, '--interior-count', 6, '--out-dir', RUN / 'AT1_CORNER')
++    check('T27.MUST_PASS_corner_at0b_PASS_and_at1_outcome_is_not_AGREEMENT_DEFECT (linear NGC toy)',
++          rcb == 0 and ob.get('failures') == [] and rc1 == 0 and o1.get('outcome') in ('COVERED', 'SUPERSEDED'),
++          {'at0b': [rcb, ob.get('failures'), ob.get('reason')], 'at1': [rc1, o1.get('outcome'), o1.get('n_failing'),
++                                                                         o1.get('reason')]})
++
++
++def t28_corner_must_fail(S):
++    """MUST_FAIL (A137 L5): a non-prefix family appearing before the recorded boundary."""
++    c, out = S['corner'], S['corner_snap']
++    d, rec = rec_of(out)
++    b, st = d['b_p1'], d['boundary_call']['stage_reached']
++    cp = campaign_of(c)
++    _w0, _waves, entries = cp.prefix()
++    try:
++        cp.snapshot_run(entries, b + 1, st)
++        res = 'NO_REFUSAL'
++    except P.Refused as exc:
++        res = str(exc)
++    check('T28.MUST_FAIL_replay_to_a_claimed_B_P1_plus_1_meets_design_before_it_refused',
++          res.startswith('B_P1_WRONG') and "('FIRST_NON_PREFIX_design', %d)" % b in res, res)
++    ok, code = refused(lambda: cp.snapshot_run(entries, b - 1, st), 'B_P1_WRONG')
++    check('T28.MUST_FAIL_corner_B_P1_minus_1_refused', ok, code)
++    # a self-consistent forged snapshot claiming B_P1 + 1: its record (a direct engine run at budget B_P1 + 1) holds the
++    # design call at log index B_P1, i.e. a non-prefix family before the recorded boundary
++    fx = RUN / 'SNAP_FORGED_CORNER_BP1_PLUS_1'
++    fx.mkdir()
++    run6 = E.run_calibration_region(forward=lambda th: c.fwd(c.ctx.mapper.build(th)['spec']),
++                                    **dict(c.ctx.run_kwargs(), budget=b + 1))
++    w6 = E.write_calibration_record(run=run6, record_path=str(fx / 'REC.json'), registry_path=str(fx / 'REG.jsonl'))
++    d6 = copy.deepcopy(d)
++    d6['b_p1'] = b + 1
++    d6['boundary_call']['log_index'] = b + 1
++    d6['record'].update(file='REC.json', registry_file='REG.jsonl', record_file_sha256=w6['record_file_sha256'])
++    d6['replay']['run_canonical_sha256'] = hashlib.sha256(E._canonical_bytes(run6)).hexdigest()
++    (fx / 'SNAPSHOT_C2V001.json').write_text(json.dumps(d6, indent=1))
++    try:
++        P.load_snapshot(str(fx), sha(fx / 'SNAPSHOT_C2V001.json'))
++        loads = 'LOADS'
++    except P.Refused as exc:
++        loads = exc.code
++    pp, rp_ = provenance_fixture(c, out, 'FORGED_CORNER')
++    rc, o, o_ = handoff(c, fx, pp, rp_, 'FORGED_CORNER')
++    reason = o.get('reason', '')
++    check('T28.MUST_FAIL_non_prefix_family_before_the_recorded_boundary_handoff_refused (self-consistent B_P1+1 record)',
++          w6.get('ok') and run6['evaluation_log'][b]['purpose'] == 'global_design' and rc == 3 and not o_.exists() and
++          'B_P1_WRONG' in reason and 'FIRST_NON_PREFIX_design' in reason,
++          {'load_snapshot': loads, 'rc': rc, 'reason': reason[:200]})
++    rc, o = at0a_cli(c, fx, S['corner_s0'], 'FORGED_CORNER')
++    check('T28.MUST_FAIL_non_prefix_family_before_the_recorded_boundary_at0a_AGREEMENT_DEFECT',
++          rc == 10 and any(f.startswith('B_P1 B_P1 %d != snapshot %d' % (b, b + 1)) for f in o.get('failures') or []),
++          o.get('failures'))
++    # the corner record presented in the v001 (march0) form, and a doc carrying both forms
++    m0w = {'wave': 4, 'plan_sha256': d['first_non_prefix_wave']['plan_sha256']}
++
++    def as_march0_form(x):
++        for k in ('first_non_prefix_wave', 'boundary_call', 'b_p1_rule'):
++            x.pop(k)
++        x['march0_wave'] = dict(m0w)
++
++    def both_forms(x):
++        x['march0_wave'] = dict(m0w)
++    for tag, mutate, code in (('AS_MARCH0_FORM', as_march0_form, 'B_P1_WRONG'), ('BOTH_FORMS', both_forms, 'SNAPSHOT')):
++        fxm = RUN / ('SNAP_CORNER_' + tag)
++        fxm.mkdir()
++        for f in (d['record']['file'], d['record']['registry_file']):
++            (fxm / f).write_bytes((Path(out) / f).read_bytes())
++        dm = copy.deepcopy(d)
++        mutate(dm)
++        (fxm / 'SNAPSHOT_C2V001.json').write_text(json.dumps(dm, indent=1))
++        ok, got = refused(lambda: P.load_snapshot(str(fxm), sha(fxm / 'SNAPSHOT_C2V001.json')), code)
++        check('T28.MUST_FAIL_corner_snapshot_%s_refused' % tag, ok, got)
++    # a prefix wave plan edited to carry a non-prefix family (the jacobian wave 3 now plans ['lp', 1])
++    wp = c.orc.waves_dir / 'wave_0003' / 'WAVE_PLAN.json'
++    plan = json.loads(wp.read_text())
++    plan['families'] = [['lp', 1]]
++    for cl in plan['calls']:
++        cl['family'] = ['lp', 1]
++    os.chmod(wp, 0o644)
++    wp.write_text(json.dumps(plan, indent=1, sort_keys=True))
++    rc, o = at0a_cli(c, out, S['corner_s0'], 'CORNER_TAMPERED')
++    check('T28.MUST_FAIL_non_prefix_family_wave_below_the_recorded_boundary_wave_at0a_AGREEMENT_DEFECT',
++          rc == 10 and bool(o.get('failures')), o.get('failures'))
++    pp2, rp2 = provenance_fixture(c, out, 'CORNER_TAMPERED')
++    rc, o, o_ = handoff(c, out, pp2, rp2, 'CORNER_TAMPERED')
++    check('T28.MUST_FAIL_non_prefix_family_wave_below_the_recorded_boundary_wave_handoff_PREFIX_MISMATCH',
++          rc == 3 and not o_.exists() and 'PREFIX_MISMATCH' in o.get('reason', '') and
++          'now wave 3, recorded 4' in o.get('reason', ''), o.get('reason'))
++    rc, o, out3 = snap(c, 'CORNER_TAMPERED')
++    check('T28.MUST_FAIL_snapshot_on_the_edited_prefix_writes_nothing', rc in (3, 4) and not out3.exists(),
++          {'rc': rc, 'reason': o.get('reason')})
++
++
++# ----------------------------------------------------------------------------------------------- N-B (A137; 0191 N-B)
++def t29_nb(S):
++    import numpy as np
++    P1 = load(V001[0], 'phase1_v001_reference')   # v001's at1_rows, for the flip comparison only
++    _d, rec = rec_of(S['seed_snap'])
++    L = P.linear_model(E, rec['run'])
++    fd = json.loads(Path(S['seed_fd']).read_text())
++    h = np.array([abs(f['du']) for f in fd['F']])
++    VN = L['V'][L['N']] if L['N'] else np.zeros((0, 3))
++    v0 = L['V'][L['I'][0]]
++    r = 0.25 / math.sqrt(len(L['I']))
++    # Claude3 0191 verifier P8: eps exaggerated to 1 km/s so the noise term is visible; row q = 0
++    vd = json.loads(Path(S['vals1']).read_text())
++    for p in vd['points']:
++        p['eps_km_s'] = [1.0] * 43
++    rows, _m = P.band_rows(E, L, vd, fd['F'])
++    l1 = {'rows': rows, 'fd_du': [f['du'] for f in fd['F']]}
++    q, b = 0, rows[0]
++    qid = vd['query_ids'][q]
++    res = {}
++    for name, t in (('far_member_t_3r', 3.0 * r), ('near_member_t_1e-4', 1e-4)):
++        u = list(L['uA'] + t * v0)
++        D = np.array(u) - L['uA']
++        n = VN @ D
++        shift = float(np.array(b['K_q']) @ (VN.T @ n)) if len(n) else 0.0
++        e_v001 = max(b['fd_noise']['lo'], b['fd_noise']['hi']) + float(np.sum(2 * b['eps_q'] * np.abs(VN.T @ n) / h))
++        e_mem = float(np.sum(2 * b['eps_q'] * np.abs(D) / h))
++        hi_v001, hi_mem = b['hi'] + b['a_q'] + e_v001 + shift, b['hi'] + b['a_q'] + e_mem + shift
++        g = 0.5 * (hi_v001 + hi_mem)   # between the two upper limits
++        pts = [{'log_index': 7, 'u': u, 'prediction': {'speeds_km_s': {rr: float(x) for rr, x in zip(L['rows'], L['fA'])}}}]
++        mv = {7: {'valid': [True] * 43, 'speeds_km_s': [g if j == q else rows[j].get('g_A', 150.0) for j in range(43)]}}
++        run2 = {'exploration': {'admitted_points': pts}}
++        f1, _r1 = P1.at1_rows(E, L, l1, run2, mv, vd['query_ids'])
++        f2, r2 = P.at1_rows(E, L, l1, run2, mv, vd['query_ids'])
++        eq = [x['e_q'] for x in r2['e_q_per_member_row'] if x['log_index'] == 7 and x['id'] == qid]
++        res[name] = {'e_v001_band_optimum': e_v001, 'e_member_displacement': e_mem, 'g': g,
++                     'v001_fails_row': any(x['id'] == qid for x in f1), 'v002_fails_row': any(x['id'] == qid for x in f2),
++                     'v002_reported_e_q': eq}
++    far, near = res['far_member_t_3r'], res['near_member_t_1e-4']
++    ok = (far['v001_fails_row'] and not far['v002_fails_row'] and not near['v001_fails_row'] and near['v002_fails_row']
++          and all(len(x['v002_reported_e_q']) == 1 and abs(x['v002_reported_e_q'][0] - x['e_member_displacement']) <=
++                  1e-12 * max(1.0, x['e_member_displacement']) for x in res.values()))
++    check('T29.N-B_exaggerated_eps_both_flip_directions_follow_the_member_displacement_reading (0191 verifier P8)',
++          ok, res)
++    # FD_NOISE_NOT_BOUNDED where eps is unavailable (T16's values: eps None on row 7)
++    vd2 = json.loads(Path(S['vals1']).read_text())
++    rows2, _m2 = P.band_rows(E, L, vd2, fd['F'])
++    q7 = vd2['query_ids'][7]
++    u = list(L['uA'] + 1e-4 * v0)
++    mv = {8: {'valid': [True] * 43, 'speeds_km_s': [(rows2[7]['hi'] + 1000.0) if j == 7 else rows2[j].get('g_A', 150.0)
++                                                    for j in range(43)]}}
++    pts = [{'log_index': 8, 'u': u, 'prediction': {'speeds_km_s': {rr: float(x) for rr, x in zip(L['rows'], L['fA'])}}}]
++    f2, r2 = P.at1_rows(E, L, {'rows': rows2, 'fd_du': [f['du'] for f in fd['F']]},
++                        {'exploration': {'admitted_points': pts}}, mv, vd2['query_ids'])
++    e7 = [x['e_q'] for x in r2['e_q_per_member_row'] if x['id'] == q7]
++    fl = [x for x in f2 if x['id'] == q7]
++    others = [x['e_q'] for x in r2['e_q_per_member_row'] if x['id'] != q7]
++    check('T29.N-B_FD_NOISE_NOT_BOUNDED_where_eps_is_unavailable (per member and row; the failing entry is flagged)',
++          rows2[7].get('fd_noise') == 'FD_NOISE_NOT_BOUNDED' and e7 == ['FD_NOISE_NOT_BOUNDED'] and len(fl) == 1 and
++          fl[0]['flag'] == 'FD_NOISE_NOT_BOUNDED' and q7 in r2['rows_fd_noise_not_bounded'] and len(others) > 0 and
++          all(isinstance(x, float) for x in others), {'e_q_row7': e7, 'failing_row7': fl})
++    # the CLI at1 of record (T22, nonlinear toy): e_q per (member, row) equals an independent sum
++    doc, l1p, _mp, run2 = S['at1_q1']
++    l1d = json.loads(Path(l1p).read_text())
++    rows1 = {x['id']: x for x in l1d['rows']}
++    uA = np.array(fd['u_A']['u'])
++    upos = {p['log_index']: np.array(p['u']) for p in run2['exploration']['admitted_points']}
++    eqs = (doc.get('reported') or {}).get('e_q_per_member_row') or []
++    bad = []
++    for x in eqs:
++        rr = rows1[x['id']]
++        if isinstance(rr.get('fd_noise'), dict):
++            want = sum(2.0 * rr['eps_q'] * abs(float(upos[x['log_index']][k] - uA[k])) / float(h[k]) for k in range(3))
++            if not isinstance(x['e_q'], float) or abs(x['e_q'] - want) > 1e-12 * max(1.0, want):
++                bad.append((x['log_index'], x['id'], x['e_q'], want))
++        elif x['e_q'] != 'FD_NOISE_NOT_BOUNDED':
++            bad.append((x['log_index'], x['id'], x['e_q'], 'FD_NOISE_NOT_BOUNDED'))
++    pairs = sorted((x['log_index'], x['id']) for x in eqs)
++    resid = sorted((x['log_index'], x['id']) for x in (doc.get('reported') or {}).get('ngc_linearity_residuals') or [])
++    check('T29.at1_CLI_reports_e_q_per_member_and_row_equal_to_an_independent_member_displacement_sum (T22 Q1)',
++          doc.get('e_q_reading') == P.E_Q_READING and pairs == resid and len(eqs) > 0 and not bad,
++          {'n_pairs': len(eqs), 'bad': bad[:4], 'outcome': doc.get('outcome')})
++
++
+ def main():
+     RUN.mkdir(parents=True)
+     FIX.mkdir()
+     sys.addaudithook(_audit)
+     S = {}
++    # part 1: the v001 tests, ported; every CLI call is shadow-run with v001 (R01)
+     guard('T00', t00_pins)
+     guard('T01', lambda: t01_seed(S))
+     guard('T03', lambda: t03_s0_fd(S))
+@@ -1040,11 +1541,24 @@
+     guard('T25', lambda: t25_categories(S))
+     guard('T26', lambda: t26_snapshot_race_free(S))
+     guard('T24', lambda: t24_at0a_tamper(S))
++    n_ported = len(RESULTS)
++    # part 2: regression against v001
++    SHADOW['on'] = False
++    with open(RUN / 'SHADOW_REGRESSION_V001_V002.json', 'x') as fh:
++        json.dump(SHADOW['log'], fh, indent=1, default=str)
++    guard('R01', lambda: r01_regression(S))
++    # part 3: A137 L5 and N-B
++    guard('T27', lambda: t27_corner(S))
++    guard('T28', lambda: t28_corner_must_fail(S))
++    guard('T29', lambda: t29_nb(S))
+     n_pass = sum(1 for r in RESULTS if r['pass'])
+     summary = {'run_dir': str(RUN), 'n': len(RESULTS), 'pass': n_pass, 'fail': len(RESULTS) - n_pass,
++               'n_ported_part1': n_ported, 'n_new': len(RESULTS) - n_ported,
++               'shadow_cli_calls': len(SHADOW['log']),
+                'must_fail': sum(1 for r in RESULTS if 'MUST_FAIL' in r['id']),
+                'must_fail_pass': sum(1 for r in RESULTS if 'MUST_FAIL' in r['id'] and r['pass']),
+-               'audit_denied': AUDIT['denied'], 'tool_sha256': sha(TOOL), 'test_sha256': sha(__file__)}
++               'audit_denied': AUDIT['denied'], 'tool_sha256': sha(TOOL), 'test_sha256': sha(__file__),
++               'v001_sha256': sha(V001[0])}
+     with open(RUN / 'RESULTS.json', 'x') as fh:
+         json.dump({'summary': summary, 'results': RESULTS}, fh, indent=1, default=str)
+     print(json.dumps(summary, indent=1))

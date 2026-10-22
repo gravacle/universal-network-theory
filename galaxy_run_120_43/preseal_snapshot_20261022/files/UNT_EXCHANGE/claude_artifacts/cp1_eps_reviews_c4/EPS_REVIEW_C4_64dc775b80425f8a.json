@@ -1,0 +1,31 @@
+{
+  "schema": "UNT_POINT_EPS_REVIEW_CX2V001",
+  "verdict": "APPROVED",
+  "numeric_ref": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/cp1_run_c3v004b/P02_64dc775b80425f8a_HEADLINE_CORNER_000_a1/EPS_NUMERIC_64dc775b80425f8a.json",
+    "sha256": "8b68f2ec8c5f2f676d10f22a5cf7df3110a6d601d517976f74dc74eff1fc965b"
+  },
+  "point_sha256": "64dc775b80425f8a890e4b23aa985922b19bfe9512456ebf51b0207b4e2eba80",
+  "custody_sha256": "c0b20cc73bd20d01814904a81c1699112715e68723dd6db6921ee0f99969822c",
+  "adapter_sha256": "4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372",
+  "accepts_registered_numerical_estimate_not_rigorous_sup": true,
+  "reviewer_lane": "Claude4",
+  "distinct_from_producer_lane": true,
+  "reviewed_utc": "2026-10-19T20:24:49Z",
+  "checklist_results": {
+    "E1": "TESTED. point_sha256 64dc775b80425f8a890e4b23aa985922b19bfe9512456ebf51b0207b4e2eba80 is the run key in STAGE_CONTEXT, STAGE_EPS, the record and the request. The custody digest recomputed from the record custody (sha256 of its sorted compact JSON) is c0b20cc73bd20d01814904a81c1699112715e68723dd6db6921ee0f99969822c, equal to STAGE_CONTEXT custody_sha256, and the two custody objects are byte-equal. The producer is point_response_producer_cx2v002.py a1dcdea8deba5bc9667f0ea36d6b94c3cc20fb1d2d95d637cc9e7ea26b478231. FORMAL: membership in the 31-point table rests on the runner check point_sha256_is_key; the table is not among the named files.",
+    "E2": "TESTED. settings registered; full_registered_search_executed true; coverage_complete true; 178 unit shells, contiguous, [4,5] to [181,182]; 14 dense audits.",
+    "E3": "TESTED. registered_discrete_verdict CERTIFIED; every shell certified; refinements in {0,1}. Refinements 1 on 4 shells: [19,20], [88,89], [109,110], [168,169].",
+    "E4": "TESTED. eps >= eps_envelope >= 0 on every shell (eps equals eps_envelope on 178 of 178). eps equals the maximum of its recorded parts on every shell and is >= the dense value on all audited shells. eps_max 0.016393134560794387 is the maximum, on [4,5], as eps_max_shell states.",
+    "E5": "TESTED. dense_over_production over the audits: min 0.9999999999653515, max 1.0000000000042295; each ratio equals dense/production exactly. No under-resolution.",
+    "E6": "TESTED. eps_max 0.016393134560794387 on [4,5]. FLAGGED for root's per-point remainder question (Q10), not rejected. It is about 80 times the anchor's 2.0507e-4 on the same shell and about 26 times the V006 anchor eps_max of 6.4e-4 (on [2,3]). It is consistent with the sampled |1-q| of 0.0125 at corner_00 on [4,5]; this point is HEADLINE_CORNER_000, and a search supremum should lie above a sample (ratio 1.31). The guard applies no magnitude gate to per-point EPS.",
+    "E7": "Not applicable: only the anchor carries ANCHOR_EPS_CROSSCHECK (root 0748); this point is not the anchor.",
+    "E8": "TESTED. STAGE_EPS ok true, with all 9 checks true. Its record pin (path and sha256 8b68f2ec8c5f2f676d10f22a5cf7df3110a6d601d517976f74dc74eff1fc965b) matches EPS_NUMERIC, and record_bytes 427716 equals the file size. Timing (3407 s wall, 2588 s cpu) and peak RSS (661225472 B) are present; they are information only. STAGE_CONTEXT anchor_context PRESENT, source_pins_match_anchor true.",
+    "E9": "TESTED. rigorous_supremum false; limitation: Numerical convention only; independent scientific review/admission remains required. Approved only as the registered numerical convention: the values are search lower bounds on the continuous supremum.",
+    "E10": "TESTED. The reviewer lane is Claude4, a root-approved signer (0747); it is neither the CP-1 operator lane (Claude2) nor the producer author (Codex2). The bindings are copied exactly from EPS_REVIEW_REQUEST 922f79c42f53d47ee46aaee5e47bc36b825002e25976ceb5f3310ce3fd48ee28. adapter_sha256 4de70486120de215838f5ca2b0c9464d52a0edc3d5280dd042d5521d60f1c372 equals the adapter file sha256 from bytes."
+  },
+  "findings": [
+    "NOTE (E6, for root's per-point remainder question, Q10): eps_max 0.0164 on [4,5] at HEADLINE_CORNER_000 is about 80 times the anchor value on the same shell. It is consistent with the sampled |1-q| of 0.0125 at corner_00 on [4,5]. Not rejected on magnitude (checklist E6)."
+  ],
+  "signature": "Claude4, 2026-10-19T20:24:49Z"
+}

@@ -1,0 +1,1330 @@
+{
+ "tool": "lens_semantics_tests_c4v001.py",
+ "utc": "2026-10-19T03:33:43Z",
+ "tag": "v003",
+ "r14_sha256": "f3f9ba7ec4439933ab88c7623a6ede5b04763b83f0610b1917393362f33c67d7",
+ "r13_sha256": "f5adfd11ea7ecc982ba7650944f6a6d69eeff8be690bde6265a18d07d3bb2157",
+ "summary": {
+  "n": 60,
+  "pass": 60,
+  "fail": []
+ },
+ "readings": {
+  "p8_I4_missing": {
+   "outcome": "INCOMPLETE",
+   "subtype": "CASES_OR_RECORDS",
+   "reasons": [
+    "gate record I4 missing"
+   ],
+   "tests_read": false,
+   "next_step": {
+    "I4": "produce the I4 record before the T-tests are read (RA13: gates on real records before the seal)"
+   },
+   "failing_reported": []
+  },
+  "p8_I4_pass": {
+   "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+   "tests_read": true,
+   "failing_reported": []
+  },
+  "p8_I4_fail": {
+   "outcome": "INCOMPLETE",
+   "subtype": "CASES_OR_RECORDS",
+   "reasons": [
+    "I4 FAIL ['VERDICT:I4:FAIL', 'I4_SERIAL_PARALLEL_NOT_BITWISE_EQUAL']: parallel8 route A not licensed"
+   ],
+   "tests_read": false,
+   "next_step": {
+    "I4": "A47 I4 condition not confirmed: every T-case runs serial (route-A mode serial_with_exemption), the declared column_workers exemption returns, and I4 is reported"
+   },
+   "failing_reported": [
+    "I4"
+   ]
+  },
+  "p8_I4_defect": {
+   "outcome": "NO_RUN",
+   "subtype": null,
+   "reasons": [
+    "I4 RECORD_DEFECT ['PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4']"
+   ],
+   "tests_read": false,
+   "next_step": "fix and re-review (B2/B3 failure = IMPLEMENTATION_DEFECT of the gate); a missing gate record: produce it (RA13)",
+   "failing_reported": []
+  },
+  "p8_I4_absent_from_gates_dict": {
+   "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+   "tests_read": true,
+   "failing_reported": []
+  },
+  "ser_I4_missing": {
+   "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+   "tests_read": true,
+   "failing_reported": []
+  },
+  "ser_I4_fail": {
+   "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+   "tests_read": true,
+   "failing_reported": [
+    "I4"
+   ]
+  },
+  "ser_I4_defect": {
+   "outcome": "NO_RUN",
+   "subtype": null,
+   "reasons": [
+    "I4 RECORD_DEFECT ['PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4']"
+   ],
+   "tests_read": false,
+   "next_step": "fix and re-review (B2/B3 failure = IMPLEMENTATION_DEFECT of the gate); a missing gate record: produce it (RA13)",
+   "failing_reported": []
+  },
+  "p8_SR_K_missing": {
+   "outcome": "INCOMPLETE",
+   "subtype": "CASES_OR_RECORDS",
+   "reasons": [
+    "gate record SR_K missing"
+   ],
+   "tests_read": false,
+   "next_step": {
+    "SR_K": "produce the SR_K record before the T-tests are read (RA13: gates on real records before the seal)"
+   },
+   "failing_reported": []
+  },
+  "p8_SR_K_fail": {
+   "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+   "tests_read": true,
+   "failing_reported": [
+    "SR_K"
+   ]
+  },
+  "p8_I4_and_SR_K_missing": {
+   "outcome": "INCOMPLETE",
+   "subtype": "CASES_OR_RECORDS",
+   "reasons": [
+    "gate record SR_K missing",
+    "gate record I4 missing"
+   ],
+   "tests_read": false,
+   "next_step": {
+    "SR_K": "produce the SR_K record before the T-tests are read (RA13: gates on real records before the seal)",
+    "I4": "produce the I4 record before the T-tests are read (RA13: gates on real records before the seal)"
+   },
+   "failing_reported": []
+  }
+ },
+ "results": [
+  {
+   "id": "C0_ALLOWED_SET_R14_IS_R13_PLUS_I4",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": [
+     "SRB_ROT",
+     "RB_FP",
+     "T2I",
+     "EA",
+     "MT",
+     "I1T",
+     "FLAG_RULINGS",
+     "HARMONICS",
+     "SR_K",
+     "I4"
+    ],
+    "r13": [
+     "SRB_ROT",
+     "RB_FP",
+     "T2I",
+     "EA",
+     "MT",
+     "I1T",
+     "FLAG_RULINGS",
+     "HARMONICS",
+     "SR_K"
+    ]
+   }
+  },
+  {
+   "id": "C0_OTHER_GATE_CONSTANTS_UNCHANGED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "all_gates": [
+     "B0",
+     "B0prime_DRY",
+     "B0prime_RERUN",
+     "B0_FA",
+     "B1",
+     "B1_OFF",
+     "B2",
+     "B3",
+     "B0_RO1",
+     "B0_N3",
+     "EPS",
+     "DOUBLING",
+     "GQ",
+     "LO",
+     "I1T",
+     "T2I",
+     "SRB_ROT",
+     "RB_FP",
+     "SR_K",
+     "EA",
+     "I4",
+     "LO_NGC",
+     "MT",
+     "HARMONICS",
+     "FLAG_RULINGS"
+    ],
+    "mode_gates": [
+     "I4"
+    ]
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B0",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B0_FA",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B0_N3",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B0_RO1",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B0prime_RERUN",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B1",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B1_OFF",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B2",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B3",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_EPS",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_GQ",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_LO",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_LO_NGC",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_DOUBLING",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_REFUSED_AT_LOAD_R14_B0prime_DRY",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_TOKEN_ACCEPTED_AT_LOAD_R14_I4",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": {
+     "result": "ACCEPTED",
+     "gate_records": {
+      "I4": "PRODUCED_AFTER_THE_SEAL"
+     }
+    },
+    "r13": "PRODUCER_REGISTRY_GATE_RECORDS"
+   }
+  },
+  {
+   "id": "C1_ACCEPTED_SET_EXACT_R14_EQ_R13_PLUS_I4",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "acc14": [
+     "EA",
+     "FLAG_RULINGS",
+     "HARMONICS",
+     "I1T",
+     "I4",
+     "MT",
+     "RB_FP",
+     "SRB_ROT",
+     "SR_K",
+     "T2I"
+    ],
+    "acc13": [
+     "EA",
+     "FLAG_RULINGS",
+     "HARMONICS",
+     "I1T",
+     "MT",
+     "RB_FP",
+     "SRB_ROT",
+     "SR_K",
+     "T2I"
+    ]
+   }
+  },
+  {
+   "id": "C1_EVERY_TOKEN_SET_GATE_TOGETHER_ACCEPTED_R14",
+   "ok": true,
+   "label": "TESTED",
+   "got": {}
+  },
+  {
+   "id": "C1_I4_TOKEN_PLUS_ANY_REFUSED_GATE_TOKEN_REFUSES_WHOLE_REGISTRY",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "B0": "REFUSED",
+     "B0_FA": "REFUSED",
+     "B0_N3": "REFUSED",
+     "B0_RO1": "REFUSED",
+     "B0prime_RERUN": "REFUSED",
+     "B1": "REFUSED",
+     "B1_OFF": "REFUSED",
+     "B2": "REFUSED",
+     "B3": "REFUSED",
+     "EPS": "REFUSED",
+     "GQ": "REFUSED",
+     "LO": "REFUSED",
+     "LO_NGC": "REFUSED",
+     "DOUBLING": "REFUSED"
+    }
+   }
+  },
+  {
+   "id": "C1_TOKEN_VARIANTS_AND_GATE_NAME_VARIANTS_REFUSED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "values": {
+     "lowercase": "REFUSED",
+     "list_wrapped": "REFUSED",
+     "trailing_space": "REFUSED",
+     "short_form": "REFUSED",
+     "none": "REFUSED",
+     "dict": "REFUSED",
+     "true": "REFUSED"
+    },
+    "keys": {
+     "i4": "REFUSED",
+     "I4 ": "REFUSED",
+     "I4_": "REFUSED",
+     "MODE_GATES": "REFUSED"
+    }
+   }
+  },
+  {
+   "id": "C1_EMPTY_SHA_LIST_ON_I4_ACCEPTED_AT_LOAD_BUT_FAILS_CLOSED_LATER",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "note": "an empty list is a legal registry entry; any I4 record then reads GATE_RECORD_SHA_NOT_ROOT_REGISTERED (tested B4b below)"
+   }
+  },
+  {
+   "id": "C1_FILE_ROUTE_SAME_AS_OBJECT_ROUTE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "I4": "ACCEPTED",
+     "B0": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B0_FA": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B0_N3": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B0_RO1": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B0prime_RERUN": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B1": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B1_OFF": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B2": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "B3": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "EPS": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "GQ": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "LO": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "LO_NGC": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS",
+     "DOUBLING": "REFUSED:PRODUCER_REGISTRY_GATE_RECORDS"
+    }
+   }
+  },
+  {
+   "id": "C1_I4_TOKEN_AND_SHA_LIST_AS_DUPLICATE_JSON_KEY_REFUSED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": "REFUSED:PRODUCER_REGISTRY_DUPLICATE_JSON_KEY_A71"
+   }
+  },
+  {
+   "id": "C2_HAND_BUILT_TOKEN_FAILS_CLOSED_FOR_EVERY_REFUSED_GATE_R14",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "open_gates": [
+     "EA",
+     "FLAG_RULINGS",
+     "HARMONICS",
+     "I1T",
+     "I4",
+     "MT",
+     "RB_FP",
+     "SRB_ROT",
+     "SR_K",
+     "T2I"
+    ]
+   }
+  },
+  {
+   "id": "C2_HAND_BUILT_TOKEN_R13_REFUSES_I4_ONLY_DIFFERENCE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r13_I4": [
+     "GATE_RECORD_TOKEN_NOT_ALLOWED_FOR_THIS_GATE_NEW52:I4"
+    ]
+   }
+  },
+  {
+   "id": "A1_I4_TOKEN_NO_RECORD_IS_MISSING_NEVER_PASS",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "none": {
+     "status": "MISSING",
+     "codes": [
+      "GATE_RECORD_MISSING:I4"
+     ],
+     "crossref": {},
+     "record_sha256": null
+    },
+    "absent": {
+     "status": "MISSING",
+     "codes": [
+      "GATE_RECORD_MISSING:I4"
+     ],
+     "crossref": {},
+     "record_sha256": null
+    },
+    "directory": {
+     "status": "MISSING",
+     "codes": [
+      "GATE_RECORD_MISSING:I4"
+     ],
+     "crossref": {},
+     "record_sha256": null
+    }
+   }
+  },
+  {
+   "id": "A1_SR_K_TOKEN_NO_RECORD_IS_MISSING_SAME_AS_I4",
+   "ok": true,
+   "label": "TESTED",
+   "got": {}
+  },
+  {
+   "id": "A1_PLACEHOLDER_OR_EMPTY_I4_FILE_IS_RECORD_DEFECT",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "empty": {
+     "status": "RECORD_DEFECT",
+     "codes": [
+      "GATE_RECORD_UNREADABLE:I4:JSONDecodeError"
+     ],
+     "crossref": {},
+     "record_sha256": null
+    },
+    "pending": {
+     "status": "RECORD_DEFECT",
+     "codes": [
+      "GATE_RECORD_FIELD_MISSING:I4:bitwise_equal"
+     ],
+     "crossref": {},
+     "record_sha256": "12a6166950b05165a04e1c1fd68514a76fae970023fa4ad4e3dc8817aa02fdda"
+    }
+   }
+  },
+  {
+   "id": "A1_GATES_ONLY_BLINDED_VIEW_OF_MISSING_I4",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "gate": "I4",
+     "status": "MISSING",
+     "codes": [
+      "GATE_RECORD_MISSING:I4"
+     ],
+     "fields_read": [],
+     "record_sha256": null,
+     "crossref": {},
+     "blinding_redaction_applied": false
+    }
+   }
+  },
+  {
+   "id": "A2_I4_GATE_STATUSES_FROM_REAL_EVALUATE_GATE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "ok": {
+     "status": "PASS",
+     "codes": [],
+     "crossref": {},
+     "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+    },
+    "fail": {
+     "status": "FAIL",
+     "codes": [
+      "VERDICT:I4:FAIL",
+      "I4_SERIAL_PARALLEL_NOT_BITWISE_EQUAL"
+     ],
+     "crossref": {},
+     "record_sha256": "08bfc910ede153ae2312b8a505c9870c22c55d332a0dab3b3691c56c61ec2f09"
+    },
+    "defect": {
+     "status": "RECORD_DEFECT",
+     "codes": [
+      "PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4"
+     ],
+     "crossref": {},
+     "record_sha256": "7bfe8d04014509ebb1e2bb7a629cec74c374ac42d92613a009e98540ab292155"
+    }
+   }
+  },
+  {
+   "id": "A3_P8_I4_MISSING_READS_INCOMPLETE_T_TESTS_NOT_READ",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "outcome": "INCOMPLETE",
+     "subtype": "CASES_OR_RECORDS",
+     "reasons": [
+      "gate record I4 missing"
+     ],
+     "tests_read": false,
+     "next_step": {
+      "I4": "produce the I4 record before the T-tests are read (RA13: gates on real records before the seal)"
+     },
+     "failing_reported": []
+    }
+   }
+  },
+  {
+   "id": "A3_PROBE_GATES_DICT_WITHOUT_I4_LETS_P8_READING_PROCEED_R13_SAME",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "tests_read": true,
+     "failing_reported": []
+    },
+    "note": "absent is not MISSING (gates.get(I4, {}) has no status); the CLI never builds such a dict (read_gates evaluates ALL_GATES), inherited"
+   }
+  },
+  {
+   "id": "A3_P8_I4_FAIL_READS_INCOMPLETE_PARALLEL8_NOT_LICENSED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "outcome": "INCOMPLETE",
+     "subtype": "CASES_OR_RECORDS",
+     "reasons": [
+      "I4 FAIL ['VERDICT:I4:FAIL', 'I4_SERIAL_PARALLEL_NOT_BITWISE_EQUAL']: parallel8 route A not licensed"
+     ],
+     "tests_read": false,
+     "next_step": {
+      "I4": "A47 I4 condition not confirmed: every T-case runs serial (route-A mode serial_with_exemption), the declared column_workers exemption returns, and I4 is reported"
+     },
+     "failing_reported": [
+      "I4"
+     ]
+    }
+   }
+  },
+  {
+   "id": "A3_P8_I4_RECORD_DEFECT_READS_NO_RUN",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "outcome": "NO_RUN",
+     "subtype": null,
+     "reasons": [
+      "I4 RECORD_DEFECT ['PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4']"
+     ],
+     "tests_read": false,
+     "next_step": "fix and re-review (B2/B3 failure = IMPLEMENTATION_DEFECT of the gate); a missing gate record: produce it (RA13)",
+     "failing_reported": []
+    }
+   }
+  },
+  {
+   "id": "A3_P8_I4_PASS_LETS_THE_READING_PROCEED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "tests_read": true,
+     "failing_reported": []
+    }
+   }
+  },
+  {
+   "id": "A3_SERIAL_I4_MISSING_OR_FAIL_DOES_NOT_BLOCK_DEFECT_STILL_NO_RUN",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "ser_missing": {
+     "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "tests_read": true,
+     "failing_reported": []
+    },
+    "ser_fail": {
+     "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "tests_read": true,
+     "failing_reported": [
+      "I4"
+     ]
+    },
+    "ser_defect": {
+     "outcome": "NO_RUN",
+     "subtype": null,
+     "reasons": [
+      "I4 RECORD_DEFECT ['PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4']"
+     ],
+     "tests_read": false,
+     "next_step": "fix and re-review (B2/B3 failure = IMPLEMENTATION_DEFECT of the gate); a missing gate record: produce it (RA13)",
+     "failing_reported": []
+    }
+   }
+  },
+  {
+   "id": "A3_SR_K_PARITY_MISSING_INCOMPLETE_BUT_FAIL_IS_READ_IN_THE_T_TESTS",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "srk_missing": {
+     "outcome": "INCOMPLETE",
+     "subtype": "CASES_OR_RECORDS",
+     "reasons": [
+      "gate record SR_K missing"
+     ],
+     "tests_read": false,
+     "next_step": {
+      "SR_K": "produce the SR_K record before the T-tests are read (RA13: gates on real records before the seal)"
+     },
+     "failing_reported": []
+    },
+    "srk_fail": {
+     "outcome": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "tests_read": true,
+     "failing_reported": [
+      "SR_K"
+     ]
+    }
+   }
+  },
+  {
+   "id": "A3_BOTH_MISSING_BOTH_NAMED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "outcome": "INCOMPLETE",
+     "subtype": "CASES_OR_RECORDS",
+     "reasons": [
+      "gate record SR_K missing",
+      "gate record I4 missing"
+     ],
+     "tests_read": false,
+     "next_step": {
+      "SR_K": "produce the SR_K record before the T-tests are read (RA13: gates on real records before the seal)",
+      "I4": "produce the I4 record before the T-tests are read (RA13: gates on real records before the seal)"
+     },
+     "failing_reported": []
+    }
+   }
+  },
+  {
+   "id": "A4_TOKEN_GATES_MISSING_READING_BY_GROUP",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "SRB_ROT|parallel8": "INCOMPLETE",
+     "SRB_ROT|serial_with_exemption": "INCOMPLETE",
+     "RB_FP|parallel8": "INCOMPLETE",
+     "RB_FP|serial_with_exemption": "INCOMPLETE",
+     "T2I|parallel8": "INCOMPLETE",
+     "T2I|serial_with_exemption": "INCOMPLETE",
+     "EA|parallel8": "INCOMPLETE",
+     "EA|serial_with_exemption": "INCOMPLETE",
+     "MT|parallel8": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "MT|serial_with_exemption": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "I1T|parallel8": "INCOMPLETE",
+     "I1T|serial_with_exemption": "INCOMPLETE",
+     "FLAG_RULINGS|parallel8": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "FLAG_RULINGS|serial_with_exemption": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "HARMONICS|parallel8": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "HARMONICS|serial_with_exemption": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "SR_K|parallel8": "INCOMPLETE",
+     "SR_K|serial_with_exemption": "INCOMPLETE",
+     "I4|parallel8": "INCOMPLETE",
+     "I4|serial_with_exemption": "GROUP1_PASSED_T_TESTS_READ_NEXT"
+    }
+   }
+  },
+  {
+   "id": "B1_TOKEN_BINDS_BY_PRODUCER_PIN_ONLY_RECORD_SHA_NOT_CHECKED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "B1_token_pass": {
+      "status": "PASS",
+      "codes": [],
+      "crossref": {},
+      "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+     },
+     "B2_sha_regime_other_sha": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+     },
+     "B3_sha_regime_this_sha": {
+      "status": "PASS",
+      "codes": [],
+      "crossref": {},
+      "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+     },
+     "B4_gate_absent_from_gate_records": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+     },
+     "B4b_empty_sha_list": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+     }
+    }
+   }
+  },
+  {
+   "id": "B1_RECORD_SHA_IS_REPORTED_NOT_VERIFIED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+   }
+  },
+  {
+   "id": "B6_RECORD_NOT_FROM_THE_PRODUCER_PASSES_WHEN_IT_NAMES_THE_PRODUCER",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "parallel_not_C2T": {
+     "status": "PASS",
+     "codes": [],
+     "crossref": {},
+     "record_sha256": "9f1a9bf95aebe4c1d6d472ab2a10c9a80937ad73203b57557fa6afd4f0c4f01a"
+    },
+    "serial_eq_parallel": {
+     "status": "PASS",
+     "codes": [],
+     "crossref": {},
+     "record_sha256": "21d75db3a2c4f84a28d38fac77bfd8f96a595885775b3c6885dec397e7513c49"
+    },
+    "extra": {
+     "status": "PASS",
+     "codes": [],
+     "crossref": {},
+     "record_sha256": "0b79181c3d1d4b195dc1b81b82c3bfe635709422a89fe6cb377b7165c21d93d8"
+    },
+    "runs_sha_C2T": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+   }
+  },
+  {
+   "id": "B6_G_I4_READS_NO_CROSSREF_AND_NO_N1_SPEC",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "fields_read": [
+     "schema",
+     "gate",
+     "producer/path",
+     "producer/sha256",
+     "verdict",
+     "tail",
+     "driver_sha256",
+     "serial_result_sha256",
+     "parallel_result_sha256",
+     "v8c_f1_fix_confirmed",
+     "bitwise_equal",
+     "differences_outside_custody"
+    ]
+   }
+  },
+  {
+   "id": "B8_PRODUCER_PIN_NEGATIVES_ALL_RECORD_DEFECT",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "B8_names_other_gates_producer": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "8229468f9c1d7d9a10d48b580d7a3815276f42774638ccf82ff4cbf58d879f2f"
+     },
+     "B9_unregistered_producer": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "7bfe8d04014509ebb1e2bb7a629cec74c374ac42d92613a009e98540ab292155"
+     },
+     "B10_registered_sha_other_path": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "PRODUCER_PATH_NOT_ROOT_REGISTERED_A69_1:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "646f313e93e30a88c619ab2d8ac5e836b9195c30dd443f1c429847acc2ac88f7"
+     },
+     "B11_producer_bytes_changed_after_load": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "PRODUCER_BYTES_NOT_THE_REGISTERED_SHA_A69_1:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "09186f45976d2321228dd45ce066001305ae34fe31d0ed534ef69c5446fe1d76"
+     },
+     "B12_no_registry": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "PRODUCER_REGISTRY_ABSENT_A62_2:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+     },
+     "B13_no_I4_producer_registered": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "PRODUCER_NOT_ROOT_REGISTERED_A62_2:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+     }
+    }
+   }
+  },
+  {
+   "id": "B14_G_I4_CLAUSES_UNDER_THE_TOKEN",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "B14_driver_not_sealed": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "I4_DRIVER_NOT_REGISTERED_FOR_EVERY_T_CASE"
+      ],
+      "crossref": {},
+      "record_sha256": "ab3b212f4ea01426197f3b04a94d976d09ee4739d3c2e641586726ccd71c4fda"
+     },
+     "B15_tail_off": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "I4_TAIL_NOT_ON"
+      ],
+      "crossref": {},
+      "record_sha256": "76eba0223c994229671a6889c73d9c6bff58669b3135b8000cb36f894a50f609"
+     },
+     "B16_not_bitwise_verdict_pass": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "VERDICT_PASS_CONTRADICTS_DATA:I4",
+       "I4_SERIAL_PARALLEL_NOT_BITWISE_EQUAL"
+      ],
+      "crossref": {},
+      "record_sha256": "af162d48c8c57e52e428fec4d9a0a8ee121ed733377411c5974c7a80476df765"
+     },
+     "B17_not_bitwise_verdict_fail": {
+      "status": "FAIL",
+      "codes": [
+       "VERDICT:I4:FAIL",
+       "I4_SERIAL_PARALLEL_NOT_BITWISE_EQUAL"
+      ],
+      "crossref": {},
+      "record_sha256": "08bfc910ede153ae2312b8a505c9870c22c55d332a0dab3b3691c56c61ec2f09"
+     },
+     "B18_fail_verdict_no_failing_clause": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "VERDICT_FAIL_CONTRADICTS_DATA:I4",
+       "VERDICT:I4:FAIL"
+      ],
+      "crossref": {},
+      "record_sha256": "df0ca22062a9892e0b9b5426e74d7b4f9ef43750ec627477d700872c37a32efc"
+     },
+     "B19_verdict_pending": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "VERDICT_NOT_REGISTERED:I4",
+       "VERDICT:I4:PENDING"
+      ],
+      "crossref": {},
+      "record_sha256": "6dc182a9d8e5a85433d48c6758c152751e36ef36128e8775ccd2bf699ca1444c"
+     },
+     "B20_differences_outside_custody": {
+      "status": "FAIL",
+      "codes": [
+       "VERDICT:I4:FAIL",
+       "I4_DIFFERENCES_OUTSIDE_CUSTODY"
+      ],
+      "crossref": {},
+      "record_sha256": "e86c1ae717bf3d702ee75dc22d3abf99c5e93c8c469f3a220a0a674ef73d3577"
+     },
+     "B21_v8c_not_confirmed": {
+      "status": "FAIL",
+      "codes": [
+       "VERDICT:I4:FAIL",
+       "I4_V8C_F1_FIX_NOT_CONFIRMED"
+      ],
+      "crossref": {},
+      "record_sha256": "8e70ce8b2ce9dcb15d16c55805bfb38e1d599b171ffc13e4e5e87dc2e19529d1"
+     },
+     "B22_parallel_sha_missing": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_FIELD_MISSING:I4:parallel_result_sha256"
+      ],
+      "crossref": {},
+      "record_sha256": "d344bf8f258637eb31ed7b514c915ee5ae6cc562e7975e1e269e1a51b3ddba92"
+     },
+     "B23_gate_name_SR_K": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_NAME:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "b21fe1281e5bcad700a32a04b6bd04672ea6658c381b0b18bf8ad63e8684b4bd"
+     },
+     "B24_schema_wrong": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_SCHEMA:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "8b30bd0ec0de68d098652da399f7ff5298d1a3fac6f89665d0e95cae51a66e66"
+     },
+     "B25_numbers_producer_wrong_sha": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "NUMBERS_PRODUCER_BYTES_NOT_THE_NAMED_SHA_R11:I4"
+      ],
+      "crossref": {},
+      "record_sha256": "82fc8e0095989823e51cb50677033fa4531b34d76fa76eee3a23de5c17e499a1"
+     },
+     "B26b_bitwise_equal_string_true": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_FIELD_TYPE_bool:I4:bitwise_equal"
+      ],
+      "crossref": {},
+      "record_sha256": "0d653d18279477217b9a7b43ef9c089382986efeb340422ae090ca1a3d007abb"
+     },
+     "B26_duplicate_json_key": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "GATE_RECORD_UNREADABLE:I4:DuplicateKey",
+       "DUPLICATE_JSON_KEY_A71:object[1]:members[4]:members[5]:I4"
+      ],
+      "crossref": {},
+      "record_sha256": null
+     }
+    }
+   }
+  },
+  {
+   "id": "B28_REGISTRY_PRODUCER_ENTRY_CANNOT_CARRY_AN_N1_SPEC_SHA",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "note": "only the free note key can carry it; the compare never reads note"
+   }
+  },
+  {
+   "id": "P1_SAME_PRODUCER_PIN_PROPERTY_ON_SR_K_BUT_SR_K_CONTENT_IS_PINNED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "SR_K_handwritten_ok": {
+      "status": "PASS",
+      "codes": [],
+      "crossref": {},
+      "record_sha256": "01e5603c66cd5e22e1a46101f200e8877dbedda3145a6b9b3799188c3a59784e"
+     },
+     "SR_K_wrong_state": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "SR_K_STATE_C4R3"
+      ],
+      "crossref": {},
+      "record_sha256": "91e7d21a76113e5effbd3775893cc1b02faa0265e0e85fe991e4070ca77ee827"
+     },
+     "SRB_ROT_ok": {
+      "status": "PASS",
+      "codes": [],
+      "crossref": {
+       "c4t_result_sha256": {
+        "target": "C4T",
+        "target_present": true,
+        "equal": true
+       }
+      },
+      "record_sha256": "c64dcdbe3e5f3989688d82ee53bb3e0b44eeb23438d88951fa402973caa75851"
+     },
+     "SRB_ROT_not_C4T": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "CROSSREF_MISMATCH:SRB_ROT:c4t_result_sha256"
+      ],
+      "crossref": {
+       "c4t_result_sha256": {
+        "target": "C4T",
+        "target_present": true,
+        "equal": false
+       }
+      },
+      "record_sha256": "4299856c148519aea6f4b920bfdaea731763b2b55b7e6bc89e4d33bd579ba3e4"
+     }
+    }
+   }
+  },
+  {
+   "id": "P2_SRB_ROT_CROSSREFS_ITS_RUN_I4_DOES_NOT",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "got": {
+     "SR_K_handwritten_ok": {
+      "status": "PASS",
+      "codes": [],
+      "crossref": {},
+      "record_sha256": "01e5603c66cd5e22e1a46101f200e8877dbedda3145a6b9b3799188c3a59784e"
+     },
+     "SR_K_wrong_state": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "SR_K_STATE_C4R3"
+      ],
+      "crossref": {},
+      "record_sha256": "91e7d21a76113e5effbd3775893cc1b02faa0265e0e85fe991e4070ca77ee827"
+     },
+     "SRB_ROT_ok": {
+      "status": "PASS",
+      "codes": [],
+      "crossref": {
+       "c4t_result_sha256": {
+        "target": "C4T",
+        "target_present": true,
+        "equal": true
+       }
+      },
+      "record_sha256": "c64dcdbe3e5f3989688d82ee53bb3e0b44eeb23438d88951fa402973caa75851"
+     },
+     "SRB_ROT_not_C4T": {
+      "status": "RECORD_DEFECT",
+      "codes": [
+       "CROSSREF_MISMATCH:SRB_ROT:c4t_result_sha256"
+      ],
+      "crossref": {
+       "c4t_result_sha256": {
+        "target": "C4T",
+        "target_present": true,
+        "equal": false
+       }
+      },
+      "record_sha256": "4299856c148519aea6f4b920bfdaea731763b2b55b7e6bc89e4d33bd579ba3e4"
+     }
+    }
+   }
+  },
+  {
+   "id": "P3_CROSSREF_CALL_SITES_PER_TOKEN_GATE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "per_gate": {
+     "SRB_ROT": 1,
+     "RB_FP": 2,
+     "T2I": 1,
+     "EA": 1,
+     "MT": 3,
+     "I1T": 1,
+     "FLAG_RULINGS": 2,
+     "HARMONICS": 0,
+     "SR_K": 0,
+     "I4": 0
+    },
+    "note": "xr calls whose target is a run label vs derived (_...) values: see LENS_SEMANTICS.md; I4 has none"
+   }
+  },
+  {
+   "id": "D1_SOURCE_DIFF_IS_ONE_LINE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "diff": [
+     "-GATE_RECORD_AFTER_SEAL_ALLOWED = ('SRB_ROT', 'RB_FP', 'T2I', 'EA', 'MT', 'I1T', 'FLAG_RULINGS', 'HARMONICS', 'SR_K')",
+     "+GATE_RECORD_AFTER_SEAL_ALLOWED = ('SRB_ROT', 'RB_FP', 'T2I', 'EA', 'MT', 'I1T', 'FLAG_RULINGS', 'HARMONICS', 'SR_K', 'I4')"
+    ]
+   }
+  },
+  {
+   "id": "D2_LOADER_IDENTICAL_FOR_EVERY_OTHER_GATE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "differs": [
+     "I4"
+    ]
+   }
+  },
+  {
+   "id": "D3_GATE_RECORD_SHA_CODES_IDENTICAL_FOR_EVERY_OTHER_GATE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "differs": [
+     "I4"
+    ]
+   }
+  },
+  {
+   "id": "D4_REFUSAL_TEXT_ONLY_GAINS_I4_CODE_UNCHANGED",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r14": "REFUSED: producer registry: gate_records must map gate names to lists of distinct sha256 (or PRODUCED_AFTER_THE_SEAL, only for the post-seal gates SRB_ROT/RB_FP/T2I/EA/MT/I1T/FLAG_RULINGS/HARMONICS/SR_K/I4; all other gates require registered record shas) (A67 N2, NEW-52, A71, A88)",
+    "r13": "REFUSED: producer registry: gate_records must map gate names to lists of distinct sha256 (or PRODUCED_AFTER_THE_SEAL, only for the post-seal gates SRB_ROT/RB_FP/T2I/EA/MT/I1T/FLAG_RULINGS/HARMONICS/SR_K; all other gates require registered record shas) (A67 N2, NEW-52, A71, A88)"
+   }
+  },
+  {
+   "id": "D5_FIELD_CONTRACT_DIFF_IS_THE_ALLOWED_LIST_LINE_ONLY",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "diff": [
+     "-for SRB_ROT, RB_FP, T2I, EA, MT, I1T, FLAG_RULINGS, HARMONICS, SR_K; every other gate still requires a registered record sha), `gq_all_nodes_counts`",
+     "+for SRB_ROT, RB_FP, T2I, EA, MT, I1T, FLAG_RULINGS, HARMONICS, SR_K, I4; every other gate still requires a registered record sha), `gq_all_nodes_counts`"
+    ],
+    "generated_now_sha256": "a33b153b40e3a709cbbf095908007c737e90c3383e6a113d30c786732e800c83",
+    "published_FIELDS_R14_CX1V001_sha256": "a33b153b40e3a709cbbf095908007c737e90c3383e6a113d30c786732e800c83",
+    "generated_equals_published": true
+   }
+  },
+  {
+   "id": "D6_READING_IDENTICAL_R13_R14_FOR_EVERY_GATE_STATUS_MODE",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "differs": [],
+    "i4": {
+     "I4|MISSING|parallel8": "INCOMPLETE",
+     "I4|MISSING|serial_with_exemption": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "I4|FAIL|parallel8": "INCOMPLETE",
+     "I4|FAIL|serial_with_exemption": "GROUP1_PASSED_T_TESTS_READ_NEXT",
+     "I4|RECORD_DEFECT|parallel8": "NO_RUN",
+     "I4|RECORD_DEFECT|serial_with_exemption": "NO_RUN"
+    }
+   }
+  },
+  {
+   "id": "D7_EVERY_USE_OF_THE_SET_IS_MEMBERSHIP_OR_A_JOINED_STRING",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "uses": [
+     [
+      332,
+      "comment",
+      "# the token is refused at load outside GATE_RECORD_AFTER_SEAL_ALLOWED, the gates whose record of record cross-references a T-case"
+     ],
+     [
+      341,
+      "definition",
+      "GATE_RECORD_AFTER_SEAL_ALLOWED = ('SRB_ROT', 'RB_FP', 'T2I', 'EA', 'MT', 'I1T', 'FLAG_RULINGS', 'HARMONICS', 'SR_K', 'I4')"
+     ],
+     [
+      1106,
+      "docstring_or_other",
+      "[NEW-52] the PRODUCED_AFTER_THE_SEAL token outside GATE_RECORD_AFTER_SEAL_ALLOWED refuses.\"\"\""
+     ],
+     [
+      1122,
+      "membership",
+      "or (v == GATE_RECORD_AFTER_SEAL and g not in GATE_RECORD_SHA_REQUIRED and g in GATE_RECORD_AFTER_SEAL_ALLOWED)"
+     ],
+     [
+      1126,
+      "joined_string",
+      "% (GATE_RECORD_AFTER_SEAL, '/'.join(GATE_RECORD_AFTER_SEAL_ALLOWED)),"
+     ],
+     [
+      1184,
+      "membership",
+      "return [] if (name in GATE_RECORD_AFTER_SEAL_ALLOWED and name not in GATE_RECORD_SHA_REQUIRED) else \\"
+     ],
+     [
+      5172,
+      "joined_string",
+      "'for %s; every other gate still requires a registered record sha), `gq_all_nodes_counts`' % ', '.join(GATE_RECORD_AFTER_SEAL_ALLOWED),"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "D9_R13_CONTRADICTION_A114_POST_SEAL_I4_RECORD_READS_NO_RUN",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "r13_gate": {
+     "status": "RECORD_DEFECT",
+     "codes": [
+      "GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:I4"
+     ],
+     "crossref": {},
+     "record_sha256": "66377a454b59b6ce13c9f73aa2a999eb3cf12a8cca36037ea94722aa76af9b45"
+    },
+    "r13_reading": {
+     "outcome": "NO_RUN",
+     "subtype": null,
+     "reasons": [
+      "I4 RECORD_DEFECT ['GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:I4']"
+     ],
+     "tests_read": false,
+     "next_step": "fix and re-review (B2/B3 failure = IMPLEMENTATION_DEFECT of the gate); a missing gate record: produce it (RA13)",
+     "failing_reported": []
+    }
+   }
+  },
+  {
+   "id": "D8_STALE_COMMENTS_STILL_SAY_I4_BY_SHA",
+   "ok": true,
+   "label": "TESTED",
+   "got": {
+    "lines": [
+     [
+      49,
+      "producer registry, gate_records {gate: [sha256] | PRODUCED_AFTER_THE_SEAL}, SR_K always by sha; an SR_K record whose Delta is"
+     ],
+     [
+      334,
+      "# the B-gates, I4) is registered by record sha. SR_K joins the token set under A88."
+     ]
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Private NumPy snapshot IO utility tested; producer chain incomplete",
+  "utc": "2026-10-21T13:31:49.175725+00:00",
+  "tested": [
+    "6 inert NumPy checks pass: three reads share one buffer; exclusive file-handle array write/readback; direct path output, pickle and mmap refuse; private globals restore and shared numpy unchanged.",
+    "Static audit of six non-null template dependencies with byte pins verified: replay writer uses direct np.load(path) at 260/321/334/339 etc; current-source evidence bootstrap uses exec_module; LO adapter uses function-local numpy import and custom loaders."
+  ],
+  "untested": [
+    "Custom loader/bootstrap and complete IO coverage",
+    "Full producer execution and root-filled dependency set",
+    "Runtime/register/envelope/wait/cache integration",
+    "Whole-engine replay"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/exclusive_output_scope_cx1v003.py",
+      "sha256": "ae74b7731c1759bdfde654838dbf67f786795c24836491e6bc56779c7e0e87ef"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_array_output_scope_cx1v001.py",
+      "sha256": "490667c69270d7b3162d58aa83a60d582bb42703808819c9e9a6c3ea54748e98"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/arrayscope_60jpctla/TEST_REPORT.json",
+      "sha256": "141c6dc09a0f4a1f45b8cebb375d82f6991c628962089b780440e2cfa5fb346d"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 185,
+  "no_live_processes": true,
+  "next": "Audit/cover custom loaders and modules loaded at bootstrap. Function-local numpy imports bypass private global proxy (observed LO adapter local load uses BytesIO already); verify all cases. Template lo_core/srb_adapter are null; do not invent full production dependency set. v003 only utility-tested, no full producer run."
+}

@@ -1,0 +1,360 @@
+--- phase1_c2v002.py	2026-10-19 08:14:24.946367037 -0500
++++ phase1_c2v003.py	2026-10-19 11:16:24.274667388 -0500
+@@ -1,5 +1,31 @@
+-"""phase1_c2v002 -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
+-phase1_c2v001 (34eaef36) under ruling A137 (V006 addendum) and Claude3 0191.  Two changes only:
++"""phase1_c2v003 -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
++phase1_c2v002 (d64351ec) under ruling A144 (V006 addendum; Claude3 0204 N1, N2 and N6; erratum E_A133_2) and A135
++item 10.  Changes against v002, and only these:
++  R1   (E_A133_2(a), label only) AT-1 category: one helper, band_region, builds the band region's rows (A, b_band and
++       the family slices TRUST_RADIUS, BOX, LINEAR_DDO) exactly as band_rows does.  Row i is violated iff
++       (A c)_i - max(b_band_i, 0) > E._LP_EPS (the clip and the tolerance are the pinned engine's own, L1787 / L181),
++       c = V_I Delta_m.  A failing (member, row) prints region_rows_violated (in the order TRUST_RADIUS, BOX,
++       LINEAR_DDO; [] if none), region_max_violation per family, the category (the first violated family mapped to
++       OUTSIDE_TRUST_RADIUS, OUTSIDE_BOX_SLICE or OUTSIDE_LINEAR_DDO_REGION; NGC_NONLINEAR only for []), and
++       geometric_part and residual_part with excess = geometric_part + residual_part.  The AT-1 inequality, the failing
++       set, the excess, norm_n and the outcome are not touched by R1.
++  R2   at1 prints band_region_extent ([min, max] of each identified c_j over the band region's own rows, by
++       E._lp_max, with both statuses), band_region_single_point (true iff every extent is OPTIMAL and exactly
++       [0.0, 0.0]; NOT_AVAILABLE if any program is not OPTIMAL; never refuses, never changes a row) and
++       band_region_single_point_reason (BOX_CORNER iff the box rows alone give [0.0, 0.0] on every j, else OTHER_ROWS;
++       null unless the band region is a single point).  band, band_rows, cmd_band, linear_model and the L1 schema are
++       unchanged (AST-identical to v002).
++  R3   (E_A133_2(b), supersedes E_A133_1's formula; a physics-reading change, A115 (b)) e_q(m, q) = eps_m +
++       eps_q (|1 - sum_k Delta_m,k / du_k| + sum_k |Delta_m,k| / h_k).  cmd_at1 refuses MEMBERS (no out-dir) when a
++       member point lacks eps_km_s or its length is not 43; a bad entry (None, bool, non-finite, negative, not a number)
++       keeps every bounded term and flags only that pair MEMBER_POINT_NOISE_NOT_BOUNDED; a row with no eps_q reads
++       FD_NOISE_NOT_BOUNDED (e_q = 0), as in v002.  Flags are per pair, with flag_reason; at0b is not affected.
++  CUSTODY  at1 refuses an L1 whose module is not this MODULE.
++  A135 item 10  handoff accepts one certificate map per member (root fields 'certificate_pins_by_member', keyed by
++       member log_index); each member's handoff carries its own map; a map pin that binds another admitted point is
++       refused (CERTIFICATE_MAP).  The shared-map form (v002 root fields) and S0 are unchanged.
++
++v002 header (unchanged behaviour):
+   L5   B_P1 = the forward calls before the first call whose orchestrator Probe family is NOT in PREFIX_FAMILIES
+        (seed, jacobian, repair, gd_pre).  Every v001 'march0' dependency now reads "the first non-prefix-family wave"
+        (prefix detection, the replay stop, the NOT_READY rule, the snapshot's recorded wave, PREFIX_MISMATCH and
+@@ -7,7 +33,7 @@
+        otherwise the snapshot records 'first_non_prefix_wave' and 'boundary_call' (e.g. a corner anchor whose round-0
+        march sides all close at a box face, so the first non-prefix family is 'design').
+   N-B  AT-1's e_q is the member-displacement bound sum_k 2 eps_k |Delta_m,k| / h_k (A137; erratum E_A133_1),
+-       reported per (member, row); the v001 band-optimum reading is removed.
++       reported per (member, row); the v001 band-optimum reading is removed.  [Superseded in v003 by R3.]
+ 
+ Text of record: CLAUDE2/A133_TWO_PHASE_PROTOCOL_V001.md (cd92ef91), sections 1, 4 and 5; ruling A133 in
+ ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md.  Pinned sources are imported from their exact bytes
+@@ -45,7 +71,7 @@
+ import sys
+ from pathlib import Path
+ 
+-MODULE = 'phase1_c2v002'
++MODULE = 'phase1_c2v003'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'
+ ORCH_PIN = (ART + 'calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py',
+             'c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d')
+@@ -69,10 +95,19 @@
+ EXIT = {'OK': 0, 'REFUSED': 3, 'NOT_READY': 4, 'AGREEMENT_DEFECT': 10, 'PHASE1_TERMINAL': 20}
+ B_P1_RULE = ('A137 L5: B_P1 = forward calls before the first call whose orchestrator Probe family is not in '
+              '(seed, jacobian, repair, gd_pre)')
+-E_Q_READING = ('A137 N-B (erratum E_A133_1): e_q = sum_k 2 eps_k |Delta_m,k| / h_k at member m own displacement '
+-               'Delta_m = u_m - u_A (engine u); h_k = |du_k| of F_k (fdplan); eps_k = the row eps_q of L1 (the largest '
+-               'certificate eps over u_A and the three F points, so eps_k >= max(eps(u_A), eps(F_k))); a row without '
+-               'eps reads FD_NOISE_NOT_BOUNDED (e_q = 0, flagged)')
++E_Q_READING = ('A144 R3 (erratum E_A133_2(b), superseding the E_A133_1 formula): e_q(m, q) = eps_m + eps_q * '
++               '(|1 - sum_k Delta_m,k / du_k| + sum_k |Delta_m,k| / h_k), the exact worst case of the noise in '
++               'g(u_m) - g(u_A) - K_q Delta_m when |delta_m| <= eps_m and |delta_A|, |delta_Fk| <= eps_q; Delta_m = u_m - '
++               'u_A (engine u); du_k = the signed fdplan step of F_k and h_k = |du_k|; eps_q = the row eps_q of L1 (the '
++               'largest certificate eps over u_A and the three F points, A137); eps_m = the member point own '
++               'eps_km_s[q] from the Phase-2 members file (43 entries per member point, else MEMBERS is refused).  An '
++               'entry that is None, bool, non-finite, negative or not a number keeps every bounded term (e_q = eps_q * '
++               '(...)) and flags that pair MEMBER_POINT_NOISE_NOT_BOUNDED; a row without eps_q reads '
++               'FD_NOISE_NOT_BOUNDED (e_q = 0, flagged, flag_reason NO_ROW_EPS_Q) whatever eps_m is, as in v002')
++REGION_FAMILIES = ('TRUST_RADIUS', 'BOX', 'LINEAR_DDO')   # A144 R1: the fixed print order of region_rows_violated
++REGION_CATEGORY = {'TRUST_RADIUS': 'OUTSIDE_TRUST_RADIUS', 'BOX': 'OUTSIDE_BOX_SLICE',
++                   'LINEAR_DDO': 'OUTSIDE_LINEAR_DDO_REGION'}
++CERT_MAPS = 'certificate_pins_by_member'   # A135 item 10: one certificate map per member (root handoff fields)
+ 
+ 
+ class Refused(Exception):
+@@ -594,21 +629,29 @@
+     rf = read_json_pinned(a.root_fields, a.root_fields_sha256, 'root handoff fields')
+     want = {'schema', 'mode', 'root_admission', 'policy_pin', 'v007_adoption_pin', 'certificate_pins', 'driver_branch',
+             'driver_acceptance_pin', 'coordinate_pin'}
+-    if set(rf) != want or rf['schema'] != S_ROOT:
+-        raise Refused('ROOT_FIELDS', 'keys must be %s' % sorted(want))
++    want_pm = (want - {'certificate_pins'}) | {CERT_MAPS}   # A135 item 10: one certificate map per member
++    if set(rf) not in (want, want_pm) or rf['schema'] != S_ROOT:
++        raise Refused('ROOT_FIELDS', 'keys must be %s' % sorted(want) + ', or the same with certificate_pins replaced by '
++                      '%s (A135 item 10)' % CERT_MAPS)
++    per_member = CERT_MAPS in rf
+     if rf['mode'] != ('SYNTHETIC_DRY_ONLY' if cp.ctx.synthetic else 'ADMITTED'):
+         raise Refused('ROOT_FIELDS', 'mode %r: a synthetic_test campaign hands off SYNTHETIC_DRY_ONLY only, a real one '
+                       'ADMITTED only' % (rf['mode'],))
+     if not all(rf[k] is None or (isinstance(rf[k], dict) and set(rf[k]) == {'path', 'sha256'})
+                for k in ('policy_pin', 'v007_adoption_pin', 'driver_acceptance_pin', 'coordinate_pin')) or \
+-            not isinstance(rf['certificate_pins'], dict):
+-        raise Refused('ROOT_FIELDS', 'pins must be {path, sha256} or null; certificate_pins an object')
++            not isinstance(rf[CERT_MAPS if per_member else 'certificate_pins'], dict):
++        raise Refused('ROOT_FIELDS', 'pins must be {path, sha256} or null; certificate_pins an object' if not per_member
++                      else 'pins must be {path, sha256} or null; %s an object' % CERT_MAPS)
+     for lab in ('policy_pin', 'v007_adoption_pin', 'driver_acceptance_pin', 'coordinate_pin'):
+         if rf[lab] is not None:
+             read_pinned(rf[lab].get('path'), rf[lab].get('sha256'), lab)
+-    for lab, p in (rf['certificate_pins'] or {}).items():
+-        if isinstance(p, dict):
+-            read_pinned(p.get('path'), p.get('sha256'), 'certificate_pins.' + lab)
++    if per_member:
++        cmaps = certificate_maps(rf[CERT_MAPS], sel['points'], prow)
++    else:
++        for lab, p in (rf['certificate_pins'] or {}).items():
++            if isinstance(p, dict):
++                read_pinned(p.get('path'), p.get('sha256'), 'certificate_pins.' + lab)
++        cmaps = {m['log_index']: rf['certificate_pins'] for m in sel['points']}
+     out.create()
+     export = {'schema': S_EXPORT, 'mode': rf['mode'], 'target_free': True, 'coordinate_pin': rf['coordinate_pin'],
+               'admitted_points': export_pts}
+@@ -617,7 +660,7 @@
+     for m in sel['points']:
+         h = {'schema': S_HANDOFF, 'mode': rf['mode'], 'root_admission': rf['root_admission'], 'log_index': m['log_index'],
+              'policy_pin': rf['policy_pin'], 'source_export_pin': {'path': ep, 'sha256': es},
+-             'v007_adoption_pin': rf['v007_adoption_pin'], 'certificate_pins': rf['certificate_pins'],
++             'v007_adoption_pin': rf['v007_adoption_pin'], 'certificate_pins': cmaps[m['log_index']],
+              'driver_branch': rf['driver_branch'], 'driver_acceptance_pin': rf['driver_acceptance_pin']}
+         p, s = out.write('HANDOFF_%04d_C2V001.json' % m['log_index'], h)
+         hand.append({'log_index': m['log_index'], 'role': m['role'], 'path': p, 'sha256': s})
+@@ -631,10 +674,46 @@
+                           'complete roster', 'plan/admission provenance', 'post-state acceptance',
+                           'point-scoped certificates'],
+                'departure': 'A133 1.6: RI45-01 COMPLETE requirement replaced (record status BUDGET_EXHAUSTED at B_P1)'}
++    if per_member:   # A135 item 10; the shared-map receipt stays v002's (only module differs)
++        receipt['certificate_map'] = 'ONE_PER_MEMBER (A135 item 10)'
++        receipt['checks'] = receipt['checks'] + ['one certificate map per v003g member; every map pin hash-verified; '
++                                                 'no map pin binds another admitted point']
+     out.write('HANDOFF_RECEIPT_C2V001.json', receipt)
+     return 'OK', {'members': [h['log_index'] for h in hand], 'out_dir': out.dir, 'files': out.files}
+ 
+ 
++def certificate_maps(maps, members, prow):
++    """A135 item 10: {log_index: certificate map} from root's certificate_pins_by_member (keys = the v003g member
++    log_indices as strings, exactly).  A map is an object of label -> {path, sha256} or a non-pin placeholder, as the
++    shared certificate_pins of v002.  Every pin is hash-verified, and a pin that binds another admitted point (its theta
++    key or its spec sha, by exact token, as provenance _scope) is refused: a member is never handed another member's
++    certificate.  A pin that binds no admitted point (a shared custody pin) is allowed."""
++    want = sorted(str(m['log_index']) for m in members)
++    if sorted(maps) != want:
++        raise Refused('CERTIFICATE_MAP', '%s keys must be exactly the v003g member log indices %s, got %s'
++                      % (CERT_MAPS, want, sorted(maps)))
++    keys = {r['log_index']: r['key'] for r in prow}
++    specs = {r['log_index']: r['spec_sha256'] for r in prow}
++    out, bad = {}, []
++    for m in members:
++        li = m['log_index']
++        cm = maps[str(li)]
++        if not isinstance(cm, dict):
++            raise Refused('CERTIFICATE_MAP', 'member %d: the certificate map must be an object' % li)
++        for lab, p in sorted(cm.items()):
++            if not isinstance(p, dict):
++                continue
++            raw = read_pinned(p.get('path'), p.get('sha256'), '%s.%d.%s' % (CERT_MAPS, li, lab))
++            other = [o for o in sorted(keys) if o != li and (keys[o].encode() in raw or
++                                                            (specs[o] and specs[o].encode() in raw))]
++            if other:
++                bad.append('member %d: %s binds admitted point(s) %s' % (li, lab, other))
++        out[li] = cm
++    if bad:
++        raise Refused('CERTIFICATE_MAP', bad[:12])
++    return out
++
++
+ # ------------------------------------------------------------------------------------------------ fdplan
+ def side_point(u, k, rel_step, min_step):
+     """A133 1.4 / the engine's side rule: plus step min(rel_step, 1-u_k); below min_step the minus step min(rel_step, u_k)."""
+@@ -953,22 +1032,111 @@
+     return ('OK' if not fails else 'AGREEMENT_DEFECT'), {'failures': fails, 'out_dir': out.dir, 'files': out.files}
+ 
+ 
+-def at1_rows(E, L, l1, run2, mv, qids):
+-    """AT-1 per (member, row), the categories, and the always-reported target-free lines."""
++def band_region(L):
++    """A144 R1: the band region's rows, built exactly as band_rows builds them (A, b_band; a test proves bitwise
++    equality with the arrays band_rows passes to the LP), plus the row slice of each family:
++    LINEAR_DDO = [0, 2N), BOX = [2N, 2N + 2d), TRUST_RADIUS = [2N + 2d, 2N + 2d + 2 m_id)."""
+     import numpy as np
+-    m = len(L['I'])
++    VI, m = L['VI'], len(L['I'])
++    SVI = L['S'] @ VI.T
++    eye = np.eye(m)
+     r = float(L['P']['max_repair_step']) / math.sqrt(m)
++    A = np.vstack([SVI, -SVI, VI.T, -VI.T, eye, -eye])
++    b_band = np.concatenate([L['zrow'] - L['qA'], L['zrow'] + L['qA'], 1.0 - L['uA'], L['uA'], np.full(m, r), np.full(m, r)])
++    nr, nd = SVI.shape[0], VI.shape[1]
++    fam = {'LINEAR_DDO': slice(0, 2 * nr), 'BOX': slice(2 * nr, 2 * nr + 2 * nd),
++           'TRUST_RADIUS': slice(2 * nr + 2 * nd, 2 * nr + 2 * nd + 2 * m)}
++    return A, b_band, fam
++
++
++def region_violation(E, region, c):
++    """A144 R1 row test with the band LP's own feasibility semantics: row i is violated iff
++    (A c)_i - max(b_band_i, 0) > E._LP_EPS (the clip is _lp_max's, engine L1787; the tolerance is engine L181).
++    Returns (violated families in the order TRUST_RADIUS, BOX, LINEAR_DDO, {family: max_i of that difference})."""
++    import numpy as np
++    A, b, fam = region
++    v = A @ c - np.maximum(b, 0.0)
++    viol = [f for f in REGION_FAMILIES if bool(np.any(v[fam[f]] > E._LP_EPS))]
++    return viol, {f: float(np.max(v[fam[f]])) for f in REGION_FAMILIES}
++
++
++def band_region_extent(E, L, lp=None):
++    """A144 R2 (print only): per identified c_j, [min, max] over the band region's own rows (E._lp_max) with both
++    statuses; band_region_single_point (True iff every extent is OPTIMAL and exactly [0.0, 0.0]; 'NOT_AVAILABLE' if
++    any program is not OPTIMAL); the reason (BOX_CORNER iff the box rows alone give [0.0, 0.0] on every j, else
++    OTHER_ROWS; None unless the band region is a single point)."""
++    import numpy as np
++    A, b, fam = band_region(L)
++    m = len(L['I'])
++
++    def extents(A_, b_):
++        res = []
++        for j in range(m):
++            w = np.zeros(m)
++            w[j] = 1.0
++            lo, hi, _cmin, _cmax, st = lp_pair(E, A_, b_, w, lp)
++            res.append({'direction': L['I'][j], 'extent': [lo if st[0] == 'OPTIMAL' else 'NOT_AVAILABLE',
++                                                           hi if st[1] == 'OPTIMAL' else 'NOT_AVAILABLE'],
++                        'lp_status': [st[0], st[1]]})
++        return res
++
++    def single(res):
++        if any(s != 'OPTIMAL' for x in res for s in x['lp_status']):
++            return 'NOT_AVAILABLE'
++        return all(x['extent'][0] == 0.0 and x['extent'][1] == 0.0 for x in res)
++    ext = extents(A, b)
++    sp = single(ext)
++    reason = None
++    if sp is True:
++        reason = 'BOX_CORNER' if single(extents(A[fam['BOX']], b[fam['BOX']])) is True else 'OTHER_ROWS'
++    return ext, sp, reason
++
++
++def member_eps(eps_list, q):
++    """(eps_m as float, None) for a bounded entry; (None, flag_reason) otherwise (A144 R3)."""
++    if not isinstance(eps_list, list) or q >= len(eps_list):
++        return None, 'MEMBER_EPS_LIST_MISSING'
++    e = eps_list[q]
++    if e is None:
++        return None, 'MEMBER_EPS_NONE'
++    if isinstance(e, bool):
++        return None, 'MEMBER_EPS_BOOL'
++    if not isinstance(e, (int, float)):
++        return None, 'MEMBER_EPS_NOT_A_NUMBER'
++    if not math.isfinite(e):
++        return None, 'MEMBER_EPS_NON_FINITE'
++    if e < 0:
++        return None, 'MEMBER_EPS_NEGATIVE'
++    return float(e), None
++
++
++def check_member_eps(mv, n_rows=43):
++    """A144 R3 input contract, at cmd_at1 only (members_values is shared with at0b and unchanged): every member point
++    of the Phase-2 members file carries eps_km_s, a list of exactly n_rows entries; else MEMBERS is refused."""
++    bad = [li for li, p in sorted(mv.items()) if not isinstance(p.get('eps_km_s'), list) or len(p['eps_km_s']) != n_rows]
++    if bad:
++        raise Refused('MEMBERS', 'member point(s) %s lack eps_km_s as a list of %d entries (A144 R3: the member point '
++                      'own EPS certificate)' % (bad[:12], n_rows))
++
++
++def at1_rows(E, L, l1, run2, mv, qids, lp=None):
++    """AT-1 per (member, row), the A144 R1 categories, the R3 e_q, and the always-reported target-free lines."""
++    import numpy as np
++    m = len(L['I'])
+     VN = L['V'][L['N']] if L['N'] else np.zeros((0, len(L['uA'])))
+     rows1 = {x['id']: x for x in l1['rows']}
+-    fails, resid, widths, eqs = [], [], {}, []
++    region = band_region(L)
++    du = np.array([float(f) for f in l1['fd_du']])
++    h = np.abs(du)
++    fails, resid, widths, eqs, pmp = [], [], {}, [], []
+     untested = sorted(q for q, x in rows1.items() if x.get('status') != 'AVAILABLE' or x.get('a_q') == 'NOT_AVAILABLE')
+     for li, p in sorted(mv.items()):
+         u = np.array([pt for pt in run2['exploration']['admitted_points'] if pt['log_index'] == li][0]['u'])
+         d = u - L['uA']
+         c, n = L['VI'] @ d, VN @ d
+-        lin = L['qA'] + L['S'] @ (L['VI'].T @ c)
+-        cat = ('OUTSIDE_TRUST_RADIUS' if np.any(np.abs(c) > r) else
+-               'OUTSIDE_LINEAR_DDO_REGION' if np.any(np.abs(lin) > L['zrow']) else 'NGC_NONLINEAR')
++        viol, maxv = region_violation(E, region, c)   # A144 R1
++        cat = REGION_CATEGORY[viol[0]] if viol else 'NGC_NONLINEAR'
++        coef = abs(1.0 - float(np.sum(d / du))) + float(np.sum(np.abs(d) / h))   # A144 R3: the eps_q coefficient
+         for q, qid in enumerate(qids):
+             b1 = rows1.get(qid) or {}
+             g = p['speeds_km_s'][q]
+@@ -979,19 +1147,29 @@
+                 continue
+             K = np.array(b1['K_q'])
+             shift = float(K @ (VN.T @ n)) if len(n) else 0.0
+-            e, eq = 0.0, 'FD_NOISE_NOT_BOUNDED'
+-            if isinstance(b1.get('fd_noise'), dict):   # A137 N-B: member-displacement bound at m's own Delta_m
+-                h = np.array([abs(f) for f in l1['fd_du']])
+-                eps_k = np.full(len(h), float(b1['eps_q']))
+-                e = eq = float(np.sum(2.0 * eps_k * np.abs(d) / h))
+-            eqs.append({'log_index': li, 'id': qid, 'e_q': eq})
++            e, eq, eps_m, flag, why = 0.0, 'FD_NOISE_NOT_BOUNDED', None, 'FD_NOISE_NOT_BOUNDED', 'NO_ROW_EPS_Q'
++            if isinstance(b1.get('fd_noise'), dict):   # A144 R3 (E_A133_2(b))
++                eps_m, why = member_eps(p.get('eps_km_s'), q)
++                bounded = float(b1['eps_q']) * coef
++                if eps_m is None:
++                    e = eq = bounded
++                    flag = 'MEMBER_POINT_NOISE_NOT_BOUNDED'
++                    pmp.append({'log_index': li, 'id': qid, 'flag_reason': why})
++                else:
++                    e = eq = eps_m + bounded
++                    flag = None
++            eqs.append({'log_index': li, 'id': qid, 'e_q': eq, 'eps_m': eps_m, 'flag': flag, 'flag_reason': why})
+             aq = b1['a_q']
+             lo, hi = b1['lo'] - aq - e + shift, b1['hi'] + aq + e + shift
+             resid.append({'log_index': li, 'id': qid, 'ngc_linearity_residual': g - b1['g_A'] - float(K @ d)})
+             if not lo <= g <= hi:
+-                fails.append({'log_index': li, 'id': qid, 'excess': (lo - g) if g < lo else (g - hi),
+-                              'norm_n': float(np.linalg.norm(n)), 'category': cat,
+-                              'flag': None if isinstance(b1.get('fd_noise'), dict) else 'FD_NOISE_NOT_BOUNDED'})
++                excess = (lo - g) if g < lo else (g - hi)
++                kc = float(K @ (L['VI'].T @ c))
++                geo = ((b1['lo'] - b1['g_A']) - kc) if g < lo else (kc - (b1['hi'] - b1['g_A']))
++                fails.append({'log_index': li, 'id': qid, 'excess': excess,
++                              'norm_n': float(np.linalg.norm(n)), 'category': cat, 'flag': flag, 'flag_reason': why,
++                              'region_rows_violated': list(viol), 'region_max_violation': dict(maxv),
++                              'geometric_part': geo, 'residual_part': excess - geo})
+     env = {q: {'phase2_envelope_width': max(v) - min(v),
+                'phase1_band_width': rows1.get(q, {}).get('width', 'NOT_AVAILABLE')} for q, v in widths.items()}
+     tau = TAU_OVER_SIGMA * L['sig']
+@@ -1009,10 +1187,14 @@
+         res_ = float(L['P']['march_step']) * 2.0 ** -3
+         proj.append({'direction': k, 'phase2_range': [min(pr), max(pr)], 'linear_region': [lo, hi], 'lp_status': st,
+                      'resolution_u': res_, 'beyond_linear_region': bool(min(pr) < lo - res_ or max(pr) > hi + res_)})
++    ext, single, reason = band_region_extent(E, L, lp)   # A144 R2 (print only)
+     return fails, {'rows_not_tested_phase1_not_available': untested, 'e_q_per_member_row': eqs,
+                    'rows_fd_noise_not_bounded': sorted(q for q, x in rows1.items() if x.get('fd_noise') == 'FD_NOISE_NOT_BOUNDED'),
++                   'pairs_member_point_noise_not_bounded': pmp,
+                    'ngc_linearity_residuals': resid, 'envelope_vs_band_width': env,
+-                   'max_ddo_linearity_deviation_over_tau': lin_dev, 'identified_projection_vs_linear_region': proj}
++                   'max_ddo_linearity_deviation_over_tau': lin_dev, 'identified_projection_vs_linear_region': proj,
++                   'band_region_extent': ext, 'band_region_single_point': single,
++                   'band_region_single_point_reason': reason}
+ 
+ 
+ def cmd_at1(a):
+@@ -1022,11 +1204,14 @@
+     fd = read_json_pinned(a.fdplan, a.fdplan_sha256, 'fdplan')
+     if l1.get('schema') != S_L1 or l1.get('snapshot_sha256') != a.snapshot_sha256 or l1.get('fdplan_sha256') != a.fdplan_sha256:
+         raise Refused('L1', 'L1 is not of this snapshot and fdplan')
++    if l1.get('module') != MODULE:   # A144 custody: at1 reads only an L1 written by this module's band
++        raise Refused('L1', 'L1 module %r is not %s (A144)' % (l1.get('module'), MODULE))
+     l1 = dict(l1, fd_du=[f['du'] for f in fd['F']])
+     at0 = [read_json_pinned(p, s, lab) for p, s, lab in ((a.at0a, a.at0a_sha256, 'AT-0a'), (a.at0b, a.at0b_sha256, 'AT-0b'))]
+     run2 = phase2_record(E, a.phase2_record, a.phase2_record_sha256, a.phase2_registry)
+     mvals = read_json_pinned(a.members, a.members_sha256, 'Phase-2 members')
+     mv = members_values(mvals, run2)
++    check_member_eps(mv, len(mvals['query_ids']))   # A144 R3 input contract (at1 only; at0b is not affected)
+     if [r['id'] for r in l1['rows']] != list(mvals['query_ids']):
+         raise Refused('MEMBERS', 'query ids differ from L1')
+     sel2 = v003g_members(Campaign(a.config, a.config_sha256, prepare=False).ctx, run2, a.interior_count)

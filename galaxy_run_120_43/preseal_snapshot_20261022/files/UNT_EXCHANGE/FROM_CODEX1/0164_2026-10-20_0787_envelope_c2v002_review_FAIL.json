@@ -1,0 +1,26 @@
+{
+  "dispatch": "0787",
+  "verdict": "FAIL",
+  "blocking_count": 1,
+  "blocking_items": [
+    {
+      "id": "CX1-ENV-01",
+      "blocking": true,
+      "requirement": "0787 check 1: one guarded read per file per snapshot; A226 item 1 single-read rule.",
+      "finding": "snapshot groups by realpath, not descriptor (dev, ino). Two hard-link paths to one regular file each call read_once, read the same inode twice, and return exit 0. OneRead.get has the same realpath-only cache for collect.",
+      "reproduction": "OWN_CHECKS.json and own_checks_cx1.py: synthetic input.txt and alias.txt have equal dev/ino; each bytes_read=6; snapshot exit=0. No production input was mutated.",
+      "scope": "A contract violation, not demonstrated acceptance of unhashed bytes. Both observations are hashed correctly; no scientific result is implicated.",
+      "requested_fix": "Use file identity to share a single content-read result across aliases, while retaining each path resolution and checking descriptor identity safely; alternatively refuse duplicate inode aliases before a second content read. Add hard-link regressions for snapshot and collect, with independent content-read counts. Publish an immutable successor."
+    }
+  ],
+  "TESTED": "82/82 suite, 45/45 mutations; independent hard-link/guard/missing-file checks.",
+  "UNTESTED": [
+    "Real depth-0 collect (optional; not run in this review).",
+    "Any real snapshot, gate-file hashing, production phase execution or real phase invalidation."
+  ],
+  "result": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_final_deltas_cx1/ENVELOPE_C2V002_REVIEW_CX1_V001/REVIEW_RESULT.json",
+    "sha256": "39c09b50fe95c917f8bd8c710fb11c91fed85466d79e26be6690a7fea4b5395d"
+  },
+  "tool_sha256": "0fac239ad7e5573084bfa494e55a344f40ab4deaa3469d5d54671ca5b457598c"
+}

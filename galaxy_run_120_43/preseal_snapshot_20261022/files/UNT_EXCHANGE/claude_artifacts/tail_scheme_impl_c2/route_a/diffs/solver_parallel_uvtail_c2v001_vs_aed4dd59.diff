@@ -1,0 +1,273 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/parallel_route_a_c2/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_c2v001.py	2026-10-17 12:14:35.266662362 -0500
++++ coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py	2026-10-17 22:52:33.849793817 -0500
+@@ -13,6 +13,14 @@
+ handler, checkpoint writes, progress events and source accumulation. The gas
+ source transform is split by wave rows only for an admitted row-separable source
+ module. No numerics, tolerances, guards or records change; see INTERFACE note.
++UVTAIL c2v001 (Claude2 tail_scheme_impl_c2/route_a; successor of aed4dd59; TAIL_SCHEME_DESIGN_V002 sec 3.5):
++optional uv_tail (route_a_uv_tail_controller_c2v001.RouteATailController), same hooks as the serial uvtail
++successor. uv_tail=None executes the aed4dd59 statements. Supplied with N>1: the pinned tail library is registered
++in every worker before the environment ships; the iteration's TailState ships before that iteration's columns
++(digest re-verified in the worker) and is set on the worker's TailBoundary (the env boundary, shared by identity
++with the facade closure). bind_uv_tail(c) / view.bind_uv_tail(c) return views with uv_tail (and N) fixed.
++V8c-F1 (REVIEW_DRIVER_V008_C4_V001 sec 6): an undecodable or malformed worker reply is a lost worker
++(ColumnPoolError), never the column's HI ValueError path.
+ """
+ import math
+ import numpy as np
+@@ -59,7 +67,7 @@
+           source_module, fourier_module, metric_module, hi_module, quadrature_module,
+           c_m_s, max_iterations, relaxation, source_atol_J, source_rtol,
+           reality_atol, reality_rtol, vertical_fourier_module=None, progress_callback=None,
+-          checkpoint=None, fixed_source_fourier_J=None, column_workers=1):
++          checkpoint=None, fixed_source_fourier_J=None, column_workers=1, uv_tail=None):
+     """Reviewed v005/resume/fixedsrc solve (contract in _solve) plus column_workers.
+     column_workers=1: exactly the reviewed serial path (no pool, no processes).
+     column_workers=N>1: min(N,len(gas_columns)) spawned processes solve the fresh
+@@ -80,6 +88,7 @@
+         source_rtol=source_rtol,reality_atol=reality_atol,reality_rtol=reality_rtol,
+         vertical_fourier_module=vertical_fourier_module,progress_callback=progress_callback,
+         checkpoint=checkpoint,fixed_source_fourier_J=fixed_source_fourier_J)
++    if uv_tail is not None: call['uv_tail']=uv_tail  # UVTAIL: absent -> the aed4dd59 call exactly
+     if column_workers==1:
+         return _solve(**call,pool=None)
+     pool=_ColumnPool(column_workers)
+@@ -101,6 +110,22 @@
+     view.solve=functools.partial(solve,column_workers=column_workers)
+     view.column_workers=column_workers
+     view.cylindrical_metric_covector_to_registered=cylindrical_metric_covector_to_registered
++    view.bind_uv_tail=functools.partial(bind_uv_tail,column_workers=column_workers)  # UVTAIL
++    return view
++
++
++def bind_uv_tail(uv_tail,column_workers=1):
++    """UVTAIL: module-shaped view of THIS file whose solve fixes uv_tail and column_workers (__file__ = this file)."""
++    if uv_tail is None: raise ValueError('bind_uv_tail requires a controller; tail OFF uses bind_column_workers')
++    if type(column_workers) is not int or not 1<=column_workers<=MAX_COLUMN_WORKERS:
++        raise ValueError('column_workers: explicit int 1..%d required'%MAX_COLUMN_WORKERS)
++    view=types.ModuleType(__name__+'_uv_tail_column_workers_%d'%column_workers)
++    view.__file__=__file__
++    view.__doc__='solve() of %s with uv_tail bound and column_workers=%d'%(__file__,column_workers)
++    view.solve=functools.partial(solve,column_workers=column_workers,uv_tail=uv_tail)
++    view.column_workers=column_workers
++    view.uv_tail=uv_tail
++    view.cylindrical_metric_covector_to_registered=cylindrical_metric_covector_to_registered
+     return view
+ 
+ 
+@@ -109,7 +134,7 @@
+           source_module, fourier_module, metric_module, hi_module, quadrature_module,
+           c_m_s, max_iterations, relaxation, source_atol_J, source_rtol,
+           reality_atol, reality_rtol, vertical_fourier_module=None, progress_callback=None,
+-          checkpoint=None, fixed_source_fourier_J=None, pool=None):
++          checkpoint=None, fixed_source_fourier_J=None, pool=None, uv_tail=None):
+     """Required actual inputs:
+     fixed positions[n,3]/J[n,10,1]: stellar,H2,exterior etc already integrated,
+     with source components in REGISTERED chart. Unknown sources never filled.
+@@ -153,6 +178,9 @@
+     gas=np.asarray(initial_gas_fourier_J,dtype=complex)
+     if gas.shape!=fixed.shape or gas.shape[1:]!=(10,1): raise ValueError('Single actual combined source [nk,10,1] required')
+     _finite(gas,'initial gas')
++    if uv_tail is not None:
++        # UVTAIL: the bound TailBoundary is the boundary slot; checked before any process or checkpoint record.
++        uv_tail.bind_check(boundary_jet_at_positions,checkpoint)
+     if pool is not None:
+         # PARALLEL: workers are spawned and the column environment is proven
+         # shippable BEFORE any checkpoint record exists; failure here writes nothing.
+@@ -162,8 +190,10 @@
+             metric_module=metric_module,hi_module=hi_module,quadrature_module=quadrature_module,
+             vertical_fourier_module=vertical_fourier_module,
+             args={'Cbar':args['Cbar'],'mubar':args['mubar']},c_m_s=c_m_s,
+-            reality_atol=reality_atol,reality_rtol=reality_rtol),
+-            source_module=source_module,waves=waves,column_count=len(gas_columns))
++            reality_atol=reality_atol,reality_rtol=reality_rtol,
++            **({} if uv_tail is None else {'uv_tail_boundary':uv_tail.boundary})),
++            source_module=source_module,waves=waves,column_count=len(gas_columns),
++            worker_modules=None if uv_tail is None else uv_tail.worker_modules())
+     history=[]
+     cm=None; ck=None; start_iteration=0
+     if checkpoint is not None:
+@@ -187,14 +217,23 @@
+             # Stored already-relaxed iterate, never reconstructed by subtraction.
+             start_iteration=ck['resume']['iteration']
+             gas=ck['resume']['gas']; history=ck['resume']['history']
++    if uv_tail is not None:
++        # UVTAIL: sidecar opened (new) or verified and its rosters reloaded (resume) against this checkpoint.
++        uv_tail.open(relaxation=relaxation,start_iteration=start_iteration,
++            checkpoint_mode=None if ck is None else checkpoint['mode'],
++            checkpoint_identity_sha256=None if ck is None else ck['identity_sha256'])
+     def _finish(out,outcome):
+         if fixed_source_fourier_J is not None:
+             out['fixed_source_selection']={'selection':'SUPPLIED_FIXED_SOURCE_FOURIER_J',
+                 'fixed_positions_and_integrated_columns':'PROVENANCE_ONLY; accepted unchanged, not used for the fixed term'}
++        if uv_tail is not None: out['uv_tail']=uv_tail.result_record(outcome=outcome)
+         if ck is not None: out['checkpoint']=cm.finish(ck,outcome=outcome,result=out)
+         return out
+     for iteration in range(start_iteration,max_iterations):
+         current=fixed+gas
++        if uv_tail is not None:
++            # UVTAIL: tail state of THIS iteration's gas (I1-T against gas), before prepare and any column.
++            uv_tail.begin_iteration(iteration=iteration,gas=gas)
+         prepared=fourier_module.prepare(**args,source_density_fourier=current)
+         restored=[]; resumed=False
+         if ck is not None:
+@@ -214,7 +253,8 @@
+             # PARALLEL: the fresh columns of THIS iteration, against THIS prepared
+             # response, are queued in roster order; results are consumed below.
+             pool.begin_iteration(iteration=iteration,prepared=prepared,
+-                columns=[(k,gas_columns[k]) for k in range(len(restored),len(gas_columns))])
++                columns=[(k,gas_columns[k]) for k in range(len(restored),len(gas_columns))],
++                uv_tail_state=None if uv_tail is None else uv_tail.boundary.state)
+         # One line retained at a time; no cross-iteration or stale-source reuse.
+         line_key=None; line=None
+         def metric_point(R,phi,z):
+@@ -295,6 +335,10 @@
+         if not math.isfinite(residual) or not math.isfinite(scale): raise ValueError('Nonfinite coupling residual')
+         bound=source_atol_J+source_rtol*scale
+         if not math.isfinite(bound): raise ValueError('Nonfinite source convergence bound')
++        if uv_tail is not None:
++            # UVTAIL: updated roster, next (relaxation-mirrored) state, M_T/M_K, sidecar -- before COMPLETED.
++            uv_tail.complete_iteration(iteration=iteration,positions=positions,columns=columns,gas=gas,
++                updated=updated,current=current,prepared=prepared,converged=residual<=bound)
+         history.append({'iteration':iteration,'gas_fourier_residual_J':residual,'bound_J':bound,
+                         'roots_m':[r['roots_m'] for r in solutions]})
+         if ck is not None:
+@@ -666,11 +710,34 @@
+     return 'ok',result
+ 
+ 
++def _register_modules(entries):
++    """UVTAIL: load each pinned (name, path, sha256) file module and register it in sys.modules under name, so the
++    classes of shipped instances (TailBoundary, TailState) unpickle by reference. sha256 from bytes; a different file
++    already registered under the name is a conflict."""
++    for name,path,sha256 in entries:
++        data,actual=_file_bytes_sha256(path)
++        if actual!=sha256: raise ColumnPoolError('WORKER_MODULE_PIN_MISMATCH '+path)
++        have=sys.modules.get(name)
++        if have is not None:
++            if os.path.realpath(getattr(have,'__file__','') or '')!=os.path.realpath(path):
++                raise ColumnPoolError('WORKER_MODULE_REGISTRY_CONFLICT '+name)
++            continue
++        module=types.ModuleType(name)
++        module.__file__=path
++        module.__spec__=importlib.util.spec_from_file_location(name,path)
++        module.__loader__=module.__spec__.loader
++        sys.modules[name]=module
++        try: exec(compile(data,path,'exec',dont_inherit=True),module.__dict__)
++        except BaseException:
++            sys.modules.pop(name,None); raise
++
++
+ def _worker_main(conn):
+     import signal
+     signal.signal(signal.SIGINT,signal.SIG_IGN)  # the parent owns interruption
+     env=None; prepared=None; prepared_iteration=None; prepared_problem=None
+     source_inputs=None; source_iteration=None; source_problem=None
++    uv_iteration=None; uv_problem=None  # UVTAIL: last TailState received (iteration) / its failure report
+     while True:
+         try:
+             raw=conn.recv_bytes()
+@@ -692,9 +759,24 @@
+             try: source_inputs=_loads(message[2])
+             except Exception as exc: source_problem=_exception_report(exc)
+             continue
++        if tag=='uv_tail_state':
++            # UVTAIL: this iteration's TailState; digest re-computed from its record+arrays, set on the env boundary.
++            uv_iteration=message[1]; uv_problem=None
++            try:
++                state=_loads(message[2])
++                if env is None or 'uv_tail_boundary' not in env: raise ColumnPoolError('UV_TAIL_STATE_WITHOUT_TAIL_ENV')
++                if state._digest()!=message[3] or state.digest!=message[3]: raise ColumnPoolError('UV_TAIL_STATE_DIGEST_MISMATCH')
++                env['uv_tail_boundary'].set_state(state)
++            except Exception as exc: uv_problem=_exception_report(exc)
++            continue
+         try:
+-            if tag=='env':
++            if tag=='register_modules':
++                _register_modules(message[1])  # UVTAIL: before the environment that references them
++                reply=('registered',os.getpid())
++            elif tag=='env':
+                 env=message[1]
++                if 'uv_tail_boundary' in env and env['uv_tail_boundary'] is not env['boundary_jet_at_positions']:
++                    raise ColumnPoolError('UV_TAIL_BOUNDARY_NOT_THE_ENV_BOUNDARY')
+                 reply=('ready',os.getpid(),_rss_bytes(),{k:os.environ.get(k) for k in _BLAS_THREAD_VARIABLES})
+             elif tag=='column':
+                 _,iteration,index,col=message
+@@ -702,6 +784,9 @@
+                     reply=('column',iteration,index,'pool_error','WORKER_STATE_MISMATCH')
+                 elif prepared_problem is not None:
+                     reply=('column',iteration,index,'pool_error','PREPARED_NOT_RECEIVED '+prepared_problem['message'])
++                elif 'uv_tail_boundary' in env and (uv_iteration!=iteration or uv_problem is not None):
++                    reply=('column',iteration,index,'pool_error','UV_TAIL_STATE_NOT_RECEIVED '+
++                           ('' if uv_problem is None else uv_problem['message']))
+                 else:
+                     try: status,payload=_run_column(env,prepared,col)
+                     except Exception as exc: status,payload='exception',_exception_report(exc)
+@@ -781,7 +866,7 @@
+         _POOL_REPORTS.append(self.report)
+ 
+     # ---- lifecycle ----
+-    def start(self,*,column_environment,source_module,waves,column_count):
++    def start(self,*,column_environment,source_module,waves,column_count,worker_modules=None):
+         if self.started: raise ColumnPoolError('POOL_ALREADY_STARTED')
+         self.started=True
+         n=max(1,min(self.requested,column_count))
+@@ -797,6 +882,8 @@
+             edges=[i*chunks//count for i in range(count+1)]
+             self.blocks=[(edges[i]*chunk,min(edges[i+1]*chunk,nk)) for i in range(count)]
+             self.source_split=True
++        if 'uv_tail_boundary' in environment and environment['uv_tail_boundary'] is not environment['boundary_jet_at_positions']:
++            raise ColumnPoolError('UV_TAIL_BOUNDARY_NOT_THE_ENV_BOUNDARY')
+         message=_dumps(('env',environment))  # proven shippable before any process exists
+         ctx=multiprocessing.get_context('spawn')
+         saved={k:os.environ.get(k) for k in _BLAS_THREAD_VARIABLES}
+@@ -813,6 +900,11 @@
+             for k,v in saved.items():
+                 if v is None: os.environ.pop(k,None)
+                 else: os.environ[k]=v
++        if worker_modules is not None:  # UVTAIL: registered in each worker before the environment that needs them
++            register=_dumps(('register_modules',[tuple(str(x) for x in e) for e in worker_modules]))
++            for w in self.workers:
++                self._send(w,register); w.inflight.append(('register',None))
++            self.report.update(worker_modules=[list(e) for e in worker_modules])
+         for w in self.workers:
+             self._send(w,message); w.inflight.append(('env',None))
+         while any(w.inflight for w in self.workers if w.alive) and self.broken is None:
+@@ -869,6 +961,7 @@
+         if rss is not None: w.peak_rss=max(w.peak_rss or 0,rss)
+         if tag=='ready' and kind=='env':
+             w.pid=message[1]; w.blas=message[3]; return
++        if tag=='registered' and kind=='register': return  # UVTAIL
+         if tag=='column' and kind=='column' and message[1]==self.iteration and message[2]==key:
+             w.tasks+=1; self.results[key]=(message[3],message[4]); return
+         if tag=='source_block' and kind=='source_block' and message[1]==self.iteration and message[2]==key:
+@@ -890,12 +983,16 @@
+                         raw=w.conn.recv_bytes()
+                     except (EOFError,OSError):
+                         self._lost(w,'EOF'); break
+-                    self._accept(w,pickle.loads(raw))
++                    # V8c-F1 (REVIEW_DRIVER_V008_C4_V001 sec 6): an undecodable or malformed reply is a lost
++                    # worker (ColumnPoolError via take), never the waited-on column's HI ValueError.
++                    try: msg=pickle.loads(raw); self._accept(w,msg)
++                    except ColumnPoolError: raise
++                    except Exception as exc: self._lost(w,'MALFORMED_REPLY %s'%type(exc).__name__); break
+                 if w.alive and w.proc.sentinel in ready and not w.proc.is_alive():
+                     self._lost(w,'EXITED')
+ 
+     # ---- columns ----
+-    def begin_iteration(self,*,iteration,prepared,columns):
++    def begin_iteration(self,*,iteration,prepared,columns,uv_tail_state=None):
+         if self.broken is not None: raise ColumnPoolError(self.broken)
+         if self.queue or self.results or any(w.inflight for w in self.workers):
+             raise ColumnPoolError('PROTOCOL previous iteration not drained')
+@@ -903,6 +1000,10 @@
+         self.queue=collections.deque(columns)
+         self.next_take=columns[0][0] if columns else None
+         if not columns: return
++        if uv_tail_state is not None:  # UVTAIL: this iteration's TailState, before any of its columns
++            state_message=_dumps(('uv_tail_state',iteration,_dumps(uv_tail_state),uv_tail_state.digest))
++            for w in self.workers:
++                if w.alive: self._send(w,state_message)
+         message=_dumps(('prepared',iteration,_dumps(prepared)))
+         for w in self.workers:
+             if w.alive: self._send(w,message)

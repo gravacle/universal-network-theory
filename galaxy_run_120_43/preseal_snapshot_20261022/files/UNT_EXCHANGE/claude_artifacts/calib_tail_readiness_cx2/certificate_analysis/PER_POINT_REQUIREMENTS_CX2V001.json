@@ -1,0 +1,31 @@
+{
+  "schema": "UNT_CALIBRATION_CERTIFICATE_REQUIREMENTS_CX2V001",
+  "status": "PROPOSED_RULE_NOT_A_SCIENTIFIC_CERTIFICATE",
+  "scope": "DDO154, kept cube K=4, continuum_v001 cylinder K_big=64 or 128, fixed inclination 66 degrees",
+  "numerical_box_coverage": "UNTESTED",
+  "prelaunch": {
+    "identity": "Exact canonical physical/coefficient/numerics/driver identity; omit label and certificate refs and derived config hash only",
+    "custody": ["grid_sha256", "background_sha256", "geometry_sha256", "modules_sha256", "row_contract_sha256"],
+    "EPS": "Reviewed producer; TESTED PASS; exact point/custody; sampled and locally maximized cardinal-torus envelope, conservative shell eps; contiguous coverage through ceil(sqrt(2)*K_big); no two refinement failures",
+    "GQ": "Reviewed producer; TESTED PASS; all production k_perp nodes and all possible GL4 columns; max_i abs(P_i(M_s)-P_i(2*M_s))/analytic_P_i(0), divided by 1-zero_mode_relative_error, <=1e-12; nonnegative element masses required",
+    "LO": "No anchor promotion. A point LO slot is pending until a point-specific uniform bound or the registered current-state acceptance process is reviewed. A prelaunch verifier pass does not approve a launch or replace the production module's LO slot requirement."
+  },
+  "acceptance": {
+    "rule": "ALL_CONSUMED_STATES_LO_AND_GQ_FAIL_CLOSED",
+    "inventory": "Derive independently from full result/sidecar lineage, never from the certificate manifest. Include every source-influencing route-A mixture and route-B source consumed by the accepted call.",
+    "state_keys": ["state_sha256", "source_sha256", "stage_kind", "nonnegative_masses"],
+    "LO": "Exact state/source match; every shell <=0.005 tau; sum of per-shell maxima <=0.05 tau; exact row contract; source fidelity I1T PASS; contiguous coverage through ceil(sqrt(2)*K_big)",
+    "GQ": "Actual roster positivity and geometry match the prelaunch uniform bound, or stop pending a reviewed source-specific successor rule",
+    "fail_closed": "Missing, stale, malformed, contradictory or incomplete evidence yields pending certificate/NUMERICS_UNCERTIFIED; never a calibration success or a fabricated physical rejection"
+  },
+  "integration_requirements": [
+    "Run adapter validate_block before the verifier (K=4 and all production numerics checks remain there)",
+    "Approve exact producer hashes independently; a record's asserted TESTED/PASS is insufficient",
+    "Bind all proof file byte hashes into point/cache identity and acceptance receipt",
+    "Call acceptance verifier before accepting or reusing a cached scientific result",
+    "Re-audit cached results when missing this acceptance evidence; do not rewrite old files",
+    "Any change of source/grid/background/geometry/config/module/row contract invalidates matching proof scope",
+    "No launches under dispatch 0511; Claude2 retains launch ownership"
+  ],
+  "label_convention": "TESTED source inspection and synthetic verifier tests are distinct from UNTESTED box-wide scientific certificate validity"
+}

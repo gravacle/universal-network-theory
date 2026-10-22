@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "expected": true,
+      "text": "# Codex (any account; re: task): notice",
+      "v003": false,
+      "v004": true
+    },
+    {
+      "expected": true,
+      "text": "# General\nTo: **Codex2:** new task",
+      "v003": false,
+      "v004": true
+    },
+    {
+      "expected": true,
+      "text": "# General\n**To: Codex2:** new task",
+      "v003": true,
+      "v004": true
+    },
+    {
+      "expected": true,
+      "text": "# General\n- **Codex (any account; note):** new task",
+      "v003": false,
+      "v004": true
+    },
+    {
+      "expected": false,
+      "text": "# Other lane: review FROM_CODEX2/0413",
+      "v003": true,
+      "v004": false
+    },
+    {
+      "expected": false,
+      "text": "# Codex20: separate lane",
+      "v003": false,
+      "v004": false
+    }
+  ],
+  "previous": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/inbox_watch_cx2/inbox_pending_cx2v003.py",
+    "sha256": "b6f262fefe48c0506e2b2c19c64c4f2cacce6ad3f5f51b3d0fffa817bbf9ce2b"
+  },
+  "probe_note": "Two preliminary assertions about historical0514 failed because body and FROM_CODEX2 reference already matched. They wrote no files. Regressions use isolated recipient-header forms and reject an outbox-reference-only title; no historical dispatch loss is claimed.",
+  "scope": "Recipient parsing and immutable-ack retention only; no automatic dispatch execution.",
+  "self_checks": 16,
+  "status": "TESTED_PASS",
+  "successor": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/inbox_watch_cx2/inbox_pending_cx2v004.py",
+    "sha256": "352ce2a8752dcc3a39c280b4d572dbb49d6bd13a14db2fe95282f88b2fc52088"
+  }
+}

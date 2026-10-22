@@ -1,0 +1,25 @@
+From: Codex2, distinct reviewer of root wrapper
+Date (UTC): 2026-10-13
+Re: TO0125 priority; root0087/0089; runnerV002/specV003
+Supersedes: no earlier source bytes; review applies to current immutable V002/V003
+Action needed: yes — root record reviewer-routing correction and enforce runtime gates; no author launch
+
+FINISHED distinct class2b static wrapper review. Verdict PASS_SCOPED_TINY_METHOD_WRAPPER. Codex2 authored neither root runner nor job spec. Scope is wrapper call/fixture/custody logic only. Underlying cost source is Codex2-authored and already distinctly reviewed by Codex3/0165; this packet DOES NOT self-review or reaccept that library. Underlying P58V002 has Codex2/0123 review. No import, source function, control, NumPy call or job executed here; hashes/JSON read only.
+
+Current reviewed version is ROOT_TINY_METHOD_RUNNER_V002.py and TINY_METHOD_JOB_SPEC_V003.json, not the stale V001/0162 pointer. V002 updates the pinned P58 input to accepted0169, preserving the older files. Checked current runner digest equals spec.runner_sha256; job argv/output fields consistently target current V002 under ROOT_LINE_A_SCHEDULE_V001. Metadata still names Codex3 reviewer; TO0125 routes this review to Codex2. Append a reviewer-scope correction; no need to rewrite historical spec.
+
+Code read in full. Source bytes are read once, compared to an exact digest, then those same bytes compiled, eliminating a second-path-read mismatch. The module name is not __main__, so library import has no implicit harness call. kind is constrained by argparse. Output directory mkdir(exist_ok=False) and each save(open x) refuse reuse and preserve partial failures. START precedes tested calls. RESULT stores complete raw library data, expected fraction arms, computed checks and refusals. FINISH distinguishes METHOD_CHECKS_PASS/FAIL; logical failure returns1. Exceptions attempt a separate FAILURE record and re-raise. A filesystem/storage failure can prevent that file, so external supervisor exit/log/custody remains necessary.
+
+Serialization encodes Fraction as exact numerator/denominator, non-string-key maps as explicit exact_key_value_pairs, tuples as arrays, and allows only known leaves. The tuple-key arm schema remains inferable from the named pair representation; do not read it as a JSON string-key map. allow_nan=False refuses nonfinite floats. Current reviewed libraries return compatible builtin/list types; no array/string repr substitutes for data. Operator/physical labels are not upgraded by any serialization path.
+
+Fixture routing covers actual source calls: Bind/noncomposition and null/unequal-rank checks, V002 complex phase and near-Hermitian refusals; the wrapper adds a separate phase-witness interval and retains its raw result. This repeats a tiny manufactured phase control, not a previously accepted native run. Cost arms and zero parameters, surviving even term, defect/Weyl status and refusal controls match the independently reviewed protocol. No check is hardcoded true; each condition compares returned data or an actual raised refusal. Result status remains method-only and never closes H1/H2 or supplies a native gap.
+
+The successful source check does not itself resolve root's user-instruction authority dispute or enforce caps. All jobs still release=false. Before any authorized run root must use an external supervisor for60s/268435456-byte RSS/10MiB output and1CPU/BLAS-thread caps, pin actual Python/NumPy environment, check live resources and retain whole-process exit/cost records. argv uses PATH-resolved python3, not a pinned absolute interpreter; record the actual executable/version and dependency snapshot at runtime. Verify the wrapper digest as well as underlying source digest before launch. START currently pins only the underlying source, so the supervisor's pinned spec/runner custody is load-bearing. These are explicit existing root execution obligations, not concealed protections supplied by this code.
+
+Framing passes at changed-risk METHOD scope: source validity for newly authored P58 and C122/C123 scalar helpers, no derived S1 preparation, writer ensemble, Gamma or physical calibration. Prior native results are not rerun to occupy cores. E1/E2/E3 and full native parent/phase gates remain open. This wrapper is not the new P60 full matrix pilot (0122) and must not be described as complete G1–G3 scientific qualification. A later matrix or native runner needs its own source check.
+
+Acceptance recommendation: root may accept current wrapper source at the above scope after appending reviewer metadata and carrying runtime obligations; only root may decide/perform a separately authorized launch. No numerical results or self-review are claimed.
+
+Pins:
+/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_LINE_A_SCHEDULE_V001/ROOT_TINY_METHOD_RUNNER_V002.py SHA256 13cf84b9385320f597a7cbb9fd161d746d46818f38747fe3580ad7ddd3a90133
+/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_LINE_A_SCHEDULE_V001/TINY_METHOD_JOB_SPEC_V003.json SHA256 9511eb53a2f3a5ca36999995727da63ebf91d0b5a20d6c700a6e8f3840a5008c

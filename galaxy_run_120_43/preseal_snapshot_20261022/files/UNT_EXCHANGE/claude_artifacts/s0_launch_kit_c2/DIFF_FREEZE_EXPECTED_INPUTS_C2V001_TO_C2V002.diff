@@ -1,0 +1,437 @@
+--- FREEZE_EXPECTED_INPUTS_C2V001.json (sorted keys)
++++ FREEZE_EXPECTED_INPUTS_C2V002.json (sorted keys)
+@@ -18,7 +18,7 @@
+    }
+   ],
+   "route_ab_gate": "OPEN",
+-  "row_mapping": "M-7 (i) adopted (A142): ring 15 maps to Q25 through the root-written TSR flag record (PENDING, /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/ROOT_TSR_FLAG_RECORD_V001.json) and the TSR support record UNT_ROOT_TSR_SUPPORT_CX3V001 (PENDING); M-7 pins 6f095f64, 8867c376, ec1dcca5 (input_files). Supersedes CX3V002's ROOT_UNRESOLVED text.",
++  "row_mapping": "M-7 (i) adopted (A142): ring 15 maps to Q25 through the root-written TSR flag record (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/ROOT_TSR_FLAG_RECORD_V001.json: EXISTS_NOT_ADOPTED, sha256 61bd8a83492e96ffb22d576a93b65d14c047f92e3be4bbfc2c0120f439cf7edc from bytes (flags NGC3198-Q25; its support_record is PENDING)) and the TSR support record UNT_ROOT_TSR_SUPPORT_CX3V001 (PENDING; no path named); M-7 pins 6f095f64, 8867c376, ec1dcca5 (input_files). Supersedes CX3V002's ROOT_UNRESOLVED text.",
+   "sole_reason": "TRUNCATION_SHAPE_RESIDUAL_ONLY_A66"
+  },
+  "all_query_ids": [
+@@ -66,6 +66,17 @@
+   "NGC3198-Q42",
+   "NGC3198-Q43"
+  ],
++ "changes_from_c2v001": [
++  "schema, date_u, supersedes: successor identity (supersedes C2V001 5adce77a, which superseded CX3V002 169df91f)",
++  "verifier B2: every named path is tested at build (existence() in the builder); no status sentence is a constant. TSR flag record: EXISTS_NOT_ADOPTED from bytes (was PENDING with a false TESTED absence claim). RUNBOOK_V002 and the roster builder: EXISTS_NOT_ADOPTED from bytes (were PENDING). phase1_c2v003: EXISTS_NOT_ADOPTED from bytes (was \"not built at build time\"); phase1_c2v003a added as PENDING (A149)",
++  "TSR support record: PENDING with the reason read from the TSR flag record bytes (support_record.status)",
++  "a66_residual_disclosure.row_mapping: the TSR flag record status from bytes",
++  "code_files: + sched v003 gate 736a3438 (A147 adopted; the L3-03 kind reading); s0 launch kit -> PENDING_ROOT_ADOPTION with the C2V001 HASHES.txt from bytes and the C2V002 HASHES_V002.txt named",
++  "input_files: GATE_DOCUMENT_PINS_V002 (same 15 rows as V001); S0 EPS/GQ owner text notes A148 adoption; launch custody records name the C2V002 attempt records",
++  "interior_count and notes.A16.1: still root items; the V006 at build is searched for the two strings (TESTED)",
++  "labels: + EXISTS_NOT_ADOPTED, PENDING_ROOT_ADOPTION; PENDING now means \"no path named, or the named path tested absent\"",
++  "unchanged from C2V001: write_freeze_manifest_inputs values except the two notes texts and the roster text, parameter_region, observation_rule, spec, allow_incomplete, all CX3V002-unchanged keys"
++ ],
+  "changes_from_cx3v002": [
+   "schema, date_u, supersedes: successor identity",
+   "first_pass.root_inputs: the stale fallback-branch driver input (CX3V002 L145) replaced by cx3r008 (driver, registry, review pins); EPS/LO/GQ/N-test wording per RI45-14 (a); V007 pin = RI45-05 verdict report; Phase-1 calibration record and 10-field handoff",
+@@ -107,18 +118,40 @@
+    "bytes": 64325,
+    "name": "phase1_c2v002",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_c2/phase1_c2v002.py",
+-   "rule": "A137; seal pins band/agree at v003 iff its review is 0 blocking before the seal entry (A142 item 4)",
++   "rule": "A137; seal pins band/agree at d64351ec unless the reviewed successor returns 0 blocking before the seal entry (A142 item 4)",
+    "sha256": "d64351ecc06c61e99e2d7253c5d4311617fc1f64d34d37523102ed32720a6754",
+    "sha256_expected_prefix": "d64351ec",
+    "sha_status": "TESTED_FROM_BYTES"
+   },
+   {
++   "adoption": "A149: passes both root verifiers (0 blocking); the v003 review is dropped and Claude3 reviews the v003a successor only; A142 item 4: the seal pins band/agree at the reviewed successor iff its review returns 0 blocking before the seal entry",
++   "bytes": 76056,
++   "equals_v006_a149_prefix": true,
++   "existence": {
++    "birth_utc": "2026-10-19T16:16:24Z",
++    "exists": true,
++    "tested_utc": "2026-10-19T17:18:15Z"
++   },
+    "name": "phase1_c2v003",
+-   "path": null,
+-   "rule": "A142 item 4; A144",
+-   "sha256": "PENDING",
+-   "sha_status": "PENDING",
+-   "why_pending": "phase1_c2v003 (A144 build; root workflow then Claude3 review); not built at build time"
++   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_c2/phase1_c2v003.py",
++   "rule": "A142 item 4; A144; A149",
++   "sha256": "149ed4cbe1ad96e941ce01ad4cff46369dd559a9eee4356e155ad069f4a7b406",
++   "sha_status": "EXISTS_NOT_ADOPTED",
++   "v006_a149_prefix": "149ed4cb"
++  },
++  {
++   "adoption": "A149: root build; Claude3 reviews it (lean)",
++   "bytes": 79019,
++   "existence": {
++    "birth_utc": "2026-10-19T17:07:37Z",
++    "exists": true,
++    "tested_utc": "2026-10-19T17:18:15Z"
++   },
++   "name": "phase1_c2v003a (phase1_c2v003a.py)",
++   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_c2/phase1_c2v003a.py",
++   "rule": "A142 item 4; A149",
++   "sha256": "385b287c68c3e4bbbcc2fa954cbba9bb7565846b1462dea32de9c79f36552d7d",
++   "sha_status": "EXISTS_NOT_ADOPTED"
+   },
+   {
+    "bytes": 20836,
+@@ -145,12 +178,20 @@
+    "sha_status": "TESTED_FROM_BYTES"
+   },
+   {
++   "bytes": 48530,
++   "name": "sched v003 machine gate",
++   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v003/machine_gate_s45_c2v003.py",
++   "rule": "A147: adopted (Claude4 0203, 0 blocking); its --hold-check is the A147 L3-03 kind reading after every cx3r008 launch",
++   "sha256": "736a3438b0a3af41eb8d7b2c764f25ff0f9e18942320a4542a9893b6b419f811",
++   "sha_status": "TESTED_FROM_BYTES"
++  },
++  {
+    "name": "replay adapter",
+    "path": null,
+    "rule": "second_pass.adapter",
+    "sha256": "PENDING",
+    "sha_status": "PENDING",
+-   "why_pending": "the byte-verified replay adapter (RUNBOOK step 6); not built"
++   "why_pending": "the byte-verified replay adapter (RUNBOOK step 6); no source names a built file"
+   },
+   {
+    "bytes": 18401,
+@@ -161,12 +202,22 @@
+    "sha_status": "TESTED_FROM_BYTES"
+   },
+   {
++   "candidates": {
++    "C2V001_HASHES": {
++     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/HASHES.txt",
++     "sha256": "6eb9a3e71310a66b963f1c015f43c4d935253d96401118bba2241b0710e7b413"
++    },
++    "C2V002_HASHES": {
++     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/HASHES_V002.txt",
++     "sha256": "WRITTEN_AFTER_THIS_FILE"
++    }
++   },
+    "name": "s0 launch kit",
+    "path": null,
+-   "rule": "RI45-13; M-15",
+-   "sha256": "PENDING",
+-   "sha_status": "PENDING",
+-   "why_pending": "the s0_launch_kit_c2 scripts (prelaunch record writer, kit helper, launch scripts): pin the shas from s0_launch_kit_c2/HASHES.txt when root adopts the kit"
++   "rule": "RI45-13; M-15; A147 L3-03",
++   "sha256": "PENDING_ROOT_ADOPTION",
++   "sha_status": "PENDING_ROOT_ADOPTION",
++   "why": "the kit files exist; root names the adopted version. C2V001: HASHES.txt (from bytes below). C2V002: HASHES_V002.txt, written after this file (C2V002 adds the A147 L3-03 kind check and the relaunch path)."
+   }
+  ],
+  "coordinator_evidence": {
+@@ -174,7 +225,7 @@
+   "sha256": "b95669006a045f3b97fd828721cc71963ac86a32d80c48e571b59a9774277397",
+   "sha_status": "TESTED_FROM_BYTES"
+  },
+- "date_u": "Mon Oct 19 16:25:33 UTC 2026",
++ "date_u": "Mon Oct 19 17:18:15 UTC 2026",
+  "exact_alternative_declarations": {
+   "declared": [
+    {
+@@ -247,7 +298,7 @@
+    "adopted V007 byte pin (RI45-05: the sealed compare's verdict report)",
+    "the step-4 calibration record, admitted-point export and external handoff pin (Phase 1: the Phase-1 registry record and the 10-field handoff)",
+    "driver branch cx3r008: driver 577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377, registry SPEC_REGISTRY_CX3R008_V002 2c3f421d9a933d1a841f134574984cb0c33e7a0544de0b20514103492214413a, acceptance review REVIEW_NGC_V011_CX3R008_C4V001.md 7ff20c1ded13513e5c0f5a386be8aa17825625a7b5a83cd2513b0693e0ab5c42 (A93; A103; Claude3 0088 SF3); no fallback branch (RI45-08 (a))",
+-   "Bind the current EPS91/LO_NGC_K32/GQ_Ms96/N-test records (GATE_DOCUMENT_PINS_V001), plus the A90/A101 I1T ruling",
++   "Bind the current EPS91/LO_NGC_K32/GQ_Ms96/N-test records (GATE_DOCUMENT_PINS_V002), plus the A90/A101 I1T ruling",
+    "root member selection and exact theta keys"
+   ],
+   "saves": [
+@@ -312,16 +363,55 @@
+    "rule": "v003a X1: mandatory, exactly one; its exploration fingerprint must equal the selection's",
+    "sha256": "PENDING",
+    "sha_status": "PENDING",
+-   "why_pending": "the Phase-1 registry record at B_P1 (BUDGET_EXHAUSTED; phase1 snapshot)"
+-  },
+-  {
++   "why_pending": "the Phase-1 registry record at B_P1 (BUDGET_EXHAUSTED; phase1 snapshot); not produced yet"
++  },
++  {
++   "adoption": "not adopted: its writer says it is adopted only when root pins its sha256 in the seal entry",
++   "bytes": 8828,
++   "existence": {
++    "birth_utc": "2026-10-19T16:16:03Z",
++    "exists": true,
++    "tested_utc": "2026-10-19T17:18:15Z"
++   },
+    "name": "TSR flag record (M-7)",
+    "owner": "root",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/ROOT_TSR_FLAG_RECORD_V001.json",
+-   "rule": "RI45-14 (a); M-7 (i)",
+-   "sha256": "PENDING",
+-   "sha_status": "PENDING",
+-   "why_pending": "root-written (A142 builds: TSR flag record, owner root); absent at build (TESTED)"
++   "read_from_bytes": {
++    "content_statement": "TARGET-FREE. Model numerics records (N-test compare, N1 ring radii, registered GL4 nodes) and query ids only. No observed velocity, error or rotation-curve value was opened or is carried.",
++    "date_u": "Mon Oct 19 16:16:03 UTC 2026",
++    "flagged_query_ids": [
++     "NGC3198-Q25"
++    ],
++    "m7_pins": {
++     "gl_node_record": {
++      "equals_gate_row": true,
++      "gate_row": "ROUTE_B_GL4_NODES",
++      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/REGISTERED_ROUTE_B_GL_NODES_CX3V001.json",
++      "sha256": "ec1dcca572f295dab24e343650a519b6c96e3557e6ccc603f453dea490cb717d"
++     },
++     "n1_record": {
++      "equals_gate_row": true,
++      "gate_row": "NTEST_N1_RING_RADII",
++      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_RECORDS_COMPLETE_V001_N1.json",
++      "sha256": "8867c3766cc08585286ca969d4aa3fdec47fd9b15a8fe815d466346119c95c70"
++     },
++     "ntest_compare": {
++      "equals_gate_row": true,
++      "gate_row": "NTEST_K32_COMPARE_COMPLETE",
++      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/out/K32_COMPARE_COMPLETE_V001.json",
++      "sha256": "6f095f64a1f1acc2ad2910af12f645e18acdf16fb62bfd936386a61c47ef30e9"
++     }
++    },
++    "m7_pins_equal_gate_rows": true,
++    "note": "TESTED from bytes; target-free by its own statement (query ids and model numerics records only)",
++    "record_id": "ROOT_TSR_FLAG_RECORD_V001",
++    "schema": "UNT_ROOT_TSR_FLAG_RECORD_C2V001",
++    "support_record_schema": "UNT_ROOT_TSR_SUPPORT_CX3V001",
++    "support_record_status": "PENDING"
++   },
++   "rule": "RI45-14 (a); M-7 (i); its writer: adopted only when root pins its sha256 in the seal entry",
++   "sha256": "61bd8a83492e96ffb22d576a93b65d14c047f92e3be4bbfc2c0120f439cf7edc",
++   "sha_status": "EXISTS_NOT_ADOPTED"
+   },
+   {
+    "name": "TSR support record (UNT_ROOT_TSR_SUPPORT_CX3V001)",
+@@ -330,7 +420,7 @@
+    "rule": "RI45-14 (a); M-7",
+    "sha256": "PENDING",
+    "sha_status": "PENDING",
+-   "why_pending": "UNT_ROOT_TSR_SUPPORT_CX3V001: no source read names its path"
++   "why_pending": "UNT_ROOT_TSR_SUPPORT_CX3V001: no source names its path. ROOT_TSR_FLAG_RECORD_V001 (read from bytes) carries pins.support_record.status PENDING (gap G7: root rules whether it must exist, who writes it and what point_key it carries)"
+   },
+   {
+    "bytes": 2374,
+@@ -403,7 +493,7 @@
+   },
+   {
+    "name": "S0 per-point EPS (seed)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 EPS launch pin (A148: Claude3 0211, 0 blocking); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_968c915bece706ea_C4V002_s0seed.json",
+    "rule": "A135 item 2; uv_tail.eps_certificate",
+    "sha256": "efdc430a561ae936d860f85ec050f22a10f17c03aad7ad17fc2150744dcde563",
+@@ -411,7 +501,7 @@
+   },
+   {
+    "name": "S0 per-point EPS (j0)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 EPS launch pin (A148: Claude3 0211, 0 blocking); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_3d7785669b549d6f_C4V002_s0j0.json",
+    "rule": "A135 item 2; uv_tail.eps_certificate",
+    "sha256": "8270b6b3eb9daddd01e32f7c6cc0fd143afd6b751ff9ced310ac92ca365586da",
+@@ -419,7 +509,7 @@
+   },
+   {
+    "name": "S0 per-point EPS (j1)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 EPS launch pin (A148: Claude3 0211, 0 blocking); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_ab7bf95317b37652_C4V002_s0j1.json",
+    "rule": "A135 item 2; uv_tail.eps_certificate",
+    "sha256": "bfac8f57233e904aed30f68594645b5b9c97697e47ce088e9d18e7a8fe4aff1e",
+@@ -427,7 +517,7 @@
+   },
+   {
+    "name": "S0 per-point EPS (j2)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 EPS launch pin (A148: Claude3 0211, 0 blocking); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_POINT_EPS_4b9b4ec88eb2d94c_C4V002_s0j2.json",
+    "rule": "A135 item 2; uv_tail.eps_certificate",
+    "sha256": "5dd9900a7db31003cb1b1054c156f6ac73b062375bae3a423990e782a2ccfdfc",
+@@ -435,7 +525,7 @@
+   },
+   {
+    "name": "S0 GQ binding (seed)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 GQ launch pin (A148); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_968c915bece706ea_C4V002_gqseedA.json",
+    "rule": "A132 D2(a); D-4",
+    "sha256": "903a7d6c88804bb99175ec78927184f210fa1fb07c32c985c294ef0546d0b979",
+@@ -443,7 +533,7 @@
+   },
+   {
+    "name": "S0 GQ binding (j0)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 GQ launch pin (A148); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_3d7785669b549d6f_C4V002_gqj0A.json",
+    "rule": "A132 D2(a); D-4",
+    "sha256": "cc6113ce39adaa3b24154848d099fec693aec15b91f09c3f9ca74299448d5f27",
+@@ -451,7 +541,7 @@
+   },
+   {
+    "name": "S0 GQ binding (j1)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 GQ launch pin (A148); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_ab7bf95317b37652_C4V002_gqj1A.json",
+    "rule": "A132 D2(a); D-4",
+    "sha256": "4fc1d744f2d0cb38a08d086aa8c20603bbd3b43c7c27a9a0d0d83665091402ca",
+@@ -459,7 +549,7 @@
+   },
+   {
+    "name": "S0 GQ binding (j2)",
+-   "owner": "Claude4 producer; root pins",
++   "owner": "Claude4 producer; adopted as an S0 GQ launch pin (A148); root pins",
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/s0/build_c4v001/out/S0_GQ_BINDING_4b9b4ec88eb2d94c_C4V002_gqj2A.json",
+    "rule": "A132 D2(a); D-4",
+    "sha256": "934c0a4774b9153e7fbe25d72c743eff529079644f3fdc03ab060dc25833f3e0",
+@@ -540,7 +630,7 @@
+    "rule": "RI45-05; the filler loads it in PHASE1_POINT mode",
+    "sha256": "PENDING",
+    "sha_status": "PENDING",
+-   "why_pending": "the sealed compare's verdict report (RI45-05)"
++   "why_pending": "the sealed compare's verdict report (RI45-05); not produced yet"
+   },
+   {
+    "bytes": 62011,
+@@ -564,33 +654,37 @@
+    "name": "S0 launch custody records",
+    "owner": "root",
+    "path": null,
+-   "rule": "M-15 (a)+(1); RI45-13",
++   "rule": "M-15 (a)+(1); RI45-13; A147 L3-03",
+    "sha256": "PENDING",
+    "sha_status": "PENDING",
+-   "why_pending": "written by s0_launch_kit_c2 at launch: the M-15 pre-launch record, the per-point launch registry entries and the launch records"
+-  },
+-  {
+-   "name": "GATE_DOCUMENT_PINS_V001 (s0_launch_kit_c2)",
++   "why_pending": "written by s0_launch_kit_c2 at launch: the M-15 pre-launch record, the per-point launch registry entries and the attempt records (LAUNCH, or MISLAUNCH / ENDED; C2V002)"
++  },
++  {
++   "name": "GATE_DOCUMENT_PINS_V002 (s0_launch_kit_c2)",
+    "owner": "root (pins it via the V006 GATE_PIN entry)",
+-   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/GATE_DOCUMENT_PINS_V001.json",
+-   "rule": "M-15 gate-status list; root_gates = [] for the row rosters",
+-   "sha256": "afa1df05bf6329997adccf160dc6fd56534c59b914332c264c79512df1e7ce36",
++   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/GATE_DOCUMENT_PINS_V002.json",
++   "rule": "M-15 gate-status list; root_gates = [] for the row rosters; supersedes V001 afa1df05 (same 15 rows)",
++   "sha256": "5e688882451824931f964e610cf17597d82ee0eb246fb0dce528ec0c6e148042",
+    "sha_status": "TESTED_FROM_BYTES"
+   }
+  ],
+  "interior_count": {
+   "rule": "A133 section 1.4: the RI45-14 list fixes it before the first Phase-1 NGC launch",
+   "status": "PENDING_ROOT_FIXES",
++  "v006_at_build": "TESTED: the V006 at build (9bcb3150) does not contain the string \"interior_count\"",
+   "value": "PENDING (no source read by this lane states the value)"
+  },
+  "labels": {
+-  "PENDING": "the file does not exist yet; never a placeholder hash",
++  "EXISTS_NOT_ADOPTED": "the named file exists at build (TESTED: sha256 from bytes, stat birth time); root has not adopted or pinned it yet",
++  "PENDING": "no source names a path (path null), or the named path was tested absent at build (existence.exists false); never a placeholder hash",
++  "PENDING_ROOT_ADOPTION": "candidate files exist; root names the adopted version",
+   "RECORDED_PIN_NOT_REHASHED": "the recorded program pin, not re-hashed (NGC3198-named or lane-forbidden path)",
+-  "TESTED_FROM_BYTES": "sha256 computed from the file bytes at build time"
++  "TESTED_FROM_BYTES": "sha256 computed from the file bytes at build time (an input of record)"
+  },
+  "launch_custody": {
+-  "gate_status_list": "GATE_DOCUMENT_PINS_V001: root-listed row gates known at launch: none",
+-  "m15_record": "UNT_M15_PRELAUNCH_RECORD_C2V001, written by s0_prelaunch_record_c2v001.py as the first action of the seed serial launch (A142 item 6)"
++  "attempt_records": "C2V002: <launch root>/launches/<NAME>_LAUNCH|MISLAUNCH|ENDED_C2V002_A<k>.json (A147 L3-03)",
++  "gate_status_list": "GATE_DOCUMENT_PINS_V002: root-listed row gates known at launch: none",
++  "m15_record": "UNT_M15_PRELAUNCH_RECORD_C2V001, written by s0_prelaunch_record_c2v001.py (unchanged in C2V002) as the first action of the seed serial launch, attempt 1 (A142 item 6)"
+  },
+  "not_evaluated": [
+   "ML_3p6_0.4",
+@@ -602,9 +696,10 @@
+   "interior_count value (root, A133 section 1.4)",
+   "spec: CX2V006 (A135.7) or V002/V005A (A133 section 3 text); both admitted, engine coordinates byte-equal",
+   "A16.1 note text",
+-  "TSR flag record and TSR support record (root writes; then pin their sha256)",
+-  "replay adapter (RUNBOOK step 6), RUNBOOK_V002 and roster builder (A142 builds)",
+-  "V007 adoption pin (RI45-05), phase1_c2v003 (A144)"
++  "TSR flag record: exists (61bd8a83); root pins its sha256 in the seal entry. TSR support record: PENDING (gap G7)",
++  "replay adapter (RUNBOOK step 6); RUNBOOK_V002 and roster builder exist and await Claude4 review (A142 builds)",
++  "V007 adoption pin (RI45-05); phase1_c2v003a (A149: Claude3 reviews it)",
++  "the s0 launch kit version root adopts (C2V001 HASHES.txt or C2V002 HASHES_V002.txt)"
+  ],
+  "query_manifest": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json",
+@@ -628,9 +723,32 @@
+    "sha_status": "RECORDED_PIN_NOT_REHASHED"
+   },
+   {
+-   "name": "RUNBOOK_V002 and the roster builder",
++   "adoption": "not adopted: A142 builds table, root workflow build, review Claude4",
++   "bytes": 27788,
++   "existence": {
++    "birth_utc": "2026-10-19T16:19:38Z",
++    "exists": true,
++    "tested_utc": "2026-10-19T17:18:15Z"
++   },
++   "name": "RUNBOOK_V002",
++   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/RUNBOOK_V002.md",
+    "role": "pinned at the Phase-1 scoring gate (A142 builds)",
+-   "sha256": "PENDING"
++   "sha256": "ef4967ff1c04d4aa911f836b145585f88afd03c1ce37c70e6f5803844fb5c4b8",
++   "sha_status": "EXISTS_NOT_ADOPTED"
++  },
++  {
++   "adoption": "not adopted: A142 builds table, root workflow build, review Claude4",
++   "bytes": 76962,
++   "existence": {
++    "birth_utc": "2026-10-19T16:16:03Z",
++    "exists": true,
++    "tested_utc": "2026-10-19T17:18:15Z"
++   },
++   "name": "roster builder (roster_builder_c2v001.py)",
++   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_v002_c2/roster_builder_c2v001.py",
++   "role": "pinned at the Phase-1 scoring gate (A142 builds; A133 section 3(a))",
++   "sha256": "a19ed0eec3fb4b81ded569f4488a8ef87e089e35af6bcc5eb2c1952002c80d72",
++   "sha_status": "EXISTS_NOT_ADOPTED"
+   }
+  ],
+  "route_b_projection_config": {
+@@ -645,7 +763,7 @@
+   "all gates/source config/query/GL nodes and producer pins",
+   "original raw result SHA from bytes"
+  ],
+- "schema": "UNT_STEP5_TO_FREEZE_INPUT_MAP_C2V001",
++ "schema": "UNT_STEP5_TO_FREEZE_INPUT_MAP_C2V002",
+  "score_denominators": {
+   "headline": 43,
+   "null_INVALID": "miss",
+@@ -683,8 +801,12 @@
+  "stage0_status_transition": "No producer flip. Requires root-approved immutable slots/module-pin successor before evaluated adoption. Otherwise preserve NOT_EVALUATED_BEFORE_FREEZE.",
+  "status": "BUILT_NOT_PINNED: the RI45-14 (a) list for root adoption (A133 section 2 row 1 requires it fixed before the first Phase-1 NGC launch); review: Claude4. It authorizes nothing.",
+  "supersedes": {
+-  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step5_ngc_route_ab_readiness_cx3/FREEZE_EXPECTED_INPUTS_CX3V002.json",
+-  "sha256": "169df91f67ea73c7a0291b3fbc852c70777107753685191b95f97dacc9672253"
++  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/FREEZE_EXPECTED_INPUTS_C2V001.json",
++  "sha256": "5adce77a5da4ddd681ede714d763f3c5ac2e45994f53a62e4fc9cabf7a73680a",
++  "which_superseded": {
++   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step5_ngc_route_ab_readiness_cx3/FREEZE_EXPECTED_INPUTS_CX3V002.json",
++   "sha256": "169df91f67ea73c7a0291b3fbc852c70777107753685191b95f97dacc9672253"
++  }
+  },
+  "uncovered_required_evaluated_alternative": "ORIGINAL_K stays EVALUATED_BEFORE_FREEZE in slots. Phase 1: budget 0, so it reads NOT_AVAILABLE (FREEZE_INCOMPLETE, allow_incomplete True). Phase 2: root supplies separately registered ORIGINAL_K members/results (RI45-15); never silently omitted.",
+  "write_freeze_manifest_inputs": [
+@@ -868,7 +990,7 @@
+    "status": "PARTLY_PENDING",
+    "value": {
+     "A13": "D_DDO154 = 4.04 Mpc fixed (a counted assumption of the headline calibration), i = 66 deg",
+-    "A16.1": "PENDING_TEXT: root copies the A16.1 note text from its decisions file of record (not read by this lane)"
++    "A16.1": "PENDING_TEXT: root copies the A16.1 note text from its decisions file of record (not read by this lane; TESTED: the V006 at build does not contain the string \"A16.1\")"
+    },
+    "value_rule": "the notes A16.1 and A13 use"
+   },
+@@ -888,7 +1010,7 @@
+    "owner": "root",
+    "producing_record": "root at RUNBOOK step 4; Phase 2: the pinned roster builder (A133 section 3(a))",
+    "status": "PENDING",
+-   "value_rule": "a six-entry mapping of ROOT_ROW_REGISTRATION_ROSTER_CX3V001, one per declared alternative in slots order; each binds slots, query_manifest, query_mapping, root_gates (currently [] = GATE_DOCUMENT_PINS_V001 root_listed_row_gates) and outer_cut (NONE, or PER_THETA with registered cut records)"
++   "value_rule": "a six-entry mapping of ROOT_ROW_REGISTRATION_ROSTER_CX3V001, one per declared alternative in slots order; each binds slots, query_manifest, query_mapping, root_gates (currently [] = GATE_DOCUMENT_PINS_V002 root_listed_row_gates) and outer_cut (NONE, or PER_THETA with registered cut records); the roster builder roster_builder_c2v001.py exists (see referenced_not_input_files)"
+   }
+  ]
+ }

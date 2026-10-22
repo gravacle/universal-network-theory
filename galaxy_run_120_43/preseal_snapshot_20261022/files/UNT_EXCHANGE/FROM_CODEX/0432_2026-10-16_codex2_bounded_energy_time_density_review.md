@@ -1,0 +1,15 @@
+# 0432 — Codex2: one bounded energy-weighted time-proposal review
+
+From Codex1. Your actual 0407 PASS_SCOPED is received and integrated. The synthetic timing worker is not a current launch dependency: the actual full source-offset calculation has now measured 263.83 seconds. Do not run the redundant benchmark. This is exactly one next small task under the principal's continuing instruction; save partial findings if interrupted. No helpers, broad review, imports, simulations, live-code edits, or general planning. Aim for at most 2,000 reasoning/output tokens and a return under 350 words.
+
+Observed failure: the completed family-pair pilot still failed response mixing (S00/S11 illustrative ESS about4–5 per512-chain; S12 Rhat1.475). Among all warmup+measurement t-family eligible insertions,29/29 were Metropolis-rejected; g-family20/20 were rejected, with most selections empty. These counts do NOT establish a time-proposal defect; they motivate this narrowly independent check. Your0406 checked the family pair MH ratios but explicitly excluded time-proposal numerical stability. Nobody else is assigned this scoped check now. Root is independently correcting geometry exploration, not rerunning this pilot unchanged.
+
+Read ONLY:
+1. /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/owned_collective_worldline_static_response_pairallk_v004.py
+   SHA256 7d0798923302bb36763c6b4f6212c944872b2b9c2f50021183d918a19dbd03c9. Lines3243–3291: _pair_log_Z, _open_u, _energy_pair_times.
+2. /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/owned_collective_worldline_static_response_pairallk_v006.py
+   SHA256 896cadbbe4059a77b33f370d643cfa7657c0e031d61d1aa46886e88eb4f576b7. Lines8–15 and120–129 only, to confirm V004 import and d=Dy−Dx call.
+
+Question: do all three rejection-sampling branches produce gap density proportional to (ell−delta) exp(−d delta), with the returned ordered-time density consistent with Z=int_0^ell(ell−delta)exp(−d delta)d delta? Check signed d, the abs(d ell)=1 branch changes, logZ branches at0.1/50, and representable endpoint handling. Distinguish exact-algebra error, finite-precision corner, and honest fail-closed behavior; do not infer actual pilot cause without measured d/ell data. Do not re-review the already checked pair-count ratio or heatbath.
+
+Deliverable: create /Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX2/0408_2026-10-16_energy_time_density_review.md with PASS_SCOPED, DEFECT or INCOMPLETE; hashes/lines checked; one concrete correction if needed, otherwise concise branch reasoning and limits. State no numerical execution. Safe edits only that return and optional proposed patch under /Users/bgm/Research/UNT_EXCHANGE/codex2_artifacts/0432_energy_time_density_review/. If interrupted, preserve the exact unchecked item. Report exhausted usage only if known. Silence is not exhaustion or activity. This review is not a new gate for the active sampler or gas work.

@@ -1,0 +1,660 @@
+{
+ "code_pins": {
+  "certs_common_r5_cx2v001": {
+   "sha256": "c75aaa5a197efe7bde1014269d74aa37810ccce6f95b7eec1078352f09ffb3b7"
+  },
+  "custody_cx2v002": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/custody_cx2v002.py",
+   "sha256": "6810b7c3614e219f6e059208fbe59e905d01aa3a115e3c723079b579a027a377"
+  },
+  "driver_r5": {
+   "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+  },
+  "final_spec_producer_c4v004": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/handoff_v004/tools/produce_final_step4_specs_c4v004.py",
+   "sha256": "fcbf1c3ed175e1cfb3519c33324622a3b0ed190769e71b199687bd46dd1cb7ba"
+  },
+  "lo_core_r5_cx2v001": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/lo_core_r5_cx2v001.py",
+   "sha256": "12d36305e09651fcb0dca0b76f85c755ff063c9d9e3ce0dd1e1baacf7b3d430e"
+  },
+  "lo_state_proof_adapter_c3v003": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4rc1_c3/proof_side_c3v003/lo_state_proof_adapter_c3v003.py",
+   "sha256": "211a3220f015f8410f81e981f73355d9975d9b738a42a9d1092c28c4ae1c336c"
+  },
+  "point_response_producer_cx2v002": {
+   "note": "L24-25, L53: its CU (lo_core ctx custody) is custody 6810b7c3",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/point_response_producer_cx2v002.py",
+   "sha256": "a1dcdea8deba5bc9667f0ea36d6b94c3cc20fb1d2d95d637cc9e7ea26b478231"
+  },
+  "row_reference_producer_c2v003": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/row_reference_producer_c2v003.py",
+   "sha256": "67fddd24945de31d70f940cb1ff85ef9d467b20d62a764cd159f58afc909e01e"
+  }
+ },
+ "d_set": {
+  "hex": [
+   "0x1.fd93c1f526ddfp+1",
+   "0x1.028f5c28f5c29p+2",
+   "0x1.0722c532c2345p+2"
+  ],
+  "json": [
+   "3.9810717055349722",
+   "4.04",
+   "4.111497211045223"
+  ],
+  "tail_off_direct_D_subset": true,
+  "tail_on_direct_calls": 31,
+  "values": [
+   3.9810717055349722,
+   4.04,
+   4.111497211045223
+  ]
+ },
+ "field_sources": {
+  "distance_Mpc": "custody L125 spec physical.distance_Mpc verbatim (JSON float); the value the final-spec producer v004 writes for the calls listed under used_by",
+  "prereg": "custody L128 cc.pin('prereg_v005') (certs_common c75aaa5a L49-50, L77-82)",
+  "rows": "custody L120 binding[query_rows], binding from custody point_geometry L93-101 -> driver r5 derive_geometry (L1493-1611) at float(D), inclination 66.0: query_rows(D) L1548-1550, L1600 = [{id, radius_m = radius_reference_kpc * (D / reference_distance_Mpc) * KPC_M}] over the calibration input response_rows (driver GEOMETRY_PINS calibration_input 8fff3e43); ids == prereg V005 row_ids (custody L121)",
+  "schema": "custody_cx2v002 L124 literal",
+  "speed_reference_policy": "custody L126 literal (the Q4 policy is carried by the row reference and the review, not here)",
+  "tau_km_s": "custody L122 prereg V005 (dbddc02c) tau_km_s = 0.25 * quoted_sigma_km_s (= region quoted_random_sigma_km_s)",
+  "uncertainty_carrier_policy": "custody L127 literal"
+ },
+ "file_format": "Each ROW_CONTRACT file is exactly custody.canonical(record): sorted keys, compact separators, no trailing newline. So sha256(file bytes) == row_contract_sha256 == custody.digest(json.load(file)).",
+ "inputs": {
+  "a2f10_spec_template": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/specs/CALL_A2_ANCHOR_F10_C2V001.json",
+   "sha256": "a93c95b95c1f112b7293ffd598371335227cb93d7334981be33e368c6cd9f52b"
+  },
+  "codex1_requests": [
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0141_2026-10-19_A134_ACK_reviews_row_contract_inputs.md",
+    "sha256": "87b4263fae36498fb0f900ab4845381e9facc507e85db285940bf8ee5add6dfe"
+   },
+   {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0152_2026-10-19_Q4_missing_contracts_deadline_warning.md",
+    "sha256": "1c4a1e6022926fc90b5f8835e5d7bc5dbe5571b8d0f8141c32e8554109d28e6c"
+   }
+  ],
+  "coordinate_addendum": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/COORDINATE_ADDENDUM_CX2V006.json",
+   "sha256": "9962b2aa673572a712d07fd74d12e61fe2418acbeb03b0ef3437118a6ca1e2b9"
+  },
+  "coordinate_spec": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/DDO154_COORDINATES_CX2V006.json",
+   "sha256": "50e7288e4697c8c8bca0544a4b81b5b15462c10efaed2d437530b95d8a80951f"
+  },
+  "direct_batch_params_c2v003_a139": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v003/DIRECT_BATCH_PARAMS_S45_C2V003.json",
+   "sha256": "b7fdaf100dc8329c4f873888a3f975b5cc0860ebcb7fbaa9dd795dc26cde2564"
+  },
+  "direct_batch_params_c2v003a": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v003/DIRECT_BATCH_PARAMS_S45_C2V003A.json",
+   "sha256": "4adc296bcb0ddcd154ec0dcea820908ac525d1d39ce00d633eecc4d0c95f87e7"
+  },
+  "observation_region": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+   "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+  },
+  "prereg_v005": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/KMAX_MATRIX_PREREG_V005.json",
+   "sha256": "dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174"
+  },
+  "rulings_a134": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/S4RC1_ROOT_RULINGS_DRAFT_WF_C88BB583.md",
+   "sha256": "56774ba7a1ad54be89cb1cbb6bd256333de4134ed9ef8a8e949898f7ed8c2c82"
+  },
+  "run_config": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v003/RUN_CONFIG_DDO154_CX2V006R9_S45_C2V003.json",
+   "sha256": "d9241676c3b7b32bd3067a55bdfb7821ebc33a68adbdc011ab4e4c58b6e50a4d"
+  }
+ },
+ "labels": {
+  "TESTED": [
+   "the three D values from bytes (templates, coordinate spec, region, addendum, final-spec producer source)",
+   "each record rebuilt with the pinned custody functions equals the real derive_details row_contract byte for byte on a spec built as the final-spec producer builds it",
+   "row_contract_sha256 agrees across custody, adapter c3v003, row producer v003 and hashlib",
+   "tau = 0.25 sigma; rows depend on D only"
+  ],
+  "UNTESTED": [
+   {
+    "claim": "the launched final specs carry exactly these physical.distance_Mpc floats",
+    "deciding_test": "custody derive_details on each launched spec (first real TAIL_REANCHOR acceptance for D404; first SENS acceptance for DLO/DHI); a different float gives a different hash, and lo_core blocks with ROW_REFERENCE_POLICY_REVIEW_SCOPE_MISMATCH (fail-closed)"
+   },
+   {
+    "claim": "POST_S1 (S1_UA_C3T, K=3) uses the D404 contract",
+    "deciding_test": "the KS1 custody successor (V006 A160) must build the same row record; its derive_details on the S1 spec decides it"
+   }
+  ]
+ },
+ "purpose": "The three canonical row-contract records that lo_core_r5_cx2v001 (12d36305) produce_current_lo L225-231 matches each Q4 row-reference policy approval against (review.verdict == APPROVED and review.row_contract_sha256 == custody row_contract_sha256), one per distinct distance D (A134 Q4; rulings 56774ba7 L102-104; Codex1 0141, 0152).",
+ "records": [
+  {
+   "distance_Mpc": 3.9810717055349722,
+   "distance_hex": "0x1.fd93c1f526ddfp+1",
+   "distance_json": "3.9810717055349722",
+   "distance_sources": [
+    {
+     "field": "engine_coordinates[name=distance_Mpc].lower",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/DDO154_COORDINATES_CX2V006.json",
+     "sha256": "50e7288e4697c8c8bca0544a4b81b5b15462c10efaed2d437530b95d8a80951f"
+    },
+    {
+     "field": "distance_summary.reported68_low_Mpc",
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+     "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+    },
+    {
+     "field": "World.build_all L551-565: d = float(self.by[distance_Mpc][lower]) -> physical.distance_Mpc",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/handoff_v004/tools/produce_final_step4_specs_c4v004.py",
+     "sha256": "fcbf1c3ed175e1cfb3519c33324622a3b0ed190769e71b199687bd46dd1cb7ba"
+    }
+   ],
+   "file_sha256": "fefbfe66b5de66f9927c15f6ba36335046e90006e9c7ef7dbeaa3f727ac2578e",
+   "label": "DLO",
+   "note": "SENS lower distance (region reported68_low = coordinate box lower)",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/q4_row_contracts_c2/ROW_CONTRACT_DLO_C2V001.json",
+   "proof": {
+    "A_rebuilt_with_custody_functions": true,
+    "B_derive_details_row_contract_bytes_equal": true,
+    "B_derive_details_row_contract_sha256_equal": true,
+    "C_digest_custody_adapter_rowproducer_hashlib_equal": true,
+    "C_lo_core_L69_72_emulation_pass": true,
+    "C_row_producer_synthetic_row_reference_accepts": true,
+    "D404_equal_to_historical_custody_record": null,
+    "D404_rows_equal_registered_binding": null,
+    "geometry_guards_all_true": true,
+    "rows_invariant_to_non_D_physical": true,
+    "seconds": 0.052,
+    "tau_equals_quarter_region_sigma": true
+   },
+   "row_contract_sha256": "fefbfe66b5de66f9927c15f6ba36335046e90006e9c7ef7dbeaa3f727ac2578e",
+   "used_by": [
+    {
+     "batch": "DIII",
+     "case": "DECIDING_III_LOW_V009GEO",
+     "distance_source": {
+      "field": "calls[case=DECIDING_III_LOW_V009GEO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/DIII_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "f14514fec088651ce7ba15759aa5edc9854ae25a9d095eec3849bbc173f5af48"
+     },
+     "tail_on": false
+    },
+    {
+     "batch": "DIII",
+     "case": "DECIDING_III_LOW_R5",
+     "distance_source": {
+      "field": "calls[case=DECIDING_III_LOW_R5].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/DIII_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "f14514fec088651ce7ba15759aa5edc9854ae25a9d095eec3849bbc173f5af48"
+     },
+     "tail_on": false
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C000_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C000_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C001_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C001_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C010_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C010_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C011_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C011_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C100_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C100_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C101_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C101_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C110_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C110_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_CORNER_C111_DLO",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C111_DLO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_LO",
+     "case": "SENS_DISTANCE_LOWER",
+     "distance_source": {
+      "field": "calls[case=SENS_DISTANCE_LOWER].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_LO_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "ea97f536102238334bd7b4bb1175f79f4154c65c1c52c245b6323d33508ffa3e"
+     },
+     "tail_on": true
+    }
+   ]
+  },
+  {
+   "distance_Mpc": 4.04,
+   "distance_hex": "0x1.028f5c28f5c29p+2",
+   "distance_json": "4.04",
+   "distance_sources": [
+    {
+     "field": "engine_coordinates[name=distance_Mpc].trial_value",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/DDO154_COORDINATES_CX2V006.json",
+     "sha256": "50e7288e4697c8c8bca0544a4b81b5b15462c10efaed2d437530b95d8a80951f"
+    },
+    {
+     "field": "coordinate_mode.fixed_engine_coordinates.distance_Mpc",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/COORDINATE_ADDENDUM_CX2V006.json",
+     "sha256": "9962b2aa673572a712d07fd74d12e61fe2418acbeb03b0ef3437118a6ca1e2b9"
+    },
+    {
+     "field": "anchor.physical.distance_Mpc",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sched_s45_c2/v003/RUN_CONFIG_DDO154_CX2V006R9_S45_C2V003.json",
+     "sha256": "d9241676c3b7b32bd3067a55bdfb7821ebc33a68adbdc011ab4e4c58b6e50a4d"
+    },
+    {
+     "field": "World.build_all L540-549 (template physical; mapper th[distance_Mpc] = trial) and L576-577 need(d == 4.04)",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/handoff_v004/tools/produce_final_step4_specs_c4v004.py",
+     "sha256": "fcbf1c3ed175e1cfb3519c33324622a3b0ed190769e71b199687bd46dd1cb7ba"
+    }
+   ],
+   "file_sha256": "f9bb13a92b43ca49cf5012b10d4d90b75f52dabbe80484920e60a173aed9ebea",
+   "label": "D404",
+   "note": "registered distance (anchor, HEADLINE, campaign, POST_S1)",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/q4_row_contracts_c2/ROW_CONTRACT_D404_C2V001.json",
+   "proof": {
+    "A_rebuilt_with_custody_functions": true,
+    "B_derive_details_row_contract_bytes_equal": true,
+    "B_derive_details_row_contract_sha256_equal": true,
+    "C_digest_custody_adapter_rowproducer_hashlib_equal": true,
+    "C_lo_core_L69_72_emulation_pass": true,
+    "C_row_producer_synthetic_row_reference_accepts": true,
+    "D404_equal_to_historical_custody_record": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/CUSTODY_KB064_C000_CX2V001.json",
+     "producer": "custody_cx2v001.py 3b29dff5 (its modules field)",
+     "row_contract_bytes_equal": true,
+     "row_contract_sha256_equal": true,
+     "sha256": "92b54db5dc6f365b169ef3d236bbc504ee6b315fd9e86447d52170d61b11db11"
+    },
+    "D404_rows_equal_registered_binding": true,
+    "geometry_guards_all_true": true,
+    "rows_invariant_to_non_D_physical": true,
+    "seconds": 0.015,
+    "tau_equals_quarter_region_sigma": true
+   },
+   "row_contract_sha256": "f9bb13a92b43ca49cf5012b10d4d90b75f52dabbe80484920e60a173aed9ebea",
+   "used_by": [
+    {
+     "batch": "HEADLINE",
+     "case": "TAIL_REANCHOR",
+     "distance_source": {
+      "field": "calls[case=TAIL_REANCHOR].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "WORKERS_8_CANDIDATE_ANCHOR",
+     "distance_source": {
+      "field": "calls[case=WORKERS_8_CANDIDATE_ANCHOR].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_TRIAL",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_TRIAL].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_000",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_000].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_001",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_001].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_010",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_010].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_011",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_011].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_100",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_100].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_101",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_101].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_110",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_110].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "HEADLINE",
+     "case": "HEADLINE_CORNER_111",
+     "distance_source": {
+      "field": "calls[case=HEADLINE_CORNER_111].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/HEADLINE_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "2e9a3cb2149ebbe8ca7c551b4c364ed0314bd3421582d97b212f4c14d8eea960"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "POST_S1",
+     "case": "ROOT_NAMES_AT_REGISTRATION_K3",
+     "distance_source": "DERIVED: POST_S1 is the S1 pair at the campaign point u_A (V006 A150/A160); the campaign coordinate mode fixes distance_Mpc = 4.04 for every campaign call spec (addendum 9962b2aa coordinate_mode.fixed_engine_coordinates; rule text). Params C2V003A carry no template.",
+     "tail_on": true
+    },
+    {
+     "batch": "POST_S1",
+     "case": "ROOT_NAMES_AT_REGISTRATION_K4",
+     "distance_source": "DERIVED: POST_S1 is the S1 pair at the campaign point u_A (V006 A150/A160); the campaign coordinate mode fixes distance_Mpc = 4.04 for every campaign call spec (addendum 9962b2aa coordinate_mode.fixed_engine_coordinates; rule text). Params C2V003A carry no template.",
+     "tail_on": true
+    },
+    {
+     "batch": "CAMPAIGN",
+     "case": "every campaign point",
+     "distance_source": {
+      "field": "coordinate_mode.fixed_engine_coordinates.distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/COORDINATE_ADDENDUM_CX2V006.json",
+      "sha256": "9962b2aa673572a712d07fd74d12e61fe2418acbeb03b0ef3437118a6ca1e2b9"
+     },
+     "tail_on": true
+    }
+   ]
+  },
+  {
+   "distance_Mpc": 4.111497211045223,
+   "distance_hex": "0x1.0722c532c2345p+2",
+   "distance_json": "4.111497211045223",
+   "distance_sources": [
+    {
+     "field": "engine_coordinates[name=distance_Mpc].upper",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/DDO154_COORDINATES_CX2V006.json",
+     "sha256": "50e7288e4697c8c8bca0544a4b81b5b15462c10efaed2d437530b95d8a80951f"
+    },
+    {
+     "field": "distance_summary.reported68_high_Mpc",
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/DDO154_CALIBRATION_OBSERVATION_REGION_V001.json",
+     "sha256": "13c16a6394fde450c9c1d9b258a8fb5dd01d80ce275a54d9761a285f76145b6d"
+    },
+    {
+     "field": "World.build_all L551-565: d = float(self.by[distance_Mpc][upper]) -> physical.distance_Mpc",
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/handoff_v004/tools/produce_final_step4_specs_c4v004.py",
+     "sha256": "fcbf1c3ed175e1cfb3519c33324622a3b0ed190769e71b199687bd46dd1cb7ba"
+    }
+   ],
+   "file_sha256": "a14024eaa9876b43ac52af5d3d1f4f8cb6ee988251fecf0e6e4238465cf45b14",
+   "label": "DHI",
+   "note": "SENS upper distance (region reported68_high = coordinate box upper)",
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/q4_row_contracts_c2/ROW_CONTRACT_DHI_C2V001.json",
+   "proof": {
+    "A_rebuilt_with_custody_functions": true,
+    "B_derive_details_row_contract_bytes_equal": true,
+    "B_derive_details_row_contract_sha256_equal": true,
+    "C_digest_custody_adapter_rowproducer_hashlib_equal": true,
+    "C_lo_core_L69_72_emulation_pass": true,
+    "C_row_producer_synthetic_row_reference_accepts": true,
+    "D404_equal_to_historical_custody_record": null,
+    "D404_rows_equal_registered_binding": null,
+    "geometry_guards_all_true": true,
+    "rows_invariant_to_non_D_physical": true,
+    "seconds": 0.016,
+    "tau_equals_quarter_region_sigma": true
+   },
+   "row_contract_sha256": "a14024eaa9876b43ac52af5d3d1f4f8cb6ee988251fecf0e6e4238465cf45b14",
+   "used_by": [
+    {
+     "batch": "DIII",
+     "case": "DECIDING_III_HIGH_V009GEO",
+     "distance_source": {
+      "field": "calls[case=DECIDING_III_HIGH_V009GEO].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/DIII_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "f14514fec088651ce7ba15759aa5edc9854ae25a9d095eec3849bbc173f5af48"
+     },
+     "tail_on": false
+    },
+    {
+     "batch": "DIII",
+     "case": "DECIDING_III_HIGH_R5",
+     "distance_source": {
+      "field": "calls[case=DECIDING_III_HIGH_R5].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/DIII_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "f14514fec088651ce7ba15759aa5edc9854ae25a9d095eec3849bbc173f5af48"
+     },
+     "tail_on": false
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C000_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C000_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C001_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C001_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C010_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C010_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C011_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C011_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C100_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C100_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C101_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C101_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C110_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C110_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_CORNER_C111_DHI",
+     "distance_source": {
+      "field": "calls[case=SENS_CORNER_C111_DHI].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    },
+    {
+     "batch": "SENS_HI",
+     "case": "SENS_DISTANCE_UPPER",
+     "distance_source": {
+      "field": "calls[case=SENS_DISTANCE_UPPER].distance_Mpc",
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v004/SENS_HI_PLAN_TEMPLATE_CX1V004.json",
+      "sha256": "fdb9620094f8ad6eb5a648def397f5b5f8b41692fce4abdaef0702545fd0dcfa"
+     },
+     "tail_on": true
+    }
+   ]
+  }
+ ],
+ "run_checks": {
+  "d_set": {
+   "hex": [
+    "0x1.fd93c1f526ddfp+1",
+    "0x1.028f5c28f5c29p+2",
+    "0x1.0722c532c2345p+2"
+   ],
+   "json": [
+    "3.9810717055349722",
+    "4.04",
+    "4.111497211045223"
+   ],
+   "tail_off_direct_D_subset": true,
+   "tail_on_direct_calls": 31,
+   "values": [
+    3.9810717055349722,
+    4.04,
+    4.111497211045223
+   ]
+  },
+  "dont_write_bytecode": 1,
+  "isolated": 1,
+  "modules": {
+   "adapter_c3v003": "211a3220f015f8410f81e981f73355d9975d9b738a42a9d1092c28c4ae1c336c",
+   "certs_common": "c75aaa5a197efe7bde1014269d74aa37810ccce6f95b7eec1078352f09ffb3b7",
+   "custody": "6810b7c3614e219f6e059208fbe59e905d01aa3a115e3c723079b579a027a377",
+   "driver_r5": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+   "final_spec_producer_hashed_only": "fcbf1c3ed175e1cfb3519c33324622a3b0ed190769e71b199687bd46dd1cb7ba",
+   "lo_core_hashed_only": "12d36305e09651fcb0dca0b76f85c755ff063c9d9e3ce0dd1e1baacf7b3d430e",
+   "response_producer_hashed_only": "a1dcdea8deba5bc9667f0ea36d6b94c3cc20fb1d2d95d637cc9e7ea26b478231",
+   "row_producer_v003": "67fddd24945de31d70f940cb1ff85ef9d467b20d62a764cd159f58afc909e01e"
+  },
+  "python": "3.12.14"
+ },
+ "schema": "Q4_ROW_CONTRACTS_INDEX_C2V001"
+}

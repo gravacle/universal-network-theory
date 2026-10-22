@@ -1,0 +1,36 @@
+--- s1_launch_root_c2v002.py	2026-10-19 12:50:47.683895334 -0500
++++ s1_launch_root_c2v002a.py	2026-10-19 13:26:11.823362647 -0500
+@@ -1,9 +1,10 @@
+-"""S1 root launch path (s1_successors_c2, c2v002). Root only.
++"""S1 root launch path (s1_successors_c2, c2v002a). Root only.
+ 
+-Loads s1_path_lib_c2v002.py from this folder by its sha256 and refuses on any mismatch. Order, all fail closed:
++Loads s1_path_lib_c2v002a.py from this folder by its sha256 and refuses on any mismatch. Order, all fail closed:
+   1. S1 checks: registration C2V002 (67b4bd78) named on root's V006 entry line at the constant V006 path, launch config
+      (campaign state; with ACTIVE, root's campaign-window attestation), POST_S1 one-call plan on guard012/launcher013,
+-     driver r5, tail ON, spec = the filled spec, template replay byte-equal;
++     driver r5, tail ON, spec = the filled spec, template replay byte-equal, and (c2v002a, BLK-1) u_A re-bound to the
++     Phase-1 primary anchor and every consumed fill-record field (branch, theta_key, physical_u_A, ...) re-derived;
+   2. the four 0620 controls through guard012 (spec_structure + allowlist, adoption, validate with native preflight; for
+      an overlap admission guard012 also runs its live gate), before any process;
+   3. machine gate v003: hold_check, then Gate.decide for the S1 head after the warm-up; the r5 route-A snapshot check;
+@@ -24,8 +25,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB = HERE / 's1_path_lib_c2v002.py'
+-LIB_SHA = 'e3ca4d80fee093456117a6fe3401861c8166f5015c9ad99e7b04feae7410bc1c'
++LIB = HERE / 's1_path_lib_c2v002a.py'
++LIB_SHA = 'f961839b2dd1ef27c6225badedcc199db3f6515776b5e7e5c08ecede3e769a9e'
+ 
+ 
+ def lib():
+@@ -33,7 +34,7 @@
+     if hashlib.sha256(raw).hexdigest() != LIB_SHA:
+         print(json.dumps({'refused': 'LIB_BYTES_CHANGED'}))
+         raise SystemExit(3)
+-    m = types.ModuleType('s1_path_lib_c2v002')
++    m = types.ModuleType('s1_path_lib_c2v002a')
+     m.__file__ = str(LIB)
+     exec(compile(raw, str(LIB), 'exec'), m.__dict__)
+     return m

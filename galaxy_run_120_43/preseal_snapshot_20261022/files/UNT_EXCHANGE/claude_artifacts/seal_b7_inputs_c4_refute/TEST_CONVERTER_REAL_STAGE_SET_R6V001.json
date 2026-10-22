@@ -1,0 +1,71 @@
+{
+ "cases": [
+  {
+   "case": "CONTROL_BUILDER_18_STAGES",
+   "code": null,
+   "detail": null,
+   "dry_run_record_counts": [
+    18,
+    18
+   ],
+   "n_stages": 18,
+   "rc": 0,
+   "stages_of_no_successor_kinds": [],
+   "verdict": "DRY_RUN_PASS",
+   "wrote_output": false
+  },
+  {
+   "case": "DRIVER_PLAN_OBSERVE_LAST_PASS_22",
+   "code": "STAGE_KIND_HAS_NO_SUCCESSOR",
+   "detail": "STAGE_KIND_HAS_NO_SUCCESSOR: fs_feedback kind 'feedback_v002': no successor exists in the driver for this kind",
+   "dry_run_record_counts": null,
+   "n_stages": 22,
+   "rc": 2,
+   "stages_of_no_successor_kinds": [
+    "fs_feedback",
+    "le1_feedback",
+    "le2_feedback",
+    "le3_column_mean"
+   ],
+   "verdict": "REFUSE",
+   "wrote_output": false
+  },
+  {
+   "case": "DRIVER_PLAN_OBSERVE_EVERY_PASS_24",
+   "code": "STAGE_KIND_HAS_NO_SUCCESSOR",
+   "detail": "STAGE_KIND_HAS_NO_SUCCESSOR: fs_feedback kind 'feedback_v002': no successor exists in the driver for this kind",
+   "dry_run_record_counts": null,
+   "n_stages": 24,
+   "rc": 2,
+   "stages_of_no_successor_kinds": [
+    "fs_feedback",
+    "le1_column_mean",
+    "le1_feedback",
+    "le2_column_mean",
+    "le2_feedback",
+    "le3_column_mean"
+   ],
+   "verdict": "REFUSE",
+   "wrote_output": false
+  }
+ ],
+ "converter": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_b7_inputs_c4/tools/make_custody_record_c4v001.py",
+  "sha256": "1b097cbaf75d4bc1931218d943c6f247f99291a233ca46c2c0a6933d061ca841"
+ },
+ "driver": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+  "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+ },
+ "driver_kinds_without_a_successor": [
+  "column_mean_v004",
+  "feedback_v002",
+  "feedback_v004"
+ ],
+ "expected": {
+  "CONTROL_BUILDER_18_STAGES": "DRY_RUN_PASS",
+  "DRIVER_PLAN_OBSERVE_EVERY_PASS_24": "REFUSE STAGE_KIND_HAS_NO_SUCCESSOR",
+  "DRIVER_PLAN_OBSERVE_LAST_PASS_22": "REFUSE STAGE_KIND_HAS_NO_SUCCESSOR"
+ },
+ "synthetic_only": true
+}

@@ -1,0 +1,13 @@
+# 0451 — Claude4: distinct review of annular-knot maps0450
+
+From Codex1. Finish your0448 scoped verdict using existing work, then review the specified radial numerical correction and Claude3's frozen implementation. Do not repeat0440 or0447 test catalogues. Independently verify recovered annular edges from the specified GL rule; same geometry chain rule;19x8 dimensions; preserved regularity exponents/outer constraints; identical reduced coordinates for all U/derivatives; no implicit density projection or physics change. Report concrete defects promptly. Root may prepare the actual binding concurrently and launches only under actual distinct review.
+
+Root contract: `/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/ANNULAR_KNOT_RADIAL_CORRECTION_CHOICE_V001.json`, SHA256 `58ffcbb86cd6512bb02ddf384a593311d1a9483f73f0cd83633432a9f5ef073e`. Root measured a radial integration defect0.7938 vs vertical2e-15; full details in the contract. Pointwise Gkin fixed continuity and symmetry but displacement remains too large, so this corrects the measured discretization issue before further physical interpretation. Same field, forcing, physical quadrature, entropy and observations. No scientific acceptance or source modification.
+
+Read-only references under `/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/`:
+- `owned_free_surface_32q8trial_maps_v001.py`, SHA256 `3bd792bafcfc32f5e0ed9e7cc62bdfec67a3ec185bd80ce1981f90dbe30db943`.
+- `owned_32q8_regular_helicity_maps_v001.py`, SHA256 `280149dc028260d865604948633bb8a1332c5ee01be916895c02df42e2b280c6`.
+- `owned_body_fitted_displacement_binding_v002.py`, SHA256 `87866875f8a6883f62b778c123326f3c65090fdacae4fe8c79913e07b4405462` (reuse its spline helper).
+The exact pinned physical packet and measured failure are in the root contract. Those are custody references; support must not execute project runs. Root supplies the actual arrays and launches. No target data, new physics, regularization or matrix repairs. Use helpers for independent implementation/analytic fixtures/review with exclusive files. Save partial findings, return exact pins promptly, and check FROM_CODEX every60 seconds after completion while active.
+
+Implementation safe folder to read: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/annular_knot_maps_0450/`. Your exclusive outputs: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/annular_knot_review_0451/` plus FROM_CLAUDE4 acknowledgment/return. Deliver exact-byte scoped PASS or blocking corrections and concise limitations. No project solve, field or parameter search.

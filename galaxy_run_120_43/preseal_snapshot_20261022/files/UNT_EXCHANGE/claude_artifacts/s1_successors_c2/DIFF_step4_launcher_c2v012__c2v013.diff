@@ -1,0 +1,25 @@
+--- step4_launcher_c2v012.py
++++ step4_launcher_c2v013.py
+@@ -1,9 +1,11 @@
+ """Root-only step-4 direct batches. No automatic retry; no raw campaign fallback."""
++# c2v013 = launcher012 (59c00707) with two constants changed only: the guard is guard012 (A150 R-S1-3 (1)), and the
++# machine lock stays launcher012's own file (absolute path), so every step-4 batch still shares one lock.
+ import argparse, fcntl, hashlib, json, os, re, signal, subprocess, sys, time, types
+ from pathlib import Path
+ HERE=Path(__file__).resolve().parent
+-GUARD_PATH=HERE/'step4_guard_c2v011.py'
+-GUARD_SHA256='eb97e303b968dc941e2059ada813be95340662253c327a7b9a9634bb8a2c8033'
++GUARD_PATH=HERE/'step4_guard_c2v012.py'
++GUARD_SHA256='f4656fecc863acf1df1d440f7eb44295dd1a43a8aa4955c18f8e50f57862eeb0'
+ GUARD_BYTES=GUARD_PATH.read_bytes()
+ if hashlib.sha256(GUARD_BYTES).hexdigest()!=GUARD_SHA256:
+     raise PermissionError('GUARD_BOOTSTRAP_HASH_MISMATCH')
+@@ -11,7 +13,7 @@
+ exec(compile(GUARD_BYTES,str(GUARD_PATH),'exec'),G.__dict__)
+ PYTHON='/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3'
+ BLAS={k:'1' for k in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','VECLIB_MAXIMUM_THREADS')}
+-LOCK=HERE.parent/'STEP4_MACHINE_LOCK_V001'
++LOCK=Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/STEP4_MACHINE_LOCK_V001')
+ def monitor_argv(plan,call):
+     return [PYTHON,'-I','-B',plan['monitor']['path'],'--driver',call['driver']['path'],'--driver-sha256',call['driver']['sha256'],'--spec',call['spec']['path'],'--outdir',call['outdir'],'--receipt',call['receipt'],'--wall-cap-s',str(call['wall_cap_s']),'--rss-cap-bytes',str(call['rss_cap_bytes']),'--output-cap-bytes',str(call['output_cap_bytes']),'--poll-s','2.0']
+ def read_progress(path):

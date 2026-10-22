@@ -1,0 +1,263 @@
+{
+  "summary": "Claude3 lean review (0687, A115) of Claude4 S0 per-point EPS producer v002, fence v004, 4 records and GQ bindings against Claude3 0184 S0 requirements: one static lens + one adversarial verifier",
+  "agentCount": 2,
+  "logs": [],
+  "result": {
+    "review": {
+      "verdict": "CONFIRMED_WITH_NOTES. 0 blocking under A115: 0 (a), 0 (b). This was a static, record-based review. Nothing was run, and no run-tree path or NGC3198-named file was opened, listed or stat-ed. All named shas match from bytes: producer 8972822b, fence b5a6aa09, EPS efdc430a / 8270b6b3 / bfac8f57 / 5dd9900a, GQ 903a7d6c / cc6113ce / 4fc1d744 / 934c0a47, GQ writer f4ee064d, S0 record 1be5ed70, predecessors 79a5ac1d and 175b995b. (1) All 12 items of Claude3 0184 are met. Record-based items are TESTED; the fence and loader items are FORMAL from code, with self-test counts TESTED from the runner stderr. (2) Records. All 4 point keys recompute from 1be5ed70 independently, from both theta forms (29-key theta). Eref_eff = s*EB and gamma_eff = s*ge*EB reproduce bitwise. Each record has 89 shells with 0 defects against rule (b), eps = max(envelope, actual) on every shell, and every source is the envelope. All 4 are CERTIFIED. Custody has 24 true flags plus 3 write=false. The run-tree opens are exactly the 3 D1(a) pins, read-only (counts 3/3/4), with 0 refused and 0 blocked. Timing and footprint match 0199. (3) A144 R3: not carried. The records hold only per-shell dimensionless eps (89 k-shells on (2,91] /kpc) and no 43-row eps_km_s. They can serve only as the point-certificate input for the 4 S0 keys; N1 says what a successor must emit. (4) Every hunk of both diffs maps to a 0184 item or a stated change; the unstated changes are non-numeric. Physics (TESTED): on every shell, eps scales as s^0 (gamma/Eref)^-1 ell_F^-3. The actual-set local search is path-noisy: up to 19.8% between the seed and the anchor, whose thetas differ by at most 3.3e-15. Together these explain both 0199 observations, and eps itself is unaffected. Conduct: every program-tree read, listing, hash, diff and Python run used taskpolicy -b. Shell builtins did not (date, and the noclobber printf that exclusive-created PARTIAL_lens.md), nor did scratch-only heredoc/sed/grep/wc/tail or pipeline filters. Python used only json, hashlib and ast. One scratch script evaluated literal module constants with eval and empty builtins; I redid that comparison with pure-AST folding and got the same result. Read-only beyond the named objects: CURRENT_INSTRUCTIONS.md (required by CLAUDE.md); posts 0184, 0199, 0685, 0693, 0694, 0708 and 0711; REVIEW_RI45_06_RESULT_C3V001; BUILD_NOTES_C4V001; the s0 tools (pinload_c4v002, s0theta_c4v001, run_fenced_c4st4, gq_binding_c4v002); the out/ companions (RUN_START, TIMING_RAW, smoke1, cmp1); the run_logs stderr files; ri45_06 c4v001, fence v003 and r1 b349379a; pin file c0390172; be148bab; and parts of eps_ngc91_c2v001, certs_common_c2v001, lwr_common_v001 and qinf_eval_v001. I also took non-recursive listings of the named exchange and build folders. Progress log: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_s0_certs_c3/PARTIAL_lens.md (exclusive create, append only). Scratch: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/s0certs_review/lens/",
+      "blocking": 0,
+      "findings": [
+        {
+          "id": "N1",
+          "cls": "NOTE",
+          "title": "A144 R3: the records carry 89 per-shell eps, not 43 eps_km_s per member. They can serve only as the point-certificate input for the 4 S0 keys",
+          "evidence": "I scanned all 4 records in JSON. None has a list of length 43, a km/s field, or a row or radius key. The only eps data are shells[i].(lo_inverse_kpc, hi_inverse_kpc, eps) on (2,91] /kpc, which are dimensionless |1-q| bounds, plus eps_max. The producer docstring calls these 'what the tail module's field_bound reads' (FORMAL). A successor (root's phase1_c2v003 members writer, or a Claude4 successor) must emit, per member: (1) the member theta key; (2) the path and sha of the certificate whose point.key equals that key, refusing the anchor record, another S0 point's record and any SMOKE or BIND_CHECK record; (3) a check that the certificate has schema UNT_CLAUDE4_S0_POINT_EPS_C4V002, certificate true, verdict CERTIFIED, and NGC coverage [2,91] covering the field_bound's k-range; (4) eps_km_s as 43 finite nonnegative floats in the frozen query-row order (row index and radius), each computed by the pinned field_bound from this certificate's per-shell eps and that member's own field, with the field_bound pin recorded. It must never broadcast eps_max and never reuse another member's values. Only the 4 S0 thetas have certificates; any other Phase-2 member needs its own run, which took 1,700 to 4,380 s wall here. UNTESTED here: the 43 rows (the slots file is NGC3198-named and not named for me), the field_bound module, and which thetas are Phase-2 members.",
+          "label": "TESTED"
+        },
+        {
+          "id": "N2",
+          "cls": "NOTE",
+          "title": "On all 89 shells, eps scales as s^0 (gamma/Eref)^-1 ell_F^-3. This explains 0199 observation (ii) and shows each record's numerics ran at its own theta",
+          "evidence": "Per-shell exponent ln(eps_J/eps_seed)/ln(theta_J/theta_seed): J0 (s x1.0717735) gives -5.5e-8 to +2.2e-8; J1 (gamma/Eref x1.2589254) gives -0.99999999 to -0.99996570; J2 (ell_F x1.0717735) gives -3.0000000 to -2.9998960. The largest departure from the power law is about 8e-6 relative. J1 is therefore the seed x0.7943 on every shell, J2 the seed x0.8123, inner shells included, and J0 equals the seed within 3.8e-9. eps_max: 8.2025e-4 (seed and J0), 6.5156e-4 (J1), 6.6626e-4 (J2), all at (2,3] from the envelope. Because each record responds to its own bound theta, this is evidence that the explicit binding reached the numerics. Root can use the law as a cheap cross-check on future member certificates; under A144 R3 it is not a substitute for a member's own certificate.",
+          "label": "TESTED"
+        },
+        {
+          "id": "N3",
+          "cls": "NOTE",
+          "title": "The actual-set local search is path-noisy on outer shells. 0199 observation (i) is search noise, and the minimum envelope/actual ratio is not a convergence margin",
+          "evidence": "The seed theta differs from the anchor (lwr ANCHOR_UNSCALED; r1 b349379a) by 2.7e-16 in s, 3.3e-15 in gamma/Eref and 2.5e-15 in ell_F, relative. Against r1, the envelope agrees within 3.3e-9, and eps_base and the dense audit within 4.6e-9, on all 89 shells. But actual_local_max differs from (22,23] outward, by up to 19.8% at (49,50]. At (65,66], r1 gives envelope/actual 1.0119 and the seed 1.1460. The seed against J0 shows the same pattern: the actual set differs by -16.6% to +14.4% while eps agrees within 3.8e-9. So the (90,91] actual of 3.714e-7 against 3.512e-7 is not an s-dependence. eps is unaffected: the envelope dominates by construction (the 2000-node envelope self-test is bitwise; the 15 dense audits are within 1 +- 1.0e-9), and rule (b) takes the max. The reported minimum ratios are search statistics, not margins: seed 1.0307 at (62,63], J0 1.0316 at (62,63], J1 1.0111 at (72,73], J2 1.0332 at (69,70].",
+          "label": "TESTED"
+        },
+        {
+          "id": "N4",
+          "cls": "NOTE",
+          "title": "Fence v004's remaining gaps are reachable only by adversarial input: inode-level aliases, other open entry points, metadata calls with no audit event, and run directories outside the three named roots",
+          "evidence": "decide() refuses on case-folded lexical components before any lstat, and the no-follow walk checks each candidate and each link target lexically before touching it (L172-251). The remaining gaps: (i) /.vol/<dev>/<ino> paths and hard links carry no protected name; 0184 item 9 offered no-follow inode identity as the alternative, and case-folded components were chosen instead. (ii) posix.open with dir_fd, or an io.open opener, bypasses the os.open wrapper (L324-331). (iii) os.stat, lstat and access calls by other code are not intercepted (disclosed at L38). (iv) The name rule covers only claude2/runs, *runs_ext* and *unt_internal_runs* (plus UVT_* and C5H), so run directories elsewhere are not refused by name. None of these is reachable from the honest pinned producers: the 4 runs opened 40 program files and the 3 pins, with 0 refused and 0 blocked after the self-test (TESTED from the TIMING_RAW guard blocks and the stderr summaries).",
+          "label": "FORMAL"
+        },
+        {
+          "id": "N5",
+          "cls": "NOTE",
+          "title": "Fence v004 and the GQ writer still allow NGC3198-named reads that 0708 now requires prompts to name",
+          "evidence": "_final_why exempts any NGC3198-named .py file outside the run trees, and the V006 and V005_FROZEN addenda (L159-169). gq_binding_c4v002 reads the V006 addendum on every run (L119); the sha at read is ad07fd42 in all 4 bindings (TESTED). Every S0 EPS and GQ run started between 13:48Z and 14:17Z, before 0708 (15:11Z), so there is no breach. The EPS runs opened no NGC3198-named file other than root's two pins (TESTED). A successor run after 15:11Z needs either a prompt that names the V006 addendum (the two pins are already named by c0390172 and 0685) or a fence narrowed to the named list.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "N6",
+          "cls": "NOTE",
+          "title": "Two custody fields are weaker than their names: the 'only the pins' flag is tautological, and the record's producer sha comes from a second read",
+          "evidence": "run_tree_opens_only_the_pins_read_only (producer L576) is evaluated over opens that guard_report already selected because their given path is in RUN_INPUTS (pinload L308-309). Only its write=false part is informative. The 'only' guarantee comes from the lexical refusal together with guard_refused 0 and fence_blocked 0 (TESTED in all 4). producer.sha256 is computed from _SELF_BYTES, a second read of __file__ at __main__ (L662-664), not from the buffer the runner verified. That is a TOCTOU gap only: the value equals the runner's script_sha256 8972822b in all 4 stderr summaries (TESTED).",
+          "label": "FORMAL"
+        },
+        {
+          "id": "N7",
+          "cls": "NOTE",
+          "title": "0199 wording and timing nits. J1 and J2 exceeded the -b planning figure by 1.9x",
+          "evidence": "0199 labels its accept criteria TESTED from each record's bytes, but the '99 of 99 / 32 of 32 / nothing blocked after the self-test' bullet rests on the FENCE_C4ST4_SUMMARY lines in run_logs/s0*.stderr (selftest 99/99, probes 32/32, blocked_after_selftest [], rc 0). The records carry only fence_blocked_during_script = 0. J1's 4,379.1 s is TIMING_RAW total_wall_s 4379.069; the record's seconds field is 4379.0. The 'load average about 33' is in no record (UNTESTED). '12 CPU-minutes after 40 minutes' is TESTED (740 s at t=2402 s), and CPU/runnable is 0.26 for J1 and J2 against 0.83 for the seed and J0. Background-QoS CPU equals total CPU: 1,233.8, 1,230.1, 1,168.5 and 1,168.1 s. J1 and J2 took 1.9x the planned 2,315 s, so future member certificates should be planned at up to about 4,400 s each under that load. The A130 watch read 13.3 to 16.8 GB, far below 95 GB.",
+          "label": "TESTED"
+        },
+        {
+          "id": "N8",
+          "cls": "NOTE",
+          "title": "Every diff hunk maps to a 0184 item or a stated change; the unstated changes are non-numeric",
+          "evidence": "Producer, diff -u c4v001 -> c4v002 (5 hunks), changes by area: (1) Docstring and usage (items 1-12; item 10: runner st4 with the script sha, -b, no nice). (2) Pins for pinload_c4v002, s0theta, the fence and the runner (items 1, 8, 9). (3) DATA loses QINF_EVAL_V001.json, V006, V004, K128_V004 and EPS_SUP_SUPP; COMPARE, DDO_ANCHOR_KEY, FIELDS, POINT_NOTE and rel() are removed (items 2-4, 12). (4) New SEED_SCAN_SHA, NOT_READ, C1_SHELLS, RULE_B/LT5/GE5, SCOPE_0182, THETA_ROUTE, NO_LO and REGISTRATION (items 1, 3, 5, 6, 8, 12; 0693; D3). (5) args() no longer takes --point anchor (item 1). (6) main(): the runner owns pycache_prefix (L1); the STEP2 read is optional and inside the try (item 10); the theta comes from the S0 record (item 1); custody adds the tables, O_NOFOLLOW_ANY, post-run re-reads of the 25 modules and a hard gate (item 8); S3 checks the exact string with no realpath (0639 B1); S1, S2 and T are dropped because the author's main() is not called; point_binder (item 1), run_eps (items 3, 5, 6, 7), summarize (item 6), the NOT_APPLICABLE blocks (items 2-4) and the BIND_CHECK mode (docstring). CHAIN (7 shas) and LWR_COMMON are unchanged. I checked run_eps line by line against eps_ngc91_c2v001 main() L43-111 (2e59a461): the rng consumers are the same and in the same order, and the dropped lines consume no rng. Independently TESTED: at the anchor theta, the c4v002 smoke equals r1 on (2,9] for certify, dense, envelope and actual_local. Fence, v003 -> v004 (3 hunks): header and constants (items (1), (3), (4), (6), (8); 3 pins with shas equal to c0390172); lexical rules, walk and decide (items (1), (2), (5); the realpath-first _forbidden_read and LOOKALIKES/_tag are removed); hook, wrapper and selftest (items (3), (4), (7)). Unstated but non-numeric: per-call tcall timing and the per-shell cpu_seconds and timing fields; the fence's fail-closed _hook, which preserves behavior because v003 hook exceptions also aborted the operation; and the producer sha re-read (N6).",
+          "label": "FORMAL"
+        }
+      ],
+      "requirements": [
+        {
+          "item": "0184 item 1: bind the S0 theta explicitly as qinf_eval_v001 does; no lwr defaults; no hard-coded point",
+          "result": "MET",
+          "note": "TESTED: Eref_eff = s*EB and gamma_eff = s*ge*EB, recomputed from the 1be5ed70 theta_hex, reproduce each record's bound hex bitwise. The checks that the record's Eref_base_J equals the seed-scan EB and that the Binder carries the bound values are both true. At the seed, lwr EREF (1.4868672804474457e57) differs from the bound value (1.486867280447446e57), so the module defaults were not used. 'anchor_F10' appears 0 times in the records. FORMAL: point_binder is certs_common qinf_binder L205-214 plus qinf_eval L147-148, with three explicit kwargs, and the lwr Binder uses only self.Eref, self.ell and self.gam."
+        },
+        {
+          "item": "0184 item 2: drop the anchor comparisons or report them as not applicable",
+          "result": "MET",
+          "note": "TESTED: no v006_*, compared_with, qinf_anchor or decisions fields; anchor_comparisons is NOT_APPLICABLE. The guard logs of all 4 runs open none of V006, V004, K128_V004, EPS_SUP_SUPP, QINF_EVAL_V001.json, TAIL_REANCHOR, 1d5eef1b or ce26ced9."
+        },
+        {
+          "item": "0184 item 3: remove the C1 shells' anchor-only inputs and recompute from point values",
+          "result": "MET",
+          "note": "TESTED: actual_set_members is exactly {eps_base, eps_refined, eps_dense_audit, eps_actual_local_max} on 89 of 89 shells in all 4 records. eps_actual_set, eps, envelope_over_actual and the domination flag recompute from them with 0 defects. The c1_shell flags equal {2,3,4,5,6,8,12,16,32}."
+        },
+        {
+          "item": "0184 item 4: drop and disclose the V004 node maxima; any substitute labelled",
+          "result": "MET",
+          "note": "TESTED: eps_node_maxima_from_V004 and eps_check_own_sup are null on every shell, anchor_only_inputs.substitute_computed is false, and the SCOPE_0182 disclosure says why."
+        },
+        {
+          "item": "0184 item 5 with 0693: rule (b) on (2,5]; eps_source relabelled",
+          "result": "MET",
+          "note": "TESTED: eps = max(envelope, actual-set max) on all 89 shells with 0 defects. On (2,5], eps is the envelope at all 4 points. At the seed this lifts (2,3] from 6.4230e-4 to 8.2025e-4 (x1.2771); (3,4] rises x1.6394 and (4,5] x1.3261. eps_rule is RULE_LT5, 'converged: CHECK F1' no longer appears, and every record states rule_b."
+        },
+        {
+          "item": "0184 item 6: lo>=5 eps_source from the actual argmax; domination flag; minimum envelope/actual",
+          "result": "MET",
+          "note": "TESTED: eps_source is 'envelope' on 89 of 89 shells in all 4 records, consistent with the values. envelope_dominates_actual_every_shell is true, and the minimum ratios are reported for all shells and for lo>=5 (see N3 for how to read them)."
+        },
+        {
+          "item": "0184 item 7: kept items (89 shells, CERTIFIED rule, 15 audit shells, rng order, self-tests, A2 grid check, single-thread BLAS)",
+          "result": "MET",
+          "note": "TESTED: 89 contiguous unit shells on (2,91]; every shell certified with at most 1 refinement (5 or 6 refined shells per point), so CERTIFIED; exactly the 15 audit shells; the n=2000 envelope self-test bitwise; the A2 grid check true, with grid sha, Cbar and mubar equal to r1's; thread env all '1', NUMEXPR included. The rng order is FORMAL from the line-by-line transcription and TESTED on (2,9] at the anchor through the smoke."
+        },
+        {
+          "item": "0184 item 8: custody sandwich",
+          "result": "MET",
+          "note": "TESTED: 39 pre-run and 38 in-run or post-run verified reads, all ok. The 3 pins are read with O_NOFOLLOW_ANY. Seed-scan sha at read is 951580e2 and lwr_common is 758740eb; IDENT/SEED equality is true. The fence and loader tables equal c0390172 (also TESTED by AST folding), and reader identity is 5/5. The run-input bytes themselves are FORMAL, because I did not open them."
+        },
+        {
+          "item": "0184 item 9: D1(a) in fence v004 itself (lexical refusal before realpath, case-folded components, listings and fd refused, policy-only self-test probes)",
+          "result": "MET",
+          "note": "FORMAL: the exact-string pin exception (read-only, no stat) is checked first. Then NFKC + casefold lexical rules for claude2/runs, runs_ext and unt_internal_runs apply before any lstat, and the hook never calls realpath. Listings, chdir, xattr and glob are judged or refused; fd opens and os.open with dir_fd are refused; writes are allowed only in the build folder. The self-test is policy-only: 8 A trials with no filesystem access, 76 B probes on a fake filesystem and 14 synthetic C events. TESTED: 99/99 and 32/32 in all 4 EPS runs and all 4 GQ runs, with 0 blocked after the self-test. The remaining adversarial-only gaps are in N4."
+        },
+        {
+          "item": "0184 item 10: STEP2 watch read optional; -b; below 95 GB; about 2.5 GB per process",
+          "result": "MET",
+          "note": "FORMAL: step2_watch_rows never raises and runs inside the try. TESTED: the read succeeded at the start and end of all 4 runs; background-QoS CPU equals total CPU; the watch read 13.3 to 16.8 GB; footprints were 2.244 to 2.266 GiB. The 2,315 s plan held for the seed and J0 (1,700 s), but J1 and J2 took 4,379 s (N7)."
+        },
+        {
+          "item": "0184 item 11: GQ bound to be148bab under D2(a), with its open item",
+          "result": "MET",
+          "note": "TESTED: the 4 bindings, whose shas match 0199, bind be148bab, which I re-hashed from bytes. They carry verdict PASS, rosters[0].seconds 545.0, a roster0 equal to the record's, producer ab07c00c and no_compute true. Each point key and theta equals 1be5ed70's, the open item is carried, and refused and blocked are both 0. The V006 addendum quote is UNTESTED because the file is NGC3198-named."
+        },
+        {
+          "item": "0184 item 12: no LO, rho or per-state numbers; POINT_NOTE scope not copied",
+          "result": "MET",
+          "note": "TESTED: no LO module appears in the open lists and no LO, rho or per-state field exists. 'lo < 5' occurs only in the corrective text of rule_b and scope_corrections_0182, and POINT_NOTE is gone."
+        },
+        {
+          "item": "Records: key recomputation from the theta in 1be5ed70",
+          "result": "MET",
+          "note": "TESTED independently (json and hashlib): the sha256 of canonical {schema DDO154_CALIBRATION_THETA_KEY_C2V001, theta} over the 29-key theta, in both theta_hex and theta_natural form, gives all 4 point keys; the 28-key theta_shared does not. Each record's point block equals 1be5ed70's bitwise."
+        },
+        {
+          "item": "Records: CERTIFIED criteria",
+          "result": "MET",
+          "note": "TESTED: verdict CERTIFIED, certificate true, coverage NGC [2,91], 89 shells, and rule_flags_agree_with_v005_form true in all 4."
+        },
+        {
+          "item": "Records: the three D1(a) opens only",
+          "result": "MET",
+          "note": "TESTED: custody.run_tree_opens is exactly IDENTITY.json, start.json and the seed-scan result.json, each with write false, counts 3/3/4. The guard shows 43 opens outside the build folder (40 program files and the 3 pins), 0 refused, 0 blocked, and no listing of a protected tree."
+        },
+        {
+          "item": "Records: eps_max and source labels consistent with rule (b)",
+          "result": "MET",
+          "note": "TESTED: eps_max is the maximum over the shells, at (2,3] with source envelope: seed 8.202548856340863e-4, J0 8.202548856343084e-4, J1 6.515567619831408e-4, J2 6.662588006166592e-4. eps_source_counts is {envelope: 89} in each."
+        },
+        {
+          "item": "Records: timing and footprint fields",
+          "result": "MET",
+          "note": "TESTED: each TIMING_RAW record sha matches its record. Record seconds are 1700.4, 1695.2, 4379.0 and 4379.5 against TIMING_RAW total_wall 1700.374, 1695.22, 4379.069 and 4379.501, and the per-shell sums match. Lifetime footprints are 2,409,973,896, 2,418,788,488, 2,432,927,928 and 2,420,689,104 B, i.e. 2.24, 2.25, 2.27 and 2.25 GiB as 0199 says. Run windows: 13:48-14:16Z and 14:17-15:30Z."
+        },
+        {
+          "item": "A144 R3: the records carry eps_km_s, 43 per member",
+          "result": "NOT_MET",
+          "note": "TESTED: they carry only per-shell eps and no 43-row field. The records predate R3 (0711, 15:42Z), so this is a successor requirement rather than a defect; N1 says what the successor must emit."
+        },
+        {
+          "item": "A144 R3: the records can serve as each member's own point certificate, the input to eps_km_s",
+          "result": "PARTIAL",
+          "note": "Only for the 4 S0 keys: each record has the point key, theta, pins, per-shell eps and CERTIFIED. Any other Phase-2 member needs its own certificate. UNTESTED: field_bound compatibility and the 43 rows (the slots file is NGC3198-named)."
+        },
+        {
+          "item": "Producer diff c4v001 -> c4v002: every hunk maps to a 0184 item or a stated change",
+          "result": "MET",
+          "note": "FORMAL; see N8. The only unstated changes are non-numeric."
+        },
+        {
+          "item": "Fence diff v003 -> v004: every hunk maps to 0184 item 9 or a stated v004 item (1)-(8)",
+          "result": "MET",
+          "note": "FORMAL; see N8. The only unstated change is the fail-closed hook wrapper, which preserves behavior."
+        },
+        {
+          "item": "0199 statements of record",
+          "result": "MET",
+          "note": "TESTED: every table value and accept criterion reproduces from the records, the TIMING_RAW files and the stderr summaries. The wording nits are in N7, and the load-average claim is UNTESTED."
+        }
+      ]
+    },
+    "verify": {
+      "holds": true,
+      "corrections": [
+        "N3, minor (TESTED): the 15 dense audits are not all within 1 +- 1.0e-9. dense/production runs from 0.9999999970 (seed) and 0.9999999984 (J1) up to 1.0000000010144 (J1) and 1.0000000010123 (J2). Only the upper side matters (production at most 1.01e-9 below the audit), and the lens has that side right. The lower side means production is higher, which is conservative. This changes no conclusion.",
+        "N3 wording, minor (TESTED): the seed and r1 actual_local_max values first differ at (22,23] (1.2e-2), but not on every shell from there outward. (23,24], (26,27], (27,28] and (28,29] still agree to <= 2.6e-10. The maximum, 19.75% at (49,50], is right.",
+        "N6, minor (FORMAL): the write=false part of run_tree_opens_only_the_pins_read_only also carries no information. pinload _why (L91-92) refuses a write-open of a pin path before OPENS logs it, and so does fence decide (the pin exception requires not writing). The whole flag is therefore tautological. The lens's direction (the flag is weaker than its name) stands."
+      ],
+      "reclassified": [],
+      "own_checks": [
+        "Hashed from bytes, all match: producer 8972822b, fence b5a6aa09, the 4 EPS records efdc430a/8270b6b3/bfac8f57/5dd9900a, the 4 GQ bindings 903a7d6c/cc6113ce/4fc1d744/934c0a47, GQ writer f4ee064d, S0 1be5ed70, predecessors 79a5ac1d/175b995b, r1 b349379a, review e6bcca96, pin file c0390172, be148bab and its producer ab07c00c, pinload b8ae4b06, s0theta 950d774a, runner 9327b0b5, qinf_eval f58de0dc, lwr_common 758740eb, chain 1946a394/8a42fbf3/ee68e83c/e4154809/c62f2e6e/3c20fd51/2e59a461. The stored producer and fence diffs equal a fresh diff -u (bodies fc99c573/d0f05389; 5 and 3 hunks). All 5 diff shas match BUILD_NOTES section 6.",
+        "Theta binding (TESTED): I recomputed all 4 keys with my own canonical sha256 (schema DDO154_CALIBRATION_THETA_KEY_C2V001, 29-key theta) from both theta_hex and theta_natural; they equal the S0 keys and the filename prefixes. Eref_eff = s*EB and gamma_eff = (s*ge)*EB match each record's evaluator and bound hex bitwise. This is the operation order of qinf_eval L147, which I read. The Eref_base_J = EB check and the binder_carries_bound_values check are true in all 4. anchor_F10 appears 0 times.",
+        "Binding reaches the numerics (FORMAL, beyond the lens's Binder-only check): the lwr Binder (L92-166) uses only self.Eref, self.ell and self.gam. In the chain, the anchor uses (ANCHOR_UNSCALED and L.SEED) occur only in certs_common qinf_binder/repro_qinf_anchor and in eps_cert_c2v002 main, and the producer calls none of them. The certs2 Envelope reads only B.* and L.A_BRAVAIS. certify reads B, D and L.KPC.",
+        "Transcription (FORMAL): run_eps matches eps_ngc91_c2v001 main L43-111. The rng consumers (L55 draws, env_search L75, actual_search L78, audit env_search L107) run in the same order, and the dropped L47-52, L62-66, L74, L79-83 and L92-95 consume no rng. The anchor smoke (febaa666) equals r1 bitwise on (2,9] for certify, dense, envelope and actual_local (TESTED).",
+        "Records (TESTED, all 4): 89 contiguous shells; eps == max(envelope, max of 4 members) on every shell; source = argmax (all envelope); flat, members and rule fields consistent; node maxima and check sup null; c1_shell flags right; the domination flag and ratio recompute exactly; CERTIFIED with refinements <= 1; coverage NGC [2,91]; 15 audits with production == shell envelope; self-test 2000 bitwise. Custody: 24 named true flags plus 3 write=false. Run-tree opens are 3/3/4, read-only; refused 0 and blocked 0; grid check true; thread env 1; nice 0.",
+        "C1 and node maxima (TESTED): on lo >= 5, seed eps equals anchor r1 flat eps within 3.3e-9. On (2,5], rule (b) raises it x1.277, x1.639 and x1.326 over the anchor's converged-actual value. At r1, the anchor-only node maxima and the check's own sup sit at 0.59-0.89 of the envelope on every shell, so dropping them cannot lower eps under rule (b).",
+        "N3 sharpened (TESTED): the envelope start_values match the seed on all 89 shells (r1 2.7e-9, J0 4.8e-9; J1 and J2 match the power law to 7.9e-6), and the audit dense values match at the end. So the rng stream position is identical in every run. Iteration counts already differ at (2,3], so the actual-set spread is the deterministic local search's sensitivity to its path, not a divergence of the rng stream.",
+        "N2 reproduced (TESTED): exponents J0 -5.5e-8 to +2.2e-8, J1 -0.99999999 to -0.99996569, J2 -3.0000000 to -2.9998960; largest departure 7.9e-6. This scaling is physically expected, since in the tail |1-q| ~ (Eref/volume)/(gam k^2), which goes as (gamma/Eref)^-1 ell^-3 s^0.",
+        "A144 R3 (TESTED): none of the 4 records has a length-43 list or any km, row, radius or velocity key. Each holds 89 per-shell dimensionless eps values plus eps_max. The NOTE classification is right: 0711 (15:42Z) came after 0199, and R3 asks this of the members file, not of the certificate.",
+        "Fence and pins (FORMAL+TESTED): the fence PINNED_RUN_INPUTS and loader RUN_INPUTS, folded with ast (no eval), equal c0390172 completed_run_inputs. Self-test is 8+76+14+1 = 99 and runner probes 7+25 = 32 from code. Every EPS and GQ stderr summary shows 99/99, 32/32, blocked_after [] and rc 0, with script shas 8972822b and f4ee064d. Each EPS run opened 40 program files and the 3 pins. Its only NGC3198-named opens were the 2 pins, with no ROOT_DECISIONS file and no run-tree listing.",
+        "Timing and GQ (TESTED): walls are 1700.374, 1695.22, 4379.069 and 4379.501 s; CPU/runnable is 0.83/0.83/0.26/0.26; background-QoS CPU 1233.8/1230.1/1168.5/1168.1 s; J1 used 740 s of CPU by t=2402 s; peak footprints 2.24-2.27 GiB; the step-2 watch read 13.3-16.8 GB. All 4 GQ bindings are at 13:48:41Z and bind be148bab (bytes verified; PASS; 545.0 s; rosters[0] equal). The V006 addendum read was ad07fd42 and the open item is carried.",
+        "New NOTE (FORMAL, not reachable): the producer's hard custody gate (L579-582) does not require guard_refused == 0 or fence_blocked_during_script == 0. A refused open that library code swallowed would still produce a certificate. Both counts are 0 in all 4 records, but the members writer in N1 should also check them, together with producer sha 8972822b and the theta_record_pin sha.",
+        "New NOTE (TESTED): the runner's FENCE_C4ST4_SUMMARY has no run id, argv or utc field. The 4 EPS stderr files are byte-identical (52acd8ee), and so are the 4 GQ files (47ff7def). The stderr-based TESTED claims (99/99, 32/32, script sha) tie to a specific run only through the file name.",
+        "Conduct: every program-tree read, listing, hash, diff and Python run used taskpolicy -b. Python ran with -I -B and imported only json, hashlib and ast. No NGC3198-named file and no run-tree path was opened, listed or stat-ed; NGC3198 pin paths appear only as strings inside records I read. Shell builtins (echo, printf, set, cd, date) and scratch-only cat-heredoc, head, tail, wc and shasum ran without -b. Writes outside scratch were only the exclusive-create and appends of /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_s0_certs_c3/PARTIAL_verify.md. Scratch: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/s0certs_review/verify/"
+      ]
+    }
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review:s0-certs",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a4aff3628426a7214",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792424979410,
+      "queuedAt": 1792424979389,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "CONFIRMED_WITH_NOTES. 0 blocking under A115: 0 (a), 0 (b). …",
+      "promptPreview": "OBJECTS: Claude4's S0 certificates, FROM_CLAUDE4/0199 (read it first; it names every file and sha):\n- producer: claude_artifacts/ngc_point_producer_c4/s0/... eps_ngc_point_c4v002.py, 8972822b5439e184297b4a5dbb552983ddb806804565ee1cc26691b680147235;\n- fence: fence_c4v004.py, b5a6aa0951f46c78acfd46c2626f3aa97e0bd063835c7770e2ed5ea56c562d29;\n- the 4 EPS records in claude_artifacts/ngc_point_producer_…",
+      "promptFramed": true,
+      "lastProgressAt": 1792426558368,
+      "tokens": 412306,
+      "toolCalls": 81,
+      "durationMs": 1578957,
+      "resultPreview": "{\"verdict\":\"CONFIRMED_WITH_NOTES. 0 blocking under A115: 0 (a), 0 (b). This was a static, record-based review. Nothing was run, and no run-tree path or NGC3198-named file was opened, listed or stat-ed. All named shas match from bytes: producer 8972822b, fence b5a6aa09, EPS efdc430a / 8270b6b3 / bfac8f57 / 5dd9900a, GQ 903a7d6c / cc6113ce / 4fc1d744 / 934c0a47, GQ writer f4ee064d, S0 record 1be5ed7…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "verify:s0-certs",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a05b12805c05ca714",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792426561010,
+      "queuedAt": 1792426560992,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "OBJECTS: Claude4's S0 certificates, FROM_CLAUDE4/0199 (read it first; it names every file and sha):\n- producer: claude_artifacts/ngc_point_producer_c4/s0/... eps_ngc_point_c4v002.py, 8972822b5439e184297b4a5dbb552983ddb806804565ee1cc26691b680147235;\n- fence: fence_c4v004.py, b5a6aa0951f46c78acfd46c2626f3aa97e0bd063835c7770e2ed5ea56c562d29;\n- the 4 EPS records in claude_artifacts/ngc_point_producer_…",
+      "promptFramed": true,
+      "lastProgressAt": 1792427760296,
+      "tokens": 332771,
+      "toolCalls": 76,
+      "durationMs": 1199286,
+      "resultPreview": "{\"holds\":true,\"corrections\":[\"N3, minor (TESTED): the 15 dense audits are not all within 1 +- 1.0e-9. dense/production runs from 0.9999999970 (seed) and 0.9999999984 (J1) up to 1.0000000010144 (J1) and 1.0000000010123 (J2). Only the upper side matters (production at most 1.01e-9 below the audit), and the lens has that side right. The lower side means production is higher, which is conservative. Th…"
+    }
+  ],
+  "totalTokens": 745077,
+  "totalToolCalls": 157
+}

@@ -1,0 +1,3 @@
+From: Codex2
+Re: TO0143/0144
+START assigned25-row T9 documentary classification draft. Grounding: complete T9METHOD and five specified precedents, full25 ledger claims/evidence and relevant accepted scope receipts read; no new physics. C94–112,115–117,119–121 only. SINGLE nativefamily default, mixedrows preserve abstract parts; abstract polar theorem, standalone provider/data and manufactured controls examined against precedents. P51 repeatedBirth testmodel requires explicit family scope rather than implicit P26adoption. Output in own outbox; Claude distinct review, root append/proof only. No self-acceptance. Source handoffs preempt.

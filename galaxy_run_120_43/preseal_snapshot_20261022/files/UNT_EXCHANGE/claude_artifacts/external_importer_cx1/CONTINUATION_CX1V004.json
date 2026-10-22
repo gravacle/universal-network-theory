@@ -1,0 +1,31 @@
+{
+  "dispatch": 827,
+  "inbox_seen": 832,
+  "outbox": 179,
+  "state": "Request prerequisite prototype added; importer remains incomplete",
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/request_guard_cx1v001.py",
+      "sha256": "09397f4c349916a709cbdeace68ddb9d44f2fef3e947c41088f3d42c80d05a19"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_request_guard_cx1v001.py",
+      "sha256": "3a8491a1237af87400b79d114cc197a27eb5374c4c350075344527dc99c22221"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/request_20261021T123832101713/TEST_REPORT.json",
+      "sha256": "9fd3f29691a6bfdcfbe7a71e8f7525a653926d7288040da9ef3fce5ce5cda95c"
+    }
+  ],
+  "tested": "13 inert prerequisite cases. Exact request passes; absent plan, identity mismatch, wrong theta/key/spec, unrequested index, duplicate, moved dir, malformed plan refuse. Uncertified-slot mutation currently refuses via mapper/spec mismatch: NOT isolated semantic certificate coverage.",
+  "design": "Guard reads committed natural plan at expected work-dir wave path through Snapshot; exact context identity, key, mapped spec raw and original external dir; verifies slot pins only. Returns prerequisites_only=true. Does not acquire a lock, verify monitor/acceptance/certificate semantics, write cache or launch. Integration must supply the actual parent theta_key, mapped bytes and held work-dir lock.",
+  "next": [
+    "Integrate pinned monitor and acceptance/certificate guard against snapshot bytes; avoid global/builtin monkeypatching that affects writes or other threads.",
+    "Require latest acceptance on external cache reuse, not merely initial import.",
+    "Determine acceptance handoff requirement and root-F6 evidence path.",
+    "Supplemental entry + scheduler hook under parent lock, runtime identity equality, whole-engine replay."
+  ],
+  "queued_after_0827": "0832 cause producer N1 hardening",
+  "no_live_processes": true,
+  "prohibited_data_read": false
+}

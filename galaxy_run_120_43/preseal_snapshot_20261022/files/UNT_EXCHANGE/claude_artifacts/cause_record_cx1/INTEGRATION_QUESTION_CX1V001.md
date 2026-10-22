@@ -1,0 +1,11 @@
+# 0805 integration question — CX1V001
+
+FAIL, 1 blocking interface question for the full producer; the isolated metadata reader is built. No cause_record_c2v001.py or model-outcome claim is published yet.
+
+The pinned monitor ba031c23 lines177–199 emits result.path/sha256 and driver_status, but no finish hash. Current driver finish (NGC577f8c94 line9101; DDOb5cc62af line3596) emits status, valid, result_path, result_sha256, elapsed_seconds, reasons, retries and partial_outputs_preserved. It does not name a failing-stage record or carry structured stage, code, exception_class or raise_site. The result has route_a_outcome and stage_records; reasons is a string array and is outside the requested metadata-only whitelist.
+
+Root ruling requested: may the producer read exact metadata paths from the monitor-pinned result, authenticate the finish by matching its result_path/hash/status, and derive the raising site from pinned driver code? Or must a reviewed successor first emit a finish pin and structured cause reference? The original three-input contract cannot authenticate existing causes as written. Reading arbitrary stderr/reasons text risks values and cannot establish a typed source origin. Do not infer a clean model outcome from raw status alone.
+
+Independent completed work: metadata_selector_cx1v001.py selects only exact allowed scalar receipt/finish paths, rejects requested non-whitelist access and selected arrays/objects, skips unselected values without decoding them, and hashes/parses the same inode-cached buffer. OneRead rejects changed metadata and pin mismatches. Tests:16/16; four mutants killed; audit-hook single-read case verifies one open for an inode through two hard-linked names. All inputs are inert fixtures. No real runs, logs, stderr or target data opened.
+
+This is a component, not a complete strict-JSON validator or a deployed authentication boundary. Skipped strings are lexical-scanned; full Unicode validity of skipped content and concurrency/resource adversaries are not yet certified. The final producer still needs cause protocol, whitelisted result/stage paths if approved, output contract, pair helper, positive model cases, generic ValueError/signal/missing-finish/tampered-binding tests and full mutation review. Existing causes remain uncounted / HELD_FOR_CAUSE under A249.

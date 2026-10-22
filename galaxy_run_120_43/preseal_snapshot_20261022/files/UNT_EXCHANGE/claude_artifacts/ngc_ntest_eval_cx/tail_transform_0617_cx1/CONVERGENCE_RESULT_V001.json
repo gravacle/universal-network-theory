@@ -1,0 +1,196 @@
+{
+ "schema": "NGC_TAIL_STAR_TRANSFORM_FINITE_CONVERGENCE_CX1V001",
+ "utc": "Sun Oct 18 20:42:21 UTC 2026",
+ "label": "TESTED",
+ "verdict": "PASS",
+ "gate_scope": "LO_NGC A90 independent stellar (+H2) tail-transform open item: seeded finite-domain convergence, not saved-packet equality",
+ "registered_rule": "IA2: max|delta P|/max|P| <=1e-10, registered segment n->2n and tail panel->2x; independent composite radial refinement checked at same tolerance. Vertical absolute <=1e-12 as module independent test(b).",
+ "comparison": {
+  "verdict": "PASS",
+  "checks": {
+   "finite_node_roster": true,
+   "seed": true,
+   "domain_bounds": true,
+   "every_radial_node_used": true,
+   "least_suppressed_tail_samples": true,
+   "source_roster_complete": true,
+   "production_source_pin": true,
+   "production_nodes_pin": true,
+   "production_producer_pin": true,
+   "production_tested": true,
+   "independent_source_pin": true,
+   "independent_nodes_pin": true,
+   "independent_producer_pin": true,
+   "independent_tested": true,
+   "registered_doubling_certificate": true,
+   "array_shapes": true,
+   "production_vs_independent": true,
+   "production_vs_refined": true,
+   "independent_refinement": true,
+   "stellar_refinement": true,
+   "H2_refinement": true,
+   "tail_radial_only": true,
+   "tail_packet_mass": true,
+   "vertical_direct": true,
+   "vertical_refinement": true,
+   "vertical_direct_refined": true,
+   "production_packet_matches_factors": true
+  },
+  "details": {
+   "production_vs_independent": {
+    "verdict": "PASS",
+    "max_abs": 3.3849922949209617e+25,
+    "scale": 3.0007700195490374e+40,
+    "max_rel": 1.12804122704134e-15,
+    "rtol": 1e-10
+   },
+   "production_vs_refined": {
+    "verdict": "PASS",
+    "max_abs": 2.90142196707511e+25,
+    "scale": 3.0007700195490374e+40,
+    "max_rel": 9.668924803211484e-16,
+    "rtol": 1e-10
+   },
+   "independent_refinement": {
+    "verdict": "PASS",
+    "max_abs": 2.90142196707511e+25,
+    "scale": 3.000770019549037e+40,
+    "max_rel": 9.668924803211486e-16,
+    "rtol": 1e-10
+   },
+   "stellar_refinement": {
+    "verdict": "PASS",
+    "max_abs": 2.90142196707511e+25,
+    "scale": 2.9010880021595507e+40,
+    "max_rel": 1.000115117126854e-15,
+    "rtol": 1e-10
+   },
+   "H2_refinement": {
+    "verdict": "PASS",
+    "max_abs": 7.555786372591432e+23,
+    "scale": 9.968201738948608e+38,
+    "max_rel": 7.579889101831497e-16,
+    "rtol": 1e-10
+   },
+   "tail_radial_only": {
+    "verdict": "PASS",
+    "max_abs": 4.1179035730623306e+24,
+    "scale": 8.799872265883058e+38,
+    "max_rel": 4.679503802603325e-15,
+    "rtol": 1e-10
+   },
+   "tail_packet_mass": {
+    "verdict": "PASS",
+    "max_abs": 4.5910627724451163e+24,
+    "scale": 7.477624880181804e+39,
+    "max_rel": 6.139734001117068e-16,
+    "rtol": 1e-10
+   },
+   "vertical_direct": {
+    "max_abs": 4.440892098500626e-16,
+    "atol": 1e-12
+   },
+   "vertical_refinement": {
+    "max_abs": 5.551115123125783e-16,
+    "atol": 1e-12
+   },
+   "vertical_direct_refined": {
+    "max_abs": 3.885780586188048e-16,
+    "atol": 1e-12
+   }
+  }
+ },
+ "fault_checks": {
+  "NaN_radial": true,
+  "Inf_vertical": true,
+  "empty_radial": true,
+  "wrong_shape": true,
+  "wrong_source_pin": true,
+  "wrong_nodes_pin": true,
+  "wrong_producer_pin": true,
+  "missing_doubling_cert": true,
+  "NaN_doubling_cert": true,
+  "failing_doubling_cert": true,
+  "changed_seed": true,
+  "outside_domain": true,
+  "missing_H2_roster": true,
+  "omitting_H2_numerically_detected": true,
+  "legacy_underintegrated_tail_detected": true,
+  "exact_threshold_accepted": true,
+  "above_threshold_refused": true,
+  "zero_scale_refused": true,
+  "analytic_fixture_pass": true,
+  "libm_integral_fixture_pass": true
+ },
+ "n_fault_checks": 20,
+ "analytic_exponential": {
+  "verdict": "PASS",
+  "max_abs": 6.611313076017503e+22,
+  "scale": 4.997570195106957e+37,
+  "max_rel": 1.3229054956527748e-15,
+  "rtol": 1e-12
+ },
+ "libm_vs_integral_max_abs": 7.615436059538183e-16,
+ "missing_H2_canary": {
+  "verdict": "FAIL",
+  "max_abs": 9.968201738948384e+38,
+  "scale": 3.0007700195490374e+40,
+  "max_rel": 0.033218812751423146,
+  "rtol": 1e-10
+ },
+ "legacy_u256_canary": {
+  "verdict": "FAIL",
+  "max_abs": 6.19937291950184e+35,
+  "scale": 3.00077001954904e+40,
+  "max_rel": 2.0659273716795835e-05,
+  "rtol": 1e-10
+ },
+ "counts": {
+  "radial_nodes": 442,
+  "tail_nodes": 4096
+ },
+ "production_seconds": 102.14659629203379,
+ "independent_seconds": 120.86156366590876,
+ "not_run": [
+  "All103104 actual cylinder64 radial tail quadrature nodes",
+  "Uniform tail-domain truncation/floating-point error proof",
+  "Any new source fixed point/forward/route-A/route-B scientific run",
+  "Independent saved tail packet equality (no such saved reference exists)"
+ ],
+ "root_disposition": "UNRESOLVED_ROOT_ADOPTION; finite-grid PASS does not itself open launch precondition",
+ "correction": "NODES_V001 method prose says443 distinct; actual442 after duplicate2/kpc removal, correct explicit kperp_count and arrays442.",
+ "pins": {
+  "PLAN_V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/PLAN_V001.json",
+   "sha256": "ab7d2a260a99ac75d3c72d865dd3dad4c6f6a3a4f2655ae932fe469fe762f2da"
+  },
+  "INPUT_PINS_V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/INPUT_PINS_V001.json",
+   "sha256": "78ff2be5480ab8aee308b82a5bd1269a17ca2850ca6d7f2ed2f66153c91e3e4a"
+  },
+  "SOURCE_SNAPSHOT_V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/SOURCE_SNAPSHOT_V001.json",
+   "sha256": "a31983e1bf2b99154d41dfd0ad2bd4d8a3368212a74732c6e98ab6857e2ff59a"
+  },
+  "NODES_V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/NODES_V001.json",
+   "sha256": "9fa6c180e8a3b6c2f4f8242cf4dd04a978d40d54141a9c445d1cec76f3cf9653"
+  },
+  "PRODUCTION_V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/PRODUCTION_V001.json",
+   "sha256": "bc6adfd3a55b393f478a7e88c96691f743ee87690c3ae71f5d1a37432094ce18"
+  },
+  "INDEPENDENT_V001.json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/INDEPENDENT_V001.json",
+   "sha256": "238e2c29301fe19c8cae69bf6f31641c82345f80c06dfd349c11ea6fb9682c24"
+  },
+  "replay_tail_transform_cx1v001.py": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/replay_tail_transform_cx1v001.py",
+   "sha256": "fe132f2d5dcbb286e4ee5215c6be2997f9d27618524e630c332701e837ae6f57"
+  },
+  "compare_tail_transform_cx1v001.py": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_ntest_eval_cx/tail_transform_0617_cx1/compare_tail_transform_cx1v001.py",
+   "sha256": "c4f13c8e90941aa83f38e835e9ae03b7112eb2505204e4d28766dddbd6619cd8"
+  }
+ }
+}

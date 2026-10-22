@@ -1,0 +1,215 @@
+{
+ "schema": "C3SA_MUSTFAIL_MANIFEST_GATES_CHECK_C3V001",
+ "checker": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/c3v010_prestage/tools/check_manifest_gates_vs_registry_c3v001.py",
+  "sha256": "f92a4e031ffb3405030513c8cb05bb8bbf108b1e631addb68d62113c3d78ca5b"
+ },
+ "manifest": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/MANIFEST_GATES_ONLY_C3SA_c3v002.json",
+  "sha256": "46dc53104d518edc9b00e77c0b4995df3e4871999c7264926dad186726ed62ca"
+ },
+ "registry": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/producer_registry_c3/out/PRODUCER_REGISTRY_C3V012.json",
+  "sha256": "4b8a3c35ca9a140bdb9e132f564d2163704e915aa67840c71c36fea551cafafa"
+ },
+ "old_manifest": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/MANIFEST_GATES_ONLY_DRAFT_C3SA.json",
+  "sha256": "e5967bb9901fda39703553c5c02b4d11a580ef8456f6c0b7d315ee4c750f09da"
+ },
+ "cases": [
+  {
+   "case": "MG-0",
+   "what": "control: MANIFEST_GATES_ONLY_C3SA_c3v002 against V012",
+   "want": "PASS",
+   "want_code": "",
+   "verdict": "PASS",
+   "exit": 0,
+   "codes": [],
+   "ok": true
+  },
+  {
+   "case": "MG-1",
+   "what": "the superseded draft e5967bb9 (B0_RO1 and B0_N3 null)",
+   "want": "REFUSE",
+   "want_code": "PRESEAL_GATE_NULL_IN_MANIFEST:B0_RO1",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "PRESEAL_GATE_NULL_IN_MANIFEST:B0_N3",
+    "PRESEAL_GATE_NULL_IN_MANIFEST:B0_RO1"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-1b",
+   "what": "the superseded draft e5967bb9: B0_N3 is reported too",
+   "want": "REFUSE",
+   "want_code": "PRESEAL_GATE_NULL_IN_MANIFEST:B0_N3",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "PRESEAL_GATE_NULL_IN_MANIFEST:B0_N3",
+    "PRESEAL_GATE_NULL_IN_MANIFEST:B0_RO1"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-2",
+   "what": "a copy with only B0_RO1 null",
+   "want": "REFUSE",
+   "want_code": "PRESEAL_GATE_NULL_IN_MANIFEST:B0_RO1",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "PRESEAL_GATE_NULL_IN_MANIFEST:B0_RO1"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-3",
+   "what": "a copy with only B0_N3 null",
+   "want": "REFUSE",
+   "want_code": "PRESEAL_GATE_NULL_IN_MANIFEST:B0_N3",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "PRESEAL_GATE_NULL_IN_MANIFEST:B0_N3"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-4",
+   "what": "a copy with another pre-seal gate (B0) null",
+   "want": "REFUSE",
+   "want_code": "PRESEAL_GATE_NULL_IN_MANIFEST:B0",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "PRESEAL_GATE_NULL_IN_MANIFEST:B0"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-5",
+   "what": "a PRODUCED_AFTER_THE_SEAL gate (I4) named by a path",
+   "want": "REFUSE",
+   "want_code": "POSTSEAL_GATE_NAMED_IN_MANIFEST:I4",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "POSTSEAL_GATE_NAMED_IN_MANIFEST:I4"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-6",
+   "what": "B0_RO1 pointed at the B0_N3 record (bytes not registered for B0_RO1)",
+   "want": "REFUSE",
+   "want_code": "MANIFEST_GATE_RECORD_NOT_REGISTERED:B0_RO1",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "MANIFEST_GATE_RECORD_NOT_REGISTERED:B0_RO1"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-7",
+   "what": "control: B0_RO1 named by a byte-identical copy at another path (the registry pins bytes)",
+   "want": "PASS",
+   "want_code": "",
+   "verdict": "PASS",
+   "exit": 0,
+   "codes": [],
+   "ok": true
+  },
+  {
+   "case": "MG-8",
+   "what": "a gate key missing (B0_N3 deleted)",
+   "want": "REFUSE",
+   "want_code": "MANIFEST_GATE_KEYS_NOT_THE_REGISTRY_GATES",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "MANIFEST_GATE_KEYS_NOT_THE_REGISTRY_GATES missing=['B0_N3'] extra=[]"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-9",
+   "what": "an extra gate key (B0_EXTRA null)",
+   "want": "REFUSE",
+   "want_code": "MANIFEST_GATE_KEYS_NOT_THE_REGISTRY_GATES",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "MANIFEST_GATE_KEYS_NOT_THE_REGISTRY_GATES missing=[] extra=['B0_EXTRA']"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-10",
+   "what": "a synthetic registry whose B0_RO1 slot is empty (not built)",
+   "want": "REFUSE",
+   "want_code": "REGISTRY_GATE_SLOT_EMPTY:B0_RO1",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "REGISTRY_GATE_SLOT_EMPTY:B0_RO1 (a named slot that fails closed: not built)"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-11",
+   "what": "a gate value that is not a path (an integer)",
+   "want": "REFUSE",
+   "want_code": "MANIFEST_GATE_NOT_A_PATH:B0_N3",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "MANIFEST_GATE_NOT_A_PATH:B0_N3"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-12",
+   "what": "the real manifest with a wrong sha",
+   "want": "REFUSE",
+   "want_code": "PIN_BYTES_MISMATCH",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "PIN_BYTES_MISMATCH manifest: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/MANIFEST_GATES_ONLY_C3SA_c3v002.json has 46dc53104d518edc9b00e77c0b4995df3e4871999c7264926dad186726ed62c"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-13",
+   "what": "B0_RO1 named through a synthetic symlink (never followed)",
+   "want": "REFUSE",
+   "want_code": "PATH_HAS_SYMLINK_COMPONENT",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "MANIFEST_GATE_PATH_REFUSED:B0_RO1: PATH_HAS_SYMLINK_COMPONENT gate B0_RO1: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/c3v011_prestage/mustfail_manifest_gates_20261019T064537Z/L"
+   ],
+   "ok": true
+  },
+  {
+   "case": "MG-14",
+   "what": "a synthetic registry with an unknown gate form (I4)",
+   "want": "REFUSE",
+   "want_code": "REGISTRY_GATE_FORM:I4",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "REGISTRY_GATE_FORM:I4"
+   ],
+   "ok": true
+  }
+ ],
+ "n": 16,
+ "n_ok": 16,
+ "pycache_prefix_entries": 0,
+ "all_ok": true
+}

@@ -1,0 +1,130 @@
+{
+  "date_u": "Sun Oct 18 19:50:19 UTC 2026",
+  "implementation": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step5_ngc_route_ab_readiness_cx3/carriers_0606_v001/tools/extract_carriers_cx3v005.py",
+    "sha256": "50c7db5fbc2eb2cce17dcbb53ba1186bfdbc635a4098b0eb33ebd1402829732f"
+  },
+  "optional_root_contracts": {
+    "A17_C3": {
+      "common": [
+        "mode",
+        "target_free=true",
+        "before_target_access=true",
+        "point_key",
+        "slots_pin"
+      ],
+      "meaning": "Root-selected A17 radial-derivative k-grid fidelity record, preserved exactly as JSON. Not the DDO C3R3 B2 state. Interpretation belongs to root/prereg; generic PASS values do not create agreement.",
+      "other": [
+        "original_k_call_spec_pin",
+        "record_pin"
+      ],
+      "schema": "UNT_ROOT_A17_C3_REGISTRATION_CX3V001"
+    },
+    "NEWTONIAN": {
+      "common": [
+        "mode",
+        "target_free=true",
+        "before_target_access=true",
+        "point_key",
+        "slots_pin"
+      ],
+      "other": [
+        "model_call_spec_pin",
+        "units=km/s",
+        "baryonic_definition nonempty root text",
+        "producer_pin",
+        "rows"
+      ],
+      "row_exact": [
+        "id",
+        "speed_km_s finite real or null when invalid",
+        "valid boolean",
+        "reason nonempty when invalid"
+      ],
+      "schema": "UNT_ROOT_BARYONIC_NEWTONIAN_CX3V001",
+      "scope": "A separately supplied source-produced baryonic model, before targets; no derivation from current UNT speeds and no observational baryon columns."
+    },
+    "TSR_SUPPORT": {
+      "common": [
+        "mode",
+        "target_free=true",
+        "before_target_access=true",
+        "point_key",
+        "slots_pin"
+      ],
+      "mapping": "Literal adopted bounds in kpc, including endpoint flags; each support includes its native radius. No inferred neighbour/midpoint/sample rule.",
+      "other": [
+        "ntest_compare_pin",
+        "rule_id",
+        "rings"
+      ],
+      "ring_exact": [
+        "native_ring exact canonical JSON from failing_TRUNCATION_SHAPE_rings in same order",
+        "lower_kpc",
+        "upper_kpc",
+        "lower_inclusive boolean",
+        "upper_inclusive boolean"
+      ],
+      "schema": "UNT_ROOT_TSR_SUPPORT_CX3V001"
+    }
+  },
+  "output_carriers": {
+    "E1b": {
+      "baryonic_newtonian": "saved reference/custody or UNAVAILABLE",
+      "comparison": "per-point model_exceeds_newtonian only on jointly valid INNER rows; null for invalid/unavailable, never target residual",
+      "inner_query_ids": "Q01-Q24",
+      "model": "saved rows/validity/reasons/custody",
+      "status": "AVAILABLE means supplied completed model and Newtonian pair is present, not scientific admission"
+    },
+    "P8_C3": {
+      "a17_c3": "exact byte-pinned registered JSON payload",
+      "consistency_verdict": "UNAVAILABLE_NO_REGISTERED_AGREEMENT_PREDICATE always",
+      "original_k": "same shared physical point/grid as supplied headline except entropy_K_factor1.0; own exact call/result custody",
+      "status": "AVAILABLE means saved ORIGINAL_K plus externally registered C3 record pair is present",
+      "trigger_evaluation": "NOT_PERFORMED_TARGET_FREE always"
+    },
+    "TSR": {
+      "disclosure_only_not_INVALID": true,
+      "native_failing_rings": "exact saved evidence retained even when flag mapping unavailable",
+      "rows": "all43 query ids/radii; flags null when unavailable, boolean only with explicit support record",
+      "status": "AVAILABLE only with matching adopted-support record; otherwise UNAVAILABLE"
+    }
+  },
+  "output_schema": "UNT_STEP5_READING_CARRIERS_CX3V001",
+  "pin_shape": {
+    "path": "absolute path checked lexically and after symlink resolution",
+    "sha256": "64lowercasehex; bytes parsed from the same verified read"
+  },
+  "readout_availability": "AVAILABLE only status COMPLETED and valid true and43 exact ordered rows; failures remain UNAVAILABLE with supplied rows and reasons retained. Explicit null INVALID rows retain their reason.",
+  "readout_binding": {
+    "call_spec": "pin of exact call spec; driver/result/call/finish joined from bytes",
+    "finish": "pin of matching finish.json",
+    "result": "pin of native full driver result.json"
+  },
+  "request_exact_fields": {
+    "before_target_access": "true",
+    "inputs": {
+      "a17_c3_record": "explicit null or pin/binding as defined below",
+      "model_readout": "explicit null or pin/binding as defined below",
+      "newtonian_reference": "explicit null or pin/binding as defined below",
+      "ntest_compare": "explicit null or pin/binding as defined below",
+      "original_k_readout": "explicit null or pin/binding as defined below",
+      "tsr_support": "explicit null or pin/binding as defined below"
+    },
+    "mode": "SAVED_TARGET_FREE or SYNTHETIC; latter requires explicit flag",
+    "point_key": "64lowerhex external root context key, or null when no per-point records supplied",
+    "policy_pin": "registered path+SHA256",
+    "schema": "literal request schema",
+    "target_free": "true"
+  },
+  "request_schema": "UNT_STEP5_CARRIER_REQUEST_CX3V001",
+  "resource_caps": {
+    "copied_c3_payload_bytes": 1048576,
+    "input_json_bytes_per_file": 134217728,
+    "output_bytes": 2097152
+  },
+  "root_trust_boundary": "Externally supplied request SHA and registered source-role contracts are the custody trust anchor. The extractor does not authenticate author identity, prove chronology, validate physical admission, select a C3 record for root, or certify producer science.",
+  "schema": "UNT_STEP5_CARRIER_CONTRACT_CX3V001",
+  "validation": "Typed validation in selected extractor and64 synthetic tests; this is a protocol declaration, not a claim of an external JSON-schema validator run.",
+  "writes": "Single exclusive new output after validation. Existing paths refuse. No subprocess, network, scientific module import or mutation of old evidence."
+}

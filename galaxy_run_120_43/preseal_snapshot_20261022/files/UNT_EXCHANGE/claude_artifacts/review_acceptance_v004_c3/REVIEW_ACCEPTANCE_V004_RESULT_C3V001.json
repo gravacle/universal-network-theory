@@ -1,0 +1,167 @@
+{
+ "filed_by": "Claude3 lead from workflow wf_dc4fd8fb-d0e hand-back; evidence shas re-verified from bytes",
+ "result": {
+  "review": {
+   "verdict": "PASS, 0 blocking (A115). acceptance_q2 v004 (handoff 5ff464cc, README_V004 83e3b4bb, HASHES_V004 1fadf486, all hashed from bytes) changes exactly the 8 diff hunks attributed to A145 (a)-(d) plus documentation. diff d587ed69 rebuilds 5ff464cc from v003 887c8ba0. On synthetic fixtures an honest b1 call reads ACCEPTED end to end through the real c3v003 adapt_call_lo (called once, every keyword passed explicitly), the real adapt_call_srb_rot entry, the real b1 enumerator join and the real b1 guard. The honest anchor call reads ACCEPTED with no step-4 stop, and the flagged call reads ACCEPTED_PASS_FLAGGED. execution_block is never looser than the real v005 fresh_scope over 42 variants. Root's 129 cases reproduce exactly (129/129). The sampled mutants (M06, M11-M14) and two lens mutants are all caught for the right reasons. There are 7 NOTEs. Still UNTESTED: the real lo_config validate_current_config, the real lo_core produce_current_lo, the real b1 export_lo_source and the real discovery consumed_states on real r5 records. Evidence: fixtures_lens/item/tests/lens_record_run_20261019T172347Z/TEST_RESULTS.json 26d89100; lens_e2e_run_20261019T173525Z/E2E_LENS_RESULTS.json 28bc30c0; lens_mutation_20261019T173626Z/LENS_MUTATION_SAMPLE.json e0e2d81e (all under /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_acceptance_v004_c3/). Progress log: PARTIAL_lens.md.",
+   "blocking": 0,
+   "findings": [
+    {
+     "id": "N1",
+     "cls": "NOTE",
+     "title": "Docs: without 7044e131 an iterate-confined LO FAIL reads LO_UNCERTIFIED_TRANSIENT, not INCOMPLETE",
+     "evidence": "README_V004 (d) and the handoff docstring say a trusted list without 7044e131 makes the call read INCOMPLETE. They name only NON_LAPSE_TAIL_MATERIAL, BOUND_INSUFFICIENT and UNDECIDABLE_FLAGGED as keeping precedence. LO_UNCERTIFIED_TRANSIENT also precedes INCOMPLETE in READINGS (L78-85). Lens E05c read LO_UNCERTIFIED_TRANSIENT (all_readings [INCOMPLETE, LO_UNCERTIFIED_TRANSIENT]); E05e read the same with a step-4 stop at the anchor. Honest b1 producers cannot reach this: without 7044e131 lo_core L248-249 refuses every state (H58), so no FAIL is ever adopted. Both readings have outputs_are_evidence False and rows_are_model_output None, so no computed value changes. Fix the README/docstring wording only.",
+     "label": "TESTED"
+    },
+    {
+     "id": "N2",
+     "cls": "NOTE",
+     "title": "Every suite case doubles the b1 evidence module; README note 1 lists only the four adapter seams",
+     "evidence": "deps() (test L1142-1149) sets evidence=EVSTUB, with a stub export_lo_source (L1103-1124) and a stub replay_state (L1127-1134). H55 and every other case use it. 7044e131's export_lo_source and reconstruction replay_state never execute; only the pin is stamped. The interface is closed by reading the source. b1 L335 export_lo_source(spec, reconstruction_ref, packet_ref, occurrence, tail_state_refs, **kwargs) accepts the handoff call at L432-436 and returns current_gq, source_files and producer. b1 L296-297 refuses source_files outside occurrence run_root, which is <call>/out (b1 enumerator L176). b1 L344-348 re-verifies the exported TailState digest and the P/F arrays. Running it on real records remains UNTESTED.",
+     "label": "FORMAL"
+    },
+    {
+     "id": "N3",
+     "cls": "NOTE",
+     "title": "execution_block is stricter than v005 fresh_scope on 2 of 42 variants; neither is reachable",
+     "evidence": "In lens E06 the real consumed_states_cx2v005 Discovery.fresh_scope ran beside HAND.execution_block. No variant that v005 refuses was admitted. The handoff alone refuses two: (1) an argv with a non-str element (resumed None, because the handoff requires all-str argv); (2) finish.result_sha256 that differs from the result bytes (fresh_call False). Neither is reachable from honest records: driver galaxy_m0_forward_c2v010 (b5cc62af) L1822 records argv as [str(a) for a in argv], and the b1 enumerator L144 refuses a finish/result mismatch (JOIN_CALL_BYTES_CHANGED).",
+     "label": "TESTED"
+    },
+    {
+     "id": "N4",
+     "cls": "NOTE",
+     "title": "H47-H49 and H54 run on a discovery double that says FRESH_COMPLETED where real v005 says INELIGIBLE",
+     "evidence": "make_call hard-codes coverage.fresh_call_scope FRESH_COMPLETED (test L524) for the resumed, retried, interrupted and converged-int variants. Real v005 marks all of them ineligible (E06), so the real b1 enumerator would refuse the inventory (L138) before the adapter runs. These cases therefore test the handoff's second reading against forged input. The honest relationship is covered by E06. As README note 3 says, change (c) is redundant on any complete inventory: v005 L237 already requires is True.",
+     "label": "TESTED"
+    },
+    {
+     "id": "N5",
+     "cls": "NOTE",
+     "title": "N4 wording: the handoff does match one blocker string, lo_core's threshold blocker",
+     "evidence": "No INVENTORY_PRODUCER_NOT_* text occurs anywhere in 5ff464cc (E08 checked every string Compare operand by AST). No adapter refusal text is matched. The handoff does match lo_core's LO_NUMERICAL_INDICATOR_ABOVE_THRESHOLD, at L330 (== [LO_THRESHOLD_BLOCKER] identifies a FAIL) and L333 (a filter). That string is unchanged in lo_core 12d36305 and equals c3v003 CORE_THRESHOLD_BLOCKER (L84). N4 therefore needed no code change; only the README claim 'matches no refusal text' is broader than the code.",
+     "label": "FORMAL"
+    },
+    {
+     "id": "N6",
+     "cls": "NOTE",
+     "title": "Carried and disclosed: the SRB-ROT entry and its PASS proof producer are not bound to the pin",
+     "evidence": "accept_call checks only the LO callable against its pin (lo_adapter_problem L148-158). deps['srb_adapter'] is used as supplied (L499), and the SRB PASS proof is adopted without checking its producer pin (L505-511; under 0690 OPEN-2 root reads it beside the guard). load_deps (L141-143) loads the SRB entry by path and sha, so honest root use is pinned. Only a caller that bypasses load_deps can reach this. README_V004 already discloses that the handoff constrains only the LO adapter. Unchanged from v003.",
+     "label": "FORMAL"
+    },
+    {
+     "id": "N7",
+     "cls": "NOTE",
+     "title": "Exactly what stays UNTESTED in the end-to-end run",
+     "evidence": "Lens E07 called the adapter's real environment on the 8 TailStates the handoff exported for the honest call. The real lo_config validate_current_config (6654d93c) stopped on every state at KeyError 'kp is not a file in the archive': the suite's TailStates carry no production node arrays. The real lo_core produce_current_lo (12d36305), given a synthetic details-only context, stopped at UV_TAIL_STATE_DIGEST_MISMATCH on 7 states and 'saved state physical/outer mismatch' on LR. Past that point it needs the real point context: ctx['B'] from PR.point_context, whose custody derivation reads a run-tree file (0197 N1). It also needs the registered rho search (PR.produce_rho). The rules forbid both here. Also UNTESTED: real b1 export_lo_source and replay_state (N2), and real v005 consumed_states on a call tree (only fresh_scope ran for real). Deciding tests: the first real TAIL_REANCHOR acceptance (README note 1) and the CP-1 anchor pair for 10-key reproducibility (note 2).",
+     "label": "TESTED"
+    }
+   ],
+   "checked": [
+    {
+     "claim": "(1) Every v003->v004 hunk is one of the stated changes",
+     "result": "CONFIRMED",
+     "note": "diff -u 887c8ba0->5ff464cc has 8 hunks. They are: the v004 docstring; LO_ADAPTER pinned to c3v003 211a3220 (a); the B1_EVIDENCE 7044e131 and B1_UNTRUSTED_BLOCKER constants (d); EXECUTION_RULE text 'is True' (c); the converged_finite_fixed_point is True line (c); the adopt_lo docstring (b); adopt_lo's 'elif verdict PASS -> LO_ADAPTER_PASS_WITHOUT_EXACT_CORE_RECORD_PIN' (b); the trusted-list check with its blocker (d); and 'or b1_untrusted' in the readings (d). diffs/V003_TO_V004_acceptance_handoff.diff (d587ed69) re-applied with patch rebuilds 5ff464cc byte for byte. The README errata are README-only."
+    },
+    {
+     "claim": "Object and pin hashes from bytes",
+     "result": "CONFIRMED",
+     "note": "Handoff 5ff464cc, README_V004 83e3b4bb, HASHES_V004 1fadf486. HASHES_V004 lines 1-2 list README_V004 and the handoff; it also lists the test (085cafbe), the mutation check (c2a74413) and the mutation results (20d53e46). c3v003 adapter 211a3220, SRB adapter 08e9ac0a, slot cd10cd59; b1 evidence 7044e131; b1 enumerator 4ca7f364; b1 guard 9e3fc109. v003 887c8ba0 and README_V003 390deea5 match NO_FIX_NEEDED_V003."
+    },
+    {
+     "claim": "(2) adapt_call_lo is called once per call with the correct signature",
+     "result": "CONFIRMED",
+     "note": "There is one call site (L463). It passes 1 positional argument and all 10 keyword-only parameters explicitly, and binds inspect.signature(adapt_call_lo). E01-E05 counted exactly one _adapt_call per accept_call. The SRB site (L499) likewise passes all 9 keyword-only parameters of the c3v003 adapt_call_srb_rot."
+    },
+    {
+     "claim": "(2) State inputs carry execution; route_a_completed_normally is derived from the call's own evidence and is not vacuous",
+     "result": "CONFIRMED",
+     "note": "E01: all 8 state inputs carry {fresh_call True, resumed False, retried False, route_a_completed_normally True, run_root <call>/out}, as bools, with basis.finish equal to the call's own finish.json pin. E06: across 42 variants, run beside the real v005 fresh_scope, execution_block was never looser. E06c: completed_normally turns False on all 15 outcome, exit and mode variants, including int 1, float 1.0 and 'True'. The r5 driver writes exactly the fields read: route_a_outcome at L1883-1921 with ROUTE_A_CONVERGED='CONVERGED_FINITE_FIXED_POINT' (L1880); stage records with str argv (L1822); finish with retries 0 (L3596)."
+    },
+    {
+     "claim": "(2) Row references carry state_files inside run_root",
+     "result": "CONFIRMED",
+     "note": "E01: each row reference has state_files == [the call's own out/result.json pin], which resolves inside <call>/out with matching bytes. Its call_result is this call and its speed_reference_policy is the Q4a value. source_files are likewise non-empty, inside run_root and byte-pinned."
+    },
+    {
+     "claim": "(2) trusted_source_producers must contain 7044e131, fail-closed, and is forwarded unchanged",
+     "result": "CONFIRMED",
+     "note": "H58 and H58b pass, and E05a-e show the blocker plus the INCOMPLETE flag. E01 shows the list arriving unchanged at both adapters; E12 shows a tuple accepted. M14, LM1 (blocker recorded but not read) and LM2 (handoff silently adds 7044e131) are all caught."
+    },
+    {
+     "claim": "(2) lo_rows_for_acceptance_bundle is merged with the GQ_SIGNED pins into the guard's states list",
+     "result": "CONFIRMED",
+     "note": "The handoff rebuilds the list from its adopted per-state records instead of reading lo_rows_for_acceptance_bundle. In E01 the two are identical in content and inventory order. GQ_SIGNED (gate GQ_SIGNED, byte-pinned) appears exactly once, on the signed offset state, and the real b1 guard 9e3fc109 returned ok."
+    },
+    {
+     "claim": "(3) An honest synthetic b1 call reads ACCEPTED end to end through the real c3v003 adapters and the real b1 enumerator",
+     "result": "CONFIRMED",
+     "note": "H55 and lens E01 (using the published adapt_call_srb_rot entry directly) both read ACCEPTED with no blockers; all 8 states PASS; adapter call_lo_reading PASS. E02 at the TAIL_REANCHOR identity reads ACCEPTED with no step-4 stop; E03 (flagged) reads ACCEPTED_PASS_FLAGGED. Disclosed doubles that remain: the adapter seams derive_details, point_context, produce_current_lo and validate_config; the evidence module (N2); the enumerator's science seams."
+    },
+    {
+     "claim": "(3) The real lo_config.validate_current_config and real lo_core run on the synthetic TailStates",
+     "result": "NOT_CHECKED",
+     "note": "Attempted in E07; neither can run here. validate_config stops at KeyError 'kp' on all 8 states. The core stops at UV_TAIL_STATE_DIGEST_MISMATCH or outer mismatch, and beyond that needs the real point context (a run-tree read) and the rho search. Both stay UNTESTED; see N7."
+    },
+    {
+     "claim": "(4) A PASS is adopted only with an exact core_record pin, and no honest PASS is refused",
+     "result": "CONFIRMED",
+     "note": "U01 and H53 pass, and M12 is caught: under the mutant H53 reads ACCEPTED and U01 adopts all three. In E01 every real core_record is an exact {path, sha256} byte pin, because s4rc1_common write_new (L290-301) returns exactly that. The FORMAL claim also holds: every adopted PASS went through the 10-key rho check (adopt_lo L311-334)."
+    },
+    {
+     "claim": "(4) Readings match 0690 (iterate corner, decisive FAIL, anchor stop)",
+     "result": "CONFIRMED",
+     "note": "Under b1, E04a-j show: iterate FAIL plus iterate UNAVAILABLE reads TRANSIENT; a route-B, accepted or offset FAIL with another state UNAVAILABLE reads NON_LAPSE; an iterate FAIL with route-B UNAVAILABLE reads INCOMPLETE; two iterate FAILs read TRANSIENT. At the anchor, TRANSIENT, NON_LAPSE and INCOMPLETE each come with the stop and basis ANCHOR_LO_FAIL. The adapter LO and class readings agree in every case. Inherited states always equal the accepted digest (b1 enumerator L105-107), so the handoff's and the adapter's classes cannot diverge."
+    },
+    {
+     "claim": "(5) N4: the handoff matches no refusal text",
+     "result": "CONFIRMED",
+     "note": "No INVENTORY_PRODUCER_NOT_* string appears in the handoff, and no adapter refusal text is matched. The only blocker string matched is lo_core's unchanged threshold blocker (L330, L333); see N5."
+    },
+    {
+     "claim": "(6) Root's 129 tests re-run on a copy",
+     "result": "CONFIRMED",
+     "note": "The copy is byte-identical, under fixtures_lens/item. Result: 129/129 (43 MUST_PASS, 86 MUST_FAIL), 25 s, 0 fence refusals, 8179 files. Test names, kinds, pass flags and reading_pairs are identical to both runs of record. The README errata pairs reproduce: 49 cases, adapter ran in 42, 41 agree, H53 is the only LO difference, H38 the only step4 difference."
+    },
+    {
+     "claim": "(6) The 14 mutants are non-vacuous",
+     "result": "CONFIRMED",
+     "note": "In root's results every mutant applied exactly once. M03-M07, M09 and M12-M14 fail exactly their named tests; M01, M02, M08, M10 and M11 fail more broadly. In M11 the H suites crash as collateral, but its named tests L04b and L07 fail directly on the pin. My re-runs of M06 and M11-M14 were caught with on-point failure details, and lens mutants LM1 and LM2 were also caught."
+    },
+    {
+     "claim": "No v001-v003 file changed (full HASHES/HASHES_V002/HASHES_V003 re-verify)",
+     "result": "PARTIAL",
+     "note": "I checked only the v003 handoff (887c8ba0), the v002 handoff (ccdbec2b), README_V003 and the diff re-application. The full 266k-entry re-hash was not run."
+    }
+   ]
+  },
+  "verify": {
+   "holds": true,
+   "corrections": [
+    "Minor wording, N7 (no effect on the verdict). The KeyError 'kp is not a file in the archive' is raised inside the c3v003 adapter's own real-environment validate_config seam (adapter L406-411, which reads kp/kz/wkp/wz from the npz). That happens before lo_config validate_current_config (6654d93c) is called, so lo_config never ran. FORMAL: the real TailState.to_arrays() returns every internal array, including kp, wkp, kz and wz (library 2026f2b6 L379-380, L621). This stop therefore comes from the synthetic TailStates and does not predict a refusal on real records. Real lo_config and lo_core stay UNTESTED, as N7 says.",
+    "Minor attribution in the verdict text: '8 diff hunks attributed to A145 (a)-(d)'. A145 (FROM_CODEX/0711) lists only the c3v003 pin, is_pin(core_record), 'is True' and the README errata. Change (d), the 7044e131 check, comes from Claude3 0208 N5. README_V004 discloses it as Deviation 1, and 0719 announces it as 'new'. The mapping of hunks to changes is still correct: I rebuilt the 8 hunks from bytes, and d587ed69 rebuilds 5ff464cc byte for byte.",
+    "Citation only, N2: deps() is at test L1146-1149. L1142 is the EVSTUB definition. The substance of N2 is correct: every case uses EVSTUB, so the real 7044e131 export_lo_source and R.replay_state never run in the handoff path."
+   ],
+   "reclassified": [
+    "None of the A115 classes change. All 7 findings stay NOTE and there are 0 blocking. Each is either unreachable from honest C1-pinned producers or a documentation or forged-input issue, and none changes a computed value or reading.",
+    "N5: label FORMAL -> TESTED. TX01 ran AST over every Compare operand in handoff 5ff464cc, resolving module constants, against 318 refusal and blocker codes AST-extracted from lo_core 12d36305, both c3v003 adapters, the b1 enumerator, b1 evidence and v005. The only match is LO_NUMERICAL_INDICATOR_ABOVE_THRESHOLD at L330 and L333. No INVENTORY_PRODUCER_NOT_* bytes appear, and the string equals c3v003 CORE_THRESHOLD_BLOCKER.",
+    "N6: label FORMAL -> TESTED, still a NOTE. V11 passed an SRB entry that bypasses load_deps and returns reading PASS with an arbitrary dict proof. The handoff used it as supplied and read ACCEPTED. This needs forged input; honest root loads the SRB entry by path and sha.",
+    "N2: the interface part is now TESTED for signatures only. SIG03 binds the handoff's export_lo_source call at L432-436 (5 positional arguments, 5 keywords) to the real b1 7044e131 signature (spec, reconstruction_ref, packet_ref, occurrence, tail_state_refs, **kwargs). It also binds the forwarded keywords to assemble_current's keyword-only parameters. The function body stays UNTESTED, so the FORMAL label stays for the rest."
+   ],
+   "own_checks": [
+    "Hashes taken from bytes all match: handoff 5ff464cc, v003 887c8ba0, README_V004 83e3b4bb, HASHES_V004 1fadf486 (lines 1-2 are README_V004 and the handoff; the test 085cafbe, mutation check c2a74413 and results 20d53e46 are listed), README_V003 390deea5, HASHES_V003 0821d05f. c3v003 adapters: LO 211a3220, SRB 08e9ac0a, slot cd10cd59. b1: evidence 7044e131, enumerator 4ca7f364. v005 7b7400f3, driver b5cc62af, lo_core 12d36305, custody 6810b7c3, common fa48b1a1, library 2026f2b6. The lens evidence files match 26d89100, 28bc30c0 and e0e2d81e.",
+    "Diffs: my own diff -u gives 8 hunks, each matching (a)-(d) or docs. The three shipped diffs, applied with patch in scratch, rebuild the handoff 5ff464cc, test 085cafbe and mutation check c2a74413 byte for byte.",
+    "I re-ran root's suite on a byte-identical copy at /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_acceptance_v004_c3/fixtures_verify/item: 129/129 (43 MUST_PASS, 86 MUST_FAIL), 0 fence refusals, 8179 files. Names, kinds, pass flags and reading_pairs are identical to both runs of record: 49 cases, adapter ran in 42, 41 agree; H53 is the only LO difference and H38 the only step-4 difference. Results: tests/verify_record_run_20261019T174939Z/TEST_RESULTS.json (1a633e0c).",
+    "My own probes passed 57/57: tests/verify_probe_run_20261019T180905Z/VERIFY_PROBES.json (eda566e8). The probe script is /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/accv4_review/verify/probe_v004.py (452eb29f).",
+    "SIG01/02: there is one adapt_call_lo site, at L463 in accept_call and not inside any loop. It passes 1 positional argument and all 10 keyword-only parameters, and binds inspect.signature of the real c3v003 entry. There is one adapt_call_srb_rot site, at L499, passing all 9 keyword-only parameters. SIG04: the other 9 deps call sites each bind their real pinned callable (fresh v005, b1 enumerator, R.replay_state, writer, row producer x3, b1 guard, lo_core PR.point_context).",
+    "Honest b1 end to end, with the suite's disclosed seam doubles: the call reads ACCEPTED, all 8 states PASS, the b1 guard returns ok, there are no blockers and no stop. I counted the real _adapt_call and the SRB _adapt directly: each ran exactly once. The same trusted_source_producers list object reached both cores unchanged. Every state input's execution is exactly {True, False, False, True} as Python bools, run_root is <call>/out, and basis.finish is this call's finish.json byte pin. Row-reference state_files are exactly the result.json pin, inside run_root and matching bytes. All source_files are non-empty and inside run_root, and all are b1-stamped. Every core_record and proof is an exact str-path byte pin inside LO_ADAPTER_C3. The bundle equals lo_rows_for_acceptance_bundle merged with GQ_SIGNED, in inventory order, with GQ_SIGNED exactly once. summed_lo matches the adapter's RC2 maximum, and handoff and adapter classes agree. The anchor call reads ACCEPTED with no stop; the flagged call reads ACCEPTED_PASS_FLAGGED.",
+    "Trusted list (d) is fail-closed with no honest refusal. A tuple, or a reordered list with a duplicate, reads ACCEPTED. A set, pins in place of shas, an uppercase sha, or a missing key each read INCOMPLETE with the b1 blocker, and the missing key does not crash. A list with b1 only reads INCOMPLETE through the core's row-producer trust check, without the b1 blocker.",
+    "Readings: I extracted step 6 (L537-555) and the stop logic in finish() (L349-356) from the bytes and checked them against an oracle written from Q3/Q5/Q10, 0690 OPEN-5/6 and the v001 anchor rule. Over 131,240 combinations (3^8 per-state verdicts x 5 SRB readings x guard x b1 x anchor) there were 0 mismatches. The handoff's LO part equals the real c3v003 call_reading class reading on all 3^8 combinations. step4_stop holds exactly when at the anchor with an LO FAIL or an ANCHOR_STOP reading, and never off the anchor. transient_candidate_unconfirmed is recorded exactly per OPEN-6. b1_untrusted never yields evidence and only turns ACCEPTED or ACCEPTED_PASS_FLAGGED into INCOMPLETE. 13 end-to-end runs through accept(), covering OPEN-6/OPEN-5, SRB precedence and the anchor stop, agree with both the extracted code and the adapter.",
+    "N1 holds and stays a NOTE. With the default non-b1 evidence stamp and no 7044e131, an iterate FAIL reads LO_UNCERTIFIED_TRANSIENT with the b1 blocker (R15; 30 such combinations in the enumeration). With b1-stamped sources, a list without 7044e131 makes every state UNAVAILABLE (R14, on the suite's core double), so no FAIL is adopted. The real lo_core trusted_producer (L56-61), called at L248-249, makes the same check. The only fix needed is README (d) and docstring L32-34 wording.",
+    "Execution: I fuzzed execution_block against the real v005 Discovery.fresh_scope over 1492 variants (every single mutation plus 1400 random combinations of 2-4, seed 20261019), using argv shaped like driver L2839-2851 and L1103-1105. It never admits what v005 refuses. It is stricter only for a non-str argv element or a finish.json that does not bind the result bytes (13 cases). Both are unreachable: driver L1822 writes str(a) for every argv entry, and b1 enumerator L144 refuses a mismatch with JOIN_CALL_BYTES_CHANGED. Honest serial and parallel argv are admitted. Between v003 and v004 the only difference is a non-bool truthy converged flag (1 or 1.0), found in 39 variants; driver L1904-1909 and the RO1 gate require conv_flag is True, so an honest call is unaffected. The second reading alone refuses every route-A variant that v005 refuses.",
+    "adopt_lo: I ran v003 and v004 side by side over 480 adapter-result shapes. v004 adopts a PASS only with an exact, readable core pin, a 10-key rho equal to the slot and a proof pin. It adopts a FAIL only with the threshold blocker alone. It refuses no honest PASS or FAIL. The only difference from v003 (32 cases) is a PASS with a non-exact core_record, which v004 no longer adopts. common write_new (L290-301) returns exactly {path: str, sha256}.",
+    "Mutants on the copy. Root's M14 is caught exactly by H58 and H58b (127/129; TEST_RESULTS 318402b1). My own mutant VMB checks the trusted list by path instead of sha, which refuses every honest call. It is caught by 9 MUST_PASS cases, including H01 and H55 (120/129; 4641d247).",
+    "Observation, a NOTE and not a correction of the lens: the (d) check does not tie deps['evidence'] to 7044e131, because load_deps takes root's pins['evidence']. A pins['evidence'] that is not the C1 module, together with a list naming both shas, would pass the check. This needs a misconfigured or forged pin and is covered by the README's statement that the handoff constrains only the LO adapter.",
+    "Progress log: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_acceptance_v004_c3/PARTIAL_verify.md (append-only, 4 dated lines). All writes went under fixtures_verify/ or scratch. I opened no run tree and no NGC3198 path, ran nothing on real records, and did no recursive listing."
+   ]
+  }
+ }
+}

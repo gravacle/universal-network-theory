@@ -1,0 +1,454 @@
+{
+ "schema": "C3SA_MUSTFAIL_CONTROLS_V001",
+ "utc": "2026-10-19T00:24:37Z",
+ "old_helper": [
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v007.py",
+  "2f08fb88c17dbe340fe5f03da10ed510aff384cdb404d8e3d9544664d2d79172"
+ ],
+ "new_helper": [
+  "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v014.py",
+  "f41dd02f28ea46f227712fc0774e6a9069eafdc160a98438a3e8bbc6759ec931"
+ ],
+ "B1_no_target_metadata_before_symlink_refusal": [
+  {
+   "case": "B1-1 pin through an absolute alias whose text names the protected look-alike",
+   "expected_new": "REFUSE with 0 target-metadata attempts",
+   "new_c3v009": {
+    "verdict": "REFUSE",
+    "code": "PATH_LINK_TEXT_PROTECTED pin: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/alias_abs -> '/Users/bgm/R",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": {
+    "verdict": "REFUSE",
+    "code": "PATH_NOT_CANONICAL pin: realpath '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RU",
+    "target_metadata_attempts": 4,
+    "attempts": [
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001/dummy.txt"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001/dummy.txt"
+     ]
+    ]
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B1-2 path through a relative alias to the protected look-alike",
+   "expected_new": "REFUSE with 0 target-metadata attempts",
+   "new_c3v009": {
+    "verdict": "REFUSE",
+    "code": "PATH_LINK_TEXT_PROTECTED path: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/alias_rel -> 'LOOK/KMAX_A",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": {
+    "verdict": "REFUSE",
+    "code": "PATH_NOT_CANONICAL path: realpath '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_R",
+    "target_metadata_attempts": 4,
+    "attempts": [
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001/dummy.txt"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001/dummy.txt"
+     ]
+    ]
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B1-3 two-hop alias (innocent first text) to the protected look-alike",
+   "expected_new": "REFUSE with 0 target-metadata attempts",
+   "new_c3v009": {
+    "verdict": "REFUSE",
+    "code": "PATH_HAS_SYMLINK_COMPONENT path: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/hop1 -> 'hop2' (never f",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": {
+    "verdict": "REFUSE",
+    "code": "PATH_NOT_CANONICAL path: realpath '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/hop2/dummy.txt' != '/",
+    "target_metadata_attempts": 4,
+    "attempts": [
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/hop2"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/hop2/dummy.txt"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/hop2"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/hop2/dummy.txt"
+     ]
+    ]
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B1-4 alias to a runs_ext/UVT_* look-alike",
+   "expected_new": "REFUSE with 0 target-metadata attempts",
+   "new_c3v009": {
+    "verdict": "REFUSE",
+    "code": "PATH_LINK_TEXT_PROTECTED path: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/alias_uvt -> 'LOOK/runs_e",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": {
+    "verdict": "REFUSE",
+    "code": "PATH_NOT_CANONICAL path: realpath '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/runs_ext/UVT_FAK",
+    "target_metadata_attempts": 6,
+    "attempts": [
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/runs_ext"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/runs_ext/UVT_FAKE_RUN"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/runs_ext/UVT_FAKE_RUN/dummy.txt"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/runs_ext"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/runs_ext/UVT_FAKE_RUN"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/runs_ext/UVT_FAKE_RUN/dummy.txt"
+     ]
+    ]
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B1-5 alias to an innocent directory (still not followed)",
+   "expected_new": "REFUSE with 0 target-metadata attempts",
+   "new_c3v009": {
+    "verdict": "REFUSE",
+    "code": "PATH_HAS_SYMLINK_COMPONENT path: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/plain_alias -> 'plain_d",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": {
+    "verdict": "REFUSE",
+    "code": "PATH_NOT_CANONICAL path: realpath '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/plain_dir/dummy.txt' ",
+    "target_metadata_attempts": 4,
+    "attempts": [
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/plain_dir"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/plain_dir/dummy.txt"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/plain_dir"
+     ],
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/plain_dir/dummy.txt"
+     ]
+    ]
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B1-6 output whose parent is an alias to the protected look-alike",
+   "expected_new": "REFUSE with 0 target-metadata attempts",
+   "new_c3v009": {
+    "verdict": "REFUSE",
+    "code": "PATH_LINK_TEXT_PROTECTED path: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/alias_abs -> '/Users/bgm/",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": {
+    "verdict": "REFUSE",
+    "code": "OUTPUT_PARENT_NOT_CANONICAL_DIR path: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/alias_abs",
+    "target_metadata_attempts": 1,
+    "attempts": [
+     [
+      "lstat",
+      "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/LOOK/KMAX_A2F10_C5H_RUN_V001"
+     ]
+    ]
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B1-7 dangling alias whose text is /.vol (new helper only)",
+   "expected_new": "REFUSE with 0 target-metadata attempts",
+   "new_c3v009": {
+    "verdict": "REFUSE",
+    "code": "PATH_LINK_TEXT_PROTECTED path: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b1/alias_vol -> '/.vol/1/2' ",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": "NOT RUN (would reach the real /.vol)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B1-8 control: the canonical path (no link)",
+   "expected_new": "PASS",
+   "new_c3v009": {
+    "verdict": "PASS",
+    "code": "",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "old_c3v007": {
+    "verdict": "PASS",
+    "code": "",
+    "target_metadata_attempts": 0,
+    "attempts": []
+   },
+   "MUST_FAIL_ok": true
+  }
+ ],
+ "B3_v003_dispositions_contract_PV_D05_1": [
+  {
+   "case": "B3-P1 v003 object, every later entry no_change (real bytes)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D01.json",
+    "sha256": "d2dbd6794bf4456970465d228627b7218ad798d1e360410b521a55a941281e6b"
+   },
+   "expected": "PASS",
+   "verdict": "PASS",
+   "code": [
+    "A102",
+    "A103",
+    "A104",
+    "A105",
+    "A106"
+   ],
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N1 legacy bare list",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D02.json",
+    "sha256": "58b044a07b25c19be3ce6069454e947f442c26aacd2495ee7bb510f9d62e0825"
+   },
+   "expected": "DISPOSITIONS_LEGACY_BARE_LIST_REFUSED",
+   "verdict": "REFUSE",
+   "code": "DISPOSITIONS_LEGACY_BARE_LIST_REFUSED (0640: only the v003 object {schema, frozen_addendum_sha256, entries})",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N2 legacy key dispositions",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D03.json",
+    "sha256": "cad94122ee80a9304181bfdb42fde4403ef85987eae5c2e53b58726bafd21a72"
+   },
+   "expected": "DISPOSITIONS_LEGACY_KEY_REFUSED",
+   "verdict": "REFUSE",
+   "code": "DISPOSITIONS_LEGACY_KEY_REFUSED 'dispositions' (0640)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N3 legacy key rows",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D04.json",
+    "sha256": "26d09c4180eff01ca2c9f81556665129fa769f7d7e6d8acfd140c9caea6ff3ec"
+   },
+   "expected": "DISPOSITIONS_LEGACY_KEY_REFUSED",
+   "verdict": "REFUSE",
+   "code": "DISPOSITIONS_LEGACY_KEY_REFUSED 'rows' (0640)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N4 wrong schema string",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D05.json",
+    "sha256": "1785315f506572c66669f4f19da789a1aba4ee0b3adef3341fddd1a086d00ade"
+   },
+   "expected": "DISPOSITIONS_SCHEMA",
+   "verdict": "REFUSE",
+   "code": "DISPOSITIONS_SCHEMA 'UNT_V007_SOMETHING_ELSE'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N5 extra top-level key",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D06.json",
+    "sha256": "3c7856784a64b96fa211d356d78404886c3a23dbe1cad054797012915cfd279f"
+   },
+   "expected": "DISPOSITIONS_KEYS",
+   "verdict": "REFUSE",
+   "code": "DISPOSITIONS_KEYS ['entries', 'frozen_addendum_sha256', 'note', 'schema'] (exactly ['entries', 'frozen_addendum_sha256', 'schema'])",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N6 row for an unchanged cited entry (A85)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D07.json",
+    "sha256": "06901d69b107fbc8912a94f3dba1075b7418e9e33d27c8493849becbc130294d"
+   },
+   "expected": "DISPOSITION_FOR_UNCHANGED_CITED_OR_TABLED_ENTRY",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_FOR_UNCHANGED_CITED_OR_TABLED_ENTRY A85 (one decision per entry, A99.3)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N7 empty reason on a later entry",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D08.json",
+    "sha256": "90846fa0d72daf76f400966a70049458f15bab4de360ca3fbfcde9bd5f65c553"
+   },
+   "expected": "DISPOSITION_EMPTY_REASON",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_EMPTY_REASON A102",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N8 plain no_change on the changed cited entry A90 (PV-D05-1)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D09.json",
+    "sha256": "f26dd91ce18ff879a011655b910321155e69f91176f81fb6c4e56ec15c84b747"
+   },
+   "expected": "DISPOSITION_NO_CHANGE_ON_CHANGED_ENTRY",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_NO_CHANGE_ON_CHANGED_ENTRY A90 (PV-D05-1: revised, or no_change_after_change)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N9 generic changed_text (\"## A\")",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D10.json",
+    "sha256": "bb18df76286126174a9423f8b3afd09bbfcf35d29b06d2e0b7afa17434d77d99"
+   },
+   "expected": "DISPOSITION_CHANGED_TEXT_IN_OLD_BYTES",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_CHANGED_TEXT_IN_OLD_BYTES A90 (generic or unchanged text does not name the change)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N10 changed_text present in the old bytes",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D11.json",
+    "sha256": "7513399ddc85792237493758814b2dd792a90529a9f45befd3ee5f366ff2b171"
+   },
+   "expected": "DISPOSITION_CHANGED_TEXT_IN_OLD_BYTES",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_CHANGED_TEXT_IN_OLD_BYTES A90 (generic or unchanged text does not name the change)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N11 changed_text absent from the new bytes",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D12.json",
+    "sha256": "aa789e8e4d4d98f1c5f6463f704a14625a8c0ce01fa4ec4cf9f1a9e1e0b98145"
+   },
+   "expected": "DISPOSITION_CHANGED_TEXT_NOT_IN_NEW_BYTES",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_CHANGED_TEXT_NOT_IN_NEW_BYTES A90",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N12 empty why_no_prereg_effect",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D13.json",
+    "sha256": "4354ffa80bd36779bc5a0aebde71cbae12c5fb99d040183e8e6077672b399633"
+   },
+   "expected": "DISPOSITION_WHY_NO_PREREG_EFFECT_EMPTY",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_WHY_NO_PREREG_EFFECT_EMPTY A90",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N13 revised without a prereg-revision pointer",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D14.json",
+    "sha256": "ecef4c0371a2318d8519bde07cb917cc9d20e51456dedeb105c2be568771b77f"
+   },
+   "expected": "DISPOSITION_REVISED_NEEDS_PREREG_REVISION_POINTER",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_REVISED_NEEDS_PREREG_REVISION_POINTER A90",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-N14 changed A90 left without a row",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D15.json",
+    "sha256": "231e7f6438ce78b0651add345fe8d367772358ebae05cba877f1f95d58abb654"
+   },
+   "expected": "DISPOSITION_ENTRIES",
+   "verdict": "REFUSE",
+   "code": "DISPOSITION_ENTRIES ['A102', 'A103', 'A104', 'A105', 'A106'] must be exactly the entries after A101 ['A102', 'A103', 'A104', 'A105', 'A106'] plus the changed cited entrie",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-P2 no_change_after_change naming the change exactly",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D16.json",
+    "sha256": "a7728841838e9d0e208ebcc39a28bd9f4d46ba1efa7f226fd5d7797dfe634253"
+   },
+   "expected": "PASS",
+   "verdict": "PASS",
+   "code": [
+    "A90",
+    "A102",
+    "A103",
+    "A104",
+    "A105",
+    "A106"
+   ],
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "B3-P3 revised with a prereg-revision pointer",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_regress_20261019T002435Z/b3/D17.json",
+    "sha256": "696311e4a6cc3bff0d062f3b427312a6e40dfd087f81d0e7377212a8aa6f4c04"
+   },
+   "expected": "PASS",
+   "verdict": "PASS",
+   "code": [
+    "A90",
+    "A102",
+    "A103",
+    "A104",
+    "A105",
+    "A106"
+   ],
+   "MUST_FAIL_ok": true
+  }
+ ],
+ "v003_tool1_on_these_fixtures": "UNTESTED: seal tools v003 not landed (its dev work copy predates PV-D05-1)",
+ "all_ok": true
+}

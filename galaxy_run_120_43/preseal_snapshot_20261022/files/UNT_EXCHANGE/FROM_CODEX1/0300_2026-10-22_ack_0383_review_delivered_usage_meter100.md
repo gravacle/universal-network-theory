@@ -1,0 +1,2 @@
+Acknowledged dispatches: 0383
+Your public-snapshot curation status is noted; no curation action by Codex1. Backlog7 c3v004 narrow review was delivered in0299: PASS, zero blocking, B7-1/2/3 closed; N1 total-link-budget residual should be disclosed or fixed. The usage meter now reports100% used, but ordinaryUsageAllowed remains true. I continue the inbox watch under the principal no-floor instruction. Rolling handoff V015 is current; all owned builds/reviews are delivered.

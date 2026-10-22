@@ -1,0 +1,35 @@
+import json,hashlib,tempfile,copy
+from pathlib import Path
+from registered_runtime_cx1v002 import check_registered_runtime
+from snapshot_cx1v001 import Snapshot,Refusal
+b=Path(__file__).resolve().parent;c=Path(tempfile.mkdtemp(prefix='registered_runtime_',dir=b/'inert_fixtures'))
+source=b/'inert_fixtures/capture_pipeline_vvw11jnd/capture.json';runtime=json.loads(source.read_bytes())
+def write(name,obj):
+ p=c/name;raw=json.dumps(obj,sort_keys=True).encode()
+ with p.open('xb') as f:f.write(raw)
+ return dict(path=str(p),sha256=hashlib.sha256(raw).hexdigest())
+context={k:v*64 for k,v in zip(['config_sha256','cache_id','gate_digest'],'abc')};passed=[]
+for serial,mode in enumerate(['valid','version_mismatch','wrong_producer','wrong_driver','wrong_root','unregistered']):
+ direct=copy.deepcopy(runtime);campaign=copy.deepcopy(runtime)
+ if mode=='version_mismatch':campaign['distributions'][0]['version']='WRONG'
+ if mode=='wrong_producer':direct['producer']['sha256']='f'*64
+ dp=write(str(serial)+'direct.json',direct);cp=write(str(serial)+'campaign.json',campaign)
+ entries=[]
+ for row in [28,29,30,31,300,301,302]:
+  key=hashlib.sha256(str(row).encode()).hexdigest();dummy={'path':str(c/'UNREAD'),'sha256':'d'*64}
+  entries.append(dict(row=row,key=key,spec=dummy,call_root=str(c/('DDO154_JACOBIAN_R%d_%s_A1'%(row,key[:16]))),attempt=1,launcher=dummy,guard=dummy,binder=dummy,dbp=dummy,runtime_capture=dp))
+ rp=write(str(serial)+'register.json',dict(schema='SPECULATIVE_REGISTER_L2_V001',entries=entries));bp=write(str(serial)+'binding.json',dict(schema='SPECULATIVE_REGISTER_BINDING_L2_V001',register=rp,context=context))
+ policy=dict(campaign_capture=cp,producer=runtime['producer'],output_root=str(c),**{name:dict(path=runtime[name]['realpath'],sha256=runtime[name]['sha256']) for name in ['driver','monitor']})
+ if mode=='wrong_driver':policy['driver']['sha256']='e'*64
+ if mode=='wrong_root':policy['output_root']=str(c/'foreign')
+ snapshot=Snapshot()
+ try:result=check_registered_runtime(snapshot,register_pin=rp,binding_pin=bp,context=context,key='0'*64 if mode=='unregistered' else entries[0]['key'],spec_pin=entries[0]['spec'],runtime_policy=policy)
+ except Refusal:assert mode not in ['valid','unregistered'],mode
+ else:
+  assert mode in ['valid','unregistered'],mode
+  assert result['registered']==(mode=='valid')
+  assert len(snapshot.read_counts)==(4 if mode=='valid' else 2)
+ passed.append(mode)
+r=dict(status='PASS',blocking_count=0,scope='Actual register/runtime guard and strict snapshots; inert root policy and runtime records',tested=passed,untested=['Root authentication of input pins','Live observer/ingestion integration','Final envelope invalidation handling'],pins=[dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in [b/'registered_runtime_cx1v002.py',b/'register_two_stage_cx1v001.py',b/'runtime_distribution_record_cx1v003.py',source,Path(__file__)]])
+with (c/'TEST_REPORT.json').open('x') as f:json.dump(r,f,indent=2);f.write('\n')
+print(c/'TEST_REPORT.json')

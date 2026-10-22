@@ -1,0 +1,468 @@
+{
+ "audit": {
+  "commands": [
+   "assemble_registry",
+   "cli",
+   "close_attempt",
+   "launch",
+   "launch_resume",
+   "record_monitor_refused",
+   "sampler",
+   "status",
+   "stop_outside_set",
+   "write_cutoff"
+  ],
+  "scope": "In-process opens whose stack contains the tested executable; spelled and resolved paths. Immutable reads at most once per outer command. Successful volatile observations and unlisted process-counter script identity probes are separately classified. Own executable sha reads are excepted. Child process executable reopening is outside this hook.",
+  "status": "TESTED",
+  "violations": []
+ },
+ "authorities": [
+  {
+   "bytes": 2404,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0781_2026-10-20_codex2_part3_P112_launcher_build_start.md",
+   "sha256": "58016d9d55bc462da2b3ff4f97819263fc5e227a6537ee86d306af4bb875b3d8"
+  },
+  {
+   "bytes": 3208,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0784_2026-10-20_codex2_P112_cx2v002_required_fixes.md",
+   "sha256": "948206b05ac437282d11a021414f5a28ed18761a5bebde650adb870407419cad"
+  },
+  {
+   "bytes": 1536,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0785_2026-10-20_codex2_P112_single_read_scope_confirmed.md",
+   "sha256": "0b396847e4c96ebc14d50073eef6029949b2e897815c4d4800dabd7565b5c910"
+  },
+  {
+   "bytes": 1443,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0786_2026-10-20_codex2_P112_cx2v002_interface_answers.md",
+   "sha256": "d76a4884d838c44ac840ae7c223dbc7e5c526fd6c6f5872e3c914a0c11ce191d"
+  },
+  {
+   "bytes": 2896,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0789_2026-10-20_codex2_P112_cx2v003_fixes.md",
+   "sha256": "0287a19d6f5ede0293e0fb495f26811e9a9b7079c9fda02aa0352d09fa3dbf9e"
+  },
+  {
+   "bytes": 71859,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_rulings_c2/P112_LAUNCHER_BRIEF_V005.md",
+   "sha256": "cddbaa8d27e9490443fe7a89228dc5cfb02f73dd4990d4864474327dde49ad6f"
+  },
+  {
+   "bytes": 21439,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002_rootverify_c2/ROOT_REVERIFY_FINDINGS_C2V002.md",
+   "sha256": "1f280b7967d48b3db88920719ee5026c5509ab8c16b734c534ff11595d3463a3"
+  },
+  {
+   "bytes": 66293,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002_rootverify_c2/fresh_adversarial/rv_fresh_adversarial_c2v002.py",
+   "sha256": "bab69dd7b9b69757d8c3fdedd797999d9ea017f98df45bf3ade1d0abeacc1f48"
+  }
+ ],
+ "child_reopen_disclosure": "Pinned executables are hashed in the parent then executed by path; the root integrity envelope covers child reads.",
+ "date_u": "Tue Oct 20 20:29:03 UTC 2026",
+ "documentation_contract": {
+  "bytes": 7323,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v003/README_CONTRACT_CX2V003.md",
+  "sha256": "b3210f66c1913b22f1ff56e3186a010002f53d7c029323d0618869a39dc522f9"
+ },
+ "mapping": {
+  "0785": [
+   "0785_immutable_audit_MUST_PASS",
+   "0785_volatile_audit_MUST_PASS",
+   "0785_cutoff_audit_MUST_PASS",
+   "ALL_PUBLIC_COMMANDS_IMMUTABLE_READ_ONCE_MUST_PASS",
+   "ALL_PUBLIC_COMMANDS_AUDIT_COVERAGE_MUST_PASS",
+   "CX2V002_MUTANT_0785_immutable_cache_bypassed",
+   "CX2V002_MUTANT_0785_volatile_pin_reread",
+   "CX2V002_MUTANT_0785_cutoff_copy_reread"
+  ],
+  "0786": [
+   "0786_root_and_P112_siblings_accepted",
+   "0786_missing_sibling_refused",
+   "0786_changed_sibling_refused",
+   "0786_rule_binding_required",
+   "0786_sibling_form_required",
+   "0786_sibling_written_before_exact_key_record",
+   "CX2V002_MUTANT_0786_ignore_sibling_sha",
+   "CX2V002_MUTANT_0786_ignore_missing_sibling",
+   "CX2V002_MUTANT_0786_parent_written_first"
+  ],
+  "0789_A06": [
+   "CX2V003_A06_orphan_status_and_retry",
+   "CX2V003_MUTANT_A06_ignore_orphan_status",
+   "CX2V003_MUTANT_A06_retry_orphan_write"
+  ],
+  "0789_A09": [
+   "CX2V003_A09_and_V1_documentation",
+   "CX2V003_MUTANT_A09_restore_blanket_realpath_claim"
+  ],
+  "0789_A10": [
+   "CX2V003_A10_record_and_cutoff_hardlinks",
+   "CX2V003_MUTANT_A10_allow_hardlinks"
+  ],
+  "0789_A15": [
+   "CX2V003_A15_launch_json_shape",
+   "CX2V003_MUTANT_A15_skip_shape_validation"
+  ],
+  "0789_Fa": [
+   "CX2V003_Fa_exact_resume_and_null_pid",
+   "CX2V003_MUTANT_Fa_null_pid_broad_match",
+   "CX2V003_MUTANT_Fa_resume_broad_match",
+   "CX2V003_MUTANT_Fa_ignore_process_group"
+  ],
+  "0789_Fb": [
+   "CX2V003_Fb_blank_argv",
+   "CX2V003_MUTANT_Fb_reject_blank_argv"
+  ],
+  "0789_Fc": [
+   "CX2V003_Fc_regular_bounded_identity",
+   "CX2V003_MUTANT_Fc_restore_unbounded_identity"
+  ],
+  "0789_Fd": [
+   "CX2V003_Fd_whitespace_tokens",
+   "CX2V003_MUTANT_Fd_restore_shlex"
+  ],
+  "0789_Fe": [
+   "CX2V003_Fe_child_pid_alive",
+   "CX2V003_Fe_planned_command_alive",
+   "CX2V003_Fe_non_UTF8_stderr",
+   "CX2V003_Fe_timeout",
+   "CX2V003_Fe_ended_after_ps_check",
+   "CX2V003_MUTANT_Fe_ignore_child_pid",
+   "CX2V003_MUTANT_Fe_ignore_planned_command",
+   "CX2V003_MUTANT_Fe_restore_text_stderr",
+   "CX2V003_MUTANT_Fe_remove_timeout"
+  ],
+  "0789_Lens1_dead_fields": [
+   "CX2V003_Lens1_remove_dead_fields",
+   "CX2V003_MUTANT_Lens1_restore_dead_revision",
+   "CX2V003_MUTANT_Lens1_restore_dead_observation"
+  ],
+  "0789_Lens1_disclosure": [
+   "CX2V003_A09_and_V1_documentation",
+   "CX2V003_MUTANT_V1_hide_MULTIPLE_MONITORS_change"
+  ],
+  "0789_Lens1_s0": [
+   "CX2V003_Lens1_s0_realpaths",
+   "CX2V003_MUTANT_Lens1_s0_alias"
+  ],
+  "0789_Lens1_sample": [
+   "CX2V003_Lens1_sample_receipt_pin",
+   "CX2V003_MUTANT_Lens1_ignore_sample_receipt"
+  ],
+  "0789_V1": [
+   "CX2V003_V1_transient_decoy_MUST_PASS",
+   "CX2V003_V1_persistent_decoy_MUST_PASS",
+   "CX2V003_V1_exact_before_pid_MUST_PASS",
+   "CX2V003_V1_monitor_identity_form",
+   "CX2V003_MUTANT_V1_restore_broad_sampler_and_raise",
+   "CX2V003_MUTANT_V1_reread_monitor_identity"
+  ],
+  "B1": [
+   "B1_RV01_checked_launch_buffer",
+   "CX2V002_MUTANT_B1_launch_reread"
+  ],
+  "B2": [
+   "B2_RV02_classified_receipt_buffer",
+   "CX2V002_MUTANT_B2_receipt_reread"
+  ],
+  "B3": [
+   "B3_RV03_verified_registry_buffer",
+   "CX2V002_MUTANT_B3_registry_reread"
+  ],
+  "B4": [
+   "B4_RV11_real_apostrophe_ps",
+   "B4_RV12_transient_apostrophe",
+   "B4_RV13_persistent_apostrophe",
+   "B4_RV14_first_apostrophe",
+   "CX2V002_MUTANT_B4_command_parse_refusal",
+   "B4_non_UTF8_ps_command_does_not_fail_sample",
+   "CX2V002_MUTANT_strict_ps_decoding"
+  ],
+  "F1": [
+   "F1_RV05_RV06_record_alias_blinding",
+   "F1_resume_alias_plan.json",
+   "F1_resume_alias_invocation.json",
+   "F1_resume_alias_monitor_pid.json",
+   "F1_sampler_alias_monitor_pid.json",
+   "F1_sampler_alias_invocation.json",
+   "F1_sampler_alias_receipt",
+   "F1_first_sample_alias_refuses_before_monitor",
+   "CX2V002_MUTANT_F1_unguarded_launch_observation",
+   "CX2V002_MUTANT_F1_allow_record_alias"
+  ],
+  "F2": [
+   "F2_RV08_actual_line_grammar",
+   "CX2V002_MUTANT_F2_tool_splitlines",
+   "CX2V002_MUTANT_F2_residual_splitlines"
+  ],
+  "F3": [
+   "F3_missing_monitor_pid_recovery",
+   "F3_RV21_actual_inert_Popen_interruption_resume_close",
+   "F3_null_pid_status_live_by_command",
+   "F3_null_pid_close_live_by_command",
+   "F3_null_pid_solo_live_by_command",
+   "CX2V002_MUTANT_F3_require_monitor_pid_file"
+  ],
+  "F4": [
+   "F4_RV19_kit_exit_one_semantics",
+   "CX2V002_MUTANT_F4_any_exit_one_ended"
+  ],
+  "F5": [
+   "F5_RV24_production_V006_constant",
+   "CX2V002_MUTANT_F5_configured_V006"
+  ],
+  "F6": [
+   "F6_postseal_component_guard",
+   "CX2V002_MUTANT_F6_postseal_guard_removed"
+  ],
+  "cleanup": [
+   "CLEANUP_RV04_single_guarded_read",
+   "CLEANUP_fill_single_read_MUST_PASS",
+   "CX2V002_MUTANT_cleanup_pin_then_reread",
+   "CX2V002_MUTANT_cleanup_certificate_reread"
+  ]
+ },
+ "mutants": [
+  {
+   "control": "PASS",
+   "detection": "Refusal",
+   "imported": true,
+   "name": "V1_restore_broad_sampler_and_raise",
+   "replace": "        if monitor_identity is None and mp.exists():\n            _, monitor_identity = read_record(mp)\n            need(type(monitor_identity) is dict and type(monitor_identity.get(\"monitor_pid\")) is int\n                 and monitor_identity[\"monitor_pid\"] > 1, \"MONITOR_PID_FORM\")\n        if monitor_identity is not None:\n            mons = [row for row in matching_monitors(rows, ctx.pins[\"monitor\"][\"path\"], outdir)\n                    if row[\"pid\"] == monitor_identity[\"monitor_pid\"]]\n        else:\n            mons = exact_monitor_matches(rows, plan.get(\"monitor_argv\"))\n        # No row-count refusal: liveness probes must never terminate sampling.\n",
+   "source_sha256": "481ba306925b7f0a5bb7c97377e126c6d4918dcfa13a074ffa747195dc0d943e",
+   "status": "KILLED",
+   "with": "        mons = matching_monitors(rows, ctx.pins[\"monitor\"][\"path\"], outdir)\n        need(len(mons) <= 1, \"MULTIPLE_MONITORS\")\n"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "V1_reread_monitor_identity",
+   "replace": "if monitor_identity is None and mp.exists():\n            _, monitor_identity = read_record(mp)",
+   "source_sha256": "500da802697b70ade86769361898f93ffb926cb351831ae653a8591c8228086c",
+   "status": "KILLED",
+   "with": "if mp.exists():\n            monitor_identity = strict_json(Path(mp).read_bytes())"
+  },
+  {
+   "control": "PASS",
+   "detection": "Refusal",
+   "imported": true,
+   "name": "Fa_null_pid_broad_match",
+   "replace": "matches = exact_monitor_matches(rows, argv)",
+   "source_sha256": "d2fd3eed339760148ff1d8f92dab1a43a9233c417c8c6db2617414eeba0ad510",
+   "status": "KILLED",
+   "with": "matches = matching_monitors(rows, monitor, outdir)"
+  },
+  {
+   "control": "PASS",
+   "detection": "Refusal",
+   "imported": true,
+   "name": "Fa_resume_broad_match",
+   "replace": "matches = exact_monitor_matches(rows, plan.get(\"monitor_argv\"))",
+   "source_sha256": "c4356a0e6f8df74ac72dd5799bc1f4d7636827827516f7a8149ccba806188dc0",
+   "status": "KILLED",
+   "with": "matches = matching_monitors(rows, ctx.pins[\"monitor\"][\"path\"], outdir)"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Fa_ignore_process_group",
+   "replace": "row.get(\"pgid\") == row[\"pid\"] and row.get(\"command\") == command",
+   "source_sha256": "e5e80a3abe816af1d9025b06dedaa195e51e7abc83005008002e3c8ccae66375",
+   "status": "KILLED",
+   "with": "row.get(\"command\") == command"
+  },
+  {
+   "control": "PASS",
+   "detection": "Refusal",
+   "imported": true,
+   "name": "Fb_reject_blank_argv",
+   "replace": "len(parts) in (3, 4)",
+   "source_sha256": "3d5ceef0b58d4cf046c74712915cd790c7c96d47c16edf7af92fde604ecaa350",
+   "status": "KILLED",
+   "with": "len(parts) == 4"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Fc_restore_unbounded_identity",
+   "replace": "    def identify(self, path):\n        if not os.path.isabs(path) or (self.synthetic and (path == \"/Volumes\" or path.startswith(\"/Volumes/\"))):\n            return None\n        if os.path.realpath(path) in self.by_real:\n            return self.by_real[os.path.realpath(path)]\n        try:\n            guard_read(path)\n            # Do not inspect arbitrary data arguments. Listed tools are scripts.\n            if not path.endswith((\".py\", \".sh\")):\n                return None\n            st = os.stat(path)\n            if not stat.S_ISREG(st.st_mode) or st.st_size > PROCESS_IDENTITY_MAX_BYTES:\n                return None\n            key = (path, st.st_dev, st.st_ino, st.st_mtime_ns, st.st_ctime_ns, st.st_size)\n            if key not in self.cache:\n                # O_NONBLOCK prevents a replacement FIFO from blocking open;\n                # fstat qualifies the descriptor before any bytes are read.\n                fd = os.open(path, os.O_RDONLY | os.O_NONBLOCK)\n                try:\n                    opened = os.fstat(fd)\n                    opened_key = (path, opened.st_dev, opened.st_ino, opened.st_mtime_ns,\n                                  opened.st_ctime_ns, opened.st_size)\n                    if (not stat.S_ISREG(opened.st_mode) or opened.st_size > PROCESS_IDENTITY_MAX_BYTES\n                            or opened_key != key):\n                        return None\n                    with os.fdopen(fd, \"rb\", closefd=False) as stream:\n                        raw = stream.read(PROCESS_IDENTITY_MAX_BYTES + 1)\n                    if len(raw) > PROCESS_IDENTITY_MAX_BYTES:\n                        return None\n                    self.cache[key] = sha(raw)\n                finally:\n                    os.close(fd)\n            return self.by_sha.get(self.cache[key])\n        except (OSError, Refusal):\n            return None",
+   "source_sha256": "aa68bdbacc9e4673d713ecbdd25cd2f62906f1e0fd97be25e8b3e394904b3750",
+   "status": "KILLED",
+   "with": "    def identify(self, path):\n        if not os.path.isabs(path) or not path.endswith((\".py\", \".sh\")):\n            return None\n        guard_read(path)\n        return self.by_sha.get(sha(Path(path).read_bytes()))"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Fd_restore_shlex",
+   "replace": "return row[\"command\"].split()",
+   "source_sha256": "527c7c5cef650cb6a7bd36015f35420fc3504f5bb5006946e7ec3c687ffa50f0",
+   "status": "KILLED",
+   "with": "return __import__(\"shlex\").split(row[\"command\"])"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Fe_ignore_child_pid",
+   "replace": "r[\"pid\"] == child_pid or r[\"command\"] == command",
+   "source_sha256": "d8b520df4df1c219a68a021ff258710f6e7b099326f89989a8e03190231f648b",
+   "status": "KILLED",
+   "with": "r[\"command\"] == command"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Fe_ignore_planned_command",
+   "replace": "r[\"pid\"] == child_pid or r[\"command\"] == command",
+   "source_sha256": "4bc634f58ac9ac0aee44f6ae8294793aa553073b8687eb3501c67c155f1905dd",
+   "status": "KILLED",
+   "with": "r[\"pid\"] == child_pid"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Fe_restore_text_stderr",
+   "replace": "capture_output=True, timeout=KIT_KILL_TARGET_TIMEOUT_S",
+   "source_sha256": "1b0d3ac191a9d837ca45cab57db4e21f73cc467c2b428ad11bb451fe8d6c99d2",
+   "status": "KILLED",
+   "with": "capture_output=True, text=True, timeout=KIT_KILL_TARGET_TIMEOUT_S"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Fe_remove_timeout",
+   "replace": "capture_output=True, timeout=KIT_KILL_TARGET_TIMEOUT_S",
+   "source_sha256": "3a5efb607d42d9996f32af41be8cf06bbfbcabb3a76c727983bc7efe38339a3a",
+   "status": "KILLED",
+   "with": "capture_output=True"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "A15_skip_shape_validation",
+   "replace": "    need(type(lj) is dict, \"LAUNCH_JSON_FORM\")\n    types =",
+   "source_sha256": "79c8a23e4e51ecb5d58b7750edc140b1c793c34edce2657a0b3af4a20a70a2fb",
+   "status": "KILLED",
+   "with": "    return lj\n    types ="
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "A06_ignore_orphan_status",
+   "replace": "need(os.path.lexists(parent), \"ORPHAN_OBSERVATIONS_SIBLING\", str(sibling))",
+   "source_sha256": "9153cbff7857a4a17c2c768b8b63edba99636eb4b93620a4e83c1c991dbeca6b",
+   "status": "KILLED",
+   "with": "pass"
+  },
+  {
+   "control": "PASS",
+   "detection": "FileExistsError",
+   "imported": true,
+   "name": "A06_retry_orphan_write",
+   "replace": "need(not os.path.lexists(path + \".observations.json\"), \"ORPHAN_OBSERVATIONS_SIBLING\", path)",
+   "source_sha256": "36e16f80391c370512c74ac1e855d93a455bea271f86a73e81c5eaeeeda4733b",
+   "status": "KILLED",
+   "with": "pass"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "A10_allow_hardlinks",
+   "replace": "need(os.stat(path).st_nlink == 1, \"RECORD_NLINK\", path)",
+   "source_sha256": "600bb4d7fb8bff36b23041df4a638b00301de3ae15ff2129b9cb7358cbb9c92a",
+   "status": "KILLED",
+   "with": "pass"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Lens1_s0_alias",
+   "replace": "need(os.path.realpath(c[\"s0\"][key]) == c[\"s0\"][key], \"CONFIG_SYMLINK\", \"s0.\" + key)",
+   "source_sha256": "c24134f4f17ab42e7b2841b80a29a48295bf279e81e6eb0daac9b252361b6b31",
+   "status": "KILLED",
+   "with": "pass"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Lens1_ignore_sample_receipt",
+   "replace": "need(sample.get(\"monitor_receipt\") == receipt_pin, \"SOLO_SAMPLE_MONITOR_RECEIPT\")",
+   "source_sha256": "77879d5f5e628a203d710df75276d230d31bfaa90b3a4866b86a04dd381b1aaf",
+   "status": "KILLED",
+   "with": "pass"
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Lens1_restore_dead_revision",
+   "replace": "TOOL_NAME = \"P112_LAUNCHER_CX2V003\"",
+   "source_sha256": "b9bd5e481a3b2c4c2854fe82a5f247c198326cb8c86269d4e010fddbf81fac15",
+   "status": "KILLED",
+   "with": "IMPLEMENTATION_REVISION = 3\nTOOL_NAME = \"P112_LAUNCHER_CX2V003\""
+  },
+  {
+   "control": "PASS",
+   "detection": "AssertionError",
+   "imported": true,
+   "name": "Lens1_restore_dead_observation",
+   "replace": "self.v006_text = self.v006_raw.decode()",
+   "source_sha256": "30704eed0123da66c15b53d1b8fe2e685e18a156527285aece84226e902bf8e6",
+   "status": "KILLED",
+   "with": "self.v006_text = self.v006_raw.decode()\n        self.v006_gate_observation = None"
+  },
+  {
+   "control": "PASS",
+   "kind": "documentation",
+   "name": "A09_restore_blanket_realpath_claim",
+   "replace": "Work logs are guard-read only.",
+   "source_sha256": "30ca52b586e6171e8fc4c26447faf9f8d746f51deed3d7b95ada1f67f747b5ad",
+   "status": "KILLED",
+   "with": "Every work log requires realpath equality."
+  },
+  {
+   "control": "PASS",
+   "kind": "documentation",
+   "name": "V1_hide_MULTIPLE_MONITORS_change",
+   "replace": "The sampler no longer raises MULTIPLE_MONITORS.",
+   "source_sha256": "0f1857a18c651b3e5f3fc66fc9f96cfcfde254beae529e6374ee38add34aa14c",
+   "status": "KILLED",
+   "with": "Sampler behavior is unchanged."
+  }
+ ],
+ "retained_coverage": {
+  "bytes": 6383,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/FIX_COVERAGE_PROOF_CX2V002.json",
+  "sha256": "171390e4b030817ce0b1601f36522b12417d801edab7929f32cbf8770648c760"
+ },
+ "schema": "P112_FIX_COVERAGE_PROOF_CX2V003",
+ "status": "TESTED_PASS",
+ "test_program": {
+  "bytes": 232071,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v003/test_phase1_ngc_launch_cx2v003.py",
+  "sha256": "a3cdbdc661b69bd8830ea0b0f68e02674b5319064c7fb8c7060928d971c73f49"
+ },
+ "test_record": {
+  "bytes": 106923,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v003/test_records_cx2v003/RUN1/TEST_RECORD.json",
+  "sha256": "4ff500c07c5679c2a130e78508609e24d39b81b1c3dad06a7409fd0306dc8852"
+ },
+ "tool": {
+  "bytes": 135430,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v003/phase1_ngc_launch_cx2v003.py",
+  "sha256": "af0210715f658c43f73f37a5e6e733f7a48dc374caa1b8af5a0defe3987854d7"
+ }
+}

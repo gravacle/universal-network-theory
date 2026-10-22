@@ -1,0 +1,51 @@
+{
+  "G26_function_AST_unchanged": true,
+  "builder_functions_changed": [
+    "phase1_snapshot"
+  ],
+  "date_u": "Wed Oct 21 13:31:25 UTC 2026",
+  "diffs": {
+    "G26": "--- G26_v002\n+++ G26_v003\n@@ -19,8 +19,8 @@\n import types\n \n ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'\n-BUILDER_PATH = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v002.py'\n-BUILDER_SHA256 = 'a2d8dc00fd80322a2ba6822648c7399d46e9a4e55bbf309cd2efbc0e33665e7e'\n+BUILDER_PATH = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v003.py'\n+BUILDER_SHA256 = 'f710334b6f5ec2663fbebd826c7b326ebf7ff9eb600e751584de4f518a4e0b11'\n FREEZE_SHA256 = '48a1e48a5230fff346705c338da30a8ee53a8643193dbe4616c25e61eab3d405'\n SPEC_SHA256 = 'e2a7650e166a9230138ffd16453ac8fdabab41a8695169844940c4c061a894ec'\n NOTES_CANONICAL_SHA256 = '56ac5c6440bfd0def9b42077e97677e6844cd2d38bd45de65b4690da1ab8535a'\n",
+    "builder": "--- builder_v002\n+++ builder_v003\n@@ -22,7 +22,7 @@\n import sys\n import types\n \n-BUILDER_NAME = 'roster_builder_c2v007_cx3cw8v002'\n+BUILDER_NAME = 'roster_builder_c2v007_cx3cw8v003'\n # c2v004 to c2v006 change no input schema and no schema of the builder's own records, so the c2v003 schema names are\n # kept (c2v006 adds `schema` to classifier A's two records, whose contract names are A's); each BUILD_RECORD names the\n # builder sha256, and a build record of another builder version is refused (BUILD_RECORD_OTHER_BUILDER)\n@@ -3637,7 +3637,7 @@\n against the ordered, pinned per-call source entries.\n \"\"\"\n \n-P112_REVIEWED_SHA = '6de0d06a16a5ffab7b49bc76bc9219d0bfbd67a91020129677a5f4078846f852'\n+P112_REVIEWED_SHA = '4d5b47e75f90241460dd0b86155ddae2267117c31f6043fc57777ea94564919d'\n P112_REVIEWED_SHAS = frozenset((P112_REVIEWED_SHA,))\n \n \n@@ -5627,6 +5627,14 @@\n             # A later attempt cannot undo an already terminal call.\n             _snapshot_prefix(all_seen, call['kind'] == 'OTHER')\n             eligible = [item for item in all_seen if item['time_ns'] <= ceiling_ns]\n+            # A279/A281: a reporting cutoff cannot classify an unresolved\n+            # solo model failure as a schedule ceiling. _receipt has\n+            # already validated any cause_record against this monitor.\n+            for item in eligible:\n+                if (item['class'] == 'FAILED' and\n+                        item['evidence'].get('solo_mode') is True and\n+                        item['evidence'].get('cause_record') is None):\n+                    raise Refused('SNAPSHOT_SOLO_FAILED_CAUSE_REQUIRED', call['name'])\n             terminal = _snapshot_prefix(eligible, call['kind'] == 'OTHER')\n             if terminal is not None and hist['pending']:\n                 raise Refused('ATTEMPT_AFTER_TERMINAL', call['name'])\n",
+    "launcher": "--- launcher_v002\n+++ launcher_v003\n@@ -7,6 +7,7 @@\n import copy\n import contextvars\n import functools\n+import fcntl\n import datetime as dt\n import hashlib\n import json\n@@ -25,7 +26,7 @@\n PY = \"/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3\"\n A = \"/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/\"\n V006 = \"/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md\"\n-TOOL_NAME = \"P112_LAUNCHER_CX3CW8V002\"\n+TOOL_NAME = \"P112_LAUNCHER_CX3CW8V003\"\n RAM = 137438953472\n DISK_RESERVE = 21474836480\n SEED_KEY = \"968c915bece706ea1d6c0fa15357984884a87443e7c19eebd104230c9c961981\"\n@@ -3097,6 +3098,7 @@\n     # Verify the seed pair's actual spec bytes without opening either run.\n     cw8_spec_pair(read_pin(serial_pin, decode=False), read_pin(twin_pin, decode=False))\n     record = read_pin(obj[\"comparator_record\"])\n+    need(type(record) is dict, \"CW8_COMPARATOR_FORM\")\n     need(record.get(\"schema\") == \"UNT_STEP5_NGC_IDENTITY_PAIR_RECORD_C2V001\",\n          \"CW8_COMPARATOR_SCHEMA\")\n     need(record.get(\"verdict\") == CW8_EQUAL, \"CW8_COMPARATOR_\" + str(record.get(\"verdict\")))\n@@ -3324,7 +3326,42 @@\n     need(cw8_only_dry_preparation(ctx, call), \"CW8_ROLE_ALREADY_PREPARED\")\n \n \n+def cw8_choice_lock(function):\n+    \"\"\"Serialize choice discovery and exclusive publication on this launch root.\n+\n+    The persistent empty lock inode is never replaced, truncated or removed.\n+    Lock acquisition precedes reading choices; a waiting Context must discard\n+    its cached call list before reconstructing the now-current durable roles.\n+    \"\"\"\n+    @functools.wraps(function)\n+    def locked(ctx, *args, **kwargs):\n+        root = Path(ctx.cfg[\"p112_launch_root\"])\n+        need(root.is_dir() and os.path.realpath(root) == str(root),\n+             \"CW8_CHOICE_LOCK_ROOT\")\n+        path = root / \".worker_choices.lock\"\n+        path_rules(str(path), \"worker choice lock\")\n+        flags = os.O_RDONLY | os.O_NOFOLLOW\n+        try:\n+            fd = os.open(path, flags | os.O_CREAT | os.O_EXCL, 0o444)\n+        except FileExistsError:\n+            fd = os.open(path, flags)\n+        try:\n+            info = os.fstat(fd)\n+            need(stat.S_ISREG(info.st_mode) and info.st_nlink == 1,\n+                 \"CW8_CHOICE_LOCK_FILE\")\n+            fcntl.flock(fd, fcntl.LOCK_EX)\n+            current = os.stat(path, follow_symlinks=False)\n+            need((current.st_dev, current.st_ino) == (info.st_dev, info.st_ino),\n+                 \"CW8_CHOICE_LOCK_IDENTITY\")\n+            ctx._calls = None\n+            return function(ctx, *args, **kwargs)\n+        finally:\n+            os.close(fd)\n+    return locked\n+\n+\n @read_scope\n+@cw8_choice_lock\n def select_workers(ctx, forecast_pin=None, *, serial_name=None):\n     \"\"\"Root-invoked metadata operation. Writes one immutable cohort record.\"\"\"\n     ctx.gate()\n@@ -3350,13 +3387,15 @@\n             cw8_authenticate(ctx, license_pin)\n             need(is_pin(forecast_pin), \"CW8_FORECAST_MISSING\")\n             forecast = read_pin(forecast_pin)\n+            need(type(forecast) is dict, \"CW8_FORECAST_FORM\")\n             need(forecast.get(\"scope\") == cw8_scope(ctx), \"CW8_FORECAST_SCOPE\")\n             prediction = cw8_predict(forecast, [c[\"name\"] for c in selected], now)\n             if prediction[\"column_workers\"] == 8:\n                 for call in selected:\n                     pin = ctx.get_vpin(\"SPEC_PIN\", call[\"name\"] + \"_FULL_CW8\")\n                     cw8_spec_pair(read_pin(call[\"spec\"], decode=False), read_pin(pin, decode=False))\n-        except (Refusal, OSError, ValueError, KeyError, TypeError) as exc:\n+        except (Refusal, OSError, ValueError, KeyError, TypeError,\n+                AttributeError, OverflowError, RecursionError) as exc:\n             prediction = {\"column_workers\": 1,\n                           \"reason\": exc.code if isinstance(exc, Refusal) else type(exc).__name__}\n     workers = prediction[\"column_workers\"]\n@@ -3398,7 +3437,10 @@\n \n def cw8_check_attempt(ctx, call, record, closed=None):\n     role = cw8_check_role(call, record.get(\"worker_role\"))\n-    need(record.get(\"spec\", call[\"spec\"]) == call[\"spec\"], \"CW8_ATTEMPT_RAW_SPEC\")\n+    spec = record.get(\"spec\", call[\"spec\"])\n+    # S0 relaunches fill identical bytes under a fresh work directory.\n+    need(is_pin(spec) and spec[\"sha256\"] == call[\"spec\"][\"sha256\"],\n+         \"CW8_ATTEMPT_RAW_SPEC\")\n     need(record[\"caps\"][\"rss_cap_bytes\"] == cw8_rss(call[\"name\"], role[\"column_workers\"]),\n          \"CW8_ATTEMPT_RSS\")\n     if call[\"name\"] != TWIN:\n"
+  },
+  "inputs": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/phase1_ngc_launch_cx3cw8v002.py",
+      "sha256": "6de0d06a16a5ffab7b49bc76bc9219d0bfbd67a91020129677a5f4078846f852"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v002.py",
+      "sha256": "a2d8dc00fd80322a2ba6822648c7399d46e9a4e55bbf309cd2efbc0e33665e7e"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/g26_freeze_cx3cw8v002.py",
+      "sha256": "332253d215387fa69822be3e96ec38c5bea5c4e6ffae4fabc53b0298ca312e2b"
+    }
+  ],
+  "launcher_functions_added": [
+    "cw8_choice_lock"
+  ],
+  "launcher_functions_changed": [
+    "cw8_authenticate",
+    "cw8_check_attempt",
+    "select_workers"
+  ],
+  "outputs": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/phase1_ngc_launch_cx3cw8v003.py",
+      "sha256": "4d5b47e75f90241460dd0b86155ddae2267117c31f6043fc57777ea94564919d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/roster_builder_c2v007_cx3cw8v003.py",
+      "sha256": "f710334b6f5ec2663fbebd826c7b326ebf7ff9eb600e751584de4f518a4e0b11"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/g26_freeze_cx3cw8v003.py",
+      "sha256": "171710bb5428d7baa9e05fda049c1095239ea5461eae351abbbacea1d608fa89"
+    }
+  ],
+  "schema": "CW8_0842_BUILD_CX3V003",
+  "scientific_execution": "NONE",
+  "tests": "PENDING"
+}

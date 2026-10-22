@@ -1,0 +1,41 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/worm_move_c2_0467/owned_L4_worm_loop_recipe_v003.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/birth_kinetics_c2/owned_L4_worm_birthk_recipe_v004.py
+@@ -1,5 +1,9 @@
+-"""Inert worm-loop successor (V003) of owned_L4_current_graph_cycle_recipe_v001.py (76781f18...).
+-DELTA ONLY: the .10 current-graph even-cycle slot is replaced by the occupancy-guided long
++"""Inert worm-loop + channel-bearing Birth successor (V004) of owned_L4_worm_loop_recipe_v003.py (8eb46fff...).
++V004 DELTA ONLY: the .20 Birth-residence slot runs owned_worldline_birth_residence_transport_c2v002.py
++(owner drawn uniformly among the owners WITH a Birth/reverse mark at the reference dwell, exact
++owner-count Hastings factor) instead of the reviewed V001 transport (6f866bda...); same weight, thresholds,
++owner roster and target.  V003 text follows.
++V003 DELTA: the .10 current-graph even-cycle slot is replaced by the occupancy-guided long
+ alternating-loop ("worm") whole-path move owned_worm_loop_whole_path_c2v001.py at the SAME weight
+ (2/15 of the .75 base wrapper = .10 total) and the SAME uniform-u branch thresholds; every other
+ branch, module, pin, owner roster, target and diagnostic is unchanged.
+@@ -13,7 +17,8 @@
+ 
+ ADMISSION_SHA='5b19e90ee4fcf86a0b8fe570abb607ae23c8047771abc4ab317c167f1837d653' # Frozen Claude3 release, independently reviewed by Claude4
+ FAMILY_RECIPE_SHA='86c2ee5319dd1277c630e15ca7ab9f224027bf638a281753e68dddecf1ca6bd7'
+-BIRTH_SHA='6f866bda7eda7b56cb9ae7a1247cb365c16c9b40cb996af650452f8823f9f6e8'
++BIRTH_SHA='6c14cb85e6a4fbb5d6ee08d18eb38a093a10d071924ad70579ca291756a67a82'
++BIRTH_MODULE_VERSION='birth_residence_c2v002'
+ WORM_SHA='9fef6042eb1e13157d19a4d4381b4c73ef6e26d779f49ad7c477f1d44b9f470d'
+ WORM_MODULE_VERSION='worm_c2v001'
+ WORM_MAX_WALK_STEPS=1024
+@@ -41,6 +46,7 @@
+         raise ValueError('Full original A+B palette binding required')
+     if (worm_module.MODULE_VERSION!=WORM_MODULE_VERSION or worm_module.MAX_WALK_STEPS!=WORM_MAX_WALK_STEPS
+             or worm_module.LOOKAHEAD is not WORM_LOOKAHEAD):raise ValueError('Fixed worm-loop walk rule changed')
++    if getattr(birth_module,'MODULE_VERSION',None)!=BIRTH_MODULE_VERSION:raise ValueError('Channel-bearing-owner Birth transport c2v002 required')
+     if not callable(getattr(operator_module,'state_labels',None)):raise ValueError('Public native state_labels required')
+     prepared['worm_binding']={'module':worm_module,'family_recipe':family_recipe,'state_labels':operator_module.state_labels,
+       'birth_module':birth_module,'admission_module':admission_module,'owner_roster':original_vertices,'counters':{},'scope':'Uniform fixed original A+B start, uniform viable occupied first edge, uniform viable alternating continuation on the whole-path eligible graph until the first revisit; exact reverse-walk Hastings factor; exact native guards, event replay and weights.'}
+@@ -125,7 +131,7 @@
+         # Existing recipe wraps THIS base with its .25 occupancy.
+         result=recipe.run_prepared(prepared=prepared)
+         result['worm_binding']={'module_sha256':WORM_SHA,'module_version':WORM_MODULE_VERSION,'family_recipe_sha256':FAMILY_RECIPE_SHA,
+-          'fixed_start_roster':b['owner_roster'],'walk_selection':'Uniform original start, uniform viable occupied first edge, uniform viable alternating continuation until first revisit; empty start/dead end/cap reject without resampling','maximum_walk_steps':wormmod.MAX_WALK_STEPS,'lookahead':wormmod.LOOKAHEAD,'birth_module_sha256':BIRTH_SHA,'fixed_birth_owner_roster':b['owner_roster'],'fixed_admission_owner_roster':b['owner_roster'],
++          'fixed_start_roster':b['owner_roster'],'walk_selection':'Uniform original start, uniform viable occupied first edge, uniform viable alternating continuation until first revisit; empty start/dead end/cap reject without resampling','maximum_walk_steps':wormmod.MAX_WALK_STEPS,'lookahead':wormmod.LOOKAHEAD,'birth_module_sha256':BIRTH_SHA,'birth_module_version':BIRTH_MODULE_VERSION,'birth_owner_selection':'Uniform among fixed-roster owners with a Birth/reverse mark at the reference dwell (one union palette enumeration); uniform mark; exact owner-count and roster Hastings factors','fixed_birth_owner_roster':b['owner_roster'],'fixed_admission_owner_roster':b['owner_roster'],
+           'total_worm_loop_probability':.10,'total_birth_residence_probability':.20,'total_occupancy_probability':.25,'total_admission_residence_probability':.20,'admission_module_sha256':ADMISSION_SHA,
+           'total_prior_base_probability':.25,'outcomes':dict(counts),
+           'counter_scope':'full chain including warmup; actual read-change vectors follow existing tracked labels',

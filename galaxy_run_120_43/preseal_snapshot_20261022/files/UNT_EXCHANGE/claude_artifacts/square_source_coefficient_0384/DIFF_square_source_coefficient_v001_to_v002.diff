@@ -1,0 +1,62 @@
+--- square_source_coefficient_v001.py
++++ square_source_coefficient_v002.py
+@@ -1,4 +1,4 @@
+-# UNT support task 0384 -- inert author implementation, v001.
++# UNT support task 0384 -- inert author implementation, v002 (task 0390: |r2| gate removed).
+ # One public function, square_source_coefficient, plus private helpers.
+ # Module-level code is limited to the numpy import and function definitions:
+ # no constants, no work at import, no I/O, no subprocesses, no CLI.
+@@ -182,6 +182,10 @@
+         "histories": None,
+         "declared_inputs": None,
+         "declared_tolerances": None,
++        "ref_tol_note": (
++            "ref_tol is a legacy admitted argument (V002, task 0390): validated finite and "
++            ">= 0 but no longer restricts r2 = epsilon_r - 2 lambda_R, which is reported only"
++        ),
+         "units": {"J": "E^-3", "Jprime": "E^-4", "Jsecond": "E^-5"},
+         "static_notes": [
+             "H(2+a) = H(2) + a V with V = diag(0, -lambda_R, lambda_J, lambda_J - lambda_R) "
+@@ -195,7 +199,9 @@
+             "Histories: lexicographic orders of edges (0,1),(1,2),(2,3),(3,0); S1 acts first.",
+         ],
+         "scope": (
+-            "native finite coefficient only; no calibration, physical state, speed or geometry"
++            "exact-r pure-flip reference coefficients only (square off-diagonal J and its "
++            "uniform-source derivatives), not full-parent validity; no calibration, "
++            "physical state, speed or geometry"
+         ),
+     }
+ 
+@@ -251,7 +257,10 @@
+       Jsecond E^-5.
+ 
+     Every argument is keyword-only and required; there are no defaults.
+-    Tolerances: ref_tol (|r2| <= ref_tol, r2 = epsilon_r - 2 lambda_R),
++    Tolerances: ref_tol (legacy admitted argument since V002, task 0390: validated
++    finite and >= 0, but it no longer restricts r2 = epsilon_r - 2 lambda_R, which
++    is reported only; exact-r basis: response_packet_audit/POPULATED_EXACT_R_LOCAL_
++    GROUND_DEFECT_HEX_AND_CONTACT_EXTENSION_PROPOSED_V001.md),
+     pos_tol (every used denominator and the local H(2) gap must exceed it),
+     herm_tol (max |H - H^dagger|), resid_tol (max |H U - U diag(w)| and
+     max |U^dagger U - I|), imag_tol (|Im X| <= imag_tol * max(1, |Re X|)).
+@@ -269,8 +278,8 @@
+     transforms use numpy.einsum(..., optimize=False); the 4x4 blocks use
+     numpy.linalg.eigh.
+ 
+-    Scope: native finite coefficient only; no calibration, physical state,
+-    speed or geometry.
++    Scope: exact-r pure-flip reference coefficients only, not full-parent
++    validity; no calibration, physical state, speed or geometry.
+     """
+     result = _new_result()
+     failures = result["failures"]
+@@ -344,8 +353,6 @@
+     result["delta"] = delta
+     if not (np.isfinite(r2) and np.isfinite(mu0) and np.isfinite(delta)):
+         failures.append("reference: r2, mu0 or delta is not finite")
+-    if not abs(r2) <= ref_tol:
+-        failures.append(f"reference: |r2| = {abs(r2)!r} exceeds ref_tol = {ref_tol!r}")
+     if not g > 0.0:
+         failures.append(f"reference: g = {g!r} is not > 0")
+     if kappa == 0:

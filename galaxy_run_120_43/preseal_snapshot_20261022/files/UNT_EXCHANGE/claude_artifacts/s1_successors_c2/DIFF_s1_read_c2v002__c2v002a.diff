@@ -1,0 +1,41 @@
+--- s1_read_c2v002.py	2026-10-19 12:50:47.684195084 -0500
++++ s1_read_c2v002a.py	2026-10-19 13:26:11.823920223 -0500
+@@ -1,12 +1,14 @@
+-"""S1 reading tool (s1_successors_c2, c2v002). Target-free: it reads DDO154 model speeds only.
++"""S1 reading tool (s1_successors_c2, c2v002a). Target-free: it reads DDO154 model speeds only.
+ 
+-Loads s1_path_lib_c2v002.py from this folder by its sha256 and refuses on any mismatch. Computes the registered
++Loads s1_path_lib_c2v002a.py from this folder by its sha256 and refuses on any mismatch. Computes the registered
+ statistic and reading (registration sections 5-8) from the two S1 results and the campaign's u_A result (K4'), reusing
+ the functions of a REVIEWED compare of record only (r11 a5d10cb1 or r14 f3f9ba7e; default r14). Prints the reading; with
+ --write-dir it writes S1_READING_<theta16>.json there by exclusive create. Starts no process.
+   --manifest P@S [--write-dir DIR]
+-Exit 0: a reading was computed (any code); 3: refused (an input is missing or does not bind, or an internal error;
+-nothing is written).
++c2v002a (BLK-1): the manifest's fill record is replayed first (u_A re-bound to the Phase-1 primary anchor, both specs
++replayed, the C3T slots re-looked up, branch / theta_key / physical_u_A and every consumed field re-derived).
++Exit 0: a reading was computed (any code); 3: refused (an input is missing or does not bind, including a fill record
++that does not replay, or an internal error; nothing is written).
+ """
+ import argparse
+ import hashlib
+@@ -16,8 +18,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-LIB = HERE / 's1_path_lib_c2v002.py'
+-LIB_SHA = 'e3ca4d80fee093456117a6fe3401861c8166f5015c9ad99e7b04feae7410bc1c'
++LIB = HERE / 's1_path_lib_c2v002a.py'
++LIB_SHA = 'f961839b2dd1ef27c6225badedcc199db3f6515776b5e7e5c08ecede3e769a9e'
+ 
+ 
+ def lib():
+@@ -25,7 +27,7 @@
+     if hashlib.sha256(raw).hexdigest() != LIB_SHA:
+         print(json.dumps({'refused': 'LIB_BYTES_CHANGED'}))
+         raise SystemExit(3)
+-    m = types.ModuleType('s1_path_lib_c2v002')
++    m = types.ModuleType('s1_path_lib_c2v002a')
+     m.__file__ = str(LIB)
+     exec(compile(raw, str(LIB), 'exec'), m.__dict__)
+     return m

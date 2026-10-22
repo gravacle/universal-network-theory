@@ -1,0 +1,230 @@
+{
+ "schema": "C3SA_MUSTFAIL_V003_V001",
+ "helper": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v017.py",
+  "sha256": "3c642d1a8be8bdac12d3472add602065c6d86cc47c7f3d96c297f534056a047b"
+ },
+ "runner": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/run_pinned_c3sa_c3v003.py",
+  "sha256": "2b040e94a2b74eae981485288471376b86be0784a0a50b59093312c4fd87bf73"
+ },
+ "v003_tools": {
+  "C": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/seal_common_c4v003.py",
+   "sha256": "101a3aeb9846a21c35993e8e7e4b50a8f1206ed4202b131afd12d7e496c5ab21"
+  },
+  "T1": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_frozen_addendum_c4v003.py",
+   "sha256": "a56f8d793750151920b1b47e77b46aebbfadea71fe77730f360beb02af788fb4"
+  },
+  "T2": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_sealed_compare_c4v003.py",
+   "sha256": "c2c5dfc5ddba1e44ff82811a38d4c05b0a669f2294b229efe3437623d596f9f1"
+  },
+  "T3": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_slot_fill_c4v003.py",
+   "sha256": "316973a1abf5aa2151dc1a517733d970ce1004313395d05fe590f82ed439b0af"
+  },
+  "T4": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/build_seal_record_c4v003.py",
+   "sha256": "de0ceb15ebfb95e04227730bd2785eb46af8cb5980012de91de98f34ea226b96"
+  },
+  "T5": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/print_driver_build_record_c4v003.py",
+   "sha256": "e5bedffe3c91650d5dba7fbd1ed5476e228158679d8959dfea0e2eff436ebdea"
+  }
+ },
+ "dry_run": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T013957Z",
+ "n_cases": 16,
+ "ALL_OK": true,
+ "pycache_prefix_entries": 0,
+ "results": [
+  {
+   "case": "F0",
+   "what": "control: tool 1 on r6, an exact FROZEN-named copy of the final V005, --expect-frozen-sha c01b3c51 (dry-run path allowance)",
+   "kind": "MUST_FAIL",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "codes": [],
+   "ok": true
+  },
+  {
+   "case": "F1",
+   "what": "MUST_FAIL (0643 R-01): a FROZEN copy whose bytes OUTSIDE every entry section differ (a preamble line), with --expect-frozen-sha c01b3c51",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "FROZEN_SHA_MISMATCH"
+   ],
+   "ok": true
+  },
+  {
+   "case": "F1r",
+   "what": "R-01 reproduction: the same copy WITHOUT --expect-frozen-sha (tool 1 compares entry sections only)",
+   "kind": "OBSERVATION",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "codes": [],
+   "ok": true
+  },
+  {
+   "case": "F2",
+   "what": "D-10: the exact copy, not at path_to_be, without the dry-run allowance",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "FROZEN_PATH_NOT_PATH_TO_BE"
+   ],
+   "ok": true
+  },
+  {
+   "case": "F3",
+   "what": "a FROZEN copy with an edit INSIDE the A100 entry section, with --expect-frozen-sha",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "FROZEN_SHA_MISMATCH",
+    "DISPOSITIONS_REQUIRED",
+    "ENTRY_TABLE_SECTION_CHANGED"
+   ],
+   "ok": true
+  },
+  {
+   "case": "S1",
+   "what": "control: the real v003 SELECTED file stores exactly the eight step-0 roles",
+   "kind": "MUST_FAIL",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "codes": [],
+   "ok": true
+  },
+  {
+   "case": "S2",
+   "what": "tool_3 role with another sha (the v001 tool 3)",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "SELECTED_ROLE_PAIR_MISMATCH 'tool_3_check_slot_fill': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_slot_fill_c4v003.py', 'sha256': '316"
+   ],
+   "ok": true
+  },
+  {
+   "case": "S3",
+   "what": "seal_common role given the v001 seal_common path and sha",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "SELECTED_ROLE_PAIR_MISMATCH 'seal_common': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/seal_common_c4v003.py', 'sha256': '101a3aeb9846a21c35"
+   ],
+   "ok": true
+  },
+  {
+   "case": "S4",
+   "what": "the v003 SELECTED file checked against r6's schema string",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "SELECTED_SCHEMA_MISMATCH 'UNT_V007_SELECTED_SEAL_TOOLS_C4V001' (want 'UNT_V007_SELECTED_PREREG_C4V001')"
+   ],
+   "ok": true
+  },
+  {
+   "case": "D1",
+   "what": "control: dry run 17's driver BUILD record (v003 tool 5 bytes, 25b4ff69)",
+   "kind": "MUST_FAIL",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "codes": [],
+   "ok": true
+  },
+  {
+   "case": "D2",
+   "what": "the same record re-serialized with indent 2 (not the tool 5 byte form)",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "DRIVER_BUILD_RECORD_NOT_THE_TOOL5_FORM (not byte-equal to builtin_r5_build() + check_record, indent 1, sorted keys)"
+   ],
+   "ok": true
+  },
+  {
+   "case": "D3",
+   "what": "the record with one extra key",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "DRIVER_BUILD_RECORD_NOT_THE_TOOL5_FORM (not byte-equal to builtin_r5_build() + check_record, indent 1, sorted keys)"
+   ],
+   "ok": true
+  },
+  {
+   "case": "D4",
+   "what": "the record checked against the other RI-36 candidate as check record",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "DRIVER_BUILD_RECORD_NOT_THE_TOOL5_FORM (not byte-equal to builtin_r5_build() + check_record, indent 1, sorted keys)"
+   ],
+   "ok": true
+  },
+  {
+   "case": "A1",
+   "what": "control: v003 tool 4 --check-admission-config on dry run 17's config and SEAL_RECORD",
+   "kind": "MUST_FAIL",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "codes": [],
+   "ok": true
+  },
+  {
+   "case": "A2",
+   "what": "v003 tool 4 admission: a 17-row config (+ the V006 writers)",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "ADMISSION_ALLOWLIST_COUNT_NOT_15",
+    "ADMISSION_ALLOWLIST_NOT_THE_SEAL_RECORD_ALLOWLIST",
+    "ADMISSION_ALLOWLIST_NOT_THE_BUILD_ALLOWLIST"
+   ],
+   "ok": true
+  },
+  {
+   "case": "A3",
+   "what": "v003 tool 4 admission: the config pins another SEAL_RECORD sha",
+   "kind": "MUST_FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "codes": [
+    "PIN_BYTES_MISMATCH",
+    "ADMISSION_CONFIG_SEAL_NOT_THE_RECORD"
+   ],
+   "ok": true
+  }
+ ]
+}

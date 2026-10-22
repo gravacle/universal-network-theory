@@ -1,0 +1,52 @@
+# Step-4 guarded packet:0616/0617/0620/0623
+
+date -u: Sun Oct 18 20:49:13 UTC 2026
+
+**TESTED build controls pass; ready for the assigned distinct review. No scientific launch or production admission is claimed.**
+
+Supported code: guardv005, launcherv005, binderv004 and direct-preflight adapterv001. Required before each scientific process: byte-verified sealed V007 ADOPT_TAIL, root admission/source review, exact driver allowlist, actual native adoption/PRELAUNCH/certificate/sensitivity checks, approved caps and memory/first-iteration ramp. All batches including DIII are post-adoption. No unguarded fallback. Core-priority attestation, persistent batch flock and worker-PID sleep assertion are included. The binder exclusively writes only after validation and serialization.
+
+The four UNBOUND templates retain Claude4's33 direct-run sources:11HEADLINE,4DIII,9SENS_LO,9SENS_HI. Final specs remain Claude4/root inputs. Null execution fields cause refusal. Campaign seed and unregistered post-calibration S1 are outside this direct packet. r5 is the production/new-DIII driver; v009geo is only the explicit tail-OFF reference.
+
+0623 is closed in the successor: use enabled=true, no invented mode field. Structural tests cover all29 actual tail-ON and4 tail-OFF Claude4 templates. Other closed candidate defects include parent-to-worker log handling, legitimate frozen-addendum filenames, non-finite/duplicate JSON, output aliases/nesting, and unnecessary campaign initialization. Older candidates remain unchanged.
+
+Validation:
+- Builder:40/40 admission/process-seam,21/21 binder/path/driver/lock,43/43 direct-adapter/actual-spec structural checks. Zero scientific processes.
+- Independent local review:185/185 template,35/35 guard/ramp,14/14 binder,11/11 source/AST/pin checks; no current blocking source finding. This is not the assigned cross-lane review.
+- Lead:178/178 template byte/roster checks and16/16 final-interface checks, including actual guard refusal of each UNBOUND batch.
+
+**UNTESTED:** actual production seal/adoption, scientific certificate/sensitivity proofs, macOS QoS/assertion behavior and scientific launch. Policy/adoption/certificate test adapters are synthetic; the direct-adapter test uses actual r5 normalization and unchanged extracted native prelaunch/A7 logic but stubs anchor registration. Root must supply and distinctly review the complete actual native closure. No synthetic test evidence is production authority. Empty tuple/null registry/obsolete sensitivity policy remains refusing.
+
+The direct adapter reuses native prelaunch methods with their audited state. It is not campaign admission. The full interface and runbook specify root steps. Failed candidates and superseded sources are preserved. BUILD_V007 remains Codex3's work; this packet modified no V007 supported file.
+
+All supported sources, templates and cited evidence, SHA256 from bytes:
+
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_cx1v005.py` — SHA256 `11a31edd2cbbb0adb6738360bacecc6363b5cada4f91c0cd976276fd72c7e2d8`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_launcher_cx1v005.py` — SHA256 `f9e4888dc8fc5c638581730651a7e19f0945fd7fa89a7f32391298f20dd0a66b`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_bind_cx1v004.py` — SHA256 `7f7add8545f95f4a3f0881dada86259911e8f43b0aa2073abeb186dff29613cd`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_direct_preflight_cx1v001.py` — SHA256 `eee61ac61ff93a11c97b9fdd3d6340661f17a92394653e524ac1cd8648d20fd1`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/IMPLEMENTATION_INTERFACE_CX1V001.md` — SHA256 `940f07e993c679ebb68224fba361a1a33ff0dff475b77d5fc35adbc705443ecd`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/IMPLEMENTATION_HASHES_CX1V001.txt` — SHA256 `db4522ce6f4b841ef1c3bb555e5ac1a7a0bcb068d1a8c559f88cadef414221d3`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/prepare_step4_templates_cx1v001.py` — SHA256 `0eaacf9a7011bdefaa0d4fab1d5ca14f2831ecfe0fef2775254b67bc0fe61680`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/prepare_step4_templates_cx1v002.py` — SHA256 `9b46546225f4f72cf2c85cb8d98df47b7eddd5285eb800efe8f4141cbdaab440`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v002/HEADLINE_PLAN_TEMPLATE_CX1V002.json` — SHA256 `127ecf4b37980724ab054699d2581ab93ef0a4a9b6f9ba3a7f971f4559ffe4a6`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v002/DIII_PLAN_TEMPLATE_CX1V002.json` — SHA256 `1fe321cc468ee7d7c0277ef674b38f3fa7e8864b84067b803f715edf50587311`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v002/SENS_LO_PLAN_TEMPLATE_CX1V002.json` — SHA256 `76d8e55c3118a9a7af762c85743ea6d8d96ad9f666311176585f67e47aa468da`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v002/SENS_HI_PLAN_TEMPLATE_CX1V002.json` — SHA256 `960b63f916d7ee4098cc338b9b0ba2b865a7c24bf87a85055369e6a9297e533b`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/SYNTH_V004/RESULTS.json` — SHA256 `39083f66537dffa050fe5ee458e858148e06e5b42daa5bb5055d8046f6be3e2e`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/EXTRA_V002/RESULTS.json` — SHA256 `150e4bb951b676c045674347af706cb37d48715635a02b5a10559cb85a096406`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/DIRECT_V002/RESULTS.json` — SHA256 `cb5e9487cdb5bece42088c07ad3fcc224f86ccd0ad38776230b1e6dbc535bfe5`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/INDEPENDENT_V002/RESULTS.json` — SHA256 `08c967574a8923c04a66e14384b21b8b5343b9b8545085191be812b79381be7a`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/BINDER_INDEPENDENT_V002/RESULTS.json` — SHA256 `f72405e0e088e071ea95ddee95d7cb4052fd980ed0918e8fb7d0d9709f6bed3b`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/TEMPLATE_REVIEW_CX1V001.json` — SHA256 `00850b4d89036f270146c72ca8972e068f9c0db268be053571fb59edc7e518ce`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/REVIEW_CX1V001.json` — SHA256 `b43c7e93c990fa7ec7959b4baaa731e6fa8d1067ab42035b7aafefec6b38088b`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v001/TEMPLATE_VERIFICATION_CX1V001.json` — SHA256 `e2799e2fca63939ad28745e0ceb3f905fd3d6310b9f22a03c27296b2e4e7eba1`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/templates_v002/TEMPLATE_VERIFICATION_CX1V002.json` — SHA256 `d664ea9c7367aaef915e18618ea87f65f9de273e29e54c2996e000231b80e473`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/RUNBOOK_CX1V001.md` — SHA256 `4d6107c782182d8ae816e15033fdab8b1ff35d0edcf160e3b1a030026d81659a`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/test_step4_cx1v004.py` — SHA256 `2578581e6b777f2fda4d1173452e855c61d4323b9c59bb68b0263a73270a49f5`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/test_step4_extra_cx1v002.py` — SHA256 `35db95303a3b55f6818c17d78641df51e22e71e8297b352e20e21d447d07ce91`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/tests/test_direct_adapter_cx1v002.py` — SHA256 `18b674cf3f6d1e3cc8f418ad87632c8d5872c27f79d8b58d6b72dd389c8919cc`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/test_independent_cx1v002.py` — SHA256 `2eaaf2be1d1fb3d225ab889a58014d080b56667a4a64acb6affdf5ca6c594975`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/test_binder_independent_cx1v002.py` — SHA256 `33619af3011700b2524b637262a688ed45047408627efb7f1a25edc06e502a1d`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/review/DESIGN_REVIEW_CX1V001.json` — SHA256 `7ae0ca02e8c5c22d379a12b40d42f9fd785f705cb4e582dae38ead2c9e557a92`
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/SUPPORTED_FILES_CX1V001.json` — SHA256 `2449eb1873c699e928ec724791e14938f777ef02d16ff8fa84688e43df7d0101`

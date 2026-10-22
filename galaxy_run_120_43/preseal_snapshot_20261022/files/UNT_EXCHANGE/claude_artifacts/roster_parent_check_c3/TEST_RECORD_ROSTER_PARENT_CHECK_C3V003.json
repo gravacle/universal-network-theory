@@ -1,0 +1,280 @@
+{
+ "base_sha256": "f710334b6f5ec2663fbebd826c7b326ebf7ff9eb600e751584de4f518a4e0b11",
+ "fixture_sha256": "7d3afc1f9cccd8dbc54036bbe9ebb151ede0cb850337e2c98bc4644e9933aeda",
+ "mutants": {
+  "M10_no_trailing_link_branch_refuses_valid": true,
+  "M1_no_exists_check_commits": true,
+  "M2_no_isdir_check_code_changes": true,
+  "M3_no_access_check_commits": true,
+  "M4_custody_not_covered_commits": true,
+  "M6_no_dot_default_refuses_relative_valid": true,
+  "M7_exists_check_on_raw_trailing_slash_commits": true,
+  "M8_lexical_parent_restored_commits": true,
+  "M9_no_unresolved_chain_check_commits_on_loop": true
+ },
+ "n": 51,
+ "passed": 51,
+ "python": "3.12.14",
+ "results": [
+  {
+   "detail": "",
+   "id": "C1_cli_no_args_identical_to_base",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "C2_cli_unknown_command_identical_to_base",
+   "pass": true
+  },
+  {
+   "detail": "(2, '', '{\"refused\": \"OUT_DIR_EXISTS\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7_cli/exists\"}\\n')",
+   "id": "C3_cli_wrapper_refuses_existing_out_dir_before_input_read",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "F0_fixture_base_is_pinned_f710334b",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_EXISTS\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_01_base_exists_in/out_exists\"}', ['STEP7_0001.json'])",
+   "id": "H1_step7_base_exists_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(1, '{\"internal_error\": \"FileNotFoundError\", \"detail\": \"[Errno 2] No such file or directory: \\'/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_02_base_parent_missing_in/no_such_parent/out\\'\"}', ['STEP7_0001.json'])",
+   "id": "H1_step7_base_parent_missing_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(1, '{\"internal_error\": \"NotADirectoryError\", \"detail\": \"[Errno 20] Not a directory: \\'/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_03_base_parent_file_in/parent_is_file/out\\'\"}', ['STEP7_0001.json'])",
+   "id": "H1_step7_base_parent_file_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(1, '{\"internal_error\": \"PermissionError\", \"detail\": \"[Errno 13] Permission denied: \\'/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_04_base_parent_readonly_in/readonly_parent/out\\'\"}', ['STEP7_0001.json'])",
+   "id": "H1_step7_base_parent_readonly_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NO_NEW_DISCREPANCY\", \"ledger_seq\": 1}\\n', '')",
+   "id": "V1_step7_base_valid",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_EXISTS\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_06_wrap_in/out_exists\"}', [], 0)",
+   "id": "W1_step7_wrapper_exists_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_06_wrap_in/no_such_parent/out\"}', [], 0)",
+   "id": "W1_step7_wrapper_parent_missing_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_06_wrap_in/parent_is_file/out\"}', [], 0)",
+   "id": "W1_step7_wrapper_parent_file_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_NOT_WRITABLE\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_06_wrap_in/readonly_parent/out\"}', [], 0)",
+   "id": "W1_step7_wrapper_parent_readonly_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NO_NEW_DISCREPANCY\", \"ledger_seq\": 1}\\n', '', ['STEP7_0001.json'])",
+   "id": "W2_step7_wrapper_valid_is_first_commit",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "W3_step7_out_equals_ledger_entry_bytes",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NO_NEW_DISCREPANCY\", \"ledger_seq\": 1}\\n', '')",
+   "id": "W4_step7_wrapper_relative_out_dir_valid",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NO_NEW_DISCREPANCY\", \"ledger_seq\": 1}\\n', '')",
+   "id": "W5_step7_wrapper_symlinked_parent_valid",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NO_NEW_DISCREPANCY\", \"ledger_seq\": 1}\\n', '')",
+   "id": "L1_step7_dotdot_after_symlink_actual_parent_valid",
+   "pass": true
+  },
+  {
+   "detail": "(1, '{\"internal_error\": \"FileNotFoundError\", \"detail\": \"[Errno 2] No such file or directory: \\'/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_12_h_L2_in/lexical/link/../only_lexical/out\\'\"}')",
+   "id": "H_L2_dotdot_after_symlink_lexical_only_parent_base_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(1, '{\"internal_error\": \"FileNotFoundError\", \"detail\": \"[Errno 2] No such file or directory: \\'/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_13_h_L3_in/nope/../out\\'\"}')",
+   "id": "H_L3_missing_intermediate_then_dotdot_base_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(1, '{\"internal_error\": \"FileNotFoundError\", \"detail\": \"[Errno 2] No such file or directory: \\'/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_14_h_L5_in/dang/\\'\"}')",
+   "id": "H_L5_dangling_symlink_trailing_slash_target_parent_missing_base_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(1, '{\"internal_error\": \"OSError\", \"detail\": \"[Errno 62] Too many levels of symbolic links: \\'/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_15_h_L7_in/loop/\\'\"}')",
+   "id": "H_L7_symlink_loop_with_trailing_slash_base_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_16_l_wrap_in/lexical/link/../only_lexical/out\"}', 0)",
+   "id": "L2_dotdot_after_symlink_lexical_only_parent_wrapper_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_16_l_wrap_in/nope/../out\"}', 0)",
+   "id": "L3_missing_intermediate_then_dotdot_wrapper_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_16_l_wrap_in/dang/\"}', 0)",
+   "id": "L5_dangling_symlink_trailing_slash_target_parent_missing_wrapper_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_EXISTS\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_s7_16_l_wrap_in/loop/\"}', 0)",
+   "id": "L7_symlink_loop_with_trailing_slash_wrapper_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NO_NEW_DISCREPANCY\", \"ledger_seq\": 1}\\n', '')",
+   "id": "L4_trailing_slash_valid_is_first_commit",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NO_NEW_DISCREPANCY\", \"ledger_seq\": 1}\\n', '')",
+   "id": "L6_step7_dangling_link_trailing_slash_target_parent_exists_valid",
+   "pass": true
+  },
+  {
+   "detail": "{'dang_rel_parent_exists': (None, 'OK', True), 'dang_rel_parent_missing': ('OUT_DIR_PARENT_MISSING', 'FileNotFoundError(2)', True), 'chain_dangling_end': (None, 'OK', True), 'loop_self': ('OUT_DIR_EXISTS', 'OSError(62)', True), 'loop_pair': ('OUT_DIR_EXISTS', 'OSError(62)', True), 'link_to_existing_dir': ('OUT_DIR_EXISTS', 'FileExistsError(17)', True), 'link_to_existing_file': ('OUT_DIR_EXISTS', '",
+   "id": "K1_preflight_equals_kernel_mkdir_on_14_shapes",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "D1_delegated_identical_no_args",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "D1_delegated_identical_unknown",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "D1_delegated_identical_step7_missing_out_dir",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "D1_delegated_identical_custody_extra_key",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "P1_real_loader_keeps_base_identity",
+   "pass": true
+  },
+  {
+   "detail": "{\"refused\": \"BASE_PIN\", \"detail\": \"ValueError: BASE_PIN_MISMATCH\"}\n",
+   "id": "P2_tampered_base_refused",
+   "pass": true
+  },
+  {
+   "detail": "{\"refused\": \"BASE_PIN\", \"detail\": \"OSError: [Errno 62] Too many levels of symbolic links: '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_pin_link/base_link.py'\"}\n",
+   "id": "P3_symlinked_base_refused",
+   "pass": true
+  },
+  {
+   "detail": "('UNCAUGHT:FileNotFoundError', '', ['STEP7_0001.json'])",
+   "id": "H2_custody_base_parent_missing_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "('UNCAUGHT:NotADirectoryError', '', ['STEP7_0001.json'])",
+   "id": "H2_custody_base_parent_file_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "('UNCAUGHT:PermissionError', '', ['STEP7_0001.json'])",
+   "id": "H2_custody_base_parent_readonly_commits_then_fails",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_EXISTS\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_cu_25_base_valid_in/out_exists\"}\\n')",
+   "id": "H3_custody_base_existing_out_dir_already_pre_checked",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NEW_UNEVALUATED\", \"ledger_seq\": 1}\\n', '')",
+   "id": "V2_custody_base_valid",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_EXISTS\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_cu_26_wrap_in/out_exists\"}', 0)",
+   "id": "W6_custody_wrapper_exists_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_cu_26_wrap_in/no_such_parent/out\"}', 0)",
+   "id": "W6_custody_wrapper_parent_missing_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_cu_26_wrap_in/parent_is_file/out\"}', 0)",
+   "id": "W6_custody_wrapper_parent_file_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_NOT_WRITABLE\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_cu_26_wrap_in/readonly_parent/out\"}', 0)",
+   "id": "W6_custody_wrapper_parent_readonly_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(2, '{\"refused\": \"OUT_DIR_PARENT_MISSING\", \"detail\": \"/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b7/t7/c3p7_cu_26_wrap_in/lexical/link/../only_lexical/out\"}', 0)",
+   "id": "L2c_custody_dotdot_lexical_only_parent_refused_pre_commit",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NEW_UNEVALUATED\", \"ledger_seq\": 1}\\n', '', ['STEP7_0001.json'])",
+   "id": "W7_custody_wrapper_valid_is_first_commit",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "W8_custody_out_equals_ledger_bytes",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NEW_UNEVALUATED\", \"ledger_seq\": 1}\\n', '')",
+   "id": "L1c_custody_dotdot_actual_parent_valid",
+   "pass": true
+  },
+  {
+   "detail": "(0, '{\"status\": \"NEW_UNEVALUATED\", \"ledger_seq\": 1}\\n', '')",
+   "id": "L6c_custody_dangling_link_trailing_slash_valid",
+   "pass": true
+  },
+  {
+   "detail": "{'M1_no_exists_check_commits': True, 'M2_no_isdir_check_code_changes': True, 'M3_no_access_check_commits': True, 'M4_custody_not_covered_commits': True, 'M6_no_dot_default_refuses_relative_valid': True, 'M7_exists_check_on_raw_trailing_slash_commits': True, 'M8_lexical_parent_restored_commits': True, 'M9_no_unresolved_chain_check_commits_on_loop': True, 'M10_no_trailing_link_branch_refuses_valid':",
+   "id": "all_mutants_killed",
+   "pass": true
+  }
+ ],
+ "schema": "TEST_ROSTER_PARENT_CHECK_C3V007",
+ "wrapper": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/roster_parent_check_c3/roster_builder_parent_check_c3v003.py",
+  "sha256": "ea1a40fa43d69a9cfda20099cb37be0e53e5933808869a7ebe995f7f62652610"
+ }
+}

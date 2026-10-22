@@ -1,0 +1,39 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Producer IO utility tested; full acceptance execution still untested",
+  "utc": "2026-10-21T13:29:44.361099+00:00",
+  "tested": [
+    "exclusive_output_scope_cx1v002: 8 inert utility checks pass: snapshot read once, read-before-close refusal, closed output readback, nonexclusive/overwrite/outside file/outside directory refusal, globals restored. Not a security boundary."
+  ],
+  "untested": [
+    "Real producer IO audit and execution",
+    "Concurrent filesystem races",
+    "Root runtime/register/envelope binding",
+    "Wait/cache/entry and whole-engine replay"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/exclusive_output_scope_cx1v002.py",
+      "sha256": "c4c550e0320db4ec30c09964a8b975fa7a5d65a1d042481b7df208278bbd6250"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_exclusive_output_scope_cx1v001.py",
+      "sha256": "e95dc66e9624e50ba03adf91ee532d4817136bc470968171fdacf30e0e5429b0"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/outputscope_9jkfv92k/TEST_REPORT.json",
+      "sha256": "4834185399673e527ae4c621f796fc876938e21e00e38b0d92eb715f9c4e579d"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 185,
+  "no_live_processes": true,
+  "next": "Audit all actual producer dependency read/write/loading APIs before ExclusiveOutputScope use. It handles module Path/open/json and load_pinned_module only; os/io/numpy path access and load_pinned need explicit coverage. Producer outputs need declared roots including records/tailstates/replay inputs. Still no end-to-end acceptance.",
+  "draft_note": "Scope v001 retained, not selected: source review found Path.read_bytes/read_text bypassed its open-output check. v002 routes those through read_open; tested. No actual producer invocation."
+}

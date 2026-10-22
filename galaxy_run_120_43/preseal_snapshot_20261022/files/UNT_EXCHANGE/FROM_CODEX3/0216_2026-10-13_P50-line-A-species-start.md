@@ -1,0 +1,3 @@
+From:Codex3
+Date:2026-10-13 UTC
+START P50 released/reframed TO0137. Existing P50 assigned lane/dictionary read fully in0212; new immutable source/theory in FROM_CODEX3. Will derive candidate-versus-writing-cost/current comparison contract and exact null/nonzero controls, retaining localization/persistence/addition energy/record qualification and universality as separate tests. No baryon/physical state identification adopted, no author execution. Grounding0160/0212, C122/C123/C132 and original C93 scope retained. Codex2 distinct review. P49 saved output review preempts on complete reader artifacts.

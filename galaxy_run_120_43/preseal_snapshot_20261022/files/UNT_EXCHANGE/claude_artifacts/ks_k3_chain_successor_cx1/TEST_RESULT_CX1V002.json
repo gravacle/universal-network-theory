@@ -1,0 +1,125 @@
+{
+  "verdict": "PASS",
+  "blocking_count": 0,
+  "AST": {
+    "common_other_nodes_identical": true,
+    "assembler_only_A241_function_and_pin_changes": true,
+    "existing_pins_identical": true,
+    "exactly_three_new_keys": true,
+    "non_s1_tuple_identical": true,
+    "common_pin_correct": true
+  },
+  "policy_cases": [
+    {
+      "id": "six_pass",
+      "PASS": true,
+      "blockers": []
+    },
+    {
+      "id": "three_compatibility_pass",
+      "PASS": true,
+      "blockers": []
+    },
+    {
+      "id": "seventh_row_refused",
+      "PASS": true,
+      "blockers": [
+        "C1_APPROVED_PRODUCER_NOT_CANONICAL: {'path': '/private/tmp/cx1_0794_k1wx6ygo/row_source.txt', 'sha256': '88c9884f099a5c6c4e37ab70e089e6fe73fadb9bc856eaf7c10e31eab132889c'}"
+      ]
+    },
+    {
+      "id": "aliased_producer_path_refused",
+      "PASS": true,
+      "blockers": [
+        "C1_APPROVED_PRODUCER_NOT_CANONICAL: {'path': '/private/tmp/cx1_0794_k1wx6ygo/./producer_32.txt', 'sha256': '5b0ddd1a83f2bb946e0beb1ab1d02f167a91641493a20f6c08dcab2769b0c486'}"
+      ]
+    },
+    {
+      "id": "ok_integer_one_refused",
+      "PASS": true,
+      "blockers": [
+        "evidence is not TESTED ok"
+      ]
+    },
+    {
+      "id": "review_other_order_refused",
+      "PASS": true,
+      "blockers": [
+        "binding mismatch: approved_certificate_producers"
+      ]
+    },
+    {
+      "id": "non_s1_original_three_pass",
+      "PASS": true,
+      "blockers": []
+    },
+    {
+      "id": "non_s1_rejects_s1_additions",
+      "PASS": true,
+      "blockers": [
+        "C1_APPROVED_PRODUCER_NOT_CANONICAL: {'path': '/private/tmp/cx1_0794_k1wx6ygo/producer_30.txt', 'sha256': '328b2554e5d1fb704cd569dc6e2d305d289e04c7e8120ef8a313366f4bd9f7fa'}",
+        "C1_APPROVED_PRODUCER_NOT_CANONICAL: {'path': '/private/tmp/cx1_0794_k1wx6ygo/producer_31.txt', 'sha256': '8407df5c5f94f912d3aa2fbade39a5b40575d99af90edc4f49e01f00ada8efd4'}",
+        "C1_APPROVED_PRODUCER_NOT_CANONICAL: {'path': '/private/tmp/cx1_0794_k1wx6ygo/producer_32.txt', 'sha256': '5b0ddd1a83f2bb946e0beb1ab1d02f167a91641493a20f6c08dcab2769b0c486'}"
+      ]
+    }
+  ],
+  "mutations": [
+    {
+      "id": "restore_three",
+      "killed": true
+    },
+    {
+      "id": "approve_seventh",
+      "killed": true
+    },
+    {
+      "id": "weaken_ok_to_equal",
+      "killed": true
+    },
+    {
+      "id": "omit_canonical_membership",
+      "killed": true
+    },
+    {
+      "id": "omit_review_binding",
+      "killed": true
+    },
+    {
+      "id": "restore_double_read",
+      "killed": true
+    }
+  ],
+  "single_read": {
+    "id": "audit_single_read_MUST_PASS",
+    "PASS": true,
+    "counts": {
+      "/private/tmp/cx1_0794_k1wx6ygo/c1_9.json": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/registry.json": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_19.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_28.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_26.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_24.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_27.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_30.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_31.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/producer_32.txt": 1,
+      "/private/tmp/cx1_0794_k1wx6ygo/review_9.json": 1
+    },
+    "review_pin": {
+      "path": "/private/tmp/cx1_0794_k1wx6ygo/review_9.json",
+      "sha256": "38756d50feb0bd778290b21bfd2e998d6ae1281950ecf17690064e36bf4bd84a"
+    },
+    "observed_review_opens": 1,
+    "scope": "Full successor c1_policy_gate, real common read_bytes/read_json on inert files. No I/O stubs; canonical PINS test-only inert paths. Each open performs one f.read in common.",
+    "reason": "A241: review excluded from preliminary pin loop and parsed directly from its hash-validated byte buffer."
+  },
+  "fixture_root": "/private/tmp/cx1_0794_k1wx6ygo",
+  "UNTESTED": [
+    "full registry verify, published large suites, real S1 acceptance/admission and scientific runs"
+  ],
+  "blocker": null,
+  "closes": [
+    "CX1-KS-SR-01"
+  ],
+  "single_read_limit": "Exactly one review read per policy gate invocation; not a whole verify-command unique-input claim."
+}

@@ -1,0 +1,122 @@
+--- s1_path_lib_c2v002.py	2026-10-19 12:50:47.680758634 -0500
++++ s1_path_lib_c2v002a.py	2026-10-19 13:26:11.821464005 -0500
+@@ -9,6 +9,16 @@
+ successors guard012 / launcher013 (overlap admission) and the S1-only kept-K-3 wrapper successor (control 3 for
+ S1_UA_C3T).
+ 
++c2v002a (successor of c2v002 e3ca4d80; fixes the c2v002 verifier's BLK-1, see README_S1_SUCCESSORS_C2V001A.md): the
++fill record is never taken as given. replay_specs re-binds u_A to the Phase-1 primary anchor (B2), replays both spec
++byte strings, re-looks up the C3T slots and re-derives the record's derived fields (theta_key, theta, physical_u_A,
++branch, base_point_key, static_pins, and each case's k, cb_case, label, changed_paths, sha256, point_key and spec pin);
++any difference refuses. Not re-derived, by name: module, module_sha256, blockers, notes and each case's two
++validate_block strings (no decision reads them). read_reading now runs that replay before it
++reads anything, so guard_replay (guard012), the launch path and the reader all refuse the same edited record. make_plan
++is unchanged (it does not replay; a plan written from an edited record is refused at launch and by guard012). Record
++formats and schemas are unchanged.
++
+ Three parts, each called by its own CLI wrapper (which loads this file by its sha256):
+   fill / dry-plan / plan   the S1 template: the two S1 call specs from the u_A theta bits and the campaign's own
+                            u_A call spec (the registered call spec, CHOICE C4), then one POST_S1 plan per call.
+@@ -33,7 +43,7 @@
+ import types
+ from pathlib import Path
+ 
+-MODULE = 's1_path_lib_c2v002'
++MODULE = 's1_path_lib_c2v002a'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts'
+ CTRL = '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2'
+ SUCC = ART + '/s1_successors_c2'
+@@ -763,7 +773,10 @@
+ 
+ def replay_specs(fill_rec):
+     """Re-derive both S1 spec byte strings from the fill record's own pinned inputs (template replay). The C3T
+-    certificate slots are looked up again in the pinned registry (note 10), never read back from the spec."""
++    certificate slots are looked up again in the pinned registry (note 10), never read back from the spec.
++    BLK-1 (c2v002a): u_A is re-bound to the Phase-1 snapshot's primary anchor (check_theta, B2), and every derived field
++    of the record is re-derived and compared (check_fill_derived), so guard_replay, the launch path and the reader all
++    refuse an edited record. Returns ({case: spec bytes}, static inputs)."""
+     require(isinstance(fill_rec, dict) and fill_rec.get('schema') == SCHEMA_FILL and fill_rec.get('dry') is False,
+             'FILL_RECORD_NOT_WRITTEN_FILL')
+     st = load_static()
+@@ -772,17 +785,61 @@
+     require(key == fill_rec['theta_key'], 'FILL_RECORD_THETA_KEY')
+     require(udoc.get('phase1_snapshot') == fill_rec.get('phase1_snapshot'), 'FILL_RECORD_PHASE1_SNAPSHOT')
+     base = strict_json(verify_pin(fill_rec['base_spec'], 'BASE_SPEC'))
++    require(isinstance(base, dict), 'BASE_SPEC_OBJECT')
+     cfg = pinned_json(fill_rec['campaign_config'], 'CAMPAIGN_CONFIG')
+-    check_base(base, fill_rec['base_spec']['sha256'], theta, key, cfg['numerics']['block'], st)
++    cfg_block = (cfg.get('numerics') or {}).get('block')
++    require(isinstance(cfg_block, dict), 'CAMPAIGN_CONFIG_NUMERICS_BLOCK')
++    check_base(base, fill_rec['base_spec']['sha256'], theta, key, cfg_block, st)
+     pending, _, _ = build_case(base, fill_rec['base_spec']['sha256'], key, S1_C3T, st, None)
+     certs = c3t_slots_from_registry(fill_rec.get('c3t_registry'), pending)
+-    out = {}
++    out, built = {}, {}
+     for case in S1_CASES:
+-        _, raw, _ = build_case(base, fill_rec['base_spec']['sha256'], key, case, st, certs if case == S1_C3T else None)
++        s, raw, changed = build_case(base, fill_rec['base_spec']['sha256'], key, case, st, certs if case == S1_C3T else None)
+         out[case] = raw
++        built[case] = (s, changed)
++    check_fill_derived(fill_rec, theta, base, st, out, built)
+     return out, st
+ 
+ 
++FILL_FIELDS_NOT_REPLAYED = ('module', 'module_sha256', 'blockers', 'notes')
++CASE_FIELDS_NOT_REPLAYED = ('as_built_core_validate_block', 'successor_validate_spec_block')
++
++
++def _same(a, b):
++    return canonical(a) == canonical(b)
++
++
++def check_fill_derived(fill_rec, theta, base, st, replay, built):
++    """BLK-1: each derived fill-record field equals its value re-derived from the template's pinned inputs: branch =
++    branch_record(theta, static, physical) as fill computes it, theta, physical_u_A, base_point_key, static_pins, and per
++    case the spec pin (sha = the replayed bytes), k, cb_case, label, changed_paths, sha256 and point_key. The launch path
++    records branch and theta_key; the reader uses branch (the A150 Phase-2 gate), theta_key, physical_u_A (SV3) and the
++    spec pins (SV0 / SV3). Compared as canonical JSON, so floats compare bitwise (the record's floats round-trip
++    exactly). theta_key and phase1_snapshot are checked by replay_specs before this. Not re-derived (named):
++    FILL_FIELDS_NOT_REPLAYED (producer custody, fill-time information) and CASE_FIELDS_NOT_REPLAYED (make_plan's sidecar
++    and guard012's controls compute their own validate_block results); no decision reads them."""
++    phys = {k: base['physical'][k] for k in MAPPED_LEAVES}
++    want = {'branch': branch_record(theta, st, phys),
++            'theta': {k: {'value': v, 'hex': fhex(v)} for k, v in sorted(theta.items())},
++            'physical_u_A': {k: {'value': v, 'hex': fhex(v)} for k, v in base['physical'].items()},
++            'base_point_key': digest(point_identity(base)),
++            'static_pins': {k: const_pin(k) for k in ('P5', 'CB', 'COORD', 'WRAPPER_S1K3')}}
++    for field, v in want.items():
++        require(field in fill_rec and _same(fill_rec[field], v), 'FILL_RECORD_%s_NOT_REPLAYED' % field.upper())
++    cases = fill_rec.get('cases')
++    require(isinstance(cases, dict) and sorted(cases) == sorted(S1_CASES), 'FILL_RECORD_CASES_NOT_REPLAYED')
++    for case in S1_CASES:
++        e = cases[case]
++        require(isinstance(e, dict) and is_pin(e.get('spec')) and e['spec']['sha256'] == sha256_bytes(replay[case]),
++                'S1_TEMPLATE_REPLAY_MISMATCH', case)
++        s, changed = built[case]
++        wc = {'k': CASE_K[case], 'cb_case': CASE_CB[case], 'label': s['label'], 'changed_paths': changed,
++              'sha256': sha256_bytes(replay[case]), 'point_key': digest(point_identity(s))}
++        for f, v in wc.items():
++            require(f in e and _same(e[f], v), 'FILL_RECORD_CASE_FIELD_NOT_REPLAYED', '%s.%s' % (case, f))
++    return True
++
++
+ CP1_PENDING_SLOT = 'PENDING_UV_TAIL_CERTIFICATE'          # core dc895f8a L29 PENDING; the CP-1 dry-plan spec form
+ 
+ 
+@@ -1486,10 +1543,14 @@
+         return _finish(out, 'NOT_RUN', man['u_A_status'], None, write_dir)
+     fill_rec = pinned_json(man.get('fill_record'), 'FILL_RECORD')
+     require(fill_rec.get('schema') == SCHEMA_FILL and fill_rec.get('dry') is False, 'FILL_RECORD_NOT_WRITTEN_FILL')
++    # BLK-1 (c2v002a): the manifest's fill record is replayed before anything is read from it: u_A re-bound to the
++    # Phase-1 primary anchor (B2), both spec byte strings replayed, the C3T slots re-looked up, and branch, theta_key,
++    # physical_u_A and every other consumed field re-derived (replay_specs / check_fill_derived). An edited record refuses.
++    _, st = replay_specs(fill_rec)
+     branch = fill_rec['branch']['branch']
+     out.update(fill_record=man['fill_record'], theta_key=fill_rec['theta_key'], branch=fill_rec['branch'],
+-               specs={c: fill_rec['cases'][c]['spec'] for c in S1_CASES}, k4_prime_spec=fill_rec['base_spec'])
+-    st = load_static()
++               specs={c: fill_rec['cases'][c]['spec'] for c in S1_CASES}, k4_prime_spec=fill_rec['base_spec'],
++               fill_record_replayed=True)
+     cref = man.get('compare') or const_pin('COMPARE_R14')
+     R = load_compare(cref)
+     V5 = load_source_module(const_pin('COMPARE_V005'), '_s1_compare_v005', 'COMPARE_V005')

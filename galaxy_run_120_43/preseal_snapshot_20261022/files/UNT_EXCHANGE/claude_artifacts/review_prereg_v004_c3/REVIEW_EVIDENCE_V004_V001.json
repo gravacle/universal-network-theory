@@ -1,0 +1,316 @@
+{
+ "utc": "2026-10-17T16:47:04+00:00",
+ "hashes": {
+  "claude_artifacts/kmax_prereg_v004_c2/KMAX_MATRIX_PREREG_V004.json": "51c9aa6cd997c5cc58b7b814601b27d153952a6cd87368035c985ebab4232136",
+  "claude_artifacts/kmax_prereg_v004_c2/kmax_compare_c2v004.py": "30d82566d0ddf56b0c7ad98fc1186679dc7704c318c03b9352c81fbbc96acf60",
+  "claude_artifacts/kmax_prereg_v004_c2/SEAL_RECORD_V004.json": "67c0058c87811ab1fcd8ff4226a0d4a1f76f40dad210993181f1ebdd7ff3895a",
+  "claude_artifacts/kmax_prereg_v003_c2/KMAX_MATRIX_PREREG_V003.json": "8e36b64355f75a49a40c15f3e842f089740aae94547d66a709033bd9d66cddab",
+  "claude_artifacts/ngc_route_impl_c2/binding/galaxy_m0_forward_c2v005.py": "2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f"
+ },
+ "v003_to_v004_diff_paths": [
+  [
+   "/driver_amendment_v004",
+   "ADDED"
+  ],
+  [
+   "/schema",
+   "CHANGED"
+  ],
+  [
+   "/supersedes/erratum",
+   "ADDED"
+  ],
+  [
+   "/supersedes/path",
+   "CHANGED"
+  ],
+  [
+   "/supersedes/sha256",
+   "CHANGED"
+  ]
+ ],
+ "supersedes_sha_matches_v003_bytes": true,
+ "compare_script_changed_lines": [
+  "-Supersedes kmax_compare_c2v001.py (925b7010...).  Applies KMAX_MATRIX_PREREG_V003.json (sha pinned",
+  "+Supersedes kmax_compare_c2v001.py (925b7010...).  Applies KMAX_MATRIX_PREREG_V004.json (sha pinned",
+  "-  python3 -I -B kmax_compare_c2v002.py --prereg KMAX_MATRIX_PREREG_V003.json \\",
+  "+  python3 -I -B kmax_compare_c2v002.py --prereg KMAX_MATRIX_PREREG_V004.json \\",
+  "-PREREG_SHA256 = '8e36b64355f75a49a40c15f3e842f089740aae94547d66a709033bd9d66cddab'",
+  "+PREREG_SHA256 = '51c9aa6cd997c5cc58b7b814601b27d153952a6cd87368035c985ebab4232136'"
+ ],
+ "compare_pinned_sha_line": [
+  "PREREG_SHA256 = '51c9aa6cd997c5cc58b7b814601b27d153952a6cd87368035c985ebab4232136'"
+ ],
+ "compare_driver_gate_lines": [
+  [
+   203,
+   "sha2drv = {v: k for k, v in drivers.items()}"
+  ],
+  [
+   240,
+   "drv = sha2drv.get(a['driver_sha256'])"
+  ],
+  [
+   241,
+   "driver_ok = drv in c['drivers_allowed']"
+  ],
+  [
+   243,
+   "mism.append('driver %s not in %s' % (drv or a['driver_sha256'], c['drivers_allowed']))"
+  ]
+ ],
+ "binding_inputs_drivers": {
+  "v001": "75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22",
+  "v003": "b052e3ae43fcf8782cc9cca99dec2cdc8f7fcbf479af7b92738feb196c00033b"
+ },
+ "drivers_allowed_by_case": {
+  "C4": [
+   "v003"
+  ],
+  "S4": [
+   "v003"
+  ],
+  "Y4": [
+   "v003"
+  ],
+  "C3": [
+   "v003"
+  ],
+  "S3": [
+   "v003"
+  ],
+  "Y3": [
+   "v003"
+  ],
+  "C2": [
+   "v001",
+   "v003"
+  ],
+  "S2": [
+   "v001",
+   "v003"
+  ],
+  "Y2": [
+   "v001",
+   "v003"
+  ],
+  "R": [
+   "v003"
+  ]
+ },
+ "v005_driver_sha": "2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f",
+ "v005_in_binding_inputs_drivers": false,
+ "v005_label_in_any_drivers_allowed": false,
+ "decision_rule": [
+  "1. Any registered case invalid or missing -> INCOMPLETE (name each case and failed gate, with that gate's pre-named next step; no threshold or rule change).",
+  "2. Dhat_R > 1 -> INNER_UNRESOLVED (next step: raise inner panel orders on the adopted grid; needs a reviewed prep successor with node budget >= 116 and its own review).",
+  "3. No shape passes -> NOT_CONVERGED (next step: extend the shape with the smallest Dhat_A(3,4) to 5 and 6 /kpc with the same order-6 unit outer panels, 108/120 nodes per axis; needs a prep successor with node budget >= 120 and a per-call cap >= 6 GiB, under separate review).",
+  "4. Two or more shapes pass but some passing pair differs at K=4 by more than 2*tau_i on any row -> NOT_CONVERGED (SHAPE_DISAGREEMENT; same next step, shape with the smallest Dhat_A(3,4) among the passing shapes).",
+  "5. Otherwise ADOPT A*: let m = the m4_statistic of each passing shape at K=4. If any passing shape's m is null, candidates = all passing shapes. Else candidates = passing shapes with m <= 1.10 * min m. A* = the candidate with the smallest Dhat_A(3,4); exact ties go to the registered order cube, sphere, cylinder. Adopted at k_max = 4 /kpc on grid G4.",
+  "6. Carried numerical uncertainty per row: u_i = |v_i(A*,4) - v_i(A*,3)| + |v_i(R) - v_i(C2)| + max over passing shapes A of |v_i(A,4) - v_i(A*,4)| km/s, reported with the adoption (with u_i/tau_i and u_i/sigma_i)."
+ ],
+ "gate_V1": "Read the case's status and reasons. (i) monitor stop (wall/RSS/output cap): rerun the same spec in a fresh outdir with the cap raised under a separate approval; (ii) FAILED_AT_STAGE with a bracket miss in a column pass: the D7 recovery; (iii) BLOCKED ROUTE_A_ITERATION_NOT_4 or ROUTE_A_NOT_CONVERGED_AT_ITERATION_4 (deterministic): the matrix stops as BLOCKED_ROUTE_A at that grid; next step is a reviewed route-B successor that accepts the converged route-A iteration, under separate review; (iv) BLOCKED on admission (seed/identity): regenerate the admitted spec from the cube outdir under the cube's driver and rerun; (v) any other FAILED or REFUSED: one rerun of the same spec; a second identical failure is reported as a deterministic defect for review.",
+ "P6_declared_recovery": "On a bracket miss (FAILED_AT_STAGE in a column pass: bracket failure or 'no bracket source'): (1) widen only the missed columns' entries in the rule override block, recorded with the failed call's column enthalpies as evidence; (2) write a corrected base spec = anchor base spec with that one block changed; (3) rerun the failed call admitting its OWN route-A checkpoint, reference and body (admission checks parameters, not brackets); (4) regenerate EVERY case with --base-spec <corrected base spec> so the brackets block stays identical across cases (completed cases are rerun admitting their own prefixes). The corrected block, its sha and the reason are passed to the comparison with --bracket-recovery and recorded in the report. No threshold or rule changes.",
+ "shape_pass": "Pass(A) iff cases (A,2),(A,3),(A,4) are valid AND Dhat_A(3,4) <= 1 AND Dhat_A(3,4) <= 0.5 * Dhat_A(2,3). With contraction ratio q <= 1/2 the geometric tail Dhat34*q/(1-q) <= Dhat34 <= 1, i.e. each row's remaining tail is at most tau_i; no tail is adopted.",
+ "status_text": "PREREGISTERED_BEFORE_ANY_ANCHOR_RESULT. Sealed (SEAL_RECORD.json) while the C2 case (A2_ANCHOR_F10_RUN_V001) is still running and before any other case is launched. Thresholds, gates and the decision rule are fixed here and must not change after any result exists; a change is a new version with its reason recorded.",
+ "driver_amendment_v004": {
+  "reason": "Under driver v003 the route-B stages accept only route-A iteration 4; KMAX_A2F10_C3_RUN_V001 route A converged at iteration 5 and was BLOCKED (tooling limit, not a model outcome). Sphere/cylinder G2 cases S2/Y2 failed MASS_ENTHALPY_NOT_BRACKETED in fs columns (bracket precondition P6 TESTED-NEGATIVE for those shapes under the inherited rule) - registered results.",
+  "rule": "Gate V3 amended: cases on grids >80 nodes/axis (C3, C4, R) run under driver v005 (galaxy-parameterized stages; 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f), admissible only if the v005 DDO deciding reproduction (REPRO_PINNED_ADMIT_PREFIX under v005, verdict PASS_BITWISE_EQUAL) passes; C2 remains A2_ANCHOR_F10_RUN_V001 (v001). All thresholds, criteria, tau_i and decision order unchanged. Shapes sphere/cylinder are recorded BRACKET_PRECONDITION_FAILED at G2; the matrix proceeds with the cube shape; the prereg already allows a single passing shape."
+ },
+ "v003_runs": {
+  "C3": {
+   "launch_utc": "2026-10-17T15:45:33Z",
+   "driver_sha8": "b052e3ae",
+   "finish": {
+    "status": "BLOCKED",
+    "valid": false,
+    "result_path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3_RUN_V001/result.json",
+    "result_sha256": "c205b184082f01fb781316cff81d1960cea34eb25e2107ce8ca127b437ddc58a",
+    "elapsed_seconds": 3093.210284999921,
+    "reasons": [
+     "ROUTE_A_NOT_CONVERGED_AT_ITERATION_4 (route-B stages accept only that record)"
+    ],
+    "retries": 0,
+    "partial_outputs_preserved": true
+   },
+   "finish_mtime_utc": "2026-10-17T16:37:06+00:00",
+   "receipt_exists": true,
+   "monitor_log_bytes": 428,
+   "route_a_last_progress": {
+    "stage": "iteration_completed",
+    "iteration": 5,
+    "column_index": null,
+    "gas_fourier_residual_J": 2.147351786742464e+56,
+    "bound_J": 2.9218935613759684e+56,
+    "elapsed_seconds": 2361.5637898340356
+   }
+  },
+  "C4": {
+   "launch_utc": "2026-10-17T15:45:33Z",
+   "driver_sha8": "b052e3ae",
+   "finish": null,
+   "finish_mtime_utc": null,
+   "receipt_exists": false,
+   "monitor_log_bytes": 0,
+   "route_a_last_progress": {
+    "stage": "column_completed",
+    "iteration": 5,
+    "column_index": 575,
+    "gas_fourier_residual_J": null,
+    "bound_J": null,
+    "elapsed_seconds": 3201.076161083067
+   }
+  },
+  "R": {
+   "launch_utc": "2026-10-17T15:45:33Z",
+   "driver_sha8": "b052e3ae",
+   "finish": null,
+   "finish_mtime_utc": null,
+   "receipt_exists": false,
+   "monitor_log_bytes": 0,
+   "route_a_last_progress": {
+    "stage": "iteration_completed",
+    "iteration": 4,
+    "column_index": null,
+    "gas_fourier_residual_J": 3.2272989215312386e+56,
+    "bound_J": 4.129505740578064e+56,
+    "elapsed_seconds": 2621.173210875015
+   }
+  },
+  "S2": {
+   "launch_utc": "2026-10-17T15:45:33Z",
+   "driver_sha8": "75b0c08a",
+   "finish": {
+    "status": "FAILED_AT_STAGE",
+    "valid": false,
+    "result_path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S2_RUN_V001/result.json",
+    "result_sha256": "dff4720e3a39e5dbcd6505b0de6d33cf33556b7e4e676488d92a5d48cdbf1de5",
+    "elapsed_seconds": 697.9772690410027,
+    "reasons": [
+     "stage(s) exited nonzero: ['fs_rotation']"
+    ],
+    "retries": 0,
+    "partial_outputs_preserved": true
+   },
+   "finish_mtime_utc": "2026-10-17T15:57:11+00:00",
+   "receipt_exists": true,
+   "monitor_log_bytes": 436,
+   "fs_column_failure_files": 6,
+   "MASS_ENTHALPY_NOT_BRACKETED_files": 6,
+   "fs_rotation_last_stderr": "ValueError: Missing complete72 successful columns"
+  },
+  "Y2": {
+   "launch_utc": "2026-10-17T15:45:33Z",
+   "driver_sha8": "75b0c08a",
+   "finish": {
+    "status": "FAILED_AT_STAGE",
+    "valid": false,
+    "result_path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y2_RUN_V001/result.json",
+    "result_sha256": "3c949c4c642546f3a04865490fb599f901fd1d006c36991c8974b40a55b7ac08",
+    "elapsed_seconds": 701.9084944999777,
+    "reasons": [
+     "stage(s) exited nonzero: ['fs_rotation']"
+    ],
+    "retries": 0,
+    "partial_outputs_preserved": true
+   },
+   "finish_mtime_utc": "2026-10-17T15:57:15+00:00",
+   "receipt_exists": true,
+   "monitor_log_bytes": 436,
+   "fs_column_failure_files": 1,
+   "MASS_ENTHALPY_NOT_BRACKETED_files": 1,
+   "fs_rotation_last_stderr": "ValueError: Missing complete72 successful columns"
+  }
+ },
+ "v005_runs": {
+  "KMAX_A2F10_C3_V005_RUN_V001": {
+   "launch_utc": "2026-10-17T16:39:59Z",
+   "driver_sha8": "2aef51c4",
+   "spec": "CALL_KMAX_C3_A2F10_C2V003.json",
+   "start_mtime_utc": "2026-10-17T16:39:59+00:00",
+   "result_exists": false,
+   "finish_exists": false,
+   "stages": [
+    "01_route_a"
+   ]
+  },
+  "KMAX_A2F10_C4_V005_RUN_V001": {
+   "launch_utc": "2026-10-17T16:39:59Z",
+   "driver_sha8": "2aef51c4",
+   "spec": "CALL_KMAX_C4_A2F10_C2V003.json",
+   "start_mtime_utc": "2026-10-17T16:39:59+00:00",
+   "result_exists": false,
+   "finish_exists": false,
+   "stages": [
+    "01_route_a"
+   ]
+  },
+  "KMAX_A2F10_R_V005_RUN_V001": {
+   "launch_utc": "2026-10-17T16:39:59Z",
+   "driver_sha8": "2aef51c4",
+   "spec": "CALL_KMAX_R_A2F10_C2V003.json",
+   "start_mtime_utc": "2026-10-17T16:39:59+00:00",
+   "result_exists": false,
+   "finish_exists": false,
+   "stages": [
+    "01_route_a"
+   ]
+  },
+  "DDO154_ROUTE_B_C2V005_DECIDING_ADMIT_PREFIX_RUN_V001": {
+   "launch_utc": "2026-10-17T16:39:59Z",
+   "driver_sha8": "2aef51c4",
+   "spec": "CALL_REPRO_PINNED_ADMIT_PREFIX_C2V005.json",
+   "start_mtime_utc": "2026-10-17T16:39:59+00:00",
+   "result_exists": false,
+   "finish_exists": false,
+   "stages": [
+    "01_offset",
+    "02_fs_columns_00",
+    "03_fs_columns_01",
+    "04_fs_columns_02"
+   ]
+  }
+ },
+ "seal_v004": {
+  "utc": "2026-10-17T16:39:34.105149+00:00",
+  "prereg_sha256": "51c9aa6cd997c5cc58b7b814601b27d153952a6cd87368035c985ebab4232136",
+  "compare_sha256": "30d82566d0ddf56b0c7ad98fc1186679dc7704c318c03b9352c81fbbc96acf60",
+  "statement": "Sealed before any C3/C4/R result under v005 exists; no such run directory exists at seal time.",
+  "existing": [
+   "KMAX_A2F10_Y2_RUN_V001",
+   "KMAX_A2F10_R_RUN_V001",
+   "KMAX_A2F10_C4_RUN_V001.monitor.log",
+   "KMAX_A2F10_Y2_RUN_V001.receipt.json.launch.json",
+   "KMAX_A2F10_R_RUN_V001.receipt.json.stderr.txt",
+   "KMAX_A2F10_C4_RUN_V001.receipt.json.stderr.txt",
+   "KMAX_A2F10_C3_RUN_V001.receipt.json.launch.json",
+   "KMAX_A2F10_C3_RUN_V001.receipt.json",
+   "KMAX_A2F10_S2_RUN_V001.receipt.json.stdout.txt",
+   "KMAX_A2F10_S2_RUN_V001.receipt.json.launch.json",
+   "KMAX_A2F10_C3_RUN_V001.receipt.json.stderr.txt",
+   "KMAX_A2F10_Y2_RUN_V001.receipt.json",
+   "KMAX_A2F10_S2_RUN_V001.receipt.json",
+   "KMAX_A2F10_Y2_RUN_V001.monitor.log",
+   "KMAX_A2F10_S2_RUN_V001.monitor.log",
+   "KMAX_A2F10_Y2_RUN_V001.receipt.json.stderr.txt",
+   "KMAX_A2F10_S2_RUN_V001",
+   "KMAX_A2F10_R_RUN_V001.monitor.log",
+   "KMAX_A2F10_R_RUN_V001.receipt.json.stdout.txt",
+   "KMAX_A2F10_C4_RUN_V001.receipt.json.launch.json",
+   "KMAX_A2F10_C3_RUN_V001",
+   "KMAX_A2F10_C3_RUN_V001.monitor.log",
+   "KMAX_A2F10_C4_RUN_V001.receipt.json.stdout.txt",
+   "KMAX_A2F10_S2_RUN_V001.receipt.json.stderr.txt",
+   "KMAX_A2F10_C3_RUN_V001.receipt.json.stdout.txt",
+   "KMAX_A2F10_R_RUN_V001.receipt.json.launch.json",
+   "KMAX_A2F10_C4_RUN_V001",
+   "KMAX_A2F10_Y2_RUN_V001.receipt.json.stdout.txt"
+  ]
+ },
+ "seal_v004_mtime_utc": "2026-10-17T16:39:34+00:00",
+ "binding_check_v005": {
+  "path": "claude_artifacts/ngc_route_impl_c2/binding/CHECK_V001.md",
+  "verdict_line": "## Verdict: PASS_WITH_DEFECTS (1 MAJOR, 1 MEDIUM, 5 LOW, 1 INFO)",
+  "pins_2aef51c4": true
+ }
+}

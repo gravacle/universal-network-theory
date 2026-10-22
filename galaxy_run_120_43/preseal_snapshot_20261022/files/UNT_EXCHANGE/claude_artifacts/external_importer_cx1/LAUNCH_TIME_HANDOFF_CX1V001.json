@@ -1,0 +1,126 @@
+{
+  "schema": "CX1_LAUNCH_TIME_HANDOFF_V001",
+  "created_utc": "2026-10-22T11:13:00.608433+00:00",
+  "acknowledged_dispatches": [
+    "0867",
+    "0868",
+    "0869"
+  ],
+  "deputy_read": [
+    "0354"
+  ],
+  "scope": "A307 launch-time only; no new import-side work",
+  "runtime_producer": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_capture_cx1v004.py",
+    "sha256": "f9c508a63be61303fa9cc3030fe5a547b468e100450eb7072802b749becac64c"
+  },
+  "runtime_helpers": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_policy_cx1v001.py",
+      "sha256": "a20d03fe9a7bc3c4ec0cb9fafa0bbbd8c91b41a43cfbec7f087c4b9468672269"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_fingerprints_cx1v002.py",
+      "sha256": "5ec4f8c652917321c449d84b3272ed6f97504b002312ba8d89da583c1b00fc31"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_cx1v001.py",
+      "sha256": "ce5f784dbe2d328a614df2ce2fa6dc24b89817678846c70c0fccef9e98a11228"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_bytes_cx1v003.py",
+      "sha256": "3af50366d51e0913e3580a78df26fb0e228a00574d44af7410b1c9acf418d000"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_owned_bytes_cx1v003.py",
+      "sha256": "ebc90499108f4246e8b7a90ce313827e008dcf614c57df160f2f0817aa0a9eb2"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_discovery_cx1v005.py",
+      "sha256": "77d0e134738fb4b59c6c1ae038991bdc93e73b9303a1488e00ff44aedeeac194"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/runtime_distribution_record_cx1v004.py",
+      "sha256": "13fb69482de279bf758da158763c30d3951d3003bb3958da6ccbe500e317b522"
+    }
+  ],
+  "stage_a_writer": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/speculative_register_writer_cx1v001.py",
+    "sha256": "ce6f2a90ce3159b9caae302c7d9788c9acf593488fddac40bc4fa0aa9bf42edc"
+  },
+  "stage_a_test": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_speculative_register_writer_cx1v001.py",
+    "sha256": "564610c4f326bc0a938c4c259f1f34e0cf41efb23f7a3329b48a7a653b9fcd95"
+  },
+  "stage_a_report": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/stage_a_writer_9rmfazqn/TEST_REPORT.json",
+    "sha256": "a7f30ff911cb490c06a7ce5e19c372c61b059a7b76d73d065645dd3038dd4d43"
+  },
+  "stage_a_cases": [
+    "Actual isolated CLI publishes exactly seven rows and reports byte SHA",
+    "Published document accepted by unchanged register_two_stage_cx1v003",
+    "Existing output preserved",
+    "Dangling output symlink refused",
+    "missing_row refuses before output",
+    "duplicate_row refuses before output",
+    "boolean_row refuses before output",
+    "duplicate_key refuses before output",
+    "foreign_root refuses before output",
+    "status_not_authority refuses before output",
+    "bad_pin refuses before output",
+    "relative_pin refuses before output",
+    "conflicting_pin refuses before output",
+    "zero_attempt refuses before output",
+    "wrong_input_sha refuses",
+    "Duplicate JSON keys refuse",
+    "Input final symlink refuses",
+    "Referenced pins and call roots never opened or created"
+  ],
+  "stage_a_scope_limits": [
+    "Real root input authentication",
+    "Runtime capture content and chronology",
+    "Referenced pin bytes; native L2_DIRECT START snapshot must authenticate them before launch",
+    "No operational register or launch created"
+  ],
+  "stage_a_command": [
+    "/Users/bgm/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-I",
+    "-B",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/speculative_register_writer_cx1v001.py",
+    "--input",
+    "<root-reviewed seven-entry metadata document>",
+    "--input-sha256",
+    "<SHA from input bytes>",
+    "--output",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_at_verdict_c2/SPECULATIVE_REGISTER_L2_V001.json"
+  ],
+  "stage_a_rule": "Root authenticates input SHA. Output is exclusive-create. Writer never opens call roots or referenced evidence; native envelope START must verify every referenced pin before launch. No stage-b binding is created.",
+  "start_pin_guide": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/L2_DIRECT_START_REQUIRED_PINS_CX1V001.json",
+    "sha256": "96265e2d39298bf1f9c005efca4cb50a6065eb9510d379a9723e7542dcfc7325"
+  },
+  "start_rule": "Guide is not a pinset. Root adds the register and all seven rows spec/launcher/guard/binder/dbp/runtime_capture pins, deduplicates exact path+sha pairs, and uses pinned_input_envelope_c2v003 collect/snapshot for L2_DIRECT. P2 producer is explicitly included. Existing policy and entry pins remain those of D029; any replacement is a new reviewed root decision.",
+  "capture_rule": "P2 only, fixed interpreter -I -B, no PYTHON*/DYLD*, capture immediately before direct launch and campaign init after operational freeze. P1 superseded. Root binds timestamps and captures.",
+  "capture_evidence": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/capture_pipeline_61ry5xj1/TEST_REPORT.json",
+    "sha256": "245612c655432ad22c4156c8dbe75b21bf167b5d933d0ff61c27c53099912c35"
+  },
+  "review_disposition": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/IMPORTER_REVIEW_DISPOSITION_CX1V001.json",
+    "sha256": "108637bc0ab75589887acee8c146a51eb9c0a1906d455f47a159f746c09074ec"
+  },
+  "prior_integration_proof": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/seed_acceptance_20261022T084535366639Z/SEED_INTEGRATION_REPORT.json",
+    "sha256": "e746605fcfae6e800916798ab4cbcbf0e5c0205991f7ec4f73a3d226bc352411"
+  },
+  "review_status": "P2 and pin guide covered by D029; new stage-a writer awaits Claude3 distinct review; deputy final source/completeness review in progress per0354.",
+  "deadline": "2026-10-23T12:00:00-05:00 reachable; stage-a implementation and inert tests complete now.",
+  "remaining": [
+    "Claude3 review of new stage-a writer and final launch-time completeness",
+    "Claude3 stage-b writer, separately authored and reviewed under A307",
+    "Root adoption, operational freeze, N1 records root, N2 W1 campaign pin, N3 publication collision",
+    "Root-filled metadata, actual capture, register publication, envelope START and launch remain root operations"
+  ],
+  "scientific_launches": 0,
+  "existing_files_changed": 0
+}

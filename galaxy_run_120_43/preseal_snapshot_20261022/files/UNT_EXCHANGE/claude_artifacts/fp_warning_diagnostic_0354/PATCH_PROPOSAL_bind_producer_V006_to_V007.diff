@@ -1,0 +1,30 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/fp_warning_diagnostic_0354/PATCH_PROPOSAL_bind_producer_v006.py	2026-10-15 11:53:36.554021248 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/fp_warning_diagnostic_0354/PATCH_PROPOSAL_bind_producer_v007.py	2026-10-15 11:58:03.299802482 -0500
+@@ -1,4 +1,6 @@
+-"""INERT PATCH PROPOSAL V006 (tasks 0354/0357; V006 = V005 26f43bb1... + fail-closed verification: the verified label requires
++"""INERT PATCH PROPOSAL V007 (tasks 0354/0357; V007 = V006 d4dd3125... + review R1: all_within_nonblas_bound and the verified label
++require bound_evaluated == calls_with_flags, so an exception raised inside verification can never leave the field reading true.
++V006 = V005 26f43bb1... + fail-closed verification: the verified label requires
+ finite inputs, non-BLAS reference, absolute-product bound and deviation (0357 / delta-review D2), and an unflagged non-finite
+ product is recorded and unverified (delta-review D1); floating events raised by the verification operations themselves are
+ recorded per site (verification_fp_kinds), separate from the backend product flags. The returned product is still the
+@@ -110,8 +112,8 @@
+ def flag_report():
+  r={}
+  for k,v in FLAG_EVENTS.items():
+-  evaluated_all=v['nonfinite_products']==0 and v['verification_nonfinite_products']==0
+-  ok=evaluated_all and v['bound_failed_products']==0 and v['bound_evaluated_products']==v['calls_with_flags']
++  evaluated_all=v['nonfinite_products']==0 and v['verification_nonfinite_products']==0 and v['bound_evaluated_products']==v['calls_with_flags']
++  ok=evaluated_all and v['bound_failed_products']==0
+   r[k]={'calls_with_flags':v['calls_with_flags'],'flag_kinds':dict(v['flag_kinds']),'unflagged_nonfinite_products':v['unflagged_nonfinite_products'],
+    'nonfinite_products':v['nonfinite_products'],'verification_nonfinite_products':v['verification_nonfinite_products'],
+    'bound_evaluated_products':v['bound_evaluated_products'],'bound_failed_products':v['bound_failed_products'],'verification_fp_kinds':dict(v['verification_fp_kinds']),
+@@ -378,7 +380,7 @@
+    if c['status']=='EVALUATED_NUMERICAL_EVIDENCE_ONLY' and not c['ceiling']['C_yx_within_ceiling']:cf.append({'case_id':r['case_id'],'check':'ceiling'})
+   if not window['holds']:cf.append({'check':'window_W'})
+   status='COMPLETED' if not errors else 'FAILED'
+-  out={'schema':'BIND_COUPLING_REFERENCE_OUTPUT_V006_PROPOSAL','status':status,'status_meaning':'COMPLETED = computation finished; NOT a scientific pass','case_ids':CASE_IDS,'cases':records,'errors':errors,'check_failures':cf,
++  out={'schema':'BIND_COUPLING_REFERENCE_OUTPUT_V007_PROPOSAL','status':status,'status_meaning':'COMPLETED = computation finished; NOT a scientific pass','case_ids':CASE_IDS,'cases':records,'errors':errors,'check_failures':cf,
+    'full_parent_ready':False,'frozen':{'coordinates':{k:rstr(v) if isinstance(v,Fraction) else v for k,v in p.items()},'relations_checked':rel,'window_W':window,'Delta_family_bound_G':dfam,'checks':checks},
+    'labels':{'evidence':'NUMERICAL_EVIDENCE_ONLY','scope':'restricted fixed-energy Feshbach coefficient of a reviewed native coupling; h, g factored out; not motion, gravity sign, distance/clock normalization or DM/DE','energy_map':'F(E1) is not an exact time generator; actual cluster energies need F(E)u = Eu'},
+    'pins':pins,'environment':env,'floating_point_warnings_captured':wrec,

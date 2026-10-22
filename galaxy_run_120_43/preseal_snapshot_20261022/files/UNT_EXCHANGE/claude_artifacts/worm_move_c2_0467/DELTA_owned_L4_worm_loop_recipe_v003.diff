@@ -1,0 +1,105 @@
+--- /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/admission_integration/owned_L4_current_graph_cycle_recipe_v001.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/worm_move_c2_0467/owned_L4_worm_loop_recipe_v003.py
+@@ -1,5 +1,9 @@
+-"""Inert current-graph cycle successor of the reviewed admission-residence recipe.
+-Fixed total mixture .25 current-graph occupancy, .10 current-graph even cycles, .20 Birth residence, .20 admission residence,
++"""Inert worm-loop successor (V003) of owned_L4_current_graph_cycle_recipe_v001.py (76781f18...).
++DELTA ONLY: the .10 current-graph even-cycle slot is replaced by the occupancy-guided long
++alternating-loop ("worm") whole-path move owned_worm_loop_whole_path_c2v001.py at the SAME weight
++(2/15 of the .75 base wrapper = .10 total) and the SAME uniform-u branch thresholds; every other
++branch, module, pin, owner roster, target and diagnostic is unchanged.
++Fixed total mixture .25 current-graph occupancy, .10 worm loop, .20 Birth residence, .20 admission residence,
+ .25 prior base; all original model/response diagnostics retained. No adaptation.
+ Whole-path resource transport does not add physical events or physical rates.
+ """
+@@ -10,17 +14,20 @@
+ ADMISSION_SHA='5b19e90ee4fcf86a0b8fe570abb607ae23c8047771abc4ab317c167f1837d653' # Frozen Claude3 release, independently reviewed by Claude4
+ FAMILY_RECIPE_SHA='86c2ee5319dd1277c630e15ca7ab9f224027bf638a281753e68dddecf1ca6bd7'
+ BIRTH_SHA='6f866bda7eda7b56cb9ae7a1247cb365c16c9b40cb996af650452f8823f9f6e8'
+-CYCLE_SHA='6761d843a658b803354f67d08908342869f272a4ca39d4bb964355fd21815340'
++WORM_SHA='9fef6042eb1e13157d19a4d4381b4c73ef6e26d779f49ad7c477f1d44b9f470d'
++WORM_MODULE_VERSION='worm_c2v001'
++WORM_MAX_WALK_STEPS=1024
++WORM_LOOKAHEAD=True
+ 
+ 
+ def _pin(module,expected):
+     if hashlib.sha256(Path(module.__file__).read_bytes()).hexdigest()!=expected:raise ValueError('Frozen module changed: '+str(module.__file__))
+ 
+ 
+-def prepare(*,family_recipe,cycle_module,birth_module,admission_module,
++def prepare(*,family_recipe,worm_module,birth_module,admission_module,
+             operator_module,sampler_module,diamond_adapter,progress_stream,
+             occupancy_module,statistics_module,accepted_sampler_sha256):
+-    _pin(admission_module,ADMISSION_SHA);_pin(family_recipe,FAMILY_RECIPE_SHA);_pin(cycle_module,CYCLE_SHA);_pin(birth_module,BIRTH_SHA)
++    _pin(admission_module,ADMISSION_SHA);_pin(family_recipe,FAMILY_RECIPE_SHA);_pin(worm_module,WORM_SHA);_pin(birth_module,BIRTH_SHA)
+     prepared=family_recipe.prepare(operator_module=operator_module,sampler_module=sampler_module,
+       diamond_adapter=diamond_adapter,progress_stream=progress_stream,occupancy_module=occupancy_module,
+       statistics_module=statistics_module,accepted_sampler_sha256=accepted_sampler_sha256)
+@@ -32,11 +39,17 @@
+     palette=prepared['arguments'].get('palette_parameters')
+     if not isinstance(palette,dict) or tuple((w,tuple(vs)) for w,vs in palette['palettes'])!=tuple((1.,(v,)) for v in original_vertices):
+         raise ValueError('Full original A+B palette binding required')
+-    if tuple(cycle_module.LENGTHS)!=(4,6,8):raise ValueError('Fixed cycle length mixture changed')
++    if (worm_module.MODULE_VERSION!=WORM_MODULE_VERSION or worm_module.MAX_WALK_STEPS!=WORM_MAX_WALK_STEPS
++            or worm_module.LOOKAHEAD is not WORM_LOOKAHEAD):raise ValueError('Fixed worm-loop walk rule changed')
+     if not callable(getattr(operator_module,'state_labels',None)):raise ValueError('Public native state_labels required')
+-    prepared['current_cycle_binding']={'module':cycle_module,'family_recipe':family_recipe,'state_labels':operator_module.state_labels,
+-      'birth_module':birth_module,'admission_module':admission_module,'owner_roster':original_vertices,'counters':{},'scope':'Uniform fixed original anchor and length4/6/8; uniform all simple current-graph cycles through anchor, never occupancy eligibility; exact native guards and weights.'}
++    prepared['worm_binding']={'module':worm_module,'family_recipe':family_recipe,'state_labels':operator_module.state_labels,
++      'birth_module':birth_module,'admission_module':admission_module,'owner_roster':original_vertices,'counters':{},'scope':'Uniform fixed original A+B start, uniform viable occupied first edge, uniform viable alternating continuation on the whole-path eligible graph until the first revisit; exact reverse-walk Hastings factor; exact native guards, event replay and weights.'}
+     return prepared
++
++
++def branch_of(u):
++    """V001 thresholds unchanged: [0,2/15) worm loop (was current_cycle), [2/15,6/15) Birth, [6/15,10/15) admission, else base."""
++    return 'worm_loop' if u<2./15. else ('birth_residence' if u<6./15. else ('admission_residence' if u<10./15. else 'prior_base'))
+ 
+ 
+ def _admission_diagnostic_update(run, old_path, new_path, diag):
+@@ -90,32 +103,33 @@
+ 
+ 
+ def run_prepared(*,prepared):
+-    b=prepared['current_cycle_binding'];recipe=b['family_recipe'];cyclemod=b['module'];sampler=prepared['sampler_module']
+-    _pin(b['admission_module'],ADMISSION_SHA);_pin(recipe,FAMILY_RECIPE_SHA);_pin(cyclemod,CYCLE_SHA);_pin(b['birth_module'],BIRTH_SHA)
+-    if getattr(sampler,'_current_cycle_recipe_active',False) or getattr(sampler,'_recipe_occupancy_mixture_active',False):raise RuntimeError('Concurrent/nested recipe patch forbidden')
++    b=prepared['worm_binding'];recipe=b['family_recipe'];wormmod=b['module'];sampler=prepared['sampler_module']
++    _pin(b['admission_module'],ADMISSION_SHA);_pin(recipe,FAMILY_RECIPE_SHA);_pin(wormmod,WORM_SHA);_pin(b['birth_module'],BIRTH_SHA)
++    if (getattr(sampler,'_worm_loop_recipe_active',False) or getattr(sampler,'_current_cycle_recipe_active',False)
++            or getattr(sampler,'_recipe_occupancy_mixture_active',False)):raise RuntimeError('Concurrent/nested recipe patch forbidden')
+     original=sampler._move;counts=b['counters']
+     def tick(k):counts[k]=counts.get(k,0)+1
+-    def cycle_mixture(run,path,rng,diag):
+-        sampler._budget_check(run,'before','current-graph cycle/base mixture')
+-        u=float(rng.random());branch='current_cycle' if u<2./15. else ('birth_residence' if u<6./15. else ('admission_residence' if u<10./15. else 'prior_base'));tick(branch+'_selected')
++    def worm_mixture(run,path,rng,diag):
++        sampler._budget_check(run,'before','worm-loop/base mixture')
++        u=float(rng.random());branch=branch_of(u);tick(branch+'_selected')
+         try:
+-            if branch=='current_cycle':answer=cyclemod.move(run,path,rng,diag,sampler,b['owner_roster'],b['state_labels'])
++            if branch=='worm_loop':answer=wormmod.move(run,path,rng,diag,sampler,b['owner_roster'],b['state_labels'])
+             elif branch=='birth_residence':answer=b['birth_module'].move(run,path,rng,diag,sampler,b['owner_roster'])
+             elif branch=='admission_residence':answer=_observed_admission_move(b['admission_module'],run,path,rng,diag,sampler,b['owner_roster'])
+             else:answer=original(run,path,rng,diag)
+         except BaseException:tick(branch+'_interrupted');raise
+         if answer[1] not in ('changed','identity','rotation','rejected'):raise RuntimeError('Unknown sampler outcome')
+         tick(branch+'_'+answer[1]);return answer
+-    sampler._current_cycle_recipe_active=True;sampler._move=cycle_mixture
++    sampler._worm_loop_recipe_active=True;sampler._move=worm_mixture
+     try:
+         # Existing recipe wraps THIS base with its .25 occupancy.
+         result=recipe.run_prepared(prepared=prepared)
+-        result['current_cycle_binding']={'module_sha256':CYCLE_SHA,'family_recipe_sha256':FAMILY_RECIPE_SHA,
+-          'fixed_cycle_lengths':cyclemod.LENGTHS,'fixed_cycle_anchor_roster':b['owner_roster'],'cycle_selection':'Uniform anchor, uniform length, uniform graph-only simple cycle; empty roster rejects without resampling','maximum_enumeration_visits':cyclemod.MAX_ENUMERATION_VISITS,'maximum_cycles_per_anchor_length':cyclemod.MAX_CYCLES_PER_ANCHOR_LENGTH,'birth_module_sha256':BIRTH_SHA,'fixed_birth_owner_roster':b['owner_roster'],'fixed_admission_owner_roster':b['owner_roster'],
+-          'total_cycle_probability':.10,'total_birth_residence_probability':.20,'total_occupancy_probability':.25,'total_admission_residence_probability':.20,'admission_module_sha256':ADMISSION_SHA,
++        result['worm_binding']={'module_sha256':WORM_SHA,'module_version':WORM_MODULE_VERSION,'family_recipe_sha256':FAMILY_RECIPE_SHA,
++          'fixed_start_roster':b['owner_roster'],'walk_selection':'Uniform original start, uniform viable occupied first edge, uniform viable alternating continuation until first revisit; empty start/dead end/cap reject without resampling','maximum_walk_steps':wormmod.MAX_WALK_STEPS,'lookahead':wormmod.LOOKAHEAD,'birth_module_sha256':BIRTH_SHA,'fixed_birth_owner_roster':b['owner_roster'],'fixed_admission_owner_roster':b['owner_roster'],
++          'total_worm_loop_probability':.10,'total_birth_residence_probability':.20,'total_occupancy_probability':.25,'total_admission_residence_probability':.20,'admission_module_sha256':ADMISSION_SHA,
+           'total_prior_base_probability':.25,'outcomes':dict(counts),
+           'counter_scope':'full chain including warmup; actual read-change vectors follow existing tracked labels',
+           'scope':'Same target; new reversible proposal only. Changed accepts do not establish mixing; retain all original failures/error-withholding.'}
+         return result
+     finally:
+-        sampler._move=original;del sampler._current_cycle_recipe_active
++        sampler._move=original;del sampler._worm_loop_recipe_active

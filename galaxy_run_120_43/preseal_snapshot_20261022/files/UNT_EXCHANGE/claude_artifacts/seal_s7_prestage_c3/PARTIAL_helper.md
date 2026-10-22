@@ -1,0 +1,15 @@
+# PARTIAL_helper.md — seal_s7_prestage_c3 (Claude3-lane helper, root dispatch 0850 item 4)
+
+- 2026-10-21T15:14:36Z START: folders created; reading named sources (PLAN P-105/P-117, A133 §2/§3/§5/§6, V006 by heading, 0751/0850, AUDIT_C3V001 L6/S7, RUNBOOK G17).
+- 2026-10-21T15:17:31Z read: 0850, 0751, PLAN P-105/P-117 (+P-88/P-98/P-109 rows), A133 §2/§3/§5/§6 (cd92ef91), AUDIT_C3V001 L6/S7/§8 (a8e50bc6), V006 (511f468e at wc) A160, L1750-1758 (A175 area, named L1754), A173, A176, A177, A193, A201, A205, A210, A274, A279, A282, A291, A292. DISCLOSURE: the A291/A292 print ran to L5088, i.e. 3 lines past A292's end (the '## A108 continued' heading + 2 lines); not used.
+- 2026-10-21T15:21:34Z read: RUNBOOK c2v007 12917ba9 (no G17 text: G ids present G16/G26/G27/G28 only; seal lines L90/96/102/110/116/124), r3a basis texts (1e17eb45 / 03ded7fa / 9c40b567: template has 9 @@ placeholders in §11), README A c4v004 e163d2aa, README B c2v005 5cfb42a1 (headings). Next: M-15, B README status/files, prereg §8; then drafting.
+- 2026-10-21T15:28:31Z sources complete (M-6, M-12, M-15, §8 header, §11 placeholders: 9 sites, each once, L737/738/740/775/776/779/786/790/799). Drafting deliverables 1-5 now.
+- 2026-10-21T15:32:14Z wrote r3a_final_bytecheck_c3v001.py (2dcd6248; NOT run, per dispatch). Pre-check of A133 §3 r3a carriers in the basis template: all five present (I-7 L135-151; §4 Phase-2 rosters L482-485; Status L44-46 + §6.3 L539; I-4 L97-101; band column L179-183). Writing SEAL_REMAINING next.
+- 2026-10-21T15:34:18Z wrote SEAL_REMAINING_C3V001.md (11 remaining: 8 NOW, 3 Claude4; 1 done; 1 not S7). Writing DRAFT_WRITE_FREEZE_WINDOW next.
+- 2026-10-21T15:35:57Z wrote DRAFT_WRITE_FREEZE_WINDOW_C3V001.md. Next: G17 draft, seal-entry template, R3A delta pre-stage.
+- 2026-10-21T15:37:03Z wrote DRAFT_G17_M12_EXTENSION_C3V001.md (current G17 text not in RUNBOOK c2v007; placeholder + additive extension). Next: seal-entry template, R3A pre-stage.
+- 2026-10-21T15:37:52Z corrected a merged quote in the G17 draft (template L56 vs L57) and refined R7 in SEAL_REMAINING (L196 SEAL_SHA_MISMATCH suggests bundle-supplied shas). Writing DRAFT_SEAL_ENTRY_TEMPLATE.
+- 2026-10-21T15:39:31Z wrote DRAFT_SEAL_ENTRY_TEMPLATE_C3V001.md (14 fields; known pins filled from named sources; future pins as <<>> placeholders). Writing R3A_DELTA_REVIEW_PRESTAGE last.
+- 2026-10-21T15:41:01Z line-number correction to the 15:32Z line: Status per-phase step 4 is template L47 (timing block L42-57); I-4 Phase-1 note L99-102; I-7 L135-151 (score of record L137, not-a-re-score L142). Writing R3A_DELTA_REVIEW_PRESTAGE.
+- 2026-10-21T15:42:31Z wrote R3A_DELTA_REVIEW_PRESTAGE_C3V001.md (D1-D13 checklist; A133 §3/§2 carriers pre-checked on template; 9-site expected diff; R0-R9 commands, NOT run). Final self-check next.
+- 2026-10-21T15:43:41Z END: 5 deliverables + byte-check script (NOT run) written by exclusive create; small in-place corrections to my own drafts made before hand-back (SEAL_REMAINING §0 count and R7; G17 quote L56/L57; R3A L24 cite). No launches, no forbidden paths opened; no FROM_* posts. Hand-back to the lead next.

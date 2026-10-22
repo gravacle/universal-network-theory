@@ -1,0 +1,289 @@
+{
+ "schema": "CLAUDE2_NGC3198_SOURCE_CROSSWALK_V001",
+ "task": "0341",
+ "status": "CANDIDATE INPUT CROSSWALK. No source selected, no stitching radius or blending rule decided, no deprojection, interpolation, error imputation or physical-model choice.",
+ "query_domain": {
+  "manifest": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json",
+   "sha256": "a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494"
+  },
+  "use": "radius metadata only (root PASS_SCOPED_QUERY_METADATA)",
+  "n": 43,
+  "Rad_text_range_kpc": [
+   0.32,
+   44.08
+  ],
+  "reference_distance": "13.8 Mpc (rotmod header and MassModels agree; manifest)",
+  "query_counts_by_source_support_band_kpc": {
+   "0-15.1": 28,
+   "15.1-21.42": 3,
+   "21.42-32.11": 5,
+   "32.11-40.14": 5,
+   "40.14-42.8435": 1,
+   "42.8435-48.17": 1
+  },
+  "band_edges_meaning": {
+   "15.1": "last Leroy ring centre",
+   "21.42": "last uncommented .sfb radius (320.16 arcsec) at 13.8 Mpc",
+   "32.11/40.14/48.17": "HALOGAS 120-arcsec annulus edges",
+   "42.8435": "last .dens radius"
+  }
+ },
+ "sources": {
+  "S1_LEROY_T7": {
+   "role": "existing NGC3198 freeze (P53)",
+   "files": {
+    "parsed_rows": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/P53_COMPLETE_NATIVE_INPUT_PARSER_HELD_SOURCE_V002/ROOT_COMPLETE_PARSER_CALLS_V002/RETURNS/01_TABLE_FULL.json",
+     "sha256": "4cf4b4b386f7a129fceaa4da7b5eede9f2c528e518f058ed71603ff667e29d24"
+    },
+    "raw_table7": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/leroy2008_table7.dat",
+     "sha256": "43165045c50d534ff7789dda05627328c23ba71c708ded9cf87cf0773fe02d99"
+    },
+    "raw_lines": "320-342",
+    "readme": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/leroy2008_ReadMe.html",
+     "sha256": "cbd9a431c5ef4d9ae1bcda8bc141210bd03360a4d2b0ea5d8dd40e9079763c48"
+    },
+    "table2": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/leroy2008_table2.dat",
+     "sha256": "d6dc211fa5ab4b702a4ef5ca5bbdb1f954d574d1ce375c5999f123ba687423d5"
+    },
+    "freeze": {
+     "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P53_CODEX2/P53_LINE_A_OBSERVATIONAL_FREEZE_V001.json",
+     "sha256": "a8126eb6175f68629cc9e925bcadbced8b153659d8a3b1eed96e0f6985f64053"
+    }
+   },
+   "tracers": {
+    "HI": "THINGS VLA 21 cm (ReadMe abstract)",
+    "H2": "HERACLES CO (ReadMe abstract; table2 survey field)",
+    "stars": "SINGS 3.6 micron (ReadMe abstract)"
+   },
+   "radial_coordinate": "ring centres, kpc at 13.8 Mpc; 23 rows 0.3-15.1 kpc; mean step 0.6727 kpc = 10.06 arcsec (10 arcsec spacing stated only in the secondary note GALAXY_INPUT_READINESS.md lines 74-75)",
+   "resolution": "12 arcsec (table2 line 13, Res; ReadMe lines 107-109: about 800 pc for spirals); rings not independent",
+   "geometry": "Leroy table4 i 72, PA 215, D 13.8 Mpc (values via P53 freeze /choices; table4 not opened: it also holds velocity columns). Deprojection by the Leroy pipeline; convention not stated in the ReadMe.",
+   "units": "Msun/pc^2, deprojected surface densities",
+   "helium_conversion_state": {
+    "HI": "x1.36 already included (ReadMe Note 2); do not reapply",
+    "H2": "X_CO 2e20, CO(2-1)/(1-0) 0.8, helium included (P53 /choices)",
+    "stars": "M/L 0.5 (K band) via I3.6 = 0.55 I_K, i.e. Sigma = 280 cos(i) I3.6 (Leroy Appendix C, as quoted in PHOTOMETRIC_SOURCE_COMPARISON.md lines 12-16); already applied"
+   },
+   "masks": "not documented in the local ReadMe",
+   "error_fields": {
+    "e_SigmaHI": "per-ring rms, F5.1; 1.0 carries Note 3 \"upper limit\" (QUARANTINED)",
+    "e_SigmaH2": "per-ring rms rows 0-9; no Note 3",
+    "e_Sigma*": "per-ring rms, F5.1; row 2 e=1.0 (Note 3, QUARANTINED); rows 16,18,19,20 literal e=0.0 (meaning UNRESOLVED; not zero uncertainty, no replacement)"
+   },
+   "support": {
+    "HI": "0.3-15.1 kpc",
+    "H2": "0.3-6.4 kpc (rows 0-9); rows 10-22 MISSING, not zero",
+    "stars": "0.3-15.1 kpc"
+   }
+  },
+  "S2_HALOGAS_C1": {
+   "role": "outer HI candidate; reviewed fixed-plane extraction exists",
+   "files": {
+    "coldens": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/NGC3198-LR_coldens.fits",
+     "sha256": "3028f340ef22a8a3544bbddc1d463980903c04c494b4b95399b7d431ab730aa5"
+    },
+    "mom0m": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/NGC3198-LR_mom0m.fits",
+     "sha256": "9cb18cf529a5f10c5e7671515e2ceae1344c5f3e4273038979681ae6c22f5259"
+    },
+    "extraction_result": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/PLANAR_SOURCE_RESULTS.json",
+     "sha256": "44b359abbcae5c0c61b26d3adc515a716fd6d45795fcecff3004189814230b2c"
+    },
+    "extraction_frozen": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/PLANAR_SOURCE_FROZEN.json",
+     "sha256": "98deeec737c4e7b27f3b98c5b7a6addc4e232f88bc08bef659cfd68020482d34"
+    },
+    "extraction_review_data": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/PLANAR_SOURCE_REVIEW_DATA.json",
+     "sha256": "3c5e89c15d9453a3d7193e27025af944cf92dcd2d47be744eec2c0c8e5baae32"
+    },
+    "extractor": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/extract_planar_source.py",
+     "sha256": "1d6f87baf468360e9b75657582aa4cbda9fb880c2f425a39fb158708511d3970"
+    }
+   },
+   "tracer": "HI 21 cm, WSRT, HALOGAS DR1 v2 low-resolution column-density map (same tracer as S1 HI; different instrument and reduction)",
+   "radial_coordinate": "annulus edges r_lo_kpc/r_hi_kpc in a fixed disk plane at 13.8 Mpc; 40 arcsec (2.676 kpc) x237 and 120 arcsec (8.029 kpc) x79; orders: subpixels 4 (orders[0]) and 8 (orders[1])",
+   "geometry": "orthographic parallel-ray fixed plane, i 72, PA 215 (orientation_source Leroy table4), centre de Blok et al. 2008 Table 2; \"not HALOGAS tilted rings\" (settings/geometry). Inherited working plane, not a warp solution.",
+   "units": "mass_Msun per annulus; effective density Msun/pc^2 = annulus mass / nominal deprojected area, complete annuli only",
+   "helium_conversion_state": "map already in HI atoms cm^-2 (HISTORY 21-cm conversion; BUNIT card stale); 1.25e20 cm^-2 per Msun/pc^2; effective_HI_* fields bare HI; x1.36 applied once only in separately labelled effective_HI_plus_He_* fields",
+   "masks": "SoFiA-based mask including a moment-one velocity window; masked pixels replaced by 0 (zero_or_replaced_mask 1,018,595 of 1,048,576 px); 2 negative px retained signed; primary-beam corrected (non-uniform noise)",
+   "error_fields": "NONE in release (searched: halogas_source_candidate/, HEADER_AUDIT.md). cosi_times_finite_sky_weighted_LOS_sigma_rms_Msun_pc2_not_measurement_error is descriptive scatter, not an uncertainty (protocol; preflight lines 82-85).",
+   "support": "complete geometric aperture to 136.4847 kpc (51 forty-arcsec / 17 one-hundred-twenty-arcsec bins); completeness = image coverage only. Query domain falls inside it.",
+   "resolution": "beam 35.23 x 33.49 arcsec (about 2.3 kpc); 4 arcsec pixels correlated by the beam"
+  },
+  "S3_SPARC_SFB": {
+   "role": "stellar surface photometry",
+   "files": {
+    "sfb": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_NGC3198.sfb",
+     "sha256": "ae071272156d47f6292fa405adf3a9b2042f8678581af108b2d5d1e9e102ddbc"
+    },
+    "zip": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_sfb_LTG_2026-10-06_v001.zip",
+     "sha256": "2ca5c5e16517d2096dde47247f2b78837e33fed2e323ea77b0412cf6de66eb27"
+    },
+    "zip_source": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_sfb_LTG_2026-10-06_v001.zip.SOURCE.json",
+     "sha256": "274993d0ab0cd1805ba6fea2d7327bd7ba9a8aab9849116e6ac6bc396b6e440c"
+    },
+    "index_page": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_index_2026-10-06_v001.html",
+     "sha256": "ee7e3eab83de7d698bc14d9eeb91d87a939221dd452e907ea5ad7dedae886038"
+    }
+   },
+   "provenance": "byte-identical to zip member NGC3198.sfb; zip retrieved 2026-10-06 from astroweb.case.edu/SPARC/sfb_LTG.zip",
+   "tracer": "Spitzer IRAC 3.6 micron (SPARC)",
+   "radial_coordinate": "arcsec on sky; 66 rows 0.65-320.16 arcsec (0.0435-21.42 kpc at 13.8 Mpc); 2 commented rows at 352.17 and 387.39 arcsec",
+   "geometry": "on-sky values, no inclination or extinction correction (SPARC index: Photometric Profiles)",
+   "units": "mu: mag/arcsec^2 (header \"radius mu kill error\"; unit from the index)",
+   "helium_conversion_state": "not applicable; luminosity conversion not applied in file (M_sun,3.6 = 3.24; IRAC zero point; C3.6 = 703.80 Lsun/pc^2 per MJy/sr per PHOTOMETRIC_SOURCE_COMPARISON.md lines 22-35)",
+   "masks": "kill column = 1 in all 66 rows and both commented rows; kill semantics not documented locally",
+   "error_fields": "error column 0.001-0.445; unit and meaning not documented locally (null)"
+  },
+  "S4_SPARC_DENS": {
+   "role": "derived stellar decomposition",
+   "files": {
+    "dens": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_NGC3198.dens",
+     "sha256": "4dbe84c28033a501c1599998daa534ae4d73957597c342fba21fd7a3def71d21"
+    },
+    "zip": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_BulgeDiskDec_LTG_2026-10-06_v001.zip",
+     "sha256": "0733de0d357cbd45c673fd4321a3b339e160abf68530684c09d28e413855fb6d"
+    },
+    "zip_source": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/sparc_official_BulgeDiskDec_LTG_2026-10-06_v001.zip.SOURCE.json",
+     "sha256": "e097262eb3693a83376d8ae48b88fa197efd05fa81cfed0228727f5a5c074cec"
+    }
+   },
+   "provenance": "byte-identical to zip member NGC3198.dens",
+   "tracer": "3.6 micron decomposition (derived, not a direct observation)",
+   "radial_coordinate": "Rad kpc; 77 rows 0.0435-42.8435 kpc; 66 rows equal .sfb radii x 13.8 Mpc (relative 5e-5); 11 rows 23.37-42.84 kpc have no .sfb counterpart",
+   "geometry": "not inclination corrected (SPARC index: Bulge-Disk Decompositions)",
+   "units": "SBdisk, SBbulge Lsun/pc^2 (file header); SBbulge = 0 in all rows",
+   "extrapolation": "Index: \"some exponential profiles are extrapolated at large radii\" (generic, not galaxy-specific). That NGC3198 rows beyond 21.42 kpc are extrapolated is an INFERENCE (no .sfb support), not documented.",
+   "error_fields": "none"
+  },
+  "S5_BEGEMAN_C2": {
+   "role": "listed for completeness only (0339 C2); modeled published tilted-ring average, exposed development source",
+   "files": {
+    "transcription": {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/OUTER_GAS_INPUT_DECISION.md",
+     "sha256": "b45a72c3b2f0067aae71efe25e92f1a3340f99a666ae708d757a3b7ccbe119be"
+    }
+   },
+   "tracer": "HI 21 cm WSRT 1989",
+   "note": "paper helium 1.4 (do not stack with 1.36); original D 9.4 Mpc; transcription review file cited in GALAXY_FIELD_PREFLIGHT.md not located"
+  }
+ },
+ "same_tracer_overlaps": [
+  {
+   "tracer": "HI 21 cm",
+   "sources": [
+    "S1 HI",
+    "S2",
+    "S5"
+   ],
+   "overlap_kpc": "S1 and S2: 0.3-15.1; S5 (0-46.16 at 13.8 Mpc) overlaps both",
+   "differences": [
+    "instrument/resolution: VLA 12 arcsec vs WSRT 35 arcsec",
+    "helium state: S1 includes 1.36; S2 bare with a separate He field; S5 bare (paper 1.4)",
+    "deprojection: S1 Leroy pipeline rings; S2 fixed-plane annulus effective density; S5 tilted-ring average of halves",
+    "masking: S2 kinematic-window mask; S1 mask not documented locally"
+   ],
+   "double_count_rule": "OPEN. The same physical HI must be counted once. No stitching radius, blending rule or tracer priority is chosen here.",
+   "existing_comparison": "PLANAR_DENSITY_CONSTRUCTION_REVIEW.md lines 69-85 compares S2 with the old adopted (Begeman-derived) profile: modern retained mass 0.9194 x old inside the common aperture. The review says this is not a demonstration of gas loss."
+  },
+  {
+   "tracer": "stellar 3.6 micron",
+   "sources": [
+    "S1 stars",
+    "S3",
+    "S4"
+   ],
+   "overlap_kpc": "S1 0.3-15.1 lies inside S3/S4 coincident support 0.0435-21.42",
+   "differences": [
+    "mass conversion: SPARC 0.5 vs Leroy effective 0.398 in solar 3.6-micron units, fixed ratio 1.2568 (PHOTOMETRIC_SOURCE_COMPARISON.md lines 37-47)",
+    "inclination convention: Leroy 72 vs SPARC catalogue 73 (catalogue geometry extraction currently QUARANTINED; see 0344)",
+    "reductions differ; the comparison is \"not an assertion that the two underlying reduced images are identical\" (line 46-47)"
+   ],
+   "double_count_rule": "OPEN; no source chosen"
+  },
+  {
+   "tracer": "H2 (CO)",
+   "sources": [
+    "S1 only"
+   ],
+   "overlap_kpc": "none",
+   "note": "support 0.3-6.4 kpc; no other H2 source found within the searched paths"
+  }
+ ],
+ "support_by_query_band": {
+  "0-15.1": "S1 (HI, stars; H2 only to 6.4), S2, S3, S4",
+  "15.1-21.42": "S2, S3, S4; no Leroy; no H2",
+  "21.42-32.11": "S2 (zero/replaced fraction 0 in the 120-arcsec rows to 32.11); S4 rows without .sfb counterpart (inference: extrapolated); no stellar observation found",
+  "32.11-40.14": "S2 (zero/replaced fraction 0.0402); S4 as above",
+  "40.14-42.84": "S2 annulus 40.14-48.17 (zero/replaced 0.4366; review caution, see ledger); S4 as above",
+  "42.84-44.08": "S2 as above; beyond the last S4 row; no stellar row of any kind"
+ },
+ "safe_reviewed_source_only_outputs_for_a_later_adapter": {
+  "S2": {
+   "file": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/PLANAR_SOURCE_RESULTS.json",
+    "sha256": "44b359abbcae5c0c61b26d3adc515a716fd6d45795fcecff3004189814230b2c"
+   },
+   "review": [
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/halogas_source_candidate/PLANAR_SOURCE_RESULTS_REVIEW.md",
+     "sha256": "a21fa9db243be8e771a8ee999f1bed2ffb788f836f1b39ddb6ff193204598a46"
+    },
+    {
+     "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/HALOGAS_SOURCE_ORACLE_REVIEW.md",
+     "sha256": "822be173d2f4be6dae00262f904a53d66fecd24ab6fc52c02ed00f9e4affe123"
+    }
+   ],
+   "field_paths": [
+    "/status",
+    "/settings/*",
+    "/pixel_categories/*",
+    "/orders/{0,1}/subpixels_per_axis",
+    "/orders/{0,1}/profile_{40,120}arcsec/{r_lo_kpc,r_hi_kpc,complete_by_conservative_chord_bound,width_arcsec}",
+    "/orders/{0,1}/profile_{40,120}arcsec/groups/{full,X_negative,X_nonnegative}/{mass_Msun,positive_mass_Msun,negative_mass_Msun,effective_HI_Msun_pc2_complete_only,effective_HI_plus_He_Msun_pc2_complete_only,zero_fraction_of_footprint,finite_fraction_of_footprint,positive_fraction_of_footprint,negative_fraction_of_footprint,nominal_disk_area_pc2,plane_pc2}"
+   ],
+   "carry_with": "interpretation string (/interpretation); descriptive scatter field is not an error; zero fractions are mask bookkeeping",
+   "representation": "Bernstein C0 construction (PLANAR_DENSITY_REPRESENTATION_PROPOSAL.md, reviewed PASS in PLANAR_DENSITY_CONSTRUCTION_REVIEW.md) is an owned representation assumption; both 40 and 120 arcsec versions must be carried together"
+  },
+  "S1": {
+   "file": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/P53_COMPLETE_NATIVE_INPUT_PARSER_HELD_SOURCE_V002/ROOT_COMPLETE_PARSER_CALLS_V002/RETURNS/01_TABLE_FULL.json",
+    "sha256": "4cf4b4b386f7a129fceaa4da7b5eede9f2c528e518f058ed71603ff667e29d24"
+   },
+   "field_paths": [
+    "/value/rows/*/radius_kpc",
+    "/value/rows/*/HI/{published_value,published_error_field}",
+    "/value/rows/0-9/H2",
+    "/value/rows/*/stars"
+   ],
+   "carry_with": "quarantine of e=1.0; literal e=0.0; H2 missing rows"
+  },
+  "S3_S4": "raw files only; no reviewed extractor exists. Permitted fields for a future extractor: .sfb radius, mu, kill, error (all four; no velocity content); .dens Rad, SBdisk, SBbulge. Kill/error semantics must be documented before use."
+ },
+ "not_opened": [
+  "HALOGAS_FIELD_* (frozen/qualification/oracle/results)",
+  "HALOGAS40/120 *Newton* JSONs",
+  "rotmod files and MassModels data rows",
+  "Leroy table4",
+  "MOM1 maps and cubes",
+  "OLD_MODERN_HI_COMPARISON.json (pinned in the construction review; source-only per that review, not needed here)",
+  "PHOTOMETRIC_SOURCE_COMPARISON.json"
+ ],
+ "reading_discipline": "Review documents read with digits masked on any line mentioning velocity, force, Newton, acceleration, channel, moment-one or rotation curve."
+}

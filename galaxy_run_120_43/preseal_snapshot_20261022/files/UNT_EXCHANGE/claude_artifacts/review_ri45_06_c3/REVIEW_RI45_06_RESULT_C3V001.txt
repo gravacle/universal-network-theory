@@ -1,0 +1,264 @@
+{
+  "summary": "Claude3 lean distinct-lane review (0687, A115) of Claude4 RI45-06 NGC per-point EPS/GQ producer and timing evidence: one static lens + one adversarial verifier",
+  "agentCount": 2,
+  "logs": [],
+  "result": {
+    "review": {
+      "verdict": "CONFIRMED_WITH_NOTES, 0 blocking under A115. This was a static review: nothing was run, and no run-tree path was opened, stat-ed or listed. Lenses 1, 2, 3, 5, 6 and 7 are confirmed; lens 4 is partial. (1) The main() bytes check is real. pinload reads eps_ngc91_c2v001.py once, checks 2e59a461 before compiling, and executes exactly those bytes. S1, S2, S3 and the timing wrappers leave every numeric path unchanged. (2) I recomputed the comparison in json-only Python. The rerun regenerates ce26ced9 byte for byte once its 90 seconds fields and the decisions block are restored. Against EPS_CERT_NGC91_V001 there are 0 differences over 15 keys x 89 shells. eps_max is 6.423015553962408e-4 at (2,3], CERTIFIED. (3) The GQ binding meets A132 D2(a). (4) Fence v003's exact entries equal root's pin paths only for IDENTITY and start; the fence carries no shas. The fence also allows reads that the producer guard (case-sensitive) refuses, so N2 is real. N3 does not breach root's read rules, but it is the realpath-before-refuse pattern that 0639 SA-CX1-B1 had removed from the seal path. (5) C1 holds and needs two extensions for S0. The V004 node maxima cannot be recomputed at a new point. The below-5 rule rests on the anchor's CHECK F1 evidence. (6) The timing and memory figures match the evidence and raw JSON. The post's 2.16x co-load attribution and its 1,070 s solo floor are incomplete. (7) The audit file is consistent with the conduct claims. UNTESTED under the hard rules: the V006 addendum quote (its path has an NGC3198 component), the TAIL_REANCHOR bytes and the be148bab bytes (both outside the allowed list), and External1's case sensitivity. Conduct disclosure: I wrote scratch scripts with heredoc cat and made one scratch mkdir -p without the taskpolicy -b prefix. Every program-tree read, hash and Python run used taskpolicy -b. The Python was stdlib only: json, hashlib, and ast to parse source text without running it. Progress lines are in claude_artifacts/review_ri45_06_c3/PARTIAL_lens.md (exclusive create, append only).",
+      "blocking": 0,
+      "findings": [
+        {
+          "id": "L1",
+          "cls": "NOTE",
+          "title": "Runner st3 loads the fence through SourceFileLoader after a separate sha read, and runs the producer through runpy with no sha check before it runs (0639 SA-CX1-B2 class). The main() bytes check itself is real.",
+          "evidence": "run_fenced_c4st3.py L13-20 checks FENCE.read_bytes() against 175b995b, then calls spec_from_file_location and exec_module. Under -I -B, sys.pycache_prefix is still None at that point (the producer sets it only later, at L151), so an existing build/tools/__pycache__/fence_c4v003.cpython-312.pyc would be used. L79-83 calls runpy.run_path(script) with no sha check. The producer's own sha 79a5ac1d is computed after the run, by re-reading __file__ (eps_ngc_point_c4v001.py L424). The chain is clean: pinload L144-166 reads each file once, checks the sha before compile, and compiles exactly that buffer; producer L227-229 checks that the chain bound to the verified modules. TESTED: no __pycache__ exists anywhere under ri45_06 (find -P), and 79a5ac1d equals the current bytes. Not reachable from honest pinned producers.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L2",
+          "cls": "NOTE",
+          "title": "Fence v003 carries A132 D1(a) only in part. 'No other file in those trees' is enforced only by the case-sensitive producer guard (N2).",
+          "evidence": "fence_c4v003.py L37-41: PIN_IDENTITY and PIN_START equal the c0390172 paths (TESTED, string equality). There is no entry for A2_SEED_SCAN_G2 result.json and no sha in the fence. _forbidden_read (L92-109) has no rule for CLAUDE2/runs/, exempts .py files inside the NGC3198 run tree (L106), and has no UNT_INTERNAL_RUNS rule. The hook handles opens only, with no listdir or scandir check (L151-165), and skips fd opens (L152-154). An os.open with dir_fd is judged against the cwd. The guard (pinload L79-91) matches '/CLAUDE2/runs/', '/CLAUDE2/runs_ext', 'UNT_INTERNAL_RUNS' and 'ROOT_DECISIONS_' case-sensitively. So on the case-insensitive internal volume, '/CLAUDE2/RUNS/<non-NGC3198 run>/...', case-variant .py paths in the NGC3198 run, and 'unt_internal_runs' pass both layers. A case-variant External1 spelling of CLAUDE2/runs_ext would pass both if External1 is case-insensitive (UNTESTED). The actual reads conformed (FORMAL, from the guard logs): run-tree opens only at the 3 pins, read-only, given path equal to resolved path, 0 refusals, 0 run-tree listings. Honest producers use canonical literals (lwr_common L18-20, certs_common L24-42). No read rule in 0677 or 0685 is breached; the instruction 'add them as exact entries in your fence v003' is met only in part.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L3",
+          "cls": "NOTE",
+          "title": "N3: the fence hook (and the guard) resolve realpath before refusing, on every open. The selftest's runs_ext trial calls lstat and readlink on the link and lstat on its External1 target.",
+          "evidence": "fence _hook L155-157 computes os.path.realpath(lit) before _forbidden_read tests lit against RUNS_EXT (L93). The selftest's 'read_runs_ext' trial (L181) therefore calls lstat and readlink on CLAUDE2/runs_ext, lstats the External1 target chain, and looks up the absent probe name. pinload _guard L105-107 uses the same order. Root's rules are read rules (0677; 0685 D1(a); 0506/0507/0509 on C5H and runs_ext/UVT_*). Nothing under runs_ext was opened, listed or read, and C5H was not touched, so there is no breach. But 0639 SA-CX1-B1 had this same pattern removed from the seal path, and Claude4 disclosed it before (0092 HARNESS-N1, 0149 P-N1); it is still in v003. In 0178, 'Nothing existed' is true only of the probe names: the link and its target directory exist and were lstat-ed.",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L4",
+          "cls": "NOTE",
+          "title": "C1 is confirmed. The wrong 'lo < 5' scope persists in the exclusive-create POINT_NOTE copies, and the V004 node maxima cannot be recomputed at a new point.",
+          "evidence": "eps_ngc91_c2v001.py L79-97: node maxima (from EPS_CERT_K128_V004) and the check's own sup (EPS_SUP_SUPP) enter actual_vals on every shell where they are present. From there they reach eps_actual_set, eps for lo<5 (L88), eps = max(envelope, actual) for lo>=5 (L86), envelope_over_actual (L91) and envelope_dominates_actual (L97). The anchor values are also stored in the eps_check_own_sup and eps_node_maxima_from_V004 fields. TESTED from rerun bytes b349379a: node maxima appear on shells 2-6 and the check sup on 3,4,5,6,8,12,16,32 (the gate lists [3,...,32,100]). Every such value is below the local max (closest ratios: 0.999999921 on (4,5] and 0.999999409 on (12,13]), and dropping them leaves all 89 eps values unchanged at the anchor. POINT_NOTE (ii) still says 'on lo < 5' in producer L82-86, in the raw JSON point_note, and in the evidence JSON and MD. The node maxima are |1-q| of stored anchor-state responses (eps_cert_c2v004 node_shell_eps L43-54: U0, S0 and dk from the T120L stored operator and the DDO C4R3 cache). So 'recompute them at the point' (POINT_NOTE; the Next section of 0178) is not available at S0 thetas.",
+          "label": "TESTED"
+        },
+        {
+          "id": "L5",
+          "cls": "NOTE",
+          "title": "The below-5 rule rests on anchor-only CHECK F1 evidence, and the eps_source labels assume the anchor.",
+          "evidence": "eps_cert_c2v005 docstring: (2,3], (3,4] and (4,5] use the actual-set max because the sup 'converged there, CHECK F1 own sup / record 1.0005, 0.9995, 1.0011' (anchor values). eps_ngc91 L88 labels these 'actual_set_max (converged: CHECK F1)', and L86 labels lo>=5 shells 'envelope' even when the actual value wins the max. TESTED at the anchor: envelope/eps on lo<5 is 1.277, 1.639 and 1.326. So taking the envelope would give 8.2025e-4 on (2,3] instead of 6.4230e-4. At a new point, dropping the check sup and the node maxima removes the only independent cross-check of convergence on those shells. Not reachable now: the producer refuses any --point except anchor (L114-115).",
+          "label": "FORMAL"
+        },
+        {
+          "id": "L6",
+          "cls": "NOTE",
+          "title": "The timing figures match. The '2.16x, from co-load' attribution and the '~1,070 s solo' planning floor are incomplete.",
+          "evidence": "evidence.timing equals raw.timing (80677579). Total 2,314.604 = 3.385 + 2,311.16 + 0.059. The main() parts sum to within 0.001 s. Per shell: wall 5.643-74.369 s, CPU 5.565-11.653 s, with the CPU max at (2,3]. The CPU alone, 1,209.86 s, exceeds the record's main() wall of 1,068.5 s, and the shells' CPU of 667.82 s is 1.22x the record shell sum of 546.38 s. raw ri_runnable_time is 2,378.7 s, about the wall: the process was runnable throughout and got CPU about 52% of the time. The absolute nice was 15: the first ps sample shows NI 5 before nice -n 10. top showed 0.1% CPU at 10:30:49Z. The record ran with up to 3 concurrent processes at nice 10 and default QoS. So the post's 'solo' 1,070 s is not a planning floor for the background-QoS S0 runs (0689), for which no solo figure was measured. The evidence JSON's own 'not like-for-like' caveat is correct.",
+          "label": "TESTED"
+        },
+        {
+          "id": "L7",
+          "cls": "NOTE",
+          "title": "The GQ binding conforms to A132 D2(a). Its open item must travel with S0 bindings, and the V006 quote is UNTESTED here.",
+          "evidence": "From the GQ_BINDING bytes 481b1388: sha256 be148bab; producer ab07c00c, equals_record_producer_field true; roster0.seconds and timing_of_record are both 545.0; no_compute true; both reads verified ok; the guard shows 4 opens and 0 refusals. gq_binding_c4v001.py imports no GQ module and computes nothing. The 0685 sha at read, 92d9943c, equals the current file (TESTED). I did not open be148bab (outside the allowed list) or the V006 addendum (its path has an NGC3198 component), so both are UNTESTED. carried_open_item: the nonnegative-masses premise of the GEOMETRY_UNIFORM bound on iterated route-A rosters is in-run and UNTESTED; be148bab covers only the saved pre-launch roster.",
+          "label": "FORMAL"
+        }
+      ],
+      "checked": [
+        {
+          "claim": "The nine RI45-06 objects match the given sha prefixes",
+          "result": "CONFIRMED",
+          "note": "TESTED with shasum from bytes: 72d61b30, cdd8b841, 481b1388, 79a5ac1d, 618589a6, 175b995b, 83da95ec, f368f3a0, 9896071d. There are no symlinks in the ri45_06 tree, and verify/tools/fence_c4v003.py is a byte copy (175b995b)."
+        },
+        {
+          "claim": "Root pin file c0390172 and the 3 pinned run inputs (7795015e, bbff6f25, 951580e2) matched before and after the run",
+          "result": "PARTIAL",
+          "note": "Pin file bytes TESTED (c03901723a0f...). The run inputs were not opened, per the hard rules, so this is FORMAL, from the records: raw.verified shows the pre-run reads and post_run_recheck x3 ok; pins_used has 52 entries, all matched, 25/25 modules. In the ce26ced9 bytes (TESTED), evaluator.pins gives seed_scan_result = 951580e2 and lwr_common = 758740eb."
+        },
+        {
+          "claim": "The producer runs the record's own eps_ngc91_c2v001.main() (2e59a461) from verified bytes, and the bytes check is real",
+          "result": "CONFIRMED",
+          "note": "FORMAL: pinload L144-166 reads once, checks the sha, then compiles and executes exactly those bytes; producer L227-229 checks the chain identity. TESTED: the current bytes of the 7 chain modules and lwr_common equal their pins, and the record's producer block is 2e59a461."
+        },
+        {
+          "claim": "S1 (decisions), S2 (write path) and S3 (lwr_common from verified 758740eb) change no numeric path",
+          "result": "CONFIRMED",
+          "note": "FORMAL. decisions() is evaluated only in the final out dict (L117). write_new uses an identical serializer and its return value is only printed. S3 loads the same bytes and refuses any other path. The timing wrappers pass arguments and results through and touch no rng; Envelope.native is an instance method, so the wrapper binds correctly. TESTED: the output is bitwise equal to the record. Wording: S3 is input-side, not output-side as 0178 says, and the timing wrappers are a fourth in-memory change."
+        },
+        {
+          "claim": "With the timing fields and decisions restored, the rerun serializes to exactly ce26ced9",
+          "result": "CONFIRMED",
+          "note": "TESTED (strict comparison: types, key order, float.hex). Exactly 91 leaves differ: the 89 shell seconds, the top-level seconds and decisions. With those restored, json.dumps(indent=1, allow_nan=False)+newline gives bytes identical to ce26ced9. Both files re-serialize to their own bytes."
+        },
+        {
+          "claim": "0 differences against EPS_CERT_NGC91_V001 over 15 keys x 89 shells (2,91]",
+          "result": "CONFIRMED",
+          "note": "TESTED: 1,335 comparisons, 0 differences; eps_v004 is not compared. The evidence JSON's eps_per_shell (eps, eps_source, shell) also equals the gate on all 89 shells."
+        },
+        {
+          "claim": "eps_max 6.423015553962408e-4 at (2,3], CERTIFIED, audit ratios unchanged",
+          "result": "CONFIRMED",
+          "note": "TESTED. Envelope max 8.202548856337533e-4. 5 refinements, each 1. All certified flags set. The envelope dominates every shell. Audit max/min 1.0000000002740752 and 0.9999999987526532. Coverage [2,91]. The gate's recompute block cites ce26ced9 and 2e59a461."
+        },
+        {
+          "claim": "Anchor identity: TAIL_REANCHOR = lwr_common ANCHOR_UNSCALED = the evaluated point",
+          "result": "PARTIAL",
+          "note": "TESTED: ANCHOR_UNSCALED, parsed by ast, reproduces s, gamma/Eref, ell_F, Eref_eff and gamma_eff in the record bitwise. TAIL_REANCHOR was not opened (outside the allowed list), so that link is FORMAL, from the evidence (4/4 equal)."
+        },
+        {
+          "claim": "The GQ binding re-binds be148bab with 545.0 s of record and no compute (A132 D2(a))",
+          "result": "CONFIRMED",
+          "note": "See L7. The binding bytes and the 0685 sha are TESTED; the be148bab content and the V006 quote are UNTESTED."
+        },
+        {
+          "claim": "Fence v003's exact-path entries equal root's pins c0390172 (path and sha)",
+          "result": "PARTIAL",
+          "note": "The paths match for IDENTITY and start (TESTED). The seed-scan pin is not an entry. The shas are not in the fence: pinload.read_verified checks them against the pin file."
+        },
+        {
+          "claim": "No other read is allowed in those run trees",
+          "result": "REFUTED",
+          "note": "Refuted for the fence alone, which allows non-NGC3198 CLAUDE2/runs files, .py files in the NGC3198 run, and UNT_INTERNAL_RUNS. It holds only with the guard, and only for canonical-case paths. The actual reads conformed (FORMAL, guard logs; L2)."
+        },
+        {
+          "claim": "N2: the case-variant gaps are not reachable from honest pinned producers, and no such path occurred",
+          "result": "CONFIRMED",
+          "note": "FORMAL, from the code and guard logs. Further gaps outside N2: External1 case-variant spellings (UNTESTED), and fd/dir_fd and /.vol spellings (adversarial only)."
+        },
+        {
+          "claim": "N3: the selftest realpaths through the runs_ext link; nothing was opened, listed or read",
+          "result": "CONFIRMED",
+          "note": "FORMAL. This is not a breach of root's read rules, but it repeats the 0639 SA-CX1-B1 pattern, and 'nothing existed' covers only the probe names (L3)."
+        },
+        {
+          "claim": "C1: anchor-only inputs on shells 2-6, 8, 12, 16 and 32 feed eps_actual_set, eps and the domination flag, never decide at the anchor, and stale values could only raise eps",
+          "result": "CONFIRMED",
+          "note": "FORMAL from eps_ngc91 L79-97; TESTED from the rerun bytes. Stale values could also only clear the domination flag. See L4 and L5."
+        },
+        {
+          "claim": "Timing: main() 2,311.16 s wall / 1,209.46 s CPU; shells 1,171.82 / 667.82; audit 1,137.30 / 540.93; end to end 2,314.60 / 1,209.86; record 1,068.5 s and 546.38 s; ratio 2.163",
+          "result": "CONFIRMED",
+          "note": "TESTED against the evidence and raw JSON, including the verifier's 4 sums and ranges. The event counts are certify 89, dense_eps 89, env_search 104, actual_search 89, native 2, and 1 each for the others; times are monotone."
+        },
+        {
+          "claim": "Memory: EPS peak 2.400 GB, lifetime 2,410,547,336 B, ru_maxrss 2,441,183,232 B, step-2 at 28.0 then 23.4 GB, swap 1.8 GB",
+          "result": "CONFIRMED",
+          "note": "TESTED. The lifetime max was 524,010,336 B at the 1,209.3 s sample and 2,400,061,600 B at 1,219.4 s. In 14 of 15 audit phases the sampled max is 1.88-2.40 GB; in audit (2,3] the samples peak at 0.435 GB. 225 samples, median spacing 10.098 s, largest gap 19.8 s."
+        },
+        {
+          "claim": "Verifier corrections C2-C4",
+          "result": "CONFIRMED",
+          "note": "TESTED. (2,3] CPU is 11.653 s, the largest. top showed 0.1% at 10:30:49Z and 0.9% at 10:23:20Z. top 2289M and ps 474,576 KB at 10:15:21Z; ps 2,373,648 KB at 10:15:53Z. The conventional median is 346,579,640 B, against the upper median of 348,111,568 B."
+        },
+        {
+          "claim": "The 2.16x slowdown came from co-load, and EPS takes about 1,070 s solo",
+          "result": "PARTIAL",
+          "note": "See L6. The CPU alone exceeds the record's wall time; the nice and QoS differ; the record was not solo."
+        },
+        {
+          "claim": "Audit: 191 helper Bash commands and 14 flags, all false positives; 9 Python runs through fenced runners (7 via st3, 2 via vf1); no inline Python",
+          "result": "CONFIRMED",
+          "note": "TESTED from the audit file 9896071d. Flags 1-7 are the st3 runs: preflight, smoke1, r1, gq_binding and the 3 assembler runs. Flags 10-11 are the vf1 runs. Flags 0 and 9 are mkdir/cp. Flags 8 and 12 are grep/jq patterns. Flag 11 is also the ls -d case test. Flag 13 is printf text. 'No inline Python' across all 191 commands rests on the auditor's classification, since the other lane's transcript was not opened (FORMAL)."
+        },
+        {
+          "claim": "Verifier N5 and N6",
+          "result": "CONFIRMED",
+          "note": "FORMAL. The STEP2 watch is read outside the try block (producer L162). NUMEXPR_NUM_THREADS=1 is required by the author's require_env (certs_common L31, L63-66)."
+        },
+        {
+          "claim": "N1 (certs_common_r5 c75aaa5a reader identity) and verifier N7/N8",
+          "result": "NOT_CHECKED",
+          "note": "Outside the seven lenses. The r5 module and the IDENTITY content (a run-tree file) were not opened."
+        }
+      ],
+      "s0_successor_requirements": [
+        "Bind the S0 theta explicitly. Replace qinf_binder's anchor point (s0, gamma/Eref and ell_F from lwr_common ANCHOR_UNSCALED; point='anchor_F10' hard-coded in info) with the theta, as qinf_eval_v001 does: Eref_eff = s*EB, gamma_eff = s*ge*EB, ell = ell_F, with EB from the seed-scan base. Never rely on lwr_common's module defaults EREF/ELL/GAM, which are the anchor seed values read from start.json. Record the bound values and check that the evaluated point equals the theta.",
+        "Drop every anchor comparison, or report it as not applicable. These are: repro_qinf_anchor (main L50-52 would SystemExit at any other point); the V006 reproduction fields (v006_reproduction, v006_all_bitwise, all_shells_bitwise_equal_to_v006, compared_with); the TAIL_REANCHOR/ANCHOR_UNSCALED identity; and the post-run comparisons with ce26ced9 and 1d5eef1b.",
+        "On the C1 shells {2,3,4,5,6,8,12,16,32}, remove the anchor-only inputs from actual_vals. These are the V004 node maxima (DDO_C4R3_cache_7b9816ae and NGC_T120L_stored_operator) on (2,3] to (6,7], and the check's own sup (EPS_SUP_SUPP 0ddec5a7) on (3,4], (4,5], (5,6], (6,7], (8,9], (12,13], (16,17] and (32,33]. Recompute eps_actual_set, eps, envelope_over_actual and envelope_dominates_actual from point values only. Set eps_node_maxima and eps_check_own_sup to null with a disclosure; never store anchor numbers as point values.",
+        "The V004 node maxima cannot be recomputed at a theta as they are defined: they are |1-q| of stored anchor-state operator and cache responses (eps_cert_c2v004 node_shell_eps). Drop them and disclose it. Label any substitute as a different quantity, for example the point symbol evaluated at the stored node wavevectors. The check's own sup can be recomputed only by running that independent check's sup method with the point binding.",
+        "Below-5 shells (2,3], (3,4], (4,5]: the converged-actual rule rests on CHECK F1, which is anchor evidence. Do one of three things: recompute an independent sup at the point on those shells; take eps = max(envelope, actual) there (at the anchor this gives 8.2025e-4 on (2,3] instead of 6.4230e-4); or disclose that convergence is carried over from the anchor. Relabel 'actual_set_max (converged: CHECK F1)' to match.",
+        "On lo>=5 shells, set eps_source from the actual argmax, because the author labels these 'envelope' even when the actual value wins (L85-86). Report the domination flag and the minimum envelope/actual ratio (at the anchor, 1.0119 at (65,66]).",
+        "Keep unchanged: the 89 unit shells (2,91]; the registered rule (CERTIFIED only if refinements <= 1 on every shell); the 15 audit shells (2,3,4,5,6,8,12,16,19,32,45,63,64,80,90); default_rng(20261018) consumed in V005 order, with the 2000-node envelope self-test first; the envelope self-test; the A2 grid check; and single-thread BLAS, including NUMEXPR_NUM_THREADS=1.",
+        "Keep the N4 custody sandwich: pre-run read_verified of the 3 root-pinned run inputs and the 25 modules from c0390172; the author's sha-at-read in evaluator.pins (the seed scan must be 951580e2); IDENT/SEED parse equality; and the post-run recheck. lwr_common's import-time reads stay at the same three exact paths whatever the theta.",
+        "Put D1(a) into the fence itself. Refuse every path under CLAUDE2/runs, runs_ext and UNT_INTERNAL_RUNS, matching components case-folded or by no-follow inode identity, except read-only opens of the 3 exact pins, and carry the pin shas. Also refuse listings and fd/dir_fd opens. Refuse lexically before any realpath, and resolve with a no-follow component walk (0639 SA-CX1-B1). Replace the real-open selftest trials with policy-only probes. Load both the fence and the producer script from sha-checked bytes and execute exactly that buffer (0639 SA-CX1-B2).",
+        "Make the STEP2_MEMORY_WATCH_V002.csv read optional (N5). Run at background QoS under the A130 footprint watch, below the 95 GB total (0689). Plan for a peak of about 2.5 GB per EPS process (2,400,061,600 B occurs in the audit env_search). Use the measured -b figures (CPU about 1,210 s; wall about 2,315 s under step-2 load), not the record's 1,068.5 s.",
+        "GQ: bind be148bab under A132 D2(a), with no compute and the 545.0 s of record. Carry its open item: the nonnegative-masses premise of the GEOMETRY_UNIFORM bound on iterated route-A rosters is in-run and UNTESTED, and be148bab covers only the saved pre-launch roster.",
+        "Produce no LO, rho or per-state acceptance numbers (the 0679/0688/A134 hold). Label the outputs as root's registration rules require (D3 is deferred until registration). Do not copy POINT_NOTE (ii)'s 'lo < 5' scope from the c4v001 objects."
+      ]
+    },
+    "verify": {
+      "holds": true,
+      "corrections": [
+        "L6 and the 'checked' timing row, wording only (TESTED): evidence.timing does not equal raw.timing as a whole. The 5 shared keys (total_wall_s, total_cpu_s, phases, per_shell, audit) are equal to raw 80677579. The evidence block adds 5 more keys: record, ratio_main_wall_to_record_wall, ratio_shell_seconds_sum_rerun_to_record, qos_cpu_time and conditions. Every figure the lens quotes stands.",
+        "L2 / N2 scope, minor (FORMAL from pinload L105-107 and fence L155-157, plus the 2026-10-18 storage move in CURRENT_INSTRUCTIONS): some CLAUDE2/runs entries were moved to External1 and replaced by symlinks. For those, an internal case-variant path is followed through readlink to a canonical '/CLAUDE2/runs/' External1 path, and the guard's resolved-path test refuses it. The same holds for case variants of the internal runs_ext link (the fence catches them through realpath). So the gap through both layers is real for run directories still stored internally, for lowercase unt_internal_runs if it is a real directory, and for spellings written directly on External1 if External1 is case-insensitive. Which runs were moved is UNTESTED, because listing them is forbidden. N2 stays a NOTE."
+      ],
+      "reclassified": [],
+      "own_checks": [
+        "Shas TESTED from bytes: the 9 objects (72d61b30 cdd8b841 481b1388 79a5ac1d 618589a6 175b995b 83da95ec f368f3a0 9896071d); rerun b349379a; raw 80677579; pin file c0390172; the 7 chain modules and lwr_common 758740eb; ce26ced9; 1d5eef1b; GQ producer ab07c00c; 0685 92d9943c. find -P inside ri45_06 only: no symlinks and no __pycache__.",
+        "EPS against the samples record, TESTED in json-only Python. The strict diff (types, key order, float.hex) gives exactly 91 differing nodes: the 89 per-shell seconds, the top-level seconds (2311.1 vs 1068.5) and decisions (different key set). With the record's seconds and decisions put back, json.dumps(indent=1, allow_nan=False)+newline gives bytes identical to ce26ced9. Both files re-serialize to their own bytes.",
+        "EPS against the gate, TESTED. 1,335 comparisons (15 keys x 89 contiguous shells, lo 2..90) give 0 differences. eps_v004 is non-null on all 89 shells but the NGC tool cannot recompute it. eps_max is 6.423015553962408e-4 at (2,3]; the envelope max is 8.202548856337533e-4. There are 5 refinements, each 1, and all certified flags are set. The envelope dominates every shell. The audit max/min 1.0000000002740752 and 0.9999999987526532 equal the gate exactly. The evidence's eps_per_shell equals the gate on 89/89. The gate's recompute block cites ce26ced9 and 2e59a461.",
+        "The substitutions change no numerics. TESTED from source, together with the output identity: S2 uses the same serializer as certsngc write_new L75. The author's decisions() (certsngc L81-84) reads the V004 and V005 addenda, and it is evaluated only in the out dict (eps_ngc91 L117). S3 replaces the module-global load_module that qinf_binder L207 calls; the original was SourceFileLoader with no sha for lwr_common, and the replacement compiles the same 758740eb bytes after a sha check. Envelope.native is a plain instance method (certs2 L93). The wrapper argument indexes match the eps_ngc91 call sites L72-78. No wrapper touches the rng.",
+        "C1 / L4 / L5, TESTED from the rerun. Node maxima sit only on shells 2-6; the check's own sup sits on 3-6, 8, 12, 16 and 32. Dropping both changes no eps and no eps_actual_set. The closest ratios are 0.999999921 on (4,5] and 0.999999409 on (12,13]. No lo>=5 shell has the actual set above the envelope (the smallest envelope/actual is 1.0119, at (65,66]). On lo<5, envelope/eps is 1.2771, 1.6394 and 1.3261; using the envelope there would make eps_max 8.2025e-4. eps_cert_c2v004 node_shell_eps (L43-53, main L63-70) works from stored C4R3 and T120L responses, and only B.gam depends on the point, so the node maxima cannot be recomputed at S0 without new states. eps_cert_c2v005 L19-21 is the anchor-only CHECK F1 basis. A115 view: stale anchor values can only raise eps, which is conservative. Removing the lo<5 cross-checks is the change that could under-estimate eps at a new point. So L5 should travel as an explicit S0 gate: either a convergence check at each point, or the envelope on lo<5. It is still a NOTE now, because the producer refuses every --point except anchor.",
+        "Fence and guard against root's pins, TESTED by ast (no code executed). PIN_IDENTITY and PIN_START equal the c0390172 paths. The fence has no seed-scan entry and no 64-hex sha constant. The guard's RUN_INPUT_PATHS equal the 3 root paths, in the same order. The internal Data volume (disk3s5, the same volume as /Users/bgm/Research) is case-insensitive; TESTED with an uppercase variant of my own scratch path only.",
+        "Guard logs in raw 80677579 (FORMAL). Run-tree opens are the 3 pins only, with counts 3/3/4. Those counts match the code paths: lwr_common's import reads, qinf_binder's pin() plus read_text, and pinload's reads before and after the run. All are read-only with given path = resolved path; 0 refusals; no run-tree listing. 54 verified reads, all ok. pins_used has 52 entries, all matched, covering 25/25 root modules and 3/3 run inputs.",
+        "Anchor point, TESTED. ANCHOR_UNSCALED, parsed by ast, gives s, gamma/Eref, ell_F, Eref_eff and gamma_eff bitwise equal to the record's evaluator. The record's pins give seed_scan 951580e2 and lwr_common 758740eb. In qinf_eval_v001 (L90-98, L146-148) every parameter point binds A2_pooled with Eeff = s*EB and geff = s*ge*EB, so POINT_NOTE (i) is consistent. TAIL_REANCHOR was not opened (UNTESTED).",
+        "GQ: the binding bytes are as the lens states. gq_binding_c4v001.py imports only stdlib and pinload, and computes nothing. The GQ producer ab07c00c (L24) calls gq_roster2 on the saved gas roster with no point parameter, which supports the D2(a) basis (TESTED from source). be148bab and the V006 addendum (path has an NGC3198 component) were not opened: UNTESTED.",
+        "Timing, TESTED from raw. The totals, the part sums and the per-shell ranges all reproduce. ri_runnable_time is 2,378.65 s (timebase 125/3). Nice is 15; the first sample shows NI 5. top showed 0.1% CPU at 10:30:49Z. At the start the load average was 25.76 with 0.2% idle. ri_cpu_time_qos_background is 1,209.93 s, i.e. all of the CPU time. Inference (not tested): background QoS runs on efficiency cores on Apple Silicon. That fits CPU alone (1,209.9 s) exceeding the record's wall (1,068.5 s), so a solo background-QoS floor would be about 1,210 s or more, not 1,070 s. This strengthens L6.",
+        "Audit file 9896071d. Of the 14 flags, the 9 PY_UNFENCED Python runs all go through a fenced runner: run_fenced_c4st3.py (7) or run_fenced_c4vf1.py (2). Flag [13] is printf text, and the rest are mkdir, grep and jq commands. The 177 unflagged commands rest on the audit tool (FORMAL).",
+        "Extra NOTE on the post, not caught in the lens text I can see: 0178 calls TAIL_REANCHOR `8ad6ca4e`. That value is the DDO step-4 anchor key (producer L79); the TAIL_REANCHOR file sha is 5fc6f0bd (producer L74-75, raw anchor_identity.spec). Wording only; the physics is unaffected.",
+        "A115 check: 0 blocking confirmed. Nothing reachable from honest pinned producers binds a wrong EPS or GQ record for a real point: the EPS is bitwise equal to the record, GQ has no compute, and only the anchor is implemented. No standing rule is breached. The selftest's lstat/readlink of the runs_ext link and the lookup of an absent name are not reads under 0677 or 0506/0507/0509, and they were disclosed in 0092, 0149 and 0178. The lens's own disclosed lapses (heredoc cat and mkdir without taskpolicy -b) are conduct NOTEs and do not affect its findings.",
+        "My conduct: every file read, hash, Python run and progress write used taskpolicy -b. Pipeline filters (head, cut, awk, sort, tr) and shell builtins in my earlier commands ran without the prefix. I opened no run-tree path and no path with an NGC3198 component. Beyond the literal allowed list, I read: CURRENT_INSTRUCTIONS.md (required by CLAUDE.md); exchange posts 0178, 0639, 0677, 0681, 0685, 0687, 0689, 0506, 0507 and 0509; greps of FROM_CLAUDE4 0092 and 0149; PARTIAL_lens.md; and the sources of gq_ngc91_cxv001.py and qinf_eval_v001.py. Progress log: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_ri45_06_c3/PARTIAL_verify.md (created with O_EXCL, written with O_APPEND only). Scratch scripts: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/ri45_06_review/verify/"
+      ]
+    }
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review:ri45-06",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "afbdd9f5a29982a42",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792408948172,
+      "queuedAt": 1792408948156,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "CONFIRMED_WITH_NOTES, 0 blocking under A115. This was a sta…",
+      "promptPreview": "OBJECTS: Claude4 RI45-06, in /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/ri45_06/ (verify shas from bytes):\n- build/TIMING_EVIDENCE_RI45_06_C4V001.json 72d61b30\n- build/TIMING_EVIDENCE_RI45_06_C4V001.md cdd8b841\n- build/GQ_BINDING_RI45_06_C4V001.json 481b1388\n- build/tools/eps_ngc_point_c4v001.py 79a5ac1d\n- build/tools/assemble_timing_evidence_c4v001.py 618589a6\n- build…",
+      "promptFramed": true,
+      "lastProgressAt": 1792410587608,
+      "tokens": 349436,
+      "toolCalls": 69,
+      "durationMs": 1639436,
+      "resultPreview": "{\"verdict\":\"CONFIRMED_WITH_NOTES, 0 blocking under A115. This was a static review: nothing was run, and no run-tree path was opened, stat-ed or listed. Lenses 1, 2, 3, 5, 6 and 7 are confirmed; lens 4 is partial. (1) The main() bytes check is real. pinload reads eps_ngc91_c2v001.py once, checks 2e59a461 before compiling, and executes exactly those bytes. S1, S2, S3 and the timing wrappers leave ev…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "verify:ri45-06",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "ac7ce84cd5cc1e2ee",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792410590253,
+      "queuedAt": 1792410590235,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "OBJECTS: Claude4 RI45-06, in /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/ri45_06/ (verify shas from bytes):\n- build/TIMING_EVIDENCE_RI45_06_C4V001.json 72d61b30\n- build/TIMING_EVIDENCE_RI45_06_C4V001.md cdd8b841\n- build/GQ_BINDING_RI45_06_C4V001.json 481b1388\n- build/tools/eps_ngc_point_c4v001.py 79a5ac1d\n- build/tools/assemble_timing_evidence_c4v001.py 618589a6\n- build…",
+      "promptFramed": true,
+      "lastProgressAt": 1792411724094,
+      "tokens": 293145,
+      "toolCalls": 59,
+      "durationMs": 1133841,
+      "resultPreview": "{\"holds\":true,\"corrections\":[\"L6 and the 'checked' timing row, wording only (TESTED): evidence.timing does not equal raw.timing as a whole. The 5 shared keys (total_wall_s, total_cpu_s, phases, per_shell, audit) are equal to raw 80677579. The evidence block adds 5 more keys: record, ratio_main_wall_to_record_wall, ratio_shell_seconds_sum_rerun_to_record, qos_cpu_time and conditions. Every figure t…"
+    }
+  ],
+  "totalTokens": 642581,
+  "totalToolCalls": 128
+}

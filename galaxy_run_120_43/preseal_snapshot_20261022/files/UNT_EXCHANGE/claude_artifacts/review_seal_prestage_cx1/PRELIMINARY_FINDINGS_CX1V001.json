@@ -1,0 +1,73 @@
+{
+  "blocking_count": 2,
+  "date_u": "Sun Oct 18 21:52:27 UTC 2026",
+  "discrepancies": [
+    {
+      "id": "SA-CX1-D1",
+      "problem": "0635/0626 scope says step6 tool2 then step7 tool3; current script executes tool3 then tool2. Separate dispatch discrepancy, not counted as proved safety bypass.",
+      "status": "PENDING_ORDER_RESOLUTION"
+    }
+  ],
+  "findings": [
+    {
+      "actual_protected_access": false,
+      "fix": "No-follow componentwise traversal, veto lexical and each discovered link target before target metadata; preserve valid canonical artifact paths.",
+      "id": "SA-CX1-B1",
+      "label": "TESTED_INERT_METADATA",
+      "problem": "Lexical guard calls realpath before checking resolved symlink target; a safe-looking alias into forbidden-name directory performs target lstat before eventual refusal.",
+      "reproduction": "Extracted exact helper function; inert alias and dummy protected-name directory wholly under own review output; intercepted lstat observed 4 target calls, zero content reads.",
+      "severity": "BLOCKING",
+      "source": "seal_steps_c3sa_c3v007.py:path_policy"
+    },
+    {
+      "actual_protected_access": false,
+      "fix": "Read pinned fence bytes once; verify digest; compile/exec exactly that same buffer; avoid source/bytecode loader fallback.",
+      "id": "SA-CX1-B2",
+      "label": "TESTED_INERT_LOADER",
+      "problem": "Byte-pin check then spec.loader.exec_module may execute cached .pyc whose payload differs from pinned source, even under -I -B.",
+      "reproduction": "Exact extracted helper with synthetic fence and manually exclusive-written matching-header synthetic .pyc: source pin passes, runtime marker is UNPINNED_BYTECODE rather than PINNED_SOURCE.",
+      "severity": "BLOCKING",
+      "source": "seal_steps_c3sa_c3v007.py:_fence"
+    }
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v005.sh",
+      "sha256": "f43bab616de4ffd87c56ec8240d07e3a956a60133b382441aad3a0dfebb8b7a6"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v007.py",
+      "sha256": "2f08fb88c17dbe340fe5f03da10ed510aff384cdb404d8e3d9544664d2d79172"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/fence_c3sa_c3v003.py",
+      "sha256": "9c62ad4902c895f0aeeba3a78976b5944146ee0de153989dbc79470528dd2863"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SLOT_VALUES_DRAFT.json",
+      "sha256": "c93691f5d1931beef8abb656ced3446c99d0adf286d4b5de0c709ecb570284ba"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/SLOT_PINS_CX1V001.json",
+      "sha256": "bbb265f6962d0f03b11ae86de0009456a7e7b6cfad93ca5b5f6672a6173fe9a3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/METADATA_INERT_CX1V001.json",
+      "sha256": "1840d32b25c7b97a3663e1963cb5d59b7b26bedb28f0bf8026f6c0bdab5b7fea"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/LOADER_INERT_CX1V001.json",
+      "sha256": "ce32b9d582154e9b5fd8f546cb3fec70b3716e8624747de0891d480d88cf15ba"
+    }
+  ],
+  "production_execution": "UNTESTED",
+  "publication_status": "PARTIAL states in progress; selected final tuple not yet published at inspection. Do not treat this as final review or adoption.",
+  "schema": "UNT_SEAL_PRESTAGE_PRELIMINARY_REVIEW_CX1V001",
+  "scientific_processes_created": 0,
+  "slot_checks": {
+    "passed": 12,
+    "pending_root_or_ruling_slots": 8,
+    "total": 12
+  },
+  "status": "PRELIMINARY_FAIL_ON_CURRENT_UNPUBLISHED_BYTES"
+}

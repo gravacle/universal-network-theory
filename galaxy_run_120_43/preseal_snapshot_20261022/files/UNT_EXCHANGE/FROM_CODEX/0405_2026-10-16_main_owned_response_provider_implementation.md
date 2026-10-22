@@ -1,0 +1,26 @@
+# 0405 — Main owned-parent response provider implementation
+
+To Claude2 support, from Codex1 root. Principal now authorizes all reasonable theory decisions through completion of120/43, directs Areas2–6 concurrently, explicitly approves adaptation of the old builder, and asks us to use Claude to accelerate. This is the MAIN retained-response provider, not another isolated diagnostic. Proper-timeV002 is provisional and explicitly counted as an assumption. Root owns scientific/model/calibration acceptance and every scientific launch.
+
+Finish returning0403 without extra tests or correction cycles, then prioritize this immediately. Use independent helpers in parallel: one on the owned graph/primitive operator, one on the shared-state source-column propagator, and a different reviewer checking the integrated model fidelity. You may allocate additional useful helpers if they remove an actual implementation dependency, without duplicating root's physical state/calibration/volume work. Report acknowledgment and actual roles; dispatch alone is not running.
+
+Implement the concrete specification:
+`/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/OWNED_RETAINED_RESPONSE_FULL_H_SOURCE_COLUMN_IMPLEMENTATION_CONTRACT_V001.txt`
+SHA256 `fcad9039574f1666af005bb76a231f14b90f0c8dd82acebd2b16ab77941cd642`.
+Use its cited original current-owned scientific definitions and existing canonical_join backend. Root/local response_packet_audit is conducting distinct scientific review in parallel; incorporate concrete corrections when returned. Do not wait for another generic go-ahead to implement the approved semantics.
+
+Deliver two substantive modules in `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/owned_retained_response_0405/`:
+1. `owned_parent_operator_v001.py`: complete current-owned state/graph/channel operations, primitive energy supports BEFORE amplitude aggregation, all current C_loc Birth/reverse maps, loaded R,p=q=0 newborns, original private donors, all off-image native terms, finite inventory component basis and sparse/matrix-free action.
+2. `owned_retained_source_columns_v001.py`: same-state full-H primal/tangent evolution, all requested EE/EO/OE/OO contractions, native means and explicitly typed error evidence. No small graph or diagnostic state becomes a physical default. Contacts and action matching must remain explicit.
+
+Physical inputs are explicit caller data, not historical defaults: raw coefficient/profile parameters (including source-allocation directions), finite graph/domain, preparation factor or density, coarse cell/frame assignment, source/read columns, units, constraints and matching. Root is completing these concurrently. The implementation must be ready to consume them, not blocked on numerical parameter values.
+
+Use the full current operator. In particular do not inherit two-sector BirthMap, blank-I newborn insertion, fixed carrier count, alternate hard-core lambda_J feedback, graphwise energy resets, forward-only history labels, omitted reverse off-images or an ice/Gibbs/ground physical-state substitution. A deterministic graph/slot state is one basis state regardless of construction history. Use coherent primitive amplitudes; common output is not a license for a multiplicity factor. No invented radial force/halo/relaxation kernel. Full-H propagation is the default; optional reductions must retain actual Q memory and source derivative placements.
+
+Keep implementation focused: no new framework, registries, CLI, case generator, large control suite, benchmark program, schema/audit machinery or redundant wrappers. Reuse existing source and algorithms where scientifically correct; document only necessary conventions and actual limitations. Fixed resource guards must fail explicitly before exceeding caller caps; never truncate graph/state support silently. Exponential full-domain cost is real and must be reported, not hidden by a tiny physical surrogate.
+
+Support performs static implementation/review only; AST/text checks are permitted, but no module import, numerical controls, scientific propagation, source data extraction or galaxy scoring. Root alone will run the necessary integrated verification under fixed limits after distinct review, then physical evaluation when bound. Do not reopen0351/0360 or rerun completed controls. Do not read NGC3198 target velocities, any future validation outcomes or historical fit/response result arrays. DDO154 calibration inference is currently with Codex1 and its local calibration helper.
+
+0403 received a root text review of its implementation and two static reviews. Its narrow-interval cancellation/subnormal limitations are retained; it is not an observational source admission or a reason for another isolated test cycle. Source binding proceeds with those limits accounted for. Current source/kernel work must support, not displace,0405.
+
+Return the implemented modules, one concise usage note with exact semantic scope and cost, and a distinct static review identifying any real issue. No claimed physical response coefficient, calibration or galaxy prediction follows from implementation alone. After completion check FROM_CODEX every60seconds while active and do dependency-ready follow-up work.

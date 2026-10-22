@@ -1,0 +1,174 @@
+{
+ "schema": "CLAUDE2_0349_SOURCE_SPECIFIC_PREFIX_CONTRACT_V001",
+ "verdict": "CONTRACT JUSTIFIED FOR THE PINNED BYTES",
+ "scope": {
+  "source": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt",
+   "sha256": "5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243",
+   "bytes": 28259,
+   "distributor_copy_identical": "joint_parent_continuation/sparc_official_sample_2026-10-06_v001.mrt (same sha256; sidecar url https://astroweb.case.edu/SPARC/SPARC_Lelli2016c.mrt, per 0345-B)"
+  },
+  "rows": {
+   "NGC3198": 152,
+   "DDO154": 104
+  },
+  "bytes": "1-41 only",
+  "emitted_fields": [
+   "D",
+   "e_D",
+   "f_D",
+   "Inc",
+   "e_Inc"
+  ],
+  "validated_not_emitted": [
+   "Galaxy",
+   "T"
+  ]
+ },
+ "because": [
+  "Field order is supplied twice by the source (header and CDS agree for all 19 fields).",
+  "The documented shape sequence A|I|F.2|F.2|I|F.1|F.1 followed by F.3 makes every positional fault visible except two same-shape transpositions; the Inc/e_Inc one is caught by disjoint documented ranges used as reject-only guards.",
+  "Everything an author whitespace certification would add (blanks separate fields; no blank inside fields 1-7; field 8 starts after byte 41; token 7 complete) is verified exhaustively in the sha-pinned bytes: 175/175 rows. For a fixed, hashed object, checking every row is verification, not generalisation.",
+  "Fault enumeration over 194238 patterns (nulls with a collapsing writer, merges, blank-in-name; layouts aligned to the observed slots to give the attacker the best case): the full contract misreads only 648 patterns, all in two signatures that put Vflat or e_Vflat in the e_Inc slot (name|T|D|e_D|f_D|Inc|Vflat; name|T|D|e_D|f_D|Inc|e_Vflat). These are byte-identical in 1-41 to a correct row, so no prefix-only check can see them, certified or not. They are excluded by CDS non-nullability (A2).",
+  "The remaining D/e_D transposition (A1) is likewise invisible to every prefix check and is not addressed by any serialization certification. It is excluded by the two-document order, and for NGC3198 by the anchor (token 3 = same-author D, no other token equal)."
+ ],
+ "answer_to_root": "A documented order plus a uniquely validated literal-token mapping suffices for these pinned bytes; an author certification of whitespace serialization is neither necessary (its content is verified in the bytes) nor sufficient (it would not address the only two residuals, both of which are byte-identical in 1-41 to correct rows and are closed by documentation, not by formatting statements).",
+ "conditions": [
+  {
+   "id": "C0",
+   "rule": "source sha256 == 5aa0501f...8243; header lines 10-17 and CDS ReadMe (sha 457f61cd...) lines 148-155 match the documented order and formats",
+   "fail": [
+    "E_PIN",
+    "E_HEADER_ORDER",
+    "E_CDS_ORDER"
+   ],
+   "basis": "DOCUMENTED"
+  },
+  {
+   "id": "C1",
+   "rule": "exactly one data row whose bytes 1-11, stripped of blanks, equal the target name; the target name has no blank",
+   "fail": [
+    "E_ROW_NOT_UNIQUE",
+    "E_NAME_MISMATCH",
+    "E_NAME_INTERNAL_BLANK"
+   ],
+   "basis": "DOCUMENTED (name 1-11) + OBSERVED"
+  },
+  {
+   "id": "C2",
+   "rule": "bytes 1..41 exist; every byte is 0x20 or 0x21-0x7E",
+   "fail": [
+    "E_SHORT_ROW",
+    "E_NON_PRINTABLE"
+   ]
+  },
+  {
+   "id": "C3",
+   "rule": "byte 41 == 0x20",
+   "fail": [
+    "E_BYTE41_NOT_BLANK"
+   ],
+   "load_bearing": "rejects truncated or overrunning token 7 and field-8 intrusion (F29, F31-F34, F50, F52)"
+  },
+  {
+   "id": "C4",
+   "rule": "bytes 1..41 split on runs of 0x20 give exactly 7 tokens",
+   "fail": [
+    "E_TOKEN_COUNT_n"
+   ],
+   "load_bearing": "blank fields, blank-in-name, merges, extra tokens (F16-F19, F26-F27, F47-F48, F53)"
+  },
+  {
+   "id": "C5",
+   "rule": "token 1 == target name, ends <= 11, and it is the only token in bytes 1-11",
+   "fail": [
+    "E_NAME_NOT_CONFINED"
+   ],
+   "load_bearing": "blank-in-name compensated by a blank Type (F28; enumeration naive-name variant: 4584 misreads)"
+  },
+  {
+   "id": "C6",
+   "rule": "ordered shapes: T ^(?:[0-9]|1[01])$; D ^(?:0|[1-9][0-9]{0,2})\\.[0-9]{2}$; e_D ^(?:0|[1-9][0-9]?)\\.[0-9]{2}$; f_D ^[1-5]$; Inc and e_Inc ^(?:0|[1-9][0-9]?)\\.[0-9]$",
+   "fail": [
+    "E_SHAPE_<field>"
+   ],
+   "basis": "DOCUMENTED formats and Notes (1)/(2)",
+   "load_bearing": "all shifts, precision changes, flags, Type width (F06-F15, F20-F25, F41-F46, F59-F60); 168300 of 194238 enumerated patterns"
+  },
+  {
+   "id": "C7",
+   "rule": "D > 0; 0 <= Inc <= 90",
+   "fail": [
+    "E_DOMAIN_D",
+    "E_DOMAIN_Inc"
+   ]
+  },
+  {
+   "id": "C8",
+   "rule": "reject-only guards from CDS [min/max]: D [0.98,127.8], e_D [0.05,12.8], Inc [15,90], e_Inc [1,10]",
+   "fail": [
+    "E_RANGE_<field>"
+   ],
+   "basis": "DOCUMENTED (CDS); never used for identification",
+   "load_bearing": "Inc/e_Inc transposition (F38) and Inc-null slides; without C8 the enumeration misreads rise from 648 to 4536 and swap_Inc_eInc misreads from 0 to 108"
+  },
+  {
+   "id": "C9",
+   "rule": "token end bytes == (11,14,21,27,30,35,40), the invariant of all 175 rows",
+   "fail": [
+    "E_SPAN_ENDS"
+   ],
+   "basis": "OBSERVED (not a published offset)",
+   "load_bearing": "no: identical misread sets with and without it; it only ties the target row to the census and rejects benign shifts (F30, F49, F51 pass correctly when C9 is off)"
+  },
+  {
+   "id": "C10",
+   "rule": "NGC3198 only: token 3 float-equals the root manifest reference distance text and no other token does",
+   "fail": [
+    "E_ANCHOR_T3_NOT_EQUAL",
+    "E_ANCHOR_OTHER_TOKEN_EQUAL"
+   ],
+   "basis": "OBSERVED (same-author MassModels)",
+   "ddo154": "no anchor; recorded, not a failure (A1)"
+  }
+ ],
+ "emission": "Root runs it. Only on PASS of every condition for a target are the literal tokens of D, e_D, f_D, Inc, e_Inc emitted, with the source line number. On any failure no value is emitted, only codes, masks and spans. Never a plain OK.",
+ "pinned_target_result_booleans_only": {
+  "status": "PASS",
+  "NGC3198": "PASS",
+  "DDO154": "PASS",
+  "NGC3198_anchor": {
+   "t3_equal": true,
+   "other_token_equal": false
+  },
+  "docs_verified": true
+ },
+ "residual_assumptions": [
+  "A1",
+  "A2",
+  "A3"
+ ],
+ "not_established": [
+  "fixed-offset provenance: no document states the observed byte positions; the contract uses none of them for identification",
+  "the authors serialization intent for fields 8-19 (bytes >= 42 not inspected)",
+  "any physical geometry: values are catalogue literals; e_D and e_Inc are catalogue mean errors; Inc is the outer-HI-disk mean (CDS Note 3)",
+  "validity for any other bytes: a different sha fails C0",
+  "a DDO154-specific anchor for D vs e_D"
+ ],
+ "checker": {
+  "file": "prefix_contract_checker_0349.py",
+  "sha256": "46799b8ffbcf19eccf29ece7b1a6527fda7966e8c86c15b76d660d92ed3f5400"
+ },
+ "tests": {
+  "fixtures": {
+   "file": "ADVERSARIAL_FIXTURES_0349_V001.json",
+   "sha256": "1c4f22f39f4af966ad14130e14fc3503654d0ed16e854e050f79234c44d4b53e"
+  },
+  "results": {
+   "file": "TEST_RESULTS_0349_V001.json",
+   "sha256": "f0dd0be8ceb44eb890e2e7fa1ed07b4277e0e4763784e48726aa4b8832f81188"
+  },
+  "n_fixtures": 60,
+  "all_as_expected": true
+ }
+}

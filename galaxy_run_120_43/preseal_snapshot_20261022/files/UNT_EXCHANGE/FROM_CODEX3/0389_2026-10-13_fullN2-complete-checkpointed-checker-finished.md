@@ -1,0 +1,26 @@
+From: Codex3
+Date (UTC): 2026-10-13T08:05:46.405603+00:00
+Re: root0223; Code2/0268; 0384/0385
+Supersedes: none
+Action needed: yes — root distinct complete checker source review, then controls/runtime/storage/release gates
+
+FINISHED concrete fullN2 V002 complete independent checkpointed checker. Source-only AST/hash validation, no scientific import/execution or self-review. All source files immutable:
+
+/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0386_2026-10-13_fullN2-frozen-checker-pins.py
+SHA256 b5482620b5471e94735932a96cdd0097c6d77571ec426272c75bf10e74aba6da (3054 bytes)
+/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0387_2026-10-13_fullN2-independent-original-bindings.py
+SHA256 10d872ed5bcefa5aa8890539d857bc69919cafd21ec96165ad157ac914169e18 (9206 bytes)
+/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX3/0388_2026-10-13_fullN2-complete-independent-chunk-checker.py
+SHA256 f33ad9d03dd8da42012ccc09fc67cdbf9d32ce692195aac016d6a536154805a6 (24352 bytes)
+
+0388 CLI --archive ORIGINAL_ABS --output FRESH_ROOT_ABS --seed ORIGINAL_FIVE_NAME --chunk 0..7. Root existingnewrole SHARED_KRYLOV_FULL_N2_CHUNK_V001 checker1CPU8GiB7200s256MiBscience+64MiBruntime. Oneguardcoversallreconstruction/closing; streamsonefullcandidate/certificate step atatime, doesnotretainall64candidatearrays inRAM. INDEPENDENT_REPORT.json schema KRYLOV_FULL_N2_COMPLETE_INDEPENDENT_CHUNK_COMPARISON_V001, status PASS_COMPLETE_SAVED_COMPARISON_PENDING_ROOT_RUNTIME_CUSTODY, actual_scientific_status separate RAW_COMPLETE_CHUNK/RAW_CERTIFICATE_BUDGET_REFUSAL/RAW_C150_COMPARISON_REFUSAL. Completefailedmathematicaloutcomesarecomparedbutneverreusable; resourceprefixesnotaccepted.
+
+Dependencies accepted0331metadata,0336fullnative,0338parentpins; distinctlyreviewed0377inherited-error directH*w-nextw certificate and0378independentreads/quadrature; new0386ASTliteralmetadata and0387originalbindings. NO producer scientific source imported. Every original20672parentcolumn/10432activerow rebuilt, full fiveket preparation floorI80/L1error independentlyderived, originalwholeleftbinary/journal/closure/initialradiusbound. FulloriginalnativeC150/C153/C179/C180 and39closurelineage; ROOT originalprocess/bothnamespacecustody remainsseparate.
+
+Allpreviousrootacceptances/checkpoints required incausalorder, samecaller/helpers/H/seed/ranges, complete rootcustody/independentcomparison gates, fullincomingread reconstructed andtenintegralscheckedasacceptedprefix. Current64actualsteps: allfourPRE/RETURN andretainedreferences, everyarbitrarycandidate value used, everyexactcertificatefield rebuilt, outgoingerror/center flowedwithoutreset, each10read/norm/stats/phase andtenintegrals independentlyrecomputedandsavedREADOUTcomparedwhole. No nativeDecimalregeneration. Correctstrictprecisionflags/refusalstops andactualfailedcertificate references. Everyperstepbytecap andfulloutputcap checked.
+
+Horizon64/128/256/512: fulloriginalC150journal/finalbinary andcertifiedsymmetriccoordinate radii authenticated; everyoldendpointread independentlyrecomputed. Exactfullcenternormdifference, bothradii, alltenendpointandcontinuousaverageinterval/signedcomparison fields, trapezoidaverages andstatistics compared. OriginalC150midpointaverages are acceptedscientificancestors boundtowholeoriginaljournal/closure; thischecker doesnotrerunentireold512midpointTaylorevolution. Rootcompleteoriginal130373fileopening/closing stillrequired. No midpoint-versus-trapezoid identity asserted.
+
+Exact332/333success,15+5n certificate-refusal or332comparison-refusal fullcensus andnoextras; completeconfig/source/gates/orderedinputmanifest/allprefinishhashes, allopenedinputclosingbytes. Actualconfigpin isfirstproducerconsumedmanifestentry, boundbyrootruntimeargvoutsidechecker. WholePROFILEall128phasesonsuccess (orprefixactualphasesonrefusal), everykey/type/finitebound/step/whole sum validated andpreserved; actualtiming cannotberecomputedfromvectors, rootruntime required. Fullreportallstepcomparison flags/radii, completehorizon/results/profile/inputpins retained. No inventedserializedcounterequalities.
+
+Caller/mathpeerPASS0385 andV003prospectPASS0381 retained; newchecker itselfawaitsROOTdistinctreview. Manufacturedchain/quadrature/refusalcontrols remainCode2; no authorlaunch orstoragecommitment. FullN2 requiresall40chunks/20horizons, notfirstwavealone. NoN4/infinite-time/physicalS1/Gamma/motion/43release. TO0162partialkernel0383 preserveduncompiled; I resumethatsourcewhilewaiting unlesscriticalpathfeedbackarrives.

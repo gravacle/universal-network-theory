@@ -1,0 +1,115 @@
+--- ngc_acceptance_handoff_c2v004.py	2026-10-19 17:07:56.880560951 -0500
++++ ngc_acceptance_handoff_c2v005.py	2026-10-19 17:22:07.898034878 -0500
+@@ -1,4 +1,20 @@
+-"""NGC acceptance handoff c2v004 (V006 A177; A162 + A167; A153 S11 + A155). Root build (Claude2 workflow); nothing here is
++"""NGC acceptance handoff c2v005 (V006 A180; A179 S2 pins; A177; A162 + A167; A153 S11 + A155). Root build (Claude2
++workflow); nothing here is adopted until root rules and Claude3 (after its reset) reviews it.
++
++c2v005 = the handoff c2v004 (2721cfd1, A180 objects) with only the A180 changes:
++  - ROSTER_RECIPES = ngc_roster_recipes_c2v002 (A180 R1: the monitor-next state is rebuilt from the recorded
++    COMPLETED updated_gas_fourier_J by the controller L483 expression, n_recipe_path RECOMPUTED_GAS; A180 R2: every
++    c2v001 DECLARED route-B input is FORMAL from the V011_B_STAGES successor the driver pins). Digest equality (S5)
++    stays the admission proof.
++  - S2_PINS are the A179 module constants: NGC rho c3v003 producer d3d0f3dd, slot-proof producer ada31d12 (adopted A179,
++    root review wf_b9998e04). S2_RHO_SCHEMA = UNT_NGC_POINT_RHO_NUMERICAL_C3V003 must be the pinned adapter's RHO_SCHEMA,
++    else the call reads INCOMPLETE (S2_RHO_SCHEMA_NOT_THE_ADAPTER_SCHEMA). The adapter c2v003a holds that schema (L125)
++    and no S2 PENDING constant: it receives the approved lists from this handoff (check_slot_proof L548 slot proof,
++    L560 rho producer), so no adapter successor is built.
++  - the acceptance record and root summary schemas move to C2V005; rec['pins'] carries s2_rho_schema.
++Everything else is c2v004's text and behaviour, unchanged. The c2v004 text follows.
++
++NGC acceptance handoff c2v004 (V006 A177; A162 + A167; A153 S11 + A155). Root build (Claude2 workflow); nothing here is
+ adopted until root rules and Claude3 (after its reset) or Claude4 (after Fri) reviews it.
+ 
+ c2v004 = the adopted handoff c2v003a (7c54fd6f, A177) with only the A177 change: the NGC roster recipe module
+@@ -75,8 +91,8 @@
+                   'sha256': '9335ee4212719944b6dd45369161de16891ec0ed5dbdd97fed36d68d0b993bdc'}
+ S5_TOOL = {'path': os.path.join(HERE, 'ngc_s5_rebuild_export_c2v003.py'),
+            'sha256': '3611e9933b57363ffab8dbdbaae67960751e59d3d34b219f1777e8e2f2a54100'}
+-ROSTER_RECIPES = {'path': os.path.join(HERE, 'ngc_roster_recipes_c2v001.py'),
+-                  'sha256': '6c9e8508cb590e764bda8643caf48c931359bc7318674b1a150ccd43d9ccebce'}   # A177: the approved-recipe source
++ROSTER_RECIPES = {'path': os.path.join(HERE, 'ngc_roster_recipes_c2v002.py'),
++                  'sha256': 'c700f469314d73e90cd2498cdbea5b7f69fbbd9b61676468ea5e37356939978e'}   # A180: the approved-recipe source
+ ROW_CONTRACT = {'path': os.path.join(HERE, 'NGC_ROW_CONTRACT_C2V001.json'),
+                 'sha256': '80cbf2f5be2e9f22a0b751376dcde3e7e779bd89f531a8ffe9d654616490fe32'}
+ ROW_PRODUCER = {'path': ART + '/s4_acceptance_c2/acceptance_q2/row_reference_producer_c2v003.py',
+@@ -86,9 +102,11 @@
+ PENDING = 'PENDING'
+ # A162 item 6 as updated by A167: Claude3's NGC rho c3v003 producer and slot-proof producer, pinned by root after its
+ # review (A167 R2-R4).
+-S2_PINS = {'rho_producer_sha256': PENDING, 'slot_proof_producer_sha256': PENDING}
+-RECORD_SCHEMA = 'UNT_NGC_LO_ACCEPTANCE_RECORD_C2V004'
+-SUMMARY_SCHEMA = 'UNT_NGC_LO_ACCEPTANCE_ROOT_SUMMARY_C2V004'
++S2_PINS = {'rho_producer_sha256': 'd3d0f3ddda8be2e3d4b0e0732e5237a602cb3b1fb99d7921e8c10a886420a3c4',
++           'slot_proof_producer_sha256': 'ada31d121871598aa0cd7db5137691502421c873cc75bdf331706501d3f3310a'}   # A179 (c2v005)
++S2_RHO_SCHEMA = 'UNT_NGC_POINT_RHO_NUMERICAL_C3V003'                    # A179 (c2v005): the adapter's RHO_SCHEMA (c2v003a L125)
++RECORD_SCHEMA = 'UNT_NGC_LO_ACCEPTANCE_RECORD_C2V005'
++SUMMARY_SCHEMA = 'UNT_NGC_LO_ACCEPTANCE_ROOT_SUMMARY_C2V005'
+ SRB_SCHEMA = 'UNT_NGC_SRB_ROT_REPORT_C2V003'
+ STATE_INPUT_SCHEMA = 'UNT_NGC_LO_STATE_INPUT_C2V001'
+ ROUTE = 'NGC_POINT_RHO_POST_RUN_PER_STATE_LO_ACCEPTANCE'
+@@ -564,7 +582,8 @@
+     rec['pins'] = {'lo_adapter': dict(LO_ADAPTER), 'enumerator': dict(ENUMERATOR), 'iterate_reader': dict(approvals['reader']),
+                    's5_tool': dict(approvals['s5']), 'roster_recipes': dict(approvals['recipes']),
+                    'row_contract': dict(contract_pin) if is_pin(contract_pin) else contract_pin,
+-                   'row_producer': dict(ROW_PRODUCER), 'library': dict(LIBRARY), 's2': dict(s2_pins) if isinstance(s2_pins, dict) else s2_pins}
++                   'row_producer': dict(ROW_PRODUCER), 'library': dict(LIBRARY), 's2': dict(s2_pins) if isinstance(s2_pins, dict) else s2_pins,
++                   's2_rho_schema': S2_RHO_SCHEMA}
+     rec['high_qinf_ngc_lo_flagged'] = True if (policy or {}).get('high_qinf_admitted') is True else None
+     try:
+         need(isinstance(policy, dict) and set(policy) <= set(POLICY_KEYS), 'POLICY_KEYS (S2 and producer approvals are pins, not policy)')
+@@ -577,6 +596,7 @@
+         need(policy.get('row_contract') is None or policy['row_contract'] == contract_pin,
+              'ROW_CONTRACT_NOT_THE_PINNED_CONTRACT (one contract, A162 item 3)')
+         approved_slot, approved_rho, s2_block = _s2_lists(s2_pins)
++        need(getattr(A, 'RHO_SCHEMA', None) == S2_RHO_SCHEMA, 'S2_RHO_SCHEMA_NOT_THE_ADAPTER_SCHEMA (A179: %s)' % S2_RHO_SCHEMA)
+         rec['s2'] = 'PENDING' if s2_block else 'PINNED'
+         out = os.path.realpath(os.path.join(rec['call_dir'], 'out'))
+         rp = os.path.join(out, 'result.json')
+@@ -681,12 +701,12 @@
+ 
+ 
+ def load_modules():
+-    E = load_pinned(ENUMERATOR, 'ngc_handoff_c2v004_enumerator')
+-    A = load_pinned(LO_ADAPTER, 'ngc_handoff_c2v004_adapter')
+-    R = load_pinned(ITERATE_READER, 'ngc_handoff_c2v004_iterate_reader')
+-    S = load_pinned(S5_TOOL, 'ngc_handoff_c2v004_s5_tool')
+-    lib = load_pinned(LIBRARY, 'ngc_handoff_c2v004_owned_uv_tail_lapse_v002')
+-    rowmod = load_pinned(ROW_PRODUCER, 'ngc_handoff_c2v004_row_reference_producer_c2v003')
++    E = load_pinned(ENUMERATOR, 'ngc_handoff_c2v005_enumerator')
++    A = load_pinned(LO_ADAPTER, 'ngc_handoff_c2v005_adapter')
++    R = load_pinned(ITERATE_READER, 'ngc_handoff_c2v005_iterate_reader')
++    S = load_pinned(S5_TOOL, 'ngc_handoff_c2v005_s5_tool')
++    lib = load_pinned(LIBRARY, 'ngc_handoff_c2v005_owned_uv_tail_lapse_v002')
++    rowmod = load_pinned(ROW_PRODUCER, 'ngc_handoff_c2v005_row_reference_producer_c2v003')
+     need(R.S5_TOOL == (S5_TOOL['path'], S5_TOOL['sha256']), 'READER_DOES_NOT_PIN_THIS_S5_TOOL')
+     return E, A, R, S, lib, rowmod
+ 
+@@ -709,7 +729,8 @@
+     every route-B state (S5), and export a state input for every non-accepted inventory state (S5). Returns the policy
+     fragment {route_a_iterates, rebuild_exports} plus every admission pin; nothing here reads or computes an LO value.
+     A177: the recipe is ROSTER_RECIPES (approved list [its sha]) unless the caller names another recipe and list. An iterate
+-    the recipe refuses (e.g. the monitor-next state, ROUTE_A_MONITOR_NEXT_GAS_UNRECORDED) leaves no admitted source, so the
++    the recipe refuses (c2v005: e.g. a monitor-next state whose COMPLETED record lacks updated_gas_fourier_J,
++    ROUTE_A_MONITOR_NEXT_GAS_UNRECORDED) leaves no admitted source, so the
+     reader writes no list and this raises ROUTE_A_ITERATE_SOURCE_UNESTABLISHED; accept_call_ngc then reads INCOMPLETE."""
+     recipe_ref = dict(ROSTER_RECIPES) if recipe_ref is None else recipe_ref
+     approved_recipe_sha256 = [ROSTER_RECIPES['sha256']] if approved_recipe_sha256 is None else approved_recipe_sha256
+@@ -746,7 +767,7 @@
+ 
+ 
+ def main(argv=None):
+-    """CLI (root): taskpolicy -b python3 -I -B ngc_acceptance_handoff_c2v004.py --args A --args-sha256 S --records-dir D.
++    """CLI (root): taskpolicy -b python3 -I -B ngc_acceptance_handoff_c2v005.py --args A --args-sha256 S --records-dir D.
+     Prints the blinded summary only (S12)."""
+     if not _background_qos():
+         print('REFUSED: BACKGROUND_QOS_REQUIRED (run under taskpolicy -b)', flush=True)
+@@ -755,7 +776,7 @@
+         print('REFUSED: ISOLATED_INTERPRETER_REQUIRED (python3 -I -B, no -O)', flush=True)
+         return 2
+     import argparse
+-    ap = argparse.ArgumentParser(description='NGC LO acceptance handoff c2v004 (A153 S11; A155; A162; A167; A177)')
++    ap = argparse.ArgumentParser(description='NGC LO acceptance handoff c2v005 (A153 S11; A155; A162; A167; A177; A179; A180)')
+     ap.add_argument('--args', required=True, help='JSON: call_dir, spec_ref, policy')
+     ap.add_argument('--args-sha256', required=True)
+     ap.add_argument('--records-dir', required=True)

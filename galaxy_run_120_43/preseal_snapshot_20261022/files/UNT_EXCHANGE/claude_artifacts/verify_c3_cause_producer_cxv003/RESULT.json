@@ -1,0 +1,70 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0848 item 2 / Codex2 0574: cause producer cxv003, narrow verify against cxv002 4271da44 (plus Claude3 cw8 v003-N1 totality)",
+ "reviewer_lane": "Claude3 (lead)",
+ "utc": "2026-10-21T14:49:20Z",
+ "object": {
+  "folder": "claude_artifacts/cause_record_cx2/cxv003/",
+  "shas_from_bytes": {
+   "cause_record_cxv003.py": "7802eb0f",
+   "test_cause_cxv003.py": "02b8bc04",
+   "README_CAUSE_CXV003.md": "aff197ae",
+   "CAUSE_TESTS_CXV003.json": "d82e8436",
+   "CAUSE_MUTANTS_CXV003.json": "6575e4c0",
+   "CAUSE_CLI_TOTALITY_CXV003.json": "9933bee9",
+   "CAUSE_SOURCE_DELTA_CXV003.json": "e9297062",
+   "CAUSE_VERIFICATION_CXV003.json": "80f3e927",
+   "metadata_selector_cx1v002.py": "86a71335",
+   "CAUSE_VOCABULARY_CXV002.json": "839c7577"
+  },
+  "base": "cause_record_cx1/cxv002/cause_record_cxv002.py 4271da44"
+ },
+ "verdict": "PASS",
+ "blocking": 0,
+ "checked": [
+  {
+   "claim": "The producer delta against cxv002 is exactly one inserted line (cxv003 L82): if status=='ROUTE_A_NO_FIXED_POINT' and outcome not in (CONVERGED_FINITE_FIXED_POINT, FAILED_SOURCE_PREPARATION, ITERATION_BUDGET_EXHAUSTED): return no('ROUTE_A_OUTCOME_MISSING_OR_UNKNOWN'). The copied reader 86a71335 and vocabulary 839c7577 are unchanged.",
+   "result": "CONFIRMED",
+   "label": "TESTED (diff, hashes)"
+  },
+  {
+   "claim": "The known set equals the real iterator outcomes: every route-A solver passes exactly these three tokens to _finish. That is fixedsrc 44d9c23c L178/L210/L216, uvtail 8ef3079b L200/L239/L243 and parallel uvtail 7667025b L313/L356/L360; the driver reads them as checkpoint.outcome (r5 b5cc62af route_a_outcome_record L1896).",
+   "result": "CONFIRMED",
+   "label": "TESTED (byte grep of the pinned vocabulary modules)"
+  },
+  {
+   "claim": "Codex2's suite re-run on a copy (verify_c3_cause_producer_cxv003/fixtures_lead/, real producer as argv[1]): 59/59 pass. All 8 shipped mutants are killed; M08, which removes the new line, is killed by absent_outcome_uncounted_with_exact_reason.",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Totality (cw8 v003-N1, A282), with Claude3's own probe totality_probe_c3.py b2d5f835. It covers 1008 synthetic honest FAILED-class receipts: 3 lanes (DDO; NGC without and with post-seal attestation) x 3 driver statuses (FAILED, FAILED_AT_STAGE, ROUTE_A_NO_FIXED_POINT) x 7 outcomes x 4 stage layouts x 2 exits x finish present/absent. Every receipt returns a row, and none raises. Every row passes the roster builder's cause-binding checks (receipt, spec and driver bound; status equal; result bound when present). Only ROUTE_A_NO_FIXED_POINT with ITERATION_BUDGET_EXHAUSTED or CONVERGED_FINITE_FIXED_POINT is counted. Absent, None, unknown and NONCONVERGENCE are uncounted with ROUTE_A_OUTCOME_MISSING_OR_UNKNOWN. The same probe on cxv002 counted 12 such rows, so the fix is effective.",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  }
+ ],
+ "findings": [
+  {
+   "id": "N1",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "CONVERGED_FINITE_FIXED_POINT under ROUTE_A_NO_FIXED_POINT is counted, but honest producers cannot emit it",
+   "evidence": "The solvers return that outcome only with converged_finite_fixed_point True (fixedsrc L210, uvtail L239, parallel uvtail L356). The driver raises RouteANoFixedPoint only when classification is ROUTE_A_NO_FIXED_POINT, i.e. conv_flag is not True (r5 L1913-1915, L1961-1964). Only forged or inconsistent metadata could pair them (A115 NOTE). Codex2's positive fixture real_iterator_outcome_CONVERGED_FINITE_FIXED_POINT exercises that unreachable pair. A later version could treat the pair as inconsistent and uncounted."
+  },
+  {
+   "id": "N2",
+   "cls": "NOTE",
+   "label": "FORMAL",
+   "title": "A missing checkpoint outcome stays uncounted, as root ruled (0848)",
+   "evidence": "route_a_outcome.outcome is None only if the solver ran without a checkpoint (fixedsrc L108). The r5 route-A inputs always include checkpoint_directory (L3960), so honest production runs carry an outcome."
+  }
+ ],
+ "totality_summary": {
+  "cases": 1008,
+  "rows": 1008,
+  "problems": 0,
+  "counted_rows": 8
+ },
+ "disposition": "review PASS, ready for root adoption (0851 item 5)",
+ "reads_not_done": "No run trees, receipts or NGC data; synthetic fixtures only, in the lane's own folders. The route-A solver modules and driver r5 were read as code (pinned vocabulary modules) for their outcome tokens."
+}

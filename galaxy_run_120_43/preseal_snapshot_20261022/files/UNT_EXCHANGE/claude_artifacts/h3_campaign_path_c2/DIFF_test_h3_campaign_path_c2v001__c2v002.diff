@@ -1,0 +1,401 @@
+--- tests/test_h3_campaign_path_c2v001.py
++++ tests/test_h3_campaign_path_c2v002.py
+@@ -1,4 +1,15 @@
+-"""Tests for h3_campaign_path_c2 c2v001 (Claude2; V006 A188: the H3 campaign launch path).  SYNTHETIC launches only.
++"""Tests for h3_campaign_path_c2 c2v002 (Claude2; V006 A191 B2 on the A188 H3 campaign launch path).  SYNTHETIC launches only.
++
++c2v002 = test_h3_campaign_path_c2v001 (9777e2b2) ported to the c2v002 entry / accept step / generator / regenerate, plus
++the B2 rows: G08 (generator c2v002 = c2v001 except the entry), K15 (the accept step refuses a c2v001-line entry), and EB17-EB23
++on world B's wave-2 calls: MUST_FAIL a guard-valid bundle without an acceptance record, a record of another call, a record
++reading INCOMPLETE, relative paths, a record pin / bundle that differ; the c2v001 contrast (B2 as found: the predecessor's
++reingest caches a handoff-less bundle VALID); MUST_PASS the CLI reingest with the call's own v004 record.  Unchanged tools
++(apply, builder, storage, templates, synthetic modules) are read from the c2v001 folder by path and pinned (Z01).
++Declared test substitution added in c2v002 (TOY_SEPARATION): EB19 runs the accept step with the entry's reingest replaced by
++a stub that returns TEST_STUB_REINGEST_NOT_CALLED, so that the handoff's record exists for a call that is not yet cached and
++the entry's CLI reingest can be exercised on it (EB20-EB23).
++Text below is c2v001's.
+ 
+ Rows are MUST_PASS (the rule accepts / holds) or MUST_FAIL (the rule refuses); a row passes when the outcome matches.
+   G  generator make_campaign_cascade_c2v001 (minimal successor of make_b1_cascade_c4v002 a7a5fe58): byte regression to the
+@@ -21,7 +32,7 @@
+ adapter pin.  The test config is v004a with work_dir (+identity), driver, taxonomy (a copy whose driver field is the mock's)
+ and anchor.driver_sha256 replaced; every H3 field is then set by apply_h3_fields_c2v001 itself.  Nothing real is launched:
+ the only subprocesses are the pinned python running the root monitor (mock calls), this file in --child mode, and ps.
+-usage: <codex python3> -I -B tests/test_h3_campaign_path_c2v001.py [--runs-root DIR]
++usage: <codex python3> -I -B tests/test_h3_campaign_path_c2v002.py [--runs-root DIR]
+ """
+ import os
+ for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS', 'NUMEXPR_NUM_THREADS',
+@@ -81,14 +92,32 @@
+                        'CLAUDE2/W1_RUN_SHEET/W1_RUN_SHEET_V001.md'), '6ab425228706602d79a61fab3446b4174c7a82d523a623fb6df2aeaefe4da2f4'),
+     'taxonomy': (CX2 / 'v006r6/FAILURE_TAXONOMY_CX2V006R6_CANDIDATE.json', '0ad99c668377fcc60e754a377499fa1da15b2c1462486ef8631b05e8b023460c'),
+ }
+-GEN = H3 / 'make_campaign_cascade_c2v001.py'
+-ENTRY_T = H3 / 'h3_campaign_entry_c2v001.py'
+-REGEN = H3 / 'regenerate_h3_c2v001.py'
+-APPLY = H3 / 'apply_h3_fields_c2v001.py'
+-ACCEPT = H3 / 'h3_accept_call_c2v001.py'
+-BUILDER = H3 / 'build_adoption_derivation_c2v001.py'
+-STORAGE = H3 / 'storage_check_h3_c2v001.py'
+-SYN_SRC = HERE / 'synthetic'
++H3R = ART / 'h3_campaign_path_c2'          # the c2v001 folder: predecessors and the unchanged tools, by path and sha
++NAMED.update({
++    'entry_c2v001': (H3R / 'h3_campaign_entry_c2v001.py', '08068e93904fa12bd7d6bb9ceaca6b37b85cc884fa8091d8a7d59900e5a0c4bd'),
++    'accept_c2v001': (H3R / 'h3_accept_call_c2v001.py', '05651663cfa2e9159068c9f7aa939a0cefc749b6acc79d4a677cf87f7c2af2ba'),
++    'generator_c2v001': (H3R / 'make_campaign_cascade_c2v001.py', '65a701449bd72d654ec3ad59b01e30d3c89c8025988c9d0ce435c25ca1fa5358'),
++    'regenerate_c2v001': (H3R / 'regenerate_h3_c2v001.py', '1706da776372191f619d02937b4388025b113fcb023b7da83a4300e410e3cc8f'),
++    'apply_c2v001': (H3R / 'apply_h3_fields_c2v001.py', '2e4a5393b5a1624b61c91424eaa90a61ce16cf2ef17dec60118158486e97877f'),
++    'builder_c2v001': (H3R / 'build_adoption_derivation_c2v001.py', '01a4cbae729a0c44df2ea1f4cc500ae95669cb9ff6a7541bc94621c23c2294bd'),
++    'storage_c2v001': (H3R / 'storage_check_h3_c2v001.py', 'e0b3a89a4a2930311c393cd62d2f51b0b343fe705736d8083a45628c8a75706d'),
++    'seal_placeholder': (H3R / 'SEAL_TUPLE_RECORD_H3_C2V001_PLACEHOLDER.json', 'd43419be3cfe61684b68643e2edd1b199740c478a606f946d7bd5bf8d114cadf'),
++    'fields_template': (H3R / 'H3_FIELDS_RECORD_C2V001_TEMPLATE.json', 'd3568d0653e988ab52a2d18fd2dda697f62c433e368b96d77c064ffe608c3dbb'),
++    'deps_template': (H3R / 'ACCEPT_DEPS_RECORD_C2V001_TEMPLATE.json', '48ec0e010cd4228f6b3a7eab78940e956465af32d3d3e796efb41f4a7ca3bfa5'),
++    'syn_mock': (H3R / 'tests/synthetic/mock_driver_h3_c2v001.py', '374c508e83a6c6a8714be0e4cf25c08fe6d8325671603decdd36c75f5165f57c'),
++    'syn_module': (H3R / 'tests/synthetic/syn_h3_c2v001.py', 'a59486143ae7723d13b9a566dd2dd94fb82672ccda6e3f1d72e0e2055638cf44'),
++})
++GEN = H3 / 'make_campaign_cascade_c2v002.py'
++ENTRY_T = H3 / 'h3_campaign_entry_c2v002.py'
++REGEN = H3 / 'regenerate_h3_c2v002.py'
++ACCEPT = H3 / 'h3_accept_call_c2v002.py'
++APPLY = NAMED['apply_c2v001'][0]
++BUILDER = NAMED['builder_c2v001'][0]
++STORAGE = NAMED['storage_c2v001'][0]
++SYN_SRC = H3R / 'tests' / 'synthetic'
++ENTRY_V1 = NAMED['entry_c2v001'][0]
++GEN_V1 = NAMED['generator_c2v001'][0]
++STUB_STATUS = 'TEST_STUB_REINGEST_NOT_CALLED'
+ SUB = 'v006r12_c4'
+ SEED_KEY16 = '968c915bece706ea'                       # W1 run sheet section 6 (TESTED dry on v004a)
+ SEED_SPEC_V004A = '3958aed31353908f'                  # idem (registry null, so the slots are the sentinels)
+@@ -285,6 +314,8 @@
+                 H = A.load_handoff()
+                 if spec.get('world'):
+                     patch_handoff(H, spec['world'])
++                if spec['kind'] == 'accept_handoff_only':      # declared c2v002 test substitution (EB19): reingest stubbed
++                    E = types.SimpleNamespace(reingest=lambda *a, **kw: {'status': STUB_STATUS})
+                 rc = A.execute(A.parse(spec['argv']), E, W, H)
+     except BaseException as exc:                                # noqa: BLE001
+         rc = 'CRASH %s: %s %s' % (type(exc).__name__, exc, traceback.format_exc()[-1500:])
+@@ -545,7 +576,7 @@
+                                                                          NAMED['wrapper_q5b1'])),
+           {k[:40]: v[:8] for k, v in outputs.items()})
+     f12, o12, _ = G.build(SUB)
+-    ship = H3 / 'placeholder_chain' / SUB
++    ship = H3 / 'placeholder_chain_c2v002' / SUB
+     same = {n: (ship / n).is_file() and sha(ship / n) == s for n, s in o12.items()}
+     check('G02.the_shipped_placeholder_chain_is_the_generator_output_for_%s_(publish_root_calib_tail_readiness_cx2)' % SUB,
+           'MUST_PASS', all(same.values()) and o12['adoption_policy_cx2%s.py' % SUB] == NAMED['policy_r10_c4'][1],
+@@ -579,6 +610,16 @@
+     check('G06.policy_only_builds_only_the_policy', 'MUST_PASS', [n for n, _ in fp] == ['adoption_policy_cx2%s.py' % SUB], list(op))
+     r, _ = quiet(G.build, SUB, False, None, 'relative/root')
+     check('G07.a_relative_publish_root_refuses', 'MUST_FAIL', r == ('SYSTEM_EXIT', 2), r)
++    G1 = load(GEN_V1, '_h3_t_gen_c2v001')
++    rows = {}
++    for sb in ('v006r10_c4', SUB):
++        _, o1, l1 = G1.build(sb)
++        _, o2, l2 = G.build(sb)
++        en = 'h3_campaign_entry_cx2%s.py' % sb
++        rows[sb] = {'same_policy_core_wrapper': {k: v for k, v in o1.items() if k != en} == {k: v for k, v in o2.items() if k != en}
++                                                and l1 == l2, 'entry_differs': o1[en] != o2[en]}
++    check('G08.generator_c2v002_equals_c2v001_for_policy_core_and_wrapper_and_differs_only_in_the_entry_(A191_B2)', 'MUST_PASS',
++          all(r['same_policy_core_wrapper'] and r['entry_differs'] for r in rows.values()), rows)
+ 
+ 
+ # ------------------------------------------------------------------------------------------------ R: regenerate
+@@ -597,7 +638,7 @@
+             return None
+         except Rg.Refused as exc:
+             return str(exc)
+-    ph = json.loads((H3 / 'SEAL_TUPLE_RECORD_H3_C2V001_PLACEHOLDER.json').read_bytes())
++    ph = json.loads(NAMED['seal_placeholder'][0].read_bytes())
+     pp = put_x(sd / 'SEAL_PLACEHOLDER_COPY.json', ph)
+     try:
+         Rg.run(pp['path'], pp['sha256'], str(sd / 'OUT_P'), dry_run=True, G=G)
+@@ -688,7 +729,7 @@
+           and t3['numerics']['block'] == t0['numerics']['block'] and t3['anchor']['use'] is False,
+           {'n_leaves': len(d), 'top': sorted({k.split('.')[0] for k in d})})
+     v4a = NAMED['config_v004a'][0].read_bytes()
+-    tmpl = json.loads((H3 / 'H3_FIELDS_RECORD_C2V001_TEMPLATE.json').read_bytes())
++    tmpl = json.loads(NAMED['fields_template'][0].read_bytes())
+     sets = {f['path']: f['value'] for f in tmpl['fields'] if f['path'] in allowed}
+     out, rep = A.apply(v4a, {'set': sets})
+     check('A02.the_shipped_template_(values_pending)_refuses_on_v004a_(no_null_field_is_applied)', 'MUST_FAIL',
+@@ -770,7 +811,9 @@
+                                                                       '--reason', 'x'], 3, 'does not exist'),
+             ('K06.entry_reingest_refuses_while_the_gates_are_pending', ['reingest', '--config', cp['path'], '--wave', '1',
+                                                                        '--call-index', '0', '--bundle', '/nonexistent',
+-                                                                       '--bundle-sha256', '0' * 64], 3, 'REINGEST_GATES_NOT_PASSED')):
++                                                                       '--bundle-sha256', '0' * 64, '--acceptance-record',
++                                                                       '/nonexistent_record.json', '--acceptance-record-sha256',
++                                                                       '0' * 64], 3, 'REINGEST_GATES_NOT_PASSED')):
+         rc, txt = quiet(E.dispatch, W, argv)
+         js = last_json(txt) or {}
+         check(tid, 'MUST_FAIL', rc == want_rc and word in json.dumps(js) and not wd.exists(),
+@@ -785,7 +828,7 @@
+     # the CLIs of the other deliverables, on the real placeholder chain (no patch): each refuses while the gates are pending
+     ent = files['h3_campaign_entry_cx2%s.py' % SUB]
+     Ac = load(ACCEPT, '_h3_t_accept_cli')
+-    deps_t = H3 / 'ACCEPT_DEPS_RECORD_C2V001_TEMPLATE.json'
++    deps_t = NAMED['deps_template'][0]
+     rc, txt = quiet(Ac.main, ['--entry', ent, '--entry-sha256', sha(ent), '--config', cp['path'], '--wave', '1', '--call-index', '0',
+                               '--deps', str(deps_t), '--deps-sha256', sha(deps_t), '--records-dir', str(rd / 'REAL_RECORDS')])
+     js = last_json(txt) or {}
+@@ -795,6 +838,12 @@
+                               '--deps', str(deps_t), '--deps-sha256', sha(deps_t), '--records-dir', str(rd / 'REAL_RECORDS')])
+     check('K12.acceptance_step_CLI_refuses_an_entry_whose_bytes_differ_from_its_pin', 'MUST_FAIL',
+           rc == 3 and 'PIN_MISMATCH' in txt, (last_json(txt) or {}).get('reasons'))
++    rc, txt = quiet(Ac.main, ['--entry', str(ENTRY_V1), '--entry-sha256', sha(ENTRY_V1), '--config', cp['path'], '--wave', '1',
++                              '--call-index', '0', '--deps', str(deps_t), '--deps-sha256', sha(deps_t), '--records-dir',
++                              str(rd / 'REAL_RECORDS_V1')])
++    check('K15.acceptance_step_c2v002_refuses_a_c2v001_line_entry_(ENTRY_NOT_C2V002_LINE,_before_the_wrapper_loads,_nothing_'
++          'written)', 'MUST_FAIL', rc == 3 and 'ENTRY_NOT_C2V002_LINE' in txt and not (rd / 'REAL_RECORDS_V1').exists(),
++          str((last_json(txt) or {}).get('reasons'))[:100])
+     Bc = load(BUILDER, '_h3_t_builder_cli')
+     wr = put_x(rd / 'REAL_WALL_RULE_PLACEHOLDER.json', {'schema': 'PLACEHOLDER'})
+     rc, txt = quiet(Bc.main, ['--entry', ent, '--entry-sha256', sha(ent), '--config', cp['path'], '--config-sha256', cp['sha256'],
+@@ -804,7 +853,7 @@
+           rc == 3 and 'CANDIDATE_GATES_NOT_PASSED' in txt and not (rd / 'REAL_ADOPTION').exists(),
+           str((last_json(txt) or {}).get('reasons'))[:120])
+     Rc = load(REGEN, '_h3_t_regen_cli')
+-    ph = H3 / 'SEAL_TUPLE_RECORD_H3_C2V001_PLACEHOLDER.json'
++    ph = NAMED['seal_placeholder'][0]
+     rc, txt = quiet(Rc.main, ['build', '--seal-record', str(ph), '--seal-record-sha256', sha(ph), '--out-dir', str(rd / 'REAL_REGEN')])
+     check('K14.regenerate_CLI_build_on_the_shipped_placeholder_record_refuses_EMPTY_TUPLE_(before_any_sealed_byte_is_read)',
+           'MUST_FAIL', rc == 2 and 'EMPTY_TUPLE' in txt and not (rd / 'REAL_REGEN').exists(), (last_json(txt) or {}).get('reason'))
+@@ -878,10 +927,10 @@
+     return run_child(w['child_world'], 'entry', entry or w['entry'], argv, '%s_%s' % (w['name'], tag), env=env)
+ 
+ 
+-def accept_cmd(w, cfg, deps, records, tag, wave=1, call_index=0, env=None):
++def accept_cmd(w, cfg, deps, records, tag, wave=1, call_index=0, env=None, kind='accept'):
+     argv = ['--entry', w['entry'], '--entry-sha256', sha(w['entry']), '--config', cfg, '--wave', str(wave),
+             '--call-index', str(call_index), '--deps', deps['path'], '--deps-sha256', deps['sha256'], '--records-dir', records]
+-    return run_child(w['child_world'], 'accept', w['entry'], argv, '%s_%s' % (w['name'], tag), env=env)
++    return run_child(w['child_world'], kind, w['entry'], argv, '%s_%s' % (w['name'], tag), env=env)
+ 
+ 
+ def deps_record(w, tag, producer_override=None, approved=None):
+@@ -952,15 +1001,15 @@
+     w['halt_token'] = sj['halts'][0]['items'][0]['token'] if sj.get('halts') else None
+     if label == 'B':
+         m1 = entry_cmd(w, ['reingest', '--config', t3, '--wave', '1', '--call-index', '0', '--bundle',
+-                           str(wdir / 'NO_SUCH_BUNDLE.json'), '--bundle-sha256', '0' * 64], 'reingest_missing')
++                           str(wdir / 'NO_SUCH_BUNDLE.json'), '--bundle-sha256', '0' * 64, '--acceptance-record',
++                           str(wdir / 'NO_SUCH_RECORD.json'), '--acceptance-record-sha256', '0' * 64], 'reingest_missing')
+         check('EB06.reingest_with_a_missing_bundle_refuses_and_writes_no_acceptance_handoff', 'MUST_FAIL',
+               m1['rc'] == 3 and not (call / 'TAIL_CERTIFICATE_ACCEPTANCE.json').exists(), str((m1['json'] or {}).get('reasons'))[:140])
+-        bad = make_wrong_producer_bundle(w, call)
+-        m2 = entry_cmd(w, ['reingest', '--config', t3, '--wave', '1', '--call-index', '0', '--bundle', bad['path'],
+-                           '--bundle-sha256', bad['sha256']], 'reingest_wrong_producer')
+-        check('EB07.reingest_with_a_bundle_whose_LO_proof_names_an_unapproved_producer_refuses_(wrapper_write_acceptance)',
+-              'MUST_FAIL', m2['rc'] == 3 and 'not' in str((m2['json'] or {}).get('reasons')) and
+-              not (call / 'TAIL_CERTIFICATE_ACCEPTANCE.json').exists(), str((m2['json'] or {}).get('reasons'))[:160])
++        bad = make_post_state_bundle(w, call, w['unapproved'], 'WRONG_PRODUCER')
++        m2 = in_process_reingest(w, t3, 1, 0, bad, None, entry=ENTRY_V1)
++        check('EB07.c2v001_contrast_reingest_with_a_bundle_whose_LO_proof_names_an_unapproved_producer_refuses_(wrapper_'
++              'write_acceptance)', 'MUST_FAIL', m2.get('status') == 'REFUSED' and 'not' in str(m2.get('reasons')) and
++              not (call / 'TAIL_CERTIFICATE_ACCEPTANCE.json').exists(), str(m2.get('reasons'))[:160])
+         dx = deps_record(w, 'PRODUCERS_DIFFER', approved=[w['producer'], w['unapproved']])
+         m3 = accept_cmd(w, t3, dx, str(wdir / 'RECORDS_DIFFER'), 'accept_deps_differ')
+         check('EB08.acceptance_step_refuses_deps_whose_producer_list_differs_from_the_config_(nothing_written)', 'MUST_FAIL',
+@@ -973,6 +1022,7 @@
+               m4['rc'] == 13 and mj.get('status') == 'NOT_ACCEPTED' and mj.get('reingest') is None and
+               mj.get('reading') == 'INCOMPLETE' and not (call / 'TAIL_CERTIFICATE_ACCEPTANCE.json').exists(),
+               {'rc': m4['rc'], 'reading': mj.get('reading'), 'guard_ok': mj.get('guard_ok')})
++        w['incomplete'] = {'record': mj.get('acceptance_record'), 'bundle': mj.get('bundle')}
+     dg = deps_record(w, 'GOOD_%s' % label)
+     a = accept_cmd(w, t3, dg, str(wdir / 'RECORDS_ACCEPT'), 'accept_w1')
+     aj = a['json'] or {}
+@@ -981,8 +1031,10 @@
+     check('E%s10.acceptance_step_reads_ACCEPTED_(handoff_v004_real_b1_guard)_and_reingest_caches_the_call_VALID' % label,
+           'MUST_PASS', a['rc'] == 0 and aj.get('reading') == 'ACCEPTED' and aj.get('guard_ok') is True and
+           ri.get('status') == 'OK' and ri.get('classification') == 'VALID' and ri.get('new_cache_entry') is True and
+-          ho.is_file() and json.loads(ho.read_text()).get('certificate_bundle') == aj.get('bundle'),
++          ho.is_file() and json.loads(ho.read_text()).get('certificate_bundle') == aj.get('bundle') and
++          aj.get('schema') == 'H3_CAMPAIGN_ACCEPT_STEP_RECORD_C2V002',
+           {'rc': a['rc'], 'reading': aj.get('reading'), 'reingest': {k: ri.get(k) for k in ('status', 'classification')}})
++    w['accepted'] = {'record': aj.get('acceptance_record'), 'bundle': aj.get('bundle')}
+     s2 = entry_cmd(w, ['status', '--config', t3], 'status_accepted')
+     check('E%s11.entry_status_after_acceptance_shows_one_cached_entry_(cache_open_re_verifies_custody_and_certificates)' % label,
+           'MUST_PASS', s2['rc'] == 0 and (s2['json'] or {}).get('n_cached') == 1, (s2['json'] or {}).get('n_cached'))
+@@ -1030,22 +1082,120 @@
+           {'rc': r2['rc'], 'n_calls': n2, 'n_halt': len(j2.get('halt') or [])})
+ 
+ 
+-def make_wrong_producer_bundle(w, call):
+-    """A post-state bundle shaped as the handoff writes it, whose LO proof names a producer that is not approved."""
+-    W, S = w['W'], load(w['syn_module']['path'], '_h3_t_syn_bad')
++def make_post_state_bundle(w, call, producer, dirname):
++    """A post-state bundle shaped as the handoff writes it, built WITHOUT the handoff, whose LO proofs name `producer`
++    (c2v001's make_wrong_producer_bundle with the producer and folder as parameters)."""
++    W, S = w['W'], load(w['syn_module']['path'], '_h3_t_syn_%s' % dirname)
+     spec = json.loads((call / 'spec.json').read_text())
+     res = json.loads((call / 'out' / 'result.json').read_text())
+     reg = json.loads(Path(w['registry']['path']).read_bytes())
+     rec = reg['points'][W.M.digest(W.point_identity(spec))]
+     inv = S.consumed_states(spec=spec, result=res, call_dir=str(call))
+-    d = Path(w['dir']) / 'WRONG_PRODUCER'
++    d = Path(w['dir']) / dirname
+     d.mkdir()
+     lo = S.adapt_call_lo(spec, call_dir=str(call), result=res, inventory=inv, bundle_ref=rec['bundle'], state_inputs={},
+-                         root_ruling_refs={'SYN_LO_PRODUCER': w['unapproved']}, approved_producer_sha256=[],
++                         root_ruling_refs={'SYN_LO_PRODUCER': producer}, approved_producer_sha256=[],
+                          trusted_source_producers=[], trusted_row_policy_review_sha256=[], out_root=str(d))
+     pre = json.loads(Path(rec['bundle']['path']).read_bytes())
+     b = dict(pre, parent_prelaunch_bundle=rec['bundle'], states=[{'state': x['state'], 'LO': x['record']} for x in lo['states']])
+-    return put_x(d / 'POST_STATE_BUNDLE_WRONG_PRODUCER.json', b)
++    return put_x(d / ('POST_STATE_BUNDLE_%s.json' % dirname), b)
++
++
++def in_process_reingest(w, cfg, wave, call_index, bundle, record, entry=None):
++    """An entry's reingest() in this process on world w's patched wrapper, with dispatch's refusal handling.
++    entry=ENTRY_V1 calls the c2v001 function (no record argument): the B2 contrast."""
++    E = load(entry or w['entry'], '_h3_t_entry_ip_%d' % time.monotonic_ns())
++    W = w['W']
++    try:
++        if entry == ENTRY_V1:
++            return E.reingest(W, cfg, wave, call_index, bundle)
++        return E.reingest(W, cfg, wave, call_index, bundle, record)
++    except (W.Error, W.CertificateRefusal, OSError, ValueError, KeyError, TypeError) as exc:
++        return {'status': 'REFUSED', 'reasons': ['%s: %s' % (type(exc).__name__, exc)]}
++
++
++def reingest_cmd(w, cfg, wave, call_index, bundle, record, tag):
++    """The entry CLI `reingest` in its own process; bundle / record are pins or (path, sha) tuples."""
++    b, r = dict(zip(('path', 'sha256'), bundle)) if isinstance(bundle, tuple) else bundle, \
++        dict(zip(('path', 'sha256'), record)) if isinstance(record, tuple) else record
++    return entry_cmd(w, ['reingest', '--config', cfg, '--wave', str(wave), '--call-index', str(call_index), '--bundle', b['path'],
++                         '--bundle-sha256', b['sha256'], '--acceptance-record', r['path'], '--acceptance-record-sha256',
++                         r['sha256']], tag)
++
++
++def e2e_b2(w):
++    """V006 A191 B2 rows on world B after EB16: wave 2 holds 3 finished calls awaiting acceptance, W1 is cached."""
++    t3 = w['T3']['path']
++    work = Path(json.loads(Path(t3).read_bytes())['work_dir'])
++    c0, c1 = (work / 'waves' / 'wave_0002' / 'campaign' / ('call_%04d' % i) for i in (0, 1))
++    w1 = work / 'waves' / 'wave_0001' / 'campaign' / 'call_0000'
++    tail = 'TAIL_CERTIFICATE_ACCEPTANCE.json'
++    w1_tail = sha(w1 / tail)
++    acc, inc = w['accepted'], w['incomplete']
++    # wave-2 call 1: a guard-valid post-state bundle built without the handoff (approved producer), no acceptance record
++    hb = make_post_state_bundle(w, c1, w['producer'], 'HANDOFFLESS_W2C1')
++    argv = ['reingest', '--config', t3, '--wave', '2', '--call-index', '1', '--bundle', hb['path'], '--bundle-sha256', hb['sha256']]
++    E2 = load_entry(w['entry'])
++    r_cli, _ = quiet(E2.dispatch, w['W'], argv)
++    r_ip = in_process_reingest(w, t3, 2, 1, hb, None)
++    check('EB17.a_guard_valid_bundle_without_an_acceptance_record_refuses_(CLI_exit_2;_in_process_ACCEPTANCE_RECORD_REQUIRED)',
++          'MUST_FAIL', r_cli == ('SYSTEM_EXIT', 2) and r_ip.get('status') == 'REFUSED' and
++          'REINGEST_ACCEPTANCE_RECORD_REQUIRED' in str(r_ip.get('reasons')) and not (c1 / tail).exists(),
++          {'cli': r_cli, 'in_process': str(r_ip.get('reasons'))[:90]})
++    m = reingest_cmd(w, t3, 2, 1, acc['bundle'], acc['record'], 'b2_other_call')
++    rs = str((m['json'] or {}).get('reasons'))
++    m2 = reingest_cmd(w, t3, 2, 1, hb, acc['record'], 'b2_other_call_hb')
++    rs2 = str((m2['json'] or {}).get('reasons'))
++    check('EB18.W1s_ACCEPTED_record_offered_for_wave_2_call_1_refuses_OTHER_CALL_/_OTHER_RECEIPT_(with_its_own_bundle_or_the_'
++          'call_1_bundle)', 'MUST_FAIL', m['rc'] == 3 and 'REINGEST_ACCEPTANCE_RECORD_OTHER_CALL' in rs and
++          'REINGEST_ACCEPTANCE_RECORD_OTHER_RECEIPT' in rs and m2['rc'] == 3 and 'OTHER_CALL' in rs2 and
++          'REINGEST_ACCEPTANCE_BUNDLE_DIFFERS' in rs2 and not (c1 / tail).exists(), {'own_bundle': rs[:120], 'hb': rs2[-90:]})
++    v1 = in_process_reingest(w, t3, 2, 1, hb, None, entry=ENTRY_V1)
++    check('EB18C.contrast_B2_as_found:_the_c2v001_entry_caches_the_handoff_less_bundle_VALID_(no_acceptance_record_exists)',
++          'MUST_PASS', v1.get('status') == 'OK' and v1.get('classification') == 'VALID' and v1.get('new_cache_entry') is True and
++          not list(c1.glob('ACCEPTANCE_TAILSTATES_*')),
++          {k: v1.get(k) for k in ('status', 'classification', 'new_cache_entry', 'reasons')})
++    # wave-2 call 0: the handoff alone (declared stub for the entry's reingest), then the entry CLI on its record
++    h = accept_cmd(w, t3, deps_record(w, 'GOOD_W2C0'), str(Path(w['dir']) / 'RECORDS_W2C0'), 'accept_w2c0_handoff_only',
++                   wave=2, call_index=0, kind='accept_handoff_only')
++    hj = h['json'] or {}
++    r2, b2 = hj.get('acceptance_record'), hj.get('bundle')
++    check('EB19.the_handoff_alone_(entry_reingest_stubbed,_declared)_reads_ACCEPTED_for_wave_2_call_0_and_caches_nothing',
++          'MUST_PASS', hj.get('reading') == 'ACCEPTED' and (hj.get('reingest') or {}).get('status') == STUB_STATUS and
++          isinstance(r2, dict) and isinstance(b2, dict) and not (c0 / tail).exists(),
++          {'rc': h['rc'], 'reading': hj.get('reading'), 'reingest': hj.get('reingest')})
++    rec = json.loads(Path(r2['path']).read_bytes())
++    sd = Path(w['dir']) / 'B2_VARIANTS'
++    sd.mkdir()
++    vi = put_x(sd / 'ACCEPTANCE_RECORD_READING_INCOMPLETE.json', None,
++               raw=canon(dict(rec, reading='INCOMPLETE')).encode() + b'\n')
++    m = reingest_cmd(w, t3, 2, 0, b2, vi, 'b2_reading_incomplete')
++    mr = (m['json'] or {}).get('reasons') or []
++    g = reingest_cmd(w, t3, 1, 0, inc['bundle'], inc['record'], 'b2_genuine_incomplete')
++    gr = (g['json'] or {}).get('reasons') or []
++    check('EB20.a_record_reading_INCOMPLETE_refuses_NOT_ACCEPTED_(one_changed_field;_and_the_genuine_EB09_INCOMPLETE_record)',
++          'MUST_FAIL', m['rc'] == 3 and len(mr) == 1 and mr[0].startswith('REINGEST_ACCEPTANCE_NOT_ACCEPTED: reading \'INCOMPLETE\'')
++          and g['rc'] == 3 and any(x.startswith('REINGEST_ACCEPTANCE_NOT_ACCEPTED') for x in gr) and not (c0 / tail).exists()
++          and sha(w1 / tail) == w1_tail, {'variant': mr, 'genuine': [x[:80] for x in gr]})
++    ra = reingest_cmd(w, t3, 2, 0, ('POST_STATE_BUNDLE.json', b2['sha256']), r2, 'b2_relative_bundle')
++    rb = reingest_cmd(w, t3, 2, 0, b2, ('ACCEPTANCE_RECORD.json', r2['sha256']), 'b2_relative_record')
++    check('EB21.relative_--bundle_or_--acceptance-record_refuses_ABSOLUTE_PATHS_REQUIRED', 'MUST_FAIL',
++          all(x['rc'] == 3 and 'REINGEST_ABSOLUTE_PATHS_REQUIRED' in str((x['json'] or {}).get('reasons')) for x in (ra, rb))
++          and not (c0 / tail).exists(), [str((x['json'] or {}).get('reasons'))[:70] for x in (ra, rb)])
++    sa = reingest_cmd(w, t3, 2, 0, b2, (r2['path'], '0' * 64), 'b2_record_sha')
++    sb = reingest_cmd(w, t3, 2, 0, hb, r2, 'b2_bundle_differs')
++    check('EB22.a_record_whose_bytes_differ_from_its_pin_or_a_bundle_other_than_the_records_refuses', 'MUST_FAIL',
++          sa['rc'] == 3 and 'acceptance record: sha256 mismatch' in str((sa['json'] or {}).get('reasons')) and
++          sb['rc'] == 3 and ((sb['json'] or {}).get('reasons') or [''])[0].startswith('REINGEST_ACCEPTANCE_BUNDLE_DIFFERS') and
++          len((sb['json'] or {}).get('reasons') or []) == 1 and not (c0 / tail).exists(),
++          [str((x['json'] or {}).get('reasons'))[:80] for x in (sa, sb)])
++    ok = reingest_cmd(w, t3, 2, 0, b2, r2, 'b2_reingest_ok')
++    oj = ok['json'] or {}
++    st = entry_cmd(w, ['status', '--config', t3], 'status_b2')
++    check('EB23.the_entry_CLI_reingest_with_the_calls_own_v004_ACCEPTED_record_and_bundle_caches_it_VALID', 'MUST_PASS',
++          ok['rc'] == 0 and oj.get('status') == 'OK' and oj.get('classification') == 'VALID' and oj.get('new_cache_entry') is True
++          and json.loads((c0 / tail).read_text()).get('certificate_bundle') == b2 and (st['json'] or {}).get('n_cached') == 3,
++          {'rc': ok['rc'], 'classification': oj.get('classification'), 'n_cached': (st['json'] or {}).get('n_cached')})
+ 
+ 
+ def e2e_not_finished(w):
+@@ -1062,11 +1212,14 @@
+     check('EC02.acceptance_step_refuses_a_non_finished_call_CALL_NOT_FINISHED_(nothing_written)', 'MUST_FAIL',
+           a['rc'] == 3 and 'CALL_NOT_FINISHED' in json.dumps(a['json']) and not (Path(w['dir']) / 'RECORDS_C').exists(),
+           str((a['json'] or {}).get('reasons'))[:120])
+-    good = json.loads(Path(w['dir'], 'RECORDS_ACCEPT', 'ACCEPT_STEP_RECORD_W0001_C0000.json').read_text())['bundle']
++    sr = json.loads(Path(w['dir'], 'RECORDS_ACCEPT', 'ACCEPT_STEP_RECORD_W0001_C0000.json').read_text())
++    good, grec = sr['bundle'], sr['acceptance_record']
+     ri = entry_cmd(w, ['reingest', '--config', t3c, '--wave', '1', '--call-index', '0', '--bundle', good['path'],
+-                       '--bundle-sha256', good['sha256']], 'C_reingest')
+-    check('EC03.reingest_of_a_non_finished_call_refuses_and_writes_no_acceptance_handoff', 'MUST_FAIL',
+-          ri['rc'] == 3 and not (call / 'TAIL_CERTIFICATE_ACCEPTANCE.json').exists(), str((ri['json'] or {}).get('reasons'))[:140])
++                       '--bundle-sha256', good['sha256'], '--acceptance-record', grec['path'],
++                       '--acceptance-record-sha256', grec['sha256']], 'C_reingest')
++    check('EC03.reingest_of_a_non_finished_call_refuses_RECEIPT_NOT_FINISHED_and_writes_no_acceptance_handoff', 'MUST_FAIL',
++          ri['rc'] == 3 and 'REINGEST_RECEIPT_NOT_FINISHED' in str((ri['json'] or {}).get('reasons')) and
++          not (call / 'TAIL_CERTIFICATE_ACCEPTANCE.json').exists(), [x[:70] for x in (ri['json'] or {}).get('reasons') or []])
+     st = entry_cmd(w, ['status', '--config', t3c], 'C_status')
+     h = ((st['json'] or {}).get('halts') or [{}])[0]
+     rs = entry_cmd(w, ['resolve', '--config', t3c, '--wave', '1', '--all', '--halt-sha256', h.get('halt_file_sha256', ''),
+@@ -1116,7 +1269,7 @@
+ # ------------------------------------------------------------------------------------------------ main
+ def main(argv=None):
+     ap = argparse.ArgumentParser()
+-    ap.add_argument('--runs-root', default=str(H3 / 'test_runs'))
++    ap.add_argument('--runs-root', default=str(H3 / 'test_runs_c2v002'))
+     ap.add_argument('--child')
+     a = ap.parse_args(argv)
+     if a.child:
+@@ -1164,6 +1317,8 @@
+               worlds['A']['n_points'] == 10, {'A': worlds['A']['n_points'], 'B': worlds['B']['n_points']})
+         e2e(worlds['B'], 'B')
+     guard('EB', world_b)
++    if 'B' in worlds and 'accepted' in worlds['B']:
++        guard('EB2', lambda: e2e_b2(worlds['B']))
+     if 'B' in worlds:
+         guard('EC', lambda: e2e_not_finished(worlds['B']))
+         guard('R', lambda: t_regenerate(worlds['B']))
+@@ -1177,13 +1332,14 @@
+     kd = [x for k in kids for x in json.loads(k.read_text()).get('audit_denied') or []]
+     check('A02.audit_in_every_child_no_denials', 'MUST_PASS', not kd and len(kids) > 0, {'children': len(kids), 'denied': kd[:3]})
+     n_pass = sum(1 for r in RESULTS if r['pass'])
+-    doc = {'schema': 'H3_CAMPAIGN_PATH_TEST_RESULTS_C2V001', 'utc': stamp, 'run_dir': str(rd), 'n': len(RESULTS), 'n_pass': n_pass,
++    doc = {'schema': 'H3_CAMPAIGN_PATH_TEST_RESULTS_C2V002', 'utc': stamp, 'run_dir': str(rd), 'n': len(RESULTS), 'n_pass': n_pass,
+            'n_must_pass': sum(1 for r in RESULTS if r['expect'] == 'MUST_PASS'),
+            'n_must_fail': sum(1 for r in RESULTS if r['expect'] == 'MUST_FAIL'), 'all_pass': n_pass == len(RESULTS),
+            'wall_s': round(time.monotonic() - t0, 1), 'audit': {'denied': AUDIT['denied'], 'subprocess': AUDIT['subprocess'],
+                                                                'n_opened': AUDIT['n_opened'], 'children': len(kids)},
+            'inputs': {p.name: sha(p) for p in (GEN, ENTRY_T, REGEN, APPLY, ACCEPT, BUILDER, STORAGE, Path(__file__),
+-                                               SYN_SRC / 'mock_driver_h3_c2v001.py', SYN_SRC / 'syn_h3_c2v001.py')},
++                                               SYN_SRC / 'mock_driver_h3_c2v001.py', SYN_SRC / 'syn_h3_c2v001.py',
++                                               ENTRY_V1, GEN_V1)},
+            'real_cache_id_placeholder_chain_v004a': STATE.get('real_cache_id'),
+            'wave2_families': STATE.get('wave2_families'), 'wave2_n_calls': len(STATE.get('wave2_thetas') or []),
+            'results': RESULTS}

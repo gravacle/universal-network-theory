@@ -1,0 +1,31 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/registry_assembler_ks4_cx1v001.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ks_k3_chain_successor_cx1/registry_assembler_ks4_cx1v002.py
+@@ -1,4 +1,4 @@
+-# A240 / 0794: KS3 successor pin only; inherited policy logic unchanged.
++# A241 / 0795: policy review parsed from its single hash-validated read; remaining logic unchanged.
+ """KS4' (ks_k3_chain_c2 G-wave c2v002; root A175, A176): KS4 c2v001 (080ed171) with the S1 C1's canonical producers,
+ its state enumerator, KS5'' and the S1-only rho slot check.
+ 
+@@ -66,7 +66,7 @@
+ import types
+ 
+ HERE = os.path.dirname(os.path.realpath(__file__))
+-COMMON_PATH = HERE + '/s4rc1_common_ks3_cx1v001.py'          # KS3' common
++COMMON_PATH = HERE + '/s4rc1_common_ks3_cx1v002.py'          # KS3' common
+ COMMON_SHA = '3d62865d2458e6e9e193879821360305852687fd0828a071dc5f4cd62da8ab3d'
+ 
+ 
+@@ -437,10 +437,11 @@
+         if bad:
+             return r, bad
+         for k in C1_REQUIRED_PINS:                                                                # L68
+-            C.read_bytes_pinned(r[k], roots, 'C1 ' + k)
++            if k != 'certificate_policy_review':  # A241: review read once below; parse its validated buffer
++                C.read_bytes_pinned(r[k], roots, 'C1 ' + k)
+         for p in producers:                                                                       # L69
+             C.read_bytes_pinned(p, roots, 'C1 approved certificate producer')
+-        rv = C.read_json_pinned(r['certificate_policy_review'], roots, 'certificate policy review')  # L70-75
++        rv = json.loads(C.read_bytes_pinned(r['certificate_policy_review'], roots, 'certificate policy review'))  # L70-75
+         want = {'driver_sha256': C.DRIVER_SHA, 'custody_deriver': r['custody_deriver'],
+                 'state_enumerator': r['state_enumerator'], 'approved_certificate_producers': producers,
+                 'guard_sha256': C.PINS['guard_ks5'][1] if s1 else wrapper_l30_guard_pin()['sha256'],   # KS4: S1 C1 -> KS5

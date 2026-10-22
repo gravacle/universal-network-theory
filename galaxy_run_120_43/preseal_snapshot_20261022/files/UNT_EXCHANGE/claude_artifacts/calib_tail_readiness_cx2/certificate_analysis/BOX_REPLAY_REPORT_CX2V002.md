@@ -1,0 +1,72 @@
+# 0515 calibration-box replay evidence and remaining point gates
+
+UTC: 2026-10-18 12:20:05 UTC. No launches. Every replay used the prescribed isolated Python, one process, single-thread BLAS, and "nice unavailable (sandbox); 0514 waiver". Files are immutable successors.
+
+**Outcome: TESTED finite-grid EPS/LO evidence and geometry-uniform GQ; no whole-box scientific certificate claimed.** The actionable admission path remains a per-point EPS/LO/state rule. This is the 0515 extension of the prior source-only report, not a promotion of anchor certificates.
+
+**Declared box/grid.** Read the coordinate spec, V005 addendum and v003b engine. Headline coordinates are s, gamma/Eref and ell_F, all logarithmic; D=4.04 Mpc and inclination66 degrees are fixed. Eref_base=1.4642919592009638e58 J is fixed; its placeholder lower/upper values are not a free box. Evaluated all8 free-box corners plus27 strictly interior points at u=(0.25,0.5,0.75)^3 in the engine log-box. Exact common-scale cancellation reduced symbol work to13 distinct (gamma/Eref,ell_F) pairs; each of the35 physical points has an explicit derived record. Separate GQ evaluations cover D lower/registered/upper. Those three D values do not certify every intermediate D.
+
+**EPS — TESTED samples, UNTESTED supremum.** Actual symbol:52 declared directions times lower/geometric-middle/upper radius in every unit shell from4 through182 /kpc. The largest sampled |1-q| is **0.01248234495880307**, at corner_00, shell [4.0, 5.0], physical k vector [2.3094010767585034, 2.3094010767585034, -2.3094010767585034] /kpc. Coordinates: s=0.050770861340343656, gamma/Eref=2.0085126300035468e-17, ell_F=4.9525125182936441e+19 m. gamma_eff=1.4931958559588601e+40, Qinf=161.24655943510385. This is a lower-bound estimate of the supremum, not an upper envelope or a gate pass.
+
+The additional free-cardinal-torus spot grid used52directions x64torus points at |k|=4,4.5,5,8,32,64,128,182 for each of13pairs. Its largest sampled envelope error is **0.01504752661822473** at |k|=4, direction [0.5773502691896258, 0.5773502691896258, -0.5773502691896258], torus [0.0, 0.0, 3.141592653589793], at the same low-r/low-ell pair. This too is a sampled lower bound, not a maximized/global supremum. q_env(k,t(k)) matched the actual q path to maximum absolute difference 0. The anchor QINF reproduction was bitwise equal. Across all13pairs, s-endpoint and Eref-times2 probes at52directions gave maximum absolute q change 0; exact algebraic cancellation was therefore numerically confirmed on that declared probe set.
+
+**LO — TESTED fixed-saved-source estimates, UNTESTED solved-state certificate.** Replayed normalized non-lapse rho at52directions and3radii per registered coarse shell; used the byte-pinned existing saved-C4R3 B1 quadrature and its saved row speeds/radii, with exact1/gamma_eff source-amplitude scaling. B1 was not independently rebuilt. The K64 estimate uses enclosing shells through128, and K128 through256 from the saved cylinder256 record. Thus neither is the exact candidate-domain calculation. Every maximum below is at saved row8.
+
+| Candidate K_big | Worst declared point | Largest shell /tau | Sum of shell maxima /tau | Enclosing shell endpoint |
+|---|---|---:|---:|---:|
+| 64 | corner_01 | 0.00290975306954 | 0.00679126521069 | 128.0 |
+| 128 | corner_00 | 0.00653722797322 | 0.0131771325156 | 256.0 |
+
+The K128 enclosing-shell indicator exceeds0.005 at the low-s/low-r/low-ell corner; **this is not a K128 scientific failure**: the source and row speeds are the saved anchor's, rho is sampled, and the high shell contains frequencies outside the K128 cylinder. It demonstrates why a blanket anchor LO certificate is unjustified. K64's sampled estimates below threshold likewise do not certify the box. The deciding work is exact-domain/current-source LO at each candidate call, after Claude2's required source-state launches. The fixed-state computations make no claim about fixed-point validity, proper-volume feedback error beyond the registered LO indicator, or D-rescaled solved states.
+
+**GQ — TESTED stronger all-column positive-mass bound.** Computed both M_s64 and128 radial transforms at every actual production k_perp node for K64(10496nodes) and K128(20736nodes), union30072, every GL4 column. Used exact v010r4 derive_geometry output for each D. The earlier simple-rescaled-edges record is preserved as a diagnostic predecessor and superseded for point geometry by gq_exact. At nonregistered D the two edge constructions are not bitwise equal; exact driver edges matter for custody.
+
+| D Mpc | K_big | Conservative all-column bound | k_perp argmax /kpc | Column1based |
+|---|---|---:|---:|---:|
+| 4.04 | 64 | 4.63121883738e-14 | 13.1678335369 | 1 |
+| 4.04 | 128 | 4.63528552591e-14 | 13.2615115382 | 1 |
+| 3.98107170553497 | 64 | 4.5999147949e-14 | 13.5677865498 | 1 |
+| 3.98107170553497 | 128 | 4.60105696875e-14 | 13.4513342273 | 1 |
+| 4.11149721104522 | 64 | 4.61897096404e-14 | 12.9441364377 | 1 |
+| 4.11149721104522 | 128 | 4.62432525805e-14 | 13.0054497924 | 1 |
+
+Every value is below1e-12, with at least21.5x margin. The bound is max_i|P_i64-P_i128|/analytic P_i(0), divided by1-minus-the-measured-zero-mode-relative-error. Since P_i(0)=2pi rdr_i>0 and |sigma_i(kz)|<=sigma_i(0) for nonnegative element masses, this covers arbitrary vertical positions and nonuniform positive mass mixtures, all k_z, and every registered seeded node for that exact geometry/config. Therefore it applies to all35 s/r/ell points at D4.04, and to the alternative-box corners at tested D endpoints, conditional on actual mass positivity and identical radial geometry/module/quadrature custody. It does not require the missing solved source merely to establish this positive-roster radial-quadrature bound. POSIX libm/float64 error is not analytically bounded; the measured criterion is the registered M_s doubling convention.
+
+**Signed offset — distinct remaining gate.** Source inspection confirms offset=body_gas minus routeA_gas_IT in _DifferenceRoster. Existing GQ producer records P0=abs(S_gas(0))=gas mass for positive component rosters; it neither evaluates that signed offset nor defines a replacement denominator. The positive-mass theorem gives |delta S_offset|<=b*(M_body+M_RA). It does not give the same relative bound divided by |M_body-M_RA|. Conservatively retain signed P0 and demand b*TV/P0<=1e-12, with positive component custody; if this is insufficient, an exact signed-source replay or a root normalization ruling is required. At P0=0 the signed relative criterion is undefined. **No silent TV renormalization is used.**
+
+The v001 guard rejected signed states outright. Guard v002 adds only this explicit nonzero signed-P0/TV-bound branch, requiring exact state/proof hashes and independently approved producers. It still refuses zero/invalid P0, missing component positivity, contradictory bounds, silent normalization change or an insufficient bound. Six synthetic signed tests passed; no real signed state has been certified by this helper. The root must review the proposed branch and carry any normalization decision before registry admission.
+
+**Enforcement / deciding launch.** Keep EPS/LO pending at unproved points. Verify full point/grid/background/geometry/module/row custody, per-state source hashes and complete caller-derived consumed-state inventory. GQ positive-source evidence may be reused only by the exact tested geometry. Signed offset needs the branch above or a reviewed explicit source replay. The production orchestrator must apply the acceptance guard before admitting or replaying a cache result. For missing point route-A states, Claude2's listed v010r4 tail-ON corner/re-anchor calls are the deciding launches; Codex2 does not launch them. Interior-point solved states remain absent and need owner-approved per-point calls when encountered. A55 K_big, V007 adoption, tail re-anchor, run-mode corner evidence and uncertainty-carrier declaration remain coordinator decisions/evidence, not inferable from these replays.
+
+**Measured resources.** Symbol/LO: 14.05s, peak87.44MB; envelope spot: 12.95s, peak94.21MB; exact-geometry GQ: 68.07s, peak70.98MB. All below8GB. The predecessor GQ geometry diagnostic took68.90s/55.00MB. Outputs remain small; no state arrays were copied.
+
+Byte pins for every cited artifact/input:
+
+- dispatch: `/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0515_2026-10-18_codex2_lane_A_scope_clarification.md`; SHA256 `afdd71effd26fda55079d18c7656b4cbc27f5cf0bf83f22575efcb198c9c6c85`.
+- symbol: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/BOX_SYMBOL_LO_REPLAY_CX2V001.json`; SHA256 `a2bb2a9fcf5fcaa4a760ae22730f3eadedb7095a8f8c3ddbf3fd0fa7d50889fe`.
+- envelope: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/BOX_ENVELOPE_SPOT_REPLAY_CX2V001.json`; SHA256 `f0507e03ec7fa38f6a968ecd25012a52778a75d6057476d6a07499d799825b07`.
+- gq_exact: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/BOX_GQ_EXACT_REPLAY_CX2V002.json`; SHA256 `559efd2fb17cf63a4cfd4683da7d8f3027f6e43b1ee81fd6b7b694a8aec6274a`.
+- gq_scaled_predecessor: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/BOX_GQ_REPLAY_CX2V001.json`; SHA256 `986d9be59829db5d034b54e4e0a02ddcded8139ed6c1d75b3342533c99ae1f4c`.
+- symbol_producer: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/box_replay_cx2v001.py`; SHA256 `728bc9905717f5d58f8cf7431a13148bf32d30ca83c4f5719743148f3731f224`.
+- envelope_producer: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/box_envelope_spot_cx2v001.py`; SHA256 `d0071d64152eeb78ead332e52f4a284bfd645b0d2e1085421517bb093b084a62`.
+- gq_exact_producer: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/box_gq_exact_geometry_cx2v002.py`; SHA256 `7cb3720f67eb0aee1c33bd0a81ccee8c1a05136c22bf749f4e8fc63e6fc6b739`.
+- guard_v002: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/certificate_guard_cx2v002.py`; SHA256 `de0f702a50bf96c2cecefa020f94ed5f98bfe987cbfe27b0e12c156069a93414`.
+- guard_builder: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/build_signed_guard_cx2v002.py`; SHA256 `527809d3d68a3109a8117b1d065e334875ae2a96775c66a67b78c83f32ce7f27`.
+- guard_tests: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/check_signed_guard_cx2v002.py`; SHA256 `94da917ceee8980d5bd73fb6ff3ed50bb8b2472c982a9720393846907e09e563`.
+- guard_test_result: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/synthetic_signed_checks_v002/RESULT.json`; SHA256 `688dbfba41036b6f91074999c54b325abe654e3f8ee9cefacebd99357622fb88`.
+- requirements_v001: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/PER_POINT_REQUIREMENTS_CX2V001.json`; SHA256 `8f690fc91cdd21eff92be599471d0629af3ef66968614af0ebcd4a7e768fc567`.
+- prior_report: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/CERTIFICATE_ANALYSIS_CX2V001.md`; SHA256 `4084bd597d978f58dd4d86d0943839480245a2c350e2a005e6a30d9f9ebeedc7`.
+- coordinate_spec: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/DDO154_CALIBRATION_COORDINATE_SPEC_V001.json`; SHA256 `fdeb5eb9b69b302c3b7eca21ed772184da56e26224fa4f8b08c8a2b0534106f8`.
+- coordinate_addendum: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/COORDINATE_SPEC_ADDENDUM_V005.json`; SHA256 `809645830c14b330a74003edd4f4e5786c39cc5dd71679d2b19518ef2f679ea9`.
+- engine: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_engine_freeze_v003b_v003d/calibration_region_engine_c2v003b.py`; SHA256 `6ec8b2d0085a9460bbf481852ea5e0f64dac09af3c8a6c6fea2bf126057c3bc3`.
+- LO_saved_bound: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_v002/gates/LO_CERT_V002.json`; SHA256 `fd4fa52b76e10ee987461e77c23b1e5dd7f7df800d453a8409a86bd0868e67b4`.
+- GQ_prior_producer: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_v002/tools/gq_cert_c2v002.py`; SHA256 `ffbe4e2e1d797712c337f46833626ef00744d0481d14988fe976856a819bfd46`.
+- offset_binding: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_b/uvt_route_b_binding_c2v001.py`; SHA256 `7288a5d17976cc0267316e16f6a15aab2ca5c87d810c7d498f2a3787fe571651`.
+- driver: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r4/galaxy_m0_forward_c2v010.py`; SHA256 `b9ae92d5857951511437cf7632eb732c97b63592ed700e6810941c5f2d8d762b`.
+- report_producer: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificate_analysis/finalize_box_report_cx2v002.py`; SHA256 `11a61c28923f921708dd77ddc458890da1c840ee96b14a62b38ec1198b28cc87`.
+- symbol_input_qinf_evaluator: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/qinf_dependence_c2/tools/qinf_eval_v001.py`; SHA256 `f58de0dcc67cc4097b4604dc96b640fbf8aaee0520d0478e214673b931eb3346`.
+- symbol_input_qinf_eval_output: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/qinf_dependence_c2/out/QINF_EVAL_V001.json`; SHA256 `50aab701f10de9a31b315d8d82b9470cd4938cf8ff4bd874a1832c89edfad686`.
+- symbol_input_inventory_npz: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/long_wavelength_response_c2/out/GRID_INVENTORY_V001.npz`; SHA256 `1833cca4b27edafde5e1d27f511b5bc7843f5447eb4d0faebbdeeb98b790d20d`.
+- symbol_input_A2_npz: `/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/CRITICAL_PATH_EVALUATION_2026-10-17_V001/sampler_eval/CANDIDATE_4CHAIN_POOLED_GRID_V001.npz`; SHA256 `2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7`.
+- symbol_input_seed_scan_result: `/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_SEED_SCAN_G2_RUN_V001/result.json`; SHA256 `951580e26aea5a0b4d0d2d73da7b1730effaac9444f385908e1ee4bb9778677d`.
+- symbol_input_lwr_common: `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/long_wavelength_response_c2/tools/lwr_common_v001.py`; SHA256 `758740ebf6caeb80876497674c3ee844f0ec8a9d0fae5d1fb8d491376e3aff48`.

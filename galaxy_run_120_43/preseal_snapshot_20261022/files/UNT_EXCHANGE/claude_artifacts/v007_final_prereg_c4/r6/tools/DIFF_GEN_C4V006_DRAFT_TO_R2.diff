@@ -1,0 +1,1087 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/tools/make_v007_final_draft_c4v006.py (sha256 8787e164d5eecb90da281ef69edb113131de442d8635eea6f26803fc39518cbe)
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/tools/make_v007_final_draft_c4v006_r2.py (sha256 9d77a1817ea46ea2fea29c0a38a9cfc611030ca9c8dd269e328443d38052ad26)
+@@ -1,16 +1,21 @@
+-# Claude4 r6 helper (Claude4 0109; r5 check REPORT_R5CHK_C4V002 F-01, route (i)), revision r6: prereg r6 = prereg r5 (3245899f) plus
+-# recorded edits, each traced to a ruling (V005 A102-A105) or an r5-check finding (F-02, F-11, F-13), rendered to JSON and Markdown
+-# together. Successor of make_v007_final_draft_c4v005_p3.py (ef00666c), which built r5 from r4; this generator starts from r5's bytes.
++# Claude4 r6 helper, continuation run 2 (A106.1 approves prereg r6; dispatch 0643; Claude4 0109 and 0110; r5 check REPORT_R5CHK_C4V002
++# F-01, F-02, F-11, F-13): prereg r6 = prereg r5 (3245899f) plus recorded edits, each traced to a ruling (V005 A102-A106) or an r5-check
++# finding, rendered to JSON and Markdown together.
++# This file is the successor, before any use, of the first builder's draft make_v007_final_draft_c4v006.py (8787e164), which was stopped
++# at 23:03Z because A106 arrived after its V005 read. It is a direct rewrite (no patch script); the diffs against that draft and against
++# r5's generator make_v007_final_draft_c4v005_p3.py (ef00666c) are written to tools/ by make_diffs_c4r6.py.
++#  - V005 is CLOSED at A106 (A106.3; 0643). The entries are read only from the exclusive byte copy
++#    r6/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md, which must hash to the closed sha and hold the closed size; the live file
++#    must still hash to the same sha (else refuse: a change to the closed file is a defect for root).
+ #  - r5 and every pinned input are read from bytes; a missing file or a sha256 that differs from the full pinned value refuses.
+-#  - The V005 addendum is read ONLY from the exclusive byte copy OUT_DIR/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md, made
+-#    by copy_addendum_c4r6.py just before; the open file is re-hashed and must still equal the copy (else refuse; ALLOW_OPEN_MOVED=1
+-#    records the mismatch instead).
+-#  - r5's 20 rows A82-A101 must re-hash from the copy (heading, section sha256, section bytes), else refuse; every entry after A101
+-#    gets a row from ROWS6 (an entry without a row refuses); every clause a REVISED_HERE row names must be changed by a logged edit.
+-#  - The r13 lines the text cites are verified from bytes; BUILD_V007 is re-verified from bytes as r5's generator did.
+-#  - Every edit is logged (brief item, clause, kind, added sources, trace, why); a leaf diff r5 -> r6 must lie inside logged clauses.
+-#  - Every output is exclusively created; nothing is overwritten.
+-# Usage: TS=$(date -u +%Y-%m-%dT%H:%M:%SZ) OUT_DIR=<r6 or a folder inside it> python3 -I -B make_v007_final_draft_c4v006.py
++#  - r5's 20 rows A82-A101 must re-hash from the copy (heading, section sha256, section bytes); A47-A101 and the preamble must be
++#    byte-equal to r5's own copy; every entry after A101 gets a row (an entry without a row refuses), and A106 must be the newest entry.
++#  - Every edit is logged (brief item, clause, kind, added sources, trace, why). Both ways: every clause a REVISED_HERE row names is
++#    changed by a logged edit whose trace names that entry, and every edit whose trace names an entry after A101 changes a clause that
++#    entry's row names. The leaf diff r5 -> r6 lies inside logged clauses, and every logged clause changes at least one leaf.
++#  - The r13 lines the text cites are verified from bytes; r12 and r13 are read as text, and no compare module is imported.
++#  - All outputs are built in memory; none may exist; each is then exclusively created. Nothing is overwritten.
++# Usage: TS=$(date -u +%Y-%m-%dT%H:%M:%SZ) OUT_DIR=<the r6 folder, or a new folder inside r6/scratch for a dry run> python3 -I -B <this>
+ import copy, difflib, hashlib, json, os, re
+ from pathlib import Path
+ 
+@@ -20,7 +25,12 @@
+ R5 = R5D / 'KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R5.json'
+ R5_SHA = '3245899f68081a48928a7242a1d9f1ee3694bb13b3f04913dcb2825104a93393'
+ V005 = C2 / 'ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md'
++V005_CLOSED_SHA = 'c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1'     # A106.3; 0643 (pasted from shasum)
++V005_CLOSED_BYTES = 143081
++V005_LAST = 'A106'
+ COPY_REL = 'addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md'
++COPY = R6D / COPY_REL
++R5_COPY = R5D / 'addendum_read/V005_ADDENDUM_READ_AT_R5_GENERATION.md'
+ R12 = CA / 'v007_compare_c2/r12/kmax_tail_compare_c2v007_r12_cx3v002.py'
+ R12_SHA = '4bd7b262caae26f2de146cee803dd689a1f4e565cb67552f04e6d6b97188dd28'
+ R13 = CA / 'v007_compare_c2/r13/kmax_tail_compare_c2v007_r13_cx3v001.py'
+@@ -44,6 +54,8 @@
+     ('tools/make_v007_final_draft_c4v005.py', 'f4de79cb9894ca6c10247cf5f1a11ddaa6f581c8a702d21e84195d162c006c4e'),
+     ('tools/patch_gen_c4v005_p2.py', 'c331958a47b8523c5fbf432b91ebabdc11bb750a6d12fca64572b838e79982a1'),
+     ('tools/patch_gen_c4v005_p3.py', 'eded69a1669bc51a7ac9aa4d2419f1fa53f813d9f050873e6bdaedc53023759c'))
++OUT_NAMES = ('KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json', 'KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.md', 'ENTRY_TABLE_R6.md', 'SEAL_CHECKLIST_R6.md',
++             'ROOT_ITEMS_R6.md', 'CLAUSE_SOURCE_MAP_R6.md', 'DELTA_R5_R6.md')
+ 
+ 
+ def sha(p):
+@@ -81,7 +93,7 @@
+     for i, s in enumerate(starts):
+         e = starts[i + 1] if i + 1 < len(starts) else len(b)
+         head = b[s:b.index(b'\n', s)].decode('utf-8')
+-        m = re.match(r'## (A\d+):', head)
++        m = re.match(r'## (A[0-9]+):', head)
+         if m:
+             if m.group(1) in out:
+                 raise SystemExit('duplicate entry heading ' + m.group(1))
+@@ -124,40 +136,60 @@
+     return leaf == c or leaf.startswith(c + '.') or leaf.startswith(c + '[')
+ 
+ 
+-# ------------------------------------------------------------------ the A99.3 entry-table rows for the entries after A101 (A102-newest)
++# ------------------------------------------------------------------ the A99.3 entry-table rows for the entries after A101 (A102-A106)
+ ROWS6 = {
+-    'A102': (RH, ['seal_slots.compare', 'outcome_branch_tests_required', 'root_items.RI-28', 'root_items.RI-20', 'SEAL_CHECKLIST_R6 A1, SUPERSEDED'],
+-             'A102 rules that Claude3\'s r12 review of record (0083: FAIL, 1 blocking, A-B1) requires a fix round: Codex3 builds r13 = r12 plus '
+-             'exactly the A-B1 fix (parse_int=str inside the duplicate-hook parse; the text fallback only on json.JSONDecodeError), Claude3 and '
+-             'Codex2 delta-check it, and prereg r5\'s compare slot takes r13 once both report 0 blocking. r6 names r13 as the final round with r12 '
+-             'superseded, drops r5\'s "or a ruling on the item" (a blocking item in a review of record means a fix round), resolves RI-28 and '
+-             'points RI-20 to A102.'),
++    'A102': (RH, ['seal_slots.compare', 'outcome_branch_tests_required', 'root_items.RI-28', 'root_items.RI-20',
++                  'SEAL_CHECKLIST_R6 A1, SUPERSEDED'],
++             'A102 rules that Claude3\'s r12 delta review of record (0083: FAIL, 1 blocking, A-B1) requires a fix round under A81 RI-20: Codex3 '
++             'builds r13 = r12 plus exactly the A-B1 fix (parse_int=str inside the duplicate-hook parse; the text fallback only on '
++             'json.JSONDecodeError), the A-B1 forms V01-V07 become MUST_FAIL tests, Claude3 and Codex2 delta-check r13, and prereg r5\'s compare '
++             'slot takes r13 once both report 0 blocking. r6 names r13 as the final round with r12 superseded, removes r5\'s "or a ruling on the '
++             'item" (a blocking item in a review of record means a fix round; r5 check F-02), resolves RI-28, points RI-20 to A102 and lists '
++             'compare r12 as superseded in the checklist.'),
+     'A103': (RH, ['seal_slots.compare', 'root_items.RI-20', 'not_v007_text_scope', 'SEAL_CHECKLIST_R6 A1'],
+-             'A103 makes Codex1 the cross-lineage r13 delta reviewer of record in place of Codex2, which A81 RI-20 named and which is out of '
+-             'usage, and accepts cx3r008 as the step-5 NGC driver in place of cx3r007, its registry pinned from bytes before step 5. r6 names '
+-             'Codex1\'s review of record in the compare slot and checklist A1, points RI-20 to A103 and names cx3r008 in the scope note. Its other '
+-             'reassignments (the seal pre-stage cross-check, the miss-reading r3 delta, the step-4 reviews) and Codex3\'s reduced role change no '
+-             'clause of this text.'),
++             'A103 makes Codex1 the cross-lineage r13 delta reviewer of record in place of Codex2 (out of usage; A81 RI-20 named Codex2), and '
++             'accepts cx3r008 as the step-5 NGC driver in place of cx3r007, its registry pinned from bytes before step 5. r6 names Codex1\'s review '
++             'of record in the compare slot and checklist A1, points RI-20 to A103 and names cx3r008 in the scope note. Its other reassignments '
++             '(the seal pre-stage cross-check, the miss-reading r3 delta, the step-4 reviews) and Codex3\'s reduced role change no clause of this '
++             'text.'),
+     'A104': (RH, ['seal_slots.compare', 'outcome_branch_tests_required', 'root_items.RI-28', 'root_items.RI-20', 'binding_inputs.case_block_rule',
+                   'fixed_across_all_cases.validity_gates', 'gates_before_any_T_result.after_seal_marker_policy', 'seal_record_requirements[11]',
+-                  'root_items.RI-34', 'status', 'SEAL_CHECKLIST_R6 A1, B1, B2a, B7'],
++                  'status', 'SEAL_CHECKLIST_R6 A1, B1, B2a'],
+              'A104: both delta reviews of record report 0 blocking (Codex1 0076 PASS; Claude3 0092 PASS_WITH_FINDINGS), so compare r13 (f5adfd11, '
+              'selected by SELECTED_R13_CX3V001 10acd098) is the compare of record and the sealed compare sets only the five A82 pins on top of it; '
+              'and D-05 is made mechanical (0640): a cited entry whose bytes changed is dispositioned revised, or no_change_after_change with a '
+-             'changed_text excerpt and a reason. r6 names r13 in the compare slot, the outcome-test clause, the status line and checklist A1, moves '
+-             'the compare line citations to r13 (L5706 becomes L5708; L338 and L341 are unchanged; B2a cites r13\'s builtin_r5_build) and states the '
+-             'disposition rule in seal_record_requirements[11], RI-34 and checklist B1 and B7.'),
++             'changed_text excerpt and a reason. r6 names r13 in the compare slot, the outcome-test clause, the status line and checklist A1, '
++             'resolves RI-28, moves the compare line citations to r13 (r12 L5706 is r13 L5708; L338 and L341 are unchanged; checklist B2a cites '
++             'r13\'s builtin_r5_build, whose text equals r12\'s), and states the D-05 disposition rule in seal_record_requirements[11] and '
++             'checklist B1.'),
+     'A105': (RH, ['seal_slots.launch_packet', 'root_items.RI-29', 'seal_record_requirements[0]', 'status', 'SEAL_CHECKLIST_R6 A12, B3, B7, B8, C1'],
+              'A105: Claude4 0108 is PASS_WITH_FINDINGS with 0 blocking, V6-S1 to V6-S3 are closed and BUILD_V007 (94bc05a5) stays bound; root '
+-             'rules W7-S1 (the admission config lists exactly BUILD_V007\'s 15 rows), RP-S1 (the seal script exclusively creates the step-2 output '
+-             'root before binding) and RP-S2 (outputs stay on the internal SSD, an 80 GB free-space watchdog, caps unchanged), and discloses E-OPS5 '
+-             '(root\'s du -sh on the C5H run directory, metadata only) in the seal record\'s E-SEAL1 block. r6 records these in the launch-packet '
+-             'slot, RI-29, seal_record_requirements[0], the status line and checklist A12, B3, B7, B8 and C1. A105\'s disk figures (992 GiB of '
+-             'caps, 452 GiB free, the measured Z2 and B0P output sizes) are root\'s launch-day measurements, not text.'),
++             'rules W7-S1 (the admission config lists exactly BUILD_V007\'s 15 rows; the seal script builds it from BUILD_V007\'s table and '
++             'refuses any other row count), RP-S1 (the seal script exclusively creates the step-2 output root before binding) and RP-S2 (outputs '
++             'stay on the internal SSD, an 80 GB free-space watchdog, caps unchanged), and discloses E-OPS5 (root\'s du -sh on the C5H run '
++             'directory, metadata only) in the seal record\'s E-SEAL1 block. r6 records these in the launch-packet slot, RI-29 (resolved), '
++             'seal_record_requirements[0], the status line and checklist A12, B3, B7, B8 and C1. A105\'s disk figures (992 GiB of caps, 452 GiB '
++             'free, the measured Z2, B0P and C5H sizes) are root\'s launch-day measurements, not text.'),
++    'A106': (RH, ['status', 'revision', 'supersedes_draft', 'assembly', 'entries_after_A81', 'seal_slots.frozen_addendum',
++                  'decision_pins_pending_at_seal.V005_addendum_frozen_copy', 'cites_by_name', 'seal_slots.compare', 'seal_slots.producer_registry',
++                  'seal_record_requirements[11]', 'seal_record_requirements[13]', 'root_items.RI-29', 'root_items.RI-34',
++                  'SEAL_CHECKLIST_R6 A8, B1, B7, SUPERSEDED'],
++             'A106.1 approves prereg r6 (Claude4 0109, F-01): r5 plus the rows A102-A106 read from the closed bytes, the r13 compare slot with its '
++             'reviews of record (Claude3 0092, Codex1 0076), F-02, BUILD_V007 per A105, the E-OPS5 disclosure and the F-11 fixes, with the case '
++             'block 76309ae3, BUILD_V007 94bc05a5 and registry V009 32ddadcb bindings unchanged; this revision is that r6 (header, status, F-02 '
++             'in the compare slot, V009 the registry candidate). A106.2 fixes the seal-tool scope: seal tools v003 carry D-05 (with C-01, which '
++             'compares every cited entry against the prereg\'s pinned text-of-record bytes), B8, the README fix and the W7-S1 MUST_FAIL cases, and '
++             'nothing more; C-02 to C-06 are exactness checks in Claude3\'s seal script, and C-03 and C-08 are in it if each takes 10 minutes or '
++             'less, otherwise root checks them by hand and the seal record says so (seal_record_requirements[13] and checklist B7 carry that '
++             'statement; seal_record_requirements[11], RI-29, RI-34 and checklist A8 and B1 name v003). A106.3 closes V005 at A106: later root rulings go in the V006 addendum, the table ends at A106 and the frozen copy must '
++             'equal these bytes (the entry-table rule, the frozen-addendum slot rule, the pending frozen-copy pin, cites_by_name, '
++             'seal_record_requirements[11], RI-34 resolved, checklist B1). A106\'s direction that Codex1 cross-checks r6 is not text.'),
+ }
+ 
+ # ------------------------------------------------------------------ inputs read from bytes at r6 generation (full sha256, pasted from shasum)
+ INPUTS = (
++    ('dispatch_0643', EX / 'FROM_CODEX/0643_2026-10-18_claude4_claude3_codex1_A106_final_V005.md', '2926f7ab57cac05168d079807224f05317d2b71e0f0a86e7a78b92e98005172e'),
++    ('Claude4_0110', EX / 'FROM_CLAUDE4/0110_2026-10-18_ack_0643_r6_through_A106_v003_option_b.md', 'a2c90720a9d1bfde26acaf5933a1eec2ead8b8ff03c1c3d646c388d0060af48f'),
+     ('Claude4_0109', EX / 'FROM_CLAUDE4/0109_2026-10-18_r5_check_r6_recommended_v002_check_scope.md', 'd0b20717170661f7bcc7b5866fd6f8c074dc5058929c4e669d0515c962983bc7'),
+     ('r5_check_report_C4V002', PR / 'r5_check/REPORT_R5CHK_C4V002.md', 'caea77aae21e19419c6d61778edb1f3ed984bf0ba21e82bbf595382dcfa3dacd'),
+     ('r5_check_results_C4V002', PR / 'r5_check/RESULTS_R5CHK_C4V002.json', 'dc2a661ec5571f56f9a1fa17cfbd3f94f1591234a77360732dda893586333ae6'),
+@@ -200,11 +232,23 @@
+     ('Codex1_0032', EX / 'FROM_CODEX1/0032_2026-10-18_gq91_pass_and_latest_rulings.md', '3e8c9fc9e65a10791f8ecbda3702556a851391350f06ed013222bd12876ab2f7'),
+     ('case_block', R5D / 'case_block/CASE_BLOCK_V007_C4V001.json', '76309ae39f23060cc662c4e218a41e1f95c56a26992402218a6198625f85ee71'),
+     ('case_block_build_record', R5D / 'out/CASE_BLOCK_BUILD_C4V001.json', 'bcf560de77cd42f67fedb62744df0723a052c1f2ffc4f4b2a7bed874eb5b59ad'),
+-    ('fence_c4v002_r6_copy', R6D / 'tools/fence_c4v002.py', '53078e39b34a22d1ee83e5b2d68c85e7644970838a2c88974397bb31912c1a4e'))
++    ('fence_c4v002_r6_copy', R6D / 'tools/fence_c4v002.py', '53078e39b34a22d1ee83e5b2d68c85e7644970838a2c88974397bb31912c1a4e'),
++    ('run_fenced_c4r6_v2', R6D / 'tools/run_fenced_c4r6_v2.py', '843e0cfbf76fb03baf57414e89fd0c0786b9a8ba5667d7cf1b87c5d9b9cb5631'),
++    ('copy_addendum_c4r6_v2', R6D / 'tools/copy_addendum_c4r6_v2.py', 'a9957506a92e9b935a638ef8f19dc7a8428e0c345dc43335c09bc0047a3f412d'),
++    ('first_builder_draft_generator', R6D / 'tools/make_v007_final_draft_c4v006.py', '8787e164d5eecb90da281ef69edb113131de442d8635eea6f26803fc39518cbe'))
++
++# ------------------------------------------------------------------ r5 texts this generator replaces whole (asserted equal before the edit)
++R5_SRR11 = ('Any A-entry after A81 that touches this text needs a successor revision or an explicit no-change note in the seal record; the seal check '
++            'verifies that every A-entry this text cites is present in the frozen bytes. The entry table entries_after_A81 lists every entry from A82 '
++            'to the newest at r5 generation (A101) as revised here (with its clauses) or no change (with the reason), each with its section sha256 '
++            'read from bytes, and the seal record quotes it (A99.3). At the freeze each row\'s section is re-hashed from the frozen bytes: a row whose '
++            'section differs, and any entry after A101 without a row, needs a successor revision or an explicit seal-record note (A81 RI-26).')
++R5_FROZEN_ENTRIES = 'A47-A101 at r5 generation (A82-A101 in entries_after_A81); every entry up to the freeze; cited by name until frozen'
++R5_CITES0 = 'ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM: A47-A101 (open; pinned by its frozen copy, PENDING)'
+ 
+ 
+ def line_checks():
+-    """the r13 lines this text cites, read from bytes; refuses on any difference. Returns the record."""
++    """the r13 lines this text cites, read from bytes (text only); refuses on any difference. Returns the record."""
+     l12 = Path(R12).read_bytes().decode('utf-8').split('\n')
+     l13 = Path(R13).read_bytes().decode('utf-8').split('\n')
+     rec = []
+@@ -215,6 +259,8 @@
+         if a != b or must not in b:
+             raise SystemExit('r13 line check failed: %s r12 L%d / r13 L%d' % (what, n12, n13))
+         rec.append({'what': what, 'r12_line': n12, 'r13_line': n13, 'text_equal': True, 'contains': must})
++    if "'SR_K'" not in l13[340]:
++        raise SystemExit('r13 L341 does not carry SR_K in the after-seal set')
+ 
+     def func(lines, name):
+         i = next(k for k, s in enumerate(lines) if s.startswith('def %s(' % name))
+@@ -232,7 +278,12 @@
+         rec.append({'what': 'seal-time pin %s = None in the reviewed source' % k, 'r13_line': hits[0]})
+     sm = difflib.SequenceMatcher(None, l12, l13, autojunk=False)
+     ops = [o for o in sm.get_opcodes() if o[0] != 'equal']
+-    rec.append({'what': 'r12 -> r13 line diff hunks', 'hunks': [list(o) for o in ops]})
++    c0 = func(l12, 'check_record_codes')[0]          # 1-based line of the def
++    c1 = next(k for k in range(c0, len(l12)) if l12[k] and not l12[k][0].isspace() and not l12[k].startswith('#'))   # 0-based end
++    if not ops or any(not (c0 <= o[1] + 1 and o[2] <= c1) for o in ops):
++        raise SystemExit('the r12 -> r13 line diff is not confined to check_record_codes (r12 L%d-L%d): %s' % (c0, c1, ops))
++    rec.append({'what': 'r12 -> r13 line diff hunks (0-based opcodes), all inside r12 check_record_codes L%d-L%d' % (c0, c1),
++                'hunks': [list(o) for o in ops]})
+     return rec
+ 
+ 
+@@ -290,13 +341,13 @@
+     return named, lg, {'differing_leaves': len(diff), 'non_string_leaves': nonstr, 'order_identical': plan['order'] == old['order']}
+ 
+ 
+-def parse_checklist(text):
++def parse_checklist(text, rev):
+     lines = text.split('\n')
+-    if lines[-1] != '' or not lines[0].startswith('# SEAL_CHECKLIST r5') or lines[4] != '| step | state | source |' or lines[5] != '|---|---|---|':
+-        raise SystemExit('SEAL_CHECKLIST_R5.md: unexpected layout')
++    if lines[-1] != '' or not lines[0].startswith('# SEAL_CHECKLIST %s' % rev) or lines[4] != '| step | state | source |' or lines[5] != '|---|---|---|':
++        raise SystemExit('SEAL_CHECKLIST: unexpected layout')
+     m = re.fullmatch(r'State at assembly \((.+?)\)\. (.*)', lines[2])
+     if not m:
+-        raise SystemExit('SEAL_CHECKLIST_R5.md: state line')
++        raise SystemExit('SEAL_CHECKLIST: state line')
+     rows = []
+     for ln in lines[6:-1]:
+         s = re.fullmatch(r'\| \*\*(.+)\*\* \| \| \|', ln)
+@@ -316,6 +367,8 @@
+     S = ['# SEAL_CHECKLIST %s: V007, in the order root will execute it' % rev, '', 'State at assembly (%s). %s' % (ts, tail), '',
+          '| step | state | source |', '|---|---|---|']
+     for a, b, c_ in rows:
++        if ' | ' in a or ' | ' in b or ' | ' in c_:
++            raise SystemExit('a checklist cell holds the cell separator')
+         S.append('| **%s** | | |' % a if not b else '| %s | %s | %s |' % (a, b, c_))
+     return '\n'.join(S) + '\n'
+ 
+@@ -331,15 +384,19 @@
+     return '\n'.join(Rr)
+ 
+ 
+-def render_entry_table(rev, newest, v_sha, v_len, copy_rel, section_rule, rows):
+-    E = ['# ENTRY_TABLE_%s: V005 entries A82-%s against prereg %s (A99.3; the seal record quotes this table)' % (rev.upper(), newest, rev), '',
+-         'Open V005 addendum read at %s generation: sha256 `%s`, %d bytes (byte copy `%s`). %s' % (rev, v_sha, v_len, copy_rel, section_rule), '',
+-         '| entry | decision | section sha256 | revised clauses / reason |', '|---|---|---|---|']
++def render_entry_table(rev, head_line, rows):
++    E = [head_line, '', '| entry | decision | section sha256 | revised clauses / reason |', '|---|---|---|---|']
+     for r in rows:
+         E.append('| %s | %s | `%s` | %s |' % (r['entry'], 'revised here' if r['decision'] == RH else 'no change', r['section_sha256'],
+                                              ('%s. Clauses: %s' % (r['scope'].rstrip('.'), ', '.join('`%s`' % c for c in r['revised_clauses'])))
+                                              if r['decision'] == RH else r['reason']))
+     return '\n'.join(E) + '\n'
++
++
++def entry_table_r5_header(v_sha, v_len, section_rule):
++    return ('# ENTRY_TABLE_R5: V005 entries A82-A101 against prereg r5 (A99.3; the seal record quotes this table)\n\n'
++            'Open V005 addendum read at r5 generation: sha256 `%s`, %d bytes (byte copy `addendum_read/V005_ADDENDUM_READ_AT_R5_GENERATION.md`). %s'
++            % (v_sha, v_len, section_rule))
+ 
+ 
+ def clause_rows(doc, rows):
+@@ -372,8 +429,14 @@
+     if not re.fullmatch(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ', ts):
+         raise SystemExit('TS must be date -u +%Y-%m-%dT%H:%M:%SZ')
+     out = Path(os.environ['OUT_DIR']).resolve()
+-    if not (out == R6D or str(out).startswith(str(R6D) + '/')):
+-        raise SystemExit('OUT_DIR must be the r6 folder or inside it')
++    if not (out == R6D or str(out).startswith(str(R6D / 'scratch') + '/')):
++        raise SystemExit('OUT_DIR must be the r6 folder, or a folder inside r6/scratch for a dry run')
++    if not out.is_dir():
++        raise SystemExit('OUT_DIR must exist: %s' % out)
++    targets = [out / n for n in OUT_NAMES]
++    present = [str(p) for p in targets if os.path.lexists(p)]
++    if present:
++        raise SystemExit('outputs already exist (exclusive create; nothing is overwritten): %s' % present)
+     # ================================================================= r5 and its companions, from bytes
+     raw5 = R5.read_bytes()
+     if hashlib.sha256(raw5).hexdigest() != R5_SHA:
+@@ -386,24 +449,32 @@
+     P5 = doc['assembly']['inputs_verified_from_bytes']
+     for k in ('spec_registry', 'plan_template_v010', 'driver_r5'):
+         pin(P5[k]['path'], P5[k]['sha256'])
+-    if doc['binding_inputs']['case_block'] != {'path': P['case_block']['path'], 'sha256': P['case_block']['sha256']}:
++    case_block_r5 = copy.deepcopy(doc['binding_inputs']['case_block'])
++    if case_block_r5 != {'path': P['case_block']['path'], 'sha256': P['case_block']['sha256']}:
+         raise SystemExit('r5 binding_inputs.case_block is not the case block of record')
+     cbr = strict(Path(P['case_block_build_record']['path']).read_bytes())
+     if cbr.get('verdict') != 'CASE_BLOCK_VALID_UNDER_R12' or cbr['case_block']['sha256'] != P['case_block']['sha256'] or cbr.get('fail'):
+         raise SystemExit('the case block build record does not read the pinned case block valid')
+-    # ================================================================= the V005 addendum: ONLY the exclusive byte copy
+-    cpath = out / COPY_REL
+-    vb = cpath.read_bytes()
++    # ================================================================= the CLOSED V005 addendum: ONLY the exclusive byte copy
++    vb = COPY.read_bytes()
+     v005_sha = hashlib.sha256(vb).hexdigest()
+-    open_now = sha(V005)
+-    open_equal = open_now == v005_sha
+-    if not open_equal and os.environ.get('ALLOW_OPEN_MOVED') != '1':
+-        raise SystemExit('the open V005 addendum (%s) no longer equals the byte copy (%s): make a new copy in a new OUT_DIR' % (open_now[:12], v005_sha[:12]))
++    if v005_sha != V005_CLOSED_SHA or len(vb) != V005_CLOSED_BYTES:
++        raise SystemExit('the r6 byte copy is not the closed V005 bytes (%s, %d bytes)' % (v005_sha, len(vb)))
++    live = sha(V005)
++    if live != V005_CLOSED_SHA:
++        raise SystemExit('V005_CLOSED_FILE_CHANGED: the live V005 file hashes to %s, not the closed %s (A106.3); a defect for root' % (live, V005_CLOSED_SHA))
+     secs = sections(vb)
+     nums = sorted(int(k[1:]) for k in secs)
+     newest = 'A%d' % max(nums)
+-    if nums != list(range(47, max(nums) + 1)):
+-        raise SystemExit('the copy does not hold A47-%s exactly once each: %s' % (newest, nums))
++    if nums != list(range(47, max(nums) + 1)) or newest != V005_LAST:
++        raise SystemExit('the copy does not hold A47-%s exactly once each: %s' % (V005_LAST, nums))
++    b5 = R5_COPY.read_bytes()
++    s5 = sections(b5)
++    if b5[:b5.index(b'\n## A')] != vb[:vb.index(b'\n## A')]:
++        raise SystemExit('the V005 preamble differs from r5\'s copy')
++    changed_since_r5 = sorted((e for e in s5 if s5[e] != secs.get(e)), key=lambda x: int(x[1:]))
++    if changed_since_r5:
++        raise SystemExit('entries changed since r5\'s copy (each needs its own disposition): %s' % changed_since_r5)
+     ea = doc['entries_after_A81']
+     rows = ea['rows']
+     if [r['entry'] for r in rows] != ['A%d' % n for n in range(82, 102)]:
+@@ -416,12 +487,8 @@
+             raise SystemExit('r5 row %s does not re-hash from the copy (a revised row is needed)' % r['entry'])
+         rehash.append({'entry': r['entry'], 'section_sha256': h, 'section_bytes': len(b), 'heading_equal': True})
+     later = ['A%d' % n for n in nums if n > 101]
+-    missing = [e for e in later if e not in ROWS6]
+-    if missing:
+-        raise SystemExit('entries without a row in the entry table (A99.3): %s' % missing)
+-    extra = [e for e in ROWS6 if e not in secs]
+-    if extra:
+-        raise SystemExit('rows for entries not in the copy: %s' % extra)
++    if later != sorted(ROWS6, key=lambda x: int(x[1:])):
++        raise SystemExit('entries after A101 %s do not match the rows of this generator %s' % (later, sorted(ROWS6)))
+     lines_rec = line_checks()
+     # ================================================================= BUILD_V007, re-verified from bytes
+     lp = doc['seal_slots']['launch_packet']
+@@ -439,8 +506,8 @@
+         v = strict(Path(P[k]['path']).read_bytes())
+         if not (v.get('registry') == P['registry_c3v009'] and str(v.get('compare', '')).startswith(cmp) and v.get('all_registered_preseal_pass') is True
+                 and v.get('all_registered_shas_match_files') is True and v.get('guard_refused') == 0 and v.get('case_block_refusals') == []
+-                and len(v.get('preseal_records', {})) == 13 and len(v.get('empty_slots', [])) == 3):
+-            raise SystemExit('%s does not read: V009 on %s, 13 records PASS, shas match, 3 empty slots, guard refused 0' % (k, cmp))
++                and len(v.get('preseal_records', {})) == 13 and v.get('empty_slots') == ['B0_N3', 'B0_RO1', 'I4']):
++            raise SystemExit('%s does not read: V009 on %s, 13 records PASS, shas match, B0_N3/B0_RO1/I4 empty, guard refused 0' % (k, cmp))
+         vr[k] = {'compare': v['compare'], 'preseal_records': len(v['preseal_records']), 'all_registered_preseal_pass': True, 'empty_slots': v['empty_slots']}
+     # ================================================================= edits (each logged)
+     changes = []
+@@ -462,12 +529,14 @@
+                 raise SystemExit('source %s already present' % s)
+             c['sources'].append(s)
+ 
++    def sub1(s, old, new, where):
++        if s.count(old) != 1:
++            raise SystemExit('expected exactly one %r in %s, found %d' % (old[:60], where, s.count(old)))
++        return s.replace(old, new)
++
+     def rep(path, old, new, add, item, clause, trace, why, field='text', kind='revised'):
+         c = node(path)
+-        n = c[field].count(old)
+-        if n != 1:
+-            raise SystemExit('expected one %r in %s.%s, found %d' % (old[:50], path, field, n))
+-        c[field] = c[field].replace(old, new)
++        c[field] = sub1(c[field], old, new, '%s.%s' % (pname(path), field))
+         if add:
+             addsrc(c, add)
+         log(item, clause, kind, add, trace, why)
+@@ -482,8 +551,11 @@
+     sl, sr, ri_by = doc['seal_slots'], doc['seal_record_requirements'], {r['id']: r for r in doc['root_items']}
+     b7 = P['build_v007']['sha256']
+     st3 = str(ST3) + '/'
++    copy_abs = str(COPY)
+     # ---------------------------------------------------------------- item 2: the compare slot (A102, A103, A104; F-02)
+     cp = sl['compare']
++    if 'or a ruling on the item' not in cp['rule'] or cp['value'] != 'PENDING_ROOT_AT_SEAL_ASSEMBLY':
++        raise SystemExit('r5 compare rule anchor')
+     cp['rule'] = ('The final compare round is r13 cx3v001 (f5adfd11; selected and frozen by SELECTED_R13_CX3V001 10acd098, 21:22:22Z; FIELDS_R13_CX3V001 '
+                   '7b116b01, IMPL 274f7049, HASHES_R13_CX3V001 d4509325): r12 cx3v002 (4bd7b262) plus exactly the A102 fix of A-B1 in check_record_codes '
+                   '(parse_int=str inside the duplicate-hook parse; the text fallback only on json.JSONDecodeError, any other ValueError a typed refusal), '
+@@ -498,12 +570,16 @@
+                   'r13 (A104): V007_PREREG_SHA256 set to the sealed prereg sha, plus PIN_ADDENDUM_V005, PIN_DRIVER_BUILD_RECORD, PIN_V010_R5_CHECK and '
+                   'PIN_PRODUCER_REGISTRY. It is created after the sealed prereg and is named only in the SEAL_RECORD; it may differ from the reviewed source '
+                   'only in those pin lines (A82: RI-27 ruled as drafted in r4).')
++    if 'or a ruling' in cp['rule']:
++        raise SystemExit('the F-02 route survived')
+     addsrc(cp, ['A102', 'A103', 'A104', 'Claude3 0092', 'Codex1 0076'])
+     log(2, 'seal_slots.compare.rule', 'rule rewritten', ['A102', 'A103', 'A104', 'Claude3 0092', 'Codex1 0076'],
+-        ['A102', 'A103', 'A104', 'A81 RI-20', 'F-01', 'F-02'],
+-        'the final round is r13 with its reviews of record (Claude3 0092, Codex1 0076); r12 superseded; F-02: a blocking item means a fix round, '
+-        'r5\'s "or a ruling on the item" removed; the sealed compare sets only the five A82 pins on top of r13')
++        ['A102', 'A103', 'A104', 'A106.1', 'A81 RI-20', 'F-01', 'F-02'],
++        'the final round is r13 with its reviews of record (Claude3 0092, Codex1 0076); r12 superseded; F-02 (A106.1): a blocking item means a '
++        'fix round, never a seal on that round, and r5\'s "or a ruling on the item" is removed; the sealed compare sets only the five A82 pins on r13')
+     nc5 = cp['named_candidates_verified_from_bytes']
++    if nc5['r12_cx3v002_final_round'] != P['r12_compare']:
++        raise SystemExit('r5 names another r12')
+     cp['named_candidates_verified_from_bytes'] = {
+         'r13_cx3v001_final_round': P['r13_compare'], 'r13_selection': P['r13_selected'], 'r13_fields': P['r13_fields'], 'r13_impl': P['r13_impl'],
+         'r13_hashes': P['r13_hashes'],
+@@ -523,15 +599,12 @@
+                                     delta_review_Codex2_0485=nc5['delta_review_of_record_Codex2_0485'],
+                                     delta_review_Claude3_0083=nc5['delta_review_of_record_Claude3_0083']),
+         'r11_superseded': nc5['r11_superseded'], 'r10_frozen_not_for_seal': nc5['r10_frozen_not_for_seal']}
+-    if nc5['r12_cx3v002_final_round'] != P['r12_compare']:
+-        raise SystemExit('r5 names another r12')
+     log(2, 'seal_slots.compare.named_candidates_verified_from_bytes', 'candidates replaced', [], ['A102', 'A103', 'A104', 'F-01'],
+         'r13 (source, selection, FIELDS, IMPL, HASHES) and its two reviews of record, from bytes; r12 and its reviews kept as superseded (A102)')
+-    doc['outcome_branch_tests_required'] = doc['outcome_branch_tests_required'].replace(
+-        '(the final round: r12 cx3v002 4bd7b262, or a fix round root orders under A81 RI-20; A96)',
+-        '(the final round: r13 cx3v001 f5adfd11, the fix round A102 ordered on r12 cx3v002 4bd7b262; A104)')
+-    if 'f5adfd11' not in doc['outcome_branch_tests_required'] or '4bd7b262, or a fix round' in doc['outcome_branch_tests_required']:
+-        raise SystemExit('outcome_branch_tests_required anchor')
++    doc['outcome_branch_tests_required'] = sub1(doc['outcome_branch_tests_required'],
++                                                '(the final round: r12 cx3v002 4bd7b262, or a fix round root orders under A81 RI-20; A96)',
++                                                '(the final round: r13 cx3v001 f5adfd11, the fix round A102 ordered on r12 cx3v002 4bd7b262; A104)',
++                                                'outcome_branch_tests_required')
+     log(2, 'outcome_branch_tests_required', 'revised', [], ['A102', 'A104', 'F-01'], 'the final round named: r13')
+     r = ri_by['RI-28']
+     if r['status'] != 'OPEN':
+@@ -539,13 +612,14 @@
+     r['status'] = ('RESOLVED: A102 (a fix round: compare r13 = r12 plus exactly the A-B1 fix, built by Codex3, 0629) and A104 (r13 is the compare of '
+                    'record: the delta reviews of record, Claude3 0092 and Codex1 0076, Codex1 in place of Codex2 under A103, each report 0 blocking)')
+     addsrc(r, ['A102', 'A103', 'A104', 'Claude3 0092', 'Codex1 0076'])
+-    log(2, 'root_items.RI-28', 'resolved', ['A102', 'A103', 'A104', 'Claude3 0092', 'Codex1 0076'], ['A102', 'A104', 'F-01'], 'the r12 A-B1 ruling: fix round r13')
+-    # ---------------------------------------------------------------- item 1: the A103 scope note (cx3r008)
++    log(2, 'root_items.RI-28', 'resolved', ['A102', 'A103', 'A104', 'Claude3 0092', 'Codex1 0076'], ['A102', 'A104', 'F-01'],
++        'the r12 A-B1 item: fix round r13 (A102), the compare of record (A104)')
++    # ---------------------------------------------------------------- item 1 (entry A103): the scope note names cx3r008
+     rep(('not_v007_text_scope',), '(A74 cx3r005, A77 cx3r006, A80 and A93 cx3r007; the step-5 launch registry is SPEC_REGISTRY_CX3R007 cd30429c, A93; '
+         'retired 3c42ca07, 47023c27 and c5abc2d5)',
+         '(A74 cx3r005, A77 cx3r006, A80 and A93 cx3r007, A103 cx3r008; cx3r008 replaces cx3r007 as the step-5 NGC driver and its registry is pinned '
+         'from bytes before step 5 (A103; A93 had made SPEC_REGISTRY_CX3R007 cd30429c the step-5 launch registry); retired 3c42ca07, 47023c27 and '
+-        'c5abc2d5)', ['A103'], 1, 'not_v007_text_scope', ['A103', 'F-01'], 'A103: the step-5 NGC driver is cx3r008')
++        'c5abc2d5)', ['A103'], 1, 'not_v007_text_scope', ['A103', 'F-01'], 'A103: the step-5 NGC driver is cx3r008 (r5\'s scope-note sentence was false after A103)')
+     # ---------------------------------------------------------------- item 3: the launch packet (A105; Claude4 0108)
+     rep(('seal_slots', 'launch_packet'), 'BUILD_V007\'s Claude4 delta check and Claude2\'s adoption are pending (A99.1).',
+         'Claude4\'s BUILD_V007 delta (0108) is PASS_WITH_FINDINGS with 0 blocking and V6-S1 to V6-S3 closed, and BUILD_V007 (94bc05a5) stays bound '
+@@ -555,13 +629,12 @@
+         'exclusively; RP-S2, the outputs stay on the internal SSD (A85.3), a watchdog alerts root if free space falls below 80 GB, the per-case caps '
+         'remain as they are, and if the alert fires root rules either relocating the cases that have not yet started or pausing admission.',
+         ['A105', 'Claude4 0108'], 3, 'seal_slots.launch_packet.rule', ['A105', 'F-01'],
+-        'BUILD_V007 delta 0108 (0 blocking) and A105\'s rulings W7-S1, RP-S1, RP-S2; root\'s adoption as A105 states it ("stays bound")', field='rule')
++        'BUILD_V007 delta 0108 (0 blocking) and A105\'s rulings W7-S1, RP-S1, RP-S2; BUILD_V007 stays bound (A105)', field='rule')
+     if lp['pending_parts'] != ['bound_plan', 'bound_command', 'BUILD_V007 Claude4 delta check (A99.1)', 'BUILD_V007 adoption (Claude2)']:
+         raise SystemExit('r5 pending_parts')
+-    lp['pending_parts'] = ['bound_plan', 'bound_command', ('the step-2 output root /Users/bgm/Research/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007, '
+-                                                           'created empty and exclusively by the seal script before binding (A105 RP-S1)')]
++    lp['pending_parts'] = ['bound_plan', 'bound_command']
+     log(3, 'seal_slots.launch_packet.pending_parts', 'revised', [], ['A105', 'F-01'],
+-        'the delta check is done (0108) and BUILD_V007 stays bound (A105); the RP-S1 output root is added')
++        'the delta check is done (0108: 0 blocking) and BUILD_V007 stays bound (A105); the bound plan and command stay PENDING by design')
+     lpn['build_v007_delta_review_Claude4_0108'] = dict(P['Claude4_0108'], verdict=('PASS_WITH_FINDINGS, 0 blocking; V6-S1, V6-S2 and V6-S3 closed; '
+                                                                                    '3 SHOULD_FIX (W7-S1, RP-S1, RP-S2), ruled by A105'),
+                                                        report=P['build_v007_review_Claude4'], hashes=P['build_v007_review_Claude4_hashes'])
+@@ -576,26 +649,36 @@
+         raise SystemExit('RI-29 expected OPEN in r5')
+     r['status'] = ('RESOLVED: A105 (Claude4 0108: PASS_WITH_FINDINGS, 0 blocking, V6-S1 to V6-S3 closed; BUILD_V007 94bc05a5 stays bound; its '
+                    'should-fix items W7-S1, RP-S1 and RP-S2 are ruled)')
+-    rep(('root_items',), None, None, None, None, None, None, None) if False else None
+-    old = 're-pin seal tool 3 v002 to the regenerated text.'
+-    if r['recommendation'].count(old) != 1:
+-        raise SystemExit('RI-29 recommendation anchor')
+-    r['recommendation'] = r['recommendation'].replace(old, 're-pin seal tool 3 (seal tools v003; root uses the v003 tuple Claude4 posts) to the '
+-                                                           'regenerated text.')
+-    addsrc(r, ['A105', 'Claude4 0108'])
+-    log(3, 'root_items.RI-29', 'resolved; seal tool named as v003', ['A105', 'Claude4 0108'], ['A105', 'F-01'],
+-        'BUILD of record: delta 0108 PASS_WITH_FINDINGS, 0 blocking; stays bound (A105); item 9: seal tools v003')
+-    # ---------------------------------------------------------------- item 4: seal record requirements (A105 E-OPS5; F-11(c))
++    r['recommendation'] = sub1(r['recommendation'], 're-pin seal tool 3 v002 to the regenerated text.',
++                               're-pin seal tool 3 (seal tools v003, %s; root uses the v003 tuple Claude4 posts) to the regenerated text.' % st3,
++                               'RI-29.recommendation')
++    addsrc(r, ['A105', 'Claude4 0108', 'A106.2'])
++    log(3, 'root_items.RI-29', 'resolved; the seal tool named as v003', ['A105', 'Claude4 0108', 'A106.2'], ['A105', 'A106.2', 'F-01'],
++        'BUILD of record: delta 0108 PASS_WITH_FINDINGS, 0 blocking; it stays bound (A105); item 9: the recommendation names seal tools v003')
++    # ---------------------------------------------------------------- item 4: seal record requirements (A105 E-OPS5; F-11(c); A106.2)
+     app(('seal_record_requirements', 0), 'A105 (E-OPS5): the E-SEAL1 block also discloses that root, sizing outputs at about 22:31Z, ran du -sh on the '
+-        'C5H run directory KMAX_A2F10_C5H_RUN_V001: metadata only, its aggregate size (25 GB); no file content was read and no result value or row '
+-        'was obtained; this goes beyond the "validity-only booleans before the seal" rule in letter, and root makes no further metadata access to '
+-        'C5H before the seal.', ['A105'], 4, 'seal_record_requirements[0]', ['A105'], 'E-OPS5 disclosed in the seal record\'s E-SEAL1 block')
++        'C5H run directory: metadata only, its aggregate size (25 GB); no file content was read and no result value or row was obtained. This goes '
++        'beyond the "validity-only booleans before the seal" rule in letter, and root makes no further metadata access to C5H before the seal.',
++        ['A105'], 4, 'seal_record_requirements[0]', ['A105', 'F-01'], 'E-OPS5 disclosed in the seal record\'s E-SEAL1 block (A105)')
+     rep(('seal_record_requirements', 4), '(2) with the driver chosen (r5, A96; no cache directory, A81 RI-24 being moot), the bound plan and command '
+         'written by the build-only binder (0576; A81 RI-25);',
+         '(2) with the driver chosen (r5, A96; no cache directory, A81 RI-24 being moot), the r5 driver BUILD record (PIN_DRIVER_BUILD_RECORD; schema '
+         'UNT_V007_SEALED_DRIVER_BUILD_C2V001; seal_record_requirements[8]; rehearsal D-06; checklist B2a), then the bound plan and command written by '
+         'the build-only binder (0576; A81 RI-25);', [], 4, 'seal_record_requirements[4]', ['A82', 'F-11'],
+-        'F-11(c): the order of record names the driver BUILD record step that [8] and checklist B2a require')
++        'F-11(c): the order of record names the driver BUILD record step that [8] and checklist B2a place before the sealed compare')
++    if len(sr) != 13:
++        raise SystemExit('r5 has %d seal_record_requirements, not 13' % len(sr))
++    sr.append({'text': ('A106.2: the seal record states which of the exactness checks C-02 to C-08 (Claude4 0109) the seal script checked and which root '
++                        'checked by hand at assembly. A106.2 places C-02 (the text-of-record pin equals r6\'s stored sha), C-04 (the slot records load '
++                        'through r13\'s own load_producer_registry against registry V009, and every slot passes), C-05 (the launcher and guard match '
++                        'BUILD_V007 by exact name and sha) and C-06 (the whole bound command is byte-compared with the binder\'s output) in Claude3\'s '
++                        'seal script, as exactness checks at assembly; '
++                        'C-03 (B6 provenance) and C-08 (NEW-item ids against the IMPL) are in the script if each takes 10 minutes or less, otherwise root '
++                        'checks them by hand at assembly and the seal record says so; C-07 (the generic covered-later sentence) is D-05, which seal tools '
++                        'v003 carry (A106.2: v003 carries D-05 with C-01, B8, the README fix and the W7-S1 MUST_FAIL cases, and nothing more).'),
++               'sources': ['A106.2', 'Claude4 0109', '0643']})
++    log(4, 'seal_record_requirements[13]', 'new', ['A106.2', 'Claude4 0109', '0643'], ['A106.2'],
++        'A106.2: the seal record states which of C-02 to C-08 the seal script checked and which root checked by hand')
+     # ---------------------------------------------------------------- item 5: F-11 small fixes (line citations into r13; RI-20/21; B2)
+     rep(('binding_inputs', 'case_block_rule'), '(r12 cx3v002 L5706)', '(r13 cx3v001 L5708)', ['A104'], 5, 'binding_inputs.case_block_rule',
+         ['A104', 'F-11'], 'F-11(d): the line citation moves to r13, verified from bytes (r12 L5706 = r13 L5708)')
+@@ -605,54 +688,57 @@
+     for o, n_ in (('(A88; r12 GATE_RECORD_AFTER_SEAL_ALLOWED L341 and GATE_RECORD_SHA_REQUIRED = () L338, A99.5)',
+                    '(A88; r13 GATE_RECORD_AFTER_SEAL_ALLOWED L341 and GATE_RECORD_SHA_REQUIRED = () L338, A99.5)'),
+                   ('and for every other gate (r12).', 'and for every other gate (r13).')):
+-        if c['text'].count(o) != 1:
+-            raise SystemExit('after_seal_marker_policy anchor: ' + o[:40])
+-        c['text'] = c['text'].replace(o, n_)
++        c['text'] = sub1(c['text'], o, n_, 'after_seal_marker_policy')
+     addsrc(c, ['A104'])
+     log(5, 'gates_before_any_T_result.after_seal_marker_policy', 'revised', ['A104'], ['A104', 'F-11'],
+         'F-11(d): the citations move to r13 (L338 and L341 unchanged, verified from bytes)')
+     rep(('gates_before_any_T_result', 'B2'), '(<= 0.05 km/s) A94:', '(<= 0.05 km/s). A94:', [], 5, 'gates_before_any_T_result.B2', ['F-11', 'A94'],
+         'F-11(b): the clause separator before "A94:"')
+     r = ri_by['RI-20']
+-    r['status'] = r['status'] + ('; as applied by A83 (the reviews of record replace the stopped recheck lenses), A102 (a blocking item in a review of '
+-                                 'record means a fix round: r13), A103 (Codex1 in place of Codex2 as the Codex-lineage reviewer of record) and A104 '
+-                                 '(r13: both reviews of record report 0 blocking)')
+-    addsrc(r, ['A83', 'A102', 'A103', 'A104'])
+-    log(5, 'root_items.RI-20', 'status pointers added', ['A83', 'A102', 'A103', 'A104'], ['A83', 'A102', 'A103', 'A104', 'F-11'],
+-        'F-11(a): the RI-20 status names how A81 RI-20 was applied')
++    r['status'] = r['status'] + ('; as applied by A83, A86, A91, A96, A102, A103 and A104 (A83: the r11 workflow was stopped at its freeze before its '
++                                 'three recheck lenses ran, and the reviews of record replaced them; A102: a blocking item in a review of record means a '
++                                 'fix round, r13; A103: Codex1 in place of Codex2 as the Codex-lineage reviewer of record; A104: both reviews of record '
++                                 'report 0 blocking on r13)')
++    addsrc(r, ['A83', 'A86', 'A91', 'A96', 'A102', 'A103', 'A104'])
++    log(5, 'root_items.RI-20', 'status pointers added', ['A83', 'A86', 'A91', 'A96', 'A102', 'A103', 'A104'], ['A83', 'A102', 'A103', 'A104', 'F-11'],
++        'F-11(a): the RI-20 status names how A81 RI-20 was applied (the r4 "three recheck lenses" criterion was replaced, A83)')
+     r = ri_by['RI-21']
+     r['status'] = r['status'] + ('; as applied by A83 (Codex2\'s cross-lineage review is the c2v007 check of record; the c2v007 own-check workflow was '
+-                                 'stopped and its outputs are leads only)')
+-    addsrc(r, ['A83'])
+-    log(5, 'root_items.RI-21', 'status pointer added', ['A83'], ['A83', 'F-11'], 'F-11(a): the RI-21 status names A83')
+-    # ---------------------------------------------------------------- item 6: F-13 (ngc_gas_M_s 96 confirmed by root at A7)
++                                 'stopped and its outputs are leads only) and A92 (c2v007r2 is the identity-comparator slot after Codex2\'s delta check '
++                                 '0472, 0 blocking; the R5_V001 records are the identity records of record)')
++    addsrc(r, ['A83', 'A92'])
++    log(5, 'root_items.RI-21', 'status pointers added', ['A83', 'A92'], ['A83', 'F-11'],
++        'F-11(a): the RI-21 status names A83 (the r4 "own check" criterion was replaced) and A92')
++    # ---------------------------------------------------------------- item 6: F-13 (ngc_gas_M_s 96, root's confirmation at checklist A7)
+     rep(('fixed_across_all_cases', 'production_tail', 'ngc_gas_M_s'), 'Root states the value at seal assembly (rehearsal R-08).',
+         'Root states the value at seal assembly (rehearsal R-08) and confirms it, with its record GQ_NGC_91_MS96_V001 (be148bab; Codex1 0032), at '
+-        'checklist A7; no A-entry names that record (r5 check F-13).', ['r5 check F-13'], 6, 'fixed_across_all_cases.production_tail.ngc_gas_M_s',
+-        ['F-13', 'A81 RI-23'], 'F-13: root\'s checklist-A7 confirmation of the lane record is stated')
+-    # ---------------------------------------------------------------- item 7: the producer registry candidate (A101; Claude3 0087)
++        'checklist A7; no A-entry names that record, so the SEAL_RECORD records root\'s A7 confirmation (r5 check F-13).', ['r5 check F-13'], 6,
++        'fixed_across_all_cases.production_tail.ngc_gas_M_s', ['F-13', 'A81 RI-23'], 'F-13: root\'s checklist-A7 confirmation of the lane record is '
++        'recorded in the SEAL_RECORD')
++    # ---------------------------------------------------------------- item 7: the producer registry candidate (A101, A106.1; Claude3 0087)
+     pr = sl['producer_registry']
+     prn = pr['named_candidates_verified_from_bytes']
+     if prn['C3V009_candidate']['sha256'] != P['registry_c3v009']['sha256'] or prn['C3V008_final_A101'] != P['registry_c3v008']:
+         raise SystemExit('r5 registry candidates')
+     pr['named_candidates_verified_from_bytes'] = {
+         'C3V009_candidate': dict(P['registry_c3v009'], note=(
+-            'The candidate (A101: V009 adds BUILD_V007\'s post-seal producers to V008; Claude3 0087: V009 supersedes V008 as the registry to pin): '
+-            'C3V008 plus BUILD_V007\'s four post-seal producer pins (SRB_ROT 2757847a; MT, I1T and FLAG_RULINGS 4024d82a) and nothing else; with the '
+-            'case block of record 76309ae3 all 13 registered records PASS and B0_N3, B0_RO1, I4 fail closed, on r12 '
+-            '(VALIDATE_R12_C3V009_CASEBLOCK_OF_RECORD 537d1a42) and on r13 (VALIDATE_R13_C3V009_CASEBLOCK_OF_RECORD f14dd9a6; Claude3 0092); listed '
+-            'in dispatch 0626; a record filling B0_N3, B0_RO1 or I4 means a V010'),
++            'The candidate (A101: V009 adds BUILD_V007\'s post-seal producers to V008; Claude3 0087: V009 supersedes V008 as the registry to pin; '
++            'A106.1: the registry V009 32ddadcb binding is unchanged): C3V008 plus BUILD_V007\'s four post-seal producer pins (SRB_ROT 2757847a; MT, '
++            'I1T and FLAG_RULINGS 4024d82a) and nothing else; with the case block of record 76309ae3 all 13 registered records PASS and B0_N3, '
++            'B0_RO1, I4 fail closed, on r12 (VALIDATE_R12_C3V009_CASEBLOCK_OF_RECORD 537d1a42) and on r13 (VALIDATE_R13_C3V009_CASEBLOCK_OF_RECORD '
++            'f14dd9a6; Claude3 0092); listed in dispatch 0626; a record filling B0_N3, B0_RO1 or I4 means a V010'),
+             validation_on_r12=P['validate_r12_c3v009'], validation_on_r13=P['validate_r13_c3v009']),
+         'C3V008_superseded': dict(prn['C3V008_final_A101'], note=('final under A101 (13 registered records PASS on r12; Claude3 0084), with '
+                                                                   'BUILD_V007\'s post-seal producers to come as V009; superseded by C3V009 (A101; '
+                                                                   'Claude3 0087)')),
+-        'note': ('The slot value is the registry root pins at seal assembly; the candidate is C3V009 (A101; Claude3 0087), and C3V008 and C3V007 are '
+-                 'superseded. B0_N3, B0_RO1 and I4 are empty and fail closed (RI-33); the SR_K producer-pin reading is RI-37.'),
++        'note': ('The slot value is the registry root pins at seal assembly; the candidate is C3V009 (A101; Claude3 0087; A106.1), and C3V008 and '
++                 'C3V007 are superseded. B0_N3, B0_RO1 and I4 are empty and fail closed (RI-33); the SR_K producer-pin reading is RI-37.'),
+         'C3V007_superseded': prn['C3V007_superseded']}
+-    addsrc(pr, ['Claude3 0092'])
+-    log(7, 'seal_slots.producer_registry.named_candidates_verified_from_bytes', 'candidate named; V008 superseded', ['Claude3 0092'],
+-        ['A101', 'Claude3 0087', 'F-01'], 'C3V009 is the candidate (A101; Claude3 0087), C3V008 superseded; V009 also PASSes on r13 (f14dd9a6); the rule is kept')
+-    # ---------------------------------------------------------------- item 1 / 9: the entry table, its rule and the later-entry procedure
++    addsrc(pr, ['A106.1', 'Claude3 0092'])
++    log(7, 'seal_slots.producer_registry.named_candidates_verified_from_bytes', 'candidate named; V008 superseded', ['A106.1', 'Claude3 0092'],
++        ['A101', 'A106.1', 'Claude3 0087'], 'C3V009 is the candidate (A101; Claude3 0087; A106.1), C3V008 superseded; V009 also passes on r13 '
++        '(f14dd9a6); the slot rule is kept')
++    # ---------------------------------------------------------------- item 1: the entry table, its rule, the closed V005 (A106.3)
+     new_rows = []
+     for e in later:
+         dec, clauses, note = ROWS6[e]
+@@ -660,94 +746,127 @@
+         new_rows.append({'entry': e, 'heading': head, 'section_sha256': hashlib.sha256(b).hexdigest(), 'section_bytes': len(b), 'decision': dec,
+                          'revised_clauses': clauses, ('scope' if dec == RH else 'reason'): note, 'sources': [e]})
+     rows.extend(new_rows)
+-    log(1, 'entries_after_A81.rows', 'rows added', [], ['A99.3', 'A81 RI-26', 'F-01'] + later,
+-        'rows for %s (each revised here, naming its clauses), section sha256 from the r6 byte copy; the 20 r5 rows re-hash unchanged' % ', '.join(later))
+-    rule_old = 'This table covers A82-A101, the newest at r5 generation;'
+-    if ea['rule'].count(rule_old) != 1:
+-        raise SystemExit('entries_after_A81.rule anchor')
+-    ea['rule'] = ea['rule'].replace(rule_old, 'This table covers A82-%s, the newest at r6 generation;' % newest)
+-    log(1, 'entries_after_A81.rule', 'revised', [], ['A99.3', 'F-01'], 'the table covers A82-%s, the newest at r6 generation' % newest)
++    log(1, 'entries_after_A81.rows', 'rows added', [], ['A99.3', 'A81 RI-26', 'A106.1', 'F-01'],
++        'rows for %s (each revised here, naming its clauses), section sha256 from the closed bytes; the 20 r5 rows re-hash unchanged' % ', '.join(later))
++    ea['rule'] = sub1(ea['rule'], 'This table covers A82-A101, the newest at r5 generation; the seal record quotes it; any later entry needs a successor '
++                      'revision or an explicit seal-record note (A81 RI-26).',
++                      'This table covers A82-A106. V005 is closed at A106, its last entry (A106.3), and the frozen copy taken at assembly must equal '
++                      'the closed bytes that addendum_read pins, so the table covers every V005 entry after A81; the seal record quotes it. Root\'s '
++                      'later rulings (the seal entry, flag rulings, steps 4-7) are in the V006 addendum (A82; A106.3) and are not V005 entries.',
++                      'entries_after_A81.rule')
++    addsrc(ea, ['A106.3'])
++    log(1, 'entries_after_A81.rule', 'revised', ['A106.3'], ['A99.3', 'A106.3', 'F-01'],
++        'the table covers A82-A106; V005 closed at A106 (A106.3); later root rulings are V006 entries, not V005 entries')
++    if set(ea['addendum_read']) != {'open_path', 'sha256_at_generation', 'bytes', 'byte_copy'}:
++        raise SystemExit('r5 addendum_read keys')
+     ea['addendum_read'] = {'open_path': str(V005), 'sha256_at_generation': v005_sha, 'bytes': len(vb),
+-                           'byte_copy': COPY_REL + ' (same bytes; exclusive byte copy made at r6 generation; the generator read only it)'}
+-    log(1, 'entries_after_A81.addendum_read', 'revised', [], ['A99.3', 'F-01'], 'the r6 byte copy: its sha256 and size')
+-    sr[11]['text'] = ('Any A-entry after A81 that touches this text needs a successor revision or an explicit no-change note in the seal record; the seal '
+-                      'check verifies that every A-entry this text cites is present in the frozen bytes. The entry table entries_after_A81 lists every '
+-                      'entry from A82 to the newest at r6 generation (%s) as revised here (with its clauses) or no change (with the reason), each with its '
+-                      'section sha256 read from bytes, and the seal record quotes it (A99.3). At the freeze each row\'s section is re-hashed from the '
+-                      'frozen bytes: a row whose section differs, and any entry after %s without a row, needs a successor revision or an explicit '
+-                      'seal-record note (A81 RI-26). That note is a row of root\'s byte-pinned dispositions JSON, which seal tools v003 verify (tool 1) '
+-                      'and carry into the SEAL_RECORD exactly (tool 4; 0633): an entry after the table is revised, pointing to the prereg revision, or '
+-                      'no_change with an entry-specific reason; a cited entry whose bytes changed after this table (against the bytes '
+-                      'entries_after_A81.addendum_read pins) is revised, or no_change_after_change with a changed_text excerpt that is a substring of '
+-                      'the new entry bytes and not of the old, and a non-empty reason; plain no_change only where the bytes did not change (A104; '
+-                      '0640).' % (newest, newest))
+-    addsrc(sr[11], ['A104', '0633', '0640'])
+-    log(1, 'seal_record_requirements[11]', 'rewritten', ['A104', '0633', '0640'], ['A99.3', 'A104', 'F-01'],
+-        'the table covers A82-%s at r6 generation; A104/0640: the mechanical D-05 disposition rule for later and changed entries' % newest)
++                           'byte_copy': ('%s (same bytes: an exclusive byte copy of the closed V005 file, A106.3, made at r6 generation by '
++                                         'tools/copy_addendum_c4r6_v2.py; the generator read the entries only from it)' % copy_abs)}
++    log(1, 'entries_after_A81.addendum_read', 'revised', [], ['A99.3', 'A106.3', 'A106.2', 'F-01'],
++        'the closed bytes: sha256, size and the r6 byte copy (the bytes seal tools v003 tool 1 takes as --addendum-at-text-of-record, C-01)')
++    sr[11]['text'] = sub1(sr[11]['text'], R5_SRR11,
++                          'Any A-entry after A81 that touches this text needs a successor revision or an explicit no-change note in the seal record; '
++                          'the seal check verifies that every A-entry this text cites is present in the frozen bytes. The entry table entries_after_A81 '
++                          'lists every entry from A82 to A106, the last V005 entry (A106.3), as revised here (with its clauses) or no change (with the '
++                          'reason), each with its section sha256 read from bytes, and the seal record quotes it (A99.3). V005 is closed at A106 '
++                          '(A106.3): the frozen copy taken at assembly must equal the closed bytes that entries_after_A81.addendum_read pins '
++                          '(%s, %d bytes), so at the freeze every row re-hashes from the frozen bytes, no cited entry\'s bytes change and no V005 entry '
++                          'follows the table; root\'s later rulings go in the V006 addendum (A82) and are not V005 entries. Seal tools v003 tool 1 (%s; '
++                          'root uses the v003 tuple Claude4 posts) takes r6\'s addendum_read byte copy (%s) as --addendum-at-text-of-record and compares '
++                          'every cited entry with the frozen copy (C-01; A106.2); with equal bytes the later and changed sets are empty and no '
++                          'dispositions file is needed (Claude4 0110). A frozen copy that differs from these bytes is a defect for root (A106.3); a '
++                          'changed or later entry would then need root\'s byte-pinned dispositions JSON (D-05: revised, pointing to the prereg revision, '
++                          'or no_change_after_change with a changed_text excerpt present in the new bytes and absent from the old, and a reason; plain '
++                          'no_change only for unchanged bytes; A104; 0640), and bare --covered-later names are refused (0633).'
++                          % (v005_sha, len(vb), st3, copy_abs), 'seal_record_requirements[11]')
++    addsrc(sr[11], ['A104', 'A106.2', 'A106.3', '0633', '0640', 'Claude4 0110'])
++    log(1, 'seal_record_requirements[11]', 'rewritten', ['A104', 'A106.2', 'A106.3', '0633', '0640', 'Claude4 0110'],
++        ['A99.3', 'A104', 'A106.2', 'A106.3', 'F-01'],
++        'the table covers A82-A106; the frozen copy equals the closed bytes (A106.3); seal tools v003 tool 1 and its input (item 9); the D-05 rule (A104)')
+     r = ri_by['RI-34']
+-    r['issue'] = 'The entry table covers A82-%s, the newest entry at r6 generation. Root may add entries before the freeze.' % newest
+-    r['recommendation'] = ('RECOMMENDATION ONLY: every entry after %s up to the freeze gets a prereg successor or a row in root\'s byte-pinned '
+-                           'dispositions JSON (seal tools v003, %s; 0633): revised, pointing to the prereg revision, or no_change with an entry-specific '
+-                           'reason; and every cited entry whose bytes changed after this table is revised, or no_change_after_change with a changed_text '
+-                           'excerpt (in the new bytes, not in the old) and a reason; plain no_change is only for unchanged bytes (A104; 0640). Seal tools '
+-                           'v003 refuse the bare --covered-later names of v002 (0633); root uses the v003 tuple Claude4 posts.' % (newest, st3))
+-    addsrc(r, ['A104', '0633', '0640'])
+-    log(1, 'root_items.RI-34', 'revised', ['A104', '0633', '0640'], ['A99.3', 'A104', 'F-01'],
+-        'the table covers A82-%s; item 9: later entries go to root\'s v003 dispositions JSON (D-05)' % newest)
++    if r['status'] != 'OPEN':
++        raise SystemExit('RI-34 expected OPEN in r5')
++    r['status'] = ('RESOLVED: A106.3 (V005 closes with A106, its last entry; r6\'s entry table ends at A106; the frozen copy taken at assembly must equal '
++                   'the closed bytes %s; later root rulings go in the V006 addendum and are not V005 entries); seal tools v003 tool 1 compares every '
++                   'cited entry against r6\'s addendum_read byte copy (--addendum-at-text-of-record; A106.2, C-01) and refuses the bare --covered-later '
++                   'names of v002 (0633); root uses the v003 tuple Claude4 posts' % v005_sha)
++    r['recommendation'] = sub1(r['recommendation'], 'seal tools 1/4 receive exactly those entries as --covered-later.',
++                               'seal tools 1/4 receive exactly those entries as --covered-later (superseded: seal tools v003 refuse bare --covered-later '
++                               'names, 0633, and after A106.3 no V005 entry follows the table).', 'RI-34.recommendation')
++    addsrc(r, ['A106.2', 'A106.3', '0633'])
++    log(1, 'root_items.RI-34', 'resolved', ['A106.2', 'A106.3', '0633'], ['A106.3', 'A106.2', 'F-01'],
++        'A106.3: V005 closed at A106 and the table ends there; item 9: v003 refuses bare --covered-later names')
++    fa = sl['frozen_addendum']
++    app(('seal_slots', 'frozen_addendum'), 'V005 is closed at A106 (A106.3): the frozen copy must equal the closed bytes, sha256 %s, %d bytes (the bytes '
++        'entries_after_A81.addendum_read pins); a frozen copy that differs is a defect for root.' % (v005_sha, len(vb)), ['A106.3'], 1,
++        'seal_slots.frozen_addendum.rule', ['A106.3'], 'A106.3: the frozen copy must equal the closed V005 bytes', field='rule')
++    if fa['value'] != 'PENDING_ROOT_AT_SEAL_ASSEMBLY':
++        raise SystemExit('frozen_addendum value')
++    fc = doc['decision_pins_pending_at_seal']['V005_addendum_frozen_copy']
++    if fc['entries'] != R5_FROZEN_ENTRIES or fc['sha256'] != 'PENDING_ROOT_AT_SEAL_ASSEMBLY':
++        raise SystemExit('decision_pins_pending_at_seal anchor')
++    fc['entries'] = ('A47-A106 (A82-A106 in entries_after_A81); V005 is closed at A106 (A106.3): the frozen copy must equal the closed bytes %s (%d '
++                     'bytes); cited by name until frozen' % (v005_sha, len(vb)))
++    log(1, 'decision_pins_pending_at_seal.V005_addendum_frozen_copy.entries', 'revised', [], ['A106.3', 'F-01'],
++        'the cited range A47-A106; the frozen copy must equal the closed bytes (A106.3)')
++    if doc['cites_by_name'][0] != R5_CITES0:
++        raise SystemExit('cites_by_name anchor')
++    doc['cites_by_name'][0] = 'ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM: A47-A106 (closed at A106, A106.3; pinned by its frozen copy, PENDING)'
++    log(1, 'cites_by_name[0]', 'revised', [], ['A106.3', 'F-01'], 'the cited range A47-A106; V005 closed (A106.3)')
+     # ---------------------------------------------------------------- root items order (r5's rule: open first, then by id)
+     order5 = [x['id'] for x in doc['root_items']]
+     doc['root_items'].sort(key=lambda x: (x['status'] != 'OPEN', int(x['id'].split('-')[1])))
+     order6 = [x['id'] for x in doc['root_items']]
+     if order6 != order5:
+-        log(2, 'root_items (order)', 'reordered by r5\'s rule (open first, then by id)', [], ['A102', 'A104', 'A105'],
+-            'RI-28 and RI-29 are resolved, so they move into the resolved group')
+-    # ---------------------------------------------------------------- header (item 1)
++        log(1, 'root_items (order)', 'reordered by r5\'s rule (open first, then by id)', [], ['A102', 'A104', 'A105', 'A106.3'],
++            'RI-28, RI-29 and RI-34 are resolved, so they move into the resolved group')
++    # ---------------------------------------------------------------- header (item 1; A106.1)
+     doc['revision'] = 'r6'
+-    log(1, 'revision', 'header', [], ['A99.3', 'F-01'], 'r5 -> r6')
++    log(1, 'revision', 'header', [], ['A106.1', 'F-01'], 'r5 -> r6 (A106.1 approves prereg r6)')
+     doc['supersedes_draft'] = {'path': str(R5), 'sha256': R5_SHA}
+-    log(1, 'supersedes_draft', 'header', [], ['A99.3', 'F-01'], 'the r5 pin replaces the r4 pin')
+-    doc['status'] = ('FINAL DRAFT r6 (NOT SEALED). Assembled by Claude4 (the r6 helper announced in Claude4 0109, after the r5 check REPORT_R5CHK_C4V002 '
+-                     'F-01, route (i); root may stop it) from r5 3245899f, integrating V005 A102-%s through the entry table entries_after_A81 (A82-%s; '
+-                     'each row revised here, or no change with the reason); open addendum observed %s at assembly (byte copy %s). Written before any V007 '
+-                     '(tail-corrected) result exists; nothing was launched; C5H, UVT_* and targets were not read. binding_inputs.case_block pins '
+-                     'CASE_BLOCK_V007_C4V001 (A99.2, A101). The final compare round is r13 cx3v001 (f5adfd11; A102, A104). The launch-packet BUILD of '
+-                     'record is BUILD_V007 (%s; Claude4 delta 0108 PASS_WITH_FINDINGS, 0 blocking; it stays bound, A105). Root fills the named seal slots '
+-                     'and seals. Open root items: ROOT_ITEMS_R6.' % (newest, newest, v005_sha, COPY_REL, b7))
+-    log(1, 'status', 'header', [], ['A102', 'A104', 'A105', 'A99.3', 'F-01'], 'r6 status line: A102-%s integrated; r13; BUILD_V007 stays bound' % newest)
+-    reads6 = [{'read': 'r6 read 1, 22:35:01Z (A47-A105)', 'sha256': sha(R6D / 'scratch/V005_ADDENDUM_READ_COPY_1_C4R6.md'),
+-               'copy': str(R6D / 'scratch/V005_ADDENDUM_READ_COPY_1_C4R6.md')},
+-              {'read': 'r6 generation (this run): the byte copy', 'sha256': v005_sha, 'copy': str(cpath)}]
++    log(1, 'supersedes_draft', 'header', [], ['A106.1', 'F-01'], 'the r5 pin replaces the r4 pin')
++    doc['status'] = ('FINAL DRAFT r6 (NOT SEALED). Assembled by Claude4 (A106.1 approves prereg r6; dispatch 0643) from r5 3245899f, integrating V005 '
++                     'A102-A106 through the entry table entries_after_A81 (A82-A106; each row revised here, or no change with the reason). V005 is closed '
++                     'at A106 (A106.3); its closed bytes %s were read at assembly (byte copy %s). Written before any V007 (tail-corrected) result exists; '
++                     'nothing was launched; C5H, UVT_* and targets were not read. binding_inputs.case_block pins CASE_BLOCK_V007_C4V001 (A99.2, A101). The '
++                     'final compare round is r13 cx3v001 (f5adfd11; A102, A104). The launch-packet BUILD of record is BUILD_V007 (%s; Claude4 delta 0108 '
++                     'PASS_WITH_FINDINGS, 0 blocking; it stays bound, A105). Root fills the named seal slots and seals. Open root items: ROOT_ITEMS_R6.'
++                     % (v005_sha, COPY_REL, b7))
++    log(1, 'status', 'header', [], ['A104', 'A105', 'A106.1', 'F-01'], 'r6 status line: A102-A106 integrated; V005 closed; r13; BUILD_V007 stays bound')
++    reads6 = [{'read': 'r6 read 1 (first builder, stopped), 22:35:01Z (A47-A105; superseded by A106)',
++               'sha256': sha(R6D / 'scratch/V005_ADDENDUM_READ_COPY_1_C4R6.md'), 'copy': str(R6D / 'scratch/V005_ADDENDUM_READ_COPY_1_C4R6.md')},
++              {'read': 'r6 generation (continuation run 2): the closed bytes (A47-A106), byte copy made at 23:06Z', 'sha256': v005_sha, 'copy': copy_abs}]
+     doc['assembly'] = {
+-        'by': 'Claude4 r6 helper (prereg r6), single author, as announced in Claude4 0109 (root may stop this work)',
++        'by': 'Claude4 r6 helper (prereg r6), single author; continuation run 2 of the r6 build',
+         'utc': ts,
+-        'dispatch': ('none for r6: Claude4 0109 recommends and starts it after the r5 check (REPORT_R5CHK_C4V002 F-01, route (i)); r5 was assembled '
+-                     'under dispatch 0621 (A99); both are pinned in revision_basis'),
+-        'revision_basis': {'Claude4_0109': P['Claude4_0109'], 'r5_check_report_C4V002': P['r5_check_report_C4V002'],
+-                           'r5_check_results_C4V002': P['r5_check_results_C4V002'], 'dispatch_0621_r5': P['dispatch_0621_r5']},
++        'dispatch': ('0643 (Claude2): prereg r6 is approved (A106.1); build its entry table through A106 from the closed V005 bytes. The build was '
++                     'announced in Claude4 0109 and acknowledged in Claude4 0110; r5 was assembled under dispatch 0621 (A99). All are pinned in '
++                     'revision_basis'),
++        'continuation': ('the first r6 builder read V005 at 22:35Z, before A106 existed, and was stopped by Claude4 at 23:03Z before it wrote any '
++                         'output (Claude4 0110); this run rewrote its draft generator (pinned in inputs_verified_from_bytes) for A106'),
++        'revision_basis': {'dispatch_0643': P['dispatch_0643'], 'Claude4_0110': P['Claude4_0110'], 'Claude4_0109': P['Claude4_0109'],
++                           'r5_check_report_C4V002': P['r5_check_report_C4V002'], 'r5_check_results_C4V002': P['r5_check_results_C4V002'],
++                           'dispatch_0621_r5': P['dispatch_0621_r5']},
+         'base': {'path': str(R5), 'sha256': R5_SHA}, 'base_companions': r5_companions, 'base_generators': r5_generators,
+-        'rulings_read': dict(doc5['assembly']['rulings_read'], V005_addendum_open_observed={'path': str(V005), 'sha256': v005_sha},
++        'rulings_read': dict(doc5['assembly']['rulings_read'],
++                             V005_addendum_open_observed={'path': str(V005), 'sha256': v005_sha, 'state': 'CLOSED at A106 (A106.3; 0643)'},
+                              V005_addendum_reads=doc5['assembly']['rulings_read']['V005_addendum_reads'] + reads6),
+-        'open_addendum_equal_to_copy_at_generation': open_equal,
++        'v005_closed_bytes_check': {'copy_sha256': v005_sha, 'copy_bytes': len(vb), 'live_file_sha256_at_generation': live,
++                                    'entries': 'A47-%s, %d entries, each once' % (newest, len(secs)),
++                                    'entries_A47_A101_and_preamble_equal_to_the_r5_copy': True, 'entries_added_since_the_r5_copy': later},
+         'r13_line_checks': lines_rec,
+         'r5_rows_rehashed_from_the_r6_copy': rehash,
+         'registry_v009_validations_read': vr,
+         'inputs_verified_from_bytes': {k: v for k, v in P.items()},
+         'inputs_verified_from_bytes_at_r5': doc5['assembly']['inputs_verified_from_bytes']}
+-    log(1, 'assembly', 'header', [], ['A99.3', 'F-01'], 'r6 assembly: basis, base r5, inputs from bytes, the r6 reads and line checks; r5\'s inputs kept')
+-    doc['decision_pins_pending_at_seal']['V005_addendum_frozen_copy']['entries'] = ('A47-%s at r6 generation (A82-%s in entries_after_A81); every entry up '
+-                                                                                    'to the freeze; cited by name until frozen' % (newest, newest))
+-    log(1, 'decision_pins_pending_at_seal.V005_addendum_frozen_copy.entries', 'header', [], ['A99.3', 'F-01'], 'cited range A47-' + newest)
+-    if not doc['cites_by_name'][0].startswith('ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM: A47-A101 '):
+-        raise SystemExit('cites_by_name anchor')
+-    doc['cites_by_name'][0] = 'ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM: A47-%s (open; pinned by its frozen copy, PENDING)' % newest
+-    log(1, 'cites_by_name[0]', 'header', [], ['A99.3', 'F-01'], 'cited range A47-' + newest)
++    log(1, 'assembly', 'header', [], ['A106.1', 'F-01'], 'r6 assembly: dispatch 0643, basis, base r5, the closed-bytes check, line checks, inputs from bytes; '
++        'r5\'s inputs kept')
+     # ================================================================= the checklist (r5's rows; logged edits only)
+     ck_text = (R5D / 'SEAL_CHECKLIST_R5.md').read_text()
+-    ts5, tail5, ck = parse_checklist(ck_text)
++    ts5, tail5, ck = parse_checklist(ck_text, 'r5')
+     if render_checklist('r5', ts5, tail5, ck) != ck_text:
+         raise SystemExit('the r5 checklist does not round-trip')
+-    ck5 = copy.deepcopy(ck)
+-    cedits = []
++    cedits = {}
+ 
+     def crow(prefix):
+         hits = [x for x in ck if x[0].startswith(prefix)]
+@@ -757,17 +876,17 @@
+ 
+     def cset(step, prefix, new, item, kind, trace, why):
+         row = crow(prefix)
++        if step in cedits:
++            raise SystemExit('checklist step %s edited twice' % step)
+         for i in range(3):
+             if new[i] is not None:
+                 row[i] = new[i]
+-        cedits.append(step)
++        cedits[step] = list(trace)
+         log(item, 'SEAL_CHECKLIST_R6 ' + step, kind, [], trace, why)
+ 
+-    def crep(row, i, old, new_):
+-        if row[i].count(old) != 1:
+-            raise SystemExit('checklist anchor %r' % old[:50])
+-        return row[i].replace(old, new_)
+-
++    row = crow('A1. ')
++    if not row[0].startswith('A1. Final compare round r12 cx3v002'):
++        raise SystemExit('A1 anchor')
+     cset('A1', 'A1. ', ('A1. Final compare round r13 cx3v001 (f5adfd11; SELECTED_R13_CX3V001 10acd098), the A102 fix round of r12 cx3v002 (4bd7b262, '
+                         'superseded): its delta reviews of record, Claude3\'s (0092) and Codex1\'s (0076; Codex1 in place of Codex2, A103), each report 0 '
+                         'blocking (A81 RI-20 as applied by A83, A86, A91, A96, A102, A103, A104); its IMPL lists every NEW item with disposition and '
+@@ -776,93 +895,111 @@
+                         'not in the selected r13 suite; SF2: FIELDS_R13 L113); Codex1 0076 PASS, 0 blocking',
+                         'A104; A102; A103; A96; A83; A91; R-02'), 2, 'step rewritten', ['A102', 'A103', 'A104', 'F-11'],
+          'F-11(e): A1 names r13 and its reviews of record')
++    row = crow('A7. ')
++    cset('A7', 'A7. ', (row[0] + ' Root\'s confirmation of ngc_gas_M_s 96 with its record GQ_NGC_91_MS96_V001 (be148bab; Codex1 0032) is recorded in the '
++                        'SEAL_RECORD (F-13: no A-entry names that record).', None, sub1(row[2], 'A70; A86; A87; A81 RI-23; R-08',
++                                                                                       'A70; A86; A87; A81 RI-23; R-08; F-13', 'A7 source')),
++         6, 'revised', ['F-13', 'A81 RI-23'], 'F-13: root\'s A7 confirmation of ngc_gas_M_s 96 is recorded in the SEAL_RECORD')
+     row = crow('A8. ')
+-    cset('A8', 'A8. ', (crep(row, 0, 'Seal tool 3 v001 refuses it (D-01): seal tools v002 must read ddo_gas_M_s.',
+-                             'Seal tool 3 v001 refused it (D-01); seal tools v002 r2 reads ddo_gas_M_s (GAP-11 closed; r5 check T3b), and v003 is v002 r2 '
+-                             'with D-05, B8 and the README changed (0633, 0634, 0640). Root uses the v003 tuple Claude4 posts.'),
+-                        'registered; tool fix in seal tools v002 r2, carried into v003', crep(row, 2, 'A87; A81 RI-22; D-01', 'A87; A81 RI-22; D-01; 0633; 0634')),
+-         9, 'revised', ['A87', 'F-11'], 'item 9: the seal tools named point to v003')
++    cset('A8', 'A8. ', (sub1(row[0], 'Seal tool 3 v001 refuses it (D-01): seal tools v002 must read ddo_gas_M_s.',
++                             'Seal tool 3 v001 refused it (D-01); seal tools v002 r2 reads ddo_gas_M_s (GAP-11 closed; r5 check T3b), and seal tools v003 '
++                             '(%s) change only D-05 (with C-01), B8, the README and the W7-S1 MUST_FAIL cases (A106.2); root uses the v003 tuple Claude4 '
++                             'posts.' % st3, 'A8'),
++                        sub1(row[1], 'registered; tool fix in seal tools v002', 'registered; tool fix in seal tools v002 r2, carried into v003 (A106.2)', 'A8 state'),
++                        sub1(row[2], 'A87; A81 RI-22; D-01', 'A87; A81 RI-22; D-01; A106.2; 0633; 0634', 'A8 source')),
++         9, 'revised', ['A106.2', 'A87'], 'item 9: the seal tools named are v003 (A106.2 scope)')
+     row = crow('A12. ')
+-    cset('A12', 'A12. ', (crep(row, 0, '15 supported sources; Claude4 delta check; Claude2 adoption.',
++    cset('A12', 'A12. ', (sub1(row[0], '15 supported sources; Claude4 delta check; Claude2 adoption.',
+                                '15 supported sources; Claude4 delta check 0108: PASS_WITH_FINDINGS, 0 blocking; A105: BUILD_V007 stays bound, and its '
+-                               'should-fix items W7-S1, RP-S1 and RP-S2 are ruled (steps B3, B8, C1).'),
+-                          'DONE (A105)', crep(row, 2, 'A99.1; D-02', 'A99.1; D-02; A105')), 3, 'revised', ['A105'], 'BUILD_V007 delta done; A105')
++                               'should-fix items W7-S1, RP-S1 and RP-S2 are ruled (steps B3, B8, C1).', 'A12'),
++                          'DONE (A105)', sub1(row[2], 'A99.1; D-02', 'A99.1; D-02; A105', 'A12 source')), 3, 'revised', ['A105'], 'BUILD_V007 delta done; A105')
+     row = crow('B1. ')
+     blist = ', '.join('%s %s' % (x['entry'], 'revised' if x['decision'] == RH else 'no change') for x in rows)
+-    b1_old_tail = row[0][row[0].index('Verify every A-entry this text cites'):]
+-    if not b1_old_tail.endswith('only entries after A101 with seal-record notes are (none at r5 generation).'):
++    if not row[0].endswith('only entries after A101 with seal-record notes are (none at r5 generation).'):
+         raise SystemExit('B1 anchor')
+-    b1 = row[0][:row[0].index('Verify every A-entry this text cites')] + (
+-        'Verify every A-entry this text cites (A47-%s) is present and each entries_after_A81 row re-hashes to its section_sha256 in the frozen bytes. '
+-        'Entries after A81 (D-05; A99.3): %s. A82-%s are rows of this table. The entries after %s up to the freeze, and any cited entry whose bytes '
+-        'changed after this table, are covered only by root\'s byte-pinned dispositions JSON (seal tools v003, %s; 0633, 0640; root uses the v003 tuple '
+-        'Claude4 posts): tool 1 verifies it and tool 4 carries its exact content into the SEAL_RECORD; an entry after the table is revised (pointing to '
+-        'the prereg revision) or no_change with an entry-specific reason; a cited entry whose bytes changed is revised, or no_change_after_change with a '
+-        'changed_text excerpt (in the new bytes, not in the old) and a reason (A104). Bare names are refused (0633).' % (newest, blist, newest, newest, st3))
+-    cset('B1', 'B1. ', (b1, None, crep(row, 2, 'A81 RI-26; A82; A99.3; A99.6; D-05', 'A81 RI-26; A82; A99.3; A99.6; D-05; A104; 0633; 0640')), 5,
+-         'revised', ['A99.3', 'A104', 'F-11'], 'F-11(e): B1 lists A82-%s and states that later entries are covered by root\'s v003 dispositions JSON' % newest)
++    b1 = ('B1. Freeze the V005 addendum: exclusive-create ..._V005_ADDENDUM_FROZEN.md. V005 is closed at A106, its last entry (A106.3; 0643): the '
++          'frozen copy must equal the closed bytes, sha256 %s, %d bytes (entries_after_A81.addendum_read; the r6 byte copy %s), and root writes '
++          'nothing more to the open V005 file; root\'s later rulings go to the V006 addendum and are not V005 entries (A82, A99.6, A106.3). Verify '
++          'every A-entry this text cites (A47-A106) is present and each of the %d entries_after_A81 rows (A82-A106) re-hashes to its section_sha256 '
++          'in the frozen bytes. Entries after A81 (D-05; A99.3): %s. Seal tools v003 tool 1 (%s; root uses the v003 tuple Claude4 posts) takes the '
++          'r6 byte copy as --addendum-at-text-of-record and compares every cited entry with the frozen copy (C-01; A106.2): with equal bytes the later '
++          'and changed sets are empty and no dispositions file is needed. A frozen copy that differs from these bytes is a defect for root (A106.3); a '
++          'changed or later entry would need root\'s byte-pinned dispositions JSON under D-05 (A104; 0640), and bare --covered-later names are '
++          'refused (0633).' % (v005_sha, len(vb), copy_abs, len(rows), blist, st3))
++    cset('B1', 'B1. ', (b1, None, sub1(row[2], 'A81 RI-26; A82; A99.3; A99.6; D-05', 'A81 RI-26; A82; A99.3; A99.6; D-05; A104; A106.3; 0633; 0640; 0643',
++                                       'B1 source')), 5, 'step rewritten', ['A104', 'A106.2', 'A106.3', 'F-11'],
++         'F-11(e): B1 lists A82-A106 and requires the frozen copy to equal the closed bytes (A106.3); item 9: v003 tool 1 and its input')
+     row = crow('B2a. ')
+-    cset('B2a', 'B2a. ', (crep(row, 0, 'equal to compare r12\'s builtin_r5_build()', 'equal to compare r13\'s builtin_r5_build() (unchanged from r12)'),
+-                          None, crep(row, 2, 'A72; A82; D-06; GAP-04', 'A72; A82; D-06; GAP-04; A104')), 5, 'revised', ['A104', 'F-11'],
++    cset('B2a', 'B2a. ', (sub1(row[0], 'equal to compare r12\'s builtin_r5_build()', 'equal to compare r13\'s builtin_r5_build() (unchanged from r12)', 'B2a'),
++                          None, sub1(row[2], 'A72; A82; D-06; GAP-04', 'A72; A82; D-06; GAP-04; A104', 'B2a source')), 5, 'revised', ['A104', 'F-11'],
+          'F-11(d): B2a cites r13 (the function text is equal in r12 and r13, verified from bytes)')
+     row = crow('B3. ')
+     cset('B3', 'B3. ', ('B3. Before the binder runs, the seal script exclusively creates the step-2 output root '
+                         '/Users/bgm/Research/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007 as a new, empty directory, refusing if it exists (A105 RP-S1; '
+-                        '0642). ' + row[0][len('B3. '):].replace('Run the build-only binder', 'Then run the build-only binder', 1),
+-                        None, crep(row, 2, '0576; A81 RI-25; A99.1', '0576; A81 RI-25; A99.1; A105; 0642')), 3, 'revised', ['A105'], 'A105 RP-S1')
++                        '0642). ' + sub1(row[0][len('B3. '):], 'Run the build-only binder', 'Then run the build-only binder', 'B3'),
++                        None, sub1(row[2], '0576; A81 RI-25; A99.1', '0576; A81 RI-25; A99.1; A105; 0642', 'B3 source')), 3, 'revised', ['A105'], 'A105 RP-S1')
+     row = crow('B7. ')
+-    cset('B7', 'B7. ', (crep(crep([crep(row, 0, 'B6 output; E5-08;', 'B6 output (E-SEAL1, with A105\'s E-OPS5 disclosure: seal_record_requirements[0]); '
+-                                                                     'E5-08;'), '', ''], 0, 'the entry table quoted (A99.3);',
+-                                  'the entry table quoted (A99.3); root\'s later-entry dispositions JSON, exactly (B1; A104; 0633);'), '', ''][0:1] + ['', ''], 0,
+-                             'no-row-shown statement.', 'no-row-shown statement.') if False else None, None, None), 4, 'revised', ['A104', 'A105'],
+-         'placeholder') if False else None
+-    b7s = row = crow('B7. ')
+-    t0 = crep(row, 0, 'B6 output; E5-08;', 'B6 output (E-SEAL1, with A105\'s E-OPS5 disclosure: seal_record_requirements[0]); E5-08;')
+-    if t0.count('the entry table quoted (A99.3);') != 1:
+-        raise SystemExit('B7 anchor')
+-    t0 = t0.replace('the entry table quoted (A99.3);', 'the entry table quoted (A99.3); root\'s later-entry dispositions JSON, exactly (B1; A104; 0633);')
+-    cset('B7', 'B7. ', (t0, None, crep(b7s, 2, 'A81 RI-19/25; A99.3; A100; A101', 'A81 RI-19/25; A99.3; A100; A101; A104; A105')), 4, 'revised',
+-         ['A104', 'A105'], 'the SEAL_RECORD carries E-OPS5 in E-SEAL1 (A105) and root\'s dispositions JSON (A104; 0633)')
++    t0 = sub1(row[0], 'B6 output; E5-08;', 'B6 output (E-SEAL1, with A105\'s E-OPS5 disclosure: seal_record_requirements[0]); E5-08;', 'B7')
++    t0 = sub1(t0, 'the B2 disclosure and the A101 erratum (seal_record_requirements[12]); no-row-shown statement.',
++              'the B2 disclosure and the A101 erratum (seal_record_requirements[12]); root\'s A7 confirmation of ngc_gas_M_s 96 (F-13); which of the '
++              'checks C-02 to C-08 the seal script checked and which root checked by hand (A106.2; seal_record_requirements[13]); no-row-shown statement.', 'B7')
++    cset('B7', 'B7. ', (t0, None, sub1(row[2], 'A81 RI-19/25; A99.3; A100; A101', 'A81 RI-19/25; A99.3; A100; A101; A105; A106.2; F-13', 'B7 source')), 4,
++         'revised', ['A105', 'A106.2', 'F-13'], 'the SEAL_RECORD carries E-OPS5 in E-SEAL1 (A105), root\'s A7 confirmation (F-13) and the C-02..C-08 '
++         'statement (A106.2)')
+     row = crow('B8. ')
+     cset('B8', 'B8. ', (row[0] + ' The seal script builds that allowlist from BUILD_V007\'s 15-row table exactly and refuses any other row count or any row '
+                         'not byte-equal to that table (A105 W7-S1; 0642); Codex1 checks this.', None,
+-                        crep(row, 2, '0561; A78 N2; A99.1; V6-S3', '0561; A78 N2; A99.1; V6-S3; A105; 0642')), 3, 'revised', ['A105'], 'A105 W7-S1')
++                        sub1(row[2], '0561; A78 N2; A99.1; V6-S3', '0561; A78 N2; A99.1; V6-S3; A105; 0642', 'B8 source')), 3, 'revised', ['A105'], 'A105 W7-S1')
+     row = crow('C1. ')
+     cset('C1', 'C1. ', (row[0] + ' The outputs stay on the internal SSD (A85.3); root\'s watchdog alerts below 80 GB free, and if it fires root rules either '
+                         'relocating the cases not yet started or pausing admission; the per-case caps are unchanged (A105 RP-S2).', None,
+-                        crep(row, 2, 'RUNBOOK of BUILD_V007; A85; A88', 'RUNBOOK of BUILD_V007; A85; A88; A105')), 3, 'revised', ['A105'], 'A105 RP-S2')
++                        sub1(row[2], 'RUNBOOK of BUILD_V007; A85; A88', 'RUNBOOK of BUILD_V007; A85; A88; A105', 'C1 source')), 3, 'revised', ['A105'], 'A105 RP-S2')
+     row = crow('Compare r8, r10, r11;')
+-    cset('SUPERSEDED', 'Compare r8, r10, r11;', (crep(crep(crep(row, 0, 'Compare r8, r10, r11;', 'Compare r8, r10, r11, r12 (r12: A102);'), 0, '', '')
+-                                                 if False else None, None, None), 2, 'revised', ['A102'], 'placeholder') if False else None
+-    row = crow('Compare r8, r10, r11;')
+-    t0 = row[0]
+-    for o, n_ in (('Compare r8, r10, r11;', 'Compare r8, r10, r11 and r12 (r12: A102);'),
+-                  ('B2 C3V002 d4b41ffc (A100, A101); r6 (A96); the r4 checklist.',
+-                   'B2 C3V002 d4b41ffc (A100, A101); registry C3V008 f189cd3f (C3V009 is the candidate: A101, Claude3 0087); driver r6 (A96); the r4 and '
+-                   'r5 checklists.')):
+-        if t0.count(o) != 1:
+-            raise SystemExit('SUPERSEDED anchor ' + o[:30])
+-        t0 = t0.replace(o, n_)
+-    cset('SUPERSEDED', 'Compare r8, r10, r11;', (t0, None, crep(row, 2, 'A79; A80; A90; A96; A99; A101', 'A79; A80; A90; A96; A99; A101; A102')), 2,
+-         'revised', ['A102', 'A101'], 'compare r12 and registry C3V008 superseded; "driver r6" disambiguated from prereg r6')
+-    tail6 = tail5
++    t0 = sub1(row[0], 'Compare r8, r10, r11;', 'Compare r8, r10, r11 and r12 (r12: A102);', 'SUPERSEDED')
++    t0 = sub1(t0, 'B2 C3V002 d4b41ffc (A100, A101); r6 (A96); the r4 checklist.',
++              'B2 C3V002 d4b41ffc (A100, A101); registry C3V008 f189cd3f (C3V009 is the candidate: A101, Claude3 0087, A106.1); driver r6 (A96); the r4 and '
++              'r5 checklists.', 'SUPERSEDED')
++    cset('SUPERSEDED', 'Compare r8, r10, r11;', (t0, None, sub1(row[2], 'A79; A80; A90; A96; A99; A101', 'A79; A80; A90; A96; A99; A101; A102; A106.1',
++                                                                 'SUPERSEDED source')), 2,
++         'revised', ['A102', 'A106.1', 'A101'], 'compare r12 (A102) and registry C3V008 superseded; "driver r6" kept apart from prereg r6; the r5 '
++         'checklist superseded by this one (A106.1)')
+     log(1, 'SEAL_CHECKLIST_R6 header', 'header', [], ['A99.3', 'F-01'], 'title r6 and the assembly time')
+-    # ================================================================= consistency: every REVISED_HERE clause is changed by a logged edit
+-    logged = [c['clause'] for c in changes]
+-    for x in new_rows:
++    # ================================================================= consistency, both ways, between the rows A102-A106 and the edits
++    logged = [c for c in changes if c['clause'] not in ('root_items (order)', 'SEAL_CHECKLIST_R6 header')]
++
++    def entries_of(trace):
++        return {m.group(1) for t in trace for m in [re.match(r'(A[0-9]+)(\.[0-9]+)?$', t)] if m and m.group(1) in ROWS6}
++
++    def row_steps(x):
++        out_ = []
+         for cl_ in x['revised_clauses']:
+             if cl_.startswith('SEAL_CHECKLIST_R6 '):
+-                steps = [s.strip() for s in cl_[len('SEAL_CHECKLIST_R6 '):].split(',')]
+-                bad = [s for s in steps if s not in cedits]
+-                if bad:
+-                    raise SystemExit('row %s names checklist steps no edit changed: %s' % (x['entry'], bad))
+-            elif not any(covers(cl_, c) or c == cl_ for c in logged):
+-                raise SystemExit('row %s names %s, which no edit changed' % (x['entry'], cl_))
++                out_ += [s.strip() for s in cl_[len('SEAL_CHECKLIST_R6 '):].split(',')]
++        return out_
++    for x in new_rows:
++        e = x['entry']
++        for cl_ in x['revised_clauses']:
++            if cl_.startswith('SEAL_CHECKLIST_R6 '):
++                continue
++            if not any(e in entries_of(c['trace']) and (covers(cl_, c['clause']) or covers(c['clause'], cl_)) for c in logged):
++                raise SystemExit('row %s names %s, which no edit traced to %s changes' % (e, cl_, e))
++        for s in row_steps(x):
++            if s not in cedits or e not in entries_of(cedits[s]):
++                raise SystemExit('row %s names checklist step %s, which no edit traced to %s changes' % (e, s, e))
++    rows_by = {x['entry']: x for x in new_rows}
++    for c in logged:
++        for e in entries_of(c['trace']):
++            x = rows_by[e]
++            if c['clause'].startswith('SEAL_CHECKLIST_R6 '):
++                if c['clause'][len('SEAL_CHECKLIST_R6 '):] not in row_steps(x):
++                    raise SystemExit('edit %s is traced to %s, whose row does not name that step' % (c['clause'], e))
++            elif not any(covers(cl_, c['clause']) for cl_ in x['revised_clauses'] if not cl_.startswith('SEAL_CHECKLIST_R6 ')):
++                raise SystemExit('edit %s is traced to %s, whose row does not name that clause' % (c['clause'], e))
+     # ================================================================= the leaf diff r5 -> r6 must lie inside logged clauses
+     L5 = {pname(k): v for k, v in leaves(doc5).items()}
+     L6 = {pname(k): v for k, v in leaves(doc).items()}
+     dl = sorted(k for k in set(L5) | set(L6) if L5.get(k) != L6.get(k))
+-    json_logged = [c for c in logged if not c.startswith('SEAL_CHECKLIST') and c != 'root_items (order)']
++    json_logged = [c['clause'] for c in changes if not c['clause'].startswith('SEAL_CHECKLIST') and c['clause'] != 'root_items (order)']
+     unc = []
+     for k in dl:
+         if any(covers(c, k) for c in json_logged):
+@@ -879,33 +1016,44 @@
+     for x in doc5['entries_after_A81']['rows']:
+         if x not in rows:
+             raise SystemExit('an r5 row changed')
+-    # ================================================================= write (exclusive create everywhere)
+-    written = []
+-
+-    def write(name, data):
+-        p = out / name
+-        with p.open('xb') as f:
+-            f.write(data if isinstance(data, bytes) else data.encode('utf-8'))
+-        written.append(p)
+-        return p
+-    write('KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json', json.dumps(doc, indent=1, ensure_ascii=False, allow_nan=False) + '\n')
++    if doc['binding_inputs']['case_block'] != case_block_r5 or sha(case_block_r5['path']) != P['case_block']['sha256']:
++        raise SystemExit('binding_inputs.case_block is not byte-identical to r5 (item 8)')
++    ck5 = parse_checklist(ck_text, 'r5')[2]
++    n_changed = sum(1 for i in range(len(ck)) if ck[i] != ck5[i])
++    if len(ck) != len(ck5) or n_changed != len(cedits):
++        raise SystemExit('checklist rows changed (%d of %d) differ from the logged checklist edits (%d)' % (n_changed, len(ck), len(cedits)))
++    # ================================================================= render everything in memory, then write (exclusive create)
++    outs = {}
++    outs['KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json'] = json.dumps(doc, indent=1, ensure_ascii=False, allow_nan=False) + '\n'
+     D = ['# Delta r5 -> r6 (KMAX_TAIL_PREREG_V007_FINAL_DRAFT)', '',
+          'Each line is one recorded edit applied to r5 (3245899f) by %s, with its trace to a ruling (A-entry) or a finding of the r5 check (F-; '
+-         'REPORT_R5CHK_C4V002 caea77aa). The item column is the r6 brief item (1 entry table and header, 2 compare slot, 3 launch packet, 4 seal record '
+-         'requirements, 5 F-11 fixes, 6 F-13, 7 registry, 9 seal tools v003; item 8, the case block binding, changes nothing). Rows named '
+-         'SEAL_CHECKLIST_R6 are edits of the root checklist. Open V005 addendum at generation: %s (entries A47-%s; byte copy %s).'
+-         % (Path(__file__).name, v005_sha, newest, COPY_REL), '',
++         'REPORT_R5CHK_C4V002 caea77aa). The item column is the r6 brief item: 1 the entry table, the closed V005 and the header; 2 the compare slot; '
++         '3 the launch packet; 4 the seal record requirements; 5 the F-11 fixes; 6 F-13; 7 the registry; 9 seal tools v003. Item 8 (the case block '
++         'binding) changes nothing. Rows named SEAL_CHECKLIST_R6 are edits of the root checklist. Closed V005 addendum at generation: %s, %d bytes '
++         '(entries A47-%s; byte copy %s).' % (Path(__file__).name, v005_sha, len(vb), newest, COPY_REL), '',
+          '| # | item | clause | kind | added sources | trace | why |', '|---|---|---|---|---|---|---|']
+     D += ['| %d | %d | `%s` | %s | %s | %s | %s |' % (i + 1, c['item'], c['clause'], c['kind'], '; '.join(c['added_sources']), '; '.join(c['trace']), c['why'])
+           for i, c in enumerate(changes)]
+-    write('DELTA_R5_R6.md', '\n'.join(D) + '\n')
+-    write('ENTRY_TABLE_R6.md', render_entry_table('r6', newest, v005_sha, len(vb), COPY_REL, ea['section_rule'], rows))
++    outs['DELTA_R5_R6.md'] = '\n'.join(D) + '\n'
++    if render_entry_table('r5', entry_table_r5_header(doc5['entries_after_A81']['addendum_read']['sha256_at_generation'], len(b5),
++                                                      doc5['entries_after_A81']['section_rule']), doc5['entries_after_A81']['rows']) != \
++            (R5D / 'ENTRY_TABLE_R5.md').read_text():
++        raise SystemExit('the entry-table renderer does not reproduce ENTRY_TABLE_R5.md')
++    et_head = ('# ENTRY_TABLE_R6: V005 entries A82-%s against prereg r6 (A99.3; the seal record quotes this table)\n\n'
++               'Closed V005 addendum (A106.3) read at r6 generation: sha256 `%s`, %d bytes (byte copy `%s`). V005 closes with A106, so this table '
++               'covers every V005 entry after A81; root\'s later rulings are V006 entries. %s' % (newest, v005_sha, len(vb), COPY_REL, ea['section_rule']))
++    outs['ENTRY_TABLE_R6.md'] = render_entry_table('r6', et_head, rows)
+     ri = doc['root_items']
+     opened = [x['id'] for x in ri if x['status'] == 'OPEN']
+-    write('ROOT_ITEMS_R6.md', render_root_items('r6', 'RI-27 is resolved by A82 (ruled as drafted in r4); RI-28 by A102 and A104 (the fix round r13 is the '
+-                                                      'compare of record); RI-29 by A105 (BUILD_V007 stays bound). RI-24 is moot for V007 (A96). Open: %s. '
+-                                                      'Every recommendation is a recommendation only.' % ', '.join(opened), ri))
+-    write('SEAL_CHECKLIST_R6.md', render_checklist('r6', ts, tail6, ck))
++    ri5 = doc5['root_items']
++    if render_root_items('r5', 'RI-27 is resolved by A82 (ruled as drafted in r4). RI-24 is moot for V007 (A96). Open: %s. Every recommendation is a '
++                         'recommendation only.' % ', '.join(x['id'] for x in ri5 if x['status'] == 'OPEN'), ri5) != (R5D / 'ROOT_ITEMS_R5.md').read_text():
++        raise SystemExit('the root-items renderer does not reproduce ROOT_ITEMS_R5.md')
++    outs['ROOT_ITEMS_R6.md'] = render_root_items('r6', 'RI-27 is resolved by A82 (ruled as drafted in r4); RI-28 by A102 and A104 (the fix round r13 is the '
++                                                       'compare of record); RI-29 by A105 (BUILD_V007 stays bound); RI-34 by A106.3 (V005 closed at A106; '
++                                                       'the table ends at A106). RI-24 is moot for V007 (A96). Open: %s. Every recommendation is a '
++                                                       'recommendation only.' % ', '.join(opened), ri)
++    outs['SEAL_CHECKLIST_R6.md'] = render_checklist('r6', ts, tail5, ck)
+     changed_all = [c for c in json_logged]
+     M = ['# Clause -> source map, r6: KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6 (unsealed)', '',
+          'Sources are rulings (A-entries, dispatches) or evidence; the trace of every r6 edit to a ruling or an r5-check finding is in DELTA_R5_R6.md.',
+@@ -917,14 +1065,18 @@
+         else:
+             yes = any(c == k or c.startswith(k + '.') or c.startswith(k + '[') or k.startswith(c + '.') for c in changed_all)
+         M.append('| `%s` | %s | %s |' % (k, '; '.join(s), 'yes' if yes else ''))
+-    write('CLAUSE_SOURCE_MAP_R6.md', '\n'.join(M) + '\n')
++    outs['CLAUSE_SOURCE_MAP_R6.md'] = '\n'.join(M) + '\n'
+     bi = doc['binding_inputs']
+     cpn = doc['seal_slots']['compare']['named_candidates_verified_from_bytes']
+     H = ['# KMAX_TAIL_PREREG_V007: final draft r6 (UNSEALED)', '', doc['status'], '',
+-         '**Assembly:** Claude4 r6 helper, single author, UTC %s. Base: r5 `%s`. Basis: Claude4 0109 `%s` (root may stop this work); r5 check '
+-         'REPORT_R5CHK_C4V002 `%s`.' % (ts, R5_SHA, P['Claude4_0109']['sha256'], P['r5_check_report_C4V002']['sha256']), '',
++         '**Assembly:** Claude4 r6 helper, single author, UTC %s. Base: r5 `%s`. Dispatch 0643 `%s` (A106.1 approves r6); Claude4 0109 `%s`; r5 check '
++         'REPORT_R5CHK_C4V002 `%s`.' % (ts, R5_SHA, P['dispatch_0643']['sha256'], P['Claude4_0109']['sha256'], P['r5_check_report_C4V002']['sha256']), '',
+          'The full clause text is in the JSON; `CLAUSE_SOURCE_MAP_R6.md` traces every clause; `DELTA_R5_R6.md` lists every edit with its trace; '
+          '`ENTRY_TABLE_R6.md` is the A99.3 table; `SEAL_CHECKLIST_R6.md` and `ROOT_ITEMS_R6.md` are the root-facing lists.', '',
++         '## The closed V005 addendum (A106.3)', '',
++         '- `entries_after_A81.addendum_read`: sha256 `%s`, %d bytes; byte copy `%s`.' % (ea['addendum_read']['sha256_at_generation'],
++                                                                                          ea['addendum_read']['bytes'], copy_abs),
++         '- %s' % ea['rule'], '',
+          '## The case block (A99.2, A101)', '', '- `binding_inputs.case_block`: `%s` sha256 `%s`.' % (bi['case_block']['path'], bi['case_block']['sha256']),
+          '- %s' % bi['case_block_rule']['text'], '',
+          '## The final compare round (A102, A103, A104)', '',
+@@ -949,14 +1101,23 @@
+     H.extend(['', '## Clauses changed in r6', ''])
+     for c in changes:
+         H.append('- `%s` (%s; item %d; trace %s): %s' % (c['clause'], c['kind'], c['item'], ', '.join(c['trace']), c['why']))
+-    H.extend(['', '## Root items', '', 'RI-27 RESOLVED (A82); RI-28 RESOLVED (A102, A104); RI-29 RESOLVED (A105); RI-24 moot (A96). OPEN: %s (see '
+-              '`ROOT_ITEMS_R6.md`).' % ', '.join(opened), ''])
+-    write('KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.md', '\n'.join(H) + '\n')
+-    hp = [P['case_block']['path'], P['case_block_build_record']['path'], str(cpath)] + [str(p) for p in written] + [str(Path(__file__).resolve())]
+-    write('HASHES_R6.txt', '\n'.join('%s  %s' % (sha(p), p) for p in hp) + '\n')
+-    print('written', out, len(written), 'files; V005 copy', v005_sha, 'open equal', open_equal, 'newest', newest, '; rows', len(rows), '; edits', len(changes),
+-          '; checklist edits', cedits, '; leaves changed', len(dl), '; open', opened)
+-    print('prereg r6 sha256', sha(out / 'KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json'))
++    H.extend(['', '## Root items', '', 'RI-27 RESOLVED (A82); RI-28 RESOLVED (A102, A104); RI-29 RESOLVED (A105); RI-34 RESOLVED (A106.3); RI-24 moot (A96). '
++              'OPEN: %s (see `ROOT_ITEMS_R6.md`).' % ', '.join(opened), ''])
++    outs['KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.md'] = '\n'.join(H) + '\n'
++    if sorted(outs) != sorted(OUT_NAMES):
++        raise SystemExit('output set')
++    present = [str(p) for p in targets if os.path.lexists(p)]
++    if present:
++        raise SystemExit('outputs appeared during the run: %s' % present)
++    for n in OUT_NAMES:
++        with open(out / n, 'xb') as f:
++            f.write(outs[n].encode('utf-8'))
++    for n in OUT_NAMES:
++        if (out / n).read_bytes() != outs[n].encode('utf-8'):
++            raise SystemExit('%s does not read back equal' % n)
++    print(json.dumps({'written': str(out), 'files': {n: sha(out / n) for n in OUT_NAMES}, 'v005_closed_copy': v005_sha, 'newest': newest,
++                      'rows': len(rows), 'edits': len(changes), 'checklist_edits': sorted(cedits), 'leaves_changed': len(dl), 'open_root_items': opened},
++                     indent=1))
+ 
+ 
+ if __name__ == '__main__':

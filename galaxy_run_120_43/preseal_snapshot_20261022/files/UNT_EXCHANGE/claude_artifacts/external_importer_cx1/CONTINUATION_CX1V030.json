@@ -1,0 +1,38 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Held-lock direct acceptance preparation tested; importer incomplete",
+  "utc": "2026-10-21T13:27:57.329850+00:00",
+  "tested": [
+    "6 inert preparation checks pass using pinned entry helpers and wrapper acceptance_passes. Valid second pass after INCOMPLETE; missing/wrong first record, cached key, foreign enumerator and third pass refuse with exact reasons. No acceptance producer invoked."
+  ],
+  "untested": [
+    "Producer/dependency execution",
+    "Production Context and root authentication",
+    "First acceptance pass preparation",
+    "Concurrency and whole-engine replay"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/direct_accept_prepare_cx1v001.py",
+      "sha256": "7130ef1f9ebf1823abd96dbeb58af7cb898530742afece4baa9ec1fb1e584340"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_direct_accept_prepare_cx1v001.py",
+      "sha256": "de08fd2fb9186d2b0f70d3dba825f7ac019c521be3079bb8d560b25ef3c767ff"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/real_guard_20261021T132743904735/ACCEPT_PREP_TEST_REPORT.json",
+      "sha256": "224250097df24f081ed7161af1e3c269f0a8de192fa18bd593e0c59e40cc5a0c"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 185,
+  "no_live_processes": true,
+  "next": "Connect acceptance preparation to single-read producer execution without wrapping writes in ReadOnlyScope. Existing H producer/dependency code reads and writes; needs explicit read snapshot + exclusive-output boundary. Never re-acquire/release parent lock or auto-reingest. Runtime/register/envelope/wait/cache/entry still open."
+}

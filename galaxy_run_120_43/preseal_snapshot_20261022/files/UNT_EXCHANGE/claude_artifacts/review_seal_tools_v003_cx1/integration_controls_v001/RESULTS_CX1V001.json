@@ -1,0 +1,199 @@
+{
+ "audit_denials": [],
+ "checks": [
+  {
+   "detail": {
+    "actual": "PASS",
+    "codes": [],
+    "expected": "PASS"
+   },
+   "name": "integration/T3_complete_positive",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/T3_exact_disposition_passthrough",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "PASS",
+    "codes": [],
+    "expected": "PASS"
+   },
+   "name": "integration/T3_T4_returned_record_positive",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/returned_text_exists",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/record_exact_disposition",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/record_exact_disposition_raw_bytes",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/record_disposition_hash_from_bytes",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/returned_record_hash",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "codes": [
+     "T3:T1:DISPOSITION_REASON_EMPTY"
+    ],
+    "expected": "REFUSE"
+   },
+   "name": "integration/empty_reason",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/empty_reason_no_record",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "codes": [
+     "T3:T1:DISPOSITION_SECTION_SHA_MISMATCH"
+    ],
+    "expected": "REFUSE"
+   },
+   "name": "integration/wrong_section",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/wrong_section_no_record",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "codes": [
+     "T3:T1:DISPOSITIONS_PIN_MISMATCH",
+     "T3:T1:UNCOVERED_LATER_ENTRY"
+    ],
+    "expected": "REFUSE"
+   },
+   "name": "integration/wrong_root_pin",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "integration/wrong_root_pin_no_record",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "codes": [
+     "DISPOSITIONS_CHANGED_AFTER_CHECK"
+    ],
+    "expected": "REFUSE"
+   },
+   "name": "integration/late_changed_object",
+   "passed": true
+  },
+  {
+   "detail": 2,
+   "name": "integration/late_changed_object_two_reads_no_record",
+   "passed": true
+  },
+  {
+   "detail": {
+    "actual": "REFUSE",
+    "codes": [
+     "DISPOSITIONS_CHANGED_AFTER_CHECK"
+    ],
+    "expected": "REFUSE"
+   },
+   "name": "integration/late_same_object_different_bytes",
+   "passed": true
+  },
+  {
+   "detail": 2,
+   "name": "integration/late_same_object_different_bytes_two_reads_no_record",
+   "passed": true
+  },
+  {
+   "detail": null,
+   "name": "execution/nice10_isolated_no_bytecode",
+   "passed": true
+  },
+  {
+   "detail": [],
+   "name": "execution/zero_audit_denials",
+   "passed": true
+  }
+ ],
+ "count": 20,
+ "date_u": "Sun Oct 18 22:08:41 UTC 2026",
+ "harness": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/review_full_integration_cx1v001.py",
+  "sha256": "cd16ae7dc7041737b69136a235d05292d7673e5dc7c892ac15d3a92612daa475"
+ },
+ "passed": 20,
+ "returned_inert_record": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/integration_controls_v001/RETURNED_SYNTHETIC_NOT_AUTHORITY.json",
+  "sha256": "efdc930ce2ee194169ea06040084fbd9f6552d685aa604de03d1bb85cfb659e2"
+ },
+ "scope": "Actual immutable snapshot T1/T2/T3/T4 execution. Comparator is explicitly own synthetic API double; its scientific semantics and all production certificates/driver/launch behavior are UNTESTED. Full returned record is inert metadata under review only, never installed as authority. Exact disposition text/content/hash retained; T3 failures and post-check byte mutation suppress all record output. No actual C5H data, target, science or launch.",
+ "snapshot_manifest": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/provisional_snapshot_v001/SNAPSHOT_CX1V001.json",
+  "sha256": "cdc6f9c6b2036c6e9cb9670fd6b0c0cb8f1c08aa80b569c107bddf21ded4d51a"
+ },
+ "source_pins": [
+  {
+   "bytes": 12990,
+   "sha256": "101a3aeb9846a21c35993e8e7e4b50a8f1206ed4202b131afd12d7e496c5ab21",
+   "snapshot_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/provisional_snapshot_v001/seal_common_c4v003.py",
+   "source_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/dev/seal_common_c4v003.py"
+  },
+  {
+   "bytes": 24313,
+   "sha256": "72d9191d064e61e0a3f6d40d04848971d1babd852236ddae4da36b8ca910a612",
+   "snapshot_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/provisional_snapshot_v001/check_frozen_addendum_c4v003.py",
+   "source_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/dev/check_frozen_addendum_c4v003.py"
+  },
+  {
+   "bytes": 10934,
+   "sha256": "c2c5dfc5ddba1e44ff82811a38d4c05b0a669f2294b229efe3437623d596f9f1",
+   "snapshot_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/provisional_snapshot_v001/check_sealed_compare_c4v003.py",
+   "source_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/dev/check_sealed_compare_c4v003.py"
+  },
+  {
+   "bytes": 39197,
+   "sha256": "1ac95c3bdbcee07d95d939927c2a8ce62b4d98add2e8a018baac9662a3af77e7",
+   "snapshot_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/provisional_snapshot_v001/check_slot_fill_c4v003.py",
+   "source_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/dev/check_slot_fill_c4v003.py"
+  },
+  {
+   "bytes": 33942,
+   "sha256": "8fac5dbbd3f42bad11137e1f79fc9dea656c33415f58849144ee88e0b09a2070",
+   "snapshot_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/provisional_snapshot_v001/build_seal_record_c4v003.py",
+   "source_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/dev/build_seal_record_c4v003.py"
+  },
+  {
+   "bytes": 4192,
+   "sha256": "e5bedffe3c91650d5dba7fbd1ed5476e228158679d8959dfea0e2eff436ebdea",
+   "snapshot_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_tools_v003_cx1/provisional_snapshot_v001/print_driver_build_record_c4v003.py",
+   "source_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/dev/print_driver_build_record_c4v003.py"
+  }
+ ],
+ "status": "TESTED_PROVISIONAL_SYNTHETIC_FULL_T3_BUILDER_INTEGRATION"
+}

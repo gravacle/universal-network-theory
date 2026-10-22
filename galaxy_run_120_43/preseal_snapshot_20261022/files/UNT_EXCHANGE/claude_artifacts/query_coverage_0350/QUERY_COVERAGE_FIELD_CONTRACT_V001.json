@@ -1,0 +1,90 @@
+{
+ "schema": "NGC3198_QUERY_COVERAGE_FIELD_CONTRACT_V001",
+ "task": "0350",
+ "adapter": {
+  "file": "ngc3198_query_coverage_adapter_v001.py",
+  "sha256": "813c9915c9b0cc32fec0cdb3cae6632c4377ca4a435db8c030cf262ccc7dce9c"
+ },
+ "status": "INERT CANDIDATE; synthetic-only execution by the author; root executes after review",
+ "pinned_inputs": {
+  "bundle": "NGC3198_SOURCE_ONLY_BUNDLE_CANDIDATE_V001.json 62abc88f12cb9da99ea1f1ba27c7eab2454553391984a65e2aa87a155fcc1fc1",
+  "root_review": "NGC3198_SOURCE_BUNDLE_ROOT_SAVED_OUTPUT_REVIEW_V001.json 43225b2252c4161373208f8584f101651e32e06156b3b21b7ec23fbcd48eabb4 (must contain the bundle sha)"
+ },
+ "parsing": "duplicate JSON keys rejected; NaN/Infinity tokens rejected; floats parsed as decimal.Decimal (exact text as stored) and compared via Fraction; ASCII fullmatch for query decimals and rational strings",
+ "allowlist_read": {
+  "queries": "/queries/items/{i}/{query_id,Rad_text,Rad_unit,pointer}",
+  "S1": "/sources/S1_LEROY_T7/rows/{i}/{radius_kpc_literal/value, original_line_number/value, components/{HI,H2,stars}/{value_literal/value (only its null-ness is used), p53_interpretation/value, error_kind/adapter_label}}",
+  "S2": "/sources/S2_HALOGAS_PLANAR/orders/{0,1}/{subpixels_per_axis/value, profiles/{profile_40arcsec,profile_120arcsec}/{r_lo_kpc,r_hi_kpc,complete_by_conservative_chord_bound}/values, groups/{full,X_negative,X_nonnegative}/{zero_fraction_of_footprint,finite_fraction_of_footprint,missing_footprint_fraction_raw}/values, groups/*/effective_HI_Msun_pc2_complete_only/values (null-ness only)}",
+  "context": "/sources/S2_HALOGAS_PLANAR/{settings/*,measurement_uncertainty/state}; /conventions/items/{S1_LEROY_T7,S2_HALOGAS_C1}/{geometry,radial_coordinate,helium_conversion_state,error_fields,masks,support}/corrections/*/id; /open_issues/items/*/id"
+ },
+ "emitted": {
+  "per_query": [
+   "query_id",
+   "Rad_text",
+   "Rad_unit",
+   "bundle_pointer",
+   "source_pointer",
+   "S1 correspondence",
+   "S2 correspondence x4 (order 4/8 x width 40/120)"
+  ],
+  "S1_labels": {
+   "EXACT_SAMPLE_RADIUS": "Fraction(query)==Fraction(ring radius)",
+   "BRACKETED": "strictly between consecutive ring radii; note: does NOT establish observed coverage of the intervening aperture",
+   "BELOW_SAMPLED_RANGE": "below the first ring radius",
+   "ABOVE_SAMPLED_RANGE": "above the last ring radius"
+  },
+  "S1_row_fields": [
+   "row_index",
+   "original_line_number",
+   "radius_literal",
+   "bundle_pointer",
+   "components/{HI,H2,stars}/{p53_interpretation,error_kind,value_missing,upper_limit_marker,bundle_pointer}"
+  ],
+  "S2_labels": {
+   "IN_ANNULUS": "r_lo[j] <= q < r_hi[j] (exact)",
+   "ON_FINAL_OUTER_EDGE": "q == r_hi[last]; not assigned to any annulus",
+   "OUTSIDE_ABOVE": "q > r_hi[last]",
+   "OUTSIDE_BELOW": "q < r_lo[0]"
+  },
+  "S2_fields": [
+   "annulus_index",
+   "inner/outer edge {decimal_as_stored}",
+   "query_equals_inner_edge",
+   "edge_pointers",
+   "complete_by_conservative_chord_bound + pointer",
+   "groups/{g}/{zero_fraction_of_footprint,finite_fraction_of_footprint,missing_footprint_fraction_raw} {decimal_as_stored}",
+   "groups/{g}/effective_density_present (boolean only)",
+   "groups/{g}/pointers"
+  ],
+  "context": [
+   "s2_settings (value_as_stored + pointers)",
+   "s2_measurement_uncertainty.state (UNKNOWN)",
+   "pointers to s1_unknown_uncertainty and s1_table_level",
+   "geometry/conversion items: pointer + attached 0346 correction ids",
+   "open_issue_refs OPEN-1,3,4,5,7,8,9,10 with pointers",
+   "radius_convention_note"
+  ]
+ },
+ "never_emitted": "density values, error literals, masses, areas, descriptive scatter, velocities, forces, UNT results; no interpolation weights or bin edges invented",
+ "derived_label_conventions": "all labels above are computed only by exact comparisons; decimals are typed {decimal_as_stored: text}; booleans are derived only from null-ness or exact equality",
+ "fail_closed": {
+  "exit_2": [
+   "E_PIN_bundle(_MISSING)",
+   "E_PIN_root_review(_MISSING)",
+   "E_JSON_*",
+   "E_ROOT_REVIEW_DOES_NOT_NAME_BUNDLE",
+   "E_SCHEMA_VALUE",
+   "E_Q_* (count, duplicate, id order, unit, decimal domain, order)",
+   "E_S1_* (count, format, domain, GRID_DUPLICATE, GRID_ORDER, MISSINGNESS_INCONSISTENT)",
+   "E_S2_* (ORDER_SET, LENGTH_OR_TYPE, GRID_START, GRID_INVERTED, GRID_GAP, GRID_OVERLAP, EDGE_TYPE, FIELD_LENGTH, FIELD_TYPE)",
+   "E_OPEN_REF_MISSING",
+   "E_OUTPUT_EXISTS",
+   "E_CANDIDATE_EXISTS",
+   "E_USAGE"
+  ],
+  "exit_4": "publication failures as in source-bundle adapter V005 (candidate retained; output_published tells whether this run's output exists)",
+  "exit_3": "unexpected (phase reported)",
+  "exit_130": "interrupted (phase reported)"
+ },
+ "publication": "0348 preserved-candidate lifecycle reused narrowly from ngc3198_source_bundle_adapter_v005.py (fc9cdcfa..., distinct review PASS): exclusive <output>.candidate mode 0444, fsync, re-read, exclusive hard link, guarded post-link checks; nothing unlinked, moved or overwritten"
+}

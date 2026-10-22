@@ -1,0 +1,52 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/make_campaign_cascade_c2v002.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/make_campaign_cascade_c2v003.py
+@@ -1,4 +1,13 @@
+-# Claude2 h3_campaign_path_c2 (root V006 A188, A191 B2): deterministic generator of the CAMPAIGN adoption cascade, c2v002.
++# Claude2 h3_campaign_path_c2 (root V006 A188, A191 B2, A192): deterministic generator of the CAMPAIGN adoption cascade, c2v003.
++# c2v003 against make_campaign_cascade_c2v002 (bbb9d656), and nothing else (V006 A192 items 2-3, "built with the ledger"):
++#  W3  the wrapper source is calibration_orchestrator_q5b1_ledger_c2v003.py (the q5b1 wrapper 7a6af535 plus the R-C8
++#      certificate ledger and the certified MODEL_INVALID path; its core pin line is q5b1's, so W1 below is unchanged);
++#  E3  the entry template is h3_campaign_entry_c2v003 (it pins that source; reingest-invalid, points-manifest,
++#      ledger-append, ledger-status); the result names this generator and its wrapper input key is 'wrapper_source'.
++# Policy and core outputs are c2v002's (and c2v001's), byte for byte, for every SUB and tuple.  Regression: with SUB =
++# v006r10_c4, no tuple and the default publish root the outputs are the published policy 93d9c0ac and core dc895f8a, the
++# wrapper source itself, and the entry template except its WRAPPER path line (the template pins the source in this folder;
++# E1 points the output at the publish path).  Text below is c2v002's (W1, E1, M1 hold with the c2v003 names).
+ # c2v002 against make_campaign_cascade_c2v001 (65a70144), and nothing else: E2 the entry template is h3_campaign_entry_c2v002
+ # (A191 B2: its reingest takes the acceptance record); the result names this generator.  Policy, core and wrapper outputs are
+ # c2v001's, byte for byte, for every SUB and tuple.  Text below is c2v001's (W1, E1, M1 hold with the c2v002 names).
+@@ -16,17 +25,18 @@
+ #  M1  main(argv) / build(...) are callable in process (regenerate_h3_c2v001.py); the CLI is v002's plus --publish-root.
+ # Regression: with SUB = v006r10_c4, no tuple and the default publish root the four outputs are byte-identical to the
+ # published policy 93d9c0ac, core dc895f8a, q5b1 wrapper 7a6af535 and the entry template itself.
+-# usage: python3 -I -B make_campaign_cascade_c2v002.py OUTDIR SUB (--dry-run | --write) [--publish-root DIR] [--policy-only]
++# usage: python3 -I -B make_campaign_cascade_c2v003.py OUTDIR SUB (--dry-run | --write) [--publish-root DIR] [--policy-only]
+ #        [--seal-tuple C P A SCHEMA V]
+ import ast, hashlib, json, os, re, sys
+ 
+ CX2 = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2'
+ R7 = (CX2 + '/v006r7/adoption_policy_cx2v006r7.py', '7c726fa2ad3f3e0fbcfcf36353901f970cde1eff3f76321327e5a8a5fbc29b1d')
+ CORE9 = (CX2 + '/v006r9/calibration_core_cx2v006r9.py', 'a595c5c0929fc0a8313bcdff3b79241f1e3ba8f77dc3749adc06b2a982b43605')
+-WRAPQ = (CX2 + '/v006r10_c4/calibration_orchestrator_cx2v006r10_c4_q5b1.py', '7a6af535805399d49ec3f1c1cbe9e4911d98f6fae0ad50b69a0641214fcd5d4d')
++WRAPQ = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'calibration_orchestrator_q5b1_ledger_c2v003.py'),
++         '5ea1780a1008b5158ca4e431bafc9f6597d7adcefd682423abb3bbbca81d6c2c')     # W3
+ CORE10_SHA = 'dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6'     # the core q5b1 L27 pins
+-ENTRY_T = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h3_campaign_entry_c2v002.py'),
+-           '75b4cafa8563e31879ab1d70a74fe64dba9f4d61f496c3bc28479668c1e61c10')
++ENTRY_T = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h3_campaign_entry_c2v003.py'),
++           '5710e1fa457956087ac6a3e7e4484d51c30f3729b49788ea95c6f3d0a963f983')     # E3
+ CTRL = '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2'
+ SEALED_COMPARE = CTRL + '/V007_SEAL_ASSEMBLY/kmax_tail_compare_c2v007_r14_cx1v001_SEALED_V007.py'
+ SEALED_PREREG = CTRL + '/V007_SEAL_ASSEMBLY/KMAX_TAIL_PREREG_V007_SEALED.json'
+@@ -221,9 +231,9 @@
+             refuse('expected --seal-tuple C P A SCHEMA V')
+         seal_tuple = tuple(rest[1:6])
+     files, outputs, lit_sha = build(sub, policy_only=policy_only, seal_tuple=seal_tuple, publish_root=publish_root)
+-    res = {'generator': 'make_campaign_cascade_c2v002', 'mode': mode, 'sub': sub, 'policy_only': policy_only,
++    res = {'generator': 'make_campaign_cascade_c2v003', 'mode': mode, 'sub': sub, 'policy_only': policy_only,
+            'seal_tuple': seal_tuple, 'publish_root': publish_root, 'outdir': os.path.join(out, sub),
+-           'inputs': {'policy_r7': R7[1], 'core_r9': CORE9[1], 'wrapper_q5b1': WRAPQ[1], 'entry_template': ENTRY_T[1]},
++           'inputs': {'policy_r7': R7[1], 'core_r9': CORE9[1], 'wrapper_source': WRAPQ[1], 'entry_template': ENTRY_T[1]},
+            'outputs': outputs, 'resolve_source_literal_sha256_utf8': lit_sha}
+     if mode == '--write':
+         d = os.path.join(out, sub)

@@ -1,0 +1,320 @@
+{
+ "schema": "C3SA_SELECTED_SEAL_PRESTAGE_V002",
+ "utc": "2026-10-18T22:30:12Z",
+ "author": "Claude3 (dispatch 0626; fix round FROM_CODEX/0639 251196b2, 0640 03b4ff49, 0641 1fe3f2e9)",
+ "supersedes": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SELECTED_SEAL_PRESTAGE_C3SA.json",
+  "sha256": "a740181fbb2754269bf2393f85f70fc3436695f06894a0b16071e68c84957458",
+  "why": "written before 0641; it selected runner c3v002 and script c3v007 and carried no N1 status"
+ },
+ "status": "FINAL SELECTED tuple (0641). Step 0 still REFUSES until Claude4 publishes seal tools v003 (P1); the v003 paths are wired in a later successor, together with RP-S1 and RP-S2. No launch; no C5H access by this lane.",
+ "selected_tuple": {
+  "script": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/ROOT_SEAL_STEPS_c3v008.sh",
+   "sha256": "023b2bbf63007ce2ce9e91f053313a40af4c69d57136633c88e8aed4c449b8c9",
+   "bytes": 45189
+  },
+  "helper": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v009.py",
+   "sha256": "000798141398d27308d95e7a25fc64d17abe9831c47a2b27457439b7bc7922a3",
+   "bytes": 54427
+  },
+  "runner": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/run_pinned_c3sa_c3v003.py",
+   "sha256": "2b040e94a2b74eae981485288471376b86be0784a0a50b59093312c4fd87bf73",
+   "bytes": 6483
+  },
+  "fence": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/fence_c3sa_c3v003.py",
+   "sha256": "9c62ad4902c895f0aeeba3a78976b5944146ee0de153989dbc79470528dd2863",
+   "bytes": 5979
+  },
+  "slot_json": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SLOT_VALUES_DRAFT.json",
+   "sha256": "c93691f5d1931beef8abb656ced3446c99d0adf286d4b5de0c709ecb570284ba",
+   "bytes": 5713
+  },
+  "gates_manifest_draft": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/MANIFEST_GATES_ONLY_DRAFT_C3SA.json",
+   "sha256": "e5967bb9901fda39703553c5c02b4d11a580ef8456f6c0b7d315ee4c750f09da",
+   "bytes": 2893
+  }
+ },
+ "differences_from_the_snapshot_codex1_reviewed_0086": {
+  "reviewed": {
+   "script": "ROOT_SEAL_STEPS_c3v007.sh e7409d93d17cdcde0e113ba971233fb59ade77157e2fe0b4a0c91f6b20b985cb",
+   "helper": "tools/seal_steps_c3sa_c3v009.py 000798141398d27308d95e7a25fc64d17abe9831c47a2b27457439b7bc7922a3",
+   "runner": "tools/run_pinned_c3sa_c3v002.py b57e4859c498bf57e05706dcd83d89db0f14102c33aec7359580c155d924861c"
+  },
+  "runner": "c3v002 -> c3v003: UnpinnedSiblingGuard.find_spec refuses an unpinned spec whose origin OR any submodule_search_location lies at or under a guarded folder (was: dirname(origin) == folder only); plus a 2-line header note. Nothing else changes.",
+  "script": "c3v007 -> c3v008: the RUNNER pin line (path and sha) and a 3-line header note. diff: 8 changed lines; nothing else changes.",
+  "helper, fence, slot JSON, gates manifest draft": "unchanged (byte-identical to what Codex1 reviewed)"
+ },
+ "SA_CX1_N1": {
+  "status": "CLOSED in runner c3v003 (within the 0641 10-minute cap; 22:28:05Z-22:29:02Z)",
+  "controls": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_20261018T221642Z/b2/n1/N1_RESULTS_C3SA.txt",
+   "sha256": "3e3811d5da1379954b24eeabc5860bba8ae08df983c3a3b6ae3a854fbf08cd75",
+   "bytes": 1090
+  },
+  "summary": "old runner c3v002 imports an unpinned sibling regular package and a namespace package (reproduction); c3v003 refuses both (UNPINNED_SIBLING_IMPORT_REFUSED); regressions: pinned sibling with a stale pyc still PINNED_SOURCE, unpinned sibling module still refused"
+ },
+ "tool_order": {
+  "source": "seal_tools_v002/README_SEAL_TOOLS.md da29c008 L35-L40 (on disk, UNPOSTED; v003 not landed)",
+  "steps": {
+   "2": "tool 1 check_frozen_addendum (after B1)",
+   "2a": "tool 5 print_driver_build_record (B2a; v001 has none: the helper builds the same record)",
+   "4a": "tool 3 check_slot_fill (after B4)",
+   "5a": "tool 2 check_sealed_compare (after B5)",
+   "10": "tool 4 build_seal_record (B7)",
+   "12": "tool 4 --check-admission-config (B8; v002/v003 only; the helper guard self-check stands in)"
+  }
+ },
+ "fixes": {
+  "SA-CX1-B1": "no realpath/resolve; nofollow_walk; links refused at the link; O_NOFOLLOW + inode match",
+  "SA-CX1-B2": "load_pinned / run_pinned (read once, verify, compile the buffer); -X pycache_prefix=<empty> for every Python process",
+  "SA-CX1-B3": "only the v003 object {schema, frozen_addendum_sha256, entries}; same pinned file to tools 1, 3, 4; PV-D05-1 mirrored",
+  "v003_names": "schema/keys from v003 dev work copies (seal_common_c4v003 L24 101a3aeb; check_frozen_addendum_c4v003 L43-L45 72d9191d); prereg_revision / changed_text / why_no_prereg_effect / no_change_after_change from 0640: PENDING v003 final",
+  "SA-CX1-N1": "runner c3v003: origins and search locations under guarded folders"
+ },
+ "evidence": {
+  "readme": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/README_SEAL_ASSEMBLY_C3_c3v002.md",
+   "sha256": "904b5360adc478ee39ba27ade13c1ca94558e59324637142bae50da7eb5bcfe5",
+   "bytes": 9198
+  },
+  "dry_run_index": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261018T222335Z/INDEX_DRY_RUN_C3SA.md",
+   "sha256": "6f62b621c4124afcdafcae6794534a30588167f59edee4800ec71a4cb7f279bd",
+   "bytes": 4976
+  },
+  "substitution_diff_A": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261018T222835Z/passA/SUBSTITUTION_A.diff",
+   "sha256": "fbe590bc84931c47b73b2cc1eacc0bd67dcd4c5d742d77a5bd2d16961d93065e",
+   "bytes": 9263
+  },
+  "substitution_diff_B": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261018T222835Z/passB/SUBSTITUTION_B.diff",
+   "sha256": "66b9903733914f045c27edf9e7489ab95339612cae64d62f3d67e84fcb045f54",
+   "bytes": 10705
+  },
+  "mustfail_B1_B3": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_20261018T221642Z/MUSTFAIL_RESULTS_C3SA.json",
+   "sha256": "1d07745a9b18198bb57ed39d0af59ee838b1720dc6625521836ed39aa5ffe445",
+   "bytes": 17504
+  },
+  "mustfail_B2": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_20261018T221642Z/b2/B2_RESULTS_C3SA.txt",
+   "sha256": "4347614886e575322226a613133ad3c4f6e31c5ba6fe113e39ad2aefa7e6b317",
+   "bytes": 1168
+  },
+  "mustfail_B2_runner": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_20261018T221642Z/b2/B2_RESULTS_RUNNER_C3V002.txt",
+   "sha256": "dc6539459bd4b675adaffcc44ab06b283015844d1b7bb1bacced6313f36597cc",
+   "bytes": 630
+  },
+  "mustfail_B2_runner_toollike": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_20261018T221642Z/b2/B2_RESULTS_RUNNER_C3V002_TOOLLIKE.txt",
+   "sha256": "443f5de3ab2eb3269a37815bd2fd76fe8417ae6844541cfd90577c136384b4d3",
+   "bytes": 662
+  },
+  "slot_xref_unchanged": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/SLOT_XREF_C3SA.json",
+   "sha256": "4bd214a83f6f6b1acddd6d1ea6e6f106e20a18a6458e802a75be2b520f4972ce",
+   "bytes": 14163
+  },
+  "dry_run_of_record_index": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261018T222835Z/INDEX_DRY_RUN_C3SA.md",
+   "sha256": "77b8a0ce292e42fb8aab321bbf25936df9f78718fb10512e5141d68f536d3163",
+   "bytes": 2514
+  },
+  "previous_dry_run_on_script007": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261018T222335Z/INDEX_DRY_RUN_C3SA.md",
+   "sha256": "6f62b621c4124afcdafcae6794534a30588167f59edee4800ec71a4cb7f279bd",
+   "bytes": 4976
+  }
+ },
+ "dry_run_only_components_not_seal_tools": {
+  "shim": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/dryrun_tool_shim_c3sa_c3v004.py",
+   "sha256": "5f76c4be38e54e728b0fa859b54383789dddb0d4f4243408fdeaa9ad9806983d",
+   "bytes": 7311
+  },
+  "dry_run_generator": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/make_dry_run_c3sa_c3v003.py",
+   "sha256": "3a250d84c905da916712812753e87da084e6eff2710f7d27d922f192e2099084",
+   "bytes": 6049
+  },
+  "mustfail_controls": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/mustfail_controls_c3sa_c3v002.py",
+   "sha256": "93689fdea64ffa9908561ed888002fafe321b27f6c144e46bedc27aefc09459e",
+   "bytes": 12455
+  },
+  "script_generator": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/make_root_script_c3v007.py",
+   "sha256": "3942a3c194fdf576b62fd9aec220dca867eba8a1f0e4876338116088b5f77716",
+   "bytes": 20738
+  }
+ },
+ "pending_for_the_next_successor": {
+  "P1 seal tools v003": "pin Claude4 v003 paths and shas, its CLI, its slot schema (README_SEAL_ASSEMBLY_C3.md checklist)",
+  "RP-S1 (Claude4 0108; REVIEW_BUILD_V007_C4V001.md 6ed80d59)": "step-3 precondition: the step-2 output root /Users/bgm/Research/UNT_INTERNAL_RUNS/V007_STEP2_R5_BUILD_V007 created exclusively (or required if root pre-created it), then verified: real directory with no symlink component (no-follow walk), realpath == literal, on /System/Volumes/Data, empty, free space logged (launcher v007 L193 first exclusive log open)",
+  "RP-S2 (Claude4 0108)": "root-supplied expected step-2 output total (GiB, with margin) or the A-ruling id of an aggregate disk guard; the script prints free space against it and refuses if free < expected (V011 caps sum 992 GiB vs ~455.6 GiB free; caps change only by root ruling)"
+ },
+ "superseded": [
+  {
+   "file": "ROOT_SEAL_STEPS.sh",
+   "sha256": "f7590383b4c121c9bc7c337aec3d5e6e5f95476ac860fae1c4f06fd4c9580b37",
+   "why": "pre-0633 interface; never run"
+  },
+  {
+   "file": "ROOT_SEAL_STEPS_c3v002.sh",
+   "sha256": "b0d0b8f2957efb8941f8766b8e8bacb1b0c1da7dae32d477cf9456cd49685ae7",
+   "why": "no set -E"
+  },
+  {
+   "file": "ROOT_SEAL_STEPS_c3v003.sh",
+   "sha256": "8faa9e55eb9eff9ed20316d5a54334a04d1972a6ac48fa915e26b901c7ffb41f",
+   "why": "STOPPED message into a step log"
+  },
+  {
+   "file": "ROOT_SEAL_STEPS_c3v004.sh",
+   "sha256": "d4659d4d07d053cd914e1b372108953bd0fc5f6af58c7e6d0d729ea4406365b9",
+   "why": "0105 flags"
+  },
+  {
+   "file": "ROOT_SEAL_STEPS_c3v005.sh",
+   "sha256": "f43bab616de4ffd87c56ec8240d07e3a956a60133b382441aad3a0dfebb8b7a6",
+   "why": "citations; Codex1 0078 tested it (B1, B2)"
+  },
+  {
+   "file": "ROOT_SEAL_STEPS_c3v006.sh",
+   "sha256": "cb3aeb324067910acdd9be5730e70305c819df4327ba00465aeae89249d3ed34",
+   "why": "B1, B2, B3, tool order (0639, 0640)"
+  },
+  {
+   "file": "tools/seal_steps_c3sa.py",
+   "sha256": "f7c14729252f282e78aafb202f359483dfb54edba80b6985bf9de35cb47eb20a",
+   "why": "never used"
+  },
+  {
+   "file": "tools/seal_steps_c3sa_c3v002.py",
+   "sha256": "15b54a7a7dc8fcb051bee251e53798dae611dc4a81fba0c43d6cce1d0bb20832",
+   "why": "never used"
+  },
+  {
+   "file": "tools/seal_steps_c3sa_c3v003.py",
+   "sha256": "a59b9c48ae5f045e7db7a1ab39b7cdbed039ce621154d68573f78cb166138956",
+   "why": "never used"
+  },
+  {
+   "file": "tools/seal_steps_c3sa_c3v004.py",
+   "sha256": "ab62e561f464544a6e99ea51ab771c19830b7bde48cc33bdd52956ad3bb3378d",
+   "why": "never used"
+  },
+  {
+   "file": "tools/seal_steps_c3sa_c3v005.py",
+   "sha256": "fdf1f56481c990a857ec648ab3fe62925e823d5971b9ad45475bc49fd9f05ccc",
+   "why": "note-text false positive (dry run 2)"
+  },
+  {
+   "file": "tools/seal_steps_c3sa_c3v006.py",
+   "sha256": "07f1d97f58a190a7f560af986eff8ada07a6afd8d1c67d995310aa60667991a6",
+   "why": "3-key dispositions only"
+  },
+  {
+   "file": "tools/seal_steps_c3sa_c3v007.py",
+   "sha256": "2f08fb88c17dbe340fe5f03da10ed510aff384cdb404d8e3d9544664d2d79172",
+   "why": "SA-CX1-B1 (realpath first), SA-CX1-B2 (importlib loader), legacy dispositions forms"
+  },
+  {
+   "file": "tools/seal_steps_c3sa_c3v008.py",
+   "sha256": "329fb3993ff329c693ef2b5a0f721a48273337a55c15a2c04d76274ddedbd340",
+   "why": "B1+B2 only; never used (B3 added in c3v009)"
+  },
+  {
+   "file": "tools/fence_c3sa.py",
+   "sha256": "4de27ac470060edbfb42230d573a62a9cb8d7939960218f9e795ebadfc7745b2",
+   "why": "unsafe self-test; never used"
+  },
+  {
+   "file": "tools/fence_c3sa_c3v002.py",
+   "sha256": "0185f7b48e5cc11cf54ec0ac561059824e19fc388bf6bc2cb140fea6ff2fed14",
+   "why": "refused numpy ctypes.dlopen"
+  },
+  {
+   "file": "tools/run_pinned_c3sa.py",
+   "sha256": "008b49460e7cfb2c6aab4bce73888cf42b26653ebc4e76c705246a91aaac0b23",
+   "why": "guard re-entrancy (RecursionError in B2-4)"
+  },
+  {
+   "file": "tools/dryrun_tool_shim_c3sa.py",
+   "sha256": "cb603739306c91b9a0e2e4377e789ebd871591e79fab600fb931ec2e1f4f6c82",
+   "why": "importlib-based; pre-runner"
+  },
+  {
+   "file": "tools/dryrun_tool_shim_c3sa_c3v002.py",
+   "sha256": "d0a95371aafc711d4779ec59fdf7ea8c189d5ed74b7a6a8c8833b184ee890a47",
+   "why": "derived from runner c3v001"
+  },
+  {
+   "file": "tools/make_dry_run_c3sa.py",
+   "sha256": "352e146691e67d35fb4e65ae9070b13c088673f98157305bc679a70f91dc907f",
+   "why": "for c3v002"
+  },
+  {
+   "file": "tools/make_dry_run_c3sa_c3v002.py",
+   "sha256": "089fab4fecf919bb154f63ec6f553d6e274977fa5e9a09011bc3223075d613d7",
+   "why": "for c3v003-c3v006"
+  },
+  {
+   "file": "tools/mustfail_controls_c3sa.py",
+   "sha256": "c590492fa3c7e408b86e0e194928203204ff32d48160752157cb5e6cef0368bd",
+   "why": "hardcoded A102/A103 (stale after A104)"
+  },
+  {
+   "file": "README_SEAL_ASSEMBLY_C3.md",
+   "sha256": "2391590b453f5c029f94e9f5cc52086865ac94ebb1071de799475acbaa242fc0",
+   "why": "pre-fix-round README (erratum E-C3SA-3)"
+  },
+  {
+   "file": "HASHES_C3SA.txt",
+   "sha256": "c6dcf64d7e9901e1113fda77dcec6e2eef11ab7eacccc73dfdefb14bcf12e2b7",
+   "why": "pre-fix-round manifest"
+  },
+  {
+   "file": "dry_run_20261018T214157Z/, 214446Z/, 214702Z/, 215107Z/, 215307Z/",
+   "sha256": null,
+   "why": "dry runs of superseded scripts c3v002-c3v006"
+  },
+  {
+   "file": "mustfail_20261018T221554Z/",
+   "sha256": null,
+   "why": "controls c3v001 run (B3 positives stale after A104)"
+  },
+  {
+   "file": "ROOT_SEAL_STEPS_c3v007.sh",
+   "sha256": "e7409d93d17cdcde0e113ba971233fb59ade77157e2fe0b4a0c91f6b20b985cb",
+   "why": "runner pin c3v002 (SA-CX1-N1); Codex1 0086 reviewed it: B1, B2, B3 CLOSED"
+  },
+  {
+   "file": "tools/run_pinned_c3sa_c3v002.py",
+   "sha256": "b57e4859c498bf57e05706dcd83d89db0f14102c33aec7359580c155d924861c",
+   "why": "SA-CX1-N1 (sibling packages not refused)"
+  },
+  {
+   "file": "tools/dryrun_tool_shim_c3sa_c3v003.py",
+   "sha256": "154dc9cac5b8c1f3c755e9c38a57583e131e5dfe42c071a0108971868b215d85",
+   "why": "derived from runner c3v002"
+  },
+  {
+   "file": "SELECTED_SEAL_PRESTAGE_C3SA.json",
+   "sha256": "a740181fbb2754269bf2393f85f70fc3436695f06894a0b16071e68c84957458",
+   "why": "pre-0641 selection"
+  }
+ ],
+ "findings_for_other_owners": {
+  "F1_compare_r13_load_pinned_module_L694_L700": "sha check then importlib exec_module: a header-matched stale .pyc would run (B2 class); mitigated here by -X pycache_prefix=<empty>",
+  "F2_seal_tools_sibling_imports": "v001/v002/v003-dev tools import siblings via sys.path + the import system: a stale sibling .pyc would run if invoked directly; mitigated here by the runner"
+ }
+}

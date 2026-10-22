@@ -1,0 +1,78 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/bounded_wrapper_0338/readiness_fixed_probe_cij_root_launch_wrapper_v002.py	2026-10-15 08:56:32.540333648 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/bounded_wrapper_0340/readiness_fixed_probe_cij_root_launch_wrapper_v003.py	2026-10-15 09:04:41.243820122 -0500
+@@ -1,4 +1,13 @@
+-"""Root-only one-shot exact census wrapper V002 (custody-accounting repair of V001). Scientific execution only after review.
++"""Root-only one-shot exact census wrapper V003 (environment/custody correction of V002 after the preserved /bin/ps PermissionError launch). Scientific execution only after review.
++
++V003 changes vs V002 (custody only; science, producer pin, cases and caps unchanged):
++  - Result/journal/receipt suffixes move to unused _V002 names; the failed V001-suffixed files stay untouched.
++  - Documentary monitor preflight: /bin/ps on the wrapper's own PID BEFORE any output file or child exists.
++    If the monitor is inaccessible, print a FAILED JSON line and exit 2 without creating files.
++  - SIGTERM handler: an outer terminate kills the scientific child process group, then exits nonzero (no detached work).
++  - Measurement scope (per V002 final review): the authoritative terminal snapshot is AFTER primary-receipt completion,
++    not after process exit. The terminal-record tail is bounded in bytes, not wall time. Whole-process elapsed is
++    evidenced only by the separate outer driver.
+ 
+ Receipt hierarchy (V002):
+   1. PRIMARY receipt (_ROOT_RECEIPT_V001.json): written once, exclusively. It holds every pin, sample and
+@@ -20,8 +29,9 @@
+ RECEIPT_RESERVE=1024*1024;TERMINAL_MAX=64*1024  # primary+terminal receipts are reserved inside OUTPUT
+ PRODUCER_OUTPUT_CAP=OUTPUT-RECEIPT_RESERVE
+ PREFIX='READINESS_FIXED_PROBE_CIJ_L4_L6'
+-output=C/(PREFIX+'_OUTPUT_V001.json');stdout=C/(PREFIX+'_STDOUT_V001.jsonl');stderr=C/(PREFIX+'_STDERR_V001.txt');receipt=C/(PREFIX+'_ROOT_RECEIPT_V001.json')
+-terminal=C/(PREFIX+'_ROOT_TERMINAL_RECEIPT_V001.json')
++output=C/(PREFIX+'_OUTPUT_V002.json');stdout=C/(PREFIX+'_STDOUT_V002.jsonl');stderr=C/(PREFIX+'_STDERR_V002.txt');receipt=C/(PREFIX+'_ROOT_RECEIPT_V002.json')
++terminal=C/(PREFIX+'_ROOT_TERMINAL_RECEIPT_V002.json')
++PS='/bin/ps'
+ def pin(p):
+  h=hashlib.sha256();n=0
+  with p.open('rb') as f:
+@@ -37,15 +47,25 @@
+  if pin(p)['sha256']!=h:raise RuntimeError('Input pin changed: '+str(p))
+ for p in [output,stdout,stderr,receipt,terminal]:
+  if p.exists():raise RuntimeError('Immutable output already exists: '+str(p))
++try:
++ _pf=subprocess.run([PS,'-o','rss=','-p',str(os.getpid())],capture_output=True,text=True,timeout=2,check=True)
++ _pf_rss=int(_pf.stdout.split()[0])*1024
++ monitor_preflight={'command':[PS,'-o','rss=','-p','<self>'],'status':'OK','self_rss_bytes':_pf_rss}
++except BaseException as exc:
++ print(json.dumps({'status':'FAILED_MONITOR_PREFLIGHT','error_type':type(exc).__name__,'error':str(exc)[:200],'outputs_created':False}));sys.exit(2)
+ env=os.environ.copy();env.pop('PYTHONOPTIMIZE',None)
+ cmd=[sys.executable,'-B',str(PRODUCER),'--output',str(output)]
+-record={'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'wrapper_version':'V002','root_authorized_bounded_launch':True,'scientific_child_processes':1,'command':cmd,'inputs':[pin(p) for p,h in PINS+[(review,review_sha)]],'wrapper':pin(Path(__file__)),'wall_cap_seconds':WALL,'combined_resident_cap_bytes':MEMORY,'output_cap_bytes':OUTPUT,'receipt_reserve_bytes':RECEIPT_RESERVE,'producer_output_cap_bytes':PRODUCER_OUTPUT_CAP,'terminal_receipt_max_bytes':TERMINAL_MAX,'memory_enforcement':'Periodic combined RSS sampling and conservative postrun sum of wrapper/child peak RSS; not a kernel-enforced instantaneous RSS claim.','receipt_hierarchy':'PRIMARY receipt is provisional; TERMINAL receipt status is authoritative; missing terminal receipt = FAILED_OR_INCOMPLETE.','authoritative_record':str(terminal),'samples':[],'status':'STARTING'}
++record={'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'wrapper_version':'V003','root_authorized_bounded_launch':True,'scientific_child_processes':1,'command':cmd,'inputs':[pin(p) for p,h in PINS+[(review,review_sha)]],'wrapper':pin(Path(__file__)),'wall_cap_seconds':WALL,'combined_resident_cap_bytes':MEMORY,'output_cap_bytes':OUTPUT,'receipt_reserve_bytes':RECEIPT_RESERVE,'producer_output_cap_bytes':PRODUCER_OUTPUT_CAP,'terminal_receipt_max_bytes':TERMINAL_MAX,'monitor_preflight':monitor_preflight,'memory_enforcement':'Periodic combined RSS sampling and conservative postrun sum of wrapper/child peak RSS; not a kernel-enforced instantaneous RSS claim.','receipt_hierarchy':'PRIMARY receipt is provisional; TERMINAL receipt status is authoritative; missing terminal receipt = FAILED_OR_INCOMPLETE.','authoritative_record':str(terminal),'samples':[],'status':'STARTING'}
+ child=None;reason=None;start=time.monotonic()
+ def stop_child():
+  if child is not None and child.poll() is None:
+   try:os.killpg(child.pid,signal.SIGKILL)
+   except ProcessLookupError:pass
+   child.wait(timeout=1)
++def _outer_terminate(signum,frame):
++ global reason
++ reason=reason or 'OUTER_TERMINATE';stop_child();raise SystemExit(143)
++signal.signal(signal.SIGTERM,_outer_terminate)
+ def output_size():return sum(p.stat().st_size for p in [output,stdout,stderr] if p.exists())
+ try:
+  with stdout.open('x') as out,stderr.open('x') as err:
+@@ -54,7 +74,7 @@
+    elapsed=time.monotonic()-start
+    if elapsed>=WALL:reason='WALL_CAP';stop_child();break
+    if output_size()>PRODUCER_OUTPUT_CAP:reason='OUTPUT_CAP';stop_child();break
+-   ps=subprocess.run(['/bin/ps','-o','rss=','-p',str(os.getpid())+','+str(child.pid)],capture_output=True,text=True,timeout=min(.25,max(.001,WALL-elapsed)),check=True)
++   ps=subprocess.run([PS,'-o','rss=','-p',str(os.getpid())+','+str(child.pid)],capture_output=True,text=True,timeout=min(.25,max(.001,WALL-elapsed)),check=True)
+    rss=sum(int(x)*1024 for x in ps.stdout.split())
+    record['samples'].append({'elapsed_seconds':time.monotonic()-start,'combined_rss_bytes':rss})
+    if rss>MEMORY:reason='MEMORY_CAP';stop_child();break
+@@ -97,10 +117,10 @@
+ post_self=peak(resource.RUSAGE_SELF);post_child=peak(resource.RUSAGE_CHILDREN)
+ total_created=(record.get('output_bytes') or output_size())+(primary_bytes_len or 0)+TERMINAL_MAX
+ term_checks={'primary_receipt_written':primary_pin is not None,'no_accounting_error':'accounting_error' not in record,'provisional_pass':record.get('status')=='PROVISIONAL_COMPLETED_WITHIN_ENVELOPE','postwrite_wall_within_cap':post_wall<=WALL,'postwrite_memory_within_cap':post_self+post_child<=MEMORY,'total_created_bytes_within_output_cap':total_created<=OUTPUT}
+-terminal_record={'kind':'AUTHORITATIVE_TERMINAL_RECEIPT','wrapper_version':'V002','primary_receipt':primary_pin,'accounting_error':record.get('accounting_error'),'postwrite_wall_seconds':post_wall,'postwrite_wrapper_peak_rss_bytes':post_self,'postwrite_child_peak_rss_bytes':post_child,'postwrite_conservative_combined_peak_bytes':post_self+post_child,'total_created_bytes_upper_bound':total_created,'terminal_predicates':term_checks,'status':'COMPLETED_WITHIN_ENVELOPE' if all(term_checks.values()) else 'FAILED_OR_INCOMPLETE','note':'Only this receipt write itself is unmeasured; its size is capped by terminal_receipt_max_bytes and reserved within the output cap.'}
++terminal_record={'kind':'AUTHORITATIVE_TERMINAL_RECEIPT','wrapper_version':'V003','primary_receipt':primary_pin,'accounting_error':record.get('accounting_error'),'postwrite_wall_seconds':post_wall,'postwrite_wrapper_peak_rss_bytes':post_self,'postwrite_child_peak_rss_bytes':post_child,'postwrite_conservative_combined_peak_bytes':post_self+post_child,'total_created_bytes_upper_bound':total_created,'terminal_predicates':term_checks,'status':'COMPLETED_WITHIN_ENVELOPE' if all(term_checks.values()) else 'FAILED_OR_INCOMPLETE','note':'Snapshot is after primary-receipt completion. Terminal-record construction, write and fsync plus the printed summary follow it: bounded in bytes (terminal_receipt_max_bytes, reserved in the output cap), not in wall time. Whole-process elapsed is evidenced only by the outer driver receipt.'}
+ terminal_bytes=(json.dumps(terminal_record,indent=2,allow_nan=False)+'\n').encode()
+ if len(terminal_bytes)>TERMINAL_MAX:
+- terminal_record={'kind':'AUTHORITATIVE_TERMINAL_RECEIPT','wrapper_version':'V002','status':'FAILED_OR_INCOMPLETE','reason':'TERMINAL_RECEIPT_OVERSIZE','primary_receipt':primary_pin}
++ terminal_record={'kind':'AUTHORITATIVE_TERMINAL_RECEIPT','wrapper_version':'V003','status':'FAILED_OR_INCOMPLETE','reason':'TERMINAL_RECEIPT_OVERSIZE','primary_receipt':primary_pin}
+  terminal_bytes=(json.dumps(terminal_record,indent=2,allow_nan=False)+'\n').encode()
+ with terminal.open('xb') as f:f.write(terminal_bytes);f.flush();os.fsync(f.fileno())
+ print(json.dumps({'terminal_receipt':pin(terminal),'primary_receipt':primary_pin,'status':terminal_record['status'],'postwrite_wall_seconds':terminal_record.get('postwrite_wall_seconds'),'postwrite_combined_peak_bytes':terminal_record.get('postwrite_conservative_combined_peak_bytes'),'acceptance_predicates':record.get('acceptance_predicates'),'terminal_predicates':terminal_record.get('terminal_predicates')},indent=2))

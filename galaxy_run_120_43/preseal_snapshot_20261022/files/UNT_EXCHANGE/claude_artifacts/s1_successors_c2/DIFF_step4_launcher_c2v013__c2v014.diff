@@ -1,0 +1,18 @@
+--- step4_launcher_c2v013.py
++++ step4_launcher_c2v014.py
+@@ -1,11 +1,11 @@
+ """Root-only step-4 direct batches. No automatic retry; no raw campaign fallback."""
+-# c2v013 = launcher012 (59c00707) with two constants changed only: the guard is guard012 (A150 R-S1-3 (1)), and the
+-# machine lock stays launcher012's own file (absolute path), so every step-4 batch still shares one lock.
++# c2v014 = launcher013 (620a44da) with the two guard constants changed only: the guard is guard013 (V006 A166). The
++# machine lock (launcher012's file, absolute path) and the memory_pressure ramp (all batches) are launcher013's, unchanged.
+ import argparse, fcntl, hashlib, json, os, re, signal, subprocess, sys, time, types
+ from pathlib import Path
+ HERE=Path(__file__).resolve().parent
+-GUARD_PATH=HERE/'step4_guard_c2v012.py'
+-GUARD_SHA256='f4656fecc863acf1df1d440f7eb44295dd1a43a8aa4955c18f8e50f57862eeb0'
++GUARD_PATH=HERE/'step4_guard_c2v013.py'
++GUARD_SHA256='593bebb6958f947488c0566f91d2355d8653f72401fb764c417a3f9998d8b4e1'
+ GUARD_BYTES=GUARD_PATH.read_bytes()
+ if hashlib.sha256(GUARD_BYTES).hexdigest()!=GUARD_SHA256:
+     raise PermissionError('GUARD_BOOTSTRAP_HASH_MISMATCH')

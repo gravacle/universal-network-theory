@@ -1,0 +1,24 @@
+{
+  "date_u": "Sun Oct 18 20:04:06 UTC 2026",
+  "findings": [
+    {
+      "id": "CX2-S4-GUARD-B1",
+      "severity": "BLOCKING_FOR_FALLBACK_USE",
+      "status": "TESTED_STATIC_SOURCE",
+      "title": "Raw campaign CLI fallback omits required Step4 admission checks",
+      "evidence": "Latest LAUNCH_ORDER ramp.fallback_zero_build and ROOT_ITEMS R-B6 recommend campaign_c2v005 CLI if the successor is not reviewed. CLI main calls run_campaign directly. Before subprocess.Popen, run_campaign validates supplied driver/monitor/spec hashes and resource settings, but never reads a sealed V007 report, STEP4 admission, PRELAUNCH record, r5 allowlist, or per-point/sensitivity gates. The ordinary root monitor does not add those checks. Orchestrator.run gates_ok and make_plan prelaunch_check are separate caller checks bypassed by direct CLI.",
+      "impact": "Manual prior planning or matching a driver hash does not bind current sealed/admission bytes at process creation. The fallback is not equivalent to the proposed reviewed STEP4 guard.",
+      "resolution": "Remove/disable this fallback for Step4, or require a separately reviewed pre-process admission wrapper with equivalent byte-bound checks. No launch helper was executed here.",
+      "scope": "A blocker to endorsing the recommended fallback, not proof that any unauthorized process ran. Candidate remains staged/unfrozen."
+    },
+    {
+      "id": "CX2-S4-GUARD-S1",
+      "severity": "SHOULD_FIX",
+      "status": "TESTED_BYTES",
+      "title": "R-C8 evidence cites stale cache-id prefixes",
+      "evidence": "ROOT_ITEMS latest still says4555ce79\u2192b3839787. Exact probe and LAUNCH_ORDER both report R0=4f0521aafcf281e88586180737ae28370bde4afd6e6452ebbd2af7e95f9c1877 and R1=b370470ac66256cc27f64b280c88a4bafc9058155b86e6c9bd95c6f2e65fc14c.",
+      "impact": "Evidence citation drift only; the registry-growth/cache-identity conclusion is corroborated independently.",
+      "resolution": "Correct the prose in a versioned successor; preserve old observed bytes."
+    }
+  ]
+}

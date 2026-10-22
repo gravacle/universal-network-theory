@@ -1,0 +1,310 @@
+--- s1_path_lib_c2v002a.py
++++ s1_path_lib_c2v002b.py
+@@ -19,14 +19,25 @@
+ is unchanged (it does not replay; a plan written from an edited record is refused at launch and by guard012). Record
+ formats and schemas are unchanged.
+ 
++c2v002b (successor of c2v002a f961839b; V006 A172, the step-4 packet A166 set; erratum E_A170_1): the launch path is
++re-pinned to guard014 / launcher015 (a plan on any other pair refuses S1_PACKET_NOT_GUARD014_LAUNCHER015) and carries
++no memory gate. Removed: the machine gate v003 block of launch (load_gate and the GATE pin, the injected gate, the
++overlap-gate keywords _overlap_gate / _overlap_sleep, hold_check, the warm-up, decide, the r5 route-A allowance against
++the gate cap), the A133 rule and its constants, memory_pressure (MEMORY_PRESSURE_FREE_BELOW_25, memory_free) and
++/usr/bin/nice in the launcher argv. Kept: the custody check S1_CAMPAIGN_ROUTE_A_TREE_WHILE_ATTESTED_INACTIVE, now on
++the process table itself: with the campaign attested INACTIVE, /bin/ps is read directly and any root-monitor tree
++(gate v003's monitor, --driver-sha256 and --outdir parsing) with driver r5 or an unparsed driver, not this call's
++outdir, still in route A by gate v003's route_a_done rule refuses; an unreadable process table refuses
++(PROCESS_TABLE_UNREADABLE). The decision record's gate entry is replaced by campaign_route_a_trees. Nothing else changes
++(fill, make_plan, replay, reader and every other check are c2v002a's).
++
+ Three parts, each called by its own CLI wrapper (which loads this file by its sha256):
+   fill / dry-plan / plan   the S1 template: the two S1 call specs from the u_A theta bits and the campaign's own
+                            u_A call spec (the registered call spec, CHOICE C4), then one POST_S1 plan per call.
+-  launch                   the root launch path: the S1 checks, then the four 0620 controls through step-4 guard012
+-                           (adoption / spec_structure / validate, which runs native preflight and, for an overlap
+-                           admission, the live gate), all before any process; then the sched v003 machine gate's own
+-                           predicates (hold_check and Gate.decide), the r5 route-A snapshot check, A133's root memory
+-                           rule and memory_pressure; then, in launch mode only, launcher013.
++  launch                   the root launch path: the S1 checks, then the four 0620 controls through step-4 guard014
++                           (adoption / spec_structure / validate, which runs native preflight), all before any process;
++                           then, with the campaign attested INACTIVE, the process-table check (no campaign route-A tree
++                           may be running); then, in launch mode only, launcher015.
+   read                     the reading tool: the registered statistic and reading from the two S1 results and the
+                            campaign's u_A result (K4'), reusing reviewed compare-of-record functions by sha.
+ Labels: TESTED (synthetic tests of this build), FORMAL (follows from cited text or code), UNTESTED (deciding test named).
+@@ -43,7 +54,7 @@
+ import types
+ from pathlib import Path
+ 
+-MODULE = 's1_path_lib_c2v002a'
++MODULE = 's1_path_lib_c2v002b'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts'
+ CTRL = '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2'
+ SUCC = ART + '/s1_successors_c2'
+@@ -60,8 +71,8 @@
+             'c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d'),
+     'CORE': (ART + '/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py',
+              'dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6'),
+-    'GUARD': (SUCC + '/step4_guard_c2v012.py', 'f4656fecc863acf1df1d440f7eb44295dd1a43a8aa4955c18f8e50f57862eeb0'),
+-    'LAUNCHER': (SUCC + '/step4_launcher_c2v013.py', '620a44da8c68af5175195653da5eaa4d3e4025b2c8029ea841def2332ebb1c58'),
++    'GUARD': (SUCC + '/step4_guard_c2v014.py', '6efdca016416a919b25a1e23d46a415b75fe2b5e60145ba098f864730975165d'),
++    'LAUNCHER': (SUCC + '/step4_launcher_c2v015.py', 'cd987edd097323999847208d7b5fdfd93dadecb8a10beb6feaf91a0c53b68e0b'),
+     'WRAPPER_S1K3': (SUCC + '/calibration_orchestrator_cx2v006r10_c4_q5b1_s1k3_c2v001.py', 'e7f52461c33d45d7e506daf25a8c115161cf5cfe661e31afd5a2b1848443856e'),
+     'GUARD011': (ART + '/step4_launch_packet_cx1/impl/step4_guard_c2v011.py',
+                  'eb97e303b968dc941e2059ada813be95340662253c327a7b9a9634bb8a2c8033'),
+@@ -71,8 +82,6 @@
+                 'ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107'),
+     'DRIVER': (ART + '/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py',
+                'b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6'),
+-    'GATE': (ART + '/sched_s45_c2/v003/machine_gate_s45_c2v003.py',
+-             '736a3438b0a3af41eb8d7b2c764f25ff0f9e18942320a4542a9893b6b419f811'),
+     'DBP': (ART + '/sched_s45_c2/v003/DIRECT_BATCH_PARAMS_S45_C2V003A.json',
+             '4adc296bcb0ddcd154ec0dcea820908ac525d1d39ce00d633eecc4d0c95f87e7'),
+     'COMPARE_R11': (ART + '/v007_compare_c2/r11/kmax_tail_compare_c2v007_r11.py',
+@@ -161,7 +170,6 @@
+ S1_REPLAY_API = 'UNT_S1_FILL_REPLAY_C2V002'
+ S1_OVERLAP_SCHEMA = 'UNT_S1_OVERLAP_ADMISSION_C2V001'
+ CAMPAIGN_WINDOWS = ('SINGLE_CALL_WAVE_START', 'NO_CAMPAIGN_HEAD_PENDING')   # registration section 11 rule 4 (C14)
+-MEMORY_FREE_MIN_PERCENT = 25                                              # launcher012 L35-36 (note 4)
+ 
+ # ------------------------------------------------------------------------------------------------ registered constants
+ S1_C3T, S1_C4T, K4P = 'S1_UA_C3T', 'S1_UA_C4T', 'K4_PRIME'
+@@ -184,9 +192,6 @@
+ TH1_MAX_OVER_TAU = 1.0                    # V005 shape_pass first numeric clause (P5 L726)
+ TH2_MAX_OVER_TAU = 0.5                    # V007 T1_H form (R6 L1636)
+ DECIDABLE_FRACTION = 1.0 / 8.0            # R6 L1231 decidable_iff
+-A133_LIMIT_GB = 103.0                     # A133 L114 (75 % of RAM)
+-A133_S1_TERM_GB = 29.1                    # A133 L123 "27 GB per S1 call" in consistent units (27.1 GiB; A141 L2)
+-A133_CAMPAIGN_RESERVE_GB = 29.1           # A141 L2 (V6): 27.1 GiB in consistent units
+ CORE_PRIORITY = {'normal_qos_required': True, 'step2_route_a_inactive': True, 'campaign_inactive': True,
+                  'background_noncritical_lanes': True, 'sleep_assertion_required': True}       # G11 L333
+ CORE_PRIORITY_S1_OVERLAP = dict(CORE_PRIORITY, campaign_inactive=False)                    # guard012
+@@ -973,10 +978,6 @@
+     return G
+ 
+ 
+-def load_gate():
+-    return load_source_module(const_pin('GATE'), '_s1_machine_gate_v003', 'GATE')
+-
+-
+ def _code(exc):
+     c = getattr(exc, 'code', None)
+     if isinstance(c, str):
+@@ -1029,46 +1030,96 @@
+     return True
+ 
+ 
+-def _memory_free_percent():
+-    """launcher012 memory_free (L29-34): /usr/bin/memory_pressure 'System-wide memory free percentage', else None."""
++# ---- c2v002b (V006 A172): note 2's INACTIVE check on the process table itself (no machine gate, no memory reading).
++PS_ARGV = ['/bin/ps', '-ww', '-A', '-o', 'pid=,command=']     # gate v003 L139's ps, the two fields this check reads
++MONITOR_PATTERN = re.compile(r'root_monitor_c2v\d+\.py')       # gate v003 L136
++_OUTDIR_RE = re.compile(r'--outdir (.+?) --(?:receipt|wall-cap-s|rss-cap-bytes|output-cap-bytes|poll-s|python|spec)\b')  # L351
++_DRIVER_SHA_RE = re.compile(r'--driver-sha256 ([0-9a-f]{64})(?=\s|$)')                                              # L360
++
++
++def _process_table():
++    """The process table, read-only: /bin/ps -ww -A -o pid=,command= (full command lines). Any failure refuses."""
+     import subprocess
+     try:
+-        s = subprocess.check_output(['/usr/bin/memory_pressure'], text=True, stderr=subprocess.STDOUT, timeout=10)
+-        m = re.findall(r'^System-wide memory free percentage:\s*(\d+)%\s*$', s, re.M)
+-        return int(m[0]) if len(m) == 1 and 0 <= int(m[0]) <= 100 else None
+-    except Exception:                                                    # noqa: BLE001 -- unknown reads as None (refuse)
+-        return None
++        r = subprocess.run(PS_ARGV, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=30)
++    except Exception as exc:                                             # noqa: BLE001 -- fail closed
++        raise Refusal('PROCESS_TABLE_UNREADABLE', '%s: %s' % (type(exc).__name__, exc))
++    require(r.returncode == 0 and isinstance(r.stdout, str), 'PROCESS_TABLE_UNREADABLE', 'ps exit %s' % r.returncode)
++    return r.stdout
++
++
++def route_a_done(progress_path):
++    """gate v003 route_a_done_path (L392-410) = campaign_c2v005.route_a_done: route A finished, or any later stage
++    started (stage/event fields only); unreadable -> still in route A."""
++    try:
++        raw = Path(progress_path).read_bytes()
++    except OSError:
++        return False
++    for ln in raw.split(b'\n'):
++        if not ln.strip():
++            continue
++        try:
++            d = json.loads(ln.decode('utf-8'))
++        except (ValueError, UnicodeDecodeError):
++            continue
++        if not isinstance(d, dict):
++            continue
++        st, ev = d.get('stage'), d.get('event')
++        if st == 'route_a' and ev == 'finished':
++            return True
++        if isinstance(st, str) and st != 'route_a' and ev == 'started':
++            return True
++    return False
+ 
+ 
+-def snapshot_r5_route_a(M, snap, own_outdir):
+-    """Note 2: the run trees of the decide snapshot that may be campaign / step-2 calls: driver r5 or an unparsed
+-    driver (fail closed), not this call's outdir, in route A by the gate's own phase rule (route_a_done_path)."""
+-    view, _ = M.runs_view(snap, {})
+-    phase = {r['key']: r['phase'] for r in view}
+-    return [{'monitor_pid': r.get('monitor_pid'), 'outdir': r.get('outdir'), 'driver_sha256': r.get('driver_sha256'),
+-             'footprint_gb': r.get('footprint_gb')}
+-            for r in (snap.get('runs') or [])
+-            if r.get('outdir') != own_outdir and r.get('driver_sha256') in (R5_SHA, None)
+-            and phase.get(r.get('monitor_pid')) == 'route_a']
++def campaign_route_a_trees(ps_text, own_outdir):
++    """Note 2 (c2v002b): the root-monitor run trees of the process table that may be campaign / step-2 calls: a command
++    line matching root_monitor_c2v<N>.py and carrying --driver (gate v003 L450), driver r5 or an unparsed driver (fail
++    closed), not this call's outdir, still in route A by route_a_done on <outdir>/progress.jsonl (an unparsed outdir
++    counts as route A). The same membership c2v002a's snapshot_r5_route_a took from the gate's snapshot."""
++    out = []
++    for ln in ps_text.splitlines():
++        f = ln.split(None, 1)
++        if len(f) < 2:
++            continue
++        try:
++            pid = int(f[0])
++        except ValueError:
++            continue
++        cmd = f[1]
++        if not (MONITOR_PATTERN.search(cmd) and '--driver' in cmd):
++            continue
++        m = _OUTDIR_RE.search(cmd)
++        outdir = m.group(1) if m else None
++        d = _DRIVER_SHA_RE.search(cmd)
++        drv = d.group(1) if d else None
++        if outdir == own_outdir or drv not in (R5_SHA, None):
++            continue
++        if outdir and route_a_done(Path(outdir) / 'progress.jsonl'):
++            continue
++        out.append({'monitor_pid': pid, 'outdir': outdir, 'driver_sha256': drv})
++    return out
+ 
+ 
+ def launch(plan_ref, admission_ref, registration_ref, v6_ref, launch_cfg_ref, *, mode='dry', confirm=None, guard=None,
+-           gate=None, spawn=None, sleep=None, record_path=None, disk_batch=True, env=None, memory_free=None):
+-    """Root launch path. Order: S1 checks -> the four 0620 controls (guard012, no process; for an overlap admission
+-    guard012 also runs its live gate) -> machine gate predicates (read-only probes), the r5 route-A snapshot check,
+-    A133's root memory rule and memory_pressure -> exclusive pre-launch record -> launcher013 (launch mode only) ->
+-    exclusive outcome record. Returns the decision record; never raises (a refusal or an internal error is recorded)."""
++           process_table=None, spawn=None, record_path=None, disk_batch=True, env=None):
++    """Root launch path. Order: S1 checks -> the four 0620 controls (guard014, no process) -> with the campaign
++    attested INACTIVE, the process-table check (no campaign route-A tree running; read-only /bin/ps) -> exclusive
++    pre-launch record -> launcher015 (launch mode only) -> exclusive outcome record. No memory condition (A166 / A172).
++    process_table (dry mode only) replaces the /bin/ps read with a callable returning its text (a test seam).
++    Returns the decision record; never raises (a refusal or an internal error is recorded)."""
+     out = {'schema': SCHEMA_LAUNCH_RECORD, 'module': MODULE, 'module_sha256': module_sha256(), 'mode': mode,
+            'plan': plan_ref, 'admission': admission_ref, 'evaluated': 'AT_HAND_OFF (the launcher worker waits for its own '
+-           'memory ramp; guard012 re-runs the overlap gate at every pre-start validation)',
+-           'trace': [], 'controls': {c: 'NOT_EVALUATED' for c in CONTROLS}, 'gate': None, 'decision': None, 'refusal': None}
++           'first-iteration ramp; guard014 re-validates at every pre-start validation)',
++           'trace': [], 'controls': {c: 'NOT_EVALUATED' for c in CONTROLS}, 'campaign_route_a_trees': None,
++           'decision': None, 'refusal': None}
+     stage = 'S1_CHECKS'
+     try:
+         require(mode in ('dry', 'launch'), 'MODE')
+         # ---- S1 checks (no process)
+         out['trace'].append('s1_checks')
+         if mode == 'launch':                       # launch-mode arguments are checked before anything else runs
+-            injected = [n for n, v in (('guard', guard), ('gate', gate), ('memory_free', memory_free)) if v is not None]
++            injected = [n for n, v in (('guard', guard), ('process_table', process_table)) if v is not None]
+             require(not injected, 'LAUNCH_MODE_INJECTION_REFUSED', injected)                       # note 7
+             require(isinstance(plan_ref, dict) and confirm == plan_ref.get('sha256'), 'LAUNCH_CONFIRMATION_REQUIRED')
+             e = dict(env if env is not None else os.environ)
+@@ -1090,7 +1141,7 @@
+         require(isinstance(plan, dict) and plan.get('schema') == SCHEMA_PLAN, 'PLAN_SCHEMA')
+         require(plan.get('batch') == 'POST_S1', 'S1_BATCH_NOT_POST_S1')
+         require(plan.get('guard') == const_pin('GUARD') and plan.get('launcher') == const_pin('LAUNCHER'),
+-                'S1_PACKET_NOT_GUARD012_LAUNCHER013')
++                'S1_PACKET_NOT_GUARD014_LAUNCHER015')
+         calls = plan.get('calls')
+         require(isinstance(calls, list) and len(calls) == 1, 'S1_ONE_CALL_PER_BATCH')
+         call = calls[0]
+@@ -1111,7 +1162,7 @@
+                 == canonical(cb_numerics(st, CASE_CB[case])['composite_grid_spec']), 'S1_CASE_K_MISMATCH')
+         out.update(case=case, theta_key=fill_rec['theta_key'], branch=fill_rec['branch']['branch'],
+                    campaign_state=lcfg['campaign_state'], campaign_window=lcfg.get('campaign_window'))
+-        # ---- the four 0620 controls (guard012; no process; the fence refuses process creation)
++        # ---- the four 0620 controls (guard014; no process; the fence refuses process creation)
+         stage = 'CONTROLS'
+         G = guard if guard is not None else load_guard()
+         out['trace'].append('control_C2_admission_load')
+@@ -1151,19 +1202,11 @@
+             raise Refusal(c)
+         out['controls'][CONTROLS[0]] = 'PASS'
+         out['trace'].append('control_C2_C3_validate')
+-        G3 = load_gate()
+-        M = gate if gate is not None else G3.Gate()
+-        gkw = {'_overlap_gate': M, '_overlap_sleep': sleep} if (mode == 'dry' and gate is not None) else {}
+         try:
+             G.validate(plan_ref, PINS['LAUNCHER'][0], check_outputs=True, execute_native=True, config_ref=admission_ref,
+-                       disk_batch=disk_batch, **gkw)
++                       disk_batch=disk_batch)
+         except Exception as exc:
+             c = _code(exc)
+-            if c.startswith('S1_OVERLAP_GATE') or c.startswith('S1_OVERLAP_R5') or c.startswith('S1_OVERLAP_A133'):
+-                out['controls'][CONTROLS[1]] = 'PASS'
+-                out['controls'][CONTROLS[2]] = 'PASS'
+-                stage = 'GUARD012_OVERLAP_GATE'
+-                raise Refusal(c)
+             ctl = _control_for(c, CONTROLS[1] if isinstance(exc, G.Refusal) else CONTROLS[2])
+             out['controls'][ctl] = 'REFUSED:' + c
+             if ctl == CONTROLS[2]:
+@@ -1171,47 +1214,18 @@
+             raise Refusal(c)
+         out['controls'][CONTROLS[1]] = 'PASS'
+         out['controls'][CONTROLS[2]] = 'PASS'
+-        if overlap:
+-            out['trace'].append('guard012_overlap_gate')
+-        # ---- machine gate v003 predicates (read-only probes), the r5 snapshot check, A133's rule, memory_pressure
+-        stage = 'GATE'
+-        out['trace'].append('gate_hold_check')
+-        h = M.hold_check()
+-        out['gate'] = {'hold_check': {k: h.get(k) for k in ('hold', 'twins', 'probe_ok', 'probe_reasons')}}
+-        require(h.get('probe_ok') is True, 'GATE_PROBE_FAILED', h.get('probe_reasons'))
+-        require(h.get('hold') is False, 'GATE_TWIN_HOLD', h.get('twins'))
+-        out['trace'].append('gate_decide')
+-        M.sample(force=True)
+-        (sleep or __import__('time').sleep)(M.P['warmup_s'])
+-        head = dict(G3.class_from_spec_bytes(spec_raw), name='S1_HEAD_' + case)
+-        d = M.decide(owned={}, head=head, n_running=0, max_concurrent=1)
+-        out['gate']['decide'] = {k: d.get(k) for k in ('admit', 'reasons', 'mem_after_admit_gb', 'mem_knee_after_admit_gb',
+-                                                         'hard_gb', 'knee_gb', 'cores_after_admit', 'pooled_route_a_now',
+-                                                         'head', 'head_family')}
+-        require(d.get('admit') is True, 'GATE_REFUSED', d.get('reasons'))
+-        snap = getattr(M, 'last', None) or {}
+-        r5 = snapshot_r5_route_a(M, snap, call.get('outdir'))
+-        out['gate']['r5_route_a_trees'] = r5
+-        if overlap:                                # guard012's allowance, re-checked here on the lib's own snapshot
+-            require(len(r5) <= int(M.P['route_a_cap']) - 1, 'S1_OVERLAP_R5_ROUTE_A_BEYOND_GATE_ALLOWANCE', len(r5))
+-        else:                                      # note 2: the INACTIVE attestation is checked against the machine
+-            require(not r5, 'S1_CAMPAIGN_ROUTE_A_TREE_WHILE_ATTESTED_INACTIVE', [x['outdir'] for x in r5][:5])
+-        fp = [r.get('footprint_gb') for r in (snap.get('runs') or [])]
+-        known = [x for x in fp if type(x) in (int, float) and math.isfinite(x)]
+-        a133 = {'run_footprint_gb': round(sum(known), 3), 's1_term_gb': A133_S1_TERM_GB,
+-                'campaign_reserve_gb': A133_CAMPAIGN_RESERVE_GB, 'limit_gb': A133_LIMIT_GB,
+-                'sum_gb': round(sum(known) + A133_S1_TERM_GB + A133_CAMPAIGN_RESERVE_GB, 3),
+-                'footprint_unknown_runs': len(fp) - len(known)}
+-        out['gate']['a133_rule'] = a133
+-        require(a133['footprint_unknown_runs'] == 0, 'A133_FOOTPRINT_UNKNOWN')
+-        require(a133['sum_gb'] <= A133_LIMIT_GB, 'A133_MEMORY_RULE', a133['sum_gb'])
+-        free = (memory_free or _memory_free_percent)()                                             # note 4
+-        out['gate']['memory_pressure_free_percent'] = free
+-        require(type(free) is int and MEMORY_FREE_MIN_PERCENT <= free <= 100, 'MEMORY_PRESSURE_FREE_BELOW_25', free)
+-        # ---- record, then launcher013, then the outcome record
++        # ---- c2v002b (A172): no machine gate, no memory condition. Note 2: the INACTIVE attestation is checked against
++        #      the process table itself; no campaign route-A tree may be running.
++        if not overlap:
++            stage = 'CAMPAIGN_INACTIVE_CHECK'
++            out['trace'].append('process_table_check')
++            trees = campaign_route_a_trees((process_table or _process_table)(), call.get('outdir'))
++            out['campaign_route_a_trees'] = trees
++            require(not trees, 'S1_CAMPAIGN_ROUTE_A_TREE_WHILE_ATTESTED_INACTIVE', [x['outdir'] for x in trees][:5])
++        # ---- record, then launcher015, then the outcome record
+         stage = 'LAUNCH'
+         argv = ['/usr/bin/env'] + ['%s=%s' % kv for kv in sorted(BLAS.items())] + \
+-               ['/usr/bin/nice', '-n', '10', PYTHON, '-I', '-B', PINS['LAUNCHER'][0], plan_ref['path'], '--execute-root-only']
++               [PYTHON, '-I', '-B', PINS['LAUNCHER'][0], plan_ref['path'], '--execute-root-only']
+         out['launch_argv'] = argv
+         out['decision'] = 'ADMITTED' if mode == 'dry' else 'LAUNCHING'
+         if record_path is not None:

@@ -1,0 +1,44 @@
+{
+  "schema": "CLAUDE4_HELPER_COMMAND_AUDIT_V001",
+  "utc": "2026-10-19T14:18:32Z",
+  "workflow_run": "wf_4c6ec256-f97",
+  "agents": [
+    {
+      "role": "lens",
+      "transcript": "agent-a3f516ddaca464e8c.jsonl",
+      "tool_uses": {
+        "Bash": 63,
+        "Read": 18,
+        "StructuredOutput": 1
+      },
+      "command_list_sha256": "6ce077c1bf20d92d07f8abf834a67e60489f44eb39c1353402c452183983b135"
+    },
+    {
+      "role": "verifier",
+      "transcript": "agent-abb0cadeeb53e6302.jsonl",
+      "tool_uses": {
+        "Bash": 101,
+        "Read": 9,
+        "Edit": 3,
+        "StructuredOutput": 1
+      },
+      "command_list_sha256": "a2bd10f3b3197e8ec7878247f817d00564c09c46feb116458220d798051f3585"
+    }
+  ],
+  "screen": "every Bash command and Read/Edit path checked for: grep -r, rg, find, ls -R, du, python, runs_ext, CLAUDE2/runs, UNT_INTERNAL_RUNS, rotmod, Vobs, MassModels, SPARC, UVT_, C5H",
+  "result": {
+    "recursive_search": 0,
+    "python_runs": 0,
+    "forbidden_path_opens": 0,
+    "matches_explained": "every match is a screening grep that excludes forbidden names before shasum (lens L7; verifier L65, L68, L105-106) or a self-report line",
+    "code_modules_read": [
+      "sched_s45_c2/v002 modules and tests",
+      "calibration_orchestrator_c2v005.py",
+      "calibration_orchestrator_cx2v006r9.py",
+      "root_monitor_c2v001.py",
+      "ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py (code lines only)"
+    ],
+    "edits": "3 Edit calls, all on the verifier's own VERIFY_C4V001.md (self-reported)",
+    "self_reported_breach": "verifier created COORD_ENGINE_FREEZE_PINS_C4V001.txt with a plain > redirect without noclobber; new name, nothing overwritten"
+  }
+}

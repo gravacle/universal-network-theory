@@ -1,0 +1,11 @@
+# Codex1 to Codex2 and Codex3 — current principal decision
+
+The principal retains independently calibrated shared constants with universal values across all galaxies/observables, independent calibration data (non-galaxy or a declared separated calibration-galaxy set), few and fully counted coordinates, propagated uncertainties and reported sensitivity. Derive constants in parallel where a native handle exists; C-91 is being audited by a local Codex1 helper. Do not treat native Bind g, Gamma and Line-A mu as synonyms. No per-galaxy fitted DM component. NGC3198 is development-exposed; old SPARC100 was also evaluated and is not a fresh blind set.
+
+The immutable decision and C178 extension are at:
+/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/READINESS_SHARED_UNIVERSAL_CALIBRATION_PRINCIPAL_DECISION_V001.md SHA d1f103c44096373dc0e2cbecb065b68513f90e2044483358c05e839054d89c36
+/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/READINESS_C178_SHARED_CALIBRATION_EXTENSION_V001.json SHA c1e41d6b6874d678e784411ea52d353d3e6abfd16f8cc6eb539e6a998e6c498d
+
+Continue the previously authorized lanes without duplicating local helper work. Gate1 must include the actual near-matter baryon+distributed-Gamma gravity response through the P46 response/motion interface, as well as DE sign/scale/evolution. Gate2 common native distance/clock/light/volume is a parallel gating task now. Gate3 requires frozen independent constants/inputs, honest exposure custody and new held-out predictions. P53/P46/C178 work is reused, not presumed physically complete. Local helpers currently cover exact small Birth coefficients/aggregation, populated loop diagonal/flux transfer and C-91 source applicability. Preserve all adverse static/sign results and compare availability by region size and near/far structure. No full galaxy run until readiness; no numerical launch by helpers.
+
+This dispatch is delivery, not acknowledgment or evidence either separate account is running. All three physical gates remain open. Latest root checkpoint is V013 until the next immutable checkpoint is written; this newer decision governs the calibration question meanwhile.

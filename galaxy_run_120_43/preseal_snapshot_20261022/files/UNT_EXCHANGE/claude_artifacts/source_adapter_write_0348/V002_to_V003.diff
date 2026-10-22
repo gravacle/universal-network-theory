@@ -1,0 +1,117 @@
+--- source_adapter_schema_0345/ngc3198_source_bundle_adapter_v002.py	2026-10-15 09:54:12.582095595 -0500
++++ source_adapter_write_0348/ngc3198_source_bundle_adapter_v003.py	2026-10-15 10:11:16.773374462 -0500
+@@ -1,6 +1,7 @@
+-"""INERT candidate source-only bundle adapter V002 for NGC3198 (task 0345-A; 0346 binding). ROOT runs it after admission;
+-the author has run it only on synthetic fixtures. V001 (sha f2df4d49...) received HOLD from a distinct Claude helper review;
+-V002 applies that review's fixes (see ADAPTER_V001_TO_V002_REVIEW_RESPONSE.md). No science change.
++"""INERT candidate source-only bundle adapter V003 for NGC3198 (task 0348; derived from V002 3e6ca15a..., 0345-A/0346).
++ROOT runs it after admission; the author has run it only on synthetic fixtures. V003 changes ONLY the write/publication
++behaviour (CURRENT_INSTRUCTIONS "Do not delete, move"): V002 unlinked its temporary file; V003 never unlinks, moves or
++overwrites anything. Extraction, allowlists, validation, bundle content and bundle schema label are unchanged from V002.
+ 
+ Builds ONE JSON bundle holding, side by side and unmodified:
+   * queries: the 43 query IDs and literal radii from the root-admitted target-free manifest (radius metadata only);
+@@ -20,11 +21,19 @@
+ Keys that are not allowlisted never reach the output. The metadata inputs (crosswalk, correction) are pinned
+ Claude-authored text: they are copied verbatim, type-bounded to strings / string-keyed objects / lists (no numbers or
+ booleans except the correction's own flag fields), and are not observational values.
+-Fail-closed: duplicate JSON keys, NaN/Infinity tokens, any pin, type, null-rule, length, order, duplicate, domain,
+-consistency or structure violation raises a coded failure; NO bundle is written. The bundle is written to an exclusive
+-temporary file in the output directory, fsynced, then hard-linked to the output name (which must not exist) and the
+-temporary name removed, so no partial bundle can appear under the output name. Refuses to overwrite.
+-Usage: python3 -I -B ngc3198_source_bundle_adapter_v002.py <new_bundle.json>
++Fail-closed, two distinct failure classes:
++  VALIDATION failure (exit 2, status FAILED_VALIDATION): duplicate JSON keys, NaN/Infinity tokens, any pin, type,
++    null-rule, length, order, duplicate, domain, consistency or structure violation, or a pre-existing output/candidate
++    path. Raised before any file is created: NO candidate and NO output are written.
++  PUBLICATION failure (exit 4, status FAILED_PUBLICATION): any error while creating, writing, fsyncing, verifying or
++    publishing the candidate. The candidate file MAY remain (complete or partial); it is retained, never removed; no
++    success is claimed. Unexpected exceptions (exit 3) report the phase they occurred in.
++Write lifecycle (V003): the complete bundle is built in memory; an exclusive candidate '<output>.candidate' is created
++(O_EXCL), written, flushed and fsynced, re-read and checked against the in-memory sha256, then published by an
++exclusive hard link to '<output>' (fails if it exists); the directory is then fsynced and the published file re-read
++and checked. Candidate and output are two names of the same complete bytes; both paths and hashes are reported.
++Nothing is ever unlinked, moved or overwritten.
++Usage: python3 -I -B ngc3198_source_bundle_adapter_v003.py <new_bundle.json>
+ """
+ import hashlib,json,math,os,re,sys
+ from pathlib import Path
+@@ -72,6 +81,9 @@
+ RATIONAL=_a(r'-?\d+(/[1-9]\d*)?');DECIMAL=_a(r'\d+(\.\d+)?');QID=_a(r'NGC3198-Q(\d{2})');SHA=_a(r'[0-9a-f]{64}')
+ def full(rx,s):return isinstance(s,str) and rx.fullmatch(s) is not None
+ class Fail(Exception):pass
++class PublishFail(Exception):
++ def __init__(self,code,info):super().__init__(code);self.code=code;self.info=info
++PHASE=['VALIDATION']
+ def sha(b):return hashlib.sha256(b).hexdigest()
+ def _pairs(ps):
+  d={}
+@@ -253,20 +265,42 @@
+   if x['id']=='OPEN-4':x['computed']=dict(h2,source='S1 rows by H2 interpretation')
+   out.append(x)
+  return {'ref_files':{'ledger':lpin,'crosswalk_correction':cpin,'crosswalk':'see conventions.provenance','s1_table':'see sources.S1_LEROY_T7.provenance'},'items':out}
+-def write_exclusive(outp,b):
+- tmp=outp.with_name(outp.name+'.tmp-%d'%os.getpid())
+- fd=os.open(tmp,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o644)
++def candidate_path(outp):return outp.with_name(outp.name+'.candidate')
++def publish(outp,b):
++ """Create, fsync and verify an exclusive candidate, then publish it by exclusive hard link. Never unlinks/moves/overwrites."""
++ cand=candidate_path(outp);want=sha(b)
++ info={'candidate_path':str(cand),'candidate_created':False,'expected_sha256':want,'expected_bytes':len(b),'output_path':str(outp),'output_published':False}
++ try:fd=os.open(cand,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o644)
++ except FileExistsError:raise PublishFail('E_CANDIDATE_EXISTS',info)
++ except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_CANDIDATE_CREATE',info)
++ info['candidate_created']=True
+  try:
+   with os.fdopen(fd,'wb') as f:f.write(b);f.flush();os.fsync(f.fileno())
+-  try:os.link(tmp,outp)
+-  except FileExistsError:raise Fail('E_OUTPUT_EXISTS')
+- finally:
+-  try:os.unlink(tmp)
+-  except FileNotFoundError:pass
++ except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_CANDIDATE_WRITE',info)
++ try:cb=cand.read_bytes()
++ except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_CANDIDATE_VERIFY',info)
++ info['candidate_sha256']=sha(cb);info['candidate_bytes']=len(cb)
++ if cb!=b:raise PublishFail('E_CANDIDATE_VERIFY',info)
++ try:os.link(cand,outp)
++ except FileExistsError:raise PublishFail('E_OUTPUT_EXISTS_AT_PUBLICATION',info)
++ except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_PUBLICATION_LINK',info)
++ info['output_published']=True
++ try:
++  dfd=os.open(str(outp.parent),os.O_RDONLY)
++  try:os.fsync(dfd)
++  finally:os.close(dfd)
++ except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_DIRECTORY_FSYNC',info)
++ try:ob=outp.read_bytes()
++ except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_OUTPUT_VERIFY',info)
++ info['output_sha256']=sha(ob);info['output_bytes']=len(ob)
++ if ob!=b:raise PublishFail('E_OUTPUT_VERIFY',info)
++ return {'candidate':{'path':str(cand),'sha256':info['candidate_sha256'],'bytes':info['candidate_bytes']},'output':{'path':str(outp),'sha256':info['output_sha256'],'bytes':info['output_bytes']},
++  'same_file':os.path.samefile(cand,outp),'note':'candidate and output are two names of the same complete bytes; neither is ever removed'}
+ def main(argv):
+  if len(argv)!=2:raise Fail('E_USAGE')
+  outp=Path(argv[1])
+- if outp.exists():raise Fail('E_OUTPUT_EXISTS')
++ if os.path.lexists(outp):raise Fail('E_OUTPUT_EXISTS')
++ if os.path.lexists(candidate_path(outp)):raise Fail('E_CANDIDATE_EXISTS')
+  m,pm=load('query_manifest');t,pt=load('s1_table');d,pd=load('s2_results');cw,pc=load('crosswalk');cc,pcc=load('crosswalk_correction');lg,plg=load('ledger')
+  s1rec,h2=s1(t,pt)
+  bundle={'schema':'NGC3198_SOURCE_ONLY_BUNDLE_CANDIDATE_V002','status':'CANDIDATE_NOT_ADMITTED',
+@@ -276,10 +310,12 @@
+   'value_kinds':{'PUBLISHED_PER_RING_RMS_FIELD':'S1 published per-ring rms field (measurement vs descriptive meaning OPEN-8)','descriptive_scatter_not_measurement_error':'S2 descriptive scatter','mask_fraction_*':'S2 mask bookkeeping','UNKNOWN':'uncertainty not available; never zero','MISSING':'value absent; null'},
+   'queries':queries(m,pm),'sources':{'S1_LEROY_T7':s1rec,'S2_HALOGAS_PLANAR':s2(d,pd)},'conventions':conventions(cw,pc,cc,pcc),'open_issues':open_issues(lg,plg,pcc,h2)}
+  b=(json.dumps(bundle,indent=1,allow_nan=False)+'\n').encode()
+- write_exclusive(outp,b)
+- print(json.dumps({'status':'CANDIDATE_BUNDLE_WRITTEN','output':str(outp),'sha256':sha(b),'queries':N_QUERIES,'s1_rows':N_S1,'s2_orders':ORDERS}))
++ PHASE[0]='PUBLICATION'
++ pub=publish(outp,b)
++ print(json.dumps({'status':'CANDIDATE_BUNDLE_WRITTEN','phase':'PUBLISHED','candidate':pub['candidate'],'output':pub['output'],'same_file':pub['same_file'],'queries':N_QUERIES,'s1_rows':N_S1,'s2_orders':ORDERS}))
+  return 0
+ if __name__=='__main__':
+  try:sys.exit(main(sys.argv))
+- except Fail as e:print(json.dumps({'status':'FAILED','code':str(e)}));sys.exit(2)
+- except Exception as e:print(json.dumps({'status':'FAILED','code':'E_UNEXPECTED','type':type(e).__name__}));sys.exit(3)
++ except Fail as e:print(json.dumps({'status':'FAILED_VALIDATION','code':str(e),'phase':'VALIDATION','candidate_written':False,'success_claimed':False}));sys.exit(2)
++ except PublishFail as e:print(json.dumps({'status':'FAILED_PUBLICATION','code':e.code,'phase':'PUBLICATION','publication':e.info,'candidate_retained_if_created':True,'success_claimed':False}));sys.exit(4)
++ except Exception as e:print(json.dumps({'status':'FAILED','code':'E_UNEXPECTED','type':type(e).__name__,'phase':PHASE[0],'candidate_may_remain':PHASE[0]=='PUBLICATION','success_claimed':False}));sys.exit(3)

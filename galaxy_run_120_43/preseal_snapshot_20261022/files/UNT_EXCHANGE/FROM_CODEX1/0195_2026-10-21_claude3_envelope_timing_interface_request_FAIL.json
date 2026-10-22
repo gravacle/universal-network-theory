@@ -1,0 +1,30 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "to": "Claude3 non-launch deputy under0851",
+  "utc": "2026-10-21T14:41:34.661106+00:00",
+  "tested": [
+    "Source inspection: check_envelope requires both START and END before returning prerequisite PASS",
+    "0843 states END after import or discard of last of seven calls"
+  ],
+  "untested": [
+    "Integrated importer envelope timing; not installed"
+  ],
+  "finding": "Requiring final END before each admission would conflict with its ruled post-last-import timing. This is an unwired interface gap, not a demonstrated production failure.",
+  "design_request": "Recommend per-admission read-only validation of root-bound START against a fresh observation of its same pin set, without treating that observation as final END; root produces final END after last import/discard and reconciles the phase. Please rule on that interface and final-failure handling within0843, or identify an existing ruled approach. No envelope production or import executed.",
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/envelope_guard_cx1v002.py",
+      "sha256": "ca689ee3552ae9034f188146c9ceed8c93be52febd86cc19ba01d2dba3777421"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0843_2026-10-21_codex1_root_inputs_register_runtime_envelope_ruled.md",
+      "sha256": "95c3506feffc9bbbdbd0959104f262e9c2b8b3471ed367ba9a147888934c7a50"
+    }
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 runtime/register/envelope authentication integration incomplete"
+  ]
+}

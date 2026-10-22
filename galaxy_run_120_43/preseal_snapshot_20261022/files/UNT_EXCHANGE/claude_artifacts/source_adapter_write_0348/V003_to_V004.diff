@@ -1,0 +1,78 @@
+--- ngc3198_source_bundle_adapter_v003.py	2026-10-15 10:11:16.773374462 -0500
++++ ngc3198_source_bundle_adapter_v004.py	2026-10-15 10:21:06.146459144 -0500
+@@ -1,4 +1,6 @@
+-"""INERT candidate source-only bundle adapter V003 for NGC3198 (task 0348; derived from V002 3e6ca15a..., 0345-A/0346).
++"""INERT candidate source-only bundle adapter V004 for NGC3198 (task 0348; = V003 f22cff00... plus the distinct 0348 review's
++write-path fixes: guarded post-link checks, read-only candidate mode, absolute reported paths, errno recording, interrupt
++status. Derived from V002 3e6ca15a..., 0345-A/0346).
+ ROOT runs it after admission; the author has run it only on synthetic fixtures. V003 changes ONLY the write/publication
+ behaviour (CURRENT_INSTRUCTIONS "Do not delete, move"): V002 unlinked its temporary file; V003 never unlinks, moves or
+ overwrites anything. Extraction, allowlists, validation, bundle content and bundle schema label are unchanged from V002.
+@@ -33,7 +35,11 @@
+ exclusive hard link to '<output>' (fails if it exists); the directory is then fsynced and the published file re-read
+ and checked. Candidate and output are two names of the same complete bytes; both paths and hashes are reported.
+ Nothing is ever unlinked, moved or overwritten.
+-Usage: python3 -I -B ngc3198_source_bundle_adapter_v003.py <new_bundle.json>
++V004: every step after the hard link (directory fsync, output re-read, same-file check) is guarded: any failure there is a
++  PUBLICATION failure that reports output_published true with the output path, never an unexpected exit; the candidate is
++  created read-only (0444), so neither name can be edited in place; paths are reported absolute; OS errors record errno;
++  an interrupt prints a FAILED_INTERRUPTED status with its phase (success never claimed).
++Usage: python3 -I -B ngc3198_source_bundle_adapter_v004.py <new_bundle.json>
+ """
+ import hashlib,json,math,os,re,sys
+ from pathlib import Path
+@@ -268,34 +274,37 @@
+ def candidate_path(outp):return outp.with_name(outp.name+'.candidate')
+ def publish(outp,b):
+  """Create, fsync and verify an exclusive candidate, then publish it by exclusive hard link. Never unlinks/moves/overwrites."""
+- cand=candidate_path(outp);want=sha(b)
++ outp=Path(os.path.abspath(outp));cand=candidate_path(outp);want=sha(b)
+  info={'candidate_path':str(cand),'candidate_created':False,'expected_sha256':want,'expected_bytes':len(b),'output_path':str(outp),'output_published':False}
+- try:fd=os.open(cand,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o644)
++ try:fd=os.open(cand,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o444)
+  except FileExistsError:raise PublishFail('E_CANDIDATE_EXISTS',info)
+- except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_CANDIDATE_CREATE',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_CANDIDATE_CREATE',info)
+  info['candidate_created']=True
+  try:
+   with os.fdopen(fd,'wb') as f:f.write(b);f.flush();os.fsync(f.fileno())
+- except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_CANDIDATE_WRITE',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_CANDIDATE_WRITE',info)
+  try:cb=cand.read_bytes()
+- except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_CANDIDATE_VERIFY',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_CANDIDATE_VERIFY',info)
+  info['candidate_sha256']=sha(cb);info['candidate_bytes']=len(cb)
+  if cb!=b:raise PublishFail('E_CANDIDATE_VERIFY',info)
+  try:os.link(cand,outp)
+  except FileExistsError:raise PublishFail('E_OUTPUT_EXISTS_AT_PUBLICATION',info)
+- except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_PUBLICATION_LINK',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_PUBLICATION_LINK',info)
+  info['output_published']=True
+  try:
+   dfd=os.open(str(outp.parent),os.O_RDONLY)
+   try:os.fsync(dfd)
+   finally:os.close(dfd)
+- except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_DIRECTORY_FSYNC',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_DIRECTORY_FSYNC',info)
+  try:ob=outp.read_bytes()
+- except OSError as e:info['error']=type(e).__name__;raise PublishFail('E_OUTPUT_VERIFY',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_OUTPUT_VERIFY',info)
+  info['output_sha256']=sha(ob);info['output_bytes']=len(ob)
+  if ob!=b:raise PublishFail('E_OUTPUT_VERIFY',info)
+- return {'candidate':{'path':str(cand),'sha256':info['candidate_sha256'],'bytes':info['candidate_bytes']},'output':{'path':str(outp),'sha256':info['output_sha256'],'bytes':info['output_bytes']},
+-  'same_file':os.path.samefile(cand,outp),'note':'candidate and output are two names of the same complete bytes; neither is ever removed'}
++ try:same=os.path.samefile(cand,outp)
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_POST_PUBLICATION_CHECK',info)
++ if not same:raise PublishFail('E_OUTPUT_NOT_SAME_FILE',info)
++ return {'candidate':{'path':str(cand),'sha256':info['candidate_sha256'],'bytes':info['candidate_bytes'],'mode':'0444'},'output':{'path':str(outp),'sha256':info['output_sha256'],'bytes':info['output_bytes']},
++  'same_file':True,'note':'candidate and output are two read-only names of the same complete bytes; neither is ever removed'}
+ def main(argv):
+  if len(argv)!=2:raise Fail('E_USAGE')
+  outp=Path(argv[1])
+@@ -318,4 +327,5 @@
+  try:sys.exit(main(sys.argv))
+  except Fail as e:print(json.dumps({'status':'FAILED_VALIDATION','code':str(e),'phase':'VALIDATION','candidate_written':False,'success_claimed':False}));sys.exit(2)
+  except PublishFail as e:print(json.dumps({'status':'FAILED_PUBLICATION','code':e.code,'phase':'PUBLICATION','publication':e.info,'candidate_retained_if_created':True,'success_claimed':False}));sys.exit(4)
+- except Exception as e:print(json.dumps({'status':'FAILED','code':'E_UNEXPECTED','type':type(e).__name__,'phase':PHASE[0],'candidate_may_remain':PHASE[0]=='PUBLICATION','success_claimed':False}));sys.exit(3)
++ except KeyboardInterrupt:print(json.dumps({'status':'FAILED_INTERRUPTED','phase':PHASE[0],'candidate_may_remain':PHASE[0]=='PUBLICATION','output_may_exist':PHASE[0]=='PUBLICATION','success_claimed':False}));sys.exit(130)
++ except Exception as e:print(json.dumps({'status':'FAILED','code':'E_UNEXPECTED','type':type(e).__name__,'phase':PHASE[0],'candidate_may_remain':PHASE[0]=='PUBLICATION','output_may_exist':PHASE[0]=='PUBLICATION','success_claimed':False}));sys.exit(3)

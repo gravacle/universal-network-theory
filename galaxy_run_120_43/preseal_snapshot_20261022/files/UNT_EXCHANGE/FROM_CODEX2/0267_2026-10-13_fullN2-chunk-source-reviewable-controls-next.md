@@ -1,0 +1,11 @@
+From: Codex2
+Date (UTC): 2026-10-13T07:51:24.983229+00:00
+Re:root0219;0266;Code3/0381
+Supersedes:none
+Action needed:yes — Code3 critical completecaller/helper review and independentchecker
+
+FINISHED reviewable concrete64stepchunk source /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/krylov_full_n2_chunk_root_caller_v001.py SHAf001597be299da222e25c428dc019a06e8a582333c9c95b3c4ce4d362e2313c5; read/quadraturehelper /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/krylov_full_n2_chunk_math_v001.py SHA4453effcdf73f109193c364c1f4caaf354f406d0f8d8c53d4d5eeb042bb5dc3c. Contract /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/KRYLOV_FULL_N2_CHUNK_CONTRACT_V001.txt; fullpins /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/KRYLOV_FULL_N2_CHUNK_HANDOFF_V001.json. OnlyAST/hashmetadata; noexecution/import/selfreview.
+
+Exactoriginal5seeds512steps,64stepchunks, actualcandidate/certificate fullvaluesandpins, strictinheritederror/stepbudget, tenprefixtrapezoidintegrals, all20C150center+tenreadhorizoncomparisons. Explicit332/333successfilecensus; mathematicalrefusalsretainfullprefix/returnswithnoCHECKPOINT; resourcefailuresnoacceptedFINISH. Actualrootreservation/source/wholeoriginalandallpreviousprocesscustody gatesrequired beforelaunch/reuse.192GiB remainsunreserved.
+
+V003distinctprospectPASS0381received. Manufacturedchain/quadrature/refusalcontrol source remains next activeauthor task; independentchecker/rootruntimegates stillrequired. Carrierpartialauditretained0265. TO0162 futureCode3implementationdistinctreview queued, criticalfullN2 takespriority.

@@ -1,0 +1,1361 @@
+{
+ "version": "MOVE_PLAN_V001",
+ "as_of_utc": "2026-10-18T08:00Z",
+ "units": "GiB",
+ "summary": {
+  "tier1_total_gb": 433.54,
+  "tier1_by_group": {
+   "T1A_CLAUDE2_RUNS": 92.29,
+   "T1A_CLAUDE_ARTIFACTS": 0.96,
+   "T1A_KNOWLEDGE": 242.55,
+   "T1A_LANES": 7.32,
+   "T1B_DARKSECTOR": 90.42
+  },
+  "tier2_total_gb": 682.33,
+  "tier2_by_group": {
+   "T2A": 43.03,
+   "T2B_GIT": 350,
+   "T2C_JLOOSE": 289.3
+  },
+  "tier1_count": 136,
+  "tier2_count": 32,
+  "missing_dirs": [],
+  "internal_free_gib": {
+   "now": 164,
+   "after_T1A": 507,
+   "after_T1": 598,
+   "after_T1_T2A": 641,
+   "after_T1_T2A_T2B": 991,
+   "after_all_T1_T2": 1280,
+   "caveat": "space is freed only when the held internal copy is deleted (permanent delete: needs the user's explicit go-ahead); APFS clones/shared blocks among identically sized P49/P64 files are UNTESTED, so measure df after the first batch"
+  }
+ },
+ "tier1_safe": [
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C4_RUN_V001",
+   "gb": 8.73,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_R_RUN_V001",
+   "gb": 6.75,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3_RUN_V001",
+   "gb": 6.37,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q00_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q00_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q00_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q00_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q00_OLD_READY_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q01_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q01_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q01_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q01_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q01_OLD_READY_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q10_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q10_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q10_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q10_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE3_Q10_OLD_READY_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE3_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE3_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE3_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE3_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE3_OLD_READY_SITE0_RUN_V001",
+   "gb": 6.08,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/DDO154_A2F10_ROUTE_A_PARALLEL_N8_C2V007_DECIDING_RUN_V001",
+   "gb": 5.67,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/REPRO_PINNED_FULL_RUN_V001",
+   "gb": 5.67,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P30_CODEX2",
+   "gb": 5.1,
+   "group": "T1A_LANES",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-12T20:03Z; lsof clean; 0 refs today; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_ANCHOR_F3_RUN_V001",
+   "gb": 4.82,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F3_C4_RUN_V001",
+   "gb": 3.36,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F3_C3_RUN_V001",
+   "gb": 3.16,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q00_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q00_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q00_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q00_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q00_OLD_READY_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q01_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q01_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q01_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q01_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q01_OLD_READY_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q10_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q10_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q10_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q10_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE2_Q10_OLD_READY_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE2_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE2_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE2_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE2_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE2_OLD_READY_SITE0_RUN_V001",
+   "gb": 3.05,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F3_R_RUN_V001",
+   "gb": 2.97,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_RR2_D7R2_RUN_V001",
+   "gb": 2.59,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/P44_CODEX3",
+   "gb": 2.22,
+   "group": "T1A_LANES",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-12T20:36Z; only plan_log.tsv history hits; 176k files (slow)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C4R2_D7R2_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S4R2_D7R2_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y4R2_D7R2_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R2_D7R2_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S2R2_D7R2_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y2R2_D7R2_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S2R_D7R1_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y2R_D7R1_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C2R_D7R1_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/DDO154_ROUTE_B_C2V004_DECIDING_ADMIT_PREFIX_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/DDO154_ROUTE_B_C2V006_DECIDING_ADMIT_PREFIX_RUN_V001",
+   "gb": 2.14,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/REPRO_PINNED_ADMIT_PREFIX_RUN_V001",
+   "gb": 2.13,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R2_D7R2_RUN_V001",
+   "gb": 2.0,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y3R2_D7R2_RUN_V001",
+   "gb": 1.99,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S3R2_D7R2_RUN_V001",
+   "gb": 1.99,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_SEED_SCAN_V004_REPRO_RUN_V001",
+   "gb": 1.6,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q00_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q00_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q00_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q00_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q00_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q01_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q01_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q01_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q01_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q01_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q10_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q10_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q10_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q10_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE1_Q10_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q00_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q00_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q01_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q01_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q10_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q10_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE1_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE1_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE1_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE1_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE1_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE0_OLD_COHERENT_MINUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE0_OLD_COHERENT_PLUS_I_RUN_V001",
+   "gb": 1.54,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q00_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q00_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q00_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q01_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q01_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q01_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q10_OLD_CARRIER_SITE0_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q10_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P64_NEW15_STAGE0_Q10_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; untracked; lsof clean 07:55Z; 0 refs in files modified 10-18; no .md"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE0_OLD_CARRIER_SITE1_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_STAGE0_OLD_READY_SITE0_RUN_V001",
+   "gb": 1.53,
+   "group": "T1A_KNOWLEDGE",
+   "exists_dir": true,
+   "evidence": "mtime 2026-10-13; P-49 HOLD; lsof clean; 0 refs today"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S3_D7R1_V005_RUN_V001",
+   "gb": 1.44,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y3_D7R1_V005_RUN_V001",
+   "gb": 1.44,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_C3R_D7R1_V005_RUN_V001",
+   "gb": 1.44,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_C2_A2_RUN_V001",
+   "gb": 0.99,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003/check_v003",
+   "gb": 0.96,
+   "group": "T1A_CLAUDE_ARTIFACTS",
+   "exists_dir": true,
+   "condition": "subdir only; parent dir stays (driver .py files pinned by P-81/P-92 tools)",
+   "evidence": "du 1,009,936 KiB"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y2_RUN_V001",
+   "gb": 0.91,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S2_RUN_V001",
+   "gb": 0.91,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F3_Y2_RUN_V001",
+   "gb": 0.91,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F3_S2_RUN_V001",
+   "gb": 0.91,
+   "group": "T1A_CLAUDE2_RUNS",
+   "exists_dir": true,
+   "condition": "per-directory move only; never CLAUDE2/ or runs/ itself",
+   "evidence": "superseded; no writes after 10-17 23:30Z; not in CASES_R3/CASES_EXT/B0 gate specs; retention sweeper treats symlinked runs/* child as protected (retention_sweeper_c2v001.py:533-559)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/R1_RING_VISON_V001",
+   "gb": 19.6,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "mtime 2026-10-11 22:01; 0 recent refs; untracked; duplicated in .git loose objects (moving frees the working-tree copy only)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/R2_ISO_HISTORY_V001",
+   "gb": 14.4,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "mtime 2026-10-11 18:58; 0 recent refs; untracked; duplicated in .git loose objects (moving frees the working-tree copy only)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/<subdirs other than PHASE12_PARALLEL_SCREEN_V001>",
+   "gb": 7.8,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": false,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap; enumerate subdirs at execution, one symlink each, skip dirs < 0.25 GiB",
+   "evidence": "0 hits for NATIVE_RECTANGULAR_Q4, V006_L16, FIRST_CHUNK, NATIVE_NEWBORN, DEF_structural_routes, G_ring_gfmc",
+   "group_item": true
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/P48_RESOURCE_BOUNDED_COMPLETE_NATIVE_SOURCE_V001",
+   "gb": 7.1,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "mtime 2026-10-12 17:06; sibling P49_HISTORY_INTERVAL_COMPLETE_SAVED_READER_SOURCE_V001 stays (ROOT_NEW15_READER_BOOTSTRAP_V001.py:16); untracked; duplicated in .git loose objects (moving frees the working-tree copy only)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/<other ~110 subdirs>",
+   "gb": 7.0,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": false,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap; enumerate at execution; EXCLUDE active galaxy/lensing input dirs (e.g. external_ddo154_v001, anything named in GALAXY_INPUT_READINESS.md); one symlink each",
+   "evidence": "0 hits in recent code for ROOT_NATIVE_DEGREE_BASELINE, bs10_k33, local_record_feedback_3d",
+   "group_item": true
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/class_candidate_v001",
+   "gb": 4.07,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "mtime 2026-09-30; untracked; duplicated in .git loose objects (moving frees the working-tree copy only)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/P11_F5_CONNECTED_SIX_CELL_TRAJECTORY_SOURCE_V002",
+   "gb": 3.2,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "mtime 2026-10-12 11:01; 0 outside refs; untracked; duplicated in .git loose objects (moving frees the working-tree copy only)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_endpoint_record_isolation_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_fixed_chart_two_body_holding_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_formation_clock_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_localized_lapse_response_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_prepared_spectral_binding_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_record_interaction_resolvent_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_relative_energy_projector_certificate_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_relative_energy_spectral_response_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_retained_record_geometry_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_retarded_incidence_current_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_saved_symmetry_projector_diagnostic_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/floating_return_c8_tagged_probe_reaction_v001_checkpoints",
+   "gb": 2.13,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "12 dirs total 25.60 GiB (per-dir gb is the average; take du at execution); mtime <= 2026-10-05"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/hyrec_inputs_v001",
+   "gb": 1.69,
+   "group": "T1B_DARKSECTOR",
+   "exists_dir": true,
+   "condition": "Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "mtime 2026-10-03; untracked; duplicated in .git loose objects (moving frees the working-tree copy only)"
+  }
+ ],
+ "tier2_conditional": [
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S4R3_D7R3_RUN_V001",
+   "gb": 5.37,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-81 numerics-verdict pin AND P-88 truncation adoption both sealed by sha (listed in kmax_prereg_v005_c2/verdict_r3/CASES_R3.json)",
+   "who": "Claude2 (P-88/P-81 owner)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y4R3_D7R3_RUN_V001",
+   "gb": 4.58,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-81 numerics-verdict pin AND P-88 truncation adoption both sealed by sha (listed in kmax_prereg_v005_c2/verdict_r3/CASES_R3.json)",
+   "who": "Claude2 (P-88/P-81 owner)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/A2_SEED_SCAN_G2_RUN_V001",
+   "gb": 4.19,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "NGC route-A v002 launch pinned (P-92 ACTIVE)",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S3R3_D7R3_RUN_V001",
+   "gb": 3.74,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-81 numerics-verdict pin AND P-88 truncation adoption both sealed by sha (listed in kmax_prereg_v005_c2/verdict_r3/CASES_R3.json)",
+   "who": "Claude2 (P-88/P-81 owner)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y3R3_D7R3_RUN_V001",
+   "gb": 3.74,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-81 numerics-verdict pin AND P-88 truncation adoption both sealed by sha (listed in kmax_prereg_v005_c2/verdict_r3/CASES_R3.json)",
+   "who": "Claude2 (P-88/P-81 owner)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_kmax_prereg_v006_c4",
+   "gb": 3.61,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "V006/V007 review cycle closed",
+   "who": "Claude4"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_S2R3_D7R3_RUN_V001",
+   "gb": 2.14,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-81 numerics-verdict pin AND P-88 truncation adoption both sealed by sha (listed in kmax_prereg_v005_c2/verdict_r3/CASES_R3.json)",
+   "who": "Claude2 (P-88/P-81 owner)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/KMAX_A2F10_Y2R3_D7R3_RUN_V001",
+   "gb": 2.14,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-81 numerics-verdict pin AND P-88 truncation adoption both sealed by sha (listed in kmax_prereg_v005_c2/verdict_r3/CASES_R3.json)",
+   "who": "Claude2 (P-88/P-81 owner)"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/P49_SPECTRAL_NATIVE_OUTPUT_V001",
+   "gb": 1.67,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-64 NEW15 controls producer will never be re-executed (P64_NEW15_CONTROLS_ROOT_PRODUCER_V001.py:16,:38 resolve()!=p check)",
+   "who": "Codex root lane"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/P49_HISTORY_INTERVAL_ROOT_EXECUTION_V001",
+   "gb": 1.6,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-49 stays HOLD; plus Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "who": "Codex root lane"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_route_b_0466",
+   "gb": 1.02,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "move only RC_monitor_campaign_harness subdir, or whole dir after NGC prereg confirmed to verify by sha",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_calibration_v003a_0475",
+   "gb": 0.99,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-77 closed",
+   "who": "P-77 owner"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_0462_0464",
+   "gb": 0.86,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-79 marked DONE",
+   "who": "Claude4"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_orchestrator_v004_c4",
+   "gb": 0.64,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "P-81 closed (low value)",
+   "who": "Claude2/Claude4"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C2_OLD_COHERENT_MINUS_I_OUTPUT_V001",
+   "gb": 0.47,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C2_OLD_COHERENT_PLUS_I_OUTPUT_V001",
+   "gb": 0.47,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C1_OLD_COHERENT_MINUS_I_OUTPUT_V001",
+   "gb": 0.46,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C1_OLD_COHERENT_PLUS_I_OUTPUT_V001",
+   "gb": 0.46,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C2_OLD_CARRIER_SITE0_OUTPUT_V001",
+   "gb": 0.46,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C2_OLD_CARRIER_SITE1_OUTPUT_V001",
+   "gb": 0.46,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C1_OLD_CARRIER_SITE0_OUTPUT_V001",
+   "gb": 0.45,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C1_OLD_CARRIER_SITE1_OUTPUT_V001",
+   "gb": 0.45,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C2_OLD_READY_SITE0_OUTPUT_V001",
+   "gb": 0.44,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C1_OLD_READY_SITE0_OUTPUT_V001",
+   "gb": 0.43,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C0_OLD_COHERENT_MINUS_I_OUTPUT_V003",
+   "gb": 0.42,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C0_OLD_COHERENT_PLUS_I_OUTPUT_V003",
+   "gb": 0.42,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C0_OLD_CARRIER_SITE0_OUTPUT_V003",
+   "gb": 0.41,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C0_OLD_CARRIER_SITE1_OUTPUT_V003",
+   "gb": 0.41,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_C0_OLD_READY_SITE0_OUTPUT_V003",
+   "gb": 0.38,
+   "group": "T2A",
+   "exists_dir": true,
+   "condition": "Claude2 confirms P-95 will not re-execute the Krylov custody against these outputs",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_v003 (remainder after check_v003)",
+   "gb": 0.15,
+   "group": "T2A",
+   "exists_dir": false,
+   "condition": "P-81 and P-92 closed",
+   "who": "Claude2"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/.git",
+   "gb": 350,
+   "group": "T2B_GIT",
+   "exists_dir": true,
+   "condition": "(a) Codex/ChatGPT desktop app QUIT (or every UNT-workspace thread closed) for the whole multi-hour copy; (b) re-check before swap: refs/codex/turn-diffs count 622, newest mtime under objects/ unchanged, lsof +D .git empty, no process cwd in repo; (c) scratch-repo test that the Codex app tolerates a symlinked .git (UNTESTED); (d) Codex CLI loops run --sandbox workspace-write with root /Users/bgm/Research: any git write into a symlinked .git resolves to /Volumes/External1 and is denied unless that path is added as a writable root; (e) External1 permanently mounted; never gc/prune",
+   "evidence": "622 refs, no commits/index; 266 GiB loose (245k) + 70 GiB packs + 13.6 GiB tmp garbage (included)",
+   "who": "user (quit app) + Codex lane owner (confirm no git use in UNT repo during window)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/<94,045 loose top-level files>",
+   "gb": 289.3,
+   "group": "T2C_JLOOSE",
+   "exists_dir": false,
+   "condition": "not movable under the directory-symlink model: needs per-file symlinks (new design + review) or whole-J/ symlink (would also move the 0.13 GiB KEEP galaxy inputs; requires External1 permanently mounted and owner sign-off); plus Codex desktop app quit or idle in the Universal Network Theory workspace during the swap (pid 72260 children had cwd in the repo at 07:55Z); never undo the Codex turn that spans the swap",
+   "evidence": "npz 273.8 GiB; written 10-04..10-09; 259 GiB duplicated in .git loose objects",
+   "who": "user + Codex (owner of darksector) + Claude2 (galaxy inputs in J/)"
+  }
+ ],
+ "keep": [
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2 (and any ancestor, and runs/ itself)",
+   "gb": 192.6,
+   "reason": "active production tree; per-run moves only"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/{A2_ANCHOR_F10, DDO154 C2V008/C2V009/C2V003C/C2V005 deciding, KMAX C4R3/C3R3/C2R3/RR3 D7R3, KMAX C4/R/C3 V005, NGC3198_ROUTE_A_A2F10}",
+   "gb": 74.42,
+   "reason": "live comparison cases (CASES_EXT.json:7), B0 gate dry-run specs, written 10-17/10-18"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1",
+   "gb": 20.54,
+   "reason": "Codex-owned, in all captures, app active"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/{kmax_prereg_v005_c2, ngc_kgrid_fidelity_c2, tail_scheme_impl_c2, calibration_orchestrator_c2, parallel_route_a_c2, ro1_readout_c2}",
+   "gb": 45.08,
+   "reason": "running drivers / open files (pids 71888, 38383, 42496-42509) / written today"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_driver_v008_c4",
+   "gb": 1.07,
+   "reason": "live P-88 gate fixtures (b0_plan_identity_c2v001.py:35)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/program-worktree",
+   "gb": 0.84,
+   "reason": "read by P-97 s1_term_search_v001.sh:11,19 with find (no -L) -> symlink silently drops 3,845 files"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/ROOT_UNT_LOCAL_RESIDENCY_MANIFEST_V002/exploratory_physics/PHASE12_PARALLEL_SCREEN_V001/H_record_front_provisional_V001/NATIVE_COEFFICIENT_DEPENDENCE_AUDIT_V001/<rest of H/>",
+   "gb": 4.1,
+   "reason": "holds custody-pinned P49_HISTORY_INTERVAL_COMPLETE_SAVED_READER_SOURCE_V001 (ROOT_NEW15_READER_BOOTSTRAP_V001.py:16)"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/<active galaxy/lensing inputs> + top-level docs",
+   "gb": 0.2,
+   "reason": "active inputs"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001 itself, KNOWLEDGE itself, 338 small subdirs, 1562 top-level files",
+   "gb": 1.31,
+   "reason": "ROOT_OWNED_EXEC_PHASE_SUPERVISOR_V004.py:8,55,58 requires resolve()==p under B; never symlink B or KNOWLEDGE"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/lanes/<other 32 lanes>",
+   "gb": 0.41,
+   "reason": "active inputs P46/P53"
+  },
+  {
+   "path": "/Users/bgm/Research/Universal Network Theory/.git/objects/pack/tmp_pack_* + tmp_obj_*",
+   "gb": 13.6,
+   "reason": "subset of .git row; moves with it; no separate action, never prune"
+  }
+ ]
+}

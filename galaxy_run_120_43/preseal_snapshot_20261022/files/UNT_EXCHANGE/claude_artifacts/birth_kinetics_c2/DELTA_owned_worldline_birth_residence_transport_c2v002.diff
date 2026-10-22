@@ -1,0 +1,266 @@
+--- /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/coefficient_method/owned_worldline_birth_residence_transport_v001.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/birth_kinetics_c2/owned_worldline_birth_residence_transport_c2v002.py
+@@ -1,38 +1,118 @@
+-"""Inert exact whole-circle Birth/reverse transport; no sampler or schedule mutation.
+-Fixed unique permanent original-owner roster; uniform owner then uniform positive
+-primitive mark at reference dwell. Empty/invalid proposals remain self loops.
+-Only ordinary closed paths. Inject actual pinned V006 sampler API. No mixing claim.
++"""Channel-bearing-owner Birth-residence whole-path transport (Claude2, c2v002).
++
++Successor of the reviewed owned_worldline_birth_residence_transport_v001.py
++(6f866bda7eda7b56cb9ae7a1247cb365c16c9b40cb996af650452f8823f9f6e8).  ONE change, in the proposal
++only (WORM_PILOT_EVALUATION_V001.md section 7 and its review): V001 drew the original owner
++uniformly over the whole fixed roster and self-looped when that owner had no Birth/reverse mark
++at the reference dwell (81.7% / 80.0% of attempts in OWNED_L4_WORM_LOOP_RUN_V001).  c2v002 draws the
++owner uniformly among the owners that HAVE such a mark at the reference dwell and applies the
++exact Hastings correction for that selection.  The native target (operator V003 Hamiltonian,
++weights, reads, imaginary-time measure of the pinned V006 sampler), the marks, the whole-path
++transform, every guard and the event replay are V001's.  The actual pinned V006 sampler API is
++injected as `sampler`; no sampler, schedule or global-function mutation.
++
++Rosters (a function of the reference dwell x = segments[0] only).  ONE palette enumeration at x
++over the union of the permanent owner groups of the fixed roster gives every Birth/reverse mark;
++    R(x, o) = marks with kind in (birth, birth_rev), owner_id[0] == 'birth', owner_id[1] == o,
++    S(x)    = owners o of the fixed roster, in roster order, with R(x, o) nonempty.
++R(x, o) equals V001's per-owner roster: the operator palette contract returns exactly the
++primitive_channels records whose permanent owner is in the palette (Birth/reverse of owner j iff
++j is in it, with full eligibility), and the sampler maps records to channels one by one.  This is
++checked, not assumed: the chosen mark must coincide with V001's per-owner mark at x, and the
++reverse mark with the per-owner inverse mark at y (a disagreement is a contract failure); the
++native explicit check compares the partition with all 128 per-owner rosters.  A Birth mark whose
++owner is outside the fixed roster is a contract failure (the recipe binds the full original
++A+B roster, so there is none).
++
++Proposal.  o uniform in S(x) (empty S(x): self loop, no draw); mark c uniform in R(x, o); every
++dwell transformed by the mark (kind, owner) of c exactly as V001 (inverse mark verified per
++dwell).  The reverse proposal from the transformed path Y with reference dwell y draws o from
++S(y) and the unique inverse mark of o in R(y, o).  Hence, exactly,
++
++    q(X->Y) = 1/|S(x)| * 1/|R(x,o)|,    q(Y->X) = 1/|S(y)| * 1/|R(y,o)|,
++    log MH  = [log|S(x)| - log|S(y)|] + [log|R(x,o)| - log|R(y,o)|]
++              - sum_i dt_i (D_new_i - D_old_i) + sum_events log(W_new / W_old).
++
++The owner-count term is new; the rest is V001's ratio term for term.  Both counts are recomputed
++on every proposal (never assumed equal); an unequal pair is counted (owner_count_ratio_nonunit).
++
++Atomicity follows owned_worm_loop_whole_path_c2v001.py: 'before'/'between' budget checkpoints,
++no mutation of the input path, cumulative read-integral diagnostics and accepted counters written
++only after the 'before Birth residence atomic commit' checkpoint (V001 wrote its read-integral
++sums before that checkpoint).  Counters keep V001's 'birth_residence_' prefix; full-chain and
++measurement-scope ('birth_residence_measurement_') copies.  No mixing or ergodicity claim.
+ """
+ import math
+ 
++MODULE_VERSION = 'birth_residence_c2v002'
++PREFIX = 'birth_residence_'
++PREDECESSOR = ('owned_worldline_birth_residence_transport_v001.py '
++               '6f866bda7eda7b56cb9ae7a1247cb365c16c9b40cb996af650452f8823f9f6e8')
++OWNER_SELECTION = 'uniform_over_channel_bearing_owners_at_reference_dwell'
++
+ 
+ def move(run, path, rng, diag, sampler, owner_roster):
+-    def tick(name):
+-        key = 'birth_residence_' + name
+-        diag[key] = diag.get(key, 0) + 1
++    """One Birth-residence whole-path proposal; returns (path, 'changed') or (path, 'rejected')."""
++    measurement = diag['sweeps_completed'] >= run['burn_in_sweeps']
++
++    def tick(name, amount=1):
++        key = PREFIX + name
++        diag[key] = diag.get(key, 0) + amount
++        if measurement:
++            mkey = PREFIX + 'measurement_' + name
++            diag[mkey] = diag.get(mkey, 0) + amount
++
+     def fail(message):
+         raise sampler._Stop('failed', run['stage'], message)
++
+     def reject(reason):
+-        tick(reason); tick('rejected')
++        tick(reason)
++        tick('rejected')
+         return path, 'rejected'
++
+     def mark(state, kind, owner):
+         sampler._budget_check(run, 'before', 'Birth residence marked enumeration')
+         groups = sampler._record_groups(run, kind, owner)
+         cs, _ = sampler._palette_channels(run, state, groups)
+         return sampler._unique_mark(run, cs, kind, owner, 'Birth residence replay')
+-    def roster(state, original_owner):
+-        sampler._budget_check(run, 'before', 'Birth residence owner enumeration')
+-        if original_owner not in run['group']:
+-            fail('Unknown permanent owner label')
+-        cs, _ = sampler._palette_channels(run, state, frozenset((run['group'][original_owner],)))
+-        selected = [ch for ch in cs if ch['kind'] in ('birth', 'birth_rev')
+-                    and ch['owner'][0] == 'birth' and ch['owner'][1] == original_owner]
+-        for ch in selected:
+-            sampler._unique_mark(run, selected, ch['kind'], ch['owner'], 'Birth residence roster')
+-        return selected
++
++    def rosters(state):
++        """(S, R): channel-bearing owners in roster order and their Birth/reverse marks."""
++        sampler._budget_check(run, 'before', 'Birth residence union owner enumeration')
++        cs, _ = sampler._palette_channels(run, state, union_groups)
++        by_owner = {}
++        for ch in cs:
++            if ch['kind'] not in ('birth', 'birth_rev'):
++                continue
++            own = ch['owner']
++            if own[0] != 'birth':
++                continue
++            try:
++                known = own[1] in roster_set
++            except TypeError:
++                known = False
++            if not known:
++                fail('Birth mark owner outside the fixed original roster')
++            by_owner.setdefault(own[1], []).append(ch)
++        for sel in by_owner.values():
++            for ch in sel:
++                sampler._unique_mark(run, sel, ch['kind'], ch['owner'], 'Birth residence roster')
++        bearing = tuple(o for o in owner_roster if o in by_owner)
++        return bearing, by_owner
++
++    def same_mark(a, b):
++        return (a is not None and b is not None and a['kind'] == b['kind'] and
++                sampler._keys_equal(run, a['owner'], b['owner']) and a['W'] == b['W'] and
++                sampler._keys_equal(run, sampler._target_key(run, a), sampler._target_key(run, b)))
++
+     sampler._budget_check(run, 'before', 'Birth residence proposal')
+     if not isinstance(owner_roster, tuple) or not owner_roster or len(set(owner_roster)) != len(owner_roster):
+         fail('Freeze unique permanent original-owner tuple before measurement')
++    roster_set = frozenset(owner_roster)
++    try:
++        union_groups = frozenset(run['group'][o] for o in owner_roster)
++    except (KeyError, TypeError):
++        fail('Unknown permanent owner label')
+     segs, events, times = path['segments'], path['events'], path['times']
+     k = len(events)
+     if len(times) != k or len(segs) != k + 1:
+@@ -43,17 +123,22 @@
+     if not sampler._keys_equal(run, segs[0]['key'], segs[-1]['key']):
+         fail('Original path not closed')
+     tick('attempts')
+-    original_owner = owner_roster[int(rng.integers(0, len(owner_roster)))]
+-    old_roster = roster(segs[0]['state'], original_owner)
+-    if not old_roster:
+-        return reject('empty_reference_owner')
++    old_bearing, old_rosters = rosters(segs[0]['state'])
++    tick('channel_bearing_owner_count_sum', len(old_bearing))
++    if not old_bearing:
++        return reject('no_channel_bearing_owner')
++    original_owner = old_bearing[int(rng.integers(0, len(old_bearing)))]
++    old_roster = old_rosters[original_owner]
+     chosen = old_roster[int(rng.integers(0, len(old_roster)))]
+     kind, owner = chosen['kind'], chosen['owner']
+     inverse_kind = 'birth_rev' if kind == 'birth' else 'birth'
+     tick(kind + '_selected')
+     transformed = []
+-    for old in segs:
++    for i, old in enumerate(segs):
++        sampler._budget_check(run, 'between', 'Birth residence dwell transforms')
+         ch = mark(old['state'], kind, owner)
++        if i == 0 and not same_mark(ch, chosen):
++            fail('Union roster mark differs from the per-owner mark at the reference dwell')
+         if ch is None:
+             return reject('dwell_guard')
+         new = sampler._segment_core(run, ch['target'])
+@@ -62,51 +147,72 @@
+             return reject('inverse_guard')
+         if not sampler._keys_equal(run, sampler._target_key(run, back), old['key']):
+             return reject('inverse_canonical_target')
++        if i == 0:
++            first_back = back
+         transformed.append(new)
+     if not sampler._keys_equal(run, transformed[0]['key'], transformed[-1]['key']):
+         fail('Transformed path not closed')
+-    new_roster = roster(transformed[0]['state'], original_owner)
++    new_bearing, new_rosters = rosters(transformed[0]['state'])
++    new_roster = new_rosters.get(original_owner, [])
+     reverse = sampler._unique_mark(run, new_roster, inverse_kind, owner, 'Birth residence reverse selection')
+-    if reverse is None or not sampler._keys_equal(run, sampler._target_key(run, reverse), segs[0]['key']):
+-        return reject('reverse_selection')
++    if (reverse is None or original_owner not in new_bearing or not same_mark(reverse, first_back) or
++            not sampler._keys_equal(run, sampler._target_key(run, reverse), segs[0]['key'])):
++        fail('Union roster reverse mark differs from the per-owner inverse mark at the reference dwell')
+     ends = [0.] + list(times) + [run['beta']]
+-    terms = [math.log(len(old_roster)) - math.log(len(new_roster))]
+-    for i, (old, new) in enumerate(zip(segs, transformed)):
+-        terms.append(-(ends[i+1]-ends[i])*(new['D']-old['D']))
+-    new_events = []
++    owner_term = math.log(len(old_bearing)) - math.log(len(new_bearing))
++    roster_term = math.log(len(old_roster)) - math.log(len(new_roster))
++    d_terms = [-(ends[i+1]-ends[i]) * (new['D']-old['D'])
++               for i, (old, new) in enumerate(zip(segs, transformed))]
++    w_terms, new_events = [], []
+     for i, ev in enumerate(events):
++        sampler._budget_check(run, 'between', 'Birth residence marked event replay')
+         before = mark(segs[i]['state'], ev['kind'], ev['owner'])
+-        if before is None or not sampler._keys_equal(run, sampler._target_key(run, before), segs[i+1]['key']) or before['W'] != ev['W']:
++        if (before is None or
++                not sampler._keys_equal(run, sampler._target_key(run, before), segs[i+1]['key']) or
++                before['W'] != ev['W']):
+             fail('Stored primitive mark/rate inconsistent')
+         after = mark(transformed[i]['state'], ev['kind'], ev['owner'])
+         if after is None or not sampler._keys_equal(run, sampler._target_key(run, after), transformed[i+1]['key']):
+             return reject('event_replay_guard_or_target')
+-        terms.append(math.log(after['W']) - math.log(before['W']))
++        w_terms.append(math.log(after['W']) - math.log(before['W']))
+         new_events.append(sampler._event_from_channel(run, after))
+-    logratio = math.fsum(terms)
++    logratio = math.fsum([owner_term, roster_term] + d_terms + w_terms)
+     if not math.isfinite(logratio):
+         fail('Nonfinite Birth residence MH ratio')
+     tick('legal_transport')
+-    diag['birth_residence_last_proposal'] = dict(kind=kind, original_owner=original_owner,
+-        forward_count=len(old_roster), reverse_count=len(new_roster), log_mh_ratio=logratio)
++    if len(old_bearing) != len(new_bearing):
++        tick('owner_count_ratio_nonunit')
++    if logratio < 0.0:
++        tick('log_mh_negative')
++    diag[PREFIX + 'last_proposal'] = dict(kind=kind, original_owner=original_owner,
++        forward_count=len(old_roster), reverse_count=len(new_roster),
++        forward_owner_count=len(old_bearing), reverse_owner_count=len(new_bearing),
++        log_owner_count_ratio=owner_term, log_roster_ratio=roster_term,
++        log_D_ratio=math.fsum(d_terms), log_W_ratio=math.fsum(w_terms), log_mh_ratio=logratio)
+     if logratio < 0 and not float(rng.random()) < math.exp(logratio):
+         return reject('metropolis')
+-    delta = [math.fsum((ends[i+1]-ends[i])*(float(new['row'][j])-float(old['row'][j]))
+-                      for i, (old, new) in enumerate(zip(segs, transformed)))
++    delta = [math.fsum((ends[i+1]-ends[i]) * (float(new['row'][j])-float(old['row'][j]))
++                       for i, (old, new) in enumerate(zip(segs, transformed)))
+              for j in range(len(segs[0]['row']))]
+     if not all(math.isfinite(v) for v in delta):
+         fail('Nonfinite read change')
+-    net = diag.setdefault('birth_residence_read_integral_change_sum', [0.]*len(delta))
+-    absolute = diag.setdefault('birth_residence_absolute_read_integral_change_sum', [0.]*len(delta))
+-    for j, v in enumerate(delta):
+-        net[j] += v; absolute[j] += abs(v)
+-    if not all(math.isfinite(v) for v in net + absolute):
++    # Literal V003 canonical key[6] donor-ready bits; diagnostic only, never an acceptance bias.
++    donor_delta = math.fsum((ends[i+1]-ends[i]) * (new['key'][6].bit_count()-old['key'][6].bit_count())
++                            for i, (old, new) in enumerate(zip(segs, transformed)))
++    sampler._budget_check(run, 'before', 'Birth residence atomic commit')
++    pending = {}
++    for scope in [''] + (['measurement_'] if measurement else []):
++        for name, values in (('read_integral_change_sum', delta),
++                             ('absolute_read_integral_change_sum', [abs(v) for v in delta])):
++            key = PREFIX + scope + name
++            prior = diag.get(key, [0.] * len(delta))
++            if len(prior) != len(delta):
++                fail('Read-change diagnostic length differs from the tracked reads')
++            pending[key] = [a + v for a, v in zip(prior, values)]
++    if not all(math.isfinite(v) for vs in pending.values() for v in vs):
+         fail('Nonfinite cumulative read change')
+-    # Literal V003 canonical key[6] donor-ready bits; full actual transformations
+-    # above establish validity. This is diagnostic only, never an acceptance bias.
+-    donor_delta = math.fsum((ends[i+1]-ends[i])*(new['key'][6].bit_count()-old['key'][6].bit_count())
+-                           for i, (old,new) in enumerate(zip(segs,transformed)))
+-    diag['birth_residence_last_donor_ready_integral_change'] = donor_delta
+-    sampler._budget_check(run, 'before', 'Birth residence atomic commit')
+-    tick('accepted_changed'); tick(kind + '_accepted_changed')
++    pending[PREFIX + 'last_donor_ready_integral_change'] = donor_delta
++    diag.update(pending)
++    tick('accepted_changed')
++    tick(kind + '_accepted_changed')
+     return {'segments': transformed, 'events': new_events, 'times': list(times)}, 'changed'

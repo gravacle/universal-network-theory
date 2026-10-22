@@ -1,0 +1,63 @@
+--- square_spatial_source_v001.py
++++ square_spatial_source_v002.py
+@@ -1,4 +1,4 @@
+-# UNT support task 0385 -- inert author implementation, v001.
++# UNT support task 0385 -- inert author implementation, v002 (task 0390: |r2| gate removed).
+ # One public function, square_spatial_source, plus private helpers.
+ # Helpers are copied (not imported) from square_source_coefficient_v001.py (0384),
+ # so this module is self-contained. Module-level code is limited to the numpy
+@@ -236,6 +236,10 @@
+         "histories": None,
+         "declared_inputs": None,
+         "declared_tolerances": None,
++        "ref_tol_note": (
++            "ref_tol is a legacy admitted argument (V002, task 0390): validated finite and "
++            ">= 0 but no longer restricts r2 = epsilon_r - 2 lambda_R, which is reported only"
++        ),
+         "units": {"J": "E^-3", "J_v": "E^-4", "J_vw": "E^-5", "j_vec": "E"},
+         "static_notes": [
+             "Same a_v, D, mu0, K, V, chi, complete local spectra and per-prefix tensor "
+@@ -257,7 +261,8 @@
+             "Histories: lexicographic orders of edges (0,1),(1,2),(2,3),(3,0); S1 acts first.",
+         ],
+         "scope": (
+-            "native finite spatial-source coefficient of the square off-diagonal only; "
++            "exact-r pure-flip reference coefficients only (spatial-source derivatives of "
++            "the square off-diagonal), not full-parent validity; "
+             "not the complete spatial response (the h^2 diagonal contact, fourth-order "
+             "diagonal, state-redistribution, coupled-field and physical-map terms remain "
+             "separate); no calibration, physical state, speed or geometry"
+@@ -318,7 +323,10 @@
+     order 0, 1, 2, 3. Scalars and other shapes are rejected, never broadcast.
+ 
+     Every argument is keyword-only and required; there are no defaults.
+-    Tolerances: ref_tol (|r2| <= ref_tol, r2 = epsilon_r - 2 lambda_R),
++    Tolerances: ref_tol (legacy admitted argument since V002, task 0390: validated
++    finite and >= 0, but it no longer restricts r2 = epsilon_r - 2 lambda_R, which
++    is reported only; exact-r basis: response_packet_audit/POPULATED_EXACT_R_LOCAL_
++    GROUND_DEFECT_HEX_AND_CONTACT_EXTENSION_PROPOSED_V001.md),
+     pos_tol (every used denominator and the local H(2) gap must exceed it),
+     herm_tol (max |H - H^dagger|), resid_tol (max |H U - U diag(w)|,
+     max |U^dagger U - I|, and the Hessian symmetry residual
+@@ -337,9 +345,9 @@
+     formed. All contractions, outer products and basis transforms use
+     numpy.einsum(..., optimize=False); the 4x4 blocks use numpy.linalg.eigh.
+ 
+-    Scope: native finite spatial-source coefficient of the square off-diagonal
+-    only; not the complete spatial response; no calibration, physical state,
+-    speed or geometry.
++    Scope: exact-r pure-flip reference coefficients only (spatial-source
++    derivatives of the square off-diagonal), not full-parent validity; not the
++    complete spatial response; no calibration, physical state, speed or geometry.
+     """
+     result = _new_result()
+     failures = result["failures"]
+@@ -413,8 +421,6 @@
+     result["delta"] = delta
+     if not (np.isfinite(r2) and np.isfinite(mu0) and np.isfinite(delta)):
+         failures.append("reference: r2, mu0 or delta is not finite")
+-    if not abs(r2) <= ref_tol:
+-        failures.append(f"reference: |r2| = {abs(r2)!r} exceeds ref_tol = {ref_tol!r}")
+     if not g > 0.0:
+         failures.append(f"reference: g = {g!r} is not > 0")
+     if kappa == 0:

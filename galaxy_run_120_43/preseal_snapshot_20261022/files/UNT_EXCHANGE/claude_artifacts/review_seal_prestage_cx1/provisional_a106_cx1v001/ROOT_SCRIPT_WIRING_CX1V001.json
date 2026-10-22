@@ -1,0 +1,103 @@
+{
+  "date_u": "Sun Oct 18 23:22:20 UTC 2026",
+  "status": "SOURCE_WIRING_INSPECTED_UNSELECTED_DRAFT",
+  "bash_n_exit": 0,
+  "helper_definition_delta": {
+    "added": [
+      "_gate_record_codes",
+      "_sealed_bytes",
+      "_selected_names",
+      "_tor_unsealed",
+      "c_bound_check",
+      "c_check_tor",
+      "c_gates_provenance",
+      "c_selected_names",
+      "c_slot_registry"
+    ],
+    "removed": [],
+    "changed": [
+      "c_freeze",
+      "main"
+    ]
+  },
+  "source_wiring_lines": {
+    "step0_C02_check_tor": [
+      276
+    ],
+    "step0_v003_selected_names": [
+      280
+    ],
+    "step1_exact_closed_V005_copy": [
+      331
+    ],
+    "step3_C05_C06_after_binder": [
+      396
+    ],
+    "step3b_C04_after_slots_before_sealed_prereg": [
+      420
+    ],
+    "step4a_C02_before_tool3": [
+      450
+    ],
+    "step8_C03_uses_pinned_GATES_ONLY_json_body": [
+      482
+    ],
+    "step10_C02_before_tool4": [
+      515
+    ],
+    "C08_postseal_root_next_instruction_only": [
+      568
+    ],
+    "pending_marker_refusal": [
+      259
+    ]
+  },
+  "step_call_order": {
+    "step3_bind": 583,
+    "step3a_fill": 584,
+    "step3b_c04": 585,
+    "step4_sealed_prereg": 586,
+    "step4a_tool3": 587,
+    "step5_sealed_compare": 588
+  },
+  "tested_source_facts": [
+    "Snapshot helper pin equals script literal.",
+    "Final V005 SHA and byte count are literal constants and caller-supplied freeze SHA is removed.",
+    "Pending r6/v003 marker refusals are retained.",
+    "New C02, C04, C05/C06 and C03 calls occur at the recorded assembly boundaries.",
+    "C03 shell accesses the actual gates_only_json path/hash return members from existing helper; no original step8 was run."
+  ],
+  "pending_notes": [
+    "C08 is a post-seal root_next instruction at this snapshot; root must still supply actual manual confirmation and its required seal-record note. No completed manual check is inferred from the string.",
+    "README_SEAL_ASSEMBLY_C3_c3v004.md named by the draft was not yet present at inspection; final publication must supply and check those instructions.",
+    "Final r6/v003 interface wiring is not done: original tool placeholders remain, no --addendum-at-text-of-record flag supplied, and helper disposition contract is unchanged pending integration.",
+    "P12 explicitly preserves strict C04 refusal for current EPS_NGC/I1T_NGC registry coverage; root ruling is not supplied by this review."
+  ],
+  "untested": [
+    "Original script execution",
+    "Real freeze/output-root/registry or scientific records",
+    "Final selected tuple and scientific outcomes"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/ROOT_SEAL_STEPS_c3v011.sh",
+      "sha256": "af74e9bde45a5ec0d082ed61f61261757986f1796ebf448746355bf1871111dc",
+      "bytes": 57425
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/seal_steps_c3sa_c3v012.py",
+      "sha256": "b13483966fcb8755608d73e05c0e70dc94e39a2b07635f54efc0c86849748bac",
+      "bytes": 85799
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/selected_publication_v003/seal_steps_c3sa_c3v011.py",
+      "sha256": "7caad125be19160c6e431dcf6be8f038cb9bba172c95f1f8059ebcdd938a0aff",
+      "bytes": 67893
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/0643_2026-10-18_claude4_claude3_codex1_A106_final_V005.md",
+      "sha256": "2926f7ab57cac05168d079807224f05317d2b71e0f0a86e7a78b92e98005172e",
+      "bytes": 1392
+    }
+  ]
+}

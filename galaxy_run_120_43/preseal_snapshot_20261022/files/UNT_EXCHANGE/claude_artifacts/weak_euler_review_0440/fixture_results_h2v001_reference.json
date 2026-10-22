@@ -1,0 +1,5280 @@
+{
+ "meta": {
+  "harness_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/weak_euler_review_0440/fixtures_weak_euler_h2v001.py",
+  "harness_sha256": "a958ecb83279bb4fa069786d0741c13e6ba757a39b6e85e5efe1a86567f8cda7",
+  "reference_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/weak_euler_review_0440/reference_weak_euler_h2v001.py",
+  "reference_sha256": "61f1982cbb48a25e1bd1a50afa13c217eb0b77bb905e7db5b19511c714b2a4ac",
+  "contract_path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/ADDITIONAL_CLAUDE_WEAK_EULER_TASKS_V001.json",
+  "contract_sha256_pinned": "5c30449de636b1f3da751d07ad90caafe964ed19444b0648df8fd9726ade9ebe",
+  "contract_sha256_observed": "5c30449de636b1f3da751d07ad90caafe964ed19444b0648df8fd9726ade9ebe",
+  "contract_hash_verified": true,
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "tolerances": {
+   "RTOL": 1e-12,
+   "PROP_RTOL": 1e-12,
+   "FLOOR": 1.0,
+   "note": "scale-aware error max|got-exp|/max(max|exp|,1); all fixture inputs are O(1) so the floor only turns comparisons of structurally zero arrays into absolute 1e-12 tests; F5 requires b == 0 exactly; F4 requires inputs bitwise unchanged."
+  },
+  "target": {
+   "label": "reference_weak_euler_h2v001.reference_assemble (loop transcription)",
+   "module_path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/weak_euler_review_0440/reference_weak_euler_h2v001.py",
+   "module_sha256": "61f1982cbb48a25e1bd1a50afa13c217eb0b77bb905e7db5b19511c714b2a4ac",
+   "func": "reference_assemble",
+   "note": "F6 skipped: the reference performs no validation by design; F1 compares the reference with itself and is trivially satisfied here"
+  },
+  "adapter": "identity",
+  "skipped_fixtures": [
+   "F6"
+  ],
+  "scope": "manufactured synthetic arrays only; no project data or modules; implementation conformance to the contract text, not a physical verdict"
+ },
+ "summary": {
+  "counts": {
+   "pass": 46,
+   "record": 2,
+   "skipped": 1
+  },
+  "by_fixture": {
+   "F0": {
+    "pass": 2
+   },
+   "F1": {
+    "pass": 9
+   },
+   "F2": {
+    "pass": 15
+   },
+   "F3": {
+    "pass": 13
+   },
+   "F4": {
+    "pass": 5,
+    "record": 2
+   },
+   "F5": {
+    "pass": 2
+   },
+   "F6": {
+    "skipped": 1
+   }
+  },
+  "failures": [],
+  "all_pass": true
+ },
+ "n_target_calls_F0_F5": 95,
+ "checks": [
+  {
+   "fixture": "F0",
+   "name": "F0_hand_case_npoints1_nfree1",
+   "status": "pass",
+   "max_error": 1.8479905026253943e-16,
+   "tol": 1e-12,
+   "detail": {
+    "inputs": "npoints=1, nfree=1: R=2, rho=8, P=12, K_R=1, K_z=3, P_R=16, P_z=-24, Omega=2, Omega_R=1.5, Omega_z=-1, volume_weights=0.5, U_R=1+2i, U_phi=2-i, U_z=-1+i, divU=3-2i, G=2+i, f_R=1-i, f_phi=2i, f_z=-3+i, m=2, gamma=5/3, normalization_scale=4",
+    "per_key_error": {
+     "A": 1.9358756611472874e-17,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 1.8479905026253943e-16,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {},
+    "got": {
+     "A": [
+      [
+       -366.625,
+       17.437500000000007
+      ]
+     ],
+     "b": [
+      [
+       -1.0,
+       -3.0
+      ]
+     ],
+     "E": [
+      [
+       2.0,
+       -5.0
+      ]
+     ],
+     "PM": [
+      [
+       69.00000000000001,
+       -157.50000000000003
+      ]
+     ],
+     "VR": [
+      [
+       -8.0,
+       4.0
+      ]
+     ],
+     "VP": [
+      [
+       -1.0,
+       4.0
+      ]
+     ],
+     "VZ": [
+      [
+       -4.0,
+       -4.0
+      ]
+     ]
+    },
+    "expected": {
+     "E": [
+      2.0,
+      -5.0
+     ],
+     "PM": [
+      69.0,
+      -157.5
+     ],
+     "VR": [
+      -8.0,
+      4.0
+     ],
+     "VP": [
+      -1.0,
+      4.0
+     ],
+     "VZ": [
+      -4.0,
+      -4.0
+     ],
+     "A": [
+      -366.625,
+      17.4375
+     ],
+     "b": [
+      -1.0,
+      -3.0
+     ]
+    }
+   }
+  },
+  {
+   "fixture": "F0",
+   "name": "F0_hand_values_exact_rational_selfcheck",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 0.0,
+   "detail": {
+    "mismatched_hand_values": [],
+    "note": "hard-coded hand values re-derived in exact Fraction arithmetic; target not called"
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np7_nf3_seed11_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     7,
+     3
+    ],
+    "seed": 11,
+    "normalization_scale": 1.252666999243865,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np7_nf3_seed12_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     7,
+     3
+    ],
+    "seed": 12,
+    "normalization_scale": 3.5182735262187923,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np7_nf3_seed13_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     7,
+     3
+    ],
+    "seed": 13,
+    "normalization_scale": 0.6166452320045142,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np4_nf4_seed21_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     4,
+     4
+    ],
+    "seed": 21,
+    "normalization_scale": 3.4388303929638457,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np4_nf4_seed22_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     4,
+     4
+    ],
+    "seed": 22,
+    "normalization_scale": 3.382535466252686,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np4_nf4_seed23_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     4,
+     4
+    ],
+    "seed": 23,
+    "normalization_scale": 3.8861388964889585,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np16_nf5_seed31_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     16,
+     5
+    ],
+    "seed": 31,
+    "normalization_scale": 1.477069876181255,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np16_nf5_seed32_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     16,
+     5
+    ],
+    "seed": 32,
+    "normalization_scale": 3.2684394078533447,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F1",
+   "name": "F1_reference_np16_nf5_seed33_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "shape": [
+     16,
+     5
+    ],
+    "seed": 33,
+    "normalization_scale": 0.7901165942927446,
+    "per_m_error": {
+     "m=1": 0.0,
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "per_key_max_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "failing_m": [],
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2a_Omega_only",
+   "status": "pass",
+   "max_error": 1.6122930722160254e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "inertial terms with uniform-in-z rotation only; A must be Hermitian",
+    "per_key_error": {
+     "A": 1.6122930722160254e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {},
+    "hermitian_error": 1.1446602733249635e-16
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2b_Omega_with_Omega_R",
+   "status": "pass",
+   "max_error": 1.600063957143301e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "radial shear; A must stay Hermitian",
+    "per_key_error": {
+     "A": 1.600063957143301e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {},
+    "hermitian_error": 5.939515772548879e-17
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2c_Omega_with_Omega_z_vertical_shear_alone",
+   "status": "pass",
+   "max_error": 1.6460070357033032e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "vertical shear; contract gives U_R^H diag(2 vw rho Omega R Omega_z) U_z only",
+    "per_key_error": {
+     "A": 1.6460070357033032e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2d_P_R_only",
+   "status": "pass",
+   "max_error": 8.405194972922533e-17,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "-U_R^H diag(vw P_R/rho) G",
+    "per_key_error": {
+     "A": 8.405194972922533e-17,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2e_P_z_only",
+   "status": "pass",
+   "max_error": 7.872482768936011e-17,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "-U_z^H diag(vw P_z/rho) G",
+    "per_key_error": {
+     "A": 7.872482768936011e-17,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2f_K_R_only",
+   "status": "pass",
+   "max_error": 2.38403381417908e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "+divU^H diag(vw rho^gamma K_R) U_R",
+    "per_key_error": {
+     "A": 2.38403381417908e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2g_K_z_only",
+   "status": "pass",
+   "max_error": 2.0505685945438603e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "+divU^H diag(vw rho^gamma K_z) U_z",
+    "per_key_error": {
+     "A": 2.0505685945438603e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2h_K_R_and_K_z",
+   "status": "pass",
+   "max_error": 2.5272543116643577e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "both enthalpy-gradient terms",
+    "per_key_error": {
+     "A": 2.5272543116643577e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2i_G_with_P_only",
+   "status": "pass",
+   "max_error": 1.3952475992930135e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "-divU^H diag(vw gamma P/rho) G",
+    "per_key_error": {
+     "A": 1.3952475992930135e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2j_forcing_only",
+   "status": "pass",
+   "max_error": 1.6416511059966406e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "b=-U^H(vw rho f), A=0",
+    "per_key_error": {
+     "A": 0.0,
+     "b": 1.6416511059966406e-16,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2k_f_R_only",
+   "status": "pass",
+   "max_error": 1.7005699311358865e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "b=-U_R^H(vw rho f_R)",
+    "per_key_error": {
+     "A": 0.0,
+     "b": 1.7005699311358865e-16,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2l_f_phi_only",
+   "status": "pass",
+   "max_error": 1.3554881809903345e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "b=-U_phi^H(vw rho f_phi); no extra i*m/R",
+    "per_key_error": {
+     "A": 0.0,
+     "b": 1.3554881809903345e-16,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2m_f_z_only",
+   "status": "pass",
+   "max_error": 1.7185930833781426e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "b=-U_z^H(vw rho f_z)",
+    "per_key_error": {
+     "A": 0.0,
+     "b": 1.7185930833781426e-16,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2n_radial_shear_difference",
+   "status": "pass",
+   "max_error": 9.352709212267332e-17,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "A(Omega,Omega_R)-A(Omega)=U_R^H diag(2 vw rho Omega R Omega_R) U_R / ns",
+    "per_key_error": {
+     "A": 9.352709212267332e-17,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 6.700225199658827e-17,
+     "VZ": 0.0
+    },
+    "scale": "max(|operand1|,|operand2|,1) per key"
+   }
+  },
+  {
+   "fixture": "F2",
+   "name": "F2o_vertical_shear_difference",
+   "status": "pass",
+   "max_error": 2.0285162850232855e-16,
+   "tol": 1e-12,
+   "detail": {
+    "isolates": "A(Omega,Omega_z)-A(Omega)=U_R^H diag(2 vw rho Omega R Omega_z) U_z / ns",
+    "per_key_error": {
+     "A": 2.0285162850232855e-16,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 7.396467382973863e-17,
+     "VZ": 0.0
+    },
+    "scale": "max(|operand1|,|operand2|,1) per key"
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_global_phase_A_invariant_b_times_exp_minus_it",
+   "status": "pass",
+   "max_error": 2.4705765441114767e-16,
+   "tol": 1e-12,
+   "detail": {
+    "t": 0.7,
+    "per_key_error": {
+     "A": 1.8254020545801638e-16,
+     "b": 1.746162105831917e-16,
+     "E": 1.5721962058912457e-16,
+     "PM": 2.4705765441114767e-16,
+     "VR": 1.0194139341715713e-16,
+     "VP": 1.9742427961905621e-16,
+     "VZ": 1.4374092566361869e-16
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_column_phases_A_kj_times_exp_i_tj_minus_tk",
+   "status": "pass",
+   "max_error": 2.4694461321694616e-16,
+   "tol": 1e-12,
+   "detail": {
+    "t_j": [
+     0.3,
+     -1.1,
+     2.0
+    ],
+    "per_key_error": {
+     "A": 1.7882332148617207e-16,
+     "b": 2.4694461321694616e-16,
+     "E": 1.5721962058912457e-16,
+     "PM": 1.7908316136129037e-16,
+     "VR": 1.0194139341715716e-16,
+     "VP": 1.5607759725354423e-16,
+     "VZ": 1.016401832707762e-16
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_b_linear_in_forcing_A_and_maps_independent",
+   "status": "pass",
+   "max_error": 1.6368192734095783e-16,
+   "tol": 1e-12,
+   "detail": {
+    "alpha": [
+     0.6,
+     -1.3
+    ],
+    "beta": [
+     -0.4,
+     0.9
+    ],
+    "errors": {
+     "b_linear": 1.6368192734095783e-16,
+     "A_f2_unchanged": 0.0,
+     "E_f2_unchanged": 0.0,
+     "PM_f2_unchanged": 0.0,
+     "VR_f2_unchanged": 0.0,
+     "VP_f2_unchanged": 0.0,
+     "VZ_f2_unchanged": 0.0,
+     "A_combination_unchanged": 0.0,
+     "E_combination_unchanged": 0.0,
+     "PM_combination_unchanged": 0.0,
+     "VR_combination_unchanged": 0.0,
+     "VP_combination_unchanged": 0.0,
+     "VZ_combination_unchanged": 0.0,
+     "A_zero_unchanged": 0.0,
+     "E_zero_unchanged": 0.0,
+     "PM_zero_unchanged": 0.0,
+     "VR_zero_unchanged": 0.0,
+     "VP_zero_unchanged": 0.0,
+     "VZ_zero_unchanged": 0.0
+    },
+    "A_bitwise_independent_of_forcing": {
+     "f2": true,
+     "combination": true,
+     "zero": true
+    }
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_volume_weights_times_2_scales_A_b_maps_unchanged",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "c": 2.0,
+    "per_key_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "bitwise": {
+     "A": true,
+     "b": true,
+     "E": true,
+     "PM": true,
+     "VR": true,
+     "VP": true,
+     "VZ": true
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_volume_weights_times_0.37_scales_A_b_maps_unchanged",
+   "status": "pass",
+   "max_error": 3.588341023371965e-16,
+   "tol": 1e-12,
+   "detail": {
+    "c": 0.37,
+    "per_key_error": {
+     "A": 2.0992093119655156e-16,
+     "b": 3.588341023371965e-16,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "bitwise": {
+     "A": false,
+     "b": false,
+     "E": true,
+     "PM": true,
+     "VR": true,
+     "VP": true,
+     "VZ": true
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_normalization_scale_times_3_divides_A_b_maps_unchanged",
+   "status": "pass",
+   "max_error": 1.1650256149231308e-16,
+   "tol": 1e-12,
+   "detail": {
+    "c": 3.0,
+    "per_key_error": {
+     "A": 1.1650256149231308e-16,
+     "b": 1.6370269742174223e-17,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "maps_bitwise_unchanged": {
+     "E": true,
+     "PM": true,
+     "VR": true,
+     "VP": true,
+     "VZ": true
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_A_quadratic_in_m_third_difference_vanishes",
+   "status": "pass",
+   "max_error": 2.1395662499880874e-16,
+   "tol": 1e-12,
+   "detail": {
+    "per_window_error": {
+     "m1..4": 1.2794521181039775e-16,
+     "m2..5": 2.1395662499880874e-16,
+     "m3..6": 1.8081082970360343e-16
+    },
+    "scale_max_abs_A": 1267.3087527488847
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_A_second_difference_in_m_equals_minus2_weighted_Omega2_gram",
+   "status": "pass",
+   "max_error": 2.3751004244449775e-16,
+   "tol": 1e-12,
+   "detail": {
+    "expected": "-2*[U_R^H diag(vw rho Omega^2) U_R + U_phi^H(..)U_phi + U_z^H(..)U_z]/ns",
+    "per_m_error": {
+     "m=2": 4.765699945542467e-17,
+     "m=3": 6.729026439517193e-17,
+     "m=4": 2.365713565840589e-16,
+     "m=5": 2.3751004244449775e-16
+    },
+    "scale_max_abs_A": 1267.3087527488847
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_b_independent_of_m",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "per_m_error_vs_m1": {
+     "m=2": 0.0,
+     "m=3": 0.0,
+     "m=4": 0.0,
+     "m=5": 0.0,
+     "m=6": 0.0
+    },
+    "bitwise_all": true
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_E_and_PM_independent_of_m",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "errors": {
+     "E_m=2": 0.0,
+     "PM_m=2": 0.0,
+     "E_m=3": 0.0,
+     "PM_m=3": 0.0,
+     "E_m=4": 0.0,
+     "PM_m=4": 0.0,
+     "E_m=5": 0.0,
+     "PM_m=5": 0.0,
+     "E_m=6": 0.0,
+     "PM_m=6": 0.0
+    }
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_VR_VZ_proportional_to_m_VP_affine_in_m",
+   "status": "pass",
+   "max_error": 2.26506357144907e-16,
+   "tol": 1e-12,
+   "detail": {
+    "errors": {
+     "VR_m=2": 0.0,
+     "VZ_m=2": 0.0,
+     "VR_m=3": 1.0194139341715716e-16,
+     "VZ_m=3": 1.016401832707762e-16,
+     "VP_affine_m=3": 1.9742427961905621e-16,
+     "VR_m=4": 0.0,
+     "VZ_m=4": 0.0,
+     "VP_affine_m=4": 1.252061114201573e-16,
+     "VR_m=5": 1.094149849928702e-16,
+     "VZ_m=5": 1.22917403266995e-16,
+     "VP_affine_m=5": 2.088697528418675e-16,
+     "VR_m=6": 1.0194139341715716e-16,
+     "VZ_m=6": 1.016401832707762e-16,
+     "VP_affine_m=6": 2.26506357144907e-16
+    }
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_R_times_2_with_shears_divided_leaves_all_outputs_unchanged",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "c": 2.0,
+    "per_key_error": {
+     "A": 0.0,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 0.0,
+     "VZ": 0.0
+    },
+    "bitwise": {
+     "A": true,
+     "b": true,
+     "E": true,
+     "PM": true,
+     "VR": true,
+     "VP": true,
+     "VZ": true
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F3",
+   "name": "F3_R_times_3_with_shears_divided_leaves_all_outputs_unchanged",
+   "status": "pass",
+   "max_error": 3.8834187164104356e-17,
+   "tol": 1e-12,
+   "detail": {
+    "c": 3.0,
+    "per_key_error": {
+     "A": 3.8834187164104356e-17,
+     "b": 0.0,
+     "E": 0.0,
+     "PM": 0.0,
+     "VR": 0.0,
+     "VP": 3.490001172237593e-17,
+     "VZ": 0.0
+    },
+    "bitwise": {
+     "A": false,
+     "b": true,
+     "E": true,
+     "PM": true,
+     "VR": true,
+     "VP": false,
+     "VZ": true
+    },
+    "notes": {}
+   }
+  },
+  {
+   "fixture": "F4",
+   "name": "F4_PM_uses_supplied_G_verbatim",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 1e-12,
+   "detail": {
+    "expected": "PM == (gamma*P/rho)[:,None]*G + rho[:,None]**gamma*E with the SUPPLIED G",
+    "per_key_error": {
+     "E": 0.0,
+     "PM": 0.0
+    },
+    "notes": {},
+    "normalized_overlap_G_divU": 0.13340012695822606
+   }
+  },
+  {
+   "fixture": "F4",
+   "name": "F4_G_enters_A_and_PM_linearly_as_supplied",
+   "status": "pass",
+   "max_error": 1.6750074208995515e-16,
+   "tol": 1e-12,
+   "detail": {
+    "expected": "A(G1)-A(G2) = -[divU^H diag(vw gamma P/rho) + U_R^H diag(vw P_R/rho) + U_z^H diag(vw P_z/rho)](G1-G2)/ns ; PM(G1)-PM(G2)=(gamma P/rho)(G1-G2)",
+    "errors": {
+     "A_difference": 1.6750074208995515e-16,
+     "PM_difference": 8.94474208965191e-17,
+     "b_unchanged": 0.0,
+     "E_unchanged": 0.0,
+     "VR_unchanged": 0.0,
+     "VP_unchanged": 0.0,
+     "VZ_unchanged": 0.0
+    }
+   }
+  },
+  {
+   "fixture": "F4",
+   "name": "F4_divU_enters_only_the_pressure_term",
+   "status": "pass",
+   "max_error": 3.1468671474547895e-16,
+   "tol": 1e-12,
+   "detail": {
+    "expected": "A(divU1)-A(divU2) = -(divU1-divU2)^H diag(vw) PM / ns ; maps and b unchanged",
+    "errors": {
+     "A_difference": 3.1468671474547895e-16,
+     "b_unchanged": 0.0,
+     "E_unchanged": 0.0,
+     "PM_unchanged": 0.0,
+     "VR_unchanged": 0.0,
+     "VP_unchanged": 0.0,
+     "VZ_unchanged": 0.0
+    }
+   }
+  },
+  {
+   "fixture": "F4",
+   "name": "F4_output_shapes_and_complex_dtype",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": null,
+   "detail": {
+    "npoints": 7,
+    "nfree": 3,
+    "outputs": {
+     "A": {
+      "type": "ndarray",
+      "shape": [
+       3,
+       3
+      ],
+      "dtype": "complex128"
+     },
+     "b": {
+      "type": "ndarray",
+      "shape": [
+       3
+      ],
+      "dtype": "complex128"
+     },
+     "E": {
+      "type": "ndarray",
+      "shape": [
+       7,
+       3
+      ],
+      "dtype": "complex128"
+     },
+     "PM": {
+      "type": "ndarray",
+      "shape": [
+       7,
+       3
+      ],
+      "dtype": "complex128"
+     },
+     "VR": {
+      "type": "ndarray",
+      "shape": [
+       7,
+       3
+      ],
+      "dtype": "complex128"
+     },
+     "VP": {
+      "type": "ndarray",
+      "shape": [
+       7,
+       3
+      ],
+      "dtype": "complex128"
+     },
+     "VZ": {
+      "type": "ndarray",
+      "shape": [
+       7,
+       3
+      ],
+      "dtype": "complex128"
+     }
+    },
+    "problems": []
+   }
+  },
+  {
+   "fixture": "F4",
+   "name": "F4_output_input_aliasing_record",
+   "status": "record",
+   "max_error": null,
+   "tol": null,
+   "detail": {
+    "output_input_memory_sharing": [],
+    "note": "record only; the contract is silent on aliasing"
+   }
+  },
+  {
+   "fixture": "F5",
+   "name": "F5_zero_forcing_gives_b_exactly_zero_m1to6",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 0.0,
+   "detail": {
+    "criterion": "b == 0 exactly with shape (nfree,), every m in 1..6, with nonzero G, P, K, P_R, P_z, Omega, Omega_R, Omega_z",
+    "per_m": {
+     "m=1": {
+      "max_abs_b": 0.0,
+      "b_shape": [
+       3
+      ],
+      "max_abs_A": 32.84101530197948
+     },
+     "m=2": {
+      "max_abs_b": 0.0,
+      "b_shape": [
+       3
+      ],
+      "max_abs_A": 124.00568456005453
+     },
+     "m=3": {
+      "max_abs_b": 0.0,
+      "b_shape": [
+       3
+      ],
+      "max_abs_A": 291.0971400836691
+     },
+     "m=4": {
+      "max_abs_b": 0.0,
+      "b_shape": [
+       3
+      ],
+      "max_abs_A": 529.0340555054169
+     },
+     "m=5": {
+      "max_abs_b": 0.0,
+      "b_shape": [
+       3
+      ],
+      "max_abs_A": 837.5243989350314
+     },
+     "m=6": {
+      "max_abs_b": 0.0,
+      "b_shape": [
+       3
+      ],
+      "max_abs_A": 1216.500260333237
+     }
+    },
+    "failing_m": []
+   }
+  },
+  {
+   "fixture": "F5",
+   "name": "F5_zero_forcing_static_background_b_exactly_zero",
+   "status": "pass",
+   "max_error": 0.0,
+   "tol": 0.0,
+   "detail": {
+    "criterion": "b == 0 exactly; Omega=0 with nonzero P_R, P_z, K, G (no m0 pressure-gradient or background residual injection)",
+    "b_shape": [
+     3
+    ]
+   }
+  },
+  {
+   "fixture": "F4",
+   "name": "F4_inputs_unchanged_bitwise_all_calls",
+   "status": "pass",
+   "max_error": null,
+   "tol": null,
+   "detail": {
+    "n_target_calls_checked": 95,
+    "mutations": []
+   }
+  },
+  {
+   "fixture": "F4",
+   "name": "F4_output_keys_record",
+   "status": "record",
+   "max_error": null,
+   "tol": null,
+   "detail": {
+    "raw_return_key_sets": [
+     [
+      "A",
+      "A_unscaled",
+      "E",
+      "PM",
+      "VP",
+      "VR",
+      "VZ",
+      "b",
+      "b_unscaled"
+     ]
+    ],
+    "canonical_key_sets_after_adapter": [
+     [
+      "A",
+      "A_unscaled",
+      "E",
+      "PM",
+      "VP",
+      "VR",
+      "VZ",
+      "b",
+      "b_unscaled"
+     ]
+    ],
+    "warnings_during_valid_calls": []
+   }
+  },
+  {
+   "fixture": "F6",
+   "name": "F6_skipped",
+   "status": "skipped",
+   "max_error": null,
+   "tol": null,
+   "detail": {}
+  }
+ ],
+ "f6_harness_selftest": {
+  "purpose": "show the F6 probes are well-formed: every reject probe must be rejected and every accept probe accepted (and match the reference) by a strict contract reading. Harness self-test only; not a reference result and not a proposed implementation.",
+  "target": "_selftest_validating_reference in fixtures_weak_euler_h2v001.py",
+  "summary": {
+   "n_probes": 218,
+   "reject": {
+    "n": 173,
+    "pass": 173,
+    "fail": 0,
+    "error": 0,
+    "record": 0,
+    "accepted": 0,
+    "rejected": 173,
+    "rejected_incidental_heuristic": 0
+   },
+   "accept": {
+    "n": 16,
+    "pass": 16,
+    "fail": 0,
+    "error": 0,
+    "record": 0,
+    "accepted": 16,
+    "rejected": 0,
+    "rejected_incidental_heuristic": 0
+   },
+   "record_only": {
+    "n": 29,
+    "pass": 0,
+    "fail": 0,
+    "error": 0,
+    "record": 29,
+    "accepted": 14,
+    "rejected": 15,
+    "rejected_incidental_heuristic": 0
+   },
+   "failing_probes": [],
+   "rejections_flagged_incidental": [],
+   "record_only_outcomes": {
+    "F6_m_bool_True": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_m_numpy_int64_2": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_gamma_numpy_float64_5/3": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_normalization_scale_bool_True": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_normalization_scale_int_2": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_provenance_whitespace_only": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_provenance_int_123": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_R_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_rho_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_P_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_K_R_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_K_z_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_P_R_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_P_z_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_Omega_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_Omega_R_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_Omega_z_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_volume_weights_complex_dtype_zero_imag": {
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "matches_reference": null
+    },
+    "F6_R_python_list": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_R_int64_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_R_float32_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_U_R_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_U_phi_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_U_z_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_divU_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_G_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_f_R_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_f_phi_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    },
+    "F6_f_z_real_dtype": {
+     "outcome": "accepted",
+     "exception_type": null,
+     "matches_reference": true
+    }
+   }
+  },
+  "checks": [
+   {
+    "fixture": "F6",
+    "name": "F6_accept_baseline_valid",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "satisfies every stated input requirement of the root JSON author_task.inputs",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_m_1",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_m_2",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_m_3",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_m_4",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_m_5",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_m_6",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_Omega_all_negative",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON requires positivity only of R/rho/P/volume_weights; every other real vector is any finite real",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_Omega_all_zero",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON requires positivity only of R/rho/P/volume_weights; every other real vector is any finite real",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_no_radial_or_vertical_shear",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON requires positivity only of R/rho/P/volume_weights; every other real vector is any finite real",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_K_and_P_gradients_zero",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "root JSON requires positivity only of R/rho/P/volume_weights; every other real vector is any finite real",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_G_zero_map",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "a zero map is a finite complex map",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_divU_zero_map",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "a zero map is a finite complex map",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_forcing_all_zero",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "zero vectors are finite complex vectors",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_minimal_npoints1_nfree1",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "satisfies every stated input requirement of the root JSON author_task.inputs",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_accept_wide_maps_nfree_gt_npoints",
+    "status": "pass",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "accept",
+     "basis": "contract states (npoints, nfree) maps with no ordering constraint; assembly performs no solve",
+     "group": "accept",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_R",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "R",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'R'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_rho",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "rho",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'rho'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_P",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "P",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'P'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_K_R",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "K_R",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'K_R'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_K_z",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "K_z",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'K_z'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_P_R",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "P_R",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'P_R'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_P_z",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "P_z",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'P_z'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_Omega",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "Omega",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'Omega'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_Omega_R",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "Omega_R",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'Omega_R'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_Omega_z",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "Omega_z",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'Omega_z'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_volume_weights",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "volume_weights",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'volume_weights'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_U_R",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "U_R",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'U_R'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_U_phi",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "U_phi",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'U_phi'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_U_z",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "U_z",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'U_z'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_divU",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "divU",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'divU'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_G",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "G",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'G'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_f_R",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "f_R",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'f_R'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_f_phi",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "f_phi",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'f_phi'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_f_z",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "f_z",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'f_z'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_m",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "m",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'm'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_gamma",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "gamma",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'gamma'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_normalization_scale",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "normalization_scale",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'normalization_scale'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_missing_provenance",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "missing_kwarg",
+     "call_mode": "kw",
+     "dropped_kwarg": "provenance",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() missing 1 required keyword-only argument: 'provenance'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_positional_call",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults",
+     "group": "call_form",
+     "call_mode": "positional",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() takes 0 positional arguments but 23 were given",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_unknown_extra_kwarg",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "0439: all inputs are REQUIRED KEYWORD-ONLY arguments with no numerical defaults; root JSON: no hidden callbacks/defaults; an unknown keyword is not a contract input and must not be silently ignored",
+     "group": "call_form",
+     "call_mode": "extra",
+     "outcome": "rejected",
+     "exception_type": "TypeError",
+     "message": "_selftest_validating_reference() got an unexpected keyword argument 'h2_unexpected_probe_kwarg'",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_0",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_7",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_minus1",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_float_1.0",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_float_1.5",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_str_1",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_None",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON author_task.inputs: Integer m 1..6",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_bool_True",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on bool (Python bool subclasses int, True == 1); the pinned prior root weak code L18 uses type(m) is not int, which would reject it",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: m must be an integer in 1..6",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_m_numpy_int64_2",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on Python vs numpy integer type; the pinned prior root weak code L18 would reject numpy integers",
+     "group": "m",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_gamma_1.4",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: gamma=5/3 supplied; 0439: validate gamma=5/3",
+     "group": "gamma",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: gamma must equal 5/3",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_gamma_5/3_plus_1e-12",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: gamma=5/3 supplied; 0439: validate gamma=5/3 (strict-equality reading: no module-chosen tolerance)",
+     "group": "gamma",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: gamma must equal 5/3",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_gamma_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: gamma=5/3 supplied; 0439: validate gamma=5/3",
+     "group": "gamma",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: gamma must equal 5/3",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_gamma_str_5/3",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: gamma=5/3 supplied; 0439: validate gamma=5/3",
+     "group": "gamma",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: gamma must equal 5/3",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_gamma_None",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: gamma=5/3 supplied; 0439: validate gamma=5/3",
+     "group": "gamma",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: gamma must equal 5/3",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_gamma_numpy_float64_5/3",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "value is exactly 5/3 (np.float64 subclasses float); contract silent on scalar type",
+     "group": "gamma",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_0",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: positive explicit normalization_scale",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: normalization_scale must be a positive finite real",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_minus1",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: positive explicit normalization_scale",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: normalization_scale must be a positive finite real",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: positive explicit normalization_scale",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: normalization_scale must be a positive finite real",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: positive explicit normalization_scale; inf is not a finite positive real scale and would silently zero A and b; the pinned prior root weak code L60 rejects a nonfinite scale",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: normalization_scale must be a positive finite real",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_str_1",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: positive explicit normalization_scale",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: normalization_scale must be a positive finite real",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_None",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: positive explicit normalization_scale",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: normalization_scale must be a positive finite real",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_bool_True",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on bool (True == 1)",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: normalization_scale must be a positive finite real",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_normalization_scale_int_2",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on scalar type; 2 is positive",
+     "group": "normalization_scale",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_provenance_empty",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: nonempty provenance",
+     "group": "provenance",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: provenance must be a nonblank string",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_provenance_None",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: nonempty provenance",
+     "group": "provenance",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: provenance must be a nonblank string",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_provenance_whitespace_only",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "nonempty but blank; contract silent on whitespace",
+     "group": "provenance",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: provenance must be a nonblank string",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_provenance_int_123",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract states nonempty provenance without a type (the analogous 0438 contract says string)",
+     "group": "provenance",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: provenance must be a nonblank string",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_zero_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_all_zero",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_negative_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: R must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_zero_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_all_zero",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_rho_negative_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: rho must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_zero_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_all_zero",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_negative_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_R_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_R length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_R_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_R_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_R_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_R_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_R_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_R_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_z_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_z length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_z_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_z must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_z_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_z must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_z_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_z_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_z_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_z must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_K_z_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: K_z must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_R_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_R length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_R_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_R_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_R_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_R_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_R_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_R_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_z_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_z length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_z_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_z must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_z_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_z must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_z_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_z_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_z_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_z must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_P_z_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: P_z must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_R_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_R length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_R_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_R_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_R must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_R_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_R_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_R_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_R_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_R must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_z_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_z length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_z_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_z must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_z_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_z must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_z_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_z_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_z_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_z must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_Omega_z_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: Omega_z must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights length mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real finite vectors, each of shape (npoints,) (0439: validate shapes consistently); a 0-d scalar would broadcast silently",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must be 1-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required real FINITE vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_complex_nonzero_imag",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required REAL finite vectors",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_complex_dtype_zero_imag",
+    "status": "record",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "record_only",
+     "basis": "values are real; contract silent on dtype",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must have a real numeric dtype",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_zero_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_all_zero",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_volume_weights_negative_entry",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: R/rho/P/volume_weights positive",
+     "group": "positivity",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: volume_weights must be positive",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_python_list",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on container type",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_int64_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype (integer values are real)",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_R_float32_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on precision",
+     "group": "real_vector",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_wrong_npoints",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_R shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_mismatched_nfree",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_1d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_R must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_3d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_R must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_nan_real_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_nan_imag_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_R_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype; real values are complex numbers with zero imaginary part",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_wrong_npoints",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_mismatched_nfree",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_1d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_3d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_nan_real_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_nan_imag_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_phi must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_phi_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype; real values are complex numbers with zero imaginary part",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_wrong_npoints",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_z shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_mismatched_nfree",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_z shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_1d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_z must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_3d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_z must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_nan_real_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_nan_imag_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: U_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_U_z_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype; real values are complex numbers with zero imaginary part",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_wrong_npoints",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: divU shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_mismatched_nfree",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: divU shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_1d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: divU must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_3d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: divU must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_nan_real_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: divU must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_nan_imag_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: divU must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: divU must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_divU_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype; real values are complex numbers with zero imaginary part",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_wrong_npoints",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: G shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_mismatched_nfree",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: G shape mismatch",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_1d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: G must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_3d",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: G must be 2-D",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_nan_real_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: G must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_nan_imag_part",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: G must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite npoints x nfree maps; 0439: validate real/complex finite shapes consistently",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: G must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_G_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype; real values are complex numbers with zero imaginary part",
+     "group": "map",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_R_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_R must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_R_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_R must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_R_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,); a 0-d scalar would broadcast silently",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_R must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_R_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_R_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_R must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_R_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_phi_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_phi must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_phi_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_phi must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_phi_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,); a 0-d scalar would broadcast silently",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_phi must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_phi_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_phi must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_phi_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_phi must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_phi_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_z_wrong_length",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_z must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_z_2d_column",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_z must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_z_0d_scalar",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,); a 0-d scalar would broadcast silently",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_z must have shape (npoints,)",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_z_nan",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_z_inf",
+    "status": "pass",
+    "max_error": null,
+    "tol": null,
+    "detail": {
+     "expected": "reject",
+     "basis": "root JSON: required complex finite forcing-gradient vectors of shape (npoints,)",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "rejected",
+     "exception_type": "ValueError",
+     "message": "h2 selftest validator: f_z must be finite",
+     "incidental_error_heuristic": false
+    }
+   },
+   {
+    "fixture": "F6",
+    "name": "F6_f_z_real_dtype",
+    "status": "record",
+    "max_error": 0.0,
+    "tol": 1e-12,
+    "detail": {
+     "expected": "record_only",
+     "basis": "contract silent on dtype",
+     "group": "forcing",
+     "call_mode": "kw",
+     "outcome": "accepted",
+     "outputs_finite": true,
+     "reference_error": 0.0,
+     "matches_reference": true
+    }
+   }
+  ]
+ }
+}

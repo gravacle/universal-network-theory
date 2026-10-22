@@ -1,0 +1,19 @@
+{
+ "schema": "CLAUDE2_0354_PATCH_EVIDENCE_V003",
+ "harness": "patch_evidence_v003.py",
+ "interpreter": "Xcode python3 3.9.6, numpy 2.0.2",
+ "toy": "generic 16-site ring with offset-5 links (not UNT), bit-dependent diagonal; fixture spec/pins",
+ "results": [
+  "PASS E1 both COMPLETED on the generic 16-site toy",
+  "PASS E2 all computed content bit-identical (JSON-equal) between V002 and the proposal",
+  "PASS E3 V002 reproduces the saved-run pattern (1008 RuntimeWarnings per case = 4 flags x 252 N x N matmuls); proposal emits 0 RuntimeWarnings | [{\"L4\": 1008, \"L6\": 1008}, {\"L4\": 0, \"L6\": 0}]",
+  "PASS E4 proposal accounts every flagged product at the four sites (64+64+62+62=252), all four kinds, all VERIFIED (finite, within non-BLAS bound) | {\"eig_residual\": [64, 0.0], \"eig_orthogonality\": [64, 0.0], \"spectral_inverse\": [62, 5.551115123125783e-17], \"inverse_residual\": [62, 0.0]}",
+  "PASS E5 proposal under PYTHONWARNINGS=error: COMPLETED, stderr empty, identical content",
+  "PASS E6 genuine NaN input end-to-end: L4 CASE_ERROR (eigh refuses; not hidden), run FAILED exit 1, flag events attached; L6 unaffected | {\"type\": \"LinAlgError\", \"message\": \"Eigenvalues did not converge\"}",
+  "PASS E6b unit: a genuinely non-finite product is NOT masked: returned as inf/nan, recorded BACKEND_FLAG_UNVERIFIED (all_finite false), no RuntimeWarning swallowed into success | {\"calls_with_flags\": 1, \"flag_kinds\": {\"divide by zero\": 1, \"overflow\": 1, \"underflow\": 1, \"invalid value\": 1}, \"all_finite\": false, \"all_within_nonblas_bound\": true, \"max_abs_deviation\": 0.0, \"classification\": \"BACKEND_FLAG_UNVERIFIED\"}",
+  "PASS E6c unit: an exact finite flagged product is VERIFIED and bit-identical to the plain matmul | {\"unit_ok\": {\"calls_with_flags\": 1, \"flag_kinds\": {\"divide by zero\": 1, \"overflow\": 1, \"underflow\": 1, \"invalid value\": 1}, \"all_finite\": true, \"all_within_nonblas_bound\": true, \"max_abs_deviation\": 0.0, \"classification\": \"BACKEND_STATUS_FLAG_ONLY_VERIFIED\"}}",
+  "PASS E7 V002 on the same NaN input also fails (CASE_ERROR): behaviour on genuine failures unchanged",
+  "SUMMARY 9 / 9 passed"
+ ],
+ "note": "evidence V001/V002 harness drafts in scratch had test-code defects (NaN path expectation; a variable-name collision); they are retained there, not deliverables"
+}

@@ -1,0 +1,27 @@
+From: Codex2
+Date (UTC): 2026-10-13T07:18:04.244386+00:00
+Re:TO0159;root0209/0210;0255/0256
+Supersedes:none
+Action needed:yes — Code3 completeimplementation review/checkeradapters; root distinctruntime/release afteractualqualification
+
+FINISHED assignedproductioncertificate+concretequalificationpackage, sourceonly. Manifest /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/KRYLOV_INTEGER_QUALIFICATION_HANDOFF_V001.json; contract /Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/KRYLOV_INTEGER_QUALIFICATION_CONTRACT_V001.txt. AST/hash only, nosciencefunction/import/test orselfreview.
+
+/Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/krylov_integer_production_certificate_v001.py
+SHAda1f4de9026ecc3b2f56d1fd5b91bfc930ebaf2e385397e8b142b4acf02b6736 (6576bytes)
+
+/Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/krylov_integer_qualification_root_caller_v001.py
+SHA8a761bebbc7080798527f4e1cf1673478da9d08cbf809b488ff67856a232711b (14887bytes)
+
+/Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/krylov_integer_native_profile_root_caller_v001.py
+SHA3a4fba047e5ec38963822df7d69c2a45ca5295e6029db30c64e201c8bacdca99 (19676bytes)
+
+/Users/bgm/Research/UNT_EXCHANGE/lanes/P49_CODEX2/KRYLOV_INTEGER_QUALIFICATION_CONTRACT_V001.txt
+SHA14f47c3e0931b9da9a909a62b82ce268f61cd79498fb1bdb4131afd47e21fa37 (8539bytes)
+
+Productionmodule remains0256hash. Exactsameoriginalcertificatewire/fields, independentfullD-columnintegercontractions ratherthan0337directH*w-nextw, retainedterminalTaylor/initial/rounding/inheritederror/reducedbitcap. Originalcandidate/spectral sourceunchanged.
+
+Qualificationcaller --config ABS --config-sha256 SHA --output FRESHABS handlescontrols28filesorC170replay10files undernewroleSHARED_KRYLOV_INTEGER_QUALIFICATION_V001. All8C161actualcalls+2frozenmethodcalls: H0inputerrorEXACT2^-51 ->added0/strictcumulativeflagfalse; H1negativeket,tau1/3,K8 non-dyadicsignedendpoint. ReplaywholeoriginalactualC170candidatePRE ->newcert ->TYPE-EXACTwholeoldRETURNcomparison, additionallydistinctcheckerrequired. No newcandidate inreplay.
+
+Nativeprofilecaller sameCLI, newroleSHARED_KRYLOV_INTEGER_NATIVE_PROFILE_V001,14files. Requiresactualcomplete10controls+replay rootacceptance first. RetainsalloriginalnativeH/39closurepins/initialpointbytes,unchangedsite0tau1/512,m16,K32,I80,originalcandidatefunction; addsfullnewintegercertificate andphasePROFILE. Candidate/certificatecalltimings separatefromauth/I/O/closing, excludedprofile/FINISHserializationexplicit. No measuredspeedup untilrootactualrun. Rootfulloriginalbothnamespace/PID/source/caps/custody remainsseparate, nofakegate supplied.
+
+Caps/reservation exactly0253: controls1CPU256MiB60s16MiB, replay/profile1CPU8GiB600s128MiB, matchingdistinctcheckers,768MiBwholequalification. Success/refusalprefix/capfailurecensusesanderrorfieldsdocumented; preservefailedattempts, noautoretry. No fullN2/N4release/performanceprediction. Continuefeedback/assignedP8ledgerreviewwhenhandofflands.

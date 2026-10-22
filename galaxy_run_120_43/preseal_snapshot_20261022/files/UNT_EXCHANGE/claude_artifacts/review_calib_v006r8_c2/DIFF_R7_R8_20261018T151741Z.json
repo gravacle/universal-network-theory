@@ -1,0 +1,221 @@
+{
+ "config": [
+  {
+   "path": ".anchor.coefficients",
+   "r7": "<absent>",
+   "r8": {
+    "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/CRITICAL_PATH_EVALUATION_2026-10-17_V001/sampler_eval/CANDIDATE_4CHAIN_POOLED_GRID_V001.npz",
+    "sha256": "2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7"
+   }
+  },
+  {
+   "path": ".anchor.driver_sha256",
+   "r7": null,
+   "r8": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+  },
+  {
+   "path": ".anchor.physical",
+   "r7": "<absent>",
+   "r8": {
+    "Eref_J": 1.4642919592009638e+58,
+    "common_scale_s": 0.10154172268068731,
+    "distance_Mpc": 4.04,
+    "ell_F_m": 9.905025036587288e+19,
+    "entropy_K_factor": 0.5289256198347108,
+    "gamma": 2.941048894067774e+42,
+    "inclination_deg": 66.0
+   }
+  },
+  {
+   "path": ".anchor.registered_point",
+   "r7": "<absent>",
+   "r8": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/REGISTERED_ANCHOR_CX2V006R8.json",
+    "sha256": "7693959ceca48581a06c1ca439c02bd80fd2ecfb158073270e3d2dc614ea79c3"
+   }
+  },
+  {
+   "path": ".notes",
+   "r7": "0540 candidate only. Driver v010 r5, production P128 and gas M_s128. Fresh calls only; missing scientific evidence blocks launch/admission. Each registered D!=4.04 requires its own reviewed tail-OFF r5/v009-GEO deciding-iii pair. Root-invalid resolution is disabled for tail-ON; MODEL_INVALID needs a later certified successor. Per-call caps remain unmeasured pending ADOPT_TAIL C4-6 evidence. No old anchor alias.",
+   "r8": "0554 candidate: exact registered A2F10 template physical/coefficient anchor; no log/exp tolerance or old alias. Actual tail reanchor result, receipt and spec identity remain pending. Distinct sensitivity review SHA requires immutable root registration; A68 comparator successor remains blocked. 0540 candidate only. Driver v010 r5, production P128 and gas M_s128. Fresh calls only; missing scientific evidence blocks launch/admission. Each registered D!=4.04 requires its own reviewed tail-OFF r5/v009-GEO deciding-iii pair. Root-invalid resolution is disabled for tail-ON; MODEL_INVALID needs a later certified successor. Per-call caps remain unmeasured pending ADOPT_TAIL C4-6 evidence. No old anchor alias."
+  },
+  {
+   "path": ".tail_readiness.sensitivity_comparator_status",
+   "r7": "<absent>",
+   "r8": "A68_BLOCKED_V004_SUCCESSOR_REQUIRED"
+  },
+  {
+   "path": ".work_dir",
+   "r7": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R7_P128_MS128",
+   "r8": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R8_P128_MS128"
+  },
+  {
+   "path": ".work_dir_identity.resolved",
+   "r7": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R7_P128_MS128",
+   "r8": "/Volumes/External1/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs_ext/DDO154_CALIBRATION_ORCH_CX2V006R8_P128_MS128"
+  }
+ ],
+ "r7_manifest": {
+  "HASHES_OPERATIONS_CX2V006R7.txt": {
+   "bad": 0,
+   "bad_paths": [],
+   "ok": 15
+  },
+  "HASHES_SENSITIVITY_CX2V006R7.txt": {
+   "bad": 0,
+   "bad_paths": [],
+   "ok": 24
+  }
+ },
+ "schema": "C2_DIFF_R7_R8_V001",
+ "sources": {
+  "core": {
+   "changed_lines": 58,
+   "diff": [
+    "--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r7/calibration_core_cx2v006r7_v002.py",
+    "+++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_core_cx2v006r8_v003.py",
+    "@@ -12,0 +13 @@",
+    "+import contextvars",
+    "@@ -28,0 +30,2 @@",
+    "+REGISTERED_ANCHOR = {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/REGISTERED_ANCHOR_CX2V006R8.json', 'sha256': '7693959ceca48581a06c1ca439c02bd80fd2ecfb158073270e3d2dc614ea79c3'}",
+    "+ANCHOR_CONTEXT = contextvars.ContextVar('cx2r8_anchor', default=None)",
+    "@@ -80 +83,22 @@",
+    "-def check_deciding(dt, driver_sha256, mon, synthetic=False):",
+    "+def registered_anchor(anchor):",
+    "+    \"\"\"0554 exact target-free anchor registration, independent of a proposed row.\"\"\"",
+    "+    reg = pin_doc(REGISTERED_ANCHOR, 'registered A2F10 anchor')",
+    "+    template = pin_doc(reg['source_template'], 'registered anchor source template')",
+    "+    if (reg.get('schema') != 'DDO154_REGISTERED_ANCHOR_CX2V006R8' or",
+    "+            reg.get('galaxy') != 'DDO154' or reg.get('physical') != template.get('physical') or",
+    "+            reg.get('coefficients') != template.get('coefficients') or",
+    "+            reg['physical'].get('distance_Mpc') != 4.04 or",
+    "+            reg['coefficients'].get('sha256') != '2e3a36d888ef8a89c9a2b6073ca6123656c31317c995962c11f34d434eca6ff7'):",
+    "+        raise Error('REGISTERED_ANCHOR_SOURCE_MISMATCH')",
+    "+    coordinate = pin_doc(reg['coordinate_registration'], 'anchor coordinate registration')",
+    "+    if coordinate['trial_point']['anchor_spec'] != reg['source_template']:",
+    "+        raise Error('REGISTERED_ANCHOR_COORDINATE_MISMATCH')",
+    "+    if (not isinstance(anchor, dict) or anchor.get('registered_point') != REGISTERED_ANCHOR or",
+    "+            anchor.get('physical') != reg['physical'] or anchor.get('coefficients') != reg['coefficients'] or",
+    "+            anchor.get('driver_sha256') != DRIVER_SHA):",
+    "+        raise Error('CONFIG_ANCHOR_REGISTRATION_MISMATCH')",
+    "+    if anchor.get('use') is not False:",
+    "+        raise Error('R8_ANCHOR_ALIAS_DISABLED')",
+    "+    return reg",
+    "+",
+    "+def check_deciding(dt, driver_sha256, mon, synthetic=False, *, anchor=None):",
+    "@@ -87,0 +112,2 @@",
+    "+            anchor = ANCHOR_CONTEXT.get() if anchor is None else anchor",
+    "+            registered = registered_anchor(anchor)",
+    "@@ -108,0 +135,9 @@",
+    "+                if row['name'] == 'reanchor':",
+    "+                    if sp['physical'] != registered['physical'] or sp.get('coefficients') != registered['coefficients']:",
+    "+                        raise Error('REANCHOR_NOT_EXACT_REGISTERED_A2F10_POINT')",
+    "+                    if (anchor.get('result') is None or anchor.get('receipt') is None or",
+    "+                            anchor.get('spec_sha256') is None):",
+    "+                        raise Error('CONFIG_ANCHOR_TAIL_REANCHOR_PENDING')",
+    "+                    if (row['result'] != anchor['result'] or row['receipt'] != anchor['receipt'] or",
+    "+                            row['spec']['sha256'] != anchor['spec_sha256']):",
+    "+                        raise Error('REANCHOR_ROW_CONFIG_ANCHOR_PIN_MISMATCH')",
+    "@@ -151 +186 @@",
+    "-    p = Path(__file__).resolve().parent/'adoption_policy_cx2v006r7.py'",
+    "+    p = Path(__file__).resolve().parent.parent/'v006r7/adoption_policy_cx2v006r7.py'",
+    "@@ -221,0 +257,19 @@",
+    "+    def __init__(self,config):",
+    "+        cfg = O.load_json_file(config, 'config') if isinstance(config,(str,Path)) else config",
+    "+        registered_anchor(cfg.get('anchor'))",
+    "+        token = ANCHOR_CONTEXT.set(copy.deepcopy(cfg['anchor']))",
+    "+        try:",
+    "+            super().__init__(cfg)",
+    "+        finally:",
+    "+            ANCHOR_CONTEXT.reset(token)",
+    "+",
+    "+    def fresh_gates(self):",
+    "+        # The inherited pre-wave recheck calls the same global gate outside init.",
+    "+        # Bind this instance's anchor for that complete call, and always restore.",
+    "+        registered_anchor(self.cfg.get('anchor'))",
+    "+        token = ANCHOR_CONTEXT.set(copy.deepcopy(self.cfg['anchor']))",
+    "+        try:",
+    "+            return super().fresh_gates()",
+    "+        finally:",
+    "+            ANCHOR_CONTEXT.reset(token)",
+    "+"
+   ],
+   "r7": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r7/calibration_core_cx2v006r7_v002.py",
+    "sha256": "c022116de0831835244d0a5ee2ef3ae007b6f3e77d1985f81f7d7cc0360b2ac6"
+   },
+   "r8": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_core_cx2v006r8_v003.py",
+    "sha256": "603ab460fb039494659f5b0e03998b28ff2a7f124d9ae7fd7491340523929e08"
+   }
+  },
+  "sensitivity": {
+   "changed_lines": 19,
+   "diff": [
+    "--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r7/sensitivity_policy_cx2v006r7_v002.py",
+    "+++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/sensitivity_policy_cx2v006r8_v002.py",
+    "@@ -1 +1 @@",
+    "-\"\"\"0540 F3: exact-D, paired tail-OFF A32 identity gate. No scientific launch.",
+    "+\"\"\"0554 F3 registration: exact-D, paired tail-OFF A32 identity gate. No scientific launch.",
+    "@@ -19 +19 @@",
+    "-HERE = Path(__file__).resolve().parent",
+    "+HERE = Path(__file__).resolve().parent.parent/'v006r7'",
+    "@@ -35,0 +36,5 @@",
+    "+# Root registers independently reviewed exact file bytes in a pinned successor.",
+    "+# Reviewer names are descriptive only and confer no authorization.",
+    "+REGISTERED_DISTINCT_REVIEW_SHA256 = frozenset()",
+    "+# A68: retained c2v004 comparator is not ready for new scientific admission.",
+    "+COMPARATOR_A68_REVIEWED = False",
+    "@@ -180,0 +186 @@",
+    "+    expect(COMPARATOR_A68_REVIEWED is True,'COMPARATOR_A68_SUCCESSOR_REQUIRED')",
+    "@@ -192,0 +199,5 @@",
+    "+",
+    "+def registered_review(ref):",
+    "+    raw = read_bytes(ref)",
+    "+    expect(sha(raw) in REGISTERED_DISTINCT_REVIEW_SHA256, 'DISTINCT_REVIEW_SHA_NOT_ROOT_REGISTERED')",
+    "+    return read_json(ref)",
+    "@@ -208 +219,2 @@",
+    "-        ev=read_json(entry['evidence']);review=read_json(entry['review'])",
+    "+        ev=read_json(entry['evidence']);review=registered_review(entry['review'])",
+    "+        expect(COMPARATOR_A68_REVIEWED is True,'COMPARATOR_A68_SUCCESSOR_REQUIRED')",
+    "@@ -217 +228,0 @@",
+    "-        expect(isinstance(review.get('reviewer'),str) and review['reviewer'].strip() and review['reviewer'] not in ('Codex2','Codex2 build','CX2'),'DISTINCT_REVIEWER_REQUIRED')"
+   ],
+   "r7": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r7/sensitivity_policy_cx2v006r7_v002.py",
+    "sha256": "f0d725616c3c0332e75b8216936a92cb2aa2b9ded9321994ce3a221b86241989"
+   },
+   "r8": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/sensitivity_policy_cx2v006r8_v002.py",
+    "sha256": "8fb0660077d56ddc787ac67386f8def72e6f5a04fd14e44eb20ed9facf19de4f"
+   }
+  },
+  "wrapper": {
+   "changed_lines": 8,
+   "diff": [
+    "--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r7/calibration_orchestrator_cx2v006r7.py",
+    "+++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_orchestrator_cx2v006r8_v004.py",
+    "@@ -1 +1 @@",
+    "-\"\"\"v006 r7 (0540): certificate checks at preflight, ingest, cache put and cache reuse.",
+    "+\"\"\"v006 r8 (0554): certificate checks at preflight, ingest, cache put and cache reuse.",
+    "@@ -27 +27 @@",
+    "-M=load(HERE/'calibration_core_cx2v006r7_v002.py','_cx2v006r1',expected='c022116de0831835244d0a5ee2ef3ae007b6f3e77d1985f81f7d7cc0360b2ac6')",
+    "+M=load(HERE/'calibration_core_cx2v006r8_v003.py','_cx2v006r1',expected='603ab460fb039494659f5b0e03998b28ff2a7f124d9ae7fd7491340523929e08')",
+    "@@ -29 +29 @@",
+    "-S=load(HERE/'sensitivity_policy_cx2v006r7_v002.py','_cx2r7_sensitivity',expected='f0d725616c3c0332e75b8216936a92cb2aa2b9ded9321994ce3a221b86241989')",
+    "+S=load(HERE/'sensitivity_policy_cx2v006r8_v002.py','_cx2r7_sensitivity',expected='8fb0660077d56ddc787ac67386f8def72e6f5a04fd14e44eb20ed9facf19de4f')",
+    "@@ -48 +48 @@",
+    "-            raise Error('v006r7 requires pinned v010 r5')",
+    "+            raise Error('v006r8 requires pinned v010 r5')"
+   ],
+   "r7": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r7/calibration_orchestrator_cx2v006r7.py",
+    "sha256": "dfe4bf0e3797cd35f3681d3781181b423c168b6f8db87db4e41a3db0bfe0e1e3"
+   },
+   "r8": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r8/calibration_orchestrator_cx2v006r8_v004.py",
+    "sha256": "1ddbe6da1b34e84a9a419a0c72e2933a74cd3021cbdb68c91f5691193b9ce488"
+   }
+  }
+ }
+}

@@ -1,0 +1,49 @@
+xguard: exit 0 denied []
+PASS compare pins sha256(prereg V005 bytes)   "dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174"
+PASS compare drivers table read from prereg includes v005 2aef51c4
+PASS real R1 file validates   []
+PASS anchor block as recovery is rejected (R1 entries not contained)
+PASS s01 all valid + deciding PASS -> ADOPT cube   {"dec": "ADOPT", "bad": []}
+PASS s01 report records recovery R1 (equals_registered_R1, changed fs entries 5..9,45,50)   {"path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/d7_recovery/KMAX_D7_RECOVERY_R1.json", "sha256": "b3938db22cc7758a40fe3559c5213873807646f1b01771c4b9fb685e71bec365", "reason": "D7 recovery R1 (prereg V005 amendment_v005.d7_recovery): FS column passes of S2 (KMAX_A2F10_S2_RUN_V001: columns 5,6,7,8,9,50) and Y2 (KMAX_A2F10_Y2_RUN_V001: column 45) failed MASS_ENTHALPY_N
+PASS s01 carried u_i has 3 terms and adopts at G4
+PASS s02 deciding result_absent -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding result absent (/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/kmax_prereg_v005_c2/check/k2_run_V001/deciding/result.json)"}
+PASS s02 deciding finish_absent -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding finish.json absent"}
+PASS s02 deciding finish_sha_mismatch -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "finish.json result_sha256 0000000000000000000000000000000000000000000000000000000000000000 != sha256(result.json) 17a2672768a2eddbe4ac58e210dcbaf36517cdc530372f9f2e8879fb321589e7"}
+PASS s02 deciding verdict_FAIL -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding_test.verdict 'FAIL' != PASS_BITWISE_EQUAL"}
+PASS s02 deciding verdict_missing -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding_test.verdict None != PASS_BITWISE_EQUAL"}
+PASS s02 deciding wrong_driver -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding driver_sha256 75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22 is not the pinned v005 2aef51c4a4cf0ee192594ab366e9b37e54881977df2e4d1b2f259a759818a42f"}
+PASS s02 deciding wrong_call_spec -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding call_spec_sha256 ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff is not the pinned 4ac5527ad1731353d798c2648adc1033335a12102ec071b3ae6a619334313cb7"}
+PASS s02 deciding unreadable_result -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding files unreadable: JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"}
+PASS s02 deciding verdict_lowercase -> INCOMPLETE, exactly the 7 v005 cases V3-only V005_INADMISSIBLE, next step = inadmissible_next_step   {"bad": ["C3", "C4", "R", "S3", "S4", "Y3", "Y4"], "reason": "deciding_test.verdict 'pass_bitwise_equal' != PASS_BITWISE_EQUAL"}
+PASS s03 S2/Y2 missing (cube complete and passing) -> INCOMPLETE naming S2,Y2 missing; no adoption   ["S2", "Y2"]
+PASS s03b S2 FAILED_AT_STAGE -> INCOMPLETE with V1 next step naming the D7 recovery   ["V1"]
+PASS s03c all cases valid, only cube passes -> ADOPT cube (pre-registered rule 5 among valid cases)   ["passing shapes ['cube']; m4 candidates ['cube']; adopted cube by smallest Dhat_3_4"]
+PASS s04 C2 bound call (anchor block, passes 4 within bound) -> only C2 invalid, V3 brackets   ["brackets"]
+PASS s04b v005 C3 first run (anchor block) -> only C3 invalid, V3 brackets
+PASS s05 no shape passes -> NOT_CONVERGED   "NOT_CONVERGED"
+PASS s05b sphere K=4 off by 2.5 tau -> NOT_CONVERGED/SHAPE_DISAGREEMENT or sphere fails pass   {"outcome": "ADOPT", "reasons": ["passing shapes ['cube', 'cylinder']; m4 candidates ['cube', 'cylinder']; adopted cube by smallest Dhat_3_4"], "next_step": "Run calibration calls with truncation cube K=4 on grid G4 (96/axis, driver v005, prep v008); carry u_i; S1 transfer test at the calibrated point before prediction.", "adopted_shape": "cube", "adopted_kmax_inverse_kpc": 4.0, "adopted_grid": "G
+PASS s05c cylinder passes but offset 2.2 tau at K=4 -> NOT_CONVERGED SHAPE_DISAGREEMENT   ["cube vs cylinder differ by Dhat 2.2 > 2 at K=4", "sphere vs cylinder differ by Dhat 2.175 > 2 at K=4"]
+PASS s05d Dhat_R 1.5 -> INNER_UNRESOLVED   "INNER_UNRESOLVED"
+PASS s06 S2 under v005 -> V3 (driver not allowed) and V6 (driver != cube)   {"notes": [], "V1": true, "V2": true, "V3": false, "V3_mismatch": ["driver v005 not in ['v001', 'v003']"], "driver": "v005", "V4": true, "V5": true, "V6": false, "present": true, "failed": ["V3", "V6"], "valid_all": false}
+PASS s06b S3 under v003 admitting v005 C3 -> V6 only   ["V6"]
+PASS s06c C3 unknown driver sha -> V3
+PASS s06d Y4 mask leak -> V5 only   ["V5"]
+PASS s06e S4 route-A identity != C4 -> V6 only
+PASS s06f C3 final change 0.02 > 0.0125 -> V2 only
+PASS s06g C2 passes 4 stopped by cap (0.011 > 0.01) -> V3 PICARD_CAP_NOT_EQUIVALENT
+PASS s07 invoked D7 without --bracket-recovery -> REFUSED rc 2, no output   "REFUSED: the prereg registers D7 recovery R1 as invoked; pass --bracket-recovery (R1 or a later R(n))"
+PASS s07b anchor block as recovery -> REFUSED   "REFUSED: recovery block is not a pre-declared D7 widening: ['R1 entry fs_absolute_overrides[45] [151250000.0, 317625000.0] not contained in recovery block ([302500000.0, 317625000.0])', 'R1 entry fs_a"
+PASS s07c narrowing anchor entry 46 -> REFUSED   "REFUSED: recovery block is not a pre-declared D7 widening: ['fs_absolute_overrides[46] narrowed or moved: [302500000.0, 317625000.0] -> [303000000.0, 317625000.0]', 'R1 entry fs_absolute_overrides[46]"
+PASS s07d removing anchor entry 47 -> REFUSED   "REFUSED: recovery block is not a pre-declared D7 widening: ['fs_absolute_overrides[47] removed', 'R1 entry fs_absolute_overrides[47] [302500000.0, 317625000.0] not contained in recovery block (None)']"
+PASS s07e changing rfs_factors -> REFUSED   "REFUSED: recovery block is not a pre-declared D7 widening: ['non-override key rfs_factors changed']"
+PASS s07f undoing an R1 widening -> REFUSED (R1 entry not contained)   "REFUSED: recovery block is not a pre-declared D7 widening: ['R1 entry fs_absolute_overrides[5] [151250000.0, 317625000.0] not contained in recovery block ([302500000.0, 317625000.0])']"
+PASS s07g new entry not containing the fs template -> REFUSED   "REFUSED: recovery block is not a pre-declared D7 widening: ['fs_absolute_overrides[60] new entry [200000000.0, 310000000.0] does not contain its template [151250000.0, 302500000.0]']"
+PASS s07h extra top-level key in recovery file -> REFUSED   "REFUSED: bracket recovery file must be {\"brackets\": {rule block}, \"reason\": str[, \"invocation\", \"widened_entries\", \"evidence\"]}"
+PASS s07i extra key in brackets block -> REFUSED   "REFUSED: recovery block is not a pre-declared D7 widening: ['recovery block must be {\"mode\": \"rule\", \"rule\": {same keys as anchor.brackets.rule}}']"
+PASS s07j valid R2 (widens 46, adds 60 containing template) accepted; cases still on R1 all fail V3 brackets   {"rc": 0, "err": ""}
+PASS le_factor_overrides new entry containing le_first_factors accepted by validate_recovery   []
+PASS le_factor_overrides new entry not containing le_next_factors rejected   ["le_factor_overrides[2][3] new entry [0.85, 1.1] does not contain its template [0.8, 1.1]"]
+PASS s08 tampered prereg without test flag -> REFUSED   "REFUSED: prereg sha 6618ab9ae2c2f090b213fed5406a1d65ff3118cd41908910c847abede73412c8 is not the pinned dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc4"
+PASS s08b prereg V004 -> REFUSED   "REFUSED: prereg sha 51c9aa6cd997c5cc58b7b814601b27d153952a6cd87368035c985ebab4232136 is not the pinned dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc4"
+PASS s08c unregistered case id "S2R" in cases.json -> REFUSED (cases.json must use registered ids)   "REFUSED: unregistered case ids ['S2R']"
+47/47 pass

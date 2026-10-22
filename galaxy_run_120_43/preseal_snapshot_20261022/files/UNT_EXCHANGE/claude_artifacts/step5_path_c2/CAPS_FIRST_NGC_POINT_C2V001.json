@@ -1,0 +1,84 @@
+{
+  "call_of_record": {
+    "basis": {
+      "output": "Claude3 0181 item 1: 2.3-2.6 GB per route-A iteration, 37-41.5 GB at I = 16 before route B and the readout; the old 32 GiB binds on the U path; at least 64 GiB.",
+      "rss": "32 GiB (Claude4 0174; Claude3 0181: meets A61 on every modelled reading: 1.5 x 20.11 GB = 30.17 GB). Condition N4 is TESTED here: the driver-pinned seed 88ef386d has hi_panels_per_side 8 and source_azimuth_count 32.",
+      "wall": "A133 1.4: NGC wall caps are at least 2x the RI45-12 forecast. Corrected U for the whole point is 305,162 s (84.77 h); 2 x U = 610,324 s (Claude4 0179, exact; Claude3 0181 item 2). Claude4 0174 proposed 381,500 s (1.25 x U), which is below the A133 rule and leaves 11.8 h over Claude3's 339,161 s co-load U."
+    },
+    "output_cap_bytes": 68719476736,
+    "rss_cap_bytes": 34359738368,
+    "spec": "CALL_A_K32_A2_HEADLINE_C2V001.json (route_a.column_workers 1)",
+    "wall_cap_s": 610324
+  },
+  "date_u": "Mon Oct 19 11:57:31 UTC 2026",
+  "identity_twin": {
+    "basis": {
+      "output": "about 2.6 GB per iteration; 32 GiB covers start-up and three iterations with margin.",
+      "rss": "A61: 1.5 x 61.3 GB (U tree peak at the iteration >= 1 transfer) = 91.95 GB; 86 GiB = 92.34 GB.",
+      "wall": "planned stop: the twin exists only for iterations 0-1 (Claude4 0174 option 1). Its route A reaches the end of iteration 1 at 1.98 h (E) / 3.16 h (U); 2 x 3.16 h = 22,752 s. The monitor's hard kill at this cap is the planned stop of a call whose values are never read; root rules that a twin WALL_CAP stop is not a failure under A133 3(c) (the twin is not a member)."
+    },
+    "output_cap_bytes": 34359738368,
+    "rss_cap_bytes": 92341796864,
+    "spec": "CALL_A_K32_A2_HEADLINE_CW8_TWIN_C2V001.json (route_a.column_workers 8)",
+    "wall_cap_s": 22752
+  },
+  "memory_gate_A133_1_4": {
+    "modelled_peak_GB": {
+      "serial_iterations_0_1_spike_E": 4.76,
+      "serial_iterations_0_1_spike_U": 5.91,
+      "serial_point_E": 7.73,
+      "serial_point_U": 20.11,
+      "twin_E": 45.2,
+      "twin_U": 61.3
+    },
+    "reading": "A serial point peaks at 20.11 GB (U, its last build), not the 14 GB A133 assumed; a serial S0 call alone is admitted while the measured footprint is <= 55.9 GB (U). The twin lives only through iterations 0-1, when the serial spike is <= 5.91 GB (U, estimate 6.4), so the pair needs a measured footprint <= 26.0 GB (E) / 8.7 GB (U) with the 27 GB campaign reserve: in practice after step 2 and in a window with no DDO route-A call in flight (Claude3 0181: the twin alone needs <= 30.8 GB E / 14.7 GB U). Arithmetic: 103 - 27 - peaks.",
+    "rule": "admit only if measured total run footprint + modelled peak + 27 GB reserve <= 103 GB",
+    "watch_coverage": "the watch v002 pattern counts only the R2/N1 process groups; extend it to the NGC run groups before any co-run (Claude3 0181 item 4).",
+    "watch_units": "memory_watch_root_c2v002 prints GiB labelled GB (Claude3 0181 item 3): 83.2 \"GB\" = 89.3 GB."
+  },
+  "monitor": {
+    "cli": "--wall-cap-s F --rss-cap-bytes N --output-cap-bytes N",
+    "pin": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/root_monitor_c2v001.py",
+      "sha256": "ba031c2340057d88ee399138cc645012a93aa7dc3eb7c9bba56d112c94a47107"
+    },
+    "units": {
+      "output_cap_bytes": "bytes under OUTDIR",
+      "rss_cap_bytes": "bytes; sum of ps rss over the child process tree, sampled",
+      "wall_cap_s": "seconds of wall, hard process-group kill, fixed at launch"
+    }
+  },
+  "schema": "UNT_STEP5_NGC_FIRST_POINT_CAPS_C2V001",
+  "sources": {
+    "a133": {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/A133_TWO_PHASE_PROTOCOL_V001.md",
+      "sha256": "cd92ef914a0d562f0392080ebf709b5fdb1d85ef7f7b4493ee143fe782cfac17"
+    },
+    "claude3_0181": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE3/0181_2026-10-19_RI45-12-review-verdict-0-blocking-11-NOTEs-output-cap-wall-cap-watch-units-A133.md",
+      "sha256": "a4bc457496a9c546e6d389f6fada5063a14d4786231f083ad9f79d2dddbf5103"
+    },
+    "claude3_review": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_ri45_12_c3/REVIEW_RI45_12_RESULT_C3V001.txt",
+      "sha256": "cc25da63b1f0b5521a458d524bfd67a6cce3ed3ab5022de6fab97c98538005d9"
+    },
+    "claude4_0174": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE4/0174_2026-10-19_RI45-12-NGC-K32-estimate-verified-serial-point-E31.9h-U84.8h-cw8-gain-10.3-32.9h-identity-test-caps-32GiB-381500s.md",
+      "sha256": "7aa2f73fbe9262c2f7b6176cc4d7238399ca4cd077505276ce09d1bc86723cf9"
+    },
+    "claude4_0179": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE4/0179_2026-10-19_ack-Claude3-0181-RI45-12-corrected-estimate-JSON-V002-conduct-record-erratum-2xU-610324s.md",
+      "sha256": "2c1acfe4464722b7c8aa5b16bdc164ce0e020dad67ed6ed24b640729f1137b80"
+    },
+    "estimate_v002": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_point_producer_c4/ri45_12/estimate/ESTIMATE_RI45_12_NGC_K32_C4V002.json",
+      "sha256": "e686637e74349e928fed583ce1126520eab5cd47b7045da90df4e5e38efc758d"
+    },
+    "seed_v002": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_a_freeboundary_c2/seed_v002/DEFAULT/seed/NGC3198_ROUTE_A_A2F10_SEED_C2V002_DEFAULT.json",
+      "sha256": "88ef386d2bd4e14be23709d21b23fd3b7b57a2cc85adcc09d6a0459bcbc108da"
+    }
+  },
+  "status": "RECOMMENDATION for root (A133 3(f): caps are value-relevant, so root rules them in V006 before the first launch)",
+  "unchanged": "max route-A iterations 16 (driver default), Picard passes 4, no automatic retry (root_monitor retries 0)."
+}

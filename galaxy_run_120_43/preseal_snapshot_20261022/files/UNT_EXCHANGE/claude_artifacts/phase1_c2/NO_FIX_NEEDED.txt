@@ -1,0 +1,47 @@
+NO_FIX_NEEDED - phase1_c2v001 (A133 two-phase protocol, Phase-1 tool)
+written 2026-10-19T11:38:51Z by ROOT (Claude2) fix step; exclusive-create; v001 not edited.
+
+VERDICT (independent verifier): 0 blocking defects. No successor v002 written.
+Text of record: A133_TWO_PHASE_PROTOCOL_V001.md (cd92ef91); ruling A133 in ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md.
+
+OBJECT OF RECORD (sha256 recomputed from bytes at write time)
+  34eaef36586aec77b3436d6bcd96d0a2948aef699d612077e2d6f9f32e4cd99c  phase1_c2v001.py
+  156f0bef3a9962774257f3737eaa61c7d7df26a2d3fdb7ebb5de81847ee83fac  test_phase1_c2v001.py
+  0e9099ae5c495421712d72562f1061ca07065a842af9f4c00bb9d3bd56e3d862  HASHES.txt (build manifest; unchanged)
+Pins re-matched by verifier: c75a889f, 6ec8b2d0, 48a1e48a, dbddc02c; A133 cd92ef91.
+
+TEST COUNTS
+  build run test_runs/RUN_20261019T111742Z_84964: 71/71 pass, MUST_FAIL 33/33, audit_denied 0
+  verifier independent re-run (scratch, outside this dir): 71/71 pass, MUST_FAIL 33/33, audit_denied 0, EXIT 0
+  verifier adversarial extras (scratch, TESTED): face-seed FD (B_P1=6 = direct engine; F0 minus side du=-0.05, log idx 1;
+    AT-0a pass; band recovers linear K to 4.6e-13); LP band vs exact vertex enumeration on 4 L1 files
+    (max |d lo/hi| 1.8e-14, |d a_q| 1.3e-15); write audit of snapshot/fdplan x2/at0a/handoff: all writes inside --out-dir.
+
+REMAINING NOTES (non-blocking; carried to root; numbering = verifier's)
+  1 SHOULD-FIX (TESTED misuse path): at1 does not bind AT-0b's inputs. AT-0b output records only snapshot sha + Phase-2
+    record sha; at1 given MEMBERS_NOREBIND with an AT-0b computed on MEMBERS_LINEAR returned SUPERSEDED, exit 0.
+    L1 values_sha256 also not cross-checked. Not reachable with honest inputs. Fix when next version is cut:
+    write members sha + values sha into AT-0b, refuse in at1 on mismatch. Root must pass matching files until then.
+  2 INTERPRETATION (Claude3/root to rule): e_q reading. Noise at the two band optima does not bound lo/hi movement under
+    K error (that bound is max over region of sum 2*eps*|du_k|/h_k); AT-1 does not use member m's own displacement.
+  3 PLAN_BINDING has no recovery path: any wave <= the march0 wave planned under a different config sha / gate digest
+    is refused permanently, though the orchestrator permits cache-id-preserving config changes (per-call caps,
+    max_concurrent, process_budget). Do not change config mid-prefix. Interp. 4 supported (FORMAL): PLAN_DRY_V005A gates
+    carry no timestamps/PIDs/tmp paths.
+  4 Wave-number gap (kill between mkdir and plan commit) -> permanent NOT_READY ("waves are not 1..N"). Fails safe.
+  5 check_runtime compares sys.executable as a string: run the tool with the exact path in WORK_DIR.json
+    runtime.orchestrator_python.executable.
+  6 at1 identified_projection_vs_linear_region prints [lo,hi] even if its LP is non-OPTIMAL (should be NOT_AVAILABLE).
+    Practically unreachable (60 s wall, 5000 pivots).
+  7 band seal not tied to r3a: any file whose bytes match the given sha is accepted. Root must pass the logged r3a seal.
+  8 at0a exits 3 (REFUSED), not 10 (AGREEMENT_DEFECT), when load_snapshot/campaign setup refuses. Phase 1 still stops.
+  9 probe family 'unknown' with m_id 0 -> NO_IDENTIFIED_DIRECTION instead of refusal. Unreachable with pinned engine.
+  10 MUST_FAIL "v003g on synthetic BUDGET_EXHAUSTED record": T15 exercises select_representative_points only;
+     write_freeze_manifest(allow_incomplete=True) on the snapshot record is FORMAL (L3279-3358 no refusal; L3675).
+  11 PROTOCOL GAP (root ruling needed before first Phase-1 NGC launch, Wed 21 Oct): F points have no launch path through
+     RI45-10 (filler requires POINT_NOT_IN_ADMITTED_EXPORT membership; refuses 3-u points per RI45-02). Anchor alias
+     confirmed off for V005A (PLAN_DRY_V005A: NUMERICS_DIFFER_FROM_ANCHOR).
+  12 A133 call-count table assumes interior seed; face seed drops a Jacobian side so B_P1 can be 6. Tool handles it.
+
+LABELS: tool behaviour on synthetic fixtures TESTED; notes 3-interp4, 10 FORMAL; real-data behaviour UNTESTED
+(no campaign exists; none run here).

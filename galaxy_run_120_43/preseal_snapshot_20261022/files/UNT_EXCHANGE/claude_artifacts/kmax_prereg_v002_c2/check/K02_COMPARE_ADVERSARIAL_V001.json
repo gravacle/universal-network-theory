@@ -1,0 +1,606 @@
+{
+ "schema": "UNT_KMAX_PREREG_V002_CHECK_K02_C2_V001",
+ "n": 72,
+ "n_pass": 72,
+ "results": [
+  {
+   "id": "K02.1a tau_i == 0.25*sigma_i (root a)",
+   "pass": true,
+   "detail": [
+    0.4,
+    0.2,
+    0.175,
+    0.125,
+    0.1,
+    0.05,
+    0.05,
+    0.05,
+    0.075,
+    0.15,
+    0.175,
+    0.325
+   ]
+  },
+  {
+   "id": "K02.1b tau_picard == 0.25*min tau_i == 0.0125",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.1c sigma list equals sigma_source rows[*].quoted_random_sigma_km_s in row order",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.1d row ids equal row_binding query_rows ids",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.1e band shift tau/(z sigma)=8.73%; sum (tau/sigma)^2 = 0.75; cross term at r=+sigma = 6.0",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.1f INFO: V001 uniform tau=0.05 gave sum (tau/sigma)^2 = 0.264 (stated bound 0.75); V002 per-row = 0.75 exactly",
+   "pass": true,
+   "detail": {
+    "v001_actual": 0.2644134062957037,
+    "v001_band_shift_row01": 0.010907504363001745,
+    "v002_band_shift_every_row": 0.08726003490401396
+   }
+  },
+  {
+   "id": "K02.2a G3 registered grid == v003 DECLARED_LARGE_GRIDS",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.2a G4 registered grid == v003 DECLARED_LARGE_GRIDS",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.2a GR registered grid == v003 DECLARED_LARGE_GRIDS",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.2b grid blocks equal V001 prereg grid blocks",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.2c axis lengths 72/84/96/92",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.2d G2 sphere K=2: compare mask == v001 and v003 truncation_mask bitwise; kept 344048",
+   "pass": true,
+   "detail": 344048
+  },
+  {
+   "id": "K02.2d G2 cylinder K=2: compare mask == v001 and v003 truncation_mask bitwise; kept 362592",
+   "pass": true,
+   "detail": 362592
+  },
+  {
+   "id": "K02.2d G3 sphere K=3: compare mask == v001 and v003 truncation_mask bitwise; kept 525992",
+   "pass": true,
+   "detail": 525992
+  },
+  {
+   "id": "K02.2d G3 cylinder K=3: compare mask == v001 and v003 truncation_mask bitwise; kept 567504",
+   "pass": true,
+   "detail": 567504
+  },
+  {
+   "id": "K02.2d G4 sphere K=4: compare mask == v001 and v003 truncation_mask bitwise; kept 755080",
+   "pass": true,
+   "detail": 755080
+  },
+  {
+   "id": "K02.2d G4 cylinder K=4: compare mask == v001 and v003 truncation_mask bitwise; kept 834048",
+   "pass": true,
+   "detail": 834048
+  },
+  {
+   "id": "K02.3a every case spec normalizes under each allowed driver",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.3b C2 bound call spec sha == registered (fe1ad000)",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.3c G2 cases: v001 and v003 normalized specs identical",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4a ADOPT/sphere with all 10 cases valid from driver-normalized specs (C2 v001 passes 4; S2/Y2 v001; others v003)",
+   "pass": true,
+   "detail": {
+    "o": "ADOPT/sphere",
+    "failed": {}
+   }
+  },
+  {
+   "id": "K02.4b D2: u_i = |K34| + |inner| + max passing-shape spread, per row",
+   "pass": true,
+   "detail": {
+    "row01": [
+     0.9199999999999982,
+     0.9199999999999999
+    ],
+    "row06": [
+     0.11499999999999844,
+     0.11499999999999999
+    ]
+   }
+  },
+  {
+   "id": "K02.4c modal block == registered; nobody off-modal",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4d D1 ratio-0.95 sequence (Dhat23 0.2, Dhat34 0.19/0.18) -> NOT_CONVERGED; extend sphere (smallest Dhat34)",
+   "pass": true,
+   "detail": {
+    "o": "NOT_CONVERGED",
+    "ext": "sphere"
+   }
+  },
+  {
+   "id": "K02.4e D1 CHECK-V001 K02-A1 fixture (D23 0.051, D34 0.0485 km/s on row 06) -> NOT_CONVERGED",
+   "pass": true,
+   "detail": {
+    "o": "NOT_CONVERGED",
+    "Dhat34_sphere": 0.9700000000000131,
+    "tail06": {
+     "q": 0.9509803921569058,
+     "tail_km_s": 0.9409000000008813,
+     "tail_over_tau": 18.818000000017623,
+     "non_contracting": false
+    }
+   }
+  },
+  {
+   "id": "K02.4f D1 margin: Dhat34 0.999 <= 1 and <= 0.5*2.0 -> passes (ADOPT)",
+   "pass": true,
+   "detail": "ADOPT/sphere"
+  },
+  {
+   "id": "K02.4g D1 margin: Dhat34 1.001 -> NOT_CONVERGED",
+   "pass": true,
+   "detail": "NOT_CONVERGED"
+  },
+  {
+   "id": "K02.4h D1 margin: q = 0.501 (Dhat34 0.501 <= 1) -> NOT_CONVERGED",
+   "pass": true,
+   "detail": "NOT_CONVERGED"
+  },
+  {
+   "id": "K02.4i per-row tau: row01 moves 0.36 km/s (0.9 tau_01), row06 0.045 (0.9 tau_06) 3->4 -> ADOPT; uniform 0.05 would fail row01",
+   "pass": true,
+   "detail": {
+    "o": "ADOPT/sphere",
+    "D34": 0.35999999999999943,
+    "Dhat34": 0.9000000000000341
+   }
+  },
+  {
+   "id": "K02.4j per-row tau: row06 0.055 km/s (1.1 tau_06) -> NOT_CONVERGED although |d| is 0.055 << tau_01",
+   "pass": true,
+   "detail": {
+    "o": "NOT_CONVERGED",
+    "Dhat34": 1.0999999999999943
+   }
+  },
+  {
+   "id": "K02.4k row order in result does not matter (rows keyed by id)",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4l INNER_UNRESOLVED when R-C2 = 1.05 tau on row 07 only",
+   "pass": true,
+   "detail": "INNER_UNRESOLVED"
+  },
+  {
+   "id": "K02.4m rule order: INNER_UNRESOLVED precedes NOT_CONVERGED",
+   "pass": true,
+   "detail": "INNER_UNRESOLVED"
+  },
+  {
+   "id": "K02.4n rule order: INCOMPLETE (missing C3) precedes INNER_UNRESOLVED; next step names the missing case",
+   "pass": true,
+   "detail": [
+    "C3 failed ['missing']",
+    "S3 failed ['V6']",
+    "Y3 failed ['V6']"
+   ]
+  },
+  {
+   "id": "K02.4o V2: S4 final change 0.013 > 0.0125 -> INCOMPLETE, S4 fails V2 only, V2 next step pre-named",
+   "pass": true,
+   "detail": [
+    "V2"
+   ]
+  },
+  {
+   "id": "K02.4p V1: COMPLETED_INVALID -> INCOMPLETE",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4q V1: 11 of 12 rows -> INCOMPLETE",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4r V1: non-finite row -> INCOMPLETE",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4s D8 odd reference: odd C4 (V001 reference case) alone is named; S4/Y4 stay valid",
+   "pass": true,
+   "detail": {
+    "bad": [
+     "C4"
+    ],
+    "mism": [
+     "physical"
+    ],
+    "off_modal": [
+     "C4"
+    ]
+   }
+  },
+  {
+   "id": "K02.4t D8 majority-odd: 6 of 10 cases share an unregistered bracket block -> those 6 named, the 4 registered ones valid, modal != registered",
+   "pass": true,
+   "detail": {
+    "bad": [
+     "C3",
+     "C4",
+     "S3",
+     "S4",
+     "Y3",
+     "Y4"
+    ],
+    "modal": {
+     "n_distinct_blocks": 2,
+     "modal_count": 6,
+     "modal_equals_registered": false,
+     "cases_off_modal": [
+      "C2",
+      "R",
+      "S2",
+      "Y2"
+     ]
+    }
+   }
+  },
+  {
+   "id": "K02.4u D7: every case on the recovery block + recovery passed -> ADOPT",
+   "pass": true,
+   "detail": "ADOPT/sphere"
+  },
+  {
+   "id": "K02.4v D7: recovery passed but R still on the original block -> INCOMPLETE naming R only (V3 brackets)",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4w root d: C2 passes 4, final change 0.0099 -> valid",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "id": "K02.4w root d: C2 passes 4, final change 0.0101 -> V3 PICARD_CAP_NOT_EQUIVALENT (V2 still passes)",
+   "pass": true,
+   "detail": [
+    "V3"
+   ]
+  },
+  {
+   "id": "K02.4x root d: C2 passes 5 -> V3 fail",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4y root d: C2 replaced by C2' (passes 6) -> valid",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4z root d: exception is C2-only (S2 passes 4 -> V3 picard_passes)",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.4z2 next step for PICARD_CAP_NOT_EQUIVALENT is the pre-named C2' route",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.5a root c: C3 under v001 -> V3 driver mismatch (S3/Y3 then also fail V6: driver differs)",
+   "pass": true,
+   "detail": {
+    "C3": [
+     "V3"
+    ],
+    "S3": [
+     "V6"
+    ],
+    "Y3": [
+     "V6"
+    ]
+   }
+  },
+  {
+   "id": "K02.5b root c: C2/S2/Y2 all under v003 -> valid",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.5c admission constraint: S2 v003 admitting C2 v001 -> S2 fails V6 only",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.5d V6: Y4 route-A identity differs from C4 -> V6 fail",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.5e unknown driver sha -> V3 fail",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.5f V3: C4 normalized grid = G3 block -> V3 grid mismatch",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.5g V3: S4 with kmax 3 on G4 -> V3 truncation mismatch",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.5h shape agreement: sphere vs cylinder at K=4 differ by 2.1 tau_06 (row 06 only) -> NOT_CONVERGED/SHAPE_DISAGREEMENT",
+   "pass": true,
+   "detail": {
+    "o": "NOT_CONVERGED/SHAPE_DISAGREEMENT",
+    "spread": {
+     "cube_vs_sphere": {
+      "D_km_s": 1.8800000000000008,
+      "Dhat": 4.700000000000084
+     },
+     "cube_vs_cylinder": {
+      "D_km_s": 1.8800000000000008,
+      "Dhat": 4.700000000000084
+     },
+     "sphere_vs_cylinder": {
+      "D_km_s": 0.10500000000000043,
+      "Dhat": 2.1000000000000085
+     }
+    }
+   }
+  },
+  {
+   "id": "K02.5i shape agreement: 1.9 tau_06 -> ADOPT",
+   "pass": true,
+   "detail": "ADOPT/sphere"
+  },
+  {
+   "id": "K02.5j D13: three shapes within 10% of min m4 -> candidates all; smallest Dhat34 (cylinder) adopted",
+   "pass": true,
+   "detail": {
+    "o": "ADOPT/cylinder",
+    "cand": [
+     "cube",
+     "sphere",
+     "cylinder"
+    ]
+   }
+  },
+  {
+   "id": "K02.5k D13: cylinder m4 11% above min -> excluded; sphere adopted",
+   "pass": true,
+   "detail": {
+    "o": "ADOPT/sphere",
+    "cand": [
+     "cube",
+     "sphere"
+    ]
+   }
+  },
+  {
+   "id": "K02.5l D13: one passing shape m4 null -> candidates = all passing (cylinder by Dhat34)",
+   "pass": true,
+   "detail": "ADOPT/cylinder"
+  },
+  {
+   "id": "K02.5m D13 exact tie in Dhat34 -> registered order (cube)",
+   "pass": true,
+   "detail": "ADOPT/cube"
+  },
+  {
+   "id": "K02.5n D13 exact tie sphere/cylinder -> sphere",
+   "pass": true,
+   "detail": "ADOPT/sphere"
+  },
+  {
+   "id": "K02.6a V4/V5: correctly masked real-size S2 packet passes (kept 344048 nonzero)",
+   "pass": true,
+   "detail": {
+    "V4": true,
+    "V5": true,
+    "outside_rows_all_zero": true,
+    "nodes": 373248,
+    "axis_nodes_expected": 72,
+    "mask_kept_expected": 344048,
+    "mask_kept_in_packet": 344048,
+    "nonzero_rows_in_packet": 344048,
+    "packet_sha256": "eb8f9b29b8ff561b04236308fdc96b39f45ac6acc46ff73c7d95bf1746aa3859"
+   }
+  },
+  {
+   "id": "K02.6b D3 over-masked S2 packet (one kept row zeroed) fails V5, passes V4",
+   "pass": true,
+   "detail": {
+    "V4": true,
+    "V5": false,
+    "outside_rows_all_zero": true,
+    "nodes": 373248,
+    "axis_nodes_expected": 72,
+    "mask_kept_expected": 344048,
+    "mask_kept_in_packet": 344048,
+    "nonzero_rows_in_packet": 344047,
+    "packet_sha256": "b5548bf0e9e0fda5ecf3031642ce3eb63ce37d87a540b2fdb6e51ef278c75e4f"
+   }
+  },
+  {
+   "id": "K02.6c cube (unmasked) packet presented as S2 fails V5",
+   "pass": true,
+   "detail": {
+    "V4": true,
+    "V5": false,
+    "outside_rows_all_zero": false,
+    "nodes": 373248,
+    "axis_nodes_expected": 72,
+    "mask_kept_expected": 344048,
+    "mask_kept_in_packet": 344048,
+    "nonzero_rows_in_packet": 373248,
+    "packet_sha256": "18759f32294aed42f0c1861872d7a471f284d631dbb808b8135be1733dffdca0"
+   }
+  },
+  {
+   "id": "K02.6d CHECK V001 A3: sphere-masked packet presented as cube C2 fails V5",
+   "pass": true,
+   "detail": {
+    "V4": true,
+    "V5": false,
+    "outside_rows_all_zero": true,
+    "nodes": 373248,
+    "axis_nodes_expected": 72,
+    "mask_kept_expected": 373248,
+    "mask_kept_in_packet": 373248,
+    "nonzero_rows_in_packet": 344048,
+    "packet_sha256": "eb8f9b29b8ff561b04236308fdc96b39f45ac6acc46ff73c7d95bf1746aa3859"
+   }
+  },
+  {
+   "id": "K02.6e V4: axis perturbed by 1e-12 relative fails V4",
+   "pass": true,
+   "detail": {
+    "V4": false,
+    "V5": true,
+    "outside_rows_all_zero": true,
+    "nodes": 373248,
+    "axis_nodes_expected": 72,
+    "mask_kept_expected": 344048,
+    "mask_kept_in_packet": 344048,
+    "nonzero_rows_in_packet": 344048,
+    "packet_sha256": "d2d70f71b0a59fac55fc35c7c49041b4c8569d869298b944319365b567d0d7c0"
+   }
+  },
+  {
+   "id": "K02.7a end-to-end main() on the sealed prereg (test_mode false), real-size packets, real grids -> ADOPT/sphere, all V4/V5 pass, m4 row window excludes R<0.4 and R>6 kpc",
+   "pass": true,
+   "detail": {
+    "rc": 0,
+    "o": "ADOPT/sphere",
+    "m4_S4": 0.009035999999999999,
+    "pk": {
+     "C2": [
+      true,
+      true
+     ],
+     "C3": [
+      true,
+      true
+     ],
+     "C4": [
+      true,
+      true
+     ],
+     "S2": [
+      true,
+      true
+     ],
+     "S3": [
+      true,
+      true
+     ],
+     "S4": [
+      true,
+      true
+     ],
+     "Y2": [
+      true,
+      true
+     ],
+     "Y3": [
+      true,
+      true
+     ],
+     "Y4": [
+      true,
+      true
+     ],
+     "R": [
+      true,
+      true
+     ]
+    }
+   }
+  },
+  {
+   "id": "K02.7b end-to-end: over-masked real-size S4 packet -> INCOMPLETE, S4 fails V5 only",
+   "pass": true,
+   "detail": [
+    "V5"
+   ]
+  },
+  {
+   "id": "K02.7c FINDING-PROBE D7: a recovery file that changes a NON-override key (rfs_factors) is accepted (not refused); it is only reported in changed_rule_keys",
+   "pass": true,
+   "detail": {
+    "rc": 0,
+    "changed": [
+     "rfs_factors"
+    ],
+    "o": "INCOMPLETE"
+   }
+  },
+  {
+   "id": "K02.7d malformed recovery file refused",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "K02.7e unregistered case id refused",
+   "pass": true,
+   "detail": null
+  }
+ ],
+ "inputs": {
+  "prereg_sha256": "0024b63ecf9c4c4aa3b4ae88db3084b956c12760696b69963f4fa514354c9e10",
+  "compare_sha256": "e42336a70b644916428884860d4d657db11dfca5f86dec59c1de1650420059cf",
+  "drivers": {
+   "v001": "75b0c08a44eac92caedd46564eaaefe08b88a6c536e95cb46f54a9d8da962f22",
+   "v003": "b052e3ae43fcf8782cc9cca99dec2cdc8f7fcbf479af7b92738feb196c00033b"
+  },
+  "script_sha256": "ccd21fae1d65c17a337a65444492c7d1effc3cc232d6df2fa8f7d7e9f40aa64d"
+ },
+ "note": "K02.7c PASS means the probe observed the stated behaviour (acceptance), which CHECK_V001 reports as advisory A1."
+}

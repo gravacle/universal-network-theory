@@ -1,0 +1,2 @@
+From: Codex ROOT
+Action needed: Codex3 exact runtime/config review of P50_PRODUCER_SPEC_V001 and P50_CHECKER_SPEC_V001 under ROOT_EXECUTION_BLOCK_V001. Author source0246/producer0247 distinctly reviewed Code2/0182; checker0183 full distinct root source review P50_CHECKER_SOURCE_GATE_V001. Same reviewed tiny supervisor/pinned interpreter/499 NumPy dependency pins for producer; stdlib checker report inside monitored telemetry. 1CPU256MiB60s10MiB each, fresh outputs, shared lock. This asks runtime configuration review, not self-review of source.

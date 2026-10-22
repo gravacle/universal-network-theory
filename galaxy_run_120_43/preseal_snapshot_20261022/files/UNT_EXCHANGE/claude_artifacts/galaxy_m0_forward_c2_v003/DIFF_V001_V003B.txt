@@ -1,0 +1,720 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_m0_forward_c2_0466/galaxy_m0_forward_c2v001.py	2026-10-17 07:56:06.995339671 -0500
++++ galaxy_m0_forward_c2v003b.py	2026-10-17 09:21:57.323734446 -0500
+@@ -1,4 +1,11 @@
+-"""INERT parameterized clean m=0 ("route B") forward driver, Claude2 lane, dispatch 0466 (c2v001).
++"""INERT parameterized clean m=0 ("route B") forward driver, Claude2 lane, dispatch 0466 (c2v003,
++from c2v001 75b0c08a; see INTERFACE_V003_DELTA.md).  c2v003 changes ONLY: (1) route-A prep V008
++(budget 96) for grids > 80 nodes/axis, V007 kept for <= 80; (2) the declared P-88 grids G3/G4/GR
++accepted; (3) mask-fired assertion after the offset stage; (4) CHECK_V001 annotation/trivial fixes.
++c2v003b (from c2v003 b052e3ae; see INTERFACE_V003B_DELTA.md) changes ONLY: DDO154 distance_Mpc is a call-spec
++nuisance (per-call source profile, monotone source and column-mean binding derived by the formulas that
++produced the pinned files); inclination_deg stays registered-only (66 deg), refused with the documented
++gas re-deprojection blocker.  At the registered 4.04 Mpc / 66 deg nothing new is planned or written.
+ 
+ One call = one parameter point, read from a single JSON call spec.  Runs the full chain that
+ produced the saved DDO154 axisymmetric reference, reusing every reviewed stage script by
+@@ -68,7 +75,32 @@
+     'reference_module': (HC / 'owned_axisymmetric_homotopy_reference_v003.py', '81a04b1241c1004f8766f68d22f9c586824ae3b3cbe32ca36243a2d3da387128'),
+     'prep': (HC / 'ddo_actual_initial_source_preparation_v007.py', 'ac905597b1aa06da3a0178bfa629f6256b78cc87e8b1b05fcea22b3f6df25a42'),
+     'cache': (HR / 'owned_scalar_lapse_inverse_cache_v001.py', '7b9816aea218d638c2eece184df22e29ca18b68547f3d04193780c2eff96a529'),
++    # c2v003: ddo_actual_initial_source_preparation_v008.py bb05f97452cec43e215fa0853b0674262eb54c75de524b5a640cd984cd137e62
++    # differs from V007 only at line 130 (node budget nk>80 -> nk>96); reviewed PASS_SCOPED in
++    # CURRENT_SOURCE_ALL_PANEL_DERIVATIVE_AUDIT_REVIEW_V001.json (PREP_V008_REVIEW).  Used ONLY for grids > 80 nodes/axis.
++    'prep_v008': (HC / 'ddo_actual_initial_source_preparation_v008.py', 'bb05f97452cec43e215fa0853b0674262eb54c75de524b5a640cd984cd137e62'),
+ }
++PREP_V008_REVIEW = (ROOT / 'helpers/response_packet_audit/CURRENT_SOURCE_ALL_PANEL_DERIVATIVE_AUDIT_REVIEW_V001.json',
++                    'aa12d69f4119983fdcfceb4809971ec08c596aeaf5630c85a51823b36332182e')
++PREP_V007_MAX_AXIS_NODES = 80  # v007.py:130
++PREP_V008_MAX_AXIS_NODES = 96  # v008.py:130
++# Grids > 80 nodes/axis are accepted ONLY if (breaks, panel_orders, total) equal one of the declared P-88 grids
++# (KMAX_MATRIX_PREREG_V001.json d5acfc2f..., grids G3/G4/GR; specs/wave1 of calibration_prep_c2_0470/kmax_convergence).
++_G2_BREAKS = [-2, -1, -0.3, -0.1, -0.03, -0.01, 0, 0.01, 0.03, 0.1, 0.3, 1, 2]
++DECLARED_LARGE_GRIDS = {
++    'G3': ([-3] + _G2_BREAKS + [3], [6] * 14, 84),
++    'G4': ([-4, -3] + _G2_BREAKS + [3, 4], [6] * 16, 96),
++    'GR': (list(_G2_BREAKS), [6] + [8] * 10 + [6], 92),
++}
++# c2v003b: pinned inputs of the per-call DDO154 geometry derivation (read only when distance != registered).
++GEOMETRY_PINS = {
++    'calibration_input': (HR / 'DDO154_CURRENT_MODEL_CALIBRATION_INPUT_POPULATED_V001.json', '8fff3e433f932947c2725ac7fb769126abb87814e11eeb19723974485e98e5e7'),
++    'stellar_3d': (C1 / 'GALAXY_STELLAR_3D_REFERENCE_SOURCE_V001.json', '612dc36529835e233fdda5810636ab8b99924fba9d0117b168aeeb9d1e2c449f'),
++    'photometric': (HR / 'STELLAR_PHOTOMETRIC_REFERENCE_MEAN_PROFILE_V001.json', '2f31122d9f2a1e3a3a63560fcd20541e4dfcf235eefca966b2fed644702b8b6a'),
++    'source_binding_v003': (C1 / 'GALAXY_PHYSICAL_SOURCE_STATE_BINDING_V003.json', '7cadac8b66096a9d9942e9861289a1d41bad084e13cd7ba655341eb06e6afae9'),
++    'monotone_reducer': (HR / 'ddo_monotone_bernstein_source_controls_v002.py', '50edaba79af30cbc3582685861b55bb3eefdbe6fcb002ec1a4187b6913b4f83c'),
++}
++PROFILE_NAME = 'GALAXY_RADIAL_SOURCE_REFERENCE_V001.json'  # literal file name read by prep V007/V008 as C/PROFILE_NAME
+ # Reviewed fixed stage arguments (not parameters).
+ FIXED_ARGS = {'wave_batch': '256', 'position_batch': '512', 'bessel_cache_entries': '500000',
+               'mass_relative_tolerance': '1.1e-8'}
+@@ -234,7 +266,15 @@
+     sphere: keep |k| <= kmax.  cylinder: keep k_perp = sqrt(kx^2+ky^2) <= kmax (disk axis = chart z),
+     all k_z of the cube kept.  Both masks are invariant under k -> -k, so real fields stay real.
+     Zeroing a node's weight is exactly zeroing its weighted response row, because the reviewed
+-    prepare() forms weighted_response = dk_weight/(2pi)^3 * x_tilde node by node."""
++    prepare() forms weighted_response = dk_weight/(2pi)^3 * x_tilde node by node.
++    Scope (CHECK_V001 s3 corr. 1): route A, reference and body run UNMASKED (cube G4), so under
++    sphere/cylinder the offset stage's real-space total (body full_fields + inverse(masked offset)),
++    its reality/lapse/C-eigenvalue guards and the stored updated_base_arrays full_fields_complex,
++    Phi0, angular_forcing_dPhi, base_residual_r0 are a MIXED field (cube G4 + masked offset).
++    Downstream stages read only radial_nodes_m, K0, Sigma, RdR weights from that file; every
++    Fourier packet they consume is masked consistently.  Constraint (s3 corr. 3): the cache
++    module's evaluate() calls its closure-local prepare, bypassing the wrapper; only prepare()
++    may be relied on (true for offset V003)."""
+     import numpy as np
+     k = np.asarray(k_physical, dtype=float)
+     if k.ndim != 2 or k.shape[1] != 3 or not np.isfinite(k).all():
+@@ -260,6 +300,43 @@
+     return a * np.asarray(mask, dtype=float).reshape((len(mask),) + (1,) * (a.ndim - 1))
+ 
+ 
++def mask_fired_check(offset_dir, shape, kmax_inverse_m):
++    """c2v003 (CHECK_V001 s3 corr. 2): evidence that the mask fired.  Recompute the mask from the
++    stored wavevectors of unit_response.npz and offset_prepared.npz and require every row outside
++    it to be exactly 0.  Raises StageFailed('MASK_NOT_FIRED ...') otherwise; returns the record."""
++    import numpy as np
++    rec = {'shape': shape, 'kmax_inverse_m': kmax_inverse_m, 'files': {}}
++    axis_waves = None
++    for name in ('unit_response.npz', 'offset_prepared.npz'):
++        p = Path(offset_dir) / name
++        if not p.is_file():
++            raise StageFailed('MASK_NOT_FIRED: %s missing' % p)
++        with np.load(p, allow_pickle=False) as f:
++            w = f['wavevectors'].copy()
++            r = f['weighted_responses'].copy()
++        if r.ndim < 1 or r.shape[0] != len(w):
++            raise StageFailed('MASK_NOT_FIRED: %s rows %s != nodes %d' % (name, r.shape, len(w)))
++        if axis_waves is None:
++            axis_waves = w
++        elif not np.array_equal(axis_waves, w):
++            raise StageFailed('MASK_NOT_FIRED: wavevectors differ between offset npz files')
++        m = truncation_mask(w, shape, kmax_inverse_m)
++        out = m == 0
++        flat = r.reshape(len(r), -1)
++        bad = int(np.count_nonzero(np.any(flat[out] != 0, axis=1)))
++        kept_zero = int(np.count_nonzero(~np.any(flat[~out] != 0, axis=1)))
++        rec['files'][name] = {'sha256': sha256_file(p), 'total_nodes': int(len(m)), 'kept_nodes': int(m.sum()),
++                              'outside_rows': int(out.sum()), 'outside_rows_nonzero': bad, 'kept_rows_all_zero': kept_zero}
++        if bad:
++            raise StageFailed('MASK_NOT_FIRED: %s has %d nonzero rows outside the %s mask (kept %d of %d nodes)'
++                              % (name, bad, shape, int(m.sum()), len(m)))
++    rec['kept_nodes'] = rec['files']['unit_response.npz']['kept_nodes']
++    rec['total_nodes'] = rec['files']['unit_response.npz']['total_nodes']
++    rec['vacuous'] = rec['kept_nodes'] == rec['total_nodes']
++    rec['status'] = 'MASK_FIRED_OUTSIDE_ROWS_EXACTLY_ZERO'
++    return rec
++
++
+ # ----------------------------------------------------------------------------- _stage shim
+ def _decode_value(v):
+     if isinstance(v, dict) and len(v) == 1:
+@@ -363,6 +440,18 @@
+         if name not in module.__dict__:
+             raise ValueError('Stage override target absent: ' + name)
+         module.__dict__[name] = _decode_value(value)
++    # c2v003: replace single (path, sha) entries of a dict global (route-A LOCAL['prep'] only).
++    for gname, items in request.get('stage_dict_items', {}).items():
++        target = module.__dict__.get(gname)
++        if not isinstance(target, dict):
++            raise ValueError('Stage dict override target absent: ' + gname)
++        for key, pin in items.items():
++            old = target.get(key)
++            if not (isinstance(old, tuple) and len(old) == 2):
++                raise ValueError('Stage dict override entry absent: %s[%s]' % (gname, key))
++            if sha256_file(pin['path']) != pin['sha256']:
++                raise ValueError('Stage dict override pin mismatch: ' + pin['path'])
++            target[key] = (Path(pin['path']), pin['sha256'])
+     sys.argv = [script] + list(request['argv'])
+     module.main()
+     return 0
+@@ -386,6 +475,13 @@
+         raise Refusal('%s: unknown keys %s' % (label, sorted(extra)))
+ 
+ 
++def _abs(path, label):
++    """c2v003 (CHECK_V001 further defect 3): spec paths must be absolute (stages run with cwd=stage dir)."""
++    if not isinstance(path, str) or not Path(path).is_absolute():
++        raise Refusal('%s must be an absolute path: %r' % (label, path))
++    return path
++
++
+ def normalize_spec(spec):
+     _strict(spec, ('schema', 'galaxy', 'label', 'physical', 'coefficients', 'numerics', 'admit', 'reference_compare'), 'spec')
+     if spec.get('schema') != SCHEMA:
+@@ -406,11 +502,15 @@
+          'distance_Mpc': _num(phys.get('distance_Mpc', g['registered_geometry']['distance_Mpc']), 'distance_Mpc'),
+          'inclination_deg': _num(phys.get('inclination_deg', g['registered_geometry']['inclination_deg']), 'inclination_deg')}
+     geo = g['registered_geometry']
+-    if p['distance_Mpc'] != geo['distance_Mpc'] or p['inclination_deg'] != geo['inclination_deg']:
+-        raise Refusal('UNSUPPORTED geometry: only the registered distance %.2f Mpc and inclination %.0f deg are supported. '
+-                      'The D/4.3 radial scaling and cos66/cos64 stellar re-facing are baked into the pinned source JSON '
+-                      '(no code applies them) and the 12 query radii/sin66/sin64 map are fixed in the pinned binding.'
+-                      % (geo['distance_Mpc'], geo['inclination_deg']))
++    # c2v003b: any finite positive distance is accepted (derive_geometry).  Inclination stays registered-only.
++    if p['inclination_deg'] != geo['inclination_deg']:
++        raise Refusal('UNSUPPORTED inclination %r: only the registered %.0f deg is supported (BLOCKED_GAS_REDEPROJECTION). '
++                      'The DDO154 gas annuli are extracted IN the %.0f deg plane: extract_source.py bins every sky pixel by '
++                      'deprojected radius with y/cos(i) before the annular masses/means exist, so another inclination '
++                      'changes the pixel-to-annulus assignment, not a factor on the pinned arrays. No pinned formula or '
++                      'route-B stage re-extracts the gas; the stellar cos(i)/cos64 re-facing and the sin(i)/sin64 '
++                      'observation map alone would give a mixed-plane source. Distance is supported.'
++                      % (p['inclination_deg'], geo['inclination_deg'], geo['inclination_deg']))
+     out['physical'] = p
+     coeff = spec.get('coefficients', None)
+     if coeff is None:
+@@ -418,6 +518,7 @@
+     _strict(coeff, ('path', 'sha256'), 'coefficients')
+     if not _is_hex64(coeff.get('sha256')) or not isinstance(coeff.get('path'), str):
+         raise Refusal('coefficients {path, sha256(64 lowercase hex)} required')
++    _abs(coeff['path'], 'coefficients.path')
+     out['coefficients'] = {'path': str(Path(coeff['path'])), 'sha256': coeff['sha256']}
+     num = spec.get('numerics', {})
+     _strict(num, ('composite_grid_spec', 'truncation', 'picard', 'brackets', 'column_workers'), 'numerics')
+@@ -431,6 +532,13 @@
+             raise Refusal('panel orders must be ints >=2 summing to total_axis_nodes')
+         if br[0] != -br[-1] or br[-1] <= 0:
+             raise Refusal('breaks must partition [-kmax,kmax]')
++        # c2v003: > 80 nodes/axis only for the declared P-88 grids (route-A prep V008, budget 96).
++        if grid['total_axis_nodes'] > PREP_V007_MAX_AXIS_NODES:
++            hit = [gid for gid, (b, o, t) in DECLARED_LARGE_GRIDS.items()
++                   if br == b and po == o and grid['total_axis_nodes'] == t]
++            if not hit or grid['total_axis_nodes'] > PREP_V008_MAX_AXIS_NODES:
++                raise Refusal('composite grid with %d nodes/axis > %d is accepted only as a declared P-88 grid %s'
++                              % (grid['total_axis_nodes'], PREP_V007_MAX_AXIS_NODES, sorted(DECLARED_LARGE_GRIDS)))
+     out_num = {'composite_grid_spec': grid}
+     tr = num.get('truncation', {'shape': 'cube'})
+     _strict(tr, ('shape', 'kmax_inverse_kpc'), 'truncation')
+@@ -492,6 +600,7 @@
+                 _strict(item, ('path', 'sha256'), label)
+                 if not _is_hex64(item.get('sha256')):
+                     raise Refusal(label + ' sha256 must be 64 lowercase hex')
++                _abs(item.get('path'), label + ' path')
+                 res.append({'path': str(item['path']), 'sha256': item['sha256']})
+             return res
+         le = pcs.get('le')
+@@ -519,18 +628,22 @@
+         _strict(a, ('attempt_directory', 'checkpoint_directory', 'identity_sha256', 'result_sha256'), 'admit.route_a')
+         if not (_is_hex64(a.get('identity_sha256')) and _is_hex64(a.get('result_sha256'))):
+             raise Refusal('admit.route_a needs identity_sha256 and result_sha256')
++        _abs(a.get('attempt_directory'), 'admit.route_a.attempt_directory')
++        _abs(a.get('checkpoint_directory'), 'admit.route_a.checkpoint_directory')
+         norm_adm['route_a'] = {k: str(a[k]) for k in ('attempt_directory', 'checkpoint_directory', 'identity_sha256', 'result_sha256')}
+     if adm.get('reference') is not None:
+         if 'route_a' not in norm_adm:
+             raise Refusal('admit.reference requires admit.route_a')
+         a = adm['reference']
+         _strict(a, ('directory', 'start_sha256', 'finish_sha256'), 'admit.reference')
++        _abs(a.get('directory'), 'admit.reference.directory')
+         norm_adm['reference'] = {k: str(a[k]) for k in ('directory', 'start_sha256', 'finish_sha256')}
+     if adm.get('body') is not None:
+         if 'reference' not in norm_adm:
+             raise Refusal('admit.body requires admit.reference')
+         a = adm['body']
+         _strict(a, ('directory', 'finish_sha256'), 'admit.body')
++        _abs(a.get('directory'), 'admit.body.directory')
+         norm_adm['body'] = {k: str(a[k]) for k in ('directory', 'finish_sha256')}
+     out['admit'] = norm_adm
+     rc = spec.get('reference_compare', False)
+@@ -568,9 +681,190 @@
+     for k in ('Eref_J', 'ell_F_m', 'gamma'):
+         seed['physical'][k] = ni[k]
+     reusable = canonical(seed) == canonical(base)
++    if not reusable:
++        # c2v003 annotation (CHECK_V001 s2 minor): no stage reads it; only numerical_inputs is consumed.
++        seed['c2_changed_fields'] = {
++            'driver': 'galaxy_m0_forward_c2v003', 'base_seed_sha256': sha, 'changed': changed,
++            'note': ('scale_seed, seed_method, scope, pins, parent_seed and quadrature_selection_evidence are copied '
++                     'unchanged from the base seed and describe ITS normalization and grid, not this call; '
++                     'numerical_inputs (and the physical mirrors) are the values of this call.')}
+     return seed, changed, reusable
+ 
+ 
++# ----------------------------------------------------------------------------- c2v003b per-call geometry
++def geometry_active(nspec):
++    """True when the call geometry differs from the registered one (then per-call source files are derived)."""
++    reg = GALAXIES[nspec['galaxy']]['registered_geometry']
++    p = nspec['physical']
++    return p['distance_Mpc'] != reg['distance_Mpc'] or p['inclination_deg'] != reg['inclination_deg']
++
++
++def _pinned_json(path, sha, label):
++    raw = Path(path).read_bytes()
++    if sha256_bytes(raw) != sha:
++        raise Refusal('%s pin mismatch: %s' % (label, path))
++    return json.loads(raw)
++
++
++def derive_geometry(gname, D, inc):
++    """Per-call DDO154 inputs at distance D [Mpc] (inclination: registered value only, see normalize_spec).
++    No producer script of the pinned profile exists on disk; each formula below is the documented rule and is
++    GUARDED to reproduce the pinned registered records bitwise before it is applied at D:
++      HI (calibration input source_conversion.distance; extract_source.py radii = angle*D, mass ~ D^2):
++        lambda = D/4.3 (HI extraction distance); s_edges = (r_4.3*lambda)^2; annular means/controls unchanged;
++        integrated mass = fsum(pi*1e6*ds*mean); original mass = fsum(annulus HI mass)*helium*lambda^2.
++      stars (STELLAR_PHOTOMETRIC_REFERENCE_MEAN_PROFILE_V001, reference distance 4.04, face-on cos(i)):
++        radius = arcsec*(D*1e3)/(arcsec per rad); Sigma = Sigma_64*cos(i)/cos(64) (distance-free);
++        Rd and h = Rd/7.3 are angular scales converted with D: x D/4.04; masses x (D/4.04)^2; midplane x 1/(D/4.04).
++      observation (column-mean binding): radius_m = r_catalogue*(D/4.04)*kpc_m; physical inclination radians(i).
++      monotone source: the pinned reviewed reducer V002 re-run on the per-call HI record (saved sweeps/KKT).
++    Returns (profile_obj, monotone_result, binding_obj_without_source_profile, record)."""
++    if gname != 'DDO154':
++        raise Refusal('per-call geometry is implemented for DDO154 only')
++    g = GALAXIES[gname]
++    reg = g['registered_geometry']
++    if inc != reg['inclination_deg']:
++        raise Refusal('inclination %r: BLOCKED_GAS_REDEPROJECTION (see normalize_spec)' % (inc,))
++    if not (isinstance(D, float) and math.isfinite(D) and D > 0):
++        raise Refusal('distance_Mpc must be a finite positive float')
++    prof = _pinned_json(g['profile'][0], g['profile'][1], 'profile')
++    cal = _pinned_json(*GEOMETRY_PINS['calibration_input'], 'calibration input')
++    s3 = _pinned_json(*GEOMETRY_PINS['stellar_3d'], 'stellar 3D source')['galaxies']['DDO154']
++    ph = _pinned_json(*GEOMETRY_PINS['photometric'], 'photometric reference')
++    base_bind = _pinned_json(g['column_mean_binding'][0], g['column_mean_binding'][1], 'column-mean binding')
++    base_mono = _pinned_json(g['monotone_source'][0], g['monotone_source'][1], 'monotone source')
++    old = prof['galaxies']['DDO154']
++    na = cal['source_HI']['NA']
++    pg = ph['galaxies']['DDO154']
++    nodes = [x for x in pg['nodes'] if x['reference_included']]
++    D_hi = float(cal['geometry']['source_distance_Mpc'])       # HI extraction distance (4.3)
++    D_st = float(pg['distance_Mpc_reference'])                  # photometric reference distance (4.04)
++    i_st = float(pg['inclination_deg_reference'])               # photometric face-on reduction inclination (64)
++    D_rows = {float(x['reference_distance_Mpc']) for x in cal['response_rows']}
++    n = int(na['complete_prefix']['bin_count'])
++    if (D_hi != reg['HI_original_distance_Mpc'] or float(na['reference_geometry']['distance_pc']) != D_hi * 1e6
++            or D_st != reg['distance_Mpc'] or D_rows != {reg['distance_Mpc']} or i_st != reg['released_inclination_deg']
++            or old['geometry']['distance_Mpc'] != reg['distance_Mpc'] or n != len(old['HI_plus_He']['annular_means_Msun_pc2'])
++            or len(nodes) != len(s3['radius_kpc'])):
++        raise Refusal('geometry source reference values differ from the registered geometry')
++    he = float(na['reference_geometry']['helium_factor'])
++    r_hi = [float(na['r_lo_kpc'][0])] + [float(x) for x in na['r_hi_kpc'][:n]]
++    arcsec_rad = float(ph['normalization']['angular_arcsec_per_radian'])
++
++    def hi_edges(Dx):
++        lam = Dx / D_hi
++        return lam, [(x * lam) ** 2 for x in r_hi]
++
++    def star_radius(Dx):
++        return [float(x['radius_literal']) * (Dx * 1e3) / arcsec_rad for x in nodes]
++
++    def faceon(ix):
++        return math.cos(math.radians(ix)) / math.cos(math.radians(i_st))
++
++    def query_rows(Dx):
++        return [{'id': x['id'], 'radius_m': float(x['radius_reference_kpc']) * (Dx / float(x['reference_distance_Mpc'])) * KPC_M}
++                for x in cal['response_rows']]
++    # Guards: the formulas reproduce the pinned registered records bitwise.
++    f_reg = faceon(reg['inclination_deg'])
++    guards = {
++        'hi_edges': hi_edges(reg['distance_Mpc'])[1] == old['HI_plus_He']['s_edges_kpc2'],
++        'hi_means': [float(x) * he for x in na['full_annulus']['effective_retained_HI_Msun_pc2'][:n]] == old['HI_plus_He']['annular_means_Msun_pc2'],
++        'star_radius': star_radius(D_st) == s3['radius_kpc'] == old['stellar_reference']['radius_kpc'],
++        'star_sigma': [s * f_reg for s in s3['surface_density_Msun_pc2']] == old['stellar_reference']['surface_density_Msun_pc2'],
++        'star_scales': (s3['outer_scale_kpc'], s3['height_kpc']) == (old['stellar_reference']['outer_scale_kpc'], old['stellar_reference']['height_kpc']),
++        'faceon_factor': f_reg == old['geometry']['stellar_faceon_factor_from_64deg'],
++        'query_rows': query_rows(reg['distance_Mpc']) == base_bind['query_rows'],
++        'binding_inclinations': (base_bind['physical_inclination_rad'], base_bind['released_inclination_rad'])
++        == (math.radians(reg['inclination_deg']), math.radians(reg['released_inclination_deg'])),
++    }
++    if not all(guards.values()):
++        raise Refusal('geometry formulas do not reproduce the pinned registered files: %s' % sorted(k for k, v in guards.items() if not v))
++    lam, edges = hi_edges(D)
++    mu = D / D_st
++    f = faceon(inc)
++    gas = dict(old['HI_plus_He'])
++    gas['s_edges_kpc2'] = edges
++    gas['integrated_mass_Msun'] = math.fsum(math.pi * 1e6 * (b - a) * m for a, b, m in zip(edges, edges[1:], gas['annular_means_Msun_pc2']))
++    gas['original_retained_mass_scaled_Msun'] = math.fsum(na['full_annulus']['mass_Msun'][:n]) * he * lam ** 2
++    gas['relative_mass_pairing_difference'] = (abs(gas['integrated_mass_Msun'] - gas['original_retained_mass_scaled_Msun'])
++                                               / gas['original_retained_mass_scaled_Msun'])
++    gas['support_radius_kpc'] = r_hi[-1] * lam
++    star = dict(old['stellar_reference'])
++    star['radius_kpc'] = star_radius(D)
++    star['surface_density_Msun_pc2'] = [s * f for s in s3['surface_density_Msun_pc2']]
++    star['midplane_density_Msun_pc3'] = [x * f / mu for x in s3['midplane_density_Msun_pc3']]
++    star['outer_scale_kpc'] = s3['outer_scale_kpc'] * mu
++    star['height_kpc'] = s3['height_kpc'] * mu
++    for k in ('mass_within_last_node_Msun', 'assumed_exponential_tail_mass_Msun', 'total_reference_stellar_mass_Msun'):
++        star[k] = s3[k] * f * mu ** 2
++    geom = dict(old['geometry'])
++    geom.update(distance_Mpc=D, inclination_deg=inc, radial_distance_scale=lam, stellar_faceon_factor_from_64deg=f,
++                released_velocity_reference_factor=math.sin(math.radians(inc)) / math.sin(math.radians(reg['released_inclination_deg'])))
++    note = {'driver': 'galaxy_m0_forward_c2v003b', 'distance_Mpc': D, 'inclination_deg': inc,
++            'note': 'Per-call copy; only the DDO154 geometry-dependent fields are re-derived (derive_geometry docstring).'}
++    profile = dict(prof)
++    profile['galaxies'] = dict(prof['galaxies'], DDO154=dict(old, geometry=geom, HI_plus_He=gas, stellar_reference=star))
++    profile['c2_geometry'] = dict(note, base={'path': str(g['profile'][0]), 'sha256': g['profile'][1]})
++    red = exec_verified(GEOMETRY_PINS['monotone_reducer'][0], GEOMETRY_PINS['monotone_reducer'][1], 'c2v003b_monotone_reducer')
++    mono = red.reduce_source(record=gas, max_sweeps=base_mono['diagnostics']['max_sweeps'],
++                             kkt_tolerance=base_mono['diagnostics']['normalized_kkt_tolerance'])
++    if mono.get('status') != base_mono['status']:
++        raise Refusal('GEOMETRY_MONOTONE_SOURCE_NOT_ADMITTED: reviewed reducer returned %s' % mono.get('status'))
++    mono['worker_sha256'] = GEOMETRY_PINS['monotone_reducer'][1]
++    mono['model_choice'] = base_mono['model_choice']
++    mono['c2_geometry'] = dict(note, base={'path': str(g['monotone_source'][0]), 'sha256': g['monotone_source'][1]})
++    binding = dict(base_bind, query_rows=query_rows(D), distance_Mpc=D, physical_inclination_rad=math.radians(inc))
++    binding['c2_geometry'] = dict(note, base={'path': str(g['column_mean_binding'][0]), 'sha256': g['column_mean_binding'][1]})
++    ctrl = all(mono['source_record'][k] == base_mono['source_record'][k] for k in ('boundary_controls_Msun_pc2', 'middle_controls_Msun_pc2'))
++    record = {'distance_Mpc': D, 'inclination_deg': inc, 'hi_lambda_D_over_4p3': lam, 'length_scale_D_over_4p04': mu,
++              'stellar_faceon_factor': f, 'registered_formula_guards': guards,
++              'monotone_controls_bitwise_equal_to_registered': ctrl,
++              'unchanged_numerics': 'seed numerical controls (kpc-valued search/step/limits), composite k grid and column '
++                                    'solver template are numerical choices and are NOT rescaled with D',
++              'route_a_rows': ('NOT AT CALL GEOMETRY: prep V007/V008 reads the 12 query radii at %.2f Mpc from the calibration '
++                               'input and the route-A binding hard-codes radians(66)/radians(64); route-A rows are a '
++                               'diagnostic only. The route-B rows use the per-call binding.' % reg['distance_Mpc'])}
++    return profile, mono, binding, record
++
++
++def _write_bytes_x(ctx, path, raw):
++    if ctx.mode == 'run':
++        with open(path, 'xb') as f:
++            f.write(raw)
++            f.flush()
++            os.fsync(f.fileno())
++    else:
++        if Path(path).exists():
++            raise Refusal('dry-run input exists: %s' % path)
++        Path(path).write_bytes(raw)
++    return sha256_file(path)
++
++
++def geometry_inputs(ctx, nspec):
++    """c2v003b: None at the registered geometry (pinned files; plan unchanged).  Otherwise write the per-call
++    inputs under <out>/inputs: geometry_C/{PROFILE_NAME, byte copy of source binding V003} (the prep reads both
++    as C/<name>), geometry_monotone_source.json and geometry_column_mean_binding.json."""
++    if not geometry_active(nspec):
++        return None
++    p = nspec['physical']
++    profile, mono, binding, record = derive_geometry(nspec['galaxy'], p['distance_Mpc'], p['inclination_deg'])
++    gdir = ctx.out / 'inputs' / 'geometry_C'
++    gdir.mkdir(parents=True, exist_ok=False)
++    ppath, psha = ctx.write_input('geometry_C/' + PROFILE_NAME, profile)
++    bpath, bsha = GEOMETRY_PINS['source_binding_v003']
++    raw = Path(bpath).read_bytes()
++    if sha256_bytes(raw) != bsha or _write_bytes_x(ctx, gdir / Path(bpath).name, raw) != bsha:
++        raise Refusal('source binding V003 copy pin mismatch')
++    mono['input'] = {'path': str(ppath), 'sha256': psha, 'record': 'galaxies.DDO154.HI_plus_He'}
++    mpath, msha = ctx.write_input('geometry_monotone_source.json', mono)
++    binding['source_profile'] = {'path': str(ppath), 'sha256': psha}
++    cpath, csha = ctx.write_input('geometry_column_mean_binding.json', binding)
++    record['files'] = {'C_directory': str(gdir), 'profile': [str(ppath), psha], 'source_binding_v003_copy': [str(gdir / Path(bpath).name), bsha],
++                       'monotone_source': [str(mpath), msha], 'column_mean_binding': [str(cpath), csha]}
++    return {'C_dir': str(gdir), 'profile': (str(ppath), psha), 'monotone': (str(mpath), msha),
++            'binding': (str(cpath), csha), 'record': record}
++
++
+ # ----------------------------------------------------------------------------- execution context
+ class Ctx:
+     """mode 'run': executes stages.  mode 'simulate': executes nothing; a stage's outputs are
+@@ -679,7 +973,7 @@
+     return ident
+ 
+ 
+-def route_a_custody(cp, seed_sha, coeff_path, call_physical):
++def route_a_custody(cp, seed_sha, coeff_path, call_physical, profile_sha=None):
+     """Verify a route-A checkpoint (computed in this call or admitted) from bytes and return
+     the per-call identity the route-B stages need.  The route-B stages hard-code
+     iteration_0004: any other converged iteration is a BLOCKER (no reviewed successor)."""
+@@ -689,6 +983,10 @@
+     caller = cm.decode(ident['identity']['caller']['record'])
+     if caller['seed']['sha256'] != seed_sha:
+         raise Blocked('checkpoint caller seed %s is not this call seed %s' % (caller['seed']['sha256'], seed_sha))
++    if profile_sha is not None:  # c2v003b: the checkpoint must have been prepared from this call's source profile
++        got = sorted(s for p, s in (caller.get('code_pins') or {}).items() if Path(p).name == PROFILE_NAME)
++        if got != [profile_sha]:
++            raise Blocked('ROUTE_A_GEOMETRY_MISMATCH: checkpoint source profile pins %s, call profile %s' % (got, profile_sha))
+     phys = caller['physical_parameters']
+     for k in ('Eref_J', 'ell_F_m', 'gamma'):
+         if phys.get(k) != call_physical[k]:
+@@ -707,7 +1005,9 @@
+         raise Blocked('ROUTE_A_NOT_CONVERGED_AT_ITERATION_4 (route-B stages accept only that record)')
+     return {'identity_sha256': ident['identity_sha256'], 'start_payload_sha256': start['payload_sha256'],
+             'g4_ref': start['prepared_weighted_responses'], 'waves_ref': start['prepared_wavevectors'],
+-            'caller_seed': caller['seed'], 'physical': {k: phys.get(k) for k in ('Eref_J', 'ell_F_m', 'gamma')}}
++            'caller_seed': caller['seed'], 'physical': {k: phys.get(k) for k in ('Eref_J', 'ell_F_m', 'gamma')},
++            'prep_code_pins': {p: s for p, s in (caller.get('code_pins') or {}).items()
++                               if 'ddo_actual_initial_source_preparation' in p}}  # c2v003: record which prep built route A
+ 
+ 
+ def column_H(run_dirs):
+@@ -737,6 +1037,13 @@
+     return out
+ 
+ 
++def require_bracket_source(H, n, tag):
++    """c2v003 (CHECK_V001 further defect 1): a missing column is a stage failure, not a bare KeyError."""
++    missing = sorted(set(range(n)) - set(H))
++    if missing:
++        raise StageFailed('%s column(s) %s failed; no bracket source' % (tag, missing[:20]))
++
++
+ def merged_brackets(paths):
+     """index -> bracket actually supplied by a list of controls files (later runs win)."""
+     out = {}
+@@ -869,6 +1176,26 @@
+     info = {'seed': {'path': str(seed_path), 'sha256': seed_sha, 'base_seed_reused': reusable, 'changed_fields': changed}}
+     coeff_default = (coeff_path == str(g['default_coefficients'][0]) and coeff_sha == g['default_coefficients'][1])
+     reuse_path, reuse_sha = SCRIPTS['reference']
++    # c2v003: route-A prep by node count.  <= 80: V007 exactly as c2v001 (the worker's own LOCAL pin;
++    # no override).  81..96 (declared grids only, see normalize_spec): V008 via LOCAL['prep'].
++    nk = int(ni['fourier_points_per_axis'])
++    if nk <= PREP_V007_MAX_AXIS_NODES:
++        prep_key = 'prep'
++    elif nk <= PREP_V008_MAX_AXIS_NODES:
++        prep_key = 'prep_v008'
++        verify_pin(PREP_V008_REVIEW[0], PREP_V008_REVIEW[1], 'prep V008 review')
++    else:
++        raise Refusal('%d nodes/axis exceeds every reviewed route-A prep budget (%d)' % (nk, PREP_V008_MAX_AXIS_NODES))
++    prep_path, prep_sha = AUX[prep_key]
++    prep_info = {'path': str(prep_path), 'sha256': prep_sha, 'axis_nodes': nk,
++                 'rule': 'V007 for <=%d nodes/axis (unchanged); V008 for %d..%d (review %s)'
++                         % (PREP_V007_MAX_AXIS_NODES, PREP_V007_MAX_AXIS_NODES + 1, PREP_V008_MAX_AXIS_NODES, PREP_V008_REVIEW[1][:16])}
++    # c2v003b: per-call geometry inputs (None at the registered geometry: pinned files, plan unchanged).
++    geo = geometry_inputs(ctx, sp)
++    if geo is not None:
++        info['geometry'] = geo['record']
++    profile_sha = geo['profile'][1] if geo is not None else g['profile'][1]
++    src_path, src_sha = geo['monotone'] if geo is not None else g['monotone_source']
+ 
+     # ---------------- route A
+     adm = sp['admit']
+@@ -885,17 +1212,25 @@
+         att = Path(sa['attempt']) if 'attempt' in sa else d / 'attempt_000'
+         cp = Path(sa['checkpoint']) if 'checkpoint' in sa else d / 'checkpoint'
+         patches = []
++        prep_set = {}
+         if not coeff_default:
+-            patches.append({'path': str(AUX['prep'][0]), 'sha256': AUX['prep'][1],
+-                            'set': {'COEFFICIENT': {'__path__': coeff_path}, 'COEFFICIENT_SHA': coeff_sha}})
++            prep_set.update({'COEFFICIENT': {'__path__': coeff_path}, 'COEFFICIENT_SHA': coeff_sha})
++        if geo is not None:
++            prep_set['C'] = {'__path__': geo['C_dir']}  # c2v003b: prep reads C/PROFILE_NAME and C/<binding V003>
++        if prep_set:
++            patches.append({'path': str(prep_path), 'sha256': prep_sha, 'set': prep_set})
+         req = ctx.request('route_a', 'route_a', [
+             '--seed', seed_path, '--seed-sha256', seed_sha, '--solver', AUX['solver'][0], '--solver-sha256', AUX['solver'][1],
+             '--checkpoint-module', AUX['checkpoint_module'][0], '--checkpoint-module-sha256', AUX['checkpoint_module'][1],
+             '--outdir', att, '--checkpoint-directory', cp, '--start-iteration', '0'], module_patches=patches)
++        if prep_key == 'prep_v008':
++            req['stage_dict_items'] = {'LOCAL': {'prep': {'path': str(prep_path), 'sha256': prep_sha}}}
+         ctx.run_stages([req], [d])
+         info['route_a'] = {'mode': 'computed', 'attempt': str(att), 'checkpoint': str(cp)}
++    info['route_a']['prep'] = dict(prep_info, role=('used by this call' if info['route_a']['mode'] == 'computed' else
++                                                    'expected for this grid; the admitted checkpoint records its own (custody.prep_code_pins)'))
+     if (Path(cp) / 'IDENTITY.json').is_file():
+-        cust = route_a_custody(cp, seed_sha, coeff_path, call_phys)
++        cust = route_a_custody(cp, seed_sha, coeff_path, call_phys, profile_sha=profile_sha)
+         if 'route_a' in adm and cust['identity_sha256'] != adm['route_a']['identity_sha256']:
+             raise Refusal('admitted checkpoint identity differs from declared')
+     else:
+@@ -906,8 +1241,14 @@
+     if att_res.is_file():
+         ra = json.loads(att_res.read_text())
+         info['route_a']['route_a_rows'] = ra['result']['result']['rows']
++        if geo is not None:
++            info['route_a']['route_a_rows_scope'] = geo['record']['route_a_rows']  # c2v003b
+     ident = cust['identity_sha256']
+     reuse_patch = {'path': str(reuse_path), 'sha256': reuse_sha, 'set': {'SEED_SHA': seed_sha, 'IDENTITY': ident}}
++    ref_globals = {'SEED_SHA': seed_sha, 'IDENTITY': ident}
++    if geo is not None:  # c2v003b: homotopy worker PROFILE (reference stage itself; body/offset read it as reuse.PROFILE)
++        for target in (reuse_patch['set'], ref_globals):
++            target.update(PROFILE={'__path__': geo['profile'][0]}, PROFILE_SHA=geo['profile'][1])
+     mask = None
+     if tr['shape'] != 'cube':
+         mask = {'shape': tr['shape'], 'kmax_inverse_m': kmask_m, 'g4_file_sha256': cust['g4_ref']['file_sha256'],
+@@ -920,27 +1261,32 @@
+         ref = Path(adm['reference']['directory'])
+         verify_pin(ref / 'start.json', adm['reference']['start_sha256'], 'admitted reference start')
+         verify_pin(ref / 'finish.json', adm['reference']['finish_sha256'], 'admitted reference finish')
++        if json.loads((ref / 'start.json').read_text())['source_custody']['sha256'] != profile_sha:  # c2v003b
++            raise Blocked('REFERENCE_GEOMETRY_MISMATCH: admitted reference was not built from this call source profile')
+     else:
+         d = ctx.stage_dir('reference')
+         ref = d / 'reference' if ctx.mode == 'run' else ctx.saved_or('reference', d / 'reference')
+         req = ctx.request('reference', 'reference', common + ['--reference-module', AUX['reference_module'][0],
+                           '--reference-sha256', AUX['reference_module'][1], '--outdir', ref],
+-                          stage_globals={'SEED_SHA': seed_sha, 'IDENTITY': ident})
++                          stage_globals=ref_globals)
+         ctx.run_stages([req], [d])
+ 
+     # ---------------- body
+     if 'body' in adm:
+         body = Path(adm['body']['directory'])
+         verify_pin(body / 'finish.json', adm['body']['finish_sha256'], 'admitted body finish')
++        if src_sha not in json.loads((body / 'start.json').read_text())['input_pins'].values():  # c2v003b
++            raise Blocked('BODY_GEOMETRY_MISMATCH: admitted body was not built from this call monotone source')
+     else:
+         d = ctx.stage_dir('body')
+         body = d / 'body' if ctx.mode == 'run' else ctx.saved_or('body', d / 'body')
+-        src_path, src_sha = g['monotone_source']
+         data_pins = [[str(ref / 'start.json'), ctx.finish_sha(ref, 'start.json')], [str(ref / 'finish.json'), ctx.finish_sha(ref)],
+                      [str(src_path), src_sha]]
++        body_globals = {'REFERENCE': {'__path__': str(ref)}, 'DATA_PINS': {'__pathdict__': data_pins}}
++        if geo is not None:
++            body_globals['SOURCE'] = {'__path__': str(src_path)}  # c2v003b: per-call monotone source
+         req = ctx.request('body', 'body', common + ['--outdir', body],
+-                          stage_globals={'REFERENCE': {'__path__': str(ref)}, 'DATA_PINS': {'__pathdict__': data_pins}},
+-                          module_patches=[reuse_patch])
++                          stage_globals=body_globals, module_patches=[reuse_patch])
+         ctx.run_stages([req], [d])
+     body_fin = ctx.finish_sha(body)
+ 
+@@ -952,8 +1298,22 @@
+                       stage_globals={'COEFF': {'__path__': coeff_path}, 'COEFF_SHA': coeff_sha},
+                       module_patches=[reuse_patch], mask=mask)
+     ctx.run_stages([req], [d])
++    if mask is not None:
++        # c2v003 (CHECK_V001 s3 corr. 2): refuse to continue unless the mask demonstrably fired.
++        tinfo = {'shape': tr['shape'], 'kmax_inverse_m': kmask_m,
++                 'scope': 'route A, reference and body unmasked (cube G4); offset real-space total and '
++                          'updated_base_arrays full_fields/Phi0/angular_forcing/r0 are a MIXED field (see truncation_mask)'}
++        if ctx.mode == 'run' or ((Path(off) / 'unit_response.npz').is_file() and (Path(off) / 'offset_prepared.npz').is_file()):
++            tinfo['mask_check'] = mask_fired_check(off, tr['shape'], kmask_m)
++            ctx.event(stage='offset', event='mask_check', kept_nodes=tinfo['mask_check']['kept_nodes'],
++                      total_nodes=tinfo['mask_check']['total_nodes'])
++        else:
++            tinfo['mask_check'] = 'PENDING (offset outputs not present in simulate mode)'
++        info['truncation'] = tinfo
+     off_fin = ctx.finish_sha(off)
+     gl = {'OFFSET_SHA': off_fin}
++    # c2v003b: rotation v001/v005 read the monotone source as module globals SOURCE/SOURCE_SHA.
++    rot_gl = gl if geo is None else dict(gl, SOURCE={'__path__': str(src_path)}, SOURCE_SHA=src_sha)
+     base = common + ['--offset-directory', off]
+ 
+     verify_pin(g['solver_template'][0], g['solver_template'][1], 'solver template')
+@@ -1036,7 +1396,7 @@
+     fs_rot = d / 'rotation' if ctx.mode == 'run' else ctx.saved_or('fs_rotation', d / 'rotation')
+     ctx.run_stages([ctx.request('fs_rotation', 'rotation_v001', base + ['--column-manifest', mpath, '--column-manifest-sha256', msha,
+                     '--mass-relative-tolerance', FIXED_ARGS['mass_relative_tolerance'], '--outdir', fs_rot],
+-                    stage_globals=gl, module_patches=[reuse_patch], mask=mask)], [d])
++                    stage_globals=rot_gl, module_patches=[reuse_patch], mask=mask)], [d])
+     d = ctx.stage_dir('fs_feedback')
+     fs_fb = d / 'feedback' if ctx.mode == 'run' else ctx.saved_or('fs_feedback', d / 'feedback')
+     ctx.run_stages([ctx.request('fs_feedback', 'feedback_v002', base + ['--rotation-directory', fs_rot,
+@@ -1056,6 +1416,7 @@
+         if H_fs is None:
+             rfs_plan = 'PENDING'
+         else:
++            require_bracket_source(H_fs, n, 'fs')
+             table = rule_brackets(H_fs, rule['rfs_factors'], rule['rfs_factor_overrides'], range(n))
+             checks['rfs'] = rule_vs_saved(g, 'rfs', table)
+             rfs_plan = generated_runs('rfs', table)
+@@ -1085,6 +1446,7 @@
+             plan = 'PENDING'
+         else:
+             ov = rule['le_factor_overrides'].get(str(p), {})
++            require_bracket_source(H_prev, n, 'rfs' if p == 1 else 'le%d' % (p - 1))
+             table = rule_brackets(H_prev, factors, ov, range(n))
+             checks[tag] = rule_vs_saved(g, tag, table)
+             plan = generated_runs(tag, table, split=not serial)
+@@ -1100,7 +1462,7 @@
+                         '--feedback-directory', field_dir, '--feedback-finish-sha256', field_sha,
+                         '--column-worker-sha256', SCRIPTS['columns_v005'][1], '--feedback-worker-sha256', field_worker,
+                         '--mass-relative-tolerance', FIXED_ARGS['mass_relative_tolerance'], '--outdir', rot, '--entropy-scale', efs],
+-                        stage_globals=gl, module_patches=[reuse_patch], mask=mask)], [d])
++                        stage_globals=rot_gl, module_patches=[reuse_patch], mask=mask)], [d])
+         pass_rec = {'pass': p, 'columns': [str(x) for x in cols], 'rotation': str(rot), 'field': str(field_dir)}
+         rf = Path(rot) / 'finish.json'
+         if rf.is_file():
+@@ -1120,7 +1482,7 @@
+         if observe:
+             d = ctx.stage_dir(tag + '_column_mean')
+             obsd = d / 'observation' if ctx.mode == 'run' else ctx.saved_or(tag + '_column_mean', d / 'observation')
+-            b_path, b_sha = g['column_mean_binding']
++            b_path, b_sha = geo['binding'] if geo is not None else g['column_mean_binding']  # c2v003b
+             pins = [[str(b_path), b_sha], [str(Path(rot) / 'start.json'), ctx.finish_sha(rot, 'start.json')],
+                     [str(Path(rot) / 'finish.json'), ctx.finish_sha(rot)],
+                     [str(Path(cols[0]) / 'start.json'), ctx.finish_sha(cols[0], 'start.json')],
+@@ -1224,11 +1586,15 @@
+     pins = {}
+     for path, sha in list(SCRIPTS.values()) + list(AUX.values()):
+         pins[str(path)] = verify_pin(path, sha, 'code')
++    pins[str(PREP_V008_REVIEW[0])] = verify_pin(PREP_V008_REVIEW[0], PREP_V008_REVIEW[1], 'prep V008 review')  # c2v003
+     g = GALAXIES[nspec['galaxy']]
+     for key in ('base_seed', 'profile', 'monotone_source', 'column_mean_binding', 'solver_template'):
+         path, sha = g[key]
+         pins[str(path)] = verify_pin(path, sha, key)
+     pins[nspec['coefficients']['path']] = verify_pin(nspec['coefficients']['path'], nspec['coefficients']['sha256'], 'coefficients')
++    if geometry_active(nspec):  # c2v003b: inputs of the per-call geometry derivation
++        for key, (path, sha) in GEOMETRY_PINS.items():
++            pins[str(path)] = verify_pin(path, sha, 'geometry ' + key)
+     return pins
+ 
+ 
+@@ -1318,6 +1684,10 @@
+             result['reasons'].append('no final pass')
+         else:
+             result['final_pass'] = final['pass']
++            # c2v003 (CHECK_V001 further defect 2): explicit convergence-bound outcome.
++            bnd = nspec['numerics']['picard']['speed_change_bound_km_s']
++            chg = final.get('max_abs_change_km_s')
++            result['picard_bound_met'] = None if bnd is None or chg is None else bool(chg <= bnd)
+             if 'rows' in final and len(final['rows']) == g['n_queries'] and all(math.isfinite(r['speed_km_s']) for r in final['rows']):
+                 result['rows'] = final['rows']
+                 result['speeds_km_s'] = {r['id']: r['speed_km_s'] for r in final['rows']}
+@@ -1459,7 +1829,8 @@
+     report['seed'] = {'base_seed_reused_bitwise': reusable, 'changed_fields': changed}
+     repro_like = reusable and nspec['numerics']['truncation']['shape'] == 'cube' and \
+         nspec['physical']['entropy_K_factor'] == g['default_entropy_K_factor'] and \
+-        nspec['coefficients']['sha256'] == g['default_coefficients'][1] and nspec['numerics']['picard']['passes'] == 3
++        nspec['coefficients']['sha256'] == g['default_coefficients'][1] and nspec['numerics']['picard']['passes'] == 3 and \
++        not geometry_active(nspec)  # c2v003b: saved outputs exist only at the registered geometry
+     saved = dict(g['saved_runs']) if repro_like else {}
+     ctx = Ctx('simulate', nspec, rd / 'simulated_call', saved_runs=saved)
+     info, final = execute_chain(ctx)
+@@ -1467,6 +1838,8 @@
+     stages = []
+     for rec in ctx.records:
+         row = {k: rec.get(k) for k in ('name', 'kind', 'script', 'script_sha256', 'argv', 'stage_globals', 'module_patches', 'mask', 'note')}
++        if rec.get('stage_dict_items'):
++            row['stage_dict_items'] = rec['stage_dict_items']  # c2v003 (route-A prep V008 only)
+         if rec.get('argv') and repro_like:
+             outdir = _argv_map(rec['argv']).get('--outdir')
+             orig = _orig_launch(outdir) if outdir else None
+@@ -1482,10 +1855,14 @@
+         if rec.get('argv'):
+             # override values versus the values hard-coded in the stage / dependency files
+             ov = []
+-            if rec.get('stage_globals') or rec.get('module_patches'):
++            if rec.get('stage_globals') or rec.get('module_patches') or rec.get('stage_dict_items'):
+                 m = exec_verified(rec['script'], rec['script_sha256'], 'c2v001_dry_' + rec['kind'])
+                 for name, val in (rec.get('stage_globals') or {}).items():
+                     ov.append(_override_row(rec['kind'], name, m.__dict__.get(name, _ABSENT), _decode_value(val)))
++                for gname, items in (rec.get('stage_dict_items') or {}).items():
++                    for key, pin in items.items():
++                        hard = (m.__dict__.get(gname) or {}).get(key, _ABSENT)
++                        ov.append(_override_row(rec['kind'], '%s[%s]' % (gname, key), hard, (Path(pin['path']), pin['sha256'])))
+                 for patch in rec.get('module_patches') or []:
+                     dm = exec_verified(patch['path'], patch['sha256'], 'c2v001_dry_dep')
+                     for name, val in patch['set'].items():
+@@ -1504,6 +1881,9 @@
+         'stages_all_inputs_identical': sum(1 for x in sp if x.get('all_inputs_identical')),
+         'overrides_total': sum(len(x.get('override_comparison') or []) for x in stages),
+         'overrides_noop_identical': sum(1 for x in stages for o in (x.get('override_comparison') or []) if o['verdict'] == 'NO_OP_IDENTICAL_VALUE'),
++        # c2v003 (CHECK_V001 s1 doc correction): state the count as "n of total" and name the others.
++        'overrides_not_noop': ['%s %s.%s: %s' % (x['name'], o['where'], o['name'], o['verdict']) for x in stages
++                               for o in (x.get('override_comparison') or []) if o['verdict'] != 'NO_OP_IDENTICAL_VALUE'],
+         'bracket_rule_checks': info.get('bracket_rule_checks'),
+         'scipy_imports': report['transitive_pins']['scipy_imports'],
+         'pin_problems': report['transitive_pins']['problems'],
+@@ -1514,7 +1894,10 @@
+         src = json.loads(rp.read_text())['result'].get('source_pins', {})
+         bad = [p for p, s in src.items() if not Path(p).is_file() or sha256_file(p) != s]
+         report['route_a_recorded_source_pins'] = {'n': len(src), 'all_current_files_match': not bad, 'mismatch': bad,
+-            'note': 'prep V007 loads these helper modules by path and RECORDS (does not verify) their SHA256; checked here from bytes'}
++            'note': 'prep V007/V008 loads these helper modules by path and RECORDS (does not verify) their SHA256; checked here from bytes'}
++    report['summary']['overrides_wording'] = '%d of %d identity overrides are no-ops' % (
++        report['summary']['overrides_noop_identical'], report['summary']['overrides_total'])
++    report['summary']['route_a_prep'] = info.get('route_a', {}).get('prep')
+     lines = ['DRY-RUN PLAN %s  (spec %s)' % (nspec.get('label', ''), report['call_spec_sha256']), '']
+     for i, s in enumerate(stages, 1):
+         verdict = s.get('all_inputs_identical')
+@@ -1525,6 +1908,9 @@
+             lines.append('      argv: ' + ' '.join(str(a).replace(str(ROOT), '$ROOT').replace(str(rd), '$DRY') for a in s['argv']))
+         if s.get('mask'):
+             lines.append('      mask: shape=%s kmax=%.6g/m g4_blob=%s (weight mask on existing grid)' % (s['mask']['shape'], s['mask']['kmax_inverse_m'], s['mask']['g4_file_sha256'][:16]))
++        for gname, items in (s.get('stage_dict_items') or {}).items():
++            for key, pin in items.items():
++                lines.append('      dict item %s[%s] := %s %s' % (gname, key, Path(pin['path']).name, pin['sha256'][:12]))
+         for o in s.get('override_comparison') or []:
+             lines.append('      override %s.%s: %s' % (o['where'], o['name'], o['verdict']))
+         if s.get('note'):

@@ -1,0 +1,9 @@
+From: Codex ROOT
+Date (UTC): 2026-10-13
+Re:Code2/0271; root0225; Code3/0388preparedsource
+Supersedes:none
+Action needed:yes — Codex3 actualV003 completecontrolchecker andchunkcheckerpins
+
+Root entirecompatibilitydiff independentlyPASS: fourpopcounts only plusupdatedpins. Fresh V003controls rununderoriginalXcodePython3.9.6/tinyreviewedV002 supervisor completedexit0; all18reportedexpectations met. Full44file output/rootruntimecustodycaptured KRYLOV_FULL_N2_CONTROLS_RAW_PRODUCER_CUSTODY_V003.json. Actual archive KNOWLEDGE/ROOT_EXECUTION_BLOCK_V001/KRYLOV_FULL_N2_CONTROLS_OUTPUT_V003; config/sourcegate/spec/run sameprefixV003. FailedV002wholeprefix/runtime retained, no acceptance.
+
+Codex3 prioritizecompleteindependent18controlcomparison usingcompatiblechunkV003/readV003/sourcepins andcorrectednonlinearhelperV002. Root readscompletechunkcheckersource inparallel; finalcompatiblepin handoffneededbeforegate. NativechunkrootruntimealreadydistinctPASS, originalinputopeningPASS andstorage192GiBaccounted. No firstwaveuntilcontrolsacceptedandcompletecheckerqualified. Code2 canresumeassigneddocumentaryaudit while remainingavailableforconcretereviewfindings. No selfreview orphysicalrelease.

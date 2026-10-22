@@ -1,0 +1,91 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0826 item 2: cross-family check of Codex1's concurrent-Jacobian design (0816 + 0820)",
+ "reviewer_lane": "Claude3 (helper lens; lead spot-checked N3 and N4 from bytes)",
+ "utc": "2026-10-21T12:50:35Z",
+ "object": {
+  "folder": "claude_artifacts/concurrent_jacobian_cx1/",
+  "files": 13,
+  "unchanged_12:26Z_to_12:45Z": true,
+  "CONSOLIDATED": "b272e1dc",
+  "FINAL_DESIGN": "1fa34f0f",
+  "EXTENSION": "d0823cd9"
+ },
+ "verdict": "PASS (no value change, no engine-path change found)",
+ "blocking": 0,
+ "codex1_own_verdict": "FAIL, 2 blocking (the route cannot run with existing tools): CONFIRMED. The lever stays non-launchable until both successors exist (the B1 importer and the B2 direct admission).",
+ "findings": [
+  {
+   "id": "N1",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "Invariance holds at Probe level; keeping the waves intact needs lazy import",
+   "evidence": "Synthetic test on scratch copies running the actual Probe AST (calibration_orchestrator_c2v005.py:2504-2626) and the engine's _fail_closed, _evaluate_point and finite_difference_jacobian (calibration_region_engine_c2v003b.py:200-216, 1033-1089, 1113-1282). Final Jacobian and evaluation log equal the natural path in 108/108 cases. Wave plans are unchanged in 54/54 lazy cases and changed in 54/54 bulk cases (all-valid: natural 4 waves, bulk 1)."
+  },
+  {
+   "id": "N2",
+   "class": "NOTE",
+   "label": "TESTED",
+   "title": "The branch trace reproduces (30/30) but cannot fail as an invariance test",
+   "evidence": "Both arms inject the same deterministic response (branch_trace_cx1v001.py:21,24). Its real content is L36-37: an invalid plus never requests the nominal minus. N1 supplies the Probe-level evidence."
+  },
+  {
+   "id": "N3",
+   "class": "NOTE (hidden serial dependency)",
+   "label": "FORMAL; lead spot-checked",
+   "title": "The step-4 machine lock blocks a second direct batch beside HEADLINE11",
+   "evidence": "step4_launcher_c2v015.py L17, L49-54: an exclusive flock on STEP4_MACHINE_LOCK_V001 refuses ANOTHER_STEP4_BATCH_ACTIVE, and monitors inherit it. 'Alongside HEADLINE11' needs one re-bound H11+7 plan (guard014 binds case_order, caps, calls and families, L374-394) or a launcher successor. In a combined batch the drain-on-systemic and predecessor rules tie H11 to the speculative calls, so H11 must come first in case_order."
+  },
+  {
+   "id": "N4",
+   "class": "NOTE (wall-cap risk)",
+   "label": "FORMAL; lead spot-checked the 39.27 h model",
+   "title": "The design's CPU model runs past the 28 h DDO tail-ON wall cap",
+   "evidence": "EXTENSION_0820 L49 models 18 overlapping calls at about 39.27 h (1.636 x). The helper cites a 28 h cap for campaign and HEADLINE calls (README_SCHED_S45_C2V001:119; RUN_CONFIG v004a:490). A cap stop is never counted, but an H11 cap stop means an A133(c) rerun on the critical path. launcher015 also forces normal QoS, so speculative calls cannot run as background hedge work (A258 rule 3)."
+  },
+  {
+   "id": "N5",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "Disk on the direct route",
+   "evidence": "guard014 batch admission needs free space >= the sum of output caps + 20 GiB (L307-316, L405); with N3 a combined batch reserves 18 caps; A256 records External1 as nearly full."
+  },
+  {
+   "id": "N6",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "The two routes use different environments, and the importer does not bind this",
+   "evidence": "Campaign strips PYTHON* and sets 6 thread variables plus --python (campaign_c2v005.py:47-48, 213-220). Direct passes root's environment plus 4 BLAS variables (launcher015:16, 19, 128). Same driver b5cc62af and monitor ba031c23. No value change is shown; the importer should compare runtime and environment identity, or root rules the difference immaterial."
+  },
+  {
+   "id": "N7",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "The importer spec leaves out four requirements",
+   "evidence": "A226 item 1 single-read; an A226 item 3 envelope phase for the early calls' pinned inputs; a register of every speculative call and outcome, so an early COMPLETED_INVALID is kept under the discard rule (V006:4391); a layout adapter (_classify reads spec.json and RECEIPT.json in the call dir; direct calls keep them elsewhere)."
+  },
+  {
+   "id": "N8",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "The minus points need a reviewed direct certificate lookup to start before the drive mount",
+   "evidence": "guard014 requires ROOT_FINAL specs and a native certificate check (L384, 254-258); Codex1 states this (EXTENSION:27). The seed and plus points do not depend on the 5 fields or on the volume."
+  },
+  {
+   "id": "N9",
+   "class": "NOTE",
+   "label": "FORMAL",
+   "title": "Campaign scheduler weights cap a 7-call block at 5 concurrent calls",
+   "evidence": "Peak 8 / after 2 under budget 17 (campaign_c2v005.py:79-89, 199-204), so the campaign route saves about 1T, not 2T."
+  }
+ ],
+ "saving": {
+  "waves_saved_TESTED_synthetic": "all valid with 6 early: 2; all 7 early: 3; one plus invalid: 2 (3 with the half-plus hedge); one minus invalid: 3; seed invalid: <=1",
+  "wave_T_hours": "16.3-20.1 h under 10-way overlap (A247) or 11.7 h solo model",
+  "by_route": "about 1T via the campaign scheduler; about 2T via the direct route",
+  "best_supported_variant": "run the 7 calls on the direct route after H11 ends and before the drive mount; if all are valid this saves about 2-3T; it still needs both successors",
+  "hours": "UNTESTED"
+ },
+ "checked_summary": "B1/B2 constraints, field isolation, invariance by induction, bulk vs lazy waves, branch-family stop, F6 per-call root act, the 30 branch comparisons (reproduced), hedge arithmetic and the 17 source pins: CONFIRMED. Earliest start beside H11 and the equal-work CPU model: PARTIAL. Driver determinism under load: NOT_CHECKED.",
+ "reads_not_done": "Named paths only; nothing launched; scratch copies only. The helper's V006 sed range also took in A261, which it did not rely on."
+}

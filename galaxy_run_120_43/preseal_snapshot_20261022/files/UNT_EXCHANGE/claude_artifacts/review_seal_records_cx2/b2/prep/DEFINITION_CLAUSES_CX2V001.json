@@ -1,0 +1,53 @@
+{
+  "R1_B2": "static rows on saved C2R3/C3R3/C4R3 le3 (rotation_v005 uvt successor + unchanged column mean; continuum_v001, O = cube 12) equal to an independent Cartesian tensor-GL implementation (box(12)\\cube(K), 16 azimuths, no symmetry reduction) to <= 1e-4 km/s per row; sanity vs study ADV_TAIL_CHECK KB12 within the m16 alias + star-roster difference (<= 0.05 km/s)",
+  "date_u": "Sun Oct 18 19:37:26 UTC 2026",
+  "design_v001_section": "4 B2: saved le3 columns, independent Cartesian rows, original sanity wording against study m=0 with m16 alias plus star-roster difference",
+  "design_v002_sections": [
+    "1.1: packet_K+t, domain O minus C; B2 outer cube",
+    "4.4: le3 saved inputs, production row path, independent tensor-GL full box/16 azimuths, tolerances"
+  ],
+  "inputs": [
+    {
+      "bytes": 15132,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/gate_b2_c3/FINDINGS_B2.md",
+      "sha256": "769a791eaa9223f78cfc3fc80970a867bc4026c7fd8d4d997afce273b589950b"
+    },
+    {
+      "bytes": 408506,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r11/kmax_tail_compare_c2v007_r11.py",
+      "sha256": "a5d10cb1a213931713b9712da0781042d8e02ed5c1e81cda21b97c33b0559c8a"
+    },
+    {
+      "bytes": 49664,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r11/FIELDS_R11.md",
+      "sha256": "c7f0dec6ff1ae45dc242c69686e88ad73089a39e1b582e73650e6e18a7368cc5"
+    },
+    {
+      "bytes": 44619,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/KMAX_TAIL_PREREG_V007_FINAL_DRAFT.md",
+      "sha256": "5a1c04e16668b30178acf3d2719a76eff71627eb2dbaede2acfb84948db9e54e"
+    },
+    {
+      "bytes": 21203,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_design_c2/v002/r1/KMAX_TAIL_PREREG_V007_DRAFT_R1.json",
+      "sha256": "c691cab6dd9752a7bd98025cf7357a5c729b3fef90a78a6277195c5520671e33"
+    },
+    {
+      "bytes": 62327,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_design_c2/v002/TAIL_SCHEME_DESIGN_V002.md",
+      "sha256": "cdb16d1c42da39cf8eabe253b7192f4f391d19adfdd026e57a6971837a6aa944"
+    },
+    {
+      "bytes": 46056,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_design_c2/TAIL_SCHEME_DESIGN_V001.md",
+      "sha256": "3b61201d82e95c0cb653e375bafe23955fcfb5abe3ca0b6fbf35beb5add47094"
+    }
+  ],
+  "r11_g_B2_source": "def g_B2(rec, ctx, xr, read):\n    fails = []\n    if need(rec, 'O_cube_K_out_inverse_kpc', 'B2', 'num', read) != 12 or need(rec, 'azimuths', 'B2', 'int', read) != 16:\n        fails.append('DEFECT:B2_CONFIGURATION')\n    for s in ('C2R3', 'C3R3', 'C4R3'):\n        if need(rec, 'per_state/%s/state_result_sha256' % s, 'B2', 'sha', read) != PIN_R3[s][1]:\n            fails.append('DEFECT:B2_%s_STATE_SHA' % s)\n        if need(rec, 'per_state/%s/max_row_diff_km_s' % s, 'B2', 'num>=0', read) > 1e-4:\n            fails.append('B2_%s_ROWS_GT_1e-4' % s)\n        if need(rec, 'per_state/%s/sanity_vs_KB12_km_s' % s, 'B2', 'num>=0', read) > 0.05:\n            fails.append('B2_%s_SANITY_GT_0.05' % s)\n    return fails",
+  "status": "SOURCE_ONLY_NO_EXECUTION",
+  "working_notes_snapshot": {
+    "bytes": 15132,
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_records_cx2/b2/prep/WORKING_NOTES_SNAPSHOT_CX2V001.md",
+    "sha256": "769a791eaa9223f78cfc3fc80970a867bc4026c7fd8d4d997afce273b589950b"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "0837 N6 refinement; overall importer still FAIL with 3 blockers",
+  "utc": "2026-10-21T13:08:14.815451+00:00",
+  "tested": [
+    "128 inert AST-only equal-base environment cases: monitor strips PYTHON* and sets all six thread variables, so direct and campaign driver environments match given the same inherited base. Default interpreter path strings equal. Different other inherited values remain different."
+  ],
+  "untested": [
+    "Actual runtime binary/library identity and inherited environment equality",
+    "Authenticated register/envelope coverage",
+    "Layout acceptance producer and consumer integration",
+    "Wait/cache/entry integration and whole-engine replay"
+  ],
+  "finding": "N6 outer-launcher normalization difference is removed at driver spawn by pinned monitor ba031c23 under equal inherited base. This is conditional, not proof of actual runtime/environment equivalence. Monitor launch pins carry interpreter path, not binary hash or complete effective environment.",
+  "blocking": [
+    "I1 entry/executor/cache/wait integration remains incomplete",
+    "I2 direct-layout acceptance producer and consumer binding remains incomplete",
+    "I3 authenticated runtime/environment/envelope/speculative register remains incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/test_driver_env_normalization_cx1v001.py",
+      "sha256": "5622b1328c690edac2b67e99d8c1da00dd04ff00d1dbb03b4cb44c3d0f6168ca"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/inert_fixtures/env_rja1l46w/TEST_REPORT.json",
+      "sha256": "ef07cc5a4e48c6e8cc24f7b4df8948cc22809502ec296f80ff43c02703f26161"
+    }
+  ],
+  "next": "Bind effective runtime/environment facts in authenticated registration; retain N6 gate. Continue explicit layout and wait/cache integration.",
+  "inbox_seen": 839,
+  "outbox": 182,
+  "no_live_processes": true
+}

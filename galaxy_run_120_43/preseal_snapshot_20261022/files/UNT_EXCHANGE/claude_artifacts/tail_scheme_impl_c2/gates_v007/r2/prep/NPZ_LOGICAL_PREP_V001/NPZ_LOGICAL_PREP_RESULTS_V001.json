@@ -1,0 +1,88 @@
+{
+ "label": "TESTED direct NPZ parser only; full comparator selftest UNTESTED here",
+ "candidate": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/run_identity_compare_c2v007.py",
+  "sha256": "06ff52d636c640ebe9a92a4b2cf54620a01514992019e2b2f2dca1529f7dc188"
+ },
+ "rows": [
+  {
+   "case": "clean",
+   "expect": "MUST_PASS",
+   "passed": true,
+   "refused": false,
+   "error": null,
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/prep/NPZ_LOGICAL_PREP_V001/clean.npz",
+    "sha256": "2576b8ac6f9f68c9abaed40dfb726a55cee6979fb7da0f594f097738de58a6a9"
+   }
+  },
+  {
+   "case": "alias_bad_first",
+   "expect": "MUST_FAIL",
+   "passed": true,
+   "refused": true,
+   "error": "NPZ_MEMBER_NOT_NPY 'weighted_responses' (entry 1)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/prep/NPZ_LOGICAL_PREP_V001/alias_bad_first.npz",
+    "sha256": "2c01abc9d00922480fdb9805c650a249de0bcaa713da913a6c764568808e6fd5"
+   }
+  },
+  {
+   "case": "alias_bad_last",
+   "expect": "MUST_FAIL",
+   "passed": true,
+   "refused": true,
+   "error": "NPZ_MEMBER_NOT_NPY 'weighted_responses' (entry 0)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/prep/NPZ_LOGICAL_PREP_V001/alias_bad_last.npz",
+    "sha256": "87f5af422063bdc5fff5a08efdf68d078faa9b3f0c6755cbcb40043914c7230f"
+   }
+  },
+  {
+   "case": "extensionless_only",
+   "expect": "MUST_FAIL",
+   "passed": true,
+   "refused": true,
+   "error": "NPZ_MEMBER_NOT_NPY 'weighted_responses' (entry 0)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/prep/NPZ_LOGICAL_PREP_V001/extensionless_only.npz",
+    "sha256": "55b0c72d62e09d1d4e816371e2308b098c053c5bb7207134a2097d896a7bd53f"
+   }
+  },
+  {
+   "case": "duplicate_raw_same",
+   "expect": "MUST_FAIL",
+   "passed": true,
+   "refused": true,
+   "error": "DUPLICATE_NPZ_MEMBER 'weighted_responses.npy' (central-directory entries 0 and 1)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/prep/NPZ_LOGICAL_PREP_V001/duplicate_raw_same.npz",
+    "sha256": "4773c492ee84625de7038aee013decd5d52b0910b98eee1a865db7f5985e21d7"
+   }
+  },
+  {
+   "case": "duplicate_raw_changed",
+   "expect": "MUST_FAIL",
+   "passed": true,
+   "refused": true,
+   "error": "DUPLICATE_NPZ_MEMBER 'weighted_responses.npy' (central-directory entries 0 and 1)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/prep/NPZ_LOGICAL_PREP_V001/duplicate_raw_changed.npz",
+    "sha256": "6da490634382aa6307b714ca54808ca7352438d666e407243c80dbd05be95dcd"
+   }
+  },
+  {
+   "case": "nested_alias",
+   "expect": "MUST_FAIL",
+   "passed": true,
+   "refused": true,
+   "error": "NPZ_MEMBER_NOT_NPY 'group/weighted_responses' (entry 1)",
+   "fixture": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v007/r2/prep/NPZ_LOGICAL_PREP_V001/nested_alias.npz",
+    "sha256": "86db4d6044ca86a31fd2a285e36109ff6b8db327a34ee620d874311126d854be"
+   }
+  }
+ ],
+ "passed": 7,
+ "total": 7
+}

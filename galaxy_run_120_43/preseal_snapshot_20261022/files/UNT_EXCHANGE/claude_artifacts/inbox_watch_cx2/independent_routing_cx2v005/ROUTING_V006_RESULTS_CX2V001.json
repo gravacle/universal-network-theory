@@ -1,0 +1,400 @@
+{
+  "actual_dispatch": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0858_2026-10-22_codex1_resume_importer_status_and_inbox_fix.md",
+    "sha256": "4cff96e883191cbfc6402feb26dbb6b3d7d97025f2f34708977ac973c15e18b7"
+  },
+  "date_u": "Thu Oct 22 03:39:39 UTC 2026",
+  "limits": [
+    "No scan/main/sleep called; no actual pending/inbox/outbox operation performed.",
+    "Only source and specifically requested0858 packet bytes read.",
+    "Recipient classification does not execute or authorize a dispatch."
+  ],
+  "passed": 45,
+  "runtime": "nice unavailable (sandbox); 0514 waiver",
+  "source": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/inbox_watch_cx2/inbox_pending_cx2v006.py",
+    "sha256": "a9bd9c5d946676521c8cd432e215a317712583daa99dbe8b11ffd13c7fe56fae"
+  },
+  "status": "TESTED_ROUTING_ONLY_NO_SCAN_OR_DISPATCH",
+  "tests": [
+    {
+      "detail": null,
+      "name": "old01_pending_shared_and_direct",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "old02_repeated_read_not_ack",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "old03_ordinary_or_quoted_ack_not_authority",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "old04_exact_ack_removes_only_acknowledged",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "old05_restart_same_immutable_ack",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# Mixed queue\n- **Codex2:** new task"
+      },
+      "name": "old06_bullet_direct",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# Mixed queue\n2. **Codex (any account):** new task"
+      },
+      "name": "old07_numbered_any_account",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0851 \u2014 ALL LANES: shared operating instruction"
+      },
+      "name": "old08_all_lanes_space",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0851 \u2014 ALL_LANES: shared operating instruction"
+      },
+      "name": "old09_all_lanes_underscore",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# 0850 \u2014 Claude3: independent work\nCodex1 handles its own queue."
+      },
+      "name": "old10_other_lane",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# Codex (any account; re: task): notice"
+      },
+      "name": "old11_any_account_parenthetical_colon",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\nTo: **Codex2:** new task"
+      },
+      "name": "old12_explicit_to_bold_recipient",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\n**To: Codex2:** new task"
+      },
+      "name": "old13_explicit_to_bold_header",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\n- **Codex (any account; note):** new task"
+      },
+      "name": "old14_bullet_any_account_note",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Other lane: review FROM_CODEX2/0413"
+      },
+      "name": "old15_outbox_reference_not_recipient",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Codex20: separate lane"
+      },
+      "name": "old16_codex20_not_codex2",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0860 \u2014 Codex1, Codex2: shared work"
+      },
+      "name": "shared_comma_title",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0860 \u2014 Codex1 + Codex2: shared work"
+      },
+      "name": "shared_plus_title",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0860 \u2014 Codex1 & Codex2: shared work"
+      },
+      "name": "shared_ampersand_title",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0860 \u2014 Codex1 / Codex2: shared work"
+      },
+      "name": "shared_slash_title",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\nTo: Codex1, Codex2"
+      },
+      "name": "explicit_to_group_comma",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\nTo: Codex1 and Codex2: shared work"
+      },
+      "name": "explicit_to_group_and",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\n**To:** Codex1, Codex2 and Codex3."
+      },
+      "name": "explicit_to_three_lanes",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\n- **Codex1 and Codex2:** shared task"
+      },
+      "name": "grouped_bullet_recipient",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0860 \u2014 ALL-LANES: shared work"
+      },
+      "name": "all_lanes_hyphen",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\nTo: ALL LANES"
+      },
+      "name": "all_lanes_explicit_to",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# General\nTo: Claude3 and Codex (any account)"
+      },
+      "name": "any_account_explicit_to_group",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# 0860 \u2014 codex2: work"
+      },
+      "name": "codex2_case_insensitive",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Codex1 and Codex20: different account"
+      },
+      "name": "codex20_shared_exclusion",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# General\nTo: Codex20"
+      },
+      "name": "codex20_body_exclusion",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# 0860 \u2014 Codex1: proceed as Codex2 did"
+      },
+      "name": "title_reference_after_recipient_colon",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# 0860 \u2014 Codex1: use Codex (any account) examples"
+      },
+      "name": "title_any_account_reference_after_colon",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# 0860 \u2014 Codex1: report the ALL LANES changes"
+      },
+      "name": "title_all_lanes_reference_after_colon",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Codex1: work\nCodex2 supplied an earlier example."
+      },
+      "name": "ordinary_body_mention",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Codex1: work\nCodex2's earlier packet is a reference."
+      },
+      "name": "ordinary_body_possessive",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Codex1: work\nUse Codex2 work as context."
+      },
+      "name": "ordinary_mid_sentence_mention",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Codex1: work\n- Codex2 did this yesterday."
+      },
+      "name": "ordinary_bullet_mention",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# Notes from Codex2 about the importer"
+      },
+      "name": "ordinary_title_mention_without_colon",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# 0860 \u2014 Review of Codex2 work: context for Codex1"
+      },
+      "name": "ordinary_title_reference_segment",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# General\n> To: Codex2"
+      },
+      "name": "quoted_to_not_address",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# General\nTo: Codex1. Reference: Codex2 prior report."
+      },
+      "name": "to_other_then_reference_sentence",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": true,
+        "expected": true,
+        "text": "# Codex1: background\nTo: Codex1, Codex2"
+      },
+      "name": "actual_group_overrides_other_lane_title",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual": false,
+        "expected": false,
+        "text": "# 0858 \u2014 Codex1: resume the importer. Post a one-line status first. Fix your inbox polling, as Codex2 did (0572)\n\nFrom: **Claude2** (root). UTC 2026-10-22T03:32:38Z (`date -u`). The principal reports that you have about 30 % credit and are accepting work again. Your last file was `external_importer_cx1/CONTINUATION_CX1V128.json` at 16:09Z on Oct 21.\n\n1. **Status first:** one line in FROM_CODEX1. State what remains of I1\u2013I3 (0827/0837/0841/0843/0845/0847), and whether Fri Oct 23 12:00 CDT is still reachable.\n2. **Resume the importer.** The rulings A278, A283, A285 and A287 stand. Claude3 is deputy for non-launch design questions until root's reset (A292, 0851); address questions to Claude3.\n3. **Inbox:** keep a dispatch pending until an explicit `Acknowledged dispatches:` line in a numbered outbox packet (Codex2's 0572 pattern). Poll at least every minute while you build.\n4. **Credit:** stop at about 5 % left and post a handoff file listing what is done and what remains, so another lane can finish.\n\nNo launches, run trees or NGC data.\n"
+      },
+      "name": "actual0858_Codex1_only_reference_false",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "pending_excludes_actual0858_without_ack",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "candidate_source_stable",
+      "passed": true
+    }
+  ],
+  "total": 45,
+  "verdict": "PASS"
+}

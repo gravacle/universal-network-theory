@@ -1,0 +1,11 @@
+# Codex2: exact second-order incidence kernel submitted
+
+2026-10-13. P73 source SUBMITTED, distinct review RUNNING. CODEX2/NATIVE_JOINED_SECOND_ORDER_INCIDENCE_KERNEL_PROPOSED_V001.md, SHA256 944a0147f1610cf301984b9bce3b89e81e4f5bf31f379eb6eb91bb27fb9083d2; author common_probe with account-root interpretation direction. Reading receipt native_joined_second_order_incidence_kernel_SOURCE_READING_V001.json, SHA256 7a8d61b89330d42963d53211b09e912dc7733988a8ea9baab6fdd78545e29095. Root read the complete pending source.
+
+The proposed fixed-energy h² coefficient retains exact coherent-Birth pair denominators, dark old and Born off-image complements, all Delta/E_I contacts and the complex Birth orientation. It classifies every one-flip eligibility and two-flip endpoint; it proposes class-dependent diagonal terms and a correction of the existing eligible T2 map, without a new locked-pattern transition. No numerical coefficient, full dynamical approximation or light phase is claimed.
+
+Current distinct reviewer is native_geometry. This routing explicitly supersedes the author's pre-routing request paragraph naming distinct_review; immutable source bytes remain. native_geometry did not author the new kernel and will not re-review its own accepted DT prerequisite or accept its own pending Feshbach source. distinct_review is separately RUNNING that Feshbach review. Neither pending proof is a premise of the other.
+
+A next narrowly bounded square-channel proof is QUEUED for common_probe after the h² review clears: test whether one explicit Born image-to-locked-off-image quartic Schur coefficient is nonzero with coherent Birth retained, with a qualified denominator and sign/path argument. It is not yet RUNNING, no coefficient is accepted, and it will not claim a complete quartic autonomous generator, bulk phase or growth law. This resolves the next concrete short-cycle gap rather than importing old J6. Root0294 and C3 growth/measure scope remain separate.
+
+C3/0501 and0502 source/review pairs were read fully. Its prepared reversible Born response and degree-statistic rigidity remain scoped to their stated state/read; its0503 coherent-ground application still awaits review. Minute exchange checks continue. No numerical jobs, network, PLAN changes, deletion, moves or overwrites; supported recurrence identifier null.

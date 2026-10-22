@@ -1,0 +1,128 @@
+{
+  "date_u": "Sun Oct 18 16:17:23 UTC 2026",
+  "evidence": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/run_identity_compare_c2v006.py",
+      "sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/BUILD.md",
+      "sha256": "fedbc6157037e2e1c847e7211b9ed9519193c99185bc4ce2362783384bb647d1"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/DIFF_c2v005_c2v006.diff",
+      "sha256": "ded144d333a50eaa0f0d45a36850f104227ed348a5db1abcff46c6658bd6621b"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/tools/make_tokens_c2v006.py",
+      "sha256": "21f9df0f7442f4de121b5425ce60d448e292f9ba69e4c700ffc056ebca6cc4d7"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/tools/write_identity_records_c2v006.py",
+      "sha256": "ecee65a4d52920adc5f3c0dfe6f1fc7fa343909142cc56da6d3ac8ccaefc13b2"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v005/tools/fill_picard_member_c2v002.py",
+      "sha256": "0235398dc1b0ec7b3a80c4e552abdbcce81659f5d80f33c371dea875c18f6c2a"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v005/R5_IDENTITY_COMPARE_COMMANDS.sh",
+      "sha256": "d790f312e762524172d3f5716ffb37819753883b73d66c59b132d1285f2ba3d6"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v005/check/CHECK.md",
+      "sha256": "6f08a8dd03541cc697b690cc8a2c1f948c9a5a4a7d39565a8ff097a734f77f1e"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/a73/probe_a73_cx2v001.py",
+      "sha256": "90e1f58bc67d3d903967725f2a3cb2c1dbc02d1e3a5db1ba909d2f726a5056e7"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v006_cx2/a73/run_20261018T161641_81032/A73_RESULTS.json",
+      "sha256": "dfc74816e75be6a7dd19ee6c6ad6e0fe529d663f40ef278736b0bce4660c2883"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0564_2026-10-18_codex2_crosslineage_review_comparator_c2v006.md",
+      "sha256": "332ed9d11fc069b772673b50d07b5db678d11fb68cad13a152ea470c5173103d"
+    },
+    {
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md",
+      "sha256": "a28c6828b6b8a43fe8c58186948410f7ff1fa9cb11793b57445a6d9ba344fcac"
+    }
+  ],
+  "execution_note": "nice unavailable (sandbox);0514 waiver",
+  "items": [
+    {
+      "evidence": "check_ro1_armed and check_ro1_unarmed accept a valid six-field record extended with events_suppressed:2 or custom_payload. The inadmissible_record exception remains refused. RESULT delegates the new-only RO1 block to these incomplete checks.",
+      "fix": "Require exactly the registered RO1 key set for each permitted form before removing the block from RESULT.",
+      "id": "SF1",
+      "presence": "ABSENT",
+      "requirement_counts": [
+        4,
+        8
+      ],
+      "status": "TESTED"
+    },
+    {
+      "evidence": "Supplied derived baselines pass policy for r4/r5 Z2, Z2_OFF_RO1 and B0P_RERUN. Adding an arbitrary verdict or numeric-string triple also passes tokens_policy and build_tokens. Mutated reference sides/token labels pass Z2 policy. Actual Side normalization equates CONVERGED/NOT_CONVERGED and 101.125/907.875 under those undeclared triples. main reads declared only, ignoring the token document driver metadata.",
+      "fix": "Re-derive or pin the allowed complete triples for the selected driver and gate, rejecting extras, substitutions and wrong derivation identity. This is distinct from A71 post-join label injectivity.",
+      "id": "SF2",
+      "presence": "ABSENT",
+      "requirement_counts": [
+        6,
+        22
+      ],
+      "status": "TESTED"
+    },
+    {
+      "evidence": "With r5 selected, static_pin_verifier accepts a fresh arbitrary local binary file and an r4-only table pin when their hashes match. The selected r5 positive passes and a bad raw sha refuses. No selected table membership is checked.",
+      "fix": "Check exact raw path/sha membership in the selected driver tables in addition to the byte hash.",
+      "id": "SF3",
+      "presence": "ABSENT",
+      "requirement_counts": [
+        2,
+        4
+      ],
+      "status": "TESTED"
+    },
+    {
+      "evidence": "Fresh scratch /Users paths and their /System/Volumes/Data aliases name the same inode; inherited guarded_resolve permits the alias into the registered scratch directory. NFC and NFD scratch paths likewise name the same inode but NFD bypasses containment. Plain containment and marker controls refuse; a sibling is allowed. No actual forbidden run path is used.",
+      "fix": "Provide a fill-tool successor with firmlink-aware filesystem identity and Unicode normalization in containment. Do not confuse existing marker protection with the missing generic containment requirement.",
+      "id": "N3",
+      "presence": "ABSENT_IN_INHERITED_FILL_NO_V006_SUCCESSOR",
+      "requirement_counts": [
+        5,
+        7
+      ],
+      "status": "TESTED"
+    },
+    {
+      "evidence": "No R5_IDENTITY_COMPARE_COMMANDS.sh successor exists in gates_v006. The inherited gates_v005 script checks receipt existence only and finishes with cat after wait. The v006 identity-record writer checks comparator verdict for each gate, but captures receipt status/exit_code without using either in a predicate. BUILD requests FINISHED in prose; no executable status check was found.",
+      "fix": "Supply a v006 r5 command successor that parses and requires the finished receipt status, checks command completion, and reads each resulting verdict. Preserve the existing writer verdict check.",
+      "id": "N6",
+      "presence": "PARTIAL_VERDICT_CHECK_PRESENT_RECEIPT_STATUS_ABSENT",
+      "requirement_counts": [
+        1,
+        4
+      ],
+      "status": "TESTED_SOURCE_ONLY"
+    }
+  ],
+  "requirement_predicates": {
+    "failed": 27,
+    "passed": 20,
+    "total": 47
+  },
+  "scientific_launches": 0,
+  "scientific_status": "UNTESTED",
+  "scope": "A73 should-fix presence/absence lane only, not whole comparator verdict. A73 permits a c2v007 successor if c2v006 lands without these items.",
+  "source_after": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/run_identity_compare_c2v006.py",
+    "sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48"
+  },
+  "source_before": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v006/run_identity_compare_c2v006.py",
+    "sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48"
+  },
+  "verdict": "PASS_WITH_FINDINGS"
+}

@@ -1,0 +1,168 @@
+{
+ "additional_tested_fix": "A real preflight ps observation contained non-UTF-8 bytes. System.processes now decodes losslessly with surrogateescape; a controlled invalid-byte subprocess and restoring mutant verify this.",
+ "audit": {
+  "commands": [
+   "assemble_registry",
+   "cli",
+   "close_attempt",
+   "launch",
+   "launch_resume",
+   "record_monitor_refused",
+   "sampler",
+   "status",
+   "stop_outside_set",
+   "write_cutoff"
+  ],
+  "scope": "In-process opens whose stack contains the tested executable; spelled and resolved paths. Immutable reads at most once per outer command. Successful volatile observations and unlisted process-counter script identity probes are separately classified. Own executable sha reads are excepted. Child process executable reopening is outside this hook.",
+  "status": "TESTED",
+  "violations": []
+ },
+ "authorities": [
+  {
+   "bytes": 3208,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0784_2026-10-20_codex2_P112_cx2v002_required_fixes.md",
+   "sha256": "948206b05ac437282d11a021414f5a28ed18761a5bebde650adb870407419cad"
+  },
+  {
+   "bytes": 1536,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0785_2026-10-20_codex2_P112_single_read_scope_confirmed.md",
+   "sha256": "0b396847e4c96ebc14d50073eef6029949b2e897815c4d4800dabd7565b5c910"
+  },
+  {
+   "bytes": 1443,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0786_2026-10-20_codex2_P112_cx2v002_interface_answers.md",
+   "sha256": "d76a4884d838c44ac840ae7c223dbc7e5c526fd6c6f5872e3c914a0c11ce191d"
+  },
+  {
+   "bytes": 71859,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/runbook_rulings_c2/P112_LAUNCHER_BRIEF_V005.md",
+   "sha256": "cddbaa8d27e9490443fe7a89228dc5cfb02f73dd4990d4864474327dde49ad6f"
+  },
+  {
+   "bytes": 22357,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2_rootverify_c2/ROOT_VERIFY_FINDINGS_C2V001.md",
+   "sha256": "16e97b2cd6dde1e0e626b93efaa388d0bc41b73475b65c229caccb27fd6250a6"
+  },
+  {
+   "bytes": 48311,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2_rootverify_c2/rv_adversarial_c2v001.py",
+   "sha256": "4e923239fa9df47522abfb1e68995daa9358e4af4036e7d0aae2796119798566"
+  },
+  {
+   "bytes": 7266,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2_rootverify_c2/rv_static_a226_c2v001.py",
+   "sha256": "cb0928c6b9a86b65059f7a4218d83148b3cb5d65af73b74bef1b411440c88c1e"
+  },
+  {
+   "bytes": 9874,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2_rootverify_c2/rv_suite_audit_c2v002.py",
+   "sha256": "450a762d3796de2a68bec5cc9fd9fae3cca62f5fdf81c44dabb72ec0e8d8adec"
+  }
+ ],
+ "child_reopen_disclosure": "Pinned executables are hashed in the parent, then executed by path in child processes. The root integrity envelope covers those child reads (A226 item 2).",
+ "date_u": "Tue Oct 20 19:40:39 UTC 2026",
+ "mapping": {
+  "0785": [
+   "0785_immutable_audit_MUST_PASS",
+   "0785_volatile_audit_MUST_PASS",
+   "0785_cutoff_audit_MUST_PASS",
+   "ALL_PUBLIC_COMMANDS_IMMUTABLE_READ_ONCE_MUST_PASS",
+   "ALL_PUBLIC_COMMANDS_AUDIT_COVERAGE_MUST_PASS",
+   "CX2V002_MUTANT_0785_immutable_cache_bypassed",
+   "CX2V002_MUTANT_0785_volatile_pin_reread",
+   "CX2V002_MUTANT_0785_cutoff_copy_reread"
+  ],
+  "0786": [
+   "0786_root_and_P112_siblings_accepted",
+   "0786_missing_sibling_refused",
+   "0786_changed_sibling_refused",
+   "0786_rule_binding_required",
+   "0786_sibling_form_required",
+   "0786_sibling_written_before_exact_key_record",
+   "CX2V002_MUTANT_0786_ignore_sibling_sha",
+   "CX2V002_MUTANT_0786_ignore_missing_sibling",
+   "CX2V002_MUTANT_0786_parent_written_first"
+  ],
+  "B1": [
+   "B1_RV01_checked_launch_buffer",
+   "CX2V002_MUTANT_B1_launch_reread"
+  ],
+  "B2": [
+   "B2_RV02_classified_receipt_buffer",
+   "CX2V002_MUTANT_B2_receipt_reread"
+  ],
+  "B3": [
+   "B3_RV03_verified_registry_buffer",
+   "CX2V002_MUTANT_B3_registry_reread"
+  ],
+  "B4": [
+   "B4_RV11_real_apostrophe_ps",
+   "B4_RV12_transient_apostrophe",
+   "B4_RV13_persistent_apostrophe",
+   "B4_RV14_first_apostrophe",
+   "CX2V002_MUTANT_B4_command_parse_refusal",
+   "B4_non_UTF8_ps_command_does_not_fail_sample",
+   "CX2V002_MUTANT_strict_ps_decoding"
+  ],
+  "F1": [
+   "F1_RV05_RV06_record_alias_blinding",
+   "F1_resume_alias_plan.json",
+   "F1_resume_alias_invocation.json",
+   "F1_resume_alias_monitor_pid.json",
+   "F1_sampler_alias_monitor_pid.json",
+   "F1_sampler_alias_invocation.json",
+   "F1_sampler_alias_receipt",
+   "F1_first_sample_alias_refuses_before_monitor",
+   "CX2V002_MUTANT_F1_unguarded_launch_observation",
+   "CX2V002_MUTANT_F1_allow_record_alias"
+  ],
+  "F2": [
+   "F2_RV08_actual_line_grammar",
+   "CX2V002_MUTANT_F2_tool_splitlines",
+   "CX2V002_MUTANT_F2_residual_splitlines"
+  ],
+  "F3": [
+   "F3_missing_monitor_pid_recovery",
+   "F3_RV21_actual_inert_Popen_interruption_resume_close",
+   "F3_null_pid_status_live_by_command",
+   "F3_null_pid_close_live_by_command",
+   "F3_null_pid_solo_live_by_command",
+   "CX2V002_MUTANT_F3_require_monitor_pid_file"
+  ],
+  "F4": [
+   "F4_RV19_kit_exit_one_semantics",
+   "CX2V002_MUTANT_F4_any_exit_one_ended"
+  ],
+  "F5": [
+   "F5_RV24_production_V006_constant",
+   "CX2V002_MUTANT_F5_configured_V006"
+  ],
+  "F6": [
+   "F6_postseal_component_guard",
+   "CX2V002_MUTANT_F6_postseal_guard_removed"
+  ],
+  "cleanup": [
+   "CLEANUP_RV04_single_guarded_read",
+   "CLEANUP_fill_single_read_MUST_PASS",
+   "CX2V002_MUTANT_cleanup_pin_then_reread",
+   "CX2V002_MUTANT_cleanup_certificate_reread"
+  ]
+ },
+ "schema": "P112_FIX_COVERAGE_PROOF_CX2V002",
+ "status": "TESTED_PASS",
+ "test_program": {
+  "bytes": 209703,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/test_phase1_ngc_launch_cx2v002.py",
+  "sha256": "920cf3ef94e9ce5a46479c99d6c6f9684827d55e262759fc591ef57bc6699a2e"
+ },
+ "test_record": {
+  "bytes": 91380,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/test_records_cx2v002/RUN1/TEST_RECORD.json",
+  "sha256": "b323fd780c77201560f1d975b2e410e4ebb35b09bb630b4efeb6c763f89fd954"
+ },
+ "tool": {
+  "bytes": 130631,
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v002/phase1_ngc_launch_cx2v002.py",
+  "sha256": "65ac534953678ee845910d0a32e41b71deff142b660b3efbed68e302a33777aa"
+ }
+}

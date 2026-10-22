@@ -1,0 +1,162 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/b1_policy_successor_c4/tools/make_b1_cascade_c4v002.py	2026-10-19 02:46:12.885625851 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/make_campaign_cascade_c2v001.py	2026-10-19 20:34:59.398210296 -0500
+@@ -1,22 +1,29 @@
+-# Claude4 B1/R-A2 (root A122/A126): deterministic generator of the adoption-policy successor cascade, v002.
+-# v002 = v001 (6d426c68) plus, after Claude4's own refute pass (SEM-7/CAS-B1, SEM-8/CAS-N4, CAS-N7):
+-#  - SUB (the output subfolder of calib_tail_readiness_cx2, e.g. v006r11_c4) is a parameter; every file name and the core's
+-#    policy path derive from it, so a finalized set can live beside the published v006r10_c4 set with its relative loads intact;
+-#  - --policy-only writes only the policy file (step-4 finalization: guard adoption() consults cfg['adoption_policy'] only, CAS-N2);
+-#  - --seal-tuple C P A SCHEMA V is cross-checked against the SEALED bytes: C = sha256 of the sealed compare file, P = its
+-#    V007_PREREG_SHA256 = sha256 of the sealed prereg file, A = its PIN_ADDENDUM_V005 = sha256 of the cited addendum file,
+-#    SCHEMA = its SCHEMA_REPORT, V = 64 lowercase hex; any mismatch refuses (no assert statements);
+-#  - with a tuple, the r7 comment 'No final V007 seal has been supplied.' becomes a statement of the registered seal.
+-# With SUB = v006r10_c4 and no tuple the three outputs are byte-identical to the published v001 outputs (regression check).
+-# From the VERIFIED bytes of policy r7 7c726fa2, core r9 a595c5c0 and wrapper r9 24abe3bc. Exclusive create; --dry-run writes nothing.
+-# usage: python3 -I -B run_fenced_c4st2.py make_b1_cascade_c4v002.py OUTDIR SUB (--dry-run | --write) [--policy-only]
++# Claude2 h3_campaign_path_c2 (root V006 A188): deterministic generator of the CAMPAIGN adoption cascade, c2v001.
++# Minimal successor of Claude4's make_b1_cascade_c4v002 (a7a5fe58, adopted A129; Codex1 0138 PASS).  Every v002 rule is kept:
++# the policy is r7 + P1-P4 (+ P5/P6 with a seal tuple), the core is core r9 + C1/C2 (the policy path and sha), the tuple is
++# cross-checked against the SEALED compare / prereg / addendum bytes (C, P, A, SCHEMA; V = 64 lowercase hex), SUB is a
++# parameter, output is exclusive create, --dry-run writes nothing.  Changes against v002, and nothing else:
++#  W1  the wrapper source is the published q5b1 wrapper calibration_orchestrator_cx2v006r10_c4_q5b1.py (7a6af535, V006 A139:
++#      A134 Q5 slot rule, b1 guard 9e3fc109), not the R9 wrapper (24abe3bc, whose L74 / L148-161 still require the retired
++#      prelaunch LO envelope, A134 Q1/Q5).  W1 replaces the q5b1 core pin (its L27) by the new core's name and sha; the output
++#      wrapper is named calibration_orchestrator_cx2<SUB>_q5b1.py; the _resolve_source literal must be unchanged (as v002).
++#  E1  a fourth output, the launch entry h3_campaign_entry_cx2<SUB>.py, from the pinned template h3_campaign_entry_c2v001.py
++#      (the w1_campaign_entry_v001 successor): exactly its WRAPPER and WRAPPER_SHA lines are rewritten to the wrapper as it
++#      will be published, <publish-root>/<SUB>/<wrapper name> (default publish root: calib_tail_readiness_cx2).
++#  M1  main(argv) / build(...) are callable in process (regenerate_h3_c2v001.py); the CLI is v002's plus --publish-root.
++# Regression: with SUB = v006r10_c4, no tuple and the default publish root the four outputs are byte-identical to the
++# published policy 93d9c0ac, core dc895f8a, q5b1 wrapper 7a6af535 and the entry template itself.
++# usage: python3 -I -B make_campaign_cascade_c2v001.py OUTDIR SUB (--dry-run | --write) [--publish-root DIR] [--policy-only]
+ #        [--seal-tuple C P A SCHEMA V]
+ import ast, hashlib, json, os, re, sys
+ 
+ CX2 = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2'
+ R7 = (CX2 + '/v006r7/adoption_policy_cx2v006r7.py', '7c726fa2ad3f3e0fbcfcf36353901f970cde1eff3f76321327e5a8a5fbc29b1d')
+ CORE9 = (CX2 + '/v006r9/calibration_core_cx2v006r9.py', 'a595c5c0929fc0a8313bcdff3b79241f1e3ba8f77dc3749adc06b2a982b43605')
+-WRAP9 = (CX2 + '/v006r9/calibration_orchestrator_cx2v006r9.py', '24abe3bc4f6ee0e3c5d7c89502062cf99464573b35bc5b53c33c14ef2ae888af')
++WRAPQ = (CX2 + '/v006r10_c4/calibration_orchestrator_cx2v006r10_c4_q5b1.py', '7a6af535805399d49ec3f1c1cbe9e4911d98f6fae0ad50b69a0641214fcd5d4d')
++CORE10_SHA = 'dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6'     # the core q5b1 L27 pins
++ENTRY_T = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h3_campaign_entry_c2v001.py'),
++           '08068e93904fa12bd7d6bb9ceaca6b37b85cc884fa8091d8a7d59900e5a0c4bd')
+ CTRL = '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2'
+ SEALED_COMPARE = CTRL + '/V007_SEAL_ASSEMBLY/kmax_tail_compare_c2v007_r14_cx1v001_SEALED_V007.py'
+ SEALED_PREREG = CTRL + '/V007_SEAL_ASSEMBLY/KMAX_TAIL_PREREG_V007_SEALED.json'
+@@ -51,7 +58,8 @@
+     if re.fullmatch(r'v006r[0-9]+_c4', sub) is None:
+         refuse('SUB must look like v006rNN_c4: %r' % sub)
+     tag = 'cx2' + sub
+-    return 'adoption_policy_%s.py' % tag, 'calibration_core_%s.py' % tag, 'calibration_orchestrator_%s.py' % tag
++    return ('adoption_policy_%s.py' % tag, 'calibration_core_%s.py' % tag, 'calibration_orchestrator_%s_q5b1.py' % tag,
++            'h3_campaign_entry_%s.py' % tag)
+ 
+ 
+ POLICY_REPLACEMENTS = [
+@@ -132,25 +140,14 @@
+         refuse('SCHEMA is not the compare SCHEMA_REPORT (%r)' % k.get('SCHEMA_REPORT'))
+ 
+ 
+-def main():
+-    args = sys.argv[1:]
+-    if len(args) < 3:
+-        refuse('usage: OUTDIR SUB (--dry-run|--write) [--policy-only] [--seal-tuple C P A SCHEMA V]')
+-    out, sub, mode = args[0], args[1], args[2]
+-    rest = args[3:]
+-    if mode not in ('--dry-run', '--write'):
+-        refuse('mode must be --dry-run or --write')
+-    policy_only = False
+-    if rest and rest[0] == '--policy-only':
+-        policy_only, rest = True, rest[1:]
+-    seal_tuple = None
+-    if rest:
+-        if rest[0] != '--seal-tuple' or len(rest) != 6:
+-            refuse('expected --seal-tuple C P A SCHEMA V')
+-        seal_tuple = tuple(rest[1:6])
++def build(sub, policy_only=False, seal_tuple=None, publish_root=CX2):
++    """-> (files [(name, bytes)], outputs {name: sha256}, resolve_source_literal_sha256 or None).  Writes nothing."""
++    if seal_tuple is not None:
+         check_tuple(seal_tuple)
+-    POLICY_NAME, CORE_NAME, WRAP_NAME = names(sub)
+-    r7, core9, wrap9 = pinned(R7), pinned(CORE9), pinned(WRAP9)
++    if not isinstance(publish_root, str) or not os.path.isabs(publish_root):
++        refuse('publish root must be an absolute path: %r' % (publish_root,))
++    POLICY_NAME, CORE_NAME, WRAP_NAME, ENTRY_NAME = names(sub)
++    r7, core9, wrapq = pinned(R7), pinned(CORE9), pinned(WRAPQ)
+     pol = r7
+     for tag, old, new in POLICY_REPLACEMENTS:
+         pol = rep1(pol, old, new, tag)
+@@ -173,24 +170,57 @@
+         ast.parse(core)
+         core_b = core.encode('utf-8')
+         core_sha = sha(core_b)
+-        wrap = rep1(wrap9, "M=load(HERE/'calibration_core_cx2v006r9.py','_cx2v006r1',expected='%s')\n" % CORE9[1],
++        wrap = rep1(wrapq, "M=load(HERE/'calibration_core_cx2v006r10_c4.py','_cx2v006r1',expected='%s')\n" % CORE10_SHA,
+                     "M=load(HERE/'%s','_cx2v006r1',expected='%s')\n" % (CORE_NAME, core_sha), 'W1_core_pin')
+         ast.parse(wrap)
+         wrap_b = wrap.encode('utf-8')
++        wrap_sha = sha(wrap_b)
+ 
+         def resolve_literal(src):
+             for node in ast.parse(src).body:
+                 if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == '_resolve_source' for t in node.targets):
+                     return node.value.value
+             refuse('no _resolve_source literal')
+-        lit9, lit10 = resolve_literal(wrap9), resolve_literal(wrap)
+-        if lit9 != lit10:
++        litq, litn = resolve_literal(wrapq), resolve_literal(wrap)
++        if litq != litn:
+             refuse('_resolve_source changed')
+-        lit_sha = sha(lit10.encode('utf-8'))
+-        outputs.update({CORE_NAME: core_sha, WRAP_NAME: sha(wrap_b)})
+-        files += [(CORE_NAME, core_b), (WRAP_NAME, wrap_b)]
+-    res = {'generator': 'make_b1_cascade_c4v002', 'mode': mode, 'sub': sub, 'policy_only': policy_only, 'seal_tuple': seal_tuple,
+-           'outdir': os.path.join(out, sub), 'inputs': {'policy_r7': R7[1], 'core_r9': CORE9[1], 'wrapper_r9': WRAP9[1]},
++        lit_sha = sha(litn.encode('utf-8'))
++        entry = pinned(ENTRY_T)
++        entry = rep1(entry, "WRAPPER = Path('%s')\n" % WRAPQ[0],
++                     "WRAPPER = Path('%s')\n" % os.path.join(publish_root, sub, WRAP_NAME), 'E1_wrapper_path')
++        entry = rep1(entry, "WRAPPER_SHA = '%s'\n" % WRAPQ[1], "WRAPPER_SHA = '%s'\n" % wrap_sha, 'E1_wrapper_sha')
++        ast.parse(entry)
++        entry_b = entry.encode('utf-8')
++        outputs.update({CORE_NAME: core_sha, WRAP_NAME: wrap_sha, ENTRY_NAME: sha(entry_b)})
++        files += [(CORE_NAME, core_b), (WRAP_NAME, wrap_b), (ENTRY_NAME, entry_b)]
++    return files, outputs, lit_sha
++
++
++def main(argv=None):
++    args = list(sys.argv[1:] if argv is None else argv)
++    if len(args) < 3:
++        refuse('usage: OUTDIR SUB (--dry-run|--write) [--publish-root DIR] [--policy-only] [--seal-tuple C P A SCHEMA V]')
++    out, sub, mode = args[0], args[1], args[2]
++    rest = args[3:]
++    if mode not in ('--dry-run', '--write'):
++        refuse('mode must be --dry-run or --write')
++    publish_root = CX2
++    if rest and rest[0] == '--publish-root':
++        if len(rest) < 2:
++            refuse('--publish-root needs a directory')
++        publish_root, rest = rest[1], rest[2:]
++    policy_only = False
++    if rest and rest[0] == '--policy-only':
++        policy_only, rest = True, rest[1:]
++    seal_tuple = None
++    if rest:
++        if rest[0] != '--seal-tuple' or len(rest) != 6:
++            refuse('expected --seal-tuple C P A SCHEMA V')
++        seal_tuple = tuple(rest[1:6])
++    files, outputs, lit_sha = build(sub, policy_only=policy_only, seal_tuple=seal_tuple, publish_root=publish_root)
++    res = {'generator': 'make_campaign_cascade_c2v001', 'mode': mode, 'sub': sub, 'policy_only': policy_only,
++           'seal_tuple': seal_tuple, 'publish_root': publish_root, 'outdir': os.path.join(out, sub),
++           'inputs': {'policy_r7': R7[1], 'core_r9': CORE9[1], 'wrapper_q5b1': WRAPQ[1], 'entry_template': ENTRY_T[1]},
+            'outputs': outputs, 'resolve_source_literal_sha256_utf8': lit_sha}
+     if mode == '--write':
+         d = os.path.join(out, sub)
+@@ -202,6 +232,7 @@
+             if sha(open(os.path.join(d, name), 'rb').read()) != s:
+                 refuse('written bytes differ for ' + name)
+     print(json.dumps(res, indent=1))
++    return res
+ 
+ 
+ if __name__ == '__main__':

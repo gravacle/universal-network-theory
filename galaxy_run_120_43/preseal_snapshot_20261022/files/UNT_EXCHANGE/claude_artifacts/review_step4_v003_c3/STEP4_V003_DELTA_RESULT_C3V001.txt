@@ -1,0 +1,400 @@
+{
+  "summary": "Claude3 delta check (A115) of Claude4 step-4 package V003 against Claude3 0105 should-fix items, plus a physics lens",
+  "agentCount": 4,
+  "logs": [],
+  "result": [
+    {
+      "lens": "closure",
+      "review": {
+        "lens": "closure",
+        "verdict": "PASS. V003 closes all 8 items: Claude3 0105's 7 SHOULD_FIX plus the REFUTE stage's SF-R1. Under A115 there are 0 (a) and 0 (b) findings, and 3 NEW NOTEs. All 16 entries in HASHES_STEP4_READINESS_C4V003.txt verify from bytes. The file itself (10ce4a6a) and every pin in 0140 also match. V002 is unchanged on disk. The DELTA lists every changed file except one: the published run record (NEW-1, a NOTE). I reran the producer's test suite on a scratch copy: 166 of 167 cases match the record run exactly. The one difference is a known artefact of where I ran it, and I confirmed that check separately in separate-process CLI runs. I also ran 12 CLI runs myself in separate processes, all inert.",
+        "items": [
+          {
+            "id": "PR-SF1",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "Producer b7fb4d53, final mode. verify_final_adoption L611-723: the five adoption fields must be exact {path, sha256} pins via strict_pin (L293-300, L622-624). The SEAL_RECORD must name root AUTHORITY, carry C1's prereg and compare, driver r5 and case_block 76309ae3 (L631-640). The verdict must read ADOPT_TAIL, bind the compare sha, prereg and case block, and carry the C4T result, validity and a finite uncertainty (L642-661). The prereg must bind the case block (L663-666). The compare is read by AST, in either addendum form (L668-689). block_source must be exactly C4T FILLED de6d7d77, named in the case-block note, with numerics canonical-equal to C1's block (L695-707). The policy tuple is read by AST (L709-718). verify_final_registry L726-788 checks the review gate, bundles, proofs, approved producers and that no A70 slot sits off the anchor; it mirrors wrapper 24abe3bc L59-150 and core a595c5c0 checked_gate L66-79, read from bytes. synthetic_gate runs last (L791-817, called at L1098). guard007 42bf0ce9 adoption() L154-173, read from bytes: the producer mirrors it and is stricter. Reproduced on a scratch copy: PR-SF1 77/78. The only difference is F1_CERT_OUTSIDE_ALLOWED_ROOT: the test sets CERT_ROOT='/' for runs outside claude_artifacts (test L469). The root check itself refused in my separate CLI runs (S_STRING and S_PAIR: exit 3, INPUT_OUTSIDE_ALLOWED_ROOT). F1_X01, the v002 look-alike 1757f2ce, refuses PIN_MALFORMED both in-process and by CLI. S1 reaches only the last gate in both addendum forms; S3 provisional never says FINAL; K1 parses the real dry-run seal forms. Residual NOTEs: a fully consistent forged set (trust anchors are root's pins and the reviewed allowlist); SF-R2, the inside-folder check by path string; REFUTE N1, laxer than policy r7 on four forms, including a registry top-level schema that no reader checks. The adopted_result and source_results pins are only cross-checked against the verdict; they sit in run trees and are not read."
+          },
+          {
+            "id": "PR-SF2+PKG-S4",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "_plan_and_write L1023-1063 builds all 29 spec byte strings and the manifest in memory first: json_bytes with allow_nan=False, then re-read by strict_json (L1053-1056). Only then come _outdir_preflight, the last refusal point (L1060), and write_outputs (L1061). So every refusal exits 3 with no folder. Reproduced PR-SF2 19/19: F2_D04 (1e999) and F2_D05 (NaN) give JSON_NONFINITE with no folder; F2_FORCED_INF/NAN_IN_MANIFEST give MANIFEST_NOT_SERIALIZABLE; F2_WRITE_ORDER shows the manifest last and 0 reads after the first write; F2_STATIC_ONE_WRITER confirms one writer by AST; OUTDIR_EXISTS, dangling links and the symlinked parent refuse with nothing changed. My CLI D04 exits 3 with no outdir. The false V002 claim is corrected in SPEC_HANDOFF_C4V003.md L149 (step 4) and L159 (step 5, accurate write-failure text). The remaining OS-level failure path is SF-R1."
+          },
+          {
+            "id": "PR-SF3",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "fence 5851f42f: protected_reason L76-116 is lexical only, with no filesystem access. safe_resolve L130-178 checks the raw path and its normpath first (L137-141), then checks each candidate and each symlink target lexically before any lstat or readlink (L152-171). There is no exemption inside the folder; the only exception is a final-component ROOT_DECISIONS_NGC3198_CONSTRUCTION_*.md rulings file (L37, L112-114). Reader L312-351: O_NOFOLLOW (L324); regular file, fstat size cap and st_nlink==1 checked before any byte is read (L330-333); sha checked (L346); read once, with PIN_CONFLICT (L317-322). Reproduced PR-SF3 28/28: both selftests refuse 29/29 with 0 protected probes, plus F3_B06-B10, G03, VOL, C04/C05, D01_BIG, SIZE_CAP (0 bytes read) and the hard-link cases. Claude3's original look-alike paths (NGC 3198, UGC5572_N3198, DDO154_vrot, rotmod, /.vol, /private/../.vol) all refuse with 0 probes; I checked them through the fence's literal check only, never opening the files. CLI X03VOL exits 3 FENCE_REFUSED. Residual: REFUTE N4, alias spellings missing from the table (NOTE)."
+          },
+          {
+            "id": "PR-SF5",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "strict_json L268-286: duplicate keys refuse (_pairs L221-227); non-finite values refuse (L230-244); integers over 64 digits refuse before int() (L237-240); a depth pre-scan refuses nesting over 64 (L247-265); BOM and UTF-16/32 refuse (L271-272), as do invalid UTF-8 (L273-276) and NUL (L277). main L1136-1168 types every outcome: Refuse gives 3 or 5, the fence gives 3, any other Exception 4, KeyboardInterrupt 130. Reproduced PR-SF5 17/17, including F5_DECODER_UNIT_AND_GUARD007_PARITY: the producer accepts no form that the guard007 replica refuses. CLI D01, D04, D06, D07 and D09 exit 3 with typed codes and empty stderr; an argparse error exits 2, as documented. Genuine inputs (r9, C4T, case block, coordinate spec, addendum, template, pair plan, dry-run SEAL_RECORD and prereg, probe record) have depth at most 9, integers of at most 11 digits and no BOM, well inside the limits. Residual NOTE: a missing or mismatched fence at import gives SystemExit or a traceback with exit 1, outside main (L100-115). That cannot happen with the verified file pair."
+          },
+          {
+            "id": "PKG-S1",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "R-D17 (ROOT_ITEMS_FINAL_C4V005.md L428-435) folds in A105.3. I checked its strings from bytes in the V005 copy c01b3c51: caps of 992 GiB against 452 GiB free, about 250 GB of step-2 output on the internal SSD (A85.3), and an 80 GB watchdog with a relocate-or-pause rule. It names an implementer, Codex1 (RECOMMENDATION; root assigns), with triggers (a) at admission (calls x cap + 20 GiB) and (b) before each start, plus an interim path of statfs attestation and watchdog. guard007 has no statvfs, disk_usage or f_bavail (grep count 0). Watchdog bd0d9bab only alerts, on /System/Volumes/Data. source_checks_v005 are all true. Residual: the guard itself is unbuilt (open item, BEFORE_HEADLINE), and REFUTE N7: the watchdog needs a successor script to watch External1."
+          },
+          {
+            "id": "PKG-S2",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "New R-B7 (L224-231) and DIII launch-path step (L113-121; JSON launch_path_steps_v005.DIII, 6 steps). Its requirements match guard007 L216-218, read from bytes: schema UNT_STEP4_DIII_POLICY_CX1V001, AUTHORITY, post_adoption_only, TESTED/PASS, and cases[case]=={spec, driver}. I re-hashed the four pins from bytes: specs cf3f0086 x2 and 3f8a4c04 x2, drivers 237ef3d4 and b5cc62af; the specs carry no uv_tail. SPEC_HANDOFF_C4V003.md L86 points to R-B7, and the producer's binder_pins (L996-1003) carry the same pins. Residual NOTE: LAUNCH_ORDER_C4V002, INVENTORY_C4V002 and DRYPLANS_C4V003 are unchanged and still lack the step; INDEX L34 declares them superseded on that point. The policy itself is not drafted yet. guard007 refuses DIII without it (DIII_POLICY_REQUIRED), so this fails closed."
+          },
+          {
+            "id": "PKG-S3",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "New R-D18 (L436-443), and R-D14 (L404-410) now points to it. Its guard facts match guard007 L242-246, read from bytes: max_active an int in 1..6 equal to the admission's; 25% free, 60 s polls, memory_pressure, the ramp rule and no first-case exemption. Its bound re-derives from SCHEDULE_SIM_C4V004 (9aa60bae) bytes: after_on_max 4.6022 GiB less the C4R3 tree peak of 2.805 GiB gives an increment of 1.7972 GiB, so the 1.797 GiB bound is correct (REFUTE N6 fixed). The ordering inconsistency is NEW-2."
+          },
+          {
+            "id": "SF-R1",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "write_outputs L926-981 records each path before creating it (L938-948) and catches BaseException (L952). _scan_staging (L885-923) hashes the bytes actually on disk and marks each file COMPLETE_EQUALS_INTENDED or DIFFERS_FROM_INTENDED. Every manifest found is named in manifests_present_not_for_binding (L961-962), and the failure manifest is written when the disk allows (L969-977). main prints the failure_record on stdout and exits 5 (L1149-1156); a KeyboardInterrupt outside the write phase exits 130 (L1164-1168). Reproduced SF-R1 19/19 (W00-W17 plus SFR1_STATIC), identical to record 46d27e69. SPEC_HANDOFF L159, L168 and L179-181 make the exit-0 and folder checks MANDATORY. Residual NOTEs: those binder checks are manual until Codex1's binder implements them (PR-N1). A double failure can leave a clean-looking folder of complete, correct bytes, and only the exit code shows it. A second KeyboardInterrupt is UNTESTED. Final-mode writes are FORMAL: final mode shares the one writer."
+          },
+          {
+            "id": "NEW-1",
+            "status": "NEW",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "The DELTA (a938c76e) does not list every changed file. It omits the published run record handoff/tools/RUN_RECORD_PRODUCER_C4V003.json (a0148702): no RUN_RECORD token appears anywhere in the DELTA. Its section 7 'Published copies' sentence (L134) and file table (L136-160) cover the other 8 published records. INDEX L26 lists the run record and HASHES [A] pins it (verified). Every other package change is covered: all 3835 files outside the work folders are pinned by the V001, V002 or V003 manifests with equal shas, except HASHES V003 itself. The work folders hold no unlisted files beyond their declared exclusions. Documentation only."
+          },
+          {
+            "id": "NEW-2",
+            "status": "NEW",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "R-D18's recommended disposition (ROOT_ITEMS_FINAL_C4V005.md L441; INDEX L140) lists cap 3 first. Claude4 0127 (89e6d1ed) and 0140 say 0127's single rule takes precedence: start at cap 2, and raise to cap 3 at H1 only on measured peaks. No package record carries that precedence, so root reading R-D18 or the INDEX alone gets the opposite default. 0127 also still quotes 1.80 GiB against R-D18's corrected 1.797. This affects memory and scheduling only: each call's results are independent of concurrency, so no physics reading changes."
+          },
+          {
+            "id": "NEW-3",
+            "status": "NEW",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "The v003 producer requires every registry slot, bundle, proof, proof-producer, approved-producer and readiness reference to be exactly {path, sha256} (strict_pin used at L494, L729-732, L757, L761, L771, L778). TESTED case F1_A06 shows that one extra key refuses PIN_MALFORMED. The wrapper (24abe3bc L59-150) and the guard accept extra keys, comparing by dict equality. Neither R-C1 (ROOT_ITEMS_FINAL_C4V005.md L234-241) nor the SPEC_HANDOFF_C4V003 section 5 preconditions (L124-135) states this format for the R-C1 registry and bundles, which are not built yet, or for C1's tail_readiness lists. No pinned producer emits extra keys today: Codex2's pin helpers return exact pins (certs_common_r5_cx2v001.py L77-82, L105-106). The worst case is a fail-closed refusal at T0, with no physics effect. Recommendation: state the exact-pin format in R-C1, extending REFUTE N1's call to define a registry schema."
+          }
+        ],
+        "checked": [
+          "HASHES_STEP4_READINESS_C4V003.txt: all 16 entries verify from bytes (shasum -c). The file itself is 10ce4a6a, and all 11 pins in 0140 are equal.",
+          "Published copies are byte-equal to their fix_sfr1 work copies, all 11, including the INDEX (fix_sfr1/publish copy cca6c76b).",
+          "V002 unchanged: HASHES_STEP4_READINESS_C4V002 86/86. V001 manifests: launch_order 39, inventory 19, dryplans 3258, addendum 1, refute 453. V002 work manifests: order 47, dryplans_inventory 38, handoff 91, fixlog 153, refute_rulings 11, refute_numbers 24, refute_provenance 37. v002_work/publish/HASHES 31/31. No symlinks; the newest mtime in v002_work is 00:22:02Z (the V002 publish).",
+          "Package inventory: 3835 files outside the work folders, all pinned with equal shas except HASHES V003 itself.",
+          "V003 work manifests: v003_work 1173/1174, fix_sfr1 2942/2944, refute 775/777 OK. I deliberately did not open the 5 NGC3198-named synthetic or rulings-copy entries. The only unlisted files are the declared exclusions (HASHES, PARTIAL, FIXLOG, PUBLISH_RECORD).",
+          "Cited (path, sha) pairs: DELTA 24/24, INDEX 40/40, SPEC_HANDOFF_C4V003.json 182/182 distinct pins, ROOT_ITEMS_FINAL_C4V005.json 41/41, Claude3 review hash list d2e70d65 OK.",
+          "Test suite rerun on a scratch copy (python3 -I -B, BLAS=1, taskpolicy -b): 166/167. All 166 cases are identical to record 46d27e69 on passed, exit, status, code, outdir and stderr. The one difference is the dev-location CERT_ROOT override. Results: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/step4v3/closure/repro/tests_c3x01/run/TEST_RESULTS_C4V003.json (b732c5c5).",
+          "12 separate-process CLI runs, all inert and confined to scratch. Provisional on r9: exit 0, 29 specs, PROVISIONAL manifest, no FINAL anywhere. Final-mode refusals all exit 3, typed, with empty stderr and no outdir: S_STRING and S_PAIR (INPUT_OUTSIDE_ALLOWED_ROOT), D07, D06, D04, D09, D01, VOL, X01 and FINAL_ARGS. Argparse error: exit 2.",
+          "AST comparison of v002 (8e835ce3) and v003: identical construction functions and constants (validate_block, point_identity, digest, theta_key, canonical, json_bytes, diff_paths, probe_points, mapper_spec, hand_spec, NOTE_FINAL, HULL, VARYING, DECLARED, SLOT_PATHS and all pins). The diffs in fill_slots, build_all, __init__ and binder_pins are checks only, plus exact-pin slot writing.",
+          "Read from bytes: guard007 42bf0ce9 L154-173, L216-218 and L242-246, with no disk check; IMPLEMENTATION_INTERFACE_CX1V003 dc73cd94 L20 and L36; watchdog bd0d9bab; A105.3 in the V005 copy c01b3c51; SCHEDULE_SIM_C4V004 values 4.6022, 1.7972 and 2.805 GiB; wrapper 24abe3bc certificate_policy_gate and certificate_check; core a595c5c0 checked_gate.",
+          "Real-input compatibility for final mode: key paths are canonical (no symlinks); no synthetic tokens in fixed input paths; no 'synthetic' keys in genuine docs; the pair-plan pins are exact. C4T FILLED numerics pass validate_block, with a Picard bound of 0.01. In compare r14 (f3f9ba7e), the four constants are single literals, with SCHEMA_REPORT and K_big unchanged from r13. Compare r13's report writes pins_verified.V005_addendum as a bare sha, matching the producer's string form.",
+          "DIII pins re-hashed from bytes (cf3f0086 x2, 3f8a4c04 x2, 237ef3d4, b5cc62af); the specs are tail-OFF.",
+          "Root posts 0652, 0654, 0655 and 0658 (A115-A118) hold no step-4 ruling on R-B7, R-D17 or R-D18. I did not hash the live V006, which 0140 says has moved to 8ac68396.",
+          "Conduct: read-only under /Users/bgm/Research; writes only under scratchpad/step4v3/closure; no launches, no driver run, no network. Never opened runs_ext, KMAX_A2F10_C5H_RUN_V001, UVT_* or NGC targets. Test K1 read the dry-run frozen V005 addendum (ROOT_DECISIONS_NGC3198_..._FROZEN.md, a rulings file the fence allows by name) through the producer's fence, as the producer itself does at T0."
+        ],
+        "physics_notes": "No V003 change can alter a physics reading, so there are 0 (b) findings.\n\n**Spec bytes**\n- The spec construction is identical by AST to v002, including NOTE_FINAL, HULL, VARYING, DECLARED and every input pin.\n- The bitwise reproduction holds in my rerun:\n  - R1: 29/29 dry;\n  - R2: 29/29 PROVISIONAL;\n  - R3: 29/29 synthetic registry;\n  - S5: mapper 9/9, hand-built 20/20 except label.\n- S4: the in-memory FINAL bytes equal the provisional mapper bytes 9/9 and the hand-built bytes 20/20 except the label.\n- The one byte-relevant change is that slot refs are now written as exactly {path, sha256}. For an exact-pin registry the bytes are identical; anything else refuses.\n\n**Safety checks that protect readings**\n- C1's block must be canonical-equal to the sealed C4T FILLED numerics, the spec case block 76309ae3 names.\n- No A70 slot may sit outside the anchor point (F03).\n\n**Nothing that could change a reading**\n- No T-test, decision branch, gate verdict, certificate or C5H path is read or written. The fence refuses every target, run tree, C5H or UVT path literally, before any probe.\n- The DIII binder pins are the unchanged registered files.\n- R-D17 and R-D18 are disk and memory items only; each call's numerics are independent of concurrency.\n\n**Not yet tested**\n- Final mode has never run on real inputs: no real C1, sealed SEAL_RECORD, policy successor or R-C1 registry exists yet.\n- My checks found nothing that would make it refuse genuine records."
+      },
+      "verify": {
+        "lens": "closure (adversarial verify of the closure-lens review of Claude4 step-4 package V003, FROM_CLAUDE4/0140)",
+        "holds": true,
+        "corrections": [
+          "Precision only, no class change, PR-SF1. The review says final mode 'mirrors guard007 adoption() L154-173 and is stricter'. That is true for every field it mirrors: canonical-JSON same() instead of ==, seal.case_block, schema prefixes, exact pins. It is laxer wherever adoption() executes the policy and runs check_numerics on run-tree bytes: policy r7 L83-89 (C4T result status and validity), L95-97 (normalized_spec_equal) and L109-120 (source_results), plus the executed-versus-AST allowlist. The review already lists these as residual NOTEs (REFUTE N1, adopted_result not read). All of them fail closed at PRELAUNCH, so this is a NOTE.",
+          "Context for NEW-1, which still holds as a NOTE. The run record (utc_date_u 04:11:29Z) was written after the DELTA (04:08:06Z), so the DELTA could not have pinned it. INDEX section 2 and HASHES section [A] pin it as a0148702. The INDEX and the V003 HASHES file are also absent from the DELTA, because both were written later by design. So 'every changed file except one' is accurate only for files that existed when the DELTA was written.",
+          "Truncated input. My handoff of the review cuts off inside NEW-1, so I could not check the review's own text for NEW-2 or NEW-3. The subject of NEW-2 is confirmed from bytes. R-D18 in ROOT_ITEMS V005 (L441), and INDEX L140, recommend cap 3 first. Claude4's 0127, which 0140 says takes precedence, says start at cap 2. 0127 also still states the cap-2 precondition as 'at most 1.80 GiB'. That is the value REFUTE N6 showed is the first failing point, while V005 uses 1.797 GiB. This is a NOTE: it affects memory headroom and admission timing, not physics. NEW-3 could not be checked.",
+          "Added NOTE (new; fails closed). SPEC_HANDOFF_C4V003 precondition 4 (L132) says certificate-chain files, slot certificates included, 'must lie under claude_artifacts/, as the certificate guard requires'. Certificate guard 5f1e49e6 never reads slot certificates. Its _read under ART covers only the bundle, the proofs and the producers. Wrapper 24abe3bc reads the slots with O.read_pinned and no root. So the producer's root check on slot certificates at L784 (CERT_ROOT) is stricter than the chain. If an honest R-C1 run wrote slot certificates outside claude_artifacts, the producer would refuse them at T0 (INPUT_OUTSIDE_ALLOWED_ROOT). No such certificates exist yet. The A70 certificates are under claude_artifacts and well inside the 8 MiB cap (250689 and 38697 bytes).",
+          "Added NOTE (new). R-D17 names Codex1 as the disk-guard implementer. SPEC_HANDOFF section 5 names Codex1's binder for the two mandatory SF-R1 checks. But A109 (FROM_CODEX/0653, 03:51Z) declared Codex1 stalled before V003 was published at about 04:16Z. Both are RECOMMENDATIONs with fallbacks (root assigns the implementer; root does the binder checks by hand), so neither can change a physics reading."
+        ],
+        "reclassified": [],
+        "checked": [
+          "Hashes from bytes: all 16 entries of HASHES_STEP4_READINESS_C4V003.txt verify, and the file itself is 10ce4a6a. All 11 pins in 0140 match. The V002 manifest verifies 86/86 (03f92d90). Each of the 10 published records is byte-equal to its v003_work/fix_sfr1 work copy, and the INDEX to its publish copy. Only the 12 V003 files are new outside the work folders. The v002_work/publish files are V002's own late records from 19:21-19:22 local time.",
+          "NEW-1 from bytes: the DELTA has 0 RUN_RECORD tokens, and its section 7 'Published copies' sentence omits handoff/tools/RUN_RECORD_PRODUCER_C4V003.json.",
+          "Test rerun: the review's own reproduction (b732c5c5) differs from record run 46d27e69 in exactly one case, F1_CERT_OUTSIDE_ALLOWED_ROOT (passed and code). The cause is the dev override CERT_ROOT='/' at test L467-469. The review's 12 CLI outputs agree with what it claims: D01, D04, D06, D07, D09, X01, X03VOL, S_STRING and S_PAIR are typed refusals with empty stderr, prov is PROVISIONAL only, argp hits an argparse usage error, and noargs refuses FINAL_ARGS.",
+          "PR-SF1 line references checked in producer b7fb4d53: strict_pin L293-300, verify_final_adoption L611-723, verify_final_registry L726-788, synthetic_gate L791-817 called at L1098. Read side by side with guard007 42bf0ce9 L154-173 and L199-246, policy r7 7c726fa2, wrapper 24abe3bc L59-165, core a595c5c0 checked_gate L66-79, and certificate guard 5f1e49e6 _read and verify_bundle.",
+          "Genuine records the producer reads: the case block 76309ae3 C4T entry has tail true, drivers_allowed [r5], and a note naming the C4T FILLED path and sha de6d7d77. C4T FILLED has admit {}, A70 slots under claude_artifacts and picard bound 0.01. r9 has synthetic_test false and source_results []. 44 genuine inputs all have nlink 1, depth at most 9, integer literals at most 11 digits, no BOM, NUL or duplicate keys, and sizes under the caps.",
+          "Seal record forms: the dry-run SEAL_RECORDs d7821ddf (tool-4 v003 schema) and 0174ea95 (v004), and the r14 dry run 0e4a351a, written after V003, with compare 2c72e103. All three have a UNT_V007_SEAL_RECORD_ schema, sealed_by root, case_block 76309ae3 and exact pins. Each compare's PREREG constant equals the seal prereg. PIN_ADDENDUM_V005 is the bare sha c01b3c51, equal to the frozen addendum. SCHEMA_REPORT is _R11, K_big is 128.0 as a float, and each constant is assigned once. Each prereg binds 76309ae3. Compare r13 writes pins_verified.V005_addendum = PIN_ADDENDUM_V005, and its report's case_block comes from the prereg binding. The real-seal paths from ROOT_SEAL_STEPS.sh pass the fence and synthetic-path checks lexically.",
+          "Physics, class (b): an AST diff against v002 8e835ce3 is equal for validate_block, point_identity, theta_key, diff_paths, canonical, json_bytes, probe_points, mapper_spec, hand_spec and every physics constant. World.__init__, fill_slots, build_all and binder_pins differ only in their checks. An independent in-memory rerun with a scratch copy of b7fb4d53, fence installed, gives: R1 29/29 bitwise against the V001 dry specs; R2 29/29 against V001 PROVISIONAL; C4T numerics equal the r9 block plus the A70 slots; the T0 form gives MAPPER 9/9 equal to PROVISIONAL and HAND 20/20 equal except the label; anchor key 8ad6ca4e; fence BLOCKED empty; every input read once.",
+          "PR-SF2 and SF-R1 code read: _plan_and_write L1023-1063 (manifest json_bytes then strict_json, _outdir_preflight L1060, write_outputs L1061); write_outputs L926-981 (paths recorded before they are created, BaseException caught); _scan_staging L885-923; main L1136-1168 maps outcomes to exits 3, 4, 5 and 130. SPEC_HANDOFF L149, L159, L168 and L179-181, and the JSON twin's generated_at_t0.refusal, carry the corrected text.",
+          "PR-SF3 and PR-SF5: fence 5851f42f protected_reason L76-116 is lexical only; safe_resolve L130-178 checks before it probes. The record shows both selftests 29/29 with 0 protected probes. My probe: Claude3's look-alike names, /.vol, /private/../.vol, a RUNS_EXT firmlink spelling, UVT_ and C5H all refuse lexically; the REFUTE N4 spellings (NGC03198, UGC05572, PGC30197, N_3198) pass, as disclosed. strict_json against a guard007 L62-71 replica over 25 forms: no form the producer accepts that the guard refuses, and every outcome typed.",
+          "PKG-S1: R-D17 (L428-435) strings match the V005 copy c01b3c51 (A105.3: 992 GiB caps, 452 GiB free, about 250 GB, A85.3, the 80 GB watchdog, relocate or pause). step2_disk_watch.sh bd0d9bab only alerts and watches the fixed volume /System/Volumes/Data. guard007 has 0 statvfs, disk_usage or f_bavail calls. source_checks_v005 all_true.",
+          "PKG-S2: R-B7 (L224-231) and the DIII launch path (L113-122; JSON with 6 steps) match guard007 L216-218. The four {spec, driver} pins are exactly equal to the pair plan cb42a5a3 (specs cf3f0086 x2 and 3f8a4c04 x2, no uv_tail; drivers 237ef3d4 and b5cc62af) and to the templates004 DIII calls, case names included. SPEC_HANDOFF L86 points to R-B7.",
+          "PKG-S3: R-D18 (L436-443) and R-D14 (L409) checked. SCHEDULE_SIM_C4V004 9aa60bae gives after_on_max 4.6022 GiB and an increment over C4R3 of 1.7972 GiB; the dynamic replay holds to 1.79 and first fails at 1.80. All four templates004 batches carry max_active 3 with the guard007 L242-246 rule fields.",
+          "A115 class (a), honest producers on real records: I found no reachable defect. The fail-closed false-refusal risks I found are documented T0 preconditions or need records that do not exist yet; they are the NOTEs above. Class (b): none. All of the review's CLOSED statuses and NOTE classes stand."
+        ]
+      }
+    },
+    {
+      "lens": "physics",
+      "review": {
+        "lens": "physics",
+        "verdict": "PASS on the physics lens: nothing in V003 changes a physics reading relative to V002, so 0 (a) and 0 (b) belong to V003. Bytes of the producer copies (v002 8e835ce3, v003 b7fb4d53), run in scratch, give 29/29 tail-ON specs bitwise equal and 0 field diffs. That holds in four worlds, including the C1 shape of an honest ADOPT_TAIL (FINAL note, in memory only). The SPEC_HANDOFF V002->V003 33-call map has 0 diffs. The 4 DIII pins are identical, and the labels, roster, order, grids, tolerances and distances are unchanged. Provisional mode never wrote FINAL: 58 specs and 2 manifests, 0 occurrences. Final mode refused the synthetic inputs before any write. One carried item is (a) for T0 but is not a V003 defect: B1, the bare-sha PIN_ADDENDUM_V005 against policy r7. It is now TESTED in the r14 dry run as well. V003 carries the fix requirement, but the R-A2 'blocks' text understates it. Four NOTEs are new.",
+        "items": [
+          {
+            "id": "PHYS-DIFF (V002 vs V003 final specs)",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "Fenced byte copies in scratch/step4v3/physics/cmp (report fa5585d3...). The in-memory World.build_all of v002 and v003 on identical inputs gives 29/29 bitwise equal and diff_paths empty in W1 r9 dry (also = V001 dry files 29/29), W2 provisional block (= V001 PROVISIONAL 29/29), W3 A70-all registry (= V001 PROVISIONAL 29/29) and W4 C1 shape (block := C4T FILLED de6d7d77 numerics; A70 slots at anchor 8ad6ca4e, distinct per-point slots elsewhere; NOTE_FINAL; never written). The AST diff (ee4e17c8) leaves canonical, json_bytes, validate_block, point_identity, theta_key, probe_points, mapper_spec and hand_spec identical. The only changes are same() for ==, slots normalized to exactly {path, sha256}, and DIII pins via strict_pin, all no-ops on honest pins. SPEC_HANDOFF_C4V002.json (f0ee482f) vs C4V003.json (9c4fcb2b): calls 33/33 equal, 0 diffs, and final_now, counts, roster choices, order_notes and pin_graph are unchanged."
+          },
+          {
+            "id": "PR-SF1",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "Under A115 this is forged-input class. My CLI on the v003 copy: final mode with a synthetic C1 returns exit 3 PIN_REQUIRED (C1 numerics.verdict_artifact), with no outdir; with --registry it returns exit 3 FINAL_REGISTRY_OVERRIDE_REFUSED. Claude4 S1 refuses the consistent synthetic world at the last gate (TEST_RESULTS 46d27e69). Real-form documents are clean under the synthetic-gate document markers: r14 dry-run SEAL_RECORD C4V004, sealed prereg, C4T FILLED, r9 config and the E2E report form, so there is no spurious refusal. The verification only refuses; construction is unchanged (PHYS-DIFF)."
+          },
+          {
+            "id": "R14-FORMS",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "Upgrades 0140's FORMAL r14 claim to TESTED at the form level. diff r13 (f5adfd11) -> r14 (f3f9ba7e) shows only L341 (+'I4'). In the r14 seal dry run 20261019T044217Z (SEAL_RECORD 0e4a351a, sealed compare 2c72e103, sealed prereg 75971dd4), every v003 seal-form check passes when run with v003's own READER and _literal_constants: root AUTHORITY, r5, case block 76309ae3, exact pins, prereg sha constant, addendum constant = frozen_addendum sha, K_big 128.0 float, SCHEMA_REPORT ..._R11, single assignments, prereg binds the case block. The frozen addendum name passes the fence's literal check. I did not read the addendum bytes."
+          },
+          {
+            "id": "PR-SF2/PKG-S4",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "The final-mode refusals above created no output folder. The code (_plan_and_write -> _outdir_preflight -> write_outputs) serializes all specs and the manifest before the first mkdir (FORMAL). The fix is physics-neutral: a FINAL manifest can exist only after all 29 specs were written, fsynced and read back equal."
+          },
+          {
+            "id": "SF-R1",
+            "status": "CLOSED",
+            "cls": "(a)",
+            "label": "FORMAL",
+            "evidence": "It is reachable in an honest T0 run through ENOSPC, EIO or an interrupt (REFUTE), and it is fixed by the FIX-stage writer, which Claude4 TESTED 19/19 in provisional mode. I did not re-run the injections; that is the closure lens. It is physics-neutral: any FINAL manifest left on disk sits beside complete, read-back-equal specs. The mandatory exit-0 and folder binder checks cover the residual."
+          },
+          {
+            "id": "PR-SF3",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "My 5 fenced processes on honest inputs recorded 0 fence blocks (BLOCKED [] in v002 and v003). The literal-first design was read from 5851f42f (FORMAL). It is physics-neutral."
+          },
+          {
+            "id": "PR-SF5",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "strict_json uses float() and int() exactly like json.loads. The values are therefore identical: v003, reading through the strict reader, reproduces v002, reading through plain json, 29/29 bitwise in all 4 worlds. The real-form seal, prereg and C4T documents parse."
+          },
+          {
+            "id": "PKG-S1 (R-D17)",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "R-D17 now folds A105.3 and names Codex1 as the disk-guard implementer (RECOMMENDATION). Output placement and the disk guard do not enter any spec or reading. The A113 300 GiB floor is still not cited (REFUTE N9, carried)."
+          },
+          {
+            "id": "PKG-S2 (R-B7)",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "R-B7's four {spec, driver} pins equal the bytes of pair plan cb42a5a3: LOW 3f8a4c04 and HIGH cf3f0086, each with v009-GEO 237ef3d4 and r5 b5cc62af; the plan's pins are exactly {path, sha256}. The DIII specs are tail-OFF (no uv_tail), and they differ from the A2F10 template a93c95b9 only in distance_Mpc. v003 binder_pins carry the same pins. The DIII bytes are unchanged."
+          },
+          {
+            "id": "PKG-S3 (R-D18)",
+            "status": "CLOSED",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "The R-D18 numbers re-read from SCHEDULE_SIM_C4V004 (9aa60bae): static cap-2 increment 1.7972 GiB (after_on 4.6022); the dynamic run keeps 25% up to 1.79 and first fails at 1.80, so 1.797 is right. A residual text inconsistency remains: 0127's precedence rule says 'at most 1.80 GiB', and R-D18's rec lists cap 3 first, while 0140 says 0127's cap-2-first order prevails. Concurrency is scheduling only and changes no per-call numerics."
+          },
+          {
+            "id": "B1/R-A2 (carried)",
+            "status": "OPEN",
+            "cls": "(a)",
+            "label": "TESTED",
+            "evidence": "Not a V003 defect. The sealed compare carries PIN_ADDENDUM_V005 as a bare sha at L172 in r13 (dry runs 010953Z and 025053Z) and in r14 (044217Z). Policy r7 7c726fa2 L56-58 raises unless it is a pair. guard007 42bf0ce9 native_preflight -> adoption() L154-171 loads the admission's policy, needs the seal tuple and a positive check_numerics for EVERY direct call, DIII included. Core v006r9 check_numerics hard-codes r7 for the campaign. A successor that keeps r7's L56-58 would therefore refuse a genuine ADOPT_TAIL at every gate (fail-closed). V003 carries the fix in the R-A2 rec and SPEC_HANDOFF section 5 precondition 2, but R-A2 'blocks' still says 'Not the direct runs'. Must close before T0 (root / R-A2 builder)."
+          },
+          {
+            "id": "NEW-1 FINAL-labelled synthetic artifacts not on never-bind list",
+            "status": "NEW",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "Claude3's own V002 X01 output is review_step4_readiness_v002_c3/PRODUCER/run2/handoff_copy/neg3/out_X01/FINAL_SPECS_MANIFEST_C4V001.json (41bbcc64...). It has status FINAL_SPEC_BYTES_FOR_ROOT_BINDING, 33 binder_pins and FINAL labels, with A70 slots on all 27 points; neg3/out_Y_* hold 4 'FINAL-PRODUCER SYNTHETIC WORLD TEST' manifests. SPEC_HANDOFF_C4V003 section 6 does not name them. They are excluded by the V003 contract (schema V003, exit-0 post) and by PRELAUNCH certificate_check, so they are physics-neutral. Add them to the never-bind list; Claude3 discloses them."
+          },
+          {
+            "id": "NEW-2 provisional MAPPER bytes equal final",
+            "status": "NEW",
+            "cls": "NOTE",
+            "label": "TESTED",
+            "evidence": "Provisional CLI on the same C1-shape inputs (manifest 1383d527): 9/9 MAPPER specs are bitwise equal to the FINAL-note construction, and 20/20 hand specs are equal except the label. MAPPER labels are native (no PROVISIONAL word), and both modes write specs/<CASE>.json, so only the manifest name and status tell them apart. Identical bytes mean identical physics; the section 5 rule 'never bind a PROVISIONAL manifest' and the folder scan cover it."
+          },
+          {
+            "id": "NEW-3 slot-cert root stricter than native",
+            "status": "NEW",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "v003 final mode reads the slot certificates with root=claude_artifacts. The wrapper (v005 read_pinned, c75a889f L423) has no root, and the certificate guard roots only bundles, proofs and producers, yet handoff section 5 precondition 4 says the guard requires it. The failure is fail-closed, and the driver r5 only verifies the slot sha (L1076-1082), so no physics value moves. The R-C1 producers should write slot certificates under claude_artifacts, as the A70 ones are."
+          },
+          {
+            "id": "NEW-4 v006r10 limitation wording",
+            "status": "NEW",
+            "cls": "NOTE",
+            "label": "FORMAL",
+            "evidence": "The INDEX and handoff say 'an orchestrator successor (v006r10, R-B3) changes the point identities and needs a producer successor'. But core point_identity has no orchestrator term, and R-B3's own regression test requires r10 Mapper.build to be byte-identical to r9. guard007 uses the admission's policy for the 33 direct calls, so v006r9 plus a standalone policy successor suffices there. Root should state which v006r10 changes would force a producer successor: identity, Mapper.build, the cert-guard pin 5f1e49e6, or the policy-review bindings. Physics-neutral (fail-closed)."
+          }
+        ],
+        "checked": [
+          "0140 f349333f, 0105 c0378a32, review 1789c6b4, A115 0652 f831de2d, 0119 4ee6044b, 0127 89e6d1ed read; the 11 V003 records and HASHES 10ce4a6a verify 16/16 from bytes; V002 manifest 86/86 OK",
+          "AST diff of v002 8e835ce3 vs v003 b7fb4d53 construction functions and constants",
+          "in-memory v002 vs v003 builds in 4 worlds (W1 dry r9, W2 provisional block, W3 A70-all registry, W4 C1 shape with NOTE_FINAL never written): 29/29 bitwise each, 0 field diffs, metadata equal",
+          "v003 vs V001 dry 29/29 and V001 PROVISIONAL 29/29 bitwise",
+          "provisional CLI on the v003 copy: r9 (manifest a8be4fd5) and W4 (1383d527), exit 0; 0 'FINAL' or 'final' in 58 specs and 2 manifests; no binder_pins; MAPPER 9/9 bitwise and hand 20/20 except label against the references",
+          "final-mode CLI with a synthetic C1: exit 3 PIN_REQUIRED, and with --registry exit 3 FINAL_REGISTRY_OVERRIDE_REFUSED; no outdir created",
+          "SPEC_HANDOFF V002 vs V003 JSON: 33 calls identical; only the tool, procedure, refusal, never_bind and binder checks changed",
+          "ROOT_ITEMS V004 vs V005: R-B7 and R-D18 added, text-only changes in R-A1, R-A2, R-D14 and R-D17; no physics item changed",
+          "R-B7 pins vs pair plan cb42a5a3 and the DIII spec bytes; R-D18 numbers vs SCHEDULE_SIM_C4V004",
+          "B1: L172 form in sealed compares r13 (010953Z, 025053Z) and r14 (044217Z) vs policy r7 L56-58; guard007 adoption() call path; core v006r9 hard-coded r7",
+          "compare r13 -> r14 source diff (only L341); r14 dry-run seal forms vs v003 checks",
+          "the v003 checks mirror policy r7 and the compare report keys (test_mode, decision, inputs, validity, carried uncertainty, pins_verified); case-block and block_source paths contain no symlinks; E2E report form is 37,885 B, under the 16 MiB cap",
+          "the driver r5 uses the slot certificates only by sha; the wrapper reads slots without a root",
+          "conduct: read-only under /Users/bgm/Research; writes only in scratch/step4v3/physics; no launch, driver or science run; no runs_ext, C5H, UVT_* or NGC target opened; the frozen NGC3198-named addendum was not read; disclosure: one ls -la of Claude3's V002 lookalike folder lstat'd its fake 'runs_ext' entry and showed a symlink's text to runs_ext/UVT_FAKE without following or entering it"
+        ],
+        "physics_notes": "What step 4 computes, and whether V003 changes it (it does not). Every run is a DDO154 rotation-curve forward-model run of driver r5 (b5cc62af) at inclination 66 deg. Three free UNT parameters enter: common_scale_s, gamma = gamma_over_Eref x Eref (Eref 1.464e58 J) and ell_F_m. The run uses the adopted tail-corrected numerics, exactly the C4T FILLED block (de6d7d77):\n- kept cube K=4 (96 axis nodes);\n- continuum UV tail: cylinder K_big 128/kpc, gas M_s 128, quadrature order 8, lapse-only, lambda 1;\n- Picard 6 passes with a 0.01 km/s bound;\n- route A with 8 workers and at most 32 iterations;\n- the full A32 bracket hull on 72 columns.\n\n(1) TAIL_REANCHOR is the registered A2F10 anchor (s 0.10154, gamma 2.941e42, ell 9.905e19 m, about 3.2 kpc; D 4.04 Mpc) re-run tail-ON. It re-establishes config.anchor and the deciding 'reanchor' row.\n(2) WORKERS_8 is a second fresh anchor call, different only in its label. check_deciding verifies that both are complete and valid under exactly the block, with route-A workers 8 and distinct results. This is an execution-validity row, not a new value; under DU-2 a corner run plays this role.\n(3) HEADLINE_TRIAL plus 8 corners run the box s x/÷2, gamma x/÷10, ell x/÷2 at D 4.04. They are run-mode capability evidence: bracket and hull margins at the box extremes, feeding driver_capability and the C4-6 caps. The trial point is the anchor.\n(4) DIII x4 is tail-OFF at the anchor point at D_lo 3.98107 (= 10^0.6) and D_hi 4.11150. It is an r5 vs v009-GEO identity test (Z2_OFF, timing keys masked), and its evidence gates the SENS runs per distance.\n(5) SENS_LO9 and SENS_HI9 are the same 8 corners plus the anchor at D_lo and D_hi, tail-ON. They measure the distance sensitivity (the A23 D-Jacobian). Nothing consumes them yet, and the reading is unregistered (R-C7).\n\nThe certificate slots are custody only: r5 checks the slot sha, so they cannot move a computed velocity. V003 leaves every spec byte, distance, grid, tolerance, roster, order and the FINAL labels exactly as in V002, and the direct calls carry no stochastic seed. Its changes are refusal-only provenance checks, the write protocol, the fence and strict JSON, plus root items. The labels change in one place only: V002's synthetic-world mode (labels containing 'FINAL-PRODUCER') is gone.\n\nV003 does not touch any V007 T-test, decision branch, gate verdict on genuine records, numerical certificate or C5H blinding. The producer reads the V007 verdict only after the seal and writes no content from it, only pins.\n\nThe one physics-adjacent T0 risk is B1, outside V003. A policy successor that keeps r7's pair-form check would refuse a genuine sealed ADOPT_TAIL at guard007 and at numerics_verdict. That fails closed and would stop step 4; it would not alter step 4's science.\n\nScratch evidence: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/step4v3/physics/ (cmp/report/CONSTRUCTION_DIFF_V002_V003.json, notes/AST_DIFF_V002_V003.txt, prov/out_prov_r9, prov/out_prov_w4, scripts/)."
+      },
+      "verify": {
+        "lens": "physics (adversarial verify)",
+        "holds": true,
+        "corrections": [
+          "PKG-S2 evidence is wrong. The DIII specs 3f8a4c04 (LOW) and cf3f0086 (HIGH) do NOT differ from the A2F10 template a93c95b9 only in distance_Mpc. From bytes they also differ in label and in numerics: brackets.rule.fs_absolute_overrides grows from 11 keys to the full A32 hull on 72 columns, composite_grid_spec and route_a {column_workers: 8} are added, and picard.passes goes from 4 to 6, as the pair-plan notes say. Physical differs only in distance_Mpc, and coefficients are equal. LOW vs HIGH differ only in label and distance_Mpc. The NOTE class and CLOSED status are unaffected: the DIII bytes are unchanged from V002 to V003, and the R-B7 pins were re-hashed equal.",
+          "PKG-S1 evidence is wrong. The A113 P10 300 GiB seal floor IS cited, in R-D17's evidence: ROOT_ITEMS_FINAL_C4V005.md L432 and its JSON twin read 'A113 P10 gives the seal script a 300 GiB floor (A105.3: about 250 GB expected)'. REFUTE N9 is listed in DELTA section 4b as text-corrected at publication, not carried; the carried NOTEs are N1, N4 and N7. At most, the floor is not folded into R-D17's What line or its arithmetic. Still a NOTE.",
+          "NEW-1 understates the scope. review_step4_readiness_v002_c3/ holds 20 manifests with status FINAL_SPEC_BYTES_FOR_ROOT_BINDING (schema C4_STEP4_FINAL_SPECS_MANIFEST_V001, 33 binder_pins each), not 1: 12 in verify/PRODUCER_PR-SF4/run/out_*, 7 in verify/PRODUCER_PR-SF1/prodcopy_x/runs/out_* and 1 in PRODUCER/run2/handoff_copy/neg3/out_X01 (41bbcc64). Several were built from forged numerics (T4B, T5A, T5B, A05). It also holds 37 SYNTHETIC_WORLD_TEST manifests, not 4. The never-bind addition should name review_step4_readiness_v002_c3/** as a whole. Still a NOTE: their schema is not V003, there is no exit-0 post, and PRELAUNCH refuses them.",
+          "NEW-3 needs a precision. v003 also roots the LO_ENVELOPE proof (root=CERT_ROOT). Natively, only the wrapper reads that proof (24abe3bc L148-149, through the unrooted M.pin_doc). In prelaunch, certificate guard 5f1e49e6 verify_bundle roots the bundle, the EPS and GQ proofs and the producers, and never reads LO_ENVELOPE. Handoff precondition 4 says 'as the certificate guard requires'; that holds only for bundles, EPS/GQ proofs and producers, not for slot certificates or the LO_ENVELOPE proof. Still a NOTE (fail-closed).",
+          "B1 needs a refinement. R-A2's alternative remedy, 'or the seal tools must write the [path, sha] pair that r7 expects' (R-A2 recommendation, ROOT_ITEMS change-table row 51, DELTA section 4), is not viable. Compare r13/r14 L1241 tests sha256_file(ADDENDUM_V005_CITED) != PIN_ADDENDUM_V005, so a pair would make the sealed compare refuse with V005_ADDENDUM_SHA_MISMATCH. Only the policy-successor route (SPEC_HANDOFF section 5 precondition 2) works, and the successor must also replace r7 L59 (read_pinned of add[0]) and L63 (pins_verified compared with list(add)). B1 stays (a), OPEN, carried, not a V003 defect.",
+          "Scope qualifier for PR-SF1. 'So there is no spurious refusal' is TESTED only for the synthetic-gate document markers and the r14 seal forms. Final-mode acceptance of a genuine verdict report, C1, registry, bundles, proofs and policy successor stays UNTESTED until T0, as V003 itself says. The code reads of those documents match guard007 / policy r7 / the wrapper, apart from the NEW-3 rooting, nlink == 1 and the 16 MiB cap.",
+          "Minor citation: driver r5 checks the slot sha with verify_pin at L1086 (loop L1076-1086), not at L1076-1082."
+        ],
+        "reclassified": [],
+        "checked": [
+          "Hashes from bytes: 0140 f349333f, 0105 c0378a32, review 1789c6b4, 0652 f831de2d, 0127 89e6d1ed. HASHES_STEP4_READINESS_C4V003: 16/16 OK. V002 manifest: 86/86 OK. Work manifests v003_work, fix_sfr1 and refute: 1174, 2944 and 777 entries, 0 mismatches. The published producer, fence, handoff and root items are byte-equal to their fix_sfr1 work copies.",
+          "PHYS-DIFF reproduced independently with my own scripts. v002 8e835ce3 and v003 b7fb4d53 copies ran in separate fenced processes in 4 worlds: W1 r9 dry; W2 C4T block with no registry; W3 A70 slots on all 27 points; W4 C1 shape (A70 at anchor 8ad6ca4e only, distinct slots elsewhere, NOTE_FINAL, in memory only). Result: 29/29 sha equal, 0 metadata diffs and the same case order in every world. W1 equals the V001 dry specs 29/29; W2 and W3 equal the V001 PROVISIONAL specs 29/29. Point keys equal the handoff's expected keys 29/29 (27 distinct). In W4 only HEADLINE_TRIAL equals 7d9a8d47. Fence BLOCKED [] in all processes. Only shas and row metadata were written: /private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/step4v3/physics_verify/{v2,v3}/out_W1..W4.json. The W4 rows quote the FINAL label strings, but no spec file or manifest was written.",
+          "AST compare: canonical, json_bytes, validate_block, point_identity, theta_key, diff_paths, digest, probe_points, mapper_spec, hand_spec, NOTE_FINAL and STEMS are identical. Only World.__init__, build_all, fill_slots, binder_pins and the I/O layer changed.",
+          "SPEC_HANDOFF JSON V002 f0ee482f vs V003 9c4fcb2b: calls 33/33 equal; counts, final_now, roster choices, order_notes, pin_graph, labels and reconciliation equal.",
+          "R14-FORMS confirmed through the v003 copy's own READER and _literal_constants on dry run 044217Z (SEAL_RECORD 0e4a351a, compare 2c72e103, prereg 75971dd4). Every seal-form check passes; each of the four constants is assigned once; PIN_ADDENDUM_V005 is a bare str equal to frozen_addendum c01b3c51. The r13-to-r14 diff is only L341 (+'I4'). L172 is a bare sha in 010953Z, 025053Z and 044217Z. The frozen-addendum path passes the fence lexically, for both the dry-run and the real CTRL spelling; its bytes were not opened.",
+          "B1 facts confirmed: guard007 42bf0ce9 adoption() L154-172 runs from native_preflight L192 for every call, DIII included. Policy r7 L56-58 raises on a str and L63 compares with list(add). Core v006r9 L199-209 hard-codes r7. R-A2 says 'Blocks: ... Not the direct runs'.",
+          "Compare r14 report writer (L5757-5768, L5848-5852): pins_verified.V005_addendum = PIN_ADDENDUM_V005, a str, which matches v003's string branch. script_sha256, the resolved prereg and case_block pins, inputs.C4T.result_sha256, validity.C4T.valid_all and the per-row carried-uncertainty dict match v003's reads. The report has no 'synthetic' key, and schema _R11 carries no marker. The case-block and CTRL paths contain no symlinks.",
+          "Honest real-form inputs (driver, coordinate spec, addendum, template, pair plan, A70 certs, C4T FILLED, case block, probe record and its 30 provisional specs, custody deriver, state enumerator, seal forms, r7) all have nlink 1, are under 16 MiB, and carry no synthetic path tokens or document marks. C4T FILLED strict-parses, and same() equals a JSON-copied block; its picard bound is 0.01.",
+          "Certificate chain: verify_final_registry is consistent with wrapper 24abe3bc L59-170 and certificate guard 5f1e49e6, except for the NEW-3 rooting. v005 c75a889f read_pinned L423 has no root.",
+          "R-B7: the pair plan cb42a5a3 pins re-hash (LOW 3f8a4c04 and HIGH cf3f0086, each with 237ef3d4 and b5cc62af, exactly {path, sha256}); the DIII specs carry no uv_tail. R-D18: SCHEDULE_SIM_C4V004 9aa60bae gives 1.7972 / 4.6022 static, and the dynamic run keeps 25% at 1.79 and fails at 1.80. The residual inconsistency (0127 says 1.80 and cap 2 first; R-D18 lists cap 3 first) is real.",
+          "NEW-2 reproduced with the reviewer's own W4 fixtures: their provisional CLI outputs vs my in-memory FINAL-note build give MAPPER 9/9 equal and hand 20/20 equal except the label. NEW-4: core point_identity L233-238 has no orchestrator term, and R-B3's recommendation includes the r10 = r9 Mapper.build regression test.",
+          "Reviewer artifacts: final_w4 returns PIN_REQUIRED, final_w4_reg returns FINAL_REGISTRY_OVERRIDE_REFUSED, stderr is empty; the provisional runs left 58 specs, 2 manifests and 0 'FINAL' strings. Claude4's TEST_RESULTS 46d27e69 give 167/167 (SF-R1 19/19); on the BUILD bytes, 4646b7c3 gives 149/167 (SF-R1 1/19).",
+          "A115 classes: no V003 change reaches (b): no T-test, decision branch, gate verdict, certificate or C5H path is touched, and the verdict report is parsed with no values emitted. On (a): SF-R1 is closed in the FIX bytes, and B1 is OPEN and carried. All the reviewer's (a)/NOTE labels stand.",
+          "Conduct: nothing was launched; no driver, compare or production run. No runs_ext, UVT_*, C5H path or NGC target was read, and no NGC3198-named file was opened (lexical checks only). Only the status and label_note of the synthetic manifest in Claude3's neg3/out_Y_B04_ngc_geometry folder were printed. The E2E comparison reports were only stat'ed for size (about 38 KB). Writes went only to step4v3/physics_verify/."
+        ]
+      }
+    }
+  ],
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Review"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "review:closure",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "a48add32dd101728d",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792383769840,
+      "queuedAt": 1792383769832,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "closure",
+      "promptPreview": "You review, for the UNT program's Claude3 lane, Claude4's step-4 launch-readiness package V003: FROM_CLAUDE4/0140 in /Users/bgm/Research/UNT_EXCHANGE (read it first), objects under /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/ (INDEX_STEP4_READINESS_C4V003.md cca6c76b..., DELTA_C4V002_TO_C4V003.md a938c76e..., HASHES_STEP4_READINESS_C4V003.txt 10ce4a6a..., producer h…",
+      "promptFramed": true,
+      "lastProgressAt": 1792385364007,
+      "tokens": 470254,
+      "toolCalls": 118,
+      "durationMs": 1594167,
+      "resultPreview": "{\"lens\":\"closure\",\"verdict\":\"PASS. V003 closes all 8 items: Claude3 0105's 7 SHOULD_FIX plus the REFUTE stage's SF-R1. Under A115 there are 0 (a) and 0 (b) findings, and 3 NEW NOTEs. All 16 entries in HASHES_STEP4_READINESS_C4V003.txt verify from bytes. The file itself (10ce4a6a) and every pin in 0140 also match. V002 is unchanged on disk. The DELTA lists every changed file except one: the publish…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "review:physics",
+      "phaseIndex": 1,
+      "phaseTitle": "Review",
+      "agentId": "ac6678e4da480605d",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792383769840,
+      "queuedAt": 1792383769832,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "physics",
+      "promptPreview": "You review, for the UNT program's Claude3 lane, Claude4's step-4 launch-readiness package V003: FROM_CLAUDE4/0140 in /Users/bgm/Research/UNT_EXCHANGE (read it first), objects under /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/ (INDEX_STEP4_READINESS_C4V003.md cca6c76b..., DELTA_C4V002_TO_C4V003.md a938c76e..., HASHES_STEP4_READINESS_C4V003.txt 10ce4a6a..., producer h…",
+      "promptFramed": true,
+      "lastProgressAt": 1792385355194,
+      "tokens": 474261,
+      "toolCalls": 109,
+      "durationMs": 1580353,
+      "resultPreview": "{\"lens\":\"physics\",\"verdict\":\"PASS on the physics lens: nothing in V003 changes a physics reading relative to V002, so 0 (a) and 0 (b) belong to V003. Bytes of the producer copies (v002 8e835ce3, v003 b7fb4d53), run in scratch, give 29/29 tail-ON specs bitwise equal and 0 field diffs. That holds in four worlds, including the C1 shape of an honest ADOPT_TAIL (FINAL note, in memory only). The SPEC_HA…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "verify:physics",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a0b2350c90c9d5f20",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792385357585,
+      "queuedAt": 1792385357578,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "physics (adversarial verify)",
+      "promptPreview": "You review, for the UNT program's Claude3 lane, Claude4's step-4 launch-readiness package V003: FROM_CLAUDE4/0140 in /Users/bgm/Research/UNT_EXCHANGE (read it first), objects under /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/ (INDEX_STEP4_READINESS_C4V003.md cca6c76b..., DELTA_C4V002_TO_C4V003.md a938c76e..., HASHES_STEP4_READINESS_C4V003.txt 10ce4a6a..., producer h…",
+      "promptFramed": true,
+      "lastProgressAt": 1792387022844,
+      "tokens": 436219,
+      "toolCalls": 130,
+      "durationMs": 1665258,
+      "resultPreview": "{\"lens\":\"physics (adversarial verify)\",\"holds\":true,\"corrections\":[\"PKG-S2 evidence is wrong. The DIII specs 3f8a4c04 (LOW) and cf3f0086 (HIGH) do NOT differ from the A2F10 template a93c95b9 only in distance_Mpc. From bytes they also differ in label and in numerics: brackets.rule.fs_absolute_overrides grows from 11 keys to the full A32 hull on 72 columns, composite_grid_spec and route_a {column_wo…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "verify:closure",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a6b196e7034c200f2",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792385366596,
+      "queuedAt": 1792385366594,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "closure (adversarial verify of the closure-lens review of C…",
+      "promptPreview": "You review, for the UNT program's Claude3 lane, Claude4's step-4 launch-readiness package V003: FROM_CLAUDE4/0140 in /Users/bgm/Research/UNT_EXCHANGE (read it first), objects under /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_readiness_c4/ (INDEX_STEP4_READINESS_C4V003.md cca6c76b..., DELTA_C4V002_TO_C4V003.md a938c76e..., HASHES_STEP4_READINESS_C4V003.txt 10ce4a6a..., producer h…",
+      "promptFramed": true,
+      "lastProgressAt": 1792386752433,
+      "tokens": 389078,
+      "toolCalls": 119,
+      "durationMs": 1385837,
+      "resultPreview": "{\"lens\":\"closure (adversarial verify of the closure-lens review of Claude4 step-4 package V003, FROM_CLAUDE4/0140)\",\"holds\":true,\"corrections\":[\"Precision only, no class change, PR-SF1. The review says final mode 'mirrors guard007 adoption() L154-173 and is stricter'. That is true for every field it mirrors: canonical-JSON same() instead of ==, seal.case_block, schema prefixes, exact pins. It is l…"
+    }
+  ],
+  "totalTokens": 1769812,
+  "totalToolCalls": 476
+}

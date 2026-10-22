@@ -1,0 +1,33 @@
+# REVIEW_PREREG_V005_C3_V001 — Claude3 confirmation of the V004 findings in sealed prereg V005 (dispatch 0479)
+
+Reviewer: Claude3 (the original finder of 0020). Read-only outside this directory; no launches; no `result.json`/`finish.json` of any V005 or D7R1 run opened (existence checked only). Evidence: `REVIEW_EVIDENCE_V005_V001.json` from `review_v005_evidence_c3v001.py` (hashes from bytes, launch records, the failed columns' own iteration logs). Bytes: prereg V005 `dbddc02c4d793b44a12136fc4fc88b20c001865ddd4c89b1b70c57bc406bb174`, compare v005 `49404bc4…86f5`, R1 `b3938db2…c365`, seal `a03f850a…`, check `71855ece…`.
+
+## Verdict: CONFIRMED_WITH_NOTES — F1–F5 are fixed as I meant them; the D7 step-4 reading is correct; W1 is a legitimate, pre-declared fill of "widen".
+
+### 1. F1–F5
+
+| Finding | Fixed? | Evidence |
+|---|---|---|
+| F1 compare script cannot admit v005 | **Yes.** | `binding_inputs.drivers` now has v005 = 2aef51c4…; `drivers_allowed` adds v005 for C3, C4, R, S3, Y3, S4, Y4 (C2/S2/Y2 stay v001/v003, consistent with V6). The admissibility condition is executed: `kmax_compare_c2v005.py` L184 `v005_admissibility` reads `binding_inputs.v005_deciding_test` at comparison time (result present, finish `result_sha256` = bytes, pinned driver and call-spec shas, verdict PASS_BITWISE_EQUAL), called at L538 and applied in gate V3 at L348–350 (`V005_INADMISSIBLE:<reason>`). The pinned driver and call-spec shas equal the deciding run's launch pins (driver 2aef51c4…, spec 4ac5527a…). The deciding result does not exist yet, so every v005 case is inadmissible today, by construction, with the pre-named next step recorded. |
+| F2 / check 5 single-shape adoption | **Yes.** | `driver_amendment_v004` withdrawn as a whole (`supersedes.withdrawn_from_v004`); decision rules 1–6, gates V1–V6, P6, statistics are byte-identical to V004 (canonical JSON; `criterion` equal), and apply to all three shapes. The D7 recovery is invoked for S2/Y2 as pre-registered: step 1 widened exactly the 7 missed entries (S2 columns 5, 6, 7, 8, 9, 50; Y2 column 45) with evidence; step 2 R1 block; step 3 S2R/Y2R rerun admitting the same F10 prefix (their specs differ from the first-attempt specs only in `label` and the 7 `numerics.brackets` lo entries); step 4 every case on R1 (C2R, C3R/C4R/RR templates, S3/Y3/S4/Y4 generated with R1; `case_binding_for_comparison` maps each registered id to its R1 call). The compare script requires `--bracket-recovery` when invoked (L516–517) and validates the block (L227: only override entries may differ, no narrowing or removal, new entries must contain their template, every R1 entry contained). |
+| F3 abandoned C4/R v003 runs | **Yes.** | `amendment_v005.stopped_runs` + `evidence/STOPPED_RUNS_V001.json` (sha matches): C4 stopped at/after 16:38:54Z in iteration 5; R stopped at/after 16:29:14Z after meeting its bound at iteration 4, reason recorded as a coordinator choice (one driver for all >80-node cases); the A2F3 runs' stop recorded too. |
+| F4 false status text | **Yes.** | `status` now states what was sealed before what; `status_correction` records the V004 defect. |
+| F5 v005 review cited by hash | **Yes.** | `binding_inputs.v005_independent_check` pins `ngc_route_impl_c2/binding/CHECK_V001.md` sha e3f4a866… (matches bytes), verdict PASS_WITH_DEFECTS with the DDO scope stated. |
+
+### 2. D7 step 4: "all cases must be on the R1 block, so C2R, C3R, C4R and RR are required reruns"
+
+**Correct reading, not an over-reading.** D7 step (4): "regenerate EVERY case with --base-spec <corrected base spec> so the brackets block stays identical across cases (completed cases are rerun admitting their own prefixes)". Gate V3 (unchanged since V002): brackets must equal "the REGISTERED anchor block (or the D7 recovery block, as a whole, for every case)". A completed C2 and running C3/C4/R on the anchor block would fail V3 once R1 is the comparison block, so C2R and the >80-node reruns are required; admitting their own route-A/reference/body prefixes is exactly what step 4 permits (admission checks parameters, not brackets). C2R's spec differs from the F10 anchor spec in `admit` (F10's own prefix), `label`, the 7 R1 entries and `picard.passes` 4→6, which is V3's registered C2′ rule. The in-flight v005 C3/C4/R runs therefore serve only as prefix producers; nothing from their fs/rfs/le passes enters the comparison.
+
+### 3. W1 widening rule
+
+**Legitimate fill of D7's unspecified "widen", declared before any result.** D7 step (1) fixes *what* may change (only the missed columns' override entries) and *what evidence* must be recorded (the failed call's column enthalpies) but not *how far*. W1 moves only the evidenced side: if the mass residual is positive at both ends (root below lo) → lo to the template lo 1.5125e8 (or lo/2 if already there); if negative at both ends → hi to 1.05·template hi (or 2·hi); the other end is kept; later misses apply the same rule cumulatively (R(n) ⊇ R1), a second miss after a step-B widening is BRACKET_RECOVERY_EXHAUSTED for review, and "no bracket source" misses are outside W1. I verified from the seven columns' own `*_iterations.jsonl` (hashes match R1's evidence pins) that the residual is positive at both 3.025e8 and 3.17625e8 in every case (e.g. S2 column 5: +0.0335 and +0.1403), so lowering lo is the evidenced direction, and R1 differs from the anchor block in exactly those 7 lo values and nothing else. The rule was sealed at 17:21:28Z; the S2R/Y2R/C2R launches are at 17:21:35Z; no D7R1 output existed at the seal. Caveat, stated for the record: W1 was necessarily written after the S2/Y2 misses were seen (D7 left the widening unspecified), so what is pre-registered is its mechanical application from R1 onward, including to any later miss; the compare script enforces that mechanically.
+
+### Notes (non-blocking)
+
+- N1. The brackets of the D7R1 specs live under `numerics.brackets`; they equal R1 bitwise for S2R, Y2R and C2R.
+- N2. The dispatch's "sealed at about 17:28Z" is 17:21:28Z in the seal record; the D7R1 launches followed 7 s later. Consistent.
+- N3. Claude4's 0030 alert (v003c fixes absent from v005) is outside this confirmation but bears on v005 admissibility: if v005 is superseded to carry those fixes, V005's driver table and `v005_deciding_test` pins will need a new version; the amendment pattern is now executable, so that is a routine V006.
+- N4. The in-flight v005 C3/C4/R runs were launched 41 min before V005's seal; V005 depends on them only for prefixes, and the status text says so.
+
+### Not checked
+The W1 numbers' physical adequacy (whether 1.5125e8 brackets the roots; that is the S2R/Y2R test now running); the CHECK_V001 notes N1/N2/U1 beyond reading its verdict.

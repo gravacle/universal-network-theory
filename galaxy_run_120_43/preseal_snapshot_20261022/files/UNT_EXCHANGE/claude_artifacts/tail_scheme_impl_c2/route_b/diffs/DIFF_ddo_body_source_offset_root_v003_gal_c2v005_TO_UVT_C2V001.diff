@@ -1,0 +1,53 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/stages/ddo_body_source_offset_root_v003_gal_c2v005.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_b/stages/ddo_body_source_offset_root_v003_gal_c2v005_uvt_c2v001.py
+@@ -5,2 +5,9 @@
+ """
++# UVT_C2V001 (Claude2 tail_scheme_impl_c2/route_b): successor of ddo_body_source_offset_root_v003_gal_c2v005.py (sha256 1ee18dcdcc42fc2465cebcc120297f262839fc4506249416b4d71d6a00be3dd4).
++# uvt_c2v001 change (TAIL_SCHEME_DESIGN_V002 sec 1.1/1.3/2.2/3.6 with V002_R1; stage kind offset): the UV-tail lapse enters only
++#   through the reviewed additive boundary slots, via the pinned shared binding uvt_route_b_binding_c2v001.py. Required argv
++#   --uv-tail-config/--uv-tail-config-sha256 (certificates are config fields, verified from bytes at build; R1 IA6).
++#   enabled=false: the binding returns the reviewed zero literals and adds no record; the reviewed body runs unchanged.
++#   enabled=true with an empty domain (O inside C): the same zero literals (no addition anywhere), plus the uv_tail record.
++#   slots: L258 split: fields[:,0] += t[Delta](pos) before the total, non-empty state only (N1: diagnostic); state built after the forward sum L238-246.
+ # GAL_C2V005 (Claude2 stage_successor_gal_c2v005): successor of ddo_body_source_offset_root_v003_gal_c2v004.py (sha256 e821ae42b643ecf9ff2362f8d5dd3e56056b3300df929d290e9b3eb7558bc480).
+@@ -180,2 +187,12 @@
+ 
++# ---- uvt_c2v001 shared UV-tail binding loader (tail_scheme_impl_c2/route_b): identical text in every gal_c2v005_uvt_c2v001 stage ----
++UVT_BINDING=(Path('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_b/uvt_route_b_binding_c2v001.py'),'7288a5d17976cc0267316e16f6a15aab2ca5c87d810c7d498f2a3787fe571651')
++def uvt_load():
++ """The pinned shared UV-tail binding (bytes checked before and after exec; inert at import)."""
++ path,pin=UVT_BINDING
++ if hashlib.sha256(path.read_bytes()).hexdigest()!=pin:raise ValueError('UV_TAIL_PIN_MISMATCH '+str(path))
++ s=importlib.util.spec_from_file_location('uvt_route_b_binding_c2v001',str(path));m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
++ if hashlib.sha256(path.read_bytes()).hexdigest()!=pin:raise ValueError('UV_TAIL_PIN_CHANGED_AFTER_IMPORT '+str(path))
++ return m
++# ---- end of uvt block ----
+ def main():
+@@ -185,3 +202,3 @@
+  for k in ('galaxy-config','galaxy-config-sha256'):p.add_argument('--'+k,required=True)
+- a=p.parse_args();out=Path(a.outdir);out.mkdir(exist_ok=False);t0=time.monotonic();stage='admission'
++ UVT=uvt_load();UVT.add_argv(p,'offset');a=p.parse_args();out=Path(a.outdir);out.mkdir(exist_ok=False);t0=time.monotonic();stage='admission'
+  if not 1<=a.wave_batch<=1024 or not 1<=a.position_batch<=1024:raise ValueError('Explicit bounded batches1..1024 required')
+@@ -209,2 +226,3 @@
+   with np.load(bf['array_file'],allow_pickle=False) as f:body={k:f[k].copy() for k in f.files}
++  uvt=UVT.open_binding(a,'offset').bind(ni=ni,phys=phys,galaxy=GK,profile=(reuse.PROFILE,reuse.PROFILE_SHA),identity=reuse.IDENTITY,iteration=it,start=start,body_finish=bf)
+   check(reuse.PROFILE,reuse.PROFILE_SHA)
+@@ -232,3 +250,3 @@
+    if cm.digest(v)!=dig[k]:raise ValueError('Original operator argument differs: '+k)
+-  write('start.json',dict(worker_sha256=sha(__file__),code_pins={str(p):s for p,s in PINS.values()},body_finish_sha256=a.body_finish_sha256,body_array_sha256=bf['array_sha256'],coefficient_sha256=coeff_sha,seed_sha256=reuse.SEED_SHA,old_gas=start['gas_fourier_J'],fixed_stars=start['fixed_source_fourier_J'],checkpoint_directory=str(cp.resolve()),wave_batch=a.wave_batch,position_batch=a.position_batch,scope='Affine base-source offset only; no flow solution or revised native state'))
++  write('start.json',dict(worker_sha256=sha(__file__),code_pins={str(p):s for p,s in PINS.values()},body_finish_sha256=a.body_finish_sha256,body_array_sha256=bf['array_sha256'],coefficient_sha256=coeff_sha,seed_sha256=reuse.SEED_SHA,old_gas=start['gas_fourier_J'],fixed_stars=start['fixed_source_fourier_J'],checkpoint_directory=str(cp.resolve()),wave_batch=a.wave_batch,position_batch=a.position_batch,scope='Affine base-source offset only; no flow solution or revised native state',**uvt.record()))
+   stage='unit_response';cache=mods['cache'].make_fourier_module(base_module=mods['fourier'],log_directory=str(out/'unit_nodes'),start_iteration=0)
+@@ -248,2 +266,3 @@
+    delta=finite(new-old,'source offset');np.savez(out/'source_offset.npz',new_body_fourier_J=new,delta_source_fourier_J=delta)
++   uvt.bind_offset(body=body,new=new,waves=waves,unit_weighted_responses=unit['weighted_responses'])
+    stage='offset_inverse_transform';offset=cache.prepare(**fa,source_density_fourier=delta)
+@@ -257,3 +276,3 @@
+     log.write(json.dumps(dict(stage=stage,positions_completed=j+len(q),elapsed_seconds=time.monotonic()-t0))+'\n');log.flush()
+-  fields=fields.reshape((NC,NPHI,NETA,10));total=finite(body['full_fields_real']+1j*body['full_fields_imag']+fields,'total updated fields')
++  fields=uvt.offset_fields(fields,pos);fields=fields.reshape((NC,NPHI,NETA,10));total=finite(body['full_fields_real']+1j*body['full_fields_imag']+fields,'total updated fields')
+   maxima=np.max(np.abs(total.imag),axis=(0,1,2));bounds=ni['reality_atol']+ni['reality_rtol']*np.max(np.abs(total.real),axis=(0,1,2))
+@@ -272,3 +291,3 @@
+   np.savez(out/'updated_base_arrays.npz',**saved)
+-  write('finish.json',dict(status='AFFINE_BASE_OFFSET_EVALUATED_NOT_FLOW_SOLUTION',outputs={name:dict(path=str(out/name),sha256=sha(out/name)) for name in ('unit_response.npz','source_offset.npz','offset_prepared.npz','updated_base_arrays.npz')},elapsed_seconds=time.monotonic()-t0,reality_maxima=maxima,reality_bounds=bounds,minimum_C_eigenvalue=minC,source_offset_applied_once=True,lagged_callback_contract='ONLY displacement delta_f=-c^2 delta_rho; do not add base-G4 again',base_scope='rho/P/K/Omega and saved surfaces retained as reference, not re-equilibrated; updated m0 and angular potential and same-discrete r0 include complete offset',limits=['Native mixing failed','Finite Fourier/GL8 source quadrature errors not certified','No nonlinear gas equilibrium, boundary solve, modal action or stationary flow asserted']))
++  write('finish.json',dict(status='AFFINE_BASE_OFFSET_EVALUATED_NOT_FLOW_SOLUTION',outputs={name:dict(path=str(out/name),sha256=sha(out/name)) for name in ('unit_response.npz','source_offset.npz','offset_prepared.npz','updated_base_arrays.npz')},elapsed_seconds=time.monotonic()-t0,reality_maxima=maxima,reality_bounds=bounds,minimum_C_eigenvalue=minC,source_offset_applied_once=True,lagged_callback_contract='ONLY displacement delta_f=-c^2 delta_rho; do not add base-G4 again',base_scope='rho/P/K/Omega and saved surfaces retained as reference, not re-equilibrated; updated m0 and angular potential and same-discrete r0 include complete offset',limits=['Native mixing failed','Finite Fourier/GL8 source quadrature errors not certified','No nonlinear gas equilibrium, boundary solve, modal action or stationary flow asserted'],**uvt.record(final=True)))
+  except Exception as exc:

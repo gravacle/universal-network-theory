@@ -1,0 +1,44 @@
+# D017/F4 acceptance-consumer build and bounded validation
+
+`date -u`: **Wed Oct 21 23:25:51 UTC 2026**.
+
+**TESTED PASS: 36/36 author checks; independent review reports 45/45 and zero blockers.** The immutable successor `h3_accept_call_a296_cx2v001.py` fixes the F4 entry-line refusal identified in Claude3 packet0325/D017. This report establishes the permitted source delta and bounded synthetic behavior. Production acceptance and root adoption remain **UNTESTED**.
+
+The successor changes only `ENTRY_LINE` to `h3_campaign_entry_a296_cx2v001`, the corresponding `ENTRY_NOT_A296_LINE` refusal name, and module docstring/usage file names. Exact changed byte-lines are 1, 5, 6, 20, 73, 94 and 144. No dependency pin, schema, argument, call ordering or acceptance logic was changed. Every file cited below was hashed from bytes; predecessor and reviewed files were preserved.
+
+**TESTED entry boundary.** The actual `load_module` and `load_chain` function ASTs ran against physically owned synthetic entry modules. Their names came from the pinned A296 and r12 entry source ASTs. Both names passed and reached wrapper loading followed by `check_patch`. The old c2v004 and unnamed entries refused before any wrapper call. A wrong entry hash refused. Restoring the old ENTRY_LINE in an in-memory mutant made both valid A296 cases fail, so the regression controls kill the old-line defect. The real entry and wrapper modules were never imported.
+
+**TESTED dependency equality.** The exact unchanged `accept` dependency comparison statements (lines267-277, including `read_deps`) ran as a projected function using physically owned synthetic dependency records. The new guard source SHA and exact ordered seven references passed against the selected synthetic seven-producer configuration. The old guard, six references, reordered seven, a changed producer hash and changed enumerator refused. Seven here means the frozen six producer references followed by the pinned A296 bridge, as used in the test configuration. These fixtures are explicitly synthetic and nonadmissible; their test-only ROOT_FILLED status is not a root approval.
+
+The consumer compares the dependency record with its native configuration; it does **not** independently impose a producer count of seven. A matching six-config/six-deps control still passes, preserving legacy equality semantics. Root's selected C1/policy/native configuration must establish the A296 seven-producer premise, and the root-filled deps record must carry the wrapper's new guard SHA and that exact ordered list. It is incorrect to claim that this one-line successor alone enforces a seven-producer policy.
+
+**FORMAL source preservation.** After normalizing only the allowed docstring, ENTRY_LINE and refusal prefix, the complete module AST equals the predecessor. Every function except `load_chain` is AST-identical; `load_chain` changes only its refusal prefix. In particular, `accept`, rerun/latest-pass predicates, maximum-pass handling, locking, first-pass checks, frozen readings, reingest routing and exclusive record writes are unchanged. This is source-equivalence evidence, not live execution of these behaviors.
+
+**FORMAL handoff selection.** The unchanged acceptance handoff loads its guard from the pinned deps dictionary (line140) and uses that guard for verification (lines525-527); it does not hardcode the legacy guard at that boundary. Its existing source pin is preserved in the successor (lines85-86). No handoff successor is required for D017. The README and dependency template remain unchanged historical specification/template inputs; root must select this new accept consumer and supply the new wrapper guard and selected config's exact ordered producer references. No filled production deps or command manifest was created here.
+
+**UNTESTED / integration conditions.** No full `accept()` invocation, production context, actual handoff, root config/deps, real wrapper cascade, call receipt/state, reingest or scientific command was executed. No real post-verdict generated chain or production admission is asserted. Root still owns source selection, runtime/source-review bindings and adoption; Claude3's applicable delta review remains separate from this internal independent review. No actual signer evidence was synthesized or used in these tests.
+
+The source-only builder and selected AST tests used the prescribed isolated Python 3.12.14 and single-thread BLAS environment. `nice -n 10` was attempted and reported `setpriority: Operation not permitted`, under the existing 0514 waiver. The test execution fence allowed reads only of the owned synthetic fixtures and rejected other file opens, writes and external process/network activity during projected function execution. No production run-tree/volume access, observed targets, postseal records, session logs, network or scientific launch occurred. All outputs used exclusive new-file creation.
+
+The author result contains every check and owned fixture byte pin. The independent report separately documents its 45 checks. Neither expands the previous integration source review into a whole-chain runtime claim.
+
+## Byte pins
+
+- `/Users/bgm/Research/UNT_EXCHANGE/FROM_CLAUDE3/0325_2026-10-21_R3-reviews-PASS-both-gates-NEW-blocking-F4-accept-call-refuses-A296-entry-D017-Codex2-one-line-successor-0320-erratum.md` — SHA256 `2485fd1cddb9270f37325d606200166aa05ffcb8881fb2f1123daef88d0193ca`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/h3_accept_call_a296_cx2v001.py` — SHA256 `edcd3ffa647c143eeb2a942e46d2420d2126d9f61f33252be8c9126db1bba007`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/h3_accept_call_c2v004.py` — SHA256 `eb895263c8458696b265b30dc5dee771dcb89649e5b490c893bb613281c7bf19`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/h3_campaign_entry_a296_cx2v001.py` — SHA256 `05738509efb85f1a64d0031bf0e1c6b0d96f3427ab1a5670704affcd47f4ff28`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/placeholder_chain_a296_cx2v001/v006r12_c4/h3_campaign_entry_cx2v006r12_c4.py` — SHA256 `af4e4f36ab74c8be01d3384bcaf83bdfdc3d867207b41bad447087eea4e21743`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/guard/certificate_guard_b1_a296_cx2v003.py` — SHA256 `3939bc47c48f46f9e313969d77cc7895d7dd6936648b2060df31a5aff3cc4c25`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/certificate_guard_b1_c2v001.py` — SHA256 `9e3fc109621a9e600e2ea4aa8346c3e2baf002ac3df759238f7d8efcb3809677`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/c1_h1_c2/C1_H1_C2V001.json` — SHA256 `4015932226dcfbf9783b96de1daa512ef5c7a397ac4ca093d701ead362ed92c1`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/point_response_admission_a296_bridge_cx2v002.py` — SHA256 `1eb94a51ef00de3cf353d76863ff7405aa11ff11d336e6426b10ceae590cadd4`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/acceptance_handoff_c2v004.py` — SHA256 `5ff464cc866d3e69ef83ab7542701b211afaae29d7be14e69b10fb09f16692d8`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/README_CAMPAIGN_CERT_C2V004.md` — SHA256 `638d6543d09cf8305235197ea42ed9c3530f13bc531743b012466c8ba68dc9c1`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/ACCEPT_DEPS_RECORD_C2V001_TEMPLATE.json` — SHA256 `48ec0e010cd4228f6b3a7eab78940e956465af32d3d3e796efb41f4a7ca3bfa5`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/accept_f4_cx2v001/build_accept_f4_cx2v001.py` — SHA256 `a6dd0090f38d22ed30ea812d30beb442f162405d9468409732dd0a4088049aca`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/accept_f4_cx2v001/BUILD_CX2V001.json` — SHA256 `26be277209c29a41a179738e884d19ca998b0a6637c6962a29e587701d71b9fc`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/accept_f4_cx2v001/test_accept_f4_cx2v001.py` — SHA256 `a873e8ae3ff4b2f8153e71fae96575a42c07e967ee712d31981007972b80a1f4`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/accept_f4_cx2v001/TEST_RESULTS_CX2V001.json` — SHA256 `0a29240b9f6a95a1e8e8a5a08c9741fa178eeec580aa027e07edab6fe55a9bc6`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/independent_accept_f4_cx2v001/REVIEW_CX2V001.md` — SHA256 `07b22625060d6b70626270c9c82759cf74c5a5c898619864742bc0ce7d1c3884`.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/eps_rule_successor_cx2/integration/campaign/independent_accept_f4_cx2v001/RESULTS_CX2V001.json` — SHA256 `d6f951b83b9b7e1b65c2f1fd1a88f66853a1e70953078f41e0ec57c79160fbe7`.

@@ -1,0 +1,70 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/diff/seal_common_r2renamed.py	2026-10-18 19:16:41.329956952 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003_refute/v003/seal_common_c4v003.py	2026-10-18 19:16:23.914574448 -0500
+@@ -1,10 +1,13 @@
+-# Claude4 seal tools v002 (A99 item 4, dispatch 0621): shared helpers for the V007 root-side seal checks. Read-only: nothing here
++# Claude4 seal tools v003 (dispatches 0633/0634; v002: A99 item 4, dispatch 0621): shared helpers for the V007 root-side seal checks. Read-only: nothing here
+ # writes a file or starts a process. Successor of seal_common_c4v001.py (43d8f8eb): the same strict JSON (a duplicate key anywhere
+ # refuses, A71), pins verified from bytes, typed refusal list and CLI parser (no abbreviations, no repeated flag; A76 SF-ARGV,
+ # A79.2). New in v002: a pin-shape predicate, the BUILD allowlist parser shared by tool 3 and the builder, a guard that turns any
+ # unexpected exception into a coded refusal (D-07: a code, never a traceback), and the in-process loader of the reviewed compare
+ # (bytes read once, hashed, then compiled from those bytes). r2 (A102, A-B1 class): json_or_text, a JSON-or-text probe whose only
+ # text fallback is a JSON syntax error.
++# v003 (successor of r2 seal_common_c4v002.py f41b0fca; D-05, dispatch 0633): strict_json_typed, the parse of root's later-entry
++# dispositions file (r2's strict JSON with native integers, on the file's UTF-8 text, no text fallback) with one typed code per defect
++# class; covered_later_flag / covered_later_refusal, the typed refusal of the removed bare --covered-later list.
+ import argparse, hashlib, json, os, re, sys, types
+ from pathlib import Path
+ 
+@@ -18,6 +21,9 @@
+ BUILD_ALLOWLIST_COUNT = 15                         # A99.1 V6-S3
+ BUILD_HEADER = '## Supported runtime entry allowlist'
+ ADMISSION_SCHEMA = 'UNT_ROOT_SEAL_ADMISSION_CX1V001'   # ROOT_SEAL_ADMISSION_FORMAT_V004; guard v008 L27
++DISPOSITIONS_SCHEMA = 'UNT_V007_LATER_ENTRY_DISPOSITIONS_C4V001'   # v003 D-05 (0633): root's byte-pinned later-entry dispositions
++COVERED_LATER_REMOVED = ('the bare covered-later list is removed in v003 (D-05, 0633): root supplies the byte-pinned dispositions file instead '
++                         '(--dispositions D.json --dispositions-sha H; API dispositions=(path, sha256))')
+ 
+ 
+ class DuplicateKey(ValueError):
+@@ -55,6 +61,42 @@
+         return False, None
+ 
+ 
++def strict_json_typed(raw, prefix):
++    """v003 D-05: (obj, text, None) when raw is UTF-8 text that parses by r2's strict JSON (native integers); otherwise (None, None,
++    (code, detail)) with a typed code per defect class: <prefix>_JSON_ENCODING (not UTF-8), _JSON_DUPLICATE_KEY, _JSON_NON_FINITE_CONSTANT,
++    _JSON_INTEGER_TOO_LONG (Python's 4,300-digit int limit), _JSON_SYNTAX (a JSON syntax error: there is no text fallback),
++    _JSON_VALUE_ERROR (any other ValueError) or _JSON_DEFECT (any other exception)."""
++    try:
++        text = raw.decode('utf-8')
++    except UnicodeDecodeError as e:
++        return None, None, ('%s_JSON_ENCODING' % prefix, 'not UTF-8 text: %s' % str(e)[:200])
++    try:
++        return strict_json_bytes(text), text, None
++    except DuplicateKey as e:
++        return None, None, ('%s_JSON_DUPLICATE_KEY' % prefix, str(e)[:200])
++    except json.JSONDecodeError as e:
++        return None, None, ('%s_JSON_SYNTAX' % prefix, str(e)[:200])
++    except ValueError as e:
++        m = str(e)
++        if m.startswith('NON_FINITE_JSON_CONSTANT'):
++            return None, None, ('%s_JSON_NON_FINITE_CONSTANT' % prefix, m[:200])
++        if 'integer string conversion' in m:
++            return None, None, ('%s_JSON_INTEGER_TOO_LONG' % prefix, m[:200])
++        return None, None, ('%s_JSON_VALUE_ERROR' % prefix, m[:200])
++    except Exception as e:
++        return None, None, ('%s_JSON_DEFECT' % prefix, '%s: %s' % (type(e).__name__, str(e)[:200]))
++
++
++def covered_later_flag(argv):
++    """v003 D-05: True when argv gives the removed --covered-later flag (any value, the '=' form included)."""
++    return any(isinstance(a, str) and a.split('=', 1)[0] == '--covered-later' for a in argv)
++
++
++def covered_later_refusal(name):
++    return {'check': name, 'verdict': 'REFUSE', 'failures': [{'code': 'COVERED_LATER_BARE_NAMES_REFUSED', 'detail': COVERED_LATER_REMOVED}],
++            'notes': [], 'pins_verified': {}}
++
++
+ def sha(path):
+     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+ 

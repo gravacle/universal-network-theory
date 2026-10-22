@@ -1,0 +1,106 @@
+{
+  "consumer": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r8/kmax_tail_compare_c2v007_r8.py",
+    "sha256": "bd51db152f700afd86c2156904a4998b4582deeac5c06d05def50b27b397e5c3"
+  },
+  "date_u": "Sun Oct 18 15:03:51 UTC 2026",
+  "fragments": [
+    {
+      "line_end": 136,
+      "line_start": 133,
+      "source": "PIN_R3 = {  # saved R3 states (SR-K states, B2/B3/LO/DOUBLING state, D_m4 / RA10 C4R3 reference)\n    'C2R3': (CTRL + '/runs/KMAX_A2F10_C2R3_D7R3_RUN_V001/result.json', '1f6b32a4edd0dd28438536165bdb10e13c8125eb5ccafb60ceb17315eba8c169'),\n    'C3R3': (CTRL + '/runs/KMAX_A2F10_C3R3_D7R3_RUN_V001/result.json', 'c9c802f44854d4f41f9e119707235899aba75a8bd42e89c19983f9ca9b817674'),\n    'C4R3': (CTRL + '/runs/KMAX_A2F10_C4R3_D7R3_RUN_V001/result.json', 'aac01962dc7bf08a7486179bc5674af520f7ea38d73b004154cdd2ff25fa8dee')}"
+    },
+    {
+      "line_end": 237,
+      "line_start": 237,
+      "source": "PRODUCTION_GAS_M_S_A57 = 128"
+    },
+    {
+      "line_end": 271,
+      "line_start": 271,
+      "source": "COVERAGE_FACTOR_OF_2P = math.sqrt(2.0)"
+    },
+    {
+      "line_end": 272,
+      "line_start": 272,
+      "source": "R1_DDO_COVERAGE_EDGE = 64.0"
+    },
+    {
+      "line_end": 273,
+      "line_start": 273,
+      "source": "LO_COVERAGE_LOWER = 4.0"
+    },
+    {
+      "line_end": 450,
+      "line_start": 445,
+      "source": "class FieldMissing(Exception):\n    \"\"\"A record lacks a field the compare reads (or has the wrong type): the gate FAILS loudly naming it (E-SEAL1).\"\"\"\n\n    def __init__(self, where, path, problem='MISSING'):\n        self.code = 'FIELD_%s:%s:%s' % (problem, where, path)\n        super().__init__(self.code)"
+    },
+    {
+      "line_end": 471,
+      "line_start": 470,
+      "source": "def _hex64(s):\n    return isinstance(s, str) and len(s) == 64 and all(c in '0123456789abcdef' for c in s)"
+    },
+    {
+      "line_end": 475,
+      "line_start": 474,
+      "source": "def _num(x):\n    return isinstance(x, (int, float)) and not isinstance(x, bool) and math.isfinite(x)"
+    },
+    {
+      "line_end": 493,
+      "line_start": 478,
+      "source": "KINDS = {\n    'str': lambda x: isinstance(x, str) and x != '',\n    'bool': lambda x: isinstance(x, bool),\n    'int': lambda x: isinstance(x, int) and not isinstance(x, bool),\n    'num': _num,\n    'num>=0': lambda x: _num(x) and x >= 0,\n    'list': lambda x: isinstance(x, list),\n    'nonempty_list': lambda x: isinstance(x, list) and len(x) > 0,\n    'dict': lambda x: isinstance(x, dict),\n    'sha': _hex64,\n    'num12': lambda x: isinstance(x, list) and len(x) == 12 and all(_num(v) for v in x),\n    'num12>=0': lambda x: isinstance(x, list) and len(x) == 12 and all(_num(v) and v >= 0 for v in x),\n    'range2': lambda x: isinstance(x, list) and len(x) == 2 and all(_num(v) for v in x),\n    'num|null': lambda x: x is None or _num(x),                                   # [R3 validity F1] RO1 event fields\n    'int|null': lambda x: x is None or (isinstance(x, int) and not isinstance(x, bool)),\n    'any': lambda x: True}"
+    },
+    {
+      "line_end": 507,
+      "line_start": 496,
+      "source": "def need(obj, path, where, kind=None, read=None):\n    \"\"\"Read a '/'-separated path from obj; FieldMissing (named) if absent or of the wrong kind.\"\"\"\n    if read is not None:\n        read.append(path)\n    cur = obj\n    for k in path.split('/'):\n        if not isinstance(cur, dict) or k not in cur:\n            raise FieldMissing(where, path)\n        cur = cur[k]\n    if kind is not None and not KINDS[kind](cur):\n        raise FieldMissing(where, path, 'TYPE_' + kind)\n    return cur"
+    },
+    {
+      "line_end": 837,
+      "line_start": 830,
+      "source": "def registered_P(cb):\n    \"\"\"[A54] the production K_big P: the registered C4T uv_tail outer.K_big_inverse_kpc (cylinder), or None if unreadable.\"\"\"\n    try:\n        o = cb['cases']['C4T']['normalized_spec_equal']['/numerics']['uv_tail']['outer']\n        kb = o['K_big_inverse_kpc']\n    except (KeyError, TypeError):\n        return None\n    return float(kb) if (isinstance(o, dict) and o.get('shape') == 'cylinder' and _num(kb) and kb > 0) else None"
+    },
+    {
+      "line_end": 842,
+      "line_start": 840,
+      "source": "def production_kbig(ctx):\n    \"\"\"[A54] P read from the case block of ctx (None when no readable registration).\"\"\"\n    return registered_P((ctx or {}).get('case_block') or {})"
+    },
+    {
+      "line_end": 847,
+      "line_start": 845,
+      "source": "def coverage_edge_2P(P):\n    \"\"\"[A54] the EPS / LO coverage requirement sqrt(2) x 2P, never below R1's DDO edge 64 /kpc (stricter); None without P.\"\"\"\n    return None if P is None else max(R1_DDO_COVERAGE_EDGE, COVERAGE_FACTOR_OF_2P * 2.0 * P)"
+    },
+    {
+      "line_end": 2095,
+      "line_start": 2089,
+      "source": "def _shells(rec, path, where, value_key, read):\n    out = {}\n    for j, s in enumerate(need(rec, path, where, 'nonempty_list', read)):\n        w = '%s:%s[%d]' % (where, path, j)\n        rg = need(s, 'range_inverse_kpc', w, 'range2')\n        out[(float(rg[0]), float(rg[1]))] = need(s, value_key, w, 'num>=0')\n    return out"
+    },
+    {
+      "line_end": 2429,
+      "line_start": 2422,
+      "source": "def _union_covers(intervals, lo, hi):\n    \"\"\"True iff the union of the closed intervals covers [lo, hi] without a gap.\"\"\"\n    reach = lo\n    for a, b in sorted(intervals):\n        if a > reach:\n            break\n        reach = max(reach, b)\n    return bool(intervals) and min(a for a, _ in intervals) <= lo and reach >= hi"
+    },
+    {
+      "line_end": 2481,
+      "line_start": 2481,
+      "source": "LO_RANGES_R1 = ((4, 5), (5, 6), (6, 8), (8, 12), (12, 16), (16, 32), (32, 64))"
+    },
+    {
+      "line_end": 2482,
+      "line_start": 2482,
+      "source": "LO_RANGES = LO_RANGES_R1 + ((64, 128), (128, 256), (256, 363))"
+    },
+    {
+      "line_end": 2497,
+      "line_start": 2486,
+      "source": "def _g_lo(rec, gate, ranges, unit, read):\n    fails = []\n    sh = _shells(rec, 'shells', gate, 'max_over_' + unit, read)\n    for rg in ranges:\n        x = sh.get((float(rg[0]), float(rg[1])))\n        if x is None:\n            fails.append('DEFECT:%s_SHELL_%s_%s_ABSENT' % (gate, rg[0], rg[1]))\n        elif x > 0.005:\n            fails.append('%s_SHELL_%s_%s_GT_0.005' % (gate, rg[0], rg[1]))\n    if need(rec, 'summed_max_over_' + unit, gate, 'num>=0', read) > 0.05:\n        fails.append('%s_SUM_GT_0.05' % gate)\n    return fails"
+    },
+    {
+      "line_end": 2521,
+      "line_start": 2500,
+      "source": "def g_LO(rec, ctx, xr, read):\n    \"\"\"[R1 LO] the registered shells (R6 [A58 RI-06]: the ten-shell partition (4,5] .. (256,363], each <= 0.005 tau, summed\n    <= 0.05 tau, with the gas M_s 128 source: field source_gas_M_s, A57 ruling 1, DECLARED field); R5 [A54] LO coverage >= sqrt(2) x 2P: the record's shells cover [4, coverage edge]\n    without a gap (else DEFECT: the certificate does not reach the registered domain; DECLARED: a shortfall is a record not\n    established as specified, like an absent registered shell), and EVERY shell is <= 0.005 tau (the R1 per-shell bound applied\n    to the extended shells: stricter).\"\"\"\n    f = _g_lo(rec, 'LO', LO_RANGES, 'tau', read)\n    if need(rec, 'state_result_sha256', 'LO', 'sha', read) != PIN_R3['C4R3'][1]:\n        f.append('DEFECT:LO_STATE_NOT_C4R3')\n    if need(rec, 'source_gas_M_s', 'LO', 'int', read) != PRODUCTION_GAS_M_S_A57:                     # R6 [A57 ruling 1] [RI-06]\n        f.append('DEFECT:LO_SOURCE_GAS_M_S_NOT_THE_A57_PRODUCTION_M_S')\n    edge = coverage_edge_2P(production_kbig(ctx))\n    sh = _shells(rec, 'shells', 'LO', 'max_over_tau', [])\n    if edge is None:\n        f.append('DEFECT:LO_PRODUCTION_K_BIG_P_UNREADABLE_FROM_THE_CASE_BLOCK')\n    elif not _union_covers(list(sh), LO_COVERAGE_LOWER, edge):\n        f.append('DEFECT:LO_COVERAGE_BELOW_SQRT2_TIMES_2P_A54')\n    reg = {(float(a), float(b)) for a, b in LO_RANGES}\n    for j, (rg, x) in enumerate(sorted(sh.items())):\n        if rg not in reg and x > 0.005:\n            f.append('LO_EXTENDED_SHELL_%d_GT_0.005' % j)\n    return f"
+    }
+  ],
+  "scope": "Only LO metadata gate definitions and dependencies. No main, module import, scientific state open, or comparison engine.",
+  "utc": "2026-10-18T15:05:38.086453+00:00"
+}

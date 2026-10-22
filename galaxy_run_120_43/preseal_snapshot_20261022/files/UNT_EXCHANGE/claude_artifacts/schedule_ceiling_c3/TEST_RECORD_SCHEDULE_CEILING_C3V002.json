@@ -1,0 +1,185 @@
+{
+ "consumer_sha256": "f710334b6f5ec2663fbebd826c7b326ebf7ff9eb600e751584de4f518a4e0b11",
+ "mutants": {
+  "M1_no_consumer_run_F6_passes": true,
+  "M2_no_duplicate_scan_S2a_passes": true,
+  "M3_no_phase_scope_S4a_passes": true,
+  "M4_validation_dir_in_records_folder_S3b_detects": true,
+  "M5_no_guard_S3e_passes": true
+ },
+ "n": 33,
+ "passed": 33,
+ "python": "3.12.14",
+ "results": [
+  {
+   "detail": "{'path': '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b8v2/work2/REGISTRATION_PHASE_2.json', 'sha256': '4b41df033f0b7bb1f596461043cc671ecc4b51a5354b4099616e4b17f4d0cc6d'}",
+   "id": "T1_register_written",
+   "pass": true
+  },
+  {
+   "detail": "{'date_u': '2026-10-22T14:00:00Z', 'deadline_utc': '2026-12-01T05:59:00Z', 'phase': 'PHASE_2', 'schema': 'SCHEDULE_CEILING_REGISTRATION_C2V001'}",
+   "id": "T1_registration_fields",
+   "pass": true
+  },
+  {
+   "detail": "['REGISTRATION_PHASE_2.json']",
+   "id": "T1_no_validation_dir_left",
+   "pass": true
+  },
+  {
+   "detail": "{'path': '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b8v2/work2/CLOSURE_A.json', 'sha256': 'a1870add97da8382ff956eef2103bab5fdb97913077b0a14c2d272514dba5864'}",
+   "id": "T2_close_with_receipt_written",
+   "pass": true
+  },
+  {
+   "detail": "{'call': {'alternative': 'ALT_A', 'key': 'kkkkkkkk', 'kind': 'F_POINT', 'spec_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'theta_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}, 'date_u': '2026-12-01T06:00:00Z', 'deadline_registration': {",
+   "id": "T2_closure_fields",
+   "pass": true
+  },
+  {
+   "detail": "{'path': '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b8v2/work2/CLOSURE_B.json', 'sha256': 'dd35188e859d16f48731b6cadaca50413de1503564633c0cb6e6649575a5b16e'}",
+   "id": "T3_close_without_receipt_written",
+   "pass": true
+  },
+  {
+   "detail": "2",
+   "id": "T4_consumer_accepts_both_closures",
+   "pass": true
+  },
+  {
+   "detail": "CLOSURE_BEFORE_CEILING",
+   "id": "F1_close_before_ceiling",
+   "pass": true
+  },
+  {
+   "detail": "REGISTRATION_AFTER_CEILING",
+   "id": "F2_register_after_ceiling",
+   "pass": true
+  },
+  {
+   "detail": "CALL_KEYS",
+   "id": "F3_call_extra_key",
+   "pass": true
+  },
+  {
+   "detail": "SHA_MISMATCH:registration",
+   "id": "F4_registration_sha_mismatch",
+   "pass": true
+  },
+  {
+   "detail": "REGISTRATION_SCHEMA",
+   "id": "F5_wrong_phase_registration",
+   "pass": true
+  },
+  {
+   "detail": "CONSUMER_REFUSED:SCHEDULE_CEILING_REGISTRATION: ",
+   "id": "F6_registration_dated_after_ceiling_consumer",
+   "pass": true
+  },
+  {
+   "detail": "OUT_MUST_BE_NEW",
+   "id": "F7_out_exists",
+   "pass": true
+  },
+  {
+   "detail": "OUT_ABSOLUTE_NORMALIZED",
+   "id": "F8_out_relative",
+   "pass": true
+  },
+  {
+   "detail": "{\"refused\": \"Refused: LAST_RECEIPT_PIN_PAIR\"}\n",
+   "id": "F9_cli_last_receipt_pin_pair",
+   "pass": true
+  },
+  {
+   "detail": "{\"refused\": \"Refused: RUN_WITH_-I_-B\"}\n",
+   "id": "F10_cli_requires_isolated",
+   "pass": true
+  },
+  {
+   "detail": "{\"refused\": \"Refused: CLOSURE_BEFORE_CEILING\"}\n",
+   "id": "F11_cli_real_clock_close_refused_before_ceiling",
+   "pass": true
+  },
+  {
+   "detail": "PHASE_OUT_OF_SCOPE",
+   "id": "S4a_register_phase1_refused",
+   "pass": true
+  },
+  {
+   "detail": "PHASE_OUT_OF_SCOPE",
+   "id": "S4b_close_phase1_refused",
+   "pass": true
+  },
+  {
+   "detail": "CLOSURE_ALREADY_IN_FOLDER:CLOSURE_A.json",
+   "id": "S2a_second_closure_same_call_refused",
+   "pass": true
+  },
+  {
+   "detail": "{'path': '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b8v2/work2/OTHER/CLOSURE_A2.json', 'sha256': 'c7459941089faad89f9144bb3da705742ab6e4949b4d047bbf67ce8d5ad2d451'}",
+   "id": "S2b_scan_is_per_folder_other_json_ignored",
+   "pass": true
+  },
+  {
+   "detail": "SCHEDULE_CEILING_DUPLICATE: ",
+   "id": "S2c_consumer_backstop_refuses_both_named",
+   "pass": true
+  },
+  {
+   "detail": "FOLDER_JSON_UNREADABLE:BROKEN.json",
+   "id": "S2d_unreadable_json_refused",
+   "pass": true
+  },
+  {
+   "detail": "FOLDER_JSON_NOT_REGULAR:LINK.json",
+   "id": "S2e_symlinked_json_refused",
+   "pass": true
+  },
+  {
+   "detail": "FOLDER_CLOSURE_MALFORMED:C.json",
+   "id": "S2f_malformed_closure_refused",
+   "pass": true
+  },
+  {
+   "detail": "({'path': '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b8v2/work2/S3/REG.json', 'sha256': '4b41df033f0b7bb1f596461043cc671ecc4b51a5354b4099616e4b17f4d0cc6d'}, ['/var/folders/t4/4dzlp0l522jbpx3hd45m4ww00000gn/T/schedule_ceiling_validation_u",
+   "id": "S3a_register_validation_dirs_outside_and_removed",
+   "pass": true
+  },
+  {
+   "detail": "([[]], ['REG.json'])",
+   "id": "S3b_records_folder_unchanged_during_validation",
+   "pass": true
+  },
+  {
+   "detail": "({'path': '/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/b8v2/work2/S3/CLOSE.json', 'sha256': '3d66dcbd57930a72f700986229304c8f233176cc0a6129d412102965f9c8b3df'}, ['/var/folders/t4/4dzlp0l522jbpx3hd45m4ww00000gn/T/schedule_ceiling_validation",
+   "id": "S3c_close_validation_dir_outside_and_removed",
+   "pass": true
+  },
+  {
+   "detail": "(True, ['CLOSE.json', 'REG.json'], ['/var/folders/t4/4dzlp0l522jbpx3hd45m4ww00000gn/T/schedule_ceiling_validation_j9zu1z9k'])",
+   "id": "S3d_crash_in_consumer_leaves_records_folder_clean",
+   "pass": true
+  },
+  {
+   "detail": "('VALIDATION_DIR_IN_RECORDS_FOLDER', ['CLOSE.json', 'REG.json'])",
+   "id": "S3e_tmpdir_inside_records_folder_refused",
+   "pass": true
+  },
+  {
+   "detail": "",
+   "id": "no_refused_output",
+   "pass": true
+  },
+  {
+   "detail": "{'M1_no_consumer_run_F6_passes': True, 'M2_no_duplicate_scan_S2a_passes': True, 'M3_no_phase_scope_S4a_passes': True, 'M4_validation_dir_in_records_folder_S3b_detects': True, 'M5_no_guard_S3e_passes': True}",
+   "id": "all_mutants_killed",
+   "pass": true
+  }
+ ],
+ "schema": "TEST_SCHEDULE_CEILING_WRITER_C3V002",
+ "tool": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/schedule_ceiling_c3/schedule_ceiling_writer_c3v002.py",
+  "sha256": "6b773463c7fbfa98bcbc1c1aa399ce08936ee36bcaf8731144d265e4d3139994"
+ }
+}

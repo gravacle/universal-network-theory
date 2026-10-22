@@ -1,0 +1,83 @@
+{
+ "schema": "CLAUDE2_0336_CORRECTION_ADDENDUM_V001",
+ "task": "0337 part 1",
+ "supersedes_within": "INVENTORY_V001.json and MISSING_INPUTS_V001.json (both preserved unchanged)",
+ "root_review": {
+  "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/CLAUDE_0336_ROOT_REVIEW_V001.json",
+  "sha256": "293f6d0702ae7482d76376ca7ae12093ce791378aa1a30f50062e36b184b6b0f"
+ },
+ "sources": {
+  "leroy_readme": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/leroy2008_ReadMe.html",
+   "sha256": "cbd9a431c5ef4d9ae1bcda8bc141210bd03360a4d2b0ea5d8dd40e9079763c48",
+   "note": "recovered copy leroy2008_ReadMe_RECOVERED_2026-10-08_V001.html has identical sha; line numbers below are of tag-stripped text"
+  },
+  "leroy_table2": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/leroy2008_table2.dat",
+   "sha256": "d6dc211fa5ab4b702a4ef5ca5bbdb1f954d574d1ce375c5999f123ba687423d5"
+  },
+  "readiness_note": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/GALAXY_INPUT_READINESS.md",
+   "sha256": "6e23d981e7bf0450a1e51169d29a9d54b6f2d1e4fd014432255988e018e0ec6c",
+   "status": "SECONDARY local note (cites Leroy 2008 arXiv:0810.2556 appendices A/C/E); not primary"
+  },
+  "primary_paper": {
+   "citation": "Leroy et al. 2008, AJ 136, 2782; arXiv:0810.2556",
+   "local_copy": "NOT FOUND in searched paths (joint_parent_continuation, UNT_PROGRAM_CONTROL, UNT_EXCHANGE, where-atoms-come-from) by filename search"
+  }
+ },
+ "corrections": [
+  {
+   "id": "A1",
+   "was": "NGC3198 stars rows 16,18,19,20 published e=0.0: 'rounding, not zero uncertainty'",
+   "now": "LITERAL published value e=0.0. The column format is F5.1 (ReadMe table7 byte description, e_Sigma* at bytes 50-54, text line 175), so the published resolution is 0.1 Msun/pc^2. Whether 0.0 encodes a rounded nonzero rms is a HYPOTHESIS; no primary-source text establishing it was found locally. Zero uncertainty is not assigned, and no replacement error is assigned.",
+   "status": "UNRESOLVED; needs primary paper"
+  },
+  {
+   "id": "A2",
+   "was": "e=1.0 'upper limit' marker quarantined",
+   "now": "Column attachment is now established: ReadMe Note (3) '1.0 = upper limit' (text line 185) is attached to e_SigmaHI (line 171) and e_Sigma* (line 175) only, NOT to e_SigmaH2 (line 173, no note). Its meaning is not established from primary text. The local SECONDARY note (GALAXY_INPUT_READINESS.md lines 170-176) argues from Appendix E printed examples that rms 1.0 with a populated density is not a limit flag, and that HI limits are blank-density plus 1.0 error. That appendix is not available locally.",
+   "status": "QUARANTINE RETAINED pending primary Appendix E (arXiv:0810.2556)"
+  },
+  {
+   "id": "A3",
+   "was": "beam 12arcsec / rings 10arcsec cited from P53",
+   "now": "12arcsec is SOURCE-ESTABLISHED: Leroy table2.dat line 13 'NGC 3198   12 HERACLES  dB', field Res at bytes 12-13. ReadMe text lines 107-109 define Res: 'Angular resolution to match working spatial resolution in the subsample, 400pc for dwarf galaxies and 800pc for spirals'. DDO 154 Res=19 (table2 line 1). 10arcsec ring spacing is stated ONLY in the secondary note (GALAXY_INPUT_READINESS.md lines 74-75); primary text is not local. Internal consistency check from frozen radii and distance only: mean ring-centre step (15.1-0.3)/22 = 0.6727 kpc = 10.06 arcsec at 13.8 Mpc. This is consistent with, not a substitute for, a primary statement.",
+   "status": "beam ESTABLISHED; ring spacing SECONDARY plus consistent"
+  },
+  {
+   "id": "A4",
+   "was": "conversion assumptions listed from P53",
+   "now": "Helium: ReadMe Note (2) 'Including helium' (text line 184) on SigmaHI/SigmaH2. The numeric 1.36 and K-band M/L 0.5 via the 3.6-micron relation come from the secondary note, lines 75-78. X_CO=2e20 and CO(2-1)/(1-0)=0.8 come from the secondary note, line 76. None is in the ReadMe. All errors are null.",
+   "status": "secondary-sourced; primary reconciliation pending"
+  },
+  {
+   "id": "A5",
+   "was": "'No unexposed validation roster exists' / unique-source wording",
+   "now": "Bounded: no unexposed validation roster was FOUND in the files inspected for 0336 (P53 freeze, CODEX3 DDO154 specs, the two helper audits). This is not an archive-wide absence claim. Likewise, sparc_official_NGC3198_rotmod.dat is the only roster-bearing file FOUND by filename search in the searched paths.",
+   "status": "wording corrected"
+  },
+  {
+   "id": "A6",
+   "was": "M9: DDO154 adapter needs distinct review",
+   "now": "A distinct review ALREADY EXISTS: /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX3/READINESS_DDO154_SOURCE_ADMISSION_AND_FE_ADAPTER_DISTINCT_REVIEW_V001.md (sha256 19d4ae714663e59251d6350dadaf47ae1ce70c7acbce41b2d9b8dd8d4d8f35ff), dated 2026-10-14, verdict 'PASS_SCOPED_SOURCE_ADAPTER_SPECIFICATION' with an implementation schema clarification (profile is an object of parallel arrays). Reading receipt: ..._DISTINCT_REVIEW_V001_READING_RECEIPT_V001.json (sha256 b3c8179903b9e97db66fe99236866264ff7e8d809846e93ae77adc2fb535d285). Do not duplicate.",
+   "status": "M9 -> DONE (scoped); implementation must follow the schema clarification"
+  },
+  {
+   "id": "A7",
+   "was": "M11 current-parent observation map: LOW priority",
+   "now": "M11 is a substantive physical CALIBRATION GATE (Codex scope), not low priority. It is raised to CRITICAL for the calibration path.",
+   "status": "priority corrected"
+  },
+  {
+   "id": "A8",
+   "was": "M3 DDO154 distance 4.3 vs 4.04 Mpc",
+   "now": "A root primary-distance candidate exists: /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX3/READINESS_DDO154_PRIMARY_TRGB_DISTANCE_CANDIDATE_V001.json (sha256 11292277b2e55f86df386e51fe6aaa3f1cd836a4272ccdfee63e5330deec5951). Jacobs et al. 2009 TRGB gives mu=28.03, about 4.036 Mpc, pending distinct systematic review. The 4.3 Mpc source-extraction distance remains a conditional convention.",
+   "status": "M3 partly addressed by existing candidate"
+  }
+ ],
+ "unresolved": [
+  "Leroy 2008 primary paper (AJ 136, 2782; arXiv:0810.2556), local copy needed for A1, A2, A4 and the 10-arcsec ring statement",
+  "NGC3198 and DDO154 Leroy table4 geometry fields (Dist, i, PA, r25) are byte-addressable (ReadMe text lines 130-136), but table4 also holds vflat/lflat (bytes 38-45); extraction must be byte-limited and run by root"
+ ]
+}

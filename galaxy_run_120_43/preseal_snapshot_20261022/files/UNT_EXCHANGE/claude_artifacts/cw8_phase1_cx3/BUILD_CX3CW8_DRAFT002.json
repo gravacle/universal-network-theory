@@ -1,0 +1,234 @@
+{
+  "changes": [
+    {
+      "new": "TOOL_NAME = \"P112_LAUNCHER_CX3CW8V001\"",
+      "occurrences": 1,
+      "old": "TOOL_NAME = \"P112_LAUNCHER_CX2V004\""
+    },
+    {
+      "new": "need(c[\"schema\"] in (\"P112_CONFIG_CX2V004\", \"P112_CONFIG_CX3CW8V001\"), \"CONFIG_SCHEMA\")",
+      "occurrences": 1,
+      "old": "need(c[\"schema\"] == \"P112_CONFIG_CX2V004\", \"CONFIG_SCHEMA\")"
+    },
+    {
+      "function": "first_caps",
+      "new": "def first_caps(name, column_workers=1):\n    caps = dict(CAPS[\"twin\" if name == TWIN else \"serial\"])\n    caps[\"rss_cap_bytes\"] = cw8_rss(name, column_workers)\n    return caps",
+      "occurrences": 1,
+      "old": "def first_caps(name):\n    return dict(CAPS[\"twin\" if name == TWIN else \"serial\"])"
+    },
+    {
+      "function": "terminal_prefix",
+      "new": "cw8_rss(name, current.get('_verified_column_workers', 1))",
+      "occurrences": 1,
+      "old": "RAM * (11 if name == TWIN else 1)"
+    },
+    {
+      "function": "next_attempt",
+      "new": "has_monitor_refusal=False, column_workers=1):",
+      "occurrences": 1,
+      "old": "has_monitor_refusal=False):"
+    },
+    {
+      "function": "next_attempt",
+      "new": "caps = first_caps(name, column_workers)",
+      "occurrences": 1,
+      "old": "caps = first_caps(name)"
+    },
+    {
+      "function": "next_attempt",
+      "new": "cw8_rss(name, column_workers)",
+      "occurrences": 1,
+      "old": "RAM * (11 if name == TWIN else 1)"
+    },
+    {
+      "function": "decision_for",
+      "new": "has_monitor_refusal=bool(hist.get('refusals')), column_workers=cw8_workers(call))",
+      "occurrences": 1,
+      "old": "has_monitor_refusal=bool(hist.get('refusals')))"
+    },
+    {
+      "function": "Context.finish_call",
+      "new": "return cw8_apply_choice(self, {\"name\": name, \"configured_name\": original_name, \"kind\": kind, \"alternative\": alternative, \"key\": key,\n                \"point_key\": point_key, \"theta_sha256\": check[\"theta_sha256\"], \"theta_check\": check,\n                \"fill_check\": fc, \"fill_receipt\": fill_pin, \"spec\": spec_pin, \"spec_doc\": spec,\n                \"handoff\": cfg[\"handoff\"], \"v006_handoff_pin\": hp, \"v006_spec_pin\": self.get_vpin(\"SPEC_PIN\", name),\n                \"certificates\": {\"eps\": cfg[\"eps\"], \"gq\": cfg[\"gq\"], \"lo\": self.pins[\"lo\"]},\n                \"entry\": entry, \"entry_pin\": ep, \"origin\": \"KIT\" if hits else \"P112\"})",
+      "occurrences": 1,
+      "old": "return {\"name\": name, \"configured_name\": original_name, \"kind\": kind, \"alternative\": alternative, \"key\": key,\n                \"point_key\": point_key, \"theta_sha256\": check[\"theta_sha256\"], \"theta_check\": check,\n                \"fill_check\": fc, \"fill_receipt\": fill_pin, \"spec\": spec_pin, \"spec_doc\": spec,\n                \"handoff\": cfg[\"handoff\"], \"v006_handoff_pin\": hp, \"v006_spec_pin\": self.get_vpin(\"SPEC_PIN\", name),\n                \"certificates\": {\"eps\": cfg[\"eps\"], \"gq\": cfg[\"gq\"], \"lo\": self.pins[\"lo\"]},\n                \"entry\": entry, \"entry_pin\": ep, \"origin\": \"KIT\" if hits else \"P112\"}"
+    },
+    {
+      "function": "registered_entry",
+      "new": "    cw8_check_role(call, entry.get(\"worker_role\"))\n    return entry, pin",
+      "occurrences": 1,
+      "old": "    return entry, pin"
+    },
+    {
+      "function": "check_monitor_command",
+      "new": "caps, name, column_workers=1):",
+      "occurrences": 1,
+      "old": "caps, name):"
+    },
+    {
+      "function": "check_monitor_command",
+      "new": "cw8_rss(name, column_workers)",
+      "occurrences": 1,
+      "old": "RAM * (11 if name == TWIN else 1)"
+    },
+    {
+      "function": "launch_checks",
+      "new": "cw8_rss(plan[\"name\"], cw8_plan_workers(plan))",
+      "occurrences": 1,
+      "old": "RAM * (11 if plan[\"name\"] == TWIN else 1)"
+    },
+    {
+      "function": "run_dry",
+      "new": "    need(dig(read_pin(call[\"spec\"]), LEAF) == cw8_workers(call), \"CW8_DRY_EXPECTED_LEAF\")\n    for key in (\"driver\", \"dry_harness\"):",
+      "occurrences": 1,
+      "old": "    for key in (\"driver\", \"dry_harness\"):"
+    },
+    {
+      "function": "run_dry",
+      "new": "verdict.update({\"worker_role\": cw8_role(call), \"expected_leaf\": cw8_workers(call), \"log\": lp,",
+      "occurrences": 1,
+      "old": "verdict.update({\"log\": lp,"
+    },
+    {
+      "function": "make_plan",
+      "new": "\"worker_role\": cw8_role(call), \"spec\": call[\"spec\"], \"pins\":",
+      "occurrences": 1,
+      "old": "\"spec\": call[\"spec\"], \"pins\":"
+    },
+    {
+      "function": "register_call",
+      "new": "        cw8_check_role(call, old.get(\"worker_role\"))\n        return old_pin",
+      "occurrences": 1,
+      "old": "        return old_pin"
+    },
+    {
+      "function": "register_call",
+      "new": "record.update({\"worker_role\": cw8_role(call), \"schema\":",
+      "occurrences": 1,
+      "old": "record.update({\"schema\":"
+    },
+    {
+      "function": "kit_kill_target",
+      "new": "str(cw8_plan_workers(plan))",
+      "occurrences": 1,
+      "old": "\"8\" if plan[\"name\"] == TWIN else \"1\""
+    },
+    {
+      "function": "write_launch_record",
+      "new": "    call = ctx.call(name)\n    cw8_check_role(call, plan.get(\"worker_role\"))\n    need(name == TWIN or watch_pid is None, \"CW8_FULL_CALL_TWIN_WATCHER\")\n    raw, lj = snapshot",
+      "occurrences": 1,
+      "old": "    raw, lj = snapshot"
+    },
+    {
+      "function": "write_launch_record",
+      "new": "record.update({\"worker_role\": cw8_role(call), \"schema\":",
+      "occurrences": 1,
+      "old": "record.update({\"schema\":"
+    },
+    {
+      "function": "finish_launch",
+      "new": "    cw8_check_role(ctx.call(plan[\"name\"]), plan.get(\"worker_role\"))\n    mount_first(ctx.cfg, \"P112\", ctx.system)",
+      "occurrences": 1,
+      "old": "    mount_first(ctx.cfg, \"P112\", ctx.system)"
+    },
+    {
+      "function": "launch_resume",
+      "new": "    need(plan[\"spec\"] == call[\"spec\"], \"RESUME_SPEC_BINDING\")\n    cw8_check_role(call, plan.get(\"worker_role\"))",
+      "occurrences": 1,
+      "old": "    need(plan[\"spec\"] == call[\"spec\"], \"RESUME_SPEC_BINDING\")"
+    },
+    {
+      "function": "launch",
+      "new": "    call = cw8_ensure_default(ctx, ctx.call(name))",
+      "occurrences": 1,
+      "old": "    call = ctx.call(name)"
+    },
+    {
+      "function": "launch",
+      "new": "ctx.pins, call[\"spec\"], outdir, decision[\"caps\"], name, cw8_workers(call))",
+      "occurrences": 1,
+      "old": "ctx.pins, call[\"spec\"], outdir, decision[\"caps\"], name)"
+    },
+    {
+      "function": "history",
+      "new": "        validate_record_location(ctx, rec)\n        cw8_check_attempt(ctx, call, rec)",
+      "occurrences": 1,
+      "old": "        validate_record_location(ctx, rec)"
+    },
+    {
+      "function": "close_attempt",
+      "new": "    entry, entry_pin = registered_entry(ctx, call)\n    cw8_check_attempt(ctx, call, record)",
+      "occurrences": 1,
+      "old": "    entry, entry_pin = registered_entry(ctx, call)"
+    },
+    {
+      "function": "close_attempt",
+      "new": "call.get(\"v006_spec_pin\", call[\"spec\"])[\"sha256\"]",
+      "occurrences": 1,
+      "old": "ctx.get_vpin(\"SPEC_PIN\", name)[\"sha256\"]"
+    },
+    {
+      "function": "close_attempt",
+      "new": "\"schema\": \"STEP5_ATTEMPT_RECEIPT_C2V001\", \"worker_role\": cw8_role(call), \"raw_status\": raw,",
+      "occurrences": 1,
+      "old": "\"schema\": \"STEP5_ATTEMPT_RECEIPT_C2V001\", \"raw_status\": raw,"
+    },
+    {
+      "function": "verify_closed_receipt",
+      "new": "    name, k, outdir = record['name'], record['attempt'], record['outdir']\n    verified_workers = cw8_check_attempt(ctx, call, record, obj)",
+      "occurrences": 1,
+      "old": "    name, k, outdir = record['name'], record['attempt'], record['outdir']"
+    },
+    {
+      "function": "verify_closed_receipt",
+      "new": "return dict(obj, receipt_pin=closed_pin, _verified_monitor=monitor,\n                _verified_column_workers=verified_workers,",
+      "occurrences": 1,
+      "old": "return dict(obj, receipt_pin=closed_pin, _verified_monitor=monitor,"
+    },
+    {
+      "function": "registry_bytes",
+      "new": "        if is_pin(call.get(\"worker_choice\")) and call[\"worker_choice\"] not in sources:\n            sources.append(call[\"worker_choice\"])\n        sources.extend([pin] + h[\"closed_pins\"] +",
+      "occurrences": 1,
+      "old": "        sources.extend([pin] + h[\"closed_pins\"] +"
+    },
+    {
+      "function": "cli",
+      "new": "\"record-monitor-refused\", \"status\", \"_sampler\", \"select-workers\"))",
+      "occurrences": 1,
+      "old": "\"record-monitor-refused\", \"status\", \"_sampler\"))"
+    },
+    {
+      "function": "cli",
+      "new": "    ap.add_argument(\"--name\")\n    ap.add_argument(\"--forecast\")\n    ap.add_argument(\"--forecast-sha256\")",
+      "occurrences": 1,
+      "old": "    ap.add_argument(\"--name\")"
+    },
+    {
+      "function": "cli",
+      "new": "        need(args.command == \"select-workers\" or (args.forecast is None and args.forecast_sha256 is None), \"CW8_FORECAST_COMMAND\")\n        if args.command == \"select-workers\":\n            need(args.name is None and args.attempt is None and not args.dry and not args.resume, \"CW8_SELECT_ARGUMENTS\")\n            need((args.forecast is None) == (args.forecast_sha256 is None), \"CW8_FORECAST_ARGUMENTS\")\n            forecast = ({\"path\": args.forecast, \"sha256\": args.forecast_sha256}\n                        if args.forecast is not None else None)\n            result = select_workers(ctx, forecast)\n        elif args.command == \"launch\":",
+      "occurrences": 1,
+      "old": "        if args.command == \"launch\":"
+    },
+    {
+      "new": "# Conditional full-call cw8 execution policy, composed without runtime imports.\nCW8_SOURCE_PINS = {'driver': {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py', 'sha256': '577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377'}, 'comparator': {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step5_path_c2/tools/compare_identity_pair_c2v001.py', 'sha256': '8e857fff5c2bc16574238cd4fb5c2c510815efe60764f6027d9addd944be0178'}, 'checkpoint_module': {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/resumable_coupled_gas_0422/coupled_gas_checkpoint_c2v003.py', 'sha256': '069b393560003fc200932e2d17fa84ee750043fa2132f2cadd459915fb99b114'}, 'serial_worker': {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/prep_loader_fix/ngc43_coupled_root_worker_uvtail_ro1_cx3v011_r5cx3v001_cx3v005.py', 'sha256': 'ee27227c2cee3093589ae6b6546a0d88a1bbe20c47ba4dacff497ad7cc80189f'}, 'parallel_worker': {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/prep_loader_fix/ngc43_coupled_root_worker_parallel_uvtail_ro1_cx3v011_r5cx3v001_cx3v005.py', 'sha256': '293a417f493fee2b59176bc60873fa3cdea5e586f375efbe51cbd10651e045b1'}, 'serial_solver': {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_uvtail_c2v001.py', 'sha256': '8ef3079b0a23c32c688605e96eb5b79beb79768578cc7aef22ea087c7ae12469'}, 'parallel_solver': {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py', 'sha256': '7667025bd9382a58688153fde98bf90f2b67d27baa39a939982631c305c229db'}}\n\n\"\"\"Source component for the P112 successor; composed into its verified namespace.\n\nNo import side effects. Every runtime input goes through P112's single-buffer\nreader. Only metadata selection is added; the root retains launch ownership.\n\"\"\"\n\nCW8_LICENSE_SCHEMA = \"CW8_PHASE1_LICENSE_CX3V001\"\nCW8_FORECAST_SCHEMA = \"CW8_PHASE1_FORECAST_CX3V001\"\nCW8_CHOICE_SCHEMA = \"CW8_PHASE1_CHOICE_CX3V001\"\nCW8_EQUAL = \"SERIAL_EQUALS_PARALLEL_BITWISE_TAIL_ON\"\nCW8_RSS_MULTIPLIER = 11  # Proposed A177 accounting; requires the root license.\nCW8_MAX_FORECAST_AGE_S = 900\nCW8_SCOPE_KEYS = (\"plan_output_primary\", \"plan_build_record\", \"selection\", \"fdplan\",\n                  \"spec_of_record\", \"at0a_pass\", \"members\", \"f_points\")\nCW8_COSTS = {\n    \"expectation\": {\"serial_h\": 31.90, \"parallel_a_h\": 5.84, \"parallel_tail_h\": 15.74},\n    \"upper\": {\"serial_h\": 84.77, \"parallel_a_h\": 17.52, \"parallel_tail_h\": 34.33},\n}\n\n# CW8_SOURCE_PINS is inserted by the build script, from exact source bytes.\n\n\ndef cw8_scope(ctx):\n    return {key: ctx.cfg[key] for key in CW8_SCOPE_KEYS}\n\n\ndef cw8_root_license_pin(text):\n    \"\"\"One exact root registration, inside an A-numbered section.\"\"\"\n    section, found = None, []\n    for line in text.splitlines():\n        if line.startswith(\"## \"):\n            match = re.match(r\"## (A[0-9]+)(?=[:\\s]|$)\", line)\n            section = match[1] if match else None\n        if not line.startswith(\"CW8_LICENSE_PIN\"):\n            continue\n        match = re.fullmatch(r\"CW8_LICENSE_PIN path=(/.*\\S) sha256=([0-9a-f]{64})\", line)\n        need(match is not None and section is not None, \"CW8_LICENSE_REGISTRATION_FORM\")\n        found.append({\"path\": match[1], \"sha256\": match[2]})\n    need(len(found) <= 1, \"CW8_LICENSE_REGISTRATION_DUPLICATE\")\n    return found[0] if found else None\n\n\ndef cw8_leaf_span(raw):\n    \"\"\"Locate the JSON value structurally, without reserializing any other byte.\"\"\"\n    text = raw.decode(\"utf-8\")\n    strict_json(raw)  # Duplicate keys and nonfinite numbers refuse first.\n    decoder, spans = json.JSONDecoder(), []\n\n    def ws(i):\n        while i < len(text) and text[i] in \" \\t\\r\\n\":\n            i += 1\n        return i\n\n    def walk(i, path):\n        i = ws(i)\n        start = i\n        if text[i] == \"{\":\n            i = ws(i + 1)\n            while text[i] != \"}\":\n                key, i = decoder.raw_decode(text, i)\n                i = ws(i)\n                need(text[i] == \":\", \"CW8_SPEC_JSON\")\n                i = ws(walk(i + 1, path + (key,)))\n                if text[i] == \"}\":\n                    break\n                need(text[i] == \",\", \"CW8_SPEC_JSON\")\n                i = ws(i + 1)\n            end = i + 1\n        elif text[i] == \"[\":\n            i, index = ws(i + 1), 0\n            while text[i] != \"]\":\n                i = ws(walk(i, path + (index,)))\n                index += 1\n                if text[i] == \"]\":\n                    break\n                need(text[i] == \",\", \"CW8_SPEC_JSON\")\n                i = ws(i + 1)\n            end = i + 1\n        else:\n            _, end = decoder.raw_decode(text, i)\n        if path == LEAF:\n            spans.append((len(text[:start].encode(\"utf-8\")),\n                          len(text[:end].encode(\"utf-8\"))))\n        return end\n\n    walk(0, ())\n    need(len(spans) == 1, \"CW8_SPEC_LEAF_NOT_UNIQUE\")\n    return spans[0]\n\n\ndef cw8_spec_pair(serial_raw, parallel_raw):\n    serial, parallel = strict_json(serial_raw), strict_json(parallel_raw)\n    need(type(dig(serial, LEAF)) is int and dig(serial, LEAF) == 1, \"CW8_SERIAL_LEAF\")\n    need(type(dig(parallel, LEAF)) is int and dig(parallel, LEAF) == 8, \"CW8_PARALLEL_LEAF\")\n    start, end = cw8_leaf_span(serial_raw)\n    need(serial_raw[start:end] == b\"1\" and\n         serial_raw[:start] + b\"8\" + serial_raw[end:] == parallel_raw,\n         \"CW8_NONWORKER_BYTES_CHANGED\")\n    return parallel\n\n\ndef cw8_authenticate(ctx, license_pin):\n    \"\"\"A root-pinned comparator attestation, never its underlying run trees.\"\"\"\n    need(is_pin(license_pin), \"CW8_LICENSE_MISSING\")\n    need(cw8_root_license_pin(ctx.v006_text) == license_pin, \"CW8_LICENSE_NOT_ROOT_PINNED\")\n    obj = read_pin(license_pin)\n    keys(obj, (\"schema\", \"date_u\", \"scope\", \"comparator_record\", \"source_pins\",\n               \"seed_serial_spec\", \"seed_twin_spec\", \"full_rss_multiplier\"), \"cw8 license\")\n    need(obj[\"schema\"] == CW8_LICENSE_SCHEMA and obj[\"scope\"] == \"FULL_MEMBER_F_CALLS_ONLY\",\n         \"CW8_LICENSE_SCOPE\")\n    need(type(obj[\"full_rss_multiplier\"]) is int and\n         obj[\"full_rss_multiplier\"] == CW8_RSS_MULTIPLIER, \"CW8_RSS_RULING_REQUIRED\")\n    need(obj[\"source_pins\"] == CW8_SOURCE_PINS, \"CW8_WORKER_SOURCE_PINS\")\n    need(ctx.pins[\"driver\"] == CW8_SOURCE_PINS[\"driver\"], \"CW8_DRIVER_PIN\")\n    serial_pin = ctx.get_vpin(\"SPEC_PIN\", \"S0_SEED_SERIAL\")\n    twin_pin = ctx.get_vpin(\"SPEC_PIN\", TWIN)\n    need(obj[\"seed_serial_spec\"] == serial_pin and obj[\"seed_twin_spec\"] == twin_pin,\n         \"CW8_SEED_SPEC_PINS\")\n    # Verify the seed pair's actual spec bytes without opening either run.\n    cw8_spec_pair(read_pin(serial_pin, decode=False), read_pin(twin_pin, decode=False))\n    record = read_pin(obj[\"comparator_record\"])\n    need(record.get(\"schema\") == \"UNT_STEP5_NGC_IDENTITY_PAIR_RECORD_C2V001\",\n         \"CW8_COMPARATOR_SCHEMA\")\n    need(record.get(\"verdict\") == CW8_EQUAL, \"CW8_COMPARATOR_\" + str(record.get(\"verdict\")))\n    need(record.get(\"bitwise_equal\") is True, \"CW8_COMPARATOR_NOT_BITWISE_EQUAL\")\n    need(record.get(\"iterations_compared\") == [0, 1] and\n         all(type(x) is int for x in record[\"iterations_compared\"]), \"CW8_TWO_ITERATIONS_REQUIRED\")\n    expected = {\"driver\": CW8_SOURCE_PINS[\"driver\"],\n                \"checkpoint_module\": CW8_SOURCE_PINS[\"checkpoint_module\"],\n                \"tool\": CW8_SOURCE_PINS[\"comparator\"],\n                \"serial_spec\": serial_pin, \"twin_spec\": twin_pin}\n    need(record.get(\"pins\") == expected, \"CW8_COMPARATOR_PINS\")\n    checks = record.get(\"checks\")\n    need(type(checks) is dict and checks and all(v is True for v in checks.values()) and\n         record.get(\"differing_files\") == [] and record.get(\"not_ready\") == [] and\n         record.get(\"values_printed\") is False, \"CW8_COMPARATOR_CHECKS\")\n    # The comparator attests worker/solver custody. Verify the fixed source bytes\n    # as well; none is imported or executed by this authorization check.\n    for source_pin in CW8_SOURCE_PINS.values():\n        read_pin(source_pin, decode=False)\n    return obj\n\n\ndef cw8_schedule(n, available_cores, workers, cost):\n    \"\"\"0818 uniform-call planning model: eight-core A then one-core tail.\"\"\"\n    need(type(n) is int and 1 <= n <= 3, \"CW8_MODEL_COHORT_OUT_OF_SCOPE\")\n    need(type(available_cores) is int and 12 <= available_cores <= 18,\n         \"CW8_MODEL_LOAD_OUT_OF_SCOPE\")\n    if workers == 1:\n        return cost[\"serial_h\"]  # At most three calls, at least twelve cores.\n    need(workers == 8, \"CW8_MODEL_WORKERS\")\n    # All tails retain a core immediately when their A stage finishes. An A\n    # completion releases seven cores. The next A starts only if eight are free.\n    time, pending, active, completion = 0.0, n, [], []\n    while pending or active:\n        busy = sum(item[1] for item in active)\n        while pending and busy + 8 <= available_cores:\n            active.append((time + cost[\"parallel_a_h\"], 8, \"A\"))\n            busy += 8\n            pending -= 1\n        need(active, \"CW8_MODEL_NO_FEASIBLE_SCHEDULE\")\n        time = min(item[0] for item in active)\n        ended, active = ([x for x in active if x[0] == time],\n                         [x for x in active if x[0] != time])\n        for _, cores, stage in ended:\n            if stage == \"A\":\n                active.append((time + cost[\"parallel_tail_h\"], 1, \"TAIL\"))\n            else:\n                completion.append(time)\n    return max(completion)\n\n\ndef cw8_predict(forecast, names, now_utc):\n    keys(forecast, (\"schema\", \"date_u\", \"observed_utc\", \"calls\", \"host_cores\",\n                    \"cores_in_use\", \"remaining_barrier_h\", \"scope\"), \"cw8 forecast\")\n    need(forecast[\"schema\"] == CW8_FORECAST_SCHEMA, \"CW8_FORECAST_SCHEMA\")\n    need(type(forecast[\"calls\"]) is list and forecast[\"calls\"] == sorted(names),\n         \"CW8_FORECAST_CALL_SET\")\n    need(forecast[\"host_cores\"] == 18 and type(forecast[\"host_cores\"]) is int,\n         \"CW8_MODEL_HOST\")\n    used = forecast[\"cores_in_use\"]\n    need(type(used) is int and 0 <= used <= 6, \"CW8_MODEL_LOAD_OUT_OF_SCOPE\")\n    age = timestamp(now_utc) - timestamp(forecast[\"observed_utc\"])\n    need(0 <= age <= CW8_MAX_FORECAST_AGE_S, \"CW8_FORECAST_STALE_OR_FUTURE\")\n    barrier = forecast[\"remaining_barrier_h\"]\n    need(type(barrier) is dict and set(barrier) == set(CW8_COSTS),\n         \"CW8_FORECAST_BARRIER\")\n    predictions = {}\n    for scenario, cost in CW8_COSTS.items():\n        r = barrier[scenario]\n        need(type(r) in (int, float) and math.isfinite(r) and r >= 0, \"CW8_FORECAST_BARRIER\")\n        serial = max(r, cw8_schedule(len(names), 18 - used, 1, cost))\n        parallel = max(r, cw8_schedule(len(names), 18 - used, 8, cost))\n        predictions[scenario] = {\n            \"serial_makespan_h\": serial, \"cw8_makespan_h\": parallel,\n            \"predicted_saving_h\": serial - parallel,\n        }\n    # No gain hidden behind S0 and no expectation/upper tradeoff.\n    choose = all(v[\"predicted_saving_h\"] > 0 for v in predictions.values())\n    return {\"column_workers\": 8 if choose else 1,\n            \"reason\": \"PREDICTED_MAKESPAN_SHORTER\" if choose else \"NO_STRICT_MAKESPAN_GAIN\",\n            \"scenarios\": predictions, \"model\": \"0818_UNIFORM_CALLS_1_TO_3_CORES_12_TO_18\",\n            \"measured_speedup\": False}\n\n\ndef cw8_choice_directory(ctx):\n    return Path(ctx.cfg[\"p112_launch_root\"]) / \"worker_choices\"\n\n\ndef cw8_saved_choices(ctx):\n    directory = cw8_choice_directory(ctx)\n    if not directory.exists():\n        return {}\n    need(directory.is_dir() and os.path.realpath(directory) == str(directory), \"CW8_CHOICE_DIRECTORY\")\n    found = {}\n    for path in sorted(directory.glob(\"CHOICE_*.json\")):\n        pin, doc = read_record(path)\n        need(doc.get(\"schema\") == CW8_CHOICE_SCHEMA and doc.get(\"scope\") == cw8_scope(ctx),\n             \"CW8_CHOICE_SCOPE\")\n        need(doc.get(\"producer\") == ctx.own_pin, \"CW8_CHOICE_PRODUCER\")\n        rows = doc.get(\"calls\")\n        need(type(rows) is list and rows, \"CW8_CHOICE_CALLS\")\n        for row in rows:\n            name = row.get(\"name\")\n            need(type(name) is str and NAME_RE.fullmatch(name) and not name.startswith(\"S0_\"),\n                 \"CW8_CHOICE_NAME\")\n            need(name not in found, \"CW8_CHOICE_DUPLICATE\", name)\n            found[name] = (row, doc, pin)\n    return found\n\n\ndef cw8_apply_choice(ctx, call):\n    if call[\"origin\"] != \"P112\":\n        return call  # S0 ownership and worker/spec history are unchanged.\n    found = cw8_saved_choices(ctx)\n    if call[\"name\"] not in found:\n        return call\n    row, doc, choice_pin = found[call[\"name\"]]\n    keys(row, (\"name\", \"point_key\", \"theta_sha256\", \"serial_spec\", \"spec\",\n               \"column_workers\"), \"cw8 choice row\")\n    need(row[\"serial_spec\"] == call[\"spec\"] and row[\"point_key\"] == call[\"point_key\"] and\n         row[\"theta_sha256\"] == call[\"theta_sha256\"], \"CW8_CHOICE_CALL_BINDING\")\n    workers = row[\"column_workers\"]\n    need(type(workers) is int and workers in (1, 8), \"CW8_CHOICE_WORKERS\")\n    if workers == 1:\n        need(row[\"spec\"] == call[\"spec\"], \"CW8_SERIAL_SPEC_CHANGED\")\n    else:\n        cw8_authenticate(ctx, doc.get(\"license\"))\n        forecast = read_pin(doc[\"forecast\"])\n        need(forecast.get(\"scope\") == cw8_scope(ctx), \"CW8_FORECAST_SCOPE\")\n        prediction = cw8_predict(forecast, [r[\"name\"] for r in doc[\"calls\"]],\n                                 doc[\"selected_at_utc\"])\n        need(prediction == doc.get(\"prediction\") and prediction[\"column_workers\"] == 8 and\n             all(r.get(\"column_workers\") == 8 for r in doc[\"calls\"]), \"CW8_CHOICE_NOT_DERIVED\")\n        chosen_pin = ctx.get_vpin(\"SPEC_PIN\", call[\"name\"] + \"_FULL_CW8\")\n        need(row[\"spec\"] == chosen_pin, \"CW8_FULL_SPEC_ROOT_PIN\")\n        chosen_spec = cw8_spec_pair(read_pin(call[\"spec\"], decode=False),\n                                    read_pin(chosen_pin, decode=False))\n        call = dict(call, spec=chosen_pin, spec_doc=chosen_spec, v006_spec_pin=chosen_pin)\n    return dict(call, worker_choice=choice_pin, serial_spec=row[\"serial_spec\"])\n\n\ndef cw8_workers(call):\n    workers = dig(call[\"spec_doc\"], LEAF)\n    need(type(workers) is int and workers in (1, 8), \"CW8_WORKER_LEAF\")\n    if call[\"name\"] == TWIN:\n        need(workers == 8 and call[\"origin\"] == \"KIT\", \"CW8_TWIN_IDENTITY\")\n    elif workers == 8:\n        need(call[\"origin\"] == \"P112\" and is_pin(call.get(\"worker_choice\")),\n             \"CW8_FULL_CALL_UNAUTHORIZED\")\n    return workers\n\n\ndef cw8_role(call):\n    return {\"kind\": \"IDENTITY_TWIN\" if call[\"name\"] == TWIN else \"FULL\",\n            \"column_workers\": cw8_workers(call), \"choice\": call.get(\"worker_choice\")}\n\n\ndef cw8_check_role(call, saved, *, allow_legacy=True):\n    expected = cw8_role(call)\n    if saved is None and allow_legacy and call.get(\"worker_choice\") is None:\n        return expected  # Original serial or authentic S0 twin custody.\n    need(saved == expected, \"CW8_ROLE_CUSTODY\")\n    return expected\n\n\ndef cw8_rss(name, workers=1):\n    need(type(workers) is int and workers in (1, 8), \"CW8_RSS_WORKERS\")\n    return RAM * (CW8_RSS_MULTIPLIER if name == TWIN or workers == 8 else 1)\n\n\ndef cw8_plan_workers(plan):\n    role = plan.get(\"worker_role\")\n    if role is None:\n        return 8 if plan[\"name\"] == TWIN else 1\n    need(type(role) is dict and set(role) == {\"kind\", \"column_workers\", \"choice\"},\n         \"CW8_PLAN_ROLE\")\n    workers = role[\"column_workers\"]\n    need(type(workers) is int and workers in (1, 8), \"CW8_PLAN_WORKERS\")\n    need(role[\"kind\"] == (\"IDENTITY_TWIN\" if plan[\"name\"] == TWIN else \"FULL\"),\n         \"CW8_PLAN_ROLE\")\n    need(dig(read_pin(plan[\"spec\"]), LEAF) == workers, \"CW8_PLAN_SPEC_LEAF\")\n    if workers == 8 and plan[\"name\"] != TWIN:\n        need(is_pin(role[\"choice\"]), \"CW8_PLAN_UNAUTHORIZED\")\n        choice = read_pin(role[\"choice\"])\n        rows = [r for r in choice.get(\"calls\", []) if r.get(\"name\") == plan[\"name\"]]\n        need(len(rows) == 1 and rows[0].get(\"spec\") == plan[\"spec\"] and\n             rows[0].get(\"column_workers\") == 8, \"CW8_PLAN_CHOICE_BINDING\")\n    return workers\n\n\ndef cw8_admission_clear(ctx, call):\n    need(call[\"origin\"] == \"P112\" and not call[\"name\"].startswith(\"S0_\"),\n         \"CW8_EXISTING_S0_ROLE\")\n    name = call[\"name\"]\n    need(not ctx.record_paths(name) and not any(n == name for n, _ in ctx.residuals()) and\n         not Path(own_registry_path(ctx, name)).exists(), \"CW8_ROLE_ALREADY_STARTED\")\n    # Includes early refusal plans and dry preparation. A choice must precede\n    # any preparatory plan so restart cannot see two candidate worker roles.\n    work = Path(ctx.cfg[\"p112_launch_root\"]) / \"work\"\n    need(not work.exists() or not any(work.glob(name + \"_A*\")), \"CW8_ROLE_ALREADY_PREPARED\")\n\n\n@read_scope\ndef select_workers(ctx, forecast_pin=None, *, serial_name=None):\n    \"\"\"Root-invoked metadata operation. Writes one immutable cohort record.\"\"\"\n    ctx.gate()\n    calls = ctx.calls()\n    saved = cw8_saved_choices(ctx)\n    if serial_name is not None:\n        call = ctx.call(serial_name)\n        if serial_name in saved:\n            return {\"status\": \"ALREADY_SELECTED\", \"choice\": saved[serial_name][2]}\n        selected = [call]\n    else:\n        selected = [c for c in calls if c[\"origin\"] == \"P112\" and c[\"name\"] not in saved and\n                    not ctx.record_paths(c[\"name\"]) and\n                    not Path(own_registry_path(ctx, c[\"name\"])).exists()]\n    need(selected, \"CW8_NO_NEW_CALLS\")\n    for call in selected:\n        cw8_admission_clear(ctx, call)\n    now = ctx.system.utc()\n    license_pin, prediction = None, {\"column_workers\": 1, \"reason\": \"NO_SELECTION_INPUT\"}\n    if serial_name is None:\n        try:\n            license_pin = cw8_root_license_pin(ctx.v006_text)\n            cw8_authenticate(ctx, license_pin)\n            need(is_pin(forecast_pin), \"CW8_FORECAST_MISSING\")\n            forecast = read_pin(forecast_pin)\n            need(forecast.get(\"scope\") == cw8_scope(ctx), \"CW8_FORECAST_SCOPE\")\n            prediction = cw8_predict(forecast, [c[\"name\"] for c in selected], now)\n            if prediction[\"column_workers\"] == 8:\n                for call in selected:\n                    pin = ctx.get_vpin(\"SPEC_PIN\", call[\"name\"] + \"_FULL_CW8\")\n                    cw8_spec_pair(read_pin(call[\"spec\"], decode=False), read_pin(pin, decode=False))\n        except (Refusal, OSError, ValueError, KeyError, TypeError) as exc:\n            prediction = {\"column_workers\": 1,\n                          \"reason\": exc.code if isinstance(exc, Refusal) else type(exc).__name__}\n    workers = prediction[\"column_workers\"]\n    rows = []\n    for call in sorted(selected, key=lambda c: c[\"name\"]):\n        rows.append({key: call[key] for key in (\"name\", \"point_key\", \"theta_sha256\")})\n        rows[-1].update(serial_spec=call[\"spec\"], column_workers=workers,\n                        spec=(ctx.get_vpin(\"SPEC_PIN\", call[\"name\"] + \"_FULL_CW8\")\n                              if workers == 8 else call[\"spec\"]))\n    record = {\"schema\": CW8_CHOICE_SCHEMA, \"producer\": ctx.own_pin, \"scope\": cw8_scope(ctx),\n              \"selected_at_utc\": now, \"date_u\": date_u(), \"license\": license_pin,\n              \"forecast\": forecast_pin, \"prediction\": prediction, \"calls\": rows}\n    directory = cw8_choice_directory(ctx)\n    if not directory.exists():\n        directory.mkdir()\n    need(directory.is_dir() and os.path.realpath(directory) == str(directory), \"CW8_CHOICE_DIRECTORY\")\n    # One cohort record is the authority for every row. There is no multi-file\n    # commit window in which a partial cohort could be silently re-optimized.\n    destination = directory / (\"CHOICE_\" + sha(canonical(record)) + \".json\")\n    pin = ctx.write(str(destination), record)\n    ctx._calls = None\n    ctx.calls()  # Reconstruct using the durable bytes before returning.\n    return {\"status\": \"SELECTED\", \"choice\": pin, \"column_workers\": workers,\n            \"reason\": prediction[\"reason\"], \"names\": [r[\"name\"] for r in rows]}\n\n\ndef cw8_ensure_default(ctx, call):\n    \"\"\"A new root launch with no selection gets an explicit serial record.\"\"\"\n    if call[\"origin\"] != \"P112\" or call.get(\"worker_choice\") is not None:\n        return call\n    name = call[\"name\"]\n    work = Path(ctx.cfg[\"p112_launch_root\"]) / \"work\"\n    if (ctx.record_paths(name) or Path(own_registry_path(ctx, name)).exists() or\n            any(n == name for n, _ in ctx.residuals()) or\n            (work.exists() and any(work.glob(name + \"_A*\")))):\n        return call  # Historical serial custody/preparation cannot be upgraded.\n    select_workers(ctx, serial_name=call[\"name\"])\n    return ctx.call(call[\"name\"])\n\n\ndef cw8_check_attempt(ctx, call, record, closed=None):\n    role = cw8_check_role(call, record.get(\"worker_role\"))\n    need(record.get(\"spec\", call[\"spec\"]) == call[\"spec\"], \"CW8_ATTEMPT_RAW_SPEC\")\n    need(record[\"caps\"][\"rss_cap_bytes\"] == cw8_rss(call[\"name\"], role[\"column_workers\"]),\n         \"CW8_ATTEMPT_RSS\")\n    if call[\"name\"] != TWIN:\n        need(record.get(\"watch_pid\") is None, \"CW8_FULL_CALL_TWIN_WATCHER\")\n    if closed is not None:\n        cw8_check_role(call, closed.get(\"worker_role\"))\n    return role[\"column_workers\"]\n\n\nif __name__ == \"__main__\":\n    sys.exit(cli())",
+      "occurrences": 1,
+      "old": "if __name__ == \"__main__\":\n    sys.exit(cli())"
+    }
+  ],
+  "date_u": "Wed Oct 21 12:18:54 UTC 2026",
+  "inputs": {
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/build_candidate_draft004.py": "45a588449288f77d4ed170bfd260da748c8622720b0a295e8376ebbcffc6d8a4",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/cw8_extension_draft002.py": "c5451a34af0fb7bcaddb73b79c24f9657dcfbca4ba53d36c6578df98f48b3ae2",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py": "577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/prep_loader_fix/ngc43_coupled_root_worker_parallel_uvtail_ro1_cx3v011_r5cx3v001_cx3v005.py": "293a417f493fee2b59176bc60873fa3cdea5e586f375efbe51cbd10651e045b1",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/prep_loader_fix/ngc43_coupled_root_worker_uvtail_ro1_cx3v011_r5cx3v001_cx3v005.py": "ee27227c2cee3093589ae6b6546a0d88a1bbe20c47ba4dacff497ad7cc80189f",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v004/phase1_ngc_launch_cx2v004.py": "8cec1b56fc682f638fee57329eefc9b3cddfa47959d175e7095fc0c5fe0342c9",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/resumable_coupled_gas_0422/coupled_gas_checkpoint_c2v003.py": "069b393560003fc200932e2d17fa84ee750043fa2132f2cadd459915fb99b114",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step5_path_c2/tools/compare_identity_pair_c2v001.py": "8e857fff5c2bc16574238cd4fb5c2c510815efe60764f6027d9addd944be0178",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py": "7667025bd9382a58688153fde98bf90f2b67d27baa39a939982631c305c229db",
+    "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_uvtail_c2v001.py": "8ef3079b0a23c32c688605e96eb5b79beb79768578cc7aef22ea087c7ae12469"
+  },
+  "output": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/cw8_phase1_cx3/phase1_ngc_launch_cx3cw8_draft002.py",
+    "sha256": "7a4fefede8551176c6973a08b0a0f36b4d88b57b61e84e841c7dee283c9b6284"
+  }
+}

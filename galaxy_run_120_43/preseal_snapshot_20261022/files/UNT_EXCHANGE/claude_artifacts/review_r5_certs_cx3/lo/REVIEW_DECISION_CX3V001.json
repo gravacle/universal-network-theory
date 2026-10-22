@@ -1,0 +1,90 @@
+{
+  "all10_record_shell_max": 0.0003947201238233063,
+  "all10_record_sum": 0.0008877282352234857,
+  "all10_sum_tolerance": 0.05,
+  "certificate_B1": 2.0125757956516603e-27,
+  "certificate_rho": 6.5358739786434255,
+  "coarse_B1": 2.0125681046325945e-27,
+  "coarse_refined_relative_change": 4.445579271483702e-06,
+  "consumer_snapshot_version": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_compare_c2/r8/kmax_tail_compare_c2v007_r8.py",
+    "sha256": "bd51db152f700afd86c2156904a4998b4582deeac5c06d05def50b27b397e5c3"
+  },
+  "coverage_endpoint_inverse_kpc": 363.0,
+  "date_u": "Sun Oct 18 15:07:27 UTC 2026",
+  "evidence": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_r5_certs_cx3/lo/LO_STATIC_REVIEW_V001.json",
+      "sha256": "29acc5b9e48a5c43fc613c267ca326d65bb2ed49b4dcc56781abf537634b2b79"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_r5_certs_cx3/lo/LO_RHO_REVIEW_V001.json",
+      "sha256": "fe3da1f813795f9cef2a1d14991b9e806d5801b502ecf3f7fef453105aff66ac"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_r5_certs_cx3/lo/LO_INTEGRAL_COARSE_V001.json",
+      "sha256": "e38a635c3f5c3ae2c675219f8c8bb11c3d14306a0bd45ec332a4d69d189363d3"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_r5_certs_cx3/lo/LO_INTEGRAL_REFINED_V001.json",
+      "sha256": "d50afab891883c03dac954ba73759b38bf5b645b0b0da7a150b3caa9da8c45a7"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_r5_certs_cx3/lo/LO_CONSUMER_GATE_REVIEW_V002.json",
+      "sha256": "2a42a6d2d72271ca288eec2d6a4480771b040adfec3a377dd0254cc71f739f69"
+    }
+  ],
+  "findings": [
+    {
+      "condition": "Original LO_CERT_V003_MS128 has gas_M_s=128 but lacks the required source_gas_M_s integer. Actual pinned r8 LO gate raises FIELD_MISSING:LO:source_gas_M_s.",
+      "deciding_step": "Produce an immutable LO certificate successor declaring source_gas_M_s=128, preserving and pinning the measured source and numerical evidence; revalidate actual consumer admission and repin downstream certificate inputs. An in-memory diagnostic field addition is not that successor.",
+      "id": "CX3-0552-LO-1",
+      "owner": "Claude2 certificate producer and scientific launch owner",
+      "severity": "BLOCKER",
+      "status": "TESTED",
+      "type": "CERTIFICATE_REQUIRED_FIELD_MISSING"
+    }
+  ],
+  "forbidden_runs_opened": false,
+  "gate_expectation_checks": {
+    "passed": 5,
+    "total": 5
+  },
+  "independent_max_over_tau": 0.0003947203680103969,
+  "independent_shell": [
+    128.0,
+    256.0
+  ],
+  "limitations": [
+    "Only the (128,256] shell integral is independently recomputed; all ten declared shell arithmetic and tolerances are rechecked.",
+    "Shared continuum source implementation and production symbol definitions; independent radial factor representation, quadrature, endpoint handling, binding/search, and gate harness.",
+    "Rho remains a sampled/local numerical maximum and B1 a quadrature estimate. No interval or global supremum proof.",
+    "This LO review does not independently rerun the recorded I1-T or audit the full comparison engine, GQ, r5, or NGC.",
+    "Consumer source changed externally during review. The executed fragment is preserved with its exact byte hash and time; no claim is made about a later consumer version.",
+    "In-memory synthetic source_gas_M_s=128 gate acceptance is a diagnostic only, not an adopted production record."
+  ],
+  "numerical_subreview": "PASS_WITH_LIMITATIONS",
+  "original_certificate_admission": "TESTED_FAIL_REQUIRED_FIELD",
+  "own_rho": 6.53587394290467,
+  "peak_rss_bytes": 523878400,
+  "real_NGC_targets_opened": false,
+  "reason": "Required LO consumer field absent from reviewed original certificate.",
+  "record": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_v003/gates/LO_CERT_V003_MS128.json",
+    "sha256": "9fdb897ae3b80dd6a3d2cf9ff273619dbf5fa419405cc8dacd1fa77ee2539268"
+  },
+  "refined_B1": 2.0125770517034178e-27,
+  "refined_certificate_B1_relative_difference": 6.241015917396453e-07,
+  "required_P128_endpoint_inverse_kpc": 362.03867196751236,
+  "scientific_launches": 0,
+  "shell_tolerance": 0.005,
+  "source_gas_M_s_measured": 128,
+  "source_roster_digest": "beab994bbcb601a89f80ee4036ba7f1939752136d058b8897500cfc1d9bdb81f",
+  "static_checks": {
+    "passed": 39,
+    "sole_failed_check": "required_source_gas_M_s_field",
+    "total": 40
+  },
+  "utc": "2026-10-18T15:07:36.179702+00:00",
+  "verdict": "FAIL"
+}

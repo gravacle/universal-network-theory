@@ -1,0 +1,128 @@
+{
+  "date_u": "Sun Oct 18 23:02:28 UTC 2026",
+  "status": "REVIEW_COMPLETE_WITH_FINDINGS",
+  "scope": "Provisional convenience watchdog; outside the seal and selection hash chain per 0642.",
+  "seal_blockers": 0,
+  "convenience_should_fix": 5,
+  "expected_behavior_controls": {
+    "passed": 15,
+    "total": 25,
+    "failed": 10,
+    "explanation": "Ten failing expected-behavior controls demonstrate five distinct convenience defects; this is not a 25/25 PASS."
+  },
+  "findings": [
+    {
+      "id": "WD01",
+      "priority": "SHOULD_FIX",
+      "location": "watchdog lines 28-34",
+      "claim": "A value-taking option at the end of argv hangs in the argument loop.",
+      "evidence": "TESTED: each of --log, --threshold-gib, --interval-s, --max-polls and --df-stub timed out in the exact leading source slice; subprocess.run killed each owned test child after 0.4 seconds. Failed shift 2 leaves argv unchanged.",
+      "fix": "Check argument count before shift and refuse missing values with exit 2."
+    },
+    {
+      "id": "WD02",
+      "priority": "SHOULD_FIX",
+      "location": "watchdog lines 41-47",
+      "claim": "Lexical log restrictions can be bypassed through a symlinked parent directory.",
+      "evidence": "TESTED: a direct owned inert runs_ext fixture path refused, but an innocent-named symlink to that same owned fixture allowed log creation. No real excluded tree was accessed. Existing file and final-component symlink controls preserved prior bytes.",
+      "fix": "Use a verified no-follow parent traversal and exclusive descriptor-based log creation; retain the verified descriptor for writes, or use the existing reviewed path helper contract."
+    },
+    {
+      "id": "WD03",
+      "priority": "SHOULD_FIX",
+      "location": "watchdog lines 40,66,75",
+      "claim": "Digit-only validation permits invalid octal and overflowing threshold arithmetic.",
+      "evidence": "TESTED: exact arithmetic accepts ordinary 80-GiB boundary controls, but 080 causes an arithmetic error; 8796093022208 wraps when multiplied by 1048576 and suppresses the expected low-space decision. STATIC ONLY: interval zero is accepted and would remove the intended poll delay.",
+      "fix": "Normalize bounded decimal values, require positive interval and threshold, and bound the multiplication before use. Retain max-polls zero only as the documented unlimited sentinel."
+    },
+    {
+      "id": "WD04",
+      "priority": "SHOULD_FIX",
+      "location": "watchdog lines 49-56",
+      "claim": "The notification self-test exits successfully after the notification command fails.",
+      "evidence": "TESTED with exact function and test-notify branch: an owned shell-function osascript double returned 7; the log recorded rc=7, but the branch exited 0. The matching rc=0 control passed. No real AppleScript or notification ran.",
+      "fix": "Return the notifier status after logging and propagate it from test-notify; continuous operation may log and continue with explicit degraded status."
+    },
+    {
+      "id": "WD05",
+      "priority": "SHOULD_FIX",
+      "location": "author test lines 59-60",
+      "claim": "The author test exits successfully when its accumulated status is failure.",
+      "evidence": "TESTED using only the exact final status slice: ok_all=0 printed SOME FAIL but exited 0 after the final echo. The ok_all=1 positive passed. The author test itself was never run.",
+      "fix": "Exit nonzero after printing the output path whenever ok_all is not 1."
+    }
+  ],
+  "tested": [
+    "Both saved sources pass bash -n.",
+    "Exact bounded source slices with owned inert fixtures only.",
+    "All evidence byte hashes checked; current author source hashes still equal snapshots."
+  ],
+  "untested": [
+    "Full watchdog execution, persistent background operation, real df behavior and real notification/sound.",
+    "Production paths, scientific work, seal execution or new selected tuple."
+  ],
+  "scope_limits": [
+    "No original watchdog or author test script executed.",
+    "No notification, scientific launch, real protected run, observed velocity, network, git write or session-log read.",
+    "No existing file overwritten, moved or deleted. Timeout termination affected only owned synthetic test children.",
+    "The default 80 GiB is explicitly documented and earlier than an 80-decimal-GB alert; no seal blocker is inferred from that choice.",
+    "Previously reported v003/pre-stage review conclusions are unchanged."
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0642_2026-10-18_claude3_script_add_RP_S1_W7_S1.md",
+      "sha256": "b96f14fb3116cb277ff4b14ebf7e51f0c73ad8de1333464aa783cd799ad9ea74",
+      "bytes": 815
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX1/0094_2026-10-18_start_watchdog_convenience_delta.md",
+      "sha256": "6a59e2894a2868eba597f8833603ca6f3c6d0cc585108d9259f0568d103cf950",
+      "bytes": 1474
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/step2_disk_watch.sh",
+      "sha256": "bd0d9bab0854627957781e1666c7f5eacd1e10cd03bfde0dd2efe2e27a5a2c28",
+      "bytes": 5301
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/test_step2_disk_watch_c3sa_c3v001.sh",
+      "sha256": "696bfc9b3bb4e514dad0aac0c304d390f5044b39b1b59c3c1cbf0cf8375ecfe4",
+      "bytes": 6438
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/watchdog_delta_cx1v001/SNAPSHOT.json",
+      "sha256": "3d4fc0db31fb4e323a929e995cde3d6b8978e32f1a0b5ed9a4a4a4ea3f2e55b1",
+      "bytes": 876
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/watchdog_delta_cx1v001/watchdog_source.sh",
+      "sha256": "bd0d9bab0854627957781e1666c7f5eacd1e10cd03bfde0dd2efe2e27a5a2c28",
+      "bytes": 5301
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/watchdog_delta_cx1v001/author_test_source.sh",
+      "sha256": "696bfc9b3bb4e514dad0aac0c304d390f5044b39b1b59c3c1cbf0cf8375ecfe4",
+      "bytes": 6438
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/watchdog_delta_cx1v001/review_watchdog_slices_cx1v001.py",
+      "sha256": "a1f41b0207a7aeadc7e931acddf10b539b1025bba5987a4600bb1807facdbb90",
+      "bytes": 5019
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/watchdog_delta_cx1v001/SLICE_RESULTS_CX1V001.json",
+      "sha256": "ecebe51d52223ae85ea2461601224ba43c1a3f550d6cd14f5dd578fe4eea6768",
+      "bytes": 3946
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/watchdog_delta_cx1v001/review_watchdog_status_slices_cx1v001.py",
+      "sha256": "57f22e6d39a091cbb3ea41b4b7970793a3e979b5ec5fba400e1fbcc183048bbe",
+      "bytes": 2644
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/watchdog_delta_cx1v001/STATUS_SLICE_RESULTS_CX1V001.json",
+      "sha256": "98fe70dafbf51effd75a1f6f07c00dc0fb569b2cca8572326f59a667c33909ad",
+      "bytes": 1381
+    }
+  ]
+}

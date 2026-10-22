@@ -1,0 +1,878 @@
+{
+  "at_least_20_independently_authored_templates_supported": true,
+  "checker_imported_or_executed": false,
+  "date_u": "Sun Oct 18 15:36:13 UTC 2026",
+  "execution_provenance": {
+    "availability_evidence": "Contemporaneous own reports state the supplied c2v005 checker had not landed when suites were sealed; parent first relayed this checker after that review. No filesystem timestamp alone proves historical absence.",
+    "duplicate_npz": "2026-10-18T15:20:57.202024+00:00",
+    "invocation_r4": "2026-10-18T15:18:59.828348+00:00",
+    "invocation_r5": "2026-10-18T15:19:23.472998+00:00",
+    "preparation": "Sun Oct 18 15:05:20 UTC 2026",
+    "source_audit": "2026-10-18T15:18:51.830300+00:00",
+    "structural_report": "Sun Oct 18 15:19:23 UTC 2026"
+  },
+  "limitations": [
+    "Independently authored does not mean semantically disjoint: both suites test the same specification and the prior c2v004 checker source was read for overlap.",
+    "The checker was read and parsed only. No supplied selftest result or execution is certified.",
+    "Part F contains real-run stand-in regression calls; they were not followed.",
+    "105 denotes executions, not unique templates; the two driver selections repeat the 47 primary templates.",
+    "Existing overall c2v005 FAIL and actual-run UNTESTED/BLOCKED status are unchanged."
+  ],
+  "method": "STATIC_SOURCE_AND_AST_ONLY",
+  "overlap_groups": [
+    {
+      "distinction": "Positive synthetic baseline and declared successor custody. Independently built trees, not novel failure categories.",
+      "nearest_supplied": "P00_baseline_B0P, P00_baseline_Z2, P06_Z2_reference_swap_v008_to_driver_uvt_declared",
+      "own": "Structural P01; invocation P00/P01",
+      "relationship": "DIRECT FAMILY"
+    },
+    {
+      "distinction": "Own whole-result order/ended clock versus supplied stage JSON order/time mask.",
+      "nearest_supplied": "P01_stage_json_reformatted_key_order, P04_masked_keys_differ",
+      "own": "Structural P02/P03",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Input presence/content family; own equal extra nested input and different contract shape.",
+      "nearest_supplied": "F03_extra_inputs_file, Q01_inputs_json_content_changed, N21_call_spec_leaf_differs",
+      "own": "Structural P04/F12/F15",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Own partial earlier/later aliases, equal collisions on both sides, tampered middle and empty extra stage add boundary shapes; duplicate-stage family overlaps.",
+      "nearest_supplied": "F04_duplicate_stage_number_tampered, F05_duplicate_stage_number_extra_copy, N05_duplicate_stage_number_distinct_names",
+      "own": "Structural F01/F02/F03/F04/F05",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Own missing body and renamed suffix versus supplied missing manifest/renamed reference.",
+      "nearest_supplied": "N08_Z2_manifest_stage_missing, N37_stage_dir_renamed",
+      "own": "Structural F06/F07",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Scientific value and whole-result content coverage overlaps. Own nested one-ULP/key addition/removal differs from supplied scalar substitutions.",
+      "nearest_supplied": "F07_stage_npy_1ulp, F16_result_unlisted_key_signed_zero, F20_result_unlisted_key_float_to_int, F21_result_unlisted_verdict_keys_flipped",
+      "own": "Structural F08/F09/F10/F11",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Own raw binary last-byte and missing-binary controls; supplied input probes are JSON/filename. No exact binary-input mutation found.",
+      "nearest_supplied": "F03_extra_inputs_file, Q01_inputs_json_content_changed, N36_inputs_file_renamed",
+      "own": "Structural F13/F14",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Failed finish status directly overlaps; nested residual with intact status is a different concrete leaf.",
+      "nearest_supplied": "Q03_toplevel_finish_changed",
+      "own": "Structural F16/F17",
+      "relationship": "DIRECT/RELATED"
+    },
+    {
+      "distinction": "Attempt output content family; own nested entropy ULP and removed subrecord differ.",
+      "nearest_supplied": "Q04_route_a_attempt_result_changed, N17_attempt_finish_differs",
+      "own": "Structural F18/F19",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Ordinary argv comparison; own swapped value positions and repeated non-tail option.",
+      "nearest_supplied": "F09_stage_argv_value, F10_route_a_argv_column_workers",
+      "own": "Invocation F02/F03",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Duplicate/malformed tail argv. Own joined assignment, missing final value and identical valid in-run duplicate are distinct concrete inputs; no exact joined/missing-value case found.",
+      "nearest_supplied": "F11_route_a_declared_flag_twice_first_outside_run, N12_Z2_config_sha_of_another_file",
+      "own": "Invocation F04/F05/F06",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Stage/side/path restriction family. Own route-A-only flag on reference, flag on REF side and outside-run manifest differ.",
+      "nearest_supplied": "F12_Z2_rotation_dir_flag_on_reference_stage, F13_Z2_tail_flag_on_non_UVT_kind_stage, N11_Z2_truncation_flag_on_reference",
+      "own": "Invocation F07/F22/F23",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Base-on-NEW refusal overlaps directly with F26. Own F08 additionally requires replace-mode TOKENS_POLICY to pass; N02 uses invalid append mode. F09 changes only hash.",
+      "nearest_supplied": "F24_script_swap_hidden_by_declared_token, F26_Z2_reference_swap_to_plain_base_not_uvt, N02_A59_F1_hole_base_ran_under_append_tokens",
+      "own": "Invocation F08/F09",
+      "relationship": "DIRECT/RELATED"
+    },
+    {
+      "distinction": "Same strict numeric type families, moved to nested request matrices; own matching signed-zero/mixed-type positives. No request numeric_contract matrix case found.",
+      "nearest_supplied": "F14_stage_json_signed_zero, F15_result_rows_signed_zero, F17_checkpoint_record_signed_zero, F18_stage_json_float_to_int, F19_result_rows_float_to_int, F22_result_pass_unlisted_key_bool_to_int",
+      "own": "Invocation F10/F11/F12/P13/P14",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Array equality family overlaps. Own imaginary signed zero, integer/float NPZ dtype and C/F logical-content positive have no exact literal counterpart in cases().",
+      "nearest_supplied": "F07_stage_npy_1ulp, P02_npz_recompressed_same_arrays",
+      "own": "Invocation F15/F16/P17",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Symlink rejection family directly overlaps; own dangling, external payload and directory links broaden target shapes.",
+      "nearest_supplied": "N07_symlink_in_new",
+      "own": "Invocation F18/F19/F20",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Own valid contiguous route-B tail-block prefix insertion has no exact supplied mutation; same valid tail-block family.",
+      "nearest_supplied": "P06_Z2_reference_swap_v008_to_driver_uvt_declared",
+      "own": "Invocation P21",
+      "relationship": "RELATED"
+    },
+    {
+      "distinction": "Source inspection found no explicit canary for these reproduced false-PASS mechanisms; this is not a claim that all helper paths lack incidental coverage.",
+      "nearest_supplied": "No corresponding add(...) mutation found",
+      "own": "Source-audit normalized-key collision, structured NPY/NPZ dtype, duplicate JSON keys and duplicate NPZ members",
+      "relationship": "NOT FOUND IN CASE LIST"
+    }
+  ],
+  "own_executions": {
+    "duplicate_npz_followup": 2,
+    "invocation": 48,
+    "source_audit_whole_gate": 9,
+    "structural": 46,
+    "total": 105
+  },
+  "own_invocation_cases": [
+    {
+      "expected": "PASS",
+      "line": 168,
+      "name": "P00_distinct_invocation_baseline"
+    },
+    {
+      "expected": "PASS",
+      "line": 169,
+      "name": "P01_Z2_correct_explicit_replacement"
+    },
+    {
+      "expected": "FAIL",
+      "line": 172,
+      "name": "F02_swap_nontail_option_values"
+    },
+    {
+      "expected": "FAIL",
+      "line": 173,
+      "name": "F03_duplicate_nontail_option"
+    },
+    {
+      "expected": "FAIL",
+      "line": 174,
+      "name": "F04_joined_tail_assignment"
+    },
+    {
+      "expected": "FAIL",
+      "line": 175,
+      "name": "F05_tail_missing_value_at_end"
+    },
+    {
+      "expected": "FAIL",
+      "line": 176,
+      "name": "F06_duplicate_valid_tail_config"
+    },
+    {
+      "expected": "FAIL",
+      "line": 177,
+      "name": "F07_route_A_only_flag_on_reference"
+    },
+    {
+      "expected": "FAIL",
+      "line": 181,
+      "name": "F08_Z2_NEW_base_equals_REF_with_tokens"
+    },
+    {
+      "expected": "FAIL",
+      "line": 182,
+      "name": "F09_NEW_base_hash_wrong"
+    },
+    {
+      "expected": "FAIL",
+      "line": 183,
+      "name": "F10_request_nested_signed_zero"
+    },
+    {
+      "expected": "FAIL",
+      "line": 184,
+      "name": "F11_request_nested_int_float"
+    },
+    {
+      "expected": "FAIL",
+      "line": 185,
+      "name": "F12_request_nested_bool_int"
+    },
+    {
+      "expected": "PASS",
+      "line": 186,
+      "name": "P13_equal_nested_signed_zero"
+    },
+    {
+      "expected": "PASS",
+      "line": 189,
+      "name": "P14_equal_distinct_scalar_types"
+    },
+    {
+      "expected": "FAIL",
+      "line": 192,
+      "name": "F15_npz_imaginary_signed_zero"
+    },
+    {
+      "expected": "FAIL",
+      "line": 195,
+      "name": "F16_npz_integer_float_dtype"
+    },
+    {
+      "expected": "PASS",
+      "line": 198,
+      "name": "P17_npz_C_F_logical_identity"
+    },
+    {
+      "expected": "FAIL",
+      "line": 199,
+      "name": "F18_extra_dangling_symlink"
+    },
+    {
+      "expected": "FAIL",
+      "line": 202,
+      "name": "F19_external_symlink_different_payload"
+    },
+    {
+      "expected": "FAIL",
+      "line": 203,
+      "name": "F20_extra_stage_directory_symlink"
+    },
+    {
+      "expected": "PASS",
+      "line": 204,
+      "name": "P21_exact_tail_block_prefix_insertion"
+    },
+    {
+      "expected": "FAIL",
+      "line": 205,
+      "name": "F22_tail_flag_on_reference_side"
+    },
+    {
+      "expected": "FAIL",
+      "line": 206,
+      "name": "F23_manifest_outside_run"
+    }
+  ],
+  "own_structural_cases": [
+    {
+      "expected": "PASS",
+      "name": "P01_tiny_full_saved_tree"
+    },
+    {
+      "expected": "PASS",
+      "name": "P02_result_object_key_order"
+    },
+    {
+      "expected": "PASS",
+      "name": "P03_result_ended_clock"
+    },
+    {
+      "expected": "PASS",
+      "name": "P04_equal_nested_input_extension"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F01_collision_earlier_partial_body"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F02_collision_later_partial_body"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F03_collision_both_sides_equal"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F04_collision_middle_of_three"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F05_empty_extra_stage"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F06_missing_body_stage"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F07_renamed_stage_suffix"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F08_body_nested_payload"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F09_result_unknown_nested_ulp"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F10_result_unknown_nested_key_removed"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F11_result_unknown_nested_key_added"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F12_input_nested_contract"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F13_input_binary_last_byte"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F14_input_binary_missing"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F15_input_extra_admission"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F16_finish_nested_residual"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F17_finish_failed_status"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F18_attempt_nested_entropy_ulp"
+    },
+    {
+      "expected": "FAIL",
+      "name": "F19_attempt_subrecord_missing"
+    }
+  ],
+  "primary_template_count": 47,
+  "primary_templates_by_lane": {
+    "invocation": 24,
+    "structural": 23
+  },
+  "schema": "UNT_CX2_COMPARATOR_CHECKER_OVERLAP_V001",
+  "source_pins": [
+    {
+      "bytes": 45831,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v005/tools/selftest_c2v005.py",
+      "sha256": "12dc576a5581adc254d99fd75d54517caaaa8f999a641a593c20f1393985adae"
+    },
+    {
+      "bytes": 6567,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/structural/run_structural_canaries_cx2v002.py",
+      "sha256": "7d924e33374183dd1935cf31c93cb154ca444cce9965feced2956b943046ad7e"
+    },
+    {
+      "bytes": 7643,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/structural/common_structural_cx2v003.py",
+      "sha256": "db5d7dabecb5306d834eaf07ccf6881f4152a9c147fa107ad53ede5b2aff576e"
+    },
+    {
+      "bytes": 1251,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/structural/STRUCTURAL_SUMMARY_CX2V001.json",
+      "sha256": "9c34726fa2e0cc1fc8e828c3d08e406b1f87706a7dfc372e36dafd71302b1eb3"
+    },
+    {
+      "bytes": 7152,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/structural/STRUCTURAL_REVIEW_CX2V001.md",
+      "sha256": "a0245b9bce6f95ec195e04523f9146b3949e1fba8b7d25e1b9c5e2c8609fbc71"
+    },
+    {
+      "bytes": 18620,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/invocation_canaries_cx2v003.py",
+      "sha256": "711580269ba37be0fc6c4e7206c27ca5427d56b7a558e1247cff8e44172ce72e"
+    },
+    {
+      "bytes": 20386,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/c2v005_r4_canaries_v001/RESULT.json",
+      "sha256": "21809faec02fc08f2b0972a2c98e2c3e0c01b9f9a8b3a03d7546f2709508fc79"
+    },
+    {
+      "bytes": 20387,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/c2v005_r5_canaries_v001/RESULT.json",
+      "sha256": "742994b147b03e0c3139ab2537e8fdb30f63ab9c88143576cb102044ac06be3b"
+    },
+    {
+      "bytes": 6696,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/PREPARATION_CX2V001.json",
+      "sha256": "93fbffaf693745ad686a31edf81dd8c354207950f9a279bb99f205da035a620b"
+    },
+    {
+      "bytes": 7073,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/INVOCATION_REVIEW_CX2V002.md",
+      "sha256": "c9a22571260754f36e6c53e47a683c7e8cdde2efe8aa8d9b18c9b48ee1245597"
+    },
+    {
+      "bytes": 4988,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_whole_gate_v001/RESULTS.json",
+      "sha256": "11eeb55904bc8daa714c5e1fd4776833bb6a560a15280eb01805055b4b68c546"
+    },
+    {
+      "bytes": 1771,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/v005_duplicate_npz_v001/RESULTS.json",
+      "sha256": "1ac023bb4a3e80c0741a99abf7216cdbc6347992f1baf0e28f2c689f302bf2eb"
+    },
+    {
+      "bytes": 4541,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/test_whole_gate_edge_cases_cx2v001.py",
+      "sha256": "4b2635f65472bdca319f3d4aafbac4b0e908e033fa3dca5d69d43d8cf33267fa"
+    },
+    {
+      "bytes": 4828,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/test_duplicate_npz_members_cx2v001.py",
+      "sha256": "3f94c347ec5714873c0e61326aba5df50f5f88dd1d07b7cc2bce567596c4c8db"
+    },
+    {
+      "bytes": 2943,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/source_audit/ADDENDUM_NPZ_MEMBERS_V005_CX2V001.md",
+      "sha256": "d374e2b4443e5e4857b398c2307e70e808e66bde7a378a176b08d881b685d832"
+    },
+    {
+      "bytes": 9792,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/REVIEW.md",
+      "sha256": "9317cd0dbaafc967ec80d6f2a4f13c470b6d6d8630e8d3b5c5ed2d4a4edf25e2"
+    },
+    {
+      "bytes": 13481,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/checker_overlap/build_overlap_addendum_cx2v001.py",
+      "sha256": "422f86d34be16ee4d9fe144dcea193836841c375f63cf91d17e2fece4fd6dc8d"
+    },
+    {
+      "bytes": 14085,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/structural/run_20261018T151802_90972/STRUCTURAL_RESULTS.json",
+      "sha256": "fb7e0baa367ab8a6f68afae408bb59f21aebc128b7a8e5c903773535382948bc"
+    },
+    {
+      "bytes": 14085,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/structural/run_20261018T151802_90973/STRUCTURAL_RESULTS.json",
+      "sha256": "6cec3c76ccab462f0197e9a2fd5531e33eb512b2b2250c1ff9b03c77b4f4ccac"
+    }
+  ],
+  "supplied_case_names_unique": true,
+  "supplied_cases": [
+    {
+      "expected": "MUST_PASS",
+      "line": 197,
+      "name": "P00_baseline_B0P"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 198,
+      "name": "P00_baseline_Z2"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 199,
+      "name": "F01_extra_toplevel_txt"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 200,
+      "name": "F02_extra_route_a_attempt_json"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 201,
+      "name": "F03_extra_inputs_file"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 207,
+      "name": "F04_duplicate_stage_number_tampered"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 208,
+      "name": "F05_duplicate_stage_number_extra_copy"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 215,
+      "name": "F06_route_a_blob_npy_last_bit"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 216,
+      "name": "F07_stage_npy_1ulp"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 218,
+      "name": "F08_route_a_attempt_arrays_npy_changed"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 221,
+      "name": "F09_stage_argv_value"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 222,
+      "name": "F10_route_a_argv_column_workers"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 230,
+      "name": "F11_route_a_declared_flag_twice_first_outside_run"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 234,
+      "name": "F12_Z2_rotation_dir_flag_on_reference_stage"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 245,
+      "name": "F13_Z2_tail_flag_on_non_UVT_kind_stage"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 250,
+      "name": "F14_stage_json_signed_zero"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 254,
+      "name": "F15_result_rows_signed_zero"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 256,
+      "name": "F16_result_unlisted_key_signed_zero"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 262,
+      "name": "F17_checkpoint_record_signed_zero"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 263,
+      "name": "F18_stage_json_float_to_int"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 264,
+      "name": "F19_result_rows_float_to_int"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 268,
+      "name": "F20_result_unlisted_key_float_to_int"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 272,
+      "name": "F21_result_unlisted_verdict_keys_flipped"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 273,
+      "name": "F22_result_pass_unlisted_key_bool_to_int"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 278,
+      "name": "F23_result_route_a_outcome_changed"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 287,
+      "name": "F24_script_swap_hidden_by_declared_token"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 291,
+      "name": "F25_swap_to_driver_entry_of_other_kind"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 292,
+      "name": "F26_Z2_reference_swap_to_plain_base_not_uvt"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 293,
+      "name": "F27_route_a_swap_to_nodes_worker"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 295,
+      "name": "F28_new_driver_is_declared_reference_driver_not_pinned"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 303,
+      "name": "F29_undeclared_ref_driver_hidden_by_declared_token"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 310,
+      "name": "F30_route_a_solver_swap_not_in_driver_map"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 311,
+      "name": "Q01_inputs_json_content_changed"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 319,
+      "name": "Q02_inputs_change_referenced_by_sha_in_request"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 320,
+      "name": "Q03_toplevel_finish_changed"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 322,
+      "name": "Q04_route_a_attempt_result_changed"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 328,
+      "name": "Q05_Z2_uvt_stage_without_any_tail_flag"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 329,
+      "name": "P01_stage_json_reformatted_key_order"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 338,
+      "name": "P02_npz_recompressed_same_arrays"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 339,
+      "name": "P03_stage_renumbered"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 344,
+      "name": "P04_masked_keys_differ"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 349,
+      "name": "P05_nan_equal_both_sides"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 350,
+      "name": "P06_Z2_reference_swap_v008_to_driver_uvt_declared"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 361,
+      "name": "P07_Z2_reference_run_on_the_driver_itself"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 363,
+      "name": "P08_Z2_declared_sidecar_file"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 364,
+      "name": "P09_Z2_fs_feedback_stage_without_tail_flags"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 380,
+      "name": "N01_A59_append_mode_tokens_refused"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 385,
+      "name": "N02_A59_F1_hole_base_ran_under_append_tokens"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 391,
+      "name": "N03_tail_off_token_to_successor"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 392,
+      "name": "N04_unnumbered_stage_dir"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 397,
+      "name": "N05_duplicate_stage_number_distinct_names"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 403,
+      "name": "N06_stage_order_swapped"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 404,
+      "name": "N07_symlink_in_new"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 405,
+      "name": "N08_Z2_manifest_stage_missing"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 409,
+      "name": "N09_Z2_manifest_stage_not_after_route_a"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 410,
+      "name": "N10_Z2_manifest_wrong_script"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 413,
+      "name": "N11_Z2_truncation_flag_on_reference"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 417,
+      "name": "N12_Z2_config_sha_of_another_file"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 421,
+      "name": "N13_Z2_test_only_flag_missing"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 435,
+      "name": "N14_stage_record_differs_from_own_request"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 436,
+      "name": "N15_stage_records_consistent"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 437,
+      "name": "N16_checkpoint_lock_differs"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 439,
+      "name": "N17_attempt_finish_differs"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 445,
+      "name": "N18_attempt_undeclared_new_only_pin"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 446,
+      "name": "N19_attempt_reference_only_pin"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 451,
+      "name": "N20_call_spec_label_only_differs"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 452,
+      "name": "N21_call_spec_leaf_differs"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 460,
+      "name": "N22_attempt_tokens_differ_content_equal"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 461,
+      "name": "N23_attempt_ledger_content_differs"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 467,
+      "name": "N24_progress_elapsed_only_differs"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 468,
+      "name": "N25_progress_event_differs"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 481,
+      "name": "N26_static_pin_new_only_verified_from_bytes"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 482,
+      "name": "N27_static_pin_new_only_bogus_sha"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 483,
+      "name": "N28_static_pin_reference_only"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 484,
+      "name": "N29_result_driver_sha_not_pinned"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 489,
+      "name": "N30_Z2_impl_kind_wrong_pair"
+    },
+    {
+      "expected": "MUST_PASS",
+      "line": 490,
+      "name": "N31_Z2_impl_kind_declared_pair"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 497,
+      "name": "N32_Z2_identity_ro1_differs_from_outcome_ro1"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 498,
+      "name": "N33_Z2_uv_tail_record_not_test_only"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 499,
+      "name": "N34_B0P_ro1_armed"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 500,
+      "name": "N35_Z2_baseline_compared_under_the_other_driver"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 501,
+      "name": "N36_inputs_file_renamed"
+    },
+    {
+      "expected": "MUST_FAIL",
+      "line": 502,
+      "name": "N37_stage_dir_renamed"
+    }
+  ],
+  "supplied_literal_case_count": 83,
+  "twenty_semantically_nonoverlapping_templates_claimed": false
+}

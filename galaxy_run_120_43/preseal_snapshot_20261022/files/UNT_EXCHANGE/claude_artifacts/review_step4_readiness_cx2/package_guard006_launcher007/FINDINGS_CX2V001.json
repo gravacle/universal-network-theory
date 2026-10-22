@@ -1,0 +1,87 @@
+{
+  "date_u": "Sun Oct 18 20:58:10 UTC 2026",
+  "verdict": "FAIL_NI_3_REMAINS",
+  "label": "TESTED_BOUNDED_DELTA",
+  "source_pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_guard_cx1v006.py",
+      "sha256": "af66d0d8861f3d414c3a52e12e8b1f8d5f205c96b0abaf932949575a3ffe5832",
+      "bytes": 17353
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_bind_cx1v005.py",
+      "sha256": "30ca87c77c82f33e880b9c42665d1c5a62eea739d5b32e5de42e631ef00f9d7a",
+      "bytes": 3369
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_launcher_cx1v007.py",
+      "sha256": "f0443f33eaf3fda78fd7d36cb8f093e2a04edf5aa73876a6a39c298065f7faef",
+      "bytes": 11339
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/step4_launch_packet_cx1/impl/step4_direct_preflight_cx1v001.py",
+      "sha256": "eee61ac61ff93a11c97b9fdd3d6340661f17a92394653e524ac1cd8648d20fd1",
+      "bytes": 2487
+    }
+  ],
+  "closed_prior_findings": [
+    {
+      "id": "S4-GUARD-METADATA-1",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    },
+    {
+      "id": "S4-BINDER-PIN-1",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    },
+    {
+      "id": "S4-BINDER-REREAD-1",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    },
+    {
+      "id": "S4-NATIVE-LOADER-1",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    },
+    {
+      "id": "S4-TRANSITIVE-PIN-1",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    },
+    {
+      "id": "CX2-S4-LIFETIME-1",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    },
+    {
+      "id": "CX2-S4-LIFETIME-2",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    },
+    {
+      "id": "S4-SCHEMA-DOC-1",
+      "disposition": "CLOSED_IN_BOUNDED_SOURCE_AND_CONTROL_SCOPE"
+    }
+  ],
+  "blocking_findings": [
+    {
+      "id": "NI-3",
+      "severity": "BLOCKING",
+      "detail": "Guard006 compile-buffer hash audit rejects the pinned native wrapper generated _resolve_source compile under __file__, since snippet hash differs from full-file pin. Static exact native call-site and owned inert equivalent tested; native module not executed. Existing pending policy may refuse earlier."
+    }
+  ],
+  "new_should_fix_findings": [],
+  "checks": {
+    "custody_paths_snapshot": 40,
+    "custody_bootstrap_binder": 23,
+    "loader": 39,
+    "launcher006": 217,
+    "launcher007_delta": 96,
+    "templates003_static": 92,
+    "documents002_static": 44,
+    "parent_manifest_entries": 69
+  },
+  "untested": [
+    "Full native import/admission",
+    "Production registrations/certificates/config closure",
+    "Actual OS priority/signals/lock/assertion lifetime",
+    "Scientific readiness/launch",
+    "Unpublished successors"
+  ],
+  "scientific_launches": 0
+}

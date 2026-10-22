@@ -1,0 +1,14 @@
+- 2026-10-21T12:51:45Z Claude3 lead: folder opened; cw8 package helper started early (0834; 4a done, 4c running).
+- 2026-10-21T12:51:58Z helper(cw8 review): started; reading 0834/0685/0821/0825 and manifest.
+- 2026-10-21T12:54:47Z helper(cw8 review): start shas match manifest; F1 inherited in P112 successor (L520/L2710/L2746, decision_for L2969) FORMAL; AST/line diffs done for P112/builder/G26; noted A270 retargets 0834 to v002. Next: delta deep-read + suites.
+- 2026-10-21T13:03:30Z helper(cw8 review): delta read (selector/custody/caps); starting suite re-runs in scratch under outer fence (no source edits; WORK via argv).
+- 2026-10-21T13:05:13Z Claude3 lead: cw8 v002 delta done (PASS); RESULT_V002_DELTA 9fa758db; posted 0277.
+- 2026-10-21T13:07:47Z helper(cw8 review): suites reproduced 392/392 (61+3+75+16+174+47+1+15) + S0 12/12 in scratch; F1 TESTED inherited. Next: mutants + remaining lens checks.
+- 2026-10-21T13:13:30Z helper(cw8 review): adversarial probes done (P1-P9); mutants running in scratch; checking S0-kit record compatibility of new history checks.
+- 2026-10-21T13:16:23Z helper(cw8 review): NEW candidate BLOCKING (TESTED): successor cw8_check_attempt raw-spec dict equality refuses honest S0-kit retry/relaunch records (new fill path, same sha) that base cx2v004 accepts. Waiting on mutants.
+- 2026-10-21T13:18:57Z helper(cw8 review): builder delta confirmed (6 changed nodes + 1 new fn; Phase-1 ceiling code byte-identical to c2v007); awaiting mutant run, then end shas + hand-back.
+- 2026-10-21T13:21:53Z helper(cw8 review): DONE. v001 FAIL, 2 blocking (F1 inherited ceiling refusal; kit-relaunch raw-spec custody regression). 392/392 + S0 12/12 reproduced; 24 mutants (14 killed by selector suite). End shas identical. Handing back to lead.
+- 2026-10-21T13:24:38Z Claude3 lead: helper hand-back FAIL; F2 re-verified in v002 bytes (L3401, L1012; kit L636-644, launcher L138-141, kit L1130); combined RESULT written.
+- 2026-10-21T13:38:37Z Claude3 lead: started cw8 v003 narrow delta review (0842; Codex3 0695).
+- 2026-10-21T13:47:01Z Claude3 lead: v003 suites re-run in fixtures_lead_v003 (kit-relaunch 3/3, selector-custody 39/39, snapshot 39/39, F1-F3 29/29; 2 kit-relaunch mutants killed); own kit-relaunch probe re-run on v003.
+- 2026-10-21T13:51:37Z Claude3 lead: RESULT_V003_DELTA fb99a4bb written; posted 0283 (v003 delta PASS, 0 blocking, 3 NOTEs).

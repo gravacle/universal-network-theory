@@ -1,0 +1,68 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_h3_fields_c2v001.py
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/apply_h3_fields_c2v003.py
+@@ -1,4 +1,11 @@
+-"""Apply the H3 gate fields to a DDO154 calibration RUN_CONFIG (Claude2 h3_campaign_path_c2, c2v001; V006 A188 item 4).
++"""Apply the H3 gate fields to a DDO154 calibration RUN_CONFIG (Claude2 h3_campaign_path_c2, c2v003; V006 A188 item 4, A192).
++
++c2v003 against apply_h3_fields_c2v001 (2e4a5393), and nothing else (V006 A192 item 2, the R-C8 ledger policy): one more
++settable field, tail_readiness.certificate_ledger, whose value must be exactly
++  {"schema": "DDO154_CERTIFICATE_LEDGER_C2V003", "path": <predecessor work_dir>/CERTIFICATE_LEDGER.jsonl}
++(the wrapper source calibration_orchestrator_q5b1_ledger_c2v003 requires exactly this; the path is not a pin: the ledger file
++need not exist and carries no head sha).  It is the only path that may be ABSENT in the predecessor (v004a has no such key).
++It is in the wrapper cache key (tail_readiness).  Text below is c2v001's.
+ 
+ c2v001 = apply_sched_delta_s45_c2v002 (2a18b280) with the allowed set replaced: v002 may set only scheduling leaves, so it
+ cannot set any gate field (its ALLOWED_SET L25-26).  This successor may set ONLY the fields the five H3 gates and the numerics
+@@ -23,7 +30,7 @@
+ The output keeps the predecessor's serialization (json, indent 1, sorted keys, trailing newline) and is written by exclusive
+ create.  The report lists every changed path, the canonical sha256 of every unchanged top-level key, and whether a changed
+ path is in the wrapper cache key (tail_readiness, q5b1 L52-55: then the cache id changes).
+-usage: python3 -I -B apply_h3_fields_c2v001.py PREDECESSOR.json DELTA.json OUT.json [REPORT.json]
++usage: python3 -I -B apply_h3_fields_c2v003.py PREDECESSOR.json DELTA.json OUT.json [REPORT.json]
+                                               [--seal-record SEAL.json --seal-record-sha256 H]
+ """
+ import copy
+@@ -40,7 +47,10 @@
+              'tail_readiness.state_enumerator', 'tail_readiness.custody_deriver', 'adoption_derivation')
+ ALLOWED_SET = PIN_PATHS + ('numerics.source_results', 'anchor.spec_sha256', 'tail_readiness.approved_certificate_producers',
+                            'disk_guard.measured_per_call_bytes', 'u_i_carrier.carrier', 'u_i_carrier.declared_by',
+-                           'u_i_carrier.basis', 'u_i_carrier.note')
++                           'u_i_carrier.basis', 'u_i_carrier.note', 'tail_readiness.certificate_ledger')
++CREATABLE = ('tail_readiness.certificate_ledger',)      # c2v003: may be absent in the predecessor
++LEDGER_SCHEMA = 'DDO154_CERTIFICATE_LEDGER_C2V003'      # wrapper source c2v003 LEDGER_SCHEMA
++LEDGER_NAME = 'CERTIFICATE_LEDGER.jsonl'                # wrapper source c2v003 LEDGER_NAME
+ ALLOWED_APPEND = ('notes',)
+ ALLOWED = ALLOWED_SET + ALLOWED_APPEND
+ CACHE_KEY_PREFIXES = ('tail_readiness',)                 # wrapper q5b1 L52-55; the parent key reads none of ALLOWED_SET
+@@ -66,7 +76,7 @@
+     ks = path.split('.')
+     for k in ks[:-1]:
+         d = d[k]
+-    if ks[-1] not in d:
++    if ks[-1] not in d and path not in CREATABLE:
+         raise KeyError('path absent in predecessor: %s' % path)
+     d[ks[-1]] = v
+ 
+@@ -122,6 +132,11 @@
+         return [] if isinstance(v, str) and v.strip() else ['%s: non-empty text' % p]
+     if p == 'disk_guard.measured_per_call_bytes':
+         return [] if type(v) is int and v > 0 else ['%s: an int > 0' % p]
++    if p == 'tail_readiness.certificate_ledger':
++        if not isinstance(v, dict) or set(v) != {'schema', 'path'} or v.get('schema') != LEDGER_SCHEMA:
++            return ['%s: exactly {schema: %s, path}' % (p, LEDGER_SCHEMA)]
++        if not isinstance(v['path'], str) or not os.path.isabs(v['path']) or os.path.normpath(v['path']) != v['path']:
++            return ['%s: path must be absolute and normalized' % p]
+     return []
+ 
+ 
+@@ -170,6 +185,10 @@
+     for p, v in sets.items():
+         if p in ALLOWED_SET:
+             reasons.extend(value_problems(p, v))
++    led = sets.get('tail_readiness.certificate_ledger')
++    if isinstance(led, dict) and led.get('path') != os.path.join(str(pred.get('work_dir')), LEDGER_NAME):
++        reasons.append('tail_readiness.certificate_ledger: path must be the work dir\'s %s (%s)'
++                       % (LEDGER_NAME, os.path.join(str(pred.get('work_dir')), LEDGER_NAME)))
+     if reasons:
+         return None, {'ok': False, 'reasons': reasons}
+     new = copy.deepcopy(pred)

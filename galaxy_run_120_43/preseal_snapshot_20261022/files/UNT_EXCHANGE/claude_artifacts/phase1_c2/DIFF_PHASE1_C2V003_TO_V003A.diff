@@ -1,0 +1,110 @@
+--- phase1_c2v003.py	2026-10-19 11:16:24.274667388 -0500
++++ phase1_c2v003a.py	2026-10-19 12:07:37.216172006 -0500
+@@ -1,6 +1,19 @@
+-"""phase1_c2v003 -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
+-phase1_c2v002 (d64351ec) under ruling A144 (V006 addendum; Claude3 0204 N1, N2 and N6; erratum E_A133_2) and A135
+-item 10.  Changes against v002, and only these:
++"""phase1_c2v003a -- the A133 Phase-1 tool (UNT Galaxy Run 120/43; Claude2 root-workflow build), successor of
++phase1_c2v003 (149ed4cb) under ruling A149 items 1-4 (V006 addendum), which close the gaps both root verifiers found in
++v003.  Changes against v003, and only these:
++  A149.1  member_eps catches OverflowError (an int entry beyond the float range, e.g. 10**400): that pair is flagged
++          MEMBER_EPS_NON_FINITE (MEMBER_POINT_NOISE_NOT_BOUNDED, bounded terms kept) instead of refusing the whole at1.
++  A149.2  at0b records members_sha256 (the sha of the --members bytes it read); at1 refuses MEMBERS (no out-dir) unless
++          its --members sha equals that recorded value.  This closes a gap present since v001.
++  A149.3  at1 also prints band_region_box_only_extent: per identified c_j, [min, max] over the band region's BOX rows
++          alone (E._lp_max, with both statuses), print only.  band_region_single_point stays exact (no new tolerance)
++          and band_region_extent, its reason and every row are unchanged.
++  CUSTODY at1 accepts only an L1 whose module is this MODULE ('phase1_c2v003a').
++  (A149.4, the tests that kill v003's 5 surviving mutants, is in test_phase1_c2v003a.py.)
++
++v003 header (unchanged behaviour; 'v003' below reads as this module):
++phase1_c2v003 -- successor of phase1_c2v002 (d64351ec) under ruling A144 (V006 addendum; Claude3 0204 N1, N2 and N6;
++erratum E_A133_2) and A135 item 10.  Changes against v002, and only these:
+   R1   (E_A133_2(a), label only) AT-1 category: one helper, band_region, builds the band region's rows (A, b_band and
+        the family slices TRUST_RADIUS, BOX, LINEAR_DDO) exactly as band_rows does.  Row i is violated iff
+        (A c)_i - max(b_band_i, 0) > E._LP_EPS (the clip and the tolerance are the pinned engine's own, L1787 / L181),
+@@ -71,7 +84,7 @@
+ import sys
+ from pathlib import Path
+ 
+-MODULE = 'phase1_c2v003'
++MODULE = 'phase1_c2v003a'
+ ART = '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/'
+ ORCH_PIN = (ART + 'calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py',
+             'c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d')
+@@ -1026,7 +1039,8 @@
+             (p1[0]['result_pin'] or {}).get('sha256') != (p2.get('result_pin') or {}).get('sha256'):
+         fails.append('the u_A member does not re-bind to the same result file by sha')
+     res = {'schema': 'PHASE1_AT0B_C2V001', 'module': MODULE, 'outcome': 'PASS' if not fails else 'AGREEMENT_DEFECT',
+-           'failures': fails, 'phase2_record_sha256': a.phase2_record_sha256, 'snapshot_sha256': a.snapshot_sha256}
++           'failures': fails, 'phase2_record_sha256': a.phase2_record_sha256, 'snapshot_sha256': a.snapshot_sha256,
++           'members_sha256': a.members_sha256.lower()}   # A149 item 2: the sha of the members bytes read above
+     out.create()
+     out.write('AT0B_C2V001.json', res)
+     return ('OK' if not fails else 'AGREEMENT_DEFECT'), {'failures': fails, 'out_dir': out.dir, 'files': out.files}
+@@ -1092,6 +1106,26 @@
+     return ext, sp, reason
+ 
+ 
++def band_region_box_only_extent(E, L, lp=None):
++    """A149 item 3 (print only): per identified c_j, [min, max] over the band region's BOX rows alone (the same rows,
++    objectives and E._lp_max programs band_region_extent's reason reads), with both statuses, in band_region_extent's
++    form.  It never refuses and changes no row, no extent, no single-point value and no reason: the single-point rule
++    stays exact.  It shows BOX_CORNER geometry when an LP tie leaves the full-region extent a few ulps off 0.0."""
++    import numpy as np
++    A, b, fam = band_region(L)
++    A_, b_ = A[fam['BOX']], b[fam['BOX']]
++    m = len(L['I'])
++    res = []
++    for j in range(m):
++        w = np.zeros(m)
++        w[j] = 1.0
++        lo, hi, _cmin, _cmax, st = lp_pair(E, A_, b_, w, lp)
++        res.append({'direction': L['I'][j], 'extent': [lo if st[0] == 'OPTIMAL' else 'NOT_AVAILABLE',
++                                                       hi if st[1] == 'OPTIMAL' else 'NOT_AVAILABLE'],
++                    'lp_status': [st[0], st[1]]})
++    return res
++
++
+ def member_eps(eps_list, q):
+     """(eps_m as float, None) for a bounded entry; (None, flag_reason) otherwise (A144 R3)."""
+     if not isinstance(eps_list, list) or q >= len(eps_list):
+@@ -1103,7 +1137,11 @@
+         return None, 'MEMBER_EPS_BOOL'
+     if not isinstance(e, (int, float)):
+         return None, 'MEMBER_EPS_NOT_A_NUMBER'
+-    if not math.isfinite(e):
++    try:
++        finite = math.isfinite(e)
++    except OverflowError:   # A149 item 1: an int beyond the float range (e.g. 10**400) is non-finite, flagged per pair
++        finite = False
++    if not finite:
+         return None, 'MEMBER_EPS_NON_FINITE'
+     if e < 0:
+         return None, 'MEMBER_EPS_NEGATIVE'
+@@ -1188,13 +1226,14 @@
+         proj.append({'direction': k, 'phase2_range': [min(pr), max(pr)], 'linear_region': [lo, hi], 'lp_status': st,
+                      'resolution_u': res_, 'beyond_linear_region': bool(min(pr) < lo - res_ or max(pr) > hi + res_)})
+     ext, single, reason = band_region_extent(E, L, lp)   # A144 R2 (print only)
++    box_ext = band_region_box_only_extent(E, L, lp)   # A149 item 3 (print only)
+     return fails, {'rows_not_tested_phase1_not_available': untested, 'e_q_per_member_row': eqs,
+                    'rows_fd_noise_not_bounded': sorted(q for q, x in rows1.items() if x.get('fd_noise') == 'FD_NOISE_NOT_BOUNDED'),
+                    'pairs_member_point_noise_not_bounded': pmp,
+                    'ngc_linearity_residuals': resid, 'envelope_vs_band_width': env,
+                    'max_ddo_linearity_deviation_over_tau': lin_dev, 'identified_projection_vs_linear_region': proj,
+                    'band_region_extent': ext, 'band_region_single_point': single,
+-                   'band_region_single_point_reason': reason}
++                   'band_region_single_point_reason': reason, 'band_region_box_only_extent': box_ext}
+ 
+ 
+ def cmd_at1(a):
+@@ -1210,6 +1249,9 @@
+     at0 = [read_json_pinned(p, s, lab) for p, s, lab in ((a.at0a, a.at0a_sha256, 'AT-0a'), (a.at0b, a.at0b_sha256, 'AT-0b'))]
+     run2 = phase2_record(E, a.phase2_record, a.phase2_record_sha256, a.phase2_registry)
+     mvals = read_json_pinned(a.members, a.members_sha256, 'Phase-2 members')
++    if at0[1].get('members_sha256') != a.members_sha256.lower():   # A149 item 2: the members file AT-0b read
++        raise Refused('MEMBERS', '--members sha256 %s is not the members_sha256 %r recorded by AT-0b (A149 item 2)'
++                      % (a.members_sha256.lower(), at0[1].get('members_sha256')))
+     mv = members_values(mvals, run2)
+     check_member_eps(mv, len(mvals['query_ids']))   # A144 R3 input contract (at1 only; at0b is not affected)
+     if [r['id'] for r in l1['rows']] != list(mvals['query_ids']):

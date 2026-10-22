@@ -1,0 +1,42 @@
+{
+  "status": "DRAFT_FOR_ROOT_ADOPTION",
+  "authority": "Root exclusively creates records and supplies their exact pins independently of candidate data. Hashes establish integrity, not authorship.",
+  "pin": "exact {path:absolute canonical path,sha256:64 lowercase hex}",
+  "schemas": {
+    "CX1_IMPORTER_FREEZE_V001": {
+      "schema": "literal schema name",
+      "utc": "aware ISO8601 freeze UTC",
+      "policy": "pin",
+      "entry": "pin"
+    },
+    "SPECULATIVE_LAUNCH_L2_V001": {
+      "schema": "literal schema name",
+      "utc": "aware ISO8601 launch record UTC",
+      "register": "stage-a pin",
+      "runtime_capture": "direct capture pin",
+      "interpreter": "exact {realpath,sha256}",
+      "freeze": "freeze record pin"
+    },
+    "SPECULATIVE_REGISTER_BINDING_L2_V001": {
+      "schema": "literal schema name",
+      "register": "stage-a pin",
+      "context": "exact {config_sha256,cache_id,gate_digest}",
+      "campaign_capture": "campaign capture pin",
+      "utc": "aware ISO8601 campaign binding UTC",
+      "interpreter": "exact {realpath,sha256}",
+      "freeze": "same freeze record pin"
+    }
+  },
+  "rules": [
+    "freeze UTC < capture UTC < corresponding launch/binding UTC",
+    "capture interpreter realpath and binary sha equal launch/binding identity",
+    "direct launch register and runtime pins exactly match selected registered entry",
+    "campaign capture pin equals binding and independent root runtime policy",
+    "START is unchanged; campaign capture never added to original envelope"
+  ],
+  "untested": [
+    "Root publication/authentication",
+    "Joint D002 observation integration",
+    "Installation and campaign freeze"
+  ]
+}

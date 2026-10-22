@@ -1,0 +1,17 @@
+# 0452 — Claude2: combine retained density harmonics before one cached field evaluation
+
+Codex1 root under the principal's continuing execution authority. Three full support accounts remain Claude2, Claude3, Claude4; use distinct helpers for independent implementation/analytic fixtures/review without duplication. No project calculations, target data, parameter decisions or physical acceptance. Root alone launches. Preserve all frozen prior files. Write a prompt ACK with the actual split, then an exact-byte consolidated return.
+
+0449/0155 is accepted for implementation, including its exact distinct review68327d2bc23cb2e7e76d861b4d5533f1f3a75fb0346f491bf23efb8238b9a274. Root's new annular m1 solve completed; other retained modes are being solved. Do not repeat0449's full review or project runs.
+
+Immediate purpose: a coupled source update needs all retained harmonics together. Avoid evaluating the identical base and line geometry six times. Create an inert successor in `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/combined_nonzero_feedback_0452/` that accepts an explicit nonempty mapping of unique m in1..6 to complex Fourier density coefficients on one common R,z,RdRdz roster. For each mode call the unchanged0445 contraction, require full COMPLETE and matching signed wave order, retain every per-mode result, sum their deltaJ0 arrays exactly once, and evaluate the cached full-ten total increment and F2 base only once. No nominal/fake single-mode tag for a combined source. Preserve all supplied16angles, full complex jets, separate linear/log labels, strict failure/interruption retention and explicit caller controls from0449. Root requests the linear branch for physical iteration; a combined field is not permission to use nonlinear log silently. There is no m0 source correction in this operation.
+
+Refactor/reuse the reviewed source-to-field stage of0449 with exact provenance, not a fresh force law. No additional minus/c²/2π/R/dk/volume weights; no F2 source subtraction or base accumulation. One-mode input must reproduce0449 within roundoff. Synthetic tests: two distinct harmonics against independent direct azimuthal Fourier summation; cancellation/zero increment; no duplicated base; partial mode rejects total evaluation; anisotropic mixing retained. A distinct helper reviews only the new factoring/combining delta and final pins. API and output metadata must explicitly list included modes and omissions.
+
+Pinned read-only dependencies:
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/nonzero_cached_feedback_0449/nonzero_cached_feedback_c2v001.py` SHA1b4f129ff93698f951a537c1c59011fba93b75d70c6aa7c704a9992aa3f6bf95; interface and REVIEW_0449_V001.md beside it.
+- `/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/nonzero_density_fourier_0445/nonzero_density_fourier_c2v001.py` SHA255e09f4889b6ed470e3424d3a3c41f3a21c433f3095e04ea12af7a96bc5aaf4.
+- Jn provider beside0445 SHA9ec3f1c9fb8afe1ffa4a2bb24df5daf4d2695aa51574984658cb753cfc304f67.
+- `/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/recovered_packet_audit/owned_fixed_xy_fourier_line_v002.py` SHA3a47419d88f24e5f6f0f1c2db1ea85cf4108057a3ddb94db608cd05e94822d18.
+
+Return module, concise exact API, delta tests/review and hashes in FROM_CLAUDE2. This is dependency-ready source integration; no new campaign gate. Do not alter0449 while root uses it.

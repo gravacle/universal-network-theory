@@ -1,0 +1,216 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/galaxy_source_preparation_0337/extract_sparc_geometry_metadata_v001.py	2026-10-15 08:58:45.115963489 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_schema_repair_0344/extract_sparc_geometry_metadata_v002.py	2026-10-15 09:21:16.022321925 -0500
+@@ -1,57 +1,176 @@
+-"""INERT allowed-field extractor for SPARC galaxy-sample geometry metadata (task 0337 part 3). ROOT runs it; the author has not.
++"""INERT fail-closed allowed-field extractor V002 for SPARC galaxy-sample geometry (task 0344). ROOT runs it; the author has not run it on the real source.
+ 
+-Source: SPARC Table1 in MRT form (SPARC_Lelli2016c.mrt). Allowed fields ONLY: Galaxy, D, e_D, f_D, Inc, e_Inc
+-(in-file MRT header bytes 1-34). Each data line is truncated to 34 bytes BEFORE any other use, so Vflat, e_Vflat
+-(bytes 87-96) and all other columns are never read into a variable. Fails closed if the in-file header's labels,
+-byte ranges, formats or units differ from the allowed schema. Errors print fixed codes only. Refuses to overwrite.
+-NOTE: the CDS ReadMe (SPARC_ReadMe.html) documents table1.dat with DIFFERENT byte positions (e.g. Dist 16-21).
+-This extractor uses the local MRT file's own in-file header, which governs its bytes.
++Why V002: V001 trusted the in-file MRT header byte ranges without checking the field values. On the real rows those ranges
++cut across the tokens, so V001 emitted malformed literals with status OK. Its output (SPARC_ALLOWED_GEOMETRY_METADATA_V001.json)
++is QUARANTINED. V001 and that output stay unchanged.
++
++V002 rules:
++  * A layout is used only if it is DOCUMENTED (the CDS ReadMe table1.dat description, verified by pin and exact
++    description lines; or the in-file MRT header, verified by exact header lines), or DECLARED by root in a JSON file
++    passed with its sha256 (--declared-layout PATH SHA256). The author never guesses offsets.
++  * Every field of every target row is validated strictly:
++      - format: right-justified ASCII digits only (no sign, exponent, nan/inf, internal or trailing blank); Fw.d needs
++        exactly d decimals;
++      - documented blank separator bytes must be blank; the row must reach the layout's last byte (completeness);
++      - domain: D finite and > 0; e_D >= 0; f_D in {1..5} (Note 2); 0 <= Inc <= 90; e_Inc >= 0; Type in 0..11;
++        CDS documented column ranges are enforced when the CDS layout is evaluated.
++  * A layout PASSES only if both targets are found exactly once and every check passes for both.
++  * Status: PASS_DOCUMENTED_LAYOUT (exactly one documented layout passes, no declaration given);
++    PASS_DECLARED_LAYOUT (declaration given, declared layout passes and no documented layout passes);
++    otherwise FAILED_SCHEMA_VALIDATION, FAILED_AMBIGUOUS_LAYOUT or FAILED_DECLARATION_CONFLICT. Never plain OK.
++    On any FAILED status no field values are emitted: only character-class masks and per-check booleans.
++  * Exposure (corrected wording): the whole source file is read into memory, hashed, and split into byte lines. Bytes
++    1-11 of each post-header line are compared with the target names. For target rows only, bytes 1..MAXBYTE (41) are
++    decoded and interpreted. Bytes beyond 41 are present in memory buffers but are never decoded, parsed, compared or
++    emitted. No geometry is adopted by running this; the output is catalogue metadata for root review.
++Usage: python3 -B extract_sparc_geometry_metadata_v002.py <new_output.json> [--declared-layout <layout.json> <sha256>]
+ """
+-import hashlib,json,re,sys
++import hashlib,html,json,math,re,sys
+ from pathlib import Path
+ SRC=('/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt','5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243')
+-ALLOWED={'Galaxy':(1,11,'A11','---'),'D':(14,19,'F6.2','Mpc'),'e_D':(20,24,'F5.2','Mpc'),'f_D':(25,26,'I2','---'),'Inc':(27,30,'F4.1','deg'),'e_Inc':(31,34,'F4.1','deg')}
+-MAXBYTE=34
+-F_D_NOTE={'1':'Hubble-Flow assuming H0=73 km/s/Mpc and correcting for Virgo-centric infall','2':'Magnitude of the Tip of the Red Giant Branch','3':'Cepheids Magnitude-Period Relation','4':'Ursa Major Cluster of Galaxies','5':'Supernovae Light Curve'}
++CDS_README=('/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_ReadMe.html','457f61cd8e63dd7b8f8ce0052a458294fa1a5acc2b5b23bb951a2c40d69f9666')
++MAXBYTE=41  # hard interpretation ceiling: CDS geometry ends at 39, separator 40; one more byte for a declared e_Inc end check
+ OBJECTS={'NGC3198':['NGC3198','NGC 3198'],'DDO154':['DDO154','DDO 154','NGC4789A','NGC 4789A']}
+-FIELD=re.compile(r'^\s*(\d+)-\s*(\d+)\s+(\S+)\s+(\S+)\s+(\S+)')
++EMIT=['D','e_D','f_D','Inc','e_Inc']  # Type is validated as a layout check but not emitted
++F_D_NOTE={1:'Hubble-Flow assuming H0=73 km/s/Mpc and correcting for Virgo-centric infall',2:'Magnitude of the Tip of the Red Giant Branch',3:'Cepheids Magnitude-Period Relation',4:'Ursa Major Cluster of Galaxies',5:'Supernovae Light Curve'}
++DOMAIN={'Type':lambda v:0<=v<=11,'D':lambda v:math.isfinite(v) and v>0,'e_D':lambda v:math.isfinite(v) and v>=0,'f_D':lambda v:v in (1,2,3,4,5),'Inc':lambda v:math.isfinite(v) and 0<=v<=90,'e_Inc':lambda v:math.isfinite(v) and v>=0}
++# CDS ReadMe table1.dat (text lines 144-160 after tag stripping): label, bytes, format, documented [min/max].
++CDS_LINES={'Type':r'^\s*13-\s*14\s+I2\s+---\s+Type\s+\[0/11\]','D':r'^\s*16-\s*21\s+F6\.2\s+Mpc\s+Dist\s+\[0\.98/127\.8\]','e_D':r'^\s*23-\s*27\s+F5\.2\s+Mpc\s+e_Dist\s+\[0\.05/12\.8\]',
++ 'f_D':r'^\s*29\s+I1\s+---\s+f_Dist\s+\[1/5\]','Inc':r'^\s*31-\s*34\s+F4\.1\s+deg\s+i\s+\[15/90\]','e_Inc':r'^\s*36-\s*39\s+F4\.1\s+deg\s+e_i\s+\[1/10\]','Galaxy':r'^\s*1-\s*11\s+A11\s+---\s+Name\s'}
++CDS_LAYOUT={'name':'CDS_TABLE1_README','fields':{'Galaxy':(1,11,'A11'),'Type':(13,14,'I2'),'D':(16,21,'F6.2'),'e_D':(23,27,'F5.2'),'f_D':(29,29,'I1'),'Inc':(31,34,'F4.1'),'e_Inc':(36,39,'F4.1')},
++ 'blank_bytes':[12,15,22,28,30,35,40],'ranges':{'Type':(0,11),'D':(0.98,127.8),'e_D':(0.05,12.8),'f_D':(1,5),'Inc':(15,90),'e_Inc':(1,10)}}
++MRT_LAYOUT={'name':'MRT_INFILE_HEADER','fields':{'Galaxy':(1,11,'A11'),'Type':(12,13,'I2'),'D':(14,19,'F6.2'),'e_D':(20,24,'F5.2'),'f_D':(25,26,'I2'),'Inc':(27,30,'F4.1'),'e_Inc':(31,34,'F4.1')},'blank_bytes':[],'ranges':{}}
++MRT_HDR={'Galaxy':(1,11,'A11','---'),'T':(12,13,'I2','---'),'D':(14,19,'F6.2','Mpc'),'e_D':(20,24,'F5.2','Mpc'),'f_D':(25,26,'I2','---'),'Inc':(27,30,'F4.1','deg'),'e_Inc':(31,34,'F4.1','deg')}
++HDR_FIELD=re.compile(r'^\s*(\d+)-\s*(\d+)\s+(\S+)\s+(\S+)\s+(\S+)')
++FMT=re.compile(r'^(A|I|F)(\d+)(?:\.(\d+))?$')
+ class Fail(Exception):pass
++def sha(b):return hashlib.sha256(b).hexdigest()
++def mask(b):return ''.join('_' if c==32 else '9' if 48<=c<=57 else '.' if c==46 else 'A' if (65<=c<=90 or 97<=c<=122) else '?' for c in b)
++def check_layout_shape(lay):
++ need={'Galaxy','D','e_D','f_D','Inc','e_Inc','Type'}
++ if set(lay['fields'])!=need:raise Fail('E_LAYOUT_FIELDS')
++ used=set()
++ for k,(a,e,f) in lay['fields'].items():
++  if not (type(a) is int and type(e) is int and isinstance(f,str)):raise Fail('E_LAYOUT_FIELD_'+k)
++  m=FMT.match(f)
++  if not m or a<1 or e<a or e>MAXBYTE or int(m.group(2))!=e-a+1:raise Fail('E_LAYOUT_FIELD_'+k)
++  if (k=='Galaxy')!=(m.group(1)=='A') or (k in ('Type','f_D'))!=(m.group(1)=='I'):raise Fail('E_LAYOUT_TYPE_'+k)
++  span=set(range(a,e+1))
++  if span&used:raise Fail('E_LAYOUT_OVERLAP')
++  used|=span
++ for x in lay['blank_bytes']:
++  if type(x) is not int or not (1<=x<=MAXBYTE) or x in used:raise Fail('E_LAYOUT_BLANK_BYTES')
++def parse_field(raw,f):
++ """raw: bytes slice. Returns (ok_format, value_or_None)."""
++ try:s=raw.decode('ascii')
++ except UnicodeDecodeError:return False,None
++ m=FMT.match(f);kind,dec=m.group(1),m.group(3)
++ t=s.lstrip(' ')
++ if kind=='I':
++  return (True,int(t)) if re.fullmatch(r'\d+',t) else (False,None)
++ if kind=='F':
++  return (True,float(t)) if re.fullmatch(r'\d+\.\d{%d}'%int(dec),t) else (False,None)
++ return False,None
++def evaluate(lay,rows):
++ """rows: {obj:[(line_no,prefix_bytes,full_len)]}. Returns (passed, values, diagnosis)."""
++ last=max([e for a,e,f in lay['fields'].values()]+lay['blank_bytes'])
++ diag={};vals={};passed=True
++ for obj in OBJECTS:
++  hits=rows.get(obj,[])
++  d={'occurrences':len(hits)}
++  if len(hits)!=1:diag[obj]=d;passed=False;continue
++  n,p,full_len=hits[0]
++  d['source_line_number']=n;d['row_reaches_last_byte']=full_len>=last
++  d['name_justification']='right' if p[:1]==b' ' else 'left'
++  d['prefix_class_mask']=mask(p[:last])
++  ok_row=d['row_reaches_last_byte'];v={}
++  for k,(a,e,f) in lay['fields'].items():
++   if k=='Galaxy':continue
++   raw=p[a-1:e]
++   fc={'bytes':[a,e],'format':f,'class_mask':mask(raw),'complete':len(raw)==e-a+1}
++   okf,val=parse_field(raw,f) if fc['complete'] else (False,None)
++   fc['format_ok']=okf
++   fc['domain_ok']=okf and DOMAIN[k](val)
++   if k in lay['ranges']:lo,hi=lay['ranges'][k];fc['documented_range_ok']=okf and lo<=val<=hi
++   fc['pass']=fc['complete'] and okf and fc['domain_ok'] and fc.get('documented_range_ok',True)
++   ok_row&=fc['pass'];d[k]=fc
++   if fc['pass']:v[k]=val
++  gaps={str(x):(len(p)>=x and p[x-1:x]==b' ') for x in lay['blank_bytes']}
++  d['blank_bytes_ok']=gaps;ok_row&=all(gaps.values())
++  d['row_pass']=ok_row;diag[obj]=d;passed&=ok_row
++  if ok_row:vals[obj]=dict(v,source_line_number=n)
++ return passed,(vals if passed else None),diag
+ def main(argv):
+- if len(argv)!=2:raise Fail('E_USAGE')
+- outp=Path(argv[1])
++ args=argv[1:]
++ if len(args) not in (1,4) or (len(args)==4 and args[1]!='--declared-layout'):raise Fail('E_USAGE')
++ outp=Path(args[0])
+  if outp.exists():raise Fail('E_OUTPUT_EXISTS')
++ declared=None
++ if len(args)==4:
++  db=Path(args[2]).read_bytes()
++  if sha(db)!=args[3]:raise Fail('E_DECLARATION_PIN')
++  dj=json.loads(db)
++  if not isinstance(dj.get('declared_by'),str) or not dj['declared_by'] or not isinstance(dj.get('evidence'),str):raise Fail('E_DECLARATION_PROVENANCE')
++  declared={'name':'DECLARED:'+str(dj['name']),'fields':{k:tuple(x) for k,x in dj['fields'].items()},'blank_bytes':list(dj.get('blank_bytes',[])),'ranges':{},
++   'declaration':{'path':str(Path(args[2])),'sha256':args[3],'declared_by':dj['declared_by'],'evidence':dj['evidence']}}
++  check_layout_shape(declared)
+  b=Path(SRC[0]).read_bytes()
+- if hashlib.sha256(b).hexdigest()!=SRC[1]:raise Fail('E_PIN')
+- try:lines=b.decode('ascii').splitlines()
+- except UnicodeDecodeError:raise Fail('E_ENCODING')
+- del b
+- seps=[i for i,l in enumerate(lines[:200]) if re.fullmatch(r'-{20,}',l.strip())]
++ if sha(b)!=SRC[1]:raise Fail('E_PIN')
++ lines=b.split(b'\n');del b
++ seps=[i for i,l in enumerate(lines[:200]) if re.fullmatch(rb'-{20,}',l.strip())]
+  if not seps:raise Fail('E_HEADER')
+  hdr={}
+  for l in lines[:seps[-1]]:
+-  m=FIELD.match(l)
++  m=HDR_FIELD.match(l.decode('ascii','replace'))
+   if m:hdr[m.group(5)]=(int(m.group(1)),int(m.group(2)),m.group(3),m.group(4))
+- for k,v in ALLOWED.items():
+-  if hdr.get(k)!=v:raise Fail('E_SCHEMA')
+- found={}
++ docs={'MRT_INFILE_HEADER':{'verified':all(hdr.get(k)==v for k,v in MRT_HDR.items())}}
++ rb=Path(CDS_README[0]).read_bytes()
++ cds_ok=sha(rb)==CDS_README[1]
++ if cds_ok:
++  txt=html.unescape(re.sub(r'<[^>]+>','',rb.decode('utf-8','replace')))
++  sec=txt.split('Byte-by-byte Description of file: table1.dat',1)
++  sec=sec[1].split('Byte-by-byte Description of file:',1)[0].splitlines() if len(sec)==2 else []
++  cds_ok=all(sum(bool(re.match(rx,l)) for l in sec)==1 for rx in CDS_LINES.values())
++ docs['CDS_TABLE1_README']={'path':CDS_README[0],'sha256':CDS_README[1],'verified':cds_ok}
++ rows={}
+  for n,l in enumerate(lines[seps[-1]+1:],seps[-1]+2):
+-  l=l[:MAXBYTE]  # truncate before use: nothing beyond e_Inc is retained
+-  name=l[0:11].strip()
++  name=l[0:11].strip(b' \r').decode('ascii','replace')  # bytes 1-11 of every post-header row are compared (names may be right-justified)
+   for obj,aliases in OBJECTS.items():
+    if name in aliases:
+-    if obj in found:raise Fail('E_DUPLICATE_OBJECT')
+-    rec={k:l[a-1:e].strip() for k,(a,e,fmt,u) in ALLOWED.items()}
+-    rec['f_D_meaning']=F_D_NOTE.get(rec['f_D'])
+-    rec['source_line_number']=n
+-    found[obj]=rec
++    p=l[:MAXBYTE].rstrip(b'\r')  # only bytes 1..41 are kept; row length beyond 41 is not measured
++    rows.setdefault(obj,[]).append((n,p,len(p)))
+  del lines
+- result={'schema':'SPARC_GEOMETRY_ALLOWED_FIELDS_V001','source':{'path':SRC[0],'sha256':SRC[1]},'allowed_fields':{k:{'bytes':[a,e],'format':f,'unit':u} for k,(a,e,f,u) in ALLOWED.items()},
+-  'excluded':'every byte beyond 34 (luminosity, radii, surface brightnesses, MHI, RHI, Vflat, e_Vflat, Q, Ref)','objects':found,
+-  'missing_objects':[o for o in OBJECTS if o not in found],'exposure_labels':{'NGC3198':'development-exposed','DDO154':'calibration-only; not blind'},
+-  'interpretation':'Catalogue values as published; e_D and e_Inc are catalogue mean errors, not covariance; no geometry is chosen or adopted.'}
+- with outp.open('x') as f:json.dump(result,f,indent=1)
+- print(json.dumps({'status':'OK','output':str(outp),'objects_found':sorted(found),'missing':result['missing_objects']}))
++ layouts=[]
++ if docs['MRT_INFILE_HEADER']['verified']:layouts.append(MRT_LAYOUT)
++ if cds_ok:layouts.append(CDS_LAYOUT)
++ if declared:layouts.append(declared)
++ results={}
++ for lay in layouts:
++  p,v,d=evaluate(lay,rows);results[lay['name']]={'passed':p,'values':v,'diagnosis':d}
++ doc_pass=[k for k in ('MRT_INFILE_HEADER','CDS_TABLE1_README') if results.get(k,{}).get('passed')]
++ if declared:
++  dp=results[declared['name']]['passed']
++  status='PASS_DECLARED_LAYOUT' if dp and not doc_pass else ('FAILED_DECLARATION_CONFLICT' if dp else 'FAILED_SCHEMA_VALIDATION')
++  chosen=declared['name'] if status=='PASS_DECLARED_LAYOUT' else None
++ else:
++  status='PASS_DOCUMENTED_LAYOUT' if len(doc_pass)==1 else ('FAILED_AMBIGUOUS_LAYOUT' if len(doc_pass)>1 else 'FAILED_SCHEMA_VALIDATION')
++  chosen=doc_pass[0] if status=='PASS_DOCUMENTED_LAYOUT' else None
++ objects=None
++ if chosen:
++  objects={o:{k:val for k,val in r.items() if k in EMIT+['source_line_number']} for o,r in results[chosen]['values'].items()}
++  for o in objects:objects[o]['f_D_meaning']=F_D_NOTE[objects[o]['f_D']]
++ for k in results:
++  if k!=chosen:results[k]['values']=None  # values are emitted for the chosen passing layout only
++ out={'schema':'SPARC_GEOMETRY_ALLOWED_FIELDS_V002','status':status,'chosen_layout':chosen,'source':{'path':SRC[0],'sha256':SRC[1]},'documentation':docs,
++  'declared_layout':declared and declared['declaration'],'layouts_evaluated':{k:{'passed':r['passed'],'diagnosis':r['diagnosis']} for k,r in results.items()},
++  'objects':objects,'units':{'D':'Mpc','e_D':'Mpc','f_D':'code (Note 2)','Inc':'deg','e_Inc':'deg'},
++  'exposure':'Whole file read into memory, hashed and split into byte lines; bytes 1-11 of each post-header row compared with target names; for target rows only bytes 1-41 kept, decoded and interpreted; bytes beyond 41 never decoded, parsed, compared, measured or emitted.',
++  'interpretation':'Catalogue values as published (only when status is PASS_*). e_D and e_Inc are catalogue mean errors, not covariance; Inc is the mean outer-HI-disk value per CDS Note 3. No geometry is chosen or adopted by this extractor.',
++  'exposure_labels':{'NGC3198':'development-exposed','DDO154':'calibration-only; not blind'}}
++ with outp.open('x') as f:json.dump(out,f,indent=1,allow_nan=False)
++ print(json.dumps({'status':status,'chosen_layout':chosen,'output':str(outp)}))
++ return 0 if status.startswith('PASS_') else 2
+ if __name__=='__main__':
+- try:main(sys.argv)
++ try:sys.exit(main(sys.argv))
+  except Fail as e:print(json.dumps({'status':'FAILED','code':str(e)}));sys.exit(2)
+  except Exception as e:print(json.dumps({'status':'FAILED','code':'E_UNEXPECTED','type':type(e).__name__}));sys.exit(3)

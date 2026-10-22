@@ -1,0 +1,1 @@
+- 2026-10-19T17:53:44Z lead: the lens is active. Its transcript was updated at 17:52:44Z. In scratch, the hash check (17:39:45Z), the assembler check (17:40:40Z) and the C2V001->C2V002 diffs (17:40:50Z) are done, and it is now reading the launch path in full. The verifier follows the lens. No launch; no /Volumes/External1 access.

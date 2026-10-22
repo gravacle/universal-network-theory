@@ -1,0 +1,144 @@
+{
+ "binder_source_compatibility": {
+  "fragment_counts": {
+   "BINDER_CMD_FORM": 1,
+   "BINDER_PYTHON_LINE": 1,
+   "BINDER_WRITE_FORM": 1
+  },
+  "pin": {
+   "bytes": 2345,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/bind_sealed_launch_plan_cx1v001.py",
+   "sha256": "f3e4e2beeb8f1cb151892fd903b889c471cea58fea1b67c72552137d037575ca"
+  },
+  "runtime": "UNTESTED_NOT_EXECUTED"
+ },
+ "blocking_count": 0,
+ "checks_passed": 47,
+ "checks_total": 50,
+ "date_u": "Sun Oct 18 23:23:30 UTC 2026",
+ "findings": [
+  {
+   "actual": "PASS for three invented EPS slot/body pairs where both sha fields are null, empty string, or not-a-sha, and body status is PASS.",
+   "counterexamples": [
+    {
+     "actual": "PASS",
+     "case": "null_sha",
+     "expected": "REFUSE",
+     "gates_body": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/null_sha/INERT_GATES_ONLY.json",
+      "sha256": "784694215633bfb255f190904fe18b4085a68ca6b1ca548decf2204bb2460b1e"
+     },
+     "id": "A106-C03-S1",
+     "severity": "SHOULD_FIX_LOCAL_HELPER",
+     "slots": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/null_sha/INERT_SLOTS.json",
+      "sha256": "cb37ffea0c4e1b6ba5e3d185ba4d01fe5756bc800b0041ebb8679a80400a8bc8"
+     },
+     "summary": "C03 accepts matching non-SHA values as record_sha256. Earlier C04/T3 validation may prevent this malformed input in the full script; no integrated bypass established."
+    },
+    {
+     "actual": "PASS",
+     "case": "empty_sha",
+     "expected": "REFUSE",
+     "gates_body": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/empty_sha/INERT_GATES_ONLY.json",
+      "sha256": "57aa113bdda5523b3f47e72530d32d13cdefb26da35d5894e88d6d89b2755f1e"
+     },
+     "id": "A106-C03-S1",
+     "severity": "SHOULD_FIX_LOCAL_HELPER",
+     "slots": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/empty_sha/INERT_SLOTS.json",
+      "sha256": "78a4e090bd956a1878fc093107f1bbf105dfa30e1037605a038aae0adbb12665"
+     },
+     "summary": "C03 accepts matching non-SHA values as record_sha256. Earlier C04/T3 validation may prevent this malformed input in the full script; no integrated bypass established."
+    },
+    {
+     "actual": "PASS",
+     "case": "malformed_sha",
+     "expected": "REFUSE",
+     "gates_body": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/malformed_sha/INERT_GATES_ONLY.json",
+      "sha256": "902545f1681e2d56206a94b752b0202c1fe17847ff3176a1fb3b71f00712ce61"
+     },
+     "id": "A106-C03-S1",
+     "severity": "SHOULD_FIX_LOCAL_HELPER",
+     "slots": {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/fixtures/gates/malformed_sha/INERT_SLOTS.json",
+      "sha256": "e57b1804a7c36a37d1a6461e076a54eca4c483d567b851dd050ad937420c4a4a"
+     },
+     "summary": "C03 accepts matching non-SHA values as record_sha256. Earlier C04/T3 validation may prevent this malformed input in the full script; no integrated bypass established."
+    }
+   ],
+   "expected": "Refuse an invalid SHA256 before equality/status acceptance.",
+   "id": "A106-C03-S1",
+   "scope_limit": "The helper hashes its slots/body input files correctly. This finding concerns embedded record hashes. C04/T3 on the same unchanged slot pin should already reject malformed record pins; no integrated script/launch bypass was tested or established.",
+   "severity": "SHOULD_FIX",
+   "source_lines": "c_gates_provenance, lines1359\u20131383; equality before format validation",
+   "status": "TESTED_LOCAL_HELPER_COUNTEREXAMPLES",
+   "suggestion": "Validate the slot ref shape and both record hashes as full lowercase 64-hex strings before comparing; preserve typed refusal.",
+   "title": "C03 treats matching malformed hash values as record provenance"
+  }
+ ],
+ "groups": {
+  "BOUND/": {
+   "passed": 22,
+   "total": 22
+  },
+  "C03/": {
+   "passed": 22,
+   "total": 25
+  },
+  "execution/": {
+   "passed": 3,
+   "total": 3
+  }
+ },
+ "mocked_vs_actual": {
+  "candidate_functions": "Actual checked AST; none stubbed",
+  "inputs": "Invented inert BUILD, plan, command, binder-form source text, gate-body and slot files only",
+  "production_execution": "None",
+  "root_script": "Static call-site reading only, never executed"
+ },
+ "pins": {
+  "harness": {
+   "bytes": 11880,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/review_controls_cx1v001.py",
+   "sha256": "2fc8a57fb658046f24ab02035b7082dede6a0fe2cb7e99dc7a525d414a7e3669"
+  },
+  "helper": {
+   "bytes": 85799,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/seal_steps_c3sa_c3v012.py",
+   "sha256": "b13483966fcb8755608d73e05c0e70dc94e39a2b07635f54efc0c86849748bac"
+  },
+  "results": {
+   "bytes": 25101,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/c03_c05_c06_cx1v001/RESULTS_CX1V001.json",
+   "sha256": "abeee2f5745e1b982baf3711cadcf7ba2b7b0479ed594b9c0fbe276d59a2fb4b"
+  },
+  "script": {
+   "bytes": 57425,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/ROOT_SEAL_STEPS_c3v011.sh",
+   "sha256": "af74e9bde45a5ec0d082ed61f61261757986f1796ebf448746355bf1871111dc"
+  },
+  "snapshot_manifest": {
+   "bytes": 1325,
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_seal_prestage_cx1/provisional_a106_cx1v001/snapshot/SNAPSHOT.json",
+   "sha256": "982ef934ef13fa11e3d1741117ea39487a4e6e50fb5b719ab1b9e2c9aac2e9f5"
+  }
+ },
+ "should_fix_count": 1,
+ "tested": [
+  "Actual c_bound_check, c_gates_provenance, pin/read_nofollow/path_policy, strict JSON and BUILD parser AST compiled from byte-verified snapshot. No candidate function mocked.",
+  "C05 exact-name, exact BUILD-row and exact plan-pin controls reject allowlisted substitutions, same-basename external paths, duplicate/missing names, stale bytes and extra plan fields.",
+  "C06 entire command bytes reject prefixes, appended lines, omitted comment, CRLF, missing newline, whitespace, Python/flag edits; missing/duplicated binder forms and bad binder pin refuse.",
+  "C03 eight record-hash mismatches, eight non-PASS statuses, missing gate/slot and non-sealed body shapes refuse.",
+  "Read-only source audit: the actual pinned binder source contains each declared serialization fragment exactly once; binder was never executed.",
+  "Nice10, isolated/no-bytecode Python, single-thread BLAS variables; no audit denials."
+ ],
+ "untested": [
+  "Final selected r6/v003/helper/script tuple and final runnable acceptance.",
+  "Full-script ordering and integrated rejection of malformed embedded hashes; parent owns wiring/C02/C04 review.",
+  "Genuine comparator output semantics, scientific gate validity and production binder/launcher/guard execution."
+ ],
+ "verdict": "PROVISIONAL_PASS_WITH_ONE_SHOULD_FIX"
+}

@@ -1,0 +1,1264 @@
+{
+  "all_dict_literal_count": 199,
+  "date_u": "Sun Oct 18 16:20:00 UTC 2026",
+  "duplicate_constant_dict_keys": [],
+  "external_decode_review": "Pinned checkpoint module _decode list-of-pairs rejects duplicate string keys before assignment and refuses structured/object dtypes.",
+  "limits": "This is a finite source audit with explicit site coverage, not a formal proof. Fixed report assignments and list-index mutations are overincluded for completeness.",
+  "method": "Independent AST sweep of every DictComp, dict constructor, dynamic/unpack dict, set comprehension, setdefault/update/literal_eval call and subscript assignment; manual source review grouped by function and line. No BUILD site list used to generate inventory.",
+  "site_count": 139,
+  "sites": [
+    {
+      "assessment": "FIXED_SOURCE_CONSTANTS",
+      "end_line": 72,
+      "kind": "dynamic_or_unpack_dict_literal",
+      "line": 63,
+      "reason": "Constant tables checked independently for repeated literal keys; none found.",
+      "scope": "<module>",
+      "source": "{\n    '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/driver_v008_c2/galaxy_m0_forward_c2v008.py':\n        'f8e4770106abb83df5e658e91edc5593198fe87f0600ee5d1946f22415902f28',\n    '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/stage_successor_gal_c2v005/driver/galaxy_m0_forward_c2v009.py':\n        '237ef3d41daf4d99b0aafed3e90b27b095a741a9f66e"
+    },
+    {
+      "assessment": "NO_INGESTION_OVERWRITE_FOUND",
+      "end_line": 130,
+      "kind": "update",
+      "line": 130,
+      "reason": "Inspected source operation is copy/projection or fixed state/report update; retained in inventory for review.",
+      "scope": "sha_file",
+      "source": "h.update(b)"
+    },
+    {
+      "assessment": "GUARDED",
+      "end_line": 188,
+      "kind": "subscript_assignment",
+      "line": 188,
+      "reason": "Explicit membership guard before key insertion; NPZ raw names/logical keys retained until duplicate validation.",
+      "scope": "_pairs",
+      "source": "d[k] = v"
+    },
+    {
+      "assessment": "FAIL_B1_NPY_HEADER_DUPLICATES",
+      "end_line": 212,
+      "kind": "literal_eval",
+      "line": 212,
+      "reason": "ast.literal_eval collapses duplicate raw header keys before the parsed mapping and NumPy decoder; actual full-gate counterexamples.",
+      "scope": "_npy_header",
+      "source": "ast.literal_eval(hdr.decode(enc))"
+    },
+    {
+      "assessment": "GUARDED",
+      "end_line": 244,
+      "kind": "subscript_assignment",
+      "line": 244,
+      "reason": "Explicit membership guard before key insertion; NPZ raw names/logical keys retained until duplicate validation.",
+      "scope": "npz_identity_bytes",
+      "source": "seen[n] = i"
+    },
+    {
+      "assessment": "GUARDED",
+      "end_line": 252,
+      "kind": "subscript_assignment",
+      "line": 252,
+      "reason": "Explicit membership guard before key insertion; NPZ raw names/logical keys retained until duplicate validation.",
+      "scope": "npz_identity_bytes",
+      "source": "keys[k] = n"
+    },
+    {
+      "assessment": "GUARDED",
+      "end_line": 253,
+      "kind": "subscript_assignment",
+      "line": 253,
+      "reason": "Explicit membership guard before key insertion; NPZ raw names/logical keys retained until duplicate validation.",
+      "scope": "npz_identity_bytes",
+      "source": "out[k] = npy_identity_bytes(z.read(info))"
+    },
+    {
+      "assessment": "CACHE_OR_HASH_ACCOUNTING",
+      "end_line": 277,
+      "kind": "setdefault",
+      "line": 277,
+      "reason": "Path cache keys; first hash retained by setdefault and changed hash recorded unstable. Repeated reads do not silently replace the first content digest.",
+      "scope": "Store._record",
+      "source": "self.sha.setdefault(k, h)"
+    },
+    {
+      "assessment": "CACHE_OR_HASH_ACCOUNTING",
+      "end_line": 308,
+      "kind": "subscript_assignment",
+      "line": 308,
+      "reason": "Path cache keys; first hash retained by setdefault and changed hash recorded unstable. Repeated reads do not silently replace the first content digest.",
+      "scope": "Store.json",
+      "source": "self._raw[k] = b"
+    },
+    {
+      "assessment": "CACHE_OR_HASH_ACCOUNTING",
+      "end_line": 310,
+      "kind": "subscript_assignment",
+      "line": 310,
+      "reason": "Path cache keys; first hash retained by setdefault and changed hash recorded unstable. Repeated reads do not silently replace the first content digest.",
+      "scope": "Store.json",
+      "source": "self._json[k] = jloads(b)"
+    },
+    {
+      "assessment": "CACHE_OR_HASH_ACCOUNTING",
+      "end_line": 313,
+      "kind": "subscript_assignment",
+      "line": 313,
+      "reason": "Path cache keys; first hash retained by setdefault and changed hash recorded unstable. Repeated reads do not silently replace the first content digest.",
+      "scope": "Store.json",
+      "source": "self._json[k] = Unparseable('%s %s' % (self.rel(p), e))"
+    },
+    {
+      "assessment": "CACHE_OR_HASH_ACCOUNTING",
+      "end_line": 334,
+      "kind": "subscript_assignment",
+      "line": 334,
+      "reason": "Path cache keys; first hash retained by setdefault and changed hash recorded unstable. Repeated reads do not silently replace the first content digest.",
+      "scope": "Store.array",
+      "source": "self._arr[k] = ('npz', npz_identity_bytes(b)) if k.endswith('.npz') else ('npy', npy_identity_bytes(b))"
+    },
+    {
+      "assessment": "CACHE_OR_HASH_ACCOUNTING",
+      "end_line": 337,
+      "kind": "subscript_assignment",
+      "line": 337,
+      "reason": "Path cache keys; first hash retained by setdefault and changed hash recorded unstable. Repeated reads do not silently replace the first content digest.",
+      "scope": "Store.array",
+      "source": "self._arr[k] = ('invalid', '%s %s' % (type(e).__name__, str(e)[:200]))"
+    },
+    {
+      "assessment": "CACHE_OR_HASH_ACCOUNTING",
+      "end_line": 345,
+      "kind": "update",
+      "line": 345,
+      "reason": "Path cache keys; first hash retained by setdefault and changed hash recorded unstable. Repeated reads do not silently replace the first content digest.",
+      "scope": "Store.scan",
+      "source": "h.update(b)"
+    },
+    {
+      "assessment": "STRICT_PARSED_DICTIONARY_UPDATE",
+      "end_line": 376,
+      "kind": "subscript_assignment",
+      "line": 376,
+      "reason": "Strict object_pairs_hook first; payload_sha256 temporarily removed/restored for canonical integrity.",
+      "scope": "cm_read",
+      "source": "body['payload_sha256'] = claimed"
+    },
+    {
+      "assessment": "NO_INGESTION_OVERWRITE_FOUND",
+      "end_line": 396,
+      "kind": "subscript_assignment",
+      "line": 396,
+      "reason": "Inspected source operation is copy/projection or fixed state/report update; retained in inventory for review.",
+      "scope": "driver_raw",
+      "source": "DRIVER_RAW[0], DRIVER_RAW[1] = Path(DRIVER[0]).read_bytes(), DRIVER[0]"
+    },
+    {
+      "assessment": "GUARDED",
+      "end_line": 441,
+      "kind": "subscript_assignment",
+      "line": 441,
+      "reason": "Explicit membership guard before key insertion; NPZ raw names/logical keys retained until duplicate validation.",
+      "scope": "_ev",
+      "source": "out[kk] = _ev(v, env)"
+    },
+    {
+      "assessment": "PINNED_CODE_ENV_OR_KEY_PRESERVING_PROJECTION",
+      "end_line": 464,
+      "kind": "subscript_assignment",
+      "line": 464,
+      "reason": "Sequential top-level assignments model the pinned source environment, not duplicate records. Table projection preserves keys from _ev guarded dictionaries.",
+      "scope": "driver_tables",
+      "source": "env[st.targets[0].id] = _ev(st.value, env)"
+    },
+    {
+      "assessment": "PINNED_CODE_ENV_OR_KEY_PRESERVING_PROJECTION",
+      "end_line": 471,
+      "kind": "DictComp",
+      "line": 471,
+      "reason": "Sequential top-level assignments model the pinned source environment, not duplicate records. Table projection preserves keys from _ev guarded dictionaries.",
+      "scope": "driver_tables",
+      "source": "{k: (str(x[0]), x[1]) for k, x in v.items() if isinstance(x, tuple) and len(x) == 2 and isinstance(x[1], str)}"
+    },
+    {
+      "assessment": "PINNED_CODE_ENV_OR_KEY_PRESERVING_PROJECTION",
+      "end_line": 471,
+      "kind": "subscript_assignment",
+      "line": 471,
+      "reason": "Sequential top-level assignments model the pinned source environment, not duplicate records. Table projection preserves keys from _ev guarded dictionaries.",
+      "scope": "driver_tables",
+      "source": "out[t] = {k: (str(x[0]), x[1]) for k, x in v.items() if isinstance(x, tuple) and len(x) == 2 and isinstance(x[1], str)}"
+    },
+    {
+      "assessment": "MULTIMAP_NO_VALUE_DISCARD",
+      "end_line": 523,
+      "kind": "setdefault",
+      "line": 523,
+      "reason": "All values retained in lists per flag; consulted repeated flags return Dup and record LAST_WINS. No list-to-scalar last-wins.",
+      "scope": "StrictArgv.__init__",
+      "source": "self.m.setdefault(k, [])"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 574,
+      "kind": "setdefault",
+      "line": 574,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.__init__",
+      "source": "names.setdefault(m.group(2), [])"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 575,
+      "kind": "setdefault",
+      "line": 575,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.__init__",
+      "source": "nums.setdefault(m.group(1), [])"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 577,
+      "kind": "SetComp_membership_or_dedup",
+      "line": 577,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.__init__",
+      "source": "{n for n, l in names.items() if len(l) > 1}"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 578,
+      "kind": "SetComp_membership_or_dedup",
+      "line": 578,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.__init__",
+      "source": "{n for n, l in nums.items() if len(l) > 1}"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 587,
+      "kind": "subscript_assignment",
+      "line": 587,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.__init__",
+      "source": "self.dir2name[e] = name"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 588,
+      "kind": "subscript_assignment",
+      "line": 588,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.__init__",
+      "source": "self.stages[name] = sd / e"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 596,
+      "kind": "subscript_assignment",
+      "line": 596,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.__init__",
+      "source": "self.inv[c] = self.run / r"
+    },
+    {
+      "assessment": "GUARDED_OR_COPY",
+      "end_line": 605,
+      "kind": "dict_constructor",
+      "line": 605,
+      "reason": "Stage names/numbers collected as multimaps then duplicates excluded and flagged; canonical inventory checks duplicate key before insertion; inventory() copies that mapping.",
+      "scope": "Tree.inventory",
+      "source": "dict(self.inv)"
+    },
+    {
+      "assessment": "MULTIMAP_AND_KEY_PRESERVING_PROJECTIONS",
+      "end_line": 623,
+      "kind": "setdefault",
+      "line": 623,
+      "reason": "SHA-to-token and inverse collections retain all values; hash-map many-to-one flagged except declared NPZ equivalence. Sorted token join is derived metadata, not a raw-record overwrite.",
+      "scope": "Side.__init__",
+      "source": "cand.setdefault(store.sha_of(p), set())"
+    },
+    {
+      "assessment": "MULTIMAP_AND_KEY_PRESERVING_PROJECTIONS",
+      "end_line": 626,
+      "kind": "setdefault",
+      "line": 626,
+      "reason": "SHA-to-token and inverse collections retain all values; hash-map many-to-one flagged except declared NPZ equivalence. Sorted token join is derived metadata, not a raw-record overwrite.",
+      "scope": "Side.__init__",
+      "source": "cand.setdefault(store.sha_of(p), set())"
+    },
+    {
+      "assessment": "MULTIMAP_AND_KEY_PRESERVING_PROJECTIONS",
+      "end_line": 636,
+      "kind": "setdefault",
+      "line": 636,
+      "reason": "SHA-to-token and inverse collections retain all values; hash-map many-to-one flagged except declared NPZ equivalence. Sorted token join is derived metadata, not a raw-record overwrite.",
+      "scope": "Side.__init__",
+      "source": "cand.setdefault(body['payload_sha256'], set())"
+    },
+    {
+      "assessment": "MULTIMAP_AND_KEY_PRESERVING_PROJECTIONS",
+      "end_line": 638,
+      "kind": "setdefault",
+      "line": 638,
+      "reason": "SHA-to-token and inverse collections retain all values; hash-map many-to-one flagged except declared NPZ equivalence. Sorted token join is derived metadata, not a raw-record overwrite.",
+      "scope": "Side.__init__",
+      "source": "cand.setdefault(body['identity_sha256'], set())"
+    },
+    {
+      "assessment": "MULTIMAP_AND_KEY_PRESERVING_PROJECTIONS",
+      "end_line": 639,
+      "kind": "DictComp",
+      "line": 639,
+      "reason": "SHA-to-token and inverse collections retain all values; hash-map many-to-one flagged except declared NPZ equivalence. Sorted token join is derived metadata, not a raw-record overwrite.",
+      "scope": "Side.__init__",
+      "source": "{h: '|'.join(sorted(v)) for h, v in cand.items()}"
+    },
+    {
+      "assessment": "MULTIMAP_AND_KEY_PRESERVING_PROJECTIONS",
+      "end_line": 640,
+      "kind": "DictComp",
+      "line": 640,
+      "reason": "SHA-to-token and inverse collections retain all values; hash-map many-to-one flagged except declared NPZ equivalence. Sorted token join is derived metadata, not a raw-record overwrite.",
+      "scope": "Side.__init__",
+      "source": "{h: sorted(v) for h, v in cand.items() if len(v) > 1}"
+    },
+    {
+      "assessment": "MULTIMAP_AND_KEY_PRESERVING_PROJECTIONS",
+      "end_line": 643,
+      "kind": "setdefault",
+      "line": 643,
+      "reason": "SHA-to-token and inverse collections retain all values; hash-map many-to-one flagged except declared NPZ equivalence. Sorted token join is derived metadata, not a raw-record overwrite.",
+      "scope": "Side.__init__",
+      "source": "inv.setdefault(t, [])"
+    },
+    {
+      "assessment": "COUNTER",
+      "end_line": 655,
+      "kind": "subscript_assignment",
+      "line": 655,
+      "reason": "Token fired counts aggregate occurrences; not a record selection.",
+      "scope": "Side.s",
+      "source": "self.fired[tok] = self.fired.get(tok, 0) + v.count(a)"
+    },
+    {
+      "assessment": "GUARDED_NORMALIZED_KEYS",
+      "end_line": 679,
+      "kind": "subscript_assignment",
+      "line": 679,
+      "reason": "Each dict key is normalized and collision checked before insertion; Collided sentinel and NORM_INJECTIVE flag retained.",
+      "scope": "Side.norm",
+      "source": "out[nk] = Collided([src[nk], k])"
+    },
+    {
+      "assessment": "GUARDED_NORMALIZED_KEYS",
+      "end_line": 681,
+      "kind": "subscript_assignment",
+      "line": 681,
+      "reason": "Each dict key is normalized and collision checked before insertion; Collided sentinel and NORM_INJECTIVE flag retained.",
+      "scope": "Side.norm",
+      "source": "src[nk] = k"
+    },
+    {
+      "assessment": "GUARDED_NORMALIZED_KEYS",
+      "end_line": 682,
+      "kind": "subscript_assignment",
+      "line": 682,
+      "reason": "Each dict key is normalized and collision checked before insertion; Collided sentinel and NORM_INJECTIVE flag retained.",
+      "scope": "Side.norm",
+      "source": "out[nk] = self.norm(x, drop, at + '/' + str(nk))"
+    },
+    {
+      "assessment": "PARTIAL_FAIL_B2_AND_S1",
+      "end_line": 695,
+      "kind": "setdefault",
+      "line": 695,
+      "reason": "Raw relation conflicts are guarded, but identical input triples are set-deduplicated and joined label serialization is not injective.",
+      "scope": "build_tokens",
+      "source": "r2n.setdefault(r, set())"
+    },
+    {
+      "assessment": "PARTIAL_FAIL_B2_AND_S1",
+      "end_line": 696,
+      "kind": "setdefault",
+      "line": 696,
+      "reason": "Raw relation conflicts are guarded, but identical input triples are set-deduplicated and joined label serialization is not injective.",
+      "scope": "build_tokens",
+      "source": "n2r.setdefault(n, set())"
+    },
+    {
+      "assessment": "PARTIAL_FAIL_B2_AND_S1",
+      "end_line": 697,
+      "kind": "setdefault",
+      "line": 697,
+      "reason": "Raw relation conflicts are guarded, but identical input triples are set-deduplicated and joined label serialization is not injective.",
+      "scope": "build_tokens",
+      "source": "labels.setdefault((r, n), set())"
+    },
+    {
+      "assessment": "PARTIAL_FAIL_B2_AND_S1",
+      "end_line": 698,
+      "kind": "setdefault",
+      "line": 698,
+      "reason": "Raw relation conflicts are guarded, but identical input triples are set-deduplicated and joined label serialization is not injective.",
+      "scope": "build_tokens",
+      "source": "lab2pair.setdefault(t, set())"
+    },
+    {
+      "assessment": "PARTIAL_FAIL_B2_AND_S1",
+      "end_line": 709,
+      "kind": "DictComp",
+      "line": 709,
+      "reason": "Raw relation conflicts are guarded, but identical input triples are set-deduplicated and joined label serialization is not injective.",
+      "scope": "build_tokens",
+      "source": "{'|'.join(sorted(ls)): sorted(ls) for ls in labels.values() if len(ls) > 1}"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 739,
+      "kind": "subscript_assignment",
+      "line": 739,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "apply_declared",
+      "source": "row['values'] = [_show(vx) if hx else None, _show(vy) if hy else None]"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 743,
+      "kind": "subscript_assignment",
+      "line": 743,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "apply_declared",
+      "source": "row['new_value'] = _show(vy) if hy else None"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 748,
+      "kind": "subscript_assignment",
+      "line": 748,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "apply_declared",
+      "source": "row['values'] = [vx if hx else None, vy if hy else None]"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 751,
+      "kind": "subscript_assignment",
+      "line": 751,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "apply_declared",
+      "source": "row['covered_by'] = r['check']"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 754,
+      "kind": "subscript_assignment",
+      "line": 754,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "apply_declared",
+      "source": "row['ok'] = bool(ok)"
+    },
+    {
+      "assessment": "FIXED_FIELDS_OR_UNIQUE_STAGES",
+      "end_line": 844,
+      "kind": "subscript_assignment",
+      "line": 844,
+      "reason": "Fixed schema fields and per-stage maps from guarded Tree.stages; no raw record list key discarded.",
+      "scope": "auto_custody",
+      "source": "rep['reference_driver'] = {'path': rdrv, 'sha256': rsha, 'declared_and_verified_from_bytes': rd_ok, 'tables': sorted(ref_t)}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 922,
+      "kind": "SetComp_membership_or_dedup",
+      "line": 922,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "{t[1] for t in tok if isinstance(t, list) and len(t) == 3}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 928,
+      "kind": "subscript_assignment",
+      "line": 928,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "base[k] = {str(bp), bs, Path(bp).name}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 929,
+      "kind": "subscript_assignment",
+      "line": 929,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "succ[k] = {str(up), us, Path(up).name}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 931,
+      "kind": "DictComp",
+      "line": 931,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "{k: sorted(v & news) for k, v in base.items() if v & news}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 933,
+      "kind": "DictComp",
+      "line": 932,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "{k: sorted({str(drv.SCRIPTS_UVT[k][0]), drv.SCRIPTS_UVT[k][1]} - news) for k in drv.UVT_TAIL_KINDS\n                        if {str(drv.SCRIPTS_UVT[k][0]), drv.SCRIPTS_UVT[k][1]} - news}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 934,
+      "kind": "subscript_assignment",
+      "line": 934,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "det['A59_base_on_new_side'] = mapped_base"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 935,
+      "kind": "subscript_assignment",
+      "line": 935,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "det['A59_successor_missing_on_new_side'] = missing_succ"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 941,
+      "kind": "DictComp",
+      "line": 941,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "{k: sorted(v & news) for k, v in succ.items() if v & news}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 942,
+      "kind": "subscript_assignment",
+      "line": 942,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "det['successor_on_new_side'] = hit"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 945,
+      "kind": "subscript_assignment",
+      "line": 945,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "tokens_policy",
+      "source": "det['reasons'] = bad"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 951,
+      "kind": "dict_constructor",
+      "line": 951,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "caller_norm",
+      "source": "dict(c)"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 953,
+      "kind": "dict_constructor",
+      "line": 953,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "caller_norm",
+      "source": "dict(c.get('numerical_controls') or {})"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 955,
+      "kind": "subscript_assignment",
+      "line": 955,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "caller_norm",
+      "source": "c['numerical_controls'] = nc"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 958,
+      "kind": "subscript_assignment",
+      "line": 958,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "caller_norm",
+      "source": "c['boundary_prescription'] = bp.split(' UV-TAIL')[0]"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 960,
+      "kind": "dict_constructor",
+      "line": 960,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "caller_norm",
+      "source": "dict(c.get('numerical_controls') or {})"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 963,
+      "kind": "subscript_assignment",
+      "line": 963,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "caller_norm",
+      "source": "c['numerical_controls'] = nc"
+    },
+    {
+      "assessment": "FIXED_FIELDS_OR_UNIQUE_STAGES",
+      "end_line": 993,
+      "kind": "subscript_assignment",
+      "line": 990,
+      "reason": "Fixed schema fields and per-stage maps from guarded Tree.stages; no raw record list key discarded.",
+      "scope": "expected_tail_blocks",
+      "source": "blocks['route_a'] = ['--uv-tail-config', str(req), '--uv-tail-config-sha256', sha_or(req),\n                                 '--eps-certificate', TEST_ONLY, '--eps-certificate-sha256', TEST_ONLY,\n                                 '--lo-certificate', TEST_ONLY, '--lo-certificate-sha256', TEST_ONLY,\n                                 '--uv-tail-sidecar-d"
+    },
+    {
+      "assessment": "FIXED_FIELDS_OR_UNIQUE_STAGES",
+      "end_line": 1007,
+      "kind": "update",
+      "line": 997,
+      "reason": "Fixed schema fields and per-stage maps from guarded Tree.stages; no raw record list key discarded.",
+      "scope": "expected_tail_blocks",
+      "source": "rc.update({\n                'enabled_true': rec.get('enabled') is True,\n                'config_is_inputs_file_from_bytes': (rec.get('config') or {}).get('path') == str(cfg) and (rec.get('config') or {}).get('sha256') == sha_or(cfg),\n                'request_is_inputs_file_from_bytes': (rec.get('request') or {}).get('path') == str(req) and (rec.get"
+    },
+    {
+      "assessment": "FIXED_FIELDS_OR_UNIQUE_STAGES",
+      "end_line": 1024,
+      "kind": "subscript_assignment",
+      "line": 1024,
+      "reason": "Fixed schema fields and per-stage maps from guarded Tree.stages; no raw record list key discarded.",
+      "scope": "expected_tail_blocks",
+      "source": "blocks[name] = b"
+    },
+    {
+      "assessment": "FIXED_FIELDS_OR_UNIQUE_STAGES",
+      "end_line": 1032,
+      "kind": "subscript_assignment",
+      "line": 1030,
+      "reason": "Fixed schema fields and per-stage maps from guarded Tree.stages; no raw record list key discarded.",
+      "scope": "expected_tail_blocks",
+      "source": "blocks['route_a'] = ['--uv-tail-config', str(off), '--uv-tail-config-sha256', E, '--eps-certificate', TEST_ONLY,\n                                 '--eps-certificate-sha256', TEST_ONLY, '--lo-certificate', TEST_ONLY, '--lo-certificate-sha256', TEST_ONLY,\n                                 '--uv-tail-sidecar-directory', str(ra / 'uv_tail_sidecar')]"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1089,
+      "kind": "subscript_assignment",
+      "line": 1089,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_requests",
+      "source": "inserted[name] = block"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1090,
+      "kind": "dict_constructor",
+      "line": 1090,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_requests",
+      "source": "dict(a)"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1090,
+      "kind": "dict_constructor",
+      "line": 1090,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_requests",
+      "source": "dict(b)"
+    },
+    {
+      "assessment": "FIXED_FIELDS_OR_UNIQUE_STAGES",
+      "end_line": 1121,
+      "kind": "subscript_assignment",
+      "line": 1121,
+      "reason": "Fixed schema fields and per-stage maps from guarded Tree.stages; no raw record list key discarded.",
+      "scope": "check_manifest_stage",
+      "source": "det['argv'] = exp is not None and q.get('argv') == exp"
+    },
+    {
+      "assessment": "FIXED_FIELDS_OR_UNIQUE_STAGES",
+      "end_line": 1123,
+      "kind": "subscript_assignment",
+      "line": 1123,
+      "reason": "Fixed schema fields and per-stage maps from guarded Tree.stages; no raw record list key discarded.",
+      "scope": "check_manifest_stage",
+      "source": "det['argv_found'], det['argv_expected'] = q.get('argv'), (None if exp is None else [str(x) for x in exp])"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1144,
+      "kind": "subscript_assignment",
+      "line": 1144,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['D1_request_file'] = d1.is_file() and SN.sha_of(d1) == E and seq(SN.json(d1), jloads(raw)) and SN.json(d1) == drv.ro1_off_request()"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1146,
+      "kind": "subscript_assignment",
+      "line": 1146,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['route_a'] = 'NO_COMPUTED_ROUTE_A'"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1152,
+      "kind": "DictComp",
+      "line": 1151,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "{k: am.get(k) for k in ('--uv-tail-config', '--uv-tail-config-sha256', '--eps-certificate', '--eps-certificate-sha256',\n                                '--lo-certificate', '--lo-certificate-sha256', '--uv-tail-sidecar-directory')}"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1157,
+      "kind": "subscript_assignment",
+      "line": 1153,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['argv_flags'] = (not any(isinstance(v, Dup) for v in g.values())\n                         and g['--uv-tail-config'] is not None and str(Path(g['--uv-tail-config']).resolve()) == str(d1.resolve())\n                         and g['--uv-tail-config-sha256'] == E\n                         and all(g[k] == drv.UVT_TEST_ONLY for k in ('--eps-certificate"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1158,
+      "kind": "subscript_assignment",
+      "line": 1158,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['attempts'] = fn['attempts']"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1159,
+      "kind": "subscript_assignment",
+      "line": 1159,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['single_attempt'] = fn['attempts'] == ['attempt_000']"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1161,
+      "kind": "subscript_assignment",
+      "line": 1161,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['D2_start_json_record'] = seq(st.get('uv_tail'), rec)"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1163,
+      "kind": "subscript_assignment",
+      "line": 1163,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['D3_observed'] = 'ABSENT' if caller_rec == '<ABSENT>' else ('DECLARED_RECORD' if caller_rec == rec else 'OTHER')"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1164,
+      "kind": "subscript_assignment",
+      "line": 1164,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['D3_caller_record'] = det['D3_observed'] in ('ABSENT', 'DECLARED_RECORD')"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1165,
+      "kind": "subscript_assignment",
+      "line": 1165,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['sidecar_absent'] = not side.exists()"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1167,
+      "kind": "subscript_assignment",
+      "line": 1167,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['D2_found'] = st.get('uv_tail', '<ABSENT>')"
+    },
+    {
+      "assessment": "COPY_OR_FIXED_SCHEMA_PROJECTION",
+      "end_line": 1169,
+      "kind": "subscript_assignment",
+      "line": 1169,
+      "reason": "Copies strictly parsed input maps or fixed named fields; declared masking/updates are explicit comparison rules, not duplicate-record conversion.",
+      "scope": "check_declared_off",
+      "source": "det['D3_found'] = caller_rec"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 1229,
+      "kind": "setdefault",
+      "line": 1229,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "check_custody",
+      "source": "news.setdefault(n, [])"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 1233,
+      "kind": "DictComp",
+      "line": 1233,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "check_custody",
+      "source": "{k: (v in news) for k, v in need.items()}"
+    },
+    {
+      "assessment": "SET_OR_MULTIMAP_POLICY_VIEW",
+      "end_line": 1239,
+      "kind": "subscript_assignment",
+      "line": 1239,
+      "reason": "Membership/projection or multimap over token relations; token duplicate/join defects owned by build_tokens. A73 derivation-admission issue is a separate lane.",
+      "scope": "check_custody",
+      "source": "consistent[what] = any(ref_pins.get(p) == s for p in rp for s in rs)"
+    },
+    {
+      "assessment": "GUARDED_NORMALIZED_KEYS",
+      "end_line": 1262,
+      "kind": "subscript_assignment",
+      "line": 1262,
+      "reason": "Normalized route-A pin keys checked before insertion; collisions append LAST_WINS and Collided.",
+      "scope": "ra_new_pins",
+      "source": "exp[k] = Collided([str(p)])"
+    },
+    {
+      "assessment": "GUARDED_NORMALIZED_KEYS",
+      "end_line": 1264,
+      "kind": "subscript_assignment",
+      "line": 1264,
+      "reason": "Normalized route-A pin keys checked before insertion; collisions append LAST_WINS and Collided.",
+      "scope": "ra_new_pins",
+      "source": "exp[k] = N.s(s, '<declared route-A pin value>')"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1327,
+      "kind": "subscript_assignment",
+      "line": 1327,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "DRIVER[:] = list(DRIVERS[a.driver])"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1328,
+      "kind": "subscript_assignment",
+      "line": 1328,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "DRIVER_RAW[0] = DRIVER_RAW[1] = None"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1339,
+      "kind": "update",
+      "line": 1339,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "MASK_KEYS.update(MASK_KEYS_BASE | (TAIL_KEYS if tail_on else set()))"
+    },
+    {
+      "assessment": "INTERNAL_CHECK_REGISTRY",
+      "end_line": 1350,
+      "kind": "subscript_assignment",
+      "line": 1350,
+      "reason": "Fixed internal check names; inspected call sites use unique names except exception recovery only fills missing strictness checks.",
+      "scope": "main.put",
+      "source": "checks[name] = {'pass': bool(ok), 'detail': detail}"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1359,
+      "kind": "dict_constructor",
+      "line": 1359,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "dict(head, **extra)"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1360,
+      "kind": "subscript_assignment",
+      "line": 1360,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "rep['checks'] = checks"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1361,
+      "kind": "subscript_assignment",
+      "line": 1361,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "rep['verdict'] = 'PASS_BITWISE_EQUAL' if checks and all(c['pass'] for c in checks.values()) else 'FAIL'"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1362,
+      "kind": "subscript_assignment",
+      "line": 1362,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "rep['failing'] = [k for k, c in checks.items() if not c['pass']]"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1363,
+      "kind": "subscript_assignment",
+      "line": 1363,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "rep['comparator_sha256_at_end'] = sha_file(__file__)"
+    },
+    {
+      "assessment": "FIXED_REPORT_OR_STATE_FIELDS",
+      "end_line": 1365,
+      "kind": "subscript_assignment",
+      "line": 1365,
+      "reason": "Report and configuration updates use fixed internal fields; not arbitrary record list conversion.",
+      "scope": "main",
+      "source": "rep['verdict'] = 'FAIL'"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1399,
+      "kind": "update",
+      "line": 1399,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "hold.update(SR=SR, SN=SN)"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1409,
+      "kind": "subscript_assignment",
+      "line": 1409,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "ex_det[x] = {'count': cnt, 'immediately_after_route_a': pos_ok}"
+    },
+    {
+      "assessment": "FAIL_B3_LEDGER_GROUP_COLLISION",
+      "end_line": 1425,
+      "kind": "setdefault",
+      "line": 1425,
+      "reason": "Unguarded (directory, token, kind) grouping; final-newline regex alias overwrites and removes both raw paths from inventory.",
+      "scope": "_compare",
+      "source": "led.setdefault(m.group(1), {}).setdefault(m.group(2), {})"
+    },
+    {
+      "assessment": "FAIL_B3_LEDGER_GROUP_COLLISION",
+      "end_line": 1425,
+      "kind": "setdefault",
+      "line": 1425,
+      "reason": "Unguarded (directory, token, kind) grouping; final-newline regex alias overwrites and removes both raw paths from inventory.",
+      "scope": "_compare",
+      "source": "led.setdefault(m.group(1), {})"
+    },
+    {
+      "assessment": "FAIL_B3_LEDGER_GROUP_COLLISION",
+      "end_line": 1425,
+      "kind": "subscript_assignment",
+      "line": 1425,
+      "reason": "Unguarded (directory, token, kind) grouping; final-newline regex alias overwrites and removes both raw paths from inventory.",
+      "scope": "_compare",
+      "source": "led.setdefault(m.group(1), {}).setdefault(m.group(2), {})[m.group(3)] = inv.pop(rel)"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1437,
+      "kind": "SetComp_membership_or_dedup",
+      "line": 1437,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "{t for _, _, t in tok_all}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1439,
+      "kind": "subscript_assignment",
+      "line": 1439,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "hold['tok_bad'] = tok_bad"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1441,
+      "kind": "subscript_assignment",
+      "line": 1441,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "hold['R'] = R"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1443,
+      "kind": "subscript_assignment",
+      "line": 1443,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "hold['N'] = N"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1444,
+      "kind": "update",
+      "line": 1444,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "extra.update({'auto_tokens_admitted': auto, 'attempt_tokens': led_tokens, 'token_labels_joined': joined})"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1461,
+      "kind": "DictComp",
+      "line": 1461,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "{d: [len(led_r.get(d) or {}), len(led_n.get(d) or {})] for d in sorted(set(led_r) | set(led_n))}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1470,
+      "kind": "setdefault",
+      "line": 1470,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "adm_new.setdefault(hit[0], [])"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1474,
+      "kind": "DictComp",
+      "line": 1474,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "{k: {'n': len(v), 'first': v[:6]} for k, v in adm_new.items()}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1493,
+      "kind": "subscript_assignment",
+      "line": 1493,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "sc_rows[name] = {'kind': kind, 'script_sha256': got[1], 'planned_sha256': exp[1] if exp else None, 'ok': ok}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1507,
+      "kind": "subscript_assignment",
+      "line": 1507,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "extra['expected_tail_off_request_sha256'] = E"
+    },
+    {
+      "assessment": "INJECTIVE_KEY_PROJECTION",
+      "end_line": 1511,
+      "kind": "DictComp",
+      "line": 1511,
+      "reason": "Fixed prefix removed from already unique inventory keys; suffix operation is injective.",
+      "scope": "_compare",
+      "source": "{k[len(pre):]: SR.sha_of(v) for k, v in inv_r.items() if k.startswith(pre)}"
+    },
+    {
+      "assessment": "INJECTIVE_KEY_PROJECTION",
+      "end_line": 1512,
+      "kind": "DictComp",
+      "line": 1512,
+      "reason": "Fixed prefix removed from already unique inventory keys; suffix operation is injective.",
+      "scope": "_compare",
+      "source": "{k[len(pre):]: SN.sha_of(v) for k, v in inv_n.items() if k.startswith(pre)}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1513,
+      "kind": "update",
+      "line": 1513,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "compared.update(pre + k for k in fr_b)"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1514,
+      "kind": "SetComp_membership_or_dedup",
+      "line": 1514,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "{k for k in fr_b if fn_b.get(k) != fr_b[k]}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1555,
+      "kind": "update",
+      "line": 1555,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "compared.update('stages/%s/request.json' % k for k in set(sr) & set(sn) if (sr[k] / 'request.json').is_file() and (sn[k] / 'request.json').is_file())"
+    },
+    {
+      "assessment": "GUARDED_STAGE_RECORDS",
+      "end_line": 1569,
+      "kind": "subscript_assignment",
+      "line": 1569,
+      "reason": "Ordered names must equal unique stage/request names; repeated known name explicitly rejected; strict object fields projected without key change.",
+      "scope": "_compare",
+      "source": "per[tag] = {}"
+    },
+    {
+      "assessment": "GUARDED_STAGE_RECORDS",
+      "end_line": 1582,
+      "kind": "DictComp",
+      "line": 1582,
+      "reason": "Ordered names must equal unique stage/request names; repeated known name explicitly rejected; strict object fields projected without key change.",
+      "scope": "_compare",
+      "source": "{k: v for k, v in r.items() if k not in STAGE_RECORD_EXTRA}"
+    },
+    {
+      "assessment": "GUARDED_STAGE_RECORDS",
+      "end_line": 1585,
+      "kind": "DictComp",
+      "line": 1585,
+      "reason": "Ordered names must equal unique stage/request names; repeated known name explicitly rejected; strict object fields projected without key change.",
+      "scope": "_compare",
+      "source": "{k: v for k, v in r.items() if k in STAGE_RECORD_EXTRA}"
+    },
+    {
+      "assessment": "GUARDED_STAGE_RECORDS",
+      "end_line": 1585,
+      "kind": "subscript_assignment",
+      "line": 1585,
+      "reason": "Ordered names must equal unique stage/request names; repeated known name explicitly rejected; strict object fields projected without key change.",
+      "scope": "_compare",
+      "source": "per[tag][nm] = S.norm({k: v for k, v in r.items() if k in STAGE_RECORD_EXTRA}, at='result.json/stage_records/%s' % nm)"
+    },
+    {
+      "assessment": "GUARDED_STAGE_RECORDS",
+      "end_line": 1589,
+      "kind": "subscript_assignment",
+      "line": 1589,
+      "reason": "Ordered names must equal unique stage/request names; repeated known name explicitly rejected; strict object fields projected without key change.",
+      "scope": "_compare",
+      "source": "sr_det['n'] = [len(rr_raw['stage_records']), len(rn_raw['stage_records'])]"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1590,
+      "kind": "dict_constructor",
+      "line": 1590,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "dict(sr_det, present=has, violations=sr_bad[:10])"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1597,
+      "kind": "dict_constructor",
+      "line": 1597,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare.under",
+      "source": "dict(r, path=prefix + r['path'])"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1610,
+      "kind": "subscript_assignment",
+      "line": 1609,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "file_rules['stages/route_a/attempt_000/start.json'] = [{'path': ('uv_tail',), 'rule': 'NEW_ONLY', 'value': N.norm(declared_rec, at='<declared D2 record>'),\n                                                                 'why': 'D2 declared tail-off record (driver R5)'}]"
+    },
+    {
+      "assessment": "GUARDED_NORMALIZED_KEYS",
+      "end_line": 1616,
+      "kind": "subscript_assignment",
+      "line": 1616,
+      "reason": "static_pins normalized key collision guard preceding insertion; a third collision can raise, which main turns into FAIL.",
+      "scope": "_compare",
+      "source": "sp_rev[nk] = Collided([sp_rev[nk][0], k])"
+    },
+    {
+      "assessment": "GUARDED_NORMALIZED_KEYS",
+      "end_line": 1618,
+      "kind": "subscript_assignment",
+      "line": 1618,
+      "reason": "static_pins normalized key collision guard preceding insertion; a third collision can raise, which main turns into FAIL.",
+      "scope": "_compare",
+      "source": "sp_rev[nk] = (k, v)"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1635,
+      "kind": "DictComp",
+      "line": 1635,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "{g: 0 for g in groups}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1656,
+      "kind": "subscript_assignment",
+      "line": 1656,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "counts[g] += 1"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1692,
+      "kind": "update",
+      "line": 1692,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "det.update({'declared_rules_applied': applied, 'declared_new_only_pins': pin_notes[:20]})"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1696,
+      "kind": "SetComp_membership_or_dedup",
+      "line": 1696,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "{s['at'] for s in sn_}"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1705,
+      "kind": "subscript_assignment",
+      "line": 1705,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "det['route_a_column_workers'] = n_workers"
+    },
+    {
+      "assessment": "FIXED_SCHEMA_OR_UNIQUE_INDEX",
+      "end_line": 1725,
+      "kind": "subscript_assignment",
+      "line": 1725,
+      "reason": "Remaining maps key by fixed unique check/stage/group names or preserve existing map keys; inspected against guarded Tree inventory and fixed internal labels. Ledger exception is separately listed.",
+      "scope": "_compare",
+      "source": "extra['tokens_fired'] = {'reference': R.fired, 'new': N.fired}"
+    }
+  ],
+  "status": "STATIC_SOURCE_REVIEW",
+  "target_sha256": "097286d762dd171361e7ff5bbb98b3d48029e790de5869b28aa6218098491e48"
+}

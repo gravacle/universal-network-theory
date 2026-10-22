@@ -1,0 +1,70 @@
+{
+ "blocking": 3,
+ "blocking_findings": [
+  {
+   "class": "inherited unit-2 B1 (FROM_CLAUDE3/0298; D006)",
+   "file": "lookup/direct_cert_lookup_a296_cx2v001.py",
+   "id": "F1",
+   "lines": "lexical L85-95 (bad list includes 'runs', AST-identical to cx3v001 1cb5039e); bound replay L403-419",
+   "scenario": "An honest bound direct lookup for row 302 (the possible 7th L2 call) replays verify_list with real_custody_fn inside Snapshot.reads(). The frozen custody chain (custody_cx2v002 L129 -> driver b5cc62af L1215-1223 -> a2f10_result at ROOT/CLAUDE2/runs/A2_ANCHOR_F10_RUN_V001/result.json, driver L172/L343) is refused with PROTECTED_PATH_REFUSED, so the result is FULL_VERIFY_REPLAY_MISMATCH and no final spec is published.",
+   "sha256": "5288bc1737ec73a9fd7fc9a9e814ee8e5eaf5701f619349463b68bc1f2e80253"
+  },
+  {
+   "class": "inherited unit-2 B2",
+   "file": "lookup/direct_preflight_cert_a296_cx2v001.py",
+   "id": "F2",
+   "lines": "L20 Snapshot; L89-93 certificate_check inside s.reads(); L104-107 derive_custody; L210-214 blockers",
+   "scenario": "The direct preflight refuses every point, genesis included, under both the old and the new C1.",
+   "sha256": "909052360089b82a67dde854bc9df40399255fd899764e4f886016786cc15904"
+  },
+  {
+   "class": "inherited unit-2 B1 class, new instance",
+   "file": "lookup/registry_verify_a296_cx2v001.py",
+   "id": "F3",
+   "lines": "L26-34 snapshot from eps_lineage.snapshot() (eps_lineage L34-43 -> cx3v001 Snapshot); L55 with s.reads(); L66-69 verify with real_custody_fn, n==31 required",
+   "scenario": "Root's required full-genesis verification under the new C1 gives n=31, n_ok=0, exit 3. Codex2's 47 tests stub reads (nullcontext) and stub custody, so they cannot see it.",
+   "sha256": "98f687a15c17024a78de9654210b04cb3f193e1f8af94c40abe4cc7ee49b2c41"
+  }
+ ],
+ "blocking_root_causes": 1,
+ "evidence": {
+  "findings": "FINDINGS_HELPERS_FINAL.md c80f76f3",
+  "helper_scratch": [
+   "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/a296_integ_helperA/",
+   "/private/tmp/claude-501/-Users-bgm-Research-UNT-EXCHANGE/71ea3fb2-2be2-4b38-b919-d6ca63cf052f/scratchpad/a296_integ_helperB/"
+  ]
+ },
+ "fix": "Per D006 (deputy ruling, 2026-10-21T15:12:59Z): inside the replay, preflight and verify snapshots only, allow either (a) guard014's lexical_path set or (b) the custody deriver's exact pinned (path, sha) pairs. Keep the stricter list for request inputs and outputs, and keep the single read. Add a seam test with the real path shape (a pinned file under a 'runs' component is accepted; an unpinned 'runs' path is refused), run under the runtime interpreter (python3.12; F4). Re-issue direct_cert_lookup_a296, direct_preflight_cert_a296 and registry_verify_a296 (or eps_lineage plus its cascade). A Codex3 fix to cx3v001 does NOT propagate, because these pin their own copies or the frozen 1cb5039e.",
+ "notes": [
+  "L-N1: the bridge preamble's safe_path admits only /Users/bgm/Research/ and /Volumes/External1/ roots, so an ordinary record stored on /Volumes/UNT_CAMPAIGN would be BLOCKED. Not reachable today, since CP-1 out-roots are under /Users/bgm/Research.",
+  "L-N2: root must also fill each acceptance deps record (ACCEPT_DEPS_RECORD) with the same 7-entry list. h3_accept_call refuses DEPS_DIFFER_FROM_CONFIG (L270-277). Update C1 field_basis text (cosmetic).",
+  "L-N3: the A296 R3 signer review must use schema UNT_POINT_EPS_REVIEW_CX2V001 with accepts_a296_negligible_shells true, a296_acceptance equal to the exact trace, and adapter_sha256 equal to the bridge (core L405-413), produced by a distinct approved signer lane (stage v002).",
+  "A-N3: the guard checks the review binding, not signer distinctness. A direct bridge call outside stage v002 with a self-chosen approved review would pass the guard. Control: root's process and bindings; a future guard could add the stage's lane rule.",
+  "A-N5 / B: the core and lookup path fences are case-sensitive in places (UVT_, V007, KMAX) and lack UNT_INTERNAL_RUNS. Forged pins only. Same class as the 0315 N1.",
+  "A-N6: (a) all 8 A296 sources must be in Step4 fence 'sources'; (b) the new wrapper refuses every point until the policy is re-signed for guard 3939bc47 and the 7 producers. Expected; part of the chain.",
+  "B-F4: interpreter-dependent opener= refusal under Python 3.9. Run seam tests under the runtime python3.12.",
+  "B: C1 trust anchor moves from a code pin to the binding; snapshot reads replace read_json_pinned root checks; refusal codes change; an unsigned RAM policy with the exact bindings is accepted (same trust model as native checked_gate). All by design, with root's exact pins as the anchor.",
+  "Record correction: the custody a2f10 path is under /Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/runs/ (driver L172 + L343), not UNT_EXCHANGE/CLAUDE2. Conclusion unchanged."
+ ],
+ "object": "Codex2 0591: A296 full integration build (INTEGRATION_HANDOFF_CX2V001 ac720acf, CURRENT_PINS ba577ca1)",
+ "pass_areas": {
+  "blinding": "PASS: no new read of NGC3198 data, run trees, V007_POSTSEAL_RECORDS or ~/.codex in any successor.",
+  "c1_change (lead + helper B)": "Proposed producers 1-6 equal C1 tail_readiness and the signed policy 55926860, in order; the 7th is bridge 1eb94a51. Only approved_certificate_producers and certificate_policy_review change; custody, enumerator and genesis are unchanged. The policy must be re-signed (55926860 is refused as the new policy).",
+  "eps_bridge_and_core (lead)": "Ordinary branch: executes the original adapter's 7 function ASTs with the original __file__ (proof producer 4de70486). Its globals are equivalent: CU is the same custody bytes 6810b7c3; the PR stub matches every used attribute (AUDIT_LO, CC.shell_k with identical arithmetic, len only, CC.PER_DECADE identical, EPS_SCHEMA, shell_plan by AST, utc identical). A296 branch: byte-exact reconstruction through pinned rule 669f0640 from predecessor a1dcdea8 and audit 618ba8fa; single accepted shell; audit dominance; exact review trace and bridge sha; producer is the bridge; driver_certificate is the successor record, so SRB consumes the substituted eps.",
+  "guards_stage_step4_native (helper A)": "0 blocking; see FINDINGS_HELPERS_FINAL.md N1-N7.",
+  "lineage_binding_w1 (helper B)": "Lineage normalizes only after exact reconstruction; the binding template is fail-closed; the W1 ledger, entry, generator and regenerator change only guard lines, pins and provenance strings, with all definitions AST-identical. The cache id changes, so binding must happen before the first W1 wave plan or work-dir init (before the mount)."
+ },
+ "reviewer": "Claude3 (0856/A298 assigned reviewer); lead plus helpers A and B",
+ "schema": "CLAUDE3_REVIEW_RESULT_C3V001",
+ "tests": {
+  "admission_fence (helper A replay)": "13/13",
+  "campaign (helper B replay)": "68/68",
+  "guard differential (helper A)": "104 comparisons, 0 widened",
+  "lookup 152": "not replayed (reads CP-1 run-root records)",
+  "registry_verify (helper B replay)": "47/47"
+ },
+ "timing": "F3 blocks root's full-genesis verification of the C1 successor, which must precede the mount (Fri night). F1/F2 block row 302's L2 7th call before the batch binds. The re-issue is on the critical path; everything else may proceed.",
+ "unaffected_by_fix": "Bridge 1eb94a51 (proposed C1 producer 7), core 1a44bc59, guards 3939bc47/fe192884, branch 80a22d3e, stage 0c9d0243, Step4 successors, W1 campaign chain and its cache id: none has an edge to eps_lineage or the lookup. Root's C1 successor and Codex3's policy re-sign can proceed in parallel.",
+ "utc": "2026-10-21T18:37:33Z",
+ "verdict": "FAIL"
+}

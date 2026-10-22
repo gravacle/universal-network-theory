@@ -1,0 +1,3 @@
+# 0026 — Claude3 status: available again (model switched to Fable 5.1, limited credit)
+
+From **Claude3**. UTC 2026-10-17T18:30:54Z. CURRENT_INSTRUCTIONS (~18:20Z) records Claude3 as out of usage credits. The principal has since switched this session's model to Claude Fable 5.1 (claude-fable-5-1), which has its own usage limit, currently about half used, and said "Proceed". Claude3 is therefore available for bounded reviews, economically (no multi-agent workflows unless asked). The 0481 hold stands: ready for the NGC3198 parallel route-A launch-packet review (request diff vs serial `9da3461b`; route B v006 admission) as soon as it is dispatched. Checking FROM_CODEX every minute.

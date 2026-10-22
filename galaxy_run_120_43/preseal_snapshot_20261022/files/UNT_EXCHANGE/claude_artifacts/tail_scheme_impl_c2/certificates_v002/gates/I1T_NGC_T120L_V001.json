@@ -1,0 +1,155 @@
+{
+ "schema": "UNT_KMAX_TAIL_V007_GATE_RECORD_C2V002",
+ "gate": "I1T_NGC",
+ "verdict": "PASS",
+ "builds": [
+  {
+   "kind": "stars (module stars_gl4_rings) + H2 (prep v001 L212-249 replica) rings vs T120L fixed_source_fourier_J",
+   "n": 4096,
+   "max_rel": 3.231666075894346e-15,
+   "rtol": 1e-12,
+   "verdict": "PASS",
+   "case": "NGC_T120L_fixed",
+   "stage": "iteration_0 (T120L_hovr stored sources)",
+   "nodes": 4096,
+   "median_rel": 5.655415834637226e-17
+  },
+  {
+   "kind": "razor-thin initial HI rings (prep v001 L254-266) vs T120L initial_gas_fourier_J",
+   "n": 4096,
+   "max_rel": 1.8223323222201383e-15,
+   "rtol": 1e-12,
+   "verdict": "PASS",
+   "case": "NGC_T120L_initial_gas",
+   "stage": "iteration_0 (T120L_hovr stored sources)",
+   "nodes": 4096,
+   "median_rel": 2.0191858287820796e-18
+  },
+  {
+   "kind": "fixed + initial gas rings vs T120L current_source_fourier_J",
+   "n": 4096,
+   "max_rel": 1.6140245133148e-15,
+   "rtol": 1e-12,
+   "verdict": "PASS",
+   "case": "NGC_T120L_current",
+   "stage": "iteration_0 (T120L_hovr stored sources)",
+   "nodes": 4096,
+   "median_rel": 2.942232110788307e-17
+  }
+ ],
+ "scope": "represented ring roster vs the stored T120L iteration-0 packet sources at 4096 seeded nodes; the precondition of A52 ruling 4 for reading any NGC N-test.  It certifies the source REPRESENTATION (stars + H2 and initial gas); it is not a T result and not the tail module NGC roster (stars_registered with H2 as an extra profile component), which is a continuum of the same profiles with a different quadrature",
+ "counts": {
+  "fixed_rings": 1248,
+  "fixed_rings_expected": 1248,
+  "stars": 1072,
+  "h2": 176,
+  "gas_rings": 156,
+  "gas_rings_expected": 156
+ },
+ "stars_module_equals_prep_replica_bitwise": true,
+ "h2_custody": {
+  "tail_mass_exact_kg": 2.222592632807216e+38,
+  "mapped_GL_mass_normalization": 1.00697432621895,
+  "tail_mass_relative_error": 1.699768608305022e-16,
+  "molecular_total_quadrature_mass_kg": 9.96820173894861e+38
+ },
+ "stored_components_1_9_max_abs": {
+  "fixed_source_fourier_J": 0.0,
+  "initial_gas_fourier_J": 0.0,
+  "current_source_fourier_J": 0.0
+ },
+ "h2_share_max_abs_over_fixed_max_abs": 0.03322130422680357,
+ "node_k_range_inverse_kpc": [
+  0.01610080838618371,
+  3.3742235087245134
+ ],
+ "seed": 20261018,
+ "files": {
+  "fixed_source_fourier_J": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_kgrid_fidelity_c2/phase23/ops/T120L_hovr/fixed_source_fourier_J.npy",
+   "sha256": "5e94f5dcefdc4b7e8f18cb7d3986e6e6902f1fdf66d3547dc77efaadf47d323c",
+   "prep_json_sha256": "5e94f5dcefdc4b7e8f18cb7d3986e6e6902f1fdf66d3547dc77efaadf47d323c",
+   "equal": true
+  },
+  "initial_gas_fourier_J": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_kgrid_fidelity_c2/phase23/ops/T120L_hovr/initial_gas_fourier_J.npy",
+   "sha256": "de75a759800955a777d7daf446832b4c1fa257b30140f9af0a5fe9d08f5b063b",
+   "prep_json_sha256": "de75a759800955a777d7daf446832b4c1fa257b30140f9af0a5fe9d08f5b063b",
+   "equal": true
+  },
+  "current_source_fourier_J": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_kgrid_fidelity_c2/phase23/ops/T120L_hovr/current_source_fourier_J.npy",
+   "sha256": "2fd88125d674468f4760091d87f1c7905e587899a1513f5cf3bc48ee9207aaab",
+   "prep_json_sha256": "2fd88125d674468f4760091d87f1c7905e587899a1513f5cf3bc48ee9207aaab",
+   "equal": true
+  },
+  "k_physical": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_kgrid_fidelity_c2/phase23/ops/T120L_hovr/k_physical.npy",
+   "sha256": "4420f7f411a6665d2adbff7bbce42c4e0913316ee0eaf368ea7e8389b0f94f4d",
+   "prep_json_sha256": "4420f7f411a6665d2adbff7bbce42c4e0913316ee0eaf368ea7e8389b0f94f4d",
+   "equal": true
+  },
+  "wavevectors": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_kgrid_fidelity_c2/phase23/ops/T120L_hovr/wavevectors.npy",
+   "sha256": "4420f7f411a6665d2adbff7bbce42c4e0913316ee0eaf368ea7e8389b0f94f4d"
+  }
+ },
+ "code": {
+  "ngc_prep_v001": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_impl_c2/route_a/install/recovered_packet_audit/ngc_actual_initial_source_preparation_v001.py",
+   "sha256": "c54c7cc995f0bb59bb5d81a3f1267dba5dae48d116302c9c0438fe7e5a53710f",
+   "lines": "L184-206 stars, L212-249 H2, L254-266 gas, L288-295 analytic source calls"
+  },
+  "ngc_seed": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_a_freeboundary_c2/seed_v002/DEFAULT/seed/NGC3198_ROUTE_A_A2F10_SEED_C2V002_DEFAULT.json",
+   "sha256": "88ef386d2bd4e14be23709d21b23fd3b7b57a2cc85adcc09d6a0459bcbc108da"
+  },
+  "h2_tail": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_H2_SOURCE_TAIL_REDUCTION_RUN_V001/stdout.txt",
+   "sha256": "157ede0487beed6658a413ae4db34cae2e819efc58efd292ccc56794ae5917d2"
+  },
+  "forward_v002": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/helpers/recovered_packet_audit/galaxy_baryonic_source_forward_v002.py",
+   "sha256": "e9be043b46790e3493f4e427fb483a98a5665f004dfac287d5758afce0ac96ad"
+  }
+ },
+ "producer": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_v002/tools/i1t_ngc_c2v001.py",
+  "sha256": "27699e405ca7f69a5604e0a5039438d356841eccd44ac7f9c4f8d88a2c6d25f0"
+ },
+ "common": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_v002/tools/certs2_common_c2v002.py",
+  "sha256": "8a42fbf34339392d60164bfd108a38b02d093b5bc5066522655b9e3705ff863b"
+ },
+ "pins": {
+  "uvt_lapse": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/owned_uv_tail_lapse_v001.py",
+   "sha256": "c28d4209dc617708e1ae4d1d568ecf88d79fa926847f0ac050748642e6990b22"
+  },
+  "uvt_roster": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/uv_tail_source_roster_c2v001.py",
+   "sha256": "4366e3d6ca717b6f25a6799fa60b8ce05561a70d39662d7b1f08b75fc2171ad2"
+  },
+  "uvt_jn": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/module/posix_libm_bessel_jn_provider_c2v001.py",
+   "sha256": "d6c55b55c701a7172e6eaf86ef3f0fedb7f5b2de32d3dbeb06c1bbee471d3171"
+  },
+  "profile": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/GALAXY_RADIAL_SOURCE_REFERENCE_V001.json",
+   "sha256": "f5becd4586264ef156b021812d440e884f518c61dc9953e41a4fb1494218c60b"
+  },
+  "ngc_T120L_operator": {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_kgrid_fidelity_c2/phase23/ops/T120L_hovr/OPERATOR.json",
+   "sha256": "e6453d520f902e77da77e49b8f8d1cdbed84639f11ed6cc661943553741b2af4"
+  }
+ },
+ "method": "NGC I1-T against the T120L stored sources (root A52 ruling 4; certificates_v001 CHECK F2; CERTIFICATES_V001 sec 2\nUNTESTED item).  Replay only; no launch; no NGC3198 observed or target velocity is opened.\n\nRepresented discrete roster (the module's I1-T design, as module tests (d) / certs_common.i1t_on_state for DDO):\n  * stars: RS.stars_gl4_rings (module c2v001 4366e3d6; replica of the analytic-branch star rings) on the NGC3198\n    stellar_reference of profile f5becd45, gauss order 4 (NGC seed 88ef386d source_gauss_order).  It is checked BITWISE\n    against an independent replica of NGC prep v001 (c54c7cc9) L184-206 written here;\n  * H2: replica of NGC prep v001 L212-249 (measured-centre linear interpolation via forward v002 radial_surface with the\n    adopted tail outer scale; mapped-GL exponential tail normalized to its exact mass; stellar-height tracer), with the H2\n    radius / H2 literals read by module tests saved_states_v001.ngc_inputs (rows[:10], Fraction literals, as prep L75-78);\n  * gas: the razor-thin initial HI rings (prep v001 L254-266 via saved_states_v001.ngc_inputs, as GQ_CERT_V001).\nTransform: RS.packet_transform(..., 'prep_analytic_j0') = S(k) = -c^2 sum m J0(k_perp R) exp(-i k_z z) with the module's\nPOSIX libm j0 provider.  Packet: T120L_hovr (OPERATOR e6453d52) fixed_source_fourier_J, initial_gas_fourier_J and\ncurrent_source_fourier_J (component 0), files verified from bytes against PREP.json; 4096 seeded nodes (rng 20261018) of\nthe 1,152,000 T120L wavevectors.  Gate: RS.check_represented, max|a-b| / max|b| <= 1e-12 (UV_TAIL_SOURCE_MISMATCH else).\nRing counts are checked against PREP.json hovr captured_calls (n_rings 1248 fixed, 156 initial gas).",
+ "decisions": {
+  "frozen_pinned": {
+   "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V004_ADDENDUM.md",
+   "sha256": "487d44498205e563c752e692b48bbb7288055591c72cfdcf5a75d849fef3d82b"
+  },
+  "open_cited_by_name": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V005_ADDENDUM.md (A48, A50, A51, A52 rulings 4-5)"
+ },
+ "seconds": 0.9
+}

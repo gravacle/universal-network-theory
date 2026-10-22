@@ -1,0 +1,34 @@
+{
+  "schema": "CX1_0816_SUPPLEMENT_V002",
+  "verdict": "FAIL",
+  "blocking_count": 2,
+  "supersedes_scope": "Adds direct-route custody and admission detail to V001; does not change B1 or campaign-specific B2.",
+  "TESTED": [
+    "Four isolated tests of actual launcher015 decision AST passed: first call allowed; later call before predecessor first iteration refused; sixth route-A slot allowed; seventh route-A slot refused at max_active6. No imports or launches."
+  ],
+  "FORMAL": [
+    "Guard014 L373 caps max_active at6 and L375 requires previous-first-iteration ramp. Launcher015 L115-136 counts active route-A stages, not all live calls. Seven total live calls may overlap once an earlier call exits route A; seven simultaneous route-A stages cannot. Campaign budget17 is not a direct-launcher guard, so do not extend its five-call total limit to the direct route.",
+    "Binder011 command: --final-plan P --admission-candidate A --plan-out P2 --admission-out A2 --command-out C. It verifies exact candidate plan bytes through guard014 and writes only exclusive packet outputs. It publishes no authority. Root must independently publish admission path/hash. Its output command uses single-thread BLAS and launcher015 PLAN --execute-root-only. None executed.",
+    "Guard014 L355-401 checks independent root authority, plan/config pins, reviewed source map, launcher/guard/monitor identities, root ramp and case order, ROOT_FINAL nonpending specs, admitted driver, exact spec hash, distance, caps and per-case approval. Native preflight replay verifies certificate/sensitivity/normalization. Launcher passes exact spec path and driver SHA to the pinned monitor and refuses existing output paths.",
+    "The direct route has no campaign wave/cache import interface. Binder success would establish permission/custody for direct execution only. Natural wave plan, receipt/result, acceptance call-directory bindings and external provenance import remain B1.",
+    "Required successor remains lazy exact-request import plus reviewed direct batch admission for the selected seven points. Increasing route-A max_active to7 would additionally require a guard successor; it is unnecessary if staged overlap, rather than seven concurrent route-A stages, satisfies the timing objective. Physics bytes must remain fixed."
+  ],
+  "UNTESTED": [
+    "Full binder/launcher/guard end-to-end fixture replay and adoption of a seven-point batch.",
+    "Measured wall-time saving, aggregate RAM with S0, wrapper003/004 comparison and full engine trace equivalence remain open. Existing caps are not measured durations."
+  ],
+  "source_pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_launcher_c2v015.py",
+      "sha256": "cd987edd097323999847208d7b5fdfd93dadecb8a10beb6feaf91a0c53b68e0b"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_bind_c2v011.py",
+      "sha256": "d3d9702eb8096d11b98461f1c62c67931b9ecf74957cee95fbc3a60f60deaea0"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s1_successors_c2/step4_guard_c2v014.py",
+      "sha256": "6efdca016416a919b25a1e23d46a415b75fe2b5e60145ba098f864730975165d"
+    }
+  ]
+}

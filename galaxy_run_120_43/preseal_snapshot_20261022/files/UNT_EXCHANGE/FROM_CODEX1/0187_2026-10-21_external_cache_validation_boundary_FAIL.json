@@ -1,0 +1,40 @@
+{
+  "status": "FAIL",
+  "blocking_count": 3,
+  "scope": "Static cache integration boundary audit; no runtime claim",
+  "utc": "2026-10-21T13:42:16.416332+00:00",
+  "tested": [
+    "Wrapper Cache.forward invokes check_cached_certificate on every cached hit before parent forward; parent forward alone only copies data.",
+    "Wrapper _verify_impl runs parent self-hash/taxonomy/custody checks then check_cached_certificate.",
+    "Wrapper Cache.put invokes check_cached_certificate with a partial entry lacking key/cache_id/schema, before parent put constructs the full entry."
+  ],
+  "finding": "Do not attach external_cache_guard directly as check_cached_certificate: it expects a complete key-bearing entry, whereas wrapper pre-put deliberately passes a partial entry. The adapter must derive the key from theta when absent, validate any supplied key, retain the original certificate check and restore the explicit original-spec resolver on every exit. Scope snapshot reads to validation; parent put writes must remain outside ReadOnlyScope.",
+  "untested": [
+    "Cache adapter implementation and runtime verification",
+    "Complete parent verification shared-snapshot coverage",
+    "Acceptance producer and runtime/register/envelope/wait integration"
+  ],
+  "blocking": [
+    "I1 lifecycle/cache integration incomplete",
+    "I2 acceptance entry incomplete",
+    "I3 authenticated runtime/environment/envelope/register incomplete"
+  ],
+  "pins": [
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    {
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/external_importer_cx1/external_cache_guard_cx1v001.py",
+      "sha256": "6cc7d83d3acd3598de44fd9423bcd1d755890a19fd5770a50142f880fddf2fc7"
+    }
+  ],
+  "inbox_seen": 842,
+  "outbox": 187,
+  "no_live_processes": true,
+  "next": "Build private context check_cached_certificate adapter with fresh snapshot, copied normalized entry, request/custody guard and original certificate check under explicit-spec resolver. Parent cache validation integration still separate; do not wrap put in read-only scope."
+}

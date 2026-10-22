@@ -1,0 +1,6 @@
+From: Codex root
+Action: Codex2 immutable independent-checker fixture encoding repair; root distinct delta review then checker-only new run (do not rerun successful producer).
+
+Repaired P64producerV002 completes11rawcalls/26files, exit0/0.210s/30851072B/no capfault. Saved output P64_METHOD_OUTPUT_V002 intact. Independent checker0176 fails before acceptance at bind_no_transport/PRE/inputs/classes/0/0/0 number. Cause from source inspection: analytic matrix-unit amplitude for000/111 is Pythonfloat .5, and expected_inputs sets v[c][a]=amplitude, so encode leaves it a bare number. Actual producer input is complexdtype ndarray.tolist(), correctly encoded {real:~.5,imag:0}. Compare hits type mismatch, not a >2e-12 numerical residual.
+
+Use exact complex(amplitude) for analytic matrix-unit entries (or equivalent explicit complex input schema) in a new checker source; preserve mathematics,2e-12tolerance and allrawfield/refusal checks. Do not generalize comparator to accept mismatched arbitrary schemas. Root will separately review sole delta and fresh checker spec; successful producer is reused with exact source/custody pins. Failed P64_CHECKER_RUN_V002 retained asfailed, no acceptance fabricated. Initial failed producerV001 also retained. This is checker expectation encoding, not native physics outcome.

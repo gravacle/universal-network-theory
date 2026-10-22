@@ -1,0 +1,497 @@
+--- /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_schema_repair_0344/extract_sparc_geometry_metadata_v002.py	2026-10-15 09:21:16.022321925 -0500
++++ /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_extractor_0353/extract_sparc_geometry_metadata_v003.py	2026-10-15 11:31:48.142470493 -0500
+@@ -1,176 +1,328 @@
+-"""INERT fail-closed allowed-field extractor V002 for SPARC galaxy-sample geometry (task 0344). ROOT runs it; the author has not run it on the real source.
++"""INERT source-specific ordinal extractor V003 for SPARC galaxy-sample CATALOGUE LITERALS (task 0353).
++ROOT alone runs it on the real source. The author ran it on synthetic fixtures only.
+ 
+-Why V002: V001 trusted the in-file MRT header byte ranges without checking the field values. On the real rows those ranges
+-cut across the tokens, so V001 emitted malformed literals with status OK. Its output (SPARC_ALLOWED_GEOMETRY_METADATA_V001.json)
+-is QUARANTINED. V001 and that output stay unchanged.
++Lineage (reuse, not rebuild):
++  * extract_sparc_geometry_metadata_v002.py (0344, sha 9ac0275b...): pins, documentation checks, fail-closed shape.
++  * prefix_contract_checker_0349.py (0349, sha 46799b8f...): contract C0-C10 and check_prefix().
++  * AUDIT_CORRECTION_0349_V001.json (0349 review, sha eb2e3b58...): corrections K1-K6, all bound here.
++  * publish() and candidate_path() copied unchanged in behaviour from ngc3198_source_bundle_adapter_v005.py
++    (0348, sha fc9cdcfa..., CLAUDE2 helper 0348), the reviewed preserved-candidate protocol.
+ 
+-V002 rules:
+-  * A layout is used only if it is DOCUMENTED (the CDS ReadMe table1.dat description, verified by pin and exact
+-    description lines; or the in-file MRT header, verified by exact header lines), or DECLARED by root in a JSON file
+-    passed with its sha256 (--declared-layout PATH SHA256). The author never guesses offsets.
+-  * Every field of every target row is validated strictly:
+-      - format: right-justified ASCII digits only (no sign, exponent, nan/inf, internal or trailing blank); Fw.d needs
+-        exactly d decimals;
+-      - documented blank separator bytes must be blank; the row must reach the layout's last byte (completeness);
+-      - domain: D finite and > 0; e_D >= 0; f_D in {1..5} (Note 2); 0 <= Inc <= 90; e_Inc >= 0; Type in 0..11;
+-        CDS documented column ranges are enforced when the CDS layout is evaluated.
+-  * A layout PASSES only if both targets are found exactly once and every check passes for both.
+-  * Status: PASS_DOCUMENTED_LAYOUT (exactly one documented layout passes, no declaration given);
+-    PASS_DECLARED_LAYOUT (declaration given, declared layout passes and no documented layout passes);
+-    otherwise FAILED_SCHEMA_VALIDATION, FAILED_AMBIGUOUS_LAYOUT or FAILED_DECLARATION_CONFLICT. Never plain OK.
+-    On any FAILED status no field values are emitted: only character-class masks and per-check booleans.
+-  * Exposure (corrected wording): the whole source file is read into memory, hashed, and split into byte lines. Bytes
+-    1-11 of each post-header line are compared with the target names. For target rows only, bytes 1..MAXBYTE (41) are
+-    decoded and interpreted. Bytes beyond 41 are present in memory buffers but are never decoded, parsed, compared or
+-    emitted. No geometry is adopted by running this; the output is catalogue metadata for root review.
+-Usage: python3 -B extract_sparc_geometry_metadata_v002.py <new_output.json> [--declared-layout <layout.json> <sha256>]
++What it is: a catalogue-literal CANDIDATE, not an adoption of physical geometry. For exactly two rows, NGC3198 and DDO154,
++it emits the ORIGINAL LITERAL TOKEN STRINGS of D, e_D, f_D, Inc, e_Inc with their exact source line and byte spans,
++documented units and semantics. T is validated, never emitted. e_D and e_Inc are catalogue mean errors and stay catalogue
++quantities: no Gaussian, no covariance, no joint region. The quarantined V001 output is never read or written.
++
++Contract (0349 C0-C10 with K1-K6 bound); every failure is fail-closed:
++  C0  source sha256 pin; header = lines 1-98 exactly, line 98 a dash separator (K5: the separator search runs over
++      header lines 1-98 ONLY, never over data lines); header lines 10-17 (order, formats, units, labels, explanations)
++      and Notes (1)/(2) lines 30-38 verified; CDS ReadMe sha pin, table1 lines 148-155 verified, no '?' null flag in
++      table1 section lines 144-216, Note (3) text present; manifest sha pin.
++  C1  exactly one data row whose bytes 1-11, stripped of blanks, equal the target name (no aliases; no blank in name).
++  C2  bytes 1-41 exist; each is 0x20 or printable ASCII 0x21-0x7E.
++  C3  byte 41 is 0x20.
++  C4  bytes 1-41 split on runs of 0x20 give exactly 7 tokens.
++  C5  token 1 equals the target name, ends at or before byte 11, and is the only token in bytes 1-11.
++  C6  ordered shapes: T ^(?:[0-9]|1[01])$ ; D ^(?:0|[1-9][0-9]{0,2})\\.[0-9]{2}$ ; e_D ^(?:0|[1-9][0-9]?)\\.[0-9]{2}$ ;
++      f_D ^[1-5]$ ; Inc, e_Inc ^(?:0|[1-9][0-9]?)\\.[0-9]$
++  C7  D > 0 and 0 <= Inc <= 90.
++  C8  reject-only CDS [min/max] guards: D [0.98,127.8], e_D [0.05,12.8], Inc [15,90], e_Inc [1,10]. Never identification.
++  C9  token end bytes == (11,14,21,27,30,35,40), the invariant observed in all 175 rows (OBSERVED, not published).
++      K2: no identification work, but LOAD-BEARING as the only rejector of review fixtures R2, R2c, R3.
++  C10 NGC3198: token 3 float-equals the root manifest crosscheck_massmodels.reference_distance_texts[0] and no other
++      token 2-7 does. The anchor text is used for these two booleans only and is never emitted. DDO154: no anchor.
++Declared assumptions, NOT discharged (catalogue integrity / source provenance; byte-identical alternatives in bytes 1-41):
++  A1  no D<->e_D cell transposition in the DDO154 row (NGC3198: closed for its row by C10).
++  A1b (K1) no T<->f_D cell transposition in the NGC3198 row. Status is computed from the WIDTH of token 2 only: a two-digit
++      token 2 excludes the swap (f_D must be one digit), a one-digit token 2 leaves it declared. T's value is not used.
++  A2  no null e_Inc collapsed into a later F.1 field (narrowed by C9 to a writer that both collapses nulls and
++      right-justifies into the fixed slots; rests on the cited CDS null-flag convention plus A3).
++  A3  (K6) the CDS table1 content equals the SPARC-site file; load-bearing for C8 (the only separator of Inc from e_Inc)
++      and for A2. CDS table1.dat itself is not in the evidence.
++EXPOSURE (exact; corrects the V001/V002 and 0349 wording, see EXPOSURE_CORRECTION):
++  * Source: the whole file is read into memory ONCE and hashed (sha256). Line boundaries are found by find(LF) over the
++    buffer. Header: the bytes up to and including the 98th LF are sliced and split into lines 1-98; every header line is
++    blank-stripped and matched, as bytes, against the dash-separator pattern (header only, K5); lines 10-17 and 30-38 are
++    ASCII-decoded and regex-checked.
++  * Data lines (99 onward): for each line ONLY bytes 1-41 are sliced from the buffer, BEFORE any interpretation; the LF
++    position bounds that slice and decides the boolean "line has at least 41 bytes". Bytes >= 42 of every data line are
++    touched only by the hash and the LF search: never sliced, decoded, stripped, compared, measured or emitted.
++  * Bytes 1-11 of every data line are blank-stripped and compared with the two target names. Only the two target lines'
++    bytes 1-41 are tokenized and checked; a token is decoded only after its shape regex has matched (ASCII digits and '.')
++    or, for emission, after every condition has passed. Other lines are not tokenized.
++  * CDS ReadMe: read, hashed, UTF-8 decoded, tag-stripped; text lines 144-216 checked.
++  * Manifest: read, hashed and JSON-parsed in full (duplicate keys and non-finite tokens refused); only
++    crosscheck_massmodels.reference_distance_texts is accessed; its single string is compared by float equality with
++    tokens 2-7 of NGC3198; it is never emitted or printed.
++  * Emitted on success only: per target the five literal tokens with 1-based byte spans, the source line number,
++    documented units/semantics, check booleans and declared-assumption states. Never emitted: T, the anchor text, any other
++    row, any byte >= 42. On failure: codes and booleans only.
++Failure classes and exit codes (0348 protocol):
++  0   success: candidate written, verified and published by hard link.
++  2   VALIDATION failure (FAILED_VALIDATION): before any file is created; stdout carries codes and booleans ONLY.
++  4   PUBLICATION failure (FAILED_PUBLICATION): the candidate may remain (complete or partial), never removed.
++  3   unexpected exception (phase reported).   130 interrupt (FAILED_INTERRUPTED, phase reported).
++Write lifecycle (publish() from 0348 V005): exclusive '<output>.candidate' (O_EXCL, mode 0444), write, flush, fsync,
++re-read and compare, exclusive hard link to '<output>', directory fsync, output re-read, same-file check; every post-link
++step guarded. Nothing is ever unlinked, moved or overwritten.
++Usage: python3 -I -B extract_sparc_geometry_metadata_v003.py <dir>/SPARC_ALLOWED_GEOMETRY_METADATA_CANDIDATE_V002.json
+ """
+-import hashlib,html,json,math,re,sys
++import hashlib,html,json,math,os,re,stat,sys
+ from pathlib import Path
++# ---- PINS (a synthetic test harness may replace exactly this block in a scratch COPY; this file is never patched) ----
+ SRC=('/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_Lelli2016c.mrt','5aa0501f6b0d881fa579030e315e7b5b6ef561a5bd3a07472f9929c7e5728243')
+ CDS_README=('/Users/bgm/Research/Universal Network Theory/UNT_DARK_SECTOR_CONTINUOUS_2026-09-27_V001/joint_parent_continuation/external_ddo154_v001/SPARC_ReadMe.html','457f61cd8e63dd7b8f8ce0052a458294fa1a5acc2b5b23bb951a2c40d69f9666')
+-MAXBYTE=41  # hard interpretation ceiling: CDS geometry ends at 39, separator 40; one more byte for a declared e_Inc end check
+-OBJECTS={'NGC3198':['NGC3198','NGC 3198'],'DDO154':['DDO154','DDO 154','NGC4789A','NGC 4789A']}
+-EMIT=['D','e_D','f_D','Inc','e_Inc']  # Type is validated as a layout check but not emitted
+-F_D_NOTE={1:'Hubble-Flow assuming H0=73 km/s/Mpc and correcting for Virgo-centric infall',2:'Magnitude of the Tip of the Red Giant Branch',3:'Cepheids Magnitude-Period Relation',4:'Ursa Major Cluster of Galaxies',5:'Supernovae Light Curve'}
+-DOMAIN={'Type':lambda v:0<=v<=11,'D':lambda v:math.isfinite(v) and v>0,'e_D':lambda v:math.isfinite(v) and v>=0,'f_D':lambda v:v in (1,2,3,4,5),'Inc':lambda v:math.isfinite(v) and 0<=v<=90,'e_Inc':lambda v:math.isfinite(v) and v>=0}
+-# CDS ReadMe table1.dat (text lines 144-160 after tag stripping): label, bytes, format, documented [min/max].
+-CDS_LINES={'Type':r'^\s*13-\s*14\s+I2\s+---\s+Type\s+\[0/11\]','D':r'^\s*16-\s*21\s+F6\.2\s+Mpc\s+Dist\s+\[0\.98/127\.8\]','e_D':r'^\s*23-\s*27\s+F5\.2\s+Mpc\s+e_Dist\s+\[0\.05/12\.8\]',
+- 'f_D':r'^\s*29\s+I1\s+---\s+f_Dist\s+\[1/5\]','Inc':r'^\s*31-\s*34\s+F4\.1\s+deg\s+i\s+\[15/90\]','e_Inc':r'^\s*36-\s*39\s+F4\.1\s+deg\s+e_i\s+\[1/10\]','Galaxy':r'^\s*1-\s*11\s+A11\s+---\s+Name\s'}
+-CDS_LAYOUT={'name':'CDS_TABLE1_README','fields':{'Galaxy':(1,11,'A11'),'Type':(13,14,'I2'),'D':(16,21,'F6.2'),'e_D':(23,27,'F5.2'),'f_D':(29,29,'I1'),'Inc':(31,34,'F4.1'),'e_Inc':(36,39,'F4.1')},
+- 'blank_bytes':[12,15,22,28,30,35,40],'ranges':{'Type':(0,11),'D':(0.98,127.8),'e_D':(0.05,12.8),'f_D':(1,5),'Inc':(15,90),'e_Inc':(1,10)}}
+-MRT_LAYOUT={'name':'MRT_INFILE_HEADER','fields':{'Galaxy':(1,11,'A11'),'Type':(12,13,'I2'),'D':(14,19,'F6.2'),'e_D':(20,24,'F5.2'),'f_D':(25,26,'I2'),'Inc':(27,30,'F4.1'),'e_Inc':(31,34,'F4.1')},'blank_bytes':[],'ranges':{}}
+-MRT_HDR={'Galaxy':(1,11,'A11','---'),'T':(12,13,'I2','---'),'D':(14,19,'F6.2','Mpc'),'e_D':(20,24,'F5.2','Mpc'),'f_D':(25,26,'I2','---'),'Inc':(27,30,'F4.1','deg'),'e_Inc':(31,34,'F4.1','deg')}
+-HDR_FIELD=re.compile(r'^\s*(\d+)-\s*(\d+)\s+(\S+)\s+(\S+)\s+(\S+)')
+-FMT=re.compile(r'^(A|I|F)(\d+)(?:\.(\d+))?$')
+-class Fail(Exception):pass
++MANIFEST=('/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CODEX1/NGC3198_TARGET_FREE_QUERY_MANIFEST_V001.json','a293651733ba2e6cff5e313d060521d8481bac39bf6f0af540d0108538535494')
++# ---- END PINS ----
++LINEAGE={'extractor_v002':{'file':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/geometry_schema_repair_0344/extract_sparc_geometry_metadata_v002.py','sha256':'9ac0275b583b5014062006ddc05638766ed25ea060f39efd26b501edcfb0c297'},
++ 'checker_0349':{'file':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sparc_prefix_audit_0349/prefix_contract_checker_0349.py','sha256':'46799b8ffbcf19eccf29ece7b1a6527fda7966e8c86c15b76d660d92ed3f5400'},
++ 'audit_correction_0349':{'file':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/sparc_prefix_audit_0349/AUDIT_CORRECTION_0349_V001.json','sha256':'eb2e3b58c8c62aa4c8c092fcd2b5e325941d881195094a8c614a5c0e8de9dc8a'},
++ 'publish_from':{'file':'/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/source_adapter_write_0348/ngc3198_source_bundle_adapter_v005.py','sha256':'fc9cdcfa1c530792dfaae70588bba1c45d0f2581bd382163d4b39d24d010fae3','author':'CLAUDE2 helper 0348','functions':['candidate_path','publish']}}
++OUTPUT_NAME='SPARC_ALLOWED_GEOMETRY_METADATA_CANDIDATE_V002.json'
++TARGETS=('NGC3198','DDO154')
++FIELDS=('Galaxy','T','D','e_D','f_D','Inc','e_Inc')
++EMIT=('D','e_D','f_D','Inc','e_Inc')
++HEADER_LINES=98;PREFIX=41
++SHAPES={'T':rb'(?:[0-9]|1[01])','D':rb'(?:0|[1-9][0-9]{0,2})\.[0-9]{2}','e_D':rb'(?:0|[1-9][0-9]?)\.[0-9]{2}',
++ 'f_D':rb'[1-5]','Inc':rb'(?:0|[1-9][0-9]?)\.[0-9]','e_Inc':rb'(?:0|[1-9][0-9]?)\.[0-9]'}
++GUARDS={'D':(0.98,127.8),'e_D':(0.05,12.8),'Inc':(15.0,90.0),'e_Inc':(1.0,10.0)}
++OBSERVED_ENDS=(11,14,21,27,30,35,40)
++HDR_FIELDS={10:r'\s*1-\s*11\s+A11\s+---\s+Galaxy\s+Galaxy Name\s*',11:r'\s*12-\s*13\s+I2\s+---\s+T\s+Hubble Type \(1\)\s*',
++ 12:r'\s*14-\s*19\s+F6\.2\s+Mpc\s+D\s+Distance\s*',13:r'\s*20-\s*24\s+F5\.2\s+Mpc\s+e_D\s+Mean error on D\s*',
++ 14:r'\s*25-\s*26\s+I2\s+---\s+f_D\s+Distance Method \(2\)\s*',15:r'\s*27-\s*30\s+F4\.1\s+deg\s+Inc\s+Inclination\s*',
++ 16:r'\s*31-\s*34\s+F4\.1\s+deg\s+e_Inc\s+Mean error on Inc\s*',17:r'\s*35-\s*41\s+F7\.3\s+\S+\s+L\[3\.6\]\s+Total Luminosity at \[3\.6\]\s*'}
++HDR_NOTES={30:'Note (1):',31:' 0 = S0,  1 = Sa, 2 = Sab, 3 = Sb, 4 = Sbc, 5 = Sc,',32:' 6 = Scd, 7 = Sd, 8 = Sdm, 9 = Sm, 10 = Im, 11 = BCD',
++ 33:'Note (2):',34:' 1 = Hubble-Flow assuming H0=73 km/s/Mpc and correcting for Virgo-centric infall',35:' 2 = Magnitude of the Tip of the Red Giant Branch',
++ 36:' 3 = Cepheids Magnitude-Period Relation',37:' 4 = Ursa Major Cluster of Galaxies',38:' 5 = Supernovae Light Curve'}
++CDS_LINES={148:r'\s*1-\s*11\s+A11\s+---\s+Name\s+Galaxy name\s*',149:r'\s*13-\s*14\s+I2\s+---\s+Type\s+\[0/11\] Numerical Hubble type \(1\)\s*',
++ 150:r'\s*16-\s*21\s+F6\.2\s+Mpc\s+Dist\s+\[0\.98/127\.8\] Assumed distance\s*',151:r'\s*23-\s*27\s+F5\.2\s+Mpc\s+e_Dist\s+\[0\.05/12\.8\] Mean error on Dist\s*',
++ 152:r'\s*29\s+I1\s+---\s+f_Dist\s+\[1/5\] Flag giving the distance method \(2\)\s*',153:r'\s*31-\s*34\s+F4\.1\s+deg\s+i\s+\[15/90\] Assumed inclination angle \(3\)\s*',
++ 154:r'\s*36-\s*39\s+F4\.1\s+deg\s+e_i\s+\[1/10\] Mean error on i\s*',155:r'\s*41-\s*47\s+F7\.3\s+\S+\s+L3\.6\s+.*'}
++CDS_TABLE1=(144,216);CDS_NOTE3=(200,206);CDS_NOTE3_TEXT='this column provides the mean value of i in the outer parts of the HI disk'
++FIELD_DOC={
++ 'D':{'format':'F6.2','units':'Mpc','header':'Distance (line 12)','cds':'Assumed distance (line 150)','kind':'catalogue distance literal'},
++ 'e_D':{'format':'F5.2','units':'Mpc','header':'Mean error on D (line 13)','cds':'Mean error on Dist (line 151)','kind':'catalogue mean error; a catalogue quantity, not a Gaussian sigma; no covariance, no joint region'},
++ 'f_D':{'format':'I2 (header) / I1 (CDS)','units':'---','header':'Distance Method (2) (line 14)','cds':'Flag giving the distance method (2) (line 152)','kind':'distance-method code; meaning from header Note (2), lines 34-38'},
++ 'Inc':{'format':'F4.1','units':'deg','header':'Inclination (line 15)','cds':'Assumed inclination angle (3) (line 153)','kind':'catalogue inclination literal; CDS Note (3): the mean value of i in the outer parts of the HI disk (in some cases fixed to the optical value)'},
++ 'e_Inc':{'format':'F4.1','units':'deg','header':'Mean error on Inc (line 16)','cds':'Mean error on i (line 154)','kind':'catalogue mean error; a catalogue quantity, not a Gaussian sigma; no covariance, no joint region'}}
++ASSUMPTIONS={
++ 'A1':'no D<->e_D cell transposition in the DDO154 row (catalogue integrity); NGC3198 is closed for its row by the C10 anchor',
++ 'A1b':'no T<->f_D cell transposition in the NGC3198 row (catalogue integrity, K1); excluded by bytes when token 2 has two digits',
++ 'A2':'no null e_Inc collapsed into a later F.1 field (narrowed by C9; rests on the cited CDS null-flag convention plus A3)',
++ 'A3':'the CDS table1 content equals the SPARC-site file (K6; load-bearing for C8 and A2; CDS table1.dat not in evidence)'}
++CORRECTIONS={'K1':'T<->f_D transposition: A1b declared; A1b status from token-2 width only','K2':'C9 kept and load-bearing (only rejector of R2, R2c, R3)',
++ 'K3':'A1 and A2 are plausible, not excluded; carried as declared assumptions','K4':'the H+1 slot invariant (C9) is OBSERVED, not documented',
++ 'K5':'separator search restricted to header lines 1-98; data lines sliced to bytes 1-41 before interpretation','K6':'A3 carried as load-bearing'}
++NOT_ESTABLISHED=['fixed-offset provenance (no document states the observed byte positions)','the serialization of fields 8-19 (bytes >= 42 never inspected)',
++ 'physical geometry of either galaxy','validity for any bytes other than the pinned source','a DDO154-specific anchor for D vs e_D (A1)','an independent record of the NGC3198 Type or distance-method code (A1b)']
++EXPOSURE=('Source: whole file read into memory once and hashed; line boundaries found by find(LF). Header: bytes up to and including '
++ 'the 98th LF sliced and split into lines 1-98; every header line blank-stripped and matched as bytes against the dash-separator '
++ 'pattern (header only, K5); lines 10-17 and 30-38 ASCII-decoded and regex-checked. Data lines 99 onward: only bytes 1-41 sliced, '
++ 'before any interpretation; the LF position bounds the slice and decides the boolean "line has at least 41 bytes"; bytes >= 42 '
++ 'touched only by the hash and the LF search, never sliced, decoded, stripped, compared, measured or emitted. Bytes 1-11 of every '
++ 'data line blank-stripped and compared with the two target names; only the two target prefixes tokenized; tokens decoded only '
++ 'after their shape regex matched or, for emission, after every condition passed. CDS ReadMe read, hashed, decoded, tag-stripped; '
++ 'lines 144-216 checked. Manifest read, hashed, JSON-parsed in full; only crosscheck_massmodels.reference_distance_texts accessed; '
++ 'its single string compared by float equality with tokens 2-7 of NGC3198, never emitted or printed. Emitted on success only: '
++ 'five literal tokens per target with byte spans, source line, documented units/semantics, check booleans, assumption states. '
++ 'Never emitted: T, the anchor text, any other row, any byte >= 42. On failure: codes and booleans only.')
++EXPOSURE_CORRECTION=('Corrects earlier wording. V002 split the whole file into lines (materialising every byte of every data line), searched '
++ 'lines 1-200 for the separator by stripping and matching whole data lines 99-200, and only afterwards kept bytes 1-41 of the target '
++ 'lines; its statement that bytes beyond 41 were never decoded, compared or measured was inaccurate for that separator search. The '
++ '0349 census and checker had the same separator search (K5). V003 never materialises a data-line slice longer than 41 bytes and '
++ 'searches for the separator in header lines 1-98 only.')
++class Fail(Exception):
++ def __init__(self,code,codes=None,checks=None):super().__init__(code);self.code=code;self.codes=codes or [code];self.checks=checks
++class PublishFail(Exception):
++ def __init__(self,code,info):super().__init__(code);self.code=code;self.info=info
++PHASE=['VALIDATION']
+ def sha(b):return hashlib.sha256(b).hexdigest()
+-def mask(b):return ''.join('_' if c==32 else '9' if 48<=c<=57 else '.' if c==46 else 'A' if (65<=c<=90 or 97<=c<=122) else '?' for c in b)
+-def check_layout_shape(lay):
+- need={'Galaxy','D','e_D','f_D','Inc','e_Inc','Type'}
+- if set(lay['fields'])!=need:raise Fail('E_LAYOUT_FIELDS')
+- used=set()
+- for k,(a,e,f) in lay['fields'].items():
+-  if not (type(a) is int and type(e) is int and isinstance(f,str)):raise Fail('E_LAYOUT_FIELD_'+k)
+-  m=FMT.match(f)
+-  if not m or a<1 or e<a or e>MAXBYTE or int(m.group(2))!=e-a+1:raise Fail('E_LAYOUT_FIELD_'+k)
+-  if (k=='Galaxy')!=(m.group(1)=='A') or (k in ('Type','f_D'))!=(m.group(1)=='I'):raise Fail('E_LAYOUT_TYPE_'+k)
+-  span=set(range(a,e+1))
+-  if span&used:raise Fail('E_LAYOUT_OVERLAP')
+-  used|=span
+- for x in lay['blank_bytes']:
+-  if type(x) is not int or not (1<=x<=MAXBYTE) or x in used:raise Fail('E_LAYOUT_BLANK_BYTES')
+-def parse_field(raw,f):
+- """raw: bytes slice. Returns (ok_format, value_or_None)."""
+- try:s=raw.decode('ascii')
+- except UnicodeDecodeError:return False,None
+- m=FMT.match(f);kind,dec=m.group(1),m.group(3)
+- t=s.lstrip(' ')
+- if kind=='I':
+-  return (True,int(t)) if re.fullmatch(r'\d+',t) else (False,None)
+- if kind=='F':
+-  return (True,float(t)) if re.fullmatch(r'\d+\.\d{%d}'%int(dec),t) else (False,None)
+- return False,None
+-def evaluate(lay,rows):
+- """rows: {obj:[(line_no,prefix_bytes,full_len)]}. Returns (passed, values, diagnosis)."""
+- last=max([e for a,e,f in lay['fields'].values()]+lay['blank_bytes'])
+- diag={};vals={};passed=True
+- for obj in OBJECTS:
+-  hits=rows.get(obj,[])
+-  d={'occurrences':len(hits)}
+-  if len(hits)!=1:diag[obj]=d;passed=False;continue
+-  n,p,full_len=hits[0]
+-  d['source_line_number']=n;d['row_reaches_last_byte']=full_len>=last
+-  d['name_justification']='right' if p[:1]==b' ' else 'left'
+-  d['prefix_class_mask']=mask(p[:last])
+-  ok_row=d['row_reaches_last_byte'];v={}
+-  for k,(a,e,f) in lay['fields'].items():
+-   if k=='Galaxy':continue
+-   raw=p[a-1:e]
+-   fc={'bytes':[a,e],'format':f,'class_mask':mask(raw),'complete':len(raw)==e-a+1}
+-   okf,val=parse_field(raw,f) if fc['complete'] else (False,None)
+-   fc['format_ok']=okf
+-   fc['domain_ok']=okf and DOMAIN[k](val)
+-   if k in lay['ranges']:lo,hi=lay['ranges'][k];fc['documented_range_ok']=okf and lo<=val<=hi
+-   fc['pass']=fc['complete'] and okf and fc['domain_ok'] and fc.get('documented_range_ok',True)
+-   ok_row&=fc['pass'];d[k]=fc
+-   if fc['pass']:v[k]=val
+-  gaps={str(x):(len(p)>=x and p[x-1:x]==b' ') for x in lay['blank_bytes']}
+-  d['blank_bytes_ok']=gaps;ok_row&=all(gaps.values())
+-  d['row_pass']=ok_row;diag[obj]=d;passed&=ok_row
+-  if ok_row:vals[obj]=dict(v,source_line_number=n)
+- return passed,(vals if passed else None),diag
++def _pairs(ps):
++ d={}
++ for k,v in ps:
++  if k in d:raise Fail('E_JSON_DUPLICATE_KEY')
++  d[k]=v
++ return d
++def _const(c):raise Fail('E_JSON_NONFINITE_TOKEN')
++def _read(p):return Path(p).read_bytes()
++def load_source():
++ """Hash the whole source; slice header lines 1-98; slice ONLY bytes 1-41 of every data line (see EXPOSURE)."""
++ b=_read(SRC[0])
++ if sha(b)!=SRC[1]:raise Fail('E_PIN_SOURCE')
++ pos=0
++ for _ in range(HEADER_LINES):
++  nl=b.find(b'\n',pos)
++  if nl<0:raise Fail('E_HEADER_STRUCTURE')
++  pos=nl+1
++ header=b[0:pos].split(b'\n')[:HEADER_LINES]
++ rows=[];n=HEADER_LINES+1;size=len(b)
++ while pos<size:
++  nl=b.find(b'\n',pos);end=size if nl<0 else nl
++  rows.append((n,b[pos:min(pos+PREFIX,end)]))  # bytes 1..41 only, sliced before any interpretation
++  pos=end+1;n+=1
++ return header,rows,size
++def verify_header(h):
++ """C0 header part. Separator search over header lines 1-98 only (K5). Returns the Note (2) code meanings."""
++ seps=[i+1 for i,l in enumerate(h) if re.fullmatch(rb'-{20,}',l.strip())]
++ if len(h)!=HEADER_LINES or not seps or seps[-1]!=HEADER_LINES:raise Fail('E_HEADER_STRUCTURE')
++ try:txt={n:h[n-1].decode('ascii') for n in list(HDR_FIELDS)+list(HDR_NOTES)}
++ except UnicodeDecodeError:raise Fail('E_HEADER_ORDER')
++ if not all(re.fullmatch(rx,txt[n]) for n,rx in HDR_FIELDS.items()):raise Fail('E_HEADER_ORDER')
++ if not all(txt[n].rstrip()==t for n,t in HDR_NOTES.items()):raise Fail('E_HEADER_NOTES')
++ return {int(txt[n][1]):txt[n].rstrip()[5:] for n in range(34,39)}
++def verify_cds():
++ rb=_read(CDS_README[0])
++ if sha(rb)!=CDS_README[1]:raise Fail('E_PIN_CDS')
++ t=html.unescape(re.sub(r'<[^>]+>','',rb.decode('utf-8','replace'))).splitlines()
++ if len(t)<CDS_TABLE1[1] or t[CDS_TABLE1[0]-1].strip()!='Byte-by-byte Description of file: table1.dat':raise Fail('E_CDS_ORDER')
++ if not all(re.fullmatch(rx,t[n-1]) for n,rx in CDS_LINES.items()):raise Fail('E_CDS_ORDER')
++ if any('?' in l for l in t[CDS_TABLE1[0]-1:CDS_TABLE1[1]]):raise Fail('E_CDS_NULL_FLAG')
++ if CDS_NOTE3_TEXT not in ' '.join(' '.join(t[CDS_NOTE3[0]-1:CDS_NOTE3[1]]).split()):raise Fail('E_CDS_NOTE3')
++ return {'path':CDS_README[0],'sha256':CDS_README[1],'table1_lines_148_155_verified':True,'table1_section_lines_144_216_no_null_flag':True,'note3_lines_200_206_verified':True}
++def load_anchor():
++ mb=_read(MANIFEST[0])
++ if sha(mb)!=MANIFEST[1]:raise Fail('E_PIN_MANIFEST')
++ try:m=json.loads(mb,object_pairs_hook=_pairs,parse_constant=_const)
++ except ValueError:raise Fail('E_JSON_MANIFEST')
++ cm=m.get('crosscheck_massmodels') if isinstance(m,dict) else None
++ tx=cm.get('reference_distance_texts') if isinstance(cm,dict) else None
++ if not (isinstance(tx,list) and len(tx)==1 and isinstance(tx[0],str) and re.fullmatch(r'[0-9]+(?:\.[0-9]+)?',tx[0])):raise Fail('E_ANCHOR_TEXT')
++ return tx[0]
++def check_prefix(p,target,anchor_text=None):
++ """0349 check_prefix (C1-C10) on a bytes 1-41 prefix. C10 is evaluated iff anchor_text is given (main() gives it for
++ NGC3198 only). Returns (codes, checks, tokens, spans); main() uses tokens/spans ONLY when codes is empty for both targets.
++ checks holds booleans (None = not evaluated)."""
++ codes=[];ck={}
++ tn=target.encode('ascii')
++ ck['C1_target_name_has_no_blank']=b' ' not in tn
++ ck['C1_bytes_1_11_equal_target']=p[:11].strip(b' ')==tn
++ if not ck['C1_target_name_has_no_blank']:codes.append('E_NAME_INTERNAL_BLANK')
++ if not ck['C1_bytes_1_11_equal_target']:codes.append('E_NAME_MISMATCH')
++ ck['C2_reaches_byte_41']=len(p)==PREFIX
++ ck['C2_printable_ascii']=all(c==32 or 33<=c<=126 for c in p)
++ if not ck['C2_reaches_byte_41']:codes.append('E_SHORT_ROW')
++ if not ck['C2_printable_ascii']:codes.append('E_NON_PRINTABLE')
++ ck['C3_byte41_blank']=len(p)==PREFIX and p[40]==32
++ if not ck['C3_byte41_blank']:codes.append('E_BYTE41_NOT_BLANK')
++ spans=[(m.start()+1,m.end()) for m in re.finditer(rb'[^ ]+',p)]
++ ck['C4_seven_tokens']=len(spans)==7
++ for k in ('C5_name_confined',)+tuple('C6_shape_'+f for f in SHAPES)+('C7_domain',)+tuple('C8_guard_'+f for f in GUARDS)+('C9_span_ends',):ck[k]=None
++ if anchor_text is not None:ck['C10_anchor_token3_equal']=None;ck['C10_anchor_no_other_token_equal']=None
++ if not ck['C4_seven_tokens']:
++  codes.append('E_TOKEN_COUNT_%d'%len(spans));return codes,ck,None,None
++ t=dict(zip(FIELDS,(p[a-1:e] for a,e in spans)));sp=dict(zip(FIELDS,spans))
++ ck['C5_name_confined']=t['Galaxy']==tn and spans[0][1]<=11 and len([s for s in spans if s[0]<=11])==1
++ if not ck['C5_name_confined']:codes.append('E_NAME_NOT_CONFINED')
++ ok={}
++ for f,rx in SHAPES.items():
++  ok[f]=re.fullmatch(rx,t[f]) is not None;ck['C6_shape_'+f]=ok[f]
++  if not ok[f]:codes.append('E_SHAPE_'+f)
++ v={f:float(t[f].decode('ascii')) for f in ('D','e_D','Inc','e_Inc') if ok[f]}
++ dom=True
++ if 'D' in v and not v['D']>0:codes.append('E_DOMAIN_D');dom=False
++ if 'Inc' in v and not 0<=v['Inc']<=90:codes.append('E_DOMAIN_Inc');dom=False
++ ck['C7_domain']=dom if ('D' in v and 'Inc' in v) else None
++ for f,(lo,hi) in GUARDS.items():
++  if f in v:
++   ck['C8_guard_'+f]=lo<=v[f]<=hi
++   if not ck['C8_guard_'+f]:codes.append('E_RANGE_'+f)
++ ck['C9_span_ends']=tuple(e for a,e in spans)==OBSERVED_ENDS
++ if not ck['C9_span_ends']:codes.append('E_SPAN_ENDS')
++ if anchor_text is not None:  # C10: main() passes the anchor for NGC3198 only
++  a=float(anchor_text);eq={f:(ok.get(f,False) and float(t[f].decode('ascii'))==a) for f in FIELDS[1:]}
++  ck['C10_anchor_token3_equal']=eq['D'];ck['C10_anchor_no_other_token_equal']=not any(x for k,x in eq.items() if k!='D')
++  if not eq['D']:codes.append('E_ANCHOR_T3_NOT_EQUAL')
++  if not ck['C10_anchor_no_other_token_equal']:codes.append('E_ANCHOR_OTHER_TOKEN_EQUAL')
++ return codes,ck,t,sp
++def assumption_status(target,t2_width):
++ return {'A1':'CLOSED_FOR_THIS_ROW_BY_C10_ANCHOR' if target=='NGC3198' else 'DECLARED_NOT_DISCHARGED',
++  'A1b':'EXCLUDED_BY_BYTES_TOKEN2_TWO_DIGITS' if t2_width==2 else 'DECLARED_NOT_DISCHARGED',
++  'A2':'DECLARED_NOT_DISCHARGED','A3':'DECLARED_NOT_DISCHARGED'}
++def candidate_path(outp):return outp.with_name(outp.name+'.candidate')  # from 0348 adapter V005 (CLAUDE2 helper 0348)
++def publish(outp,b):
++ """From ngc3198_source_bundle_adapter_v005.py (0348, fc9cdcfa..., CLAUDE2 helper 0348), unchanged in behaviour.
++ Create, fsync and verify an exclusive candidate, then publish it by exclusive hard link. Never unlinks/moves/overwrites."""
++ cand=candidate_path(outp);want=sha(b)  # outp is already absolute (main)
++ info={'candidate_path':str(cand),'candidate_created':False,'expected_sha256':want,'expected_bytes':len(b),'output_path':str(outp),'output_published':False}
++ try:fd=os.open(cand,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o444)
++ except FileExistsError:raise PublishFail('E_CANDIDATE_EXISTS',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_CANDIDATE_CREATE',info)
++ info['candidate_created']=True
++ try:
++  with os.fdopen(fd,'wb') as f:f.write(b);f.flush();os.fsync(f.fileno())
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_CANDIDATE_WRITE',info)
++ try:cb=cand.read_bytes()
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_CANDIDATE_VERIFY',info)
++ info['candidate_sha256']=sha(cb);info['candidate_bytes']=len(cb)
++ if cb!=b:raise PublishFail('E_CANDIDATE_VERIFY',info)
++ try:os.link(cand,outp)
++ except FileExistsError:raise PublishFail('E_OUTPUT_EXISTS_AT_PUBLICATION',info)
++ except OSError as e:info['error']={'type':type(e).__name__,'errno':e.errno};raise PublishFail('E_PUBLICATION_LINK',info)
++ info['output_published']=True
++ try:
++  dfd=os.open(str(outp.parent),os.O_RDONLY)
++  try:os.fsync(dfd)
++  finally:os.close(dfd)
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_DIRECTORY_FSYNC',info)
++ try:ob=outp.read_bytes()
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_OUTPUT_VERIFY',info)
++ info['output_sha256']=sha(ob);info['output_bytes']=len(ob)
++ if ob!=b:raise PublishFail('E_OUTPUT_VERIFY',info)
++ try:same=os.path.samefile(cand,outp)
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_POST_PUBLICATION_CHECK',info)
++ if not same:raise PublishFail('E_OUTPUT_NOT_SAME_FILE',info)
++ try:mode=oct(stat.S_IMODE(os.stat(cand).st_mode))
++ except Exception as e:info['error']={'type':type(e).__name__,'errno':getattr(e,'errno',None)};raise PublishFail('E_POST_PUBLICATION_CHECK',info)
++ return {'candidate':{'path':str(cand),'sha256':info['candidate_sha256'],'bytes':info['candidate_bytes'],'mode':mode,'mode_requested':'0o444'},'output':{'path':str(outp),'sha256':info['output_sha256'],'bytes':info['output_bytes']},
++  'same_file':True,'note':'candidate and output are two names of the same complete bytes (created read-only); neither is ever removed; the reported sha256 is the integrity reference'}
+ def main(argv):
+- args=argv[1:]
+- if len(args) not in (1,4) or (len(args)==4 and args[1]!='--declared-layout'):raise Fail('E_USAGE')
+- outp=Path(args[0])
+- if outp.exists():raise Fail('E_OUTPUT_EXISTS')
+- declared=None
+- if len(args)==4:
+-  db=Path(args[2]).read_bytes()
+-  if sha(db)!=args[3]:raise Fail('E_DECLARATION_PIN')
+-  dj=json.loads(db)
+-  if not isinstance(dj.get('declared_by'),str) or not dj['declared_by'] or not isinstance(dj.get('evidence'),str):raise Fail('E_DECLARATION_PROVENANCE')
+-  declared={'name':'DECLARED:'+str(dj['name']),'fields':{k:tuple(x) for k,x in dj['fields'].items()},'blank_bytes':list(dj.get('blank_bytes',[])),'ranges':{},
+-   'declaration':{'path':str(Path(args[2])),'sha256':args[3],'declared_by':dj['declared_by'],'evidence':dj['evidence']}}
+-  check_layout_shape(declared)
+- b=Path(SRC[0]).read_bytes()
+- if sha(b)!=SRC[1]:raise Fail('E_PIN')
+- lines=b.split(b'\n');del b
+- seps=[i for i,l in enumerate(lines[:200]) if re.fullmatch(rb'-{20,}',l.strip())]
+- if not seps:raise Fail('E_HEADER')
+- hdr={}
+- for l in lines[:seps[-1]]:
+-  m=HDR_FIELD.match(l.decode('ascii','replace'))
+-  if m:hdr[m.group(5)]=(int(m.group(1)),int(m.group(2)),m.group(3),m.group(4))
+- docs={'MRT_INFILE_HEADER':{'verified':all(hdr.get(k)==v for k,v in MRT_HDR.items())}}
+- rb=Path(CDS_README[0]).read_bytes()
+- cds_ok=sha(rb)==CDS_README[1]
+- if cds_ok:
+-  txt=html.unescape(re.sub(r'<[^>]+>','',rb.decode('utf-8','replace')))
+-  sec=txt.split('Byte-by-byte Description of file: table1.dat',1)
+-  sec=sec[1].split('Byte-by-byte Description of file:',1)[0].splitlines() if len(sec)==2 else []
+-  cds_ok=all(sum(bool(re.match(rx,l)) for l in sec)==1 for rx in CDS_LINES.values())
+- docs['CDS_TABLE1_README']={'path':CDS_README[0],'sha256':CDS_README[1],'verified':cds_ok}
+- rows={}
+- for n,l in enumerate(lines[seps[-1]+1:],seps[-1]+2):
+-  name=l[0:11].strip(b' \r').decode('ascii','replace')  # bytes 1-11 of every post-header row are compared (names may be right-justified)
+-  for obj,aliases in OBJECTS.items():
+-   if name in aliases:
+-    p=l[:MAXBYTE].rstrip(b'\r')  # only bytes 1..41 are kept; row length beyond 41 is not measured
+-    rows.setdefault(obj,[]).append((n,p,len(p)))
+- del lines
+- layouts=[]
+- if docs['MRT_INFILE_HEADER']['verified']:layouts.append(MRT_LAYOUT)
+- if cds_ok:layouts.append(CDS_LAYOUT)
+- if declared:layouts.append(declared)
+- results={}
+- for lay in layouts:
+-  p,v,d=evaluate(lay,rows);results[lay['name']]={'passed':p,'values':v,'diagnosis':d}
+- doc_pass=[k for k in ('MRT_INFILE_HEADER','CDS_TABLE1_README') if results.get(k,{}).get('passed')]
+- if declared:
+-  dp=results[declared['name']]['passed']
+-  status='PASS_DECLARED_LAYOUT' if dp and not doc_pass else ('FAILED_DECLARATION_CONFLICT' if dp else 'FAILED_SCHEMA_VALIDATION')
+-  chosen=declared['name'] if status=='PASS_DECLARED_LAYOUT' else None
+- else:
+-  status='PASS_DOCUMENTED_LAYOUT' if len(doc_pass)==1 else ('FAILED_AMBIGUOUS_LAYOUT' if len(doc_pass)>1 else 'FAILED_SCHEMA_VALIDATION')
+-  chosen=doc_pass[0] if status=='PASS_DOCUMENTED_LAYOUT' else None
+- objects=None
+- if chosen:
+-  objects={o:{k:val for k,val in r.items() if k in EMIT+['source_line_number']} for o,r in results[chosen]['values'].items()}
+-  for o in objects:objects[o]['f_D_meaning']=F_D_NOTE[objects[o]['f_D']]
+- for k in results:
+-  if k!=chosen:results[k]['values']=None  # values are emitted for the chosen passing layout only
+- out={'schema':'SPARC_GEOMETRY_ALLOWED_FIELDS_V002','status':status,'chosen_layout':chosen,'source':{'path':SRC[0],'sha256':SRC[1]},'documentation':docs,
+-  'declared_layout':declared and declared['declaration'],'layouts_evaluated':{k:{'passed':r['passed'],'diagnosis':r['diagnosis']} for k,r in results.items()},
+-  'objects':objects,'units':{'D':'Mpc','e_D':'Mpc','f_D':'code (Note 2)','Inc':'deg','e_Inc':'deg'},
+-  'exposure':'Whole file read into memory, hashed and split into byte lines; bytes 1-11 of each post-header row compared with target names; for target rows only bytes 1-41 kept, decoded and interpreted; bytes beyond 41 never decoded, parsed, compared, measured or emitted.',
+-  'interpretation':'Catalogue values as published (only when status is PASS_*). e_D and e_Inc are catalogue mean errors, not covariance; Inc is the mean outer-HI-disk value per CDS Note 3. No geometry is chosen or adopted by this extractor.',
+-  'exposure_labels':{'NGC3198':'development-exposed','DDO154':'calibration-only; not blind'}}
+- with outp.open('x') as f:json.dump(out,f,indent=1,allow_nan=False)
+- print(json.dumps({'status':status,'chosen_layout':chosen,'output':str(outp)}))
+- return 0 if status.startswith('PASS_') else 2
++ if len(argv)!=2:raise Fail('E_USAGE')
++ outp=Path(os.path.abspath(argv[1]))  # made absolute once; preflight and publication use this same path
++ if outp.name!=OUTPUT_NAME:raise Fail('E_OUTPUT_NAME')
++ if os.path.lexists(outp):raise Fail('E_OUTPUT_EXISTS')
++ if os.path.lexists(candidate_path(outp)):raise Fail('E_CANDIDATE_EXISTS')
++ header,rows,size=load_source()
++ note2=verify_header(header)
++ cds=verify_cds()
++ anchor=load_anchor()
++ codes=[];checks={};objects={}
++ for tgt in TARGETS:
++  hits=[(n,p) for n,p in rows if p[:11].strip(b' ')==tgt.encode('ascii')]
++  if len(hits)!=1:
++   codes.append(tgt+':E_ROW_NOT_UNIQUE');checks[tgt]={'C1_exactly_one_row':False};continue
++  n,p=hits[0]
++  c,ck,t,sp=check_prefix(p,tgt,anchor if tgt=='NGC3198' else None)
++  ck=dict({'C1_exactly_one_row':True},**ck);checks[tgt]=ck
++  if c:codes+=[tgt+':'+x for x in c];continue
++  fields={}
++  for f in EMIT:
++   fields[f]=dict({'literal':t[f].decode('ascii'),'byte_span':list(sp[f])},**FIELD_DOC[f])
++  fields['f_D']['code_meaning']=note2[int(t['f_D'].decode('ascii'))]
++  objects[tgt]={'source_line_number':n,'fields':fields,'validated_not_emitted':['Galaxy','T'],'checks':ck,
++   'assumptions':assumption_status(tgt,sp['T'][1]-sp['T'][0]+1),
++   'exposure_label':'development-exposed' if tgt=='NGC3198' else 'calibration-only; not blind'}
++ del anchor
++ if codes:raise Fail(codes[0],codes,checks)
++ out={'schema':'SPARC_ALLOWED_GEOMETRY_METADATA_CANDIDATE_V002','status':'CANDIDATE_NOT_ADMITTED','contract_status':'PASS_SOURCE_SPECIFIC_ORDINAL_CONTRACT_C0_C10',
++  'nature':'catalogue-literal candidate; NOT an adoption of physical geometry; the quarantined V001 output is untouched',
++  'extractor':{'file':str(Path(__file__).resolve()),'sha256':sha(Path(__file__).read_bytes())},'lineage':LINEAGE,
++  'source':{'path':SRC[0],'sha256':SRC[1],'bytes':size,'header_lines':'1-98 (line 98 separator)','data_lines_from':HEADER_LINES+1},
++  'documentation':{'mrt_header':{'lines_10_17_verified':True,'notes_lines_30_38_verified':True,'separator_search':'header lines 1-98 only'},'cds_readme':cds},
++  'anchor':{'manifest':{'path':MANIFEST[0],'sha256':MANIFEST[1]},'key':'crosscheck_massmodels/reference_distance_texts[0]','use':'float-equality booleans against tokens 2-7 of NGC3198 only','text_emitted':False},
++  'objects':objects,'emitted_fields':list(EMIT),'literal_rule':'each value is the original ASCII token from bytes 1-41 of its source line; byte_span is 1-based inclusive',
++  'conditions':'C0-C10 as in the extractor docstring and FIELD_CONTRACT_0353_V001.json','corrections_bound':CORRECTIONS,
++  'assumptions_declared_not_discharged':ASSUMPTIONS,
++  'interpretation':{'errors':'e_D and e_Inc are catalogue mean errors; no Gaussian likelihood, covariance or joint region is implied','Inc':'CDS Note (3): mean i of the outer HI disk; in some cases fixed to the optical value','geometry':'no geometry is chosen or adopted by this extractor'},
++  'exposure':EXPOSURE,'exposure_correction':EXPOSURE_CORRECTION,
++  'not_established':NOT_ESTABLISHED}
++ b=(json.dumps(out,indent=1,allow_nan=False)+'\n').encode()
++ PHASE[0]='PUBLICATION'
++ pub=publish(outp,b)
++ print(json.dumps({'status':'CANDIDATE_WRITTEN','phase':'PUBLISHED','candidate':pub['candidate'],'output':pub['output'],'same_file':pub['same_file'],'objects':list(TARGETS),'values_printed':False}))
++ return 0
+ if __name__=='__main__':
+  try:sys.exit(main(sys.argv))
+- except Fail as e:print(json.dumps({'status':'FAILED','code':str(e)}));sys.exit(2)
+- except Exception as e:print(json.dumps({'status':'FAILED','code':'E_UNEXPECTED','type':type(e).__name__}));sys.exit(3)
++ except Fail as e:print(json.dumps({'status':'FAILED_VALIDATION','code':e.code,'codes':e.codes,'checks':e.checks,'phase':'VALIDATION','candidate_written':False,'success_claimed':False,'values_emitted':False}));sys.exit(2)
++ except PublishFail as e:print(json.dumps({'status':'FAILED_PUBLICATION','code':e.code,'phase':'PUBLICATION','publication':e.info,'candidate_retained_if_created':True,'success_claimed':False}));sys.exit(4)
++ except KeyboardInterrupt:print(json.dumps({'status':'FAILED_INTERRUPTED','phase':PHASE[0],'candidate_may_remain':PHASE[0]=='PUBLICATION','output_may_exist':PHASE[0]=='PUBLICATION','success_claimed':False}));sys.exit(130)
++ except Exception as e:print(json.dumps({'status':'FAILED','code':'E_UNEXPECTED','type':type(e).__name__,'phase':PHASE[0],'candidate_may_remain':PHASE[0]=='PUBLICATION','output_may_exist':PHASE[0]=='PUBLICATION','success_claimed':False}));sys.exit(3)

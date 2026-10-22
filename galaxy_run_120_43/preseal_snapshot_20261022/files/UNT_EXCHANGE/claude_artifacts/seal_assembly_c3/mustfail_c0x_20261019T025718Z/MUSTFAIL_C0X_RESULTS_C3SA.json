@@ -1,0 +1,787 @@
+{
+ "schema": "C3SA_MUSTFAIL_C0X_V004",
+ "helper": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/tools/seal_steps_c3sa_c3v019.py",
+  "sha256": "91b15dc688a2c28e1b5362d9568a80f92431938eb5e2807367b2327a37290cbf"
+ },
+ "dry_run": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/dry_run_20261019T025053Z",
+ "n_cases": 85,
+ "ALL_OK": true,
+ "pycache_prefix_entries": 0,
+ "results": [
+  {
+   "case": "A-0",
+   "what": "freeze a byte copy of the final V005 (sha and length right)",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "post": {
+    "copy_is_the_final_bytes": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "A-1",
+   "what": "the right sha but a wrong length (143080)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OPEN_V005_LENGTH 143081 != 143080 (A106: the FINAL V005 bytes; nothing was copied)",
+   "post": {
+    "nothing_copied": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "A-2",
+   "what": "an open file one byte longer, checked against the final sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "PIN_BYTES_MISMATCH open_v005: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_c0x_20261019T025718Z/SYNTHETIC_OPEN_PLUS_ONE_BYTE_V005_ADDENDUM.md has 405026acfce7db49fbac54076eb93f0989015ab58f8f61efdbaf8a98bdbb5f3e, pinned c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1",
+   "post": {
+    "nothing_copied": true
+   },
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "A-3",
+   "what": "the FROZEN copy exists already (exclusive create)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "OUTPUT_EXISTS frozen: /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_c0x_20261019T025718Z/A0_V005_ADDENDUM_FROZEN.md",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-0",
+   "what": "control: the real r6, named by the real SELECTED_R6_C4V001, + the real sealed prereg and slots",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-1",
+   "what": "an EDITED sealed prereg named as its own text of record (and as the sealed prereg)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_PAIR_MISMATCH 'text_of_record': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json', 'sha256': 'd28c95f56321f566b444c3e0bfbbe0ecdac564cbc03a8583ecd5f8d0ae40c0a9'}, requested {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/seal_assembly_c3/mustfail_c0x_20261019T025718Z/C02_EDITED_SEALED_PRERE",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-2",
+   "what": "the same edited sealed prereg, with a forged SELECTED that names it",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_TEXT_OF_RECORD_HAS_FILLED_SLOTS ['certificates', 'compare', 'driver', 'frozen_addendum', 'identity_comparator', 'identity_gate_records', 'launch_packet', 'producer_registry'] (a sealed or edited prereg named as its own text of record)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-3",
+   "what": "the genuine sealed prereg named as the text of record (forged SELECTED names it)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_TEXT_OF_RECORD_HAS_FILLED_SLOTS ['certificates', 'compare', 'driver', 'frozen_addendum', 'identity_comparator', 'identity_gate_records', 'launch_packet', 'producer_registry'] (a sealed or edited prereg named as its own text of record)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-4",
+   "what": "r5 as text of record, but a sealed prereg edited outside the slot values",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_SEALED_PREREG_NOT_THE_TEXT_OF_RECORD_PLUS_SLOT_VALUES",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-5",
+   "what": "a SELECTED file that also gives the text-of-record path another sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_CONFLICTING_PAIR_FOR_PATH /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-6",
+   "what": "prereg r4 as the text of record while the SELECTED file stores r6",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_PAIR_MISMATCH 'text_of_record': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json', 'sha256': 'd28c95f56321f566b444c3e0bfbbe0ecdac564cbc03a8583ecd5f8d0ae40c0a9'}, requested {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r4/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R4.json', 's",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C02-7",
+   "what": "the sealed prereg given as both files (same path and sha)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C02_TEXT_OF_RECORD_HAS_FILLED_SLOTS ['certificates', 'compare', 'driver', 'frozen_addendum', 'identity_comparator', 'identity_gate_records', 'launch_packet', 'producer_registry'] (a sealed or edited prereg named as its own text of record)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-0",
+   "what": "control: the real sealed-mode GATES_ONLY body of dry run 10",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-1",
+   "what": "the body evaluated another GQ record than the slot",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_BODY_EVALUATED_ANOTHER_RECORD:certificates.GQ:GQ",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-2",
+   "what": "the B1 (Z2) gate status is FAIL",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_SLOT_GATE_STATUS_FAIL:identity_gate_records.Z2:B1",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-3",
+   "what": "the LO_NGC gate is missing from the body",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_SLOT_GATE_NOT_IN_THE_BODY:certificates.LO_NGC:LO_NGC",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-4",
+   "what": "a test-mode body (not sealed)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03_GATES_ONLY_BODY_NOT_SEALED_MODE",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-0",
+   "what": "control: the real final slots with exactly the A107 two-entry exclusion list (every other slot passes, with its pass verdict)",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-1",
+   "what": "the real final slots with NO exclusion list",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_EXCLUSIONS_NOT_EXACTLY_THE_A107_LIST [] (A107: exactly certificates.EPS_NGC and certificates.I1T_NGC, each by its path and sha; no third slot)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-2",
+   "what": "the GQ slot holds the superseded GQ V005 record (fbceefe6)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"certificates.GQ\": [\"GATE_RECORD_SHA_NOT_ROOT_REGISTERED_A67_N2:GQ\", \"PRODUCER_NOT_ROOT_REGISTERED_A62_2:GQ\"]}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-3",
+   "what": "the identity comparator slot holds a superseded comparator (gates_v007 c2v007, 06ff52d6)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"identity_comparator\": [\"C04_IDENTITY_COMPARATOR_NOT_ROOT_REGISTERED_A57_3:identity_comparator\"], \"identity_gate_records.B0prime_RERUN\": [\"C04_IDENTITY_RECORD_COMPARATOR_IS_NOT_THE_SLOT_COMPARATOR:identity_gate_records.B0prime_RERUN\"], \"identity_gate_records.Z2\": [\"C04_IDENTITY_RECORD_COMPARATOR_IS_NOT_THE_SLOT_COMPARATOR:identity_gate_records.Z2\"], \"identity_ga",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-4",
+   "what": "the Z2 slot holds the B1_OFF record (gate not the slot)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"identity_gate_records.Z2\": [\"C04_IDENTITY_GATE_NOT_THE_SLOT:identity_gate_records.Z2:B1_OFF\"]}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-5",
+   "what": "the slots name another registry sha than the one checked",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_REGISTRY_IS_NOT_THE_GIVEN_REGISTRY {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/producer_registry_c3/out/PRODUCER_REGISTRY_C3V009.json', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000'}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-6",
+   "what": "A107 MUST_FAIL: a THIRD slot (certificates.GQ) added to the exclusion list",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_EXCLUSIONS_NOT_EXACTLY_THE_A107_LIST ['certificates.EPS_NGC', 'certificates.GQ', 'certificates.I1T_NGC'] (A107: exactly certificates.EPS_NGC and certificates.I1T_NGC, each by its path and sha; no third slot)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-7",
+   "what": "A107 MUST_FAIL: the EPS_NGC exclusion with another sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_EXCLUSIONS_NOT_EXACTLY_THE_A107_LIST ['certificates.EPS_NGC', 'certificates.I1T_NGC'] (A107: exactly certificates.EPS_NGC and certificates.I1T_NGC, each by its path and sha; no third slot)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-8",
+   "what": "the I1T_NGC exclusion with another path",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_EXCLUSIONS_NOT_EXACTLY_THE_A107_LIST ['certificates.EPS_NGC', 'certificates.I1T_NGC'] (A107: exactly certificates.EPS_NGC and certificates.I1T_NGC, each by its path and sha; no third slot)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-9",
+   "what": "only one of the two exclusions",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_EXCLUSIONS_NOT_EXACTLY_THE_A107_LIST ['certificates.EPS_NGC'] (A107: exactly certificates.EPS_NGC and certificates.I1T_NGC, each by its path and sha; no third slot)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-10",
+   "what": "the slot EPS_NGC holds another record than the A107 pin (the exclusion names the A107 pin)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_EXCLUDED_SLOT_PIN_DIFFERS certificates.EPS_NGC: the slot holds {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_v002/gates/EPS_CERT_V006.json', 'sha256': '598c8fa34dc85113aa99dd3722f6b37f6625149995d7365c8cbd1b796f830192'}, A107 excludes ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/certificates_ngc_k32/gates/EPS_CERT_NGC91_V",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-11",
+   "what": "the same exclusion entry given twice",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_EXCLUSION_REPEATED certificates.EPS_NGC",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-12",
+   "what": "registered synthetic EPS record, verdict PASS (registry admission passes; only the verdict decides)",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-13",
+   "what": "registered synthetic EPS record, verdict FAIL (registry admission passes; only the verdict decides)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"certificates.EPS\": [\"C04_VERDICT_NOT_THE_GATE_PASS_VERDICT:certificates.EPS:FAIL (want CERTIFIED)\"]}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-14",
+   "what": "registered synthetic EPS record, verdict ABSENT (registry admission passes; only the verdict decides)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"certificates.EPS\": [\"C04_VERDICT_NOT_THE_GATE_PASS_VERDICT:certificates.EPS:NoneType (want CERTIFIED)\"]}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C04-15",
+   "what": "registered synthetic EPS record, verdict UNKNOWN (registry admission passes; only the verdict decides)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C04_SLOT_RECORDS_FAIL_THE_REGISTRY {\"certificates.EPS\": [\"C04_VERDICT_NOT_THE_GATE_PASS_VERDICT:certificates.EPS:NOT_COMPUTED (want CERTIFIED)\"]}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "CX1-SEL-0",
+   "what": "Codex1 0101's own fixture selected_good.json (read only): the real SELECTED schema is now required, so every schema-less form refuses",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_SCHEMA_MISMATCH None (want 'UNT_V007_SELECTED_PREREG_C4V001')",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "CX1-SEL-1",
+   "what": "Codex1 0101's own fixture selected_unassociated_strings.json (read only): the real SELECTED schema is now required, so every schema-less form refuses",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_SCHEMA_MISMATCH None (want 'UNT_V007_SELECTED_PREREG_C4V001')",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "CX1-SEL-2",
+   "what": "Codex1 0101's own fixture selected_different_selected_path_prefix.json (read only): the real SELECTED schema is now required, so every schema-less form refuses",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_SCHEMA_MISMATCH None (want 'UNT_V007_SELECTED_PREREG_C4V001')",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "CX1-SEL-3",
+   "what": "Codex1 0101's own fixture selected_duplicate_json_keys.json (read only): the real SELECTED schema is now required, so every schema-less form refuses",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_DUPLICATE_KEY 'selected'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "CX1-SEL-4",
+   "what": "Codex1 0101's own fixture selected_invalid_json_trailing.json (read only): the real SELECTED schema is now required, so every schema-less form refuses",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_NOT_STRICT_JSON Extra data: line 8 column 1 (char 341)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "CX1-SEL-5",
+   "what": "Codex1 0101's own fixture selected_nonfinite_json.json (read only): the real SELECTED schema is now required, so every schema-less form refuses",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_NON_FINITE NaN",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A0",
+   "what": "control: the real schema, text_of_record exactly the pair, other roles present",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A1",
+   "what": "unassociated strings: no files.text_of_record; the path and the sha in two other fields",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_MISSING 'text_of_record'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A2",
+   "what": "files.text_of_record path is the requested path plus \".other\"",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_PAIR_MISMATCH 'text_of_record': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json.other', 'sha256': 'd28c95f56321f566b444c3e0bfbbe0ecdac564cbc03a8583ecd5f8d0ae40c0a9'}, requested {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.jso",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A3",
+   "what": "the path and the sha split across two roles",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_PAIR_MISMATCH 'text_of_record': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json', 'sha256': '1111111111111111111111111111111111111111111111111111111111111111'}, requested {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json', 's",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A4",
+   "what": "files.text_of_record with an extra key",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_FILES_ENTRY_FORM 'text_of_record' (each entry exactly {path: absolute, sha256: 64 lowercase hex})",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A5",
+   "what": "the exact pair only under another role name",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_MISSING 'text_of_record'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A6",
+   "what": "another schema string",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_SCHEMA_MISMATCH 'UNT_V007_SELECTED_PREREG_C4V999' (want 'UNT_V007_SELECTED_PREREG_C4V001')",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A7",
+   "what": "another files entry with a relative path",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_FILES_ENTRY_FORM 'other' (each entry exactly {path: absolute, sha256: 64 lowercase hex})",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A8",
+   "what": "another files entry with an upper-case sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_FILES_ENTRY_FORM 'other' (each entry exactly {path: absolute, sha256: 64 lowercase hex})",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A9",
+   "what": "another role gives the text-of-record path another sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_CONFLICTING_PAIR_FOR_PATH /Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/KMAX_TAIL_PREREG_V007_FINAL_DRAFT_R6.json",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-A10",
+   "what": "'files' is a list of pairs, not an object",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_FILES_NOT_A_NONEMPTY_OBJECT",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S1",
+   "what": "duplicate key (files twice)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_DUPLICATE_KEY 'files'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S2",
+   "what": "trailing invalid text",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_NOT_STRICT_JSON Extra data: line 2 column 1 (char 282)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S3",
+   "what": "NaN",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_NON_FINITE NaN",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S4",
+   "what": "-Infinity",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_NON_FINITE -Infinity",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S5",
+   "what": "a float overflowing to inf (1e999)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_NON_FINITE 1e999",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S6",
+   "what": "an integer of 4301 digits",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_INTEGER_TOO_LONG 4301 digits (limit 4300)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S7",
+   "what": "invalid UTF-8 bytes",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_INVALID_UTF8 at byte 288",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S8",
+   "what": "nesting 100 levels deep",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_JSON_TOO_DEEP (more than 64 levels)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S9",
+   "what": "a top-level list",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_TOP_LEVEL_NOT_AN_OBJECT",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "SEL-S10",
+   "what": "a UTF-8 BOM",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_BOM",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R6-0",
+   "what": "control: the real r6 SELECTED file stores exactly the four step-0 roles",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R6-1",
+   "what": "the case_block role with another sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_PAIR_MISMATCH 'case_block': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/case_block/CASE_BLOCK_V007_C4V001.json', 'sha256': '76309ae39f23060cc662c4e218a41e1f95c56a26992402218a6198625f85ee71'}, requested {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/case_block/CASE_BLOCK_V007_C4V001.json', 'sha256': '0",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R6-2",
+   "what": "r5's addendum copy given as addendum_at_text_of_record",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_PAIR_MISMATCH 'addendum_at_text_of_record': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r6/addendum_read/V005_ADDENDUM_READ_AT_R6_GENERATION.md', 'sha256': 'c01b3c51e34501d77e474594cc0b4be72c6e068c7f58a595055316313a8d4bb1'}, requested {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/r5/addendum_read/V005_ADDE",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R6-3",
+   "what": "a role the SELECTED file does not have",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_MISSING 'impl_of_record_r12'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "R6-4",
+   "what": "the right role and pin but the wrong schema string",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_SCHEMA_MISMATCH 'UNT_V007_SELECTED_PREREG_C4V001' (want 'UNT_V007_SELECTED_PREREG_C4V002')",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "V3-0",
+   "what": "v003: control, the real v003 SELECTED file stores every tool by role",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "V3-1",
+   "what": "v003: the tool paths and shas only as unassociated strings (no files roles)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_FILES_NOT_A_NONEMPTY_OBJECT",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "V3-2",
+   "what": "v003: a duplicate key",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_DUPLICATE_KEY 'files'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "V3-3",
+   "what": "v003: tool 3 stored under its role with a suffixed path",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_PAIR_MISMATCH 'tool_3_check_slot_fill': stored {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_slot_fill_c4v003.py.bak', 'sha256': '316973a1abf5aa2151dc1a517733d970ce1004313395d05fe590f82ed439b0af'}, requested {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_final_prereg_c4/seal_tools_v003/check_slot_fill_c4v003.p",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "V3-4",
+   "what": "v003: the tools stored under other role names",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "SELECTED_ROLE_MISSING 'seal_common'",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-5",
+   "what": "A106-C03-S1: slot EPS sha None, body record_sha256 None (status PASS)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_MALFORMED_SLOT_SHA:certificates.EPS",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-6",
+   "what": "A106-C03-S1: slot EPS sha '', body record_sha256 '' (status PASS)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_MALFORMED_SLOT_SHA:certificates.EPS",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-7",
+   "what": "A106-C03-S1: slot EPS sha 'not-a-sha', body record_sha256 'not-a-sha' (status PASS)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_MALFORMED_SLOT_SHA:certificates.EPS",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-8",
+   "what": "A106-C03-S1: slot EPS sha 'GOOD', body record_sha256 'not-a-sha' (status PASS)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_MALFORMED_BODY_RECORD_SHA:certificates.EPS:EPS",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C03-9",
+   "what": "A106-C03-S1: slot EPS sha 'UPPER', body record_sha256 'UPPER' (status PASS)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C03 C03_MALFORMED_SLOT_SHA:certificates.EPS",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-0",
+   "what": "control: the real bound plan and command of dry run 10",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-1",
+   "what": "the bound plan names another allowlisted source (ea_replay_cx1v012) as the launcher",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_PLAN_LAUNCHER_NOT_EXACT {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/ea_replay_cx1v012.py', 'sha256': '380e2d81027eba4c86843b904ccb79f5f27e6c917b5f3f5a71f286c01be32156'}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-2",
+   "what": "the bound plan names another allowlisted source (shell_filter_cx1v004) as the guard",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_PLAN_GUARD_NOT_EXACT {'path': '/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/shell_filter_cx1v004.py', 'sha256': '4fcbd495fe41e881637aa64eef342c8adf1193b54e9b7e80b7261f9217b5dabb'}",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-3",
+   "what": "another allowlisted source given AS the launcher (ea_replay, its BUILD row)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_LAUNCHER_NAME 'ea_replay_cx1v012.py' (want route_a_token_launcher_cx1v007.py)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C05-4",
+   "what": "the launcher by its exact name but another sha",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C05_LAUNCHER_NOT_THE_BUILD_ROW ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/route_a_token_launcher_cx1v007.py', '380e2d81027eba4c86843b904ccb79f5f27e6c917b5f3f5a71f286c01be32156') (BUILD_V007 row ('/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/v007_launch_packet_cx1/route_a_token_launcher_cx1v007.py', '861bba68dd7d207beb30ed828c1557955f31979cf2e15369acccc52ea59595",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-0",
+   "what": "control: the real bound command (2 lines) is byte-equal to the binder output form",
+   "want": "PASS",
+   "verdict": "PASS",
+   "exit": 0,
+   "code": "",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-1",
+   "what": "an edit in the NON-final line (the comment line); the last line intact",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 554 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-2",
+   "what": "an extra trailing line",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 3; 556 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-3",
+   "what": "the last line edited (another plan path)",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 2; 547 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  },
+  {
+   "case": "C06-4",
+   "what": "CRLF line endings",
+   "want": "REFUSE",
+   "verdict": "REFUSE",
+   "exit": 2,
+   "code": "C06_BOUND_COMMAND_NOT_BYTE_EQUAL_TO_THE_BINDER_OUTPUT (first differing line 1; 547 bytes, want 545)",
+   "MUST_FAIL_ok": true
+  }
+ ]
+}

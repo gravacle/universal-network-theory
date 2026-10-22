@@ -1,0 +1,98 @@
+{
+ "schema": "UNT_C3_VERIFY_RESULT_V001",
+ "item": "0813 item 1 / 0814: verdict-day sheet dry check",
+ "reviewer_lane": "Claude3",
+ "utc": "2026-10-21T12:22:22Z",
+ "object": {
+  "sheet": "claude_artifacts/verdict_day_sheet_cx1/VERDICT_DAY_COMMAND_SHEET_CX1V001.md",
+  "sheet_sha256": "f2a5eec4f00a36a6982833a5611e9fe4d4e008ca3736caef4fa30b2aff80242c",
+  "pins": "claude_artifacts/verdict_day_sheet_cx1/INPUT_PINS_CX1V001.json",
+  "pins_sha256": "18e8487f60a6962fa2a6e61b8894d7f3ef62754e776fac2d28cfb631951eac93"
+ },
+ "verdict": "PASS",
+ "blocking": 0,
+ "findings": [
+  {
+   "id": "N1",
+   "class": "NOTE (would stop sheet at \u00a75 --write)",
+   "label": "TESTED",
+   "title": "$C4/final does not exist; make_b1_cascade_c4v002 --write calls os.mkdir(OUTDIR/SUB) (L196-197), which needs the parent",
+   "evidence": "claude_artifacts/b1_policy_successor_c4/final is absent at 2026-10-21T12:21Z. --dry-run does not mkdir, so the dry step passes and the write step raises FileNotFoundError.",
+   "fix": "Root creates the new, unused folder $C4/final before the \u00a75 write (no code change)."
+  },
+  {
+   "id": "N2",
+   "class": "NOTE (precondition the sheet already states)",
+   "label": "TESTED",
+   "title": "calib_tail_readiness_cx2/v006r11_c4/ is absent; root must create it before \u00a75 cp -n",
+   "evidence": "Parent calib_tail_readiness_cx2 exists; v006r11_c4 and DST are absent. The sheet L109 says root ensures this; listed so it is on the 3 am checklist."
+  },
+  {
+   "id": "N3",
+   "class": "NOTE (ordering clarity)",
+   "label": "FORMAL",
+   "title": "\u00a77's per-spec driver dry plan for HEADLINE11 needs \u00a78's FINAL specs",
+   "evidence": "\u00a77 L126-132 dry-runs each final launched spec; HEADLINE11 FINAL specs are produced in \u00a78 L141. For HEADLINE11, run \u00a78 and then the dry plans before \u00a79. S0 dry plans can follow \u00a77 as printed. The bind -> START -> launch order (\u00a79-10) is correct."
+  },
+  {
+   "id": "N4",
+   "class": "NOTE (outcome classification)",
+   "label": "FORMAL",
+   "title": "\u00a71 treats a finished but invalid S4T call as a pause",
+   "evidence": "Driver r5 b5cc62af L3558/L3597 exits 0 with status COMPLETED_INVALID; root_monitor_c2v001 (ba031c23) L197 then writes status FINISHED. \u00a71's assert driver_status=='COMPLETED' stops for root classification, as the sheet intends (L51). It is a model outcome, not an infrastructure fault, so it is classified and not retried. It is not hidden."
+  },
+  {
+   "id": "N5",
+   "class": "NOTE (keep V005 frozen)",
+   "label": "TESTED",
+   "title": "make_b1 re-hashes the cited V005 addendum at \u00a75 (L128-130)",
+   "evidence": "ROOT_DECISIONS_..._V005_ADDENDUM.md hashes to c01b3c51 (PIN_ADDENDUM_V005, comparator L171-172); mtime 2026-10-18T18:02. Any V005 edit before \u00a75 makes \u00a75 refuse."
+  }
+ ],
+ "checked": [
+  {
+   "claim": "34/34 listed existing input pins resolve from bytes (INPUT_PINS json == sheet list == bytes)",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Sealed constants in comparator r14: PIN_ADDENDUM_V005 c01b3c51 (L172), V007_PREREG_SHA256 b2989012 (L188), SCHEMA_REPORT UNT_KMAX_TAIL_COMPARISON_C2V007_R11 (L364); \u00a75 seal tuple in order C P A SCHEMA V",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "In-text pins: GATE_DOCUMENT_PINS_V002 5e688882; block source de6d7d77; R3 spec 8e71be9b, wall 792000 and RSS 137438953472 equal my 0258 record; driver b5cc62af pinned",
+   "result": "CONFIRMED",
+   "label": "TESTED",
+   "note": "output cap 103079215104 not re-checked"
+  },
+  {
+   "claim": "0778 table D: 9/9 predicted FINAL spec sha256 values appear in 0778",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Every CLI in \u00a71-\u00a711 matches its tool (argparse or argv parse): ea_replay, ra10 (argv run label out), aggregate (EA mp out), postseal (MT/I1T/FLAG_RULINGS mp out), compare (--prereg --manifest --outdir), run_fenced + make_b1 (OUTDIR SUB --dry-run|--write --policy-only --seal-tuple x5), regenerate_h3 fill/build, drivers r008 and r5 dry-run --spec --report-dir, apply_h3_fields (3-4 positionals + seal/block flags), produce_final (final + 9 flags; --registry refused L1101), prelaunch (5 flags, L82-83), bind (5 flags, L58), envelope collect (--doc-pin and --scope nargs 2)/snapshot, launcher015 (plan --execute-root-only), S0 serial seed and twin flags",
+   "result": "CONFIRMED",
+   "label": "TESTED",
+   "note": "source inspection only; nothing executed"
+  },
+  {
+   "claim": "\u00a71 receipt keys exist in root_monitor_c2v001 L192-197; status FINISHED iff stop_reason None and exit 0",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  },
+  {
+   "claim": "Step order: PRELAUNCH -> bind -> envelope START -> launch; seed confirmed before twin (A166)",
+   "result": "CONFIRMED",
+   "label": "FORMAL"
+  },
+  {
+   "claim": "Referenced paths exist: V006 addendum, ROOT_SEAL_ADMISSION_V001.json, /usr/sbin/taskpolicy, /usr/bin/nice, placeholder_chain_c2v004/v006r12_c4",
+   "result": "CONFIRMED",
+   "label": "TESTED"
+  }
+ ],
+ "untested": "All production invocations, dry modes and future runtime pins (by design; nothing was run).",
+ "reads_not_done": "No NGC3198 data, run outputs or trees, receipts, V007_POSTSEAL_RECORDS or ~/.codex. V006 not read (path existence only)."
+}

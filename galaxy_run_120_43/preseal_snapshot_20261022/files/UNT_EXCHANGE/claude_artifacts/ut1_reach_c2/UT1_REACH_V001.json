@@ -1,0 +1,71 @@
+{
+ "schema": "UT1_REACH_V001 (ut1_reach_c2), JSON twin of UT1_REACH_V001.md",
+ "dispatch": {"path": "UNT_EXCHANGE/FROM_CODEX/0497_2026-10-18_claude4_rh_ut1_reach_derivation.md", "sha256": "f1779659fab3f6d44323ba2a593d3cde4bd2da12b7eea1192f688f3b7a18147d"},
+ "lane": "Claude2 workflow (V4A A38 reassignment of R-H)",
+ "status": "V001 COMPLETE; theory + read-only toys; not a model version, launch or adoption",
+ "verdicts": [
+  {"id": "V1", "grade": "FORMAL", "text": "Adopted premises type the uniform-lapse (k=0) mode as a constraint (fixed-H / fixed-preparation null direction; time reparametrization; global energy and homogeneous data from the separate background/normal-constraint solve). The canonical -beta Var(H) value is the counted computational branch (CA-34), not a premise.", "cites": ["KUBO:13,28,37,50,52,60", "V002:10-13,20,35", "ADOPT:2,15", "CRS:26,27,31,33,34", "SAB:178,189-190", "CB:16,31,108", "ASMB:7,55,59-60", "QV5:84", "OCK:40,44", "0405 owned_retained_source_columns_v002.py:1971-1975", "ASM:57,77,701", "S4:351-352", "SPEC:2,61", "CS CA-01..CA-32 (no typing entry)"]},
+  {"id": "V2", "grade": "FORMAL", "text": "k=0 typing alone does not decide the 1/r tail; the far field is the k->0+ limit of the k!=0 kernel. In CA-28 that limit is grid[0,0,0] (1-w0=(L^2-1)/12 sum q^2), contradicting CRS:33."},
+  {"id": "V3", "grade": "FORMAL+TESTED-POSITIVE", "text": "Schur bound: T(k)<=0 on (0,kappa_1) for any NSD-source typing; 0 violations on ~98k premise points per typing (25 admissible estimates); violations only in the gate-violating RD3 probe (44956 points)."},
+  {"id": "V4", "grade": "TESTED-NEGATIVE (as tail route)", "text": "Every measured typing (37 estimates x 13 rays) gives finite reach or a repulsive power law; no attractive tail in any gate-consistent typing."},
+  {"id": "V5", "grade": "TESTED-POSITIVE+FORMAL", "text": "Attractive Newtonian tail needs C1 (F_nn(0+)=0) AND C2 (vanishing native uniform chart stiffness). C2 alone with isothermal lapse gives a real-k pole at k_p=sqrt(4 pi G Qinf/(c^4 |T(0)|)) (|T(0)|=T_EH(k_p), <=1.2%) and finite repulsive T(0+). Corrects H4 v3/section 6 and V4A A39 item 4."},
+  {"id": "V6", "grade": "TESTED-POSITIVE", "text": "Qinf=c^4/(16 pi G gamma_eff)=8.0623 unchanged by every typing (|Q(1000/kpc)/Qinf-1|<=8.1e-9); A21 short-wavelength shifts <=2.1e-4 at |k|>=2/kpc (continuation), <=4.8e-5 (lapse-only)."},
+  {"id": "V7", "grade": "UNTESTED", "text": "Existence of a 1/r tail: decided by U1 (small-k limit of k!=0 lapse and chart entries, mixed L>=6) and U2 (energy relaxation at k_g vs galaxy age). Within CA-28 only finite / 1/r / linear far fields are representable; other forms need a non-analytic infinite-volume response (UNTESTED, LIVE:41)."}
+ ],
+ "verification_H2b_H4": {
+  "byte_integrity": "PASS: HASHES_H2B_V001.txt and HASHES_H4_V001.txt re-hash with 0 mismatches",
+  "H2b_sha256": "17b72917763dfef11bd750ad4de2608413f49ad218316cce4d1a6af7e75558ca",
+  "H4_sha256": "b9ce950e409b08b4b57273ab8888a911e2a99e0c14faa7a713da9ab6e49c9ec4",
+  "transcription_vs_module_path_max_rel": 4.881534689530463e-13,
+  "module_path_points": 1776,
+  "items": [
+   {"claim": "h_NN(0)=-beta Var(H)/L^3; T(0)=v/(Eref h_NN(0))", "src": "A20/H2b/H4", "status": "VERIFIED", "numbers": {"A2_hNN0": -3.551023499886223, "A2_T0": -39.73292841625299, "birthk_c1_T0": -394.18707716437285, "T0_range_all37": [-878.1266454488158, -5.732456929306414]}},
+   {"claim": "record selects T-FIX/T-GAUGE at k=0", "src": "H2b F1-F7", "status": "VERIFIED, strengthened by CRS:26/31/33/34"},
+   {"claim": "iso-retarded = zero-energy-block term; all of betaVar(H) at k=0; degeneracy only at k!=0", "src": "H2b 3.2", "status": "VERIFIED (comparator K3)"},
+   {"claim": "1-w0=(L^2-1)/12 eps^2", "src": "H2b S2", "status": "VERIFIED (FORMAL)"},
+   {"claim": "shell1/node ratio median 0.53, range 0.05-2.13", "src": "H2b S1", "status": "VERIFIED", "numbers": {"ratio8": [0.0532, 0.534, 2.135], "ratio6": [0.058, 0.525, 2.037]}},
+   {"claim": "Gamma_nn(0)<0 in 11/37; gate fails 12/37", "src": "H2b; H3/H4", "status": "VERIFIED (12th fails at node (1,0,0))"},
+   {"claim": "continuation finite repulsive 481/481; T(0+) -63.6..-1256", "src": "H2b S4 V4/V5", "status": "VERIFIED (CONT8 -1255.7..-63.59)"},
+   {"claim": "RD3 probe 173/481 attractive each with pole", "src": "H2b V1; H3", "status": "VERIFIED; LOW omission in H2b: probe violates GATE:100 (37/37 nodes)"},
+   {"claim": "T-FIX finite 481/481", "src": "H2b table", "status": "SCOPE NOTE: only under an unowned continuation rule; node-typed T-FIX inside CA-28 gives repulsive k^-2"},
+   {"claim": "H4-T1 Schur bound", "src": "H4", "status": "VERIFIED"},
+   {"claim": "T-FIX gives repulsive 1/r tail on every ray", "src": "H4 v2", "status": "DEFECT MEDIUM (framing): CA-28 interpolation artefact of a node typing (CRS:33 forbids), not T-FIX on an unbounded medium"},
+   {"claim": "T-LOC -1/k^4", "src": "H4", "status": "VERIFIED"},
+   {"claim": "C2 alone (inside T-ISO) gives Qinf-Newtonian tail; soft chart needs no binding change", "src": "H4 v3, 3 T-OTHER a, 6", "status": "DEFECT HIGH: TESTED-NEGATIVE (pole at k_p, finite repulsive T(0+))"},
+   {"claim": "no logarithmic tail representable", "src": "H4-T2", "status": "VERIFIED, scope-limited to CA-28 closure"},
+   {"claim": "Qinf untouched; image aliasing", "src": "H4 4", "status": "VERIFIED"},
+   {"claim": "25/37 admissible", "src": "H4 2", "status": "VERIFIED"},
+   {"claim": "FIX version needs IR-tail prescription", "src": "H4 5-6", "status": "DEFECT MEDIUM (implementation): only for node-interpolated T-FIX; spec-compliant version has finite T(0+)"},
+   {"claim": "T-FIXC UNTESTED and decisive", "src": "H4 U1; H2b U4", "status": "RE-GRADED: S reads not conserved (FORMAL); uniform R UNTESTED; non-decisive for tail under H4-T1"},
+   {"claim": "real-space proxy g/(Qinf gN)", "src": "H4 3", "status": "REUSED, UNVERIFIED"},
+   {"claim": "recomputation table", "src": "H4 5", "status": "PARTLY VERIFIED; corrected in md 6.2"}
+  ],
+  "other_partials_reused": {"H2a_md": "cefd4a08f9d5201e519a971b10514ff9d4aff267130a5fb2064d2a5332fdda02 (lemma, TB/TC, T-LOC=cellwise PT: VERIFIED)", "H3_md": "0fdf04792669a2c459c11672639f480dae96ed1edc1e1919ad7e82a29b93ab36 (Results A/B, V0-V4 counts, k* ~ lambda^-1/2: VERIFIED; s2 formula not re-derived)", "H1_partial": "e55c252472f756b72a1a059a141ac16d99a7ce088d7f01d1ad38bcf267a55f81 (F-5..F-18 quotes spot-verified; F-12 WTC reading not re-derived)", "C4_synthesis_read_after_K4": "473497f99c43e674c0c1ea6c0b5b1fbdeb0e61986aef6bcece13746c5f689444"}
+ },
+ "framing_gate": {"lineage": "PASS", "prior_work": "ledger in md 4.2", "imports_new_load_bearing": "none", "label_correction_0497_20": "CB-LOC-01/CB-OWN-01 are concurrent-Birth occurrence/ownership postulates (LEDGER:28,30), not the lapse assumption; proper-time rule is V002 494d0124, counted CA-27", "flagged": ["H-CL HYPOTHESIS", "order-of-limits COMPARATOR/IMPORT CANDIDATE", "GR multiplier IMPORT CANDIDATE (T-LOC)", "continuation rule IMPORT CANDIDATE / new counted closure"]},
+ "typing_selection": {"k0_selected": "constraint (T-FIX = T-GAUGE at the point)", "canonical": "counted branch only (ASM:57; CA-34)", "local_multiplier_all_k": "not selected; owned-named cellwise fixed-proper-temperature rule (KUBO:60) unselected; as GR multiplier IMPORT CANDIDATE", "T_FIXC": "S reads not conserved (OP:124,159-167); uniform R UNTESTED (Birth commutator)", "far_field": "UNTESTED (U1, U2)"},
+ "kernel_limits_K1": {
+  "rays_all": 481, "rays_admissible": 325, "Qinf": 8.062327971755193,
+  "ISO": {"law": "finite repulsive 481/481", "T0_range": [-878.13, -5.73], "kstar_range_per_kpc": [0.00253, 0.0995], "poles": 0},
+  "FIXN": {"law": "k^-2 repulsive 481/481", "kstar_ratio": [1.0, 1.0], "poles": 0},
+  "FIXH": {"law": "k^-2 repulsive 481/481", "kstar_ratio_adm": [1.0, 2.67], "poles_adm": 0},
+  "CONT6": {"law": "finite repulsive 481/481", "T0plus_range": [-1512.3, -54.43], "T0plus_over_ISO": [0.491, 17.18], "kstar_ratio_adm": [0.519, 2.023]},
+  "CONT8": {"law": "finite repulsive 481/481", "T0plus_range": [-1255.7, -63.59], "T0plus_over_ISO": [0.468, 18.81], "kstar_ratio_adm": [0.540, 1.894]},
+  "LOC": {"law": "k^-4 repulsive 481/481", "kstar_ratio": [1.0, 1.0], "poles": 0},
+  "RD3PROBE": {"law": "k^-2: 173 attractive (all with pole) / 308 repulsive", "gate": "violated 37/37 at node 0"},
+  "SOFT6ISO": {"law": "finite repulsive; pole on 481/481; zero removed on 479", "pole_closed_form": "k_p^2 = 4 pi G Qinf/(c^4 |T(0)|)", "K4_found_vs_pred_per_kpc": {"A2_pooled": [0.004478, 0.004479], "birthk_c1": [0.001413, 0.001422], "worm_c1": [0.006477, 0.006528], "worm_pooled": [0.005511, 0.005538]}},
+  "SOFT4_SOFT6": {"law": "repulsive below k*; Qinf above k*", "kstar_ratio_1e4": [0.0100, 0.0275], "kstar_ratio_1e6": [0.00100, 0.00275]},
+  "max_dQ_rel_ISO_at_2_per_kpc": {"FIXN": 1.19e-05, "FIXH": 3.62e-05, "CONT6": 2.09e-04, "CONT8": 2.09e-04, "LOC": 4.79e-05},
+  "max_Q1000_over_Qinf_minus1": 8.11e-09
+ },
+ "comparator_toy_K3": {"model": "spin-1/2 ring J1=1,J2=0.3,hx=0.75,hz=0.35,beta=0.5; N=8,10,12", "retarded_HH_per_N_max": 4.7e-29, "fix_protocol_vs_schur_rel": 1e-09, "fix_minus_iso_k_nonzero_max": 1.4e-33, "block_fraction_E_m2": [0.0322, 0.0210, 0.0076], "block_fraction_E_m1_max": 3.3e-25, "iso_k1_over_k0": [1.027, 1.020, 1.014], "PT_d2lnZ_dN2": [0.0, 5.3e-07], "PT_mixed_equals_minus_beta_meanO": true},
+ "untested": [
+  {"id": "U1", "decides": "C1, C2 (under H-CL)", "computation": "per-shell h_NN, Gamma_nn, u_TT^T D u_TT, soft eig of -D from mixed L=4 control + L>=6 captures (P-96 stage 0 running; stages 1-2 later); RD4 P6 2-SE rule"},
+  {"id": "U2", "decides": "C1 (order of limits)", "computation": "energy-density relaxation rate Gamma_E(k) on owned parent via fixed-preparation real-time provider (ASM:57), or frozen fraction f_E(k) by ED of small owned domains; static order iff Gamma_E(k_g) t_gal >> 1"},
+  {"id": "U3", "decides": "T-FIXC bookkeeping only", "computation": "[H, sum_alpha R_alpha] for the Birth primitive on OP reachable component"},
+  {"id": "U4", "decides": "real-space magnitudes per version", "computation": "t3 on NGC iteration-0 cube under the declared continuation rule (root-run)"},
+  {"id": "U5", "decides": "non-analytic infinite-volume response", "computation": "not decidable from L=4/6/8 alone (LIVE:41)"}
+ ],
+ "implementation_note": {"version_tag_example": "UNT-GAL-M0-K0SPEC-V001", "k0": "declared zero mode via 0405 declared_zero_modes/energy_quotient; background from separate solve; bordered system if needed; no regulator", "closure": "CARD successor: k->0+ and reciprocal-lattice images from k!=0 nodes only under one pre-registered continuation rule (new counted CA); report rule spread", "estimator": "S4 unchanged at k!=0; isothermal-as-retarded declared counted approximation (U2)", "IR": "not needed (finite T(0+))", "custody": "new closure sha, driver successor allowlist, seed record, new route-A runs, DDO154 recalibration, freeze, out-of-sample 120/43 beside baseline (CA-34)", "not_recommended": "T-FIX at node inside CA-28 (KUBO:60 substitution; CRS:33; ~1e5 artefact)"},
+ "disclosures": ["Claude4 helper reports read first (verification task); A39 and Claude4 synthesis read only after K1-K4", "K1 ran 4 concurrent processes; others single", "lwr_common_v001.py not executed", "V4A open file read at 9b88e8a1 (715 lines)", "no NGC3198 target/run file opened; ~/.codex untouched"]
+}

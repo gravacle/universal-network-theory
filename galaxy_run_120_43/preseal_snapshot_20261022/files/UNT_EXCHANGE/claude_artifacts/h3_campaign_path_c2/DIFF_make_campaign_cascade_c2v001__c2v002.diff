@@ -1,0 +1,40 @@
+--- make_campaign_cascade_c2v001.py
++++ make_campaign_cascade_c2v002.py
+@@ -1,4 +1,7 @@
+-# Claude2 h3_campaign_path_c2 (root V006 A188): deterministic generator of the CAMPAIGN adoption cascade, c2v001.
++# Claude2 h3_campaign_path_c2 (root V006 A188, A191 B2): deterministic generator of the CAMPAIGN adoption cascade, c2v002.
++# c2v002 against make_campaign_cascade_c2v001 (65a70144), and nothing else: E2 the entry template is h3_campaign_entry_c2v002
++# (A191 B2: its reingest takes the acceptance record); the result names this generator.  Policy, core and wrapper outputs are
++# c2v001's, byte for byte, for every SUB and tuple.  Text below is c2v001's (W1, E1, M1 hold with the c2v002 names).
+ # Minimal successor of Claude4's make_b1_cascade_c4v002 (a7a5fe58, adopted A129; Codex1 0138 PASS).  Every v002 rule is kept:
+ # the policy is r7 + P1-P4 (+ P5/P6 with a seal tuple), the core is core r9 + C1/C2 (the policy path and sha), the tuple is
+ # cross-checked against the SEALED compare / prereg / addendum bytes (C, P, A, SCHEMA; V = 64 lowercase hex), SUB is a
+@@ -13,7 +16,7 @@
+ #  M1  main(argv) / build(...) are callable in process (regenerate_h3_c2v001.py); the CLI is v002's plus --publish-root.
+ # Regression: with SUB = v006r10_c4, no tuple and the default publish root the four outputs are byte-identical to the
+ # published policy 93d9c0ac, core dc895f8a, q5b1 wrapper 7a6af535 and the entry template itself.
+-# usage: python3 -I -B make_campaign_cascade_c2v001.py OUTDIR SUB (--dry-run | --write) [--publish-root DIR] [--policy-only]
++# usage: python3 -I -B make_campaign_cascade_c2v002.py OUTDIR SUB (--dry-run | --write) [--publish-root DIR] [--policy-only]
+ #        [--seal-tuple C P A SCHEMA V]
+ import ast, hashlib, json, os, re, sys
+ 
+@@ -22,8 +25,8 @@
+ CORE9 = (CX2 + '/v006r9/calibration_core_cx2v006r9.py', 'a595c5c0929fc0a8313bcdff3b79241f1e3ba8f77dc3749adc06b2a982b43605')
+ WRAPQ = (CX2 + '/v006r10_c4/calibration_orchestrator_cx2v006r10_c4_q5b1.py', '7a6af535805399d49ec3f1c1cbe9e4911d98f6fae0ad50b69a0641214fcd5d4d')
+ CORE10_SHA = 'dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6'     # the core q5b1 L27 pins
+-ENTRY_T = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h3_campaign_entry_c2v001.py'),
+-           '08068e93904fa12bd7d6bb9ceaca6b37b85cc884fa8091d8a7d59900e5a0c4bd')
++ENTRY_T = (os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h3_campaign_entry_c2v002.py'),
++           '75b4cafa8563e31879ab1d70a74fe64dba9f4d61f496c3bc28479668c1e61c10')
+ CTRL = '/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2'
+ SEALED_COMPARE = CTRL + '/V007_SEAL_ASSEMBLY/kmax_tail_compare_c2v007_r14_cx1v001_SEALED_V007.py'
+ SEALED_PREREG = CTRL + '/V007_SEAL_ASSEMBLY/KMAX_TAIL_PREREG_V007_SEALED.json'
+@@ -218,7 +221,7 @@
+             refuse('expected --seal-tuple C P A SCHEMA V')
+         seal_tuple = tuple(rest[1:6])
+     files, outputs, lit_sha = build(sub, policy_only=policy_only, seal_tuple=seal_tuple, publish_root=publish_root)
+-    res = {'generator': 'make_campaign_cascade_c2v001', 'mode': mode, 'sub': sub, 'policy_only': policy_only,
++    res = {'generator': 'make_campaign_cascade_c2v002', 'mode': mode, 'sub': sub, 'policy_only': policy_only,
+            'seal_tuple': seal_tuple, 'publish_root': publish_root, 'outdir': os.path.join(out, sub),
+            'inputs': {'policy_r7': R7[1], 'core_r9': CORE9[1], 'wrapper_q5b1': WRAPQ[1], 'entry_template': ENTRY_T[1]},
+            'outputs': outputs, 'resolve_source_literal_sha256_utf8': lit_sha}

@@ -1,0 +1,11 @@
+B2-1 old c3v007 _fence pattern (importlib exec_module), stale pyc planted, no prefix: marker=UNPINNED_BYTECODE (EXPECTED UNPINNED_BYTECODE: reproduction of SA-CX1-B2)
+B2-2 new c3v009 load_pinned (read once, verify, compile buffer), stale pyc planted: marker=PINNED_SOURCE (REQUIRED PINNED_SOURCE)
+B2-3 run_pinned_c3sa runner, pinned sibling with a stale pyc: main=PINNED_SOURCE sibling=PINNED_SOURCE (REQUIRED main=PINNED_SOURCE sibling=PINNED_SOURCE)
+B2-4 runner, unpinned sibling import beside a pinned main: RecursionError: maximum recursion depth exceeded (REQUIRED UNPINNED_SIBLING_IMPORT_REFUSED)
+B2-5 third-party importlib exec_module (the compare's load_pinned_module pattern) under -X pycache_prefix=<empty>: marker=PINNED_SOURCE (REQUIRED PINNED_SOURCE)
+B2-6 importlib loader calls left in helper c3v009 code: 4 (REQUIRED 0; comments excluded below)
+477:def _exec_module(path, sha, name):
+505:    M = _exec_module(a.compare, a.compare_sha, 'reviewed_compare_c3sa')
+801:    M = _exec_module(a.sealed_compare, a.sealed_compare_sha, 'sealed_compare_c3sa')
+892:    G = _exec_module(a.guard, a.guard_sha, 'producer_guard_c3sa')
+EMPTY_PREFIX entries after B2-5: 0

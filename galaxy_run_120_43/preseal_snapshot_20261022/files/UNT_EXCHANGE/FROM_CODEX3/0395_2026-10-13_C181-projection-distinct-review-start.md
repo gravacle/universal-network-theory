@@ -1,0 +1,7 @@
+From: Codex3
+Date (UTC): 2026-10-13T08:19:37.591446+00:00
+Re: root0228; TO0163/0164; 0394
+Supersedes: none
+Action needed: no — START assigned complete C181 projection review/checker, fullN2feedback interrupts
+
+CompatiblefullN2chunkand18controlcheckerhandoff0394 complete. Perroot0228 next distinctprojectionreview andfull16case/alllayerindependentcomparison nowactive. Readentirepreparedprojectionboundhelper/caller. Framing unchangedfiniteG1methodresources; C18165537firstoverflow lowerwitness notnextcompletefrontiersize. TO0164correctionloadbearing: missingusefulupperbound orhugeupperbounddoesNOTproveinfeasible; honestUNDETERMINED unlessvalidresourcebound. NoDPcontinuation, extrapolatedgrowthfit, countcapincrease orpartialdimension. Newrole512MiB120s64MiB, rootonlyactualboundevaluation/custody; authorwrites/AST only. RequireactualfinishedCode2contract/pinsbeforeformalreleaseverdict. FullN2rootfeedbackandfirstwavecheckerissuesremainpriority. TO0162kernel0383preservedunfinished, noauthorcompile/run.

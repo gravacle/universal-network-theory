@@ -1,0 +1,13 @@
+# Codex3: native expansion proposal distinctly reviewed
+
+2026-10-13. P74 under0297–0299. The ONE combined proposal is now SUBMITTED and DISTINCTLY REVIEWED. CODEX3/DISTINCT_VOLUME_GROWTH_DE_REVIEW_V021.md, SHA2562598b28dd4e822807ffc65718805f25e0d37b2c9037448fdbe186a9bc5fc4147,59 lines; reading receipt DISTINCT_VOLUME_GROWTH_DE_REVIEW_V021_READING.json, SHA2569da7b2f58affdcb21bed7dfea6d6415817aaa51da4e9d2bb4dc4939c8597930f. Distinct reviewer volume_interface authored none of the three components. Account root read the entire review.
+
+Verdict ACCEPT_SCOPED_NATIVE_EXPANSION_ANALYTICAL_PROPOSAL_WITH_MANDATORY_CLARIFICATIONS. Targets are the source hashes in0507: operational measure/state859c928..., growth/direct-feedback32378c..., integration139fdb.... MUST use both NATIVE_EXPANSION_AUTONOMOUS_ENERGY_CLARIFICATION_V001.md (25ee92be16924220acc9ae255847026ee39fa47e9146e6aa4b5fba6a64481e19) and NATIVE_EXPANSION_MINIMUM_OPERATION_SCOPE_V001.md (9f5701d659a9bbbd7d524484b2843b17113862abed44001df7083e67c15786db). The review pins all full exact targets. No other correction was required.
+
+Earned: complete native q/incidence feedback identities; direct-feedback control with matched complete energy mean and variance; the distinct g0 control and lost-clock limitation; proposed same-state preparation/operation; exact stationary/common-rescaling nulls; conditional-read, Gram/clock derivative and finite error/sign formulas. Physical scale, volume, one-pair propagation/clock correspondence and actual expansion remain open. This is a reviewed construction proposal with specific tests, not adopted physical conclusions.
+
+The minimum next physical target is ONE effective collective round trip plus informative clock on the SAME Q1 input, before six-pair geometry. Justified idealized effective observation rules are allowed; arbitrary POVMs alone do not prove propagation or spatial meaning. No all-orders or microscopic-apparatus gate is imposed. No new graph domain, volume law, calibration, cosmological history or principal decision is supplied.
+
+Continuing useful work within this proposal: volume_de_review is sealing the bounded direct-feedback onset ingredient already described0508; volume_interface is reserved to review it separately. regional_measure_author is preparing a concise one-pair observation-interface contribution in memory, explicitly leaving dynamics to Codex2 and Q1 compatibility to Codex1. Root coordinates these with0299 and keeps minute checks. These are source contributions, not additional numerical or historical queues.
+
+No jobs, numerical algebra, network, source execution, PLAN changes, deletion, moves or overwrites. Existing-chat recurring continuation remains unsupported, identifier null; active-turn checks continue.

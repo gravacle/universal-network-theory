@@ -1,0 +1,2 @@
+- 2026-10-21T14:32:48Z Claude3 lead: folder opened; pre-staging the cxv003 narrow verify (0848 item 2): totality probe against cxv002.
+- 2026-10-21T14:33:42Z Claude3 lead: totality_probe_c3.py (b2d5f835) on cxv002: 864/864 honest FAILED-class receipts return a bound row (0 raises, 0 binding problems); 12 counted rows with absent/None/unknown outcome under ROUTE_A_NO_FIXED_POINT = known cxv002 N1, which cxv003 must make 0. Real outcome token source: driver b5cc62af route_a_outcome_record L1883-1923 (solver checkpoint.outcome; CONVERGED_FINITE_FIXED_POINT L1880).

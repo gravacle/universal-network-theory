@@ -1,0 +1,36 @@
+{
+ "label": "UNTESTED production; build dependencies as observed",
+ "utc": "Sun Oct 18 13:21:38 UTC 2026",
+ "blockers": [
+  {
+   "id": "CERT_MS128",
+   "kind": "external_input",
+   "status": "PENDING",
+   "detail": "certificates_v003/gates empty; cannot fill or dry-run final10 r5/MS128 specs yet"
+  },
+  {
+   "id": "FROZEN_PREREG",
+   "kind": "seal_admission",
+   "status": "PENDING",
+   "detail": "Guard registered prereg SHA is deliberately null; immutable successor required after actual prereg freeze"
+  },
+  {
+   "id": "FINAL_COMPARE",
+   "kind": "schema_dependency",
+   "status": "PENDING",
+   "detail": "Latest tested compare is r5; A56/A57 successor and final sealed FIELDS must be checked when available"
+  },
+  {
+   "id": "PRODUCTION_EVIDENCE",
+   "kind": "postseal_only",
+   "status": "UNTESTED",
+   "detail": "No T runs, C5H/UVT reads or final gates executed by this lane; test-only fixture records cannot be admitted"
+  },
+  {
+   "id": "MS128_TIMING",
+   "kind": "estimate_limit",
+   "status": "UNTESTED",
+   "detail": "Caps and paired-wave estimate use measured MS64 costs with declared projection margins; no MS128 or K256 production timing bound established"
+  }
+ ]
+}

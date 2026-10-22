@@ -1,0 +1,13 @@
+# PARTIAL RI-31 (A113, dispatch 0650) b0_ms128_c4
+
+- 2026-10-19T03:13:09Z folder created; starting pin verification
+- 2026-10-19T03:17:59Z pins verified from bytes (b0 tool 857ccb8a, r5 b5cc62af, r4 b9ae92d5, registry c7023846, fence c993d34c, runner fe904509; map a7281e10 recorded); b0 tool, fence, runner read fully; driver dry-run path read (FORMAL: simulate mode launches nothing; no runs_ext/C5H/target strings in either driver); BUILD_V007->V006->V005 chain pins DRY_R5_MS128_V004 ff60cd6b (TESTED)
+- 2026-10-19T03:26:44Z tools written (harness 1a5dd386, probe 7d3f9fa3; fence/runner copied byte-identical); check mode PASS (pins, 103 map pairs, 10 DDO154 M_s128 specs, BUILD chain, fence smoke 8/8 + 15/15, BLOCKED-after []); launching check && run (20 fenced dry-run children, max 4)
+- 2026-10-19T03:27:26Z run in progress: first 4 R4 children finished (~20 s each), fence summaries present, BLOCKED-after [] 
+- 2026-10-19T03:29:34Z RUN DONE: record out/B0_R5_VS_R4_MS128_C4V001.json 3a798efa; verdict_B0 PASS_PLAN_IDENTICAL, 10/10 counted, 0 fail/no-evidence/blocked; every child BLOCKED-after []; parent guard 0 blocked; cross-check 10/10 EQUAL vs BUILD_V005 dry reports; writing README + HASHES
+- 2026-10-19T03:31:00Z README written; HASHES_B0_MS128_C4V001.txt next and last (no further writes in this folder)
+- 2026-10-19T04:00:41Z FIX stage (ri31, dispatch 0650) started by a Claude4 helper. Pre-append PARTIAL.md = 1322 bytes, sha256 6a8c556e (equals its HASHES_B0_MS128_C4V001 row); later lines are appended only. Confirming refuter R31-S1 from driver bytes.
+- 2026-10-19T04:17:09Z R31-S1 CONFIRMED from driver bytes (TESTED: runs_ext 0, C5H 0, rotmod 2 at L4580/L4596, vobs 1 at L4560, MassModels 0, SPARC 0, both drivers). Fix script fix_c4v002/fix_ri31_c4v002.py written; running its dry mode (writes nothing).
+- 2026-10-19T04:18:53Z Exploratory dry run passed every check (guard: 0 refused). Note: its stdout was captured to the session scratchpad (outside this folder), disclosed in the fix record. Wording tightened; running the final dry && write chain with captures in fix_c4v002/.
+- 2026-10-19T04:19:30Z CORRECTION (R31-S1, confirmed from bytes; see FIX_RI31_C4V002.json): the 03:17:59Z line above says "no runs_ext/C5H/target strings in either driver". That is false as worded. Each driver has 0 runs_ext and 0 C5H strings, but rotmod twice (L4580 docstring, L4596 key rotmod_header) and vobs once (L4560 _VELOCITY_KEY_HINTS), as non-path text in NGC3198-only code. verdict_B0 is unchanged (PASS_PLAN_IDENTICAL).
+- 2026-10-19T04:19:30Z FIX outputs written by exclusive create: FIX_RI31_C4V002.json 09bf70eb, README_B0_MS128_C4V002.md 37fd4b25. HASHES_B0_MS128_C4V002.txt is next and last; no further fix-stage writes in this folder.

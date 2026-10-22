@@ -1,0 +1,23 @@
+0807 / A252: cause_record_cxv002.py review candidate
+
+Supersedes cxv001's unique-site rule. Input flags, exact top-level output fields, whitelist reader, NGC attestation, clean-failure gates and pair identity remain as documented in ../CAUSE_PROTOCOL_CX1V001.txt. Run from this cxv002 directory using cause_record_cxv002.py. No production acceptance or science launch is implied.
+
+The immutable CAUSE_VOCABULARY_CXV002.json is hash-pinned inside the producer. For the pinned driver it lists a conservative source dependency union, including historical/optional statically pinned branches, with path, SHA256, pin edges, token sites and classifications. 145 distinct source files were scanned; DDO's union contains 121 and NGC's 144. This is a static vocabulary, not a claim that every listed module executes in an individual attempt. It avoids reading a scientific spec to choose a branch. Python/NumPy and other ordinary package imports are outside the by-pin source graph.
+
+The producer verifies every module's bytes through the same OneRead cache, even modules without token sites. A nonempty token set counts only if every recorded site is model_outcome true; a mixed/empty set, incomplete registry, missing module or changed hash fails closed. The reviewed vocabulary is the trust boundary: a caller cannot supply a replacement registry through CLI. Python API vocabulary injection is for inert tests only. The static scanner evaluates only explicit literal/path expressions, never imports or executes production code. Pin edges cover literal tuples, path/SHA companions, path-to-SHA maps and explicit hash comparisons. Root/Codex3 should independently review the declared source closure, including its conservative historical branches.
+
+Site review:
+- NGC status assignments 3566, 6107, 7853, 9066 each occur in an except RouteANoFixedPoint handler. None is a generic exception handler. DDO status 3566 is the same case.
+- Both drivers also assign rec['classification'] at 1916 for a nonconverged source. This emission site is included, unlike cxv001's narrower status-only scan. FAILED_SOURCE_PREPARATION remains explicitly excluded at the metadata gate. Literal comparisons consume tokens and are not emission sites.
+- Exhaustion is emitted by _finish after range(start_iteration,max_iterations), with converged_finite_fixed_point false, in five pinned iterators: resume c91c5051:185; fixedsrc 44d9c23c:218; parallel aed4dd59:316; uvtail 8ef3079b:243; parallel_uvtail 7667025b:360. _finish propagates the outcome to checkpoint finish (and UV-tail result when enabled). Convergence returns before these sites. No source/budget was changed.
+- Controller c5bdd0553968e3f00b61db89f7944cebe51166006f58b727a7aed2a9b6a434fc and its pinned libraries are in the inventory. It propagates outcomes; it has no literal emission of either counted token.
+Full paths, full hashes and site rationales are in the vocabulary.
+
+Output semantics changed deliberately: raise_site is the string SITE_SET: followed by canonical compact JSON of sorted file:line strings. exception_class is the sole class if uniform, otherwise CLASS_SET: followed by a sorted compact JSON class list. NO_EXCEPTION_OUTCOME remains a sentinel for returned/classified outcomes. These describe all possible reviewed sites, not a traced executed site. Downstream consumers must accept this A252 representation; pair compares it exactly. No extra top-level output key was introduced. The vocabulary pin is internal, not an added scientific input field.
+
+TESTED: all 37 prior fixture cases rerun, with ambiguous all-model sites now expected to count; six added cases (43 total); seven mutants killed; input and alias single-read audit; four additional inert metadata cases with actual source pins pass (both tokens, both drivers). NGC inert tests use synthetic attestations; they do not claim any real seal.
+UNTESTED: real run ends, actual seal attestation, downstream consumer acceptance, Codex3 review and root acceptance. No real run, velocity, C5H or UVT output was opened. No science module executed.
+
+Reader and custody limitations remain explicitly those of cxv001: root-trusted metadata, no signature validation, no strict Unicode validation of skipped scalar strings, parent-directory symlinks permitted. This change is the A252 site-set implementation, not a claim to have removed those limitations.
+
+Tests: python3 test_cause_cxv002.py; python3 test_pinned_vocabulary_cxv002.py. Evidence builders exclusive-create their outputs; reproduce builders in a fresh inert copy. Existing version remains immutable.

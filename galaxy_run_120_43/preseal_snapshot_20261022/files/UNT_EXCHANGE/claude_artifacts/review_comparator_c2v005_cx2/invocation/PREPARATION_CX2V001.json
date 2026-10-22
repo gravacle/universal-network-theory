@@ -1,0 +1,209 @@
+{
+ "cases": [
+  {
+   "expected": "PASS",
+   "gate": "B0P_RERUN",
+   "name": "P00_distinct_invocation_baseline",
+   "note": ""
+  },
+  {
+   "expected": "PASS",
+   "gate": "Z2",
+   "name": "P01_Z2_correct_explicit_replacement",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F02_swap_nontail_option_values",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F03_duplicate_nontail_option",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "Z2",
+   "name": "F04_joined_tail_assignment",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "Z2",
+   "name": "F05_tail_missing_value_at_end",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "Z2",
+   "name": "F06_duplicate_valid_tail_config",
+   "note": "Both duplicates are inside the run; unlike the old checker outside-first duplicate."
+  },
+  {
+   "expected": "FAIL",
+   "gate": "Z2",
+   "name": "F07_route_A_only_flag_on_reference",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "Z2",
+   "name": "F08_Z2_NEW_base_equals_REF_with_tokens",
+   "note": "NEW base script must fail even when REF and NEW paths/hashes are equal and declared tokens can normalize them."
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F09_NEW_base_hash_wrong",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F10_request_nested_signed_zero",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F11_request_nested_int_float",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F12_request_nested_bool_int",
+   "note": ""
+  },
+  {
+   "expected": "PASS",
+   "gate": "B0P_RERUN",
+   "name": "P13_equal_nested_signed_zero",
+   "note": ""
+  },
+  {
+   "expected": "PASS",
+   "gate": "B0P_RERUN",
+   "name": "P14_equal_distinct_scalar_types",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F15_npz_imaginary_signed_zero",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F16_npz_integer_float_dtype",
+   "note": ""
+  },
+  {
+   "expected": "PASS",
+   "gate": "B0P_RERUN",
+   "name": "P17_npz_C_F_logical_identity",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F18_extra_dangling_symlink",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F19_external_symlink_different_payload",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "B0P_RERUN",
+   "name": "F20_extra_stage_directory_symlink",
+   "note": ""
+  },
+  {
+   "expected": "PASS",
+   "gate": "Z2",
+   "name": "P21_declared_reference_test_only_flag",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "Z2",
+   "name": "F22_tail_flag_on_reference_side",
+   "note": ""
+  },
+  {
+   "expected": "FAIL",
+   "gate": "Z2",
+   "name": "F23_manifest_outside_run",
+   "note": ""
+  }
+ ],
+ "distinctions": [
+  "All trees constructed in memory by new source; no checker fixture copies and no imported checker builder.",
+  "New request numeric_contract nested matrices cover signed-zero/int-float/bool-int in REQUEST rather than old stage-finish/result/checkpoint locations.",
+  "Complex NPZ imaginary signed zero and int32/float32 member dtype differ from old real-ULP/type JSON probes. C/F logical content is a positive control.",
+  "Duplicate tail-config case repeats the same valid in-run path; old checker used first outside-run then inside-run. Same general duplicate-collapse failure family, different canary.",
+  "Z2 same-base tokens exercise the identical REF/NEW script early-return bypass, unlike old checker differing-script swaps.",
+  "New local dangling/file/directory symlink constructions; no links to scientific runs.",
+  "c2v005 checker set not yet available; final difference audit remains pending."
+ ],
+ "limits": [
+  "Old c2v004 22/24 is preparation only, never a c2v005 verdict.",
+  "All six positive controls pass on old c2v004.",
+  "Two old false PASS cases: F06 repeated valid tail config and F08 identical base NEW in Z2.",
+  "No scientific launches, subprocess/network attempts, C5H, NGC targets or runs_ext/UVT reads."
+ ],
+ "pins": [
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/invocation_canaries_cx2v001.py",
+   "sha256": "46fa0c1533a6c6c4d7b8393f55d56f22ab76893966ca569fc2998f18341427ba"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/c2v004_baseline_preflight_v001/RESULT.json",
+   "sha256": "a78c2d9ee24802131f1b8e14f0f4cde6323e4a726461945ec663c2841e6eff3f"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/c2v004_canary_preflight_v001/RESULT.json",
+   "sha256": "662cee97e1b0856f62798118cd223c39bf437734d35378dbddea604c4391fcb3"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v004/run_identity_compare_c2v004.py",
+   "sha256": "e3d153b6dd5bf07ffd74ca8eeb75087d7a1bfd5cab67039c5514fa8744f7abcf"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v004/check/scripts/canaries_c2v004_cl001.py",
+   "sha256": "9ff721e0b6b422fbcad8a5d906c67705959397d4571b755eecb210ffc8690610"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v004/tools/selftest_identity_compare_c2v004.py",
+   "sha256": "e24925c5327eaebef673e014d3efe6b0c1bf5b5b9c9b0f0246c6de7dfcaa1b67"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/gates_v003/tools/selftest_identity_compare_c2v003.py",
+   "sha256": "a99e3e4d119d1cfd142a0f2d2db1a202ea53088d4d9c5e32d96094949adc2b26"
+  },
+  {
+   "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0553_2026-10-18_codex2_crosslineage_review_comparator_c2v005.md",
+   "sha256": "da0065550d9cd52320385d2f4ab3da5d01591cd5fb722e2930032412c75af747"
+  }
+ ],
+ "preflight": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/c2v004_canary_preflight_v001/RESULT.json",
+  "sha256": "662cee97e1b0856f62798118cd223c39bf437734d35378dbddea604c4391fcb3"
+ },
+ "schema": "CX2_INVOCATION_CANARY_PREPARATION_V001",
+ "scope": "Synthetic full-main comparator invocation/value tests. No real run data read.",
+ "source": {
+  "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/review_comparator_c2v005_cx2/invocation/invocation_canaries_cx2v001.py",
+  "sha256": "46fa0c1533a6c6c4d7b8393f55d56f22ab76893966ca569fc2998f18341427ba"
+ },
+ "status": "BLOCKED_ACTUAL_C2V005_NOT_YET_PRESENT",
+ "utc_date_u": "Sun Oct 18 15:05:20 UTC 2026"
+}

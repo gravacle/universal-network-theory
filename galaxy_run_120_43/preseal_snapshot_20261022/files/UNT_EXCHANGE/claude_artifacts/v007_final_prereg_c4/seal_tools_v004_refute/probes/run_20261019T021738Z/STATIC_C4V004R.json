@@ -1,0 +1,323 @@
+{
+ "stage": "refute",
+ "probe": "refute_static_c4v004r.py",
+ "probe_sha256": "0b87664901404cdc9f76f72455f62aec069c88048fa66caf75ddd97ba7e456de",
+ "utc": "2026-10-19T02:17:38Z",
+ "checks": [
+  {
+   "check": "S0 every base pin hashes to the brief's sha (v003 SELECTED, six v003 sources, v003 tests, fence, runner, tool 4 v004, the v004 suite, r6 SELECTED, root's file)",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "check": "S1 seal_common, tools 1, 2, 3 and 5, the fence and the runner in seal_tools_v004 are byte-equal to v003's",
+   "ok": true,
+   "detail": {
+    "seal_common_c4v003.py": "101a3aeb9846a21c35993e8e7e4b50a8f1206ed4202b131afd12d7e496c5ab21",
+    "check_frozen_addendum_c4v003.py": "a56f8d793750151920b1b47e77b46aebbfadea71fe77730f360beb02af788fb4",
+    "check_sealed_compare_c4v003.py": "c2c5dfc5ddba1e44ff82811a38d4c05b0a669f2294b229efe3437623d596f9f1",
+    "check_slot_fill_c4v003.py": "316973a1abf5aa2151dc1a517733d970ce1004313395d05fe590f82ed439b0af",
+    "print_driver_build_record_c4v003.py": "e5bedffe3c91650d5dba7fbd1ed5476e228158679d8959dfea0e2eff436ebdea",
+    "tools/fence_c4v002.py": "c993d34c185d785d77c443a00033e8efeea10cd02f1a547a99af458c0f698eb5",
+    "tools/run_fenced_c4st2.py": "fe904509c7d2d6300042589aaa02d839e82b436680d293b65c5c7d4cf69f6d25"
+   }
+  },
+  {
+   "check": "S1 the top-level tool set of v004 is exactly the five v003 names plus build_seal_record_c4v004.py (no v003 tool 4 beside it)",
+   "ok": true,
+   "detail": [
+    "build_seal_record_c4v004.py",
+    "check_frozen_addendum_c4v003.py",
+    "check_sealed_compare_c4v003.py",
+    "check_slot_fill_c4v003.py",
+    "print_driver_build_record_c4v003.py",
+    "seal_common_c4v003.py"
+   ]
+  },
+  {
+   "check": "S2 tool 4: after the renames build_seal_record_c4v003 -> c4v004 and check_admission_config_c4v003 -> c4v004 (Checker and refusal names), every v003 top-level statement is AST-identical in v004 except SCHEMA, build() and main(); none is removed; the v004-only statements are the five new constants, E_R6_1 and the five new functions",
+   "ok": true,
+   "detail": {
+    "changed": [
+     "assign SCHEMA",
+     "def build",
+     "def main"
+    ],
+    "only_in_v003": [],
+    "only_in_v004": [
+     "assign MANUAL_DISCLOSURES_SCHEMA",
+     "assign MANUAL_DISCLOSURES_KEYS",
+     "assign C08_ROW_KEYS",
+     "assign C08_ID_RX",
+     "assign ROOT_DISCLOSURE_KEYS",
+     "assign E_R6_1",
+     "def strings_of",
+     "def has_utf8_form",
+     "def manual_disclosures_form_codes",
+     "def manual_disclosures_codes",
+     "def manual_disclosures_record"
+    ]
+   }
+  },
+  {
+   "check": "S2 build(): besides the record dict, the only inserted statements are the Checker (moved before T3.run), the manual disclosures check and its re-read, and the only deleted statement is the Checker at its old place; the record dict is v003's with exactly one key added, 'manual_disclosures': mdr, right after 'disclosures', every other key and value AST-identical",
+   "ok": true,
+   "detail": {
+    "inserted": [
+     "chk = C.Checker('build_seal_record_c4v004')",
+     "md = manual_disclosures_codes(chk, getattr(a, 'manual_disclosures', None))",
+     "mdr = manual_disclosures_record(chk, md)",
+     "rec = {'schema': SCHEMA, 'sealed_by': dict(C.AUTHORITY), 'prereg': {'path': str(Path(a.prereg).resolve()), 'sha256': C.sha(a.prereg)}, 'compare': sealed_compare, 'driver': dict(plan['driver']), 'froze"
+    ],
+    "deleted": [
+     "chk = C.Checker('build_seal_record_c4v004')",
+     "rec = {'schema': SCHEMA, 'sealed_by': dict(C.AUTHORITY), 'prereg': {'path': str(Path(a.prereg).resolve()), 'sha256': C.sha(a.prereg)}, 'compare': sealed_compare, 'driver': dict(plan['driver']), 'froze"
+    ],
+    "dict": {
+     "extra_keys": [
+      "'manual_disclosures'"
+     ],
+     "position_after": "'disclosures'"
+    }
+   }
+  },
+  {
+   "check": "S2 main(): the only change is three inserted statements, the two new flags and the API pin built from them; nothing deleted or replaced",
+   "ok": true,
+   "detail": {
+    "inserted": [
+     "p.add_argument('--manual-disclosures')",
+     "p.add_argument('--manual-disclosures-sha256')",
+     "a.manual_disclosures = None if a.manual_disclosures is None and a.manual_disclosures_sha256 is None else (a.manual_disclosures, a.manual_disclosures_sha256)"
+    ],
+    "deleted": []
+   }
+  },
+  {
+   "check": "S2 SCHEMA: UNT_V007_SEAL_RECORD_C4V003 -> UNT_V007_SEAL_RECORD_C4V004 (a change beyond the new input; disclosed as B-N1)",
+   "ok": true,
+   "detail": [
+    "UNT_V007_SEAL_RECORD_C4V003",
+    "UNT_V007_SEAL_RECORD_C4V004"
+   ]
+  },
+  {
+   "check": "S3 E_R6_1 has exactly one assignment (module level, a literal) and no global/nonlocal rebinding",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "check": "S3 E_R6_1 == SELECTED_R6_C4V001 basis.erratum_E_R6_1 (strict parse, 7200acd9), byte for byte as UTF-8",
+   "ok": true,
+   "detail": {
+    "len_const": 469,
+    "len_selected": 469,
+    "sha_const": "c28202b0909371f43180ca832e4652f3d835a977852cde5c261842315deb33f4",
+    "sha_selected": "c28202b0909371f43180ca832e4652f3d835a977852cde5c261842315deb33f4"
+   }
+  },
+  {
+   "check": "S3 E_R6_1: 469 characters, ASCII, UTF-8 sha256 c28202b0909371f43180ca832e4652f3d835a977852cde5c261842315deb33f4 (the README's figures)",
+   "ok": true,
+   "detail": {
+    "len": 469,
+    "ascii": true,
+    "sha": "c28202b0909371f43180ca832e4652f3d835a977852cde5c261842315deb33f4"
+   }
+  },
+  {
+   "check": "S3 root's file e_r6_1_text == E_R6_1",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "check": "S3 manual_disclosures_form_codes compares the parsed e_r6_1_text to E_R6_1 with a plain e != E_R6_1 (no normalize, casefold, strip or replace on the compared value; strip() is used only for the emptiness test)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "S4 manual_disclosures_codes: one read_bytes, and sha_bytes and strict_json_typed take the same variable (raw): the hashed bytes are the parsed bytes",
+   "ok": true,
+   "detail": [
+    "Path(p).read_bytes()",
+    "C.sha_bytes(raw)",
+    "C.strict_json_typed(raw, 'MANUAL_DISCLOSURES')"
+   ]
+  },
+  {
+   "check": "S4 manual_disclosures_record: one re-read (read_bytes), compared by sha to the pin; the record keeps the CHECKED text and parse",
+   "ok": true,
+   "detail": "   chk.fail('MANUAL_DISCLOSURES_CHANGED_AFTER_CHECK', '%s now hashes to %s; root pinned %s, the sha of the bytes checked at the start of this build' % (p, None if now is None else C.sha_bytes(now), h))\n        return None\n    return {'pin': {'path': p, 'sha256': h}, 'content': obj, 'raw_text': text}"
+  },
+  {
+   "check": "S4 build(): check before T3.run; re-read after the dispositions re-read and before the record and its serialization; an early return on any failure follows T3 and the re-read",
+   "ok": true,
+   "detail": {
+    "md": 3,
+    "t3": 4,
+    "led": 30,
+    "mdr": 31,
+    "rec": 35,
+    "text": 39
+   }
+  },
+  {
+   "check": "S5 root's file: strict parse, keys exactly {schema, e_r6_1_text, c08_table, c08_confirmation, root_disclosures}, schema SEAL_MANUAL_DISCLOSURES_V001, keys sorted in every object (0647), 19 C-08 rows of {declared_in_r13 false, file, line > 0, new_item_id NEW-n}, 5 root disclosures of {id, source, text}",
+   "ok": true,
+   "detail": {
+    "ids": [
+     "NEW-4",
+     "NEW-7",
+     "NEW-13",
+     "NEW-16",
+     "NEW-17",
+     "NEW-19",
+     "NEW-21",
+     "NEW-30",
+     "NEW-31",
+     "NEW-34",
+     "NEW-39",
+     "NEW-44",
+     "NEW-52",
+     "NEW-53",
+     "NEW-54",
+     "NEW-60",
+     "NEW-64",
+     "NEW-71",
+     "NEW-73"
+    ],
+    "lines": [
+     2848,
+     87,
+     236,
+     4989,
+     86,
+     272,
+     108,
+     4440,
+     54,
+     1638,
+     209,
+     5059,
+     32,
+     3171,
+     3635,
+     103,
+     2038,
+     3326,
+     866
+    ],
+    "unsorted_objects": []
+   }
+  },
+  {
+   "check": "S5 root's file is ASCII, has no CR and no trailing newline (so raw_text carries no non-ASCII character)",
+   "ok": true,
+   "detail": {
+    "bytes": 5927
+   }
+  },
+  {
+   "check": "S6 at the end every base pin still hashes to its sha (v003, root's file, r6 SELECTED, v004 unchanged by this run)",
+   "ok": true,
+   "detail": null
+  }
+ ],
+ "s2_tool4_ast": {
+  "v003_statements": 35,
+  "v004_statements": 46,
+  "identical_after_renames": 32,
+  "changed": {
+   "assign SCHEMA": [
+    "@@ -1 +1 @@",
+    "-SCHEMA = 'UNT_V007_SEAL_RECORD_C4V003'",
+    "+SCHEMA = 'UNT_V007_SEAL_RECORD_C4V004'"
+   ],
+   "def build": [
+    "@@ -3,0 +4,2 @@",
+    "+    chk = C.Checker('build_seal_record_c4v004')",
+    "+    md = manual_disclosures_codes(chk, getattr(a, 'manual_disclosures', None))",
+    "@@ -5 +6,0 @@",
+    "-    chk = C.Checker('build_seal_record_c4v004')",
+    "@@ -68,0 +70 @@",
+    "+    mdr = manual_disclosures_record(chk, md)",
+    "@@ -73 +75 @@",
+    "-    rec = {'schema': SCHEMA, 'sealed_by': dict(C.AUTHORITY), 'prereg': {'path': str(Path(a.prereg).resolve()), 'sha256': C.sha(a.prereg)}, 'compare': sealed_compare, 'driver': dict(plan['driver']), 'frozen_addendum': dict(plan['frozen_addendum']), 'driver_branch': slots['driver_branch'], 'text_of_record': dict(pt['text_of_record']), 'text_of_record_pinned_by': pt.get('text_of_record_pinned_by'), 'bound_plan': dict(slots['launch_packet']['bound_plan']), 'bound_command': dict(slots['launch_packet']['bound_command']), 'build': dict(pt['build']), 'admission_allowlist': dict(pt['admission_allowlist']), 'launch_entry': {k: dict(v) for k, v in pt['admission_entry'].items()}, 'case_block': dict(pt['case_block']), 'route_a_mode': pt['route_a_mode'], 'compare_reviewed_source': dict(slots['compare_reviewed_source']), 'identity_comparator': dict(slots['identity_comparator']), 'identity_gate_records': {k: dict(v) for k, v in slots['identity_gate_records'].items()}, 'certificates': {k: dict(v) for k, v in slots['certificates'].items()}, 'producer_registry': dict(slots['producer_registry']), 'driver_build_record': dict(slots['driver_build_record']), 'driver_check_record': dict(slots['driver_check_record']), 'ngc_gas_M_s': slots['ngc_gas_M_s'], 'ddo_gas_M_s_registered': pt['ddo_gas_M_s_registered'], 'e_seal1': {k: {'path': v['path'], 'sha256': v['sha256']} for k, v in outputs.items()}, 'e_seal1_text': {k: v['text'] for k, v in outputs.items()}, 'no_row_value_shown': True, 'disclosures': disclosures, 'entry_table': {'key': et['key'], 'table': sp[et['key']]}, 'later_entry_dispositions': led, 'addendum_at_text_of_record': dict(pt['addendum_at_text_of_record']), 'key_equivalence_map_quoted': quoted['key_equivalence_map'], 'new_item_dispositions_quoted': quoted['new_item_dispositions'], 'raw_successor_custody_quoted': quoted['raw_successor_custody'], 'sealed_status_authority': STATUS_AUTHORITY, 'pending_strings_outside_slot_values': list(pt.get('pending_strings_outside_slot_values') or []), **extras}",
+    "+    rec = {'schema': SCHEMA, 'sealed_by': dict(C.AUTHORITY), 'prereg': {'path': str(Path(a.prereg).resolve()), 'sha256': C.sha(a.prereg)}, 'compare': sealed_compare, 'driver': dict(plan['driver']), 'frozen_addendum': dict(plan['frozen_addendum']), 'driver_branch': slots['driver_branch'], 'text_of_record': dict(pt['text_of_record']), 'text_of_record_pinned_by': pt.get('text_of_record_pinned_by'), 'bound_plan': dict(slots['launch_packet']['bound_plan']), 'bound_command': dict(slots['launch_packet']['bound_command']), 'build': dict(pt['build']), 'admission_allowlist': dict(pt['admission_allowlist']), 'launch_entry': {k: dict(v) for k, v in pt['admission_entry'].items()}, 'case_block': dict(pt['case_block']), 'route_a_mode': pt['route_a_mode'], 'compare_reviewed_source': dict(slots['compare_reviewed_source']), 'identity_comparator': dict(slots['identity_comparator']), 'identity_gate_records': {k: dict(v) for k, v in slots['identity_gate_records'].items()}, 'certificates': {k: dict(v) for k, v in slots['certificates'].items()}, 'producer_registry': dict(slots['producer_registry']), 'driver_build_record': dict(slots['driver_build_record']), 'driver_check_record': dict(slots['driver_check_record']), 'ngc_gas_M_s': slots['ngc_gas_M_s'], 'ddo_gas_M_s_registered': pt['ddo_gas_M_s_registered'], 'e_seal1': {k: {'path': v['path'], 'sha256': v['sha256']} for k, v in outputs.items()}, 'e_seal1_text': {k: v['text'] for k, v in outputs.items()}, 'no_row_value_shown': True, 'disclosures': disclosures, 'manual_disclosures': mdr, 'entry_table': {'key': et['key'], 'table': sp[et['key']]}, 'later_entry_dispositions': led, 'addendum_at_text_of_record': dict(pt['addendum_at_text_of_record']), 'key_equivalence_map_quoted': quoted['key_equivalence_map'], 'new_item_dispositions_quoted': quoted['new_item_dispositions'], 'raw_successor_custody_quoted': quoted['raw_successor_custody'], 'sealed_status_authority': STATUS_AUTHORITY, 'pending_strings_outside_slot_values': list(pt.get('pending_strings_outside_slot_values') or []), **extras}"
+   ],
+   "def main": [
+    "@@ -19,0 +20,2 @@",
+    "+    p.add_argument('--manual-disclosures')",
+    "+    p.add_argument('--manual-disclosures-sha256')",
+    "@@ -21,0 +24 @@",
+    "+    a.manual_disclosures = None if a.manual_disclosures is None and a.manual_disclosures_sha256 is None else (a.manual_disclosures, a.manual_disclosures_sha256)"
+   ]
+  },
+  "only_in_v003": [],
+  "only_in_v004": [
+   "assign MANUAL_DISCLOSURES_SCHEMA",
+   "assign MANUAL_DISCLOSURES_KEYS",
+   "assign C08_ROW_KEYS",
+   "assign C08_ID_RX",
+   "assign ROOT_DISCLOSURE_KEYS",
+   "assign E_R6_1",
+   "def strings_of",
+   "def has_utf8_form",
+   "def manual_disclosures_form_codes",
+   "def manual_disclosures_codes",
+   "def manual_disclosures_record"
+  ]
+ },
+ "s2_build_ops": [
+  {
+   "op": "insert",
+   "v003": [],
+   "v004": [
+    "chk = C.Checker('build_seal_record_c4v004')",
+    "md = manual_disclosures_codes(chk, getattr(a, 'manual_disclosures', None))"
+   ]
+  },
+  {
+   "op": "delete",
+   "v003": [
+    "chk = C.Checker('build_seal_record_c4v004')"
+   ],
+   "v004": []
+  },
+  {
+   "op": "insert",
+   "v003": [],
+   "v004": [
+    "mdr = manual_disclosures_record(chk, md)"
+   ]
+  },
+  {
+   "op": "replace",
+   "v003": [
+    "rec = {'schema': SCHEMA, 'sealed_by': dict(C.AUTHORITY), 'prereg': {'path': str(Path(a.prereg).resolve()), 'sha256': C.sha(a.prereg)}, 'compare': sealed_compare, 'driver': dict(plan['driver']), 'froze"
+   ],
+   "v004": [
+    "rec = {'schema': SCHEMA, 'sealed_by': dict(C.AUTHORITY), 'prereg': {'path': str(Path(a.prereg).resolve()), 'sha256': C.sha(a.prereg)}, 'compare': sealed_compare, 'driver': dict(plan['driver']), 'froze"
+   ]
+  }
+ ],
+ "s2_main_ops": [
+  {
+   "op": "insert",
+   "v003": [],
+   "v004": [
+    "p.add_argument('--manual-disclosures')",
+    "p.add_argument('--manual-disclosures-sha256')"
+   ]
+  },
+  {
+   "op": "insert",
+   "v003": [],
+   "v004": [
+    "a.manual_disclosures = None if a.manual_disclosures is None and a.manual_disclosures_sha256 is None else (a.manual_disclosures, a.manual_disclosures_sha256)"
+   ]
+  }
+ ],
+ "passed": 18,
+ "total": 18
+}

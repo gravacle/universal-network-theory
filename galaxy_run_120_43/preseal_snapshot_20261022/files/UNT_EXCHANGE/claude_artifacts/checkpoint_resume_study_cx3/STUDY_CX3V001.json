@@ -1,0 +1,600 @@
+{
+  "assignment": {
+    "bytes": 3047,
+    "lines": 35,
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0793_2026-10-21_codex3_checkpoint_resume_feasibility_study.md",
+    "sha256": "5dd6fcff0c3f8ecf6703a40e0213b58d5fe443275f5f468391c6580d96edad5d"
+  },
+  "author": "Codex3",
+  "cost_model": {
+    "CAP_savings_days": 0,
+    "FAILED_savings_days": 0,
+    "OUTPUT_CAP_savings_days": 0,
+    "T_D_hours_measured": null,
+    "T_N_hours_measured": null,
+    "baseline_plus_three_branches_hours": "4*T_D + 4*T_N + sum(Q_i)",
+    "double_cap_days": 14.12787037037037,
+    "failure_distribution_measured": false,
+    "four_full_serial_cap_scale_hours": 678.1377777777777,
+    "label": "UNTESTED_SCENARIO",
+    "late_90pct_prefix_cap_scale_days": 6.357541666666666,
+    "net_savings_days": "(P-Q)/24",
+    "repeat_two_branches_extra_hours": "2*T_D + 2*T_N plus overhead",
+    "serial_first_cap_days": 7.063935185185185,
+    "serial_first_wall_cap_seconds": 610324,
+    "uniform_failure_assumption_prefix": "T/2 before frontier loss and replay overhead",
+    "uniform_prefix_cap_scale_days": 3.5319675925925926
+  },
+  "current_authorized_savings_days": {
+    "HEADLINE11": 0,
+    "Phase1_NGC_set": 0,
+    "S0_serials": 0,
+    "W1_waves": 0
+  },
+  "date_u": "Wed Oct 21 08:13:13 UTC 2026",
+  "decision": "CURRENT_STACK_NOT_ADMISSIBLE_FOR_REGISTERED_CHECKPOINT_RESUME",
+  "execution": {
+    "NGC_data_opened": false,
+    "driver_executed": false,
+    "network_used": false,
+    "production_modules_imported": false,
+    "run_outputs_opened": false,
+    "scientific_launches": 0,
+    "tests": "Static source/hash/arithmetic only"
+  },
+  "findings": [
+    {
+      "claim": "Current full result/acceptance record bytes cannot be guaranteed equal across fresh/resumed executions.",
+      "id": "B1",
+      "label": "FORMAL",
+      "sources": [
+        "S02",
+        "S03",
+        "S06",
+        "S07",
+        "S09",
+        "S11"
+      ]
+    },
+    {
+      "claim": "Column/iteration checkpoint mechanism exists; registered driver continuation does not.",
+      "id": "B2",
+      "label": "FORMAL",
+      "sources": [
+        "S03",
+        "S04",
+        "S05",
+        "S02",
+        "S15"
+      ]
+    },
+    {
+      "claim": "UV-tail final-name writes lack checkpoint module atomic publication; two-journal crash frontier needs a successor.",
+      "id": "B3",
+      "label": "FORMAL",
+      "sources": [
+        "S03",
+        "S06"
+      ]
+    },
+    {
+      "claim": "DDO campaign resume is verified receipt reuse; P112 resume is interrupted-launch bookkeeping.",
+      "id": "B4",
+      "label": "FORMAL",
+      "sources": [
+        "S17",
+        "S20"
+      ]
+    },
+    {
+      "claim": "INFRA-only permission excludes infrastructure-origin FAILED and no-receipt residual/non-attempt cases.",
+      "id": "B5",
+      "label": "FORMAL",
+      "sources": [
+        "S23",
+        "S24"
+      ]
+    }
+  ],
+  "literal_full_record_equality": "Current source embeds truthful volatile and resume-specific facts; no guaranteed equality. Root must retain NO_RESUME or explicitly amend the comparison contract.",
+  "polling": "Continue one-minute Codex3 inbox watch; verdict-time review priority",
+  "proposed_rule_ids": [
+    "R1_SCOPE_TIMING",
+    "R2_INFRA_ELIGIBILITY",
+    "R3_ATTEMPT_IDENTITY",
+    "R4_TRUTHFUL_EXECUTION_GATE",
+    "R5_IMMUTABLE_PUBLICATION_CACHE",
+    "R6_EXPLICIT_COMPARISON_CONTRACT_AMENDMENT"
+  ],
+  "proposed_scope": "Same-runtime same-worker-count serial route-A complete-column continuation; no FAILED/CAP/OUTPUT_CAP/non-attempt/residual continuation.",
+  "remaining_before_any_resume_adoption": [
+    "Root comparison-contract ruling and pre-result registration",
+    "New immutable continuation and atomic sidecar/commit implementation",
+    "Acceptance, enumeration, LO policy, certificate-pin and launch/receipt successors",
+    "Synthetic crash/refusal evidence",
+    "Authorized DDO then NGC-stage deciding tests",
+    "Full-call equality and acceptance evidence before full-call scope"
+  ],
+  "risk_ids": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27"
+  ],
+  "same_lineage_disclosure": "Codex3 authored the NGC driver lineage. This is not an independent scientific validation.",
+  "schema": "UNT_CHECKPOINT_RESUME_FEASIBILITY_STUDY_CX3V001",
+  "scientific_equivalence": "UNTESTED",
+  "source_reference_count": 103,
+  "source_register": {
+    "S01": {
+      "bytes": 3047,
+      "lines": 35,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/FROM_CODEX/0793_2026-10-21_codex3_checkpoint_resume_feasibility_study.md",
+      "sha256": "5dd6fcff0c3f8ecf6703a40e0213b58d5fe443275f5f468391c6580d96edad5d"
+    },
+    "S02": {
+      "bytes": 669113,
+      "lines": 9329,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_cx3r008_closure_cx3/implementation/galaxy_m0_forward_c2v011_cx3v005_cx3r008_cx3v001.py",
+      "sha256": "577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377"
+    },
+    "S03": {
+      "bytes": 33593,
+      "lines": 606,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/resumable_coupled_gas_0422/coupled_gas_checkpoint_c2v003.py",
+      "sha256": "069b393560003fc200932e2d17fa84ee750043fa2132f2cadd459915fb99b114"
+    },
+    "S04": {
+      "bytes": 18956,
+      "lines": 283,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_uvtail_c2v001.py",
+      "sha256": "8ef3079b0a23c32c688605e96eb5b79beb79768578cc7aef22ea087c7ae12469"
+    },
+    "S05": {
+      "bytes": 60584,
+      "lines": 1096,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/route_a/coupled_hi_fourier_source_iteration_v005_resume_fixedsrc_parallel_uvtail_c2v001.py",
+      "sha256": "7667025bd9382a58688153fde98bf90f2b67d27baa39a939982631c305c229db"
+    },
+    "S06": {
+      "bytes": 35085,
+      "lines": 565,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/cascade/tail_scheme_impl_c2/route_a/route_a_uv_tail_controller_c2v001_r5.py",
+      "sha256": "c5bdd0553968e3f00b61db89f7944cebe51166006f58b727a7aed2a9b6a434fc"
+    },
+    "S07": {
+      "bytes": 12512,
+      "lines": 162,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/cx3v005/prep_loader_fix/ngc43_coupled_root_worker_uvtail_ro1_cx3v011_r5cx3v001_cx3v005.py",
+      "sha256": "ee27227c2cee3093589ae6b6546a0d88a1bbe20c47ba4dacff497ad7cc80189f"
+    },
+    "S08": {
+      "bytes": 15785,
+      "lines": 218,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_route_tail_readiness_cx3/v011/route_a/ngc_composite_full_coupled_binding_uvtail_ro1_cx3v011.py",
+      "sha256": "9b5ce82adea46c8e660f44b0fc91e8dbe5d0616cc1de1fd4467878ef3b5c0668"
+    },
+    "S09": {
+      "bytes": 52447,
+      "lines": 799,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_acceptance_c2/ngc_acceptance_handoff_c2v005.py",
+      "sha256": "7077ad9337d48b444bb724b3d0dca531e615bbb09656fa00ba453bacf2e634b1"
+    },
+    "S10": {
+      "bytes": 83024,
+      "lines": 1279,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_acceptance_c2/ngc_lo_state_adapter_c2v003a.py",
+      "sha256": "9c4b6dfc591cfd5c372416beb936d5d903540e5fc41e4a327b428d7ba5001eb2"
+    },
+    "S11": {
+      "bytes": 37439,
+      "lines": 559,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/acceptance_q2/acceptance_handoff_c2v004.py",
+      "sha256": "5ff464cc866d3e69ef83ab7542701b211afaae29d7be14e69b10fb09f16692d8"
+    },
+    "S12": {
+      "bytes": 31942,
+      "lines": 476,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/consumed_states_cx2v005.py",
+      "sha256": "7b7400f331970a5f5fb7f7104f5e1850a765fcd04fc993100b5d1f0f37f4d653"
+    },
+    "S13": {
+      "bytes": 5201,
+      "lines": 99,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/certificates_per_point/lo_producer_cx2v004.py",
+      "sha256": "5db60d0f6db6d481e2f748b19bef08ce425f19a0e463d58727c184d633e03d51"
+    },
+    "S14": {
+      "bytes": 15149,
+      "lines": 224,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s4_acceptance_c2/offset_b1/consumed_states_b1_c2v001.py",
+      "sha256": "4ca7f3640bff6adc13d181a8045bec750681362595a9a9e71e643fa521af60f0"
+    },
+    "S15": {
+      "bytes": 350370,
+      "lines": 4991,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/tail_scheme_impl_c2/driver_r5/galaxy_m0_forward_c2v010.py",
+      "sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6"
+    },
+    "S16": {
+      "bytes": 236049,
+      "lines": 3918,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/calibration_orchestrator_c2v005.py",
+      "sha256": "c75a889ff4646a816329756124a19532cbc166d26f47ce2ea5147b71c2cf7c4d"
+    },
+    "S17": {
+      "bytes": 15073,
+      "lines": 283,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calibration_orchestrator_c2/v005/campaign_c2v005.py",
+      "sha256": "d35d5d4a62e6e5b632eb10c59bf4c82c2b1d744f6ceba609399c02baa5ecfeb2"
+    },
+    "S18": {
+      "bytes": 20431,
+      "lines": 391,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/calib_tail_readiness_cx2/v006r10_c4/calibration_core_cx2v006r10_c4.py",
+      "sha256": "dc895f8a993295b76a42b563893e990d2419432db78485dd387ddc232ff449d6"
+    },
+    "S19": {
+      "bytes": 59194,
+      "lines": 780,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/h3_campaign_path_c2/calibration_orchestrator_q5b1_ledger_c2v004.py",
+      "sha256": "7c9b42483773a9e95fa8b3af9aaef972025fda2cfe071ada8d0092393fbda229"
+    },
+    "S20": {
+      "bytes": 135430,
+      "lines": 2481,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v003/phase1_ngc_launch_cx2v003.py",
+      "sha256": "af0210715f658c43f73f37a5e6e733f7a48dc374caa1b8af5a0defe3987854d7"
+    },
+    "S21": {
+      "bytes": 10078,
+      "lines": 70,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/phase1_ngc_launch_kit_cx2v003/README_PHASE1_NGC_LAUNCH_CX2V003.md",
+      "sha256": "8620699a7e79462db508fc047bbdbf740e567a6649563fc84a04e0d3382ab8e0"
+    },
+    "S22": {
+      "bytes": 17967,
+      "lines": 204,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/s0_launch_kit_c2/README_S0_LAUNCH_KIT_C2V003A.md",
+      "sha256": "42978c3f938b1bf45a6a45b623e6f8ad25c5a333f8ecaef9a6cf657206f10b0e"
+    },
+    "S23": {
+      "bytes": 390104,
+      "lines": 4123,
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/ROOT_DECISIONS_NGC3198_CONSTRUCTION_2026-10-17_V006_ADDENDUM.md",
+      "sha256": "6bf694f1490bcb58eb710b121369ebfe9163d547d87e35febea95f1d916e4a77"
+    },
+    "S24": {
+      "bytes": 27810,
+      "lines": 404,
+      "path": "/Users/bgm/Research/Universal Network Theory/UNT_PROGRAM_CONTROL/FIRST_CONSTRUCTION_REVIEW_2026-10-13/CLAUDE2/A133_TWO_PHASE_PROTOCOL_V001.md",
+      "sha256": "cd92ef914a0d562f0392080ebf709b5fdb1d85ef7f7b4493ee143fe782cfac17"
+    },
+    "S25": {
+      "bytes": 26576,
+      "lines": 452,
+      "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/ngc_acceptance_c2/ngc_route_a_iterates_c2v003.py",
+      "sha256": "9335ee4212719944b6dd45369161de16891ec0ed5dbdd97fed36d68d0b993bdc"
+    }
+  },
+  "static_checks": [
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S01",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S02",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S03",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S04",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S05",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S06",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S07",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S08",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S09",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S10",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S11",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S12",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S13",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S14",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S15",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S16",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S17",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S18",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S19",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S20",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S21",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S22",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S23",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S24",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "check": "Read bytes, UTF-8 decode; AST syntax parse only for Python. No source executed.",
+      "id": "SOURCE_S25",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "expected_sha256": "5dd6fcff0c3f8ecf6703a40e0213b58d5fe443275f5f468391c6580d96edad5d",
+      "id": "PIN_S01",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "expected_sha256": "577f8c94366ae8f99c5387b87397a83020f8186dc523b987d042103283346377",
+      "id": "PIN_S02",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "expected_sha256": "069b393560003fc200932e2d17fa84ee750043fa2132f2cadd459915fb99b114",
+      "id": "PIN_S03",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "expected_sha256": "7077ad9337d48b444bb724b3d0dca531e615bbb09656fa00ba453bacf2e634b1",
+      "id": "PIN_S09",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "expected_sha256": "b5cc62afb7814b4f337a012a1ffd1f1e677f398ac18a1f8297c7ff49ae5374c6",
+      "id": "PIN_S15",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "expected_sha256": "af0210715f658c43f73f37a5e6e733f7a48dc374caa1b8af5a0defe3987854d7",
+      "id": "PIN_S20",
+      "ok": true,
+      "status": "TESTED"
+    },
+    {
+      "id": "CP_ATOMIC_LINK",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S03",
+      "source_anchor": "os.link(tmp,final)",
+      "status": "TESTED"
+    },
+    {
+      "id": "CP_TOKEN_VOLATILE",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S03",
+      "source_anchor": "time.time_ns(),os.getpid(),os.urandom(4).hex()",
+      "status": "TESTED"
+    },
+    {
+      "id": "CP_COLUMN_BOUNDARY",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S03",
+      "source_anchor": "def write_column(",
+      "status": "TESTED"
+    },
+    {
+      "id": "CP_RELAXATION_GUARD",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S03",
+      "source_anchor": "RELAXATION_CHAIN_BROKEN",
+      "status": "TESTED"
+    },
+    {
+      "id": "SIDECAR_DIRECT_WRITE",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S06",
+      "source_anchor": "with open(p, 'x') as f:",
+      "status": "TESTED"
+    },
+    {
+      "id": "SIDECAR_RELOADED",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S06",
+      "source_anchor": "reloaded=True",
+      "status": "TESTED"
+    },
+    {
+      "id": "NGC_START_ZERO",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S02",
+      "source_anchor": "'--start-iteration', '0'",
+      "status": "TESTED"
+    },
+    {
+      "id": "NGC_RESULT_TIME",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S02",
+      "source_anchor": "result['elapsed_seconds'] = time.monotonic() - t0",
+      "status": "TESTED"
+    },
+    {
+      "id": "NGC_EXECUTION_REJECT",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S09",
+      "source_anchor": "'resumed': False, 'retried': False",
+      "status": "TESTED"
+    },
+    {
+      "id": "DDO_LO_REJECT",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S13",
+      "source_anchor": "'resumed':False,'retried':False",
+      "status": "TESTED"
+    },
+    {
+      "id": "DDO_RECEIPT_RESUME",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S17",
+      "source_anchor": "'DIR_EXISTS_UNVERIFIED'",
+      "status": "TESTED"
+    },
+    {
+      "id": "P112_BOOKKEEPING_RESUME",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S20",
+      "source_anchor": "return finish_launch(ctx, plan, pin, entry_pin, monitor_pid",
+      "status": "TESTED"
+    },
+    {
+      "id": "A239_NO_CAP",
+      "meaning": "Text presence only; runtime behavior is not tested.",
+      "ok": true,
+      "source": "S23",
+      "source_anchor": "Never after FAILED, CAP or OUTPUT_CAP.",
+      "status": "TESTED"
+    }
+  ],
+  "status": "FORMAL_READ_ONLY_STUDY_COMPLETE",
+  "study": {
+    "path": "/Users/bgm/Research/UNT_EXCHANGE/claude_artifacts/checkpoint_resume_study_cx3/STUDY_CX3V001.md",
+    "sha256": "41966e36aab673db6ed40fc5fed7e2445370cf5acd20b1bfda97d6a28801d040"
+  }
+}
