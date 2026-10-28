@@ -88,3 +88,11 @@ The revised first calculation is therefore:
 4. Assess which EM properties, if any, follow. Preserve every supplied EM ingredient in the premise list.
 
 Only use a bend count if an existing, physically interpretable quantity has first been identified that the count would measure. This clarification defines the proposed calculation; it does not report a newly executed experiment or a physical EM derivation.
+
+## Worked first calculation: source-off record-to-link response
+
+[First native calculation](FIRST_NATIVE_CALCULATION.md) follows the existing FPMH handoff/sham comparison through retained K memory and the supplied link gate. The analytic response is P(a=1)=sin^2(h*t/hbar) when K=1 and zero when K=0; K itself remains retained. Link oscillation and record retention are compatible in this finite model.
+
+The associated matrix-exponential [check](native_gate_check.py) and [results](native_gate_results.json) verify the reduced gate identities and a two-link independent-copy control. They do not reconstruct the full physical apparatus or derive EM. For the gate term alone, copies factorize; the next collective test must include the already admitted shared interactions of the chosen native parent.
+
+The source's gate-response duration is not a calibrated record-formation time. This example is a direct event record in K, not the earlier correlation-only Bell encoding.
