@@ -53,3 +53,7 @@ General precedents discussed, not imported as proofs of UNT:
 ## Resume procedure
 
 Read this handoff and the README, inspect the saved scripts/results, then check whether the repository has newer relevant developments than the pinned baseline. Keep performed calculations, source claims, supplied premises, and proposed work distinct. Append dated findings and reproducible outputs so the conversation does not become the sole record of progress.
+
+## Subsequent steering: a possible common microscopic precursor
+
+The discussion proposed that local relational changes during initial record formation could seed both EM and gravity. Preserve this as a research hypothesis, not an established identification. Read [COMMON_ORIGIN_HYPOTHESIS.md](COMMON_ORIGIN_HYPOTHESIS.md) before interpreting a gamma-information seed or a loop response as either physical field. Continue the native-operation mapping and define a calculable formation-induced relational change before assigning a physical interpretation.

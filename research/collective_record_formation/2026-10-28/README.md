@@ -81,3 +81,7 @@ No electromagnetic field, electromagnetic current, or Maxwell action is used as 
 The saved results justify investigating collective encoding and retention mechanisms. They do not demonstrate a photon, physical charge, Maxwell dynamics, the observed alpha, gravity, a cosmological initial state, or the cause of earlier failures. Spin and cosmological interpretations remain deferred.
 
 See [HANDOFF.md](HANDOFF.md) for the current decision, next assignments, source boundaries, and instructions for resuming the research from this record.
+
+## Subsequent hypothesis recorded on 2026-10-28
+
+The proposed common origin of EM and gravity in formation-induced relational changes is recorded separately in [COMMON_ORIGIN_HYPOTHESIS.md](COMMON_ORIGIN_HYPOTHESIS.md). Its hypothesis status and the distinction between information, gauge curvature, and spacetime curvature are explicit.
