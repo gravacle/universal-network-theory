@@ -1,0 +1,324 @@
+{
+  "status": "EXPLORATORY_TOY_MODEL_NOT_UNT_PROOF_NOT_EM_DERIVATION",
+  "computed_date": "2026-10-28",
+  "method": "Full finite continuous-time Markov generator; scipy.linalg.expm; no sampling or fitting",
+  "parameters_frozen_before_execution": {
+    "beta": 1.0,
+    "attempt_rate_nu": 1.0,
+    "write_field_magnitude": 1.5,
+    "write_duration": 5.0,
+    "hold_times": [
+      0.0,
+      1.0,
+      5.0,
+      20.0
+    ],
+    "models": [
+      {
+        "name": "one_component",
+        "N": 1,
+        "J": 0.0
+      },
+      {
+        "name": "three_independent",
+        "N": 3,
+        "J": 0.0
+      },
+      {
+        "name": "three_interacting",
+        "N": 3,
+        "J": 1.0
+      }
+    ]
+  },
+  "energy": "H(q;h) = -J sum_{i<j} q_i q_j - h sum_i q_i",
+  "transition_rate": "w(q -> flip_i(q)) = nu/(1+exp(beta*(H(flip_i(q))-H(q))))",
+  "protocol": "Common zero-field Gibbs blank, finite pulse h=event*1.5 for time 5, then h=0 with source disconnected; fixed sign-of-sum readout.",
+  "inputs_not_derived": [
+    "Abstract binary degrees of freedom and interaction energy",
+    "Thermal bath and detailed-balance transition rule",
+    "A source event, write pulse, and timing controls",
+    "Preparation of the event-independent equilibrium ensemble",
+    "Access to the fixed majority readout"
+  ],
+  "interpretation_limits": [
+    "Finite readable contrast under stated assumptions, not a certification of the full UNT REC predicate.",
+    "The interacting zero-field Gibbs blank already has intercomponent correlations but no information about the later event; this experiment does not derive those correlations from an uncorrelated blank.",
+    "No electromagnetic field, current, Maxwell action or identification with physical electromagnetism.",
+    "No creation of information without an input event or origin-of-the-universe claim.",
+    "N=3 independent versus N=3 interacting is the primary same-component-count comparison; coupling and equilibrium preparation resources differ.",
+    "N=1 versus N=3 also changes the component count and total write-field coupling; no equal-energy-resource claim is made.",
+    "At finite temperature all these finite chains eventually lose event information; retention is finite, not permanent.",
+    "This parameter point is an illustrative existence example, not an optimization or general proof."
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "models": [
+    {
+      "name": "one_component",
+      "N": 1,
+      "J": 0.0,
+      "state_count": 2,
+      "states_in_probability_order": [
+        [
+          -1
+        ],
+        [
+          1
+        ]
+      ],
+      "event_independent_blank_distribution": [
+        0.5,
+        0.5
+      ],
+      "zero_field_mean_blank_energy": 0.0,
+      "results": [
+        {
+          "hold_time": 0.0,
+          "P_read_plus_given_event_plus": 0.9495247063427463,
+          "P_read_plus_given_event_minus": 0.05047529365725382,
+          "majority_readout_total_variation": 0.8990494126854925,
+          "joint_state_total_variation": 0.8990494126854925,
+          "balanced_majority_accuracy": 0.9495247063427462
+        },
+        {
+          "hold_time": 1.0,
+          "P_read_plus_given_event_plus": 0.6653708977621263,
+          "P_read_plus_given_event_minus": 0.3346291022378739,
+          "majority_readout_total_variation": 0.3307417955242524,
+          "joint_state_total_variation": 0.3307417955242524,
+          "balanced_majority_accuracy": 0.6653708977621262
+        },
+        {
+          "hold_time": 5.0,
+          "P_read_plus_given_event_plus": 0.5030288736461171,
+          "P_read_plus_given_event_minus": 0.49697112635388313,
+          "majority_readout_total_variation": 0.006057747292234017,
+          "joint_state_total_variation": 0.006057747292234017,
+          "balanced_majority_accuracy": 0.503028873646117
+        },
+        {
+          "hold_time": 20.0,
+          "P_read_plus_given_event_plus": 0.5000000009265398,
+          "P_read_plus_given_event_minus": 0.4999999990734608,
+          "majority_readout_total_variation": 1.8530790235615768e-09,
+          "joint_state_total_variation": 1.8530789958060012e-09,
+          "balanced_majority_accuracy": 0.5000000009265395
+        }
+      ],
+      "numerical_checks": {
+        "max_probability_normalization_error": 6.661338147750939e-16,
+        "minimum_probability": 0.05047529365725382,
+        "hold_generator_column_sum_error": 0.0,
+        "hold_equilibrium_stationarity_error": 0.0,
+        "hold_detailed_balance_error": 0.0,
+        "readout_TV_not_greater_than_joint_TV": true
+      }
+    },
+    {
+      "name": "three_independent",
+      "N": 3,
+      "J": 0.0,
+      "state_count": 8,
+      "states_in_probability_order": [
+        [
+          -1,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          -1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          -1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "event_independent_blank_distribution": [
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "zero_field_mean_blank_energy": 0.0,
+      "results": [
+        {
+          "hold_time": 0.0,
+          "P_read_plus_given_event_plus": 0.9926139315814606,
+          "P_read_plus_given_event_minus": 0.00738606841853946,
+          "majority_readout_total_variation": 0.9852278631629211,
+          "joint_state_total_variation": 0.985227863162921,
+          "balanced_majority_accuracy": 0.9926139315814606
+        },
+        {
+          "hold_time": 1.0,
+          "P_read_plus_given_event_plus": 0.7390113742022015,
+          "P_read_plus_given_event_minus": 0.260988625797798,
+          "majority_readout_total_variation": 0.4780227484044035,
+          "joint_state_total_variation": 0.4780227484044035,
+          "balanced_majority_accuracy": 0.7390113742022018
+        },
+        {
+          "hold_time": 5.0,
+          "P_read_plus_given_event_plus": 0.5045432548949448,
+          "P_read_plus_given_event_minus": 0.49545674510505605,
+          "majority_readout_total_variation": 0.00908650978988873,
+          "joint_state_total_variation": 0.009086509789887814,
+          "balanced_majority_accuracy": 0.5045432548949443
+        },
+        {
+          "hold_time": 20.0,
+          "P_read_plus_given_event_plus": 0.5000000013898109,
+          "P_read_plus_given_event_minus": 0.49999999861019145,
+          "majority_readout_total_variation": 2.779619479031936e-09,
+          "joint_state_total_variation": 2.779618403503381e-09,
+          "balanced_majority_accuracy": 0.5000000013898097
+        }
+      ],
+      "numerical_checks": {
+        "max_probability_normalization_error": 3.1086244689504383e-15,
+        "minimum_probability": 0.00012859869540926381,
+        "hold_generator_column_sum_error": 0.0,
+        "hold_equilibrium_stationarity_error": 0.0,
+        "hold_detailed_balance_error": 0.0,
+        "readout_TV_not_greater_than_joint_TV": true
+      }
+    },
+    {
+      "name": "three_interacting",
+      "N": 3,
+      "J": 1.0,
+      "state_count": 8,
+      "states_in_probability_order": [
+        [
+          -1,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          -1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          -1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "event_independent_blank_distribution": [
+        0.47395749691375777,
+        0.00868083436208073,
+        0.00868083436208073,
+        0.00868083436208073,
+        0.00868083436208073,
+        0.00868083436208073,
+        0.00868083436208073,
+        0.47395749691375777
+      ],
+      "zero_field_mean_blank_energy": -2.791659975310062,
+      "results": [
+        {
+          "hold_time": 0.0,
+          "P_read_plus_given_event_plus": 0.9512935314236691,
+          "P_read_plus_given_event_minus": 0.04870646857633057,
+          "majority_readout_total_variation": 0.9025870628473386,
+          "joint_state_total_variation": 0.9025870628473387,
+          "balanced_majority_accuracy": 0.9512935314236693
+        },
+        {
+          "hold_time": 1.0,
+          "P_read_plus_given_event_plus": 0.9309717047711177,
+          "P_read_plus_given_event_minus": 0.0690282952288821,
+          "majority_readout_total_variation": 0.8619434095422356,
+          "joint_state_total_variation": 0.8619434095422357,
+          "balanced_majority_accuracy": 0.9309717047711178
+        },
+        {
+          "hold_time": 5.0,
+          "P_read_plus_given_event_plus": 0.8730080564947011,
+          "P_read_plus_given_event_minus": 0.12699194350529827,
+          "majority_readout_total_variation": 0.7460161129894028,
+          "joint_state_total_variation": 0.7460161129894032,
+          "balanced_majority_accuracy": 0.8730080564947015
+        },
+        {
+          "hold_time": 20.0,
+          "P_read_plus_given_event_plus": 0.7174597369250691,
+          "P_read_plus_given_event_minus": 0.2825402630749298,
+          "majority_readout_total_variation": 0.43491947385013935,
+          "joint_state_total_variation": 0.43491947385013996,
+          "balanced_majority_accuracy": 0.7174597369250697
+        }
+      ],
+      "numerical_checks": {
+        "max_probability_normalization_error": 6.661338147750939e-16,
+        "minimum_probability": 0.004903818643219291,
+        "hold_generator_column_sum_error": 6.938893903907228e-18,
+        "hold_equilibrium_stationarity_error": 5.204170427930421e-18,
+        "hold_detailed_balance_error": 1.734723475976807e-18,
+        "readout_TV_not_greater_than_joint_TV": true
+      }
+    }
+  ]
+}
