@@ -71,3 +71,20 @@ Before counting proposed bends, define one as an actual native formation operati
 A bounded first target is a native retained record plus an accessible loop or transport response. Such a response is a candidate precursor; an EM claim requires the additional charge/flux, dynamical, and source-coupling arguments. If an EM field, Maxwell action, electromagnetic current, or gauge law is supplied, preserve it in the premise list rather than count it as derived.
 
 See [COMMON_ORIGIN_HYPOTHESIS.md](COMMON_ORIGIN_HYPOTHESIS.md) for the two-experiment distinction and proposed count/arrangement test. No new calculation or EM derivation is claimed by this clarification.
+
+## Terminology clarification: start from the existing physical quantities
+
+The user asked whether “bend” refers to established physical characteristics that feed into record formation. “Bend” was conversational shorthand, not a newly established physical variable or an additional primitive. Do not invent a bend operator merely to turn that word into a calculation.
+
+Begin with quantities already specified in the formation model: its state variables, energy terms, interaction strengths, preparation, and read operations. Distinguish familiar physical concepts from the particular model assumptions and from consequences actually calculated under those assumptions.
+
+For a concrete existing example, [PESC §§1–2](https://github.com/gravacle/universal-network-theory/blob/79a5ae3d689df5e4572d9f955d002a173baccdbf/LANE_CROSS_RFT_ALPHA_GRA_DB_F3_PAIR_ELIGIBILITY_SUCCESSOR_COMPOSITION_V001/THEOREM.md) separates retained pair memory K, successor-link occupation n, the supplied K-controlled transition term, and incidence-controlled carrier transport. Its composition starts with already-formed memory; the formation of that memory must be traced to its own preparation/write construction. These variables do not by themselves identify a physical curvature or establish EM.
+
+The revised first calculation is therefore:
+
+1. Inventory the existing inputs and the formation operations that act on them.
+2. Track which states, correlations, or permitted transitions actually change during writing and remain available after source isolation.
+3. Test whether multiple such changes, under the same declared local rules, yield a reproducible collective response.
+4. Assess which EM properties, if any, follow. Preserve every supplied EM ingredient in the premise list.
+
+Only use a bend count if an existing, physically interpretable quantity has first been identified that the count would measure. This clarification defines the proposed calculation; it does not report a newly executed experiment or a physical EM derivation.
