@@ -96,3 +96,15 @@ Only use a bend count if an existing, physically interpretable quantity has firs
 The associated matrix-exponential [check](native_gate_check.py) and [results](native_gate_results.json) verify the reduced gate identities and a two-link independent-copy control. They do not reconstruct the full physical apparatus or derive EM. For the gate term alone, copies factorize; the next collective test must include the already admitted shared interactions of the chosen native parent.
 
 The source's gate-response duration is not a calibrated record-formation time. This example is a direct event record in K, not the earlier correlation-only Bell encoding.
+
+## First completed finite scaling sweep
+
+The user authorized scaling because collective behavior might require many links. The [finite path report](declared_path_dynamics_notes.md), [runnable calculation](declared_path_dynamics.py), and [complete outputs](declared_path_dynamics_results.json) now preserve a 24-model sweep: M=1,3,5,7,9,11,13,15 links; h=1; Ud=0,1,4; and six reported times from 0 through 4. The shared simultaneous path hold is an explicit finite-model extension using the existing degree-penalty form, with both endpoints retained and no equilibrium preparation.
+
+The shared interaction generates nonzero connected occupation covariance from the product blank. At M=15,t=4, mean adjacent-link covariance is 0.118857313 for Ud=1 and 0.094659664 for Ud=4. Matched independent controls retain the endpoint fields and have zero distinct-link connected covariance. The new [figure](scaling_correlations.svg) shows the finite size dependence.
+
+The independent native gate already factorizes for every finite link count. That exact all-size statement is distinct from the interacting sweep's M<=15 and t<=4 evidence. No result at billions of interacting links, universal minimum link count, phase transition, autonomous record formation, or EM derivation is claimed. K memory is fixed by construction; this tests downstream link dynamics.
+
+An independent dense small-system check matched the sparse calculation within 6.37e-15; see [validation](scaling_validation.json). Existing documentation mentions a serial TFIM result, but the controlling GRA-CH source was unavailable at the pinned baseline. This new finite extension is not a reproduction of that missing theorem.
+
+The next causal test compares full KEEP with quarantining one formed relation, under the same K-dependent hold and common link blank. A changed distant read would show an effect of that local active-memory change. A charge/gauge/field-dynamics derivation remains a separate requirement for EM.

@@ -85,3 +85,7 @@ See [HANDOFF.md](HANDOFF.md) for the current decision, next assignments, source 
 ## Subsequent hypothesis recorded on 2026-10-28
 
 The proposed common origin of EM and gravity in formation-induced relational changes is recorded separately in [COMMON_ORIGIN_HYPOTHESIS.md](COMMON_ORIGIN_HYPOTHESIS.md). Its hypothesis status and the distinction between information, gauge curvature, and spacetime curvature are explicit.
+
+## Finite scaling sweep
+
+The [first finite scaling report](declared_path_dynamics_notes.md) executes eight link counts from 1 to 15 at three fixed interaction strengths. A declared simultaneous path hold generates joint link correlations from an uncorrelated blank, while matched independent controls remain factorized. The report states the added hold and boundary premises, the native normalization distinction, and the limits of this finite calculation. [Full data](declared_path_dynamics_results.json), [code](declared_path_dynamics.py), [independent validation](scaling_validation.json), and a [scaling figure](scaling_correlations.svg) are included.
