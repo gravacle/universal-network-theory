@@ -40,3 +40,28 @@ Possible outcomes include a constructive relational precursor, a vanishing effec
 ## Relation to the saved explorations
 
 The correlation-only toy and cooperative-retention toy establish mathematical possibilities under supplied primitives. They do not establish this common-origin hypothesis. The immediate native mapping task remains necessary: determine which preparation, writing, holding, and reading operations are already provided by UNT in one parent. See [HANDOFF.md](HANDOFF.md) and [native_loop_audit.md](native_loop_audit.md).
+
+## Clarification: EM input and EM emergence are separate experiments
+
+The user clarified that EM can be an input or a result in a given experiment; the same assumed EM structure cannot also be counted as derived. Keep two explicitly separate calculations:
+
+| Calculation | Declared starting point | Question and permitted conclusion |
+|---|---|---|
+| Supplied-EM benchmark | An electromagnetic field, current/coupling, and dynamics are supplied as needed and listed explicitly. | Can the specified process form and retain a readable record under those assumptions? Success establishes the conditional record mechanism, not the origin of EM. |
+| EM-emergence investigation | Named native formation ingredients, interactions, preparation, boundaries, and read operations are declared. Any additional structure is tracked as a premise. | Does an electromagnetic response follow from those dynamics? An assumed electromagnetic field, Maxwell action, EM current, or imposed gauge law cannot be relabeled an emergent result. |
+
+The benchmark remains useful, but its success does not fill a missing derivation in the emergence investigation. It also does not rule out a deeper origin of the EM that the benchmark assumes. Any use of benchmark results in the second calculation requires an explicit account of their dependencies.
+
+**Immediate priority:** investigate EM emergence. The common-origin gravity proposal remains recorded as a hypothesis; it should not displace the EM question.
+
+## Number and arrangement of the proposed bends
+
+The user proposed that the response might depend on how many formation-induced bends exist. Treat this as a testable proposal, with no assumed minimum count or guaranteed onset.
+
+1. Define one bend as a specific native operation or retained relational change before counting it. Do not define it through an already supplied electromagnetic connection or curvature.
+2. Hold the local interaction law fixed. Vary bend count and arrangement separately where possible, including connectivity and possible loop structure. Track preparation, interaction, boundary, and total resource changes; use matched controls where feasible.
+3. Define the measured response in advance. An initial bounded target is a retained, readable event distinction together with an accessible native loop or transport response. If the parent lacks the required operation, identify that missing ingredient rather than insert it silently.
+4. Report a positive finite response, a null response, or an explicit dependence on extra premises. A threshold in one finite observable is not by itself evidence for a thermodynamic phase.
+5. An EM interpretation requires a justified charge/flux structure, field dynamics, and coupling to identifiable sources. A nonzero loop phase, circulation, or information seed alone remains a possible precursor.
+
+These are proposed tests, not additional completed calculations. Numerical alpha prediction, physical spin interpretation, and cosmological origin claims are outside this immediate assignment.

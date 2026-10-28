@@ -57,3 +57,17 @@ Read this handoff and the README, inspect the saved scripts/results, then check 
 ## Subsequent steering: a possible common microscopic precursor
 
 The discussion proposed that local relational changes during initial record formation could seed both EM and gravity. Preserve this as a research hypothesis, not an established identification. Read [COMMON_ORIGIN_HYPOTHESIS.md](COMMON_ORIGIN_HYPOTHESIS.md) before interpreting a gamma-information seed or a loop response as either physical field. Continue the native-operation mapping and define a calculable formation-induced relational change before assigning a physical interpretation.
+
+## Latest decision: separate EM assumptions from EM results
+
+The user's clarification is controlling: **EM is either a supplied ingredient or a claimed derived result in a given experiment. An ingredient supplied to that experiment cannot also count as its derived result.**
+
+Keep the supplied-EM record benchmark and the EM-emergence investigation as separate calculations, with separate premise lists and conclusions. The benchmark may establish record formation conditional on EM. The emergence calculation must identify which electromagnetic properties follow from named native dynamics and which remain additional assumptions. Reusing a result from the benchmark does not remove its EM dependency.
+
+The next research priority is **EM emergence from the declared formation process**. The common-origin gravity hypothesis remains open and recorded, but should not redirect this assignment away from EM.
+
+Before counting proposed bends, define one as an actual native formation operation or retained relational change. With the local law fixed, examine count and arrangement/connectivity separately where possible; declare preparation, boundaries, and resource changes. Predefine the response and controls. Do not assume a particular critical count exists.
+
+A bounded first target is a native retained record plus an accessible loop or transport response. Such a response is a candidate precursor; an EM claim requires the additional charge/flux, dynamical, and source-coupling arguments. If an EM field, Maxwell action, electromagnetic current, or gauge law is supplied, preserve it in the premise list rather than count it as derived.
+
+See [COMMON_ORIGIN_HYPOTHESIS.md](COMMON_ORIGIN_HYPOTHESIS.md) for the two-experiment distinction and proposed count/arrangement test. No new calculation or EM derivation is claimed by this clarification.
