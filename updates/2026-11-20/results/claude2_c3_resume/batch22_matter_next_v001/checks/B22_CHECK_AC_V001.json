@@ -1,0 +1,304 @@
+{
+ "seat": "AC",
+ "batch": 22,
+ "checker_host": "Claude2 session subagent, Opus 5.5 max",
+ "model_family_label": "ONE MODEL FAMILY (Opus 5.5 at maximum effort, by the principal's instruction). Distinct checker, not the seat author. This is ONE same-family check; nothing turns green.",
+ "resume_note": "Resumes the batch-22 AC check Claude3 left unfinished. Written only to the claude2 override path; nothing written in claude3/. No held-out, blind or protected set opened. No network. No target, core or adapter code. Author scripts read as text only, never run.",
+ "inputs_verified": {
+  "seat_file": {
+   "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/seats/B22_SEAT_AC_V001.json",
+   "sha256": "90d3040a1ad1032588d74d5359fbbf582e5136aef1bb39623b0c107e8187b4a0",
+   "matches_prompt": true
+  },
+  "batch_brief_sha256": "2eeeef54bfe6c8f1891f9fb35b5ae3bd2258a52bab0aa469a7cb6b307ee3107f",
+  "checker_brief_sha256": "fbbfa88f452b2950fa22177569c3e9ca6ba541ba4bb7f8f033ff014ad1192c5e",
+  "spec_file_sha256": "7790d68b36cb44bddb6e29e4a700d597277bc3ff07fdb771668b0ebd22e2420c (CHAIR_B13_V001.json; AC entry with seat at l.1512, guards l.1633)",
+  "rule_text_sha256": "50f6e14d70b92b34b5c622e171c5242f21571f343403e20b157ae9a775955356 (native_full_h.py, read as text only)"
+ },
+ "verdict": "CONFIRMED_WITH_CORRECTIONS",
+ "verdict_plain": "The kill at stand-in values is confirmed: my own exact code reproduces every headline number. One step is wrong as stated: the locality lemma (S1) fails for six-link open paths on a girth-six host, so the order-h^12 flip price per ring must subtract the weights of the six paths obtained by opening the ring. That raises the flippable ring's own price from +2.05e-10 to +2.84e-10 J6, turns the other classes' tiny costs into tiny gains, and changes the flip-strength lever from 17.8 to 25.0 (h/Ud)^6. The kill margin also depends on how class prices are projected onto the ring-flip form: 4.1e-4 J6 (seat's frozen projection) or 1.4e-2 J6 (least squares over the same 183,384 patterns). Both are RK sign and below the 0.1 J6 line. The verdict and card status are unchanged.",
+ "frozen_check": {
+  "frozen_file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude3/621775b7-c161-433d-94ed-4f56e059f276/scratchpad/b22_ac/FROZEN_AC.txt",
+  "sha256": "9b38002d2f2531d252e32676517ee91fa32e1d1d3686b6c128994214d4b27924 (matches seat)",
+  "mode": "r--r--r-- (444)",
+  "frozen_mtime_utc": "2026-11-19T23:46:39Z",
+  "first_code_file_birth_utc": "2026-11-19T23:48:16Z (ac_host_v1.py)",
+  "first_output_utc": "2026-11-19T23:50:09Z",
+  "copied_verbatim_into_seat": true,
+  "all_14_recorded_code_and_output_sha256_match_disk": true,
+  "result": "PASS: expectations frozen before any code; every recorded code version is on disk with its recorded hash. The disclosed never-run edits (ring_v2 and val_v2 edited 31 s and 13 s after creation, before their outputs) cannot be confirmed or refuted from file times alone."
+ },
+ "spec_check": {
+  "followed": true,
+  "items": [
+   "derive-by-hand 1 and 2: done (S1-S6, S8, S9)",
+   "compute: exact rational sums on BOTH spec hosts (the 26-site PG(2,3) incidence graph and a carved ring with outside links held still), all 13 ring classes; flippable price against J6 at stand-ins: done",
+   "register first: signs, sizes and the probability (0.03; chair 0.12) frozen before code: done",
+   "do_not_duplicate: respected (IAT T1/T2 not redone; CB inventory used)"
+  ],
+  "deviations_labelled": true,
+  "note": "The added items (pi flux, h and Delta scans, one-spoke check) are labelled as added."
+ },
+ "step_checks": [
+  {
+   "id": "S1",
+   "seat_grade": "PROVED",
+   "checker_grade": "REFUTED AS STATED; PROVED only for trees of diameter <= 5",
+   "reason": "Counterexample on the seat's own host. Labelled non-backtracking 6-walks are pattern-blind, but they count 2 x (six-link path copies) + (closed 6-walks round rings). So the number of alternating-label six-link paths is 1664 - 6 N_F. I checked this on 120 random patterns of the 26-site host, and the general identity sum_P6 f + sum_rings sum_cuts f = const with random weights f (0 exceptions). The seat checked paths of only 1-5 links. Consequence: at order h^12 a six-link path, a tree that touches no ring, carries pattern energy. The correct per-ring price is W_ring - sum over 6 cuts of W_P6."
+  },
+  {
+   "id": "S2",
+   "seat_grade": "PROVED",
+   "checker_grade": "PROVED (confirmed)",
+   "reason": "The lap is exactly -64/3113912109375 = -0.20580 J6 (own carved-ring run; equals -12 kappa^2 t^6/A^7, A = 9/20). The t^6 and t^8 loop formulas re-derived by hand: on the two-ON subgraph (a union of loops) only winding walks see the pattern, giving 12 per 6-loop at t^6, and 96 per 6-loop plus 16 per 8-loop at t^8. 6-loops = all-ON rings on every pattern checked."
+  },
+  {
+   "id": "S3",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL as ring-cluster weights (all numbers reproduced exactly); CORRECTED as ring prices",
+   "reason": "Own exact series to h^14 reproduce every class weight: all zero through h^10 and first at h^12, for all 64 patterns, equal within classes. F is +2.0462e-10 J6 at h^12 (+2.0451e-10 to h^14), A6 +3.45e-14, O6 +5.26e-16. As PRICES the six-path deficit must be subtracted. Then F = +2.841e-10 J6 (+39%), and the other 12 classes become -2.0e-17 to -1.4e-12 J6, small GAINS rather than costs. Each alternating six-link path weighs -10.197 h^12; 6 cuts give -7.95e-11 J6."
+  },
+  {
+   "id": "S4",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (confirmed), order-14 entries need the path deficit",
+   "reason": "Own multi-index RS with one virtual carrier confined to the ring gives these values. All-ON: -0.205802 J6 (order 8), -0.0031989 (10), -3.510e-5 (12), -3.463e-7 (14), total -0.209036 J6. Five-ON: first at order 10, -8.150e-6 J6, then -1.09e-7 at order 12. Four-ON: first at order 12, -3.227e-10, -3.227e-10 and -2.827e-10 J6. Three-ON and all-OFF: nothing through order 12. Flippable: nothing below 14; at 14, +6.2483e-14 J6 with spectator part +4.1921e-14, identical to the seat. With the six-path deficit at order 14 (own path-cluster run) the flippable carrier price is +4.30e-14 J6, still a cost."
+  },
+  {
+   "id": "S5",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (headline confirmed; sub-claim corrected; projection-dependent)",
+   "reason": "V_RK under the seat's frozen projection is +4.1074e-4 J6, reproduced (frequencies recomputed independently, all 13 identical). The flippable ring's own part is +2.84e-10 J6 after the path deficit (pure-flip V_RK +2.845e-10), not +2.05e-10. A least-squares projection over the same ensemble gives +1.396e-2 J6 (34x larger), because all-ON rings are anti-correlated with flippable rings: Cov/Var = -0.0668, Var N_F = 14.53. The least-squares figure is my own alternative modelling step, host-dependent, and not computed on a large block. The diamond-type hand figure (3.5e-4 J6) checks by hand."
+  },
+  {
+   "id": "S6",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (by hand; the pi-flux F number not recomputed)",
+   "reason": "Each lap walk crosses the pi link once, so the lap flips sign. The flip terms carry no phase. The zero-flux all-ON orders 8-12 equal minus the seat's pi-flux table exactly. At order 14 they differ (-3.463e-7 against +3.238e-7) as expected from non-winding terms."
+  },
+  {
+   "id": "S7",
+   "seat_grade": "PROPOSED",
+   "checker_grade": "PROPOSED (numbers corrected)",
+   "reason": "Ring-only figures reproduce exactly: c12/c6 = 17.8395; crossings 0.4314, 0.4215, 0.3219, 0.1865 and 0.04142 at Delta 0, 0.3, 1, 1.5, 1.9; ED V/J 1.77e-5, 1.105e-3, 0.01191, 0.05925, 0.1767 at h = 0.1-0.5. With the six-path deficit: V/J6 = 24.98 (h/Ud)^6 at Delta 0.3 (21.9, 117.3, 2854 and 2.28e7 at the other Delta values). Leading-order 0.1 J6 at h = 0.407, 0.398, 0.308, 0.181 and 0.0405. ED (ring plus path deficit, all orders) gives 2.46e-5, 1.51e-3, 0.0159, 0.0771 and 0.225, so 0.1 J is reached near h = 0.42 Ud (ring-only about 0.45). The h^6 scaling itself is exact at leading order. The seat's spoke percentages (+1% to +13%) lack the matching deficits of diameter-6 trees and were not recomputed, so the one-ring figure is even less reliable at h >= 0.3."
+  },
+  {
+   "id": "S8",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROPOSED (downgraded)",
+   "reason": "That settled cold written material holds no real carriers is a dynamical expectation (every released carrier reaches a growth point); PD-17/25/29 do not by themselves show it. Nothing in the kill depends on it: all computed terms use virtual carriers."
+  },
+  {
+   "id": "S9",
+   "seat_grade": "PROPOSED",
+   "checker_grade": "PROPOSED (agree)",
+   "reason": "Hand bounds only; plausible sizes (kappa/A)^2 = 5e-4, (g/Ud)^2 = 1.4e-4. Birth rests on the checked R104."
+  },
+  {
+   "id": "S10",
+   "seat_grade": "PROVED",
+   "checker_grade": "PROVED (confirmed)",
+   "reason": "J6 = 7301257947/73109493303608000000 = 9.98674e-11, by 720 orderings and by sector Rayleigh-Schroedinger (+/- combinations), exactly equal. J4 = 161271/1195529420000 = T-113 closed form exactly. Delta = 0 coefficients 5/2 and 63/8 match I1."
+  }
+ ],
+ "recomputed_numbers": {
+  "J6_exact": "7301257947/73109493303608000000 = 9.986744e-11 (matches)",
+  "J4_exact": "161271/1195529420000 = 1.348950e-7 = T-113 (matches)",
+  "lap_per_allON_ring": "-64/3113912109375 = -0.2058021 J6 (matches); all-ON carrier total to order 14: -0.2090364 J6 (matches -0.209)",
+  "five_ON_carrier": "-8.150e-6 (order 10) - 1.09e-7 (12) J6 (matches)",
+  "flippable_pureflip_ring_weight_h12": "+2.0462e-10 J6 (to h^14: +2.0451e-10) (matches +2.046e-10)",
+  "flippable_pureflip_price_with_path_deficit": "+2.841e-10 J6 at h^12 (NEW; seat +2.05e-10); pure-flip V_RK +2.845e-10",
+  "alternating_six_path_weight_h12": "-10.197 h^12 each; six cuts = -7.949e-11 J6 at stand-in h (NEW)",
+  "flippable_carrier_order14": "+6.2483e-14 J6 ring weight (matches); +4.30e-14 J6 with path deficit (NEW)",
+  "V_RK_seat_projection": "+4.1074e-4 J6 (matches); pure-flip part +2.031e-10 ring-only, +2.845e-10 corrected",
+  "V_RK_least_squares_projection": "+1.396e-2 J6 (NEW; checker modelling step; 26-site host only)",
+  "host": "26 sites, 52 links, 4-regular, bipartite, girth 6, 234 six-rings, 27 per link; 183,384 two-ON patterns, complement-closed; N_F mean 39.0153 (32-52), N_A6 mean 0.38280 (0-2); per-ring frequencies F 0.166732, A6 0.0016359, k5 0.035336 (all 13 match)",
+  "h6_scaling": "V/J6 = 17.8395 (h/Ud)^6 ring-only (matches) -> 24.979 (h/Ud)^6 with path deficit (Delta 0.3)",
+  "where_0.1_J6_is_reached": "leading order h = 0.4215 ring-only (matches) -> 0.3985 corrected; ED all orders about 0.45 ring-only -> about 0.42 corrected",
+  "ED_validation": "own Householder + Sturm ED (<= 64 states): J_ED(0.1) = 8.6110951e-6 (matches to 11 digits); path-weight series vs ED at h = 0.1 agree to 2e-6 relative"
+ },
+ "kill_condition_check": {
+  "applied_by_checker": "KILLED at stand-in values. No native term prices flippable six-rings with the RK sign at 0.1 J6 or more. The largest RK-form price is +4.1e-4 J6 (frozen projection) or +1.4e-2 J6 (least squares): 240x or 7x below the line. The flippable ring's own price is +2.84e-10 J6 (flips, corrected) plus +4.3e-14 J6 (carrier, corrected).",
+  "partly_notes": [
+   "Under the seat's own frozen operational rule, the carrier lap reaches 0.209 J6 against ONE class (all-ON, as a reward). That is a PARTLY outcome, to be reported as PARTLY and not counted as survival. The seat reported it as a wrong-form term without the PARTLY label (labelling only).",
+   "Values other than the stand-ins: the flip strength reaches 0.1 J6 near h = 0.40-0.42 Ud (corrected), untested where the one-ring method fails."
+  ],
+  "kill_as_prominent_as_pass": true
+ },
+ "card_verdict_check": {
+  "card": "alpha allowed range and its setting",
+  "seat_verdict": "route KILLED at stand-ins; card stays OPEN; no constructive path",
+  "checker": "CONFIRMED under 0257. OPEN is right: no structure is constructed, and no PATH EXISTS is claimed. Alpha is treated as a landed setting (PD-02, 0264), never as the thing explained. The seat asks only whether UNT's rules give the RK-form ring price that would set the allowed range. The host and carved ring are named as inputs (0278 a). \"What would clear it\" is present (0322). The \"about 0.08 (1/12)\" coupling and the RK-point picture are labelled RECALLED, UNVERIFIED; the checker cannot verify them (no network) and adds no recalled claim."
+ },
+ "classification_check": {
+  "result": "CORRECT",
+  "items": "Host and carved ring: input (+ truncation as a modelling step). Stand-ins and theta: settings on existing dials. PD-27/25/29/34: principal decisions. PD-17 absorption: an adopted rule, used only in S8. Rayleigh-Schroedinger orders, inclusion-exclusion, the V_RK projection and the \"RK sign\": modelling steps. RK point and coupling: RECALLED, UNVERIFIED. No pending or new principal definition and no rule change used or chosen.",
+  "addition": "The choice of projection (frequency mean against least squares) is itself a modelling step and moves the RK-form price by 34x on this host. It should be named beside the result."
+ },
+ "premise_spot_checks": [
+  {
+   "cited": "native_full_h.py:527-556 (535, 543-549)",
+   "result": "OK: Delta*incidence at 535; Ud(d-d*)^2, eps_c c, eps_r q, -lam_R d q, +lam_J d c, E_R, E_S at 543-549"
+  },
+  {
+   "cited": "native_full_h.py:88-95",
+   "result": "OK: every vertex degree four; edges A to B"
+  },
+  {
+   "cited": "native_full_h.py:595-601",
+   "result": "OK: flip any link, amplitude -h, no constraint"
+  },
+  {
+   "cited": "native_full_h.py:602-611",
+   "result": "OK: hop only on an ON link between unlike carrier bits, -t e^{+-i theta}"
+  },
+  {
+   "cited": "native_full_h.py:612-618 / 619-630",
+   "result": "OK: Bind toggles the record where a carrier sits (g); admission R->S with a carrier (kappa); release at S with a carrier (kappa*)"
+  },
+  {
+   "cited": "native_full_h.py:382; 420-430 (425)",
+   "result": "OK: carriers = spent cells; Birth guard two ON among four cut links (l.425)"
+  },
+  {
+   "cited": "B13_SEAT_CB_V001.json:89",
+   "result": "OK: stand-ins exactly as used (g 12/1000 = 3/250)"
+  },
+  {
+   "cited": "CHAIR_B13_V001.json:1512, 997, 1016, 1148, 1633",
+   "result": "OK: AC spec, R104 (KILLED as alpha dial), R105 (WOUNDED), R112, guards"
+  },
+  {
+   "cited": "CHAIR_B10_V001.json:1211-1225, 1401",
+   "result": "OK: R66 lap 0.0514 J4 and 0.2057 J6 per all-ON ring; R76 loose-carrier census"
+  },
+  {
+   "cited": "HELPER_RETURN_I1_V001.txt:4, 9, 13; CHECK_I1:8-9; CHECK_IAT:13",
+   "result": "OK: J4 1.349e-7, J6 9.99e-11, 5/2 and 63/8; no pattern energy below h^8 on four-ring hosts; 0.21 J6 per all-ON ring; \"strong end\" unsupported; \"last native candidate\" over-claims"
+  },
+  {
+   "cited": "PUZZLE_V002.txt:383-384, 444-447, 524-526, 593-599",
+   "result": "OK: T-89, T-113 (the closed form reproduced exactly by my J4), T-133, CONFLICT-1"
+  },
+  {
+   "cited": "BATCH22 brief l.44-48; INSIGHT_LEAD_1 l.2-3; PD-34 record",
+   "result": "OK: PD-25/27/29, 0320; PD-34 one charge, two backgrounds"
+  },
+  {
+   "cited": "0257 l.2-12; 0322 l.11; SCOREBOARD l.126",
+   "result": "OK: alpha allowed as a stated setting (l.5); \"what would clear it\" for OPEN cards; the alpha row is open, and its next test is this seat"
+  },
+  {
+   "cited": "INSIGHT_ISX_1 l.3; INSIGHT_GN_2 l.3-5",
+   "result": "OK: landed rule minus four-rings, plus six-rings; diamond flippable fraction 0.17524 (Pauling 0.1753)"
+  }
+ ],
+ "predictions_scoring_check": "Fair. P2, P7 (partly) and P8 (sign) are reported as misses; my numbers confirm all three, and P8's cost survives the path deficit (+4.30e-14). P7's \"RK sign held\" survives the correction (+2.85e-10). P9 holds under the frozen projection only (least squares gives 1.4e-2, outside its band, but P9 was defined by the frozen projection). P12 holds (crossing 0.40-0.42, inside [0.2, 2]).",
+ "corrections": [
+  "C1 (substantive) S1 is false for six-link paths (trees of diameter 6) on a girth-six host. Their copy count is 1664 - 6 N_F for alternating labels on the 26-site host. Restate as: tree clusters of diameter <= 5 are pattern-blind; the ring price at order h^12 is W_ring minus the weights of the six paths obtained by opening the ring at each site. INSIGHT_AC_1/AC_2 advertise the lemma to other seats (\"ANY pattern energy needs a process that closes a ring\"), so they should be told.",
+  "C2 Flippable ring's own pure-flip price: +2.84e-10 J6, not +2.05e-10 (S3, S5, main_result, plain_summary, answer_to_principal). The other classes' pure-flip prices are -2.0e-17 to -1.4e-12 J6 (gains), not +5.3e-16 to +5.7e-12 (costs).",
+  "C3 Flip-strength lever (S7, main_result, recommendation): V/J6 = 25.0 (h/Ud)^6, not 17.8. Leading order reaches 0.1 J6 at h = 0.41/0.40/0.31/0.18/0.040 Ud for Delta 0/0.3/1/1.5/1.9. ED of ring plus path deficit reaches it near h = 0.42 (ring-only 0.45). Decoration percentages need the matching deficits; not recomputed.",
+  "C4 Kill margin is projection-dependent: 4.1e-4 J6 (frozen frequency-mean projection) or 1.4e-2 J6 (least squares over the 183,384-pattern ensemble). Say \"240x below the line\" only with the projection named; the least-squares margin is 7x. The kill stands either way.",
+  "C5 Flippable carrier price at order 14: +4.30e-14 J6 after the path deficit (seat +6.25e-14); sign unchanged.",
+  "C6 Labelling: by the seat's own frozen operational rule the lap's 0.209 J6 against the all-ON class is a PARTLY outcome; label it so (not survival).",
+  "C7 S8 downgraded PROVED_CONDITIONAL -> PROPOSED: no real carriers in cold settled material is a dynamical expectation, not shown; the kill does not depend on it."
+ ],
+ "plain_summary_ok": "OK WITH CORRECTIONS: no over-claim. Update \"+2e-10 J6\" to \"+3e-10 J6\" and \"about 18 (h/Ud)^6 ... near h = 0.3-0.45\" to \"about 25 (h/Ud)^6 ... near h = 0.4-0.45\". Add that the 0.00041 figure uses a frequency-mean projection (least squares gives 0.014).",
+ "answer_to_principal_check": "No over-claim. It is plain and labelled (recall marked unchecked; one model family). Two numeric updates: \"about two parts in ten billion\" becomes \"about three parts in ten billion\". \"about four ten-thousandths\" holds for the seat's averaging; another fair averaging gives about one and a half hundredths, still far from the needed size. Alpha is treated as a setting throughout.",
+ "checker_recommendation_for_the_board": "Keep \"alpha allowed range and its setting\" OPEN. Add, as one model family, checked once by a distinct same-family checker: \"At stand-in values no native term gives movable six-step rings the needed price. The largest ring-form price is 0.0004 of the ring exchange by a frequency-mean fit, or 0.014 by a least-squares fit, against the 0.1 needed. It comes from carriers circling all-ON rings. The only native lever is the flip strength: price/exchange about 25 (h/Ud)^6, reaching 0.1 near h = 0.4 Ud, untested at strong flipping.\" \"What would clear it\" stays as the seat states: a strong-flip test with ring exchange and decorations together, for which leave beyond the 256-state guard is the coordinator's to give. Only a NEW rule pricing flippable rings is the principal's to decide. Testing a larger h on an existing dial needs no principal decision. Seats that may have used the AC locality lemma (INSIGHT_AC_1 named SR, TD, GN) should be told it holds only for trees of diameter below the girth.",
+ "checker_code": [
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/CHECKER_PLAN_AC.txt",
+   "sha256": "6b133fad335223fbf1a03a0d95b63346b8daa0838e046b0a37738d3f5391cf8d",
+   "role": "checker plan and own concern (R6), written and locked (444) at 2026-11-20T10:48:34Z before any checker code"
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_flip_v1.py",
+   "sha256": "fcccd297f8af7bbf7b407c582b60a484797d089e4f2ee16d193cee13ab588b67",
+   "role": "pure flips: J6, J4, ring weights, six-path weights, exact",
+   "cpu_s": 1.4
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_host_v1.py",
+   "sha256": "f4523b4ac479b9705459f0367bb8c974c8f1b95ae07b23b28a34ee3dbabe9089",
+   "role": "host, v1: killed after about 6.5 min CPU (site-order search too slow); no output used",
+   "cpu_s": 390
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_host_v2.py",
+   "sha256": "3ea556f7e049f9b33cb1d11d535653cebc3c31d452f83e7dd68a4cf0e2ecf66c",
+   "role": "host, v2: killed after about 3.2 min CPU (an O(N^2) covariance line); no output used",
+   "cpu_s": 190
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_host_v3.py",
+   "sha256": "3c44191117cd863f73c8e54ebe2cae577aa8d8888f14d5dbf5fae97f9a838080",
+   "role": "host: 2-factor enumeration, class frequencies, six-path identity (seed 20261120, 120 patterns); its output carries a stale code label \"chk_host_v1.py\"",
+   "cpu_s": 10.3
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_carrier_v1.py",
+   "sha256": "b4cd6e4fcfbff957867bde34a3271e31492f46392fd10a8b6e2698e82ea3014b",
+   "role": "one virtual carrier on the carved ring, exact multi-index RS (jobs A6, k5, F, k4, k3, Fsite1)",
+   "cpu_s": 22.9
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_carrier_p6_v1.py",
+   "sha256": "aa7fcac87b8fcc34eda14ea927d3a59ae88f3077e3b6849fea11be77f24bddd1",
+   "role": "carrier weight of the six-link path at order 14 (deficit)",
+   "cpu_s": 9.6
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_scan_v1.py",
+   "sha256": "bfc25d19fea56d3f811164b8f0e5be7f8e630ffa54430bf2fc37430182e9b50b",
+   "role": "exact Delta scan, ring-only and corrected",
+   "cpu_s": 3.0
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_ed_v1.py",
+   "sha256": "033706c837aec96d3b0317648baa6d7e20d3216055071ae372d32134fca2b2e7",
+   "role": "float ED (own Householder + Sturm), h = 0.1-0.5",
+   "cpu_s": 3.1
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_combine_v1.py",
+   "sha256": "db5a705ec7a152384a147b150bb1c32f43925f33c80fd754e5700fd297f1f1fb",
+   "role": "V_RK under both projections",
+   "cpu_s": 0.1
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_p6series_v1.py",
+   "sha256": "9ea6612343e241e54570c8e0c0b25583422a9d86b147aa8fd2ee06b68bbba632",
+   "role": "path-weight series vs ED",
+   "cpu_s": 0.1
+  },
+  {
+   "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_ac/chk_write_v1.py",
+   "role": "this writer"
+  }
+ ],
+ "checker_outputs_sha256": {
+  "chk_flip_v1_out.json": "2e1be83227e9437514178fb1abb040a56cfa31df8863aff3d57f28c33a0bc628",
+  "chk_host_v3_out.json": "c1b1bcbc7fec0ba4911775c0dfeba92cffa1dc2c5d3715d31db71a30e01d09e6",
+  "chk_carrier_v1_A6_out.json": "b8bd84775e0bf279ab9eb86d99cff68ea8279dffdbe6cf02982731452d7298d1",
+  "chk_carrier_v1_F_out.json": "129c60fe388a4c0b538056f5b123dd51794544f3d054ccfa90875370556f587b",
+  "chk_carrier_v1_k5_out.json": "e23ceb35c792832ddcf51cb887eeb7d3908d03af1e4aa950e9a61570c0af635c",
+  "chk_carrier_v1_k4_out.json": "148ab8e79892e553093b2b5af9a6c95ff85ac559dabc006453063d9ab672070b",
+  "chk_carrier_v1_k3_out.json": "ed295a671857b02f6680601ac291728d998ec34f06dcba552066c036a6bfb299",
+  "chk_carrier_v1_Fsite1_out.json": "a158ebb9ce44a5d0d03b2cd2da9e1c6c15ed38216827bc322be9e3dd1d055eab",
+  "chk_carrier_p6_v1_out.json": "6821f53eb040b31e68a3a1cd76e7d049d3368f1ee21f4a500644c0943c241e5d",
+  "chk_scan_v1_out.json": "d3d78474e00074bc95ca8e146f21e27a8290294a24c761f076fa9479ea06f826",
+  "chk_ed_v1_out.json": "783d3167433ba42eeb95267709a8125e2a52c556fde2537f71a12a3f2b89eb7e",
+  "chk_combine_v1_out.json": "ae338067b6ebd7de5aecd96c5edf4a956d762487d9d95a7562cd13b65fcebeee",
+  "chk_p6series_v1_out.json": "c1b604898ca8498a1c5d93a3316ee9ec362879256f84fab79648fe9a1a6fe2fc"
+ },
+ "compute": {
+  "total_cpu_minutes_including_killed_runs": 10.8,
+  "largest_diagonalised_states": 64,
+  "interpreter": "python3 -I 3.9.6, no numpy",
+  "network": "none",
+  "seeds": "20261120 (six-path identity sample and random test weights)"
+ },
+ "recalled_physics": "None added by the checker. The seat's RK point, Coulomb-phase range and coupling about 0.08 (1/12) at V = 0 are RECALLED, UNVERIFIED and labelled so in the seat.",
+ "written_utc": "2026-11-20T11:08:50Z"
+}

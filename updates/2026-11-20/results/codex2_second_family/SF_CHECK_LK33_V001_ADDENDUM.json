@@ -1,0 +1,44 @@
+{
+  "label": "SECOND MODEL FAMILY: GPT (Codex2)",
+  "seat": "LK33",
+  "verdict": "CONFIRMED_WITH_CORRECTIONS",
+  "purpose": "0337 required independent headline growth replication; supplements SF_CHECK_LK33_V001.json",
+  "step_checks": [
+    {
+      "claim": "INC-BOTH slow-write finite regime",
+      "result": "Fresh seed 26331, N0=1024 to N=16384, w=.1: locked fraction .01361084, largest locked-component fraction .0179372 (8 edges), 106 components. Seat reports approximately .015-.020 locked and .015 largest. Same finite-component behaviour; exact fractions differ with seed and finite size."
+    },
+    {
+      "claim": "Equal-rate stall",
+      "result": "Fresh seed 26332, w=1: stalled at N=5866, locked fraction .9769008, all locked links in one component. Seat approximately 5700 and .975. Independent code checks every remaining growth point has no permitted cut after all writes finish."
+    }
+  ],
+  "recomputed_numbers": {
+    "artifact": "LK33_GROWTH_V001.json",
+    "sha256": "45e20c69ee2c0fd8b9fb25247080a70f6181986d84225406d473e5c89d181550",
+    "code": "GROWTH_ENGINE_V001.py",
+    "fresh_seeds": [
+      26331,
+      26332
+    ],
+    "elapsed_seconds": [
+      1.425890791,
+      1.318203416
+    ]
+  },
+  "disagreements_with_first_check": [
+    "No substantive difference in these headline outcomes. This reproduces cut-lock/BR-BOTH only, not every lock reading."
+  ],
+  "corrections": [
+    "No grade upgrade; the no-carrier, no-undo, all-unfired supply and retained-record assumptions remain.",
+    "Only headline lock fractions and stalling independently reproduced here; ring dynamics and crossover not included."
+  ],
+  "plain_summary": "Independent fresh-seed growth reproduces both headline lock outcomes. At slow writing, 16,384 sites have 1.36% locked links split into 106 small components; the largest holds 1.79% of locked links. At equal write and growth rates, growth stalls at 5,866 sites with 97.69% locked links in one component, close to the seat's roughly 5,700-site stall. These numbers support the specified cut-lock model, while its bound-pair definition and supply assumptions remain conditional.",
+  "written_utc": "2026-11-20T10:52:50.496560+00:00",
+  "source_pins": [
+    {
+      "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch21_relax_lock_scale_v001/seats/B21_SEAT_LK33_V001.json",
+      "sha256": "c0f001a9be68f5f19dd8e23ce95903750bcc4a55bf2552652d516abdddaa653e"
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+ "seat": "SR",
+ "title": "Check of batch-22 test seat SR: DO THE RING TRADES CARRY THE LANDED SIGNS TO THE CHARGED RECORD?",
+ "checker_identity": "distinct step-checker (not the seat author); Opus 5.5 at maximum effort; resuming work Claude3 left unfinished",
+ "checker_host": "Claude2 session subagent, Opus 5.5 max",
+ "model_family_label": "ONE MODEL FAMILY (Claude lineage). Nothing turns green; the checker moves no card.",
+ "written_utc": "2026-11-20T11:07:19Z",
+ "verdict": "REFUTED",
+ "verdict_scope": "The headline pairing result is refuted: every true-amplitude run used four- and six-ring trades of the wrong sign. With the correct sign, the 12-site stand-in (squares-only reading) has an EXACT sign-made paired lowest level, while the unsigned control is single. What still stands: the gauge identity, every exact amplitude, the binding beside the partner (re-checked on 24 sites), the cage in the all-four-cycle reading (new numbers), full turn +1 (strengthened), and the card statuses (no card moves).",
+ "hashes_verified": {
+  "seat_file": "882fecb16dcf72ea1e5c69da251680db740abb0b0480f17d8910bea2f61ee18c MATCH",
+  "round_brief": "2eeeef54bfe6c8f1891f9fb35b5ae3bd2258a52bab0aa469a7cb6b307ee3107f MATCH (computed by the checker; read in full)",
+  "checker_brief": "fbbfa88f452b2950fa22177569c3e9ca6ba541ba4bb7f8f033ff014ad1192c5e (computed; read in full)",
+  "spec_source_CHAIR_B13": "7790d68b36cb44bddb6e29e4a700d597277bc3ff07fdb771668b0ebd22e2420c MATCH",
+  "frozen_file": "d2ff9467b8a1b9b7877eb5d3af69bd990730407bdd0d25988e412c0a4f43fef8 MATCH; byte-identical to frozen_expectations",
+  "seat_code": "all 19 recorded scripts (incl. make_seat_v3) match their sha256"
+ },
+ "spec_check": {
+  "frozen_before_results": "YES. FROZEN_SR.txt born 23:44:46Z (date -u 23:44:08Z quoted), chmod 444 at 23:44:50Z. The first code (lib_v1.py) is 23:48:10Z and the first output 23:49:08Z. Every output postdates its script, and every code version is on disk.",
+  "spec_followed": "YES in structure: derive 1-2, compute (i)-(iii), register-first and do-not-duplicate were all done, with seven labelled deviations. The execution of compute (i) at the true amplitudes is defective; see correction 1.",
+  "unlabelled_deviation": "joint_v1.py line 11 stores J4 and J6 as the signed path-sum amplitudes (-3259.488 and -2.413 |A|). Line 131 (a = -J4[ctx]) and line 133 (a = -J6[ctx]) then negate them again. Every true-amplitude model therefore carries trades of +3259.5 |A| in the native basis, against the seat's own S2/H1 (-J4) and the SP checker's -R. The uniform-R path (a = -Jscale) is correct. All importers of joint_v1 inherit the flip: run_v1, scan_v1 at R = None, davidson_v1-v4, bo_v1, where_v1, diagscan_v1 and count24_v1.",
+  "deviation_note": "Deviation 4 (the 1e-9 test cannot separate exact from tunneling pairs) is sound in principle. Its 12-site evidence, however, is mislabelled: see S3."
+ },
+ "step_checks": [
+  {
+   "id": "S1",
+   "seat_grade": "PROVED",
+   "checker": "STANDS. Re-derived by hand. With chi(M) = product of s over the ON links, a ferry M -> M-(v,w)+(w,v') multiplies chi by s(v,w)s(w,v'), which cancels its sign. A four-ring trade toggles all four ring links, so chi(M)chi(M') = sigma_f, and the native -J4 becomes -J4 sigma_f. Round any closed loop each link toggles an even number of times, so the loop sign is the product of sigma over rings traded an odd number of times. On the sodalite net and on the 12/24-site tori each link lies on exactly one geometric square, so with squares only the background alone is sign-blind; with wrapping four-cycles (alpha) it is not. Numerically: 0 violations in 32 runs (8 classes x alpha/beta x with/without six-ring trades). Wording: \"signs live only in the trades\" holds in the chi gauge; in the native basis they ride on the ferry. \"Exactly one kind of loop\" is the elementary loop; the general law is the odd-ring product."
+  },
+  {
+   "id": "S2",
+   "seat_grade": "PROVED",
+   "checker": "STANDS, reproduced exactly with my own Fractions. Ferry -22577/545531250000000 (10 orderings). Blank four-ring -161271/1195529420000 = -3259.48819 |A| (24 orderings; equals the hand formula). Record -57719499/416423383040000 = -3349.19817 |A|. Partner = blank. Six-ring blank/partner -2.41311 |A|, record -2.48960 |A|. Note that every amplitude is NEGATIVE: the native trade is -J4. The seat's code did not keep that sign (correction 1)."
+  },
+  {
+   "id": "S3",
+   "seat_grade": "PROVED",
+   "checker": "THEOREM STANDS; ITS 12-SITE EXAMPLE IS MISLABELLED. The 176-state sector whose \"four levels lie within 1.1e-11\" is the SIGNED model. At 60 digits it is an exact pair, then another exact pair 2.45e-19 |A| higher. The UNSIGNED 176 sector is single: split 2.2906e-8, pattern 1+2+1 within 4.581e-8. Test: the seat's \"signed\" ground energy (-6609.731183) lies BELOW its \"unsigned\" one (-6609.730586). That is impossible if the latter were the all-negative (stoquastic) control. The 24-site labels are swapped the same way."
+  },
+  {
+   "id": "S4",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker": "REFUTED as stated (sign error). Correct sign, 60-digit, all 8 classes. Reading beta: sectors 176/36/36. The SIGNED 176 sector has an EXACTLY two-fold lowest level (two exact pairs 2.45e-19 apart, next level +0.04408); the unsigned one is single (2.2906e-8). The 36-sectors are single (2.000000 signed, 1.999999 unsigned). Reading alpha: one 248 sector, single. Signed split 1.3959e-8 in four classes and 5.973e-9 in the other four; unsigned 7.967e-8. The lowest four levels lie within 2e-8, and the next is +6519 |A|. With six-ring trades both readings are single: beta 2.0729e-2 signed / 2.0730e-2 unsigned; alpha 0.2819 / 2.464 (float). The seat's 4.469e-5 / 2.430e-4 / 2.85e-5 belong to the sign-flipped model; I reproduce them digit for digit with the trades flipped."
+  },
+  {
+   "id": "S5",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker": "REFUTED. The uniform-R pairs reproduce (R = 10: -22.589222167 x2, -22.589221852 x2), but two claims fail. (1) \"Only in the uniform-trade variant\" is false: an exact sign-made pair is also the lowest level at the native context-dependent sizes (S4). The seat compared correct-sign uniform R with a flipped-sign \"true\" run, which made the pair seem to vanish. (2) \"Nothing protects them\" is false. In reading beta the chi-gauged model holds no class information, so all 64 automorphisms of the 12-site torus that fix the partner are symmetries (0 violations). This group is non-abelian; the seat's group is only its 4-element class-preserving subgroup. Randomness symmetric under 4 elements splits the R = 10 pair (3.2e-7 here; the seat found 2.57e-4). Randomness symmetric under all 64 keeps it exact (4e-58), and the same holds at the true sizes."
+  },
+  {
+   "id": "S6",
+   "seat_grade": "PROVED",
+   "checker": "CONCLUSION STANDS, ONE CLAUSE WRONG. Every symmetry fixes the partner's site. In the chi gauge the 64 elements act as plain permutations (a linear representation), so all 39 involutions square to +1: full turn +1, and any pair is orbital about the partner. Clause (a), \"a non-abelian stabilizer is absent (Z2xZ2 on 12 sites, trivial on 24)\", holds only in reading alpha. In reading beta the stabilizer has 64 elements on 12 sites and 256 / 512 on 24 sites (partner orbits 1 / 2), all non-abelian, and it is what protects the pair."
+  },
+  {
+   "id": "S7",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker": "QUALITATIVE CAGE STANDS; NUMBERS WRONG. Correct-sign BO, 12 sites, alpha: the lowest manifold is 4 states, all at distance 3, with BO gap 6668.67 |A|. The projected first-order ferry has largest element 3.1e-16 signed against 1.99995 unsigned, so the cancellation holds. Exact levels relative to the manifold energy: -3.451e-4 |A| signed, -2.000587 |A| unsigned. Beta: projected ferry largest element 1.0 in both (stands). Exact levels -1.044226 |A| signed (the pair) and -1.044823 |A| unsigned. The seat's 4.2e-13 vs 0.896 and -0.0267 vs -1.0111 come from the flipped model, and its beta pair -1.0453 / -1.0447 has the labels swapped."
+  },
+  {
+   "id": "S8",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker": "CONFIRMED in reading beta. With squares only the trade graph is bipartite, so the BO energies do not depend on the trade sign, and the slip does not touch this step. 12 sites: the manifold is 20 states (4 at distance 1, 16 at distance 3) with BO gap 89.71 |A|. 24 sites, partner orbit 1: 20928 states in 7148 trade clusters of at most 32 states; the same 20-state manifold; the best distance-5 position is +3259.49 |A| higher, exactly one blank J4. Partner orbit 2: 8 states, all at distance 3; distance 1 is +179.42 |A| and distance 5 +3349.20 |A|. So at J4/|A| = 3260 the record is bound within three links of its partner by about one J4. Caveats: (i) on 12 sites every A site is within 3 links, so the claim is vacuous there; (ii) \"frozen\" means bound inside the multiplet with first-order hopping of +-1 |A| (beta), not static; (iii) in alpha the 12-site manifold is 4 states at distance 3; (iv) the binding needs the pinned partner (a modelling step), so whether the bound pair moves as one is untested."
+  },
+  {
+   "id": "S9",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker": "DOWNGRADED TO UNDECIDED. The seat's \"signed\" and \"unsigned\" labels are swapped (its \"signed\" energies are the lower ones). Relabelled: the true SIGNED main sector has a near-pair at 7.7e-13, and the true UNSIGNED one a near-pair at 1.06e-12 plus two levels at +4.77e-8; the unsigned pair cannot be exact (Perron-Frobenius). Whether the signed pair is exact, protected by the 256-element non-abelian stabilizer, needs a sector above 256 states and was not recomputed. \"Not sign-made\" is not shown."
+  },
+  {
+   "id": "S10",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker": "NOT RECOMPUTED. The step uses the even-mix band with no trades, so the sign slip cannot touch it. Checked: the 96-site census (192 links, 48 squares, 64 hexagons, face rank 94, 8 classes, no wrapping four-cycles) matches. An eight-fold band bottom at T T' = 8 is consistent with the on-file signed spectrum (+-2.828427 x8). The W-comparison counts (21/45; 24/24) are unchecked. Grade kept, unchecked."
+  },
+  {
+   "id": "S11",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker": "STANDS (hand, rule text l.595-630). With no carrier and admission frozen, the only off-diagonal native moves are flips (-h, no phase), so the model is stoquastic and Perron-Frobenius applies. Flip-hop-hop-flip toggles exactly the hopped links, so it is a pure gauge. The conditions (fixed block, kappa = 0 or no carrier) are stated correctly."
+  },
+  {
+   "id": "S12",
+   "seat_grade": "REFUTED",
+   "checker": "FIRST HALF REVERSED. \"With the ring trades kept, the landed signs give the charged record a paired lowest level at the ferry's order\" (chair 0.4) is NOT refuted. On the 12-site stand-in (reading beta, true amplitudes) it holds as an exact, sign-made, symmetry-protected pair. It is absent in reading alpha and split by the same-order six-ring trades. Second half STANDS for this model: the pair is orbital about the pinned partner, so it is not region-free."
+  }
+ ],
+ "recomputed_numbers": [
+  "Amplitudes (exact): ferry -22577/545531250000000; J4 blank -3259.48818888 |A|, record -3349.19817085 |A| (+2.75%), partner = blank; J6 blank -2.41311111 |A|, record -2.48959812 |A| - MATCH.",
+  "Census: 12 sites: 24 links, 6 squares, 8 hexagons, 30 four-cycles (24 wrapping), face rank 10, 8 classes; A-site distances from the partner 1,1,1,1,3,3. 24 sites: 48 links, 44 four-cycles (32 wrapping), 8 classes. 96 sites: 192/48/64, rank 94 - MATCH.",
+  "Joint model: 248 states; ferry-only sectors 44,44,44,44,36,36 - MATCH; gauge violations 0 in 32 runs.",
+  "SIGN DIAGNOSIS: trades flipped reproduces every printed seat digit (alpha \"signed\" -13217.399430318, split 4.4686e-5; \"unsigned\" -13218.383865121, split 2.4300e-4; beta \"signed\" -6609.731183006, split 2.29e-8; \"unsigned\" -6609.730586120 x4). Correct sign reproduces the SP checker's R = 10 pairs (-22.589222167 x2, -22.589221852 x2).",
+  "CORRECT SIGN, 60 digits, 12 sites. beta 176 SIGNED -6609.730586120151711804: two exact pairs (2.45e-19 apart), next +0.044075. UNSIGNED -6609.731183005502648745: single, split 2.290551e-8. beta 36 sectors: 2.000000 / 1.999999. alpha SIGNED split 1.395898e-8 (classes 0,1,4,5 in my labelling) and 5.972871e-9 (2,3,6,7); UNSIGNED 7.966572e-8. beta+six 2.072914e-2 / 2.073033e-2; alpha+six 0.28187 / 2.46389 (float).",
+  "Symmetry: 768 automorphisms (all keep the geometric squares). Partner stabilizer 64, non-abelian, 39 involutions; class-preserving 4 (Z2xZ2); hexagon-preserving 8 (non-abelian). 24 sites: 4096 automorphisms; stabilizer 256 / 512, non-abelian; class-preserving 1 / 2.",
+  "Protection: +-10% exact-rational randomness symmetric under the 64 elements keeps the pair exact (1e-55; next pair 7.2e-24); generic randomness splits it by 110.5 |A|. Adjacency energy -300..+300 |A| keeps the signed pair exact (<= 4e-55); the unsigned split is 2.3e-8 at 0 and falls to 9.6e-10 at -100 and 2.2e-12 at -300 |A|.",
+  "BO, correct sign: 12-site beta manifold 20 (4 at d1, 16 at d3), gap 89.710 |A|; 12-site alpha manifold 4 (d3), gap 6668.670 |A|, projected ferry 3.1e-16 signed vs 1.99995 unsigned. 24-site beta orbit 1: 20928 states, 7148 clusters (<= 32), manifold 20, d5 at +3259.488 |A|; orbit 2: 19904 states, manifold 8 (d3), d1 +179.420, d5 +3349.198 |A|.",
+  "Compute: about 80 s in all; python3 -I; own code; no numpy; no script found on disk run; largest exact matrix 248 states; no network."
+ ],
+ "kill_condition_check": {
+  "value": "PARTLY (as frozen) - but for the reverse of the seat's reason; NOT MET as the spec words it",
+  "detail": "The spec kill is \"lowest level single in every sector, signed as unsigned\". It is NOT met: on the 12-site stand-in, reading beta, true amplitudes, the signed 176 sector has an exact pair while the unsigned control is single. That is SIGN-MADE under the frozen definition. The frozen scoring gives \"partly\" when the pairing appears \"only on the 12-site block\": alpha is single, and the 24-site evidence cannot discriminate. The seat's sentence \"Met for pairing at the true amplitudes: no sign-made paired lowest level in any sector computed\" is false. Its second bullet stands: the signs do reach the record (gauge identity; the alpha cage; now the beta pair). Its fifth bullet stands with an extra clause: the channel exists, and it cages in alpha and pairs in beta.",
+  "prominence": "This is a positive result for the chair's 0.4 hypothesis (\"paired once ring trades are kept\"), and it is as prominent as the kill it replaces. It is NOT a spin result: the pair is orbital about the pinned partner (full turn +1). 56 of its 64 protecting operations are special to the non-faithful 1x1x1 torus, and the same-order six-ring trades, which keep only 8 of them, split it by 2.07e-2 |A|."
+ },
+ "card_verdict_check": {
+  "spin-1/2": "OPEN: agreed under 0257 (no constructive path to a two-valued, region-free label with full turn -1). Must be reworded. Drop \"this route is killed at the stand-in values\" and \"no sector has a sign-made paired lowest level\". Write instead: on a supplied 12-site stand-in at the true ring rate, the ring trades give the charged record an exact paired lowest level that the unsigned control lacks. That pair is orbital about the pinned partner (every turn +1), absent when every four-cycle trades, and split by the same-order six-ring trades. Its \"what would clear it\" stands.",
+  "shells of 2n^2": "OPEN: agreed. \"The record has no band\" is conditional on the pinned partner: the record is bound to it within 3 links. Whether the bound written pair moves as one, with a band of its own, is untested. \"Band-edge route dead at stand-in values\" holds only for a record with a pinned partner.",
+  "fermion sign and exclusion": "PATH EXISTS unchanged: agreed. Reword \"it cages\" to \"it cages the record's first-order motion in one face reading and makes an orbital pair in the other\". There is still no exchange sign and no exclusion; the on-file rule change was not used."
+ },
+ "classification_check": {
+  "correct": "Landed signs = setting in place. Stand-in tori = input. Stand-in values = modelling step. Flip, hop, Bind, ledger and the trades built from them = native. Pinned partner, contact projection and at-home manifold = modelling steps. kappa = 0 = a value on an existing dial. Face readings on stand-ins = pending definition (both run). VR and BO = modelling steps. PD-34/27/16/11 = decisions. The caging name = RECALLED. No principal definition is chosen.",
+  "corrections": [
+   "Not listed: the sixth-order corrections to the four-ring trades. They are context-dependent near the record and partner and, by the checker's estimate J4 (h/dE)^2 x a few, about 0.2-1 |A|, the ferry's own order. Any stabilizer-symmetric part cannot split the protected pair. The same-order six-ring trades do split it on this torus.",
+   "The pair's protecting group is mostly an artefact of the supplied block (an input): 56 of 64 elements are not geometric symmetries of the sodalite net. The geometric part (8 elements, non-abelian) survives on a faithful block, but whether it protects a doublet there is untested.",
+   "The offered coordinator decision (count only geometric squares as faces on stand-ins) is not a principal definition, which is fine. With the sign fixed, though, the recommended reading is exactly the one that carries the pair, so the offer should be re-weighed."
+  ]
+ },
+ "premise_spot_checks": [
+  "native_full_h.py:527-556 ledger (Delta per ON link; Ud(d-dstar)^2; eps_c p; eps_r q; -lambda_R d q; lambda_J d p; cell energies) - AS CITED.",
+  "native_full_h.py:595-601 flip -h, no phase - AS CITED.",
+  "native_full_h.py:602-611 hop on an ON link, carriers differ, -t times the link phase - AS CITED.",
+  "native_full_h.py:614-630 Bind g at a carrier's site; admission/release change carrier and cell together - AS CITED.",
+  "native_full_h.py:382-383 global inventory Nc = S_graph - AS CITED.",
+  "PUZZLE_V002.txt:318 T-03; 461-470 T-118..T-120 - AS CITED.",
+  "SCOREBOARD_CURRENT.json:32, 52, 70, 1191 (fermion, spin, shells rows; fermion sign pattern setting) - AS CITED (file rewritten 00:13:56Z after the freeze; content matches).",
+  "CHAIR_B13_V001.json:1465 spec SR, 1633 guards, 1204 R115, 1223 R116 - AS CITED.",
+  "CHAIR_B10_V001.json:966 R53, 985 R54, 1005 R55, 1081 R59, 1119 R61, 1156 R63 - AS CITED.",
+  "B13_SEAT_SP_V001.json \"S7, S8 at lines 154-160\": S8 is at 154-157; S7 sits just before line 154 - MINOR MISCITATION.",
+  "B13_CHECK_SP_V001.json:92 (exploratory ring trades), 137-150 (corrections), 151-157 - AS CITED.",
+  "BATCH22 brief 10-14, 41-53; COORDINATOR_0324 l.1-2 (PD-34); INSIGHT_LEAD_1 l.2 - AS CITED."
+ ],
+ "prediction_scorecard_corrections": "With the correct sign several frozen predictions flip from MISS to HIT: N2 \"paired in at least one sector, some class\" [0.50]; N2 \"reading beta paired\" [0.45]; N4 \"a pair survives randomness that respects the stabilizer\" [0.75], once the stabilizer is the full 64; N4 \"unsigned pairs: none\" [0.99] on 12 sites (2.29e-8), though the relabelled 24-site unsigned near-pair (1.06e-12) is still a miss as scored. N5 \"full turn +1\" stays a HIT (39/39). N5 \"two operations anticommute on the pair\" is unchecked. Seat-level \"a sign-made pair somewhere\" [0.55]: YES, at the true amplitudes, not only in VR.",
+ "corrections": [
+  "1 (decisive) Trade-sign error in every true-amplitude run. joint_v1.py l.11 stores J4/J6 as negative amplitudes, and l.131/133 negate them again, giving +3259.5 |A| trades. Proof: flipping my trades reproduces every printed digit of out_run_v1_111; my correct-sign uniform R = 10 reproduces the SP checker; and the seat's \"unsigned\" ground energy lies above its \"signed\" one, which no stoquastic control allows.",
+  "2 (substantive) Corrected 12-site results (60 digits, all classes). Reading beta: the signed 176 sector has an EXACT paired lowest level and the unsigned control is single (2.29e-8): a sign-made pair at the true amplitudes. Reading alpha: single (signed 1.40e-8 / 5.97e-9; unsigned 7.97e-8). With six-ring trades: single in both readings.",
+  "3 (substantive) The pair is protected by the partner's 64-element non-abelian stabilizer, which acts in reading beta because the class drops out. It survives stabilizer-symmetric randomness and adjacency energies of +-300 |A|, and splits under generic randomness. S5 (\"nothing protects them\", \"only uniform R\") and S6(a) (\"non-abelian stabilizer absent\") are wrong for reading beta.",
+  "4 (substantive) The pair is orbital about the pinned partner, a linear representation with full turn +1, so S6's conclusion and the spin verdict (OPEN) stand. 56 of the 64 protecting operations belong only to the tiny non-faithful torus, and the same-order six-ring trades split the pair (2.07e-2 |A|).",
+  "5 S3 / S9: the signed and unsigned labels are swapped in the 12- and 24-site near-pair numbers. The 24-site \"not sign-made\" conclusion is UNDECIDED.",
+  "6 S7: the alpha cage stands (3.1e-16 vs 2.0), but the seat's numbers come from the flipped model. Correct: alpha manifold 4 states at distance 3, gap 6668.7 |A|; levels -3.45e-4 vs -2.0006 |A|. Beta levels -1.044226 (signed, pair) and -1.044823 (unsigned).",
+  "7 S8 confirmed with caveats: vacuous on 12 sites; bound, not static; it rests on the pinned partner. Binding is about one J4 (3259.5 |A|) against distance 5 on 24 sites.",
+  "8 Kill: \"met for pairing\" is false. As frozen the value is \"partly\", for the reverse reason.",
+  "9 The +-30 |A| adjacency scan was narrower than the 89.7 |A| BO gap. My +-300 |A| scan changes no conclusion.",
+  "10 Not listed among the truncations: the sixth-order, context-dependent corrections to the four-ring trades (the ferry's order).",
+  "11 Re-run the seat's true-amplitude scripts (run_v1, scan_v1 at R = None, bo_v1, davidson_v1-v4, diagscan_v1, where_v1) with the trade sign fixed before anything from them is used."
+ ],
+ "plain_summary_ok": "NO. False in plain_summary: \"no 12-site sector has a paired lowest level\"; \"exact sign-made pairs exist only with one uniform trade size, unprotected\"; \"the kill is met for pairing\". Over-stated: \"its leading motion cancels under the signs\" holds in one face reading only; \"on the 24-site block every near-pair appears equally without the signs\" has the labels swapped. False in answer_to_principal: \"no doubled lowest level appears that the signs themselves make\" and \"doubled levels appear only if every ring move is forced to one equal size, and nothing protects them\". Its \"leading motion cancels\" needs \"in one reading\". Correct and kept: the signs reach the record; the record is held beside its partner; every turn gives +1; spin stays open.",
+ "checker_recommendation_for_the_board": "Move no card. Spin-1/2 stays OPEN, shells stays OPEN, fermion sign and exclusion stays PATH EXISTS. Record, on supplied stand-in blocks, one model family, the following. The ring trades carry the landed signs to the charged record. At the true ring rate they hold it within three links of its partner. On the 12-site stand-in they give it an exact paired lowest level that the unsigned control lacks, but that pair is orbital about the pinned partner (every turn +1), absent when every four-cycle trades, and split by the same-order six-ring trades. Do NOT record \"no sign-made pair at the true ring rate\": it came from a sign error in the seat's code.",
+ "checker_top_next_tests": [
+  "Fix the trade sign and re-run the seat's true-amplitude scripts. Decide the 24-site signed near-pair (7.7e-13) by symmetry reduction under the 256-element stabilizer (irrep blocks <= 256) or by a validated iterative method.",
+  "On the faithful 96-site block (squares are the only four-cycles, so the readings coincide), test the bound record-partner multiplet with six-ring trades included. Does the geometric 8-element site group protect a doublet?",
+  "Let the partner move (no pinning): does the bound written pair travel as one, and does its doublet ride along (shells; R115 / ISX_1 idea 8)?"
+ ],
+ "checker_code": [
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_amp_v1.py",
+   "sha256": "766af7525b548efad3580e90bad498eb74b08099de7cc1c36c6d338f0536dddf",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_amp_v1.txt",
+   "what": "exact Fraction path sums, full ledger: ferry (10 orderings), four-ring trades (24) blank/record/partner, six-ring trades (720)"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_lib_v1.py",
+   "sha256": "bbda8f1e36d4d4ca22b005728500e7ffefc33d66a4ae1f2bd195821a4b666ba4",
+   "output": null,
+   "what": "own library: sodalite tori, geometric faces, all four-cycles, GF(2) landed-sign classes, joint record+background model (native basis), Householder (float or 60-digit Decimal) + Sturm bisection"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_census_v1.py",
+   "sha256": "a17e6b0cf305e03f123fd4a9767e1148def7add52f57893ae0ba984be4e5f82c",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_census_v1.txt",
+   "what": "12/24/96-site census, classes, partner distances"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_joint12_v1.py",
+   "sha256": "6540a0874023700c294cf7870c724d07b18d0c3ca70b2ee494e66a5f1a217a7c",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_joint12_v1.txt",
+   "what": "12-site joint model, correct sign: 8 classes x beta/alpha x with/without six-ring trades, gauge check, signed vs unsigned (float)"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_signdiag_v1.py",
+   "sha256": "4fa1ec0c1c48f74b4b25743976a31d6bbeec73c83fe31c504207173b6aadee36",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_signdiag_v1.txt",
+   "what": "sign diagnosis: uniform R=10 with the correct sign; true amplitudes with the trade sign flipped (reproduces the seat run_v1 digits)"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_dec12_v1.py",
+   "sha256": "211267edb8de873ee0ccc2f55cdec8b7c107fbb8a24c3076db42d5810e17d69a",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_dec12_v1_beta.txt",
+   "what": "60-digit Decimal lowest levels of the 12-site sectors (correct sign); also out_chk_dec12_v1_alpha.txt, out_chk_dec12_v1_six.txt"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_sym12_v1.py",
+   "sha256": "16ba2828fc988aceb59a7ca0243d69b96ec2d4d752f44511a6b455e4433b0b35",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_sym12_v1.txt",
+   "what": "automorphisms, partner stabilizer, symmetry in the chi gauge, symmetric (seed 2207) vs generic (seed 2208) +-10% exact-rational randomness"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_bo_v1.py",
+   "sha256": "7f082e916a6951aabe12241e2c38667e3cd41e9c033ade5615080f9ecdb7fd6c",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_bo_v1_211_beta_m1.txt",
+   "what": "Born-Oppenheimer: trade clusters (<= 32 states in beta, <= 36 in 12-site alpha), lowest manifold, distances, BO gap, projected ferry; also out_chk_bo_v1_111_{beta_m1,alpha_m1,alpha_p1}.txt. A first shell call failed on zsh argument splitting before any computation (files named out_chk_bo_v1_111 * __.txt hold the tracebacks); rerun unchanged."
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_robust_v1.py",
+   "sha256": "d87b9dfa0774bfcba1fb83056b0073ac3bead9d367f48b49feb11f95b0e96096",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_robust_v1.txt",
+   "what": "adjacency-energy scan -300..+300 |A|; uniform R=10 with randomness symmetric under 4 vs 64 elements (seed 2209); 24-site stabilizers"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/chk_hexsub_v1.py",
+   "sha256": "93229a0ac5f205fabcbbacd1311ad65ff3ef593647dc1611e93b98486a912434",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_sr/out_chk_hexsub_v1.txt",
+   "what": "subgroup of the 64-element stabilizer that keeps geometric hexagons (8, non-abelian)"
+  }
+ ],
+ "disclosures": [
+  "Read as text only (allowed by the checker brief): the seat's scratch outputs out_run_v1_111.{txt,json} and the trade-sign lines of joint_v1.py, read to locate the discrepancy after my own results disagreed. No script found on disk was run. Nothing held-out, blind or protected was opened. No network. Nothing was written into claude3/.",
+  "One shell call of chk_bo_v1.py failed on zsh argument splitting before any computation; it was rerun unchanged, and the traceback files are kept.",
+  "Sign classes are labelled by my own GF(2) basis, which differs from the seat's. Reading beta is class-independent (checked); in alpha the splits fall into two groups of four classes.",
+  "The alpha+six numbers are float only; every other decisive 12-site number is 60-digit Decimal."
+ ]
+}

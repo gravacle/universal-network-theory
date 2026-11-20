@@ -1,0 +1,514 @@
+{
+ "seat": "TD",
+ "check_of": {
+  "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/seats/B22_SEAT_TD_V001.json",
+  "sha256_given": "840fb8296340420990c4cf98fb00b937e1196aae0aaa77394cd7e7c2000730ec",
+  "sha256_verified": "840fb8296340420990c4cf98fb00b937e1196aae0aaa77394cd7e7c2000730ec"
+ },
+ "checker_host": "Claude2 session subagent, Opus 5.5 max",
+ "checker_is_author": false,
+ "model_family_label": "ONE MODEL FAMILY (Opus 5.5, same family as the seat author). One distinct same-family check. Nothing turns green; no card moved; no principal definition chosen.",
+ "briefs_read": [
+  "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/checks/CHECKER_BRIEF_B22_V001.txt",
+  "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/BATCH22_BRIEF_V001.txt (sha256 2eeeef54bfe6c8f1891f9fb35b5ae3bd2258a52bab0aa469a7cb6b307ee3107f, matches the seat record)",
+  "/Users/bgm/Research/Universal Network Theory/claude3/work/batch13_matter_v001/chair/CHAIR_B13_V001.json ideas.ready_seat_specs entry TD (line 1554) and guards_common_to_every_spec"
+ ],
+ "verdict": "CONFIRMED_WITH_CORRECTIONS",
+ "verdict_in_one_line": "The headline is right and reproduced exactly with my own code: a one-layer threefold patch of a shifted three-way pattern carries corners of exactly dQ/3 (+-1/3 or +-2/3), neutral walls, a whole total, and 0 for the aligned control; thick patches of the nine patterns charge their edges. Corrections concern framing: the corner is sharper than \"1/R^2\" (that is the window placement), the thick-domain third also needs a tuned stack ending, aligned thick corners are case-dependent, the two-block count is a duplicate, and the pattern itself supplies the three.",
+ "spec_check": {
+  "frozen_before_results": "YES. Birth times (UTC): FROZEN_TD.txt 23:54:13 < td_v1.py 23:58:38 (run 23:58:46) < td_out_v1.json 23:58:57; FROZEN_TD_ADD1.txt 00:06:01 < td_v2.py 00:07:27 < td_out_v2.json 00:07:56; FROZEN_TD_ADD2.txt 00:09:42 < td_v3.py 00:10:34 < td_out_v3.json 00:10:48. All three frozen files are mode 444 and byte-identical to the copies in the seat file. All 10 code/output files kept read-only, sha256 equal to the seat record. Trivial: FROZEN_TD says INSIGHT_TD_1 was posted 23:43:04Z; its file time is 23:43:33Z (no effect).",
+  "spec_followed": "YES, deviations labelled: the threefold Z-type family was added because the X-type (IAT) family has no threefold axis (checker confirms, S3); plates and thick prisms both done; restacked domains (S12, S13) are beyond the spec and registered first (ADD1, ADD2). Controls done: aligned patterns; admissible link patterns (36/36 periodic; balanced plate pair). Every-other-layer block per EC (checked).",
+  "grades_justified": "Mostly. S7 PROVED_CONDITIONAL is fair (and its convergence is in fact exact, see C1). S11 and S13 need the qualifications C3 and C2. S9 only partly recomputed (Z-type). No grade upgraded by the checker.",
+  "guards": "Seat code imports only json, math, sys, time; no core, target or adapter use; pure Python; about 30 s compute. Checker code likewise (about 2.3 s total)."
+ },
+ "step_checks": [
+  {
+   "id": "S1",
+   "seat_grade": "PROVED (consistency, no credit)",
+   "check": "AGREE (hand)",
+   "note": "In-plane cell dipole depends only on d = cB - cA (colour shift t is a translation by t*b1), three distinct classes; axial dipole LB per patterned layer: 3/4 X-type, 1/4 diamond Z, 3/8 ABAC Z, as listed. Not recomputed numerically."
+  },
+  {
+   "id": "S2",
+   "seat_grade": "PROVED",
+   "check": "AGREE (hand)",
+   "note": "c = (i - j) mod 3 shifts by t under t*b1."
+  },
+  {
+   "id": "S3",
+   "seat_grade": "PROVED",
+   "check": "CONFIRMED (own code + hand)",
+   "note": "Own code: X-type invariant under 0 of 27 ops (diamond) and 0 of 9 (ABAC), all 9 patterns each; Z-type 9/9 on both blocks. Hand: a vertical 120-degree rotation about a site keeps every layer stacking position (R tau = tau - b1); about a triangle centre it cycles the three colours; on ABAC only vertical shifts of a whole period are compatible."
+  },
+  {
+   "id": "S4",
+   "seat_grade": "PROVED",
+   "check": "CONFIRMED (own Dinic max-flow with an explicit degree certificate)",
+   "note": "Periodic 36/36 feasible (6x6x12). Balanced pair X(1,2) diamond 36x36x6, plates m = 5 (t = 1 and t = 2): needA = needB = flow = 12959, 15,552 sites, 31,104 links, every site at its home count (certificate) - the same numbers as the seat. Z(1,2) ABAC pair 24x24x8: 8447 saturated, certificate holds. Single plate: sum of home counts on A differs from B (12960/12959 for X(1,2) t=1; 12961/12960 for X(0,1) t=1, as the seat) - infeasible by Gauss. Negative control (balanced sums, Hall violated): flow 1152 < 1296, correctly infeasible."
+  },
+  {
+   "id": "S5",
+   "seat_grade": "PROVED",
+   "check": "CONFIRMED",
+   "note": "Every nearest-neighbour row cycles the three colours; dq sums to 0 per three sites on each sublayer separately, so walls along rows carry neither line charge nor perpendicular dipole. Edge windows <= 0.00078 at R <= 6 (seat 0.000778); face <= 1.1e-6."
+  },
+  {
+   "id": "S6",
+   "seat_grade": "PROVED",
+   "check": "CONFIRMED",
+   "note": "dQ = f(cA) - f(cA+t) + f(cB+t) - f(cB), f(c) = [c = 0 mod 3], in 18/18 cases, independent of m (N_0 = N_1 + 1 = N_2 + 1); congruent to t*d mod 3. Triangle-centred: equal colour counts, dQ = 0 in 18/18. X-type prism layers p = 1, 2: dQ = 0 exactly."
+  },
+  {
+   "id": "S7",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "check": "CONFIRMED; numbers reproduced exactly; correction C1 on the 1/R^2 wording",
+   "note": "With the seat window (vertex at circumradius 2h, h = (sqrt3/2)(m + 1/6), z = LB/2) my code gives all 8 seat values to 6 decimals (table in recomputed_numbers), m = 30 equal to m = 40, three corners equal, aligned 0 exactly. With the window centred ON the corner site the in-plane value is exactly dQ/3 (to 1e-7) for every R >= 3 in all 36 distinct non-aligned cases; checker hand proof in recomputed_numbers.hand_identity."
+  },
+  {
+   "id": "S8",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "check": "CONFIRMED",
+   "note": "Triangle-centred plates (m = 18, 30): every non-aligned corner within 0.00031 of t*d/3 mod 1 at R = 10; e.g. (0,1,1): 0.3332, -0.6664, 0.3332, sum 0."
+  },
+  {
+   "id": "S9",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "check": "PARTLY CHECKED",
+   "note": "Z-type N-axis-layer plates: corners N*dQ/3 follow from the exact per-layer split; X-type multi-layer plates not recomputed. Consistent: corners whole when N = 0 mod 3, i.e. the third depends on the patch thickness."
+  },
+  {
+   "id": "S10",
+   "seat_grade": "PROVED",
+   "check": "CONFIRMED (exact count + own numerics)",
+   "note": "Each axis layer adds dQ = t*d mod 3 != 0; X-type non-axis layers add 0; walls neutral, so the per-period excess sits on the hinges. Z-type diamond hinge-midpoint window equals lambda*R*sqrt(2 pi), lambda = (dQ/3)/(3 Lambda), to 5 decimals (e.g. 1.02333 ... 3.41109 for R = 3 ... 10): a line charge."
+  },
+  {
+   "id": "S11",
+   "seat_grade": "PROVED_CONDITIONAL (exploratory)",
+   "check": "CONFIRMED WITH CORRECTION C3",
+   "note": "Diamond Z aligned thick corners are -1/12 only when cA = 0 (the axis colour): all six aligned cases give -1/12 (cA = 0, t = 1, 2), +1/12 (cA = 1, t = 2; cA = 2, t = 1), 0 (cA = 1, t = 1; cA = 2, t = 2): measured -0.083306 / +0.083306 / 0 at R = 40. Diamond X and ABAC aligned values not recomputed."
+  },
+  {
+   "id": "S12",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "check": "CONFIRMED (diamond)",
+   "note": "Diamond (1,2): -0.125009; (1,1,2,2): -0.291984 at R = 40 (formula -1/8, -7/24). The formula assumption is exact for a corner-site window: a t = 1 layer puts +1/3 entirely on B, a t = 2 layer -1/3 entirely on A (computed). ABAC not recomputed."
+  },
+  {
+   "id": "S13",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "check": "CONFIRMED WITH CORRECTION C2",
+   "note": "Whole periods: S1 top 0.334022, bottom -0.336372; S2 top -0.336043, bottom +0.335822 at R = 40 (m = 120, 396 axis layers), converging to +-1/3. But the corner value also depends on where the stack ends (checker prediction H7, registered first, held 9/9)."
+  },
+  {
+   "id": "S14",
+   "seat_grade": "PROVED",
+   "check": "AGREE (hand)",
+   "note": "The two references differ by a uniform staggered shift (centred = blank-reference - eps), identical inside and outside, so dq is unchanged."
+  },
+  {
+   "id": "S15",
+   "seat_grade": "PROVED",
+   "check": "AGREE",
+   "note": "Analogous method check in my code: colour-sum decomposition equals the brute-force point sum to 2e-14."
+  },
+  {
+   "id": "S16",
+   "seat_grade": "REFUTED (three routes)",
+   "check": "AGREE",
+   "note": "Thick domains of the nine patterns: charged hinges (exact). (1,2), (1,1,2,2): -1/8, -7/24, not thirds. X-type (IAT-06 as built): no threefold axis."
+  }
+ ],
+ "recomputed_numbers": {
+  "own_code": [
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/CHK_TD_EXPECT.txt",
+    "sha256": "7866360e2777e94dca01941c47fedd1563c2d5f197a78e52b13a016f7196ea7e",
+    "created_utc": "2026-11-20T10:46:53Z",
+    "role": "checker expectations, written and locked (444) before any checker code"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_td_v1.py",
+    "sha256": "385adc41a97151881543b8b37651eadfdc5252ee5df1940b941bdfb2dcbb18f9",
+    "created_utc": "2026-11-20T10:48:19Z"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_out_v1.json",
+    "sha256": "9d29e9cc799c5491e353f5076d6381e0e48c0310e50d5f2a0e80b3c89500243d"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_an_v1.py",
+    "sha256": "e85a8575c2111b9be6b50610d60ef0bfd48278b3d9041d17f980aa76f5f69b34",
+    "note": "read-out; crashed on an empty max (my bug), kept"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_an_v2.py",
+    "sha256": "bc968220205765064b6e8423d4abe0c2b1e033f59796aa6ed9a7590fcedc903c"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_td_v2.py",
+    "sha256": "2f00890686a0a37dbc8e11dfc74526f337d12e7c197596e52d60bd360d124110",
+    "created_utc": "2026-11-20T10:52:12Z"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_out_v2.json",
+    "sha256": "51ce6d97a3c3f7bbb9cc4f5a55824e29594370b80d2128c064023f8e9f4155de"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_td_v3.py",
+    "sha256": "9f01ab000f110d9bbf695be2450829346474183aa251479d3af822297732cbbd",
+    "created_utc": "2026-11-20T10:54:41Z"
+   },
+   {
+    "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/chk_out_v3.json",
+    "sha256": "b1275c9115622e3a53c37f227e612c33529bd953aaa046733dd54939e46a4bea"
+   }
+  ],
+  "run_guards": "python3 -I, pure Python (numpy not importable under -I), deterministic (no seeds), no network, no diagonalisation, no target/core/adapter code, no script found on disk run. Compute: v1 0.5 s, v2 1.3 s, v3 0.5 s.",
+  "seat_convention_plate_corner_X01_m30_and_m40": {
+   "R": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    10,
+    14
+   ],
+   "t1_dQ1_checker": [
+    0.35085,
+    0.339869,
+    0.336861,
+    0.335552,
+    0.334859,
+    0.334184,
+    0.333875,
+    0.333609
+   ],
+   "t1_seat": [
+    0.35085,
+    0.339869,
+    0.336861,
+    0.335552,
+    0.334859,
+    0.334184,
+    0.333875,
+    0.333609
+   ],
+   "t1_dev_times_R2": [
+    0.07007,
+    0.05882,
+    0.05645,
+    0.05546,
+    0.05494,
+    0.05444,
+    0.05421,
+    0.05402
+   ],
+   "t2_dQ2_checker": [
+    0.7017,
+    0.679738,
+    0.673723,
+    0.671103,
+    0.669719,
+    0.668368,
+    0.667751,
+    0.667218
+   ],
+   "t2_seat_R14": 0.667218,
+   "t2_dev_times_R2": [
+    0.14013,
+    0.11764,
+    0.1129,
+    0.11091,
+    0.10988,
+    0.10888,
+    0.10843,
+    0.10804
+   ],
+   "aligned_X00_t1": "exactly 0 at every R",
+   "reading": "Exact agreement (8/8 values, 6 decimals). (corner - dQ/3)*R^2 is constant from R = 4 (0.054 for dQ = 1, 0.108 for dQ = 2): 1/R^2, as claimed, for this window. Note 0.6672 is +2/3 (dQ = 2), i.e. -1/3 only mod 1."
+  },
+  "corner_site_window_all_cases": "Window centred on the corner site: in-plane value = dQ/3 to 1e-7 for every R >= 3 in all 36 distinct non-aligned cases (12 (cA,cB,t) x m = 18, 30, 40); at mid-dumbbell height the only change is the trivial vertical factor exp(-LB^2/(8R^2)) (dev*R^2 = -0.0156*dQ); aligned 0 exactly; three corners sum to dQ (0.99976 / 1.99952 at R = 14, zmid).",
+  "hand_identity": "Checker hand proof (new): for a 60-degree wedge of the 3-coloured triangular lattice with apex on a colour-0 site and Gaussian weights centred on the apex, W_0 - W_1 = 1/3 exactly up to terms exp(-2 pi^2 R^2/9). Six rotated wedges tile the plane; the 60-degree rotation maps colour c to -c; the apex is counted six times and each ray twice; a 1D Poisson sum on the rays gives rho_0 - rho_1 = -3; so W_0 - W_1 = (5 - 3)/6 = 1/3, and W_1 = W_2 by the wedge mirror. Since dq sums to 0 over the three colours on each sublayer, the corner window equals Delta_0/3 = dQ/3. The 3 in the denominator is the number of colour classes of the supplied pattern.",
+  "edges_and_faces": "Max |edge-midpoint window| at R <= 6: 0.00078; face <= 1.1e-6. Seat window, m = 18, R = 10: 0.027974 (dQ = 2), 0.013987 (dQ = 1) vs two-corner tail estimate 0.0163 - the seat registered miss (0.028) reproduced and its corner-tail diagnosis confirmed; m = 40: 0 to 6 decimals.",
+  "triangle_centred_plates": "dQ = 0 in 18/18 (colour counts 532/532/532 and 1426/1426/1426); each non-aligned corner within 0.00031 of t*d/3 mod 1 at R = 10.",
+  "thick_Z_diamond_hinge": "m = 30, 80 axis layers: hinge-midpoint window = lambda*R*sqrt(2 pi) to 5 decimals for dQ = 1, 2; 0 for aligned.",
+  "thick_X_diamond_per_layer_excess": "m = 30: (p0, p1, p2) = (t*d-class value, 0, 0) in all 18 cases; per period congruent to t*d mod 3.",
+  "restack_whole_periods_R_6_10_15_20_25_30_40": {
+   "S1_top": [
+    0.620951,
+    0.38306,
+    0.339482,
+    0.336296,
+    0.33516,
+    0.334579,
+    0.334022
+   ],
+   "S1_bottom": [
+    -0.236605,
+    -0.390021,
+    -0.3596,
+    -0.346553,
+    -0.341441,
+    -0.338845,
+    -0.336372
+   ],
+   "S2_top": [
+    -0.406391,
+    -0.406773,
+    -0.357265,
+    -0.345187,
+    -0.340583,
+    -0.338255,
+    -0.336043
+   ],
+   "S3_control_and_1122_top": [
+    -0.311176,
+    -0.297149,
+    -0.293992,
+    -0.292955,
+    -0.292486,
+    -0.292233,
+    -0.291984
+   ],
+   "R12_top": [
+    -0.125384,
+    -0.125137,
+    -0.125061,
+    -0.125034,
+    -0.125022,
+    -0.125015,
+    -0.125009
+   ],
+   "window": "corner site, mid-dumbbell of the end layer; m = 120; 396-400 axis layers (seat used its own offset window, so R-by-R values differ; limits agree)"
+  },
+  "H7_termination_test_S1": {
+   "r_extra_axis_layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "hand_1_3_plus_Sr_3": [
+    0.333333,
+    0.333333,
+    0.666667,
+    0.333333,
+    0.0,
+    -0.333333,
+    -0.666667,
+    -0.333333,
+    0.0
+   ],
+   "top_R40": [
+    0.334022,
+    0.336372,
+    0.670763,
+    0.336742,
+    0.000965,
+    -0.335291,
+    -0.670744,
+    -0.337475,
+    -0.002129
+   ],
+   "result": "9/9 as registered: the same period-9 stack gives a WHOLE (about 0) top corner when it ends after 4 or 8 extra axis layers, thirds otherwise."
+  },
+  "aligned_thick_Z_diamond_top_R40": {
+   "cA0_t1": -0.083306,
+   "cA0_t2": -0.083306,
+   "cA1_t1": 0.0,
+   "cA1_t2": 0.083306,
+   "cA2_t1": 0.083306,
+   "cA2_t2": 0.0
+  },
+  "symmetry": "X-type: 0/9 diamond (27 ops), 0/9 ABAC (9 ops); Z-type 9/9 and 9/9.",
+  "admissibility": "See S4 (own Dinic + degree certificate + negative control).",
+  "checker_expectations_scorecard": "X1-X7 and H1-H7 of CHK_TD_EXPECT.txt held; H7 (new, termination dependence) held 9/9."
+ },
+ "kill_condition_check": {
+  "spec_text": "Every finite threefold domain of every zero-difference pair has charged faces or edge lines, or a corner charge that is whole or half: a sharp third then needs a rule change (the card's words stand, with R108's sharpening).",
+  "applied_by_checker": "NOT MET (literal, universal text). One-layer site-centred plates of all 12 non-aligned (cA, cB, t) - 36 distinct computations (the seat's 72 counts each twice, see C4) - have neutral faces and edges and corners exactly dQ/3 in {+-1/3, +-2/3}: neither whole nor half.",
+  "equally_prominent": "The clause HOLDS for every domain of the nine patterns that is thick along the axis (hinges charged; exact count) and for plates with a multiple of three patterned layers (whole corners). The pass is narrow: point thirds exist only in thin sheets (one or two patterned layers), or beyond the nine in a tuned restack that is also ended at a tuned layer (C2).",
+  "agrees_with_seat": true
+ },
+ "card_verdict_check": {
+  "card": "charge thirds",
+  "seat_verdict": "constructive path with named missing steps, on a supplied pattern and supplied blocks, pending the coordinator 0278(a) ruling; card stays OPEN until then",
+  "under_0257": "PATH EXISTS needs UNT's rules plus RECORDED settings able to construct the structure. The decisive ingredient here, the three-way written/unwritten pattern, is neither native nor a recorded setting: PD-27's early state has no unwritten sites at all, T-121 gives no record-record ordering term, and 0278(a)'s setting route covers a supplied EARLY state, which this pattern cannot be. As it stands it is a construction on a supplied input. The seat says the card stays OPEN pending the ruling, which is correctly hedged; only the headline phrase \"a constructive path\" overstates and should read \"a construction on a supplied pattern (an input)\".",
+  "rests_on_a_supplied_block": "yes - and the substantive input is the pattern; for one-layer plates the block stacking plays no role at all",
+  "named_missing_steps_check": "The seat's four steps are right (native source of the three-way order; movers for the corners; point thirds only in thin sheets; isotropy). Add: a native reason for thin sheets (or for a tuned stacking AND stack ending); and stability of the pattern under native moves is untested (0278(a) third condition).",
+  "input_count_honest": {
+   "supplied_inputs": [
+    "the three-way written/unwritten pattern - it SUPPLIES THE THREE: the corner value is exactly dQ/3 where 3 is the pattern's number of colour classes (hand identity); a two-way pattern would give halves",
+    "the shifted threefold patch: triangle shape, shift t != 0, non-aligned offset d != 0, and thinness (one patterned layer, or a number not divisible by three)",
+    "the block (triangular layers; stacking irrelevant for plates)",
+    "the at-home sector (every site at its home count; admissible, checked)"
+   ],
+   "native": "Gauss law and home counts (T-79, T-82, T-132; rule text l.543, l.546): the unit (+-1 per unwritten site) and, given the pattern, neutral row walls",
+   "recorded_settings_used": "none",
+   "rule_changes": "none",
+   "not_native_or_not_shown": "why the pattern forms (PD-27; T-121), why it would stay (no dynamics tested), anything that moves a corner, isotropy",
+   "note": "The corner third is a smoothed (far-field) value; every vertex set still has a whole charge, so T-136 is not contradicted."
+  }
+ },
+ "classification_check": "Seat classification correct per 0264/0265/0278 (pattern and blocks inputs; Gauss law and home counts native; PD-34 a principal decision, results reference-independent; windows a modelling step; recalled physics labelled RECALLED, UNVERIFIED; no rule change; no setting). Additions: the patch thinness, and in S13 both the period-9 sequence and the stack ending, are supplied (tuned) inputs; the window centre is a modelling step that sets the approach rate, not the limit. No principal definition chosen: the one question carries options and a marked recommendation.",
+ "question_check": "The seat recommends option A (count as a path on a supplied pattern) and itself calls it \"moderate, not strong\". The checker's exact identity shows the three is supplied by the input, which argues against A under 0278(a) fourth condition and 0264 item 3. So A is not a clear recommendation for a delegated coordinator decision (0325 item 3: an adoption the evidence argues against goes to the principal). The checker chooses nothing; it leans to option B (record as a clue, card OPEN).",
+ "premise_spot_checks": [
+  {
+   "premise": "T-132 centred Gauss law",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:521-523",
+   "ok": true
+  },
+  {
+   "premise": "T-79 integer divergence",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:369-370",
+   "ok": true,
+   "note": "line reads E_e = n_e - 1/4 (blank reference); the seat's staggered-shift gloss follows"
+  },
+  {
+   "premise": "T-80 rho kept by hop, Bind, admission",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:371-372",
+   "ok": true
+  },
+  {
+   "premise": "T-82 lock in charge form, home count 1 + q",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:375",
+   "ok": true
+  },
+  {
+   "premise": "rule text Ud (d - dstar)^2 and lambda_R d records",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/outputs/codex3_native_full_h_action_20261106_v001/native_full_h.py:543, :546 (read as text)",
+   "ok": true
+  },
+  {
+   "premise": "T-121 no record-record term",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:472-474",
+   "ok": true
+  },
+  {
+   "premise": "T-136 sharp integer rho; no sharp fractional charge",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:534-542",
+   "ok": true
+  },
+  {
+   "premise": "A-08 three-valued label absent",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:562-564",
+   "ok": true
+  },
+  {
+   "premise": "R108 and R109",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch13_matter_v001/chair/CHAIR_B13_V001.json:1071, :1089",
+   "ok": true
+  },
+  {
+   "premise": "IAT checker classes",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch13_matter_v001/checks/B13_CHECK_IAT_V001.json:106",
+   "ok": true
+  },
+  {
+   "premise": "spec TD",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch13_matter_v001/chair/CHAIR_B13_V001.json:1554, :1565",
+   "ok": true
+  },
+  {
+   "premise": "PD-34",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/inbox/COORDINATOR_0324_PD34_V001.txt:2",
+   "ok": true
+  },
+  {
+   "premise": "PD-27",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/inbox/COORDINATOR_0321_PD27_TO_PD31_V001.txt:2",
+   "ok": true
+  },
+  {
+   "premise": "0278(a) supplied state",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/inbox/COORDINATOR_0278_ANSWERS_THREE_GRADING_QUESTIONS_V001.txt:2-6",
+   "ok": true,
+   "note": "it concerns a supplied EARLY state; condition 4: never credited for facts it builds in"
+  },
+  {
+   "premise": "PATH EXISTS definition",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/inbox/COORDINATOR_0257_SCOREBOARD_STATUS_DEFINITIONS_V001.txt:2",
+   "ok": true
+  },
+  {
+   "premise": "what would clear it",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/inbox/COORDINATOR_0322_GRADING_CHANGES_V001.txt:11",
+   "ok": true
+  },
+  {
+   "premise": "supplied block is an input",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/BATCH22_BRIEF_V001.txt:22",
+   "ok": true
+  },
+  {
+   "premise": "board row charge thirds",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/scoreboard/SCOREBOARD_CURRENT.json:108-123 (file unchanged since 00:13:56Z)",
+   "ok": true
+  },
+  {
+   "premise": "every-other-layer stacking",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch13_matter_v001/checks/HELPER_RETURN_CHECK_EC_V001.txt:13",
+   "ok": true
+  },
+  {
+   "premise": "questions carry a recommended option",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/insights/INSIGHT_LEAD_2.txt:1-4",
+   "ok": true
+  }
+ ],
+ "premise_spot_checks_count": "20 checked, 20 hold",
+ "corrections": [
+  {
+   "id": "C1",
+   "where": "S7, main_result, plain_summary (\"closing in as 1/R^2\")",
+   "correction": "The 1/R^2 approach belongs to the seat's window placement (about 0.29 outside the corner site, at mid-dumbbell), not to the corner. Centred on the corner site the window is exactly dQ/3 (to 1e-7) from R = 3, with a hand proof. Sharper than reported; no grade changed."
+  },
+  {
+   "id": "C2",
+   "where": "S13, main_result, answer_to_principal, plain_summary (\"only a fine-tuned restacking puts them back at the corners\")",
+   "correction": "The thick-domain corner value also depends on where the stack ends: top = 1/3 + S_r/3 (S_r the partial shift sum). Ending the same period-9 stack after 4 or 8 extra axis layers gives WHOLE corners (0.00097, -0.0021 at R = 40); after 2 or 6, +-2/3. Say \"a fine-tuned restacking, ended at a matching layer\"."
+  },
+  {
+   "id": "C3",
+   "where": "S11",
+   "correction": "Aligned thick corners on diamond Z are -1/12, +1/12 or 0 depending on (cA, t) (the axis-site colour), not -1/12 in general."
+  },
+  {
+   "id": "C4",
+   "where": "S7 stats, kill_condition_met numbers (\"72 of 72\", \"identical on both blocks\")",
+   "correction": "One-layer plates do not see the stacking: diamond vs ABAC (and X vs Z) are the same computation, so 72 = 36 distinct cases counted twice; \"identical on both blocks\" is automatic, not a second confirmation."
+  },
+  {
+   "id": "C5",
+   "where": "plain_summary, answer_to_principal",
+   "correction": "\"plus or minus one third (0.3336 and 0.6672)\": 0.6672 is +2/3 (dQ = 2). Corners are +-1/3 or +-2/3 by case (thirds mod 1). answer_to_principal says \"Checked within one model family only\", but it was unchecked when written; it is now checked once (this file, same family). The plain_summary omits that the pattern itself supplies the three and nothing native forms it."
+  },
+  {
+   "id": "C6",
+   "where": "verdict_for_the_card headline; question recommendation",
+   "correction": "\"A constructive path\" should read \"a construction on a supplied pattern (an input)\": the pattern is not a recorded setting (PD-27; 0278(a) covers early states), and it supplies the three. Option A is not a clear recommendation under 0325; hold it or put it to the principal."
+  }
+ ],
+ "plain_summary_ok": {
+  "ok": "yes, with fixes",
+  "over_claim_found": "mild, wording only: C2, C5 (and C1 understates sharpness). Status claims are correctly hedged: unchecked, one model family, no card moved, supplied pattern and network said."
+ },
+ "checker_recommendation_for_the_board": {
+  "charge thirds": "Keep OPEN. Record as a clue (checked once, one model family): \"On a supplied three-way pattern of written and unwritten sites, a one-layer triangular patch with the pattern shifted by one step has corners of exactly a third or two thirds of a unit, neutral walls and a whole-number total; the aligned patch gives zero. The three comes from the pattern's three-way repeat, which is supplied; nothing in UNT yet forms or keeps such a pattern, the corners cannot move, and in thick patches the thirds run along the edges.\" If the coordinator still weighs PATH EXISTS under 0278(a), the board text must say the pattern supplies the three.",
+  "register": "R109: tested. As stated (one coset per layer) no threefold axis; the zero-difference form gives exact sharp corner thirds in thin sheets only; thick domains carry edge-line thirds; a tuned restack ended at a tuned layer restores corner thirds.",
+  "what_would_clear_it": "A native source of three-way written/unwritten order (cheapest first step as the seat says: count which of the three sublattices unwritten sites occupy on an existing grown or relaxed block, layer by layer), plus a native reason for thin sheets or for a stacking and stack ending, then a write/un-write mover for a corner.",
+  "new_clue": "The corner value is an exact lattice identity: a 60-degree corner of a p-coloured background carries 1/p of the axis-site excess. A sharp third in UNT therefore needs a native three-way background; the Gauss law supplies only the unit."
+ },
+ "not_opened": "No held-out, blind or protected set; no network; no script found on disk was run; nothing written outside this file and the checker scratchpad.",
+ "scratchpad": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_td/",
+ "written_utc": "2026-11-20T10:59:49Z",
+ "writer": "chk_write_v1.py (checker scratchpad)"
+}
