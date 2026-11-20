@@ -1,0 +1,634 @@
+{
+ "seat": "GN",
+ "batch": 22,
+ "checker_host": "Claude2 session subagent, Opus 5.5 max",
+ "model_family_label": "ONE MODEL FAMILY (Opus 5.5, maximum effort). Distinct checker, not the seat author; checked once; no second model family; no card moved; nothing turns green.",
+ "written_utc": "2026-11-20T11:10:47Z",
+ "seat_file": {
+  "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/seats/B22_SEAT_GN_V001.json",
+  "sha256": "8a00b0fff5ef20b668a8df5a5fa3867f2c715b7740ddc6c8ee8a185741cb72ac",
+  "sha256_matches_prompt": true
+ },
+ "read": {
+  "round_brief": {
+   "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/BATCH22_BRIEF_V001.txt",
+   "sha256": "2eeeef54bfe6c8f1891f9fb35b5ae3bd2258a52bab0aa469a7cb6b307ee3107f"
+  },
+  "checker_brief": {
+   "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/checks/CHECKER_BRIEF_B22_V001.txt",
+   "sha256": "fbbfa88f452b2950fa22177569c3e9ca6ba541ba4bb7f8f033ff014ad1192c5e",
+   "seat": "GN"
+  },
+  "spec": {
+   "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch13_matter_v001/chair/CHAIR_B13_V001.json",
+   "sha256": "7790d68b36cb44bddb6e29e4a700d597277bc3ff07fdb771668b0ebd22e2420c",
+   "entry": "ideas.ready_seat_specs seat GN, lines 1591-1631; guards_common_to_every_spec line 1633"
+  },
+  "notices": "claude3/inbox COORDINATOR 0257, 0264, 0265, 0266, 0278, 0281, 0301, 0320, 0322 (status, classification, guards)",
+  "decisions": "claude2/coordination/PRINCIPAL_DECISION_PD*.json: PD-20, PD-27, PD-33, PD-34, PD-35, PD-36, PD-37 read in full; PD-38 to PD-42 read - all postdate the seat (PD-38 00:12Z, PD-39..41 09:50Z, PD-42 10:45Z); none changes this check",
+  "rule_text": "native_full_h.py lines 527-556 and 595-601 read as text only",
+  "seat_scratch": "read as TEXT only: FROZEN_GN.txt, ADDENDUM_GN_1..5.txt, HASHES_GN.txt, big/log_a2_5003.txt, big_v015.err; every listed file hashed; no seat code run"
+ },
+ "verdict": "CONFIRMED_WITH_CORRECTIONS",
+ "verdict_plain": "The seat's numbers reproduce with my own independent code (the polarised patch's profile matches class by class within 1 sigma) and its exact steps hold. Its headline wording over-states: the kill is PARTLY met (as the seat itself registered), not \"met in substance\"; \"responds to the field squared\" follows from the exact symmetry only together with locality and RECALLED Coulomb-phase coarse-graining; S12 over-claims; \"three of six bodies reach the bar\" depends on a normalisation dominated by locked rings.",
+ "spec_check": {
+  "frozen_before_code": "YES. FROZEN_GN.txt mtime 2026-11-19T23:45:44Z, mode 444, sha256 ef20709e...f9e3 matches; first code gn_v001_validate.py 23:48:45Z. Each of the five addenda (mtimes 00:02:12, 00:04:28, 00:06:21, 00:07:20, 00:08:57Z) is later than the result it reacts to (ana_v007 00:00:11, post_v009 00:03:27, four_v011 00:05:33, two_v012 00:06:46, dip_v013 00:07:52Z) and earlier than the code/outputs it covers (gn_v009 00:03:04; ext runs from 00:02:19; gn_v010 00:04:36; gn_v012 00:06:39; gn_v013 00:07:45; gn_v014 00:09:16Z). Frozen text and all five addenda are copied verbatim into the seat. 49/49 listed hashes match the files on disk. Every code version is kept (the seat-writer scripts gn_v016/gn_v017 exist but are unhashed and disclosure 1 says v001-v016: trivial).",
+  "spec_followed": "YES with labelled deviations: hand lemma first; supplied written diamond block (input); equal weights; bodies (a) locked patches (three), (b) R118 pair static and mobile, (c) closed all-on ring; classes 2-12; local slopes; 1/r bound against the near-field-matched value; FA's sampler re-implemented from its description (disclosed). Unlabelled adaptation: body c is an all-on SIX-ring without a carrier, while R115 is a closed written FOUR-ring holding a carrier (diamond has no four-rings).",
+  "grades_justified": "Mostly. S1, S2 (with a wording fix), S3-S6, S8, S10, S11, S13 stand; S7 and S9 need corrections to their wording; S12 is downgraded (over-claim); the card-level \"KILLED in substance\" is downgraded.",
+  "compute": "1295.1 CPU-s, inside the 30-minute guard; registered P9 (20 min) missed and disclosed.",
+  "deviations_labelled": "YES (six listed), plus the two unlabelled items noted (R115 adaptation; the 64,000-site body was a less polarised patch)."
+ },
+ "symmetry_rederivation": {
+  "requested": "Re-derive the exact symmetry argument that the local flip rate responds only to the field squared.",
+  "exact_part": "Let s_l in {0,1} and arrow e_l = 2 s_l - 1 (A->B if on). Two-on at site v <=> sum over the four links at v of e_l = 0 <=> out = in: Gauss's law exactly (S1). Global swap sigma: s -> 1 - s, so e -> -e. (i) two-on is kept (4 - 2 = 2); (ii) ring alternation is kept ((1,0,1,0,1,0) <-> (0,1,0,1,0,1)); (iii) the observable f_h = alt_h x [no locked link on h] depends only on the lock SET; (iv) the equal-weight measure is sigma-invariant; (v) the zero-flux constraint P = sum_l e_l d_l = 0 maps to itself (P -> -P); (vi) sigma maps body B = (lock set, values b) to sigmaB = (same set, 1 - b): every boundary flux, charge and multipole reversed. Hence, exactly, E_B[f_h] = E_sigmaB[f_h] for every ring h: the profile is an EVEN functional of the body's boundary flux J, F[J] = F[-J]. Inside the written two-on sector the native energy block is also swap-even (Delta x on-links, Ud (d - 2)^2 and -lambda_R d x record are constants there; native_full_h.py:535-536, 543, 546); for bodies with off-count sites the swap changes the Delta and lambda_R energies, but only by a constant at fixed charge content, so the conditional profile is unaffected.",
+  "not_exact": "Evenness gives no r-dependence and is NOT by itself \"field squared\". It still allows (a) a zeroth-order inclusion term from the locked region (present with no moments at all), (b) even non-analytic dependence, (c) even cross terms such as charge x dipole, or dipole x quadrupole (r^-7, zero on a spherical-shell average). \"Responds only to the field squared\" needs in addition: locality of f (exact), a coarse-grained Coulomb-phase description in which the outside link field is Gaussian with mean E_J(x) and an inclusion-modified covariance, and analyticity of the local expectation in them (RECALLED, UNVERIFIED). Then delta = b|E_J|^2 + c alpha G(r)^2 + ... : O(Q^2 r^-4) for a charge, O(p^2 r^-6) + O(alpha r^-6) for a neutral body. The seat grades this part PROVED_CONDITIONAL, correctly; its main_result and plain_summary compress it into \"the exact symmetry makes it respond to the field squared\", which over-states.",
+  "where_no_1_over_r_comes_from": "For NEUTRAL matter even a linear local response would fall as r^-3 (Gauss: no monopole), and a spherical-shell (class) average removes the linear dipole term anyway. So the no-1/r result for neutral matter rests on Gauss + locality + coarse-graining; the swap only steepens r^-3 to r^-6. The swap is decisive for CHARGES (no linear Q/r^2 term), so the seat's corollary \"even a charge has no 1/r local clock part\" is right (conditional on the same coarse-graining).",
+  "numeric_support": "Checker's own data, polarised patch: beyond the near field (classes 4-12) a single power p = 5.85 (5.35-6.4), chi2 5.1/7; pure r^-6 + C chi2 5.18/7; r^-3 (a linear response) worse by chi2 50.7 and 1/r by 174.1: the dipole-field-squared r^-6 that S3 predicts. The class-averaged numerics test the r-dependence, not the evenness, which is exact.",
+  "checker_grade": "S1 PROVED and S2 PROVED as exact statements (S2 with the wording fix in C2); \"field squared\" = S3 PROVED_CONDITIONAL (RECALLED coarse-graining)."
+ },
+ "step_checks": [
+  {
+   "id": "S1",
+   "seat_grade": "PROVED",
+   "checker_grade": "PROVED",
+   "note": "Re-derived: A site out-in = 2 on - 4, B site out-in = 4 - 2 on; two-on <=> divergence-free; zero net flux round at-home sites. \"Mean far field starts at the dipole\" is the coarse-grained reading (conditional)."
+  },
+  {
+   "id": "S2",
+   "seat_grade": "PROVED",
+   "checker_grade": "PROVED (wording corrected)",
+   "note": "Exact as re-derived above (measure, sector, lock set and observable all swap-invariant). Correction: what is excluded is any term ODD under reversal of all the body's fluxes together, not \"any term linear in Q or p\": even cross terms (Q x p; p x quadrupole) are allowed."
+  },
+  {
+   "id": "S3",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL",
+   "note": "Right grade. Independent numeric support: the checker measures the polarised patch's tail beyond 4 bonds as r^-6 (p 5.85, 5.35-6.4). Minor recall fix: in the quantum ground state r^-8 applies to the fluctuation term; a static dipole keeps the mean-field-squared r^-6 (RECALLED, UNVERIFIED). Still no 1/r."
+  },
+  {
+   "id": "S4",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL",
+   "note": "Forms are the standard Gaussian-field ones (RECALLED). The two-body pull was NOT measured; every \"no 1/r pull\" statement rests on this conditional step and must say so."
+  },
+  {
+   "id": "S5",
+   "seat_grade": "PROVED",
+   "checker_grade": "PROVED",
+   "note": "Trivially true on a fixed supplied block (an input); R97 recalled and labelled."
+  },
+  {
+   "id": "S6",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (arithmetic corrected)",
+   "note": "n0 reproduced: checker 0.175235 +- 1.0e-05 vs seat 0.175239 +- 6e-06 (z -0.37). Correction: (1/64)(4/3)^6 x 2 = 0.17558, not 0.1753; n0 is 0.20 percent below it, not 0.04 percent."
+  },
+  {
+   "id": "S7",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (wording corrected)",
+   "note": "Registered statements hold for the seat's data. Corrections: (a) slopes that use class 2 of the patches or class 1 of the ring involve rings carrying locked links (geometry, not a field tail); the clean outside slopes are a2's -7.96 (3-4) and -4.44 +- about 0.9 (4-5); checker: 3-4 [-7.6, 0.19], 4-5 [-5.66, 0.76], 5-6 [-7.28, 1.97]. (b) \"gone by 6 bonds\" is a detection limit: with 2.5x the sampling the checker resolves class 6 at -3.38 sigma; the tail continues as about r^-6."
+  },
+  {
+   "id": "S8",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL",
+   "note": "All six bounds recomputed from the seat's own fit table: they match (a1 0.0071, a2 0.0306, a3 0.0039, b1 3.86, b2 0.200, c 0.284). For a2 the checker's independent data give 0.028 (registered form). See C9 on the class-2 normalisation."
+  },
+  {
+   "id": "S9",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (claim narrowed)",
+   "note": "Single power reproduced (checker classes 3-12: p 7.5, 7.35-7.65). The 27.7-bond residual is reproduced in the seat's 1/r + r^-6 + r^-8 + C form (A1 -0.0011693 +- 0.000628, z -1.86) but not with r^-6 alone over classes 4-12 (A1 -0.0001482 +- 0.000528; checker post-result): model-dependent. The 64,000-site run used a LESS polarised patch ([17,1,-3], seat log big/log_a2_5003.txt) than the registered a2 ([20,0,0]); a residual scaling as |P|^2 would be about -0.0012 there, so -0.00007 +- 0.00048 disfavours it at about 2.4 sigma, not \"vanished\" at the -0.0016 level; one run, one seed, not recomputed by the checker."
+  },
+  {
+   "id": "S10",
+   "seat_grade": "REFUTED",
+   "checker_grade": "REFUTED (as a calibration)",
+   "note": "Honest: the charge control resolves nothing beyond r < 1, as r^-4 predicts; no charge tail exists to calibrate against. Not recomputed."
+  },
+  {
+   "id": "S11",
+   "seat_grade": "PROPOSED",
+   "checker_grade": "PROPOSED",
+   "note": "Appropriate grade; the stiffness-tracks-density step is a modelling step (RECALLED)."
+  },
+  {
+   "id": "S12",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROPOSED (downgraded)",
+   "note": "Over-claim: \"Neither reading gives a far clock part\" is not shown. On a fixed block R2 has nothing to measure; R101 bounds only gamma-borne effects; growth-borne changes in the record-event rate near matter (Births, PD-30/PD-31 marks) are untested - they are the seat's own fork (b), the record geometry. Keep only: \"R2 untestable on a fixed block; a gamma-borne R2 far field is excluded by R101\"."
+  },
+  {
+   "id": "S13",
+   "seat_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (input check)",
+   "note": "Rulers of the supplied input block; not recomputed; nothing in the verdict turns on it."
+  }
+ ],
+ "recomputed_numbers": {
+  "what": "OWN CODE (chk_gn_v001/v003): periodic diamond block L = 12 cubic cells (13,824 sites, 27,648 links, 27,648 six-rings, 16 link-disjoint ring colours); equal-weight two-on patterns; zero-flux sector; moves = parallel link-disjoint six-ring flips (prob 1/2) + Barkema-Newman-type short-loop worms on free links (100 per sweep; wrapping loops rejected; stuck walks rejected). Start: random edge-disjoint cycle decomposition with wrapping cycles re-oriented to zero polarisation (seed 1001). Body: the 40 links with both ends within 2.0 bonds of one A site (29 sites) set FULLY +x polarised (on-link polarisation [20,0,0] = the seat's production a2 pattern), then every off-count site repaired by reversing shortest directed paths on free links (8 paths); zero flux kept. No biased preparation. Observable f = alternating x no locked link; classes [k,k+1) bonds, ring centre to patch centre, minimum image. Reference: 1 chain x 40,000 sweeps (seed 7001). Body: 3 chains x 40,000 sweeps after 2,000 equilibration sweeps (seeds 7003, 7013, 7023); 40 batches each.",
+  "validation": {
+   "exact_counts": "8-site block: 90 two-on states, 12 in the zero-flux sector (= the seat's counts); 1x1x2 block: 3618 states, 388 zero-sector, 69 sectors.",
+   "detailed_balance_exact": "All-sector mode vs exact enumeration: 8-site block chi2 99.6/89 (free), 24.6/29 (2 links locked); 1x1x2 block state-level Pearson chi2 3662.5/3617, sector chi2 78.9/68, ring-count chi2 4.5/5, mean alternating rings 4.8160 vs exact 4.8115; 3 links locked chi2 367.8/337 (batch means).",
+   "zero_sector_ergodicity": "L = 2 block: alternating-ring fraction with no-wrap dynamics 0.183359 +- 0.000108 vs all-sector dynamics post-selected on zero flux 0.183350 +- 0.000534 (z 0.02).",
+   "first_attempt_failed": "Disclosed: my first validation (chk_gn_v002, val_v002.json) started from a layered +-x state; it is FROZEN (no flippable six-ring anywhere - shown by hand - and every short loop wraps on tiny blocks), so the no-wrap sampler visited 1 state. Replaced by the cycle-decomposition start and the all-sector exact validation; kept."
+  },
+  "n0": {
+   "checker": 0.17523466435185187,
+   "checker_se": 1.0235181646250892e-05,
+   "seat": 0.175239,
+   "seat_se": 6e-06,
+   "z_diff": -0.37,
+   "reference_class_z": [
+    -0.11,
+    -1.44,
+    0.08,
+    0.96,
+    0.27,
+    -1.81,
+    1.39,
+    -0.73,
+    0.76,
+    -0.83,
+    0.53,
+    -1.8,
+    1.63
+   ],
+   "pauling": 0.175583,
+   "n0_below_pauling_percent": 0.199
+  },
+  "polarised_patch_profile": {
+   "classes": "0..12 bonds",
+   "delta": [
+    -0.175235,
+    -0.175235,
+    -0.0876343,
+    -0.00820012,
+    -0.00127677,
+    -0.000449229,
+    -0.00013531,
+    -5.87049e-05,
+    -7.40162e-05,
+    2.11572e-05,
+    -2.7404e-05,
+    -1.09964e-05,
+    -1.71184e-06
+   ],
+   "delta_se": [
+    1.02e-05,
+    1.02e-05,
+    9.05e-05,
+    7.5e-05,
+    5.83e-05,
+    5.97e-05,
+    4.01e-05,
+    3.81e-05,
+    2.99e-05,
+    3.15e-05,
+    2.45e-05,
+    2.33e-05,
+    2.34e-05
+   ],
+   "z": [
+    -17120.82,
+    -17120.82,
+    -967.95,
+    -109.28,
+    -21.89,
+    -7.53,
+    -3.38,
+    -1.54,
+    -2.47,
+    0.67,
+    -1.12,
+    -0.47,
+    -0.07
+   ],
+   "rbar": [
+    0.9574,
+    1.6684,
+    2.6082,
+    3.6099,
+    4.6114,
+    5.5452,
+    6.5385,
+    7.5569,
+    8.5636,
+    9.5448,
+    10.5355,
+    11.5313,
+    12.5113
+   ],
+   "first_fully_free_class": 3,
+   "seat_registered_a2_delta": [
+    -0.175239,
+    -0.175239,
+    -0.0876507,
+    -0.0083011,
+    -0.00118359,
+    -0.000521817,
+    -0.000152274,
+    -2.41199e-05,
+    -4.24431e-05,
+    -1.97039e-07,
+    -4.24902e-05,
+    2.57159e-06,
+    1.59442e-05
+   ],
+   "z_checker_minus_seat_classes_2_12": [
+    null,
+    null,
+    0.1,
+    0.64,
+    -0.93,
+    0.72,
+    0.23,
+    -0.52,
+    -0.54,
+    null,
+    0.33,
+    -0.28,
+    -0.45
+   ],
+   "chain_consistency_chi2_by_class_dof2": [
+    NaN,
+    NaN,
+    0.81,
+    4.5,
+    1.92,
+    1.6,
+    1.18,
+    1.9,
+    1.06,
+    1.22,
+    1.79,
+    2.85,
+    3.8
+   ],
+   "classes_r_ge_6_beyond_3sigma": [
+    6
+   ],
+   "classes_r_ge_7_beyond_3sigma": []
+  },
+  "fits": {
+   "A1_nf_class2": 0.22856622398260604,
+   "A1_nf_first_free_class3": 0.029601613188,
+   "registered_form_1overr_C_4_12": {
+    "A": -0.0057618,
+    "se": 0.000313,
+    "z": -18.39,
+    "chi2": 179.2,
+    "dof": 7,
+    "upper2s_over_nf": 0.0279
+   },
+   "registered_form_1overr2_C_4_12": {
+    "A": -0.023139,
+    "se": 0.00115,
+    "z": -20.19,
+    "chi2": 109.8,
+    "dof": 7,
+    "upper2s_over_nf": 0.0427
+   },
+   "far_only_1overr_C_7_12": {
+    "A": -0.0012062,
+    "se": 0.000645,
+    "z": -1.87,
+    "chi2": 4.26,
+    "dof": 4,
+    "upper2s_over_nf": 0.0109
+   },
+   "oneoverr_r6_r8_C_3_12": {
+    "A": -0.0011693,
+    "se": 0.000628,
+    "z": -1.86,
+    "chi2": 7.11,
+    "dof": 6,
+    "upper2s_over_nf": 0.0106,
+    "B6": -0.1539,
+    "B8": -195.2
+   },
+   "r6_r8_C_3_12_no_1overr": {
+    "B6": -3.548,
+    "B6_se": 1.22,
+    "B8": -158.9,
+    "B8_se": 15.2,
+    "chi2": 10.57,
+    "dof": 7
+   },
+   "single_power_3_12": {
+    "p_best": 7.5,
+    "p_lo": 7.35,
+    "p_hi": 7.65,
+    "chi2_min": 11.83,
+    "dof": 8,
+    "chi2_at_p1": 6132.9,
+    "chi2_at_p2": 3984.3,
+    "chi2_at_p6": 119.8,
+    "chi2_at_p8": 19.1
+   },
+   "single_power_4_12": {
+    "p_best": 5.85,
+    "p_lo": 5.35,
+    "p_hi": 6.4,
+    "chi2_min": 5.1,
+    "chi2_at": {
+     "1.0": 179.2,
+     "2.0": 109.8,
+     "3.0": 55.8,
+     "4.0": 22.9,
+     "6.0": 5.2,
+     "8.0": 14.8
+    }
+   },
+   "single_power_5_12": {
+    "p_best": 6.6,
+    "p_lo": 5.1,
+    "p_hi": 8.6,
+    "chi2_min": 4.85,
+    "chi2_at": {
+     "1.0": 22.2,
+     "2.0": 16.5,
+     "3.0": 11.6,
+     "4.0": 8.1,
+     "6.0": 5.0,
+     "8.0": 5.4
+    }
+   },
+   "r6_C_4_12": {
+    "B6": -11.14,
+    "B6_se": 0.492,
+    "chi2": 5.18,
+    "dof": 7
+   },
+   "oneoverr_r6_C_4_12_checker_post_result": {
+    "A1": -0.0001482,
+    "A1_se": 0.000528,
+    "z": -0.28,
+    "B6": -10.95,
+    "chi2": 5.1,
+    "dof": 6,
+    "upper2s_over_A1nf_class2": 0.0053,
+    "upper2s_over_A1nf_class3": 0.0407
+   },
+   "gls_batch_covariance": {
+    "registered_form": {
+     "A": -0.0053458,
+     "se": 0.000211,
+     "z": -25.31,
+     "chi2": 291.83,
+     "dof": 7,
+     "upper2s_over_nf": 0.0252
+    },
+    "oneoverr_r6_r8_C_3_12": {
+     "A": -0.001023,
+     "se": 0.000453,
+     "z": -2.26,
+     "chi2": 5.25,
+     "dof": 6,
+     "upper2s_over_nf": 0.0084
+    }
+   },
+   "local_slopes_resolved_value_err": {
+    "2-3": [
+     -7.29,
+     0.03
+    ],
+    "3-4": [
+     -7.6,
+     0.19
+    ],
+    "4-5": [
+     -5.66,
+     0.76
+    ],
+    "5-6": [
+     -7.28,
+     1.97
+    ]
+   }
+  },
+  "headline": "The checker's independent recomputation of the polarised patch reproduces the seat's registered a2 profile class by class (all differences within 1 sigma); the tail is a steep single power (classes 3-12: p 7.5, 7.35-7.65; beyond 4 bonds: p 5.85 = the dipole field squared); 1/r and 1/r^2 shapes rejected by chi2 differences of about 6100 and 4000; the registered 1/r + C fit reproduces the seat's \"significant\" negative A1 (z -18) with chi2 179/7 - a misspecified fit, as the seat said; well-specified fits give A1 consistent with zero (1/r + r^-6 + r^-8 + C: z -1.9; 1/r + r^-6 + C over 4-12: z -0.3), bound 0.5-1.1 percent of the class-2 near field.",
+  "arithmetic_rechecks": "Bounds (|A|+2se)/A_nf for all six bodies recomputed from the seat's table: match. Pauling: 0.17558 (seat wrote 0.1753).",
+  "not_recomputed": "a1, a3, b1, b2, c, d, the all-sector control and the 64,000-site block (budget; the brief's 20-minute limit)."
+ },
+ "kill_condition_check": {
+  "spec_kill": "\"The lemma holds and the numerics confirm a fall faster than 1/r^2 for every neutral body\" (CHAIR_B13:1616).",
+  "registered_outcome_checker": "PARTLY - agreeing with the seat. MET fails: the 0.1 bars are not reached for b1, b2, c. NOT MET is not triggered: the only >3-sigma coefficient (a2, registered 1/r + C, z -12.9; also z -5.2 in the same form on the 64,000-site block) is a misspecified fit, chi2 65.9/7 (checker's independent data: 179/7), whose amplitude depends on the fit window and vanishes in every well-specified form (checker: z -1.9 and -0.3). Fair to discount, but it is a POST-RESULT interpretation of the registered NOT-MET clause and must stay labelled so.",
+  "met_in_substance_fair": "NO, not as worded.",
+  "why": [
+   "The registered result is PARTLY; \"in substance\" upgrades it by leaning on the conditional lemma for exactly the three bodies the numerics cannot decide (b1, b2, c; b1's class-2 near field is not even resolved, so its bar is undefined in practice).",
+   "\"Three of six reach the bar\" holds only under the registered class-2 normalisation, which for the locked patches is dominated by rings carrying locked links (they cannot flip). With the first fully free class (seat disclosure 4) a1 (0.74) and a3 (5.2) do not reach it; only the polarised patch gives a tight relative bound (checker: 0.041 of its class-3 near field, 1/r + r^-6 + C over 4-12).",
+   "In absolute terms every body's 1/r amplitude is below about 0.0010-0.0018 at 2 sigma (seat table; checker a2 0.0012), i.e. at most about 0.1 percent of the flip rate at 10 bonds - a useful bound, but not the registered bar.",
+   "The registered \"no class r >= 6 beyond 3 sigma\" test is a sampling-depth test, not a shape test: with 2.5x the sampling the checker resolves class 6 at -3.4 sigma for the polarised patch while the shape stays r^-6.",
+   "Only the local flip-rate reading (R1) was tested; the two-body pull rests on S4 (not measured); R2 with growth is untested (S12 over-claims); nonlocal string connectivity is untouched; equal weights only."
+  ],
+  "checker_reading": "PARTLY MET. For the local clock reading R1 at equal weights on a supplied block, the link-medium route is STRONGLY DISFAVOURED, not killed: exact Gauss + exact evenness + the conditional field-squared lemma, with the one resolved tail independently recomputed as r^-6 and no 1/r. A full kill needs the bar for b2 and c (about 2-4x the sampling, seat estimate), a resolved near field for b1, and a second larger-block seed with a fully polarised patch.",
+  "kill_as_prominent": "The negative result is real and is stated: no 1/r and no 1/r^2 shape is seen round any neutral body; the one resolvable tail falls as the square of a dipole field."
+ },
+ "card_verdict_check": {
+  "card": "gravity",
+  "seat_verdict": "OPEN; route through today's written link medium \"KILLED in substance\"; fork: a second long-range mode (rule change) or the record geometry.",
+  "status_0257": "OPEN is correct: no constructive path; \"on a supplied 3D block\" (0278 a) and one model family are stated; recalled physics is labelled, not credited.",
+  "downgrades": [
+   "\"KILLED in substance\" -> \"kill PARTLY met; route strongly disfavoured for the local flip-rate reading at equal weights on a supplied block\".",
+   "\"neutral matter gets no one-over-distance pull\" -> add \"(by the conditional lemma S4; the pull was not measured)\".",
+   "\"deficit gone by 6 bonds\" -> \"detectable to about 6-7 bonds at this sampling; the tail continues as about r^-6\"."
+  ],
+  "fork_ok": "The fork (second long-range field as a rule change, or the record geometry) is a fair reading of the spec's kill text; it is reported, not chosen."
+ },
+ "classification_check": {
+  "ok": [
+   "supplied block = INPUT (0278 a), said",
+   "PD-27 written state, PD-34 charges = principal decisions",
+   "PD-35/PD-37 = coordinator under delegation, labelled",
+   "equal weights, zero-flux sector, bodies, partner region, biased preparation = modelling steps",
+   "multipole/fluctuation/Casimir/spin-1 forms = RECALLED, UNVERIFIED",
+   "link-wave stiffness = modelling step + RECALLED",
+   "no rule change introduced; no principal definition chosen (R1 used as the spec's reading, R2 stated, not chosen)",
+   "principal question: one question, options, a recommendation"
+  ],
+  "issues": [
+   "body c is an adaptation of R115 (four-ring with a carrier) - label it",
+   "the 64,000-site body differs from the registered a2 (polarisation [17,1,-3]) - label it",
+   "the question's \"the link medium is now ruled out by an exact symmetry plus numerics\" over-claims (see C12)"
+  ]
+ },
+ "premise_spot_checks": [
+  {
+   "premise": "CHAIR_B13_V001.json:1593 seat GN, :1616 what_kills_it, :1633 guards",
+   "result": "OK"
+  },
+  {
+   "premise": "BATCH22_BRIEF_V001.txt:63 seat line, :37 and :72-74 METHOD, :52-53 open charge question; sha256 2eeeef54...107f",
+   "result": "OK"
+  },
+  {
+   "premise": "native_full_h.py :536 Delta per on-link (value at :535), :543 Ud (d - dstar)^2, :546 -lambda_R d records, :600-601 incidence_flip amplitude -h",
+   "result": "OK (text); \"the six-ring exchange is its sixth-order product\" is an inference, not text"
+  },
+  {
+   "premise": "PD-27 record (two on-links and a record at every site)",
+   "result": "OK"
+  },
+  {
+   "premise": "PD-20, PD-33, PD-34 (23:33:40Z, before the freeze), PD-35/PD-37 (coordinator under delegation, 23:37:44Z)",
+   "result": "OK"
+  },
+  {
+   "premise": "PUZZLE_V002.txt :286 P-52 G, :288 P-54 eta 1e-15, :289 P-55 Yukawa above 38.6 um and GW speed",
+   "result": "OK"
+  },
+  {
+   "premise": "PUZZLE_V002.txt :664 HZ-20 ONE FLUX",
+   "result": "OK in substance: the line concerns one edge field being both free mediator and confining field (a second sector needs a second flux); the seat's \"the only long-range field is the link field with Gauss's law at every site\" is a fair extension, Gauss coming from the two-on rule"
+  },
+  {
+   "premise": "batch13 checks/HELPER_RETURN_CHECK_IGR_V001.txt: gamma cannot carry the far field; reach about 2e8 m in the Sun's lifetime",
+   "result": "OK"
+  },
+  {
+   "premise": "batch13 seats/HELPER_RETURN_FA_V001.txt: Gamma = 0.245 field response",
+   "result": "OK (line 16: drop of the alternating-ring fraction in a uniform field - an independent sign of the second-order field response)"
+  },
+  {
+   "premise": "CHAIR_B13 register_additions R118 and R115",
+   "result": "R118 OK (charges taken per PD-34, an adaptation, stated); R115 PARTLY: it is a closed written FOUR-ring holding a carrier, body c is an all-on six-ring without a carrier"
+  },
+  {
+   "premise": "CHAIR_B13 cards[gravity].what_would_clear_it = \"Spec GN decides the fork\"",
+   "result": "OK"
+  },
+  {
+   "premise": "SCOREBOARD_CURRENT.json gravity row open",
+   "result": "OK (re-read; file as of 2026-11-20T00:13:56Z, still open)"
+  },
+  {
+   "premise": "seat scratch: frozen + 5 addenda verbatim, 49/49 hashes, 64,000-site body log",
+   "result": "OK; the log shows patch polarisation [17,1,-3] for the larger block (not stated in S9 or main_result)"
+  }
+ ],
+ "corrections": [
+  "C1 (arithmetic, minor) S6 / INSIGHT_GN_2: (1/64)(4/3)^6 x 2 = 0.17558, not 0.1753; n0 is 0.20 percent below it, not 0.04 percent.",
+  "C2 (wording) S2: excluded is any term ODD under reversal of all the body's fluxes together; even cross terms (charge x dipole, dipole x quadrupole) are allowed.",
+  "C3 (over-claim) main_result, plain_summary, question: \"an exact symmetry makes the local flip rate respond to the field squared\" -> \"an exact symmetry makes it EVEN in the field; with locality and the RECALLED Coulomb-phase coarse-graining it responds to the field squared\". For neutral matter the no-1/r rests mainly on Gauss + locality + coarse-graining.",
+  "C4 (S7 slopes) slopes using class 2 of the patches or class 1 of the ring include rings carrying locked links; the clean outside slopes are a2 3-4 (-7.96) and 4-5 (-4.44 +- about 0.9); checker -7.60 +- 0.19, -5.66 +- 0.76, -7.28 +- 1.97 (5-6).",
+  "C5 (detection limit) \"changed only within about 6 bonds / gone by 6 bonds\" is a sampling limit: the checker resolves class 6 at -3.4 sigma; the tail continues as about r^-6.",
+  "C6 (S9 size control) the 64,000-site body was less polarised ([17,1,-3] vs [20,0,0]); a |P|^2-scaled residual would be about -0.0012 there; -0.00007 +- 0.00048 disfavours it at about 2.4 sigma; one run, one seed. \"VANISHED\" -> \"not seen on one larger-block run\". The checker reproduces the 27.7-bond residual only in the 1/r + r^-6 + r^-8 + C form (z -1.9), not with r^-6 over 4-12 (z -0.3): model-dependent.",
+  "C7 (S12, downgraded to PROPOSED) \"Neither reading gives a far clock part\" is not shown: R2 with growth (Births, PD-30/PD-31 marks) is untested and is the seat's own fork (b); R101 excludes only gamma-borne R2 effects.",
+  "C8 (card wording) \"KILLED in substance\" -> \"kill PARTLY met; strongly disfavoured for the local flip-rate reading\"; \"no one-over-distance pull\" -> \"(by the conditional lemma S4; not measured)\".",
+  "C9 (normalisation) \"three of six bodies reach the strict bar\" holds only under the class-2 normalisation, dominated for the locked patches by rings with locked links; with the first fully free class a1 (0.74) and a3 (5.2) fail (seat disclosure 4). Say so beside the headline; quote the absolute bounds (|A1| below about 0.0010-0.0018 at 2 sigma for all six bodies).",
+  "C10 (recall, minor) S3 / open question 2: in the quantum ground state the r^-8 is the fluctuation term; a static dipole keeps r^-6 (RECALLED, UNVERIFIED). Still no 1/r.",
+  "C11 (labels) body c is a six-ring adaptation of R115 (a four-ring holding a carrier); disclosure 1 omits gn_v017_write_seat.py (trivial).",
+  "C12 (question for the principal) \"the link medium is now ruled out by an exact symmetry plus numerics\" -> \"strongly disfavoured by an exact symmetry, a conditional lemma and numerics (one body decisive; the bar met for three of six under the registered normalisation)\"."
+ ],
+ "plain_summary_ok": false,
+ "plain_summary_note": "Over-claims C3 (\"an exact symmetry makes the local flip rate respond to the field squared\") and C8 (\"met in substance\"). Otherwise accurate: supplied block, one model family, three of six bodies at the bar, post-result items labelled.",
+ "answer_to_principal_note": "Mostly fair and hedged (\"looks like no\", \"probably\"; three of six stated). Two small over-claims: it reads as if the pull itself were tested (only the local flip rate was; the pull is the lemma), and \"changes only within about six links\" is a detection limit.",
+ "checker_recommendation_for_the_board": "Keep gravity OPEN. Missing-step line (one model family; checked once by a distinct same-family checker who recomputed the polarised patch independently): \"On a supplied 3D block at equal weights, the local ring-flip rate round neutral matter falls off as the square of a dipole field (about the sixth power of distance; recomputed independently) and shows no one-over-distance part - within a few percent of the near field for the one body whose tail is resolved, and below about 0.1 percent of the rate at 10 bonds for all six bodies. So today's written link medium gives no one-over-distance clock part through local rates; the two-body pull rests on a conditional lemma; the record-event-rate reading with growth is untested.\" Label: kill PARTLY met; route strongly disfavoured, not killed. What would clear it (0322): the record-geometry test the seat names (growth under PD-17/PD-30/PD-31 - do event counts and path lengths round matter vary as 1/r, set up at the link wave's speed, by both rulers?), or a principal decision on a second long-range field. Cheap extras: 2-4x sampling for b2 and c; a second 64,000-site seed with a fully polarised patch.",
+ "checker_frozen": {
+  "path": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b22_gn/FROZEN_CHK_GN.txt",
+  "sha256": "9aac746066fe04985fa14bad0724de97784ac830718deadc55bf263e1add1f87",
+  "written_utc": "2026-11-20T10:48:30Z (before any checker code)",
+  "mode": "444"
+ },
+ "checker_predictions_scored": {
+  "V1": "MISS as first run (the layered start is frozen and short no-wrap loops are non-ergodic on 8- and 16-site tori: 1 state visited); after the fix HIT: 90 states (12 zero-sector), all-sector sampler uniform (chi2 values above).",
+  "N1": "HIT: n0 0.175235 +- 1.0e-05 vs seat 0.175239 (z -0.37); Pauling 0.17558 confirmed (gap 0.20 percent).",
+  "B1": "HIT for all four bands: class 2 -0.0876343, class 3 -0.00820012, class 4 -0.00127677, class 5 -0.000449229.",
+  "B2": "HIT: no class r >= 7 beyond 3 sigma (class 6 at -3.38 sigma, class 8 at -2.47).",
+  "B3": "HIT: p 7.5 (7.35-7.65); chi2 at p=1 6132.9, p=2 3984.3 against 11.83.",
+  "B4": "HIT: registered form A1 -0.0057618 +- 0.000313 (z -18.39), chi2 179.2/7.",
+  "B5": "HIT: A1 -0.0011693 +- 0.000628 (z -1.86); bound 0.0106 of A1_nf (< 0.03).",
+  "kill_on_the_seat": "NOT triggered: no resolved deficit at r >= 8 bonds; no acceptable fit with |A1| > 0.1 A1_nf at > 3 sigma."
+ },
+ "checker_compute": {
+  "cpu_seconds_approx": {
+   "v002_validate_failed": 30.9,
+   "v003_validate": 17.6,
+   "v004_validate2": 23.3,
+   "smoke": 1.2,
+   "zero_sector_crosscheck_L2": 11.8,
+   "production_4_chains": 754.6,
+   "analysis_v005_v006": 0.8,
+   "probes_and_one_liners": 3.0,
+   "total": 843.2
+  },
+  "guard": "<= 20 CPU-min (brief); used about 14.1",
+  "seeds": {
+   "start": 1001,
+   "ref": 7001,
+   "a2": [
+    7003,
+    7013,
+    7023
+   ],
+   "validation": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    21,
+    22,
+    23,
+    24,
+    31,
+    41
+   ]
+  },
+  "sizes": {
+   "L12": {
+    "sites": 13824,
+    "links": 27648,
+    "rings": 27648,
+    "sweeps_per_chain": 40000,
+    "eq_sweeps": {
+     "ref": 1000,
+     "a2": 2000
+    },
+    "batches": 40,
+    "loops_per_sweep": 100
+   },
+   "validation": [
+    "8-site block",
+    "1x1x2 block (16 sites)",
+    "L=2 (64 sites)"
+   ]
+  },
+  "diagonalisation": "none",
+  "network": "none",
+  "target_core_adapter": "none"
+ },
+ "checker_files_sha256": {
+  "FROZEN_CHK_GN.txt": "9aac746066fe04985fa14bad0724de97784ac830718deadc55bf263e1add1f87",
+  "chk_gn_v001.py": "05be87db13b55d1a5a7f40562cef03421f61f67d507c260dfbfacf20c283e5f7",
+  "chk_gn_v002_validate.py": "0e016285fe2055110ecda4bdbef93f827fee25cd3e898d5d6ed5676da9ce3afc",
+  "chk_gn_v003.py": "02ce9895bd62dd330107e6425ffaa17446cfcb9252745c7d54eb4a89b6666ba3",
+  "chk_gn_v004_validate2.py": "735c9f3150cdefbfd2e8e52273260ef2cc5f06d48cb479c5ff8e570a8a98d81f",
+  "chk_gn_v005_analyse.py": "adc89e496c70e46a1513e5171a6373d86fe3def9de272d114b39da33a9b2cc67",
+  "chk_gn_v006_tail.py": "21abf722550686d2017e536d196de3b21ad131f8a6447fefc35a311427848efa",
+  "chk_gn_v007_write_check.py": "e98300566b11555cf3998dd9da95c8b914e5e80cf6563083fa410b68b28fdf47",
+  "val_v002.json": "5076654c66966c06255fe58d8be32c7189bb5c96bd4b68f976b0d3c0f9e477da",
+  "val_v003.json": "b48797affc1b2464be15306189b84b6a6850a68752cdc62832f3be81c803c6a5",
+  "val_v004.json": "8cb10004bf8ae7cf171fb75e9ef05f23d1eee2837155283f6381386c63d42c44",
+  "zcross_v003_L2.json": "acab31cfc11d769cd7a2b56b80ddfc61853d14617603000865cd12b64c73c85e",
+  "ana_v005_L12.json": "236906568f2ef8d8c1b370019296351bfe3ab3e84165cf8d6d3511a84ee8ee0d",
+  "tail_v006.json": "55d985d7d811950f1ea61fca5e01b48049f905eaffb26884308ea2db9da52465",
+  "prod/chk_L12_ref_s7001.npz": "fc8ef0e117eca7ec3383b602087f5be8575b2732bec43382312fc39f05c7f26a",
+  "prod/chk_L12_a2_s7003.npz": "3278b100ccba4d9ab93175737c0b4db6426114afcc00262600f298a8cf11c09f",
+  "prod/chk_L12_a2_s7013.npz": "9fb112bee70daf9e3120096d2ddcb905c15518d0e484a0c5bc89e79bd2c3123a",
+  "prod/chk_L12_a2_s7023.npz": "fb439463f199e9a5a8d52d702c3aedcc43c962b3a5b13b835b38eb6ab944bea8",
+  "prod/log_ref_7001.txt": "536df7852d8173958125e246bfba85efea754d9d954de703df94aba77ed07314",
+  "prod/log_a2_7003.txt": "9ccfbf9c9ae56cd2cc3e79125eb129379d79adf5e9ea4cf3dfc63b707b25a70c",
+  "prod/log_a2_7013.txt": "bc92a52712cf4c5ae0efff1143cb3ee738b1d2cc21b3b206dfa9d2715dbd7263",
+  "prod/log_a2_7023.txt": "d639db313666c2ff846f793bebbd165405c1eb4e307cd142c7e1fb890396255f"
+ },
+ "disclosures": [
+  "numpy 2.0.2 imported from the user site path appended inside my own scripts under python3 -I (same tooling as the seat).",
+  "Every script run is my own and kept (v001-v007); no script found on disk was run; the seat's code was only hashed.",
+  "Wrote only my scratchpad and this output file; nothing in claude3/ was written; no held-out, blind or protected set was opened; no network.",
+  "Recalled physics in this check (Coulomb-phase coarse-graining, Barkema-Newman loop moves, quantum-ground-state forms) is RECALLED, UNVERIFIED; the loop moves were validated exactly here.",
+  "All three body chains share one start state (seed 1001) and one deterministic insertion; chains differ by seed after 2,000 equilibration sweeps (chain-consistency chi2 by class above)."
+ ]
+}

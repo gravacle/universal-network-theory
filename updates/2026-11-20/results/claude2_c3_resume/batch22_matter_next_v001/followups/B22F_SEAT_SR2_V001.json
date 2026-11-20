@@ -1,0 +1,343 @@
+{
+ "seat": "SR2",
+ "batch": "batch 22 follow-up (the SR correction turned into a test)",
+ "title": "DOES THE SIGN-MADE DOUBLING SURVIVE ON A FAITHFUL BLOCK, AND DOES IT TRAVEL WITH THE BOUND PAIR?",
+ "model_family_label": "ONE MODEL FAMILY (Claude lineage, Opus 5.5 at maximum effort). Unchecked. Nothing turns green; this seat moves no card.",
+ "written_utc": "2026-11-20T12:51:39Z",
+ "stance_line": "\"We know that the universe exists - we just have to figure out how this unifies all those terms.\" The solution is out there; we just need to find it. Negative results are reported as prominently as positive ones.",
+ "frozen_expectations": "FROZEN_SR2.txt - batch-22 follow-up seat SR2 (DOES THE SIGN-MADE DOUBLING SURVIVE ON A FAITHFUL BLOCK, AND DOES IT TRAVEL WITH THE BOUND PAIR?)\nWritten 2026-11-20T12:22Z (date -u 12:22:23Z just before writing), BEFORE any code of this seat exists or runs (scratch folder b22_sr2 empty). ONE MODEL FAMILY\n(Claude lineage, Opus 5.5 max). Nothing turns green.\nSpec: claude2/work/c3_resume_v001/batch22_matter_next_v001/chair/CHAIR_B22_V001.json (sha256 5aada001...7e0c99 verified), ready_seat_specs rank 2 \"SR2\".\nRead before freezing: the spec in full; the SR seat claude3/.../seats/B22_SEAT_SR_V001.json (sha256 882fecb1...e18c: fields to prediction_scorecard); the SR check\nclaude2/.../checks/B22_CHECK_SR_V001.json (sha256 00f733d7...f993, whole); PD-53; chair fields seats_and_checks (SR), cards, ideas (register B22-04/05),\nquestions, card_recommendations; BATCH22_BRIEF (sha256 2eeeef54...107f); rule text native_full_h.py l.360-660 AS TEXT; B13 SP seat steps, frozen text, inputs;\nPUZZLE_V002 l.316-320, 455-475; CURRENT_INSTRUCTIONS.md head. No script on disk opened or run. Nothing held-out/blind/protected opened.\nSTAND-IN VALUES (on file, never UNT's; modelling step): Ud=1, dstar=1, Delta=3/10, eps_r=3, lambda_R=2, lambda_J=1/10, eps_c=1/5, g=3/250, h=3/200, t=1/50; kappa=0.\nSIGN CONVENTION (the SR bug): every move enters with the amplitude its own path sum gives. Native basis: flips -h (no phase), so a ring trade is NEGATIVE (-J4);\nthe ferry is -|A| s1 s2. chi gauge (chi = product of s over ON links): ferry -|A|, trade -J4 sigma_f (sigma = -1 squares, +1 hexagons) = +J4 on squares (signed).\n\nHAND RESULTS STATED BEFORE CODE (to be verified):\nH1 (faithful-net crystal; PROVED by hand) On the sodalite net every link lies on exactly one geometric square; the squares split into two classes P (\"two coords\n   0 mod 4, one 2\") and Q (\"one 0, two 2\"); each site lies on one P and one Q square; the square-sharing graph is the face-edge incidence graph of a cubic lattice\n   (bipartite). With square trades only, the background's BO energy is -sum of J4 over flippable squares, maximised by a perfect square crystal: all P or all Q\n   flippable (two crystals, swapped by the bcc translation and by the S4 elements of a site group). Counting argument (c = f on P, 1-f on Q is constant across\n   every singly covered site): |F| = N/4 + (n2 - n0)/4, n2 = doubly covered sites (only record/partner), n0 = sites covered by no flippable square.\nH2 (pinned partner p, no contact, faithful 96-site block) |F| <= 23 (24 only at contact). |F| = 23 only for a single vacancy s in the crystal X with three extra\n   links. BO ground (record on exactly one flippable square, the record-ring bonus J4_rec - J4_b = 89.71 |A|): 20 classes, ALL at record-partner distance 3,\n   NONE at distance 1: (X,q,b,v) 16 [q = a neighbour of p across p's non-X square, s = X-square of q, b one of the two B corners of s, v one of the two off-s\n   neighbours of b] and (X,f_p,v) 4 [s = p's own X-square]. The stand-ins' \"4 at distance 1\" are wrapping artefacts.\nH3 (first and second order) First-order ferries pair v <-> v' round b inside each class family (10 pairs, levels -1 and +1 |A|), identical signed and unsigned\n   (they touch no flippable square). Second order: the record entering the vacancy at its far corner a' (+89.71) couples all four states of a (X,q) family:\n   -4|A|^2/89.71 = -0.0446 |A| on the symmetric state. So the lowest level is about -1.0446 |A| below the BO energy, one per (X,q) family; (X,f_p) families higher.\nH4 (symmetry) Site group of p on the faithful block = D2d (8, non-abelian; irreps A1 A2 B1 B2 E). The four (X,q) families map one-to-one onto p's four\n   neighbours (X = crystal, q = neighbour); the induced representation is the permutation representation on p's neighbours = A1 + B2 + E (characters 4,0,0,0,2 on\n   E,2S4,C2,2C2',2sigma_d). The crystal label X cannot change at any finite order of local moves, and q changes only by rearranging p's own links (ferries never\n   touch p's links; a single six-ring trade cannot move p's extra link). So the lowest level is 4-fold (A1+B2+E) through second order in BOTH signed and unsigned,\n   and every level is at least 2-fold (X copies). The signs can only decide, at high order, how A1+B2 and E are split (unsigned: A1+B2 lowest by Perron-Frobenius\n   within each crystal). => On a faithful block the doubling is NOT sign-made; the stand-in \"sign-made pair\" is the finite-size tunnelling pattern of this manifold.\nH5 (derive 2, partner moves; from the rule text) The partner (written, no carrier) cannot move by itself: Bind needs a carrier on the site (l.614-618), and the only\n   carrier is the record's. Its native moves are CARRIER EXCHANGES with the record: (i) at contact (link ON): first-order hop -t s (outside the no-contact model);\n   (ii) at distance 1, link OFF: flip-hop-flip through the virtual contact link, T3 = -h^2 t s/((2.4)(2.4)) = 1/1280000 = 18877.6 |A| (larger than J4);\n   (iii) at distance 3: fifth order (2 flips, 3 hops; intermediates with the carrier on blank sites at -0.1 make it large): my hand sum -752 |A| x path sign.\n   The joint move = exchange, then the ferry of the new carrier-bearer. On the faithful net every distance-1-preserving ferry keeps the pair on the one square that\n   holds its link (any 4-cycle is a geometric square), so the distance-1 pair rotates in its square but does not translate at first order.\nH6 (turn) Every dressed operation of these models is a plain permutation in the chi gauge (beta) -> full turn +1; with one carrier and its spent cell counted the\n   whole-state turn is c^(Nc+Ns) = c^2 = +1. Not spin.\n\nNUMERICAL PREDICTIONS (probabilities mine):\nV0 (validation, 12 sites, own code, trades negative): reproduce beta 176/36/36; signed 176 exact pair (two pairs within 1e-15, next +0.0441); unsigned split\n   2.2906e-8; alpha single (signed 1.396e-8 / 5.973e-9, unsigned 7.967e-8); beta+six 2.0729e-2 / 2.0730e-2; ground energies -6609.730586 / -6609.731183 [0.85].\n   |A| = 22577/545531250000000, J4 blank 3259.488, record 3349.198, J6 2.4131 / 2.4896 |A| reproduced exactly [0.9].\nA  (24 sites, beta, no six-ring trades, partner orbit 1, main sector): signed lowest level an exact pair (2D irrep of the 256-element stabilizer) [0.55];\n   unsigned lowest single (theorem) with a float-resolved split of order 1e-12 [0.5]; the 4 lowest levels lie within 1e-7 in both [0.8].\nB  (faithful 96 block): B1 BO ground = 20 classes, all distance 3 [0.65]; p's site group = D2d (8) [0.85]; B2 first order: 10 pairs at -1/+1, signed = unsigned\n   [0.6]; B3 lowest level at second order exactly 4-fold A1+B2+E in signed AND unsigned, with and without six-ring trades [0.45]; at least 2-fold in both [0.75];\n   lowest level -1.0446 +- 0.002 |A| (relative to the BO energy) [0.6]; B4 sign-made doubling (signed degenerate, unsigned single) [0.07]; B5 the kill as worded\n   (single in both with six-ring trades) [0.08]; B6 six-ring trades connect ground classes at first order [0.3] and split the lowest level [0.1]; B7 the symmetric\n   sixth-order J4 scan (0.2-1 |A|) never makes the lowest level single [0.7]. Validation of the effective model: reproduces the 12- and 24-site exact lowest-manifold\n   levels to 1e-3 |A| [0.7] (it cannot reproduce tunnelling splits).\nC  (partner unpinned, 12 and 24 sites, no contact, exchanges T3, T5 + ferries + trades): C1 T3 = 18877.6 |A| exact [0.9]; |T5| per path in 300-1500 |A| [0.55];\n   C2 a native joint move exists [0.95]; C3 the lowest states are distance-1 pairs sharing the carrier [0.8]; C4 lowest-band width < 0.01 |A| on both stand-ins\n   [0.5], and no first-order translation on the faithful net (hand) [0.8]; C5 a doubling at every momentum [0.1]; C6 full turn +1 with spent cells counted [0.97].\n\nTHE SPEC'S KILL CONDITIONS (verbatim): \"(b) the lowest level is single on the faithful block once six-ring trades are in (signed as unsigned): the corrected pair is\nan artefact of the 12-site block and the ring-trade route to a doubled level for the charged record is closed at stand-ins. (c) no native joint move at the\nferry's order: the bound pair cannot carry anything.\"\nHOW I SCORE THEM: SIGN-MADE = degenerate in the signed model where the unsigned control (same block, moves, amplitudes) is single. DEGENERATE = levels equal to\n1e-9 |A| in the effective model, or a 2D irrep. Kill (b) MET = lowest level single in signed and unsigned with six-ring trades. \"NOT MET, NOT SIGN-MADE\" = the\nlowest level is degenerate in both with the same degeneracy (the doubling survives but is sign-blind: the sign-made claim dies). \"NOT MET, SIGN-MADE\" = signed\ndegenerate, unsigned single. Kill (c) MET = no native joint move translates the bound pair at the ferry's order (lowest-band width < 1e-3 |A| and no first-order\ninter-cell move). NOT MET = a lowest band of width >= 0.01 |A| for the bound pair.\nCHAIR'S PROBABILITIES (unchecked): 24-site pair exact 0.6; doubling survives faithful+six 0.15; pair moves and keeps a doubling 0.07; spin PATH EXISTS 0.03.\nMINE: kill (b) met 0.08; (b) \"not met, not sign-made\" 0.7; (b) sign-made survives 0.07; kill (c) met on the faithful net 0.7, on the stand-ins 0.5; pair moves\nwith a band >= 0.01 |A| and keeps a doubling at every momentum 0.04; spin weighed for PATH EXISTS 0.01.\nGUARDS: python3 -I; own code only; every code version kept (never overwrite a script that has run); no network; exact diagonalisation <= 256 states per block\n(larger only by an iterative method validated first on <= 256 states); <= 30 min compute in all; sha256 of every script; seeds stated; nothing blind, held-out\nor protected opened; no write outside this scratch folder and the one seat file; nothing written into claude1/ or claude3/; no target, core or adapter code.\n",
+ "frozen_file": {
+  "path": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/FROZEN_SR2.txt",
+  "sha256": "98be0b005c574c25d3f63eedef95e8b81122a8b4789eabadc8427fbf78a6f5c1",
+  "written_utc": "2026-11-20T12:22:23Z (date -u just before writing); chmod 444 confirmed 12:23:07Z; scratch folder held no code then",
+  "first_code_run_utc": "2026-11-20T12:28:43Z (test_v1.py)"
+ },
+ "spec_source": {
+  "path": "/Users/bgm/Research/Universal Network Theory/claude2/work/c3_resume_v001/batch22_matter_next_v001/chair/CHAIR_B22_V001.json",
+  "sha256_verified": "5aada0010d20849191f413aaf0ca62bb000c0073ccc6948838a87e68db7e0c99",
+  "entry": "ready_seat_specs rank 2, seat SR2 (file lines 941-978)"
+ },
+ "premises": [
+  {
+   "premise": "Spec SR2: derive 1 and 2, compute (0) validation first, (a) 24-site pair, (b) faithful 96-site block with four- and six-ring trades and the symmetric sixth-order J4 scan, (c) partner unpinned; kill text; ingredient classes; chair probabilities.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude2/work/c3_resume_v001/batch22_matter_next_v001/chair/CHAIR_B22_V001.json:941-978 (derive 947-948; compute (0) 951; kill 962; ingredients 964-970; chair probabilities 973-978)"
+  },
+  {
+   "premise": "The corrected SR result: trades must be NEGATIVE amplitudes; with the right sign the 12-site squares-only signed sector has an exact pair, unsigned single 2.29e-8; all-four-cycle single; six-ring trades split 2.07e-2; protecting group 64 (56 block-only), geometric part 8; top next tests = this spec.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude2/work/c3_resume_v001/batch22_matter_next_v001/checks/B22_CHECK_SR_V001.json:8-9, 41-49, 51-54, 61-69, 131, 145-149"
+  },
+  {
+   "premise": "Joint record-plus-background model (record + carrier on A site, written partner pinned on B, at-home background, no contact), ferry -|A| s1 s2, ring trades by context; gauge identity; binding beside the partner.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch22_matter_next_v001/seats/B22_SEAT_SR_V001.json:44 (frozen model text), 101-112 (S1, S2), 143-148 (S8), 161-166 (S11)"
+  },
+  {
+   "premise": "PD-53: the exchange sign is treated as one gap with spin, shells and exclusion; no rule change assumed (none used here).",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude2/coordination/PRINCIPAL_DECISION_PD53_EXCHANGE_SIGN_ONE_EXACT_TEST_FIRST_V001.json:4"
+  },
+  {
+   "premise": "Ledger terms Ud (d-dstar)^2, eps_c c, eps_r q, -lambda_R d q, lambda_J d c (cells off); Delta per ON link.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/outputs/codex3_native_full_h_action_20261106_v001/native_full_h.py:533-547"
+  },
+  {
+   "premise": "Flip: any link, -h, no phase.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/outputs/codex3_native_full_h_action_20261106_v001/native_full_h.py:595-601"
+  },
+  {
+   "premise": "Hop: only on an ON link, carriers differ at the ends, -t times the link phase.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/outputs/codex3_native_full_h_action_20261106_v001/native_full_h.py:602-611"
+  },
+  {
+   "premise": "Bind toggles the record bit only at a site that holds a carrier (so a written site without a carrier cannot move by itself).",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/outputs/codex3_native_full_h_action_20261106_v001/native_full_h.py:612-618"
+  },
+  {
+   "premise": "Admission/release change a carrier and its cell together (frozen here, kappa = 0); carriers = spent cells.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/outputs/codex3_native_full_h_action_20261106_v001/native_full_h.py:619-630, 382-383"
+  },
+  {
+   "premise": "Whole-state turn U'^2 = c^(carriers + spent cells); centre rule (site or link on the axis gives +1); ferry -|A| s1 s2 (10 orderings).",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch13_matter_v001/seats/B13_SEAT_SP_V001.json:112-121 (S1, S2), 148-151 (S7)"
+  },
+  {
+   "premise": "Carrier exchange +1 (T-03); the exact object spin needs, region-free (T-118); what cannot supply the -1 (T-120).",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude1/work/lens_register/puzzle/cycle2/PUZZLE_V002.txt:318, 461-470"
+  },
+  {
+   "premise": "Board rows: fermion sign and exclusion (path exists), spin-1/2 (open), shells of 2n^2 (open), a persistent atom-like composite (open).",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude3/work/scoreboard/SCOREBOARD_CURRENT.json:32, 52, 70, 209"
+  },
+  {
+   "premise": "Chair register B22-04 (sign-made doubled level on the 12-site block, spec SR2) and B22-05 (binding within three links); card recommendations for spin, shells, composite, fermion.",
+   "path_line": "/Users/bgm/Research/Universal Network Theory/claude2/work/c3_resume_v001/batch22_matter_next_v001/chair/CHAIR_B22_V001.json:759-781, 1097-1135"
+  }
+ ],
+ "method": {
+  "code": "own pure-Python code (no numpy available), python3 -I, every version kept; exact Fractions for every amplitude; float64 elsewhere; Householder + implicit QL dense solver (self-test residual <= 1.3e-14).",
+  "blocks": "12-site (1x1x1 cubic cell) and 24-site (2x1x1) sodalite tori: stand-ins, NOT faithful (24 and 32 wrapping four-cycles); 96-site 2x2x2 torus: faithful census (192 links, 48 four-cycles = the 48 geometric squares, 64 six-cycles = the 64 geometric hexagons, face rank 94), so the two face readings coincide there.",
+  "signs": "landed signs solved over GF(2) (minus round every geometric square, plus round every hexagon; 8 wrapping classes). Native basis: flips carry no phase, so every ring trade is its own NEGATIVE path sum (-J4); ferries -|A| s1 s2. chi gauge: ferries -|A|, square trades -J4 x (-1) = +J4 (signed) or -J4 (unsigned control).",
+  "BO_engine": "reading beta and the faithful block: every link lies on exactly one square, so a trade cluster is a product of independent two-state squares. Basis = cluster eigenstates (class + excited-square set). All-orders Brillouin-Wigner resolvent H_eff(E) on the BO ground manifold (precision about 1e-15 |A|), and an exact second-order H_eff (every intermediate: BO-excited classes and internally excited squares).",
+  "part_a": "24-site, beta, no six-ring trades, partner orbits 1 and 2 (stabilizers 256, 512 among 4096 square-preserving automorphisms): all-orders resolvent on the main sector (13952 / 15232 states); exactness decided by the stabilizer representation on the lowest eigenspace (sum |chi|^2/|G| = 1 means irreducible).",
+  "part_b": "96-site faithful block: complete enumeration of every at-home configuration with at least 23 flippable squares (crystal X minus one square, or minus two plus one non-X square; complete by the counting identity of the frozen file H1/H2); exact second-order H_eff on the 20 ground classes, four-only and four-plus-six side by side, signed and unsigned; D2d characters from the 8 stabilizer elements; symmetric sixth-order J4 scan (84 runs: +-0.2, 0.5, 1 |A| on record rings, partner rings, rings next to either; 6 random tables over (distance to record, distance to partner), seed 2311).",
+  "part_c": "partner unpinned on the 12- and 24-site blocks (no contact): two written sites, one carrier on either. H0 per class EXACT: square trades (context = the carrier-bearer) + the derive-2 carrier exchanges (T3 at distance 1, T5 on every ON/OFF/ON 3-link path). V = ferries of the carrier-bearer (+ six-ring trades). Second-order H_eff on the low manifold; momentum by dressed translations (every one of the 8 classes admits every translation); explicit per-momentum spectra; turn test on dressed involutions that fix a pair link.",
+  "compute_seconds_total_approx": 166
+ },
+ "validation": {
+  "step_0_result": "PASSED before anything else: every checker number reproduced with the trades entered as negative amplitudes.",
+  "amplitudes_exact": "ferry -22577/545531250000000 (10 orderings) MATCH; J4 blank/partner -3259.48818888, record -3349.19817085; J6 blank/partner -2.41311111, record -2.48959812 |A| (all as on file).",
+  "twelve_site_numbers": [
+   "states 248; beta sectors 176/36/36; gauge check native vs chi: 0 violations (2 classes x 2 readings)",
+   "beta signed 176: E0 -6609.730586120 (checker -6609.730586120151711804); lowest four within 3.9e-11 (float), next +0.044075 (checker +0.044075)",
+   "beta unsigned 176: E0 -6609.731183005 (checker -6609.731183005502648745); 1+2+1: +2.2886e-8, +2.2905e-8, +4.5811e-8 (checker 2.290551e-8, 4.581e-8; float noise 2e-11)",
+   "beta 36-sectors: split 2.000000 signed / 1.999999 unsigned (checker same)",
+   "alpha (all 30 four-cycles): one 248 sector, single in every class: signed 1.392e-8 to 1.399e-8 in four classes and 5.94e-9 to 6.01e-9 in the other four (checker 1.395898e-8 / 5.972871e-9); unsigned 7.9664e-8 (checker 7.966572e-8)",
+   "beta + six-ring trades: one 248 sector, signed split 2.072914e-2, unsigned 2.073033e-2 (checker same digits)",
+   "alpha + six-ring trades (geometric hexagons): 0.2818729 / 2.463886 (checker 0.28187 / 2.46389)",
+   "uniform R = 10 control: -22.589222167 x2, -22.589221852 x2 (SP checker same)"
+  ],
+  "BO_engine_validation_12_sites": "cluster-basis spectrum = configuration-basis spectrum (max diff 5e-11); all-orders resolvent: signed lowest four within 2.2e-15 (exact pairs), unsigned 1+2+1 at 2.29e-8 / 4.58e-8; resolvent within 5e-11 of the dense levels; second-order model within 5.1e-4 |A| (4-fold in both, as the frozen H3/H4 say); with six-ring trades the 12-site bottom splits 1+2+1 (0.0207, 0.0430) at FIRST order, also reproduced (second order 0.0210, 0.0437)."
+ },
+ "results": {
+  "derive_1_by_hand_before_computing": "Site group of the partner on the faithful block = D2d (computed: 768 square-preserving automorphisms, stabilizer 8 with classes E 1, S4 2, C2 1, C2' 2, sigma_d 2); irreps A1 A2 B1 B2 (1D) and E (2D). WHAT DIFFERS ON A FAITHFUL BLOCK (frozen H1-H4, confirmed): the background is a square crystal with two equal orientations (all P squares or all Q squares flippable). Beside a pinned partner the best non-contact configurations keep 23 of 24 squares flippable (contact would keep 24): a single vacancy with three spare links. The ground manifold is 20 classes, ALL at record-partner distance 3, NONE at distance 1 (the stand-ins' \"4 at distance 1\" are wrapping artefacts): four families (crystal X, partner spare link to neighbour q) of 4 states, which map one-to-one onto the partner's four neighbours, plus two families of 2. The crystal label X cannot change at any finite order of local moves, and q changes only by rearranging the partner's own links, which ferries never touch. So the lowest level is degenerate whatever the signs, and the 12-site \"sign-made pair\" is the finite-size tunnelling pattern of this manifold.",
+  "derive_2_partner_moves": "From the rule text: the partner (written, no carrier) cannot move by itself (Bind needs a carrier on the site, l.612-618; the only carrier is the record's, l.382-383). Its native moves at the ferry's order or below are CARRIER EXCHANGES with the record, which swap which written site is the record: (i) at contact (link ON): first order, -t s (outside the no-contact model); (ii) at distance 1, link OFF: flip-hop-flip through the virtual contact link, exact T3 = -1/1280000 = -18877.454 |A| x s(x,y) (third order; one ordering; 5.8 times a four-ring trade); (iii) along any 3-link path x-b-a-y with ON/OFF/ON links: fifth order, exact -1089/34980125000 = -752.246 |A| x s s s (4 orderings; two intermediates with the carrier on a blank site 0.1 below the start make it large). Joint move = exchange, then the ferry of the new carrier-bearer. NOT computed: the fifth-order corrections to T3 (two extra hops through blank neighbours, estimated a few percent of T3) - a modelling step.",
+  "a_24_site_pair": {
+   "orbit1_main_sector": "P = 16 BO ground classes (all distance 3) in the 13952-state sector (4036 classes, clusters <= 32). SIGNED: lowest pair -1.044457417451 |A| (relative to the BO energy), split 7e-16, an IRREDUCIBLE 2D irrep of the 256-element stabilizer (sum |chi|^2/|G| = 1.000000): EXACT pair. Next pair +4.772e-8 (two 1D irreps). UNSIGNED: lowest pair -1.045054555802, two DIFFERENT 1D irreps (sum = 2) within 4.4e-16: single only by Perron-Frobenius, the split is below 1e-15 |A| and unresolvable; next pair +4.774e-8; then +0.0441 in both.",
+   "orbit2_main_sector": "P = 8 (distance 3), first-order ferry zero: the lowest 8 levels within 2.1e-15 at -2.986e-4 (signed) and -1.4621e-3 (unsigned) |A|, reducible (sum |chi|^2/|G| = 5) in both: 8-fold in both.",
+   "verdict": "exact pair signed (symmetry-protected); unsigned also two-fold to 1e-15 but not protected. The earlier 7.7e-13 / 1.06e-12 figures were solver noise. The 4.77e-8 gap is the partner-link tunnelling of the four-family manifold; the crystal tunnelling is below 1e-15."
+  },
+  "b_faithful_96_block": {
+   "ground_manifold": "20 classes, 23 flippable squares, all at distance 3 (complete enumeration of |F| >= 23: 24 classes in all, 20 ground + 4 at +89.71 |A| with the record on no flippable square); contact configurations keep 24.",
+   "first_order": "10 ferry pairs: levels -1 (x10) and +1 (x10) |A|, IDENTICAL signed and unsigned, with and without six-ring trades (six-ring trades connect no ground classes at first order).",
+   "second_order_four_only": "signed: lowest -1.0451439 |A|, 4-fold, A2+B1+E; then -1.0006136 (2, E); -1.0005558 (4, A1+B2+E). unsigned: lowest -1.0457411, 4-fold, A1+B2+E; then -1.0012108 (2, A1+B2); -1.0011530 (4, A2+B1+E). 104 intermediates, nearest +89.71 |A|.",
+   "second_order_four_plus_six": "signed: lowest -1.0498029, 4-fold, A2+B1+E; unsigned: lowest -1.0504001, 4-fold, A1+B2+E (1344 intermediates). Six-ring trades shift the bottom by -0.0047 and do not split it.",
+   "irrep_label": "lowest level = one 2D irrep E plus two 1D irreps. The 1D parts are mirror-odd (A2+B1) with the signs and mirror-even (A1+B2) without. The 4-fold is (two crystal orientations) x (two positions of the partner's spare link), permuted by D2d like the partner's four neighbours.",
+   "sixth_order_J4_scan": "84 runs: the lowest level stays 4-fold in 76 and becomes 2-fold in 8 (two random tables: the two-state families drop lowest: E with the signs, A1+B2 without). NEVER single. Next gap 0.031 to 2.0 |A|.",
+   "beyond_second_order": "NOT computed on the faithful block: which part of the 4-fold (E or the 1D pair) is lowest is decided by partner-link tunnelling of much higher order (4.77e-8 on the 24-site stand-in). The crystal doubling survives it (no local process changes the crystal), so the lowest level is at least two-fold signed AND unsigned."
+  },
+  "c_partner_unpinned": {
+   "binding": "lowest states = distance-1 pairs sharing the carrier, on both stand-ins: distance 3 lies +17655.5 |A| (signed) / +18832.6 (12) and +18742.9 (24) unsigned above. The low manifold: 48 states on 6 squares (12 sites), 64 on 12 squares (24 sites), gap to the rest 3304 (signed) / 4809 (unsigned) |A|.",
+   "first_order": "ferries only ROTATE the carrier-bearer about its partner inside the square that holds their link (coupling 0.501 |A|, levels about -0.5 and +0.5); no first-order coupling between squares.",
+   "band": "second order couples squares by at most 1.6e-6 (signed) / 1.8e-6 (unsigned) |A|, yet the lowest level is the same at every momentum to 1e-15 |A| on both stand-ins, signed and unsigned, with and without six-ring trades: NO BAND. The pair does not travel at the ferry's order or the next.",
+   "doubling_per_momentum": "signed: the lowest level is at least two-fold at EVERY momentum (2 per momentum on 24 sites, 6 on 12, within the 1e-11 float resolution of these runs); unsigned: single at every momentum (next level +1.07e-5 on 12, +9.24e-5 on 24 sites). A sign-made degeneracy, but of a pair that does not move (flat band).",
+   "turn_test": "every dressed involution fixing a pair link that is a symmetry (6 and 60 tested on 12 sites, 3 and 60 on 24; signed/unsigned; 6 and 3 swap record and partner) squares to +1 on the low states (deviation <= 1.4e-14). With the one carrier and its spent cell counted: c^2 = +1. Full turn +1: not spin.",
+   "caveat": "contact excluded (inherited modelling step). Contact is favoured most of all by the native moves (first-order exchange; and on the faithful block contact keeps all 24 squares flippable). The unpinned pair on the faithful block was argued by hand (every distance-1-preserving ferry stays in one square because every four-cycle there is a square), not computed."
+  },
+  "prediction_scorecard": {
+   "hits": [
+    "V0 every checker number reproduced; amplitudes exact",
+    "A signed 24-site pair exact (2D irrep)",
+    "A four lowest within 1e-7 in both (4.77e-8)",
+    "B1 20 ground classes all at distance 3; D2d",
+    "B2 10 first-order pairs at -1/+1, signed = unsigned",
+    "B3 lowest level 4-fold in signed AND unsigned, with and without six-ring trades; at least 2-fold in both; level -1.045 within the -1.0446 +- 0.002 band",
+    "B4/B5 no sign-made doubling and the kill as worded not met (low probabilities as frozen)",
+    "B6 six-ring trades connect no ground classes at first order and do not split the bottom",
+    "B7 the scan never makes the lowest level single",
+    "effective model reproduces the 12-site exact levels to 5e-4 |A|",
+    "C1 T3 = -18877.45 |A| exact; T5 = -752.25 |A| per path (inside 300-1500)",
+    "C2 a native joint move exists",
+    "C3 the lowest unpinned states are distance-1 pairs sharing the carrier",
+    "C4 lowest-band width < 0.01 |A| (it is < 1e-15)",
+    "C6 full turn +1"
+   ],
+   "misses": [
+    "A \"unsigned split of order 1e-12, float-resolved\" [0.5]: MISS - it is below 1e-15, unresolvable",
+    "B3 content: signed bottom is A2+B1+E, not the frozen A1+B2+E (only the unsigned matched)",
+    "C5 \"a doubling at every momentum\" [0.1]: it happened in the signed model (at least 2 per momentum), though on a flat band",
+    "frozen H5 hand value of T3 was 18877.6; exact 18877.45 (rounding)"
+   ]
+  }
+ },
+ "kill_check": {
+  "b": {
+   "value": "NOT MET as worded; and NOT SIGN-MADE",
+   "detail": "The lowest level on the faithful block is never single: 4-fold through second order in all four base runs (four-only and four-plus-six, signed and unsigned) and at least 2-fold in all 84 scan runs. But the unsigned control has exactly the same degeneracy. By the frozen scoring this is \"NOT MET, NOT SIGN-MADE\": the doubling survives, the sign-made claim does not. The doubling belongs to the background (two crystal orientations, two positions of the partner's spare link); the signs only choose its symmetry type (A2+B1+E against A1+B2+E). So the 12-site \"sign-made pair\" is an artefact of the small block in the sense the spec feared: not of its degeneracy but of its sign-made character."
+  },
+  "c": {
+   "value": "MET (as frozen: no native joint move translates the bound pair at the ferry's order)",
+   "detail": "A joint move exists (carrier exchange, then the ferry of the new carrier-bearer), but at first order it only rotates the pair inside one square; at second order the lowest band is flat to 1e-15 |A| on both stand-ins, signed and unsigned, with and without six-ring trades. The bound pair cannot carry anything at these orders. Caveats: contact excluded; fifth-order corrections to the distance-1 exchange not computed (they are diagonal in position and cannot create motion at first order)."
+  }
+ },
+ "inputs": [
+  {
+   "item": "landed signs (minus round squares, plus round hexagons)",
+   "cls": "setting in place"
+  },
+  {
+   "item": "wrapping sign classes of the tori",
+   "cls": "input of the supplied blocks; beta and the faithful block are class-independent in the chi gauge; the unpinned native-basis model used class (0,0,0) (all 8 classes admit every translation)"
+  },
+  {
+   "item": "12- and 24-site tori",
+   "cls": "inputs (supplied stand-in blocks, NOT faithful: 24 and 32 wrapping four-cycles)"
+  },
+  {
+   "item": "96-site 2x2x2 torus",
+   "cls": "input (supplied block; faithful census: only geometric squares and hexagons as four- and six-cycles)"
+  },
+  {
+   "item": "stand-in values Ud=1, dstar=1, Delta=3/10, eps_r=3, lambda_R=2, lambda_J=1/10, eps_c=1/5, g=3/250, h=3/200, t=1/50",
+   "cls": "modelling step (values on existing dials, never UNT's)"
+  },
+  {
+   "item": "flips, hops with the link phase, Bind, the ledger; the ferry, four- and six-ring trades and the carrier exchanges built from them at their exact amplitudes",
+   "cls": "native"
+  },
+  {
+   "item": "truncation at each move's own order (ferry 6th, trades 4th/6th, exchanges 3rd/5th); sixth-order J4 corrections (scanned, not computed); fifth-order corrections to the distance-1 exchange (not computed)",
+   "cls": "modelling step"
+  },
+  {
+   "item": "partner pinned (parts a, b)",
+   "cls": "modelling step"
+  },
+  {
+   "item": "partner moves (part c): carrier exchanges from flip and hop",
+   "cls": "native (rule text l.595-611)"
+  },
+  {
+   "item": "contact states excluded; the at-home manifold (carrier on a written site) as model space; admission frozen (kappa = 0)",
+   "cls": "modelling steps as on file; kappa = 0 a value on an existing dial"
+  },
+  {
+   "item": "face readings",
+   "cls": "on the stand-ins both reported (validation), neither chosen; on the faithful block they coincide"
+  },
+  {
+   "item": "BO cluster basis, Brillouin-Wigner resolvent, second-order effective Hamiltonians",
+   "cls": "methods (validated against exact diagonalisation on 12 sites)"
+  },
+  {
+   "item": "decisions PD-05..PD-57 (PD-53: exchange sign one gap, no rule change)",
+   "cls": "decisions in force; no rule change used"
+  },
+  {
+   "item": "names \"valence-bond (square) crystal\", \"Rokhsar-Kivelson-type plaquette resonance\", \"flat band / compact localized states\"",
+   "cls": "RECALLED, UNVERIFIED (names only; every result here is computed)"
+  }
+ ],
+ "assumptions": [
+  "The at-home manifold (carrier on a written site) is the model space, as on file, although a carrier on a blank neighbour is 0.1 lower (the perturbative moves include those intermediates).",
+  "Perturbative effective moves at their own orders; diagonal shifts: second and fourth order are configuration-independent here by the lock form (a written site and a blank one cost the same to flip); pattern-dependent sixth-order shifts near record and partner enter only through the symmetric scan.",
+  "On the faithful block the crystal label cannot change at any finite order (hand); the effective model there is exact at second order only.",
+  "Stand-in amplitudes: J4/|A| = 3260 and T3/|A| = 18877; the hierarchy T3 > J4 > T5 > 89.71 > |A| is what binds the unpinned pair at distance 1."
+ ],
+ "code_versions": [
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/lib_v1.py",
+   "sha256": "77760b466db3bbfb53591fecd4d3e9258ca8590d5ef5fb2bb024c728977d3b37",
+   "what": "library: sodalite tori, faces, GF(2) signs, exact path sums, dense solver, automorphisms, configurations",
+   "output": null
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/test_v1.py",
+   "sha256": "aa9ddb4b0ab0ccc27c0c050e81a421acc1a1c102130f1a2810436026c95375e9",
+   "what": "census of 12/24/96 blocks, sign solver, solver self-test, exact amplitudes incl. T3 and T5",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_test_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/joint_v1.py",
+   "sha256": "06d6355e9d27b70db486f41a795e0621215a7efa273fdfa57a78705797f36e9d",
+   "what": "pinned-partner joint model (native and chi gauge; trades negative)",
+   "output": null
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/val12_v1.py",
+   "sha256": "f5a169b8318daa4f765e6540298da6f7a6a0b452589ec2fbd1b887785b71c4f3",
+   "what": "step (0) validation on 12 sites",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_val12_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/bo_v1.py",
+   "sha256": "ec052169bb4a9d38164daefd74856562ec25676310b747522a91f435469f7a76",
+   "what": "BO cluster engine, resolvent, second-order model",
+   "output": null
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/boval12_v1.py",
+   "sha256": "9f30894699ee90b12deef8c5f50bfc778afbeef2a0c98533d8025666221ef48b",
+   "what": "BO engine validation on 12 sites",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_boval12_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/bo_v2.py",
+   "sha256": "886761503e5bc11f18ea114ec1eb7cdd4fcb430f9889d0a8b772569f5f4eefd6",
+   "what": "bo_v1 with a faster resolvent loop (copy made before edit; bo_v1 kept)",
+   "output": null
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/a24_v1.py",
+   "sha256": "984dfaf477f762b5ea6914c9cafd85f285aabde1f411b4a2a767b60c5e3eafa5",
+   "what": "part (a), 24-site",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_a24_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/b96_v1.py",
+   "sha256": "33a7b79ddf6a9e6efe43ba7478ff05dca6c116d92a75db5b52f5a97d31686414",
+   "what": "part (b), faithful 96-site (a botched patch before its first run duplicated a block; repaired before running; the hashed file is the one that ran)",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_b96_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/unp_v1.py",
+   "sha256": "4c78a44574627128ecdfaf3151d7d69d38b94da8bbe30c7b32aaa04dbac8d957",
+   "what": "part (c) engine: unpinned pair, per-class H0 with exchanges",
+   "output": null
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/unpdrv_v1.py",
+   "sha256": "689a351bfc3af564b5b7d6961572af6ae108d1a41fdd58c49899f01ded3d15ee",
+   "what": "part (c) driver: low manifold, second order, translations",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_unpdrv_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/unpdiag_v1.py",
+   "sha256": "3d3dc1c8ee4d64a988ca671ce714fdc585b30c4989b48d21a79739224db14b0f",
+   "what": "part (c) diagnostics: couplings by square, explicit per-momentum spectra",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_unpdiag_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/unpturn_v1.py",
+   "sha256": "8ad3d8a555b2a56dfd46cbb7e51c561c743d4b4c37bbca6ce365765066ada363",
+   "what": "part (c) turn test",
+   "output": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/out_unpturn_v1.json"
+  },
+  {
+   "code": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/b22_sr2/make_seat_v1.py",
+   "sha256": "7d19967a8dea780e8228c101c15456d981227d2c7e3fc476f1cbdf466bad502f",
+   "what": "this seat-file generator",
+   "output": null
+  }
+ ],
+ "card_effect": {
+  "note": "RECOMMENDATIONS ONLY; this seat moves no card; one model family; unchecked.",
+  "spin-1/2": "STAY OPEN; reword: \"On a faithful supplied block the charged record beside a fixed partner has a lowest level that is degenerate (four-fold through second order) with or without the landed signs: two orientations of the background's square pattern times two positions of the partner's spare link. The signs change only its symmetry type. The small blocks' sign-made pair is how finite-size tunnelling splits it. Every turn gives +1. Not spin. One model family.\" What would clear it: unchanged.",
+  "shells of 2n^2": "STAY OPEN; add: \"The bound written pair does not travel at the ferry's order or the next (flat lowest band on two stand-in blocks). With the signs its flat level is at least two-fold at every momentum, without them single: a sign-made degeneracy of an object that does not move, not a factor two of a mover. The faithful-block degeneracy beside a fixed partner belongs to the surroundings, not the particle.\" The factor two still has no candidate from this route.",
+  "fermion sign and exclusion": "PATH EXISTS unchanged; one sentence: \"On a faithful block the ring moves carry the signs to the record but give it no degeneracy the unsigned control lacks; they change only its symmetry type. Still no exchange sign and no exclusion.\"",
+  "a persistent atom-like composite": "STAY OPEN; add a clue (one model family): \"The partner is not passive: record and partner swap the carrier natively, fastest of all when they touch, and at one link apart faster than the ring moves. Freed, the pair sits side by side sharing the carrier, bound by about 1.8e4 ferry sizes against three links apart; it turns inside one square and does not move (stand-ins, contact excluded).\"",
+  "next_tests_recommended_to_the_coordinator": [
+   "the unpinned pair WITH contact states (the native moves favour contact most); its band",
+   "the partner-link tunnelling on the faithful block (decides E against the 1D pair at the bottom)",
+   "the fifth-order corrections to the distance-1 carrier exchange"
+  ]
+ },
+ "questions_for_principal": [
+  {
+   "question": "On a faithful block the charged record's lowest level beside its partner comes out degenerate because the surrounding pattern has two equal orientations; it is degenerate with or without the landed signs and does not move with the particle. Should a degeneracy that belongs to the surroundings count toward the shells card's \"factor two\"?",
+   "options": [
+    "(a) No: the factor two must be a label the particle itself carries and takes with it.",
+    "(b) Yes, as a clue only."
+   ],
+   "recommended_option": "(a)  [MARKED RECOMMENDATION - not chosen]",
+   "why": "It appears without the signs too, it stays with the background when anything moves, and the card asks for a property of the particle.",
+   "not_chosen": true
+  }
+ ],
+ "plain_summary": "We first rebuilt the earlier check with our own code and matched every number. On a slightly larger stand-in block the sign-made pair is exact. On a faithful block of 96 sites the record's lowest level beside a fixed partner is still degenerate, four-fold in fact, but it is just as degenerate without the signs. The degeneracy comes from the surroundings: their square pattern has two equal orientations, and the partner's spare link has two equal places. The signs only change its symmetry type. So the doubling survives, but not as sign-made. Freed, the partner swaps the carrier with the record very fast when they are one link apart, so the pair sits side by side. It turns inside one square but does not travel. Every turn gives plus one, so this is not spin. One model family.",
+ "plain_summary_word_count": 138,
+ "disclosures": [
+  "Read-only outside this seat's scratch folder; the only file written outside it is this seat file. Nothing written into claude1/ or claude3/. No network. No script found on disk was run (the rule text was read as text).",
+  "No held-out, blind or protected set opened. No target, core or adapter code.",
+  "numpy, scipy and mpmath are not installed: everything is pure Python; high-precision exactness claims rest on the all-orders resolvent (about 1e-15 |A|) and on group representations, not on 60-digit arithmetic.",
+  "Scripts edited before their first run only (a24_v1, b96_v1, unpdrv_v1); bo_v2 is a new copy of bo_v1 (which had run).",
+  "Seeds: 2301 (solver self-test), 2311 (random symmetric J4 tables)."
+ ]
+}

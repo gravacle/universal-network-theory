@@ -1,0 +1,114 @@
+# Results index (2026-11-20 update)
+
+Verdict words: CONFIRMED_WITH_CORRECTIONS = a separate checker reproduced the result and narrowed or corrected parts of it; REFUTED = the checked headline is wrong. Seat files are first results; unless a check is listed, they are unchecked. Except the Codex2 files, everything here is one model family (Claude). Nothing here turns a card green.
+
+## Copied: Claude2 lane (resuming Claude3 in-flight work), `results/claude2_c3_resume/`
+
+| path | sha256 | verdict | plain summary |
+|---|---|---|---|
+| `results/claude2_c3_resume/batch18_seams_v001/chair/CHAIR_B18_V001.json` | `0dfb3d20d08107628673444948765cc1d084ba20f6d798a4e4e7832a5ded3f53` | chair synthesis | Geometry chair: no grown network reads three-dimensional on both rulers; no card moves; five geometry routes closed as tested. |
+| `results/claude2_c3_resume/batch20_principal_readings_v001/checks/B20_CHECK_WW2_V001.json` | `778611ff1efdbf55bbbdbcc4623bbc996140eefccde4c1c148aca400085e4f80` | CONFIRMED_WITH_CORRECTIONS | Arrow of time check: runs reproduce; arrow stays PATH EXISTS; one fit window corrected; lasting records need an added one-way rule, a matched setting and much faster carriers. |
+| `results/claude2_c3_resume/batch21_relax_lock_scale_v001/checks/B21_CHECK_GR32_V001.json` | `5926b78e2f732fce4c0ca4fbfc846a2a59c97921fe0c29c259c859441fe4b05d` | CONFIRMED_WITH_CORRECTIONS | Gravity check: switch-off of the newborn extra link is native, but grown material still does not settle into the thin state where the pull works; gravity stays OPEN. |
+| `results/claude2_c3_resume/batch21_relax_lock_scale_v001/checks/B21_CHECK_LK33_V001.json` | `268e9000e8d232320d85028bdb76269326bbf4a6b8b07ad156b5d48a25b9fe4b` | CONFIRMED_WITH_CORRECTIONS | Locking check: limiting-speed card stays PATH EXISTS; the one positive result needs slow writing and a specific supply; scope narrowed. |
+| `results/claude2_c3_resume/batch21_relax_lock_scale_v001/checks/B21_CHECK_SZ_V001.json` | `4102a5a8b57ba1eba0835ee77b538144b694ecc9d164038437537c12d34bc4ac` | CONFIRMED_WITH_CORRECTIONS | Scale check: numbers recompute; no reading on file fixes one link below about 1e-28 m; Planck-time comparison corrected (clock-free wording). |
+| `results/claude2_c3_resume/batch22_matter_next_v001/chair/CHAIR_B22_V001.json` | `5aada0010d20849191f413aaf0ca62bb000c0073ccc6948838a87e68db7e0c99` | chair synthesis | Matter chair: direct 1/r pull measured on a supplied 3D block (about 0.85 of expected); recommends hydrogen card to PATH EXISTS (PD-55); one model family. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/checks/B22_CHECK_AC_V001.json` | `f1c48ab59c02ca4ebb8facd6c090a52e5bc70d1610121fe6ee00a6a2b79b9b84` | CONFIRMED_WITH_CORRECTIONS | Alpha ring-price check: kill at stand-in values confirmed; a locality lemma fails for six-link paths, price per ring corrected upward. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/checks/B22_CHECK_FG_V001.json` | `20fc69c95acc86de7648b0eae3db7a8005b16322450dee3197d6937e77c4cf4a` | CONFIRMED_WITH_CORRECTIONS | Far-atom pull check: first-order one-over-distance pull CONFIRMED by independent re-run (s = 1.68 +- 0.22, R^2 0.992); error bar of seat corrected. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/checks/B22_CHECK_GN_V001.json` | `ba30603ece95d636d440debda5644aa5d9903339d4b6c9f9c4774d58bfdb2dca` | CONFIRMED_WITH_CORRECTIONS | Gravity-ideas check: numbers reproduce; headline overstated (kill only partly met); some steps rest on recalled physics, labelled so. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/checks/B22_CHECK_IGW_V001.json` | `fa1606dc8e7610f8d8a816c7d276f7fe00a58b2ded42a5422655ea1702ec568c` | CONFIRMED_WITH_CORRECTIONS | Gravity-ideas check: all numbers recompute, all three kills hold; partial pass of a 1/r kernel is a box artifact; three labels downgraded. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/checks/B22_CHECK_SR_V001.json` | `00f733d77f45fda92636472ba282362de39cf49ab13731461976ffef3c58f993` | REFUTED | Spin/pairing check: REFUTED. The seat used ring trades of the wrong sign; with the correct sign a 12-site stand-in shows an exact sign-made paired lowest level. No card moves. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/checks/B22_CHECK_TD_V001.json` | `89b83d486f77ed1a0e8d61052c8fb3d84ccf0a664aaeeeb245d2d9ddd48d4f94` | CONFIRMED_WITH_CORRECTIONS | Charge-thirds check: sharp +-1/3, +-2/3 corners reproduced on a supplied three-way pattern; recorded as a clue only (PD-57), not a path. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/followups/B22F_SEAT_HB_V001.json` | `27d6e2d5887fa9035367741b291b59b23c83083cebb3f25ef0d84ea2c16c3cf4` | seat result (unchecked unless a check is listed) | Hydrogen follow-up seat (UNCHECKED): bounded ground-state run gives a positive square-law cost of steady flow on 512 sites; larger blocks fail gates. |
+| `results/claude2_c3_resume/batch22_matter_next_v001/followups/B22F_SEAT_SR2_V001.json` | `0025fbbc4de038286ff07cbf349c6d4875582feb4f93bf5a8327fb9bea80dba8` | seat result (unchecked unless a check is listed) | Spin follow-up seat (unchecked): rebuilt the corrected check; on a faithful 96-site block the lowest level is four-fold degenerate with or without signs (degeneracy from surroundings). |
+| `results/claude2_c3_resume/batch23_charge_two_backgrounds_v001/checks/B23_CHECK_Q34_V001.json` | `f28211d8d531e39f2a5e204b6ca2e721217cbf26b5f7bacb0fc345542cdec974` | CONFIRMED_WITH_CORRECTIONS | Charge check: same charge unit across written/unwritten backgrounds holds; a region-relabelling rule would be non-native; card stays PATH EXISTS. |
+| `results/claude2_c3_resume/batch24_dark_energy_regrade_v001/checks/B24_CHECK_LC_V001.json` | `e92ca3911508e536a77e1db41d6b0c48c1a518086d31ec0b0c2a11a5416ac70c` | CONFIRMED_WITH_CORRECTIONS | Dark-energy check: tension with PD-37 clock confirmed; local clock is the log of the global count (near-tautology); recommends testing before adopting. |
+| `results/claude2_c3_resume/batch24_dark_energy_regrade_v001/checks/B24_REFEREE_V001.json` | `e4d518a2b081e36912a9db077e9cc9c69034deb9a3dbce8385245db6ab0fe761` | referee ruling | Dark-energy referee: AGAINST on today's clock (PD-37, reversible), not on growth; led to PD-43 (test first). |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/checks/B25_CHECK_HM_V001.json` | `cf7e1d12e244c562dfb4e9f55414b0c198f3f153871b707dea82b8b657624b5c` | CONFIRMED_WITH_CORRECTIONS | Check of HM: seam ledger exact; kill by clause 2 holds on fresh seeds (gain at most about +0.01). |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/checks/B25_CHECK_LF_V001.json` | `3aee02e79be1c921f916a87ff6e64513c9ffce0db053c58d21c39020191cee18` | CONFIRMED_WITH_CORRECTIONS | Check of LF: numbers reproduce; locked-subgraph route killed in direction; over-reaching lesson struck. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/checks/B25_CHECK_TU_V001.json` | `5c86dd521e59964385256083897e732f1704eb84248b40e372e9bdf83a7d0525` | CONFIRMED_WITH_CORRECTIONS | Check of TU: negative result stands on fresh seeds; wording and scope corrected. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_HM_1.txt` | `0db0e9569c5e025503bde683e7021116f314d771433972c4160c72d36651dee8` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_HM_2.txt` | `4ff838572a1ebbbcca95bf7e0f4f68779b638cfd260f6ca66cf75798b48fa20f` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_HM_3.txt` | `b1a8c09781815b1133bd1b7ca8d7b98109259206c6db7b35725a2fdb1e5b8576` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_HM_4.txt` | `7a9abcc36bceb266bfcb0c638919ef666e533c7f7280c40ff17a7fc57423ba1c` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_LF_1.txt` | `ad77a116b94eb9ac559d1c682430937a9f4b6877e06520200ed5e5ed628b1738` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_LF_2.txt` | `959d4ea56ea9ab0e898f9db761d0ccd0613c2d3faff7e586af55721262301cc9` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_LF_3.txt` | `15e0dc4cc02348cdc27c9e56d90ef1cefe226e4382f41fbce987d8ae29b64a33` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_TU_1.txt` | `29da0d130b4d35478a24b805b9fad67f836936c8dbfbce17cf35ece221be0a72` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_TU_2.txt` | `c87ab769eb6b242669e5c6b92233e4fe1bc953e01114ea0663a8b95863dc7d03` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/insights/INSIGHT_TU_3.txt` | `fbe6330ae3aa193502398df1992102a1c11d46049448d5d8da8305161cc697c4` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/seats/B25_SEAT_HM_V001.json` | `992d590172ef59669be3d660498d5d4e7bb507bc3b6e9ba5ed0904c8107c79da` | seat result (unchecked unless a check is listed) | Seat: handed-down region labels on marks add about zero stretch; kill met; evidence against the PD-40 label (PD-40A). |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/seats/B25_SEAT_LF_V001.json` | `343e80c29e5e11a7ccfde00c443fa54a6683a157b39552e9feb071792d7dd85f` | seat result (unchecked unless a check is listed) | Seat: locking small pieces leaves no live part that reads 3D or gives a 1/r pull. Negative result. |
+| `results/claude2_c3_resume/batch25_tips_live_marks_v001/seats/B25_SEAT_TU_V001.json` | `c676a214a4b4dc602b5fb7c26bb2c7d48bb150d02bbe65262fae1c2007b9144a` | seat result (unchecked unless a check is listed) | Seat: undo at growing tips changes nothing that matters (walk reading ~1.8). Negative result. |
+| `results/claude2_c3_resume/batch27_two_clocks_still_piece_v001/insights/INSIGHT_TC_1.txt` | `c0183c53c06536aad88b4199a14bb7c61ec014d3bd7feac0752b825e7a444d12` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch27_two_clocks_still_piece_v001/insights/INSIGHT_TC_2.txt` | `7ec40d42cb14e4931c6b1057d20d525bae232c2a1760fbaca9d2ddc3e4cad2b2` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch28_loosened_birth_low_share_gravity_v001/insights/INSIGHT_GL_1.txt` | `a788171b0dbf0b3f96ea5146326488c88c4eb4ed0789acd9bddf8eca23c21e1b` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+| `results/claude2_c3_resume/batch28_loosened_birth_low_share_gravity_v001/insights/INSIGHT_LB_1.txt` | `7cf131c447ca607eb87eea08150694cf2e98dbfc9c9a3d797a8c722214150e39` | informal note | Informal seat hunch written before the seat's runs; not graded. |
+
+## Copied: Codex2 second model family (GPT via Codex), `results/codex2_second_family/`
+
+Source: `outputs/codex2_second_family_20261120_v001/work/`. Codex2 also reproduced one headline growth run per check where marked ADDENDUM.
+
+| path | sha256 | verdict | plain summary |
+|---|---|---|---|
+| `results/codex2_second_family/GR32_GROWTH_V001.json` | `2681962a3b02a34b9bfdd2398bf57bdb084d1d014217dd4643ccbe5ec6cb5fb1` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/GR32_NUMBERS_V001.json` | `250851904b1693cd64ff0cfe82bba3714de5892a4fd5f7650141e2ef4ef5aadb` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/LF_GEOMETRY_V001.json` | `eea66d4b058bd27987a8911758b50dc32fdd3bed9901d4c97ceab2a91d08fa94` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/LF_GROWTH_V001.json` | `61ac425d2e5cc08750016078e7061fd35599cfb89f41379e5a020a4796ec68eb` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/LK33_GROWTH_V001.json` | `45e20c69ee2c0fd8b9fb25247080a70f6181986d84225406d473e5c89d181550` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/LK33_NUMBERS_V001.json` | `b2f685a4cfa3817d72de1628989d440b1e1ae024f514a173dee313fc06a28a84` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/Q34_NUMBERS_V001.json` | `9bec5975e324c9fc971434734332fbd2eeecef5c1fa31ab90681db47ae90a981` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/SF_CHECK_GR32_V001.json` | `3d533065a79a0db2d3fcabadba445f6ee39fc0a2a6b13e147e985fbbad8a1e43` | CONFIRMED_WITH_CORRECTIONS | Second family: flip energetics and bookkeeping correct in the reduced model; no long-range pull established. |
+| `results/codex2_second_family/SF_CHECK_GR32_V001_ADDENDUM.json` | `392e0c8d940027cb69a8a00b8af2578eda936c9d415f107c7599c3bc6f61e754` | CONFIRMED_WITH_CORRECTIONS | Second family: fresh 16,384-site growth run reproduces written share and fragmentation; no grade upgrade. |
+| `results/codex2_second_family/SF_CHECK_LF_V001.json` | `296200fd6276823fb1467d0821f2ad3d3fe5c97a93d64069ccb4a47845a4c32b` | CONFIRMED_WITH_CORRECTIONS | Second family: fresh 65,536-site run reproduces the negative geometry result (walk 1.876); control slab reads 3.26. |
+| `results/codex2_second_family/SF_CHECK_LK33_V001.json` | `84cc506c30c894dd18069ec0e6fc836bf394b57c3a05d67b163577af0d7b650f` | CONFIRMED_WITH_CORRECTIONS | Second family: first check's downgrades supported; lock definition and growth supply are consequential. |
+| `results/codex2_second_family/SF_CHECK_LK33_V001_ADDENDUM.json` | `1b5fc7d641775e1a7c8374f7a5f9acac0cead71fe024f3d78780e6e9cf37241b` | CONFIRMED_WITH_CORRECTIONS | Second family: lock outcomes reproduced (slow writing 1.36% locked in 106 pieces; equal rates stall at 5,866 sites). |
+| `results/codex2_second_family/SF_CHECK_Q34_V001.json` | `0a0b9fcbfbc8f35d514bc702050e7e832b3ad4d6a4ad126a665aca45b47c0443` | CONFIRMED_WITH_CORRECTIONS | Second family (GPT): common integer charge unit and Gauss accounting confirmed with fixed background labels; relabelling rule unresolved. |
+| `results/codex2_second_family/SF_CHECK_SZ_V001.json` | `e89953d4bb6956d8b6e131f2bf167600973290e438a054d94ce305e2156ce28d` | CONFIRMED_WITH_CORRECTIONS | Second family: ring calculation and conditional link-length bound (1.26-1.90e-28 m) reproduced; a requirement, not a calibration. |
+| `results/codex2_second_family/SF_CHECK_WW2_V001.json` | `addeb0ee8c96fc9573bf830087e17add9ea45fec3457163a98e1f1a2b4a7f311` | CONFIRMED_WITH_CORRECTIONS | Second family: arrow-of-time window and setting confirmed; flagged that undo lets site count dip (resolved as PD-42A wording). |
+| `results/codex2_second_family/SF_CHECK_WW2_V001_ADDENDUM.json` | `ff0f3202921c45a24418079e229688bb850f70373d6d4bec91281b25da81cc3b` | CONFIRMED_WITH_CORRECTIONS | Second family: two fresh full-move heat-bath runs reproduce the written-share headline (about 0.51). |
+| `results/codex2_second_family/SF_CHECK_XS_V001.json` | `e7019f442cd98d6300068eaf43ea1efdf73fcad751ed354c2ccc7b750728eb26` | CONFIRMED_WITH_CORRECTIONS | Second family: wall census (1,152 cuts) reproduced; seam preference gives no useful stretch benefit. Negative route confirmed. |
+| `results/codex2_second_family/SZ_NUMBERS_V001.json` | `2320ed941874a0f14ac4d426b74f17cb135da1348f306a24708c25bafa6c1bd8` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/SZ_NUMBERS_V002.json` | `399a4886bb087a8747f1845b603ec6e1d6fa78cdac62389d39f87596e01b53df` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/WW2_FULLMOVE_NUMBERS_V001.json` | `128002c01d78df600201239b7c3afb24f570fc078db8f8c105a6e8f823039385` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/WW2_FULLMOVE_NUMBERS_V002.json` | `3de756eab735f7e42412a59cdbd7ebed7c70434f34be0db274bd0564d5d8db04` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/WW2_NUMBERS_V001.json` | `5e228c449ade201b9ab53514397e4214e7efcd6614ca5ba2b1b79fa5bccce7eb` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/WW2_UNDO_VALIDATION_V001.json` | `90372015360f638581a39c0fd7f32c48c7bcc6d710539d8b8a3e9637afa1c6bd` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/XS_NUMBERS_V001.json` | `0f86cb59c55a036c5df21a1d9fc601e20fc3cbcf242316215cb70ed080d8271f` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+| `results/codex2_second_family/XS_NUMBERS_V002.json` | `c2f0195de70bb32cb708f6ccaf49b284ec2b20e44e9a611a47a6affebc6effe6` | supporting numbers | Codex2 recomputed numbers supporting the matching SF_CHECK file. |
+
+## Listed, not copied
+
+Large graph dumps from Codex2 growth runs (raw edge lists, about 10.5 MB together), kept out of the repository to keep it small. Paths are relative to the UNT working tree.
+
+| path | sha256 | size (bytes) |
+|---|---|---|
+| `outputs/codex2_second_family_20261120_v001/work/GR32_GRAPH_26932_V001.json` | `d6e23e550991a08ba062faae03a8683e413c7d194de8a21fa3d0c6b06b760ebd` | 1602655 |
+| `outputs/codex2_second_family_20261120_v001/work/LF_GRAPH_26521_V001.json` | `ef01971b3d444df7d0ebf0536c8fd500c3244a01d5dfa462604778f615a4ecf2` | 6810954 |
+| `outputs/codex2_second_family_20261120_v001/work/LK33_GRAPH_26331_V001.json` | `5ca57e6b26025fae1598f11899bb3e65280ce2a97c2a808e8f3b95970c9118b1` | 1603216 |
+| `outputs/codex2_second_family_20261120_v001/work/LK33_GRAPH_26332_V001.json` | `1bd97fe2b1d45f70a920de0d21005d769258ac6b25b6f918a5a11945903c16e0` | 527505 |
+
+Claude1 lane, batch 26 "what a Birth builds" (one model family; Claude1 lane files, listed by path and hash only):
+
+| path | sha256 | verdict |
+|---|---|---|
+| `claude1/work/batch26_what_a_birth_builds_v001/chair/CHAIR_B26_V001.json` | `98749dddac05f5b345dd056a27ca8eadbf7cf6a52e8bae70c06d2d7bfbaec16f` | chair synthesis |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_DD_V001.json` | `55e4d363bbeeec78f35a763c17f8b012727576fea4846099aac9ee36d2c2b825` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_I1_V001.json` | `66d50f667378f04716d9622f633ce49f11f3443815b5421e11fbb8edfb2f5456` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_KQ_V001.json` | `9294165c1ec23daa9f2a476518a1bb45d6f165d7d513199dff1517ab50cd1d05` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_KS_V001.json` | `b06bea047b9f914ee5d427645bbbb76c630d1a8ff7e7044a197081713971df7a` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_KU_V001.json` | `8b2d863ea811542d7155f6791a90e30ca688a6146524f6d2894e85a30ddf3739` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_RC_V001.json` | `f305fa89b20c05bd145066ebe0b399f4466eb3f9828337d38d280946866161ac` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_W1_V001.json` | `789e718252efe7d59e35bd970fcd0b2bb131b8422683759c9eeadc1732f2c571` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/checks/B26_CHECK_W2_V001.json` | `cbdd5ebebdb137dd277bec3488fe5c1c3760b670887b83cb2b249f63ac2cf17f` | CONFIRMED_WITH_CORRECTIONS |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_B51_V001.json` | `ec3dc1f3f0ac90f782a67cb2f0c235baeb24c4bee05dd2de686627d165c72dd8` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_DD_V001.json` | `2215c52724b1155b3b8bdef63a16880799e0ee342ed32369b547e320cc035eb9` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_F47_V001.json` | `02c52790ea4f0498c4e1c74fe0cde90bfd6c227385b6ba2c7b36b9d66b849a73` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_I1_V001.json` | `b7781d0ddf6b9ce97d7aa76d663194d674a0765de3694cef0d4e9f21c5d69811` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_KQ_V001.json` | `b424fa7c09d1d59946baeda31020ad1fb8037d676a90775ad880efac1bba8610` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_KS_V001.json` | `73e647df6a5051afd7b890b8c2f1bd19880e516faf61e110fb678b2e13936bdb` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_KU_V001.json` | `bd19ac0b42bea3afbb3f50bce1c6dcadfd6848d654ffc7d458f24e5306c345a3` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_L45_V001.json` | `5aa571b252e9ca26cb2e92557a88233c8132e92534776f40e1184ca67340365d` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_RC_V001.json` | `e37b2d7e74b4e30fd1492fd2d9b8f2a5e659ac392f31c111e4442d916dcac59f` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_S52_V001.json` | `e88faf518df5dc33f15c75920b9f86975ce9e6dc541d4d194a5a95336494b0ab` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_W1_V001.json` | `c2b34eb491396b65978f4bca8616c6d94d655002919cfd4aba857bc2089658d3` | seat result (unchecked unless a check is listed) |
+| `claude1/work/batch26_what_a_birth_builds_v001/seats/B26_SEAT_W2_V001.json` | `bc3d67e023303d2f09de1527fd0a2fcf8127b44038eaa499ff09551efe4471a1` | seat result (unchecked unless a check is listed) |

@@ -1,0 +1,1496 @@
+{
+ "seat": "GR32",
+ "batch": "continuous batch 21",
+ "checker_host": "Claude2 session subagent, Opus 5.5 max effort",
+ "checker_role": "distinct step-checker (not the seat author), resuming Claude3 work after Claude3 ran out of credits; path overrides per the Claude2 prompt",
+ "model_family_label": "ONE MODEL FAMILY (Opus 5.5): seat author and checker are the same family; checked once; nothing green; no card moved",
+ "seat_file": {
+  "path": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch21_relax_lock_scale_v001/seats/B21_SEAT_GR32_V001.json",
+  "sha256_verified_before_checking": "673d2d081058c9ef3755771ab302e9d918caca3ede6c11aa7b5fe856daf3eec8",
+  "matches_prompt": true
+ },
+ "briefs_read": {
+  "checker_brief": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch21_relax_lock_scale_v001/checks/CHECKER_BRIEF_B21_V001.txt",
+  "round_brief": "/Users/bgm/Research/Universal Network Theory/claude3/work/batch21_relax_lock_scale_v001/BATCH21_BRIEF_V001.txt",
+  "round_brief_sha256": "0377a736080d089c2941dd8d96432b05895a0380d29ac234c84cdc929a9e74e2"
+ },
+ "verdict": "CONFIRMED_WITH_CORRECTIONS",
+ "order_check": {
+  "result": "CLEAN",
+  "frozen_file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude3/621775b7-c161-433d-94ed-4f56e059f276/scratchpad/b21_gr32/FROZEN_GR32.txt",
+  "frozen_sha256_recomputed": "df12f6fcd7285214ab295923baaa9853306f34a94babe6f8138ee62bb5854a51",
+  "frozen_sha256_matches_seat": true,
+  "frozen_mode": "r--r--r-- (444)",
+  "frozen_born_utc": "2026-11-19T23:48:53Z (file birth time; mtime equal)",
+  "verbatim_in_seat": "byte-identical (22284 chars); both addenda also byte-identical in frozen_addenda_post_tests_no_credit",
+  "first_code_born_utc": "2026-11-19T23:52:58Z (gr32_lib.py; birth = mtime, never edited)",
+  "first_run_utc": "2026-11-19T23:55:07Z (code_hashes_v1.txt born; valid_out.json born 23:55:09Z; smoke 23:55:22Z; block 1 started 23:55:35Z, blocks 2-4 23:56:30Z, block 6 23:57:07Z)",
+  "code_versions": "all six run scripts present; sha256 of gr32_lib/ana/valid/run/pt/pt2 recomputed = seat code_and_outputs = code_hashes_v1.txt; no run script modified after the first run (gr32_valid.py edited 10 s after creation, 23:54:40Z, before any run); four seat-builder versions kept (v4 differs from v3 only in the insight-notes list)",
+  "addenda": "ADDENDUM1 locked 23:59:24Z after the registered blocks were read, before gr32_pt.py (born 23:59:46Z); ADDENDUM2 locked 00:00:57Z before gr32_pt2.py (00:01:18Z); both labelled post-tests, no credit; sha256 recomputed and matching",
+  "hand_note_before_freeze": "INSIGHT_GR32_1 born 23:37:19Z (hand work only)",
+  "fill_state_definitions_predate_code": "yes: RN-E/RN-S, rulers, fits, exact-ball objects, relaxation shares and validators are all defined in the frozen file (Part 3)",
+  "predictions_use_on_file_numbers": "labelled ON FILE / POST where they repeat checked records",
+  "scorecard_honesty": "spot-checked G1, G2, G3, G4, G5, G7, G8, G10, G11, G12, G13 against the seat tables: held/missed lists are accurate; misses reported with the same prominence as holds",
+  "compute": "seat 102.7 CPU-s (guard 30 min); largest diagonalisation 250 states; no saved network states (outputs <= 17 KB)"
+ },
+ "step_checks": [
+  {
+   "n": 1,
+   "filed_grade": "PROVED",
+   "checker_grade": "PROVED",
+   "finding": "Re-read rule text: l.595-601 yields incidence_flip on EVERY edge, amplitude -h, no guard, no newborn exception; l.535 Delta x bit; l.543 Ud (d - d*)^2; l.545-546 eps_r q - lam_R d q. At lam_R = 2Ud, eps_r = 3Ud, d* = 1: unwritten Ud(d-1)^2, written Ud(d-2)^2 exactly (hand), so E = Ud sum m^2 + Delta x #ON. ON->OFF at (x,y): dE = Ud(2 - 2(m_x + m_y)) - Delta: (+1,0) -Delta; (+1,+1) -2Ud - Delta; (+1,-1) +2Ud - Delta. All three re-derived. Scope: \"downhill\" holds at the stand-in Delta = 0.3; in R-MOBILE (Delta = 0) the same switch-off is energy-neutral."
+  },
+  {
+   "n": 2,
+   "filed_grade": "PROVED",
+   "checker_grade": "PROVED",
+   "finding": "Hand: the Birth image (l.403-409) replaces each cut link (u,v) with bit b by (u,slot.b) and (slot.a,v) carrying the same b, so every old site keeps its count and each newborn gets the four cut bits, i.e. two ON under the guard (l.425); hop/Bind/admission (l.602-630) touch no link; a flip changes both ends. Hence sum_A d = sum_B d and sum_v s_v m_v = W_B - W_A (derived: N_A = N_B, home = 1 + written). Cancellation path heir-r-o-twin (ON, OFF, ON -> OFF, ON, OFF): 3 flips, dE = -2Ud - Delta (hand). Recomputed with my own implementation of the image: V3 0 exceptions, V4 and V5 true at every checkpoint of all 17 of my growth runs."
+  },
+  {
+   "n": 3,
+   "filed_grade": "PROVED (rule text); PROVED_CONDITIONAL (measured shares)",
+   "checker_grade": "PROVED (rule text); PROVED_CONDITIONAL (shares, not recomputed; see C9)",
+   "finding": "l.457 requires the heir to have exactly two ON links for ANY of the 4! re-pairings and l.455 requires pairwise-equal bits with the twin, impossible when the two counts differ: a one-ON newborn blocks its Birth undo. PD-24 adds the fired-heir block. Caveat C9: the measured pass share uses the as-born pairing only, a lower bound on the rule-text guard; \"a flip back restores eligibility\" is exact when the same link flips back."
+  },
+  {
+   "n": 4,
+   "filed_grade": "PROVED (hand); PROVED_CONDITIONAL (shares)",
+   "checker_grade": "same",
+   "finding": "A write raises home by one (m -> m - 1): pins an unrelaxed newborn, makes a one-short unit on a relaxed one (hand). Recomputed share of writes landing on one-ON newborns: 0.914/0.898 (w 0.003), 0.844, 0.774, 0.685, 0.574, 0.433 (w 1); static 0.909/0.776/0.506; f = 10 0.962 (seat 44-91%). Also 2-3% of writes at w = 0.003 land on ZERO-ON newborns (m -> -2)."
+  },
+  {
+   "n": 5,
+   "filed_grade": "PROVED (from the rule text)",
+   "checker_grade": "PROVED for the move and its energetics; add caveat C5",
+   "finding": "I concur: NATIVE by the brief's criterion (the rule text allows the relaxation move). \"Vanishes with nothing else changing\" is not representable (one-ended move = rule change, would break sum_A d = sum_B d). Caveat C5: the closed rule-text Hamiltonian has no energy sink (the arrow card lists \"no native heat bath\"); a real one-way relaxation that sheds Delta needs one; the seat's cold-flip (R-STATIC) and Delta = 0 classical hopping (R-MOBILE) dynamics supply it as modelling steps; say so in the classification and inputs."
+  },
+  {
+   "n": 6,
+   "filed_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (reproduced)",
+   "finding": "Own code, fresh seeds 11/12: newborn written share R-MOBILE 0.114/0.118 (w 0.003), 0.176, 0.267, 0.385, 0.537, 0.724 (w 1); links held 0.101/0.099, 0.337, 0.691; static 0.134, 0.422, 0.737. Relaxation raises it by +0.013/+0.020, +0.048, +0.033 (mobile) and +0.033/+0.085/+0.046 (static): range 0.01-0.09 (C11). Completion c 0.18 vs 0.25-0.26 (w 0.003), 0.40 vs 0.55, 0.54 vs 0.66. Mechanism through c confirmed: the frozen mean field lam(lam + w) = c w with the MEASURED c reproduces all 16 newborn shares within 0.006."
+  },
+  {
+   "n": 7,
+   "filed_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (numbers reproduced; wording corrected, C1, C3)",
+   "finding": "All-site written share at 16x: 0.169/0.174, 0.227, 0.313, 0.423, 0.566, 0.742; w 0.003 at 32x 0.144, at 64x 0.130 (seat 0.177 ... 0.74; 0.145; 0.131). But (C3) the grown sites themselves are about 12% written at w = 0.003 from 8x on (0.112-0.119; 0.116 at 64x): the 64x requirement only dilutes the written 1024-site start; and w = 0.003 is 2.5 decades below w = 1, not three. (C1) the \"300 times\" is the ratio of rate constants (a growth point attempts Births at rate 1; each unwritten new site is written at 0.003); the overall pace is about 0.23 writes per Birth (one per ~9 new sites)."
+  },
+  {
+   "n": 8,
+   "filed_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (reproduced)",
+   "finding": "Units off home at 16x: 0.096/0.094 (w 0.003) rising to 0.345 (w 1), mobile f = 1; 0.038 at f = 10; static 0.131/0.279/0.353. Zero-ON unwritten sites 2.35%/2.14% (16x), 2.44% (64x), 7.1% (static). Two-ON minus record share +0.011..+0.071 and -0.070 (w 1) mobile; static -0.043/-0.079/-0.121. Settle (2e5 cold mobile flips, cap hit, 671 allowed flips left): units 1.6%."
+  },
+  {
+   "n": 9,
+   "filed_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL for \"no plateau near 3\"; label tally not robust (C6)",
+   "finding": "Random walk on 7 of my grown/settled materials: slopes 1.90-1.99 at T = 4 falling to 1.07-1.38 at T = 128, PLATEAU ELSEWHERE in all (controls exact: diamond 2.800-2.983, sheet 1.823-1.989). Label: my 16-centre draws read OTHER on 6 of 7 (rho 0.92-1.34; a ball ratio below 0.5) and 3D-LIKE on the settled one; repeated draws on one material give ball-ratio minima 0.39-0.47 (f = 10 material) and 0.46-0.67 (w = 0.01 material), so 3D-LIKE versus OTHER flips with the centre draw. \"3D-LIKE in 9 of 11\" should read \"borderline\". Verdict unaffected (ruler 2 decides)."
+  },
+  {
+   "n": 10,
+   "filed_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (reproduced, with a positive control)",
+   "finding": "Blank-pair sites 51.7%/51.5% (64% settled, 60% f = 10, 55% at 64x); largest RN-E cluster 4.0%/6.5% of blank pairs (5.7% settled, 7.3% f = 10, 7.8% static, 1.6% at 64x, 1.9% at w = 0.01); P_same(8) 0.49-0.70, P_same(16) 0.06-0.19. Largest cluster: STRAND (rho 1.98-3.16) in 6 of 7, OTHER at rho 1.500 (on the boundary) in the settled case; blind ant 1.16-1.63 at T = 4 falling to 0.79-1.12 at T = 128, PLATEAU ELSEWHERE in all. CONTROL, same code: supplied diamond (16000 sites) at 17.7% written, made at home and scrambled the same way: 99.4%/99.3% in one cluster, 3D-LIKE (rho 0.945-0.947), slopes rising to 2.63/3.07 at T = 64-128 (two seeds). So the fragmentation on grown material is not a code artifact."
+  },
+  {
+   "n": 11,
+   "filed_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (reproduced)",
+   "finding": "On my largest clusters (58-366 nodes; 281 at 64x), 24 sources, classes d >= 2 with >= 30 pairs: class R^2 0.91-0.99, class slope 2.96-7.96; pair R^2 0.50-0.78, pair slope 1.7-6.7 (CG to 1e-10 relative). Supplied control: class R^2 0.997, pair R^2 0.71-0.74. On a short strand-like piece both kernels fall monotonically with distance, so a high class R^2 is weak evidence; \"the reach ends with the piece\" is the right reading."
+  },
+  {
+   "n": 12,
+   "filed_grade": "PROVED_CONDITIONAL",
+   "checker_grade": "PROVED_CONDITIONAL (levels re-derived by hand; exact balls not rerun)",
+   "finding": "GF E model at stand-ins: unwritten zero-ON site level -g^2/(3Ud) = -4.8e-5 (seat E0 -4.80000254e-5); blank pair lam_J - g^2/Ud - t = 0.079856 (seat 0.079854); gap 0.0799 >> X = 7.8e-7, so any ball holding a zero-ON unwritten site puts the cold ground state on it (PR ~ 1). With 2.1-2.4% such sites (recomputed) a ~200-site as-grown ball almost always holds one. Post-test balls carry no credit (labelled)."
+  },
+  {
+   "n": 13,
+   "filed_grade": "PROPOSED",
+   "checker_grade": "PROPOSED",
+   "finding": "Post-tests (no credit). My versions: records re-placed at random on my grown graph (same count per kind; cold mobile settle capped at 2e5; scramble 5 flips per link) -> 74% of blank pairs in one cluster (seat 50-54%), still STRAND (rho 2.06) and 1.27 by random walk; supplied diamond -> spans (step 10). PT1 not rerun. Same qualitative reading: placement of written sites and the grown geometry both matter."
+  },
+  {
+   "n": 14,
+   "filed_grade": "PROPOSED",
+   "checker_grade": "PROPOSED",
+   "finding": "Concur: gravity stays OPEN. Scope correction C7 (negative on this protocol's grown material, whose bodies already fail the three-dimensions card)."
+  },
+  {
+   "n": 15,
+   "filed_grade": "REFUTED (the listed registered clauses)",
+   "checker_grade": "REFUTED (accurate list)",
+   "finding": "The listed misses match the seat tables. My runs reproduce the G5 misses (static units 13.1% < 15%; two-ON 0.121 below record at w = 1; strict cold nodes 17.7% of sites) and the G11 miss (largest cluster 1.6-7.8%). G2's links-held completion miss is marginal: my R-OFF runs give 0.252-0.263 at w = 0.003, inside [0.25, 0.9]."
+  }
+ ],
+ "recomputed_numbers": {
+  "how": "Own code written from the seat's FROZEN spec A1-A10 and F1-F4 BEFORE reading the seat's code (its gr32_ana.py was read as text only afterwards, to compare the blind-ant definition: identical). python3 -I; numpy 2.0.2 from the user path; fresh seeds 11, 12 (growth), 1011-1016 and 2101-2301 (analyses); 1024-site written DIS diamond start, k0 = 8, cuts tightest-first with uniform ties (the seat's D1), instant <= 16-hop carriers, PD-25 store reading, PD-17 gate = at least one guard-passing cut, Gillespie clock. No rule-text/target/core/adapter code run.",
+  "validators": {
+   "V1_pristine_diamond": "108 cuts, tightness 0/1/2/3 = 44/60/0/4 at 16 roots",
+   "ORD": "every site two-ON, 36 of 108 cuts pass at every root, 0 tight cuts pass",
+   "V2_DIS": "every site two-ON; 36 of 108 at each of 64 roots; tight cuts pass at 0.367",
+   "V3_V4_V5": "0 exceptions; true at every checkpoint of all 17 growth runs",
+   "ruler_controls": "diamond 31250: 3D-LIKE rho 0.98, slopes 2.800/2.897/2.938/2.967/2.983 PLATEAU NEAR 3; square sheet 16384: STRAND rho 3.175, slopes 1.823-1.989; diamond ball formula = BFS for R 0-20 (identical to the seat's controls)"
+  },
+  "growth_runs": [
+   {
+    "case": "MOBILE_w0.003_f10_s11_x16",
+    "reading": "R-MOBILE",
+    "w": 0.003,
+    "f": 10.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.119,
+    "written_share_all_sites": 0.174,
+    "units_share_off_home": 0.038,
+    "zero_on_unwritten_sites": 155,
+    "relaxation_share_a_written_at_one_on": 0.962,
+    "two_on_share_minus_record_share": 0.015,
+    "completion_share_c": 0.182,
+    "absorbed_share": 0.738,
+    "growth_points_k": 175,
+    "fallback_share": 0.139,
+    "writes_per_birth": 0.238,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 4.76
+   },
+   {
+    "case": "MOBILE_w0.003_f1_s11_x16",
+    "reading": "R-MOBILE",
+    "w": 0.003,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.114,
+    "written_share_all_sites": 0.169,
+    "units_share_off_home": 0.096,
+    "zero_on_unwritten_sites": 385,
+    "relaxation_share_a_written_at_one_on": 0.914,
+    "two_on_share_minus_record_share": 0.05,
+    "completion_share_c": 0.184,
+    "absorbed_share": 0.771,
+    "growth_points_k": 169,
+    "fallback_share": 0.155,
+    "writes_per_birth": 0.228,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 1.41
+   },
+   {
+    "case": "MOBILE_w0.003_f1_s11_x64",
+    "reading": "R-MOBILE",
+    "w": 0.003,
+    "f": 1.0,
+    "seed": 11,
+    "N": 65536,
+    "written_share_newborns": 0.116,
+    "written_share_all_sites": 0.13,
+    "units_share_off_home": 0.098,
+    "zero_on_unwritten_sites": 1599,
+    "relaxation_share_a_written_at_one_on": 0.902,
+    "two_on_share_minus_record_share": 0.052,
+    "completion_share_c": 0.193,
+    "absorbed_share": 0.761,
+    "growth_points_k": 731,
+    "fallback_share": 0.156,
+    "writes_per_birth": 0.232,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 6.21
+   },
+   {
+    "case": "MOBILE_w0.003_f1_s12_x16",
+    "reading": "R-MOBILE",
+    "w": 0.003,
+    "f": 1.0,
+    "seed": 12,
+    "N": 16384,
+    "written_share_newborns": 0.118,
+    "written_share_all_sites": 0.174,
+    "units_share_off_home": 0.094,
+    "zero_on_unwritten_sites": 351,
+    "relaxation_share_a_written_at_one_on": 0.898,
+    "two_on_share_minus_record_share": 0.046,
+    "completion_share_c": 0.18,
+    "absorbed_share": 0.762,
+    "growth_points_k": 172,
+    "fallback_share": 0.168,
+    "writes_per_birth": 0.237,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 1.41
+   },
+   {
+    "case": "MOBILE_w0.01_f1_s11_x16",
+    "reading": "R-MOBILE",
+    "w": 0.01,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.176,
+    "written_share_all_sites": 0.227,
+    "units_share_off_home": 0.145,
+    "zero_on_unwritten_sites": 471,
+    "relaxation_share_a_written_at_one_on": 0.844,
+    "two_on_share_minus_record_share": 0.064,
+    "completion_share_c": 0.256,
+    "absorbed_share": 0.755,
+    "growth_points_k": 353,
+    "fallback_share": 0.164,
+    "writes_per_birth": 0.351,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 1.3
+   },
+   {
+    "case": "MOBILE_w0.03_f1_s11_x16",
+    "reading": "R-MOBILE",
+    "w": 0.03,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.267,
+    "written_share_all_sites": 0.313,
+    "units_share_off_home": 0.209,
+    "zero_on_unwritten_sites": 558,
+    "relaxation_share_a_written_at_one_on": 0.774,
+    "two_on_share_minus_record_share": 0.071,
+    "completion_share_c": 0.319,
+    "absorbed_share": 0.751,
+    "growth_points_k": 661,
+    "fallback_share": 0.193,
+    "writes_per_birth": 0.534,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 1.14
+   },
+   {
+    "case": "MOBILE_w0.1_f1_s11_x16",
+    "reading": "R-MOBILE",
+    "w": 0.1,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.385,
+    "written_share_all_sites": 0.423,
+    "units_share_off_home": 0.278,
+    "zero_on_unwritten_sites": 470,
+    "relaxation_share_a_written_at_one_on": 0.685,
+    "two_on_share_minus_record_share": 0.056,
+    "completion_share_c": 0.404,
+    "absorbed_share": 0.74,
+    "growth_points_k": 1201,
+    "fallback_share": 0.193,
+    "writes_per_birth": 0.77,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 1.02
+   },
+   {
+    "case": "MOBILE_w0.3_f1_s11_x16",
+    "reading": "R-MOBILE",
+    "w": 0.3,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.537,
+    "written_share_all_sites": 0.566,
+    "units_share_off_home": 0.329,
+    "zero_on_unwritten_sites": 298,
+    "relaxation_share_a_written_at_one_on": 0.574,
+    "two_on_share_minus_record_share": 0.011,
+    "completion_share_c": 0.484,
+    "absorbed_share": 0.739,
+    "growth_points_k": 2005,
+    "fallback_share": 0.235,
+    "writes_per_birth": 1.075,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.94
+   },
+   {
+    "case": "MOBILE_w1_f1_s11_x16",
+    "reading": "R-MOBILE",
+    "w": 1.0,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.724,
+    "written_share_all_sites": 0.742,
+    "units_share_off_home": 0.345,
+    "zero_on_unwritten_sites": 105,
+    "relaxation_share_a_written_at_one_on": 0.433,
+    "two_on_share_minus_record_share": -0.07,
+    "completion_share_c": 0.535,
+    "absorbed_share": 0.729,
+    "growth_points_k": 2985,
+    "fallback_share": 0.264,
+    "writes_per_birth": 1.449,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.91
+   },
+   {
+    "case": "OFF_w0.003_f1_s11_x16",
+    "reading": "R-OFF",
+    "w": 0.003,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.101,
+    "written_share_all_sites": 0.158,
+    "units_share_off_home": 0.842,
+    "zero_on_unwritten_sites": 0,
+    "relaxation_share_a_written_at_one_on": 0.0,
+    "two_on_share_minus_record_share": 0.842,
+    "completion_share_c": 0.252,
+    "absorbed_share": 0.987,
+    "growth_points_k": 204,
+    "fallback_share": 0.063,
+    "writes_per_birth": 0.203,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.36
+   },
+   {
+    "case": "OFF_w0.003_f1_s12_x16",
+    "reading": "R-OFF",
+    "w": 0.003,
+    "f": 1.0,
+    "seed": 12,
+    "N": 16384,
+    "written_share_newborns": 0.099,
+    "written_share_all_sites": 0.155,
+    "units_share_off_home": 0.845,
+    "zero_on_unwritten_sites": 0,
+    "relaxation_share_a_written_at_one_on": 0.0,
+    "two_on_share_minus_record_share": 0.845,
+    "completion_share_c": 0.263,
+    "absorbed_share": 0.99,
+    "growth_points_k": 208,
+    "fallback_share": 0.07,
+    "writes_per_birth": 0.198,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.36
+   },
+   {
+    "case": "OFF_w0.1_f1_s11_x16",
+    "reading": "R-OFF",
+    "w": 0.1,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.337,
+    "written_share_all_sites": 0.379,
+    "units_share_off_home": 0.621,
+    "zero_on_unwritten_sites": 0,
+    "relaxation_share_a_written_at_one_on": 0.0,
+    "two_on_share_minus_record_share": 0.621,
+    "completion_share_c": 0.546,
+    "absorbed_share": 0.952,
+    "growth_points_k": 1421,
+    "fallback_share": 0.179,
+    "writes_per_birth": 0.674,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.48
+   },
+   {
+    "case": "OFF_w1_f1_s11_x16",
+    "reading": "R-OFF",
+    "w": 1.0,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.691,
+    "written_share_all_sites": 0.711,
+    "units_share_off_home": 0.289,
+    "zero_on_unwritten_sites": 0,
+    "relaxation_share_a_written_at_one_on": 0.0,
+    "two_on_share_minus_record_share": 0.289,
+    "completion_share_c": 0.659,
+    "absorbed_share": 0.856,
+    "growth_points_k": 3509,
+    "fallback_share": 0.266,
+    "writes_per_birth": 1.383,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.57
+   },
+   {
+    "case": "SMOKE_M1_w0.003_s99_2x",
+    "reading": "R-MOBILE",
+    "w": 0.003,
+    "f": 1.0,
+    "seed": 99,
+    "N": 2048,
+    "written_share_newborns": 0.069,
+    "written_share_all_sites": 0.535,
+    "units_share_off_home": 0.058,
+    "zero_on_unwritten_sites": 33,
+    "relaxation_share_a_written_at_one_on": 0.859,
+    "two_on_share_minus_record_share": 0.015,
+    "completion_share_c": 0.141,
+    "absorbed_share": 0.845,
+    "growth_points_k": 13,
+    "fallback_share": 0.189,
+    "writes_per_birth": 0.139,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.09
+   },
+   {
+    "case": "STATIC_w0.003_f1_s11_x16",
+    "reading": "R-STATIC",
+    "w": 0.003,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.134,
+    "written_share_all_sites": 0.188,
+    "units_share_off_home": 0.131,
+    "zero_on_unwritten_sites": 1162,
+    "relaxation_share_a_written_at_one_on": 0.909,
+    "two_on_share_minus_record_share": -0.043,
+    "completion_share_c": 0.141,
+    "absorbed_share": 0.707,
+    "growth_points_k": 153,
+    "fallback_share": 0.264,
+    "writes_per_birth": 0.269,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.58
+   },
+   {
+    "case": "STATIC_w0.1_f1_s11_x16",
+    "reading": "R-STATIC",
+    "w": 0.1,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.422,
+    "written_share_all_sites": 0.458,
+    "units_share_off_home": 0.279,
+    "zero_on_unwritten_sites": 890,
+    "relaxation_share_a_written_at_one_on": 0.776,
+    "two_on_share_minus_record_share": -0.079,
+    "completion_share_c": 0.323,
+    "absorbed_share": 0.637,
+    "growth_points_k": 1056,
+    "fallback_share": 0.232,
+    "writes_per_birth": 0.845,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.68
+   },
+   {
+    "case": "STATIC_w1_f1_s11_x16",
+    "reading": "R-STATIC",
+    "w": 1.0,
+    "f": 1.0,
+    "seed": 11,
+    "N": 16384,
+    "written_share_newborns": 0.737,
+    "written_share_all_sites": 0.753,
+    "units_share_off_home": 0.353,
+    "zero_on_unwritten_sites": 138,
+    "relaxation_share_a_written_at_one_on": 0.506,
+    "two_on_share_minus_record_share": -0.121,
+    "completion_share_c": 0.497,
+    "absorbed_share": 0.689,
+    "growth_points_k": 2820,
+    "fallback_share": 0.273,
+    "writes_per_birth": 1.474,
+    "V3_exceptions": 0,
+    "V4_V5_every_checkpoint": true,
+    "cpu_s": 0.75
+   }
+  ],
+  "grown_case_with_relaxation_on_and_comparisons_BOTH_RULERS": {
+   "M1_w0.003_s11_asgrown": {
+    "written_share_all_sites": 0.169,
+    "units_share": 0.096,
+    "zero_on_unwritten": 385,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "OTHER",
+     "rho": 1.153,
+     "ball_ratio_min_max": [
+      0.318,
+      0.846
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.897,
+      1.83,
+      1.621,
+      1.343,
+      1.214
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 4234,
+     "share_of_sites_in_nodes": 0.5168,
+     "clusters": 203,
+     "largest_cluster_nodes": 168,
+     "largest_cluster_share_of_nodes": 0.0397
+    },
+    "RN_S_nodes": 2488,
+    "RN_E_P_same_by_distance": {
+     "2": 0.973,
+     "4": 0.859,
+     "8": 0.488,
+     "12": 0.18,
+     "16": 0.06
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "STRAND",
+     "rho": 3.161,
+     "ball_ratio_min_max": [
+      0.292,
+      0.548
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.206,
+      1.176,
+      1.175,
+      1.07,
+      0.972
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 4.125,
+     "pair_R2": 0.683,
+     "class_slope": 6.004,
+     "class_R2": 0.914,
+     "n_pairs": 8016,
+     "n_classes": 24,
+     "cg_iters": 1044,
+     "cg_relres": 9.852082559331475e-11,
+     "class_d_range": [
+      2,
+      25
+     ]
+    }
+   },
+   "M1_w0.003_s12_asgrown": {
+    "written_share_all_sites": 0.174,
+    "units_share": 0.094,
+    "zero_on_unwritten": 351,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "OTHER",
+     "rho": 1.304,
+     "ball_ratio_min_max": [
+      0.436,
+      0.864
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.991,
+      1.943,
+      1.664,
+      1.321,
+      1.191
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 4221,
+     "share_of_sites_in_nodes": 0.5153,
+     "clusters": 197,
+     "largest_cluster_nodes": 276,
+     "largest_cluster_share_of_nodes": 0.0654
+    },
+    "RN_S_nodes": 2466,
+    "RN_E_P_same_by_distance": {
+     "2": 0.982,
+     "4": 0.891,
+     "8": 0.565,
+     "12": 0.261,
+     "16": 0.108
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "STRAND",
+     "rho": 2.564,
+     "ball_ratio_min_max": [
+      0.224,
+      0.581
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.188,
+      1.306,
+      1.354,
+      1.253,
+      1.122
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 4.064,
+     "pair_R2": 0.5,
+     "class_slope": 5.92,
+     "class_R2": 0.983,
+     "n_pairs": 13200,
+     "n_classes": 27,
+     "cg_iters": 1077,
+     "cg_relres": 9.355450960582505e-11,
+     "class_d_range": [
+      2,
+      28
+     ]
+    }
+   },
+   "M10_w0.003_s11_asgrown": {
+    "written_share_all_sites": 0.174,
+    "units_share": 0.038,
+    "zero_on_unwritten": 155,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "OTHER",
+     "rho": 1.24,
+     "ball_ratio_min_max": [
+      0.444,
+      0.86
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.931,
+      1.865,
+      1.506,
+      1.144,
+      1.068
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 4925,
+     "share_of_sites_in_nodes": 0.6012,
+     "clusters": 133,
+     "largest_cluster_nodes": 358,
+     "largest_cluster_share_of_nodes": 0.0727
+    },
+    "RN_S_nodes": 3927,
+    "RN_E_P_same_by_distance": {
+     "2": 0.987,
+     "4": 0.919,
+     "8": 0.677,
+     "12": 0.334,
+     "16": 0.173
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "STRAND",
+     "rho": 2.079,
+     "ball_ratio_min_max": [
+      0.298,
+      0.599
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.455,
+      1.385,
+      1.286,
+      1.103,
+      0.972
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 3.586,
+     "pair_R2": 0.775,
+     "class_slope": 4.422,
+     "class_R2": 0.94,
+     "n_pairs": 17136,
+     "n_classes": 32,
+     "cg_iters": 1055,
+     "cg_relres": 9.601699985750767e-11,
+     "class_d_range": [
+      2,
+      33
+     ]
+    }
+   },
+   "ST1_w0.003_s11_asgrown": {
+    "written_share_all_sites": 0.188,
+    "units_share": 0.131,
+    "zero_on_unwritten": 1162,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "OTHER",
+     "rho": 1.342,
+     "ball_ratio_min_max": [
+      0.467,
+      0.853
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.913,
+      1.913,
+      1.654,
+      1.332,
+      1.225
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 4721,
+     "share_of_sites_in_nodes": 0.5763,
+     "clusters": 149,
+     "largest_cluster_nodes": 366,
+     "largest_cluster_share_of_nodes": 0.0775
+    },
+    "RN_S_nodes": 1449,
+    "RN_E_P_same_by_distance": {
+     "2": 0.97,
+     "4": 0.886,
+     "8": 0.66,
+     "12": 0.365,
+     "16": 0.155
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "STRAND",
+     "rho": 2.901,
+     "ball_ratio_min_max": [
+      0.26,
+      0.643
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.388,
+      1.53,
+      1.463,
+      1.265,
+      1.105
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 6.723,
+     "pair_R2": 0.679,
+     "class_slope": 7.963,
+     "class_R2": 0.97,
+     "n_pairs": 17520,
+     "n_classes": 29,
+     "cg_iters": 1045,
+     "cg_relres": 9.862419196025177e-11,
+     "class_d_range": [
+      2,
+      30
+     ]
+    }
+   },
+   "M1_w0.01_s11_asgrown": {
+    "written_share_all_sites": 0.227,
+    "units_share": 0.145,
+    "zero_on_unwritten": 471,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "OTHER",
+     "rho": 0.992,
+     "ball_ratio_min_max": [
+      0.464,
+      0.812
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.977,
+      1.868,
+      1.57,
+      1.371,
+      1.381
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 3081,
+     "share_of_sites_in_nodes": 0.3761,
+     "clusters": 482,
+     "largest_cluster_nodes": 58,
+     "largest_cluster_share_of_nodes": 0.0188
+    },
+    "RN_S_nodes": 1220,
+    "RN_E_P_same_by_distance": {
+     "2": 0.921,
+     "4": 0.645,
+     "8": 0.138,
+     "12": 0.015,
+     "16": 0.0
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "STRAND",
+     "rho": 1.983,
+     "ball_ratio_min_max": [
+      0.316,
+      0.504
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.156,
+      1.08,
+      0.986,
+      1.015,
+      1.084
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      true
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 5.406,
+     "pair_R2": 0.679,
+     "class_slope": 7.26,
+     "class_R2": 0.953,
+     "n_pairs": 2736,
+     "n_classes": 12,
+     "cg_iters": 817,
+     "cg_relres": 9.93391438246509e-11,
+     "class_d_range": [
+      2,
+      13
+     ]
+    }
+   },
+   "X64_M1_w0.003_s11_asgrown": {
+    "written_share_all_sites": 0.13,
+    "units_share": 0.098,
+    "zero_on_unwritten": 1599,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "OTHER",
+     "rho": 0.919,
+     "ball_ratio_min_max": [
+      0.41,
+      0.812
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.966,
+      1.822,
+      1.426,
+      1.179,
+      1.156
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 17902,
+     "share_of_sites_in_nodes": 0.5463,
+     "clusters": 883,
+     "largest_cluster_nodes": 281,
+     "largest_cluster_share_of_nodes": 0.0157
+    },
+    "RN_S_nodes": 10587,
+    "RN_E_P_same_by_distance": {
+     "2": 0.972,
+     "4": 0.853,
+     "8": 0.552,
+     "12": 0.24,
+     "16": 0.089
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "STRAND",
+     "rho": 2.254,
+     "ball_ratio_min_max": [
+      0.272,
+      0.662
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.25,
+      1.282,
+      1.335,
+      1.312,
+      1.072
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 3.511,
+     "pair_R2": 0.675,
+     "class_slope": 4.876,
+     "class_R2": 0.991,
+     "n_pairs": 13440,
+     "n_classes": 27,
+     "cg_iters": 2153,
+     "cg_relres": 9.547154249092566e-11,
+     "class_d_range": [
+      2,
+      28
+     ]
+    }
+   },
+   "settled MOBILE_w0.003_f1_s11_x16.json": {
+    "written_share_all_sites": 0.169,
+    "units_share": 0.016,
+    "zero_on_unwritten": 51,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "3D-LIKE",
+     "rho": 1.079,
+     "ball_ratio_min_max": [
+      0.64,
+      0.835
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.923,
+      1.867,
+      1.544,
+      1.277,
+      1.218
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 5245,
+     "share_of_sites_in_nodes": 0.6403,
+     "clusters": 135,
+     "largest_cluster_nodes": 300,
+     "largest_cluster_share_of_nodes": 0.0572
+    },
+    "RN_S_nodes": 4793,
+    "RN_E_P_same_by_distance": {
+     "2": 0.991,
+     "4": 0.931,
+     "8": 0.697,
+     "12": 0.429,
+     "16": 0.19
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "OTHER",
+     "rho": 1.5,
+     "ball_ratio_min_max": [
+      0.306,
+      0.75
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.634,
+      1.342,
+      1.047,
+      0.846,
+      0.79
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 1.709,
+     "pair_R2": 0.505,
+     "class_slope": 2.956,
+     "class_R2": 0.968,
+     "n_pairs": 14352,
+     "n_classes": 22,
+     "cg_iters": 1058,
+     "cg_relres": 9.684215171988276e-11,
+     "class_d_range": [
+      2,
+      23
+     ]
+    },
+    "settle": {
+     "flips": 200000,
+     "allowed_left": 671
+    }
+   },
+   "records re-placed MOBILE_w0.003_f1_s11_x16.json": {
+    "written_share_all_sites": 0.169,
+    "units_share": 0.023,
+    "zero_on_unwritten": 68,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "OTHER",
+     "rho": 1.153,
+     "ball_ratio_min_max": [
+      0.423,
+      0.842
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      1.922,
+      1.797,
+      1.443,
+      1.226,
+      1.193
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "RN_E_census": {
+     "nodes": 4535,
+     "share_of_sites_in_nodes": 0.5536,
+     "clusters": 128,
+     "largest_cluster_nodes": 3356,
+     "largest_cluster_share_of_nodes": 0.74
+    },
+    "RN_S_nodes": 4032,
+    "RN_E_P_same_by_distance": {
+     "2": 0.982,
+     "4": 0.912,
+     "8": 0.788,
+     "12": 0.705,
+     "16": 0.675
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "STRAND",
+     "rho": 2.056,
+     "ball_ratio_min_max": [
+      0.208,
+      0.676
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.273,
+      1.298,
+      1.267,
+      1.263,
+      1.27
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 4.298,
+     "pair_R2": 0.706,
+     "class_slope": 4.356,
+     "class_R2": 0.998,
+     "n_pairs": 161040,
+     "n_classes": 50,
+     "cg_iters": 1089,
+     "cg_relres": 9.358880558961798e-11,
+     "class_d_range": [
+      2,
+      51
+     ]
+    },
+    "make_at_home": {
+     "flips": 200000,
+     "allowed_left": 945,
+     "scramble_loops": 24330,
+     "aborted_walks": 974
+    },
+    "W_B_minus_W_A": -30
+   },
+   "supplied diamond L=20 share=0.177": {
+    "written_share_all_sites": 0.177,
+    "units_share": 0.0,
+    "zero_on_unwritten": 0,
+    "BOTH_RULERS_material": {
+     "RULER_1_label": "3D-LIKE",
+     "rho": 1.0,
+     "ball_ratio_min_max": [
+      1.0,
+      1.0
+     ],
+     "RULER_2_local_slopes_T4_to_128": [
+      2.8,
+      2.897,
+      2.938,
+      2.967,
+      2.983
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU NEAR 3"
+    },
+    "RN_E_census": {
+     "nodes": 4497,
+     "share_of_sites_in_nodes": 0.5621,
+     "clusters": 27,
+     "largest_cluster_nodes": 4464,
+     "largest_cluster_share_of_nodes": 0.9927
+    },
+    "RN_S_nodes": 4497,
+    "RN_E_P_same_by_distance": {
+     "2": 0.994,
+     "4": 0.985,
+     "8": 0.986,
+     "12": 0.983,
+     "16": 0.986
+    },
+    "BOTH_RULERS_largest_RN_E_cluster": {
+     "RULER_1_label": "3D-LIKE",
+     "rho": 0.945,
+     "ball_ratio_min_max": [
+      0.53,
+      0.655
+     ],
+     "RULER_2_blind_ant_slopes_T4_to_128": [
+      1.836,
+      2.039,
+      2.202,
+      2.496,
+      3.072
+     ],
+     "floor_flags": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ],
+     "RULER_2_verdict": "PLATEAU ELSEWHERE"
+    },
+    "pull_spreading_fit_cold_Lplus_vs_material_Lplus": {
+     "pair_slope": 3.034,
+     "pair_R2": 0.706,
+     "class_slope": 2.975,
+     "class_R2": 0.997,
+     "n_pairs": 214224,
+     "n_classes": 38,
+     "cg_iters": 98,
+     "cg_relres": 7.36777583530626e-11,
+     "class_d_range": [
+      2,
+      39
+     ]
+    },
+    "make_at_home": {
+     "flips": 590030,
+     "allowed_left": 0,
+     "scramble_loops": 15750,
+     "aborted_walks": 0
+    }
+   }
+  },
+  "mean_field_with_measured_c": "lam(lam + w) = c w, share w/(lam + w): within 0.006 of the measured newborn share in all 16 runs (e.g. R-MOBILE w 0.003: 0.120 vs 0.114-0.119; R-OFF w 0.003: 0.101-0.103 vs 0.099-0.101; R-MOBILE w 1: 0.721 vs 0.724)",
+  "overall_pace_at_w_0.003": "writes per Birth 0.228-0.238 (one write per ~4.3 Births, ~8.7 new sites) although the rate-constant ratio is 1/0.003 = 333",
+  "E_model_levels_by_hand": {
+   "zero_on_unwritten_site": -4.8e-05,
+   "blank_pair_bonding": 0.079856,
+   "gap": 0.079904,
+   "crossing_X": 7.817e-07
+  },
+  "comparison_with_seat": "every recomputed quantity lies within seed scatter of the seat's (newborn share within 0.01, cold-cluster share 1.6-7.8% vs 1.1-8.5%, both rulers same verdicts) except the ruler-1 label tally (C6) and the post-test re-placement percentage (74% vs 50-54%, C12)",
+  "not_recomputed": "exact balls (F5) and one-versus-two objects; undo-guard pass shares (F8); beta and old-distance exponents (F6, F7); post-tests PT1 and PT4"
+ },
+ "verdict_check": "The main result and the card verdict reproduce with independent code: PD-32's switch-off is the rule text's own flip and conserves charge by moving the unit; relaxation does not set the record share (a write-rate dial; relaxation lowers the completion share and so raises the written share slightly); at the slow-write setting the grown material's cold-gamma graph is in small strand-like pieces while a supplied diamond at the same share spans; the grown body reads well below 3 by random walk. CONFIRMED_WITH_CORRECTIONS: the corrections are to plain-words accuracy (C1, C3, C4), a missing positive (C2), the classification's scope (C5), ruler-1 robustness (C6), scoping of \"decisive\" (C7), decisions-in-force bookkeeping (C8), one measure caveat (C9), one pointer (C10) and ranges (C11, C12). None changes the verdict OPEN.",
+ "classification_check": {
+  "native_versus_adopted_ruling_by_checker": "NATIVE (move), concurring with the seat from my own reading of l.527-556, 595-601, 403-412, 420-430, 442-480, 602-630: the relaxation move is the unguarded single flip; at the lock form it lowers the diagonal energy by Delta; its result is the newborn at home (as PD-32's record says) with the unit moved to the far end; the alternative \"extra link vanishes, nothing else changes\" is a rule change and was rightly not run. Caveat C5: the one-way, energy-shedding occurrence is a modelling step (no native sink).",
+  "inputs": "Classified per 0264/0265/0278: rule-text moves native; stand-ins as settings on file; PD-05/06/07A/18/24/27/30 native by the principal's call; PD-17 and PD-29 counted as adopted rules (0320 (2b)); PD-25 store reading, carrier walk, write event, clock, no reverse Births, RN-E/RN-S and the E model as modelling steps; PD-17 gate reading and the cut rule as pending definitions; the 1024-site written diamond start as a setting/input (0278 (a): three dimensions of the start is an input; grown results are on grown material). Add (C5): cold dissipative flip dynamics as a modelling step.",
+  "principal_definitions_chosen": "none. Relaxation readings R-STATIC and R-MOBILE both run, none chosen; the one question offers two options with a recommendation (0325 delegation format) and does not choose.",
+  "decisions_in_force_PD05_to_PD38": "PD-34 (23:33:40Z), PD-35/36/37 (23:37:44Z) predate the freeze (23:48:53Z) but are not cited. No number changes: results are at size checkpoints and w is a relative rate under any clock, but the inputs row \"what counts as elapsed time is queued\" is stale under PD-37; the question's charge wording is the per-site count, which PD-34's background count matches in uniform surroundings. PD-38 (00:12:12Z, after the seat) is compatible: the undo measure already requires both new sites unwritten.",
+  "supplied_block_rule_0278a": "respected: every gravity statement is on grown material; the supplied diamond appears only as a labelled post-test/control."
+ },
+ "premise_spot_checks": [
+  {
+   "premise": "native_full_h.py:595-601 single flip on every link, amplitude -h, no guard",
+   "result": "ACCURATE (l.595 loop over all edges; l.598-601 flip with -h)"
+  },
+  {
+   "premise": "native_full_h.py:527-556 energy block (Delta l.535, Ud l.543, eps_r l.545, lam_R l.546, lam_J l.547)",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "native_full_h.py:403-409 Birth image, bit pop l.404",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "native_full_h.py:410-412 newborns carrier-free, unwritten, R cells",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "native_full_h.py:425 guard exactly two of four cut links ON",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "native_full_h.py:420-430 who may give birth (l.423 inactive originals)",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "native_full_h.py:442-480 undo guard (pair test l.455, two-ON test l.457)",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "native_full_h.py:602-611 hop only along an ON link to an empty site (l.610)",
+   "result": "ACCURATE in substance; pointer slip: the ON/empty condition is l.602, l.610 is the yield (C10)"
+  },
+  {
+   "premise": "native_full_h.py:612-618 Bind toggles the record where a carrier sits (l.617)",
+   "result": "ACCURATE (l.614 condition, l.616 toggle)"
+  },
+  {
+   "premise": "native_full_h.py:619-630 admission and release (l.622, l.628)",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "native_full_h.py:343-353 local cuts",
+   "result": "ACCURATE (also reproduced: 108 cuts, 44/60/0/4)"
+  },
+  {
+   "premise": "HELPER_RETURN_I1_V001.txt:3 written carrier-free site Ud(d-2)^2 at the lock form",
+   "result": "ACCURATE (and re-derived by hand)"
+  },
+  {
+   "premise": "COORDINATOR_0323:2-6 PD-32 task",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "PRINCIPAL_DECISION_PD32 record",
+   "result": "ACCURATE (\"Classify it as a rule change unless the source supports it\"); note the record says the newborn \"relaxes to the unwritten home state\", which the native move delivers"
+  },
+  {
+   "premise": "BATCH21_BRIEF:61-66 seat task",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "BATCH7_BRIEF:41-45 common protocol",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "HELPER_RETURN_GF_V001.txt:12-24",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "HELPER_RETURN_CHECK_GF_V001.txt:12-13",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "B16_SEAT_GF frozen_expectations (stand-ins, E model, crossing 7.817e-7, M-RN)",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "HELPER_RETURN_CHAIR_B6_V001.txt:25 charged loose unit",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "HELPER_RETURN_CHECK_GC_V001.txt:26 a write on an at-home site sets a unit loose",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "B7_SEAT_P3 protocol_as_run.bits and V1/V2",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "COORDINATOR_0301:3 ruler ruling",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "COORDINATOR_0320:5 PD-17 absorption counted as adopted rule",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "COORDINATOR_0277:11 stable/lasting apply to bound records",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "SCOREBOARD_CURRENT.json:101 and :286",
+   "result": "ACCURATE in the current file (rewritten 00:13:56Z, after the seat); l.101 is the opposite-unit-charges plain words, l.286 opens the gravity row (OPEN; batch 21 named as the decisive test)"
+  },
+  {
+   "premise": "COORDINATOR_0257/0264/0278 (a)",
+   "result": "ACCURATE"
+  },
+  {
+   "premise": "INSIGHT_LK33_2.txt:10-13 and INSIGHT_SZ_1.txt:9",
+   "result": "ACCURATE (informal notes, labelled unchecked)"
+  }
+ ],
+ "corrections": [
+  {
+   "id": "C1",
+   "materiality": "material for the plain words",
+   "text": "\"Writing about 300 times slower than growth\" (answer, plain summary) overstates the overall pace. 300 is the ratio of rate constants (each unwritten new site is written at 0.003 per unit time; each growth point attempts Births at rate 1); overall there is about one write per 4-5 Births (writes per Birth 0.23-0.24 recomputed). Say \"each new site is written about 300 times more slowly than a growth point builds\"."
+  },
+  {
+   "id": "C2",
+   "materiality": "material (missing positive)",
+   "text": "Relaxation does remove GF's obstacle that every new site looks written to gamma: with it, the two-ON share tracks the record share and about half the grown sites sit in blank pairs at w = 0.003 (52% recomputed; none with links held). main_result and answer should report this positive with the negatives, and separate three things: relaxation makes unwritten new sites blank (positive); it does not set the record share, a write-rate dial it raises slightly (neutral); at the setting that gives a thin state the cold network is in pieces (negative)."
+  },
+  {
+   "id": "C3",
+   "materiality": "minor",
+   "text": "Step 7 and the plain summary: the grown sites are about 12% written at w = 0.003 already from 8x (0.112-0.119; 0.116 at 64x); \"only at 64x\" refers to the all-site share diluting the written 1024-site start. \"Three decades below equal rates\" should be about 2.5 decades (log10 333 = 2.52)."
+  },
+  {
+   "id": "C4",
+   "materiality": "minor",
+   "text": "Plain summary and map note: \"a relaxed newborn's Birth cannot be undone\" needs \"while it stays relaxed\" (units return; the seat's own F8 finds 21-42% of status-eligible unwritten Births still pass at f = 1)."
+  },
+  {
+   "id": "C5",
+   "materiality": "minor (classification scope)",
+   "text": "The move is native and lowers the diagonal energy; but the rule text is a closed Hamiltonian with no energy sink (the arrow card itself lists \"no native heat bath\"), so \"switches off by itself\" as a one-way relaxation that sheds Delta rests on the cold-flip / Delta = 0 classical dynamics, which are modelling steps. Add that row to inputs and say it in the classification. At Delta = 0 the native switch-off is a reversible, energy-neutral move of the unit."
+  },
+  {
+   "id": "C6",
+   "materiality": "minor (no verdict change)",
+   "text": "Ruler 1 on grown material is borderline: ball-ratio minima straddle 0.5 across 16-centre draws on the same material, so 3D-LIKE versus OTHER flips with the draw (my draws: OTHER on 6 of 7). Report the label as borderline, not \"3D-LIKE in 9 of 11\". The no-plateau verdict (ruler 2) is robust."
+  },
+  {
+   "id": "C7",
+   "materiality": "minor (scope)",
+   "text": "\"The decisive test is NEGATIVE\": negative on grown material under the batch-7 protocol (instant 16-hop carriers, store reading, tightest cuts, written 1024-site start, 16x-64x), whose bodies already fail the three-dimensions card; it is not a test of PD-32 on a three-dimensional grown body (none exists on file). The verdict field says this; main_result should too. Under 0320 the 3D target is per time-slice (about 4 on the whole history); the whole-body reading of 1.1-1.9 is below both."
+  },
+  {
+   "id": "C8",
+   "materiality": "minor (bookkeeping)",
+   "text": "PD-34 and PD-35/36/37 were recorded before the freeze and are not cited; the inputs row \"what counts as elapsed time is queued\" is stale under PD-37. No number changes (size checkpoints; w is a relative rate). PD-38 (after the seat) is compatible."
+  },
+  {
+   "id": "C9",
+   "materiality": "minor (measure)",
+   "text": "The undo-guard pass share (F8) tests the as-born pairing only; the rule text (l.451-478) tries every re-pairing, so a newborn whose unit left and came back by another link may still be undoable (to a different predecessor). Report 0.21-0.42 as a lower bound. The PROVED one-ON block (l.457) is unaffected."
+  },
+  {
+   "id": "C10",
+   "materiality": "pointer",
+   "text": "Hop premise: the ON/empty condition is l.602, not l.610."
+  },
+  {
+   "id": "C11",
+   "materiality": "ranges",
+   "text": "Relaxation raises the newborn share by about 0.01-0.09 (recomputed), not 0.02-0.08; the grown body's T = 128 slope reaches 1.07 (f = 10 material), so \"1.2-1.9\" -> \"about 1.1-1.9\"."
+  },
+  {
+   "id": "C12",
+   "materiality": "post-test numbers (no credit)",
+   "text": "Records re-placed at random reconnect 74% of blank pairs in my run (seat 50-54%); the supplied-diamond cold cluster reaches 2.63-3.07 at T = 64-128 by seed (seat 2.91). \"Reconnects half\" -> \"half to three quarters\"."
+  }
+ ],
+ "plain_summary_ok": {
+  "ok": "OK_WITH_CORRECTIONS",
+  "answer_to_principal": "147 words, hedged, plain, no ids, one model family stated; needs C1 and C2. Suggested wording (150 words): We tested your decision that a new site's extra link can switch off before it is written. The rules already allow it: any link can turn off. But a link has two ends, so the extra unit does not vanish; it moves to the old neighbour and stays or wanders until it meets a partner. That helps one thing gravity needs: unwritten new sites now look empty to gamma. It does not set how much gets written; that still depends on how fast each new site is written compared with how fast growth points build. With each new site written about 300 times more slowly than a growth point builds, about 12% of grown sites end up written. Even then, gamma's paths in the grown network broke into small strand-like pieces, unlike in a ready-made 3D block at the same share. So gravity stays open. One model family; checked once.",
+  "plain_summary": "141 words, hedged; needs C1, C3 and C4.",
+  "over_claims_found": [
+   "\"300 times slower than growth\" (C1)",
+   "\"cannot be undone\" without \"while it stays relaxed\" (C4)",
+   "\"appeared only ... at 64 times the start\" (C3)"
+  ],
+  "recalled_physics": "none used in the plain texts; the diamond coordination-sequence formula (marked RECALLED in the seat's code) is validated by BFS in the seat and here."
+ },
+ "checker_recommendation_for_the_board": "Keep \"gravity\" OPEN (one model family; checked once by a distinct same-family checker). Record, with the corrections: PD-32's switch-off is the rule text's own link flip (native) and keeps charge whole by moving the unit to the old neighbour; in growth it makes unwritten new sites blank to gamma (about half the grown sites in blank pairs at the slowest write rate; none without it), but the written share stays a write-rate dial that relaxation raises slightly; at the setting where grown sites are about 12% written, the network a cold gamma walks is in small strand-like pieces (largest 2-8% of blank pairs, about 1 by random walk) and the grown body reads about 1.1-1.9 by random walk, while a supplied diamond at the same share gives one spanning 3D-like network. So the test is negative on this protocol's grown material and gravity now waits on \"three dimensions\" (a grown body near 3 on both rulers), on written sites not walling off unwritten regions, and on units clearing faster than growth makes them. Clues only, no moves: \"three dimensions\" (grown-body label borderline, random walk well below 3), \"an arrow of time\" (a relaxed Birth is protected from undo only while it stays relaxed), \"opposite unit charges\" (charge conserved in every run, recomputed). The seat's one question has a clear recommendation (keep the native two-ended reading); nothing in this check argues against it.",
+ "checker_expectations": {
+  "file": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b21_gr32/CHECKER_EXPECTATIONS_GR32.txt",
+  "sha256": "4eb8a0a06b9d2d833e85215b5e1667b28adc339867e15a74cf9f8681331424d5",
+  "written_utc": "2026-11-20T09:30:28Z (before any checker code), chmod 444",
+  "scorecard": "X1 held; X2 held (0.114/0.118 and 0.169/0.174); X3 held (0.914/0.898; units 0.096/0.094); X4 held (c 0.184/0.180; R-OFF lower by 0.013/0.020); X5 held except rho 1.304 in seed 12 just above my 1.3 band; X6 held (blank-pair sites 51.7/51.5%; largest 4.0/6.5%; STRAND; blind ant <= 1.35 at T = 64-128); X7 held (class R^2 0.914/0.983; pair R^2 0.683/0.50). No downgrade condition met."
+ },
+ "code_and_outputs": {
+  "scratch": "/private/tmp/claude-501/-Users-bgm-Research-Universal-Network-Theory-claude2/17fcfb96-f8b3-43d3-92d0-c090e9eba0eb/scratchpad/chk_b21_gr32",
+  "code_sha256": {
+   "chk_grow_v1.py": "588d1c83c38d91e005751576e8d4c00f7a6b17f03e1b6848a2a22e140e1fd8ef",
+   "chk_grow_v2.py": "68120cebdd055d1288df54809af6c58cd0774832fcf4e8418332127a92083c2c",
+   "chk_batch_v1.py": "8bbc3972ecad52cc391e286062727d4d04a2e83a86110927a7fdd7adf51f31ce",
+   "chk_ana_v1.py": "c56b794249ad1bc32acac3495c49133dd64e1e5de78194037171ae651581bffc",
+   "chk_ana_v2.py": "2cc98a026e94c65eddfc3a11a7708125bd04aaf29909e32b0b11a2d240fb5ce6",
+   "chk_ballprofile_v1.py": "580d2f1ee1bfa7c41f2362acb334ac5c841b85db9a36a4fee6f4824de655b86e",
+   "chk_extra_v1.py": "040672b940848bf08a06bb5b5ed572d4d0b52f06921f111d6b717b4ebac2eee2",
+   "chk_extra_v2.py": "24d4c1cf7b7f52a2fa0cdb737bfa99a07ad8f4383a28f4065d09af9434766168",
+   "chk_extra_v3.py": "56679e1303a5d1b12f0c90b6f719d7e43f0a81b45abd2b97a2184f25cc27e70f",
+   "chk_meanfield_v1.py": "e6cf075e7928e58c5a9f849dbc7951a80b6b4de7dc556096ceb501aabb8793be",
+   "chk_write_v1.py": "3e64278022c6fc4cc49160ff8e9411da0e4b264f202cb28a01929149a788f39e",
+   "chk_write_v2.py": "c3ddc94a2d407b0d6a6cb6e405518663ab13f63639141ed3a62a54b2c1a3ded6",
+   "chk_write_v3.py": "7d1560d29843346f50294e97966801e94765e2289d971795c9f9fa9f2eae68ca"
+  },
+  "seeds": "growth 11, 12 (smoke 99); analyses 1011-1016; settle 2101; supplied 2201, 2202; re-placement 2301; validators 5; controls 7",
+  "sizes": "start 1024 sites; 16x = 16384; one 64x run = 65536; supplied control 16000; controls 31250 / 16384",
+  "compute_cpu_s_total_approx": 215,
+  "largest_dense_matrix": "4464 x 4464 (blind-ant evolution on the supplied control cluster); no diagonalisation",
+  "outputs": "out/RESULTS_GROWTH_COMPACT.json, out/ana_*.json, out/extra_*.json (network-state files deleted after extraction; reproducible from code and seeds)"
+ },
+ "disclosures": [
+  "ONE MODEL FAMILY: the seat author and this checker are both Opus 5.5.",
+  "numpy 2.0.2 loaded from the user path inside python3 -I; one spurious numpy matmul warning appeared in pinv (results checked finite).",
+  "I read the seat's gr32_ana.py as TEXT only, after my own runs, to compare the blind-ant definition (identical); I ran no script found on disk; Claude3 scratch read as text only; nothing written into claude3/.",
+  "chk_grow_v1.py was never run (v2 removes one no-op line). chk_extra_v1.py \"replace\" mode was stopped by me before finishing (it used a 1e7 flip cap; the re-placed records leave a net charge of -30 that cannot cancel under Delta = 0, so it would only stop at the cap) and rerun as chk_extra_v2.py with the seat's 2e5 cap.",
+  "Paths read: the two briefs; the seat file; the seat's frozen files, insight notes, output data and code (as text); rule text native_full_h.py (as text); notices 0257, 0264, 0265, 0277, 0278, 0301, 0320, 0322-0328; PD-32 to PD-38 records; GF seat/return/check; batch 7 brief, P3 seat fields and P3 check; B6 chair; GC check; I1 return; SCOREBOARD_CURRENT.json. No held-out, blind or protected set opened; no network; no target, core or adapter code run.",
+  "No principal definition chosen."
+ ]
+}
